@@ -49,7 +49,8 @@ final class SabotageCest extends AbstractFunctionalTest
             actionConfig: $this->sabotageActionConfig,
             actionProvider: $pasiphae,
             player: $this->player,
-            target: $pasiphae);
+            target: $pasiphae
+        );
 
         // then sabotage is not executable
         $I->assertEquals(ActionImpossibleCauseEnum::NOT_A_ROOM, $this->sabotageAction->cannotExecuteReason());

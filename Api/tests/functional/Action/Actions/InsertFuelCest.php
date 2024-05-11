@@ -5,6 +5,7 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\InsertFuel;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -69,7 +70,8 @@ final class InsertFuelCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $tank,
             player: $this->player,
-            target: $gameCapsule);
+            target: $gameCapsule
+        );
         $this->insertFuelAction->execute();
 
         // then Daedalus has 1 more fuel
@@ -124,9 +126,11 @@ final class InsertFuelCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $tank,
             player: $this->player,
-            target: $gameCapsule);
+            target: $gameCapsule
+        );
 
-        $I->assertFalse($this->insertFuelAction->isVisible());
+        $I->assertTrue($this->insertFuelAction->isVisible());
+        $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->insertFuelAction->cannotExecuteReason());
     }
 
     public function testInsertJarOfAlienOilSuccess(FunctionalTester $I): void
@@ -155,7 +159,8 @@ final class InsertFuelCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $tank,
             player: $this->player,
-            target: $jarOfAlienOil);
+            target: $jarOfAlienOil
+        );
         $this->insertFuelAction->execute();
 
         // then jar of alien oil is removed from player's inventory

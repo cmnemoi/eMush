@@ -65,7 +65,7 @@ final class RepairScrewedTalkieCest extends AbstractFunctionalTest
         );
 
         // when Chun repairs her talkie
-        $this->repairAction->loadParameters($this->repairConfig, $this->chun, $talkie);
+        $this->repairAction->loadParameters($this->repairConfig, $talkie, $this->chun, $talkie);
         $this->repairAction->execute();
 
         // then the talkie is no longer broken

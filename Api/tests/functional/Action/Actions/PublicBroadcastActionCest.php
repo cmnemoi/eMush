@@ -102,7 +102,8 @@ class PublicBroadcastActionCest
             actionConfig: $this->action,
             actionProvider: $gameItem,
             player: $player1,
-            target: $gameItem);
+            target: $gameItem
+        );
 
         $I->assertTrue($this->publicBroadcastAction->isVisible());
         $I->assertNull($this->publicBroadcastAction->cannotExecuteReason());
@@ -186,7 +187,8 @@ class PublicBroadcastActionCest
             actionConfig: $this->action,
             actionProvider: $gameItem,
             player: $player1,
-            target: $gameItem);
+            target: $gameItem
+        );
 
         $I->assertTrue($this->publicBroadcastAction->isVisible());
         $I->assertNull($this->publicBroadcastAction->cannotExecuteReason());

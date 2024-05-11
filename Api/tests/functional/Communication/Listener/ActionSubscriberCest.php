@@ -132,7 +132,7 @@ class ActionSubscriberCest
         $dropAction = new ActionConfig();
         $dropAction->setActionName(ActionEnum::DROP);
 
-        $actionEvent = new ActionEvent($dropAction, $player, $iTrackie);
+        $actionEvent = new ActionEvent($dropAction, $iTrackie, $player, $iTrackie);
 
         $this->actionSubscriber->onResultAction($actionEvent);
 
@@ -234,7 +234,7 @@ class ActionSubscriberCest
         $dropAction = new ActionConfig();
         $dropAction->setActionName(ActionEnum::DROP);
 
-        $actionEvent = new ActionEvent($dropAction, $player, $iTrackie);
+        $actionEvent = new ActionEvent($dropAction, $iTrackie, $player, $iTrackie);
 
         $this->actionSubscriber->onResultAction($actionEvent);
 
@@ -338,7 +338,7 @@ class ActionSubscriberCest
         $moveAction = new ActionConfig();
         $moveAction->setActionName(ActionEnum::MOVE);
 
-        $actionEvent = new ActionEvent($moveAction, $player, null);
+        $actionEvent = new ActionEvent($moveAction, $player, $player);
 
         $this->actionSubscriber->onResultAction($actionEvent);
 
@@ -436,7 +436,7 @@ class ActionSubscriberCest
         $moveAction = new ActionConfig();
         $moveAction->setActionName(ActionEnum::MOVE);
 
-        $actionEvent = new ActionEvent($moveAction, $player, null);
+        $actionEvent = new ActionEvent($moveAction, $player, $player, null);
 
         $this->actionSubscriber->onResultAction($actionEvent);
 
@@ -535,7 +535,7 @@ class ActionSubscriberCest
         $moveAction = new ActionConfig();
         $moveAction->setActionName(ActionEnum::MOVE);
 
-        $actionEvent = new ActionEvent($moveAction, $player, null);
+        $actionEvent = new ActionEvent($moveAction, $player, $player, null);
 
         $this->actionSubscriber->onResultAction($actionEvent);
 

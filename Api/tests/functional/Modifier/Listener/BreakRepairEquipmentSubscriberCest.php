@@ -89,7 +89,7 @@ class BreakRepairEquipmentSubscriberCest
 
         $modifierConfig = new VariableEventModifierConfig('modifierShowerActionTest');
         $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetEvent(ActionEnum::SHOWER->value)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
@@ -119,7 +119,7 @@ class BreakRepairEquipmentSubscriberCest
         $this->statusService->createStatusFromName(
             EquipmentStatusEnum::BROKEN,
             $gameEquipment,
-            [ActionEnum::COFFEE],
+            [ActionEnum::COFFEE->value],
             new \DateTime(),
             null,
             VisibilityEnum::PUBLIC
@@ -135,7 +135,7 @@ class BreakRepairEquipmentSubscriberCest
         $this->statusService->removeStatus(
             EquipmentStatusEnum::BROKEN,
             $gameEquipment,
-            [ActionEnum::COFFEE],
+            [ActionEnum::COFFEE->value],
             new \DateTime(),
             VisibilityEnum::PUBLIC
         );

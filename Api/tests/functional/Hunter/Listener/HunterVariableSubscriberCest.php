@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\tests\functional\Hunter\Listener;
+namespace Mush\Tests\functional\Hunter\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -45,7 +45,7 @@ final class HunterVariableSubscriberCest extends AbstractFunctionalTest
             $hunter,
             HunterVariableEnum::HEALTH,
             -$hunter->getHealth(),
-            ['test', ActionEnum::SHOOT_HUNTER],
+            ['test', ActionEnum::SHOOT_HUNTER->value],
             new \DateTime()
         );
         $hunterVariableEvent->setAuthor($this->player1);

@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mush\Equipment\Normalizer;
+namespace Mush\Tests\functional\Equipment\Normalizer;
 
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Entity\Project;

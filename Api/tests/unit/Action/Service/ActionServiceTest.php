@@ -200,7 +200,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getAuthor() === $player
                 && $actionEvent->getActionConfig() === $convertActionToMovement
                 && $actionEvent->getRoundedQuantity() === -2
-                && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT, $actionEvent->getTags(), true)
+                && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value, $actionEvent->getTags(), true)
             ))
             ->once();
 
@@ -220,7 +220,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getAuthor() === $player
                 && $actionEvent->getActionConfig() === $convertActionToMovement
                 && $actionEvent->getRoundedQuantity() === 1
-                && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT, $actionEvent->getTags(), true)
+                && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value, $actionEvent->getTags(), true)
             ))
             ->once();
 
@@ -320,7 +320,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getAuthor() === $player
                 && $actionEvent->getActionConfig() === $convertActionToMovement
                 && $actionEvent->getRoundedQuantity() === -2
-                && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT, $actionEvent->getTags(), true)
+                && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value, $actionEvent->getTags(), true)
             ))
             ->once();
 
@@ -340,7 +340,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getAuthor() === $player
                 && $actionEvent->getActionConfig() === $convertActionToMovement
                 && $actionEvent->getRoundedQuantity() === 1
-                && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT, $actionEvent->getTags(), true)
+                && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value, $actionEvent->getTags(), true)
             ))
             ->once();
 

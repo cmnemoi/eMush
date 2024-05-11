@@ -12,6 +12,7 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasAction;
+use Mush\Action\Validator\IsActionProviderOperational;
 use Mush\Action\Validator\ModifierPreventAction;
 use Mush\Action\Validator\PlayerAlive;
 use Mush\Action\Validator\PlayerCanAffordPoints;
@@ -76,6 +77,7 @@ abstract class AbstractAction
         $metadata->addConstraint(new HasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new PlayerCanAffordPoints(['groups' => ['execute']]));
         $metadata->addConstraint(new ModifierPreventAction(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::SYMPTOMS_ARE_PREVENTING_ACTION]));
+        $metadata->addConstraint(new IsActionProviderOperational(['groups' => ['execute']]));
     }
 
     public function isVisible(): bool

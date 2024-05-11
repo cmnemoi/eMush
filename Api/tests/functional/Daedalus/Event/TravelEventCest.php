@@ -105,7 +105,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         // when travel is launched
         $daedalusEvent = new DaedalusEvent(
             daedalus: $this->daedalus,
-            tags: [ActionEnum::LEAVE_ORBIT],
+            tags: [ActionEnum::LEAVE_ORBIT->value],
             time: new \DateTime()
         );
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
@@ -158,7 +158,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         // when travel is launched
         $daedalusEvent = new DaedalusEvent(
             daedalus: $this->daedalus,
-            tags: [ActionEnum::LEAVE_ORBIT],
+            tags: [ActionEnum::LEAVE_ORBIT->value],
             time: new \DateTime()
         );
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);

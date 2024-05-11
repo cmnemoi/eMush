@@ -72,7 +72,11 @@ class PsychoticAttack extends AbstractSymptomHandler
             static fn (GameItem $gameItem) => $gameItem->getName() === $weapon && $gameItem->isOperational()
         )->first();
 
-        return $weapon;
+        if ($weapon instanceof GameEquipment) {
+            return $weapon;
+        }
+
+        return null;
     }
 
     /**

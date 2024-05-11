@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Hunter\Normalizer;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Mockery;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\LanguageEnum;
@@ -82,7 +81,7 @@ final class HunterNormalizerTest extends TestCase
             'hunter' => $hunter,
         ];
 
-        $chargeStatus->method('getUsedCharge')->willReturn(6);
+        $chargeStatus->method('getCharge')->willReturn(6);
 
         $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
 
@@ -115,12 +114,6 @@ final class HunterNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn(self::ASTEROID_DESCRIPTION)
-            ->once();
-
-        $this->gearToolService
-            ->shouldReceive('getActionsTools')
-            ->with($currentPlayer, [ActionRangeEnum::ROOM], Hunter::class)
-            ->andReturn(new ArrayCollection([]))
             ->once();
 
         $expected = [
@@ -179,12 +172,6 @@ final class HunterNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn(self::HUNTER_DESCRIPTION)
-            ->once();
-
-        $this->gearToolService
-            ->shouldReceive('getActionsTools')
-            ->with($currentPlayer, [ActionRangeEnum::ROOM], Hunter::class)
-            ->andReturn(new ArrayCollection([]))
             ->once();
 
         $expected = [

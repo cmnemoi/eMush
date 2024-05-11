@@ -83,7 +83,7 @@ class SearchActionCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$searchAction])]);
+        $characterConfig = $I->have(CharacterConfig::class, ['actionConfigs' => new ArrayCollection([$searchAction])]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
@@ -117,7 +117,7 @@ class SearchActionCest
 
         /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, [
-            'actions' => new ArrayCollection([$searchAction]),
+            'actionConfigs' => new ArrayCollection([$searchAction]),
         ]);
 
         $gameEquipment1 = new GameItem($room);
@@ -130,7 +130,8 @@ class SearchActionCest
         $this->searchAction->loadParameters(
             actionConfig: $searchAction,
             actionProvider: $player,
-            player: $player);
+            player: $player
+        );
         $result = $this->searchAction->execute();
         $I->assertInstanceOf(Fail::class, $result);
 
@@ -139,7 +140,8 @@ class SearchActionCest
             actionConfig: $searchAction,
             actionProvider: $gameEquipment1,
             player: $player,
-            target: $gameEquipment1);
+            target: $gameEquipment1
+        );
         $this->hideAction->execute();
         $I->assertCount(1, $room->getEquipments());
 
@@ -154,7 +156,8 @@ class SearchActionCest
         $this->searchAction->loadParameters(
             actionConfig: $searchAction,
             actionProvider: $player,
-            player: $player);
+            player: $player
+        );
         $result = $this->searchAction->execute();
         $I->assertInstanceOf(Success::class, $result);
 
@@ -203,7 +206,7 @@ class SearchActionCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$searchAction])]);
+        $characterConfig = $I->have(CharacterConfig::class, ['actionConfigs' => new ArrayCollection([$searchAction])]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
@@ -250,7 +253,7 @@ class SearchActionCest
 
         /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, [
-            'actions' => new ArrayCollection([$searchAction]),
+            'actionConfigs' => new ArrayCollection([$searchAction]),
         ]);
 
         $gameEquipment1 = new GameItem($room);
@@ -274,19 +277,22 @@ class SearchActionCest
             actionConfig: $searchAction,
             actionProvider: $gameEquipment1,
             player: $player,
-            target: $gameEquipment1);
+            target: $gameEquipment1
+        );
         $this->hideAction->execute();
         $this->hideAction->loadParameters(
             actionConfig: $searchAction,
             actionProvider: $gameEquipment1,
             player: $player,
-            target: $gameEquipment3);
+            target: $gameEquipment3
+        );
         $this->hideAction->execute();
         $this->hideAction->loadParameters(
             actionConfig: $searchAction,
             actionProvider: $gameEquipment1,
             player: $player,
-            target: $gameEquipment2);
+            target: $gameEquipment2
+        );
         $this->hideAction->execute();
 
         $I->assertCount(3, $room->getEquipments());
@@ -298,7 +304,8 @@ class SearchActionCest
         $this->searchAction->loadParameters(
             actionConfig: $searchAction,
             actionProvider: $player,
-            player: $player);
+            player: $player
+        );
         $result = $this->searchAction->execute();
         $I->assertCount(1, $gameEquipment1->getStatuses());
         $I->assertCount(0, $gameEquipment2->getStatuses());
@@ -308,7 +315,8 @@ class SearchActionCest
         $this->searchAction->loadParameters(
             actionConfig: $searchAction,
             actionProvider: $player,
-            player: $player);
+            player: $player
+        );
         $result = $this->searchAction->execute();
         $I->assertCount(1, $gameEquipment1->getStatuses());
         $I->assertCount(0, $gameEquipment2->getStatuses());
@@ -318,7 +326,8 @@ class SearchActionCest
         $this->searchAction->loadParameters(
             actionConfig: $searchAction,
             actionProvider: $player,
-            player: $player);
+            player: $player
+        );
         $result = $this->searchAction->execute();
         $I->assertCount(0, $gameEquipment1->getStatuses());
         $I->assertCount(0, $gameEquipment2->getStatuses());

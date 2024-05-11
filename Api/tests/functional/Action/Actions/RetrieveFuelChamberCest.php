@@ -96,7 +96,8 @@ final class RetrieveFuelChamberCest extends AbstractFunctionalTest
             actionConfig: $this->retrieveFuelChamberActionConfig,
             actionProvider: $combustionChamber,
             player: $this->player,
-            target: $combustionChamber);
+            target: $combustionChamber
+        );
 
         // then action is not visible
         $I->assertEquals(
@@ -117,7 +118,8 @@ final class RetrieveFuelChamberCest extends AbstractFunctionalTest
             actionConfig: $this->retrieveFuelChamberActionConfig,
             actionProvider: $combustionChamber,
             player: $this->player,
-            target: $combustionChamber);
+            target: $combustionChamber
+        );
 
         // then action is not visible
         $I->assertFalse($this->retrieveFuelChamberAction->isVisible());
@@ -141,7 +143,8 @@ final class RetrieveFuelChamberCest extends AbstractFunctionalTest
             actionConfig: $this->retrieveFuelChamberActionConfig,
             actionProvider: $combustionChamber,
             player: $this->player,
-            target: $combustionChamber);
+            target: $combustionChamber
+        );
         $this->retrieveFuelChamberAction->execute();
     }
 }

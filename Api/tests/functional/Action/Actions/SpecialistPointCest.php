@@ -43,7 +43,7 @@ final class SpecialistPointCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SHOOT_HUNTER . '_turret']);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SHOOT_HUNTER]);
         $this->action->setDirtyRate(0)->setSuccessRate(100);
 
         $I->haveInRepository($this->action);
@@ -101,7 +101,12 @@ final class SpecialistPointCest extends AbstractFunctionalTest
         );
 
         // check the action cost
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootHunterAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->turret,
+            player: $this->player1,
+            target: $hunter
+        );
         $I->assertTrue($this->shootHunterAction->isVisible());
         $I->assertEquals(0, $this->shootHunterAction->getActionPointCost());
 

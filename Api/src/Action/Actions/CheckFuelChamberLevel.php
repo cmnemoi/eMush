@@ -5,13 +5,10 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class CheckFuelChamberLevel extends AbstractAction
@@ -22,12 +19,6 @@ final class CheckFuelChamberLevel extends AbstractAction
     {
         $metadata->addConstraints([
             new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
-            new HasStatus([
-                'status' => EquipmentStatusEnum::BROKEN,
-                'contain' => false,
-                'groups' => ['execute'],
-                'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-            ]),
         ]);
     }
 

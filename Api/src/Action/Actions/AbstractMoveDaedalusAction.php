@@ -142,6 +142,7 @@ abstract class AbstractMoveDaedalusAction extends AbstractAction
             tags: $this->actionConfig->getActionTags(),
             time: new \DateTime(),
         );
+
         $this->eventService->callEvent($travelLaunchedEvent, DaedalusEvent::TRAVEL_LAUNCHED);
     }
 }

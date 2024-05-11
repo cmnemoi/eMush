@@ -89,7 +89,8 @@ final class ParticipateCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $this->project);
+            target: $this->project
+        );
         $this->participateAction->execute();
 
         // then the action should not be executable
@@ -106,7 +107,8 @@ final class ParticipateCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $this->project);
+            target: $this->project
+        );
         $this->participateAction->execute();
 
         // then the project should progress by 6 to 9%
@@ -121,7 +123,8 @@ final class ParticipateCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $this->project);
+            target: $this->project
+        );
         $this->participateAction->execute();
 
         // then a private log should be created in Chun's room
@@ -144,7 +147,8 @@ final class ParticipateCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $this->project);
+            target: $this->project
+        );
         $this->participateAction->execute();
 
         // then Chun's efficiency should be reduced to 4-6%
@@ -161,7 +165,8 @@ final class ParticipateCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $this->project);
+            target: $this->project
+        );
         $this->participateAction->execute();
 
         // then Chun's efficiency for the plasma shield project should not be reduced
@@ -178,7 +183,8 @@ final class ParticipateCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->kuanTi,
-            target: $this->project);
+            target: $this->project
+        );
         $this->participateAction->execute();
 
         // then Chun's efficiency should be reset to 6-9%
@@ -195,7 +201,8 @@ final class ParticipateCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $this->project);
+            target: $this->project
+        );
         $this->participateAction->execute();
 
         // then a Neron announcement should be created
@@ -217,7 +224,8 @@ final class ParticipateCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $this->project);
+            target: $this->project
+        );
         $this->participateAction->execute();
 
         // then the action should not be visible
@@ -237,7 +245,8 @@ final class ParticipateCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $this->project);
+            target: $this->project
+        );
         $this->participateAction->execute();
 
         // then Chun's efficiency should be 5-7%
@@ -259,7 +268,8 @@ final class ParticipateCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $this->project);
+            target: $this->project
+        );
         $this->participateAction->execute();
 
         // then the action should not be executable
@@ -269,14 +279,15 @@ final class ParticipateCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldReduceEfficiencyWhenParticpatingToAnotherProject(FunctionalTester $I): void
+    public function shouldReduceEfficiencyWhenParticipatingToAnotherProject(FunctionalTester $I): void
     {
         // given Chun participates in the project
         $this->participateAction->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $this->project);
+            target: $this->project
+        );
         $this->participateAction->execute();
 
         // when Chun participates in another project
@@ -285,7 +296,11 @@ final class ParticipateCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $this->project);
+            target: $otherProject
+        );
+        $I->assertTrue($this->participateAction->isVisible());
+        $I->assertNull($this->participateAction->cannotExecuteReason());
+
         $this->participateAction->execute();
 
         // then Chun's efficiency for the other project should be reduced
@@ -306,7 +321,8 @@ final class ParticipateCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $this->project);
+            target: $this->project
+        );
         $this->participateAction->execute();
 
         // then project should be unproposed
@@ -326,7 +342,8 @@ final class ParticipateCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $this->project);
+            target: $this->project
+        );
         $this->participateAction->execute();
 
         // then new NERON projects should be proposed

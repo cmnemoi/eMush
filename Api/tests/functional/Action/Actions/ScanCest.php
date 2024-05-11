@@ -87,7 +87,8 @@ final class ScanCest extends AbstractFunctionalTest
             actionConfig: $this->scanActionConfig,
             actionProvider: $this->astroTerminal,
             player: $this->player,
-            target: $this->astroTerminal);
+            target: $this->astroTerminal
+        );
         $this->scanAction->execute();
 
         // then the action is not visible
@@ -101,7 +102,8 @@ final class ScanCest extends AbstractFunctionalTest
             actionConfig: $this->scanActionConfig,
             actionProvider: $this->astroTerminal,
             player: $this->player,
-            target: $this->astroTerminal);
+            target: $this->astroTerminal
+        );
         $this->scanAction->execute();
 
         // then a planet is created
@@ -115,7 +117,8 @@ final class ScanCest extends AbstractFunctionalTest
             actionConfig: $this->scanActionConfig,
             actionProvider: $this->astroTerminal,
             player: $this->player,
-            target: $this->astroTerminal);
+            target: $this->astroTerminal
+        );
         $this->scanAction->execute();
 
         // then a planet is created
@@ -144,7 +147,8 @@ final class ScanCest extends AbstractFunctionalTest
             actionConfig: $this->scanActionConfig,
             actionProvider: $this->astroTerminal,
             player: $this->player,
-            target: $this->astroTerminal);
+            target: $this->astroTerminal
+        );
 
         // then success rate is improved by the right amount
         $I->assertEquals(
@@ -171,7 +175,8 @@ final class ScanCest extends AbstractFunctionalTest
             actionConfig: $this->scanActionConfig,
             actionProvider: $this->astroTerminal,
             player: $this->player,
-            target: $this->astroTerminal);
+            target: $this->astroTerminal
+        );
         $this->scanAction->execute();
 
         // then the scanned planet should have some sections revealed
@@ -209,7 +214,8 @@ final class ScanCest extends AbstractFunctionalTest
             actionConfig: $this->scanActionConfig,
             actionProvider: $this->astroTerminal,
             player: $this->player,
-            target: $this->astroTerminal);
+            target: $this->astroTerminal
+        );
         $this->scanAction->execute();
 
         // then I should not see a public log to tell that the map worked
@@ -244,7 +250,8 @@ final class ScanCest extends AbstractFunctionalTest
             actionConfig: $this->scanActionConfig,
             actionProvider: $this->astroTerminal,
             player: $this->player,
-            target: $this->astroTerminal);
+            target: $this->astroTerminal
+        );
         $this->scanAction->execute();
 
         // then the scanned planet should have 1 sector revealed
@@ -273,7 +280,8 @@ final class ScanCest extends AbstractFunctionalTest
             actionConfig: $this->scanActionConfig,
             actionProvider: $this->astroTerminal,
             player: $this->player,
-            target: $this->astroTerminal);
+            target: $this->astroTerminal
+        );
         $this->scanAction->execute();
 
         $I->assertEquals(8 - 2, $this->player->getActionPoint());

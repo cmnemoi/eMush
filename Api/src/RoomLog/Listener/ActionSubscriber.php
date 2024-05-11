@@ -57,7 +57,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $actionResult = $event->getActionResult();
 
         if ($actionHolder instanceof Player
-            && \in_array($action->getActionName(), ActionEnum::getForceGetUpActions(), true)
+            && \in_array($action->getActionName()->value, ActionEnum::getForceGetUpActions(), true)
             && $actionHolder->hasStatus(PlayerStatusEnum::LYING_DOWN)
         ) {
             $this->createForceGetUpLog($actionHolder);

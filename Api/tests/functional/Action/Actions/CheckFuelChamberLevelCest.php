@@ -71,7 +71,8 @@ final class CheckFuelChamberLevelCest extends AbstractFunctionalTest
             actionConfig: $this->checkFuelChamberLevelActionConfig,
             actionProvider: $combustionChamber,
             player: $this->player,
-            target: $combustionChamber);
+            target: $combustionChamber
+        );
 
         // then action is not visible
         $I->assertEquals(
@@ -98,7 +99,8 @@ final class CheckFuelChamberLevelCest extends AbstractFunctionalTest
             actionConfig: $this->checkFuelChamberLevelActionConfig,
             actionProvider: $combustionChamber,
             player: $this->player,
-            target: $combustionChamber);
+            target: $combustionChamber
+        );
         $this->checkFuelChamberLevelAction->execute();
     }
 }

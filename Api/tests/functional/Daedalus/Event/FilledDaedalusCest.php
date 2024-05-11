@@ -72,7 +72,7 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
                 $newPlayer = $this->addPlayerByCharacter($I, $this->daedalus, $character->getCharacterName());
 
                 // kill the new player
-                $event = new PlayerEvent($newPlayer, [ActionEnum::HIT], new \DateTime());
+                $event = new PlayerEvent($newPlayer, [ActionEnum::HIT->value], new \DateTime());
                 $this->eventService->callEvent($event, PlayerEvent::DEATH_PLAYER);
             }
         }
@@ -125,11 +125,11 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
                 $newPlayer = $this->addPlayerByCharacter($I, $this->daedalus, $character->getCharacterName());
 
                 // kill the new player
-                $event = new PlayerEvent($newPlayer, [ActionEnum::HIT], new \DateTime());
+                $event = new PlayerEvent($newPlayer, [ActionEnum::HIT->value], new \DateTime());
                 $this->eventService->callEvent($event, PlayerEvent::DEATH_PLAYER);
 
                 // close the new player
-                $event = new PlayerEvent($newPlayer, [ActionEnum::HIT], new \DateTime());
+                $event = new PlayerEvent($newPlayer, [ActionEnum::HIT->value], new \DateTime());
                 $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
             }
         }

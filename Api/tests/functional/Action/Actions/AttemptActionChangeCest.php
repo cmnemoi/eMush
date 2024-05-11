@@ -117,7 +117,7 @@ class AttemptActionChangeCest
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
-        $this->repairAction->loadParameters($actionRepair,$gameEquipment, $player, $gameEquipment);
+        $this->repairAction->loadParameters($actionRepair, $gameEquipment, $player, $gameEquipment);
 
         // Execute repair
         $this->repairAction->execute();

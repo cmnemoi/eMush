@@ -43,8 +43,7 @@ class CookActionCest
         $cookActionEntity
             ->setActionName(ActionEnum::COOK)
             ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-        ;
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
 
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$cookActionEntity]));
@@ -54,9 +53,10 @@ class CookActionCest
 
         $this->cookAction->loadParameters(
             actionConfig: $cookActionEntity,
-            actionProvider:  $gameEquipment,
+            actionProvider: $gameEquipment,
             player: $player,
-            target: $gameEquipment);
+            target: $gameEquipment
+        );
 
         $I->assertFalse($this->cookAction->isVisible());
 
@@ -79,14 +79,14 @@ class CookActionCest
         $cookActionEntity
             ->setActionName(ActionEnum::COOK)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setRange(ActionRangeEnum::ROOM)
-        ;
+            ->setRange(ActionRangeEnum::ROOM);
 
         $this->cookAction->loadParameters(
             actionConfig: $cookActionEntity,
             actionProvider: $toolEquipment,
             player: $player,
-            target: $gameEquipment);
+            target: $gameEquipment
+        );
 
         $I->assertFalse($this->cookAction->isVisible());
 
@@ -121,7 +121,8 @@ class CookActionCest
             actionConfig: $cookActionEntity,
             actionProvider: $toolEquipment,
             player: $player,
-            target: $gameEquipment);
+            target: $gameEquipment
+        );
 
         $I->assertTrue($this->cookAction->isVisible());
 

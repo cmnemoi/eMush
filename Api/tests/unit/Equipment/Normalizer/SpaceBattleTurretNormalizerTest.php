@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Equipment\Normalizer;
 
+use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -62,7 +63,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
         $turret = $this->createMock(GameEquipment::class);
         $turretOccupiers = $this->createMock(PlayerCollection::class);
 
-        $chargeStatus->method('getUsedCharge')->willReturn(4);
+        $chargeStatus->method('getCharge')->willReturn(4);
 
         $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
 
@@ -110,7 +111,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
         $turret = $this->createMock(GameEquipment::class);
         $turretOccupiers = $this->createMock(PlayerCollection::class);
 
-        $chargeStatus->method('getUsedCharge')->willReturn(4);
+        $chargeStatus->method('getCharge')->willReturn(4);
         $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
 
         $place->method('getName')->willReturn(RoomEnum::REAR_ALPHA_TURRET);
@@ -151,7 +152,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
         $turret = $this->createMock(GameEquipment::class);
         $turretOccupiers = $this->createMock(PlayerCollection::class);
 
-        $chargeStatus->method('getUsedCharge')->willReturn(4);
+        $chargeStatus->method('getCharge')->willReturn(4);
 
         $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
 

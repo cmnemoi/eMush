@@ -14,9 +14,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Action\Validator\Mechanic;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -222,7 +222,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
             }
             if (($status->getStatusConfig()->getStatusName() === EquipmentStatusEnum::ELECTRIC_CHARGES)
                 && $status instanceof ChargeStatus
-                && $status->isCharged()
+                && !$status->isCharged()
             ) {
                 return false;
             }
@@ -283,7 +283,10 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function getOperationalStatus(ActionEnum $actionName): ActionProviderOperationalStateEnum
     {
-        if ($this->isBroken()) {
+        if (
+            $this->isBroken()
+            && $this->isActionProvidedByToolMechanic($actionName)
+        ) {
             return ActionProviderOperationalStateEnum::BROKEN;
         }
 
@@ -330,12 +333,6 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
             $actions = array_merge($actions, $status->getProvidedActions($actionTarget, $actionRanges)->toArray());
         }
 
-        // add actions provided by the mechanics
-        /** @var EquipmentMechanic $mechanic */
-        foreach ($this->getEquipment()->getMechanics() as $mechanic) {
-            $actions = array_merge($actions, $status->getProvidedActions($actionTarget, $actionRanges)->toArray());
-        }
-
         return new ArrayCollection($actions);
     }
 
@@ -367,5 +364,17 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     public function canPlayerReach(Player $player): bool
     {
         return $this->getPlace() === $player->getPlace();
+    }
+
+    private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool
+    {
+        $tool = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
+        $patrolShip = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
+        $weapons = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON);
+
+        return
+            ($tool !== null && $tool->hasAction($actionName))
+            || ($weapons !== null && $weapons->hasAction($actionName))
+            || ($patrolShip !== null && $patrolShip->hasAction($actionName));
     }
 }

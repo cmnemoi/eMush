@@ -8,6 +8,7 @@ use Mush\Action\Actions\Hide;
 use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -84,18 +85,20 @@ class TakeDropActionCest
         $actionTake = new ActionConfig();
         $actionTake
             ->setActionName(ActionEnum::TAKE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $actionDrop = new ActionConfig();
         $actionDrop
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionTake);
         $I->haveInRepository($actionDrop);
 
         /** @var ItemConfig $itemConfig */
-        $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$actionTake, $actionDrop])]);
+        $itemConfig = $I->have(ItemConfig::class, ['actionConfigs' => new ArrayCollection([$actionTake, $actionDrop])]);
 
         $gameItem = new GameItem($room);
         $gameItem
@@ -104,8 +107,18 @@ class TakeDropActionCest
         $I->haveInRepository($gameItem);
 
         // first let's test take action
-        $this->takeAction->loadParameters($actionTake, $player, $gameItem);
-        $this->dropAction->loadParameters($actionDrop, $player, $gameItem);
+        $this->takeAction->loadParameters(
+            actionConfig: $actionTake,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
+        $this->dropAction->loadParameters(
+            actionConfig: $actionDrop,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
 
         $I->assertTrue($this->takeAction->isVisible());
         $I->assertFalse($this->dropAction->isVisible());
@@ -126,8 +139,18 @@ class TakeDropActionCest
         ]);
 
         // drop ActionConfig
-        $this->takeAction->loadParameters($actionTake, $player, $gameItem);
-        $this->dropAction->loadParameters($actionDrop, $player, $gameItem);
+        $this->takeAction->loadParameters(
+            actionConfig: $actionTake,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
+        $this->dropAction->loadParameters(
+            actionConfig: $actionDrop,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
 
         $I->assertTrue($this->dropAction->isVisible());
         $I->assertFalse($this->takeAction->isVisible());
@@ -195,18 +218,20 @@ class TakeDropActionCest
         $actionTake = new ActionConfig();
         $actionTake
             ->setActionName(ActionEnum::TAKE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $actionDrop = new ActionConfig();
         $actionDrop
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionTake);
         $I->haveInRepository($actionDrop);
 
         /** @var EquipmentConfig $itemConfig */
-        $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$actionTake, $actionDrop])]);
+        $itemConfig = $I->have(ItemConfig::class, ['actionConfigs' => new ArrayCollection([$actionTake, $actionDrop])]);
 
         $gameItem = new GameItem($room);
         $gameItem
@@ -223,8 +248,18 @@ class TakeDropActionCest
         $I->haveInRepository($heavyStatus);
 
         // first let's test take action
-        $this->takeAction->loadParameters($actionTake, $player, $gameItem);
-        $this->dropAction->loadParameters($actionDrop, $player, $gameItem);
+        $this->takeAction->loadParameters(
+            actionConfig: $actionTake,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
+        $this->dropAction->loadParameters(
+            actionConfig: $actionDrop,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
 
         $I->assertTrue($this->takeAction->isVisible());
         $I->assertFalse($this->dropAction->isVisible());
@@ -246,8 +281,18 @@ class TakeDropActionCest
         ]);
 
         // drop ActionConfig
-        $this->takeAction->loadParameters($actionTake, $player, $gameItem);
-        $this->dropAction->loadParameters($actionDrop, $player, $gameItem);
+        $this->takeAction->loadParameters(
+            actionConfig: $actionTake,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
+        $this->dropAction->loadParameters(
+            actionConfig: $actionDrop,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
 
         $I->assertTrue($this->dropAction->isVisible());
         $I->assertFalse($this->takeAction->isVisible());
@@ -316,12 +361,13 @@ class TakeDropActionCest
         $actionTake = new ActionConfig();
         $actionTake
             ->setActionName(ActionEnum::TAKE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionTake);
 
         /** @var EquipmentConfig $itemConfig */
-        $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$actionTake])]);
+        $itemConfig = $I->have(ItemConfig::class, ['actionConfigs' => new ArrayCollection([$actionTake])]);
 
         $gameItem = new GameItem($room);
         $gameItem
@@ -334,7 +380,12 @@ class TakeDropActionCest
         $I->haveInRepository($hiddenStatus);
 
         // Take action
-        $this->takeAction->loadParameters($actionTake, $player, $gameItem);
+        $this->takeAction->loadParameters(
+            actionConfig: $actionTake,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
 
         $I->assertTrue($this->takeAction->isVisible());
         $I->assertNull($this->takeAction->cannotExecuteReason());
@@ -407,12 +458,13 @@ class TakeDropActionCest
         $actionHide = new ActionConfig();
         $actionHide
             ->setActionName(ActionEnum::HIDE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionHide);
 
         /** @var EquipmentConfig $itemConfig */
-        $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$actionHide])]);
+        $itemConfig = $I->have(ItemConfig::class, ['actionConfigs' => new ArrayCollection([$actionHide])]);
 
         $gameItem = new GameItem($player);
         $gameItem
@@ -432,7 +484,12 @@ class TakeDropActionCest
         $I->haveInRepository($heavyStatus);
 
         // Take action
-        $this->hideAction->loadParameters($actionHide, $player, $gameItem);
+        $this->hideAction->loadParameters(
+            actionConfig: $actionHide,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
 
         $I->assertTrue($this->hideAction->isVisible());
         $I->assertNull($this->hideAction->cannotExecuteReason());

@@ -65,7 +65,8 @@ final class DeletePlanetCest extends AbstractFunctionalTest
             actionConfig: $this->deletePlanetConfig,
             actionProvider: $this->astroTerminal,
             player: $this->player,
-            target: $this->planet);
+            target: $this->planet
+        );
         $this->deletePlanetAction->execute();
 
         // then planet is not visible
@@ -87,7 +88,8 @@ final class DeletePlanetCest extends AbstractFunctionalTest
             actionConfig: $this->deletePlanetConfig,
             actionProvider: $this->astroTerminal,
             player: $this->player,
-            target: $this->planet);
+            target: $this->planet
+        );
         $this->deletePlanetAction->execute();
 
         // then action is not visible
@@ -109,7 +111,8 @@ final class DeletePlanetCest extends AbstractFunctionalTest
             actionConfig: $this->deletePlanetConfig,
             actionProvider: $this->astroTerminal,
             player: $this->player,
-            target: $this->planet);
+            target: $this->planet
+        );
         $this->deletePlanetAction->execute();
 
         // then action is not executable
@@ -135,7 +138,8 @@ final class DeletePlanetCest extends AbstractFunctionalTest
             actionConfig: $this->deletePlanetConfig,
             actionProvider: $this->astroTerminal,
             player: $this->player,
-            target: $this->planet);
+            target: $this->planet
+        );
         $this->deletePlanetAction->execute();
 
         // then planet is deleted
@@ -158,7 +162,8 @@ final class DeletePlanetCest extends AbstractFunctionalTest
             actionConfig: $this->deletePlanetConfig,
             actionProvider: $this->astroTerminal,
             player: $this->player,
-            target: $this->planet);
+            target: $this->planet
+        );
         $this->deletePlanetAction->execute();
 
         // then log is printed

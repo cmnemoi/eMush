@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Hide;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -78,7 +79,8 @@ class HideSubscriberCest
         $hideActionEntity = new ActionConfig();
         $hideActionEntity
             ->setActionName(ActionEnum::HIDE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hideActionEntity);
 
@@ -97,7 +99,7 @@ class HideSubscriberCest
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$hideActionEntity]),
+            'actionConfigs' => new ArrayCollection([$hideActionEntity]),
         ]);
 
         // Case of a game Equipment
@@ -109,7 +111,7 @@ class HideSubscriberCest
 
         $player->addEquipment($gameEquipment);
 
-        $this->hideAction->loadParameters($hideActionEntity, $player, $gameEquipment);
+        $this->hideAction->loadParameters($hideActionEntity, $gameEquipment, $player, $gameEquipment);
         $this->hideAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);
@@ -159,7 +161,8 @@ class HideSubscriberCest
         $hideActionEntity = new ActionConfig();
         $hideActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hideActionEntity);
 
@@ -175,7 +178,7 @@ class HideSubscriberCest
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$hideActionEntity]),
+            'actionConfigs' => new ArrayCollection([$hideActionEntity]),
         ]);
 
         $gameEquipment = new GameItem($room);
@@ -193,7 +196,7 @@ class HideSubscriberCest
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
-        $this->hideAction->loadParameters($hideActionEntity, $player, $gameEquipment);
+        $this->hideAction->loadParameters($hideActionEntity, $gameEquipment, $player, $gameEquipment);
         $this->hideAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);
@@ -243,7 +246,8 @@ class HideSubscriberCest
         $hideActionEntity = new ActionConfig();
         $hideActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hideActionEntity);
 
@@ -261,7 +265,7 @@ class HideSubscriberCest
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$hideActionEntity]),
+            'actionConfigs' => new ArrayCollection([$hideActionEntity]),
         ]);
 
         // Case of a game Equipment
@@ -280,7 +284,7 @@ class HideSubscriberCest
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
-        $this->hideAction->loadParameters($hideActionEntity, $player, $gameEquipment);
+        $this->hideAction->loadParameters($hideActionEntity, $gameEquipment, $player, $gameEquipment);
         $this->hideAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);

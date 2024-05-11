@@ -72,7 +72,12 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         );
         $I->haveInRepository($pasiphae);
 
-        $this->takeoffAction->loadParameters($this->action, $this->player1, $pasiphae);
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $pasiphae,
+            player: $this->player1,
+            target: $pasiphae
+        );
         $I->assertTrue($this->takeoffAction->isVisible());
         $I->assertNull($this->takeoffAction->cannotExecuteReason());
 
@@ -134,7 +139,12 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        $this->takeoffAction->loadParameters($this->action, $this->player1, $pasiphae);
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $pasiphae,
+            player: $this->player1,
+            target: $pasiphae
+        );
         $I->assertTrue($this->takeoffAction->isVisible());
         $I->assertNull($this->takeoffAction->cannotExecuteReason());
 
@@ -201,7 +211,12 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         );
 
         // when player tries to take off
-        $this->takeoffAction->loadParameters($this->action, $this->player1, $pasiphae);
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $pasiphae,
+            player: $this->player1,
+            target: $pasiphae
+        );
         $this->takeoffAction->execute();
 
         // then the action is not executable
@@ -236,7 +251,12 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->haveInRepository($extinguisher);
 
         // when player tries to take off
-        $this->takeoffAction->loadParameters($this->action, $this->player, $pasiphae);
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $pasiphae,
+            player: $this->player1,
+            target: $pasiphae
+        );
         $this->takeoffAction->execute();
 
         // then the extinguisher is dropped in the take off room
@@ -286,7 +306,12 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         );
 
         // when player tries to take off
-        $this->takeoffAction->loadParameters($this->action, $this->player, $pasiphae);
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $pasiphae,
+            player: $this->player1,
+            target: $pasiphae
+        );
         $this->takeoffAction->execute();
 
         // then the hacker kit is dropped in the take off room but not the extinguisher

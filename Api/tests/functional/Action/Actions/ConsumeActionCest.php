@@ -141,7 +141,8 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             actionConfig: $consumeActionEntity,
             actionProvider: $gameItem,
             player: $player,
-            target: $gameItem);
+            target: $gameItem
+        );
 
         $this->consumeAction->execute();
 
@@ -242,7 +243,8 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             actionConfig: $consumeActionEntity,
             actionProvider: $gameItem,
             player: $player,
-            target: $gameItem);
+            target: $gameItem
+        );
 
         $this->consumeAction->execute();
 
@@ -355,7 +357,8 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             actionConfig: $consumeActionEntity,
             actionProvider: $gameItem,
             player: $player,
-            target: $gameItem);
+            target: $gameItem
+        );
 
         $this->consumeAction->execute();
 

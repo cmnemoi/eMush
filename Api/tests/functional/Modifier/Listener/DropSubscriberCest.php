@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Drop;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -71,7 +72,8 @@ class DropSubscriberCest
         $dropActionEntity = new ActionConfig();
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
 
@@ -92,7 +94,7 @@ class DropSubscriberCest
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$dropActionEntity]),
+            'actionConfigs' => new ArrayCollection([$dropActionEntity]),
         ]);
 
         // Case of a game Equipment
@@ -104,7 +106,7 @@ class DropSubscriberCest
 
         $player->addEquipment($gameEquipment);
 
-        $this->dropAction->loadParameters($dropActionEntity, $player, $gameEquipment);
+        $this->dropAction->loadParameters($dropActionEntity, $gameEquipment, $player, $gameEquipment);
         $this->dropAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);
@@ -147,7 +149,8 @@ class DropSubscriberCest
         $takeActionEntity = new ActionConfig();
         $takeActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
@@ -165,7 +168,7 @@ class DropSubscriberCest
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$takeActionEntity]),
+            'actionConfigs' => new ArrayCollection([$takeActionEntity]),
         ]);
 
         $gameEquipment = new GameItem($room);
@@ -183,7 +186,7 @@ class DropSubscriberCest
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
-        $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
+        $this->dropAction->loadParameters($takeActionEntity, $gameEquipment, $player, $gameEquipment);
         $this->dropAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);
@@ -226,7 +229,8 @@ class DropSubscriberCest
         $takeActionEntity = new ActionConfig();
         $takeActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
@@ -247,7 +251,7 @@ class DropSubscriberCest
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$takeActionEntity]),
+            'actionConfigs' => new ArrayCollection([$takeActionEntity]),
         ]);
 
         // Case of a game Equipment
@@ -266,7 +270,7 @@ class DropSubscriberCest
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
-        $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
+        $this->dropAction->loadParameters($takeActionEntity, $gameEquipment, $player, $gameEquipment);
         $this->dropAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);
@@ -309,7 +313,8 @@ class DropSubscriberCest
         $takeActionEntity = new ActionConfig();
         $takeActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
@@ -339,7 +344,7 @@ class DropSubscriberCest
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$takeActionEntity]),
+            'actionConfigs' => new ArrayCollection([$takeActionEntity]),
             'name' => 'equipment_test_1',
         ]);
 
@@ -347,7 +352,7 @@ class DropSubscriberCest
         $equipmentConfig2 = $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear2]),
-            'actions' => new ArrayCollection([$takeActionEntity]),
+            'actionConfigs' => new ArrayCollection([$takeActionEntity]),
             'name' => 'equipment_test_2',
         ]);
 
@@ -367,7 +372,7 @@ class DropSubscriberCest
 
         $player->addEquipment($gameEquipment)->addEquipment($gameEquipment2);
 
-        $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
+        $this->dropAction->loadParameters($takeActionEntity, $gameEquipment, $player, $gameEquipment);
         $this->dropAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);
@@ -411,7 +416,8 @@ class DropSubscriberCest
         $takeActionEntity = new ActionConfig();
         $takeActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
@@ -434,7 +440,7 @@ class DropSubscriberCest
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$takeActionEntity]),
+            'actionConfigs' => new ArrayCollection([$takeActionEntity]),
         ]);
 
         // Case of a game Equipment
@@ -451,7 +457,7 @@ class DropSubscriberCest
             ->setName('some name');
         $I->haveInRepository($gameEquipment2);
 
-        $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
+        $this->dropAction->loadParameters($takeActionEntity, $gameEquipment, $player, $gameEquipment);
         $this->dropAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);

@@ -61,7 +61,12 @@ final class ShowerActionCest extends AbstractFunctionalTest
 
         $I->refreshEntities($this->player1);
 
-        $this->showerAction->loadParameters($this->action, $this->player1, $gameEquipment);
+        $this->showerAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $gameEquipment,
+            player: $this->player1,
+            target: $gameEquipment
+        );
 
         $I->assertTrue($this->showerAction->isVisible());
         $I->assertNull($this->showerAction->cannotExecuteReason());
@@ -116,7 +121,12 @@ final class ShowerActionCest extends AbstractFunctionalTest
             ->setName(EquipmentEnum::SHOWER);
         $I->haveInRepository($gameEquipment);
 
-        $this->showerAction->loadParameters($this->action, $this->player1, $gameEquipment);
+        $this->showerAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $gameEquipment,
+            player: $this->player1,
+            target: $gameEquipment
+        );
 
         $I->assertTrue($this->showerAction->isVisible());
         $I->assertNull($this->showerAction->cannotExecuteReason());
@@ -162,7 +172,12 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $soapModifier = new GameModifier($this->player2, $soapModifierConfig);
         $I->haveInRepository($soapModifier);
 
-        $this->showerAction->loadParameters($this->action, $this->player2, $gameEquipment);
+        $this->showerAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $gameEquipment,
+            player: $this->player2,
+            target: $gameEquipment
+        );
 
         $I->assertTrue($this->showerAction->isVisible());
         $I->assertNull($this->showerAction->cannotExecuteReason());

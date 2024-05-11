@@ -109,7 +109,12 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
         );
 
         // then Kuan Ti cannot take a shower
-        $this->washInSinkAction->loadParameters($this->actionConfig, $this->kuanTi, $kitchen);
+        $this->washInSinkAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $kitchen,
+            player: $this->kuanTi,
+            target: $kitchen
+        );
         $I->assertEquals(
             expected: ActionImpossibleCauseEnum::DAILY_LIMIT,
             actual: $this->washInSinkAction->cannotExecuteReason()

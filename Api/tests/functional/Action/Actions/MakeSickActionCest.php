@@ -136,7 +136,8 @@ class MakeSickActionCest
             actionConfig: $action,
             actionProvider: $mushPlayer,
             player: $mushPlayer,
-            target: $targetPlayer);
+            target: $targetPlayer
+        );
 
         $this->makeSickAction->execute();
 

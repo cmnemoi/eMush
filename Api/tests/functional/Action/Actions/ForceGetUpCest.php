@@ -116,7 +116,7 @@ final class ForceGetUpCest extends AbstractFunctionalTest
         $I->refreshEntities($player);
 
         /** @var CharacterConfig $characterConfig2 */
-        $characterConfig2 = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$action])]);
+        $characterConfig2 = $I->have(CharacterConfig::class, ['actionConfigs' => new ArrayCollection([$action])]);
 
         /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus,
@@ -134,7 +134,12 @@ final class ForceGetUpCest extends AbstractFunctionalTest
         $lyingDownStatus = new Status($player, $statusConfig);
         $I->haveInRepository($lyingDownStatus);
 
-        $this->hitAction->loadParameters($action, $player2, $player);
+        $this->hitAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $player2,
+            player: $player2,
+            target: $player
+        );
 
         $I->assertTrue($this->hitAction->isVisible());
         $I->assertNull($this->hitAction->cannotExecuteReason());
@@ -170,7 +175,8 @@ final class ForceGetUpCest extends AbstractFunctionalTest
             actionConfig: $this->hitActionConfig,
             actionProvider: $this->kuanTi,
             player: $this->kuanTi,
-            target: $this->chun);
+            target: $this->chun
+        );
         $this->hitAction->execute();
 
         // when the cycle changes
@@ -197,7 +203,12 @@ final class ForceGetUpCest extends AbstractFunctionalTest
         // when KT flirts with Chun
         $flirtAction = $I->grabService(Flirt::class);
         $flirtActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::FLIRT]);
-        $flirtAction->loadParameters($flirtActionConfig, $this->kuanTi, $this->chun);
+        $flirtAction->loadParameters(
+            actionConfig: $flirtActionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi,
+            target: $this->chun
+        );
         $flirtAction->execute();
 
         // then Chun should still have her Lying Down status

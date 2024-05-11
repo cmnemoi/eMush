@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -45,12 +44,6 @@ class LieDown extends AbstractAction
             'contain' => false,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::ALREADY_IN_BED,
-        ]));
-        $metadata->addConstraint(new StatusValidator([
-            'status' => EquipmentStatusEnum::BROKEN,
-            'contain' => false,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
         $metadata->addConstraint(new StatusValidator([
             'status' => PlayerStatusEnum::LYING_DOWN,

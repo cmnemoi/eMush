@@ -861,7 +861,7 @@ abstract class StatusConfigData
                 'extract_spore',
                 'make_sick',
                 'screw_talkie',
-                'spread_fire'
+                'spread_fire',
             ],
         ],
         [

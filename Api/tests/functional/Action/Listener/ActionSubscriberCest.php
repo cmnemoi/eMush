@@ -100,7 +100,12 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             ->setActionName(ActionEnum::TAKE)
             ->buildName(GameConfigEnum::TEST);
 
-        $actionEvent = new ActionEvent($action, $player, null);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $player,
+            player: $player,
+            actionTarget: null
+        );
 
         // Test injury
         $this->actionSubscriber->onPostAction($actionEvent);
@@ -165,7 +170,12 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             ->setActionName(ActionEnum::TAKE)
             ->buildName(GameConfigEnum::TEST);
 
-        $actionEvent = new ActionEvent($action, $player, null);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $player,
+            player: $player,
+            actionTarget: null
+        );
 
         // Test dirty
         $this->actionSubscriber->onPostAction($actionEvent);
@@ -234,7 +244,12 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $dirty = new Status($player, $dirtyConfig);
         $I->haveInRepository($dirty);
 
-        $actionEvent = new ActionEvent($action, $player, null);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $player,
+            player: $player,
+            actionTarget: null
+        );
 
         // Test already dirty
         $this->actionSubscriber->onPostAction($actionEvent);
@@ -284,7 +299,12 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             ->setDirtyRate(100)
             ->setActionName(ActionEnum::TAKE);
 
-        $actionEvent = new ActionEvent($action, $player, null);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $player,
+            player: $player,
+            actionTarget: null
+        );
 
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['name' => GearItemEnum::STAINPROOF_APRON]);
@@ -341,7 +361,12 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $action
             ->setActionName(ActionEnum::LAND)
             ->setCriticalRate(100);
-        $actionEvent = new ActionEvent($action, $this->player1, $pasiphae);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $pasiphae,
+            player: $this->player1,
+            actionTarget: $pasiphae
+        );
         $actionEvent->setActionResult(new Fail());
 
         $this->actionSubscriber->onPostAction($actionEvent);
@@ -396,7 +421,12 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $action
             ->setActionName(ActionEnum::LAND)
             ->setCriticalRate(100);
-        $actionEvent = new ActionEvent($action, $this->player1, $pasiphae);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $pasiphae,
+            player: $this->player1,
+            actionTarget: $pasiphae
+        );
         $actionEvent->setActionResult(new Fail());
 
         $this->actionSubscriber->onPostAction($actionEvent);
@@ -450,7 +480,12 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $action
             ->setActionName(ActionEnum::LAND)
             ->setCriticalRate(100);
-        $actionEvent = new ActionEvent($action, $this->player1, $pasiphae);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $pasiphae,
+            player: $this->player1,
+            actionTarget: $pasiphae
+        );
         $actionEvent->setActionResult(new Fail());
 
         $this->actionSubscriber->onPostAction($actionEvent);
@@ -489,7 +524,12 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $action
             ->setActionName(ActionEnum::LAND)
             ->setCriticalRate(100);
-        $actionEvent = new ActionEvent($action, $this->player1, $pasiphae);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $pasiphae,
+            player: $this->player1,
+            actionTarget: $pasiphae
+        );
         $actionEvent->setActionResult(new Fail());
 
         $this->actionSubscriber->onPostAction($actionEvent);

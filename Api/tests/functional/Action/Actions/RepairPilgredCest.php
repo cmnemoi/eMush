@@ -88,7 +88,8 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $pilgredProject);
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then the action should not be executable
@@ -108,7 +109,8 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $pilgredProject);
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then the PILGRED project should progress by 1
@@ -125,7 +127,8 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $pilgredProject);
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then a public log should be created in Chun's room
@@ -147,7 +150,8 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $pilgredProject);
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then Chun's efficiency should be reduced to 0
@@ -167,7 +171,8 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $pilgredProject);
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then Chun's efficiency for the plasma shield project should not be reduced
@@ -187,7 +192,8 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->kuanTi,
-            target: $pilgredProject);
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then Chun's efficiency should be reset to 1-1%
@@ -207,7 +213,8 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $pilgredProject);
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then a Neron announcement should be created
@@ -231,7 +238,8 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $pilgredProject);
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then the action should not be visible
@@ -254,7 +262,8 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $pilgredProject);
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then Chun's efficiency should be 1-1%

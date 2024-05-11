@@ -19,7 +19,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -33,18 +32,15 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
     use NormalizerAwareTrait;
 
     private TranslationServiceInterface $translationService;
-    private GearToolServiceInterface $gearToolService;
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
     private EquipmentEffectServiceInterface $equipmentEffectService;
 
     public function __construct(
         TranslationServiceInterface $translationService,
-        GearToolServiceInterface $gearToolService,
         ConsumableDiseaseServiceInterface $consumableDiseaseService,
         EquipmentEffectServiceInterface $equipmentEffectService
     ) {
         $this->translationService = $translationService;
-        $this->gearToolService = $gearToolService;
         $this->consumableDiseaseService = $consumableDiseaseService;
         $this->equipmentEffectService = $equipmentEffectService;
     }

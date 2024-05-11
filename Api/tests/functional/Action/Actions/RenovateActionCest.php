@@ -104,8 +104,10 @@ final class RenovateActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $pasiphae,
             player: $this->player1,
-            target: $pasiphae);
+            target: $pasiphae
+        );
         $I->assertTrue($this->renovateAction->isVisible());
+        $I->assertNull($this->renovateAction->cannotExecuteReason());
 
         $I->assertNotEquals(
             expected: $maxCharge,
@@ -170,7 +172,8 @@ final class RenovateActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $pasiphae,
             player: $this->player1,
-            target: $pasiphae);
+            target: $pasiphae
+        );
         $I->assertTrue($this->renovateAction->isVisible());
 
         $I->assertNotEquals(
@@ -230,7 +233,8 @@ final class RenovateActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $pasiphae,
             player: $this->player1,
-            target: $pasiphae);
+            target: $pasiphae
+        );
         $I->assertFalse($this->renovateAction->isVisible());
     }
 
@@ -267,7 +271,8 @@ final class RenovateActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $pasiphae,
             player: $this->player1,
-            target: $pasiphae);
+            target: $pasiphae
+        );
         $I->assertTrue($this->renovateAction->isVisible());
     }
 
@@ -300,7 +305,8 @@ final class RenovateActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $pasiphae,
             player: $this->player1,
-            target: $pasiphae);
+            target: $pasiphae
+        );
         $I->assertTrue($this->renovateAction->isVisible());
     }
 
@@ -331,7 +337,8 @@ final class RenovateActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $pasiphae,
             player: $this->player1,
-            target: $pasiphae);
+            target: $pasiphae
+        );
         $I->assertEquals(
             expected: $this->renovateAction->cannotExecuteReason(),
             actual: ActionImpossibleCauseEnum::RENOVATE_LACK_RESSOURCES,
@@ -364,7 +371,8 @@ final class RenovateActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $pasiphae,
             player: $this->chun,
-            target: $pasiphae);
+            target: $pasiphae
+        );
 
         // then the success rate of the Repair action is boosted to 50%
         $I->assertEquals(50, $this->renovateAction->getSuccessRate());
@@ -411,7 +419,8 @@ final class RenovateActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $pasiphae,
             player: $this->chun,
-            target: $pasiphae);
+            target: $pasiphae
+        );
         $result = $this->renovateAction->execute();
 
         // then one of Chun's Technician points is consumed

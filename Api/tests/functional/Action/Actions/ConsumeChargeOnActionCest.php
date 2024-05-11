@@ -150,7 +150,8 @@ class ConsumeChargeOnActionCest
             actionConfig: $actionEntity,
             actionProvider: $gameEquipment,
             player: $player,
-            target: $gameEquipment);
+            target: $gameEquipment
+        );
 
         $I->assertEquals(0, $this->coffeeAction->getMovementPointCost());
         $I->assertEquals(2, $this->coffeeAction->getActionPointCost());
@@ -284,7 +285,8 @@ class ConsumeChargeOnActionCest
             actionConfig: $actionEntity,
             actionProvider: $gameEquipment,
             player: $player,
-            target: $gameEquipment);
+            target: $gameEquipment
+        );
 
         $I->assertEquals(0, $this->coffeeAction->getMovementPointCost());
         $I->assertEquals(1, $this->coffeeAction->getActionPointCost());
@@ -432,7 +434,8 @@ class ConsumeChargeOnActionCest
             actionConfig: $actionEntity,
             actionProvider: $gameEquipment,
             player: $player,
-            target: $gameEquipment);
+            target: $gameEquipment
+        );
 
         $I->assertEquals(1, $this->coffeeAction->getMovementPointCost());
         $I->assertEquals(0, $this->coffeeAction->getActionPointCost());

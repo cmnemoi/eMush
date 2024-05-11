@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\TurnDaedalusLeft;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;

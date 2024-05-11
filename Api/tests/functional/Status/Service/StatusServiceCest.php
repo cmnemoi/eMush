@@ -284,13 +284,13 @@ final class StatusServiceCest extends AbstractFunctionalTest
 
         // given it is sabotaged by a player
         /** @var ActionConfig $sabotageConfig */
-        $sabotageConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SABOTAGE . '_percent_12']);
+        $sabotageConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SABOTAGE->value . '_percent_12']);
         $sabotageConfig->setSuccessRate(101);
 
         /** @var Sabotage $sabotageAction */
         $sabotageAction = $I->grabService(Sabotage::class);
 
-        $sabotageAction->loadParameters($sabotageConfig, $this->player, $mycoscan);
+        $sabotageAction->loadParameters($sabotageConfig, $mycoscan, $this->player, $mycoscan);
         $sabotageAction->execute();
 
         // given broken mycoscan is reported
@@ -301,7 +301,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         /** @var ReportEquipment $reportAction */
         $reportAction = $I->grabService(ReportEquipment::class);
 
-        $reportAction->loadParameters($reportConfig, $this->player, $mycoscan);
+        $reportAction->loadParameters($reportConfig, $mycoscan, $this->player, $mycoscan);
         $reportAction->execute();
 
         // given I have a research lab in laboratory

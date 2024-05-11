@@ -89,7 +89,8 @@ class FlirtActionCest
             actionConfig: $this->action,
             actionProvider: $player,
             player: $player,
-            target: $targetPlayer);
+            target: $targetPlayer
+        );
 
         $I->assertTrue($this->flirtAction->isVisible());
         $I->assertNull($this->flirtAction->cannotExecuteReason());
@@ -164,7 +165,8 @@ class FlirtActionCest
             actionConfig: $this->action,
             actionProvider: $player,
             player: $player,
-            target: $targetPlayer);
+            target: $targetPlayer
+        );
         $I->assertFalse($this->flirtAction->isVisible());
     }
 
@@ -222,7 +224,8 @@ class FlirtActionCest
             actionConfig: $this->action,
             actionProvider: $player,
             player: $player,
-            target: $targetPlayer);
+            target: $targetPlayer
+        );
         $I->assertFalse($this->flirtAction->isVisible());
     }
 
@@ -280,7 +283,8 @@ class FlirtActionCest
             actionConfig: $this->action,
             actionProvider: $player,
             player: $player,
-            target: $targetPlayer);
+            target: $targetPlayer
+        );
 
         $I->assertTrue($this->flirtAction->isVisible());
         $I->assertNull($this->flirtAction->cannotExecuteReason());
@@ -355,7 +359,8 @@ class FlirtActionCest
             actionConfig: $this->action,
             actionProvider: $player,
             player: $player,
-            target: $targetPlayer);
+            target: $targetPlayer
+        );
 
         $I->assertTrue($this->flirtAction->isVisible());
         $I->assertNull($this->flirtAction->cannotExecuteReason());

@@ -60,7 +60,8 @@ final class RepairActionCest extends AbstractFunctionalTest
             actionConfig: $this->repairActionConfig,
             actionProvider: $mycoscan,
             player: $this->chun,
-            target: $mycoscan);
+            target: $mycoscan
+        );
         $result = $this->repairAction->execute();
         $I->assertInstanceOf(Success::class, $result);
 
@@ -89,7 +90,8 @@ final class RepairActionCest extends AbstractFunctionalTest
             actionConfig: $this->repairActionConfig,
             actionProvider: $mycoscan,
             player: $this->chun,
-            target: $mycoscan);
+            target: $mycoscan
+        );
 
         // then the success rate of the Repair action is boosted by 25%
         $I->assertEquals(37, $this->repairAction->getSuccessRate());
@@ -116,7 +118,8 @@ final class RepairActionCest extends AbstractFunctionalTest
             actionConfig: $this->repairActionConfig,
             actionProvider: $mycoscan,
             player: $this->chun,
-            target: $mycoscan);
+            target: $mycoscan
+        );
 
         // then the success rate of the Repair action is boosted to 50%
         $I->assertEquals(50, $this->repairAction->getSuccessRate());
@@ -145,7 +148,8 @@ final class RepairActionCest extends AbstractFunctionalTest
             actionConfig: $this->repairActionConfig,
             actionProvider: $mycoscan,
             player: $this->chun,
-            target: $mycoscan);
+            target: $mycoscan
+        );
         $this->repairAction->execute();
 
         // then one of Chun's Technician points is consumed
@@ -171,11 +175,12 @@ final class RepairActionCest extends AbstractFunctionalTest
         $skill->setCharge(1);
 
         // when Chun examines the Mycoscan
-        $this->repairAction->loadParameters(
+        $this->examineAction->loadParameters(
             actionConfig: $this->examineActionConfig,
             actionProvider: $mycoscan,
             player: $this->chun,
-            target: $mycoscan);
+            target: $mycoscan
+        );
         $this->examineAction->execute();
 
         // then Chun's Technician should not change.

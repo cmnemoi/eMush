@@ -94,7 +94,8 @@ class ExamineActionCest
             actionConfig: $action,
             actionProvider: $gameEquipment,
             player: $player,
-            target: $gameEquipment);
+            target: $gameEquipment
+        );
 
         $I->assertTrue($this->examine->isVisible());
 

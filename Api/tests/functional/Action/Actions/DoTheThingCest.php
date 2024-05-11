@@ -193,7 +193,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->doTheThingAction->loadParameters(
             actionConfig: $action,
             actionProvider: $player,
-            player:  $player,
+            player: $player,
             target: $targetPlayer
         );
 
@@ -311,7 +311,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->doTheThingAction->loadParameters(
             actionConfig: $action,
             actionProvider: $player,
-            player:  $player,
+            player: $player,
             target: $targetPlayer
         );
 
@@ -416,7 +416,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->doTheThingAction->loadParameters(
             actionConfig: $action,
             actionProvider: $player,
-            player:  $player,
+            player: $player,
             target: $targetPlayer
         );
 
@@ -498,7 +498,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->doTheThingAction->loadParameters(
             actionConfig: $action,
             actionProvider: $player,
-            player:  $player,
+            player: $player,
             target: $targetPlayer
         );
 
@@ -656,7 +656,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->doTheThingAction->loadParameters(
             actionConfig: $action,
             actionProvider: $mushPlayer,
-            player:  $mushPlayer,
+            player: $mushPlayer,
             target: $humanPlayer
         );
 
@@ -762,7 +762,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->doTheThingAction->loadParameters(
             actionConfig: $action,
             actionProvider: $player,
-            player:  $player,
+            player: $player,
             target: $targetPlayer
         );
 

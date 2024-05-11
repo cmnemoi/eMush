@@ -352,7 +352,7 @@ final class ChannelServiceTest extends TestCase
         $place2 = new Place();
 
         $time = new \DateTime();
-        $reason = ActionEnum::CONSUME;
+        $reason = ActionEnum::CONSUME->value;
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -400,7 +400,7 @@ final class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $time = new \DateTime();
-        $reason = ActionEnum::CONSUME;
+        $reason = ActionEnum::CONSUME->value;
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -446,7 +446,7 @@ final class ChannelServiceTest extends TestCase
         $place2 = new Place();
 
         $time = new \DateTime();
-        $reason = ActionEnum::CONSUME;
+        $reason = ActionEnum::CONSUME->value;
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -492,7 +492,7 @@ final class ChannelServiceTest extends TestCase
         $place2 = new Place();
 
         $time = new \DateTime();
-        $reason = ActionEnum::CONSUME;
+        $reason = ActionEnum::CONSUME->value;
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -544,7 +544,7 @@ final class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $time = new \DateTime();
-        $reason = ActionEnum::CONSUME;
+        $reason = ActionEnum::CONSUME->value;
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());

@@ -78,7 +78,8 @@ final class LandActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
             player: $this->player1,
-            target: $this->pasiphae);
+            target: $this->pasiphae
+        );
         $I->assertTrue($this->landAction->isVisible());
         $I->assertNull($this->landAction->cannotExecuteReason());
 
@@ -130,7 +131,8 @@ final class LandActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
             player: $this->player1,
-            target: $this->pasiphae);
+            target: $this->pasiphae
+        );
         $I->assertTrue($this->landAction->isVisible());
         $I->assertNull($this->landAction->cannotExecuteReason());
 
@@ -200,7 +202,8 @@ final class LandActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
             player: $this->player1,
-            target: $this->pasiphae);
+            target: $this->pasiphae
+        );
         $this->landAction->execute();
 
         // then dynarcade is still in alpha bay 2
@@ -220,7 +223,8 @@ final class LandActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
             player: $this->player1,
-            target: $this->pasiphae);
+            target: $this->pasiphae
+        );
         $this->landAction->execute();
 
         // then player 2 is in alpha bay 2

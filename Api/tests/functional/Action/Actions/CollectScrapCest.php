@@ -96,7 +96,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
             actionConfig: $this->collectScrapActionConfig,
             actionProvider: $this->pasiphae,
             player: $this->player1,
-            target: $this->pasiphae);
+            target: $this->pasiphae
+        );
 
         $I->assertFalse($this->collectScrapAction->isVisible());
     }
@@ -120,7 +121,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
             actionConfig: $this->collectScrapActionConfig,
             actionProvider: $this->patrolShip,
             player: $this->player1,
-            target: $this->patrolShip);
+            target: $this->patrolShip
+        );
 
         // then collect scrap action should not be visible
         $I->assertFalse($this->collectScrapAction->isVisible());
@@ -156,7 +158,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
             actionConfig: $this->collectScrapActionConfig,
             actionProvider: $this->patrolShip,
             player: $this->player1,
-            target: $this->patrolShip);
+            target: $this->patrolShip
+        );
 
         // then collect scrap action should be visible
         $I->assertTrue($this->collectScrapAction->isVisible());
@@ -177,7 +180,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
             actionConfig: $this->collectScrapActionConfig,
             actionProvider: $this->pasiphae,
             player: $this->player1,
-            target: $this->pasiphae);
+            target: $this->pasiphae
+        );
         $I->assertTrue($this->collectScrapAction->isVisible());
         $I->assertNull($this->collectScrapAction->cannotExecuteReason());
 
@@ -235,7 +239,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
             actionConfig: $this->collectScrapActionConfig,
             actionProvider: $this->pasiphae,
             player: $this->player1,
-            target: $this->pasiphae);
+            target: $this->pasiphae
+        );
         $I->assertTrue($this->collectScrapAction->isVisible());
         $I->assertNull($this->collectScrapAction->cannotExecuteReason());
 
@@ -249,6 +254,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
             expected: $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             actual: $this->player1->getHealthPoint(),
         );
+
         /** @var ChargeStatus $status */
         $status = $this->pasiphae->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
         $this->pasiphaeArmor = $status;
@@ -327,7 +333,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
             actionConfig: $this->collectScrapActionConfig,
             actionProvider: $this->pasiphae,
             player: $this->player1,
-            target: $this->pasiphae);
+            target: $this->pasiphae
+        );
         $this->collectScrapAction->execute();
 
         // then player should not be damaged
@@ -335,6 +342,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
             expected: $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             actual: $this->player1->getHealthPoint(),
         );
+
         // then pasiphae should not be damaged
         /** @var ChargeStatus $status */
         $status = $this->pasiphae->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
@@ -357,7 +365,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
             actionConfig: $this->landActionConfig,
             actionProvider: $this->pasiphae,
             player: $this->player1,
-            target: $this->pasiphae);
+            target: $this->pasiphae
+        );
         $this->landAction->execute();
 
         $I->assertTrue($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
@@ -386,7 +395,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
             actionConfig: $this->landActionConfig,
             actionProvider: $this->pasiphae,
             player: $this->player1,
-            target: $this->pasiphae);
+            target: $this->pasiphae
+        );
         $this->landAction->execute();
 
         // then there should not be scrap in alpha bay 2
@@ -403,7 +413,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
             actionConfig: $this->landActionConfig,
             actionProvider: $this->pasiphae,
             player: $this->player1,
-            target: $this->pasiphae);
+            target: $this->pasiphae
+        );
         $this->landAction->execute();
 
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
@@ -428,7 +439,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
             actionConfig: $this->landActionConfig,
             actionProvider: $this->pasiphae,
             player: $this->player1,
-            target: $this->pasiphae);
+            target: $this->pasiphae
+        );
         $this->landAction->execute();
 
         $I->assertTrue($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));

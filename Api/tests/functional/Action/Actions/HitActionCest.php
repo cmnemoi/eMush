@@ -40,7 +40,8 @@ final class HitActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $this->player1,
             player: $this->player1,
-            target: $this->player2);
+            target: $this->player2
+        );
 
         $this->hitAction->execute();
 
@@ -60,7 +61,8 @@ final class HitActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $this->player1,
             player: $this->player1,
-            target: $this->player2);
+            target: $this->player2
+        );
 
         $this->hitAction->execute();
 
@@ -81,7 +83,8 @@ final class HitActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $this->player1,
             player: $this->player1,
-            target: $this->player2);
+            target: $this->player2
+        );
 
         /** @var VariableEventModifierConfig $armorModifierConfig */
         $armorModifierConfig = $I->grabEntityFromRepository(
@@ -117,7 +120,8 @@ final class HitActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $this->player1,
             player: $this->player1,
-            target: $this->player2);
+            target: $this->player2
+        );
 
         /** @var VariableEventModifierConfig $armorModifierConfig */
         $armorModifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [

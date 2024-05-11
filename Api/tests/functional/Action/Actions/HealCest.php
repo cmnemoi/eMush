@@ -118,7 +118,8 @@ final class HealCest extends AbstractFunctionalTest
             actionConfig: $action,
             actionProvider: $healerPlayer,
             player: $healerPlayer,
-            target: $healedPlayer);
+            target: $healedPlayer
+        );
 
         $I->assertTrue($this->healAction->isVisible());
         $I->assertNull($this->healAction->cannotExecuteReason());
@@ -202,7 +203,8 @@ final class HealCest extends AbstractFunctionalTest
             actionConfig: $action,
             actionProvider: $healerPlayer,
             player: $healerPlayer,
-            target: $healedPlayer);
+            target: $healedPlayer
+        );
 
         $I->assertFalse($this->healAction->isVisible());
     }
@@ -227,7 +229,8 @@ final class HealCest extends AbstractFunctionalTest
             actionConfig: $this->healConfig,
             actionProvider: $this->player1,
             player: $this->player1,
-            target: $this->player2);
+            target: $this->player2
+        );
         $this->healAction->execute();
 
         // then I don't see a log about health gained

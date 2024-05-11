@@ -16,7 +16,6 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -42,13 +41,6 @@ abstract class AbstractTurnDaedalusAction extends AbstractAction
             'status' => PlayerStatusEnum::FOCUSED,
             'target' => HasStatus::PLAYER,
             'groups' => ['visibility'],
-        ]));
-        $metadata->addConstraint(new HasStatus([
-            'status' => EquipmentStatusEnum::BROKEN,
-            'target' => HasStatus::PARAMETER,
-            'contain' => false,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
         $metadata->addConstraint(new HasStatus([
             'status' => DaedalusStatusEnum::TRAVELING,

@@ -93,7 +93,8 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
             actionConfig: $this->insertFuelChamberActionConfig,
             actionProvider: $fuelCapsule,
             player: $this->player,
-            target: $fuelCapsule);
+            target: $fuelCapsule
+        );
 
         // then action is not visible
         $I->assertFalse($this->insertFuelChamberAction->isVisible());
@@ -115,7 +116,8 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
             actionConfig: $this->insertFuelChamberActionConfig,
             actionProvider: $fuelCapsule,
             player: $this->player,
-            target: $fuelCapsule);
+            target: $fuelCapsule
+        );
 
         // then action is not visible
         $I->assertFalse($this->insertFuelChamberAction->isVisible());
@@ -135,7 +137,8 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
             actionConfig: $this->insertFuelChamberActionConfig,
             actionProvider: $fuelCapsule,
             player: $this->player,
-            target: $fuelCapsule);
+            target: $fuelCapsule
+        );
 
         // then action is not executable
         $I->assertEquals(
@@ -166,7 +169,8 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
             actionConfig: $this->insertFuelChamberActionConfig,
             actionProvider: $jarOfAlienOil,
             player: $this->player,
-            target: $jarOfAlienOil);
+            target: $jarOfAlienOil
+        );
         $I->assertTrue($this->insertFuelChamberAction->isVisible());
 
         $this->insertFuelChamberAction->execute();
@@ -208,7 +212,8 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
             actionConfig: $this->insertFuelChamberActionConfig,
             actionProvider: $fuelCapsule,
             player: $this->player,
-            target: $fuelCapsule);
+            target: $fuelCapsule
+        );
 
         $this->insertFuelChamberAction->execute();
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\TakeoffToPlanet;
@@ -452,7 +452,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         // given players leave orbit
         $daedalusEvent = new DaedalusEvent(
             daedalus: $this->daedalus,
-            tags: [ActionEnum::LEAVE_ORBIT],
+            tags: [ActionEnum::LEAVE_ORBIT->value],
             time: new \DateTime()
         );
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);

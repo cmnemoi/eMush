@@ -82,7 +82,8 @@ final class MoveCest extends AbstractFunctionalTest
             actionConfig: $this->moveConfig,
             actionProvider: $door,
             player: $this->derek,
-            target: $door);
+            target: $door
+        );
         $this->moveAction->execute();
 
         // then the action is not executable
@@ -117,7 +118,8 @@ final class MoveCest extends AbstractFunctionalTest
             actionConfig: $this->moveConfig,
             actionProvider: $door,
             player: $jinsu,
-            target: $door);
+            target: $door
+        );
         $this->moveAction->execute();
 
         // then jin su is in the laboratory
@@ -154,7 +156,8 @@ final class MoveCest extends AbstractFunctionalTest
             actionConfig: $this->moveConfig,
             actionProvider: $door,
             player: $this->derek,
-            target: $door);
+            target: $door
+        );
         $this->moveAction->execute();
 
         // then derek is in the front corridor
@@ -181,7 +184,8 @@ final class MoveCest extends AbstractFunctionalTest
             actionConfig: $this->moveConfig,
             actionProvider: $door,
             player: $this->player,
-            target: $door);
+            target: $door
+        );
         $this->moveAction->execute();
 
         // then player1 should not be in the private channel anymore
@@ -226,7 +230,8 @@ final class MoveCest extends AbstractFunctionalTest
             actionConfig: $this->moveConfig,
             actionProvider: $door,
             player: $this->chun,
-            target: $door);
+            target: $door
+        );
         $this->moveAction->execute();
 
         // then Chun should not convert AP to MP, so she should have the same amount of AP and MP

@@ -5,6 +5,7 @@ namespace Mush\Tests\functional\Modifier\Listener;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -174,7 +175,7 @@ class CreateDestroyEquipmentSubscriberCest
     {
         $modifierConfig = new VariableEventModifierConfig('modifierShowerActionTest');
         $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetEvent(ActionEnum::SHOWER->value)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::PLACE)
@@ -243,7 +244,8 @@ class CreateDestroyEquipmentSubscriberCest
         $takeActionEntity = new ActionConfig();
         $takeActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
@@ -300,7 +302,7 @@ class CreateDestroyEquipmentSubscriberCest
             $equipment,
             false,
             VisibilityEnum::PUBLIC,
-            [ActionEnum::COFFEE],
+            [ActionEnum::COFFEE->value],
             new \DateTime()
         );
         $this->eventService->callEvent($destroyEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
@@ -316,7 +318,8 @@ class CreateDestroyEquipmentSubscriberCest
         $takeActionEntity = new ActionConfig();
         $takeActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
@@ -393,7 +396,7 @@ class CreateDestroyEquipmentSubscriberCest
             $gameEquipment,
             false,
             VisibilityEnum::PUBLIC,
-            [ActionEnum::COFFEE],
+            [ActionEnum::COFFEE->value],
             new \DateTime()
         );
         $this->eventService->callEvent($destroyEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
@@ -409,7 +412,8 @@ class CreateDestroyEquipmentSubscriberCest
         $takeActionEntity = new ActionConfig();
         $takeActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
@@ -419,7 +423,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         $modifierConfig2 = new VariableEventModifierConfig('modifierShowerActionTest');
         $modifierConfig2
-            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetEvent(ActionEnum::SHOWER->value)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)

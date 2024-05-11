@@ -76,7 +76,6 @@ enum ActionEnum: string
     case COOK = 'cook';
     case COFFEE = 'coffee';
     case SELF_SURGERY = 'self_surgery';
-    case CHECK_INFECTION = 'check_infection';
     case SHOWER = 'shower';
     case WASH_IN_SINK = 'wash_in_sink';
     case CHECK_ROSTER = 'check_roster';

@@ -63,7 +63,8 @@ final class ExitTerminalCest extends AbstractFunctionalTest
             actionConfig: $this->exitTerminalConfig,
             actionProvider: $this->commandTerminal,
             player: $this->player,
-            target: $this->commandTerminal);
+            target: $this->commandTerminal
+        );
         $this->exitTerminal->execute();
 
         // then player is not focused on command terminal anymore

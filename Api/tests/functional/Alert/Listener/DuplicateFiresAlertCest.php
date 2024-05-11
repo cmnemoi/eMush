@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ReportEquipment;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
@@ -82,13 +83,13 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
         $this->statusService->createStatusFromName(
             StatusEnum::FIRE,
             $room,
-            [ActionEnum::SABOTAGE],
+            [ActionEnum::SABOTAGE->value],
             new \DateTime()
         );
         $this->statusService->createStatusFromName(
             StatusEnum::FIRE,
             $room2,
-            [ActionEnum::SABOTAGE],
+            [ActionEnum::SABOTAGE->value],
             new \DateTime()
         );
 
@@ -100,7 +101,7 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
         $this->statusService->removeStatus(
             StatusEnum::FIRE,
             $room2,
-            [ActionEnum::SABOTAGE],
+            [ActionEnum::SABOTAGE->value],
             new \DateTime()
         );
         $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::FIRES]);
@@ -113,7 +114,8 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
         $reportAction = $action = new ActionConfig();
         $reportAction
             ->setActionName(ActionEnum::REPORT_EQUIPMENT)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
@@ -122,7 +124,7 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
             EquipmentConfig::class,
             [
                 'name' => EquipmentEnum::GRAVITY_SIMULATOR,
-                'actions' => new ArrayCollection([$reportAction])]
+                'actionConfigs' => new ArrayCollection([$reportAction])]
         );
 
         $room = $this->player->getPlace();
@@ -138,7 +140,7 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
         $this->statusService->createStatusFromName(
             EquipmentStatusEnum::BROKEN,
             $gameEquipment,
-            [ActionEnum::SABOTAGE],
+            [ActionEnum::SABOTAGE->value],
             new \DateTime()
         );
         $I->seeInRepository(Alert::class, ['daedalus' => $this->daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS]);
@@ -146,7 +148,12 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
         $I->seeInRepository(AlertElement::class, ['equipment' => $gameEquipment]);
 
         // player report ActionConfig
-        $this->reportAction->loadParameters($reportAction, $this->player, $gameEquipment);
+        $this->reportAction->loadParameters(
+            actionConfig: $reportAction,
+            actionProvider: $gameEquipment,
+            player: $this->player,
+            target: $gameEquipment
+        );
         $this->reportAction->execute();
 
         $I->seeInRepository(Alert::class, ['daedalus' => $this->daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS]);
@@ -157,7 +164,7 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
         $this->statusService->createStatusFromName(
             StatusEnum::FIRE,
             $room,
-            [ActionEnum::SABOTAGE],
+            [ActionEnum::SABOTAGE->value],
             new \DateTime()
         );
         $I->seeInRepository(Alert::class, ['daedalus' => $this->daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS]);

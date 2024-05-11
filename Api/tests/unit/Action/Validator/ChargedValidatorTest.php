@@ -5,8 +5,8 @@ namespace Mush\Tests\unit\Action\Validator;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Validator\Charged;
-use Mush\Action\Validator\ChargedValidator;
+use Mush\Action\Validator\IsActionProviderOperational;
+use Mush\Action\Validator\IsActionProviderOperationalValidator;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
@@ -23,16 +23,16 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
  */
 final class ChargedValidatorTest extends TestCase
 {
-    private ChargedValidator $validator;
-    private Charged $constraint;
+    private IsActionProviderOperationalValidator $validator;
+    private IsActionProviderOperational $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new ChargedValidator();
-        $this->constraint = new Charged();
+        $this->validator = new IsActionProviderOperationalValidator();
+        $this->constraint = new IsActionProviderOperational();
     }
 
     /**

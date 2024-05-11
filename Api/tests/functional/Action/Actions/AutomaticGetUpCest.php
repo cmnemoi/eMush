@@ -49,8 +49,7 @@ class AutomaticGetUpCest
             ->setActionName(ActionEnum::GET_UP)
             ->setRange(ActionRangeEnum::SELF)
             ->buildName(GameConfigEnum::TEST)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-        ;
+            ->setDisplayHolder(ActionHolderEnum::PLAYER);
         $I->haveInRepository($getUpAction);
 
         $statusConfig = new StatusConfig();
@@ -58,8 +57,7 @@ class AutomaticGetUpCest
             ->setStatusName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->buildName(GameConfigEnum::TEST)
-            ->setActionConfigs([$getUpAction])
-        ;
+            ->setActionConfigs([$getUpAction]);
         $I->haveInRepository($statusConfig);
 
         $dirtyConfig = new StatusConfig();
@@ -135,7 +133,8 @@ class AutomaticGetUpCest
             actionConfig: $action,
             actionProvider: $gameEquipment,
             player: $player,
-            target: $gameEquipment);
+            target: $gameEquipment
+        );
 
         $I->assertTrue($this->disassembleAction->isVisible());
         $I->assertNull($this->disassembleAction->cannotExecuteReason());

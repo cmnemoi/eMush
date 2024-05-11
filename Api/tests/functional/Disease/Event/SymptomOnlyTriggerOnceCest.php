@@ -56,8 +56,8 @@ final class SymptomOnlyTriggerOnceCest extends AbstractFunctionalTest
             [],
             new \DateTime()
         );
-        $consumeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CONSUME]);
-        $this->consume->loadParameters($consumeConfig, $this->player1, $food);
+        $consumeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CONSUME->value]);
+        $this->consume->loadParameters($consumeConfig, $food, $this->player1, $food);
 
         $this->consume->execute();
 

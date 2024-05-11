@@ -82,7 +82,12 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
         );
 
         // when player turns daedalus
-        $this->turnDaedalusAction->loadParameters($this->turnDaedalusConfig, $this->player, $this->commandTerminal);
+        $this->turnDaedalusAction->loadParameters(
+            actionConfig: $this->turnDaedalusConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->turnDaedalusAction->execute();
 
         // then the action is not visible
@@ -102,6 +107,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
         // when player turns daedalus
         $this->turnDaedalusAction->loadParameters(
             actionConfig: $this->turnDaedalusConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -124,6 +130,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
         // when player turns daedalus
         $this->turnDaedalusAction->loadParameters(
             actionConfig: $this->turnDaedalusConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -146,6 +153,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
         // when player turns daedalus
         $this->turnDaedalusAction->loadParameters(
             actionConfig: $this->turnDaedalusConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -160,6 +168,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
         // when player turns daedalus
         $this->turnDaedalusAction->loadParameters(
             actionConfig: $this->turnDaedalusConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );

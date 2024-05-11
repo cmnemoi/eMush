@@ -4,7 +4,6 @@ namespace Mush\Tests\unit\Equipment\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
@@ -19,14 +18,16 @@ use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationService;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -38,9 +39,6 @@ final class EquipmentNormalizerTest extends TestCase
 
     /** @var Mockery\Mock|TranslationService */
     private TranslationService $translationService;
-
-    /** @var GearToolServiceInterface|Mockery\Mock */
-    private GearToolServiceInterface $gearToolService;
 
     /** @var ConsumableDiseaseServiceInterface|Mockery\Mock */
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
@@ -54,13 +52,11 @@ final class EquipmentNormalizerTest extends TestCase
     public function before()
     {
         $this->translationService = \Mockery::mock(TranslationService::class);
-        $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
         $this->consumableDiseaseService = \Mockery::mock(ConsumableDiseaseServiceInterface::class);
         $this->equipmentEffectService = \Mockery::mock(EquipmentEffectServiceInterface::class);
 
         $this->normalizer = new EquipmentNormalizer(
             $this->translationService,
-            $this->gearToolService,
             $this->consumableDiseaseService,
             $this->equipmentEffectService
         );
@@ -85,6 +81,7 @@ final class EquipmentNormalizerTest extends TestCase
         $place = new Place();
         $player = new Player();
         $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $equipmentConfig = new EquipmentConfig();
 
@@ -92,6 +89,7 @@ final class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getId')->andReturn(2);
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);
+        $equipment->shouldReceive('getPlace')->andReturn($place);
         $equipment->makePartial();
 
         $equipment
@@ -108,12 +106,6 @@ final class EquipmentNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('equipment.description', [], 'equipments', LanguageEnum::FRENCH)
             ->andReturn('translated description')
-            ->once();
-
-        $this->gearToolService
-            ->shouldReceive('getActionsTools')
-            ->with($player, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELVE], GameEquipment::class)
-            ->andReturn(new ArrayCollection([]))
             ->once();
 
         $data = $this->normalizer->normalize($equipment, null, ['currentPlayer' => $player]);
@@ -143,6 +135,7 @@ final class EquipmentNormalizerTest extends TestCase
         $place = new Place();
         $player = new Player();
         $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $equipmentConfig = new ItemConfig();
 
@@ -168,12 +161,6 @@ final class EquipmentNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('equipment.description', [], 'items', LanguageEnum::FRENCH)
             ->andReturn('translated description')
-            ->once();
-
-        $this->gearToolService
-            ->shouldReceive('getActionsTools')
-            ->with($player, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELVE], GameItem::class)
-            ->andReturn(new ArrayCollection([]))
             ->once();
 
         $data = $this->normalizer->normalize($equipment, null, ['currentPlayer' => $player]);
@@ -204,6 +191,7 @@ final class EquipmentNormalizerTest extends TestCase
         $place = new Place();
         $player = new Player();
         $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $itemConfig = new ItemConfig();
         $itemConfig->setEquipmentName(ItemEnum::NATAMY_RIFLE);
@@ -219,6 +207,7 @@ final class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getId')->andReturn(2);
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);
+        $equipment->shouldReceive('getPlace')->andReturn($place);
         $equipment->makePartial();
 
         $equipment
@@ -249,12 +238,6 @@ final class EquipmentNormalizerTest extends TestCase
             ->andReturn('ingredient 2')
             ->once();
 
-        $this->gearToolService
-            ->shouldReceive('getActionsTools')
-            ->with($player, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELVE], GameEquipment::class)
-            ->andReturn(new ArrayCollection([]))
-            ->once();
-
         $data = $this->normalizer->normalize($equipment, null, ['currentPlayer' => $player]);
 
         $expected = [
@@ -282,6 +265,7 @@ final class EquipmentNormalizerTest extends TestCase
         $place = new Place();
         $player = new Player();
         $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $bananaTreeConfig = new ItemConfig();
         $bananaTreeConfig->setEquipmentName(GamePlantEnum::BANANA_TREE);
@@ -316,12 +300,6 @@ final class EquipmentNormalizerTest extends TestCase
             ->andReturn('Un bananier')
             ->once();
 
-        $this->gearToolService
-            ->shouldReceive('getActionsTools')
-            ->with($player, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELVE], GameItem::class)
-            ->andReturn(new ArrayCollection([]))
-            ->once();
-
         $data = $this->normalizer->normalize($bananaTree, null, ['currentPlayer' => $player]);
 
         $expected = [
@@ -350,6 +328,7 @@ final class EquipmentNormalizerTest extends TestCase
         $place = new Place();
         $player = new Player();
         $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $bananaTreeConfig = new ItemConfig();
         $bananaTreeConfig->setEquipmentName(GamePlantEnum::BANANA_TREE);
@@ -382,12 +361,6 @@ final class EquipmentNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('banana_tree.description', [], 'items', LanguageEnum::FRENCH)
             ->andReturn('Un bananier')
-            ->once();
-
-        $this->gearToolService
-            ->shouldReceive('getActionsTools')
-            ->with($player, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELVE], GameItem::class)
-            ->andReturn(new ArrayCollection([]))
             ->once();
 
         $data = $this->normalizer->normalize($bananaTree, null, ['currentPlayer' => $player]);

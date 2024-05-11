@@ -71,7 +71,8 @@ final class ReturnToSolCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->commandTerminal,
             player: $this->chun,
-            target: $this->commandTerminal);
+            target: $this->commandTerminal
+        );
 
         // then the action should not be executable
         $I->assertEquals(
@@ -91,7 +92,8 @@ final class ReturnToSolCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->commandTerminal,
             player: $this->chun,
-            target: $this->commandTerminal);
+            target: $this->commandTerminal
+        );
         $this->returnToSolAction->execute();
 
         // then all Daedalus players should be dead
@@ -111,7 +113,8 @@ final class ReturnToSolCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->commandTerminal,
             player: $this->chun,
-            target: $this->commandTerminal);
+            target: $this->commandTerminal
+        );
         $this->returnToSolAction->execute();
 
         // then all Daedalus players should be dead with Sol Return end cause
@@ -134,7 +137,8 @@ final class ReturnToSolCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->commandTerminal,
             player: $this->chun,
-            target: $this->commandTerminal);
+            target: $this->commandTerminal
+        );
         $this->returnToSolAction->execute();
 
         // then no public death logs should be printed
@@ -158,7 +162,8 @@ final class ReturnToSolCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->commandTerminal,
             player: $this->chun,
-            target: $this->commandTerminal);
+            target: $this->commandTerminal
+        );
         $this->returnToSolAction->execute();
 
         // then the game should be finished
@@ -176,7 +181,8 @@ final class ReturnToSolCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->commandTerminal,
             player: $this->chun,
-            target: $this->commandTerminal);
+            target: $this->commandTerminal
+        );
         $this->returnToSolAction->execute();
 
         // then no death announcements should be created
@@ -199,7 +205,8 @@ final class ReturnToSolCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->commandTerminal,
             player: $this->chun,
-            target: $this->commandTerminal);
+            target: $this->commandTerminal
+        );
         $this->returnToSolAction->execute();
 
         // then no player should lose morale points
@@ -222,7 +229,8 @@ final class ReturnToSolCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->commandTerminal,
             player: $this->chun,
-            target: $this->commandTerminal);
+            target: $this->commandTerminal
+        );
         $this->returnToSolAction->execute();
 
         // then no trauma diseases should be triggered

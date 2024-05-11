@@ -8,7 +8,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
-use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
@@ -18,7 +17,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -48,12 +46,6 @@ class InstallCamera extends AbstractAction
                 'contains' => false,
                 'groups' => ['execute'],
                 'message' => ActionImpossibleCauseEnum::ALREADY_INSTALLED_CAMERA,
-            ]),
-            new HasStatus([
-                'status' => EquipmentStatusEnum::BROKEN,
-                'contain' => false,
-                'groups' => ['execute'],
-                'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
             ]),
         ]);
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'room', 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM]));

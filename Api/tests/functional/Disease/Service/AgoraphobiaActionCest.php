@@ -60,19 +60,22 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
         // given there is a door to front corridor in the room
         $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
         $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
+
         $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
         $this->door = new Door($this->player->getPlace());
         $this->door
             ->setName('door_default')
             ->setEquipment($doorConfig)
-            ->addRoom($frontCorridor);
+            ->addRoom($frontCorridor)->addRoom($this->player->getPlace());
         $I->haveInRepository($this->door);
     }
 
     public function testAgoraphobia(FunctionalTester $I)
     {
         // when player executes search action
-        $this->searchAction->loadParameters($this->searchConfig, $this->player);
+        $this->searchAction->loadParameters($this->searchConfig, $this->player, $this->player);
+        $I->assertNull($this->searchAction->cannotExecuteReason());
+
         $this->searchAction->execute();
 
         // then player has 0 action point and 2 movement point
@@ -83,7 +86,8 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
     public function testAgoraphobiaForMoveAction(FunctionalTester $I)
     {
         // when player executes move action
-        $this->moveAction->loadParameters($this->moveConfig, $this->player, $this->door);
+        $this->moveAction->loadParameters($this->moveConfig, $this->door, $this->player, $this->door);
+        $I->assertNull($this->moveAction->cannotExecuteReason());
         $this->moveAction->execute();
 
         // then player has 2 action point and 0 movement points
@@ -98,7 +102,8 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
         $this->player->setMovementPoint(0);
 
         // when player executes move action
-        $this->moveAction->loadParameters($this->moveConfig, $this->player, $this->door);
+        $this->moveAction->loadParameters($this->moveConfig, $this->door, $this->player, $this->door);
+        $I->assertNull($this->moveAction->cannotExecuteReason());
         $this->moveAction->execute();
 
         // then player has 1 action point and 1 movement point

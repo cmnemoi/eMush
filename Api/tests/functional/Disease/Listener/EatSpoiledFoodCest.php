@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -78,7 +79,8 @@ class EatSpoiledFoodCest
         $consumeActionEntity = new ActionConfig();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($consumeActionEntity);
 
@@ -125,7 +127,7 @@ class EatSpoiledFoodCest
         $status = new Status($gameItem, $statusConfig);
         $I->haveInRepository($status);
 
-        $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem);
+        $this->consumeAction->loadParameters($consumeActionEntity, $gameItem, $player, $gameItem);
         $this->consumeAction->execute();
     }
 }

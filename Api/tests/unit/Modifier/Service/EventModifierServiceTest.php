@@ -4,6 +4,8 @@ namespace Mush\Tests\unit\Modifier\Service;
 
 use Mockery;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Entity\Daedalus;
@@ -71,18 +73,18 @@ final class EventModifierServiceTest extends TestCase
 
         $action = new ActionConfig();
         $action
-            ->setActionName('action')
-            ->setTypes(['type1', 'type2'])
+            ->setActionName(ActionEnum::BUILD)
+            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT])
             ->setMovementCost(1)
             ->setSuccessRate(50);
 
         // add attempt
-        $event = new ActionVariableEvent($action, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
+        $event = new ActionVariableEvent($action, $player, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
         $statusConfig = new ChargeStatusConfig();
         $statusConfig->setStatusName(StatusEnum::ATTEMPT);
         $attempt = new Attempt($player, $statusConfig);
         $attempt->setCharge(1);
-        $attempt->setAction('action');
+        $attempt->setAction(ActionEnum::BUILD);
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 
@@ -94,7 +96,7 @@ final class EventModifierServiceTest extends TestCase
         self::assertSame(50 * 1.25 ** 1, $modifiedEvent->getQuantity());
 
         // More attempts
-        $event = new ActionVariableEvent($action, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
+        $event = new ActionVariableEvent($action, $player, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
         $attempt->setCharge(3);
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
@@ -117,18 +119,18 @@ final class EventModifierServiceTest extends TestCase
 
         $action = new ActionConfig();
         $action
-            ->setActionName('action')
-            ->setTypes(['type1', 'type2'])
+            ->setActionName(ActionEnum::BUILD)
+            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT])
             ->setMovementCost(1)
             ->setSuccessRate(50);
 
         // add attempt
-        $event = new ActionVariableEvent($action, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
+        $event = new ActionVariableEvent($action, $player, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
         $statusConfig = new ChargeStatusConfig();
         $statusConfig->setStatusName(StatusEnum::ATTEMPT);
         $attempt = new Attempt($player, $statusConfig);
         $attempt->setCharge(1);
-        $attempt->setAction('otherAction');
+        $attempt->setAction(ActionEnum::ATTACK);
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 

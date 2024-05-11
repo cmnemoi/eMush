@@ -140,7 +140,8 @@ class ReportActionCest
             actionConfig: $action,
             actionProvider: $gameEquipment,
             player: $player,
-            target: $gameEquipment);
+            target: $gameEquipment
+        );
 
         $I->assertTrue($this->reportEquipment->isVisible());
 
@@ -185,12 +186,12 @@ class ReportActionCest
         $action
             ->setActionName(ActionEnum::REPORT_EQUIPMENT)
             ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-        $characterConfig->setActionConfigs(new ArrayCollection([$action]));
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
@@ -213,6 +214,7 @@ class ReportActionCest
         $statusConfig
             ->setStatusName(StatusEnum::FIRE)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setActionConfigs([$action])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($room, $statusConfig);
@@ -233,7 +235,8 @@ class ReportActionCest
         $this->reportFire->loadParameters(
             actionConfig: $action,
             actionProvider: $status,
-            player: $player);
+            player: $player
+        );
 
         $I->assertTrue($this->reportFire->isVisible());
 

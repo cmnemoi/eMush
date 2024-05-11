@@ -89,7 +89,8 @@ class PlayDynarcadeCest
             actionConfig: $this->action,
             actionProvider: $dynarcade,
             player: $gamerPlayer,
-            target: $dynarcade);
+            target: $dynarcade
+        );
 
         $I->assertTrue($this->playDynarcadeAction->isVisible());
         $I->assertNull($this->playDynarcadeAction->cannotExecuteReason());

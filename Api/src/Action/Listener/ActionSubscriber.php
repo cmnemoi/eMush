@@ -6,7 +6,6 @@ namespace Mush\Action\Listener;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
@@ -110,9 +109,8 @@ final class ActionSubscriber implements EventSubscriberInterface
             /** @var Action $getUpAction */
             $getUpAction = $player
                 ->getActions($player, ActionHolderEnum::PLAYER)
-                ->filter(fn (Action $action) => $action->getActionConfig()->getActionName() === ActionEnum::GET_UP)
-                ->first()
-            ;
+                ->filter(static fn (Action $action) => $action->getActionConfig()->getActionName() === ActionEnum::GET_UP)
+                ->first();
 
             /** @var AbstractAction $getUpActionHandler */
             $getUpActionHandler = $this->actionStrategyService->getAction(ActionEnum::GET_UP);

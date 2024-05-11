@@ -90,7 +90,7 @@ class LastPlayerKilledCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $event = new PlayerEvent($player, [ActionEnum::HIT->value], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::DEATH_PLAYER);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());

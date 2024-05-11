@@ -95,11 +95,11 @@ final class PlayerNormalizerCest extends AbstractFunctionalTest
         );
 
         // given the player drops the post-it in the place
-        $this->dropAction->loadParameters($this->dropConfig, $this->player, $postIt);
+        $this->dropAction->loadParameters($this->dropConfig, $postIt, $this->player, $postIt);
         $this->dropAction->execute();
 
         // given the player takes it back in their inventory
-        $this->takeAction->loadParameters($this->takeConfig, $this->player, $postIt);
+        $this->takeAction->loadParameters($this->takeConfig, $postIt, $this->player, $postIt);
         $this->takeAction->execute();
 
         // when I normalize the player

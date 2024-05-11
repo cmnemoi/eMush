@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Document;
@@ -115,5 +116,10 @@ abstract class EquipmentMechanic
         $this->actions->add($action);
 
         return $this;
+    }
+
+    public function hasAction(ActionEnum $actionName): bool
+    {
+        return !$this->getActions()->filter(static fn (ActionConfig $actionConfig) => $actionConfig->getActionName() === $actionName)->isEmpty();
     }
 }

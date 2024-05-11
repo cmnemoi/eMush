@@ -44,7 +44,11 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $this->action->setDirtyRate(100);
         $I->flushToDatabase($this->action);
 
-        $this->searchAction->loadParameters($this->action, $this->player1, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1
+        );
         $this->searchAction->execute();
 
         $I->assertTrue($this->player1->hasStatus(PlayerStatusEnum::DIRTY));
@@ -71,7 +75,11 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $I->assertCount(1, $this->player1->getModifiers());
         $I->assertCount(0, $this->player1->getStatuses());
 
-        $this->searchAction->loadParameters($this->action, $this->player1, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1
+        );
         $this->searchAction->execute();
 
         $I->assertFalse($this->player1->hasStatus(PlayerStatusEnum::DIRTY));
@@ -109,7 +117,11 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $I->assertCount(1, $this->player1->getModifiers());
         $I->assertCount(0, $this->player1->getStatuses());
 
-        $this->searchAction->loadParameters($this->action, $this->player1, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1
+        );
         $this->searchAction->execute();
 
         $I->assertTrue($this->player1->hasStatus(PlayerStatusEnum::DIRTY));
@@ -122,7 +134,11 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
 
         $initHealthPoints = $this->player1->getHealthPoint();
 
-        $this->searchAction->loadParameters($this->action, $this->player1, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1
+        );
         $this->searchAction->execute();
 
         $I->assertEquals($initHealthPoints - 2, $this->player1->getHealthPoint());
@@ -150,7 +166,11 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $I->assertCount(1, $this->player1->getEquipments());
         $I->assertCount(1, $this->player1->getModifiers());
 
-        $this->searchAction->loadParameters($this->action, $this->player1, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1
+        );
 
         $this->searchAction->execute();
 

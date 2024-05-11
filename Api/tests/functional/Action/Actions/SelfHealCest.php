@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\SelfHeal;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -66,6 +67,7 @@ final class SelfHealCest extends AbstractFunctionalTest
         $action
             ->setActionName(ActionEnum::SELF_HEAL)
             ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->setActionCost(3)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST)
@@ -97,7 +99,8 @@ final class SelfHealCest extends AbstractFunctionalTest
         $this->selfHealAction->loadParameters(
             actionConfig: $action,
             actionProvider: $healerPlayer,
-            player: $healerPlayer);
+            player: $healerPlayer
+        );
 
         $I->assertTrue($this->selfHealAction->isVisible());
         $I->assertNull($this->selfHealAction->cannotExecuteReason());
@@ -132,7 +135,8 @@ final class SelfHealCest extends AbstractFunctionalTest
         $this->selfHealAction->loadParameters(
             actionConfig: $this->selfHealConfig,
             actionProvider: $this->player,
-            player: $this->player);
+            player: $this->player
+        );
         $this->selfHealAction->execute();
 
         // then I don't see a log about health gained

@@ -43,7 +43,7 @@ final class HunterServiceKillHunterCest extends AbstractFunctionalTest
         $I->assertCount(1, $this->daedalus->getAttackingHunters());
 
         // when we kill this hunter
-        $this->hunterService->killHunter($this->hunter, [ActionEnum::SHOOT_HUNTER], $this->player1);
+        $this->hunterService->killHunter($this->hunter, [ActionEnum::SHOOT_HUNTER->value], $this->player1);
 
         // then there is no more hunter attacking
         $I->assertEmpty($this->daedalus->getAttackingHunters());
@@ -55,7 +55,7 @@ final class HunterServiceKillHunterCest extends AbstractFunctionalTest
         $I->seeInRepository(Alert::class, ['daedalus' => $this->daedalus, 'name' => AlertEnum::HUNTER]);
 
         // when we kill this hunter
-        $this->hunterService->killHunter($this->hunter, [ActionEnum::SHOOT_HUNTER], $this->player1);
+        $this->hunterService->killHunter($this->hunter, [ActionEnum::SHOOT_HUNTER->value], $this->player1);
 
         // then there is no hunter alert anymore
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $this->daedalus, 'name' => AlertEnum::HUNTER]);

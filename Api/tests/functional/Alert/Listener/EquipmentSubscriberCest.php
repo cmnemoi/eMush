@@ -98,7 +98,7 @@ class EquipmentSubscriberCest
             $gravitySimulator,
             false,
             VisibilityEnum::HIDDEN,
-            [ActionEnum::DISASSEMBLE],
+            [ActionEnum::DISASSEMBLE->value],
             new \DateTime()
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);

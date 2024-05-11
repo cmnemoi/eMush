@@ -8,6 +8,7 @@ use Mush\Action\Actions\Move;
 use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Communication\Entity\Channel;
@@ -95,12 +96,13 @@ class ActionSubscriberCest
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
+        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actionConfigs' => new ArrayCollection([$moveActionEntity])]);
 
         $door = new Door($room2);
         $door
@@ -138,7 +140,7 @@ class ActionSubscriberCest
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierName(SymptomEnum::BREAKOUTS);
 
         $I->haveInRepository($symptomConfig);
@@ -167,7 +169,7 @@ class ActionSubscriberCest
 
         $moveAction = $I->grabService(Move::class);
 
-        $moveAction->loadParameters($moveActionEntity, $player, $door);
+        $moveAction->loadParameters($moveActionEntity, $door, $player, $door);
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
@@ -214,7 +216,8 @@ class ActionSubscriberCest
         $takeActionEntity = new ActionConfig();
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
@@ -237,7 +240,7 @@ class ActionSubscriberCest
         $I->refreshEntities($player);
 
         /** @var EquipmentConfig $itemConfig */
-        $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$takeActionEntity])]);
+        $itemConfig = $I->have(ItemConfig::class, ['actionConfigs' => new ArrayCollection([$takeActionEntity])]);
 
         $cat = new GameItem($room);
         $cat
@@ -252,7 +255,7 @@ class ActionSubscriberCest
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setTagConstraints([
-                ActionEnum::TAKE => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
                 ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -282,7 +285,7 @@ class ActionSubscriberCest
 
         $takeAction = $I->grabService(Take::class);
 
-        $takeAction->loadParameters($takeActionEntity, $player, $cat);
+        $takeAction->loadParameters($takeActionEntity, $cat, $player, $cat);
         $takeAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
@@ -318,12 +321,13 @@ class ActionSubscriberCest
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
+        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actionConfigs' => new ArrayCollection([$moveActionEntity])]);
 
         $door = new Door($room2);
         $door
@@ -361,7 +365,7 @@ class ActionSubscriberCest
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(SymptomEnum::DROOLING);
@@ -391,7 +395,7 @@ class ActionSubscriberCest
 
         $moveAction = $I->grabService(Move::class);
 
-        $moveAction->loadParameters($moveActionEntity, $player, $door);
+        $moveAction->loadParameters($moveActionEntity, $door, $player, $door);
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
@@ -427,12 +431,13 @@ class ActionSubscriberCest
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
+        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actionConfigs' => new ArrayCollection([$moveActionEntity])]);
 
         $door = new Door($room2);
         $door
@@ -470,7 +475,7 @@ class ActionSubscriberCest
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setApplyOnTarget(false)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(SymptomEnum::FOAMING_MOUTH);
@@ -501,7 +506,7 @@ class ActionSubscriberCest
 
         $moveAction = $I->grabService(Move::class);
 
-        $moveAction->loadParameters($moveActionEntity, $player, $door);
+        $moveAction->loadParameters($moveActionEntity, $door, $player, $door);
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
@@ -537,12 +542,13 @@ class ActionSubscriberCest
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
+        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actionConfigs' => new ArrayCollection([$moveActionEntity])]);
 
         $door = new Door($room2);
         $door
@@ -580,7 +586,7 @@ class ActionSubscriberCest
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(SymptomEnum::SNEEZING);
@@ -610,7 +616,7 @@ class ActionSubscriberCest
 
         $moveAction = $I->grabService(Move::class);
 
-        $moveAction->loadParameters($moveActionEntity, $player, $door);
+        $moveAction->loadParameters($moveActionEntity, $door, $player, $door);
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
@@ -652,26 +658,29 @@ class ActionSubscriberCest
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         $consumeActionEntity = new ActionConfig();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($consumeActionEntity);
 
         $consumeDrugActionEntity = new ActionConfig();
         $consumeDrugActionEntity
             ->setActionName(ActionEnum::CONSUME_DRUG)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($consumeDrugActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
+        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actionConfigs' => new ArrayCollection([$moveActionEntity])]);
 
         $door = new Door($room2);
         $door
@@ -724,7 +733,7 @@ class ActionSubscriberCest
         $I->haveInRepository($gameItem);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$moveActionEntity])]);
+        $characterConfig = $I->have(CharacterConfig::class, ['actionConfigs' => new ArrayCollection([$moveActionEntity])]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
@@ -747,8 +756,8 @@ class ActionSubscriberCest
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(SymptomEnum::VOMITING);
@@ -777,7 +786,7 @@ class ActionSubscriberCest
 
         $moveAction = $I->grabService(Move::class);
 
-        $moveAction->loadParameters($moveActionEntity, $player, $door);
+        $moveAction->loadParameters($moveActionEntity, $door, $player, $door);
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
@@ -789,7 +798,7 @@ class ActionSubscriberCest
 
         $consumeAction = $I->grabService(Consume::class);
 
-        $consumeAction->loadParameters($consumeActionEntity, $player, $gameItem);
+        $consumeAction->loadParameters($consumeActionEntity, $gameItem, $player, $gameItem);
         $consumeAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
@@ -835,7 +844,8 @@ class ActionSubscriberCest
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
@@ -887,7 +897,7 @@ class ActionSubscriberCest
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$catInRoomSymptomActivationRequirement])
             ->setModifierName(SymptomEnum::FEAR_OF_CATS);
@@ -917,7 +927,7 @@ class ActionSubscriberCest
 
         $moveAction = $I->grabService(Move::class);
 
-        $moveAction->loadParameters($moveActionEntity, $player, $door);
+        $moveAction->loadParameters($moveActionEntity, $door, $player, $door);
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
@@ -990,14 +1000,16 @@ class ActionSubscriberCest
         $attackAction = new ActionConfig();
         $attackAction
             ->setActionName(ActionEnum::ATTACK)
-            ->setRange(ActionRangeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($attackAction);
 
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
@@ -1093,7 +1105,7 @@ class ActionSubscriberCest
         $I->assertCount(1, $player->getModifiers());
 
         $moveAction = $I->grabService(Move::class);
-        $moveAction->loadParameters($moveActionEntity, $player, $door);
+        $moveAction->loadParameters($moveActionEntity, $door, $player, $door);
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [

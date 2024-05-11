@@ -80,9 +80,10 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
 
         $this->consumeAction->loadParameters(
             actionConfig: $this->action,
-            actionProvider:  $gameItem,
+            actionProvider: $gameItem,
             player: $this->player1,
-            target: $gameItem);
+            target: $gameItem
+        );
 
         $costWithoutFrozen = $this->consumeAction->getActionPointCost();
 
@@ -98,9 +99,10 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
 
         $this->consumeAction->loadParameters(
             actionConfig: $this->action,
-            actionProvider:  $gameItem,
+            actionProvider: $gameItem,
             player: $this->player1,
-            target: $gameItem);
+            target: $gameItem
+        );
         $costWithFrozen = $this->consumeAction->getActionPointCost();
 
         $I->assertEquals($costWithoutFrozen + 1, $costWithFrozen);

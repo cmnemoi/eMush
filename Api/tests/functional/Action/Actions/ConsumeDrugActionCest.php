@@ -178,7 +178,8 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
             actionConfig: $consumeActionEntity,
             actionProvider: $gameItem,
             player: $player,
-            target: $gameItem);
+            target: $gameItem
+        );
 
         $this->consumeAction->execute();
 
@@ -194,7 +195,8 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
             actionConfig: $consumeActionEntity,
             actionProvider: $gameItem2,
             player: $player,
-            target: $gameItem2);
+            target: $gameItem2
+        );
         $I->assertNotNull($this->consumeAction->cannotExecuteReason());
 
         // prevent player to die at cycle change
@@ -216,7 +218,8 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
             actionConfig: $consumeActionEntity,
             actionProvider: $gameItem2,
             player: $player,
-            target: $gameItem2);
+            target: $gameItem2
+        );
 
         $I->assertNull($this->consumeAction->cannotExecuteReason());
     }
@@ -247,7 +250,8 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
             actionConfig: $this->consumeConfig,
             actionProvider: $drug,
             player: $this->player,
-            target: $drug);
+            target: $drug
+        );
         $this->consumeAction->execute();
 
         // then the depression should still be there

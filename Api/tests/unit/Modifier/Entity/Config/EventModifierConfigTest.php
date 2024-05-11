@@ -30,11 +30,11 @@ final class EventModifierConfigTest extends TestCase
         $modifier
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([
-                ActionEnum::CHECK_INFECTION => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::ANATHEMA => ModifierRequirementEnum::ALL_TAGS,
-                ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::CHECK_SPORE_LEVEL->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::ANATHEMA->value => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS,
                 ModifierNameEnum::APRON_MODIFIER => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::SHOWER => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
             ]);
 
         $event = new AbstractGameEvent([], new \DateTime());
@@ -48,13 +48,13 @@ final class EventModifierConfigTest extends TestCase
         $event->addTag(ModifierNameEnum::APRON_MODIFIER);
         self::assertFalse($modifier->doModifierApplies($event));
 
-        $event->addTag(ActionEnum::CONVERT_ACTION_TO_MOVEMENT);
+        $event->addTag(ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value);
         self::assertFalse($modifier->doModifierApplies($event));
 
-        $event->addTag(ActionEnum::ANATHEMA);
+        $event->addTag(ActionEnum::ANATHEMA->value);
         self::assertTrue($modifier->doModifierApplies($event));
 
-        $event->addTag(ActionEnum::CHECK_INFECTION);
+        $event->addTag(ActionEnum::CHECK_SPORE_LEVEL->value);
         self::assertFalse($modifier->doModifierApplies($event));
     }
 
@@ -65,7 +65,7 @@ final class EventModifierConfigTest extends TestCase
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTargetVariable(DaedalusVariableEnum::FUEL);
         $action = new ActionConfig();
-        $action->setActionName('test');
+        $action->setActionName(ActionEnum::AUTO_DESTROY);
         $player = new Player();
         $player->setDaedalus(new Daedalus());
 
@@ -77,11 +77,11 @@ final class EventModifierConfigTest extends TestCase
         $event->setEventName(ActionVariableEvent::APPLY_COST);
         self::assertFalse($modifier->doModifierApplies($event));
 
-        $event = new ActionVariableEvent($action, PlayerVariableEnum::ACTION_POINT, 2, $player, null);
+        $event = new ActionVariableEvent($action, $player, PlayerVariableEnum::ACTION_POINT, 2, $player, null);
         $event->setEventName(ActionVariableEvent::APPLY_COST);
         self::assertFalse($modifier->doModifierApplies($event));
 
-        $event = new ActionVariableEvent($action, DaedalusVariableEnum::FUEL, 2, $player, null);
+        $event = new ActionVariableEvent($action, $player, DaedalusVariableEnum::FUEL, 2, $player, null);
         $event->setEventName(ActionVariableEvent::APPLY_COST);
         self::assertTrue($modifier->doModifierApplies($event));
     }

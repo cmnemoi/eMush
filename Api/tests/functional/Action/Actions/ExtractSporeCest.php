@@ -57,7 +57,8 @@ final class ExtractSporeCest extends AbstractFunctionalTest
         $this->extractSporeAction->loadParameters(
             actionConfig: $this->extractSporeActionConfig,
             actionProvider: $this->kuanTi,
-            player: $this->kuanTi);
+            player: $this->kuanTi
+        );
         $this->extractSporeAction->execute();
 
         // then Kuan Ti should have the dirty status

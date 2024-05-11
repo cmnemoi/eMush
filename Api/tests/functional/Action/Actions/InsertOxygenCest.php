@@ -63,7 +63,8 @@ final class InsertOxygenCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $oxygenTank,
             player: $this->player,
-            target: $gameCapsule);
+            target: $gameCapsule
+        );
         $this->insertOxygenAction->execute();
 
         // then the oxygen level of Daedalus should be increased by 1

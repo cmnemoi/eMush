@@ -94,7 +94,12 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootHunterAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->turret,
+            player: $this->player1,
+            target: $hunter
+        );
 
         $I->assertTrue($this->shootHunterAction->isVisible());
         $I->assertNotNull($this->shootHunterAction->cannotExecuteReason());
@@ -108,7 +113,12 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootHunterAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->turret,
+            player: $this->player1,
+            target: $hunter
+        );
 
         $I->assertFalse($this->shootHunterAction->isVisible());
     }
@@ -130,7 +140,12 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootHunterAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->turret,
+            player: $this->player1,
+            target: $hunter
+        );
 
         $I->assertFalse($this->shootHunterAction->isVisible());
     }
@@ -140,7 +155,12 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootHunterAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->turret,
+            player: $this->player1,
+            target: $hunter
+        );
 
         $I->assertTrue($this->shootHunterAction->isVisible());
 
@@ -167,7 +187,12 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootHunterAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->turret,
+            player: $this->player1,
+            target: $hunter
+        );
 
         $I->assertTrue($this->shootHunterAction->isVisible());
 
@@ -194,7 +219,12 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $hunter->setHealth(1); // make sure hunter will die after the shot
         $I->haveInRepository($hunter);
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootHunterAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->turret,
+            player: $this->player1,
+            target: $hunter
+        );
 
         $I->assertTrue($this->shootHunterAction->isVisible());
 
@@ -242,7 +272,12 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $lensesModifier = new GameModifier($this->player1, $lensesModifierConfig);
         $I->haveInRepository($lensesModifier);
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootHunterAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->turret,
+            player: $this->player1,
+            target: $hunter
+        );
 
         $I->assertTrue($this->shootHunterAction->isVisible());
 
@@ -270,7 +305,12 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         );
 
         // when I shoot the hunter
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootHunterAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->turret,
+            player: $this->player1,
+            target: $hunter
+        );
         $this->shootHunterAction->execute();
 
         // then hunter should have 2 health, because with the invertebrate shell, the damage is doubled (4)

@@ -74,7 +74,7 @@ class MovementPointConversionCest
         $I->haveInRepository($convertActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
+        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actionConfigs' => new ArrayCollection([$moveActionEntity])]);
         $door = new Door($room2);
         $door
             ->setName('door name')
@@ -109,7 +109,8 @@ class MovementPointConversionCest
             actionConfig: $moveActionEntity,
             actionProvider: $door,
             player: $player,
-            target: $door);
+            target: $door
+        );
 
         $I->assertEquals(1, $this->moveAction->getMovementPointCost());
         $I->assertEquals(0, $this->moveAction->getActionPointCost());
@@ -162,7 +163,7 @@ class MovementPointConversionCest
         $I->haveInRepository($convertActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
+        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actionConfigs' => new ArrayCollection([$moveActionEntity])]);
         $door = new Door($room2);
         $door
             ->setName('door name')
@@ -197,7 +198,8 @@ class MovementPointConversionCest
             actionConfig: $moveActionEntity,
             actionProvider: $door,
             player: $player,
-            target: $door);
+            target: $door
+        );
 
         $I->assertNull($this->moveAction->cannotExecuteReason());
         $I->assertEquals(2, $this->moveAction->getMovementPointCost());
@@ -251,7 +253,7 @@ class MovementPointConversionCest
         $I->haveInRepository($convertActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
+        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actionConfigs' => new ArrayCollection([$moveActionEntity])]);
         $door = new Door($room2);
         $door
             ->setName('door name')
@@ -286,7 +288,8 @@ class MovementPointConversionCest
             actionConfig: $moveActionEntity,
             actionProvider: $door,
             player: $player,
-            target: $door);
+            target: $door
+        );
 
         $I->assertEquals(5, $this->moveAction->getMovementPointCost());
         $I->assertEquals(0, $this->moveAction->getActionPointCost());
@@ -374,7 +377,8 @@ class MovementPointConversionCest
             actionConfig: $moveActionEntity,
             actionProvider: $door,
             player: $player,
-            target: $door);
+            target: $door
+        );
 
         $I->assertNotNull($this->moveAction->cannotExecuteReason());
     }

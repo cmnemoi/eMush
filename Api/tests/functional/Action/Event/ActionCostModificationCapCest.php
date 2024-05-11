@@ -62,7 +62,12 @@ final class ActionCostModificationCapCest extends AbstractFunctionalTest
         $soapModifier = new GameModifier($this->player2, $soapModifierConfigImproved);
         $I->haveInRepository($soapModifier);
 
-        $this->showerAction->loadParameters($this->action, $this->player2, $gameEquipment);
+        $this->showerAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $gameEquipment,
+            player: $this->player2,
+            target: $gameEquipment
+        );
 
         $initActionPoints = $this->player2->getPlayerInfo()->getCharacterConfig()->getInitActionPoint();
         $this->action->getActionCost();

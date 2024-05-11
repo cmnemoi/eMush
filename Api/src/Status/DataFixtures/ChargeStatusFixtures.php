@@ -587,7 +587,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             GameConfigFixtures::class,
             StatusModifierConfigFixtures::class,
             GearModifierConfigFixtures::class,
-            ActionsFixtures::class
+            ActionsFixtures::class,
         ];
     }
 }

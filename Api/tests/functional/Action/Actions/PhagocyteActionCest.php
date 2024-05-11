@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Phagocyte;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -54,6 +55,7 @@ class PhagocyteActionCest
         $phagocyteActionEntity
             ->setActionName(ActionEnum::PHAGOCYTE)
             ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($phagocyteActionEntity);

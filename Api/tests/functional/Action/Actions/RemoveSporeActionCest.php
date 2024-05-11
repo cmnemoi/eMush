@@ -108,7 +108,8 @@ class RemoveSporeActionCest
             actionConfig: $action,
             actionProvider: $gameItem,
             player: $player,
-            target: $gameItem);
+            target: $gameItem
+        );
 
         $I->assertTrue($this->removeSpore->isVisible());
 

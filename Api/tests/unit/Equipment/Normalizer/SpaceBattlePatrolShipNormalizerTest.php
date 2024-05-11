@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Equipment\Normalizer;
 
+use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -71,9 +72,9 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $patrolShip->method('getPlace')->willReturn($place);
         $patrolShip->method('getDaedalus')->willReturn($daedalus);
 
-        $patrolShipArmor->method('getUsedCharge')->willReturn(10);
+        $patrolShipArmor->method('getCharge')->willReturn(10);
 
-        $patrolShipCharges->method('getUsedCharge')->willReturn(10);
+        $patrolShipCharges->method('getCharge')->willReturn(10);
 
         $patrolShipPilot->method('getName')->willReturn(CharacterEnum::CHUN);
 
@@ -125,9 +126,9 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $patrolShip->method('getPlace')->willReturn($place);
         $patrolShip->method('getDaedalus')->willReturn($daedalus);
 
-        $patrolShipArmor->method('getUsedCharge')->willReturn(10);
+        $patrolShipArmor->method('getCharge')->willReturn(10);
 
-        $patrolShipCharges->method('getUsedCharge')->willReturn(10);
+        $patrolShipCharges->method('getCharge')->willReturn(10);
 
         $patrolShipPilot->method('getName')->willReturn(CharacterEnum::CHUN);
 
@@ -179,9 +180,9 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $patrolShip->method('getPlace')->willReturn($place);
         $patrolShip->method('getDaedalus')->willReturn($daedalus);
 
-        $patrolShipArmor->method('getUsedCharge')->willReturn(10);
+        $patrolShipArmor->method('getCharge')->willReturn(10);
 
-        $patrolShipCharges->method('getUsedCharge')->willReturn(10);
+        $patrolShipCharges->method('getCharge')->willReturn(10);
 
         $place->method('getPlayers')->willReturn($placePlayers);
 
@@ -233,9 +234,9 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $patrolShip->method('getDaedalus')->willReturn($daedalus);
         $patrolShip->method('hasStatus')->with(EquipmentStatusEnum::BROKEN)->willReturn(true);
 
-        $patrolShipArmor->method('getUsedCharge')->willReturn(10);
+        $patrolShipArmor->method('getCharge')->willReturn(10);
 
-        $patrolShipCharges->method('getUsedCharge')->willReturn(10);
+        $patrolShipCharges->method('getCharge')->willReturn(10);
 
         $patrolShipPilot->method('getName')->willReturn(CharacterEnum::CHUN);
 

@@ -96,11 +96,11 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
         );
 
         // given the player takes the post-it
-        $this->takeAction->loadParameters($this->takeConfig, $this->player, $postIt);
+        $this->takeAction->loadParameters($this->takeConfig, $postIt, $this->player, $postIt);
         $this->takeAction->execute();
 
         // given the player drops it back in the place
-        $this->dropAction->loadParameters($this->dropConfig, $this->player, $postIt);
+        $this->dropAction->loadParameters($this->dropConfig, $postIt, $this->player, $postIt);
         $this->dropAction->execute();
 
         // when I normalize the place
@@ -135,11 +135,11 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
         );
 
         // given the player takes one piece of scrap
-        $this->takeAction->loadParameters($this->takeConfig, $this->player, $scrap[2]);
+        $this->takeAction->loadParameters($this->takeConfig, $scrap[2], $this->player, $scrap[2]);
         $this->takeAction->execute();
 
         // given the player drops it back in the place
-        $this->dropAction->loadParameters($this->dropConfig, $this->player, $scrap[2]);
+        $this->dropAction->loadParameters($this->dropConfig, $scrap[2], $this->player, $scrap[2]);
         $this->dropAction->execute();
 
         // when I normalize the place

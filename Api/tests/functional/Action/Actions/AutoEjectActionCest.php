@@ -7,6 +7,7 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\AutoEject;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -76,7 +77,8 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->pasiphae,
             player: $this->player1,
-            target:$this->pasiphae);
+            target: $this->pasiphae
+        );
 
         // then player should not see the action
         $I->assertFalse($this->autoEjectAction->isVisible());
@@ -98,7 +100,8 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $spaceSuit,
             player: $this->player1,
-            target:$this->pasiphae);
+            target: $this->pasiphae
+        );
 
         // then player should not see the action
         $I->assertFalse($this->autoEjectAction->isVisible());
@@ -123,10 +126,12 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $spaceSuit,
             player: $this->player1,
-            target:$this->pasiphae);
+            target: $this->pasiphae
+        );
 
         // then player should not see the action
-        $I->assertFalse($this->autoEjectAction->isVisible());
+        $I->assertTrue($this->autoEjectAction->isVisible());
+        $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->autoEjectAction->cannotExecuteReason());
     }
 
     public function testAutoEjectNotAvailableIfPlayerIsNotMush(FunctionalTester $I): void
@@ -152,7 +157,8 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $spaceSuit,
             player: $this->player1,
-            target:$this->pasiphae);
+            target: $this->pasiphae
+        );
 
         // then player should not see the action
         $I->assertFalse($this->autoEjectAction->isVisible());
@@ -173,7 +179,8 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $spaceSuit,
             player: $this->player1,
-            target:$this->pasiphae);
+            target: $this->pasiphae
+        );
         $I->assertTrue($this->autoEjectAction->isVisible());
         $this->autoEjectAction->execute();
 

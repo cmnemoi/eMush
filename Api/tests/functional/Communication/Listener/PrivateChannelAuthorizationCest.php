@@ -7,6 +7,7 @@ use Mush\Action\Actions\Drop;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
@@ -56,7 +57,8 @@ class PrivateChannelAuthorizationCest
         $dropActionEntity = new ActionConfig();
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
 
@@ -150,7 +152,7 @@ class PrivateChannelAuthorizationCest
             ->setOwner($player2);
         $I->haveInRepository($talkie2);
 
-        $this->dropAction->loadParameters($dropActionEntity, $player2, $talkie2);
+        $this->dropAction->loadParameters($dropActionEntity, $talkie2, $player2, $talkie2);
         $this->dropAction->execute();
 
         $I->dontSeeInRepository(ChannelPlayer::class, [
@@ -169,13 +171,15 @@ class PrivateChannelAuthorizationCest
         $dropActionEntity = new ActionConfig();
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
@@ -251,7 +255,7 @@ class PrivateChannelAuthorizationCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, [
             'name' => 'door_test',
-            'actions' => new ArrayCollection([$moveActionEntity]),
+            'actionConfigs' => new ArrayCollection([$moveActionEntity]),
         ]);
         $door = new Door($room2);
         $door
@@ -284,7 +288,7 @@ class PrivateChannelAuthorizationCest
             ->setOwner($player2);
         $I->haveInRepository($talkie2);
 
-        $this->dropAction->loadParameters($dropActionEntity, $player2, $talkie2);
+        $this->dropAction->loadParameters($dropActionEntity, $talkie2, $player2, $talkie2);
         $this->dropAction->execute();
 
         $I->assertCount(2, $privateChannel->getParticipants());
@@ -297,7 +301,7 @@ class PrivateChannelAuthorizationCest
             'message' => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
         ]);
 
-        $this->moveAction->loadParameters($moveActionEntity, $player2, $door);
+        $this->moveAction->loadParameters($moveActionEntity, $door, $player2, $door);
         $this->moveAction->execute();
 
         $I->dontSeeInRepository(ChannelPlayer::class, [
@@ -315,13 +319,15 @@ class PrivateChannelAuthorizationCest
         $dropActionEntity = new ActionConfig();
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
@@ -397,7 +403,7 @@ class PrivateChannelAuthorizationCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, [
             'name' => 'door_test',
-            'actions' => new ArrayCollection([$moveActionEntity]),
+            'actionConfigs' => new ArrayCollection([$moveActionEntity]),
         ]);
         $door = new Door($room2);
         $door
@@ -430,7 +436,7 @@ class PrivateChannelAuthorizationCest
             ->setOwner($player2);
         $I->haveInRepository($talkie2);
 
-        $this->dropAction->loadParameters($dropActionEntity, $player2, $talkie2);
+        $this->dropAction->loadParameters($dropActionEntity, $talkie2, $player2, $talkie2);
         $this->dropAction->execute();
 
         $I->seeInRepository(ChannelPlayer::class, [
@@ -443,7 +449,7 @@ class PrivateChannelAuthorizationCest
             'message' => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
         ]);
 
-        $this->moveAction->loadParameters($moveActionEntity, $player, $door);
+        $this->moveAction->loadParameters($moveActionEntity, $door, $player, $door);
         $this->moveAction->execute();
 
         $I->dontSeeInRepository(ChannelPlayer::class, [
@@ -461,7 +467,8 @@ class PrivateChannelAuthorizationCest
         $dropActionEntity = new ActionConfig();
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
 
@@ -565,7 +572,7 @@ class PrivateChannelAuthorizationCest
             ->setOwner($player2);
         $I->haveInRepository($talkie2);
 
-        $this->dropAction->loadParameters($dropActionEntity, $player2, $talkie2);
+        $this->dropAction->loadParameters($dropActionEntity, $talkie2, $player2, $talkie2);
         $this->dropAction->execute();
 
         $I->assertCount(1, $privateChannel->getParticipants());
@@ -611,13 +618,15 @@ class PrivateChannelAuthorizationCest
         $dropActionEntity = new ActionConfig();
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
@@ -681,7 +690,7 @@ class PrivateChannelAuthorizationCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, [
             'name' => 'door_test',
-            'actions' => new ArrayCollection([$moveActionEntity]),
+            'actionConfigs' => new ArrayCollection([$moveActionEntity]),
         ]);
         $door = new Door($room2);
         $door
@@ -740,7 +749,7 @@ class PrivateChannelAuthorizationCest
         $I->haveInRepository($talkie2);
 
         // start test
-        $this->dropAction->loadParameters($dropActionEntity, $player, $talkie1);
+        $this->dropAction->loadParameters($dropActionEntity, $talkie1, $player, $talkie1);
         $this->dropAction->execute();
 
         $I->assertCount(2, $privateChannel->getParticipants());
@@ -758,7 +767,7 @@ class PrivateChannelAuthorizationCest
             'message' => NeronMessageEnum::PLAYER_LEAVE_CHAT_DEATH,
         ]);
 
-        $this->moveAction->loadParameters($dropActionEntity, $player, $door);
+        $this->moveAction->loadParameters($dropActionEntity, $door, $player, $door);
         $this->moveAction->execute();
         $I->assertCount(1, $privateChannel->getParticipants());
         $I->dontSeeInRepository(Message::class, [

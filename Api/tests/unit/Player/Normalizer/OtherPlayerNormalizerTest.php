@@ -63,7 +63,7 @@ final class OtherPlayerNormalizerTest extends TestCase
         $player->method('getId')->willReturn(2);
         $player->method('getStatuses')->willReturn(new ArrayCollection());
         $player->method('getSkills')->willReturn(new ArrayCollection());
-        $player->method('getTargetActions')->willReturn(new ArrayCollection());
+        $player->method('getActions')->willReturn(new ArrayCollection());
         $player->method('getDaedalus')->willReturn($daedalus);
 
         $this->translationService
@@ -76,8 +76,6 @@ final class OtherPlayerNormalizerTest extends TestCase
             ->with('eleesha.description', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translated eleesha description')
             ->once();
-
-        $this->gearToolService->shouldReceive('getActionsTools')->once()->andReturn(new ArrayCollection([]));
 
         $data = $this->normalizer->normalize($player, null, ['currentPlayer' => new Player()]);
 

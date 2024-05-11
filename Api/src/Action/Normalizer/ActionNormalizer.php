@@ -91,7 +91,7 @@ class ActionNormalizer implements NormalizerInterface
             if ($actionClass->isVisible()) {
                 $normalizedAction = [
                     'id' => $actionConfig->getId(),
-                    'key' => $actionConfig->getActionName(),
+                    'key' => $actionConfig->getActionName()->value,
                     'name' => $this->translationService->translate(
                         "{$actionName}.name",
                         $translationParameters,

@@ -28,7 +28,6 @@ class Vomiting extends AbstractSymptomHandler
         if ($player->hasStatus(PlayerStatusEnum::DIRTY)) {
             return;
         }
-
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::DIRTY,
             $player,

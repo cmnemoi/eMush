@@ -7,6 +7,8 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Action\Service\ActionService;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
@@ -28,8 +30,6 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Tests\FunctionalTester;
-use Mush\Tests\unit\Action\Service\ActionService;
-use Mush\Tests\unit\Action\Service\ActionServiceInterface;
 use Mush\User\Entity\User;
 
 class ActionServiceCest
@@ -77,10 +77,16 @@ class ActionServiceCest
 
         $action = new ActionConfig();
         $action
-            ->setActionName('some name')
+            ->setActionName(ActionEnum::ANATHEMA)
             ->setActionCost(6);
 
-        $this->actionService->applyCostToPlayer($player, $action, null, new Success());
+        $this->actionService->applyCostToPlayer(
+            player: $player,
+            actionConfig: $action,
+            actionProvider: $player,
+            actionTarget: null,
+            actionResult: new Success()
+        );
 
         $I->assertEquals(4, $player->getActionPoint());
 
@@ -128,10 +134,16 @@ class ActionServiceCest
 
         $action = new ActionConfig();
         $action
-            ->setActionName('some name')
+            ->setActionName(ActionEnum::ANATHEMA)
             ->setActionCost(0);
 
-        $this->actionService->applyCostToPlayer($player, $action, null, new Success());
+        $this->actionService->applyCostToPlayer(
+            player: $player,
+            actionConfig: $action,
+            actionProvider: $player,
+            actionTarget: null,
+            actionResult: new Success()
+        );
 
         $I->assertEquals(10, $player->getActionPoint());
     }
@@ -181,10 +193,16 @@ class ActionServiceCest
         $I->refreshEntities($player);
 
         $action = new ActionConfig();
-        $action->setActionName('some name');
+        $action->setActionName(ActionEnum::BUILD);
         $action->setMovementCost(1);
 
-        $this->actionService->applyCostToPlayer($player, $action, null, new Success());
+        $this->actionService->applyCostToPlayer(
+            player: $player,
+            actionConfig: $action,
+            actionProvider: $player,
+            actionTarget: null,
+            actionResult: new Success()
+        );
 
         $I->assertEquals(9, $player->getActionPoint());
         $I->assertEquals(2, $player->getMovementPoint());
@@ -240,7 +258,7 @@ class ActionServiceCest
             ->setDelta(1)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setMode(VariableModifierModeEnum::ADDITIVE);
         $I->haveInRepository($modifierConfig);
@@ -250,10 +268,16 @@ class ActionServiceCest
         $I->haveInRepository($disabledModifier);
 
         $action = new ActionConfig();
-        $action->setActionName('some name');
+        $action->setActionName(ActionEnum::BUILD);
         $action->setMovementCost(1);
 
-        $this->actionService->applyCostToPlayer($player, $action, null, new Success());
+        $this->actionService->applyCostToPlayer(
+            player: $player,
+            actionConfig: $action,
+            actionProvider: $player,
+            actionTarget: null,
+            actionResult: new Success()
+        );
 
         $I->assertEquals(9, $player->getActionPoint());
         $I->assertEquals(1, $player->getMovementPoint());

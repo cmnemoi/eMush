@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Project\Normalizer;
 
-use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -55,7 +54,9 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
             target: $this->pilgredTerminal
         );
 
-        $this->repairActionId = $this->pilgredTerminal->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActions()->filter(static fn (ActionConfig $action) => $action->getActionName() === ActionEnum::REPAIR_PILGRED)->first()->getId();
+        $this->repairActionId = $this->pilgredTerminal->getEquipment()
+            ->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionByNameOrThrow(ActionEnum::REPAIR_PILGRED)
+            ->getId();
     }
 
     public function shouldNormalizeProject(FunctionalTester $I): void

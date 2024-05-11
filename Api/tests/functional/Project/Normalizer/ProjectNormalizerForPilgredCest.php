@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Project\Normalizer;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Project\Normalizer\ProjectNormalizer;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -23,6 +23,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
     private ProjectNormalizer $projectNormalizer;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private GameEquipment $terminal;
     private int $repairActionId;
 
     public function _before(FunctionalTester $I): void
@@ -36,7 +37,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given pilgred terminal in the room
-        $pilgredTerminal = $this->gameEquipmentService->createGameEquipmentFromName(
+        $this->terminal = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::PILGRED,
             equipmentHolder: $this->chun->getPlace(),
             reasons: [],
@@ -49,10 +50,12 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
             holder: $this->chun,
             tags: [],
             time: new \DateTime(),
-            target: $pilgredTerminal
+            target: $this->terminal
         );
 
-        $this->repairActionId = $pilgredTerminal->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActions()->filter(static fn ($action) => $action->getName() === ActionEnum::REPAIR_PILGRED)->first()->getId();
+        $this->repairActionId = $this->terminal
+            ->getMechanicActionByNameOrThrow(ActionEnum::REPAIR_PILGRED)
+            ->getId();
     }
 
     public function shouldNormalizeProject(FunctionalTester $I): void
@@ -98,7 +101,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
                 'actions' => [
                     [
                         'id' => $this->repairActionId,
-                        'key' => ActionEnum::REPAIR_PILGRED,
+                        'key' => ActionEnum::REPAIR_PILGRED->value,
                         'name' => 'Participer',
                         'actionPointCost' => 2,
                         'movementPointCost' => 0,
@@ -108,6 +111,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
                         'description' => 'Réparer PILGRED vous permettra de revenir sur Sol.',
                         'canExecute' => true,
                         'confirmation' => null,
+                        'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
                     ],
                 ],
             ],

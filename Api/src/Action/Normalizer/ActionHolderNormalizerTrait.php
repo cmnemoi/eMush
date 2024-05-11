@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Action\Normalizer;
 
-use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionHolderInterface;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Player\Entity\Player;
@@ -29,7 +29,7 @@ trait ActionHolderNormalizerTrait
 
         $normalizedActions = [];
 
-        /** @var ActionConfig $action */
+        /** @var Action $action */
         foreach ($availableActions as $action) {
             $normedAction = $this->normalizer->normalize($action, $format, $context);
             if (\is_array($normedAction) && \count($normedAction) > 0) {

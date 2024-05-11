@@ -428,7 +428,8 @@ final class ConsumeActionCest extends AbstractFunctionalTest
 
         // when Chun consumes the ration
         $this->consumeAction->loadParameters(
-            action: $this->consumeConfig,
+            actionConfig: $this->consumeConfig,
+            actionProvider: $ration,
             player: $this->chun,
             target: $ration,
         );

@@ -50,7 +50,7 @@ class ActionData
         [
             'name' => 'kill_player',
             'action_name' => ActionEnum::KILL_PLAYER,
-            'types' => [ActionTypeEnum::ACTION_ADMIN, ActionTypeEnum::ACTION_CONFIRM],
+            'types' => [ActionTypeEnum::ACTION_ADMIN, ActionTypeEnum::ACTION_CONFIRM, ActionTypeEnum::ACTION_SPOKEN],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -146,7 +146,7 @@ class ActionData
         [
             'name' => 'hit',
             'action_name' => ActionEnum::HIT,
-            'types' => ['action_aggressive'],
+            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'public', 'fail' => 'public', ActionOutputEnum::CRITICAL_SUCCESS => VisibilityEnum::PUBLIC],
@@ -290,7 +290,7 @@ class ActionData
         [
             'name' => 'attack',
             'action_name' => ActionEnum::ATTACK,
-            'types' => ['action_aggressive', ActionTypeEnum::ACTION_ATTACK],
+            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_ATTACK],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'public', 'fail' => 'public', 'critical_success' => 'public', 'critical_fail' => 'public', 'one_shot' => 'public'],
@@ -450,7 +450,7 @@ class ActionData
         [
             'name' => 'comfort',
             'action_name' => ActionEnum::COMFORT,
-            'types' => ['action_spoken'],
+            'types' => [ActionTypeEnum::ACTION_SPOKEN],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -658,7 +658,7 @@ class ActionData
         [
             'name' => 'strengthen_hull',
             'action_name' => ActionEnum::STRENGTHEN_HULL,
-            'types' => ['action_technician'],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -962,7 +962,7 @@ class ActionData
         [
             'name' => 'motivational_speech',
             'action_name' => ActionEnum::MOTIVATIONAL_SPEECH,
-            'types' => ['action_spoken'],
+            'types' => [ActionTypeEnum::ACTION_SPOKEN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -978,7 +978,7 @@ class ActionData
         [
             'name' => 'boring_speech',
             'action_name' => ActionEnum::BORING_SPEECH,
-            'types' => ['action_spoken'],
+            'types' => [ActionTypeEnum::ACTION_SPOKEN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1026,7 +1026,7 @@ class ActionData
         [
             'name' => 'shoot',
             'action_name' => ActionEnum::SHOOT,
-            'types' => ['action_aggressive', 'action_shoot'],
+            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'public', 'fail' => 'public', 'critical_success' => 'public', 'critical_fail' => 'public', 'one_shot' => 'public'],
@@ -1042,7 +1042,7 @@ class ActionData
         [
             'name' => 'repair_percent_1',
             'action_name' => ActionEnum::REPAIR,
-            'types' => ['action_technician'],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1058,7 +1058,7 @@ class ActionData
         [
             'name' => 'repair_percent_3',
             'action_name' => ActionEnum::REPAIR,
-            'types' => ['action_technician'],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1074,7 +1074,7 @@ class ActionData
         [
             'name' => 'repair_percent_6',
             'action_name' => ActionEnum::REPAIR,
-            'types' => ['action_technician'],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1090,7 +1090,7 @@ class ActionData
         [
             'name' => 'repair_percent_12',
             'action_name' => ActionEnum::REPAIR,
-            'types' => ['action_technician'],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1106,7 +1106,7 @@ class ActionData
         [
             'name' => 'repair_percent_25',
             'action_name' => ActionEnum::REPAIR,
-            'types' => ['action_technician'],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1122,7 +1122,7 @@ class ActionData
         [
             'name' => 'repair_percent_50',
             'action_name' => ActionEnum::REPAIR,
-            'types' => ['action_technician'],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1138,7 +1138,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_12_cost_3',
             'action_name' => ActionEnum::DISASSEMBLE,
-            'types' => ['action_technician', ActionTypeEnum::ACTION_CONFIRM],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1154,7 +1154,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_25_cost_3',
             'action_name' => ActionEnum::DISASSEMBLE,
-            'types' => ['action_technician', ActionTypeEnum::ACTION_CONFIRM],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1170,7 +1170,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_50_cost_3',
             'action_name' => ActionEnum::DISASSEMBLE,
-            'types' => ['action_technician', ActionTypeEnum::ACTION_CONFIRM],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1186,7 +1186,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_6_cost_4',
             'action_name' => ActionEnum::DISASSEMBLE,
-            'types' => ['action_technician', ActionTypeEnum::ACTION_CONFIRM],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1202,7 +1202,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_12_cost_4',
             'action_name' => ActionEnum::DISASSEMBLE,
-            'types' => ['action_technician', ActionTypeEnum::ACTION_CONFIRM],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1218,7 +1218,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_25_cost_4',
             'action_name' => ActionEnum::DISASSEMBLE,
-            'types' => ['action_technician', ActionTypeEnum::ACTION_CONFIRM],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1346,7 +1346,7 @@ class ActionData
         [
             'name' => 'infect',
             'action_name' => ActionEnum::INFECT,
-            'types' => ['action_aggressive'],
+            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'covert', 'fail' => 'private'],
@@ -1378,7 +1378,7 @@ class ActionData
         [
             'name' => 'make_sick',
             'action_name' => ActionEnum::MAKE_SICK,
-            'types' => ['action_aggressive'],
+            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'covert', 'fail' => 'private'],

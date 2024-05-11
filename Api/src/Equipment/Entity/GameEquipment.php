@@ -366,17 +366,17 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->getPlace() === $player->getPlace();
     }
 
-    public function getMechanicActionByNameOrThrow(string $actionName): Action
+    public function getMechanicActionByNameOrThrow(ActionEnum $actionName): ActionConfig
     {
         foreach ($this->getEquipment()->getMechanics() as $mechanic) {
             foreach ($mechanic->getActions() as $action) {
-                if ($action->getName() === $actionName) {
+                if ($action->getActionName() === $actionName) {
                     return $action;
                 }
             }
         }
 
-        throw new \RuntimeException("Action {$actionName} not found in the mechanics of {$this->name} equipment.");
+        throw new \RuntimeException("Action {$actionName->value} not found in the mechanics of {$this->name} equipment.");
     }
 
     private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool

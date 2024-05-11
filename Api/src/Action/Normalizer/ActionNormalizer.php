@@ -7,6 +7,7 @@ use Mush\Action\Actions\AttemptAction;
 use Mush\Action\DTO\ActionSpecialistPointRule;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -57,9 +58,13 @@ class ActionNormalizer implements NormalizerInterface
 
     public function normalize($object, ?string $format = null, array $context = []): array
     {
+        /** @var ActionConfig $actionConfig */
         $actionConfig = $object->getActionConfig();
+
+        /** @var ActionProviderInterface $actionProvider */
         $actionProvider = $object->getActionProvider();
         $actionClass = $this->actionStrategyService->getAction($actionConfig->getActionName());
+
         if (!$actionClass) {
             return [];
         }
@@ -221,9 +226,9 @@ class ActionNormalizer implements NormalizerInterface
     {
         /** @var ActionSpecialistPointRule[] $specialistPointCostRules */
         $specialistPointCostRules = [
-            new ActionSpecialistPointRule('shoot', SkillEnum::SHOOTER, [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER]),
-            new ActionSpecialistPointRule('engineer', SkillEnum::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN]),
-            new ActionSpecialistPointRule('core', SkillEnum::CONCEPTOR, [ActionTypeEnum::ACTION_CONCEPTOR]),
+            new ActionSpecialistPointRule('shoot', SkillEnum::SHOOTER, [ActionTypeEnum::ACTION_SHOOT->value, ActionTypeEnum::ACTION_SHOOT_HUNTER->value]),
+            new ActionSpecialistPointRule('engineer', SkillEnum::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN->value]),
+            new ActionSpecialistPointRule('core', SkillEnum::CONCEPTOR, [ActionTypeEnum::ACTION_CONCEPTOR->value]),
         ];
 
         $specialistPointCosts = [];

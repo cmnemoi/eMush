@@ -382,12 +382,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool
     {
         $tool = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
-        $patrolShip = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
-        $weapons = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON);
 
-        return
-            ($tool !== null && $tool->hasAction($actionName))
-            || ($weapons !== null && $weapons->hasAction($actionName))
-            || ($patrolShip !== null && $patrolShip->hasAction($actionName));
+        return $tool?->hasAction($actionName) ?? false;
     }
 }

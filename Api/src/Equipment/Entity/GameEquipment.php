@@ -16,7 +16,7 @@ use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -381,8 +381,12 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool
     {
-        $tool = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
+        foreach ($this->equipment->getMechanics() as $mechanic) {
+            if ($mechanic instanceof Tool && $mechanic->hasAction($actionName)) {
+                return true;
+            }
+        }
 
-        return $tool?->hasAction($actionName) ?? false;
+        return false;
     }
 }

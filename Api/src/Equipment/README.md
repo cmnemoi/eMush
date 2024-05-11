@@ -53,7 +53,7 @@ These are items with passive effects. They change events cost and output using [
 
 ## Tools (parent of Weapon, BluePrint, Book, Document)
 
-These are items with specific actions. Each equipment can only have one tool mechanic.
+Tools provide additional actions to the equipment, however those actions are only available if the equipment is operational (charged and not broken). Each equipment can only have one tool mechanic.
 
 ### Weapon
 

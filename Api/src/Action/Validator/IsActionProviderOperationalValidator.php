@@ -53,14 +53,11 @@ class IsActionProviderOperationalValidator extends ConstraintValidator
         ActionEnum $actionName,
         string $defaultMessage
     ): string {
-        if ($operationalState === ActionProviderOperationalStateEnum::BROKEN) {
-            return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
-        }
-        if ($operationalState === ActionProviderOperationalStateEnum::DISCHARGED) {
-            return $this->getDischargeViolationMessage($actionProvider, $actionName, $defaultMessage);
-        }
-
-        return $defaultMessage;
+        return match ($operationalState) {
+            ActionProviderOperationalStateEnum::BROKEN => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+            ActionProviderOperationalStateEnum::DISCHARGED => $this->getDischargeViolationMessage($actionProvider, $actionName, $defaultMessage),
+            default => $defaultMessage,
+        };
     }
 
     private function getDischargeViolationMessage(

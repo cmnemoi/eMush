@@ -18,8 +18,8 @@
             :row-data="rowData"
             :pagination="pagination"
             :filter="filter"
-            @paginationClick="paginationClick"
-            @sortTable="sortTable"
+            @pagination-click="paginationClick"
+            @sort-table="sortTable"
         >
             <template #header-actions>
                 {{ $t('ranking.linkToTheEnd') }}

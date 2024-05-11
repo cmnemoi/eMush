@@ -19,11 +19,11 @@ const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "player");
 // @ts-ignore
 const ACTION_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "actions");
 
-const EquipmentClassName = "Mush\\Equipment\\Entity\\GameEquipment"
-const PlayerClassName = "Mush\\Player\\Entity\\Player"
-const HunterClassName = "Mush\\Hunter\\Entity\\Hunter"
-const PlanetClassName = "Mush\\Exploration\\Entity\\Planet"
-const ProjectClassName = "Mush\\Project\\Entity\\Project"
+const EquipmentClassName = "Mush\\Equipment\\Entity\\GameEquipment";
+const PlayerClassName = "Mush\\Player\\Entity\\Player";
+const HunterClassName = "Mush\\Hunter\\Entity\\Hunter";
+const PlanetClassName = "Mush\\Exploration\\Entity\\Planet";
+const ProjectClassName = "Mush\\Project\\Entity\\Project";
 
 const ActionService = {
     executeTargetAction(

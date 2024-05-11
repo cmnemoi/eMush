@@ -22,15 +22,15 @@
         <StringArrayManager
             :array="mechanics.mechanics"
             id="mechanics_mechanics"
-            @addElement="mechanics.mechanics.push($event)"
-            @removeElement="mechanics.mechanics.splice(mechanics.mechanics.indexOf($event), 1)"
+            @add-element="mechanics.mechanics.push($event)"
+            @remove-element="mechanics.mechanics.splice(mechanics.mechanics.indexOf($event), 1)"
         />
 
         <h3>{{ $t('admin.mechanics.actions') }}</h3>
         <ChildCollectionManager
             :children="mechanics.actions"
             id="mechanics_actions"
-            @addId="selectNewAction"
+            @add-id="selectNewAction"
             @remove="removeAction"
         >
             <template #header="child">
@@ -55,8 +55,8 @@
                 :array="mechanics.ingredients"
                 :selection="ingredients"
                 id="mechanics_addIngredients"
-                @addElement="addIngredient"
-                @removeElement="removeIngredient"
+                @add-element="addIngredient"
+                @remove-element="removeIngredient"
             />
         </template>
 
@@ -129,8 +129,8 @@
                 id="mechanics_actionPoints"
                 map-indexes-type="number"
                 map-values-type="number"
-                @addTuple="addActionPoints"
-                @removeIndex="removeActionPoints"
+                @add-tuple="addActionPoints"
+                @remove-index="removeActionPoints"
             />
             <MapManager
                 :label="$t('admin.mechanics.moralPoints')"
@@ -138,8 +138,8 @@
                 id="mechanics_moralPoints"
                 map-indexes-type="number"
                 map-values-type="number"
-                @addTuple="addMoralPoints"
-                @removeIndex="removeMoralPoints"
+                @add-tuple="addMoralPoints"
+                @remove-index="removeMoralPoints"
             />
             <MapManager
                 :label="$t('admin.mechanics.healthPoints')"
@@ -147,8 +147,8 @@
                 id="mechanics_healthPoints"
                 map-indexes-type="number"
                 map-values-type="number"
-                @addTuple="addHealthPoints"
-                @removeIndex="removeHealthPoints"
+                @add-tuple="addHealthPoints"
+                @remove-index="removeHealthPoints"
             />
             <MapManager
                 :label="$t('admin.mechanics.movementPoints')"
@@ -156,8 +156,8 @@
                 id="mechanics_movementPoints"
                 map-indexes-type="number"
                 map-values-type="number"
-                @addTuple="addMovementPoints"
-                @removeIndex="removeMovementPoints"
+                @add-tuple="addMovementPoints"
+                @remove-index="removeMovementPoints"
             />
             <MapManager
                 :label="$t('admin.mechanics.extraEffects')"
@@ -165,8 +165,8 @@
                 id="mechanics_extraEffects"
                 map-indexes-type="string"
                 map-values-type="number"
-                @addTuple="addExtraEffects"
-                @removeIndex="removeExtraEffects"
+                @add-tuple="addExtraEffects"
+                @remove-index="removeExtraEffects"
             />
         </template>
 
@@ -175,7 +175,7 @@
             <ChildCollectionManager
                 :children="mechanics.modifierConfigs"
                 id="mechanics_modifierConfigs"
-                @addId="selectNewModifierConfig"
+                @add-id="selectNewModifierConfig"
                 @remove="removeModifierConfig"
             >
                 <template #header="child">
@@ -191,8 +191,8 @@
                 id="mechanics_maturationTime"
                 map-indexes-type="number"
                 map-values-type="number"
-                @addTuple="addMaturationTime"
-                @removeIndex="removeMaturationTime"
+                @add-tuple="addMaturationTime"
+                @remove-index="removeMaturationTime"
             />
 
             <h3>{{ $t('admin.mechanics.oxygen') }}</h3>
@@ -201,8 +201,8 @@
                 id="mechanics_oxygen"
                 map-indexes-type="number"
                 map-values-type="number"
-                @addTuple="addOxygen"
-                @removeIndex="removeOxygen"
+                @add-tuple="addOxygen"
+                @remove-index="removeOxygen"
             />
         </template>
 
@@ -251,8 +251,8 @@
                 id="mechanics_baseDamageRange"
                 map-indexes-type="number"
                 map-values-type="number"
-                @addTuple="addBaseDamageRange"
-                @removeIndex="removeBaseDamageRange"
+                @add-tuple="addBaseDamageRange"
+                @remove-index="removeBaseDamageRange"
             />
         </template>
         <template v-if="mechanics.mechanicsType == 'PatrolShip'">
@@ -272,8 +272,8 @@
                 id="mechanics_collectScrapNumber"
                 map-indexes-type="number"
                 map-values-type="number"
-                @addTuple="addCollectScrapNumber"
-                @removeIndex="removeCollectScrapNumber"
+                @add-tuple="addCollectScrapNumber"
+                @remove-index="removeCollectScrapNumber"
             />
             <h3>{{ $t('admin.mechanics.collectScrapPatrolShipDamage') }}</h3>
             <MapManager
@@ -281,8 +281,8 @@
                 id="mechanics_collectScrapPatrolShipDamage"
                 map-indexes-type="number"
                 map-values-type="number"
-                @addTuple="addCollectScrapPatrolShipDamage"
-                @removeIndex="removeCollectScrapPatrolShipDamage"
+                @add-tuple="addCollectScrapPatrolShipDamage"
+                @remove-index="removeCollectScrapPatrolShipDamage"
             />
             <h3>{{ $t('admin.mechanics.collectScrapPlayerDamage') }}</h3>
             <MapManager
@@ -290,8 +290,8 @@
                 id="mechanics_collectScrapPlayerDamage"
                 map-indexes-type="number"
                 map-values-type="number"
-                @addTuple="addCollectScrapPlayerDamage"
-                @removeIndex="removeCollectScrapPlayerDamage"
+                @add-tuple="addCollectScrapPlayerDamage"
+                @remove-index="removeCollectScrapPlayerDamage"
             />
             <h3>{{ $t('admin.mechanics.failedManoeuvreDaedalusDamage') }}</h3>
             <MapManager
@@ -299,8 +299,8 @@
                 id="mechanics_failedManoeuvreDaedalusDamage"
                 map-indexes-type="number"
                 map-values-type="number"
-                @addTuple="addFailedManoeuvreDaedalusDamage"
-                @removeIndex="removeFailedManoeuvreDaedalusDamage"
+                @add-tuple="addFailedManoeuvreDaedalusDamage"
+                @remove-index="removeFailedManoeuvreDaedalusDamage"
             />
             <h3>{{ $t('admin.mechanics.failedManoeuvrePatrolShipDamage') }}</h3>
             <MapManager
@@ -308,8 +308,8 @@
                 id="mechanics_failedManoeuvrePatrolShipDamage"
                 map-indexes-type="number"
                 map-values-type="number"
-                @addTuple="addFailedManoeuvrePatrolShipDamage"
-                @removeIndex="removeFailedManoeuvrePatrolShipDamage"
+                @add-tuple="addFailedManoeuvrePatrolShipDamage"
+                @remove-index="removeFailedManoeuvrePatrolShipDamage"
             />
             <h3>{{ $t('admin.mechanics.failedManoeuvrePlayerDamage') }}</h3>
             <MapManager
@@ -317,8 +317,8 @@
                 id="mechanics_failedManoeuvrePlayerDamage"
                 map-indexes-type="number"
                 map-values-type="number"
-                @addTuple="addFailedManoeuvrePlayerDamage"
-                @removeIndex="removeFailedManoeuvrePlayerDamage"
+                @add-tuple="addFailedManoeuvrePlayerDamage"
+                @remove-index="removeFailedManoeuvrePlayerDamage"
             />
         </template>
         <UpdateConfigButtons @create="create" @update="update"/>

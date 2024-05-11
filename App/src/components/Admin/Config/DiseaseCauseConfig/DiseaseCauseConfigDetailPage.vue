@@ -23,8 +23,8 @@
             id="diseaseCauseConfig_diseases"
             map-indexes-type="string"
             map-values-type="number"
-            @addTuple="addDisease"
-            @removeIndex="removeDisease"
+            @add-tuple="addDisease"
+            @remove-index="removeDisease"
         />
         <UpdateConfigButtons @create="create" @update="update" />
     </div>

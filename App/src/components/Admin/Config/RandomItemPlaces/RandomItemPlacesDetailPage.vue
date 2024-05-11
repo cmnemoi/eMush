@@ -14,15 +14,15 @@
         <StringArrayManager
             :array="randomItemPlaces.items"
             id="randomItemPlaces_items"
-            @addElement="randomItemPlaces.items.push($event)"
-            @removeElement="randomItemPlaces?.items.splice(randomItemPlaces?.items.indexOf($event), 1)"
+            @add-element="randomItemPlaces.items.push($event)"
+            @remove-element="randomItemPlaces?.items.splice(randomItemPlaces?.items.indexOf($event), 1)"
         ></StringArrayManager>
         <h3>{{ $t('admin.randomItemPlaces.places') }}</h3>
         <StringArrayManager
             :array="randomItemPlaces.places"
             id="randomItemPlaces_places"
-            @addElement="randomItemPlaces.places.push($event)"
-            @removeElement="randomItemPlaces.places.splice(randomItemPlaces.places.indexOf($event), 1)"
+            @add-element="randomItemPlaces.places.push($event)"
+            @remove-element="randomItemPlaces.places.splice(randomItemPlaces.places.indexOf($event), 1)"
         ></StringArrayManager>
         <UpdateConfigButtons @create="create" @update="update"/>
     </div>

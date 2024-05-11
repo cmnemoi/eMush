@@ -19,7 +19,7 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             createProjects: 'adminActions/createProjectsForOnGoingDaedaluses',
-            proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses',
+            proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses'
         })
     }
 });

@@ -1,5 +1,5 @@
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
-import {ActionConfig} from "@/entities/Config/ActionConfig";
+import { ActionConfig } from "@/entities/Config/ActionConfig";
 
 export class StatusConfig {
     public iri: string|null;

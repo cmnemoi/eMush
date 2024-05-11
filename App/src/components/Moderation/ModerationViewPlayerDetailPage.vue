@@ -4,7 +4,7 @@
             :moderation-dialog-visible="moderationDialogVisible"
             :action="currentAction"
             @close="closeModerationDialog"
-            @submitSanction="applySanction" />
+            @submit-sanction="applySanction" />
         <div class="flex-row">
             <Tippy
                 tag="button"

@@ -3,7 +3,7 @@
         :moderation-dialog-visible="moderationDialogVisible"
         :action="{ value: 'ban_user', key: 'moderation.sanction.ban_user' }"
         @close="closeModerationDialog"
-        @submitSanction="banUser" />
+        @submit-sanction="banUser" />
     <div class="user_list_container">
         <div class="user_filter_options">
             <label>{{ $t('admin.show') }}
@@ -35,8 +35,8 @@
             :row-data="rowData"
             :pagination="pagination"
             :filter="filter"
-            @paginationClick="paginationClick"
-            @sortTable="sortTable"
+            @pagination-click="paginationClick"
+            @sort-table="sortTable"
         >
             <template #header-actions>
                 Actions

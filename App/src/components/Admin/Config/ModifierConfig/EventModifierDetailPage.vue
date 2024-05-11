@@ -99,7 +99,7 @@
         <ChildCollectionManager
             :children="modifierConfig.modifierActivationRequirements"
             id="modifierConfig_modifierActivationRequirements"
-            @addId="selectNewChild"
+            @add-id="selectNewChild"
             @remove="removeChild"
         >
             <template #header="child">

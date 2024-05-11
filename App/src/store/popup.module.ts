@@ -10,7 +10,7 @@ const state = {
     },
     newRulesPopUp: {
         isOpen: false
-    },
+    }
 };
 
 const getters: GetterTree<any, any> = {

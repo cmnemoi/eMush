@@ -71,7 +71,7 @@
         <ChildCollectionManager
             :children="statusConfig.modifierConfigs"
             id="statusConfig_modifierConfigs"
-            @addId="selectNewChildModifier"
+            @add-id="selectNewChildModifier"
             @remove="removeChildModifier"
         >
             <template #header="child">
@@ -86,7 +86,7 @@
         <ChildCollectionManager
             :children="statusConfig.actionConfigs"
             id="statusConfig_actionConfigs"
-            @addId="selectNewChildAction"
+            @add-id="selectNewChildAction"
             @remove="removeChildAction"
         >
             <template #header="child">
@@ -101,8 +101,8 @@
         <StringArrayManager
             :array="statusConfig.dischargeStrategies"
             id="statusConfig_dischargeStrategies"
-            @addElement="statusConfig.dischargeStrategies?.push($event)"
-            @removeElement="statusConfig.dischargeStrategies?.splice(statusConfig.dischargeStrategies.indexOf($event), 1)"
+            @add-element="statusConfig.dischargeStrategies?.push($event)"
+            @remove-element="statusConfig.dischargeStrategies?.splice(statusConfig.dischargeStrategies.indexOf($event), 1)"
         />
         <UpdateConfigButtons @create="create" @update="update"/>
     </div>
@@ -121,7 +121,7 @@ import urlJoin from "url-join";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
-import {ActionConfig} from "@/entities/Config/ActionConfig";
+import { ActionConfig } from "@/entities/Config/ActionConfig";
 
 interface StatusConfigState {
     statusConfig: null|StatusConfig

@@ -2,7 +2,7 @@
     <div class="sanction-banner-container" v-if="userSanctions.length > 0">
         <div class="sanction-banner" v-for="(sanction, index) in (showAll ? userSanctions : userSanctions.slice(0, 1))" :key="index">
             <h1 class="banner-title">
-                {{ getTranslatedSanctionType(sanction) }} {{ $t('moderation.sanction.until') }} {{ sanction.endDate.toLocaleDateString() }} 
+                {{ getTranslatedSanctionType(sanction) }} {{ $t('moderation.sanction.until') }} {{ sanction.endDate.toLocaleDateString() }}
             </h1>
             <p class="banner-content">
                 <span>{{ $t('moderation.reason.'+ sanction.reason) }}</span>
@@ -38,12 +38,12 @@ export default defineComponent({
     computed: {
         bannerHeight() {
             return this.showAll ? 'auto' : '10%'; // Limite la hauteur à 10% si showAll est false
-        },
+        }
     },
     methods: {
         getTranslatedSanctionType(sanction: ModerationSanction) {
             return sanction.isWarning ? this.$t('moderation.sanction.warning') : this.$t('moderation.player.banned');
-        },
+        }
     }
 });
 </script>

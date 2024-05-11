@@ -35,7 +35,7 @@
         <ChildManager
             :child="modifierConfig.triggeredEvent"
             id="modifierConfig.triggeredEvent"
-            @addId="selectNewEventConfig"
+            @add-id="selectNewEventConfig"
         >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
@@ -45,7 +45,7 @@
         <ChildCollectionManager
             :children="modifierConfig.modifierActivationRequirements"
             id="modifierConfig_modifierActivationRequirements"
-            @addId="selectNewChild"
+            @add-id="selectNewChild"
             @remove="removeChild"
         >
             <template #header="child">

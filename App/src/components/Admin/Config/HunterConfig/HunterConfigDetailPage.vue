@@ -89,8 +89,8 @@
             id="hunterConfig_damageRange"
             map-indexes-type="number"
             map-values-type="number"
-            @addTuple="addDamage"
-            @removeIndex="removeDamage"
+            @add-tuple="addDamage"
+            @remove-index="removeDamage"
         />
         <MapManager
             :label="$t('admin.hunterConfig.scrapDropTable')"
@@ -98,8 +98,8 @@
             id="hunterConfig_scrapDropTable"
             map-indexes-type="string"
             map-values-type="number"
-            @addTuple="addScrapDrop"
-            @removeIndex="removeScrapDrop"
+            @add-tuple="addScrapDrop"
+            @remove-index="removeScrapDrop"
         />
         <MapManager
             :label="$t('admin.hunterConfig.numberOfDroppedScrap')"
@@ -107,14 +107,14 @@
             id="hunterConfig_numberOfDroppedScrap"
             map-indexes-type="string"
             map-values-type="number"
-            @addTuple="addNumberDrop"
-            @removeIndex="removeNumberDrop"
+            @add-tuple="addNumberDrop"
+            @remove-index="removeNumberDrop"
         />
         <h3>{{ $t("admin.hunterConfig.initialStatuses") }}</h3>
         <ChildCollectionManager
             :children="hunterConfig.initialStatuses"
             id="hunterConfig_initialStatuses"
-            @addId="addNewStatusConfig"
+            @add-id="addNewStatusConfig"
             @remove="removeStatusConfig"
         >
             <template #header="child">

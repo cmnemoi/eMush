@@ -4,9 +4,10 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Consume;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -40,7 +41,7 @@ use Mush\User\Entity\User;
  */
 final class ConsumeActionCest extends AbstractFunctionalTest
 {
-    private Action $consumeConfig;
+    private ActionConfig $consumeConfig;
     private Consume $consumeAction;
 
     private EventServiceInterface $eventService;
@@ -51,7 +52,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->consumeConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::CONSUME]);
+        $this->consumeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CONSUME]);
         $this->consumeAction = $I->grabService(Consume::class);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
@@ -96,10 +97,11 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $consumeActionEntity = new Action();
+        $consumeActionEntity = new ActionConfig();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($consumeActionEntity);
@@ -138,7 +140,12 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             ->setName('ration');
         $I->haveInRepository($gameItem);
 
-        $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem);
+        $this->consumeAction->loadParameters(
+            actionConfig: $consumeActionEntity,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
 
         $this->consumeAction->execute();
 
@@ -190,10 +197,11 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $consumeActionEntity = new Action();
+        $consumeActionEntity = new ActionConfig();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($consumeActionEntity);
@@ -234,7 +242,12 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             ->setName('ration');
         $I->haveInRepository($gameItem);
 
-        $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem);
+        $this->consumeAction->loadParameters(
+            actionConfig: $consumeActionEntity,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
 
         $this->consumeAction->execute();
 
@@ -303,10 +316,11 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $mushStatus = new Status($player, $mushConfig);
         $I->haveInRepository($mushStatus);
 
-        $consumeActionEntity = new Action();
+        $consumeActionEntity = new ActionConfig();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($consumeActionEntity);
 
@@ -342,7 +356,12 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             ->setName('ration');
         $I->haveInRepository($gameItem);
 
-        $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem);
+        $this->consumeAction->loadParameters(
+            actionConfig: $consumeActionEntity,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
 
         $this->consumeAction->execute();
 
@@ -372,7 +391,8 @@ final class ConsumeActionCest extends AbstractFunctionalTest
 
         // when player consumes the ration
         $this->consumeAction->loadParameters(
-            action: $this->consumeConfig,
+            actionConfig: $this->consumeConfig,
+            actionProvider: $ration,
             player: $this->player,
             target: $ration,
         );
@@ -408,7 +428,8 @@ final class ConsumeActionCest extends AbstractFunctionalTest
 
         // when Chun consumes the ration
         $this->consumeAction->loadParameters(
-            action: $this->consumeConfig,
+            actionConfig: $this->consumeConfig,
+            actionProvider: $ration,
             player: $this->chun,
             target: $ration,
         );

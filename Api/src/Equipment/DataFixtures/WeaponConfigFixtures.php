@@ -8,7 +8,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -28,46 +28,46 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        /** @var Action $takeAction */
+        /** @var ActionConfig $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
 
-        /** @var Action $dropAction */
+        /** @var ActionConfig $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
 
-        /** @var Action $hideAction */
+        /** @var ActionConfig $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
 
-        /** @var Action $attackAction */
+        /** @var ActionConfig $attackAction */
         $attackAction = $this->getReference(ActionsFixtures::ATTACK_DEFAULT);
 
-        /** @var Action $shootAction */
+        /** @var ActionConfig $shootAction */
         $shootAction = $this->getReference(ActionsFixtures::SHOOT);
 
-        /** @var Action $examineAction */
+        /** @var ActionConfig $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
         /** @var ArrayCollection $actions */
         $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
-        /** @var Action $reportAction */
+        /** @var ActionConfig $reportAction */
         $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
 
-        /** @var Action $repair12 */
+        /** @var ActionConfig $repair12 */
         $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
 
-        /** @var Action $repair25 */
+        /** @var ActionConfig $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
 
-        /** @var Action $sabotage12 */
+        /** @var ActionConfig $sabotage12 */
         $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
 
-        /** @var Action $sabotage25 */
+        /** @var ActionConfig $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
-        /** @var Action $dismantle12 */
+        /** @var ActionConfig $dismantle12 */
         $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
 
-        /** @var Action $dismantle25 */
+        /** @var ActionConfig $dismantle25 */
         $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
 
         /** @var StatusConfig $heavyStatus */
@@ -109,7 +109,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsBreakable(true)
             ->setMechanics([$blasterMechanic])
             ->setInitStatuses([$blasterCharge])
-            ->setActions($actions25)
+            ->setActionConfigs($actions25)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
 
@@ -141,7 +141,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
             ->setIsBreakable(false)
             ->setMechanics([$knifeMechanic])
-            ->setActions($actions25)
+            ->setActionConfigs($actions25)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
 
@@ -163,7 +163,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setMechanics([$grenadeMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($grenade);
@@ -193,14 +193,14 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsBreakable(true)
             ->setMechanics([$natamyMechanic])
             ->setInitStatuses([$blasterCharge])
-            ->setActions($actions12)
+            ->setActionConfigs($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($natamy);
         $manager->persist($natamyMechanic);
 
-        /** @var Action $dismantle412 */
+        /** @var ActionConfig $dismantle412 */
         $dismantle412 = $this->getReference(TechnicianFixtures::DISMANTLE_4_12);
 
         /** @var ArrayCollection $oldFaithfulActions */
@@ -229,7 +229,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
             ->setMechanics([$oldFaithfulMechanic])
-            ->setActions($oldFaithfulActions)
+            ->setActionConfigs($oldFaithfulActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setInitStatuses([$heavyStatus, $oldFaithfulCharge])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -257,7 +257,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsBreakable(true)
             ->setMechanics([$lizaroJungleMechanic])
             ->setInitStatuses([$bigWeaponCharge])
-            ->setActions($actions12)
+            ->setActionConfigs($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
 
@@ -281,7 +281,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
-            ->setActions($actions12)
+            ->setActionConfigs($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
 

@@ -42,7 +42,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
     private function handleContactDiseases(ActionEvent $event): void
     {
-        if ($event->getAction()->getActionName() !== ActionEnum::MOVE) {
+        if ($event->getActionConfig()->getActionName() !== ActionEnum::MOVE) {
             return;
         }
 

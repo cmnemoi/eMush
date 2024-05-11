@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Sabotage;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -19,7 +19,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class SabotageCest extends AbstractFunctionalTest
 {
-    private Action $sabotageActionConfig;
+    private ActionConfig $sabotageActionConfig;
     private Sabotage $sabotageAction;
 
     public function _before(FunctionalTester $I)
@@ -27,7 +27,7 @@ final class SabotageCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
 
-        $this->sabotageActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => 'sabotage_percent_12']);
+        $this->sabotageActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => 'sabotage_percent_12']);
         $this->sabotageAction = $I->grabService(Sabotage::class);
     }
 
@@ -45,7 +45,12 @@ final class SabotageCest extends AbstractFunctionalTest
         $this->player->changePlace($pasiphae->getPlace());
 
         // when player try to sabotage pasiphae
-        $this->sabotageAction->loadParameters($this->sabotageActionConfig, $this->player, $pasiphae);
+        $this->sabotageAction->loadParameters(
+            actionConfig: $this->sabotageActionConfig,
+            actionProvider: $pasiphae,
+            player: $this->player,
+            target: $pasiphae
+        );
 
         // then sabotage is not executable
         $I->assertEquals(ActionImpossibleCauseEnum::NOT_A_ROOM, $this->sabotageAction->cannotExecuteReason());

@@ -5,7 +5,8 @@ namespace Mush\Equipment\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Document;
@@ -49,7 +50,7 @@ abstract class EquipmentMechanic
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
 
-    #[ORM\ManyToMany(targetEntity: Action::class)]
+    #[ORM\ManyToMany(targetEntity: ActionConfig::class)]
     private Collection $actions;
 
     public function __construct()
@@ -97,7 +98,7 @@ abstract class EquipmentMechanic
     }
 
     /**
-     * @param array<int, Action>|Collection<int<0, max>, Action> $actions
+     * @param array<int, ActionConfig>|Collection<int<0, max>, ActionConfig> $actions
      */
     public function setActions(array|Collection $actions): static
     {
@@ -110,21 +111,26 @@ abstract class EquipmentMechanic
         return $this;
     }
 
-    public function addAction(Action $action): static
+    public function addAction(ActionConfig $action): static
     {
         $this->actions->add($action);
 
         return $this;
     }
 
-    public function getActionByNameOrThrow(string $name): Action
+    public function getActionByNameOrThrow(ActionEnum $name): ActionConfig
     {
-        $action = $this->actions->filter(static fn (Action $action) => $action->getName() === $name)->first() ?: null;
+        $action = $this->actions->filter(static fn (ActionConfig $action) => $action->getActionName() === $name)->first() ?: null;
 
         if ($action === null) {
-            throw new \InvalidArgumentException("Action with name {$name} not found");
+            throw new \InvalidArgumentException("Action with name {$name->value} not found");
         }
 
         return $action;
+    }
+
+    public function hasAction(ActionEnum $actionName): bool
+    {
+        return !$this->getActions()->filter(static fn (ActionConfig $actionConfig) => $actionConfig->getActionName() === $actionName)->isEmpty();
     }
 }

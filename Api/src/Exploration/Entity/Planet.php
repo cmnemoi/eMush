@@ -7,8 +7,9 @@ namespace Mush\Exploration\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Entity\ActionTargetInterface;
-use Mush\Action\Enum\ActionTargetName;
+use Mush\Action\Entity\ActionHolderInterface;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -16,7 +17,7 @@ use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'planet')]
-class Planet implements LogParameterInterface, ActionTargetInterface
+class Planet implements LogParameterInterface, ActionHolderInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -190,8 +191,8 @@ class Planet implements LogParameterInterface, ActionTargetInterface
         return $this->name->toString();
     }
 
-    public function getActionTargetName(array $context): string
+    public function getActions(Player $activePlayer, ?ActionHolderEnum $actionTarget = null): Collection
     {
-        return ActionTargetName::PLANET->value;
+        return $activePlayer->getPlace()->getProvidedActions(ActionHolderEnum::PLANET, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELF]);
     }
 }

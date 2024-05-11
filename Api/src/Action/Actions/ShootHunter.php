@@ -7,8 +7,6 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\Charged;
-use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NumberOfAttackingHunters;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
@@ -27,19 +25,18 @@ use Mush\Hunter\Event\HunterVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ShootHunter extends AttemptAction
 {
-    private const SHOOT_HUNTER_LOG_MAP = [
-        ActionEnum::SHOOT_HUNTER => ActionLogEnum::SHOOT_HUNTER_SUCCESS,
-        ActionEnum::SHOOT_HUNTER_PATROL_SHIP => ActionLogEnum::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
-        ActionEnum::SHOOT_RANDOM_HUNTER => ActionLogEnum::SHOOT_HUNTER_SUCCESS,
-        ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP => ActionLogEnum::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
+    private const array SHOOT_HUNTER_LOG_MAP = [
+        ActionEnum::SHOOT_HUNTER->value => ActionLogEnum::SHOOT_HUNTER_SUCCESS,
+        ActionEnum::SHOOT_HUNTER_PATROL_SHIP->value => ActionLogEnum::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
+        ActionEnum::SHOOT_RANDOM_HUNTER->value => ActionLogEnum::SHOOT_HUNTER_SUCCESS,
+        ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => ActionLogEnum::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
     ];
-    protected string $name = ActionEnum::SHOOT_HUNTER;
+    protected ActionEnum $name = ActionEnum::SHOOT_HUNTER;
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
@@ -56,8 +53,6 @@ class ShootHunter extends AttemptAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::SPACE_BATTLE, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::UNLOADED_WEAPON]));
         $metadata->addConstraint(new NumberOfAttackingHunters([
             'mode' => NumberOfAttackingHunters::EQUAL,
             'number' => 0,
@@ -66,7 +61,7 @@ class ShootHunter extends AttemptAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Hunter || $target instanceof GameEquipment;
     }
@@ -102,7 +97,7 @@ class ShootHunter extends AttemptAction
             $hunter,
             HunterVariableEnum::HEALTH,
             -$damage,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime()
         );
         $hunterVariableEvent->setAuthor($this->player);
@@ -138,12 +133,13 @@ class ShootHunter extends AttemptAction
 
     private function logShootHunterSuccess(Hunter $hunter): void
     {
+        $logKey = $this->getActionName();
         $logParameters = [
             $this->player->getLogKey() => $this->player->getLogName(),
             $hunter->getLogKey() => $hunter->getLogName(),
         ];
         $this->roomLogService->createLog(
-            logKey: self::SHOOT_HUNTER_LOG_MAP[$this->name],
+            logKey: self::SHOOT_HUNTER_LOG_MAP[$logKey],
             place: $this->player->getPlace(),
             visibility: VisibilityEnum::PUBLIC,
             type: 'actions_log',

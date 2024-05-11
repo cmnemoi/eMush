@@ -52,7 +52,7 @@ export default defineComponent({
         LocaleChange,
         Thanks,
         MaintenancePage,
-        ToastContainer,
+        ToastContainer
     },
     computed: {
         ...mapGetters({

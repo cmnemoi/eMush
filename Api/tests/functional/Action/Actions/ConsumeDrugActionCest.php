@@ -4,7 +4,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ConsumeDrug;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Disease\Entity\PlayerDisease;
@@ -30,7 +30,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class ConsumeDrugActionCest extends AbstractFunctionalTest
 {
-    private Action $consumeConfig;
+    private ActionConfig $consumeConfig;
     private ConsumeDrug $consumeAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -39,7 +39,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->consumeConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::CONSUME_DRUG]);
+        $this->consumeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CONSUME_DRUG]);
         $this->consumeAction = $I->grabService(ConsumeDrug::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -63,11 +63,21 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         );
 
         // given Chun eats the first bacta
-        $this->consumeAction->loadParameters($this->consumeConfig, $this->chun, $firstBacta);
+        $this->consumeAction->loadParameters(
+            $this->consumeConfig,
+            $firstBacta,
+            $this->chun,
+            $firstBacta
+        );
         $this->consumeAction->execute();
 
         // when Chun tries to eat the second bacta
-        $this->consumeAction->loadParameters($this->consumeConfig, $this->chun, $secondBacta);
+        $this->consumeAction->loadParameters(
+            $this->consumeConfig,
+            $secondBacta,
+            $this->chun,
+            $secondBacta
+        );
 
         // then the action should not be executable
         $I->assertEquals(
@@ -98,7 +108,12 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $depression->setDiseasePoint(0);
 
         // when player consumes one drug
-        $this->consumeAction->loadParameters($this->consumeConfig, $this->player, $drug);
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->consumeConfig,
+            actionProvider: $drug,
+            player: $this->player,
+            target: $drug
+        );
         $this->consumeAction->execute();
 
         // then the depression should still be there

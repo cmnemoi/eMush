@@ -1,4 +1,5 @@
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
+import { ActionConfig } from "@/entities/Config/ActionConfig";
 
 export class StatusConfig {
     public iri: string|null;
@@ -14,6 +15,7 @@ export class StatusConfig {
     public dischargeStrategies: string[]|null;
     public autoRemove: boolean|null;
     public modifierConfigs: ModifierConfig[]|null;
+    public actionConfigs: ActionConfig[]|null;
 
     constructor() {
         this.iri = null;
@@ -29,6 +31,7 @@ export class StatusConfig {
         this.dischargeStrategies = [];
         this.autoRemove = null;
         this.modifierConfigs = null;
+        this.actionConfigs = null;
     }
     load(object:any) : StatusConfig {
         if (typeof object !== "undefined") {
@@ -45,6 +48,14 @@ export class StatusConfig {
                 });
                 this.modifierConfigs = modifierConfigs;
             }
+            if (typeof object.actionConfigs !== 'undefined') {
+                const actionConfigs : ActionConfig[] = [];
+                object.actionConfigs.forEach((actionConfigData: any) => {
+                    const actionConfig = (new ActionConfig()).load(actionConfigData);
+                    actionConfigs.push(actionConfig);
+                });
+                this.actionConfigs = actionConfigs;
+            }
             this.configType = object['@type'];
             if (this.configType === 'ChargeStatusConfig') {
                 this.chargeVisibility = object.chargeVisibility;
@@ -60,12 +71,16 @@ export class StatusConfig {
     jsonEncode() : any {
         const modifierConfigs : string[] = [];
         this.modifierConfigs?.forEach(modifierConfig => (typeof modifierConfig.iri === 'string' ? modifierConfigs.push(modifierConfig.iri) : null));
+
+        const actionConfigs : string[] = [];
+        this.actionConfigs?.forEach(actionConfig => (typeof actionConfig.iri === 'string' ? actionConfigs.push(actionConfig.iri) : null));
         const data : any = {
             'id': this.id,
             'name': this.name,
             'statusName': this.statusName,
             'visibility': this.visibility,
-            'modifierConfigs': modifierConfigs
+            'modifierConfigs': modifierConfigs,
+            'actionConfigs': actionConfigs
         };
         if (this.configType === 'ChargeStatusConfig') {
             data['chargeVisibility'] = this.chargeVisibility;

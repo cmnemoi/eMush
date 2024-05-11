@@ -37,9 +37,9 @@ final class CoffeeActionTest extends AbstractActionTest
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
+        $this->createActionEntity(ActionEnum::BUILD);
 
-        $this->action = new Coffee(
+        $this->actionHandler = new Coffee(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -66,11 +66,11 @@ final class CoffeeActionTest extends AbstractActionTest
             ->setEquipment($coffeeMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE);
 
-        $coffeeMachine->setActions(new ArrayCollection([$this->actionEntity]));
+        $coffeeMachine->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameCoffeeMachine);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameCoffeeMachine);
 
         $gameCoffee = new GameItem(new Place());
         $coffee = new ItemConfig();
@@ -83,7 +83,7 @@ final class CoffeeActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());

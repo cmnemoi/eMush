@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class AutoEject extends AbstractAction
 {
-    protected string $name = ActionEnum::AUTO_EJECT;
+    protected ActionEnum $name = ActionEnum::AUTO_EJECT;
 
     private PlayerServiceInterface $playerService;
 
@@ -53,7 +53,7 @@ final class AutoEject extends AbstractAction
         $metadata->addConstraint(new PlaceType(['type' => PlaceTypeEnum::PATROL_SHIP, 'groups' => ['visibility']]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }

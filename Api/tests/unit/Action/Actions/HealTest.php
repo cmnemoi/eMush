@@ -29,12 +29,12 @@ final class HealTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::HEAL);
-        $this->actionEntity->setOutputQuantity(3);
+        $this->createActionEntity(ActionEnum::HEAL);
+        $this->actionConfig->setOutputQuantity(3);
 
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
-        $this->action = new Heal(
+        $this->actionHandler = new Heal(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -62,15 +62,15 @@ final class HealTest extends AbstractActionTest
         $characterConfig->setCharacterName('playerOne');
         new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
-        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->with($player, $this->actionConfig, $this->actionProvider, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(3)
             ->once();
         $this->eventService->shouldReceive('callEvent');
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

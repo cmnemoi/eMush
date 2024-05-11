@@ -16,14 +16,14 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  */
 class Suicide extends AbstractAction
 {
-    protected string $name = ActionEnum::SUICIDE;
+    protected ActionEnum $name = ActionEnum::SUICIDE;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new HasRole(['roles' => [RoleEnum::SUPER_ADMIN], 'groups' => ['visibility']]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target === null;
     }
@@ -35,7 +35,7 @@ class Suicide extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $deathEvent = new PlayerEvent($this->player, $this->getAction()->getActionTags(), new \DateTime());
+        $deathEvent = new PlayerEvent($this->player, $this->getActionConfig()->getActionTags(), new \DateTime());
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
     }
 }

@@ -3,9 +3,7 @@
 namespace Mush\Player\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Mush\Action\Entity\Action;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
@@ -152,7 +150,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'room' => $this->normalizer->normalize($player->getPlace(), $format, $context),
             'skills' => $this->getNormalizedPlayerSkills($player, $format, $context),
             'titles' => $titles,
-            'actions' => $this->getActions($object, $format, $context),
+            'actions' => $this->getNormalizedActions($player, ActionHolderEnum::PLAYER, $player, $format, $context),
             'items' => $items,
             'statuses' => $statuses,
             'diseases' => $diseases,
@@ -211,35 +209,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'name' => $name,
             'description' => $description,
         ];
-    }
-
-    private function getActions(Player $player, ?string $format, array $context): array
-    {
-        $contextualActions = $this->getContextActions($player);
-        $selfActions = $player->getSelfActions();
-
-        $actionsToNormalize = array_merge($contextualActions->toArray(), $selfActions->toArray());
-
-        $actions = [];
-
-        /** @var Action $action */
-        foreach ($actionsToNormalize as $action) {
-            $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (\is_array($normedAction) && \count($normedAction) > 0) {
-                $actions[] = $normedAction;
-            }
-        }
-
-        $actions = $this->getNormalizedActionsSortedBy('name', $actions);
-
-        return $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
-    }
-
-    private function getContextActions(Player $player): Collection
-    {
-        $scope = [ActionScopeEnum::SELF];
-
-        return $this->gearToolService->getActionsTools($player, $scope);
     }
 
     private function normalizeSpaceBattle(Player $player, ?string $format = null, array $context = []): ?array

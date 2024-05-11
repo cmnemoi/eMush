@@ -4,7 +4,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Consume;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\ConsumableEffect;
@@ -26,13 +26,13 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
 {
     private Consume $consumeAction;
     private StatusServiceInterface $statusService;
-    private Action $action;
+    private ActionConfig $action;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
 
-        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::CONSUME]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CONSUME]);
         $this->action->setDirtyRate(0);
 
         $I->refreshEntities($this->action);
@@ -78,7 +78,12 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
             ->setName('ration');
         $I->haveInRepository($gameItem);
 
-        $this->consumeAction->loadParameters($this->action, $this->player1, $gameItem);
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $gameItem,
+            player: $this->player1,
+            target: $gameItem
+        );
 
         $costWithoutFrozen = $this->consumeAction->getActionPointCost();
 
@@ -92,7 +97,12 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
         $I->assertCount(1, $gameItem->getStatuses());
         $I->assertCount(1, $gameItem->getModifiers());
 
-        $this->consumeAction->loadParameters($this->action, $this->player1, $gameItem);
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $gameItem,
+            player: $this->player1,
+            target: $gameItem
+        );
         $costWithFrozen = $this->consumeAction->getActionPointCost();
 
         $I->assertEquals($costWithoutFrozen + 1, $costWithFrozen);

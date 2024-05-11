@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class MotivationalSpeech extends AbstractSpeech
 {
-    protected string $name = ActionEnum::MOTIVATIONAL_SPEECH;
+    protected ActionEnum $name = ActionEnum::MOTIVATIONAL_SPEECH;
     protected string $playerVariable = PlayerVariableEnum::MORAL_POINT;
 
     public function __construct(

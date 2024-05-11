@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\BoringSpeech;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -51,7 +51,7 @@ class BoringSpeechActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
 
-        $action = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::BORING_SPEECH]);
+        $action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::BORING_SPEECH]);
 
         /** @var CharacterConfig $speakerConfig */
         $speakerConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
@@ -86,7 +86,7 @@ class BoringSpeechActionCest
         $listener->setPlayerInfo($listenerInfo);
         $I->refreshEntities($listener);
 
-        $this->BoringSpeechAction->loadParameters($action, $speaker);
+        $this->BoringSpeechAction->loadParameters($action, $speaker, $speaker);
 
         $I->assertTrue($this->BoringSpeechAction->isVisible());
         $I->assertNull($this->BoringSpeechAction->cannotExecuteReason());

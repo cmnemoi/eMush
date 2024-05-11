@@ -23,9 +23,9 @@ final class TakeActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::TRANSPLANT);
+        $this->createActionEntity(ActionEnum::TRANSPLANT);
 
-        $this->action = new Take(
+        $this->actionHandler = new Take(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -48,7 +48,7 @@ final class TakeActionTest extends AbstractActionTest
         $gameItem = new GameItem($room);
 
         $item = new ItemConfig();
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+        $item->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $gameItem->setEquipment($item);
         $gameItem
@@ -59,9 +59,9 @@ final class TakeActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }
@@ -74,7 +74,7 @@ final class TakeActionTest extends AbstractActionTest
         $gameItem = new GameItem($room);
 
         $item = new ItemConfig();
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+        $item->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $gameItem->setEquipment($item);
         $gameItem
@@ -85,9 +85,9 @@ final class TakeActionTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

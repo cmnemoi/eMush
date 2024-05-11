@@ -3,6 +3,8 @@
 namespace Mush\Status\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Repository\ActionRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Repository\ModifierConfigRepository;
@@ -13,15 +15,18 @@ class StatusConfigDataLoader extends ConfigDataLoader
 {
     protected StatusConfigRepository $statusConfigRepository;
     protected ModifierConfigRepository $modifierConfigRepository;
+    protected ActionRepository $actionRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         StatusConfigRepository $statusConfigRepository,
-        ModifierConfigRepository $modifierConfigRepository
+        ModifierConfigRepository $modifierConfigRepository,
+        ActionRepository $actionRepository
     ) {
         parent::__construct($entityManager);
         $this->statusConfigRepository = $statusConfigRepository;
         $this->modifierConfigRepository = $modifierConfigRepository;
+        $this->actionRepository = $actionRepository;
     }
 
     public function loadConfigsData(): void
@@ -41,6 +46,7 @@ class StatusConfigDataLoader extends ConfigDataLoader
                 ->setStatusName($statusConfigData['statusName'])
                 ->setVisibility($statusConfigData['visibility']);
             $this->setStatusConfigModifierConfigs($statusConfig, $statusConfigData['modifierConfigs']);
+            $this->setStatusConfigActionConfigs($statusConfig, $statusConfigData['actionConfigs']);
 
             $this->entityManager->persist($statusConfig);
         }
@@ -59,5 +65,19 @@ class StatusConfigDataLoader extends ConfigDataLoader
             $modifierConfigs[] = $modifierConfig;
         }
         $statusConfig->setModifierConfigs($modifierConfigs);
+    }
+
+    protected function setStatusConfigActionConfigs(StatusConfig $statusConfig, array $actionConfigsArray): void
+    {
+        $actionConfigs = [];
+        foreach ($actionConfigsArray as $actionConfigName) {
+            /** @var ActionConfig $actionConfig */
+            $actionConfig = $this->actionRepository->findOneBy(['name' => $actionConfigName]);
+            if ($actionConfig === null) {
+                throw new \Exception("Action config {$actionConfigName} not found");
+            }
+            $actionConfigs[] = $actionConfig;
+        }
+        $statusConfig->setActionConfigs($actionConfigs);
     }
 }

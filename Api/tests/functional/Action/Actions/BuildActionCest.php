@@ -4,9 +4,11 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Build;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -32,7 +34,7 @@ use Mush\User\Entity\User;
  */
 final class BuildActionCest extends AbstractFunctionalTest
 {
-    private Action $buildConfig;
+    private ActionConfig $buildConfig;
     private Build $buildAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -40,7 +42,7 @@ final class BuildActionCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->buildConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::BUILD]);
+        $this->buildConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::BUILD]);
         $this->buildAction = $I->grabService(Build::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -53,8 +55,11 @@ final class BuildActionCest extends AbstractFunctionalTest
 
         $player = $this->createPlayer(new Daedalus(), $room1);
 
-        $buildActionEntity = new Action();
-        $buildActionEntity->setActionName(ActionEnum::BUILD);
+        $buildActionEntity = new ActionConfig();
+        $buildActionEntity
+            ->setActionName(ActionEnum::BUILD)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
 
         $gameEquipment = $this->createEquipment('blueprint', $room2);
 
@@ -62,7 +67,7 @@ final class BuildActionCest extends AbstractFunctionalTest
             $this->createBlueprint(['metal_scraps' => 1], $buildActionEntity),
         ]));
 
-        $this->buildAction->loadParameters($buildActionEntity, $player, $gameEquipment);
+        $this->buildAction->loadParameters($buildActionEntity, $gameEquipment, $player, $gameEquipment);
 
         $I->assertFalse($this->buildAction->isVisible());
 
@@ -79,10 +84,13 @@ final class BuildActionCest extends AbstractFunctionalTest
 
         $gameEquipment = $this->createEquipment('blueprint', $room);
 
-        $buildActionEntity = new Action();
-        $buildActionEntity->setActionName(ActionEnum::BUILD);
+        $buildActionEntity = new ActionConfig();
+        $buildActionEntity
+            ->setActionName(ActionEnum::BUILD)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setRange(ActionRangeEnum::SELF);
 
-        $this->buildAction->loadParameters($buildActionEntity, $player, $gameEquipment);
+        $this->buildAction->loadParameters($buildActionEntity, $gameEquipment, $player, $gameEquipment);
 
         $I->assertFalse($this->buildAction->isVisible());
 
@@ -124,7 +132,7 @@ final class BuildActionCest extends AbstractFunctionalTest
         );
 
         // when player wants to build the sofa
-        $this->buildAction->loadParameters($this->buildConfig, $this->player, $swedishSofaBlueprint);
+        $this->buildAction->loadParameters($this->buildConfig, $swedishSofaBlueprint, $this->player, $swedishSofaBlueprint);
 
         // then the action is not executable
         $I->assertEquals(
@@ -158,7 +166,7 @@ final class BuildActionCest extends AbstractFunctionalTest
         );
 
         // when I build the blueprint
-        $this->buildAction->loadParameters($this->buildConfig, $this->player, $thermosensorBlueprint);
+        $this->buildAction->loadParameters($this->buildConfig, $thermosensorBlueprint, $this->player, $thermosensorBlueprint);
         $this->buildAction->execute();
 
         // then I have the thermosensor in my inventory
@@ -209,7 +217,7 @@ final class BuildActionCest extends AbstractFunctionalTest
         return $gameEquipment;
     }
 
-    private function createBlueprint(array $ingredients, Action $buildAction, ?EquipmentConfig $product = null): Blueprint
+    private function createBlueprint(array $ingredients, ActionConfig $buildAction, ?EquipmentConfig $product = null): Blueprint
     {
         if ($product === null) {
             $product = new ItemConfig();

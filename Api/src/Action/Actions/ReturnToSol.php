@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class ReturnToSol extends AbstractAction
 {
-    protected string $name = ActionEnum::RETURN_TO_SOL;
+    protected ActionEnum $name = ActionEnum::RETURN_TO_SOL;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -29,7 +29,7 @@ final class ReturnToSol extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters = []): bool
+    public function support(?LogParameterInterface $target, array $parameters = []): bool
     {
         return $target instanceof GameEquipment;
     }
@@ -46,7 +46,7 @@ final class ReturnToSol extends AbstractAction
 
     private function finishDaedalus(): void
     {
-        $daedalusEvent = new DaedalusEvent($this->player->getDaedalus(), $this->getAction()->getActionTags(), new \DateTime());
+        $daedalusEvent = new DaedalusEvent($this->player->getDaedalus(), $this->getActionConfig()->getActionTags(), new \DateTime());
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
     }
 }

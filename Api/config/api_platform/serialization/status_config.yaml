@@ -12,3 +12,5 @@ Mush\Status\Entity\Config\StatusConfig:
       groups: [ 'status_config_read', 'status_config_write' ]
     modifierConfigs:
       groups: [ 'status_config_read', 'status_config_write' ]
+    actionConfigs:
+      groups: [ 'status_config_read', 'status_config_write' ]

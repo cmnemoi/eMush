@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Renovate extends AttemptAction
 {
-    protected string $name = ActionEnum::RENOVATE;
+    protected ActionEnum $name = ActionEnum::RENOVATE;
 
     private StatusServiceInterface $statusService;
 
@@ -60,7 +60,7 @@ final class Renovate extends AttemptAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }
@@ -78,7 +78,7 @@ final class Renovate extends AttemptAction
             $this->statusService->removeStatus(
                 statusName: EquipmentStatusEnum::BROKEN,
                 holder: $patrolShip,
-                tags: $this->getAction()->getActionTags(),
+                tags: $this->getActionConfig()->getActionTags(),
                 time: new \DateTime()
             );
         }
@@ -90,7 +90,7 @@ final class Renovate extends AttemptAction
             $this->getPieceOfScrapMetal(),
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime()
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
@@ -134,7 +134,7 @@ final class Renovate extends AttemptAction
         $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,
             delta: $maxArmor,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime()
         );
     }

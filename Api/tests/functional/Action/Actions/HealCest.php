@@ -4,9 +4,10 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Heal;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Enum\DiseaseEnum;
@@ -35,7 +36,7 @@ use Mush\User\Entity\User;
  */
 final class HealCest extends AbstractFunctionalTest
 {
-    private Action $healConfig;
+    private ActionConfig $healConfig;
     private Heal $healAction;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
@@ -43,7 +44,7 @@ final class HealCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->healConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::HEAL]);
+        $this->healConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::HEAL]);
         $this->healAction = $I->grabService(Heal::class);
 
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
@@ -63,10 +64,11 @@ final class HealCest extends AbstractFunctionalTest
         /** @var Place $medlab */
         $medlab = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::MEDLAB]);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::HEAL)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(2)
             ->buildName(GameConfigEnum::TEST)
             ->setOutputQuantity(3);
@@ -76,13 +78,13 @@ final class HealCest extends AbstractFunctionalTest
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
             ->setEquipmentName(ToolItemEnum::MEDIKIT)
-            ->setActions(new ArrayCollection([$action]));
+            ->setActionConfigs(new ArrayCollection([$action]));
 
         $I->haveInRepository($itemConfig);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, [
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $healerPlayer */
@@ -112,7 +114,12 @@ final class HealCest extends AbstractFunctionalTest
         $healedPlayer->setPlayerInfo($healedPlayerInfo);
         $I->refreshEntities($healedPlayer);
 
-        $this->healAction->loadParameters($action, $healerPlayer, $healedPlayer);
+        $this->healAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $healerPlayer,
+            player: $healerPlayer,
+            target: $healedPlayer
+        );
 
         $I->assertTrue($this->healAction->isVisible());
         $I->assertNull($this->healAction->cannotExecuteReason());
@@ -143,10 +150,11 @@ final class HealCest extends AbstractFunctionalTest
         /** @var Place $laboratory */
         $laboratory = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::LABORATORY]);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::HEAL)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(2)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
@@ -155,13 +163,13 @@ final class HealCest extends AbstractFunctionalTest
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
             ->setEquipmentName(ToolItemEnum::MEDIKIT)
-            ->setActions(new ArrayCollection([$action]));
+            ->setActionConfigs(new ArrayCollection([$action]));
 
         $I->haveInRepository($itemConfig);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, [
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $healerPlayer */
@@ -191,7 +199,12 @@ final class HealCest extends AbstractFunctionalTest
         $healedPlayer->setPlayerInfo($healedPlayerInfo);
         $I->refreshEntities($healedPlayer);
 
-        $this->healAction->loadParameters($action, $healerPlayer, $healedPlayer);
+        $this->healAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $healerPlayer,
+            player: $healerPlayer,
+            target: $healedPlayer
+        );
 
         $I->assertFalse($this->healAction->isVisible());
     }
@@ -212,7 +225,12 @@ final class HealCest extends AbstractFunctionalTest
         );
 
         // when player 1 heals player 2
-        $this->healAction->loadParameters($this->healConfig, $this->player1, $this->player2);
+        $this->healAction->loadParameters(
+            actionConfig: $this->healConfig,
+            actionProvider: $this->player1,
+            player: $this->player1,
+            target: $this->player2
+        );
         $this->healAction->execute();
 
         // then I don't see a log about health gained

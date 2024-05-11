@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\RetrieveFuelChamber;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -27,7 +27,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class RetrieveFuelChamberCest extends AbstractFunctionalTest
 {
-    private Action $retrieveFuelChamberActionConfig;
+    private ActionConfig $retrieveFuelChamberActionConfig;
     private RetrieveFuelChamber $retrieveFuelChamberAction;
 
     public function _before(FunctionalTester $I): void
@@ -35,8 +35,8 @@ final class RetrieveFuelChamberCest extends AbstractFunctionalTest
         parent::_before($I);
         $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
 
-        $this->retrieveFuelChamberActionConfig = $I->grabEntityFromRepository(Action::class, [
-            'name' => ActionEnum::RETRIEVE_FUEL_CHAMBER,
+        $this->retrieveFuelChamberActionConfig = $I->grabEntityFromRepository(ActionConfig::class, [
+            'actionName' => ActionEnum::RETRIEVE_FUEL_CHAMBER,
         ]);
         $this->retrieveFuelChamberAction = $I->grabService(RetrieveFuelChamber::class);
 
@@ -92,7 +92,12 @@ final class RetrieveFuelChamberCest extends AbstractFunctionalTest
         $I->haveInRepository($brokenStatus);
 
         // when action is loaded
-        $this->retrieveFuelChamberAction->loadParameters($this->retrieveFuelChamberActionConfig, $this->player, $combustionChamber);
+        $this->retrieveFuelChamberAction->loadParameters(
+            actionConfig: $this->retrieveFuelChamberActionConfig,
+            actionProvider: $combustionChamber,
+            player: $this->player,
+            target: $combustionChamber
+        );
 
         // then action is not visible
         $I->assertEquals(
@@ -109,7 +114,12 @@ final class RetrieveFuelChamberCest extends AbstractFunctionalTest
         $this->daedalus->setCombustionChamberFuel(0);
 
         // when action is loaded
-        $this->retrieveFuelChamberAction->loadParameters($this->retrieveFuelChamberActionConfig, $this->player, $combustionChamber);
+        $this->retrieveFuelChamberAction->loadParameters(
+            actionConfig: $this->retrieveFuelChamberActionConfig,
+            actionProvider: $combustionChamber,
+            player: $this->player,
+            target: $combustionChamber
+        );
 
         // then action is not visible
         $I->assertFalse($this->retrieveFuelChamberAction->isVisible());
@@ -129,7 +139,12 @@ final class RetrieveFuelChamberCest extends AbstractFunctionalTest
 
     private function whenPlayerRetrievesFuelCapsuleFromCombustionChamber(GameEquipment $combustionChamber): void
     {
-        $this->retrieveFuelChamberAction->loadParameters($this->retrieveFuelChamberActionConfig, $this->player, $combustionChamber);
+        $this->retrieveFuelChamberAction->loadParameters(
+            actionConfig: $this->retrieveFuelChamberActionConfig,
+            actionProvider: $combustionChamber,
+            player: $this->player,
+            target: $combustionChamber
+        );
         $this->retrieveFuelChamberAction->execute();
     }
 }

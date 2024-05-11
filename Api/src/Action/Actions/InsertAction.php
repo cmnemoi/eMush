@@ -14,7 +14,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 
 abstract class InsertAction extends AbstractAction
 {
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameItem;
     }
@@ -37,7 +37,7 @@ abstract class InsertAction extends AbstractAction
             $toInsert,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
@@ -47,7 +47,7 @@ abstract class InsertAction extends AbstractAction
             $this->player->getDaedalus(),
             $this->getDaedalusVariable(),
             $addedFuel,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time
         );
         $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\TurnDaedalusLeft;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
@@ -32,7 +32,8 @@ final class TurnDaedalusLeftCest extends AbstractTurnDaedalusActionCest
 
         // when player turns daedalus left
         $this->turnDaedalusAction->loadParameters(
-            action: $this->turnDaedalusConfig,
+            actionConfig: $this->turnDaedalusConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -48,7 +49,8 @@ final class TurnDaedalusLeftCest extends AbstractTurnDaedalusActionCest
 
         // when player turns daedalus left
         $this->turnDaedalusAction->loadParameters(
-            action: $this->turnDaedalusConfig,
+            actionConfig: $this->turnDaedalusConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -59,7 +61,8 @@ final class TurnDaedalusLeftCest extends AbstractTurnDaedalusActionCest
 
         // when player turns daedalus left again
         $this->turnDaedalusAction->loadParameters(
-            action: $this->turnDaedalusConfig,
+            actionConfig: $this->turnDaedalusConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );

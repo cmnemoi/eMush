@@ -4,10 +4,11 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\DoTheThing;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -53,7 +54,7 @@ use Mush\User\Entity\User;
  */
 final class DoTheThingCest extends AbstractFunctionalTest
 {
-    private Action $doTheThingConfig;
+    private ActionConfig $doTheThingConfig;
     private DoTheThing $doTheThingAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -62,7 +63,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->doTheThingConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::DO_THE_THING]);
+        $this->doTheThingConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DO_THE_THING]);
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -118,10 +119,11 @@ final class DoTheThingCest extends AbstractFunctionalTest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::DO_THE_THING)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST)
             ->setOutputQuantity(2);
@@ -131,14 +133,14 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::CHUN . '_' . GameConfigEnum::TEST,
             'characterName' => CharacterEnum::CHUN,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::DEREK . '_' . GameConfigEnum::TEST,
             'characterName' => CharacterEnum::DEREK,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $player */
@@ -188,7 +190,12 @@ final class DoTheThingCest extends AbstractFunctionalTest
 
         $targetPlayer->setFlirts(new ArrayCollection([$player]));
 
-        $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
+        $this->doTheThingAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer
+        );
 
         $I->assertTrue($this->doTheThingAction->isVisible());
         $I->assertNull($this->doTheThingAction->cannotExecuteReason());
@@ -210,7 +217,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::PREGNANT,
             $player,
-            $this->doTheThingAction->getAction()->getActionTags(),
+            $this->doTheThingAction->getActionConfig()->getActionTags(),
             new \DateTime(),
             null,
             VisibilityEnum::PRIVATE
@@ -234,10 +241,11 @@ final class DoTheThingCest extends AbstractFunctionalTest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::DO_THE_THING)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
@@ -246,14 +254,14 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::CHUN . '_' . GameConfigEnum::TEST,
             'characterName' => CharacterEnum::CHUN,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::DEREK . '_' . GameConfigEnum::TEST,
             'characterName' => CharacterEnum::DEREK,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $player */
@@ -300,7 +308,12 @@ final class DoTheThingCest extends AbstractFunctionalTest
             ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
-        $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
+        $this->doTheThingAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer
+        );
 
         $I->assertTrue($this->doTheThingAction->isVisible());
         $I->assertEquals(
@@ -322,10 +335,11 @@ final class DoTheThingCest extends AbstractFunctionalTest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::DO_THE_THING)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
@@ -334,14 +348,14 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::CHUN . '_' . GameConfigEnum::TEST,
             'characterName' => CharacterEnum::CHUN,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::DEREK . '_' . GameConfigEnum::TEST,
             'characterName' => CharacterEnum::DEREK,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $player */
@@ -399,7 +413,12 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $witnessPlayer->setPlayerInfo($witnessPlayerInfo);
         $I->refreshEntities($witnessPlayer);
 
-        $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
+        $this->doTheThingAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer
+        );
 
         $I->assertTrue($this->doTheThingAction->isVisible());
         $I->assertEquals(
@@ -418,10 +437,11 @@ final class DoTheThingCest extends AbstractFunctionalTest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::DO_THE_THING)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
@@ -430,14 +450,14 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::CHUN . '_' . GameConfigEnum::TEST,
             'characterName' => CharacterEnum::CHUN,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::DEREK . '_' . GameConfigEnum::TEST,
             'characterName' => CharacterEnum::DEREK,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $player */
@@ -475,7 +495,12 @@ final class DoTheThingCest extends AbstractFunctionalTest
 
         $targetPlayer->setFlirts(new ArrayCollection([$player]));
 
-        $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
+        $this->doTheThingAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer
+        );
 
         $I->assertFalse($this->doTheThingAction->isVisible());
     }
@@ -540,10 +565,11 @@ final class DoTheThingCest extends AbstractFunctionalTest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::DO_THE_THING)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
@@ -552,14 +578,14 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::PAOLA . '_' . GameConfigEnum::TEST,
             'characterName' => CharacterEnum::PAOLA,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::DEREK . '_' . GameConfigEnum::TEST,
             'characterName' => CharacterEnum::DEREK,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         $mushConfig = new ChargeStatusConfig();
@@ -627,7 +653,12 @@ final class DoTheThingCest extends AbstractFunctionalTest
 
         $humanPlayer->setFlirts(new ArrayCollection([$mushPlayer]));
 
-        $this->doTheThingAction->loadParameters($action, $mushPlayer, $humanPlayer);
+        $this->doTheThingAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $mushPlayer,
+            player: $mushPlayer,
+            target: $humanPlayer
+        );
 
         $this->doTheThingAction->execute();
 
@@ -650,10 +681,11 @@ final class DoTheThingCest extends AbstractFunctionalTest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::DO_THE_THING)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
@@ -662,14 +694,14 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::CHUN . '_' . GameConfigEnum::TEST,
             'characterName' => CharacterEnum::CHUN,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::DEREK . '_' . GameConfigEnum::TEST,
             'characterName' => CharacterEnum::DEREK,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $player */
@@ -727,7 +759,12 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $deadWitnessPlayer->setPlayerInfo($deadWitnessPlayerInfo);
         $I->refreshEntities($deadWitnessPlayer);
 
-        $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
+        $this->doTheThingAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer
+        );
 
         $I->assertTrue($this->doTheThingAction->isVisible());
         $I->assertNull($this->doTheThingAction->cannotExecuteReason());
@@ -761,7 +798,8 @@ final class DoTheThingCest extends AbstractFunctionalTest
 
         // when chun tries to do the thing with kuan ti
         $this->doTheThingAction->loadParameters(
-            action: $this->doTheThingConfig,
+            actionConfig: $this->doTheThingConfig,
+            actionProvider: $chun,
             player: $chun,
             target: $kuanTi,
         );
@@ -807,7 +845,8 @@ final class DoTheThingCest extends AbstractFunctionalTest
 
         // when the immunized player does the thing with the mush player
         $this->doTheThingAction->loadParameters(
-            action: $this->doTheThingConfig,
+            actionConfig: $this->doTheThingConfig,
+            actionProvider: $immunizedPlayer,
             player: $immunizedPlayer,
             target: $mushPlayer,
         );

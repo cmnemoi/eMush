@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class TreatPlant extends AbstractAction
 {
-    protected string $name = ActionEnum::TREAT_PLANT;
+    protected ActionEnum $name = ActionEnum::TREAT_PLANT;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
@@ -51,7 +51,7 @@ class TreatPlant extends AbstractAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameItem;
     }

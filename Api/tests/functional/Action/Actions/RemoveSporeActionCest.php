@@ -4,9 +4,10 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\RemoveSpore;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -79,10 +80,11 @@ class RemoveSporeActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::REMOVE_SPORE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(1)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST);
@@ -93,7 +95,7 @@ class RemoveSporeActionCest
 
         $itemConfig
             ->setEquipmentName(ToolItemEnum::SPORE_SUCKER)
-            ->setActions(new ArrayCollection([$action]));
+            ->setActionConfigs(new ArrayCollection([$action]));
 
         $gameItem = new GameItem($room);
         $gameItem
@@ -102,7 +104,12 @@ class RemoveSporeActionCest
             ->setHolder($room);
         $I->haveInRepository($gameItem);
 
-        $this->removeSpore->loadParameters($action, $player, $gameItem);
+        $this->removeSpore->loadParameters(
+            actionConfig: $action,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem
+        );
 
         $I->assertTrue($this->removeSpore->isVisible());
 

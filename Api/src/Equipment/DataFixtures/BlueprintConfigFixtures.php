@@ -6,7 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -24,19 +24,19 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        /** @var Action $takeAction */
+        /** @var ActionConfig $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
 
-        /** @var Action $dropAction */
+        /** @var ActionConfig $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
 
-        /** @var Action $buildAction */
+        /** @var ActionConfig $buildAction */
         $buildAction = $this->getReference(ActionsFixtures::BUILD_DEFAULT);
 
-        /** @var Action $hideAction */
+        /** @var ActionConfig $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
 
-        /** @var Action $examineAction */
+        /** @var ActionConfig $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
         $actions = [$takeAction, $dropAction, $hideAction, $examineAction];
@@ -56,7 +56,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$blueprintEcholocatorMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blueprintEcholocatorMechanic);
         $manager->persist($blueprintEcholocator);
@@ -75,7 +75,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$blueprintWhiteFlagMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blueprintWhiteFlagMechanic);
         $manager->persist($blueprintWhiteFlag);
@@ -94,7 +94,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$blueprintThermosensorMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blueprintThermosensorMechanic);
         $manager->persist($blueprintThermosensor);
@@ -113,7 +113,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$blueprintBabelModuleMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blueprintBabelModuleMechanic);
         $manager->persist($blueprintBabelModule);
@@ -132,7 +132,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$blueprintGrenadeMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blueprintGrenadeMechanic);
         $manager->persist($blueprintGrenade);
@@ -151,7 +151,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$blueprintOldFaithfulMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blueprintOldFaithfulMechanic);
         $manager->persist($blueprintOldFaithful);
@@ -170,7 +170,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$blueprintLizaroJungleMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blueprintLizaroJungleMechanic);
         $manager->persist($blueprintLizaroJungle);
@@ -189,7 +189,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$blueprintRocketLauncherMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blueprintRocketLauncherMechanic);
         $manager->persist($blueprintRocketLauncher);
@@ -208,7 +208,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$blueprintExtinguisherMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blueprintExtinguisherMechanic);
         $manager->persist($blueprintExtinguisher);
@@ -227,7 +227,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$blueprintOscilloscopeMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blueprintOscilloscopeMechanic);
         $manager->persist($blueprintOscilloscope);
@@ -246,7 +246,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$blueprintSniperHelmetMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blueprintSniperHelmetMechanic);
         $manager->persist($blueprintSniperHelmet);
@@ -265,7 +265,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$blueprintSwedishSofaMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blueprintSwedishSofaMechanic);
         $manager->persist($blueprintSwedishSofa);

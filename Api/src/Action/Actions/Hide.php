@@ -26,7 +26,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Hide extends AbstractAction
 {
-    protected string $name = ActionEnum::HIDE;
+    protected ActionEnum $name = ActionEnum::HIDE;
 
     protected StatusServiceInterface $statusService;
 
@@ -49,7 +49,7 @@ class Hide extends AbstractAction
         $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameItem;
     }
@@ -68,7 +68,7 @@ class Hide extends AbstractAction
         $this->statusService->createStatusFromName(
             EquipmentStatusEnum::HIDDEN,
             $target,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time,
             $this->player
         );
@@ -79,7 +79,7 @@ class Hide extends AbstractAction
                 $this->player->getPlace(),
                 $this->player,
                 VisibilityEnum::HIDDEN,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 $time
             );
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);

@@ -33,9 +33,9 @@ final class ReadDocumentTest extends AbstractActionTest
     public function before()
     {
         parent::before();
-        $this->actionEntity = $this->createActionEntity(ActionEnum::READ_DOCUMENT);
+        $this->createActionEntity(ActionEnum::READ_DOCUMENT);
 
-        $this->action = new ReadDocument(
+        $this->actionHandler = new ReadDocument(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -76,9 +76,9 @@ final class ReadDocumentTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertSame('test content', $result->getContent());

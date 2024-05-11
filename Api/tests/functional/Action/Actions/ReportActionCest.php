@@ -5,9 +5,10 @@ namespace Mush\Tests\functional\Action\Actions;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ReportEquipment;
 use Mush\Action\Actions\ReportFire;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
@@ -94,17 +95,18 @@ class ReportActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::REPORT_EQUIPMENT)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'name' => EquipmentEnum::NARCOTIC_DISTILLER,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         $gameEquipment = new GameEquipment($room);
@@ -134,7 +136,12 @@ class ReportActionCest
 
         $I->haveInRepository($alertBroken);
 
-        $this->reportEquipment->loadParameters($action, $player, $gameEquipment);
+        $this->reportEquipment->loadParameters(
+            actionConfig: $action,
+            actionProvider: $gameEquipment,
+            player: $player,
+            target: $gameEquipment
+        );
 
         $I->assertTrue($this->reportEquipment->isVisible());
 
@@ -175,16 +182,16 @@ class ReportActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::REPORT_EQUIPMENT)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-        $characterConfig->setActions(new ArrayCollection([$action]));
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
@@ -207,6 +214,7 @@ class ReportActionCest
         $statusConfig
             ->setStatusName(StatusEnum::FIRE)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setActionConfigs([$action])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($room, $statusConfig);
@@ -224,7 +232,11 @@ class ReportActionCest
 
         $I->haveInRepository($alertFire);
 
-        $this->reportFire->loadParameters($action, $player);
+        $this->reportFire->loadParameters(
+            actionConfig: $action,
+            actionProvider: $status,
+            player: $player
+        );
 
         $I->assertTrue($this->reportFire->isVisible());
 

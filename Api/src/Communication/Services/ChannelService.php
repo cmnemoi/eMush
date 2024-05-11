@@ -257,7 +257,7 @@ class ChannelService implements ChannelServiceInterface
         /** @var Status $talkieScrewedStatus */
         $talkieScrewedStatus = $player->getStatusByName(PlayerStatusEnum::TALKIE_SCREWED);
 
-        return $talkieScrewedStatus->getTarget();
+        return $talkieScrewedStatus->getStatusTargetTarget()?->getPlayer();
     }
 
     public function getPiratedChannels(Player $piratedPlayer): Collection
@@ -278,7 +278,7 @@ class ChannelService implements ChannelServiceInterface
     {
         $screwedTalkieStatus = $this->statusService->getByTargetAndName($player, PlayerStatusEnum::TALKIE_SCREWED);
 
-        return $screwedTalkieStatus?->getOwner();
+        return $screwedTalkieStatus?->getStatusTargetOwner()->getPlayer();
     }
 
     public function getPlayerFavoritesChannel(Player $player): Channel

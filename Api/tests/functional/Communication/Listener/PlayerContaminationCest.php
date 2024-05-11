@@ -120,10 +120,10 @@ class PlayerContaminationCest
             $player,
             PlayerVariableEnum::SPORE,
             1,
-            [ActionEnum::INFECT],
+            [ActionEnum::INFECT->value],
             new \DateTime()
         );
-        $playerEvent->setAuthor($player2)->setTags([ActionEnum::INFECT]);
+        $playerEvent->setAuthor($player2)->setTags([ActionEnum::INFECT->value]);
 
         $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
 
@@ -221,10 +221,10 @@ class PlayerContaminationCest
             $player,
             PlayerVariableEnum::SPORE,
             3,
-            [ActionEnum::INFECT],
+            [ActionEnum::INFECT->value],
             new \DateTime()
         );
-        $playerEvent->setAuthor($player2)->setTags([ActionEnum::INFECT]);
+        $playerEvent->setAuthor($player2)->setTags([ActionEnum::INFECT->value]);
 
         $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
 

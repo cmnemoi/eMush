@@ -5,7 +5,7 @@ namespace Mush\Tests\functional\Communication\Listener;
 use Mush\Action\Actions\Drop;
 use Mush\Action\Actions\Move;
 use Mush\Action\Actions\ScrewTalkie;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
@@ -102,12 +102,17 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
     // This test aims to reproduce a bug reported by users
     public function testPirateThenDieThenDropTalkie(FunctionalTester $I)
     {
-        $pirateActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
-        $dropActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::DROP]);
-        $moveActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::MOVE]);
+        $pirateActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
+        $dropActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]);
+        $moveActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]);
 
         // Given player1 pirates player2
-        $this->pirateAction->loadParameters($pirateActionEntity, $this->player1, $this->player2);
+        $this->pirateAction->loadParameters(
+            actionConfig: $pirateActionEntity,
+            actionProvider: $this->player1,
+            player: $this->player1,
+            target: $this->player2
+        );
         $I->assertTrue($this->pirateAction->isVisible());
         $this->pirateAction->execute();
 
@@ -131,13 +136,20 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         ]);
 
         // Given player2 drop its talkie
-        $this->dropAction->loadParameters($dropActionEntity, $this->player2, $this->player2->getEquipments()->first());
+        $talkie = $this->player2->getEquipments()->first();
+        $this->dropAction->loadParameters(
+            actionConfig: $dropActionEntity,
+            actionProvider: $talkie,
+            player: $this->player2,
+            target: $talkie
+        );
         $this->dropAction->execute();
         // Then he should still be in the private conversation (as he is alone)
         $I->assertCount(1, $this->privateChannel->getParticipants());
 
         // Given player 2 change room
-        $this->moveAction->loadParameters($moveActionEntity, $this->player2, $this->player1->getPlace()->getDoors()->first());
+        $door = $this->player1->getPlace()->getDoors()->first();
+        $this->moveAction->loadParameters($moveActionEntity, $door, $this->player2, $door);
         $this->moveAction->execute();
         // Then he should still be in the private conversation (as he is alone)
         $I->assertCount(1, $this->privateChannel->getParticipants());
@@ -149,12 +161,17 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
 
     public function testPirateThenMoveThenDieThenDropTalkie(FunctionalTester $I)
     {
-        $pirateActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
-        $dropActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::DROP]);
-        $moveActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::MOVE]);
+        $pirateActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
+        $dropActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]);
+        $moveActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]);
 
         // Given player1 pirates player2
-        $this->pirateAction->loadParameters($pirateActionEntity, $this->player1, $this->player2);
+        $this->pirateAction->loadParameters(
+            actionConfig: $pirateActionEntity,
+            actionProvider: $this->player1,
+            player: $this->player1,
+            target: $this->player2
+        );
         $I->assertTrue($this->pirateAction->isVisible());
         $this->pirateAction->execute();
 
@@ -163,14 +180,26 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         $I->assertCount(2, $this->privateChannel->getParticipants());
 
         // Given player2 move
-        $this->moveAction->loadParameters($moveActionEntity, $this->player2, $this->player2->getPlace()->getDoors()->first());
+        $door = $this->player2->getPlace()->getDoors()->first();
+        $this->moveAction->loadParameters(
+            $moveActionEntity,
+            $door,
+            $this->player2,
+            $door
+        );
         $this->moveAction->execute();
 
         // then player 2 is not kicked of the conversation even if he cannot speak (because player 1 "took his place" when he pirated)
         $I->assertCount(2, $this->privateChannel->getParticipants());
 
         // Given player1 move to join player2
-        $this->moveAction->loadParameters($moveActionEntity, $this->player, $this->player1->getPlace()->getDoors()->first());
+        $door = $this->player1->getPlace()->getDoors()->first();
+        $this->moveAction->loadParameters(
+            actionConfig: $moveActionEntity,
+            actionProvider: $door,
+            player: $this->player,
+            target: $door
+        );
         $this->moveAction->execute();
         // then no one should be kicked of the conversation as they are in the same room (and P2 is still pirated anyway)
         $I->assertCount(2, $this->privateChannel->getParticipants());
@@ -191,7 +220,13 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         ]);
 
         // given player2 drop its talkie
-        $this->dropAction->loadParameters($dropActionEntity, $this->player2, $this->player2->getEquipments()->first());
+        $talkie = $this->player2->getEquipments()->first();
+        $this->dropAction->loadParameters(
+            actionConfig: $dropActionEntity,
+            actionProvider: $talkie,
+            player: $this->player2,
+            target: $talkie
+        );
         $this->dropAction->execute();
         // then he should still have access to the private channel (as he is now alone in it)
         $I->assertCount(1, $this->privateChannel->getParticipants());
@@ -201,7 +236,13 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         ]);
 
         // Given player 2 change room
-        $this->moveAction->loadParameters($moveActionEntity, $this->player2, $this->player2->getPlace()->getDoors()->first());
+        $door = $this->player2->getPlace()->getDoors()->first();
+        $this->moveAction->loadParameters(
+            $moveActionEntity,
+            $door,
+            $this->player2,
+            $door
+        );
         $this->moveAction->execute();
         // then he should still have access to the private channel (as he is now alone in it)
         $I->assertCount(1, $this->privateChannel->getParticipants());
@@ -213,9 +254,9 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
 
     public function testPirate(FunctionalTester $I)
     {
-        $pirateActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
-        $moveActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::MOVE]);
-        $dropActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::DROP]);
+        $pirateActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
+        $moveActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]);
+        $dropActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]);
 
         // Create a third player
         $player3 = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::FINOLA);
@@ -231,7 +272,7 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         $I->haveInRepository($talkie3);
 
         // Given player3 pirates player1
-        $this->pirateAction->loadParameters($pirateActionEntity, $player3, $this->player1);
+        $this->pirateAction->loadParameters($pirateActionEntity, $player3, $player3, $this->player1);
         $I->assertTrue($this->pirateAction->isVisible());
         $this->pirateAction->execute();
         // then player 3 get the pirate status
@@ -239,8 +280,10 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         $I->assertCount(2, $this->privateChannel->getParticipants());
 
         // Given player 2 move out of the room and player 1 drop his talkie
-        $this->moveAction->loadParameters($moveActionEntity, $this->player2, $this->player2->getPlace()->getDoors()->first());
-        $this->dropAction->loadParameters($dropActionEntity, $this->player1, $this->player1->getEquipments()->first());
+        $door = $this->player2->getPlace()->getDoors()->first();
+        $talkie = $this->player1->getEquipments()->first();
+        $this->moveAction->loadParameters($moveActionEntity, $door, $this->player2, $door);
+        $this->dropAction->loadParameters($dropActionEntity, $talkie, $this->player1, $talkie);
 
         // Then player 1 is not kicked out of the private conversation as player 3 pirated him
         $I->assertCount(2, $this->privateChannel->getParticipants());

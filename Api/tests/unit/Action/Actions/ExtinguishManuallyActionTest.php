@@ -31,12 +31,12 @@ final class ExtinguishManuallyActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::REPAIR, 1);
+        $this->createActionEntity(ActionEnum::REPAIR, 1);
 
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new ExtinguishManually(
+        $this->actionHandler = new ExtinguishManually(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -64,20 +64,20 @@ final class ExtinguishManuallyActionTest extends AbstractActionTest
 
         $room->setDaedalus($player->getDaedalus());
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, null, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->with($player, $this->actionConfig, $this->actionProvider, null, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
             ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, null, ActionVariableEnum::PERCENTAGE_CRITICAL)
+            ->with($player, $this->actionConfig, $this->actionProvider, null, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->never();
         $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(false)->once();
 
         // Fail try
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Fail::class, $result);
         self::assertCount(1, $room->getStatuses());
@@ -92,15 +92,15 @@ final class ExtinguishManuallyActionTest extends AbstractActionTest
 
         $room->setDaedalus($player->getDaedalus());
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, null, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->with($player, $this->actionConfig, $this->actionProvider, null, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
             ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, null, ActionVariableEnum::PERCENTAGE_CRITICAL)
+            ->with($player, $this->actionConfig, $this->actionProvider, null, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->andReturn(0)
             ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(true)->once();
@@ -108,7 +108,7 @@ final class ExtinguishManuallyActionTest extends AbstractActionTest
         $this->statusService->shouldReceive('removeStatus')->once();
 
         // Success
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

@@ -21,7 +21,12 @@ export class Terminal {
             this.key = object.key;
             this.name = object.name;
             this.tips = object.tips;
-            this.actions = object.actions;
+            if (typeof object.actions !== 'undefined') {
+                object.actions.forEach((actionObject: any) => {
+                    const action = (new Action()).load(actionObject);
+                    this.actions.push(action);
+                });
+            }
             this.sectionTitles = new TerminalSectionTitles().load(object.sectionTitles);
             this.infos = new TerminalInfos().load(object.infos);
             this.buttons = new TerminalButtons().load(object.buttons);

@@ -16,7 +16,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -24,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class AccessTerminal extends AbstractAction
 {
-    protected string $name = ActionEnum::ACCESS_TERMINAL;
+    protected ActionEnum $name = ActionEnum::ACCESS_TERMINAL;
 
     protected StatusServiceInterface $statusService;
 
@@ -46,7 +45,6 @@ final class AccessTerminal extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT]));
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::FOCUSED,
             'target' => HasStatus::PLAYER,
@@ -60,7 +58,7 @@ final class AccessTerminal extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }
@@ -78,7 +76,7 @@ final class AccessTerminal extends AbstractAction
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::FOCUSED,
             holder: $this->player,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime(),
             target: $terminal,
         );

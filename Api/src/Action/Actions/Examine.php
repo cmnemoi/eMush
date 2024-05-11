@@ -13,14 +13,14 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Examine extends AbstractAction
 {
-    protected string $name = ActionEnum::EXAMINE;
+    protected ActionEnum $name = ActionEnum::EXAMINE;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }

@@ -3,8 +3,9 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\InsertFuel;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -28,7 +29,7 @@ final class InsertFuelCest extends AbstractFunctionalTest
     private InsertFuel $insertFuelAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    private Action $actionConfig;
+    private ActionConfig $actionConfig;
 
     public function _before(FunctionalTester $I)
     {
@@ -36,7 +37,7 @@ final class InsertFuelCest extends AbstractFunctionalTest
 
         $storageRoom = $this->createExtraPlace(RoomEnum::REAR_ALPHA_STORAGE, $I, $this->daedalus);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::INSERT_FUEL]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::INSERT_FUEL]);
 
         $this->player->changePlace($storageRoom);
 
@@ -49,7 +50,7 @@ final class InsertFuelCest extends AbstractFunctionalTest
         $initFuel = $this->player->getDaedalus()->getFuel();
 
         // given there is a fuel tank in the room
-        $this->gameEquipmentService->createGameEquipmentFromName(
+        $tank = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::FUEL_TANK,
             equipmentHolder: $this->player->getPlace(),
             reasons: [],
@@ -65,7 +66,12 @@ final class InsertFuelCest extends AbstractFunctionalTest
         );
 
         // when player inserts fuel capsule in fuel tank
-        $this->insertFuelAction->loadParameters($this->actionConfig, $this->player, $gameCapsule);
+        $this->insertFuelAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $tank,
+            player: $this->player,
+            target: $gameCapsule
+        );
         $this->insertFuelAction->execute();
 
         // then Daedalus has 1 more fuel
@@ -116,9 +122,15 @@ final class InsertFuelCest extends AbstractFunctionalTest
         $statusService = $I->grabService(StatusServiceInterface::class);
         $statusService->createStatusFromName(EquipmentStatusEnum::BROKEN, $tank, [], new \DateTime());
 
-        $this->insertFuelAction->loadParameters($this->actionConfig, $this->player, $gameCapsule);
+        $this->insertFuelAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $tank,
+            player: $this->player,
+            target: $gameCapsule
+        );
 
-        $I->assertFalse($this->insertFuelAction->isVisible());
+        $I->assertTrue($this->insertFuelAction->isVisible());
+        $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->insertFuelAction->cannotExecuteReason());
     }
 
     public function testInsertJarOfAlienOilSuccess(FunctionalTester $I): void
@@ -127,7 +139,7 @@ final class InsertFuelCest extends AbstractFunctionalTest
         $this->player->getDaedalus()->setFuel(0);
 
         // given there is a fuel tank in the room
-        $this->gameEquipmentService->createGameEquipmentFromName(
+        $tank = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::FUEL_TANK,
             equipmentHolder: $this->player->getPlace(),
             reasons: [],
@@ -143,7 +155,12 @@ final class InsertFuelCest extends AbstractFunctionalTest
         );
 
         // when player inserts jar of alien oil in fuel tank
-        $this->insertFuelAction->loadParameters($this->actionConfig, $this->player, $jarOfAlienOil);
+        $this->insertFuelAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $tank,
+            player: $this->player,
+            target: $jarOfAlienOil
+        );
         $this->insertFuelAction->execute();
 
         // then jar of alien oil is removed from player's inventory

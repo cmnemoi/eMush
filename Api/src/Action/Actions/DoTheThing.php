@@ -44,7 +44,7 @@ class DoTheThing extends AbstractAction
     public const STD_TRANSMISSION_RATE = 5;
     public const TOO_PASSIONATE_ACT_RATE = 5;
 
-    protected string $name = ActionEnum::DO_THE_THING;
+    protected ActionEnum $name = ActionEnum::DO_THE_THING;
 
     private DiseaseCauseServiceInterface $diseaseCauseService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
@@ -122,7 +122,7 @@ class DoTheThing extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Player;
     }
@@ -136,7 +136,7 @@ class DoTheThing extends AbstractAction
             $this->statusService->createStatusFromName(
                 statusName: EquipmentStatusEnum::BROKEN,
                 holder: $sofaInRoom,
-                tags: $this->action->getActionTags(),
+                tags: $this->getActionConfig()->getActionTags(),
                 time: new \DateTime(),
                 visibility: VisibilityEnum::PUBLIC,
             );
@@ -207,7 +207,7 @@ class DoTheThing extends AbstractAction
             $player,
             PlayerVariableEnum::MORAL_POINT,
             $moralePoints,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -216,7 +216,7 @@ class DoTheThing extends AbstractAction
             $this->statusService->removeStatus(
                 PlayerStatusEnum::FIRST_TIME,
                 $player,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 new \DateTime(),
             );
         }
@@ -227,7 +227,7 @@ class DoTheThing extends AbstractAction
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::DID_THE_THING,
             $player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
     }
@@ -253,7 +253,7 @@ class DoTheThing extends AbstractAction
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::PREGNANT,
             $femalePlayer,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
             null,
             VisibilityEnum::PRIVATE
@@ -279,14 +279,14 @@ class DoTheThing extends AbstractAction
                 $mush,
                 PlayerVariableEnum::SPORE,
                 -1,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 new \DateTime()
             );
             $addSporesEvent = new PlayerVariableEvent(
                 $target,
                 PlayerVariableEnum::SPORE,
                 1,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 new \DateTime()
             );
             $addSporesEvent->setAuthor($mush);
@@ -302,7 +302,7 @@ class DoTheThing extends AbstractAction
 
         $this->createDiseaseBySexLog($target, $std->getName());
 
-        $this->playerDiseaseService->createDiseaseFromName($std->getName(), $target, $this->getAction()->getActionTags());
+        $this->playerDiseaseService->createDiseaseFromName($std->getName(), $target, $this->getActionConfig()->getActionTags());
     }
 
     private function createDiseaseBySexLog(Player $player, string $disease): void

@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class LeaveOrbit extends AbstractMoveDaedalusAction
 {
-    protected string $name = ActionEnum::LEAVE_ORBIT;
+    protected ActionEnum $name = ActionEnum::LEAVE_ORBIT;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

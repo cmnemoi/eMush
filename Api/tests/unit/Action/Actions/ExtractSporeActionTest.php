@@ -24,9 +24,9 @@ final class ExtractSporeActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::EXTRACT_SPORE, 2);
+        $this->createActionEntity(ActionEnum::EXTRACT_SPORE, 2);
 
-        $this->action = new ExtractSpore(
+        $this->actionHandler = new ExtractSpore(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -64,12 +64,12 @@ final class ExtractSporeActionTest extends AbstractActionTest
         $mushStatus
             ->setCharge(1);
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->times(2);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $player->getStatuses());

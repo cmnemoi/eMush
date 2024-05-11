@@ -6,6 +6,8 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\AttemptAction;
 use Mush\Action\DTO\ActionSpecialistPointRule;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -25,10 +27,17 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class ActionNormalizer implements NormalizerInterface
 {
     private const array ACTION_TYPE_DESCRIPTION_MAP = [
-        ActionTypeEnum::ACTION_AGGRESSIVE => ActionTypeEnum::ACTION_AGGRESSIVE,
+        ActionTypeEnum::ACTION_AGGRESSIVE->value => ActionTypeEnum::ACTION_AGGRESSIVE->value,
         VisibilityEnum::COVERT => VisibilityEnum::COVERT,
         VisibilityEnum::SECRET => VisibilityEnum::SECRET,
     ];
+
+    private const array COST_POINT_MAP = [
+        'actionPointCost' => PlayerVariableEnum::ACTION_POINT,
+        'movementPointCost' => PlayerVariableEnum::MOVEMENT_POINT,
+        'moralPointCost' => PlayerVariableEnum::MORAL_POINT,
+    ];
+
     private TranslationServiceInterface $translationService;
     private ActionStrategyServiceInterface $actionStrategyService;
     private ActionServiceInterface $actionService;
@@ -56,85 +65,132 @@ class ActionNormalizer implements NormalizerInterface
 
     public function normalize($object, ?string $format = null, array $context = []): array
     {
-        $actionClass = $this->actionStrategyService->getAction($object->getActionName());
+        /** @var ActionConfig $actionConfig */
+        $actionConfig = $object->getActionConfig();
+
+        /** @var ActionProviderInterface $actionProvider */
+        $actionProvider = $object->getActionProvider();
+        $actionClass = $this->actionStrategyService->getAction($actionConfig->getActionName());
+
         if (!$actionClass) {
             return [];
         }
 
-        $actionName = $object->getActionName();
-
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
-        $language = $currentPlayer->getDaedalus()->getLanguage();
-
-        $parameters = $this->loadParameters($context);
+        $parameters = ['actionTarget' => $this->getActionTargetFromContextService->execute($context)];
 
         /** @var ?LogParameterInterface $actionTarget */
         $actionTarget = $parameters['actionTarget'];
 
-        $actionClass->loadParameters($object, $currentPlayer, $actionTarget, $parameters);
+        if ($actionClass->support($actionTarget, $parameters)) {
+            $actionClass->loadParameters(
+                $actionConfig,
+                $actionProvider,
+                $currentPlayer,
+                $actionTarget,
+                $parameters
+            );
+
+            if ($actionClass->isVisible()) {
+                $normalizedAction = [
+                    'id' => $actionConfig->getId(),
+                    'key' => $actionConfig->getActionName()->value,
+                    'actionProvider' => [
+                        'id' => $actionProvider->getId(),
+                        'class' => $actionProvider->getClassName(),
+                    ],
+                ];
+
+                $normalizedAction = $this->normalizeCost(
+                    $normalizedAction,
+                    $currentPlayer,
+                    $actionConfig,
+                    $actionProvider,
+                    $actionTarget,
+                );
+
+                if ($actionClass instanceof AttemptAction) {
+                    $normalizedAction['successRate'] = $actionClass->getSuccessRate();
+                } else {
+                    $normalizedAction['successRate'] = 100;
+                }
+
+                return $this->normalizeDescription(
+                    $normalizedAction,
+                    $currentPlayer,
+                    $actionTarget,
+                    $actionClass
+                );
+            }
+        }
+
+        return [];
+    }
+
+    private function normalizeCost(
+        array $normalizedAction,
+        Player $currentPlayer,
+        ActionConfig $actionConfig,
+        ActionProviderInterface $actionProvider,
+        ?LogParameterInterface $actionTarget,
+    ): array {
+        foreach (self::COST_POINT_MAP as $key => $pointName) {
+            $normalizedAction[$key] = $this->actionService->getActionModifiedActionVariable(
+                $currentPlayer,
+                $actionConfig,
+                $actionProvider,
+                $actionTarget,
+                $pointName
+            );
+        }
+
+        $normalizedAction['specialistPointCosts'] = $this->getNormalizedSpecialistPointCosts($currentPlayer, $actionConfig);
+
+        return $normalizedAction;
+    }
+
+    private function normalizeDescription(
+        array $normalizedAction,
+        Player $currentPlayer,
+        ?LogParameterInterface $actionTarget,
+        AbstractAction $actionClass
+    ): array {
+        $actionName = $actionClass->getActionName();
+        $actionConfig = $actionClass->getActionConfig();
 
         // translation parameters
+        $language = $currentPlayer->getDaedalus()->getLanguage();
         $translationParameters = $this->getTranslationParameters($actionClass, $currentPlayer, $actionTarget);
 
-        if ($actionClass->isVisible()) {
-            $normalizedAction = [
-                'id' => $object->getId(),
-                'key' => $object->getActionName(),
-                'name' => $this->translationService->translate(
-                    "{$actionName}.name",
-                    $translationParameters,
-                    'actions',
-                    $language
-                ),
-                'actionPointCost' => $this->actionService->getActionModifiedActionVariable(
-                    $currentPlayer,
-                    $object,
-                    $actionTarget,
-                    PlayerVariableEnum::ACTION_POINT,
-                ),
-                'movementPointCost' => $this->actionService->getActionModifiedActionVariable(
-                    $currentPlayer,
-                    $object,
-                    $actionTarget,
-                    PlayerVariableEnum::MOVEMENT_POINT,
-                ),
-                'moralPointCost' => $this->actionService->getActionModifiedActionVariable(
-                    $currentPlayer,
-                    $object,
-                    $actionTarget,
-                    PlayerVariableEnum::MORAL_POINT,
-                ),
-                'specialistPointCosts' => $this->getNormalizedSpecialistPointCosts($currentPlayer, $object),
-            ];
+        $normalizedAction['name'] = $this->translationService->translate(
+            "{$actionName}.name",
+            $translationParameters,
+            'actions',
+            $language
+        );
 
-            if ($actionClass instanceof AttemptAction) {
-                $normalizedAction['successRate'] = $actionClass->getSuccessRate();
-            } else {
-                $normalizedAction['successRate'] = 100;
-            }
-
-            if ($reason = $actionClass->cannotExecuteReason()) {
-                $normalizedAction['description'] = $this->translationService->translate(
-                    "{$reason}.description",
-                    $translationParameters,
-                    'action_fail',
-                    $language
-                );
-                $normalizedAction['canExecute'] = false;
-            } else {
-                $description = $this->translationService->translate(
-                    "{$actionName}.description",
-                    $translationParameters,
-                    'actions',
-                    $language
-                );
-                $description = $this->getTypesDescriptions($description, $object->getTypes(), $language);
-                $normalizedAction['description'] = $description;
-                $normalizedAction['canExecute'] = true;
-                $normalizedAction['confirmation'] =
-                    \in_array(ActionTypeEnum::ACTION_CONFIRM, $object->getTypes(), true)
+        if ($reason = $actionClass->cannotExecuteReason()) {
+            $normalizedAction['description'] = $this->translationService->translate(
+                "{$reason}.description",
+                $translationParameters,
+                'action_fail',
+                $language
+            );
+            $normalizedAction['canExecute'] = false;
+        } else {
+            $description = $this->translationService->translate(
+                "{$actionName}.description",
+                $translationParameters,
+                'actions',
+                $language
+            );
+            $description = $this->getTypesDescriptions($description, $actionConfig->getTypes(), $language);
+            $normalizedAction['description'] = $description;
+            $normalizedAction['canExecute'] = true;
+            $normalizedAction['confirmation'] =
+                \in_array(ActionTypeEnum::ACTION_CONFIRM->value, $actionConfig->getTypes(), true)
                     ? $this->translationService->translate(
                         "{$actionName}.confirmation",
                         $translationParameters,
@@ -142,19 +198,9 @@ class ActionNormalizer implements NormalizerInterface
                         $language
                     )
                     : null;
-            }
-
-            return $normalizedAction;
         }
 
-        return [];
-    }
-
-    private function loadParameters(array $context): array
-    {
-        return [
-            'actionTarget' => $this->getActionTargetFromContextService->execute($context),
-        ];
+        return $normalizedAction;
     }
 
     private function getTypesDescriptions(string $description, array $types, ?string $language = null): string
@@ -176,7 +222,7 @@ class ActionNormalizer implements NormalizerInterface
 
         $translationParameters = [$currentPlayer->getLogKey() => $currentPlayer->getLogName()];
 
-        if ($actionName === ActionEnum::EXTRACT_SPORE) {
+        if ($actionName === ActionEnum::EXTRACT_SPORE->value) {
             $translationParameters['quantity'] = $daedalus->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();
         }
         if ($actionTarget instanceof Player) {
@@ -197,13 +243,13 @@ class ActionNormalizer implements NormalizerInterface
         return $translationParameters;
     }
 
-    private function getNormalizedSpecialistPointCosts(Player $currentPlayer, Action $action): array
+    private function getNormalizedSpecialistPointCosts(Player $currentPlayer, ActionConfig $action): array
     {
         /** @var ActionSpecialistPointRule[] $specialistPointCostRules */
         $specialistPointCostRules = [
-            new ActionSpecialistPointRule('shoot', SkillEnum::SHOOTER, [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER]),
-            new ActionSpecialistPointRule('engineer', SkillEnum::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN]),
-            new ActionSpecialistPointRule('core', SkillEnum::CONCEPTOR, [ActionTypeEnum::ACTION_CONCEPTOR]),
+            new ActionSpecialistPointRule('shoot', SkillEnum::SHOOTER, [ActionTypeEnum::ACTION_SHOOT->value, ActionTypeEnum::ACTION_SHOOT_HUNTER->value]),
+            new ActionSpecialistPointRule('engineer', SkillEnum::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN->value]),
+            new ActionSpecialistPointRule('core', SkillEnum::CONCEPTOR, [ActionTypeEnum::ACTION_CONCEPTOR->value]),
         ];
 
         $specialistPointCosts = [];
@@ -220,7 +266,7 @@ class ActionNormalizer implements NormalizerInterface
     /**
      * Check how many specialist points the user will be charged for.
      */
-    private function getSpecialistPointCost(Player $currentPlayer, Action $action, ActionSpecialistPointRule $specialistPointCostRule): ?int
+    private function getSpecialistPointCost(Player $currentPlayer, ActionConfig $action, ActionSpecialistPointRule $specialistPointCostRule): ?int
     {
         if (!$this->doesActionTypeMatchArray($action, $specialistPointCostRule->actionTypes)) {
             return null;
@@ -239,7 +285,7 @@ class ActionNormalizer implements NormalizerInterface
     /**
      * @param array<string> $types
      */
-    private function doesActionTypeMatchArray(Action $action, array $types): bool
+    private function doesActionTypeMatchArray(ActionConfig $action, array $types): bool
     {
         foreach ($types as $type) {
             if (\in_array($type, $action->getTypes(), true)) {

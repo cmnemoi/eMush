@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Search extends AbstractAction
 {
-    protected string $name = ActionEnum::SEARCH;
+    protected ActionEnum $name = ActionEnum::SEARCH;
 
     private StatusServiceInterface $statusService;
 
@@ -46,7 +46,7 @@ class Search extends AbstractAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'room', 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target === null;
     }
@@ -100,7 +100,7 @@ class Search extends AbstractAction
         $this->statusService->removeStatus(
             EquipmentStatusEnum::HIDDEN,
             $hiddenItem,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
     }

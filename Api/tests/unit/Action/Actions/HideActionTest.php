@@ -33,11 +33,11 @@ final class HideActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::HIDE, 1);
+        $this->createActionEntity(ActionEnum::HIDE, 1);
 
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new Hide(
+        $this->actionHandler = new Hide(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -68,12 +68,12 @@ final class HideActionTest extends AbstractActionTest
 
         $item = new ItemConfig();
         $item
-            ->setActions(new ArrayCollection([$this->actionEntity]));
+            ->setActionConfigs(new ArrayCollection([$this->actionConfig]));
         $gameItem
             ->setName('itemName')
             ->setEquipment($item);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
@@ -84,11 +84,11 @@ final class HideActionTest extends AbstractActionTest
                 static fn (AbstractGameEvent $event) => $event instanceof InteractWithEquipmentEvent
                 && $event->getGameEquipment() === $gameItem
                 && $event->getAuthor() === $player
-                && $event->getTags() === [ActionEnum::HIDE]
+                && $event->getTags() === [ActionEnum::HIDE->value]
             )
             ->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

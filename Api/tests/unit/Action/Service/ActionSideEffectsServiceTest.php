@@ -3,7 +3,7 @@
 namespace Mush\Tests\unit\Action\Service;
 
 use Mockery;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionSideEffectsService;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
@@ -53,7 +53,7 @@ final class ActionSideEffectsServiceTest extends TestCase
 
     public function testHandleActionSideEffect()
     {
-        $action = new Action();
+        $action = new ActionConfig();
         $room = new Place();
         $player = new Player();
         $player->setDaedalus(new Daedalus());
@@ -65,14 +65,14 @@ final class ActionSideEffectsServiceTest extends TestCase
 
         $this->eventService->shouldReceive('callEvent')->twice();
 
-        $player = $this->actionService->handleActionSideEffect($action, $player, null);
+        $player = $this->actionService->handleActionSideEffect($action, new Player(), $player, null);
 
         self::assertCount(0, $player->getStatuses());
     }
 
     public function testHandleActionSideEffectAlreadyDirty()
     {
-        $action = new Action();
+        $action = new ActionConfig();
         $room = new Place();
         $player = new Player();
         $player->setDaedalus(new Daedalus());
@@ -87,7 +87,7 @@ final class ActionSideEffectsServiceTest extends TestCase
 
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $player = $this->actionService->handleActionSideEffect($action, $player, null);
+        $player = $this->actionService->handleActionSideEffect($action, new Player(), $player, null);
 
         self::assertCount(1, $player->getStatuses());
     }

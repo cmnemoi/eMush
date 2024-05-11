@@ -67,7 +67,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         $planetsToDelete = $this->planetService->findAllByDaedalus($daedalus);
 
         // If daedalus is not leaving orbit, do not delete the planet where the Daedalus wants to go
-        if (!$event->hasTag(ActionEnum::LEAVE_ORBIT)) {
+        if (!$event->hasTag(ActionEnum::LEAVE_ORBIT->value)) {
             $planetsToDelete = $planetsToDelete->filter(
                 static fn (Planet $planet) => !$planet->getCoordinates()->equals($daedalus->getDestination())
             );

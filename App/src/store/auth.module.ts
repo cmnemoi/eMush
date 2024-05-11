@@ -17,7 +17,7 @@ const state =  {
     accessToken: TokenService.getToken(),
     refreshTokenPromise: null,
     loading: false,
-    hasAcceptedRules: false,
+    hasAcceptedRules: false
 };
 
 const getters = {

@@ -24,7 +24,7 @@ class SymptomEvent extends AbstractGameEvent
         $this->symptomName = $symptomName;
 
         // all symptoms are super dirty : dirty status application cannot be prevented by stainproof apron
-        $tags[] = ActionTypeEnum::ACTION_SUPER_DIRTY;
+        $tags[] = ActionTypeEnum::ACTION_SUPER_DIRTY->value;
 
         parent::__construct($tags, $time);
     }

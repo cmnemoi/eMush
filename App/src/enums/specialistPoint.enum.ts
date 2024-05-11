@@ -35,5 +35,5 @@ export const specialistPointEnum: {[index: string]: any} = {
     },
     [SpecialistPointEnum.SHOOT]: {
         'icon': getImgUrl('action_points/pa_shoot.png')
-    },
+    }
 };

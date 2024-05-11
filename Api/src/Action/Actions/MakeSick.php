@@ -32,7 +32,7 @@ class MakeSick extends AbstractAction
     public const MAKE_SICK_DELAY_MIN = 1;
     public const MAKE_SICK_DELAY_LENGTH = 4;
 
-    protected string $name = ActionEnum::MAKE_SICK;
+    protected ActionEnum $name = ActionEnum::MAKE_SICK;
     protected DiseaseCauseServiceInterface $diseaseCauseService;
 
     public function __construct(
@@ -58,7 +58,7 @@ class MakeSick extends AbstractAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Player;
     }

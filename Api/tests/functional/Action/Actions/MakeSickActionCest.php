@@ -4,9 +4,10 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\MakeSick;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -53,7 +54,7 @@ class MakeSickActionCest
 
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
-            ->setCauseName(ActionEnum::MAKE_SICK)
+            ->setCauseName(ActionEnum::MAKE_SICK->value)
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
@@ -79,10 +80,11 @@ class MakeSickActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::MAKE_SICK)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
             ->buildName(GameConfigEnum::TEST);
@@ -90,7 +92,7 @@ class MakeSickActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, [
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $mushPlayer */
@@ -130,7 +132,12 @@ class MakeSickActionCest
         $targetPlayer->setPlayerInfo($playerInfo);
         $I->refreshEntities($targetPlayer);
 
-        $this->makeSickAction->loadParameters($action, $mushPlayer, $targetPlayer);
+        $this->makeSickAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $mushPlayer,
+            player: $mushPlayer,
+            target: $targetPlayer
+        );
 
         $this->makeSickAction->execute();
 

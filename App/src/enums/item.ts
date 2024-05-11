@@ -428,5 +428,5 @@ export const itemEnum: {[index: string]: any} = {
     },
     [WHITE_FLAG]: {
         'image': getImgUrl('items/white_flag.jpg')
-    },
+    }
 };

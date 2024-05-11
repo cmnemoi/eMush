@@ -41,12 +41,12 @@ class PlayerController extends AbstractGameController
     public function __construct(
         AdminServiceInterface $adminService,
         PlayerServiceInterface $playerService,
-        CycleServiceInterface $cycleService,
+        CycleServiceInterface $cycleStrategyService,
         ValidatorInterface $validator,
     ) {
         parent::__construct($adminService);
         $this->playerService = $playerService;
-        $this->cycleService = $cycleService;
+        $this->cycleService = $cycleStrategyService;
         $this->validator = $validator;
     }
 

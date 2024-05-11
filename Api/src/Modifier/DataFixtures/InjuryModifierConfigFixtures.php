@@ -82,12 +82,12 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONSUME => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::SURGERY => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::SELF_SURGERY => ModifierRequirementEnum::NONE_TAGS,
-                ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONSUME_DRUG->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::SELF_SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($notMoveAction1Increase);
@@ -100,12 +100,12 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONSUME => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::SURGERY => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::SELF_SURGERY => ModifierRequirementEnum::NONE_TAGS,
-                ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONSUME_DRUG->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::SELF_SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($notMoveAction2Increase);
@@ -118,12 +118,12 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONSUME => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::SURGERY => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::SELF_SURGERY => ModifierRequirementEnum::NONE_TAGS,
-                ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONSUME_DRUG->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::SELF_SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($notMoveAction3Increase);
@@ -159,7 +159,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
-            ->setTagConstraints([ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($shootAction15PercentAccuracyLost);
 
@@ -169,7 +169,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(0.80)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
-            ->setTagConstraints([ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $shootAction20PercentAccuracyLost->buildName();
         $manager->persist($shootAction20PercentAccuracyLost);
@@ -181,7 +181,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
-            ->setTagConstraints([ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $shootAction40PercentAccuracyLost->buildName();
         $manager->persist($shootAction40PercentAccuracyLost);
@@ -237,7 +237,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyOnTarget(false)
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
@@ -253,7 +253,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::PRE_ACTION)
             ->setApplyOnTarget(false)
             ->setTagConstraints([
-                ActionEnum::TAKE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
@@ -267,7 +267,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::PRE_ACTION)
             ->setApplyOnTarget(false)
             ->setTagConstraints([
-                ActionTypeEnum::ACTION_ATTACK => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
@@ -279,7 +279,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::PRE_ACTION)
             ->setApplyOnTarget(false)
             ->setTagConstraints([
-                ActionTypeEnum::ACTION_PILOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_PILOT->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
@@ -291,7 +291,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::PRE_ACTION)
             ->setApplyOnTarget(false)
             ->setTagConstraints([
-                ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
@@ -360,7 +360,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$random50, $catRequirement])
@@ -374,7 +374,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$random16])
@@ -397,7 +397,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$random16])
@@ -411,7 +411,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
-                ActionEnum::TAKE => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierActivationRequirements([$random16])
@@ -425,7 +425,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyOnTarget(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ALL_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierActivationRequirements([
@@ -442,8 +442,8 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyOnTarget(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME_DRUG->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS,
                 SymptomEnum::VOMITING => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
@@ -459,7 +459,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyOnTarget(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -494,7 +494,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyOnTarget(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -508,7 +508,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyOnTarget(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -527,7 +527,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyOnTarget(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)

@@ -30,9 +30,9 @@ final class InsertOxygenTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::INSERT_OXYGEN);
+        $this->createActionEntity(ActionEnum::INSERT_OXYGEN);
 
-        $this->action = new InsertOxygen(
+        $this->actionHandler = new InsertOxygen(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -86,9 +86,9 @@ final class InsertOxygenTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent')->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());

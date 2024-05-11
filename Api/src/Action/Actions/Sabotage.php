@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Sabotage extends AttemptAction
 {
-    protected string $name = ActionEnum::SABOTAGE;
+    protected ActionEnum $name = ActionEnum::SABOTAGE;
 
     private StatusServiceInterface $statusService;
 
@@ -62,7 +62,7 @@ class Sabotage extends AttemptAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }
@@ -76,7 +76,7 @@ class Sabotage extends AttemptAction
             $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::BROKEN,
                 $target,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 new \DateTime()
             );
         }

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Normalizer;
 
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Exploration\Entity\Planet;
@@ -16,6 +17,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+    use ActionHolderNormalizerTrait;
     use NormalizerAwareTrait;
 
     private const NUMBER_OF_PLANET_IMAGES = 5;
@@ -42,6 +44,7 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
 
         /** @var Planet $planet */
         $planet = $object;
+        $context['planet'] = $planet;
         $daedalus = $planet->getDaedalus();
 
         // integer seed from planet name to get always the same image for the same planet
@@ -74,30 +77,8 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
             ),
             'distance' => $planet->getDistance(),
             'sectors' => $this->normalizer->normalize($planet->getSectors()->toArray(), $format, $context),
-            'actions' => $this->normalizePlanetActions($planet, $format, $context),
+            'actions' => $this->getNormalizedActions($planet, ActionHolderEnum::PLANET, $currentPlayer, $format, $context),
             'imageId' => $planetImageId,
         ];
-    }
-
-    private function normalizePlanetActions(Planet $planet, ?string $format = null, array $context = []): array
-    {
-        $actions = [];
-        $currentPlayer = $context['currentPlayer'];
-        $context['planet'] = $planet;
-
-        $toolsActions = $this->gearToolService->getActionsTools(
-            player: $currentPlayer,
-            scopes: [ActionScopeEnum::TERMINAL],
-            target: Planet::class,
-        );
-
-        foreach ($toolsActions as $action) {
-            $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (\is_array($normedAction) && \count($normedAction) > 0) {
-                $actions[] = $normedAction;
-            }
-        }
-
-        return $actions;
     }
 }

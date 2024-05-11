@@ -5,18 +5,17 @@ namespace Mush\Hunter\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Entity\ActionTargetInterface;
-use Mush\Action\Enum\ActionTargetName;
+use Mush\Action\Entity\ActionHolderInterface;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterVariableEnum;
-use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
@@ -27,7 +26,7 @@ use Mush\Status\Enum\HunterStatusEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter')]
-class Hunter implements GameVariableHolderInterface, LogParameterInterface, ModifierHolderInterface, StatusHolderInterface, ActionTargetInterface
+class Hunter implements GameVariableHolderInterface, LogParameterInterface, StatusHolderInterface, ActionHolderInterface
 {
     use TargetStatusTrait;
 
@@ -45,9 +44,6 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private HunterVariables $hunterVariables;
 
-    #[ORM\OneToMany(mappedBy: 'hunter', targetEntity: GameModifier::class, cascade: ['ALL'], orphanRemoval: true)]
-    private Collection $modifiers;
-
     #[ORM\OneToMany(mappedBy: 'hunter', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
 
@@ -61,7 +57,6 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
     {
         $this->space = $daedalus->getSpace();
         $this->hunterConfig = $hunterConfig;
-        $this->modifiers = new ArrayCollection();
         $this->statuses = new ArrayCollection();
         $this->target = null;
     }
@@ -232,23 +227,6 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
         return $this->getName();
     }
 
-    public function getModifiers(): ModifierCollection
-    {
-        return new ModifierCollection($this->modifiers->toArray());
-    }
-
-    public function getAllModifiers(): ModifierCollection
-    {
-        return new ModifierCollection($this->modifiers->toArray());
-    }
-
-    public function addModifier(GameModifier $modifier): static
-    {
-        $this->modifiers->add($modifier);
-
-        return $this;
-    }
-
     public function getGameEquipment(): null
     {
         return null;
@@ -282,9 +260,9 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
         return $this;
     }
 
-    public function getActionTargetName(array $context): string
+    public function getActions(Player $activePlayer, ?ActionHolderEnum $actionTarget = null): Collection
     {
-        return ActionTargetName::HUNTER->value;
+        return $activePlayer->getPlace()->getProvidedActions(ActionHolderEnum::HUNTER, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELF]);
     }
 
     public function isNotAnAsteroid(): bool

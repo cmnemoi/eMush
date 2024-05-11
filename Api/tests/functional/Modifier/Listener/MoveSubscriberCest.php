@@ -4,9 +4,11 @@ namespace Mush\Tests\functional\Modifier\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Move;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -64,22 +66,24 @@ class MoveSubscriberCest
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, [
             'name' => 'door_test',
-            'actions' => new ArrayCollection([$moveActionEntity]),
+            'actionConfigs' => new ArrayCollection([$moveActionEntity]),
         ]);
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig);
+            ->setEquipment($doorConfig)
+            ->addRoom($room2)->addRoom($room);
         $I->haveInRepository($door);
         $room->addDoor($door);
         $room2->addDoor($door);
@@ -106,7 +110,7 @@ class MoveSubscriberCest
         // first let create a gear with an irrelevant reach
         $modifierConfig1 = new VariableEventModifierConfig('testModifierShower');
         $modifierConfig1
-            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetEvent(ActionEnum::MOVE->value)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -140,7 +144,7 @@ class MoveSubscriberCest
         // let's create a gear with room reach in player inventory
         $modifierConfig2 = new VariableEventModifierConfig('testModifierShower2');
         $modifierConfig2
-            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetEvent(ActionVariableEnum::OUTPUT_QUANTITY)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::PLACE)
@@ -193,7 +197,8 @@ class MoveSubscriberCest
         $I->assertCount(1, $room->getPlayers());
         $I->assertCount(0, $room2->getPlayers());
 
-        $this->moveAction->loadParameters($moveActionEntity, $player, $door);
+        $this->moveAction->loadParameters($moveActionEntity, $door, $player, $door);
+        $I->assertNull($this->moveAction->cannotExecuteReason());
         $this->moveAction->execute();
 
         // let's check that every player and item is placed in the right place

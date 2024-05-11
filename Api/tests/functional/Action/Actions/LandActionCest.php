@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Land;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
@@ -33,7 +33,7 @@ use Mush\Tests\FunctionalTester;
 final class LandActionCest extends AbstractFunctionalTest
 {
     private Land $landAction;
-    private Action $action;
+    private ActionConfig $action;
     private GameEquipment $pasiphae;
     private ChargeStatus $pasiphaeArmor;
 
@@ -64,7 +64,7 @@ final class LandActionCest extends AbstractFunctionalTest
 
         $this->pasiphaeArmor = $pasiphaeArmor;
 
-        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::LAND]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::LAND]);
 
         $this->landAction = $I->grabService(Land::class);
     }
@@ -74,7 +74,12 @@ final class LandActionCest extends AbstractFunctionalTest
         $this->action->setCriticalRate(100);
         $I->haveInRepository($this->action);
 
-        $this->landAction->loadParameters($this->action, $this->player1, $this->pasiphae);
+        $this->landAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
         $I->assertTrue($this->landAction->isVisible());
         $I->assertNull($this->landAction->cannotExecuteReason());
 
@@ -122,7 +127,12 @@ final class LandActionCest extends AbstractFunctionalTest
         $this->action->setCriticalRate(0);
         $I->haveInRepository($this->action);
 
-        $this->landAction->loadParameters($this->action, $this->player1, $this->pasiphae);
+        $this->landAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
         $I->assertTrue($this->landAction->isVisible());
         $I->assertNull($this->landAction->cannotExecuteReason());
 
@@ -188,7 +198,12 @@ final class LandActionCest extends AbstractFunctionalTest
         $I->haveInRepository($dynarcade);
 
         // when player lands
-        $this->landAction->loadParameters($this->action, $this->player1, $this->pasiphae);
+        $this->landAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
         $this->landAction->execute();
 
         // then dynarcade is still in alpha bay 2
@@ -204,7 +219,12 @@ final class LandActionCest extends AbstractFunctionalTest
         $this->player2->changePlace($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
 
         // when player 1 lands
-        $this->landAction->loadParameters($this->action, $this->player1, $this->pasiphae);
+        $this->landAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
         $this->landAction->execute();
 
         // then player 2 is in alpha bay 2

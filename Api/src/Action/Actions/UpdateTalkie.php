@@ -29,7 +29,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UpdateTalkie extends AbstractAction
 {
-    protected string $name = ActionEnum::UPDATE_TALKIE;
+    protected ActionEnum $name = ActionEnum::UPDATE_TALKIE;
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
@@ -69,7 +69,7 @@ class UpdateTalkie extends AbstractAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }
@@ -90,7 +90,7 @@ class UpdateTalkie extends AbstractAction
             $tracker,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
@@ -102,7 +102,7 @@ class UpdateTalkie extends AbstractAction
             ItemEnum::ITRACKIE,
             $target,
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
             VisibilityEnum::PUBLIC
         );

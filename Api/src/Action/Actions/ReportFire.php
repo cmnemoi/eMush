@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class ReportFire extends AbstractAction
 {
-    protected string $name = ActionEnum::REPORT_FIRE;
+    protected ActionEnum $name = ActionEnum::REPORT_FIRE;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -23,7 +23,7 @@ class ReportFire extends AbstractAction
         $metadata->addConstraint(new IsReported(['groups' => ['visibility']]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target === null;
     }
@@ -39,7 +39,7 @@ class ReportFire extends AbstractAction
             $this->player,
             $this->target,
             VisibilityEnum::PRIVATE,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
 

@@ -4,7 +4,7 @@ namespace Mush\Tests\functional\Disease\Service;
 
 use Mush\Action\Actions\Move;
 use Mush\Action\Actions\Search;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -20,10 +20,10 @@ use Mush\Tests\FunctionalTester;
  */
 final class AgoraphobiaActionCest extends AbstractFunctionalTest
 {
-    private Action $searchConfig;
+    private ActionConfig $searchConfig;
     private Search $searchAction;
 
-    private Action $moveConfig;
+    private ActionConfig $moveConfig;
     private Move $moveAction;
 
     private Door $door;
@@ -34,10 +34,10 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->searchConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::SEARCH]);
+        $this->searchConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]);
         $this->searchAction = $I->grabService(Search::class);
 
-        $this->moveConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::MOVE]);
+        $this->moveConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]);
         $this->moveAction = $I->grabService(Move::class);
 
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
@@ -60,19 +60,22 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
         // given there is a door to front corridor in the room
         $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
         $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
+
         $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
         $this->door = new Door($this->player->getPlace());
         $this->door
             ->setName('door_default')
             ->setEquipment($doorConfig)
-            ->addRoom($frontCorridor);
+            ->addRoom($frontCorridor)->addRoom($this->player->getPlace());
         $I->haveInRepository($this->door);
     }
 
     public function testAgoraphobia(FunctionalTester $I)
     {
         // when player executes search action
-        $this->searchAction->loadParameters($this->searchConfig, $this->player);
+        $this->searchAction->loadParameters($this->searchConfig, $this->player, $this->player);
+        $I->assertNull($this->searchAction->cannotExecuteReason());
+
         $this->searchAction->execute();
 
         // then player has 0 action point and 2 movement point
@@ -83,7 +86,8 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
     public function testAgoraphobiaForMoveAction(FunctionalTester $I)
     {
         // when player executes move action
-        $this->moveAction->loadParameters($this->moveConfig, $this->player, $this->door);
+        $this->moveAction->loadParameters($this->moveConfig, $this->door, $this->player, $this->door);
+        $I->assertNull($this->moveAction->cannotExecuteReason());
         $this->moveAction->execute();
 
         // then player has 2 action point and 0 movement points
@@ -98,7 +102,8 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
         $this->player->setMovementPoint(0);
 
         // when player executes move action
-        $this->moveAction->loadParameters($this->moveConfig, $this->player, $this->door);
+        $this->moveAction->loadParameters($this->moveConfig, $this->door, $this->player, $this->door);
+        $I->assertNull($this->moveAction->cannotExecuteReason());
         $this->moveAction->execute();
 
         // then player has 1 action point and 1 movement point

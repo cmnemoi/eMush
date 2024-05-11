@@ -5,6 +5,9 @@ namespace Mush\Tests\unit\Action\Actions;
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionProviderInterface;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -27,20 +30,25 @@ abstract class AbstractActionTest extends TestCase
 
     protected Mockery\Mock|ValidatorInterface $validator;
 
-    protected AbstractAction $action;
-    protected Action $actionEntity;
+    protected AbstractAction $actionHandler;
+    protected ActionConfig $actionConfig;
+    protected ActionProviderInterface $actionProvider;
+    protected Action $action;
 
     /**
      * @before
      */
     public function before()
     {
+        $this->actionProvider = new Player();
+        $this->action = new Action();
+
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(
                 fn (AbstractGameEvent $event) => $event instanceof ActionEvent
-                && $event->getAction() === $this->actionEntity
+                && $event->getActionConfig() === $this->actionConfig
             )
             ->times(3);
 
@@ -59,15 +67,15 @@ abstract class AbstractActionTest extends TestCase
         \Mockery::close();
     }
 
-    protected function createActionEntity(string $name, int $actionPointCost = 0, int $movementPoint = 0): Action
+    protected function createActionEntity(ActionEnum $name, int $actionPointCost = 0, int $movementPoint = 0): void
     {
-        $action = new Action();
-        $action
+        $this->actionConfig = new ActionConfig();
+        $this->actionConfig
             ->setActionCost($actionPointCost)
             ->setMovementCost($movementPoint)
             ->setActionName($name);
 
-        return $action;
+        $this->action->setActionConfig($this->actionConfig)->setActionProvider($this->actionProvider);
     }
 
     protected function createPlayer(Daedalus $daedalus, Place $room, array $skills = []): Player

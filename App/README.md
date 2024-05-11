@@ -50,7 +50,7 @@ _Ex: casting the returned channels as Channel objects_
 
 ### src/store
 
-This is were we interact with the values that are stored globally in the App, which means almost all of them.
+This is where we interact with the values that are stored globally in the App, which means almost all of them.
 
 _Ex: the messages from the communication channels are stored there while a tab is closed_
 

@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\AutoEject;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -34,7 +35,7 @@ use Mush\Tests\FunctionalTester;
 final class AutoEjectActionCest extends AbstractFunctionalTest
 {
     private AutoEject $autoEjectAction;
-    private Action $actionConfig;
+    private ActionConfig $actionConfig;
     private GameEquipment $pasiphae;
     private StatusServiceInterface $statusService;
 
@@ -61,7 +62,7 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::AUTO_EJECT]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::AUTO_EJECT]);
 
         $this->autoEjectAction = $I->grabService(AutoEject::class);
     }
@@ -72,7 +73,12 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $I->assertEmpty($this->player1->getEquipments());
 
         // when we load the auto eject action
-        $this->autoEjectAction->loadParameters($this->actionConfig, $this->player1, $this->pasiphae);
+        $this->autoEjectAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
 
         // then player should not see the action
         $I->assertFalse($this->autoEjectAction->isVisible());
@@ -90,7 +96,12 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
 
         // when we load the auto eject action
-        $this->autoEjectAction->loadParameters($this->actionConfig, $this->player1, $this->pasiphae);
+        $this->autoEjectAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $spaceSuit,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
 
         // then player should not see the action
         $I->assertFalse($this->autoEjectAction->isVisible());
@@ -111,10 +122,16 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $I->haveInRepository($brokenStatus);
 
         // when we load the auto eject action
-        $this->autoEjectAction->loadParameters($this->actionConfig, $this->player1, $this->pasiphae);
+        $this->autoEjectAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $spaceSuit,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
 
         // then player should not see the action
-        $I->assertFalse($this->autoEjectAction->isVisible());
+        $I->assertTrue($this->autoEjectAction->isVisible());
+        $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->autoEjectAction->cannotExecuteReason());
     }
 
     public function testAutoEjectNotAvailableIfPlayerIsNotMush(FunctionalTester $I): void
@@ -136,7 +153,12 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $I->haveInRepository($spaceSuit);
 
         // when we load the auto eject action
-        $this->autoEjectAction->loadParameters($this->actionConfig, $this->player1, $this->pasiphae);
+        $this->autoEjectAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $spaceSuit,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
 
         // then player should not see the action
         $I->assertFalse($this->autoEjectAction->isVisible());
@@ -153,7 +175,12 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $I->haveInRepository($spaceSuit);
 
         // when the player auto ejects
-        $this->autoEjectAction->loadParameters($this->actionConfig, $this->player1, $this->pasiphae);
+        $this->autoEjectAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $spaceSuit,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
         $I->assertTrue($this->autoEjectAction->isVisible());
         $this->autoEjectAction->execute();
 

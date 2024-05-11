@@ -4,13 +4,16 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Coffee;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
@@ -37,7 +40,7 @@ use Mush\User\Entity\User;
  */
 final class CoffeeActionCest extends AbstractFunctionalTest
 {
-    private Action $coffeeActionConfig;
+    private ActionConfig $coffeeActionConfig;
     private Coffee $coffeeAction;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -46,7 +49,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->coffeeActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::COFFEE]);
+        $this->coffeeActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::COFFEE]);
         $this->coffeeAction = $I->grabService(Coffee::class);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
@@ -60,39 +63,26 @@ final class CoffeeActionCest extends AbstractFunctionalTest
 
         $player = $this->createPlayer(new Daedalus(), $room1);
 
-        $gameEquipment = $this->createEquipment('coffee_machine', $room2);
+        $gameEquipment = $this->createCoffeeMachine($room2);
 
-        $coffeeActionEntity = new Action();
+        $coffeeActionEntity = new ActionConfig();
         $coffeeActionEntity
-            ->setActionName(ActionEnum::COFFEE);
+            ->setActionName(ActionEnum::COFFEE)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setRange(ActionRangeEnum::SELF);
 
-        $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
+        $gameEquipment->getEquipment()->setActionConfigs(new ArrayCollection([$coffeeActionEntity]));
 
-        $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
+        $this->coffeeAction->loadParameters(
+            actionConfig: $coffeeActionEntity,
+            actionProvider: $gameEquipment,
+            player: $player,
+            target: $gameEquipment
+        );
 
         $I->assertFalse($this->coffeeAction->isVisible());
 
         $gameEquipment->setHolder($room1);
-
-        $I->assertTrue($this->coffeeAction->isVisible());
-    }
-
-    public function testHasAction(FunctionalTester $I): void
-    {
-        $room = new Place();
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-
-        $gameEquipment = $this->createEquipment('coffee_machine', $room);
-
-        $coffeeActionEntity = new Action();
-        $coffeeActionEntity->setActionName(ActionEnum::COFFEE);
-
-        $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
-
-        $I->assertFalse($this->coffeeAction->isVisible());
-
-        $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
         $I->assertTrue($this->coffeeAction->isVisible());
     }
@@ -105,14 +95,21 @@ final class CoffeeActionCest extends AbstractFunctionalTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameEquipment = $this->createEquipment('coffee_machine', $room);
+        $gameEquipment = $this->createCoffeeMachine($room);
 
-        $coffeeActionEntity = new Action();
-        $coffeeActionEntity->setActionName(ActionEnum::COFFEE);
+        $coffeeActionEntity = new ActionConfig();
+        $coffeeActionEntity
+            ->setActionName(ActionEnum::COFFEE)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setRange(ActionRangeEnum::SELF);
 
-        $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
-
-        $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
+        $this->coffeeAction->loadParameters(
+            actionConfig: $coffeeActionEntity,
+            actionProvider: $gameEquipment,
+            player: $player,
+            target: $gameEquipment
+        );
+        $gameEquipment->getEquipment()->setActionConfigs(new ArrayCollection([$coffeeActionEntity]));
 
         $statusConfig = new StatusConfig();
         $statusConfig
@@ -132,20 +129,27 @@ final class CoffeeActionCest extends AbstractFunctionalTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameEquipment = $this->createEquipment('coffee_machine', $room);
+        $gameEquipment = $this->createCoffeeMachine($room);
 
-        $coffeeActionEntity = new Action();
-        $coffeeActionEntity->setActionName(ActionEnum::COFFEE);
+        $coffeeActionEntity = new ActionConfig();
+        $coffeeActionEntity
+            ->setActionName(ActionEnum::COFFEE)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setRange(ActionRangeEnum::SELF);
 
-        $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
-
-        $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
+        $this->coffeeAction->loadParameters(
+            actionConfig: $coffeeActionEntity,
+            actionProvider: $gameEquipment,
+            player: $player,
+            target: $gameEquipment
+        );
+        $gameEquipment->getEquipment()->setActionConfigs(new ArrayCollection([$coffeeActionEntity]));
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::HEAVY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategies([ActionEnum::COFFEE])
+            ->setDischargeStrategies([ActionEnum::COFFEE->value])
             ->setChargeStrategy(ChargeStrategyTypeEnum::COFFEE_MACHINE_CHARGE_INCREMENT);
 
         $chargeStatus = new ChargeStatus($gameEquipment, $statusConfig);
@@ -172,7 +176,12 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->daedalus->getPilgred()->makeProgress(100);
 
         // given Chun executes the coffee action
-        $this->coffeeAction->loadParameters($this->coffeeActionConfig, $this->chun, $coffeeMachine);
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
+        );
         $this->coffeeAction->execute();
 
         // when a cycle passes
@@ -185,7 +194,12 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->eventService->callEvent($statusEvent, StatusCycleEvent::STATUS_NEW_CYCLE);
 
         // then Chun should be able to execute the coffee action again
-        $this->coffeeAction->loadParameters($this->coffeeActionConfig, $this->chun, $coffeeMachine);
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
+        );
         $I->assertNull($this->coffeeAction->cannotExecuteReason());
     }
 
@@ -203,11 +217,21 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->daedalus->getPilgred()->makeProgress(100);
 
         // when Chun executes the coffee action
-        $this->coffeeAction->loadParameters($this->coffeeActionConfig, $this->chun, $coffeeMachine);
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
+        );
         $this->coffeeAction->execute();
 
         // then Chun should not be able to execute the coffee action again
-        $this->coffeeAction->loadParameters($this->coffeeActionConfig, $this->chun, $coffeeMachine);
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
+        );
         $I->assertEquals(
             expected: ActionImpossibleCauseEnum::CYCLE_LIMIT,
             actual: $this->coffeeAction->cannotExecuteReason()
@@ -231,7 +255,12 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->daedalus->getPilgred()->makeProgress(0);
 
         // given Chun executes the coffee action
-        $this->coffeeAction->loadParameters($this->coffeeActionConfig, $this->chun, $coffeeMachine);
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
+        );
         $this->coffeeAction->execute();
 
         // when a cycle passes
@@ -243,7 +272,12 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->eventService->callEvent($daedalusEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then Chun should not be able to execute the coffee action again
-        $this->coffeeAction->loadParameters($this->coffeeActionConfig, $this->chun, $coffeeMachine);
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
+        );
         $I->assertEquals(
             expected: ActionImpossibleCauseEnum::DAILY_LIMIT,
             actual: $this->coffeeAction->cannotExecuteReason()
@@ -271,14 +305,17 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         return $player;
     }
 
-    private function createEquipment(string $name, Place $place): GameEquipment
+    private function createCoffeeMachine(Place $place): GameEquipment
     {
+        $tool = new Tool();
+        $tool->setActions([$this->coffeeActionConfig])->setName('tool_coffee_test');
+
         $gameEquipment = new GameEquipment($place);
         $equipment = new EquipmentConfig();
-        $equipment->setEquipmentName($name);
+        $equipment->setEquipmentName(EquipmentEnum::COFFEE_MACHINE)->setMechanics([$tool]);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setName($name);
+            ->setName(EquipmentEnum::COFFEE_MACHINE);
 
         return $gameEquipment;
     }

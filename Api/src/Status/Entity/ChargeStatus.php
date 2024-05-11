@@ -3,6 +3,8 @@
 namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
@@ -49,6 +51,11 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
         return $this;
     }
 
+    public function isCharged(): bool
+    {
+        return !$this->getVariableByName($this->getName())->isMin();
+    }
+
     public function getStatusConfig(): ChargeStatusConfig
     {
         if (!$this->statusConfig instanceof ChargeStatusConfig) {
@@ -91,5 +98,23 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
     public function isAutoRemove(): bool
     {
         return $this->getStatusConfig()->isAutoRemove();
+    }
+
+    public function getUsedCharge(ActionEnum $actionName): ?self
+    {
+        if ($this->hasDischargeStrategy($actionName->value)) {
+            return $this;
+        }
+
+        return null;
+    }
+
+    public function getOperationalStatus(ActionEnum $actionName): ActionProviderOperationalStateEnum
+    {
+        if ($this->hasDischargeStrategy($actionName->value) && !$this->isCharged()) {
+            return ActionProviderOperationalStateEnum::DISCHARGED;
+        }
+
+        return ActionProviderOperationalStateEnum::OPERATIONAL;
     }
 }

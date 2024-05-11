@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
@@ -94,13 +94,18 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setInjuryRate(100)
             ->setActionName(ActionEnum::TAKE)
             ->buildName(GameConfigEnum::TEST);
 
-        $actionEvent = new ActionEvent($action, $player, null);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $player,
+            player: $player,
+            actionTarget: null
+        );
 
         // Test injury
         $this->actionSubscriber->onPostAction($actionEvent);
@@ -159,13 +164,18 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setDirtyRate(100)
             ->setActionName(ActionEnum::TAKE)
             ->buildName(GameConfigEnum::TEST);
 
-        $actionEvent = new ActionEvent($action, $player, null);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $player,
+            player: $player,
+            actionTarget: null
+        );
 
         // Test dirty
         $this->actionSubscriber->onPostAction($actionEvent);
@@ -225,7 +235,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setDirtyRate(100)
             ->setActionName(ActionEnum::TAKE)
@@ -234,7 +244,12 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $dirty = new Status($player, $dirtyConfig);
         $I->haveInRepository($dirty);
 
-        $actionEvent = new ActionEvent($action, $player, null);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $player,
+            player: $player,
+            actionTarget: null
+        );
 
         // Test already dirty
         $this->actionSubscriber->onPostAction($actionEvent);
@@ -279,12 +294,17 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setDirtyRate(100)
             ->setActionName(ActionEnum::TAKE);
 
-        $actionEvent = new ActionEvent($action, $player, null);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $player,
+            player: $player,
+            actionTarget: null
+        );
 
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['name' => GearItemEnum::STAINPROOF_APRON]);
@@ -337,11 +357,16 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::LAND)
             ->setCriticalRate(100);
-        $actionEvent = new ActionEvent($action, $this->player1, $pasiphae);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $pasiphae,
+            player: $this->player1,
+            actionTarget: $pasiphae
+        );
         $actionEvent->setActionResult(new Fail());
 
         $this->actionSubscriber->onPostAction($actionEvent);
@@ -392,11 +417,16 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::LAND)
             ->setCriticalRate(100);
-        $actionEvent = new ActionEvent($action, $this->player1, $pasiphae);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $pasiphae,
+            player: $this->player1,
+            actionTarget: $pasiphae
+        );
         $actionEvent->setActionResult(new Fail());
 
         $this->actionSubscriber->onPostAction($actionEvent);
@@ -446,11 +476,16 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::LAND)
             ->setCriticalRate(100);
-        $actionEvent = new ActionEvent($action, $this->player1, $pasiphae);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $pasiphae,
+            player: $this->player1,
+            actionTarget: $pasiphae
+        );
         $actionEvent->setActionResult(new Fail());
 
         $this->actionSubscriber->onPostAction($actionEvent);
@@ -485,11 +520,16 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::LAND)
             ->setCriticalRate(100);
-        $actionEvent = new ActionEvent($action, $this->player1, $pasiphae);
+        $actionEvent = new ActionEvent(
+            actionConfig: $action,
+            actionProvider: $pasiphae,
+            player: $this->player1,
+            actionTarget: $pasiphae
+        );
         $actionEvent->setActionResult(new Fail());
 
         $this->actionSubscriber->onPostAction($actionEvent);

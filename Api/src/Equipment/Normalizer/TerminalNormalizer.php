@@ -6,12 +6,12 @@ namespace Mush\Equipment\Normalizer;
 
 use Mush\Action\Actions\AbstractMoveDaedalusAction;
 use Mush\Action\Actions\AdvanceDaedalus;
-use Mush\Action\Entity\Action;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
@@ -55,7 +55,11 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         /** @var ?GameEquipment $terminal */
         $terminal = $object;
 
-        $context['terminal'] = $terminal;
+        if ($terminal instanceof GameItem) {
+            $context['terminalItem'] = $terminal;
+        } else {
+            $context['terminal'] = $terminal;
+        }
 
         if ($terminal === null) {
             return [];
@@ -85,7 +89,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
                 domain: 'terminal',
                 language: $daedalus->getLanguage()
             ),
-            'actions' => $this->normalizeTerminalActions($terminal, $format, $context),
+            'actions' => $this->getNormalizedActions($terminal, ActionHolderEnum::TERMINAL, $currentPlayer, $format, $context),
             'sectionTitles' => $this->normalizeTerminalSectionTitles($terminal),
             'buttons' => $this->getNormalizedTerminalButtons($terminal),
             'projects' => $this->getNormalizedTerminalProjects($terminal, $format, $context),
@@ -100,28 +104,6 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos, $biosTerminalInfos, $pilgredTerminalInfos, $neronCoreInfos);
 
         return $normalizedTerminal;
-    }
-
-    private function normalizeTerminalActions(GameEquipment $terminal, ?string $format, array $context = []): array
-    {
-        $actions = $terminal->getActions()
-            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::TERMINAL)
-            ->filter(static fn (Action $action) => $action->getTarget() === null);
-
-        $normalizedActions = [];
-
-        /** @var Action $action */
-        foreach ($actions as $action) {
-            $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (\is_array($normedAction) && \count($normedAction) > 0) {
-                $normalizedActions[] = $normedAction;
-            }
-        }
-
-        $normalizedActions = $this->getNormalizedActionsSortedBy('name', $normalizedActions);
-        $normalizedActions = $this->getNormalizedActionsSortedBy('actionPointCost', $normalizedActions);
-
-        return $normalizedActions;
     }
 
     private function normalizeTerminalSectionTitles(GameEquipment $terminal): array

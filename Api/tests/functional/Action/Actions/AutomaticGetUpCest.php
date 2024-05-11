@@ -4,9 +4,10 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Disassemble;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -49,11 +50,20 @@ class AutomaticGetUpCest
 
     public function testAutomaticGetUp(FunctionalTester $I)
     {
+        $getUpAction = new ActionConfig();
+        $getUpAction
+            ->setActionName(ActionEnum::GET_UP)
+            ->setRange(ActionRangeEnum::SELF)
+            ->buildName(GameConfigEnum::TEST)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER);
+        $I->haveInRepository($getUpAction);
+
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST);
+            ->buildName(GameConfigEnum::TEST)
+            ->setActionConfigs([$getUpAction]);
         $I->haveInRepository($statusConfig);
 
         $technicianStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => SkillEnum::TECHNICIAN]);
@@ -88,15 +98,8 @@ class AutomaticGetUpCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $getUpAction = new Action();
-        $getUpAction
-            ->setActionName(ActionEnum::GET_UP)
-            ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($getUpAction);
-
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$getUpAction])]);
+        $characterConfig = $I->have(CharacterConfig::class);
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
@@ -122,16 +125,17 @@ class AutomaticGetUpCest
             time: new \DateTime(),
         );
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::DISASSEMBLE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->buildName(GameConfigEnum::TEST);
+            ->buildName(GameConfigEnum::TEST)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['actions' => new ArrayCollection([$action])]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['actionConfigs' => new ArrayCollection([$action])]);
 
         $gameEquipment = new GameEquipment($room);
 
@@ -140,7 +144,12 @@ class AutomaticGetUpCest
             ->setName('shower');
         $I->haveInRepository($gameEquipment);
 
-        $this->disassembleAction->loadParameters($action, $player, $gameEquipment);
+        $this->disassembleAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $gameEquipment,
+            player: $player,
+            target: $gameEquipment
+        );
 
         $I->assertTrue($this->disassembleAction->isVisible());
         $I->assertNull($this->disassembleAction->cannotExecuteReason());

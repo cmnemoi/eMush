@@ -66,15 +66,15 @@
             :array="equipmentConfig.dismountedProducts"
             :selection="products"
             id="equipmentConfig_addDismountedProducts"
-            @addElement="addDismountedProduct"
-            @removeElement="removeDismountedProduct"
+            @add-element="addDismountedProduct"
+            @remove-element="removeDismountedProduct"
         />
 
         <h3>{{ $t('admin.equipmentConfig.actions') }}</h3>
         <ChildCollectionManager
             :children="equipmentConfig.actions"
             id="equipmentConfig_actions"
-            @addId="selectNewAction"
+            @add-id="selectNewAction"
             @remove="removeAction"
         >
             <template #header="child">
@@ -86,7 +86,7 @@
         <ChildCollectionManager
             :children="equipmentConfig.initStatuses"
             id="equipmentConfig_initStatuses"
-            @addId="selectNewInitStatuses"
+            @add-id="selectNewInitStatuses"
             @remove="removeInitStatuses"
         >
             <template #header="child">
@@ -98,7 +98,7 @@
         <ChildCollectionManager
             :children="equipmentConfig.mechanics"
             id="equipmentConfig_mechanics"
-            @addId="selectNewMechanics"
+            @add-id="selectNewMechanics"
             @remove="removeMechanics"
         >
             <template #header="child">

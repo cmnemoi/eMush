@@ -2,7 +2,6 @@
 
 namespace Mush\Tests\unit\Player\Normalizer;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
@@ -98,7 +97,6 @@ final class DeadPlayerNormalizerTest extends TestCase
         $player->method('getId')->willReturn(2);
         $player->method('getTriumph')->willReturn(33);
         $player->method('getPlayerInfo')->willReturn($playerInformation);
-        $player->method('getTargetActions')->willReturn(new ArrayCollection());
 
         $this->translationService
             ->shouldReceive('translate')

@@ -8,7 +8,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
-use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
@@ -18,13 +17,12 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class InstallCamera extends AbstractAction
 {
-    protected string $name = ActionEnum::INSTALL_CAMERA;
+    protected ActionEnum $name = ActionEnum::INSTALL_CAMERA;
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
@@ -49,17 +47,11 @@ class InstallCamera extends AbstractAction
                 'groups' => ['execute'],
                 'message' => ActionImpossibleCauseEnum::ALREADY_INSTALLED_CAMERA,
             ]),
-            new HasStatus([
-                'status' => EquipmentStatusEnum::BROKEN,
-                'contain' => false,
-                'groups' => ['execute'],
-                'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-            ]),
         ]);
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'room', 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameItem;
     }
@@ -78,7 +70,7 @@ class InstallCamera extends AbstractAction
             EquipmentEnum::CAMERA_EQUIPMENT,
             $itemCamera,
             $this->player->getPlace(),
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
             VisibilityEnum::PUBLIC
         );

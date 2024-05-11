@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class AnalyzePlanet extends AbstractAction
 {
-    protected string $name = ActionEnum::ANALYZE_PLANET;
+    protected ActionEnum $name = ActionEnum::ANALYZE_PLANET;
     private PlanetServiceInterface $planetService;
 
     public function __construct(
@@ -64,7 +64,7 @@ final class AnalyzePlanet extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Planet;
     }

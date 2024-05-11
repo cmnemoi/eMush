@@ -35,12 +35,12 @@ final class ExtinguishActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::REPAIR, 1);
+        $this->createActionEntity(ActionEnum::REPAIR, 1);
 
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new Extinguish(
+        $this->actionHandler = new Extinguish(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -68,7 +68,7 @@ final class ExtinguishActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item)->setName('item');
 
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+        $item->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
@@ -77,20 +77,20 @@ final class ExtinguishActionTest extends AbstractActionTest
 
         $room->setDaedalus($player->getDaedalus());
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
             ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->never();
         $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(false)->once();
 
         // Fail try
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Fail::class, $result);
         self::assertCount(0, $room->getEquipments()->first()->getStatuses());
@@ -106,7 +106,7 @@ final class ExtinguishActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item)->setName('item');
 
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+        $item->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
@@ -115,15 +115,15 @@ final class ExtinguishActionTest extends AbstractActionTest
 
         $room->setDaedalus($player->getDaedalus());
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
             ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->andReturn(0)
             ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(true)->once();
@@ -131,7 +131,7 @@ final class ExtinguishActionTest extends AbstractActionTest
         $this->statusService->shouldReceive('removeStatus')->once();
 
         // Success
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());

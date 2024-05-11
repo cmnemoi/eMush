@@ -21,7 +21,7 @@ class TryKube extends AbstractAction
 {
     private const KUBE_SUCCESS_RATE = 4;
 
-    protected string $name = ActionEnum::TRY_KUBE;
+    protected ActionEnum $name = ActionEnum::TRY_KUBE;
 
     private RandomServiceInterface $randomService;
 
@@ -46,7 +46,7 @@ class TryKube extends AbstractAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }

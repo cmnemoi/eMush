@@ -32,7 +32,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $player = $event->getAuthor();
         $time = $event->getTime();
 
-        $actionName = $event->getAction()->getActionName();
+        $actionName = $event->getActionConfig()->getActionName();
 
         $target = $event->getActionTarget();
 
@@ -43,14 +43,14 @@ class ActionSubscriber implements EventSubscriberInterface
                 }
 
                 if (\in_array($target->getName(), self::COMMUNICATION_ITEMS, true)) {
-                    $this->channelService->updatePlayerPrivateChannels($player, $actionName, $time);
+                    $this->channelService->updatePlayerPrivateChannels($player, $actionName->value, $time);
                 }
 
                 return;
 
                 // handle movement of a player
             case ActionEnum::MOVE:
-                $this->channelService->updatePlayerPrivateChannels($player, $actionName, $time);
+                $this->channelService->updatePlayerPrivateChannels($player, $actionName->value, $time);
         }
     }
 }

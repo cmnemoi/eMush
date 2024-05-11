@@ -2,10 +2,11 @@
 
 namespace Mush\Tests\functional\Action\Service;
 
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
@@ -75,12 +76,18 @@ class ActionServiceCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
-            ->setActionName('some name')
+            ->setActionName(ActionEnum::ANATHEMA)
             ->setActionCost(6);
 
-        $this->actionService->applyCostToPlayer($player, $action, null, new Success());
+        $this->actionService->applyCostToPlayer(
+            player: $player,
+            actionConfig: $action,
+            actionProvider: $player,
+            actionTarget: null,
+            actionResult: new Success()
+        );
 
         $I->assertEquals(4, $player->getActionPoint());
 
@@ -126,12 +133,18 @@ class ActionServiceCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
-            ->setActionName('some name')
+            ->setActionName(ActionEnum::ANATHEMA)
             ->setActionCost(0);
 
-        $this->actionService->applyCostToPlayer($player, $action, null, new Success());
+        $this->actionService->applyCostToPlayer(
+            player: $player,
+            actionConfig: $action,
+            actionProvider: $player,
+            actionTarget: null,
+            actionResult: new Success()
+        );
 
         $I->assertEquals(10, $player->getActionPoint());
     }
@@ -142,10 +155,11 @@ class ActionServiceCest
         $I->flushToDatabase();
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
 
-        $convertActionEntity = new Action();
+        $convertActionEntity = new ActionConfig();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
@@ -180,11 +194,17 @@ class ActionServiceCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
-        $action->setActionName('some name');
+        $action = new ActionConfig();
+        $action->setActionName(ActionEnum::BUILD);
         $action->setMovementCost(1);
 
-        $this->actionService->applyCostToPlayer($player, $action, null, new Success());
+        $this->actionService->applyCostToPlayer(
+            player: $player,
+            actionConfig: $action,
+            actionProvider: $player,
+            actionTarget: null,
+            actionResult: new Success()
+        );
 
         $I->assertEquals(9, $player->getActionPoint());
         $I->assertEquals(2, $player->getMovementPoint());
@@ -196,10 +216,11 @@ class ActionServiceCest
         $I->flushToDatabase();
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
 
-        $convertActionEntity = new Action();
+        $convertActionEntity = new ActionConfig();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
@@ -240,7 +261,7 @@ class ActionServiceCest
             ->setDelta(1)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setMode(VariableModifierModeEnum::ADDITIVE);
         $I->haveInRepository($modifierConfig);
@@ -249,11 +270,17 @@ class ActionServiceCest
 
         $I->haveInRepository($disabledModifier);
 
-        $action = new Action();
-        $action->setActionName('some name');
+        $action = new ActionConfig();
+        $action->setActionName(ActionEnum::BUILD);
         $action->setMovementCost(1);
 
-        $this->actionService->applyCostToPlayer($player, $action, null, new Success());
+        $this->actionService->applyCostToPlayer(
+            player: $player,
+            actionConfig: $action,
+            actionProvider: $player,
+            actionTarget: null,
+            actionResult: new Success()
+        );
 
         $I->assertEquals(9, $player->getActionPoint());
         $I->assertEquals(1, $player->getMovementPoint());

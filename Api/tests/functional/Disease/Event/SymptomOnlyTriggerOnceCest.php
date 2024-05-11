@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Disease\Event;
 
 use Mush\Action\Actions\Consume;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -56,8 +56,8 @@ final class SymptomOnlyTriggerOnceCest extends AbstractFunctionalTest
             [],
             new \DateTime()
         );
-        $consumeConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::CONSUME]);
-        $this->consume->loadParameters($consumeConfig, $this->player1, $food);
+        $consumeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CONSUME->value]);
+        $this->consume->loadParameters($consumeConfig, $food, $this->player1, $food);
 
         $this->consume->execute();
 

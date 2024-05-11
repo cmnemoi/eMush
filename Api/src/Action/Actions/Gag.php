@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * implement gag action.
- * For 1 Action Points, a player holding duct tape can gag another player
+ * For 1 ActionConfig Points, a player holding duct tape can gag another player
  *  - target player get the gagged status
  *  - target player can ungag for 1 pa.
  *
@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class Gag extends AbstractAction
 {
-    protected string $name = ActionEnum::GAG;
+    protected ActionEnum $name = ActionEnum::GAG;
     protected StatusServiceInterface $statusService;
 
     public function __construct(
@@ -65,7 +65,7 @@ class Gag extends AbstractAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Player;
     }
@@ -83,7 +83,7 @@ class Gag extends AbstractAction
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::GAGGED,
             $target,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
     }

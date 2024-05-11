@@ -35,13 +35,13 @@ final class LandActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::LAND, 2, 0);
-        $this->actionEntity->setCriticalRate(20);
+        $this->createActionEntity(ActionEnum::LAND, 2, 0);
+        $this->actionConfig->setCriticalRate(20);
 
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
-        $this->action = new Land(
+        $this->actionHandler = new Land(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -86,14 +86,14 @@ final class LandActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $roomStart);
 
-        $this->action->loadParameters($this->actionEntity, $player, $patroller);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $patroller);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')->andReturn(100);
         $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(false);
         $this->eventService->shouldReceive('callEvent')->times(1);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertNotInstanceOf(CriticalSuccess::class, $result);
@@ -133,14 +133,14 @@ final class LandActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $roomStart);
 
-        $this->action->loadParameters($this->actionEntity, $player, $patroller);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $patroller);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')->andReturn(100);
         $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(true);
         $this->eventService->shouldReceive('callEvent')->times(1);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(CriticalSuccess::class, $result);
         self::assertSame($player->getPlace(), $roomEnd);

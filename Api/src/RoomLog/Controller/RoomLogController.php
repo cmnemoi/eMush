@@ -38,13 +38,13 @@ class RoomLogController extends AbstractGameController
     public function __construct(
         AdminServiceInterface $adminService,
         RoomLogServiceInterface $roomLogService,
-        CycleServiceInterface $cycleService,
+        CycleServiceInterface $cycleStrategyService,
         TranslationServiceInterface $translationService,
         PlayerInfoRepository $playerInfoRepository
     ) {
         parent::__construct($adminService);
         $this->roomLogService = $roomLogService;
-        $this->cycleService = $cycleService;
+        $this->cycleService = $cycleStrategyService;
         $this->translationService = $translationService;
         $this->playerInfoRepository = $playerInfoRepository;
     }

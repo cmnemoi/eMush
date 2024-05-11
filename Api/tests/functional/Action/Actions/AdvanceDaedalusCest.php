@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\AdvanceDaedalus;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
@@ -19,7 +19,7 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
     {
         parent::_before($I);
 
-        $this->moveDaedalusActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::ADVANCE_DAEDALUS]);
+        $this->moveDaedalusActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::ADVANCE_DAEDALUS]);
         $this->moveDaedalusAction = $I->grabService(AdvanceDaedalus::class);
     }
 
@@ -35,7 +35,8 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
 
         // when player advances daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -58,7 +59,8 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
 
         // when player advances daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -78,7 +80,8 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
 
         // when player advances daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -101,7 +104,8 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
 
         // when player advances daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -124,7 +128,8 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
 
         // when player advances daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -153,7 +158,8 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
 
         // when player advances daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );

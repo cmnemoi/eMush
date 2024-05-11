@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\LeaveOrbit;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
@@ -19,7 +19,7 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
     {
         parent::_before($I);
 
-        $this->moveDaedalusActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::LEAVE_ORBIT]);
+        $this->moveDaedalusActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::LEAVE_ORBIT]);
         $this->moveDaedalusAction = $I->grabService(LeaveOrbit::class);
 
         // given daedalus is in orbit
@@ -43,7 +43,8 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
 
         // when player leaves orbit
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -57,7 +58,8 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
     {
         // when player leaves orbit
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -80,7 +82,8 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
 
         // when player leaves orbit
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -100,7 +103,8 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
 
         // when player leaves orbit
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -122,7 +126,8 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
 
         // when player leaves orbit
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );

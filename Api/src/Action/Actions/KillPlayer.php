@@ -28,7 +28,7 @@ class KillPlayer extends AbstractAction
     private const NB_ORGANIC_WASTE_MIN = 3;
     private const NB_ORGANIC_WASTE_MAX = 4;
 
-    protected string $name = ActionEnum::KILL_PLAYER;
+    protected ActionEnum $name = ActionEnum::KILL_PLAYER;
     protected GameEquipmentServiceInterface $gameEquipmentService;
     protected RandomServiceInterface $randomService;
 
@@ -50,7 +50,7 @@ class KillPlayer extends AbstractAction
         $metadata->addConstraint(new HasRole(['roles' => [RoleEnum::SUPER_ADMIN], 'groups' => ['visibility']]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Player;
     }

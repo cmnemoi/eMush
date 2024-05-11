@@ -6,8 +6,9 @@ namespace Mush\Project\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Entity\ActionTargetInterface;
-use Mush\Action\Enum\ActionTargetName;
+use Mush\Action\Entity\ActionHolderInterface;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
@@ -18,7 +19,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
-class Project implements LogParameterInterface, ActionTargetInterface
+class Project implements LogParameterInterface, ActionHolderInterface
 {
     public const int CPU_PRIORITY_BONUS = 1;
     public const int PARTICIPATION_MALUS = 2;
@@ -177,11 +178,6 @@ class Project implements LogParameterInterface, ActionTargetInterface
         return LogParameterKeyEnum::PROJECT;
     }
 
-    public function getActionTargetName(array $context): string
-    {
-        return ActionTargetName::PROJECT->value;
-    }
-
     public function isFinished(): bool
     {
         return $this->progress >= 100;
@@ -210,6 +206,11 @@ class Project implements LogParameterInterface, ActionTargetInterface
     public function isFinishedNeronProject(): bool
     {
         return $this->isNeronProject() && $this->isFinished();
+    }
+
+    public function getActions(Player $activePlayer, ?ActionHolderEnum $actionTarget = null): Collection
+    {
+        return $activePlayer->getPlace()->getProvidedActions(ActionHolderEnum::PROJECT, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELF]);
     }
 
     public function getPlayerParticipations(Player $player): int

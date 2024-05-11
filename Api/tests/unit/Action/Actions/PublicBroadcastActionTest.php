@@ -31,12 +31,12 @@ final class PublicBroadcastActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::PUBLIC_BROADCAST);
-        $this->actionEntity->setOutputQuantity(3);
+        $this->createActionEntity(ActionEnum::PUBLIC_BROADCAST);
+        $this->actionConfig->setOutputQuantity(3);
 
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new PublicBroadcast(
+        $this->actionHandler = new PublicBroadcast(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -64,7 +64,7 @@ final class PublicBroadcastActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item)->setName('equipment');
 
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+        $item->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $alienTVConfig = new ChargeStatusConfig();
         $alienTVConfig->setStatusName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST);
@@ -72,13 +72,13 @@ final class PublicBroadcastActionTest extends AbstractActionTest
         $alienTVStatus
             ->setCharge(1);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('createStatusFromName')->never();
         $this->eventService->shouldReceive('callEvent')->never();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }
@@ -95,19 +95,19 @@ final class PublicBroadcastActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item)->setName('equipment');
 
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+        $item->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('createStatusFromName')->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
             ->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

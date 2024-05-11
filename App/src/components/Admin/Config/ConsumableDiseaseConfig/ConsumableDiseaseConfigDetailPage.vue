@@ -23,8 +23,8 @@
             id="consumableDiseaseConfig_curesName"
             map-indexes-type="string"
             map-values-type="number"
-            @addTuple="addCuresName"
-            @removeIndex="removeCuresName"
+            @add-tuple="addCuresName"
+            @remove-index="removeCuresName"
         />
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.diseasesName')"
@@ -32,8 +32,8 @@
             id="consumableDiseaseConfig_diseasesName"
             map-indexes-type="string"
             map-values-type="number"
-            @addTuple="addDiseasesName"
-            @removeIndex="removeDiseasesName"
+            @add-tuple="addDiseasesName"
+            @remove-index="removeDiseasesName"
         />
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.diseasesChances')"
@@ -41,8 +41,8 @@
             id="consumableDiseaseConfig_diseasesChances"
             map-indexes-type="number"
             map-values-type="number"
-            @addTuple="addDiseasesChances"
-            @removeIndex="removeDiseasesChances"
+            @add-tuple="addDiseasesChances"
+            @remove-index="removeDiseasesChances"
         />
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.curesChances')"
@@ -50,8 +50,8 @@
             id="consumableDiseaseConfig_curesChances"
             map-indexes-type="number"
             map-values-type="number"
-            @addTuple="addCuresChances"
-            @removeIndex="removeCuresChances"
+            @add-tuple="addCuresChances"
+            @remove-index="removeCuresChances"
         />
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.diseasesDelayMin')"
@@ -59,8 +59,8 @@
             id="consumableDiseaseConfig_diseasesDelayMin"
             map-indexes-type="number"
             map-values-type="number"
-            @addTuple="addDiseasesDelayMin"
-            @removeIndex="removeDiseasesDelayMin"
+            @add-tuple="addDiseasesDelayMin"
+            @remove-index="removeDiseasesDelayMin"
         />
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.diseasesDelayLength')"
@@ -68,8 +68,8 @@
             id="consumableDiseaseConfig_diseasesDelayLength"
             map-indexes-type="number"
             map-values-type="number"
-            @addTuple="addDiseasesDelayLength"
-            @removeIndex="removeDiseasesDelayLength"
+            @add-tuple="addDiseasesDelayLength"
+            @remove-index="removeDiseasesDelayLength"
         />
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.effectNumber')"
@@ -77,8 +77,8 @@
             id="consumableDiseaseConfig_effectNumber"
             map-indexes-type="number"
             map-values-type="number"
-            @addTuple="addEffectNumber"
-            @removeIndex="removeEffectNumber"
+            @add-tuple="addEffectNumber"
+            @remove-index="removeEffectNumber"
         />
         <UpdateConfigButtons
             @create="create"

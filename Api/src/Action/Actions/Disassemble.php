@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Disassemble extends AttemptAction
 {
-    protected string $name = ActionEnum::DISASSEMBLE;
+    protected ActionEnum $name = ActionEnum::DISASSEMBLE;
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
@@ -60,7 +60,7 @@ final class Disassemble extends AttemptAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }
@@ -85,7 +85,7 @@ final class Disassemble extends AttemptAction
                 $product = $this->gameEquipmentService->createGameEquipmentFromName(
                     $productString,
                     $this->player,
-                    $this->getAction()->getActionTags(),
+                    $this->getActionConfig()->getActionTags(),
                     new \DateTime(),
                     VisibilityEnum::HIDDEN
                 );
@@ -97,7 +97,7 @@ final class Disassemble extends AttemptAction
             $gameEquipment,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);

@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class DeletePlanet extends AbstractAction
 {
-    protected string $name = ActionEnum::DELETE_PLANET;
+    protected ActionEnum $name = ActionEnum::DELETE_PLANET;
 
     private PlanetServiceInterface $planetService;
 
@@ -63,7 +63,7 @@ final class DeletePlanet extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Planet;
     }

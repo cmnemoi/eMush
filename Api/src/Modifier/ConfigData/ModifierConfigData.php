@@ -50,7 +50,7 @@ abstract class ModifierConfigData
             'targetVariable' => 'movementPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [ActionEnum::MOVE->value => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'direct_modifier_player_-1_max_healthPoint',
@@ -329,7 +329,7 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-1_actionPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -345,7 +345,7 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-2_actionPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -408,7 +408,7 @@ abstract class ModifierConfigData
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -459,7 +459,7 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ALL_TAGS,
-                ActionTypeEnum::ACTION_SUPER_DIRTY => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_SUPER_DIRTY->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -478,7 +478,7 @@ abstract class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::HIT => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::HIT->value => ModifierRequirementEnum::ANY_TAGS,
                 PlanetSectorEvent::FIGHT => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::CRITICAL_SUCCESS => ModifierRequirementEnum::NONE_TAGS,
             ],
@@ -499,7 +499,7 @@ abstract class ModifierConfigData
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionTypeEnum::ACTION_TECHNICIAN => ModifierRequirementEnum::ALL_TAGS,
+                ActionTypeEnum::ACTION_TECHNICIAN->value => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
         [
@@ -532,8 +532,8 @@ abstract class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::WASH_IN_SINK => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::SHOWER => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -551,7 +551,7 @@ abstract class ModifierConfigData
             'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionTypeEnum::ACTION_SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS],
+            'tagConstraints' => [ActionTypeEnum::ACTION_SHOOT_HUNTER->value => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
             'name' => 'modifier_for_player_+2movementPoint_on_event_action_movement_conversion',
@@ -568,7 +568,7 @@ abstract class ModifierConfigData
             'targetVariable' => 'movementPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'modifier_for_player_+1movementPoint_on_event_action_movement_conversion_if_cycle_even',
@@ -587,7 +587,7 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [
                 'cycle_even',
             ],
-            'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'modifier_for_player_x2percentage_on_strengthen_hull',
@@ -604,7 +604,7 @@ abstract class ModifierConfigData
             'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::STRENGTHEN_HULL => ModifierRequirementEnum::ANY_TAGS],
+            'tagConstraints' => [ActionEnum::STRENGTHEN_HULL->value => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
             'name' => 'modifier_for_player_x2percentage_on_renovate',
@@ -621,7 +621,7 @@ abstract class ModifierConfigData
             'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::RENOVATE => ModifierRequirementEnum::ANY_TAGS],
+            'tagConstraints' => [ActionEnum::RENOVATE->value => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
             'name' => 'modifier_for_player_x2hull_on_change.variable_if_reason_strengthen_hull',
@@ -638,7 +638,7 @@ abstract class ModifierConfigData
             'targetVariable' => 'hull',
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::STRENGTHEN_HULL => ModifierRequirementEnum::ANY_TAGS],
+            'tagConstraints' => [ActionEnum::STRENGTHEN_HULL->value => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
             'name' => 'modifier_for_daedalus_-1actionPoint_on_TODO coms. action',
@@ -655,7 +655,7 @@ abstract class ModifierConfigData
             'targetVariable' => 'actionPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::CONTACT_SOL => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'modifier_for_daedalus_-1movementPoint_on_event_action_movement_conversion',
@@ -672,7 +672,7 @@ abstract class ModifierConfigData
             'targetVariable' => 'movementPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'modifier_for_daedalus_-1movementPoint_on_change.variable_if_reason_new_cycle',
@@ -724,8 +724,8 @@ abstract class ModifierConfigData
                 'item_in_room_schrodinger',
             ],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS,
-                ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ALL_TAGS,
+                ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -746,8 +746,8 @@ abstract class ModifierConfigData
                 'item_in_room_schrodinger',
             ],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
-                ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS, ],
+                ActionEnum::MOVE->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS, ],
         ],
         [
             'name' => 'screaming_for_player_set_-1actionPoint_on_new_cycle_if_random_16',
@@ -831,9 +831,9 @@ abstract class ModifierConfigData
                 'player_in_room_four_people',
             ],
             'tagConstraints' => [
-                ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -854,8 +854,8 @@ abstract class ModifierConfigData
                 'player_in_room_four_people',
             ],
             'tagConstraints' => [
-                ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -904,11 +904,11 @@ abstract class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONSUME => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::SURGERY => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::SELF_SURGERY => ModifierRequirementEnum::NONE_TAGS,
-                ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::SELF_SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -927,11 +927,11 @@ abstract class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONSUME => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::SURGERY => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::SELF_SURGERY => ModifierRequirementEnum::NONE_TAGS,
-                ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::SELF_SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -950,11 +950,11 @@ abstract class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONSUME => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::SURGERY => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::SELF_SURGERY => ModifierRequirementEnum::NONE_TAGS,
-                ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::SELF_SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -1003,7 +1003,7 @@ abstract class ModifierConfigData
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1022,7 +1022,7 @@ abstract class ModifierConfigData
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1041,7 +1041,7 @@ abstract class ModifierConfigData
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1060,7 +1060,7 @@ abstract class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1078,7 +1078,7 @@ abstract class ModifierConfigData
             'targetVariable' => 'movementPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'modifier_for_player_-1movementPoint_on_move_if_player_in_room_not_alone',
@@ -1098,7 +1098,7 @@ abstract class ModifierConfigData
                 'player_in_room_not_alone',
             ],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1116,7 +1116,7 @@ abstract class ModifierConfigData
             'targetVariable' => 'actionPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionTypeEnum::ACTION_AGGRESSIVE => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [ActionTypeEnum::ACTION_AGGRESSIVE->value => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'modifier_for_player_+2movementPoint_on_move',
@@ -1134,7 +1134,7 @@ abstract class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ALL_TAGS,
                 DaedalusStatusEnum::NO_GRAVITY => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
@@ -1229,8 +1229,8 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-3_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SHOWER => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::WASH_IN_SINK => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1249,7 +1249,7 @@ abstract class ModifierConfigData
             'mode' => 'set_value',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1263,7 +1263,7 @@ abstract class ModifierConfigData
             'type' => 'event_modifier',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::CONSUME => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ALL_TAGS,
                 PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ANY_TAGS,
                 PlayerVariableEnum::MORAL_POINT => ModifierRequirementEnum::ANY_TAGS,
                 PlayerVariableEnum::MOVEMENT_POINT => ModifierRequirementEnum::ANY_TAGS,
@@ -1342,7 +1342,7 @@ abstract class ModifierConfigData
             'triggeredEvent' => null,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1357,7 +1357,7 @@ abstract class ModifierConfigData
             'triggeredEvent' => null,
             'modifierActivationRequirements' => ['item_status_heavy'],
             'tagConstraints' => [
-                ActionEnum::TAKE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1373,7 +1373,7 @@ abstract class ModifierConfigData
             'replaceEvent' => true,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionTypeEnum::ACTION_ATTACK => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1388,7 +1388,7 @@ abstract class ModifierConfigData
             'triggeredEvent' => null,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionTypeEnum::ACTION_PILOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_PILOT->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1403,7 +1403,7 @@ abstract class ModifierConfigData
             'triggeredEvent' => null,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1472,7 +1472,7 @@ abstract class ModifierConfigData
                 'player_equipment_schrodinger',
             ],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
                 SymptomEnum::FEAR_OF_CATS => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
@@ -1489,7 +1489,7 @@ abstract class ModifierConfigData
                 'random_16',
             ],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
                 SymptomEnum::PSYCHOTIC_ATTACKS => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
@@ -1538,7 +1538,7 @@ abstract class ModifierConfigData
                 'random_16',
             ],
             'tagConstraints' => [
-                ActionEnum::TAKE => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
                 ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
                 SymptomEnum::CAT_ALLERGY => ModifierRequirementEnum::NONE_TAGS,
             ],
@@ -1557,7 +1557,7 @@ abstract class ModifierConfigData
                 'item_in_room_schrodinger',
             ],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
                 SymptomEnum::SNEEZING => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
@@ -1572,7 +1572,7 @@ abstract class ModifierConfigData
             'type' => 'event_modifier',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS,
                 SymptomEnum::VOMITING => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
@@ -1587,7 +1587,7 @@ abstract class ModifierConfigData
             'type' => 'event_modifier',
             'modifierActivationRequirements' => ['random_40'],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
                 SymptomEnum::VOMITING => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
@@ -1630,7 +1630,7 @@ abstract class ModifierConfigData
             'type' => 'event_modifier',
             'modifierActivationRequirements' => ['random_16'],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
                 SymptomEnum::DROOLING => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
@@ -1645,7 +1645,7 @@ abstract class ModifierConfigData
             'type' => 'event_modifier',
             'modifierActivationRequirements' => ['random_16'],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
                 SymptomEnum::FOAMING_MOUTH => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
@@ -1663,7 +1663,7 @@ abstract class ModifierConfigData
                 'player_in_room_mush',
             ],
             'tagConstraints' => [
-                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
                 SymptomEnum::SNEEZING => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
@@ -1681,7 +1681,7 @@ abstract class ModifierConfigData
             'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionTypeEnum::ACTION_SHOOT => ModifierRequirementEnum::ANY_TAGS],
+            'tagConstraints' => [ActionTypeEnum::ACTION_SHOOT->value => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
             'name' => 'modifier_for_player_set_0moralPoint_on_change.variable',
@@ -1719,7 +1719,7 @@ abstract class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SCAN->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1738,7 +1738,7 @@ abstract class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::ANALYZE_PLANET->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1757,7 +1757,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::ADDITIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SCAN->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1776,7 +1776,7 @@ abstract class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SCAN->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::LIQUID_MAP_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ],
@@ -1797,7 +1797,7 @@ abstract class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => ['random_50'],
             'tagConstraints' => [
-                ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SCAN->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::LIQUID_MAP_MODIFIER . '_random_50' => ModifierRequirementEnum::NONE_TAGS,
             ],
@@ -1817,7 +1817,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::SET_VALUE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionTypeEnum::ACTION_PILOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_PILOT->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1835,8 +1835,8 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1854,8 +1854,8 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::SET_VALUE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionTypeEnum::ACTION_SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS,
-                ActionTypeEnum::ACTION_SHOOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_SHOOT_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1873,7 +1873,7 @@ abstract class ModifierConfigData
             'targetVariable' => 'outputQuantity',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS],
+            'tagConstraints' => [ActionEnum::ANALYZE_PLANET->value => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
             'name' => 'modifier_for_daedalus_-1action_point_on_action_analyze_planet',
@@ -1890,7 +1890,7 @@ abstract class ModifierConfigData
             'targetVariable' => 'actionPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS],
+            'tagConstraints' => [ActionEnum::ANALYZE_PLANET->value => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
             'name' => 'modifier_for_player_set_0spore_on_change.variable',
@@ -1925,8 +1925,8 @@ abstract class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::INSERT_FUEL => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::INSERT_FUEL_CHAMBER => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::INSERT_FUEL->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::INSERT_FUEL_CHAMBER->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1945,8 +1945,8 @@ abstract class ModifierConfigData
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::SHOOT_RANDOM_HUNTER => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_RANDOM_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -2039,7 +2039,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::SET_VALUE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionTypeEnum::ACTION_TECHNICIAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_TECHNICIAN->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -2058,8 +2058,8 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::REPAIR => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::RENOVATE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::REPAIR->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::RENOVATE->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -2077,7 +2077,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::SET_VALUE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionTypeEnum::ACTION_CONCEPTOR => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_CONCEPTOR->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
     ];

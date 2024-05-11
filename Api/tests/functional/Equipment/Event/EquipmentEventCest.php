@@ -91,7 +91,7 @@ class EquipmentEventCest
             $equipment,
             true,
             VisibilityEnum::PUBLIC,
-            [ActionEnum::COFFEE],
+            [ActionEnum::COFFEE->value],
             new \DateTime()
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);

@@ -20,9 +20,9 @@ final class ReportFireActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::REPORT_FIRE, 1);
+        $this->createActionEntity(ActionEnum::REPORT_FIRE, 1);
 
-        $this->action = new ReportFire(
+        $this->actionHandler = new ReportFire(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -43,13 +43,13 @@ final class ReportFireActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player);
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

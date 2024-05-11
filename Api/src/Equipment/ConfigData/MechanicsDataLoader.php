@@ -4,7 +4,7 @@ namespace Mush\Equipment\ConfigData;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Repository\ActionRepository;
 use Mush\Equipment\Entity\EquipmentMechanic as Mechanics;
 use Mush\Equipment\Repository\MechanicsRepository;
@@ -31,10 +31,10 @@ abstract class MechanicsDataLoader extends ConfigDataLoader
     {
         $actions = [];
         foreach ($mechanicsData['actions'] as $actionName) {
-            /** @var Action $action */
+            /** @var ActionConfig $action */
             $action = $this->actionRepository->findOneBy(['name' => $actionName]);
             if ($action === null) {
-                throw new \Exception('Action not found: ' . $actionName);
+                throw new \Exception('ActionConfig not found: ' . $actionName);
             }
             $actions[] = $action;
         }

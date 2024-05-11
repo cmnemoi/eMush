@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ResetSpecialistPoints extends AbstractAction
 {
-    protected string $name = ActionEnum::RESET_SPECIALIST_POINTS;
+    protected ActionEnum $name = ActionEnum::RESET_SPECIALIST_POINTS;
     protected StatusServiceInterface $statusService;
 
     public function __construct(
@@ -36,7 +36,7 @@ class ResetSpecialistPoints extends AbstractAction
         $metadata->addConstraint(new HasRole(['roles' => [RoleEnum::SUPER_ADMIN, RoleEnum::ADMIN], 'groups' => ['visibility']]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target === null;
     }

@@ -130,8 +130,8 @@
             id="difficultyConfig_firePlayerDamage"
             map-indexes-type="number"
             map-values-type="number"
-            @addTuple="addNewFirePlayerDamage"
-            @removeIndex="removeFirePlayerDamage"
+            @add-tuple="addNewFirePlayerDamage"
+            @remove-index="removeFirePlayerDamage"
         />
         <MapManager
             :label="$t('admin.difficultyConfig.fireHullDamage')"
@@ -139,8 +139,8 @@
             id="difficultyConfig_fireHullDamage"
             map-indexes-type="number"
             map-values-type="number"
-            @addTuple="addNewFireHullDamage"
-            @removeIndex="removeFireHullDamage"
+            @add-tuple="addNewFireHullDamage"
+            @remove-index="removeFireHullDamage"
         />
         <MapManager
             :label="$t('admin.difficultyConfig.electricArcPlayerDamage')"
@@ -148,8 +148,8 @@
             id="difficultyConfig_electricArcPlayerDamage"
             map-indexes-type="number"
             map-values-type="number"
-            @addTuple="addNewElectricArcPlayerDamage"
-            @removeIndex="removeElectricArcPlayerDamage"
+            @add-tuple="addNewElectricArcPlayerDamage"
+            @remove-index="removeElectricArcPlayerDamage"
         />
         <MapManager
             :label="$t('admin.difficultyConfig.tremorPlayerDamage')"
@@ -157,8 +157,8 @@
             id="difficultyConfig_tremorPlayerDamage"
             map-indexes-type="number"
             map-values-type="number"
-            @addTuple="addNewTremorPlayerDamage"
-            @removeIndex="removeTremorPlayerDamage"
+            @add-tuple="addNewTremorPlayerDamage"
+            @remove-index="removeTremorPlayerDamage"
         />
         <MapManager
             :label="$t('admin.difficultyConfig.metalPlatePlayerDamage')"
@@ -166,8 +166,8 @@
             id="difficultyConfig_metalPlatePlayerDamage"
             map-indexes-type="number"
             map-values-type="number"
-            @addTuple="addNewMetalPlatePlayerDamage"
-            @removeIndex="removeMetalPlatePlayerDamage"
+            @add-tuple="addNewMetalPlatePlayerDamage"
+            @remove-index="removeMetalPlatePlayerDamage"
         />
         <MapManager
             :label="$t('admin.difficultyConfig.panicCrisisPlayerDamage')"
@@ -175,8 +175,8 @@
             id="difficultyConfig_panicCrisisPlayerDamage"
             map-indexes-type="number"
             map-values-type="number"
-            @addTuple="addNewPanicCrisisPlayerDamage"
-            @removeIndex="removePanicCrisisPlayerDamage"
+            @add-tuple="addNewPanicCrisisPlayerDamage"
+            @remove-index="removePanicCrisisPlayerDamage"
         />
         <MapManager
             :label="$t('admin.difficultyConfig.difficultyModes')"
@@ -184,8 +184,8 @@
             id="difficultyConfig_difficultyModes"
             map-indexes-type="string"
             map-values-type="number"
-            @addTuple="addNewDifficultyModes"
-            @removeIndex="removeDifficultyModes"
+            @add-tuple="addNewDifficultyModes"
+            @remove-index="removeDifficultyModes"
         />
         <UpdateConfigButtons :create="false" @update="update"/>
     </div>

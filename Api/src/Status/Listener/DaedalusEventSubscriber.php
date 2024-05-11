@@ -48,7 +48,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         if ($this->planetService->findOneByDaedalusDestination($daedalus) !== null) {
             $this->createDaedalusStatusFromName(DaedalusStatusEnum::IN_ORBIT, $event);
         }
-        if ($event->hasTag(ActionEnum::LEAVE_ORBIT)) {
+        if ($event->hasTag(ActionEnum::LEAVE_ORBIT->value)) {
             $this->removeInOrbitStatus($event);
         }
 

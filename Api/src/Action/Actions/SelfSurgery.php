@@ -22,14 +22,13 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Implement self surgery action
- * For 4 Action Points, a player lying down in the medlab can heal one of its injury
+ * For 4 ActionConfig Points, a player lying down in the medlab can heal one of its injury
  * There is a chance to fail and get a septis
  * There is a chance for a critical success that grant the player extra triumph.
  *
@@ -39,7 +38,7 @@ class SelfSurgery extends AbstractAction
 {
     public const FAIL_CHANCES = 10;
     public const CRITICAL_SUCCESS_CHANCES = 5;
-    protected string $name = ActionEnum::SELF_SURGERY;
+    protected ActionEnum $name = ActionEnum::SELF_SURGERY;
 
     private RandomServiceInterface $randomService;
 
@@ -61,12 +60,6 @@ class SelfSurgery extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new HasStatus([
-            'status' => EquipmentStatusEnum::BROKEN,
-            'contain' => false,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-        ]));
-        $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::LYING_DOWN,
             'target' => HasStatus::PLAYER,
             'groups' => ['execute'],
@@ -81,7 +74,7 @@ class SelfSurgery extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }
@@ -146,7 +139,8 @@ class SelfSurgery extends AbstractAction
     private function getModifiedPercentage(int $percentage, string $mode = ActionVariableEnum::PERCENTAGE_SUCCESS): int
     {
         $criticalRollEvent = new ActionVariableEvent(
-            $this->action,
+            $this->actionConfig,
+            $this->actionProvider,
             $mode,
             $percentage,
             $this->player,

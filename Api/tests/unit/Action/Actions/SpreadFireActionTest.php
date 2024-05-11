@@ -24,10 +24,10 @@ final class SpreadFireActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::SPREAD_FIRE, 1);
+        $this->createActionEntity(ActionEnum::SPREAD_FIRE, 1);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new SpreadFire(
+        $this->actionHandler = new SpreadFire(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -51,13 +51,13 @@ final class SpreadFireActionTest extends AbstractActionTest
 
         $room->setDaedalus($player->getDaedalus());
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player);
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

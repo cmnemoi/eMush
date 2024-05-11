@@ -32,8 +32,8 @@ Actions with a success rate extend [AttemptAction](./Actions/AttemptAction.php).
   - injuryRate: chances to get hurt doing the action
   - dirtyRate: chances to get dirty
   - successRate: if necessary
-  - [scope](./Enum/ActionScopeEnum.php): the relation between the active player and the entity that provide the action.
-  - target: (only apply on action provided by tools) describe which entity is targeted by the tool.
+  - [range](./Enum/ActionRangeEnum.php): How "far" can the actionProvider give the action. Exemple SELF if the actionHolder is the actionProvider or ROOM if you want the actionProvider to give actions to every actionHolder in the room (for more options check the enum file). 
+  - [target](./Enum/ActionHolderEnum.php): determine in which normalizer the action is going to appear, so on which entity the action will be available
 
 ### Event
 - Each action trigger 3 events: PRE, POST and RESULT
@@ -42,7 +42,6 @@ Actions with a success rate extend [AttemptAction](./Actions/AttemptAction.php).
 
 ### Validator
 This folder contains all the check required before showing the action to the player or letting him perform the action.
-
 
 ### Actions vs Events
 

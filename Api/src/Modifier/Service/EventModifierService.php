@@ -104,7 +104,7 @@ class EventModifierService implements EventModifierServiceInterface
             /** @var ?Attempt $attemptStatus */
             $attemptStatus = $event->getAuthor()->getStatusByName(StatusEnum::ATTEMPT);
 
-            if ($attemptStatus === null || $attemptStatus->getAction() !== $event->getAction()->getActionName()) {
+            if ($attemptStatus === null || $attemptStatus->getAction() !== $event->getActionConfig()->getActionName()) {
                 $attemptNumber = 0;
             } else {
                 $attemptNumber = $attemptStatus->getCharge();

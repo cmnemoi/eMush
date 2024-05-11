@@ -28,12 +28,12 @@ final class ComfortActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::COMFORT);
-        $this->actionEntity->setOutputQuantity(2);
+        $this->createActionEntity(ActionEnum::COMFORT);
+        $this->actionConfig->setOutputQuantity(2);
 
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
-        $this->action = new Comfort(
+        $this->actionHandler = new Comfort(
             $this->eventService,
             $this->actionService,
             $this->validator
@@ -61,15 +61,15 @@ final class ComfortActionTest extends AbstractActionTest
         $characterConfig->setCharacterName('playerOne');
         new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
-        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->with($player, $this->actionConfig, $this->actionProvider, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
             ->once();
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

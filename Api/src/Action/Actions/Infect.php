@@ -28,7 +28,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Infect extends AbstractAction
 {
-    protected string $name = ActionEnum::INFECT;
+    protected ActionEnum $name = ActionEnum::INFECT;
 
     private StatusServiceInterface $statusService;
 
@@ -74,7 +74,7 @@ class Infect extends AbstractAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Player;
     }
@@ -93,7 +93,7 @@ class Infect extends AbstractAction
             $target,
             PlayerVariableEnum::SPORE,
             1,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $playerModifierEvent->setAuthor($this->player);
@@ -103,7 +103,7 @@ class Infect extends AbstractAction
             $this->player,
             PlayerVariableEnum::SPORE,
             -1,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -113,7 +113,7 @@ class Infect extends AbstractAction
         $this->statusService->updateCharge(
             $mushStatus,
             -1,
-            $this->action->getActionTags(),
+            $this->actionConfig->getActionTags(),
             new \DateTime()
         );
     }

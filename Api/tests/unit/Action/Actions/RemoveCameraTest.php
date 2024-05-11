@@ -31,11 +31,11 @@ final class RemoveCameraTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::REMOVE_CAMERA);
+        $this->createActionEntity(ActionEnum::REMOVE_CAMERA);
 
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
-        $this->action = new RemoveCamera(
+        $this->actionHandler = new RemoveCamera(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -70,15 +70,15 @@ final class RemoveCameraTest extends AbstractActionTest
             ->setEquipment($cameraEquipmentConfig)
             ->setName(GameRationEnum::COFFEE);
 
-        $cameraEquipmentConfig->setActions(new ArrayCollection([$this->actionEntity]));
+        $cameraEquipmentConfig->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $cameraEquipment);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $cameraEquipment);
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

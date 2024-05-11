@@ -24,9 +24,9 @@ final class CheckSporeLevelActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::CHECK_SPORE_LEVEL);
+        $this->createActionEntity(ActionEnum::CHECK_SPORE_LEVEL);
 
-        $this->action = new CheckSporeLevel(
+        $this->actionHandler = new CheckSporeLevel(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -59,11 +59,11 @@ final class CheckSporeLevelActionTest extends AbstractActionTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment->setName('equipment');
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

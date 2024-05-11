@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\PublicBroadcast;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -30,13 +30,13 @@ use Mush\User\Entity\User;
 class PublicBroadcastActionCest
 {
     private PublicBroadcast $publicBroadcastAction;
-    private Action $action;
+    private ActionConfig $action;
     private StatusConfig $watchedPublicBroadcastStatus;
 
     public function _before(FunctionalTester $I)
     {
         $this->publicBroadcastAction = $I->grabService(PublicBroadcast::class);
-        $this->action = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::PUBLIC_BROADCAST]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::PUBLIC_BROADCAST]);
         $this->watchedPublicBroadcastStatus = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST]);
     }
 
@@ -98,7 +98,12 @@ class PublicBroadcastActionCest
         $player2->setPlayerInfo($player2Info);
         $I->refreshEntities($player2);
 
-        $this->publicBroadcastAction->loadParameters($this->action, $player1, $gameItem);
+        $this->publicBroadcastAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $gameItem,
+            player: $player1,
+            target: $gameItem
+        );
 
         $I->assertTrue($this->publicBroadcastAction->isVisible());
         $I->assertNull($this->publicBroadcastAction->cannotExecuteReason());
@@ -178,7 +183,12 @@ class PublicBroadcastActionCest
         $player2->setPlayerInfo($player2Info);
         $I->refreshEntities($player2);
 
-        $this->publicBroadcastAction->loadParameters($this->action, $player1, $gameItem);
+        $this->publicBroadcastAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $gameItem,
+            player: $player1,
+            target: $gameItem
+        );
 
         $I->assertTrue($this->publicBroadcastAction->isVisible());
         $I->assertNull($this->publicBroadcastAction->cannotExecuteReason());

@@ -28,8 +28,8 @@ export class ActionConfig {
             this.name = object.name;
             this.actionName = object.actionName;
             this.types = object.types;
-            this.target = object.target;
-            this.scope = object.scope;
+            this.target = object.displayHolder;
+            this.scope = object.range;
             this.actionVariablesArray = (new ActionVariables()).load(object.actionVariablesArray);
         }
         return this;

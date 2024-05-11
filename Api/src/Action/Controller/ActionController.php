@@ -21,20 +21,20 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * Class UsersController.
+ * Class ActionController.
  */
 class ActionController extends AbstractGameController
 {
-    private ActionStrategyServiceInterface $actionService;
+    private ActionStrategyServiceInterface $actionStrategyService;
     private CycleServiceInterface $cycleService;
 
     public function __construct(
         AdminServiceInterface $adminService,
         CycleServiceInterface $cycleService,
-        ActionStrategyServiceInterface $actionService,
+        ActionStrategyServiceInterface $actionStrategyService,
     ) {
         parent::__construct($adminService);
-        $this->actionService = $actionService;
+        $this->actionStrategyService = $actionStrategyService;
         $this->cycleService = $cycleService;
     }
 
@@ -44,39 +44,80 @@ class ActionController extends AbstractGameController
      * @OA\RequestBody (
      *      description="Input data format",
      *
-     *         @OA\MediaType(
-     *             mediaType="application/json",
+     *      @OA\MediaType(
+     *          mediaType="application/json",
      *
-     *      @OA\Schema(
+     *          @OA\Schema(
      *              type="object",
      *
-     *                 @OA\Property(
-     *                     property="action",
-     *                     description="The action id to perform",
-     *                     type="integer",
-     *                 ),
-     *                  @OA\Property(
+     *              @OA\Property(
+     *                  property="action",
+     *                  description="The action id to perform",
+     *                  type="integer",
+     *              ),
+     *              @OA\Property(
      *                  property="parameters",
+     *                  description="Informations to execute the action",
      *                  type="object",
-     *                      @OA\Property(
-     *                          property="item",
-     *                          description="The item parameter",
-     *                          type="integer",
-     *                      ),
-     *                      @OA\Property(
-     *                          property="door",
-     *                          description="The door parameter",
-     *                          type="integer",
-     *                      ),
-     *                      @OA\Property(
-     *                          property="player",
-     *                          description="The player parameter",
-     *                          type="integer",
-     *                      ),
-     *                 )
-     *             )
-     *         )
-     *     )
+     *                  @OA\Property(
+     *                      property="target",
+     *                      description="The target of the action",
+     *                      type="object",
+     *                          @OA\Property(
+     *                              property="door",
+     *                              description="The id of the door targeted",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="item",
+     *                              description="The id of the item targeted",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="player",
+     *                              description="The id of the player targeted",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="hunter",
+     *                              description="The id of the hunter targeted",
+     *                              type="integer",
+     *                          )
+     *                  ),
+     *                  @OA\Property(
+     *                      property="content",
+     *                      description="A message written by the user",
+     *                      type="string",
+     *                  ),
+     *                  @OA\Property(
+     *                      property="actionProvider",
+     *                      description="The actionProvider",
+     *                      type="object",
+     *                          @OA\Property(
+     *                              property="equipment",
+     *                              description="The id of the equipment provider",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="status",
+     *                              description="The id of the status provider",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="player",
+     *                              description="The id of the player provider",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="place",
+     *                              description="The id of the place provider",
+     *                              type="integer",
+     *                          )
+     *                  )
+     *              )
+     *          )
+     *      )
+     *   )
      *
      * @OA\Tag(name="Player")
      *
@@ -106,7 +147,7 @@ class ActionController extends AbstractGameController
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         try {
-            $result = $this->actionService->executeAction(
+            $result = $this->actionStrategyService->executeAction(
                 $player,
                 $actionRequest->getAction(),
                 $actionRequest->getParams()

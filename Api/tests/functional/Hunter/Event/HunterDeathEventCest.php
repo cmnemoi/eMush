@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Tests\functional\Hunter\Listener;
+namespace Mush\Tests\functional\Hunter\Event;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -47,7 +47,7 @@ final class HunterDeathEventCest extends AbstractFunctionalTest
         $hunterDeathEvent = new HunterEvent(
             $this->hunter,
             VisibilityEnum::PUBLIC,
-            ['test', ActionEnum::SHOOT_HUNTER],
+            ['test', ActionEnum::SHOOT_HUNTER->value],
             new \DateTime()
         );
         $hunterDeathEvent->setAuthor($this->player1);
@@ -75,7 +75,7 @@ final class HunterDeathEventCest extends AbstractFunctionalTest
         $hunterDeathEvent = new HunterEvent(
             $this->hunter,
             VisibilityEnum::PUBLIC,
-            ['test', ActionEnum::SHOOT_HUNTER],
+            ['test', ActionEnum::SHOOT_HUNTER->value],
             new \DateTime()
         );
         $hunterDeathEvent->setAuthor($this->player1);

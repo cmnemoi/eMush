@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ExitTerminal;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -21,7 +21,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class ExitTerminalCest extends AbstractFunctionalTest
 {
-    private Action $exitTerminalConfig;
+    private ActionConfig $exitTerminalConfig;
     private ExitTerminal $exitTerminal;
     private StatusServiceInterface $statusService;
     private GameEquipment $commandTerminal;
@@ -31,7 +31,7 @@ final class ExitTerminalCest extends AbstractFunctionalTest
         parent::_before($I);
         $bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
 
-        $this->exitTerminalConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::EXIT_TERMINAL]);
+        $this->exitTerminalConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::EXIT_TERMINAL]);
         $this->exitTerminal = $I->grabService(ExitTerminal::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -59,7 +59,12 @@ final class ExitTerminalCest extends AbstractFunctionalTest
         );
 
         // when player exits the terminal
-        $this->exitTerminal->loadParameters($this->exitTerminalConfig, $this->player, $this->commandTerminal);
+        $this->exitTerminal->loadParameters(
+            actionConfig: $this->exitTerminalConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->exitTerminal->execute();
 
         // then player is not focused on command terminal anymore

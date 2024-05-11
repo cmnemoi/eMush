@@ -2,7 +2,8 @@
 
 namespace Mush\Action\Service;
 
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
@@ -26,18 +27,41 @@ class ActionService implements ActionServiceInterface
         $this->actionRepository = $actionRepository;
     }
 
-    public function applyCostToPlayer(Player $player, Action $action, ?LogParameterInterface $actionTarget, ActionResult $actionResult): Player
-    {
-        // Action point
-        $actionPointCostEvent = $this->getActionEvent($player, $action, $actionTarget, PlayerVariableEnum::ACTION_POINT);
+    public function applyCostToPlayer(
+        Player $player,
+        ActionConfig $actionConfig,
+        ActionProviderInterface $actionProvider,
+        ?LogParameterInterface $actionTarget,
+        ActionResult $actionResult
+    ): Player {
+        // ActionConfig point
+        $actionPointCostEvent = $this->getActionEvent(
+            $player,
+            $actionConfig,
+            $actionProvider,
+            $actionTarget,
+            PlayerVariableEnum::ACTION_POINT
+        );
         $this->eventService->callEvent($actionPointCostEvent, ActionVariableEvent::APPLY_COST);
 
         // Moral Point
-        $moralPointCostEvent = $this->getActionEvent($player, $action, $actionTarget, PlayerVariableEnum::MORAL_POINT);
+        $moralPointCostEvent = $this->getActionEvent(
+            $player,
+            $actionConfig,
+            $actionProvider,
+            $actionTarget,
+            PlayerVariableEnum::MORAL_POINT
+        );
         $this->eventService->callEvent($moralPointCostEvent, ActionVariableEvent::APPLY_COST);
 
         // Movement points : need to handle conversion events
-        $movementPointCostEvent = $this->getActionEvent($player, $action, $actionTarget, PlayerVariableEnum::MOVEMENT_POINT);
+        $movementPointCostEvent = $this->getActionEvent(
+            $player,
+            $actionConfig,
+            $actionProvider,
+            $actionTarget,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
 
         /** @var ActionVariableEvent $movementPointCostEvent */
         $movementPointCostEvent = $this->eventService->computeEventModifications($movementPointCostEvent, ActionVariableEvent::APPLY_COST);
@@ -51,7 +75,14 @@ class ActionService implements ActionServiceInterface
         $this->eventService->callEvent($movementPointCostEvent, ActionVariableEvent::APPLY_COST);
 
         // we need to call a last event to properly apply modifier logs
-        $actionPointCostEvent = $this->getActionEvent($player, $action, $actionTarget, ActionVariableEnum::OUTPUT_QUANTITY, $actionResult);
+        $actionPointCostEvent = $this->getActionEvent(
+            $player,
+            $actionConfig,
+            $actionProvider,
+            $actionTarget,
+            ActionVariableEnum::OUTPUT_QUANTITY,
+            $actionResult
+        );
         $this->eventService->callEvent($actionPointCostEvent, ActionVariableEvent::GET_OUTPUT_QUANTITY);
 
         return $player;
@@ -59,7 +90,8 @@ class ActionService implements ActionServiceInterface
 
     public function getActionModifiedActionVariable(
         Player $player,
-        Action $action,
+        ActionConfig $actionConfig,
+        ActionProviderInterface $actionProvider,
         ?LogParameterInterface $actionTarget,
         string $variableName
     ): int {
@@ -68,9 +100,15 @@ class ActionService implements ActionServiceInterface
         } else {
             throw new \Exception('this key do not exist in this map');
         }
-        $variable = $action->getVariableByName($variableName);
+        $variable = $actionConfig->getVariableByName($variableName);
 
-        $actionVariableEvent = $this->getActionEvent($player, $action, $actionTarget, $variableName);
+        $actionVariableEvent = $this->getActionEvent(
+            $player,
+            $actionConfig,
+            $actionProvider,
+            $actionTarget,
+            $variableName
+        );
 
         /** @var ActionVariableEvent $actionVariableEvent */
         $actionVariableEvent = $this->eventService->computeEventModifications($actionVariableEvent, $eventName);
@@ -82,16 +120,35 @@ class ActionService implements ActionServiceInterface
 
     public function playerCanAffordPoints(
         Player $player,
-        Action $action,
+        ActionConfig $actionConfig,
+        ActionProviderInterface $actionProvider,
         ?LogParameterInterface $actionTarget
     ): bool {
         $playerAction = $player->getActionPoint();
         $playerMovement = $player->getMovementPoint();
         $playerMorale = $player->getMoralPoint();
 
-        $moraleCost = $this->getActionModifiedActionVariable($player, $action, $actionTarget, PlayerVariableEnum::MORAL_POINT);
-        $actionCost = $this->getActionModifiedActionVariable($player, $action, $actionTarget, PlayerVariableEnum::ACTION_POINT);
-        $movementCost = $this->getActionModifiedActionVariable($player, $action, $actionTarget, PlayerVariableEnum::MOVEMENT_POINT);
+        $moraleCost = $this->getActionModifiedActionVariable(
+            $player,
+            $actionConfig,
+            $actionProvider,
+            $actionTarget,
+            PlayerVariableEnum::MORAL_POINT
+        );
+        $actionCost = $this->getActionModifiedActionVariable(
+            $player,
+            $actionConfig,
+            $actionProvider,
+            $actionTarget,
+            PlayerVariableEnum::ACTION_POINT
+        );
+        $movementCost = $this->getActionModifiedActionVariable(
+            $player,
+            $actionConfig,
+            $actionProvider,
+            $actionTarget,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
         $extraActionPoints = 0;
 
         if ($playerMorale < $moraleCost) {
@@ -113,7 +170,7 @@ class ActionService implements ActionServiceInterface
         int $missingMovementPoints,
         bool $dispatch
     ): int {
-        /** @var Action $convertActionConfig */
+        /** @var ActionConfig $convertActionConfig */
         $convertActionConfig = $this->actionRepository->findOneBy([
             'actionName' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT,
         ]);
@@ -121,6 +178,7 @@ class ActionService implements ActionServiceInterface
         // first get how much movement point each conversion provides
         $conversionGainEvent = new ActionVariableEvent(
             $convertActionConfig,
+            $player,
             PlayerVariableEnum::MOVEMENT_POINT,
             $convertActionConfig->getMovementCost(),
             $player,
@@ -142,6 +200,7 @@ class ActionService implements ActionServiceInterface
         // How much each conversion is going to cost in action points
         $conversionCostEvent = new ActionVariableEvent(
             $convertActionConfig,
+            $player,
             PlayerVariableEnum::ACTION_POINT,
             $convertActionConfig->getActionCost(),
             $player,
@@ -163,15 +222,17 @@ class ActionService implements ActionServiceInterface
 
     private function getActionEvent(
         Player $player,
-        Action $action,
+        ActionConfig $actionConfig,
+        ActionProviderInterface $actionProvider,
         ?LogParameterInterface $actionTarget,
         string $variable,
         ?ActionResult $result = null
     ): ActionVariableEvent {
         $event = new ActionVariableEvent(
-            $action,
+            $actionConfig,
+            $actionProvider,
             $variable,
-            $action->getGameVariables()->getValueByName($variable),
+            $actionConfig->getGameVariables()->getValueByName($variable),
             $player,
             $actionTarget
         );

@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class FakeDisease extends AbstractAction
 {
-    protected string $name = ActionEnum::FAKE_DISEASE;
+    protected ActionEnum $name = ActionEnum::FAKE_DISEASE;
     protected DiseaseCauseServiceInterface $diseaseCauseService;
 
     public function __construct(
@@ -37,7 +37,7 @@ class FakeDisease extends AbstractAction
         $this->diseaseCauseService = $diseaseCauseService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target === null;
     }

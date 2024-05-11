@@ -38,6 +38,7 @@ class HasStatusValidator extends ConstraintValidator
             HasStatus::PLAYER => $value->getPlayer(),
             HasStatus::PLAYER_ROOM => $value->getPlayer()->getPlace(),
             HasStatus::DAEDALUS => $value->getPlayer()->getDaedalus(),
+            HasStatus::ACTION_PROVIDER => $value->getActionProvider(),
             default => throw new LogicException('unsupported target'),
         };
 

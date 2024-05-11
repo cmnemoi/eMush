@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class ShootHunterPatrolShip extends ShootHunter
 {
-    protected string $name = ActionEnum::SHOOT_HUNTER_PATROL_SHIP;
+    protected ActionEnum $name = ActionEnum::SHOOT_HUNTER_PATROL_SHIP;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

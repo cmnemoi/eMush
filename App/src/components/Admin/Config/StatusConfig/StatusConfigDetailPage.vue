@@ -71,8 +71,23 @@
         <ChildCollectionManager
             :children="statusConfig.modifierConfigs"
             id="statusConfig_modifierConfigs"
-            @addId="selectNewChild"
-            @remove="removeChild"
+            @add-id="selectNewChildModifier"
+            @remove="removeChildModifier"
+        >
+            <template #header="child">
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
+            </template>
+            <template #body="child">
+                <span>name: {{ child.name }}</span>
+                <span>condition: {{ child.delta }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3>Action Configs</h3>
+        <ChildCollectionManager
+            :children="statusConfig.actionConfigs"
+            id="statusConfig_actionConfigs"
+            @add-id="selectNewChildAction"
+            @remove="removeChildAction"
         >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
@@ -86,8 +101,8 @@
         <StringArrayManager
             :array="statusConfig.dischargeStrategies"
             id="statusConfig_dischargeStrategies"
-            @addElement="statusConfig.dischargeStrategies?.push($event)"
-            @removeElement="statusConfig.dischargeStrategies?.splice(statusConfig.dischargeStrategies.indexOf($event), 1)"
+            @add-element="statusConfig.dischargeStrategies?.push($event)"
+            @remove-element="statusConfig.dischargeStrategies?.splice(statusConfig.dischargeStrategies.indexOf($event), 1)"
         />
         <UpdateConfigButtons @create="create" @update="update"/>
     </div>
@@ -106,6 +121,7 @@ import urlJoin from "url-join";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
+import { ActionConfig } from "@/entities/Config/ActionConfig";
 
 interface StatusConfigState {
     statusConfig: null|StatusConfig
@@ -168,8 +184,16 @@ export default defineComponent({
                                     const currentModifierConfig = (new ModifierConfig()).load(datum);
                                     modifierConfigs.push(currentModifierConfig);
                                 });
+
+                                const actionConfigs: ActionConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    const currentActionConfig = (new ActionConfig()).load(datum);
+                                    actionConfigs.push(currentActionConfig);
+                                });
+
                                 if (this.statusConfig instanceof StatusConfig) {
                                     this.statusConfig.modifierConfigs = modifierConfigs;
+                                    this.statusConfig.actionConfigs = actionConfigs;
                                 }
                             });
                     }
@@ -188,16 +212,28 @@ export default defineComponent({
                     }
                 });
         },
-        selectNewChild(selectedId: any) {
+        selectNewChildModifier(selectedId: any) {
             GameConfigService.loadModifierConfig(selectedId).then((res) => {
                 if (res && this.statusConfig && this.statusConfig.modifierConfigs) {
                     this.statusConfig.modifierConfigs.push(res);
                 }
             });
         },
-        removeChild(child: any) {
+        removeChildModifier(child: any) {
             if (this.statusConfig && this.statusConfig.modifierConfigs) {
                 this.statusConfig.modifierConfigs = removeItem(this.statusConfig.modifierConfigs, child);
+            }
+        },
+        selectNewChildAction(selectedId: any) {
+            GameConfigService.loadActionConfig(selectedId).then((res) => {
+                if (res && this.statusConfig && this.statusConfig.actionConfigs) {
+                    this.statusConfig.actionConfigs.push(res);
+                }
+            });
+        },
+        removeChildAction(child: any) {
+            if (this.statusConfig && this.statusConfig.actionConfigs) {
+                this.statusConfig.actionConfigs = removeItem(this.statusConfig.actionConfigs, child);
             }
         }
     },

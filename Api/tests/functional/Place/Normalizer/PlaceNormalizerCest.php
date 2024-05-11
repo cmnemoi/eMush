@@ -6,7 +6,7 @@ namespace Mush\Tests\functional\Place\Normalizer;
 
 use Mush\Action\Actions\Drop;
 use Mush\Action\Actions\Take;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -26,10 +26,10 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    private Action $dropConfig;
+    private ActionConfig $dropConfig;
     private Drop $dropAction;
 
-    private Action $takeConfig;
+    private ActionConfig $takeConfig;
     private Take $takeAction;
 
     public function _before(FunctionalTester $I): void
@@ -40,10 +40,10 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->normalizer = $I->grabService(NormalizerInterface::class);
 
-        $this->dropConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::DROP]);
+        $this->dropConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]);
         $this->dropAction = $I->grabService(Drop::class);
 
-        $this->takeConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::TAKE]);
+        $this->takeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]);
         $this->takeAction = $I->grabService(Take::class);
 
         $this->placeNormalizer->setNormalizer($this->normalizer);
@@ -96,11 +96,11 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
         );
 
         // given the player takes the post-it
-        $this->takeAction->loadParameters($this->takeConfig, $this->player, $postIt);
+        $this->takeAction->loadParameters($this->takeConfig, $postIt, $this->player, $postIt);
         $this->takeAction->execute();
 
         // given the player drops it back in the place
-        $this->dropAction->loadParameters($this->dropConfig, $this->player, $postIt);
+        $this->dropAction->loadParameters($this->dropConfig, $postIt, $this->player, $postIt);
         $this->dropAction->execute();
 
         // when I normalize the place
@@ -135,11 +135,11 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
         );
 
         // given the player takes one piece of scrap
-        $this->takeAction->loadParameters($this->takeConfig, $this->player, $scrap[2]);
+        $this->takeAction->loadParameters($this->takeConfig, $scrap[2], $this->player, $scrap[2]);
         $this->takeAction->execute();
 
         // given the player drops it back in the place
-        $this->dropAction->loadParameters($this->dropConfig, $this->player, $scrap[2]);
+        $this->dropAction->loadParameters($this->dropConfig, $scrap[2], $this->player, $scrap[2]);
         $this->dropAction->execute();
 
         // when I normalize the place

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Write;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
@@ -23,7 +23,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class WriteCest extends AbstractFunctionalTest
 {
-    private Action $writeActionConfig;
+    private ActionConfig $writeActionConfig;
     private Write $writeAction;
 
     private StatusServiceInterface $statusService;
@@ -36,8 +36,8 @@ final class WriteCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->writeActionConfig = $I->grabEntityFromRepository(Action::class, [
-            'name' => ActionEnum::WRITE,
+        $this->writeActionConfig = $I->grabEntityFromRepository(ActionConfig::class, [
+            'actionName' => ActionEnum::WRITE,
         ]);
         $this->writeAction = $I->grabService(Write::class);
 
@@ -94,7 +94,7 @@ final class WriteCest extends AbstractFunctionalTest
     public function testWriteActionNotVisibleIfPlayerNotFocusedOnTerminal(FunctionalTester $I): void
     {
         // when player writes
-        $this->writeAction->loadParameters($this->writeActionConfig, $this->player, $this->blockOfPostIt);
+        $this->writeAction->loadParameters($this->writeActionConfig, $this->blockOfPostIt, $this->player, $this->blockOfPostIt);
         $this->writeAction->execute();
 
         // then the action is not visible
@@ -103,7 +103,7 @@ final class WriteCest extends AbstractFunctionalTest
 
     private function whenPlayerWritesOnBlockOfPostIt(GameItem $blockOfPostIt, array $parameters = []): void
     {
-        $this->writeAction->loadParameters($this->writeActionConfig, $this->player, $blockOfPostIt, $parameters);
+        $this->writeAction->loadParameters($this->writeActionConfig, $this->blockOfPostIt, $this->player, $blockOfPostIt, $parameters);
         $this->writeAction->execute();
     }
 }

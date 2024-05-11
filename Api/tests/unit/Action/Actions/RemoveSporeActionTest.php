@@ -23,9 +23,9 @@ final class RemoveSporeActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::REMOVE_SPORE, 1);
+        $this->createActionEntity(ActionEnum::REMOVE_SPORE, 1);
 
-        $this->action = new RemoveSpore(
+        $this->actionHandler = new RemoveSpore(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -53,14 +53,14 @@ final class RemoveSporeActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item)->setName('sporeSucker');
 
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+        $item->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->times(2);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

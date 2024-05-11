@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Project\Normalizer;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Project\Enum\ProjectName;
@@ -23,6 +24,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
     private ProjectNormalizer $projectNormalizer;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private GameEquipment $terminal;
     private int $participateActionId;
 
     public function _before(FunctionalTester $I): void
@@ -36,7 +38,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given NERON's core terminal in the room
-        $pilgredTerminal = $this->gameEquipmentService->createGameEquipmentFromName(
+        $this->terminal = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::NERON_CORE,
             equipmentHolder: $this->chun->getPlace(),
             reasons: [],
@@ -49,10 +51,10 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
             holder: $this->chun,
             tags: [],
             time: new \DateTime(),
-            target: $pilgredTerminal
+            target: $this->terminal
         );
 
-        $this->participateActionId = $pilgredTerminal->getMechanicActionByNameOrThrow(ActionEnum::PARTICIPATE)->getId();
+        $this->participateActionId = $this->terminal->getMechanicActionByNameOrThrow(ActionEnum::PARTICIPATE)->getId();
     }
 
     public function shouldNormalizeBricBrocProject(FunctionalTester $I): void
@@ -90,7 +92,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                 'actions' => [
                     [
                         'id' => $this->participateActionId,
-                        'key' => ActionEnum::PARTICIPATE,
+                        'key' => ActionEnum::PARTICIPATE->value,
                         'name' => 'Participer',
                         'actionPointCost' => 2,
                         'movementPointCost' => 0,
@@ -100,6 +102,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                         'description' => 'Avance le Projet en fonction de vos capacités.',
                         'canExecute' => true,
                         'confirmation' => null,
+                        'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
                     ],
                 ],
             ],

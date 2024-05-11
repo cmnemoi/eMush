@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests;
 
 use Mush\Action\Actions\AbstractMoveDaedalusAction;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Alert\Service\AlertServiceInterface;
@@ -33,7 +33,7 @@ use Mush\Status\Service\StatusServiceInterface;
 
 abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 {
-    protected Action $moveDaedalusActionConfig;
+    protected ActionConfig $moveDaedalusActionConfig;
     protected AbstractMoveDaedalusAction $moveDaedalusAction;
     protected GameEquipment $commandTerminal;
     protected GameEquipment $emergencyReactor;
@@ -98,7 +98,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         );
 
         // when player tries to move daedalus
-        $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->moveDaedalusAction->execute();
 
         // then the action is not visible
@@ -108,7 +113,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
     public function testMoveDaedalusActionSuccessCreatesADaedalusTravelingStatus(FunctionalTester $I): void
     {
         // when player moves daedalus
-        $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->moveDaedalusAction->execute();
 
         // then the player has a daedalus traveling status
@@ -121,7 +131,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $this->player2->changePlace($this->daedalus->getSpace());
 
         // when player moves daedalus
-        $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->moveDaedalusAction->execute();
 
         // then player2 is dead
@@ -134,7 +149,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $this->player2->changePlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
 
         // when player moves daedalus
-        $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->moveDaedalusAction->execute();
 
         // then player2 is alive
@@ -158,10 +178,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
+
         $this->moveDaedalusAction->execute();
 
         // then there is no Neron death announcement
@@ -186,7 +208,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $I->haveInRepository($pasiphae);
 
         // when player moves daedalus
-        $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->moveDaedalusAction->execute();
 
         // then the patrol ship is destroyed
@@ -207,7 +234,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $I->haveInRepository($pasiphae);
 
         // when player moves daedalus
-        $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->moveDaedalusAction->execute();
 
         // then the patrol ship is not destroyed
@@ -228,7 +260,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $I->haveInRepository($metalScrap);
 
         // when player moves daedalus
-        $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->moveDaedalusAction->execute();
 
         // then the metal scrap is destroyed
@@ -244,7 +281,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $this->daedalus->setCombustionChamberFuel(0);
 
         // when player moves daedalus
-        $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $result = $this->moveDaedalusAction->execute();
 
         // then the action fails
@@ -257,7 +299,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $this->daedalus->setCombustionChamberFuel(0);
 
         // when player moves daedalus
-        $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->moveDaedalusAction->execute();
 
         // then the action returns the correct log
@@ -286,7 +333,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $I->haveInRepository($arack);
 
         // when player moves daedalus
-        $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $result = $this->moveDaedalusAction->execute();
 
         // then the action fails
@@ -299,7 +351,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $arack = $this->createHunterByName(HunterEnum::SPIDER, $I);
 
         // when player moves daedalus
-        $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->moveDaedalusAction->execute();
 
         // then the action returns the correct log
@@ -326,7 +383,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         );
 
         // when player moves daedalus
-        $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $result = $this->moveDaedalusAction->execute();
 
         // then the action fails
@@ -345,10 +407,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
+
         $this->moveDaedalusAction->execute();
 
         // then the action returns the correct log
@@ -373,10 +437,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
+
         $this->moveDaedalusAction->execute();
 
         // then the 2 simple hunters are in the pool
@@ -392,10 +458,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
+
         $this->moveDaedalusAction->execute();
 
         // then the 2 traxs are not in the pool
@@ -417,10 +485,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
+
         $this->moveDaedalusAction->execute();
 
         // then I can see 1 hunter and 1 trax in the repository. I can't see any dice
@@ -450,10 +520,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
+
         $this->moveDaedalusAction->execute();
 
         // then the action is not executable
@@ -464,10 +536,12 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
     {
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
+
         $this->moveDaedalusAction->execute();
 
         // then there is no fuel in the combustion chamber

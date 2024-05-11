@@ -16,15 +16,12 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractTurnDaedalusAction extends AbstractAction
 {
-    protected string $name;
-
     protected DaedalusTravelServiceInterface $daedalusTravelService;
 
     public function __construct(
@@ -46,13 +43,6 @@ abstract class AbstractTurnDaedalusAction extends AbstractAction
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new HasStatus([
-            'status' => EquipmentStatusEnum::BROKEN,
-            'target' => HasStatus::PARAMETER,
-            'contain' => false,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-        ]));
-        $metadata->addConstraint(new HasStatus([
             'status' => DaedalusStatusEnum::TRAVELING,
             'target' => HasStatus::DAEDALUS,
             'contain' => false,
@@ -68,7 +58,7 @@ abstract class AbstractTurnDaedalusAction extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }

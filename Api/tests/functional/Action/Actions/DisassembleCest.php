@@ -6,6 +6,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Disassemble;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -19,7 +20,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class DisassembleCest extends AbstractFunctionalTest
 {
-    private Action $actionConfig;
+    private ActionConfig $actionConfig;
     private Disassemble $disassembleAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -29,14 +30,14 @@ final class DisassembleCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::DISASSEMBLE . '_percent_25_cost_3']);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::DISASSEMBLE->value . '_percent_25_cost_3']);
         $this->disassembleAction = $I->grabService(Disassemble::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function shouldNotBeVisibleIfPlayerIsNotATechician(FunctionalTester $I): void
+    public function shouldNotBeVisibleIfPlayerIsNotATechnician(FunctionalTester $I): void
     {
         // given a shower in Chun's room
         $shower = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -47,7 +48,12 @@ final class DisassembleCest extends AbstractFunctionalTest
         );
 
         // when Chun tries to disassemble the shower
-        $this->disassembleAction->loadParameters($this->actionConfig, $this->chun, $shower);
+        $this->disassembleAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $shower,
+            player: $this->chun,
+            target: $shower
+        );
 
         // then the action should not be visible
         $I->assertFalse($this->disassembleAction->isVisible());
@@ -72,7 +78,12 @@ final class DisassembleCest extends AbstractFunctionalTest
         );
 
         // when Chun tries to disassemble the PILGRED terminal
-        $this->disassembleAction->loadParameters($this->actionConfig, $this->chun, $shower);
+        $this->disassembleAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $shower,
+            player: $this->chun,
+            target: $shower
+        );
 
         // then the action should be visible
         $I->assertTrue($this->disassembleAction->isVisible());

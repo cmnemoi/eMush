@@ -22,7 +22,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractParticipateAction extends AbstractAction
 {
-    protected string $name;
     protected AdvanceProjectUseCase $advanceProjectUseCase;
 
     public function __construct(
@@ -47,7 +46,7 @@ abstract class AbstractParticipateAction extends AbstractAction
         $metadata->addConstraint(new NoEfficiency(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_EFFICIENCY]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Project;
     }
@@ -67,7 +66,7 @@ abstract class AbstractParticipateAction extends AbstractAction
         $projectEvent = new ProjectEvent(
             $project,
             author: $this->player,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
         );
 
         $this->eventService->callEvent($projectEvent, ProjectEvent::PROJECT_ADVANCED);

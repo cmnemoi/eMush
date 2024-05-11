@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\RepairPilgred;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -29,23 +30,24 @@ use Mush\Tests\FunctionalTester;
  */
 final class RepairPilgredCest extends AbstractFunctionalTest
 {
-    private Action $actionConfig;
+    private ActionConfig $actionConfig;
     private RepairPilgred $repairPilgredAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private GameEquipment $terminal;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::REPAIR_PILGRED]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::REPAIR_PILGRED]);
         $this->repairPilgredAction = $I->grabService(RepairPilgred::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given Chun is focused on PILGRED terminal
-        $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
+        $this->terminal = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::PILGRED,
             equipmentHolder: $this->chun->getPlace(),
             reasons: [],
@@ -56,7 +58,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             holder: $this->chun,
             tags: [],
             time: new \DateTime(),
-            target: $terminal,
+            target: $this->terminal,
         );
 
         // given KT is focused on PILGRED terminal
@@ -65,7 +67,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime(),
-            target: $terminal,
+            target: $this->terminal,
         );
     }
 
@@ -78,7 +80,12 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->setPlayerProjectEfficiencyToZero($this->chun, $pilgredProject);
 
         // when Chun tries to repair the PILGRED project
-        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then the action should not be executable
@@ -94,7 +101,12 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $pilgredProject = $this->daedalus->getPilgred();
 
         // when Chun repairs the PILGRED project
-        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then the PILGRED project should progress by 1
@@ -107,7 +119,12 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $pilgredProject = $this->daedalus->getPilgred();
 
         // when Chun repairs the PILGRED project
-        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then a public log should be created in Chun's room
@@ -125,7 +142,12 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $pilgredProject = $this->daedalus->getPilgred();
 
         // when Chun repairs the PILGRED project
-        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then Chun's efficiency should be reduced to 0
@@ -141,7 +163,12 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $otherProject = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
 
         // when Chun repairs the PILGRED project
-        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then Chun's efficiency for the plasma shield project should not be reduced
@@ -157,7 +184,12 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->setPlayerProjectEfficiencyToZero($this->chun, $pilgredProject);
 
         // when Kuan-Ti repairs the PILGRED project
-        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->kuanTi, $pilgredProject);
+        $this->repairPilgredAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->kuanTi,
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then Chun's efficiency should be reset to 1-1%
@@ -173,7 +205,12 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $pilgredProject->makeProgress(99);
 
         // when Chun repairs the PILGRED project
-        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then a Neron announcement should be created
@@ -193,7 +230,12 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $pilgredProject->makeProgress(100);
 
         // when Chun tries to repair the PILGRED project
-        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $pilgredProject
+        );
         $this->repairPilgredAction->execute();
 
         // then the action should not be visible

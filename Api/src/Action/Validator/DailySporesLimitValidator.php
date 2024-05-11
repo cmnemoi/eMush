@@ -31,7 +31,7 @@ class DailySporesLimitValidator extends ConstraintValidator
             /** @var ChargeStatus $mushStatus */
             $mushStatus = $player->getStatusByName(PlayerStatusEnum::MUSH);
 
-            if (!$mushStatus || $mushStatus->getCharge() <= 0) {
+            if (!$mushStatus || !$mushStatus->isCharged()) {
                 $this->context->buildViolation($constraint->message)
                     ->addViolation();
             }

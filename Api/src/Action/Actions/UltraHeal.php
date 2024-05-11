@@ -28,7 +28,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UltraHeal extends AbstractAction
 {
-    protected string $name = ActionEnum::ULTRAHEAL;
+    protected ActionEnum $name = ActionEnum::ULTRAHEAL;
 
     private PlayerServiceInterface $playerService;
     private PlayerVariableServiceInterface $playerVariableService;
@@ -62,7 +62,7 @@ class UltraHeal extends AbstractAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameItem;
     }
@@ -82,7 +82,7 @@ class UltraHeal extends AbstractAction
             $this->player,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time
         );
         $this->eventService->callEvent($healEvent, ApplyEffectEvent::ULTRA_HEAL);
@@ -95,7 +95,7 @@ class UltraHeal extends AbstractAction
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
             $maxHealth,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
@@ -105,7 +105,7 @@ class UltraHeal extends AbstractAction
             $target,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);

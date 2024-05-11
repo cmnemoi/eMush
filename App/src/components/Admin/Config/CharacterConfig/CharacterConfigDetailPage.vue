@@ -111,7 +111,7 @@
         <ChildCollectionManager
             :children="characterConfig.initStatuses"
             id="characterConfig_initStatuses"
-            @addId="selectNewInitStatus"
+            @add-id="selectNewInitStatus"
             @remove="removeInitStatus"
         >
             <template #header="child">
@@ -125,7 +125,7 @@
         <ChildCollectionManager
             :children="characterConfig.actions"
             id="characterConfig_actions"
-            @addId="selectNewAction"
+            @add-id="selectNewAction"
             @remove="removeAction"
         >
             <template #header="child">
@@ -139,14 +139,14 @@
         <StringArrayManager
             :array="characterConfig.skills"
             id="characterConfig_skills"
-            @addElement="characterConfig.skills?.push($event)"
-            @removeElement="characterConfig.skills?.splice($event, 1)"
+            @add-element="characterConfig.skills?.push($event)"
+            @remove-element="characterConfig.skills?.splice($event, 1)"
         />
         <h3> {{$t('admin.characterConfig.startingItems')}} </h3>
         <ChildCollectionManager
             :children="characterConfig.startingItems"
             id="characterConfig_startingItems"
-            @addId="selectNewStartingItem"
+            @add-id="selectNewStartingItem"
             @remove="removeStartingItem"
         >
             <template #header="child">
@@ -160,7 +160,7 @@
         <ChildCollectionManager
             :children="characterConfig.initDiseases"
             id="characterConfig_initDiseases"
-            @addId="selectNewInitDisease"
+            @add-id="selectNewInitDisease"
             @remove="removeInitDisease"
         >
             <template #header="child">

@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\PlayDynarcade;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionVariableEnum;
@@ -34,12 +34,12 @@ use Mush\User\Entity\User;
 class PlayDynarcadeCest
 {
     private PlayDynarcade $playDynarcadeAction;
-    private Action $action;
+    private ActionConfig $action;
 
     public function _before(FunctionalTester $I)
     {
         $this->playDynarcadeAction = $I->grabService(PlayDynarcade::class);
-        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::PLAY_ARCADE]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::PLAY_ARCADE]);
     }
 
     public function testActionIsVisible(FunctionalTester $I)
@@ -85,7 +85,12 @@ class PlayDynarcadeCest
             ->setEquipment($equipmentConfig);
         $I->haveInRepository($dynarcade);
 
-        $this->playDynarcadeAction->loadParameters($this->action, $gamerPlayer, $dynarcade);
+        $this->playDynarcadeAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $dynarcade,
+            player: $gamerPlayer,
+            target: $dynarcade
+        );
 
         $I->assertTrue($this->playDynarcadeAction->isVisible());
         $I->assertNull($this->playDynarcadeAction->cannotExecuteReason());
@@ -140,7 +145,12 @@ class PlayDynarcadeCest
         $I->haveInRepository($status);
         $I->refreshEntities($dynarcade);
 
-        $this->playDynarcadeAction->loadParameters($this->action, $gamerPlayer, $dynarcade);
+        $this->playDynarcadeAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $dynarcade,
+            player: $gamerPlayer,
+            target: $dynarcade
+        );
 
         $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->playDynarcadeAction->cannotExecuteReason());
     }
@@ -195,7 +205,12 @@ class PlayDynarcadeCest
             ->setEquipment($equipmentConfig);
         $I->haveInRepository($dynarcade);
 
-        $this->playDynarcadeAction->loadParameters($this->action, $gamerPlayer, $dynarcade);
+        $this->playDynarcadeAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $dynarcade,
+            player: $gamerPlayer,
+            target: $dynarcade
+        );
 
         $I->assertEquals(100, $this->playDynarcadeAction->getSuccessRate());
         $result = $this->playDynarcadeAction->execute();
@@ -261,8 +276,12 @@ class PlayDynarcadeCest
 
         $this->action->setSuccessRate(0);
 
-        $this->playDynarcadeAction->loadParameters($this->action, $gamerPlayer, $dynarcade);
-
+        $this->playDynarcadeAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $dynarcade,
+            player: $gamerPlayer,
+            target: $dynarcade
+        );
         $this->playDynarcadeAction->execute();
 
         $I->assertEquals(2, $gamerPlayer->getActionPoint());

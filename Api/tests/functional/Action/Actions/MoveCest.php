@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Move;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Services\ChannelServiceInterface;
@@ -28,7 +28,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class MoveCest extends AbstractFunctionalTest
 {
-    private Action $moveConfig;
+    private ActionConfig $moveConfig;
     private Move $moveAction;
     private Player $derek;
 
@@ -50,7 +50,7 @@ final class MoveCest extends AbstractFunctionalTest
         // given there is an Icarus Bay in this Daedalus
         $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
 
-        $this->moveConfig = $I->grabEntityFromRepository(Action::class, ['name' => 'move']);
+        $this->moveConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => 'move']);
         $this->moveAction = $I->grabService(Move::class);
 
         $this->channelService = $I->grabService(ChannelServiceInterface::class);
@@ -62,11 +62,13 @@ final class MoveCest extends AbstractFunctionalTest
     {
         // given there is a door leading to Icarus Bay
         $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
-        $door = new Door($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $laboratory = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $icarus = $this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY);
+        $door = new Door($laboratory);
         $door
             ->setName('door_default')
             ->setEquipment($doorConfig)
-            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY));
+            ->addRoom($icarus)->addRoom($laboratory);
         $I->haveInRepository($door);
 
         // given all 4 players except derek are in Icarus Bay
@@ -76,7 +78,12 @@ final class MoveCest extends AbstractFunctionalTest
         }
 
         // when derek tries to move to Icarus Bay
-        $this->moveAction->loadParameters($this->moveConfig, $this->derek, $door);
+        $this->moveAction->loadParameters(
+            actionConfig: $this->moveConfig,
+            actionProvider: $door,
+            player: $this->derek,
+            target: $door
+        );
         $this->moveAction->execute();
 
         // then the action is not executable
@@ -96,16 +103,23 @@ final class MoveCest extends AbstractFunctionalTest
 
         // given there is a door for exiting Icarus Bay
         $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
-        $door = new Door($this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY));
+        $laboratory = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $icarus = $this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY);
+        $door = new Door($icarus);
         $door
             ->setName('door_default')
             ->setEquipment($doorConfig)
-            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+            ->addRoom($icarus)->addRoom($laboratory);
         $I->haveInRepository($door);
 
         // when jinsu tries to move to the laboratory
         $jinsu = $this->players->filter(static fn (Player $player) => $player->getName() === CharacterEnum::JIN_SU)->first();
-        $this->moveAction->loadParameters($this->moveConfig, $jinsu, $door);
+        $this->moveAction->loadParameters(
+            actionConfig: $this->moveConfig,
+            actionProvider: $door,
+            player: $jinsu,
+            target: $door
+        );
         $this->moveAction->execute();
 
         // then jin su is in the laboratory
@@ -128,15 +142,22 @@ final class MoveCest extends AbstractFunctionalTest
 
         // given there is a door for exiting laboratory to front corridor
         $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
-        $door = new Door($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $laboratory = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $frontCorridor = $this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR);
+        $door = new Door($laboratory);
         $door
             ->setName('door_default')
             ->setEquipment($doorConfig)
-            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR));
+            ->addRoom($frontCorridor)->addRoom($laboratory);
         $I->haveInRepository($door);
 
         // when derek tries to move to the front corridor
-        $this->moveAction->loadParameters($this->moveConfig, $this->derek, $door);
+        $this->moveAction->loadParameters(
+            actionConfig: $this->moveConfig,
+            actionProvider: $door,
+            player: $this->derek,
+            target: $door
+        );
         $this->moveAction->execute();
 
         // then derek is in the front corridor
@@ -159,7 +180,12 @@ final class MoveCest extends AbstractFunctionalTest
         $door = $this->createDoorFromLaboratoryToFrontCorridor($I);
 
         // when player1 moves to the front corridor
-        $this->moveAction->loadParameters($this->moveConfig, $this->player, $door);
+        $this->moveAction->loadParameters(
+            actionConfig: $this->moveConfig,
+            actionProvider: $door,
+            player: $this->player,
+            target: $door
+        );
         $this->moveAction->execute();
 
         // then player1 should not be in the private channel anymore
@@ -200,7 +226,12 @@ final class MoveCest extends AbstractFunctionalTest
         $door = $this->createDoorFromLaboratoryToFrontCorridor($I);
 
         // when Chun moves to the front corridor
-        $this->moveAction->loadParameters($this->moveConfig, $this->chun, $door);
+        $this->moveAction->loadParameters(
+            actionConfig: $this->moveConfig,
+            actionProvider: $door,
+            player: $this->chun,
+            target: $door
+        );
         $this->moveAction->execute();
 
         // then Chun should not convert AP to MP, so she should have the same amount of AP and MP

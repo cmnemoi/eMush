@@ -3,11 +3,11 @@
 namespace Mush\Disease\SymptomHandler;
 
 use Mush\Action\Actions\Attack;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Disease\Enum\SymptomEnum;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -66,13 +66,17 @@ class PsychoticAttack extends AbstractSymptomHandler
         return reset($draw);
     }
 
-    private function getPlayerWeapon(Player $player, string $weapon): ?EquipmentConfig
+    private function getPlayerWeapon(Player $player, string $weapon): ?GameEquipment
     {
         $weapon = $player->getEquipments()->filter(
             static fn (GameItem $gameItem) => $gameItem->getName() === $weapon && $gameItem->isOperational()
         )->first();
 
-        return $weapon ? $weapon->getEquipment() : null;
+        if ($weapon instanceof GameEquipment) {
+            return $weapon;
+        }
+
+        return null;
     }
 
     /**
@@ -91,16 +95,16 @@ class PsychoticAttack extends AbstractSymptomHandler
             return null;
         }
 
-        /** @var Action $attackActionEntity */
-        $attackActionEntity = $knife->getActions()->filter(
-            static fn (Action $action) => $action->getActionName() === ActionEnum::ATTACK
+        /** @var ActionConfig $attackActionEntity */
+        $attackActionEntity = $knife->getEquipment()->getActionConfigs()->filter(
+            static fn (ActionConfig $action) => $action->getActionName() === ActionEnum::ATTACK
         )->first();
 
-        if (!$attackActionEntity instanceof Action) {
+        if (!$attackActionEntity instanceof ActionConfig) {
             throw new \Exception('makePlayerRandomlyAttacking() : Player ' . $player->getName() . ' should have a Attack action');
         }
 
-        $actionEvent = new ActionEvent($attackActionEntity, $player, $victim);
+        $actionEvent = new ActionEvent($attackActionEntity, $knife, $player, $victim);
         $actionEvent->setEventName(ActionEvent::EXECUTE_ACTION);
 
         return $actionEvent;
@@ -122,12 +126,12 @@ class PsychoticAttack extends AbstractSymptomHandler
             return null;
         }
 
-        /** @var Action $shootActionEntity */
-        $shootActionEntity = $blaster->getActions()->filter(
-            static fn (Action $action) => $action->getActionName() === ActionEnum::SHOOT
+        /** @var ActionConfig $shootActionEntity */
+        $shootActionEntity = $blaster->getEquipment()->getActionConfigs()->filter(
+            static fn (ActionConfig $action) => $action->getActionName() === ActionEnum::SHOOT
         )->first();
 
-        if (!$shootActionEntity instanceof Action) {
+        if (!$shootActionEntity instanceof ActionConfig) {
             throw new \Exception('makePlayerRandomlyShooting() : Player' . $player->getName() . 'should have a Shoot action');
         }
 

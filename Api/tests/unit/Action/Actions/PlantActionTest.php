@@ -32,11 +32,11 @@ final class PlantActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::TRANSPLANT, 1);
+        $this->createActionEntity(ActionEnum::TRANSPLANT, 1);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
 
-        $this->action = new Transplant(
+        $this->actionHandler = new Transplant(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -65,7 +65,7 @@ final class PlantActionTest extends AbstractActionTest
             ->setName('toto');
 
         $fruit = new Fruit();
-        $fruit->addAction($this->actionEntity);
+        $fruit->addAction($this->actionConfig);
         $fruit->setPlantName('banana_tree');
 
         $item->setMechanics(new ArrayCollection([$fruit]));
@@ -86,14 +86,14 @@ final class PlantActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameHydropot]));
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->twice();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertEmpty($player->getEquipments());

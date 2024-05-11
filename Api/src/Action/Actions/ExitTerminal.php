@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class ExitTerminal extends AbstractAction
 {
-    protected string $name = ActionEnum::EXIT_TERMINAL;
+    protected ActionEnum $name = ActionEnum::EXIT_TERMINAL;
 
     private StatusServiceInterface $statusService;
 
@@ -50,7 +50,7 @@ final class ExitTerminal extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }
@@ -65,7 +65,7 @@ final class ExitTerminal extends AbstractAction
         $this->statusService->removeStatus(
             statusName: PlayerStatusEnum::FOCUSED,
             holder: $this->player,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime(),
         );
     }

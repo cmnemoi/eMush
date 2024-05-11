@@ -21,9 +21,9 @@ final class ExamineActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::EXAMINE, 0);
+        $this->createActionEntity(ActionEnum::EXAMINE, 0);
 
-        $this->action = new ReportEquipment(
+        $this->actionHandler = new ReportEquipment(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -47,13 +47,13 @@ final class ExamineActionTest extends AbstractActionTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment->setName('item');
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameEquipment);
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

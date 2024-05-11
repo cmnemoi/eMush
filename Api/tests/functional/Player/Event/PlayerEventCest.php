@@ -282,7 +282,7 @@ class PlayerEventCest
             $player,
             PlayerVariableEnum::SPORE,
             1,
-            [ActionEnum::INFECT],
+            [ActionEnum::INFECT->value],
             new \DateTime()
         );
 
@@ -354,7 +354,7 @@ class PlayerEventCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $playerEvent = new PlayerEvent($player, [ActionEnum::INFECT], new \DateTime());
+        $playerEvent = new PlayerEvent($player, [ActionEnum::INFECT->value], new \DateTime());
 
         $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
 

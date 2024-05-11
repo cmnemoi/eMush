@@ -23,7 +23,7 @@ class Hit extends AttemptAction
 {
     private const MIN_DAMAGE = 1;
     private const MAX_DAMAGE = 3;
-    protected string $name = ActionEnum::HIT;
+    protected ActionEnum $name = ActionEnum::HIT;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -32,7 +32,7 @@ class Hit extends AttemptAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Player;
     }
@@ -48,7 +48,7 @@ class Hit extends AttemptAction
             $target,
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime()
         );
 

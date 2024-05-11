@@ -28,11 +28,11 @@ final class TryKubeTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::TRY_KUBE, 1);
+        $this->createActionEntity(ActionEnum::TRY_KUBE, 1);
 
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
-        $this->action = new TryKube(
+        $this->actionHandler = new TryKube(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -60,14 +60,14 @@ final class TryKubeTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item)->setName('cube');
 
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+        $item->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }
@@ -84,14 +84,14 @@ final class TryKubeTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item)->setName('cube');
 
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+        $item->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

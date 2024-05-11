@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Service;
 
 use Mush\Action\Actions\Search;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -26,14 +26,14 @@ use Mush\Tests\FunctionalTester;
 final class ActionSideEffectServiceCest extends AbstractFunctionalTest
 {
     private Search $searchAction;
-    private Action $action;
+    private ActionConfig $action;
     private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
 
-        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::SEARCH]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]);
 
         $this->searchAction = $I->grabService(Search::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
@@ -44,7 +44,11 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $this->action->setDirtyRate(100);
         $I->flushToDatabase($this->action);
 
-        $this->searchAction->loadParameters($this->action, $this->player1, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1
+        );
         $this->searchAction->execute();
 
         $I->assertTrue($this->player1->hasStatus(PlayerStatusEnum::DIRTY));
@@ -71,7 +75,11 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $I->assertCount(1, $this->player1->getModifiers());
         $I->assertCount(0, $this->player1->getStatuses());
 
-        $this->searchAction->loadParameters($this->action, $this->player1, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1
+        );
         $this->searchAction->execute();
 
         $I->assertFalse($this->player1->hasStatus(PlayerStatusEnum::DIRTY));
@@ -109,7 +117,11 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $I->assertCount(1, $this->player1->getModifiers());
         $I->assertCount(0, $this->player1->getStatuses());
 
-        $this->searchAction->loadParameters($this->action, $this->player1, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1
+        );
         $this->searchAction->execute();
 
         $I->assertTrue($this->player1->hasStatus(PlayerStatusEnum::DIRTY));
@@ -122,7 +134,11 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
 
         $initHealthPoints = $this->player1->getHealthPoint();
 
-        $this->searchAction->loadParameters($this->action, $this->player1, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1
+        );
         $this->searchAction->execute();
 
         $I->assertEquals($initHealthPoints - 2, $this->player1->getHealthPoint());
@@ -150,7 +166,11 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $I->assertCount(1, $this->player1->getEquipments());
         $I->assertCount(1, $this->player1->getModifiers());
 
-        $this->searchAction->loadParameters($this->action, $this->player1, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1
+        );
 
         $this->searchAction->execute();
 

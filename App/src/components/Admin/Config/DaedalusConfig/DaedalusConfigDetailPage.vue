@@ -103,7 +103,7 @@
         <ChildCollectionManager
             :children="daedalusConfig.placeConfigs"
             id="daedalusConfig_placeConfigs"
-            @addId="selectNewPlaceConfigs"
+            @add-id="selectNewPlaceConfigs"
             @remove="removePlaceConfig"
         >
             <template #header="child">

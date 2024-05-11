@@ -24,8 +24,8 @@ export default defineComponent ({
     computed: {
         ...mapGetters('auth', [
             'loggedIn',
-            'getUserInfo',
+            'getUserInfo'
         ])
-    },
+    }
 });
 </script>

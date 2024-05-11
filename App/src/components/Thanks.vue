@@ -161,9 +161,9 @@ export default defineComponent({
             release: import.meta.env.VITE_APP_API_RELEASE_COMMIT as string,
             channel: import.meta.env.VITE_APP_API_RELEASE_CHANNEL as string,
             displayedContributors: team
-                .filter((member) => !member.coreTeam) 
+                .filter((member) => !member.coreTeam)
                 .sort(() => 0.5 - Math.random()) // shuffle the list
-                .slice(0, 6),
+                .slice(0, 6)
         };
     },
     mounted() {
@@ -334,7 +334,7 @@ footer {
 }
 
 .contributors {
-    
+
     ul { white-space: nowrap; }
 
     .love {

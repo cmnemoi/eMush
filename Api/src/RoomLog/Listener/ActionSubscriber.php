@@ -42,25 +42,25 @@ final class ActionSubscriber implements EventSubscriberInterface
             throw new \LogicException('$actionResult should not be null');
         }
 
-        $actionName = $event->getAction()->getActionName();
+        $actionName = $event->getActionConfig()->getActionName();
 
         $this->roomLogService->createLogFromActionResult($actionName, $actionResult, $player, $actionTarget, $event->getTime());
     }
 
     public function onPostAction(ActionEvent $event): void
     {
-        $action = $event->getAction();
-        $actionTarget = $event->getActionTarget();
+        $action = $event->getActionConfig();
+        $actionHolder = $event->getActionTarget();
         $player = $event->getAuthor();
 
         /** @var ActionResult $actionResult */
         $actionResult = $event->getActionResult();
 
-        if ($actionTarget instanceof Player
-            && \in_array($action->getActionName(), ActionEnum::getForceGetUpActions(), true)
-            && $actionTarget->hasStatus(PlayerStatusEnum::LYING_DOWN)
+        if ($actionHolder instanceof Player
+            && \in_array($action->getActionName()->value, ActionEnum::getForceGetUpActions(), true)
+            && $actionHolder->hasStatus(PlayerStatusEnum::LYING_DOWN)
         ) {
-            $this->createForceGetUpLog($actionTarget);
+            $this->createForceGetUpLog($actionHolder);
         }
 
         if ($action->getActionName() === ActionEnum::MOVE) {

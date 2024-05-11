@@ -23,11 +23,11 @@ final class UngagActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::UNGAG, 1);
+        $this->createActionEntity(ActionEnum::UNGAG, 1);
 
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new Ungag(
+        $this->actionHandler = new Ungag(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -50,13 +50,13 @@ final class UngagActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player);
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('removeStatus')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

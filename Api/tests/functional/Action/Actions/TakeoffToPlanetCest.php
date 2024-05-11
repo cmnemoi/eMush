@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\TakeoffToPlanet;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
@@ -43,7 +43,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class TakeoffToPlanetCest extends AbstractFunctionalTest
 {
-    private Action $takeoffToPlanetConfig;
+    private ActionConfig $takeoffToPlanetConfig;
     private TakeoffToPlanet $takeoffToPlanetAction;
 
     private EventServiceInterface $eventService;
@@ -56,7 +56,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->takeoffToPlanetConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::TAKEOFF_TO_PLANET]);
+        $this->takeoffToPlanetConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKEOFF_TO_PLANET]);
         $this->takeoffToPlanetAction = $I->grabService(TakeoffToPlanet::class);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
@@ -92,7 +92,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         );
 
         // when player tries to takeoff to planet
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
 
         // then the action is visible
         $I->assertFalse($this->takeoffToPlanetAction->isVisible());
@@ -109,7 +109,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         );
 
         // when player tries to takeoff to planet
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
 
         // then the action is not executable
         $I->assertEquals(
@@ -126,7 +126,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $I->haveInRepository($this->planet);
 
         // when player tries to takeoff to planet
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
 
         // then the action is not executable
         $I->assertEquals(
@@ -151,7 +151,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $I->haveInRepository($spacesuit2);
 
         // given players are exploring the planet
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
         $this->takeoffToPlanetAction->execute();
 
         // given a new player is in a patrol ship
@@ -167,7 +167,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $newPlayer->changePlace($patrolShipAlphaTamarinPlace);
 
         // when this new player tries to takeoff to planet
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $newPlayer, $patrolShip);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $newPlayer, $patrolShip);
 
         // then the action is not executable
         $I->assertEquals(
@@ -195,7 +195,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(Exploration::class, ['planet' => $this->planet]);
 
         // when player tries to takeoff to planet
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
         $this->takeoffToPlanetAction->execute();
 
         // then an exploration entity is created
@@ -228,7 +228,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $I->haveInRepository($spacesuit2);
 
         // when player tries to takeoff to planet
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
         $this->takeoffToPlanetAction->execute();
 
         // then player1 and player2 are in the planet place
@@ -264,7 +264,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $I->haveInRepository($spacesuit2);
 
         // when player tries to takeoff to planet
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
         $this->takeoffToPlanetAction->execute();
 
         // then icarus ship is in the planet place
@@ -290,7 +290,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $I->haveInRepository($spacesuit2);
 
         // when player tries to takeoff to planet
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
         $this->takeoffToPlanetAction->execute();
 
         // then landing event is dispatched
@@ -307,7 +307,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         // given players do not have spacesuit in their inventory
 
         // when player tries to takeoff to planet
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
         $this->takeoffToPlanetAction->execute();
 
         // then an exploration entity is not created
@@ -321,7 +321,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         // given players do not have spacesuit in their inventory
 
         // when player tries to takeoff to planet
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
         $this->takeoffToPlanetAction->execute();
 
         // then a specific log is created
@@ -348,7 +348,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $I->haveInRepository($spacesuit);
 
         // when player tries to takeoff to planet
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player1, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player1, $this->icarus);
         $this->takeoffToPlanetAction->execute();
 
         // then player 2 has a stucked in the ship status but player 1 does not
@@ -381,7 +381,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $I->haveInRepository($spacesuit2);
 
         // when player tries to takeoff to planet
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
         $this->takeoffToPlanetAction->execute();
 
         // then a public log should be created in Icarus Bay
@@ -408,7 +408,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
     public function testISeePreviousExplorationLogsOnTheSamePlanet(FunctionalTester $I): void
     {
         // given players launch a first exploration without spacesuit
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player1, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player1, $this->icarus);
         $this->takeoffToPlanetAction->execute();
 
         // given this prints some logs in planet place
@@ -423,7 +423,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         );
 
         // when players launch a second exploration without spacesuit
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player1, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player1, $this->icarus);
         $this->takeoffToPlanetAction->execute();
 
         // then the previous logs are still visible
@@ -435,7 +435,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
     public function testIDontSeePreviousExplorationLogsOnANewPlanet(FunctionalTester $I): void
     {
         // given players launch a first exploration without spacesuit
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player1, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player1, $this->icarus);
         $this->takeoffToPlanetAction->execute();
 
         // given this prints some logs in planet place
@@ -452,7 +452,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         // given players leave orbit
         $daedalusEvent = new DaedalusEvent(
             daedalus: $this->daedalus,
-            tags: [ActionEnum::LEAVE_ORBIT],
+            tags: [ActionEnum::LEAVE_ORBIT->value],
             time: new \DateTime()
         );
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
@@ -461,7 +461,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $this->createPlanetForTest($I);
 
         // when players launch a second exploration without spacesuit
-        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player1, $this->icarus);
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player1, $this->icarus);
         $this->takeoffToPlanetAction->execute();
 
         // then the previous logs are not visible

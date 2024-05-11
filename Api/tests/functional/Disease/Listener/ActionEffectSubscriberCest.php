@@ -86,7 +86,7 @@ class ActionEffectSubscriberCest
             $player,
             $gameItem,
             VisibilityEnum::HIDDEN,
-            [ActionEnum::CONSUME],
+            [ActionEnum::CONSUME->value],
             new \DateTime()
         );
 
@@ -145,7 +145,7 @@ class ActionEffectSubscriberCest
             $player,
             $gameItem,
             VisibilityEnum::HIDDEN,
-            [ActionEnum::CONSUME],
+            [ActionEnum::CONSUME->value],
             new \DateTime()
         );
 
@@ -212,7 +212,7 @@ class ActionEffectSubscriberCest
             $player,
             $player,
             VisibilityEnum::HIDDEN,
-            [ActionEnum::HEAL],
+            [ActionEnum::HEAL->value],
             new \DateTime()
         );
 
@@ -279,7 +279,7 @@ class ActionEffectSubscriberCest
             $player,
             $player,
             VisibilityEnum::HIDDEN,
-            [ActionEnum::HEAL],
+            [ActionEnum::HEAL->value],
             new \DateTime()
         );
 

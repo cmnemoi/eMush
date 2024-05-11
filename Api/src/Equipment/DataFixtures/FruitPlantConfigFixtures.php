@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ExtraEffectEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Fruit;
@@ -26,28 +26,28 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        /** @var Action $takeAction */
+        /** @var ActionConfig $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
 
-        /** @var Action $dropAction */
+        /** @var ActionConfig $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
 
-        /** @var Action $hideAction */
+        /** @var ActionConfig $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
 
-        /** @var Action $consumeRationAction */
+        /** @var ActionConfig $consumeRationAction */
         $consumeRationAction = $this->getReference(ActionsFixtures::RATION_CONSUME);
 
-        /** @var Action $transplantAction */
+        /** @var ActionConfig $transplantAction */
         $transplantAction = $this->getReference(ActionsFixtures::TRANSPLANT_DEFAULT);
 
-        /** @var Action $treatAction */
+        /** @var ActionConfig $treatAction */
         $treatAction = $this->getReference(ActionsFixtures::TREAT_PLANT);
 
-        /** @var Action $waterAction */
+        /** @var ActionConfig $waterAction */
         $waterAction = $this->getReference(ActionsFixtures::WATER_PLANT);
 
-        /** @var Action $examineAction */
+        /** @var ActionConfig $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
         /** @var ArrayCollection $actions */
@@ -77,7 +77,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$bananaMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($bananaMechanic);
         $manager->persist($banana);
@@ -100,7 +100,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$bananaTreeMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($bananaTreeMechanic);
         $manager->persist($bananaTree);
@@ -140,7 +140,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
                 ->setMechanics([$alienFruitMechanic])
-                ->setActions($actions)
+                ->setActionConfigs($actions)
                 ->buildName(GameConfigEnum::DEFAULT);
             $manager->persist($alienFruit);
 
@@ -159,7 +159,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
                 ->setMechanics([$alienPlantMechanic])
-                ->setActions($actions)
+                ->setActionConfigs($actions)
                 ->buildName(GameConfigEnum::DEFAULT);
             $manager->persist($alienPlantMechanic);
             $manager->persist($alienPlant);
@@ -184,7 +184,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$jumpkinMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($jumpkinMechanic);
         $manager->persist($jumpkin);
@@ -205,7 +205,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$bumpjumpkinMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($bumpjumpkinMechanic);
         $manager->persist($bumpjumpkin);
@@ -228,7 +228,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$fluHealerMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::TEST);
         $manager->persist($fluHealerMechanic);
         $manager->persist($fluHealer);

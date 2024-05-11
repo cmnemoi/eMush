@@ -9,7 +9,6 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AvailableScrapToCollect;
-use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\IsPasiphaeDestroyed;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
@@ -40,7 +39,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class CollectScrap extends AbstractAction
 {
-    protected string $name = ActionEnum::COLLECT_SCRAP;
+    protected ActionEnum $name = ActionEnum::COLLECT_SCRAP;
 
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
@@ -67,13 +66,12 @@ final class CollectScrap extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
         $metadata->addConstraint(new AvailableScrapToCollect(['groups' => ['visibility']]));
         $metadata->addConstraint(new PlaceType(['type' => PlaceTypeEnum::PATROL_SHIP, 'groups' => ['visibility']]));
         $metadata->addConstraint(new IsPasiphaeDestroyed(['groups' => ['visibility']]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }
@@ -126,7 +124,7 @@ final class CollectScrap extends AbstractAction
             player: $this->player,
             variableName: PlayerVariableEnum::HEALTH_POINT,
             quantity: -$damage,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime()
         );
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -151,7 +149,7 @@ final class CollectScrap extends AbstractAction
         $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,
             delta: -$damage,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime()
         );
 
@@ -173,7 +171,7 @@ final class CollectScrap extends AbstractAction
             newHolder: $patrolShipPlace,
             author: $this->player,
             visibility: VisibilityEnum::PUBLIC,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime()
         );
         $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);

@@ -37,9 +37,9 @@ final class DisassembleActionTest extends AbstractActionTest
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::DISASSEMBLE, 3);
+        $this->createActionEntity(ActionEnum::DISASSEMBLE, 3);
 
-        $this->action = new Disassemble(
+        $this->actionHandler = new Disassemble(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -68,26 +68,26 @@ final class DisassembleActionTest extends AbstractActionTest
             ->setName('some name');
 
         $item
-            ->setActions(new ArrayCollection([$this->actionEntity]))
+            ->setActionConfigs(new ArrayCollection([$this->actionConfig]))
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1]);
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
             ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->never();
         $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(false)->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->never();
 
         // Fail try
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Fail::class, $result);
         self::assertCount(1, $room->getEquipments());
@@ -105,19 +105,19 @@ final class DisassembleActionTest extends AbstractActionTest
             ->setName('some name');
 
         $item
-            ->setActions(new ArrayCollection([$this->actionEntity]))
+            ->setActionConfigs(new ArrayCollection([$this->actionConfig]))
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1]);
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
             ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->andReturn(0)
             ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(true)->once();
@@ -129,7 +129,7 @@ final class DisassembleActionTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent')->once();
 
         // Success
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(0, $player->getStatuses());

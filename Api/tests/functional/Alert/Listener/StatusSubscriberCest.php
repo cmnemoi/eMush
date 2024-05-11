@@ -92,7 +92,7 @@ class StatusSubscriberCest
         $this->statusService->createStatusFromName(
             EquipmentStatusEnum::BROKEN,
             $gravitySimulator,
-            [ActionEnum::SABOTAGE],
+            [ActionEnum::SABOTAGE->value],
             new \DateTime()
         );
 
@@ -168,7 +168,7 @@ class StatusSubscriberCest
         $this->statusService->removeStatus(
             EquipmentStatusEnum::BROKEN,
             $gravitySimulator,
-            [ActionEnum::SABOTAGE],
+            [ActionEnum::SABOTAGE->value],
             new \DateTime()
         );
 
@@ -347,7 +347,7 @@ class StatusSubscriberCest
         $statusEvent = new StatusEvent(
             new Status($gravitySimulator, $brokenConfig),
             $gravitySimulator,
-            [ActionEnum::REPAIR],
+            [ActionEnum::REPAIR->value],
             new \DateTime()
         );
         $this->statusSubscriber->onStatusRemoved($statusEvent);

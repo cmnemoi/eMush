@@ -29,8 +29,8 @@ final class PhagocyteTest extends AbstractActionTest
 
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::PHAGOCYTE);
-        $this->action = new Phagocyte(
+        $this->createActionEntity(ActionEnum::PHAGOCYTE);
+        $this->actionHandler = new Phagocyte(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -62,12 +62,12 @@ final class PhagocyteTest extends AbstractActionTest
         $sporeStatus = new ChargeStatus($player, $sporeConfig);
         $sporeStatus->setCharge(1);
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->times(3);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(2, $player->getStatuses());

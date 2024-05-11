@@ -6,5 +6,5 @@ use Mush\Action\Enum\ActionEnum;
 
 class ExpressCook extends AbstractCook
 {
-    protected string $name = ActionEnum::EXPRESS_COOK;
+    protected ActionEnum $name = ActionEnum::EXPRESS_COOK;
 }

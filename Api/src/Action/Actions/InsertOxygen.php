@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class InsertOxygen extends InsertAction
 {
-    protected string $name = ActionEnum::INSERT_OXYGEN;
+    protected ActionEnum $name = ActionEnum::INSERT_OXYGEN;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

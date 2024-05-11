@@ -119,30 +119,30 @@ final class ModifierCollectionTest extends TestCase
         $modifierConfig1
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
-                ActionEnum::ANATHEMA => ModifierRequirementEnum::ALL_TAGS,
-                ActionEnum::AUTO_DESTROY => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::ANATHEMA->value => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::AUTO_DESTROY->value => ModifierRequirementEnum::ALL_TAGS,
             ]);
         $modifierConfig2 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig2
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
-                ActionEnum::ANATHEMA => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::AUTO_DESTROY => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::ANATHEMA->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::AUTO_DESTROY->value => ModifierRequirementEnum::ANY_TAGS,
             ]);
         $modifierConfig3 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig3
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
-                ActionEnum::ANATHEMA => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::ANATHEMA->value => ModifierRequirementEnum::NONE_TAGS,
             ]);
         $modifierConfig4 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig4
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
-                ActionEnum::ANATHEMA => ModifierRequirementEnum::ALL_TAGS,
-                ActionEnum::AUTO_DESTROY => ModifierRequirementEnum::ALL_TAGS,
-                ActionEnum::ATTACK => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CEASEFIRE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::ANATHEMA->value => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::AUTO_DESTROY->value => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CEASEFIRE->value => ModifierRequirementEnum::ANY_TAGS,
                 StatusEnum::FIRE => ModifierRequirementEnum::NONE_TAGS,
             ]);
 
@@ -165,7 +165,7 @@ final class ModifierCollectionTest extends TestCase
         self::assertNotContains($modifier4, $result);
 
         // Anathen tag
-        $event = new AbstractGameEvent([ActionEnum::ANATHEMA], $time);
+        $event = new AbstractGameEvent([ActionEnum::ANATHEMA->value], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
         $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
@@ -176,7 +176,7 @@ final class ModifierCollectionTest extends TestCase
         self::assertNotContains($modifier4, $result);
 
         // anathen and auto destroy
-        $event = new AbstractGameEvent([ActionEnum::ANATHEMA, ActionEnum::AUTO_DESTROY], $time);
+        $event = new AbstractGameEvent([ActionEnum::ANATHEMA->value, ActionEnum::AUTO_DESTROY->value], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
         $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
@@ -187,7 +187,7 @@ final class ModifierCollectionTest extends TestCase
         self::assertNotContains($modifier4, $result);
 
         // Auto destroy
-        $event = new AbstractGameEvent([ActionEnum::AUTO_DESTROY], $time);
+        $event = new AbstractGameEvent([ActionEnum::AUTO_DESTROY->value], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
         $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
@@ -198,7 +198,7 @@ final class ModifierCollectionTest extends TestCase
         self::assertNotContains($modifier4, $result);
 
         // 3 tags
-        $event = new AbstractGameEvent([ActionEnum::AUTO_DESTROY, ActionEnum::ANATHEMA, ActionEnum::CEASEFIRE], $time);
+        $event = new AbstractGameEvent([ActionEnum::AUTO_DESTROY->value, ActionEnum::ANATHEMA->value, ActionEnum::CEASEFIRE->value], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
         $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
@@ -210,9 +210,9 @@ final class ModifierCollectionTest extends TestCase
 
         // 4 tags
         $event = new AbstractGameEvent([
-            ActionEnum::AUTO_DESTROY,
-            ActionEnum::ANATHEMA,
-            ActionEnum::CEASEFIRE,
+            ActionEnum::AUTO_DESTROY->value,
+            ActionEnum::ANATHEMA->value,
+            ActionEnum::CEASEFIRE->value,
             StatusEnum::FIRE,
         ], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);

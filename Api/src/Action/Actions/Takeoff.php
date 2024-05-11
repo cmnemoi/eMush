@@ -26,13 +26,12 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Takeoff extends AbstractAction
 {
-    protected string $name = ActionEnum::TAKEOFF;
+    protected ActionEnum $name = ActionEnum::TAKEOFF;
 
     private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
@@ -57,7 +56,6 @@ final class Takeoff extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
         $metadata->addConstraint(new PlaceType(['groups' => ['visibility'], 'type' => PlaceTypeEnum::ROOM]));
         $metadata->addConstraint(new HasStatus([
             'status' => DaedalusStatusEnum::TRAVELING,
@@ -68,7 +66,7 @@ final class Takeoff extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }
@@ -78,7 +76,8 @@ final class Takeoff extends AbstractAction
         // a successful landing still create damage to the hull, only critical success avoid any damage
         $criticalSuccessRate = $this->actionService->getActionModifiedActionVariable(
             $this->player,
-            $this->action,
+            $this->actionConfig,
+            $this->actionProvider,
             $this->target,
             ActionVariableEnum::PERCENTAGE_CRITICAL
         );
@@ -109,7 +108,7 @@ final class Takeoff extends AbstractAction
             newHolder: $patrolshipRoom,
             author: $this->player,
             visibility: VisibilityEnum::HIDDEN,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime(),
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
@@ -125,7 +124,7 @@ final class Takeoff extends AbstractAction
                     newHolder: $this->player->getPlace(),
                     author: $this->player,
                     visibility: VisibilityEnum::HIDDEN,
-                    tags: $this->getAction()->getActionTags(),
+                    tags: $this->getActionConfig()->getActionTags(),
                     time: new \DateTime(),
                 );
                 $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);

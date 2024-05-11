@@ -67,7 +67,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTargetEvent(ActionEnum::MOVE)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::NONE_TAGS])
             ->addModifierRequirement($catInRoomActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($catInRoomMove2MovementIncrease);
@@ -79,7 +80,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS])
+            ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::NONE_TAGS])
             ->addModifierRequirement($catInRoomActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($catInRoomNotMove2ActionIncrease);
@@ -139,8 +140,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([
-                ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::MOVE->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->addModifierRequirement($fourPeopleInRoomActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -154,7 +155,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS])
             ->addModifierRequirement($fourPeopleInRoomActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierStrategy(ModifierStrategyEnum::VARIABLE_MODIFIER);

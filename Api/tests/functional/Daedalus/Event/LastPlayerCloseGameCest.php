@@ -125,7 +125,7 @@ class LastPlayerCloseGameCest
         $player->setPlayerInfo($playerInfo);
         $I->haveInRepository($player);
 
-        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $event = new PlayerEvent($player, [ActionEnum::HIT->value], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
@@ -232,7 +232,7 @@ class LastPlayerCloseGameCest
         $player2->setPlayerInfo($playerInfo2);
         $I->haveInRepository($player2);
 
-        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $event = new PlayerEvent($player, [ActionEnum::HIT->value], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
@@ -343,7 +343,7 @@ class LastPlayerCloseGameCest
         $equipmentStatus = new Status($gameEquipment, $mushConfig);
         $I->haveInRepository($equipmentStatus);
 
-        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $event = new PlayerEvent($player, [ActionEnum::HIT->value], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
@@ -442,7 +442,7 @@ class LastPlayerCloseGameCest
         $player->setPlayerInfo($playerInfo);
         $I->haveInRepository($player);
 
-        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $event = new PlayerEvent($player, [ActionEnum::HIT->value], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
@@ -546,7 +546,7 @@ class LastPlayerCloseGameCest
             ->setOwner($player);
         $I->haveInRepository($gameEquipment);
 
-        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $event = new PlayerEvent($player, [ActionEnum::HIT->value], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
@@ -646,7 +646,7 @@ class LastPlayerCloseGameCest
 
         $I->haveInRepository($alertFire);
 
-        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $event = new PlayerEvent($player, [ActionEnum::HIT->value], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
@@ -756,7 +756,7 @@ class LastPlayerCloseGameCest
         $player->setPlayerInfo($playerInfo);
         $I->haveInRepository($player);
 
-        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $event = new PlayerEvent($player, [ActionEnum::HIT->value], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
@@ -783,7 +783,7 @@ class LastPlayerCloseGameCest
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetEvent(ActionEnum::SHOWER->value)
             ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE);
         $I->haveInRepository($modifierConfig);
@@ -872,7 +872,7 @@ class LastPlayerCloseGameCest
         $modifierEquipment = new GameModifier($gameEquipment, $modifierConfig);
         $I->haveInRepository($modifierEquipment);
 
-        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $event = new PlayerEvent($player, [ActionEnum::HIT->value], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);

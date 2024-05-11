@@ -2,7 +2,7 @@
 
 namespace Mush\Tests\functional\Communication\Listener;
 
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Communication\Entity\Channel;
@@ -129,10 +129,10 @@ class ActionSubscriberCest
 
         $I->refreshEntities($publicChannel);
 
-        $dropAction = new Action();
+        $dropAction = new ActionConfig();
         $dropAction->setActionName(ActionEnum::DROP);
 
-        $actionEvent = new ActionEvent($dropAction, $player, $iTrackie);
+        $actionEvent = new ActionEvent($dropAction, $iTrackie, $player, $iTrackie);
 
         $this->actionSubscriber->onResultAction($actionEvent);
 
@@ -231,10 +231,10 @@ class ActionSubscriberCest
 
         $I->refreshEntities($publicChannel);
 
-        $dropAction = new Action();
+        $dropAction = new ActionConfig();
         $dropAction->setActionName(ActionEnum::DROP);
 
-        $actionEvent = new ActionEvent($dropAction, $player, $iTrackie);
+        $actionEvent = new ActionEvent($dropAction, $iTrackie, $player, $iTrackie);
 
         $this->actionSubscriber->onResultAction($actionEvent);
 
@@ -335,10 +335,10 @@ class ActionSubscriberCest
 
         $I->refreshEntities($publicChannel);
 
-        $moveAction = new Action();
+        $moveAction = new ActionConfig();
         $moveAction->setActionName(ActionEnum::MOVE);
 
-        $actionEvent = new ActionEvent($moveAction, $player, null);
+        $actionEvent = new ActionEvent($moveAction, $player, $player);
 
         $this->actionSubscriber->onResultAction($actionEvent);
 
@@ -433,10 +433,10 @@ class ActionSubscriberCest
 
         $I->refreshEntities($publicChannel);
 
-        $moveAction = new Action();
+        $moveAction = new ActionConfig();
         $moveAction->setActionName(ActionEnum::MOVE);
 
-        $actionEvent = new ActionEvent($moveAction, $player, null);
+        $actionEvent = new ActionEvent($moveAction, $player, $player, null);
 
         $this->actionSubscriber->onResultAction($actionEvent);
 
@@ -532,10 +532,10 @@ class ActionSubscriberCest
 
         $I->refreshEntities($publicChannel);
 
-        $moveAction = new Action();
+        $moveAction = new ActionConfig();
         $moveAction->setActionName(ActionEnum::MOVE);
 
-        $actionEvent = new ActionEvent($moveAction, $player, null);
+        $actionEvent = new ActionEvent($moveAction, $player, $player, null);
 
         $this->actionSubscriber->onResultAction($actionEvent);
 

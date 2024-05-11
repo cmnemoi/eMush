@@ -13,7 +13,7 @@
         <ChildManager
             :child="gameConfig.daedalusConfig"
             id="gameConfig_daedalusConfig"
-            @addId="selectNewDaedalusConfig"
+            @add-id="selectNewDaedalusConfig"
         >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
@@ -23,7 +23,7 @@
         <ChildManager
             :child="gameConfig.difficultyConfig"
             id="gameConfig_difficultyConfig"
-            @addID="selectNewDifficultyConfig"
+            @add-i-d="selectNewDifficultyConfig"
         >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
@@ -33,7 +33,7 @@
         <ChildCollectionManager
             :children="gameConfig.charactersConfig"
             id="gameConfig_characterConfigs"
-            @addId="addNewCharacterConfig"
+            @add-id="addNewCharacterConfig"
             @remove="removeCharacterConfig"
         >
             <template #header="child">
@@ -44,7 +44,7 @@
         <ChildCollectionManager
             :children="gameConfig.statusConfigs"
             id="gameConfig_statusConfigs"
-            @addId="addNewStatusConfig"
+            @add-id="addNewStatusConfig"
             @remove="removeStatusConfig"
         >
             <template #header="child">
@@ -55,7 +55,7 @@
         <ChildCollectionManager
             :children="gameConfig.equipmentsConfig"
             id="gameConfig_equipmentConfigs"
-            @addId="addNewEquipmentConfig"
+            @add-id="addNewEquipmentConfig"
             @remove="removeEquipmentConfig"
         >
             <template #header="child">
@@ -66,7 +66,7 @@
         <ChildCollectionManager
             :children="gameConfig.triumphConfig"
             id="gameConfig_triumphConfigs"
-            @addId="addNewTriumphConfig"
+            @add-id="addNewTriumphConfig"
             @remove="removeTriumphConfig"
         >
             <template #header="child">
@@ -77,7 +77,7 @@
         <ChildCollectionManager
             :children="gameConfig.diseaseCauseConfig"
             id="gameConfig_diseaseCauseConfigs"
-            @addId="addNewDiseaseCauseConfig"
+            @add-id="addNewDiseaseCauseConfig"
             @remove="removeDiseaseCauseConfig"
         >
             <template #header="child">
@@ -88,7 +88,7 @@
         <ChildCollectionManager
             :children="gameConfig.diseaseConfig"
             id="gameConfig_diseaseConfigs"
-            @addId="addNewDiseaseConfig"
+            @add-id="addNewDiseaseConfig"
             @remove="removeDiseaseConfig"
         >
             <template #header="child">
@@ -99,7 +99,7 @@
         <ChildCollectionManager
             :children="gameConfig.consumableDiseaseConfig"
             id="gameConfig_consumableDiseaseConfigs"
-            @addId="addConsumableDiseaseConfig"
+            @add-id="addConsumableDiseaseConfig"
             @remove="removeConsumableDiseaseConfig"
         >
             <template #header="child">

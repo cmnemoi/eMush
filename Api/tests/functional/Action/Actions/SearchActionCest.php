@@ -5,11 +5,12 @@ namespace Mush\Tests\functional\Action\Actions;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Hide;
 use Mush\Action\Actions\Search;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -48,18 +49,20 @@ class SearchActionCest
         $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hiddenConfig);
 
-        $searchAction = new Action();
+        $searchAction = new ActionConfig();
         $searchAction
             ->setActionName(ActionEnum::SEARCH)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($searchAction);
 
-        $hideAction = new Action();
+        $hideAction = new ActionConfig();
         $hideAction
             ->setActionName(ActionEnum::HIDE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($searchAction);
@@ -80,7 +83,7 @@ class SearchActionCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$searchAction])]);
+        $characterConfig = $I->have(CharacterConfig::class, ['actionConfigs' => new ArrayCollection([$searchAction])]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
@@ -114,7 +117,7 @@ class SearchActionCest
 
         /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, [
-            'actions' => new ArrayCollection([$searchAction]),
+            'actionConfigs' => new ArrayCollection([$searchAction]),
         ]);
 
         $gameEquipment1 = new GameItem($room);
@@ -124,12 +127,21 @@ class SearchActionCest
         $I->haveInRepository($gameEquipment1);
 
         // first search an room without any hidden equipment
-        $this->searchAction->loadParameters($searchAction, $player, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $searchAction,
+            actionProvider: $player,
+            player: $player
+        );
         $result = $this->searchAction->execute();
         $I->assertInstanceOf(Fail::class, $result);
 
         // Now hide an equipment
-        $this->hideAction->loadParameters($searchAction, $player, $gameEquipment1);
+        $this->hideAction->loadParameters(
+            actionConfig: $searchAction,
+            actionProvider: $gameEquipment1,
+            player: $player,
+            target: $gameEquipment1
+        );
         $this->hideAction->execute();
         $I->assertCount(1, $room->getEquipments());
 
@@ -141,7 +153,11 @@ class SearchActionCest
         $I->assertEquals($hiddenStatus->getTarget(), $player);
 
         // Now search again
-        $this->searchAction->loadParameters($searchAction, $player, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $searchAction,
+            actionProvider: $player,
+            player: $player
+        );
         $result = $this->searchAction->execute();
         $I->assertInstanceOf(Success::class, $result);
 
@@ -156,18 +172,20 @@ class SearchActionCest
         $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hiddenConfig);
 
-        $searchAction = new Action();
+        $searchAction = new ActionConfig();
         $searchAction
             ->setActionName(ActionEnum::SEARCH)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($searchAction);
 
-        $hideAction = new Action();
+        $hideAction = new ActionConfig();
         $hideAction
             ->setActionName(ActionEnum::HIDE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($searchAction);
@@ -188,7 +206,7 @@ class SearchActionCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$searchAction])]);
+        $characterConfig = $I->have(CharacterConfig::class, ['actionConfigs' => new ArrayCollection([$searchAction])]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
@@ -235,7 +253,7 @@ class SearchActionCest
 
         /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, [
-            'actions' => new ArrayCollection([$searchAction]),
+            'actionConfigs' => new ArrayCollection([$searchAction]),
         ]);
 
         $gameEquipment1 = new GameItem($room);
@@ -255,11 +273,26 @@ class SearchActionCest
         $I->haveInRepository($gameEquipment3);
 
         // Now hide equipments
-        $this->hideAction->loadParameters($searchAction, $player, $gameEquipment1);
+        $this->hideAction->loadParameters(
+            actionConfig: $searchAction,
+            actionProvider: $gameEquipment1,
+            player: $player,
+            target: $gameEquipment1
+        );
         $this->hideAction->execute();
-        $this->hideAction->loadParameters($searchAction, $player2, $gameEquipment3);
+        $this->hideAction->loadParameters(
+            actionConfig: $searchAction,
+            actionProvider: $gameEquipment1,
+            player: $player,
+            target: $gameEquipment3
+        );
         $this->hideAction->execute();
-        $this->hideAction->loadParameters($searchAction, $player, $gameEquipment2);
+        $this->hideAction->loadParameters(
+            actionConfig: $searchAction,
+            actionProvider: $gameEquipment1,
+            player: $player,
+            target: $gameEquipment2
+        );
         $this->hideAction->execute();
 
         $I->assertCount(3, $room->getEquipments());
@@ -268,21 +301,33 @@ class SearchActionCest
         $I->assertCount(1, $gameEquipment3->getStatuses());
 
         // Now search
-        $this->searchAction->loadParameters($searchAction, $player, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $searchAction,
+            actionProvider: $player,
+            player: $player
+        );
         $result = $this->searchAction->execute();
         $I->assertCount(1, $gameEquipment1->getStatuses());
         $I->assertCount(0, $gameEquipment2->getStatuses());
         $I->assertCount(1, $gameEquipment3->getStatuses());
 
         // One more time
-        $this->searchAction->loadParameters($searchAction, $player, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $searchAction,
+            actionProvider: $player,
+            player: $player
+        );
         $result = $this->searchAction->execute();
         $I->assertCount(1, $gameEquipment1->getStatuses());
         $I->assertCount(0, $gameEquipment2->getStatuses());
         $I->assertCount(0, $gameEquipment3->getStatuses());
 
         // Third time
-        $this->searchAction->loadParameters($searchAction, $player, null);
+        $this->searchAction->loadParameters(
+            actionConfig: $searchAction,
+            actionProvider: $player,
+            player: $player
+        );
         $result = $this->searchAction->execute();
         $I->assertCount(0, $gameEquipment1->getStatuses());
         $I->assertCount(0, $gameEquipment2->getStatuses());

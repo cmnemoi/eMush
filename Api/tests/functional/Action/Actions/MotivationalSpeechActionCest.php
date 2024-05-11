@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\MotivationalSpeech;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -13,7 +13,6 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -26,13 +25,12 @@ use Mush\User\Entity\User;
 class MotivationalSpeechActionCest
 {
     private MotivationalSpeech $motivationalSpeechAction;
-    private Action $action;
+    private ActionConfig $action;
 
     public function _before(FunctionalTester $I)
     {
         $this->motivationalSpeechAction = $I->grabService(MotivationalSpeech::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->action = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::MOTIVATIONAL_SPEECH]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOTIVATIONAL_SPEECH]);
     }
 
     public function testMotivationalSpeech(FunctionalTester $I)
@@ -85,7 +83,11 @@ class MotivationalSpeechActionCest
         $listener->setPlayerInfo($listenerInfo);
         $I->refreshEntities($listener);
 
-        $this->motivationalSpeechAction->loadParameters($this->action, $speaker);
+        $this->motivationalSpeechAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $speaker,
+            player: $speaker
+        );
 
         $I->assertTrue($this->motivationalSpeechAction->isVisible());
         $I->assertNull($this->motivationalSpeechAction->cannotExecuteReason());

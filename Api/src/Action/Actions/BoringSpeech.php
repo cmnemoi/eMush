@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class BoringSpeech extends AbstractSpeech
 {
-    protected string $name = ActionEnum::BORING_SPEECH;
+    protected ActionEnum $name = ActionEnum::BORING_SPEECH;
     protected string $playerVariable = PlayerVariableEnum::MOVEMENT_POINT;
 
     protected StatusServiceInterface $statusService;
@@ -68,7 +68,7 @@ class BoringSpeech extends AbstractSpeech
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::DID_BORING_SPEECH,
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
 

@@ -33,11 +33,11 @@ final class HyperfreezeActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::HYPERFREEZE, 1);
+        $this->createActionEntity(ActionEnum::HYPERFREEZE, 1);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new Hyperfreeze(
+        $this->actionHandler = new Hyperfreeze(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -83,12 +83,12 @@ final class HyperfreezeActionTest extends AbstractActionTest
             ->setName(ToolItemEnum::SUPERFREEZER)
             ->setHolder($room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameRation);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameRation);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(2, $room->getEquipments());
@@ -123,7 +123,7 @@ final class HyperfreezeActionTest extends AbstractActionTest
             ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameRation);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameRation);
 
         $gameStandardRation = new GameItem(new Place());
         $standardRation = new ItemConfig();
@@ -136,7 +136,7 @@ final class HyperfreezeActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(2, $room->getEquipments());

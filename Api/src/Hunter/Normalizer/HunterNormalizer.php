@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Hunter\Normalizer;
 
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -73,29 +73,7 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
             ),
             'health' => $hunterHealth,
             'charges' => $asteroidTruceCycles,
-            'actions' => $this->getActions($currentPlayer, $format, $context),
+            'actions' => $this->getNormalizedActions($hunter, ActionHolderEnum::HUNTER, $currentPlayer, $format, $context),
         ];
-    }
-
-    private function getActions(Player $currentPlayer, ?string $format, array $context): array
-    {
-        $actions = [];
-
-        $toolsActions = $this->gearToolService->getActionsTools(
-            player: $currentPlayer,
-            scopes: [ActionScopeEnum::ROOM],
-            target: Hunter::class
-        );
-
-        foreach ($toolsActions as $action) {
-            $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (\is_array($normedAction) && \count($normedAction) > 0) {
-                $actions[] = $normedAction;
-            }
-        }
-
-        $actions = $this->getNormalizedActionsSortedBy('name', $actions);
-
-        return $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
     }
 }

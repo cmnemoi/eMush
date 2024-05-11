@@ -63,7 +63,7 @@ doctrine:
                 type: attribute
                 dir: '%kernel.project_dir%/src/Action/Entity'
                 prefix: 'Mush\Action\Entity'
-                alias: Action
+                alias: ActionConfig
             Communication:
                 is_bundle: false
                 type: attribute

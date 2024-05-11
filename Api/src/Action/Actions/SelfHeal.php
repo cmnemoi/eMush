@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * implement self-heal action.
- * For 3 Action Points, this action gives back 3 health points to the player which uses it.
+ * For 3 ActionConfig Points, this action gives back 3 health points to the player which uses it.
  *  - +1 health point if the Ultra-healing pommade research is active (@TODO)
  *  - +2 health point if the player has the Medic skill (@TODO).
  *
@@ -29,7 +29,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  */
 class SelfHeal extends AbstractAction
 {
-    protected string $name = ActionEnum::SELF_HEAL;
+    protected ActionEnum $name = ActionEnum::SELF_HEAL;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -45,7 +45,7 @@ class SelfHeal extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target === null;
     }
@@ -72,7 +72,7 @@ class SelfHeal extends AbstractAction
                 $this->player,
                 PlayerVariableEnum::HEALTH_POINT,
                 $quantity,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 new \DateTime(),
             );
             $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
@@ -83,7 +83,7 @@ class SelfHeal extends AbstractAction
             $this->player,
             $this->player,
             VisibilityEnum::PUBLIC,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($healEvent, ApplyEffectEvent::HEAL);

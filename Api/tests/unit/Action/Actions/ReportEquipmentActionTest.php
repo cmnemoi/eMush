@@ -21,9 +21,9 @@ final class ReportEquipmentActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::REPORT_EQUIPMENT, 1);
+        $this->createActionEntity(ActionEnum::REPORT_EQUIPMENT, 1);
 
-        $this->action = new ReportEquipment(
+        $this->actionHandler = new ReportEquipment(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -47,13 +47,13 @@ final class ReportEquipmentActionTest extends AbstractActionTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment->setName('equipment');
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameEquipment);
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

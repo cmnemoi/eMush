@@ -52,7 +52,7 @@ class ChannelController extends AbstractGameController
     public function __construct(
         AdminServiceInterface $adminService,
         SpecificationInterface $canCreateChannel,
-        ChannelServiceInterface $channelService,
+        ChannelServiceInterface $channelStrategyService,
         MessageServiceInterface $messageService,
         PlayerServiceInterface $playerService,
         ValidatorInterface $validator,
@@ -62,7 +62,7 @@ class ChannelController extends AbstractGameController
     ) {
         parent::__construct($adminService);
         $this->canCreateChannel = $canCreateChannel;
-        $this->channelService = $channelService;
+        $this->channelService = $channelStrategyService;
         $this->messageService = $messageService;
         $this->playerService = $playerService;
         $this->validator = $validator;

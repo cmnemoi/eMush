@@ -5,9 +5,9 @@ namespace Mush\Equipment\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionTargetName;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
@@ -80,9 +80,9 @@ class Door extends GameEquipment
         return LogParameterKeyEnum::EQUIPMENT;
     }
 
-    public function getActionTargetName(array $context): string
+    public function canPlayerReach(Player $player): bool
     {
-        return ActionTargetName::DOOR->value;
+        return $this->getRooms()->contains($player->getPlace());
     }
 
     private function buildName(): string

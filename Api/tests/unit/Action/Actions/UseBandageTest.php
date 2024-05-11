@@ -23,10 +23,10 @@ final class UseBandageTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::USE_BANDAGE);
-        $this->actionEntity->setOutputQuantity(2);
+        $this->createActionEntity(ActionEnum::USE_BANDAGE);
+        $this->actionConfig->setOutputQuantity(2);
 
-        $this->action = new UseBandage(
+        $this->actionHandler = new UseBandage(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -56,16 +56,16 @@ final class UseBandageTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
             ->once();
         $this->eventService->shouldReceive('callEvent');
         $this->eventService->shouldReceive('callEvent');
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

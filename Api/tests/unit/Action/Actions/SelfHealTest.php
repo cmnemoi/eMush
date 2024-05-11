@@ -26,12 +26,12 @@ final class SelfHealTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_HEAL);
-        $this->actionEntity->setOutputQuantity(3);
+        $this->createActionEntity(ActionEnum::SELF_HEAL);
+        $this->actionConfig->setOutputQuantity(3);
 
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
-        $this->action = new SelfHeal(
+        $this->actionHandler = new SelfHeal(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -56,15 +56,15 @@ final class SelfHealTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, null, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->with($player, $this->actionConfig, $this->actionProvider, null, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(3)
             ->once();
         $this->eventService->shouldReceive('callEvent');
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

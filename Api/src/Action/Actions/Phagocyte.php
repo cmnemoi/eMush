@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  */
 class Phagocyte extends AbstractAction
 {
-    protected string $name = ActionEnum::PHAGOCYTE;
+    protected ActionEnum $name = ActionEnum::PHAGOCYTE;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -42,7 +42,7 @@ class Phagocyte extends AbstractAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target === null;
     }
@@ -59,7 +59,7 @@ class Phagocyte extends AbstractAction
             $this->player,
             PlayerVariableEnum::SPORE,
             -1,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime()
         );
         $this->eventService->callEvent($sporeLossEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -69,7 +69,7 @@ class Phagocyte extends AbstractAction
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
             4,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $healthPointGainEvent->setVisibility(VisibilityEnum::PRIVATE);
@@ -80,7 +80,7 @@ class Phagocyte extends AbstractAction
             $this->player,
             PlayerVariableEnum::ACTION_POINT,
             4,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $actionPointGainEvent->setVisibility(VisibilityEnum::PRIVATE);

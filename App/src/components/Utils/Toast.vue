@@ -31,7 +31,7 @@ export default defineComponent ({
         ...mapGetters({
             isOpen: 'toast/isOpen',
             title: 'toast/title',
-            type: 'toast/type',
+            type: 'toast/type'
         })
     },
     methods: {
@@ -70,7 +70,7 @@ $error-color: #e72719;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        background: transparentize($info-color, 0.4); 
+        background: transparentize($info-color, 0.4);
         width: 3.6em;
 
         img { max-width: 36px; }

@@ -26,10 +26,10 @@ final class MakeSickActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::MAKE_SICK);
+        $this->createActionEntity(ActionEnum::MAKE_SICK);
         $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
 
-        $this->action = new MakeSick(
+        $this->actionHandler = new MakeSick(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -57,11 +57,11 @@ final class MakeSickActionTest extends AbstractActionTest
         $characterConfig->setCharacterName('playerOne');
         new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
-        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->diseaseCauseService->shouldReceive('handleDiseaseForCause');
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

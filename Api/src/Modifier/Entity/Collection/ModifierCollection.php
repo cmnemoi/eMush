@@ -46,7 +46,7 @@ class ModifierCollection extends ArrayCollection
             ($modifierConfig = $modifier->getModifierConfig()) instanceof EventModifierConfig
             && \in_array($modifierConfig->getPriority(), $priorities, true)
             && $modifierConfig->doModifierApplies($event)
-            && (($charge = $modifier->getCharge()) === null || $charge->getCharge() > 0)
+            && (($charge = $modifier->getCharge()) === null || $charge->isCharged())
         ));
     }
 

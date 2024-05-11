@@ -5,7 +5,8 @@ namespace Mush\Player\Entity\Config;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -28,8 +29,8 @@ class CharacterConfig
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
     private Collection $initStatuses;
 
-    #[ORM\ManyToMany(targetEntity: Action::class)]
-    private Collection $actions;
+    #[ORM\ManyToMany(targetEntity: ActionConfig::class)]
+    private Collection $actionConfigs;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $skills;
@@ -79,7 +80,7 @@ class CharacterConfig
     public function __construct()
     {
         $this->initStatuses = new ArrayCollection();
-        $this->actions = new ArrayCollection();
+        $this->actionConfigs = new ArrayCollection();
         $this->startingItems = new ArrayCollection();
         $this->initDiseases = new ArrayCollection();
         $this->skills = [];
@@ -133,28 +134,28 @@ class CharacterConfig
         return $this;
     }
 
-    public function getActions(): Collection
+    public function getActionConfigs(): Collection
     {
-        return $this->actions;
+        return $this->actionConfigs;
     }
 
-    public function getActionByName(string $name): ?Action
+    public function getActionByName(ActionEnum $name): ?ActionConfig
     {
-        $actions = $this->actions->filter(static fn (Action $action) => $action->getActionName() === $name);
+        $actions = $this->actionConfigs->filter(static fn (ActionConfig $action) => $action->getActionName() === $name);
 
         return $actions->isEmpty() ? null : $actions->first();
     }
 
     /**
-     * @param array<int, Action>|Collection<array-key, Action> $actions
+     * @param array<int, ActionConfig>|Collection<array-key, ActionConfig> $actionConfigs
      */
-    public function setActions(array|Collection $actions): static
+    public function setActionConfigs(array|Collection $actionConfigs): static
     {
-        if (\is_array($actions)) {
-            $actions = new ArrayCollection($actions);
+        if (\is_array($actionConfigs)) {
+            $actionConfigs = new ArrayCollection($actionConfigs);
         }
 
-        $this->actions = $actions;
+        $this->actionConfigs = $actionConfigs;
 
         return $this;
     }

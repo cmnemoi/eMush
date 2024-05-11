@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionTargetName;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -84,12 +83,8 @@ class GameItem extends GameEquipment
         return LogParameterKeyEnum::ITEM;
     }
 
-    public function getActionTargetName(array $context): string
+    public function canPlayerReach(Player $player): bool
     {
-        if (\array_key_exists(ActionTargetName::TERMINAL->value, $context) && $context[ActionTargetName::TERMINAL->value] === $this) {
-            return ActionTargetName::TERMINAL->value;
-        }
-
-        return ActionTargetName::ITEM->value;
+        return $this->getPlayer() === $player || $this->getHolder() === $player->getPlace();
     }
 }

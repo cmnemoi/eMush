@@ -31,10 +31,10 @@ final class WaterPlantActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::WATER_PLANT, 1);
+        $this->createActionEntity(ActionEnum::WATER_PLANT, 1);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new WaterPlant(
+        $this->actionHandler = new WaterPlant(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -61,7 +61,7 @@ final class WaterPlantActionTest extends AbstractActionTest
             ->setName('plant');
 
         $plant = new Plant();
-        $plant->addAction($this->actionEntity);
+        $plant->addAction($this->actionConfig);
         $item->setMechanics(new ArrayCollection([$plant]));
 
         $statusConfig = new StatusConfig();
@@ -72,12 +72,12 @@ final class WaterPlantActionTest extends AbstractActionTest
 
         $room->setDaedalus($player->getDaedalus());
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('removeStatus')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());
@@ -94,14 +94,14 @@ final class WaterPlantActionTest extends AbstractActionTest
             ->setName('plant');
 
         $plant = new Plant();
-        $plant->addAction($this->actionEntity);
+        $plant->addAction($this->actionConfig);
         $item->setMechanics(new ArrayCollection([$plant]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $room->setDaedalus($player->getDaedalus());
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::PLANT_DRY);
@@ -110,7 +110,7 @@ final class WaterPlantActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('removeStatus')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());

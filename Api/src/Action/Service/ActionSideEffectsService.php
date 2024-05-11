@@ -2,7 +2,8 @@
 
 namespace Mush\Action\Service;
 
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\Service\EventServiceInterface;
@@ -20,24 +21,33 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         $this->eventService = $eventService;
     }
 
-    public function handleActionSideEffect(Action $action, Player $player, ?LogParameterInterface $actionTarget): Player
-    {
-        $this->handleDirty($action, $player, $actionTarget);
-        $this->handleInjury($action, $player, $actionTarget);
+    public function handleActionSideEffect(
+        ActionConfig $actionConfig,
+        ActionProviderInterface $actionProvider,
+        Player $player,
+        ?LogParameterInterface $actionTarget
+    ): Player {
+        $this->handleDirty($actionConfig, $actionProvider, $player, $actionTarget);
+        $this->handleInjury($actionConfig, $actionProvider, $player, $actionTarget);
 
         return $player;
     }
 
-    private function handleDirty(Action $action, Player $player, ?LogParameterInterface $actionTarget): void
-    {
+    private function handleDirty(
+        ActionConfig $actionConfig,
+        ActionProviderInterface $actionProvider,
+        Player $player,
+        ?LogParameterInterface $actionTarget
+    ): void {
         if ($player->hasStatus(PlayerStatusEnum::DIRTY)) {
             return;
         }
 
         $actionEvent = new ActionVariableEvent(
-            $action,
+            $actionConfig,
+            $actionProvider,
             ActionVariableEnum::PERCENTAGE_DIRTINESS,
-            $action->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS),
+            $actionConfig->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS),
             $player,
             $actionTarget
         );
@@ -45,12 +55,17 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         $this->eventService->callEvent($actionEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);
     }
 
-    private function handleInjury(Action $action, Player $player, ?LogParameterInterface $actionTarget): void
-    {
+    private function handleInjury(
+        ActionConfig $actionConfig,
+        ActionProviderInterface $actionProvider,
+        Player $player,
+        ?LogParameterInterface $actionTarget
+    ): void {
         $actionEvent = new ActionVariableEvent(
-            $action,
+            $actionConfig,
+            $actionProvider,
             ActionVariableEnum::PERCENTAGE_INJURY,
-            $action->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_INJURY),
+            $actionConfig->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_INJURY),
             $player,
             $actionTarget
         );

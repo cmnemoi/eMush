@@ -4,9 +4,10 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\SelfHeal;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Enum\DiseaseEnum;
@@ -34,7 +35,7 @@ use Mush\User\Entity\User;
  */
 final class SelfHealCest extends AbstractFunctionalTest
 {
-    private Action $selfHealConfig;
+    private ActionConfig $selfHealConfig;
     private SelfHeal $selfHealAction;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
@@ -42,7 +43,7 @@ final class SelfHealCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->selfHealConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::SELF_HEAL]);
+        $this->selfHealConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SELF_HEAL]);
         $this->selfHealAction = $I->grabService(SelfHeal::class);
 
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
@@ -62,10 +63,11 @@ final class SelfHealCest extends AbstractFunctionalTest
         /** @var Place $medlab */
         $medlab = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::MEDLAB]);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::SELF_HEAL)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->setActionCost(3)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST)
@@ -74,7 +76,7 @@ final class SelfHealCest extends AbstractFunctionalTest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, [
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $healerPlayer */
@@ -94,7 +96,11 @@ final class SelfHealCest extends AbstractFunctionalTest
         $healerPlayer->setPlayerInfo($playerInfo);
         $I->refreshEntities($healerPlayer);
 
-        $this->selfHealAction->loadParameters($action, $healerPlayer);
+        $this->selfHealAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $healerPlayer,
+            player: $healerPlayer
+        );
 
         $I->assertTrue($this->selfHealAction->isVisible());
         $I->assertNull($this->selfHealAction->cannotExecuteReason());
@@ -126,7 +132,11 @@ final class SelfHealCest extends AbstractFunctionalTest
         );
 
         // when player heals themselves
-        $this->selfHealAction->loadParameters($this->selfHealConfig, $this->player);
+        $this->selfHealAction->loadParameters(
+            actionConfig: $this->selfHealConfig,
+            actionProvider: $this->player,
+            player: $this->player
+        );
         $this->selfHealAction->execute();
 
         // then I don't see a log about health gained

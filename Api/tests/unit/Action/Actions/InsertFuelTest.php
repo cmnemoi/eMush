@@ -27,9 +27,9 @@ final class InsertFuelTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::INSERT_FUEL);
+        $this->createActionEntity(ActionEnum::INSERT_FUEL);
 
-        $this->action = new InsertFuel(
+        $this->actionHandler = new InsertFuel(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -74,9 +74,9 @@ final class InsertFuelTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent')->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());

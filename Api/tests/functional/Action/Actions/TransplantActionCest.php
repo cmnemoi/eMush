@@ -4,9 +4,10 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Transplant;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -41,11 +42,12 @@ class TransplantActionCest
 
     public function testTransplant(FunctionalTester $I)
     {
-        $transplantAction = new Action();
+        $transplantAction = new ActionConfig();
         $transplantAction
             ->setActionName(ActionEnum::TRANSPLANT)
-            ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST);
+            ->setRange(ActionRangeEnum::SELF)
+            ->buildName(GameConfigEnum::TEST)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
         $I->haveInRepository($transplantAction);
 
         $fruitMechanic = new Fruit();
@@ -110,7 +112,7 @@ class TransplantActionCest
             ->setName('fruit');
         $I->haveInRepository($fruit);
 
-        $this->transplantAction->loadParameters($transplantAction, $player, $fruit);
+        $this->transplantAction->loadParameters($transplantAction, $fruit, $player, $fruit);
 
         $I->assertFalse($this->transplantAction->isVisible());
 
@@ -136,11 +138,12 @@ class TransplantActionCest
             'statusName' => EquipmentStatusEnum::PLANT_YOUNG,
         ]);
 
-        $transplantAction = new Action();
+        $transplantAction = new ActionConfig();
         $transplantAction
             ->setActionName(ActionEnum::TRANSPLANT)
-            ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST);
+            ->setRange(ActionRangeEnum::SELF)
+            ->buildName(GameConfigEnum::TEST)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
         $I->haveInRepository($transplantAction);
 
         $fruitMechanic = new Fruit();
@@ -214,7 +217,7 @@ class TransplantActionCest
             ->setName('fruit');
         $I->haveInRepository($fruit);
 
-        $this->transplantAction->loadParameters($transplantAction, $player, $fruit);
+        $this->transplantAction->loadParameters($transplantAction, $fruit, $player, $fruit);
 
         $I->assertFalse($this->transplantAction->isVisible());
 

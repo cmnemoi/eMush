@@ -7,7 +7,7 @@ namespace Mush\Tests\functional\Status\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ReportEquipment;
 use Mush\Action\Actions\Sabotage;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
@@ -283,25 +283,25 @@ final class StatusServiceCest extends AbstractFunctionalTest
         );
 
         // given it is sabotaged by a player
-        /** @var Action $sabotageConfig */
-        $sabotageConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::SABOTAGE . '_percent_12']);
+        /** @var ActionConfig $sabotageConfig */
+        $sabotageConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SABOTAGE->value . '_percent_12']);
         $sabotageConfig->setSuccessRate(101);
 
         /** @var Sabotage $sabotageAction */
         $sabotageAction = $I->grabService(Sabotage::class);
 
-        $sabotageAction->loadParameters($sabotageConfig, $this->player, $mycoscan);
+        $sabotageAction->loadParameters($sabotageConfig, $mycoscan, $this->player, $mycoscan);
         $sabotageAction->execute();
 
         // given broken mycoscan is reported
-        /** @var Action $reportConfig */
-        $reportConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::REPORT_EQUIPMENT]);
+        /** @var ActionConfig $reportConfig */
+        $reportConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::REPORT_EQUIPMENT]);
         $reportConfig->setSuccessRate(101);
 
         /** @var ReportEquipment $reportAction */
         $reportAction = $I->grabService(ReportEquipment::class);
 
-        $reportAction->loadParameters($reportConfig, $this->player, $mycoscan);
+        $reportAction->loadParameters($reportConfig, $mycoscan, $this->player, $mycoscan);
         $reportAction->execute();
 
         // given I have a research lab in laboratory

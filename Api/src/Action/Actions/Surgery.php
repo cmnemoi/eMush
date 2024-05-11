@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * Implement surgery action
  * A medic can perform a surgery in medlab or if it holds the medikit
- * For 2 Action Points, medic can heal one injury of a player that is lying down
+ * For 2 ActionConfig Points, medic can heal one injury of a player that is lying down
  * There is a chance to fail and give a septis
  * There is a chance for a critical success that grant the player extra triumph.
  *
@@ -40,7 +40,7 @@ class Surgery extends AbstractAction
 {
     private const FAIL_CHANCES = 10;
     private const CRITICAL_SUCCESS_CHANCES = 15;
-    protected string $name = ActionEnum::SURGERY;
+    protected ActionEnum $name = ActionEnum::SURGERY;
 
     private RandomServiceInterface $randomService;
 
@@ -78,7 +78,7 @@ class Surgery extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Player;
     }
@@ -138,7 +138,7 @@ class Surgery extends AbstractAction
             $this->player,
             $targetPlayer,
             VisibilityEnum::PUBLIC,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time
         );
         $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
@@ -149,7 +149,8 @@ class Surgery extends AbstractAction
     private function getModifiedPercentage(int $percentage, string $mode = ActionVariableEnum::PERCENTAGE_SUCCESS): int
     {
         $criticalRollEvent = new ActionVariableEvent(
-            $this->action,
+            $this->actionConfig,
+            $this->actionProvider,
             $mode,
             $percentage,
             $this->player,

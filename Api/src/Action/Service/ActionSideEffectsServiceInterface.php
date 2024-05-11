@@ -2,11 +2,17 @@
 
 namespace Mush\Action\Service;
 
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 
 interface ActionSideEffectsServiceInterface
 {
-    public function handleActionSideEffect(Action $action, Player $player, ?LogParameterInterface $actionTarget): Player;
+    public function handleActionSideEffect(
+        ActionConfig $actionConfig,
+        ActionProviderInterface $actionProvider,
+        Player $player,
+        ?LogParameterInterface $actionTarget
+    ): Player;
 }

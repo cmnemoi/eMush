@@ -5,6 +5,7 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\Examine;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
@@ -24,10 +25,10 @@ use Mush\Tests\FunctionalTester;
  */
 final class RepairActionCest extends AbstractFunctionalTest
 {
-    private Action $repairActionConfig;
+    private ActionConfig $repairActionConfig;
     private Repair $repairAction;
 
-    private Action $examineActionConfig;
+    private ActionConfig $examineActionConfig;
     private Examine $examineAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -37,10 +38,10 @@ final class RepairActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->repairActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::REPAIR . '_percent_12']);
+        $this->repairActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::REPAIR->value . '_percent_12']);
         $this->repairAction = $I->grabService(Repair::class);
 
-        $this->examineActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::EXAMINE]);
+        $this->examineActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::EXAMINE]);
         $this->examineAction = $I->grabService(Examine::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -55,7 +56,12 @@ final class RepairActionCest extends AbstractFunctionalTest
         $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
         // when Chun repairs the Mycoscan
-        $this->repairAction->loadParameters($this->repairActionConfig, $this->chun, $mycoscan);
+        $this->repairAction->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $mycoscan,
+            player: $this->chun,
+            target: $mycoscan
+        );
         $result = $this->repairAction->execute();
         $I->assertInstanceOf(Success::class, $result);
 
@@ -80,7 +86,12 @@ final class RepairActionCest extends AbstractFunctionalTest
         $this->repairActionConfig->setSuccessRate(25);
 
         // when Chun tries to repair the Mycoscan
-        $this->repairAction->loadParameters($this->repairActionConfig, $this->chun, $mycoscan);
+        $this->repairAction->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $mycoscan,
+            player: $this->chun,
+            target: $mycoscan
+        );
 
         // then the success rate of the Repair action is boosted by 25%
         $I->assertEquals(37, $this->repairAction->getSuccessRate());
@@ -103,7 +114,12 @@ final class RepairActionCest extends AbstractFunctionalTest
         $this->repairActionConfig->setSuccessRate(25);
 
         // when Chun tries to repair the Mycoscan
-        $this->repairAction->loadParameters($this->repairActionConfig, $this->chun, $mycoscan);
+        $this->repairAction->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $mycoscan,
+            player: $this->chun,
+            target: $mycoscan
+        );
 
         // then the success rate of the Repair action is boosted to 50%
         $I->assertEquals(50, $this->repairAction->getSuccessRate());
@@ -128,7 +144,12 @@ final class RepairActionCest extends AbstractFunctionalTest
         $skill->setCharge(1);
 
         // when Chun repairs the Mycoscan
-        $this->repairAction->loadParameters($this->repairActionConfig, $this->chun, $mycoscan);
+        $this->repairAction->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $mycoscan,
+            player: $this->chun,
+            target: $mycoscan
+        );
         $this->repairAction->execute();
 
         // then one of Chun's Technician points is consumed
@@ -154,7 +175,12 @@ final class RepairActionCest extends AbstractFunctionalTest
         $skill->setCharge(1);
 
         // when Chun examines the Mycoscan
-        $this->examineAction->loadParameters($this->examineActionConfig, $this->chun, $mycoscan);
+        $this->examineAction->loadParameters(
+            actionConfig: $this->examineActionConfig,
+            actionProvider: $mycoscan,
+            player: $this->chun,
+            target: $mycoscan
+        );
         $this->examineAction->execute();
 
         // then Chun's Technician should not change.

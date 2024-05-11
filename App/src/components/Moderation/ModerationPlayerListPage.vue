@@ -63,8 +63,8 @@
             :character-filter="characterFilter"
             :daedalus-id-filter="daedalusIdFilter"
             :username-filter="usernameFilter"
-            @paginationClick="paginationClick"
-            @sortTable="sortTable"
+            @pagination-click="paginationClick"
+            @sort-table="sortTable"
         >
             <template #header-actions>
                 Actions

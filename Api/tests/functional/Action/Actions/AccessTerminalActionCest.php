@@ -6,6 +6,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\AccessTerminal;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -24,7 +25,7 @@ use Mush\Tests\FunctionalTester;
 final class AccessTerminalActionCest extends AbstractFunctionalTest
 {
     private AccessTerminal $accessTerminal;
-    private Action $accessTerminalConfig;
+    private ActionConfig $accessTerminalConfig;
     private GameEquipment $astroTerminal;
     private GameEquipment $commandTerminal;
     private StatusServiceInterface $statusService;
@@ -34,7 +35,7 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         parent::_before($I);
         $bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
 
-        $this->accessTerminalConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::ACCESS_TERMINAL]);
+        $this->accessTerminalConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::ACCESS_TERMINAL]);
         $this->accessTerminal = $I->grabService(AccessTerminal::class);
 
         // Astro terminal
@@ -65,7 +66,12 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::FOCUSED));
 
         // when player access astro terminal
-        $this->accessTerminal->loadParameters($this->accessTerminalConfig, $this->player, $this->astroTerminal);
+        $this->accessTerminal->loadParameters(
+            actionConfig: $this->accessTerminalConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->astroTerminal
+        );
         $this->accessTerminal->execute();
 
         // then player is focused on astro terminal
@@ -78,7 +84,12 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         $I->assertFalse($this->player->hasTitle(TitleEnum::COMMANDER));
 
         // when player access command terminal
-        $this->accessTerminal->loadParameters($this->accessTerminalConfig, $this->player, $this->commandTerminal);
+        $this->accessTerminal->loadParameters(
+            actionConfig: $this->accessTerminalConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->accessTerminal->execute();
 
         // then the action is not executable and player is not focused on command terminal
@@ -95,7 +106,12 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         $this->player->addTitle(TitleEnum::COMMANDER);
 
         // when player access command terminal
-        $this->accessTerminal->loadParameters($this->accessTerminalConfig, $this->player, $this->commandTerminal);
+        $this->accessTerminal->loadParameters(
+            actionConfig: $this->accessTerminalConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->accessTerminal->execute();
 
         // then the player should be focused on command terminal
@@ -114,7 +130,12 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         );
 
         // when player access command terminal
-        $this->accessTerminal->loadParameters($this->accessTerminalConfig, $this->player, $this->commandTerminal);
+        $this->accessTerminal->loadParameters(
+            actionConfig: $this->accessTerminalConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
         $this->accessTerminal->execute();
 
         // then the action is not visible

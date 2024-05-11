@@ -36,12 +36,12 @@ final class CookActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::COOK, 1);
+        $this->createActionEntity(ActionEnum::COOK, 1);
 
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new Cook(
+        $this->actionHandler = new Cook(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -83,13 +83,13 @@ final class CookActionTest extends AbstractActionTest
             ->setEquipment($kitchen)
             ->setName(EquipmentEnum::KITCHEN);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameRation);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameRation);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('removeStatus')->once();
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->never();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());
@@ -120,7 +120,7 @@ final class CookActionTest extends AbstractActionTest
             ->setName(EquipmentEnum::KITCHEN);
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameRation);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameRation);
 
         $gameCookedRation = new GameItem(new Place());
         $cookedRation = new ItemConfig();
@@ -133,7 +133,7 @@ final class CookActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(2, $room->getEquipments());

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\DeletePlanet;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -29,7 +29,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class DeletePlanetCest extends AbstractFunctionalTest
 {
-    private Action $deletePlanetConfig;
+    private ActionConfig $deletePlanetConfig;
     private DeletePlanet $deletePlanetAction;
     private Planet $planet;
     private GameEquipment $astroTerminal;
@@ -39,7 +39,7 @@ final class DeletePlanetCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->deletePlanetConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::DELETE_PLANET]);
+        $this->deletePlanetConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DELETE_PLANET]);
         $this->deletePlanetAction = $I->grabService(DeletePlanet::class);
         $this->planetService = $I->grabService(PlanetServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -61,7 +61,12 @@ final class DeletePlanetCest extends AbstractFunctionalTest
         // given player is not focused on the astro terminal
 
         // when player tries to delete the planet
-        $this->deletePlanetAction->loadParameters($this->deletePlanetConfig, $this->player, $this->planet);
+        $this->deletePlanetAction->loadParameters(
+            actionConfig: $this->deletePlanetConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->planet
+        );
         $this->deletePlanetAction->execute();
 
         // then planet is not visible
@@ -79,7 +84,12 @@ final class DeletePlanetCest extends AbstractFunctionalTest
         );
 
         // when player tries to delete the planet
-        $this->deletePlanetAction->loadParameters($this->deletePlanetConfig, $this->player, $this->planet);
+        $this->deletePlanetAction->loadParameters(
+            actionConfig: $this->deletePlanetConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->planet
+        );
         $this->deletePlanetAction->execute();
 
         // then action is not visible
@@ -97,7 +107,12 @@ final class DeletePlanetCest extends AbstractFunctionalTest
         );
 
         // when player tries to delete the planet
-        $this->deletePlanetAction->loadParameters($this->deletePlanetConfig, $this->player, $this->planet);
+        $this->deletePlanetAction->loadParameters(
+            actionConfig: $this->deletePlanetConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->planet
+        );
         $this->deletePlanetAction->execute();
 
         // then action is not executable
@@ -119,7 +134,12 @@ final class DeletePlanetCest extends AbstractFunctionalTest
         );
 
         // when player tries to delete the planet
-        $this->deletePlanetAction->loadParameters($this->deletePlanetConfig, $this->player, $this->planet);
+        $this->deletePlanetAction->loadParameters(
+            actionConfig: $this->deletePlanetConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->planet
+        );
         $this->deletePlanetAction->execute();
 
         // then planet is deleted
@@ -138,7 +158,12 @@ final class DeletePlanetCest extends AbstractFunctionalTest
         );
 
         // when player tries to delete the planet
-        $this->deletePlanetAction->loadParameters($this->deletePlanetConfig, $this->player, $this->planet);
+        $this->deletePlanetAction->loadParameters(
+            actionConfig: $this->deletePlanetConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->planet
+        );
         $this->deletePlanetAction->execute();
 
         // then log is printed

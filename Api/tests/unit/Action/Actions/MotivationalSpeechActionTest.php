@@ -21,10 +21,10 @@ final class MotivationalSpeechActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::MOTIVATIONAL_SPEECH);
-        $this->actionEntity->setOutputQuantity(2);
+        $this->createActionEntity(ActionEnum::MOTIVATIONAL_SPEECH);
+        $this->actionConfig->setOutputQuantity(2);
 
-        $this->action = new MotivationalSpeech(
+        $this->actionHandler = new MotivationalSpeech(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -48,16 +48,16 @@ final class MotivationalSpeechActionTest extends AbstractActionTest
         $speaker = $this->createPlayer($daedalus, $room);
         $listener = $this->createPlayer($daedalus, $room);
 
-        $this->action->loadParameters($this->actionEntity, $speaker);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $speaker);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($listener);
         $this->eventService->shouldReceive('callEvent')->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($speaker, $this->actionEntity, null, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->with($speaker, $this->actionConfig, $this->actionProvider, null, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
             ->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

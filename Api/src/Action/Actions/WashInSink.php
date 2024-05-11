@@ -6,17 +6,13 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AreShowersDismantled;
-use Mush\Action\Validator\Charged;
-use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -24,7 +20,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class WashInSink extends AbstractAction
 {
-    protected string $name = ActionEnum::WASH_IN_SINK;
+    protected ActionEnum $name = ActionEnum::WASH_IN_SINK;
 
     protected StatusServiceInterface $statusService;
 
@@ -48,19 +44,9 @@ class WashInSink extends AbstractAction
         $metadata->addConstraint(new AreShowersDismantled([
             'groups' => ['visibility'],
         ]));
-        $metadata->addConstraint(new HasStatus([
-            'status' => EquipmentStatusEnum::BROKEN,
-            'contain' => false,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-        ]));
-        $metadata->addConstraint(new Charged([
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::DAILY_LIMIT,
-        ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }
@@ -79,7 +65,7 @@ class WashInSink extends AbstractAction
         $this->statusService->removeStatus(
             PlayerStatusEnum::DIRTY,
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
     }

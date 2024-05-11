@@ -3,7 +3,7 @@
         :moderation-dialog-visible="moderationDialogVisible"
         :action="currentAction"
         @close="closeModerationDialog"
-        @submitSanction="applySanction" />
+        @submit-sanction="applySanction" />
     <div class="container" v-if="closedDaedalus">
         <div class="ending-screen">
             <img :src="getImgUrl('ending-sol.png')" :alt="$t('theEnd.endCause.sol_return')" v-if="closedDaedalus.endCause === 'sol_return'">
@@ -734,7 +734,7 @@ h2 {
         clip-path: polygon(0 0, 100% 0, 0 100%);
         }
 
-        :deep(em) { 
+        :deep(em) {
             color: $red;
         }
     }

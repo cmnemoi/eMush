@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -21,7 +20,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class LieDown extends AbstractAction
 {
-    protected string $name = ActionEnum::LIE_DOWN;
+    protected ActionEnum $name = ActionEnum::LIE_DOWN;
 
     protected StatusServiceInterface $statusService;
 
@@ -47,12 +46,6 @@ class LieDown extends AbstractAction
             'message' => ActionImpossibleCauseEnum::ALREADY_IN_BED,
         ]));
         $metadata->addConstraint(new StatusValidator([
-            'status' => EquipmentStatusEnum::BROKEN,
-            'contain' => false,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-        ]));
-        $metadata->addConstraint(new StatusValidator([
             'status' => PlayerStatusEnum::LYING_DOWN,
             'ownerSide' => false,
             'contain' => false,
@@ -61,7 +54,7 @@ class LieDown extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }
@@ -79,7 +72,7 @@ class LieDown extends AbstractAction
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::LYING_DOWN,
             holder: $this->player,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime(),
             target: $target,
         );

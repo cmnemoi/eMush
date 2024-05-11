@@ -2,7 +2,8 @@
 
 namespace Mush\Action\Event;
 
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -18,19 +19,26 @@ class ActionEvent extends AbstractGameEvent
     public const RESULT_ACTION = 'result.action';
     public const EXECUTE_ACTION = 'execute.action';
 
-    private Action $action;
+    private ActionConfig $actionConfig;
+    private ActionProviderInterface $actionProvider;
     private ?LogParameterInterface $actionTarget;
     private ?ActionResult $actionResult = null;
     private array $actionParameters = [];
 
-    public function __construct(Action $action, Player $player, ?LogParameterInterface $actionTarget = null, array $actionParameters = [])
-    {
-        $this->action = $action;
+    public function __construct(
+        ActionConfig $actionConfig,
+        ActionProviderInterface $actionProvider,
+        Player $player,
+        ?LogParameterInterface $actionTarget = null,
+        array $actionParameters = []
+    ) {
+        $this->actionConfig = $actionConfig;
+        $this->actionProvider = $actionProvider;
         $this->author = $player;
         $this->actionTarget = $actionTarget;
         $this->actionParameters = $actionParameters;
 
-        parent::__construct($action->getActionTags(), new \DateTime());
+        parent::__construct($actionConfig->getActionTags(), new \DateTime());
 
         if ($actionTarget !== null) {
             $this->addTag($actionTarget->getLogName());
@@ -52,9 +60,14 @@ class ActionEvent extends AbstractGameEvent
         return $player;
     }
 
-    public function getAction(): Action
+    public function getActionConfig(): ActionConfig
     {
-        return $this->action;
+        return $this->actionConfig;
+    }
+
+    public function getActionProvider(): ActionProviderInterface
+    {
+        return $this->actionProvider;
     }
 
     public function getActionTarget(): ?LogParameterInterface

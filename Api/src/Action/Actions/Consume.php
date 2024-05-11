@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Consume extends AbstractAction
 {
-    protected string $name = ActionEnum::CONSUME;
+    protected ActionEnum $name = ActionEnum::CONSUME;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -35,7 +35,7 @@ class Consume extends AbstractAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameItem;
     }
@@ -67,7 +67,7 @@ class Consume extends AbstractAction
             $this->player,
             $target,
             VisibilityEnum::PRIVATE,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($consumeEquipment, ApplyEffectEvent::CONSUME);

@@ -32,9 +32,9 @@ final class RetrieveFuelTest extends AbstractActionTest
     {
         parent::before();
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_FUEL, -1);
+        $this->createActionEntity(ActionEnum::RETRIEVE_FUEL, -1);
 
-        $this->action = new RetrieveFuel(
+        $this->actionHandler = new RetrieveFuel(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -72,7 +72,7 @@ final class RetrieveFuelTest extends AbstractActionTest
         $daedalus->setDaedalusVariables($daedalusConfig);
 
         $tank = new EquipmentConfig();
-        $tank->setActions(new ArrayCollection([$this->actionEntity]));
+        $tank->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $gameTank = new GameEquipment($room);
         $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK)->setHolder($room);
@@ -81,9 +81,9 @@ final class RetrieveFuelTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameTank);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameTank);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());

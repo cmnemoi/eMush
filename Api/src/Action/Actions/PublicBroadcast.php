@@ -5,9 +5,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
@@ -19,7 +17,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -37,7 +34,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class PublicBroadcast extends AbstractAction
 {
-    protected string $name = ActionEnum::PUBLIC_BROADCAST;
+    protected ActionEnum $name = ActionEnum::PUBLIC_BROADCAST;
 
     protected StatusServiceInterface $statusService;
 
@@ -55,16 +52,10 @@ class PublicBroadcast extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new HasStatus([
-            'status' => EquipmentStatusEnum::BROKEN,
-            'contain' => false,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-        ]));
         $metadata->addConstraint(new PlaceType(['groups' => ['visible'], 'type' => 'room']));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameItem;
     }
@@ -98,7 +89,7 @@ class PublicBroadcast extends AbstractAction
             $player,
             PlayerVariableEnum::MORAL_POINT,
             $morale_points,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
 
@@ -111,7 +102,7 @@ class PublicBroadcast extends AbstractAction
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST,
             $player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
     }

@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RejuvenateAlpha extends AbstractAction
 {
-    protected string $name = ActionEnum::REJUVENATE;
+    protected ActionEnum $name = ActionEnum::REJUVENATE;
 
     protected StatusServiceInterface $statusService;
 
@@ -48,7 +48,7 @@ class RejuvenateAlpha extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target === null;
     }
@@ -68,7 +68,7 @@ class RejuvenateAlpha extends AbstractAction
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::HAS_REJUVENATED,
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
     }
@@ -85,7 +85,7 @@ class RejuvenateAlpha extends AbstractAction
             $this->player,
             $variable,
             $maxValue,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);

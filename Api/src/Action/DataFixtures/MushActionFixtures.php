@@ -4,9 +4,10 @@ namespace Mush\Action\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -23,11 +24,12 @@ class MushActionFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $extractSporeAction = new Action();
+        $extractSporeAction = new ActionConfig();
         $extractSporeAction
-            ->setName(ActionEnum::EXTRACT_SPORE)
+            ->setName(ActionEnum::EXTRACT_SPORE->value)
             ->setActionName(ActionEnum::EXTRACT_SPORE)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->setActionCost(2)
             ->setDirtyRate(100)
             ->makeSuperDirty()
@@ -35,64 +37,70 @@ class MushActionFixtures extends Fixture
 
         $manager->persist($extractSporeAction);
 
-        $infectAction = new Action();
+        $infectAction = new ActionConfig();
         $infectAction
-            ->setName(ActionEnum::INFECT)
+            ->setName(ActionEnum::INFECT->value)
             ->setActionName(ActionEnum::INFECT)
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT);
 
         $manager->persist($infectAction);
 
-        $spreadFireAction = new Action();
+        $spreadFireAction = new ActionConfig();
         $spreadFireAction
-            ->setName(ActionEnum::SPREAD_FIRE)
+            ->setName(ActionEnum::SPREAD_FIRE->value)
             ->setActionName(ActionEnum::SPREAD_FIRE)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->setActionCost(4)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
 
         $manager->persist($spreadFireAction);
 
-        $makeSickAction = new Action();
+        $makeSickAction = new ActionConfig();
         $makeSickAction
-            ->setName(ActionEnum::MAKE_SICK)
+            ->setName(ActionEnum::MAKE_SICK->value)
             ->setActionName(ActionEnum::MAKE_SICK)
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT);
 
         $manager->persist($makeSickAction);
 
-        $fakeDiseaseAction = new Action();
+        $fakeDiseaseAction = new ActionConfig();
         $fakeDiseaseAction
-            ->setName(ActionEnum::FAKE_DISEASE)
+            ->setName(ActionEnum::FAKE_DISEASE->value)
             ->setActionName(ActionEnum::FAKE_DISEASE)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->setActionCost(1)
             ->setDirtyRate(60)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
 
         $manager->persist($fakeDiseaseAction);
 
-        $screwTalkieAction = new Action();
+        $screwTalkieAction = new ActionConfig();
         $screwTalkieAction
-            ->setName(ActionEnum::SCREW_TALKIE)
+            ->setName(ActionEnum::SCREW_TALKIE->value)
             ->setActionName(ActionEnum::SCREW_TALKIE)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(3)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT);
 
         $manager->persist($screwTalkieAction);
 
-        $phagocyteAction = new Action();
+        $phagocyteAction = new ActionConfig();
         $phagocyteAction
-            ->setName(ActionEnum::PHAGOCYTE)
+            ->setName(ActionEnum::PHAGOCYTE->value)
             ->setActionName(ActionEnum::PHAGOCYTE)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
 
         $manager->persist($phagocyteAction);

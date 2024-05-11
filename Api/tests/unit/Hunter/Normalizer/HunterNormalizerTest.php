@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Hunter\Normalizer;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Entity\Action;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mockery;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\LanguageEnum;
@@ -117,12 +116,6 @@ final class HunterNormalizerTest extends TestCase
             ->andReturn(self::ASTEROID_DESCRIPTION)
             ->once();
 
-        $this->gearToolService
-            ->shouldReceive('getActionsTools')
-            ->with($currentPlayer, [ActionScopeEnum::ROOM], Hunter::class)
-            ->andReturn(new ArrayCollection([]))
-            ->once();
-
         $expected = [
             'id' => 1,
             'key' => HunterEnum::ASTEROID,
@@ -138,7 +131,7 @@ final class HunterNormalizerTest extends TestCase
 
     public function testNormalizeReturnsNullChargesForNonAsteroidHunter(): void
     {
-        $action = $this->createMock(Action::class);
+        $action = $this->createMock(ActionConfig::class);
         $currentPlayer = $this->createMock(Player::class);
         $daedalus = $this->createMock(Daedalus::class);
         $hunter = $this->createMock(Hunter::class);
@@ -179,12 +172,6 @@ final class HunterNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn(self::HUNTER_DESCRIPTION)
-            ->once();
-
-        $this->gearToolService
-            ->shouldReceive('getActionsTools')
-            ->with($currentPlayer, [ActionScopeEnum::ROOM], Hunter::class)
-            ->andReturn(new ArrayCollection([]))
             ->once();
 
         $expected = [

@@ -33,7 +33,7 @@ Actions with a success rate extend [AttemptAction](./Actions/AttemptAction.php).
   - dirtyRate: chances to get dirty
   - successRate: if necessary
   - [range](./Enum/ActionRangeEnum.php): the relation between the active player and the entity that provide the action.
-  - [target](./Enum/ActionHolderEnum.php): determine in which normalizer the action is going to appear
+  - [target](./Enum/ActionHolderEnum.php): determine in which normalizer the action is going to appear, so on which entity the action will be available
 
 ### Event
 - Each action trigger 3 events: PRE, POST and RESULT

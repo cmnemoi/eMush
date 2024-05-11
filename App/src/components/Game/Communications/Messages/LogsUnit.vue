@@ -13,7 +13,6 @@
 <script lang="ts">
 import { mapActions, mapGetters } from "vuex";
 import Log from "@/components/Game/Communications/Messages/Log.vue";
-import TabContainer from "@/components/Game/Communications/TabContainer.vue";
 import { defineComponent } from "vue";
 import { GameCalendar } from "@/entities/GameCalendar";
 import { getImgUrl } from "@/utils/getImgUrl";
@@ -21,8 +20,7 @@ import { getImgUrl } from "@/utils/getImgUrl";
 export default defineComponent ({
     name: "LogsUnit",
     components: {
-        Log,
-        TabContainer
+        Log    
     },
     data() {
         return {

@@ -3,6 +3,7 @@
         <LogsUnit
             v-for="(cycleRoomLog, id) in roomLogs.slice().reverse()"
             :id="id"
+            :key="id"
             class="unit"
             :cycleRoomLog="cycleRoomLog"
             :calendar="calendar"

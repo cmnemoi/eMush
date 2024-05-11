@@ -84,7 +84,7 @@ class ActionNormalizer implements NormalizerInterface
         /** @var ?LogParameterInterface $actionTarget */
         $actionTarget = $parameters['actionTarget'];
 
-        try {
+        if ($actionClass->support($actionTarget, $parameters)) {
             $actionClass->loadParameters(
                 $actionConfig,
                 $actionProvider,
@@ -124,11 +124,9 @@ class ActionNormalizer implements NormalizerInterface
                     $actionClass
                 );
             }
-
-            return [];
-        } catch (\Exception $e) {
-            return [];
         }
+
+        return [];
     }
 
     private function normalizeCost(

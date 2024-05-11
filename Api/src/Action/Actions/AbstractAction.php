@@ -215,7 +215,7 @@ abstract class AbstractAction
         return $this->actionConfig;
     }
 
-    abstract protected function support(?LogParameterInterface $target, array $parameters): bool;
+    abstract public function support(?LogParameterInterface $target, array $parameters): bool;
 
     abstract protected function checkResult(): ActionResult;
 

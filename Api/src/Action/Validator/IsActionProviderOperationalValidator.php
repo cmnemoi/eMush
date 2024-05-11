@@ -71,17 +71,13 @@ class IsActionProviderOperationalValidator extends ConstraintValidator
         if ($actionProvider instanceof GameEquipment && $actionProvider->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON)) {
             return ActionImpossibleCauseEnum::UNLOADED_WEAPON;
         }
-        if ($chargeStatus->getStrategy() === ChargeStrategyTypeEnum::CYCLE_INCREMENT) {
-            return ActionImpossibleCauseEnum::CYCLE_LIMIT;
-        }
-        if ($chargeStatus->getStrategy() === ChargeStrategyTypeEnum::DAILY_INCREMENT) {
-            return ActionImpossibleCauseEnum::DAILY_LIMIT;
-        }
-        if ($chargeStatus->getStrategy() === ChargeStrategyTypeEnum::COFFEE_MACHINE_CHARGE_INCREMENT) {
-            $daedalus = $chargeStatus->getOwner()->getDaedalus();
-
-            return $daedalus->isPilgredFinished() ? ActionImpossibleCauseEnum::CYCLE_LIMIT : ActionImpossibleCauseEnum::DAILY_LIMIT;
-        }
+        $daedalus = $chargeStatus->getDaedalus();
+        return match ($chargeStatus->getStrategy()) {
+            ChargeStrategyTypeEnum::CYCLE_INCREMENT => ActionImpossibleCauseEnum::CYCLE_LIMIT,
+            ChargeStrategyTypeEnum::DAILY_INCREMENT => ActionImpossibleCauseEnum::DAILY_LIMIT,
+            ChargeStrategyTypeEnum::COFFEE_MACHINE_CHARGE_INCREMENT => $daedalus->isPilgredFinished() ? ActionImpossibleCauseEnum::CYCLE_LIMIT : ActionImpossibleCauseEnum::DAILY_LIMIT,
+            default => $defaultMessage,
+        };
 
         return $defaultMessage;
     }

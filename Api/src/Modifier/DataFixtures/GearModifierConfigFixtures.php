@@ -373,12 +373,12 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
-                ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
-                ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
+                // ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
+                // ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->setApplyOnTarget(true)
             ->setModifierName(ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+            ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
         $manager->persist($thalassoHealthPointModifier);
 
         $thalassoMoralePointModifier = new TriggerEventModifierConfig('modifier_for_player_set_+1moralePoint_on_post.action_if_reason_shower');
@@ -393,7 +393,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ])
             ->setApplyOnTarget(true)
             ->setModifierName(ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+            ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
         $manager->persist($thalassoMoralePointModifier);
 
         $thalassoMovementPointModifier = new TriggerEventModifierConfig('modifier_for_player_set_+2movementPoint_on_post.action_if_reason_shower');
@@ -408,7 +408,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ])
             ->setApplyOnTarget(true)
             ->setModifierName(ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+            ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
         $manager->persist($thalassoMovementPointModifier);
 
         $manager->flush();

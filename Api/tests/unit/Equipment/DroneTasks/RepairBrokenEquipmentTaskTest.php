@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\tests\unit\Equipment\DroneTasks;
 
 use Codeception\PHPUnit\TestCase;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\DroneTasks\RepairBrokenEquipmentTask;
@@ -56,9 +56,9 @@ final class RepairBrokenEquipmentTaskTest extends TestCase
             EquipmentStatusEnum::BROKEN,
             $mycoscan,
         );
-        $repairAction = new Action();
+        $repairAction = new ActionConfig();
         $repairAction->setActionName(ActionEnum::REPAIR);
-        $mycoscan->getEquipment()->setActions([$repairAction]);
+        $mycoscan->getEquipment()->setActionConfigs([$repairAction]);
 
         // Given a charged support drone in the room
         $drone = GameEquipmentFactory::createDroneForHolder($lab);

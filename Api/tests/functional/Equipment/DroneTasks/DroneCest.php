@@ -77,7 +77,7 @@ final class DroneCest extends AbstractFunctionalTest
         );
 
         // given drone has a 100% chance to repair the equipment
-        $mycoscan->getActionByNameOrThrow(ActionEnum::REPAIR)->setSuccessRate(100);
+        $mycoscan->getActionConfigByNameOrThrow(ActionEnum::REPAIR)->setSuccessRate(100);
 
         // when drone acts
         $this->droneTasksHandler->execute($this->drone, new \DateTime());
@@ -103,7 +103,7 @@ final class DroneCest extends AbstractFunctionalTest
         );
 
         // given drone has a 0% chance to repair the equipment
-        $mycoscan->getActionByNameOrThrow(ActionEnum::REPAIR)->setSuccessRate(0);
+        $mycoscan->getActionConfigByNameOrThrow(ActionEnum::REPAIR)->setSuccessRate(0);
 
         // when drone acts
         $this->droneTasksHandler->execute($this->drone, new \DateTime());
@@ -241,7 +241,7 @@ final class DroneCest extends AbstractFunctionalTest
         );
 
         // given drone has a 100% chance to repair the equipment
-        $mycoscan->getActionByNameOrThrow(ActionEnum::REPAIR)->setSuccessRate(100);
+        $mycoscan->getActionConfigByNameOrThrow(ActionEnum::REPAIR)->setSuccessRate(100);
 
         // when drone acts
         $this->droneTasksHandler->execute($this->drone, new \DateTime());
@@ -274,7 +274,7 @@ final class DroneCest extends AbstractFunctionalTest
         );
 
         // given drone has a 100% chance to repair the equipment
-        $mycoscan->getActionByNameOrThrow(ActionEnum::REPAIR)->setSuccessRate(100);
+        $mycoscan->getActionConfigByNameOrThrow(ActionEnum::REPAIR)->setSuccessRate(100);
 
         // when drone acts
         $this->droneTasksHandler->execute($this->drone, new \DateTime());

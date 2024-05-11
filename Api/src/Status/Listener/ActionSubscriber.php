@@ -41,7 +41,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         if ($actionPaCost > 0) {
             $this->statusService->handleAttempt(
                 $player,
-                $event->getActionConfig()->getActionName(),
+                $event->getActionConfig()->getActionName()->value,
                 $actionResult,
                 $event->getTags(),
                 $event->getTime()

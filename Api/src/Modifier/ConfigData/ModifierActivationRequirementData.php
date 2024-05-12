@@ -29,6 +29,12 @@ class ModifierActivationRequirementData
             'value' => 20,
         ],
         [
+            'name' => 'random_25',
+            'activationRequirementName' => 'random',
+            'activationRequirement' => null,
+            'value' => 25,
+        ],
+        [
             'name' => 'random_30',
             'activationRequirementName' => 'random',
             'activationRequirement' => null,

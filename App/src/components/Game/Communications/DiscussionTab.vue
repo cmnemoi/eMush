@@ -1,6 +1,11 @@
 <template>
-    <TabContainer id="discussion-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
-        <section v-for="(message, id) in messages" :key="id" class="unit">
+    <TabContainer
+        id="discussion-tab"
+        :channel="channel"
+        :new-message-allowed = "newMessagesAllowed"
+        @hit-bottom="console.log(`Oh no!`) + loadMorePosts()"
+    >
+        <section v-for="(message, id) in messages.slice(0, loadedMessages)" :key="id" class="unit">
             <Message
                 :message="message"
                 :is-root="true"
@@ -34,9 +39,11 @@ import TabContainer from "@/components/Game/Communications/TabContainer.vue";
 import { defineComponent } from "vue";
 import { Message as MessageEntity } from "@/entities/Message";
 import Message from "@/components/Game/Communications/Messages/Message.vue";
+import { messages } from "@/i18n";
 
 interface DiscussionTabState {
-    messageToReply: MessageEntity | null
+    messageToReply: MessageEntity | null,
+    loadedMessages: number
 }
 
 export default defineComponent ({
@@ -47,11 +54,13 @@ export default defineComponent ({
         TabContainer
     },
     props: {
-        channel: Channel
+        channel: Channel,
+        
     },
     data: ():DiscussionTabState => {
         return {
-            messageToReply: null
+            messageToReply: null,
+            loadedMessages: 4
         };
     },
     computed: {
@@ -70,6 +79,15 @@ export default defineComponent ({
             } else {
                 this.messageToReply = message;
             }
+        },
+        loadMorePosts(): Message | null
+        {
+            const hold = 4;
+            if (this.loadedMessages < this.messages.length) {
+                this.loadedMessages = this.loadedMessages + hold;
+            }
+            else { console.log("NOPE")}
+            // return this.messages.slice(0, this.loadedMessages);
         },
         ...mapActions('communication', [
             'loadMessages'

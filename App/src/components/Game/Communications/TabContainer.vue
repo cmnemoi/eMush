@@ -2,7 +2,7 @@
     <div class="tab-content">
         <div class="chatbox-container" :class="{ 'pirated': isChannelPirated() }">
             <MessageInput v-if="newMessageAllowed && !loadingChannels && channel?.scope !== ChannelType.FAVORITES" :channel="channel" />
-            <div class="chatbox">
+            <div class="chatbox" @scroll.passive="scrolling($event)" ref="scrollComponent">
                 <slot />
                 <span v-if="loading" class="loading">{{ $t('loading') }}</span>
             </div>
@@ -38,6 +38,13 @@ export default defineComponent ({
         isChannelPirated(): string
         {
             return (this.channel?.piratedPlayer != null) ? 'pirated' : '';
+        },
+        scrolling(event: any) {
+            let scrollRef = event.currentTarget;
+            if (scrollRef.scrollHeight - Math.round(scrollRef.scrollTop) <= (scrollRef.clientHeight + 24)) {
+                console.log("Near bottom");
+                this.$emit(`hit-bottom`);
+            }
         }
     },
     data() {

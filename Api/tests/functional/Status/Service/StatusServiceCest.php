@@ -25,6 +25,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -525,5 +526,27 @@ final class StatusServiceCest extends AbstractFunctionalTest
         foreach ($this->players as $player) {
             $I->assertFalse($player->hasStatus(PlayerStatusEnum::STARVING));
         }
+    }
+
+    public function shouldNotCreateSkillIfPlayerAlreadyHasIt(FunctionalTester $I): void
+    {
+        // given player is a technician
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::TECHNICIAN,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when we try to create technician skill again
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::TECHNICIAN,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // then player should have only one technician skill
+        $I->assertCount(1, $this->player->getSkills());
     }
 }

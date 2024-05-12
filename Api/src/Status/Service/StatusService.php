@@ -9,9 +9,11 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
@@ -117,8 +119,16 @@ class StatusService implements StatusServiceInterface
         ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status {
-        // if holder already have the status targeting the same target, abort and return existing status
-        $status = $target ? $holder->getStatusByNameAndTarget($statusConfig->getStatusName(), $target) : $holder->getStatusByName($statusConfig->getStatusName());
+        if ($target !== null) {
+            $status = $holder->getStatusByNameAndTarget($statusConfig->getStatusName(), $target);
+        } else {
+            if ($holder instanceof Player && SkillEnum::isSkill($statusConfig->getStatusName())) {
+                $status = $holder->getSkillByName($statusConfig->getStatusName());
+            } else {
+                $status = $holder->getStatusByName($statusConfig->getStatusName());
+            }
+        }
+
         if ($status !== null) {
             return $status;
         }
@@ -163,8 +173,16 @@ class StatusService implements StatusServiceInterface
         ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status {
-        // if holder already have the status targeting the same target, abort and return existing status
-        $status = $target ? $holder->getStatusByNameAndTarget($statusName, $target) : $holder->getStatusByName($statusName);
+        if ($target !== null) {
+            $status = $holder->getStatusByNameAndTarget($statusName, $target);
+        } else {
+            if ($holder instanceof Player && SkillEnum::isSkill($statusName)) {
+                $status = $holder->getSkillByName($statusName);
+            } else {
+                $status = $holder->getStatusByName($statusName);
+            }
+        }
+
         if ($status !== null) {
             return $status;
         }

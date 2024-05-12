@@ -25,9 +25,4 @@ enum ActionHolderEnum: string
     case PLANET = 'planet';
     case PROJECT = 'project';
     case NULL = '';
-
-    // fix migration, to delete just after !
-    case SELF = 'self';
-    case ROOM = 'room';
-    case CURRENT = 'current';
 }

@@ -2,10 +2,11 @@
 
 namespace Mush\RoomLog\Enum;
 
-class LogParameterKeyEnum
+abstract class LogParameterKeyEnum
 {
     public const string CHARACTER = 'character';
     public const string DISEASE = 'disease';
+    public const string DOOR = 'door';
     public const string EQUIPMENT = 'equipment';
     public const string HUNTER = 'hunter';
     public const string ITEM = 'item';

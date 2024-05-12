@@ -95,7 +95,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             'projects' => $this->getNormalizedTerminalProjects($terminal, $format, $context),
         ];
 
-        $astroTerminalInfos = $this->normalizeAstroTerminalInfos($format, $context);
+        $astroTerminalInfos = $this->normalizeAstroTerminalInfos($terminal, $format, $context);
         $commandTerminalInfos = $this->normalizeCommandTerminalInfos($terminal);
         $biosTerminalInfos = $this->normalizeBiosTerminalInfos($terminal);
         $pilgredTerminalInfos = $this->getNormalizedPilgredTerminalInfos($terminal);
@@ -221,13 +221,10 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         ];
     }
 
-    private function normalizeAstroTerminalInfos(?string $format, array $context): array
+    private function normalizeAstroTerminalInfos(GameEquipment $terminal, ?string $format, array $context): array
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
-
-        /** @var GameEquipment $terminal */
-        $terminal = $context['terminal'];
 
         /** @var Daedalus $daedalus */
         $daedalus = $terminal->getDaedalus();

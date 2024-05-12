@@ -76,6 +76,7 @@ final class ParameterHasActionValidatorTest extends TestCase
 
         $gameItem = new GameItem($place);
         $gameItem->setEquipment($itemConfig);
+        $gameItem->setName('gameItem');
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
@@ -113,6 +114,7 @@ final class ParameterHasActionValidatorTest extends TestCase
         $itemConfig->setActionConfigs(new ArrayCollection([$actionConfig]));
         $gameItem = new GameItem($place);
         $gameItem->setEquipment($itemConfig);
+        $gameItem->setName('gameItem');
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
@@ -152,6 +154,7 @@ final class ParameterHasActionValidatorTest extends TestCase
         $itemConfig->setActionConfigs(new ArrayCollection([$actionConfig]));
         $gameItem = new GameItem($place);
         $gameItem->setEquipment($itemConfig);
+        $gameItem->setName('gameItem');
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
@@ -198,6 +201,7 @@ final class ParameterHasActionValidatorTest extends TestCase
         $itemConfig->setActionConfigs(new ArrayCollection([$actionConfig]));
         $gameItem = new GameItem($place);
         $gameItem->setEquipment($itemConfig);
+        $gameItem->setName('gameItem');
 
         $action = \Mockery::mock(AbstractAction::class);
         $action

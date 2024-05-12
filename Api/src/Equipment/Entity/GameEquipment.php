@@ -403,6 +403,11 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         throw new \RuntimeException("Action {$actionName->value} not found in the mechanics of {$this->name} equipment.");
     }
 
+    public function getNormalizationType(): string
+    {
+        return LogParameterKeyEnum::EQUIPMENT . 's';
+    }
+
     private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool
     {
         foreach ($this->equipment->getMechanics() as $mechanic) {

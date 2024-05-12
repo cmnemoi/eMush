@@ -78,4 +78,6 @@ interface StatusServiceInterface
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ): ChargeStatus;
+
+    public function deleteAllStatusesByName(string $name): void;
 }

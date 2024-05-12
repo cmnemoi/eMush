@@ -83,4 +83,16 @@ class StatusRepository extends ServiceEntityRepository
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
+
+    public function findAllByName(string $name): array
+    {
+        $queryBuilder = $this->createQueryBuilder('status');
+
+        $queryBuilder
+            ->join(StatusConfig::class, 'status_config', Join::WITH, 'status_config = status.statusConfig')
+            ->where($queryBuilder->expr()->eq('status_config.statusName', ':name'))
+            ->setParameter('name', $name);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

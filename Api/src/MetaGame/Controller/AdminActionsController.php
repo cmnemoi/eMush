@@ -10,10 +10,11 @@ use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\MetaGame\Controller\Dto\CreateEquipmentForDaedalusesDto;
+use Mush\MetaGame\Dto\CreateEquipmentForDaedalusesDto;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
+use Mush\Status\Service\StatusServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -32,7 +33,8 @@ final class AdminActionsController extends AbstractFOSRestController
         private readonly CreateProjectFromConfigForDaedalusUseCase $createProjectFromConfigForDaedalusUseCase,
         private readonly DaedalusRepository $daedalusRepository,
         private readonly GameEquipmentServiceInterface $gameEquipmentService,
-        private readonly ProposeNewNeronProjectsUseCase $proposeNewNeronProjectsUseCase
+        private readonly ProposeNewNeronProjectsUseCase $proposeNewNeronProjectsUseCase,
+        private readonly StatusServiceInterface $statusService,
     ) {}
 
     /**
@@ -46,7 +48,7 @@ final class AdminActionsController extends AbstractFOSRestController
      *
      * @Rest\Post(path="/create-all-projects-for-on-going-daedaluses")
      */
-    public function createAllProjectsForDaedaluses(): View
+    public function createAllProjectsForDaedalusesEndpoint(): View
     {
         /** @var array<int, Daedalus> $onGoingDaedaluses */
         $onGoingDaedaluses = $this->daedalusRepository->findNonFinishedDaedaluses();
@@ -72,7 +74,7 @@ final class AdminActionsController extends AbstractFOSRestController
      *
      * @Rest\Post(path="/create-equipment-for-on-going-daedaluses")
      */
-    public function createEquipmentForDaedaluses(Request $request): View
+    public function createEquipmentForDaedalusesEndpoint(Request $request): View
     {
         $dto = new CreateEquipmentForDaedalusesDto(...$request->toArray());
 
@@ -97,6 +99,24 @@ final class AdminActionsController extends AbstractFOSRestController
     }
 
     /**
+     * Delete all statuses with a given name.
+     *
+     * @OA\Tag(name="Admin")
+     *
+     * @Security(name="Bearer")
+     *
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @Rest\Delete(path="/delete-all-statuses-by-name/{name}", requirements={"name"="^[a-zA-Z_]+$"})
+     */
+    public function deleteAllStatusesByNameEndpoint(string $name): View
+    {
+        $this->statusService->deleteAllStatusesByName($name);
+
+        return $this->view(['detail' => "All statuses with name {$name} deleted successfully."], Response::HTTP_OK);
+    }
+
+    /**
      * Propose new Neron projects for on-going Daedaluses.
      *
      * @OA\Tag(name="Admin")
@@ -107,7 +127,7 @@ final class AdminActionsController extends AbstractFOSRestController
      *
      * @Rest\Put(path="/propose-new-neron-projects-for-on-going-daedaluses")
      */
-    public function proposeNewNeronProjectsForDaedaluses(): View
+    public function proposeNewNeronProjectsForDaedalusesEndpoint(): View
     {
         /** @var Daedalus $daedalus */
         foreach ($this->daedalusRepository->findNonFinishedDaedaluses() as $daedalus) {

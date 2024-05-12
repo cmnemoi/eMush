@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\MetaGame\Controller\Dto;
+namespace Mush\MetaGame\Dto;
 
 final readonly class CreateEquipmentForDaedalusesDto
 {

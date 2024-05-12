@@ -282,6 +282,21 @@ class StatusService implements StatusServiceInterface
         return $chargeStatus;
     }
 
+    public function deleteAllStatusesByName(string $name): void
+    {
+        $statusesToDelete = $this->statusRepository->findAllByName($name);
+
+        /** @var Status $status */
+        foreach ($statusesToDelete as $status) {
+            $this->removeStatus(
+                $status->getName(),
+                $status->getOwner(),
+                [],
+                new \DateTime(),
+            );
+        }
+    }
+
     private function handleAttemptOnFailure(
         ?Attempt $attempt,
         StatusHolderInterface $holder,

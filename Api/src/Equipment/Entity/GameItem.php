@@ -87,4 +87,9 @@ class GameItem extends GameEquipment
     {
         return $this->getPlayer() === $player || $this->getHolder() === $player->getPlace();
     }
+
+    public function getNormalizationType(): string
+    {
+        return LogParameterKeyEnum::ITEM . 's';
+    }
 }

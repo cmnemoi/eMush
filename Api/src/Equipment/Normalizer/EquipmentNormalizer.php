@@ -8,7 +8,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
@@ -52,48 +51,43 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
     public function normalize($object, ?string $format = null, array $context = []): array
     {
+        /** @var GameEquipment $equipment */
+        $equipment = $object;
+
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        $key = $this->getNameKey($object);
+        $key = $this->getNameKey($equipment);
 
-        if ($object instanceof Door) {
-            $context['door'] = $object;
-            $type = 'door';
-        } elseif ($object instanceof GameItem || EquipmentEnum::equipmentToNormalizeAsItems()->contains($object->getName())) {
-            $context['item'] = $object;
-            $type = 'items';
-        } else {
-            $context['equipment'] = $object;
-            $type = 'equipments';
-        }
+        $context[$equipment->getClassName()] = $equipment;
+        $type = $equipment->getNormalizationType();
 
         $statuses = [];
-        foreach ($object->getStatuses() as $status) {
-            $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['equipment' => $object]));
+        foreach ($equipment->getStatuses() as $status) {
+            $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['equipment' => $equipment]));
             if (\is_array($normedStatus) && \count($normedStatus) > 0) {
                 $statuses[] = $normedStatus;
             }
         }
 
-        $nameParameters = $this->getNameParameters($object);
+        $nameParameters = $this->getNameParameters($equipment);
 
-        $definition = $this->getDefinition($object, $key, $type, $language);
+        $definition = $this->getDefinition($equipment, $key, $type, $language);
 
         $normalizedEquipment = [
-            'id' => $object->getId(),
+            'id' => $equipment->getId(),
             'key' => $key,
             'name' => $this->translationService->translate($key . '.name', $nameParameters, $type, $language),
             'description' => $definition,
             'statuses' => $statuses,
-            'actions' => $this->getNormalizedActions($object, ActionHolderEnum::EQUIPMENT, $currentPlayer, $format, $context),
-            'effects' => $this->getRationsEffect($object, $currentPlayer->getDaedalus()),
+            'actions' => $this->getNormalizedActions($equipment, ActionHolderEnum::EQUIPMENT, $currentPlayer, $format, $context),
+            'effects' => $this->getRationsEffect($equipment, $currentPlayer->getDaedalus()),
         ];
 
-        if (EquipmentEnum::equipmentToNormalizeAsItems()->contains($object->getName()) || $object instanceof GameItem) {
-            $normalizedEquipment['updatedAt'] = $object->getUpdatedAt();
+        if (EquipmentEnum::equipmentToNormalizeAsItems()->contains($equipment->getName()) || $equipment instanceof GameItem) {
+            $normalizedEquipment['updatedAt'] = $equipment->getUpdatedAt();
         }
 
         return $normalizedEquipment;

@@ -44,7 +44,7 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
 
         /** @var Planet $planet */
         $planet = $object;
-        $context['planet'] = $planet;
+        $context[$planet->getClassName()] = $planet;
         $daedalus = $planet->getDaedalus();
 
         // integer seed from planet name to get always the same image for the same planet

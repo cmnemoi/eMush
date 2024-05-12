@@ -85,6 +85,11 @@ class Door extends GameEquipment
         return $this->getRooms()->contains($player->getPlace());
     }
 
+    public function getNormalizationType(): string
+    {
+        return LogParameterKeyEnum::DOOR;
+    }
+
     private function buildName(): string
     {
         return implode('_', $this->getRooms()->map(static fn (Place $room) => $room->getName())->toArray());

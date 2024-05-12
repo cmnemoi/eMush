@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Mush\Tests\unit\Action\Service;
 
 use Mush\Action\Service\GetActionTargetFromContextService;
+use Mush\Equipment\Entity\Drone;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\Factory\GameItemFactory;
 use Mush\Player\Entity\Player;
+use Mush\Project\Entity\Project;
 use Mush\Project\Factory\ProjectFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -37,7 +40,7 @@ final class GetActionTargetFromContextServiceTest extends TestCase
         $context = [
             'currentPlayer' => new Player(),
             'terminal' => GameEquipmentFactory::createPilgredEquipment(),
-            'project' => $expectedActionTarget,
+            Project::class => $expectedActionTarget,
         ];
 
         $service = new GetActionTargetFromContextService();
@@ -63,7 +66,7 @@ final class GetActionTargetFromContextServiceTest extends TestCase
         $expectedActionTarget = GameEquipmentFactory::createEquipmentByName(EquipmentEnum::TABULATRIX);
         $context = [
             'currentPlayer' => new Player(),
-            'equipment' => $expectedActionTarget,
+            GameEquipment::class => $expectedActionTarget,
         ];
 
         $service = new GetActionTargetFromContextService();
@@ -78,6 +81,20 @@ final class GetActionTargetFromContextServiceTest extends TestCase
         $context = [
             'currentPlayer' => new Player(),
             'terminalItem' => $expectedActionTarget,
+        ];
+
+        $service = new GetActionTargetFromContextService();
+        $loadedActionTarget = $service->execute($context);
+
+        self::assertSame($expectedActionTarget, $loadedActionTarget);
+    }
+
+    public function testShouldLoadDroneFromContext(): void
+    {
+        $expectedActionTarget = GameEquipmentFactory::createDroneForHolder(new Player());
+        $context = [
+            'currentPlayer' => new Player(),
+            Drone::class => $expectedActionTarget,
         ];
 
         $service = new GetActionTargetFromContextService();

@@ -76,7 +76,7 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
 
     private function getNormalizedProjectForTerminalContext(Project $project, ?string $format, array $context): array
     {
-        $context['project'] = $project;
+        $context[$project->getClassName()] = $project;
 
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];

@@ -40,7 +40,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         /** @var Player $player */
         $player = $object;
 
-        $context['player'] = $player;
+        $context[$player->getClassName()] = $player;
 
         $language = $player->getDaedalus()->getLanguage();
 

@@ -23,9 +23,9 @@ Mush\Equipment\Entity\Config\EquipmentConfig:
       subresource:
         resourceClass: 'Mush\Equipment\Entity\EquipmentMechanic'
         collection: true
-    actions:
+    actionConfigs:
       subresource:
-        resourceClass: 'Mush\Action\Entity\Action'
+        resourceClass: 'Mush\Action\Entity\ActionConfig'
         collection: true
     initStatuses:
       subresource:

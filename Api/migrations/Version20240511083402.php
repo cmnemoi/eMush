@@ -49,7 +49,7 @@ final class Version20240511083402 extends AbstractMigration
         $this->addSql('DROP TABLE equipment_mechanic_action');
         $this->addSql('DROP TABLE equipment_config_action');
         $this->addSql('DROP TABLE character_config_action');
-        $this->addSql('ALTER TABLE action ADD range VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE action ADD range VARCHAR(255) NOT NULL DEFAULT \'\'');
         $this->addSql('ALTER TABLE action DROP target');
         $this->addSql('ALTER TABLE action RENAME COLUMN scope TO display_holder');
         $this->addSql('ALTER TABLE game_modifier DROP CONSTRAINT fk_fb26dba7dc5c81');

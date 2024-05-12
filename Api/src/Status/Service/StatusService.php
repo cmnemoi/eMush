@@ -286,8 +286,14 @@ class StatusService implements StatusServiceInterface
     {
         $statusesToDelete = $this->statusRepository->findAllByName($name);
 
+        /** @var Status $status */
         foreach ($statusesToDelete as $status) {
-            $this->delete($status);
+            $this->removeStatus(
+                $status->getName(),
+                $status->getOwner(),
+                [],
+                new \DateTime(),
+            );
         }
     }
 

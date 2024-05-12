@@ -14,7 +14,7 @@ Mush\Equipment\Entity\Config\EquipmentConfig:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]
     isBreakable:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]
-    actions:
+    actionConfigs:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]
     initStatuses:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]

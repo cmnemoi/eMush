@@ -39,7 +39,7 @@ const MODIFIER_REQUIREMENT_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, 
 // @ts-ignore
 const CONFIG_STATUS_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "status_configs");
 // @ts-ignore
-const ACTION_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "actions");
+const ACTION_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "action_configs");
 // @ts-ignore
 const CONFIG_DAEDALUS_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "daedalus_configs");
 // @ts-ignore

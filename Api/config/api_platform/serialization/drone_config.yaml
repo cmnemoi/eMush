@@ -1,4 +1,4 @@
-Mush\Equipment\Entity\Config\ItemConfig:
+Mush\Equipment\Entity\Config\DroneConfig:
   attributes:
     id:
       groups: [ 'item_config_read' ]

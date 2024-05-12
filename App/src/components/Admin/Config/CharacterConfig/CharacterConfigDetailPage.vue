@@ -261,7 +261,7 @@ export default defineComponent({
                                     this.characterConfig.initStatuses = initStatuses;
                                 }
                             });
-                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'actions'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'action_configs'))
                             .then((result) => {
                                 const actions: Action[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -374,7 +374,7 @@ export default defineComponent({
                         this.characterConfig.initStatuses = initStatuses;
                     }
                 });
-            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'character_configs', characterConfigId, 'actions'))
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'character_configs', characterConfigId, 'action_configs'))
                 .then((result) => {
                     const actions : Action[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {

@@ -74,8 +74,8 @@
         <ChildCollectionManager
             :children="equipmentConfig.actions"
             id="equipmentConfig_actions"
-            @add-id="selectNewAction"
-            @remove="removeAction"
+            @add-id="selectNewActionConfig"
+            @remove="removeActionConfig"
         >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
@@ -113,7 +113,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
-import ActionService from "@/services/action.service";
+import ActionConfigService from "@/services/action.service";
 import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import Input from "@/components/Utils/Input.vue";
@@ -121,7 +121,7 @@ import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
-import { Action } from "@/entities/Action";
+import { ActionConfig } from "@/entities/Config/ActionConfig";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
 import { Mechanics } from "@/entities/Config/Mechanics";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
@@ -173,12 +173,12 @@ export default defineComponent({
                 .then((res: EquipmentConfig | null) => {
                     this.equipmentConfig = res;
                     if (this.equipmentConfig !== null) {
-                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'actions'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'action_configs'))
                             .then((result) => {
-                                const actions: Action[] = [];
+                                const actions: ActionConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
-                                    const currentAction = (new Action()).load(datum);
-                                    actions.push(currentAction);
+                                    const currentActionConfig = (new ActionConfigConfig()).load(datum);
+                                    actions.push(currentActionConfig);
                                 });
                                 if (this.equipmentConfig instanceof EquipmentConfig) {
                                     this.equipmentConfig.actions = actions;
@@ -244,14 +244,14 @@ export default defineComponent({
                 }
             }
         },
-        selectNewAction(selectedId: any) {
-            ActionService.loadAction(selectedId).then((res) => {
+        selectNewActionConfig(selectedId: any) {
+            ActionConfigService.loadActionConfig(selectedId).then((res) => {
                 if (res && this.equipmentConfig && this.equipmentConfig.actions) {
                     this.equipmentConfig.actions.push(res);
                 }
             });
         },
-        removeAction(child: any) {
+        removeActionConfig(child: any) {
             if (this.equipmentConfig && this.equipmentConfig.actions) {
                 this.equipmentConfig.actions = removeItem(this.equipmentConfig.actions, child);
             }
@@ -292,12 +292,12 @@ export default defineComponent({
         const equipmentConfigId = String(this.$route.params.equipmentConfigId);
         GameConfigService.loadEquipmentConfig(Number(equipmentConfigId)).then((res: EquipmentConfig | null) => {
             this.equipmentConfig = res;
-            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'equipment_configs', equipmentConfigId, 'actions'))
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'equipment_configs', equipmentConfigId, 'action_configs'))
                 .then((result) => {
-                    const actions : Action[] = [];
+                    const actions : ActionConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
-                        const currentAction = (new Action()).load(datum);
-                        actions.push(currentAction);
+                        const currentActionConfig = (new ActionConfig()).load(datum);
+                        actions.push(currentActionConfig);
                     });
                     if (this.equipmentConfig instanceof EquipmentConfig) {
                         this.equipmentConfig.actions = actions;

@@ -140,4 +140,9 @@ abstract class SkillEnum
             self::HYGIENIST,
         ]);
     }
+
+    public static function isSkill(string $skill): bool
+    {
+        return self::getAll()->contains($skill);
+    }
 }

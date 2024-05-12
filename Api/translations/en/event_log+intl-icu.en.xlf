@@ -706,5 +706,29 @@
         <target>You feel lonely and abandoned... Does no one think of you up there?</target>
       </segment>
     </unit>
+    <unit id="drone">
+      <segment state="initial">
+        <source>drone</source>
+        <target>drone</target>
+      </segment>
+    </unit>
+    <unit id="drone_entered_room">
+      <segment state="initial">
+        <source>drone_entered_room</source>
+        <target>drone_entered_room</target>
+      </segment>
+    </unit>
+    <unit id="drone_exit_room">
+      <segment state="initial">
+        <source>drone_exited_room</source>
+        <target>drone_exited_room</target>
+      </segment>
+    </unit>
+    <unit id="drone_repaired_equipment">
+      <segment id="drone_repaired_equipment" state="initial">
+        <source>drone_repaired_equipment</source>
+        <target>drone_repaired_equipment</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

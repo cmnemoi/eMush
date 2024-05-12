@@ -707,27 +707,57 @@
       </segment>
     </unit>
     <unit id="drone">
-      <segment state="initial">
+      <segment state="translated">
         <source>drone</source>
-        <target>drone</target>
+        <target>**Robo {drone_nickname, select,
+        1 {Betty}
+        2 {Charlotte}
+        3 {Dalek}
+        4 {Dave}
+        5 {Doc}
+        6 {Doudou}
+        7 {Douglams}
+        8 {Einstein}
+        9 {Fido}
+        10 {Fito}
+        11 {Groo}
+        12 {Isaac}
+        13 {Loulou}
+        14 {Médor}
+        15 {Nabuk}
+        16 {Papitou}
+        17 {Poutou}
+        18 {Rex}
+        19 {Robbie}
+        20 {Robert}
+        21 {Selry}
+        22 {Steve}
+        23 {Terminus}
+        24 {Troll}
+        25 {Vortex}
+        26 {Weathley}
+        other {Wealthley}} #{drone_serial_number}**</target>
       </segment>
     </unit>
     <unit id="drone_entered_room">
-      <segment state="initial">
+      <segment state="translated">
         <source>drone_entered_room</source>
-        <target>drone_entered_room</target>
+        <target>{drone} entered the room.</target>
       </segment>
     </unit>
     <unit id="drone_exit_room">
-      <segment state="initial">
+      <segment state="translated">
         <source>drone_exited_room</source>
-        <target>drone_exited_room</target>
+        <target>{drone} left the room.</target>
       </segment>
     </unit>
     <unit id="drone_repaired_equipment">
-      <segment id="drone_repaired_equipment" state="initial">
+      <segment id="drone_repaired_equipment" state="translated">
         <source>drone_repaired_equipment</source>
-        <target>drone_repaired_equipment</target>
+        <target>{version, select,
+    1 {Congratulations {drone}. The **{target_equipment}** works again.}
+    other {The **{target_equipment}** is working again, thanks to {drone}.}
+}</target>
       </segment>
     </unit>
   </file>

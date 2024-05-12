@@ -16,4 +16,5 @@ enum ActionRangeEnum: string
     case PLAYER = 'player';
     case ROOM = 'room';
     case SHELF = 'shelf';
+    case NULL = '';
 }

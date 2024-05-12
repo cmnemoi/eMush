@@ -24,4 +24,5 @@ enum ActionHolderEnum: string
     case TERMINAL = 'terminal';
     case PLANET = 'planet';
     case PROJECT = 'project';
+    case NULL = '';
 }

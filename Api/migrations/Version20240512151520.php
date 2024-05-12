@@ -21,13 +21,11 @@ final class Version20240512151520 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE action ALTER display_holder SET DEFAULT \'\'');
-        $this->addSql('ALTER TABLE action ALTER range SET DEFAULT \'\'');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE action ALTER display_holder DROP DEFAULT');
-        $this->addSql('ALTER TABLE action ALTER range DROP DEFAULT');
     }
 }

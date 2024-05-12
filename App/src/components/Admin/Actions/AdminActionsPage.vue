@@ -25,6 +25,11 @@
             {{ $t('admin.actions.statuses.deleteAllByName') }}
         </button>
     </div>
+    <div class="flex-row">
+        <button class="action-button" @click="createStatuses">
+            {{ $t('admin.actions.statuses.createAllPlayersInitStatuses') }}
+        </button>
+    </div>
 </template>
 
 <script lang="ts">
@@ -61,8 +66,9 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions({
-            createProjects: 'adminActions/createProjectsForOnGoingDaedaluses',
             createEquipmentForOnGoingDaedaluses: 'adminActions/createEquipmentForOnGoingDaedaluses',
+            createProjects: 'adminActions/createProjectsForOnGoingDaedaluses',
+            createStatuses: 'adminActions/createPlayersAllInitStatusesForOnGoingDaedaluses',
             deleteAllStatusesByName: 'adminActions/deleteAllStatusesByName',
             proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses'
         }),

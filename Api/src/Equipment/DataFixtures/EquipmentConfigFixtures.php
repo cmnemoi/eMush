@@ -23,6 +23,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
@@ -343,6 +344,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $toolShower = $this->createTool([$showerAction], EquipmentEnum::SHOWER);
         $manager->persist($toolShower);
 
+        $thalassoGear = $this->createGear(
+            [
+                ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER,
+                ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER,
+                ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER,
+            ],
+            EquipmentEnum::THALASSO
+        );
+        $manager->persist($thalassoGear);
+
         $thalasso = new EquipmentConfig();
         $thalasso
             ->setEquipmentName(EquipmentEnum::THALASSO)
@@ -350,7 +361,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActionConfigs([$repair25, $dismantle25, $examineAction, $reportAction])
-            ->setMechanics([$toolShower])
+            ->setMechanics([$toolShower, $thalassoGear])
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($thalasso);

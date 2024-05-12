@@ -137,7 +137,7 @@ class ActionSubscriberCest
         $symptomConfig = new EventModifierConfig('breakouts_test');
         $symptomConfig
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS])
@@ -252,7 +252,7 @@ class ActionSubscriberCest
         $symptomConfig = new EventModifierConfig(SymptomEnum::CAT_ALLERGY . '_test');
         $symptomConfig
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setTagConstraints([
                 ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
@@ -362,7 +362,7 @@ class ActionSubscriberCest
         $symptomConfig = new EventModifierConfig(SymptomEnum::DROOLING . '_test');
         $symptomConfig
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setTagConstraints([
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
@@ -473,7 +473,7 @@ class ActionSubscriberCest
         $symptomConfig
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setTagConstraints([
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -583,7 +583,7 @@ class ActionSubscriberCest
         $symptomConfig = new EventModifierConfig(SymptomEnum::SNEEZING . '_test');
         $symptomConfig
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setTagConstraints([
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
@@ -753,7 +753,7 @@ class ActionSubscriberCest
         $vomitingConfig = new EventModifierConfig(SymptomEnum::VOMITING);
         $vomitingConfig
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setTagConstraints([
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
@@ -895,7 +895,7 @@ class ActionSubscriberCest
         $symptomConfig = new EventModifierConfig(SymptomEnum::FEAR_OF_CATS . '_test');
         $symptomConfig
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -943,7 +943,7 @@ class ActionSubscriberCest
         $symptomConfig = new EventModifierConfig('psychotic_attacks_test');
         $symptomConfig
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(SymptomEnum::PSYCHOTIC_ATTACKS);

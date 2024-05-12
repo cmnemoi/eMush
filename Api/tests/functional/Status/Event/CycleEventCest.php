@@ -140,7 +140,7 @@ final class CycleEventCest extends AbstractFunctionalTest
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
         // then Chun should have lost 2 health points
-        $I->assertEquals(12, $this->chun->getHealthPoint());
+        $I->assertEquals($this->chun->getCharacterConfig()->getInitHealthPoint() - 2, $this->chun->getHealthPoint());
     }
 
     public function fireShouldRemoveHullPointsToDaedalus(FunctionalTester $I): void
@@ -294,7 +294,7 @@ final class CycleEventCest extends AbstractFunctionalTest
         $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::STARVING));
 
         // then Chun should have lost 1 health point
-        $I->assertEquals(13, $this->chun->getHealthPoint());
+        $I->assertEquals($this->chun->getCharacterConfig()->getInitHealthPoint() - 1, $this->chun->getHealthPoint());
     }
 
     public function shouldKillFiresIfAutoWateringProjectIsActivated(FunctionalTester $I): void

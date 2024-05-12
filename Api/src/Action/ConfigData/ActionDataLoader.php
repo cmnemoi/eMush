@@ -26,6 +26,7 @@ final class ActionDataLoader extends ConfigDataLoader
     public function loadConfigsData(): void
     {
         foreach (ActionData::$dataArray as $actionData) {
+            /** @var null|ActionConfig $action */
             $action = $this->actionRepository->findOneBy(['name' => $actionData['name']]);
 
             if ($action === null) {

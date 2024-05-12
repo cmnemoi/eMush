@@ -156,9 +156,6 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
 
     public function testNewDayTriggersDailyMoraleLoss(FunctionalTester $I): void
     {
-        // given player has 14 morale points
-        $this->player->setMoralPoint(14);
-
         // given the daedalus is D1C8 so next cycle is a new day
         $this->daedalus->setDay(1);
         $this->daedalus->setCycle(8);

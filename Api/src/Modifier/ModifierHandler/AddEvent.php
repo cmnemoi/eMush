@@ -3,7 +3,6 @@
 namespace Mush\Modifier\ModifierHandler;
 
 use Mush\Game\Entity\Collection\EventChain;
-use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
@@ -43,8 +42,15 @@ class AddEvent extends AbstractModifierHandler
 
         $newEvents = new EventChain([]);
         if ($eventConfig instanceof VariableEventConfig) {
+            $author = $events->getInitialEvent()?->getAuthor();
+            if ($author !== null && $modifierConfig->getApplyWhenTargeted()) {
+                $modifierTarget = $author;
+            } else {
+                $modifierTarget = $modifier->getModifierHolder();
+            }
+
             $newEvents = $this->createVariableEvents(
-                $modifier->getModifierHolder(),
+                $modifierTarget,
                 $eventConfig,
                 $priority,
                 $tags,
@@ -69,14 +75,16 @@ class AddEvent extends AbstractModifierHandler
         \DateTime $time
     ): EventChain {
         $events = [];
-        if ($modifierHolder instanceof GameVariableHolderInterface) {
-            $eventTargets = $this->eventCreationService->getEventTargetsFromModifierHolder($eventConfig->getVariableHolderClass(), $modifierHolder);
 
-            foreach ($eventTargets as $target) {
-                $event = $eventConfig->createEvent($priority, $tags, $time, $target);
-                if ($event !== null) {
-                    $events[] = $event;
-                }
+        $eventTargets = $this->eventCreationService->getEventTargetsFromModifierHolder(
+            $eventConfig->getVariableHolderClass(),
+            $modifierHolder,
+        );
+
+        foreach ($eventTargets as $target) {
+            $event = $eventConfig->createEvent($priority, $tags, $time, $target);
+            if ($event !== null) {
+                $events[] = $event;
             }
         }
 

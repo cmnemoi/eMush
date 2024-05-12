@@ -3670,5 +3670,15 @@ class MechanicsData
                 ActionEnum::CHECK_SPORE_LEVEL->value,
             ],
         ],
+        [
+            'name' => 'gear_thalasso_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                'modifier_for_player_set_+1moralePoint_on_post.action_if_reason_shower',
+                'modifier_for_player_set_+1healthPoint_on_post.action_if_reason_shower',
+                'modifier_for_player_set_+2movementPoint_on_post.action_if_reason_shower',
+            ],
+        ],
     ];
 }

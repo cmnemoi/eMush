@@ -1936,4 +1936,9 @@ class ActionData
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
     ];
+
+    public static function getByName(ActionEnum $name): array
+    {
+        return current(array_filter(self::$dataArray, static fn ($data) => $data['name'] === $name->value));
+    }
 }

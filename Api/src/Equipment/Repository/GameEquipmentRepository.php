@@ -16,7 +16,7 @@ use Mush\Player\Entity\Player;
 /**
  * @template-extends ServiceEntityRepository<GameEquipment>
  */
-class GameEquipmentRepository extends ServiceEntityRepository
+class GameEquipmentRepository extends ServiceEntityRepository implements GameEquipmentRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {

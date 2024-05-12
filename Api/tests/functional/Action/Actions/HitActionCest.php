@@ -101,12 +101,12 @@ final class HitActionCest extends AbstractFunctionalTest
 
         // should not lose health point because of armor
         $I->assertEquals(
+            $this->player2->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             $this->player2->getHealthPoint(),
-            $this->player2->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint()
         );
         $I->assertEquals(
+            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost(),
             $this->player1->getActionPoint(),
-            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
         );
     }
 

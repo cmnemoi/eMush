@@ -18,6 +18,9 @@ abstract class ModifierNameEnum
     public const string LYING_DOWN_MODIFIER = 'lying_down_modifier';
     public const string ANTIGRAV_SCOOTER_CONVERSION_MODIFIER = 'antigrav_scooter_conversion_modifier';
     public const string LIQUID_MAP_MODIFIER = 'liquid_map_modifier';
+    public const string THALASSO_HEALTH_POINTS_MODIFIER = 'thalasso_health_points_modifier';
+    public const string THALASSO_MORALE_POINTS_MODIFIER = 'thalasso_morale_points_modifier';
+    public const string THALASSO_MOVEMENT_POINTS_MODIFIER = 'thalasso_movement_points_modifier';
 
     /** @TODO Rename that SPECIALIST_POINT_SHOOTER */
     public const string SHOOTER_SPECIALIST_POINT = 'shooter_specialist_point';

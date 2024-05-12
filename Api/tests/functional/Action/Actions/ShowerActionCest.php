@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -16,11 +17,13 @@ use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -32,6 +35,9 @@ final class ShowerActionCest extends AbstractFunctionalTest
     private Shower $showerAction;
     private ActionConfig $action;
 
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
+
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
@@ -39,7 +45,9 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $this->showerAction = $I->grabService(Shower::class);
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SHOWER]);
         $this->action->setInjuryRate(0);
-        $I->refreshEntities($this->action);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testShower(FunctionalTester $I): void
@@ -197,5 +205,160 @@ final class ShowerActionCest extends AbstractFunctionalTest
             'log' => ActionLogEnum::SHOWER_HUMAN,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
+    }
+
+    public function shouldGiveOneHealthPointOrOneMoralePointsOrTwoMovementPointsIfWithThalasso(FunctionalTester $I): void
+    {
+        // given a Thalasso in Chun's room
+        $thalasso = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::THALASSO,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        $chunInitialHealthPoint = $this->chun->getHealthPoint();
+        $chunInitialMoralePoint = $this->chun->getMoralPoint();
+        $chunInitialMovementPoint = $this->chun->getMovementPoint();
+
+        // when Chun takes a shower
+        $this->showerAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $thalasso,
+            player: $this->chun,
+            target: $thalasso
+        );
+        $this->showerAction->execute();
+
+        // then Chun should have gained one health point or one morale point or two movement points
+        $I->assertTrue(
+            $this->chun->getHealthPoint() === $chunInitialHealthPoint + 1
+            || $this->chun->getMoralPoint() === $chunInitialMoralePoint + 1
+            || $this->chun->getMovementPoint() === $chunInitialMovementPoint + 2
+        );
+    }
+
+    public function shouldGiveOnlyOneThalassoBonus(FunctionalTester $I): void
+    {
+        // given a Thalasso in Chun's room
+        $thalasso = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::THALASSO,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        $chunInitialHealthPoint = $this->chun->getHealthPoint();
+        $chunInitialMoralePoint = $this->chun->getMoralPoint();
+        $chunInitialMovementPoint = $this->chun->getMovementPoint();
+
+        // when Chun takes a shower
+        $this->showerAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $thalasso,
+            player: $this->chun,
+            target: $thalasso
+        );
+        $this->showerAction->execute();
+
+        // then Chun should have gained only one health point or one morale point or two movement points
+        if ($this->chun->getHealthPoint() === $chunInitialHealthPoint + 1) {
+            $I->assertEquals($chunInitialMoralePoint, $this->chun->getMoralPoint());
+            $I->assertEquals($chunInitialMovementPoint, $this->chun->getMovementPoint());
+        } elseif ($this->chun->getMoralPoint() === $chunInitialMoralePoint + 1) {
+            $I->assertEquals($chunInitialHealthPoint, $this->chun->getHealthPoint());
+            $I->assertEquals($chunInitialMovementPoint, $this->chun->getMovementPoint());
+        } elseif ($this->chun->getMovementPoint() === $chunInitialMovementPoint + 2) {
+            $I->assertEquals($chunInitialHealthPoint, $this->chun->getHealthPoint());
+            $I->assertEquals($chunInitialMoralePoint, $this->chun->getMoralPoint());
+        } else {
+            $I->fail('Chun should have gained only one health point or one morale point or two movement points, not all three.');
+        }
+    }
+
+    public function shouldPrintALogAboutThalassoBonus(FunctionalTester $I): void
+    {
+        // given a Thalasso in Chun's room
+        $thalasso = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::THALASSO,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // when Chun takes a shower
+        $this->showerAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $thalasso,
+            player: $this->chun,
+            target: $thalasso
+        );
+        $this->showerAction->execute();
+
+        // then a log should be printed
+        if ($this->chun->getHealthPoint() === $this->chun->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint() + 1) {
+            $I->seeInRepository(RoomLog::class, [
+                'place' => $this->chun->getPlace()->getName(),
+                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+                'playerInfo' => $this->chun->getPlayerInfo()->getId(),
+                'log' => PlayerModifierLogEnum::GAIN_HEALTH_POINT,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]);
+        } elseif ($this->chun->getMoralPoint() === $this->chun->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint() + 1) {
+            $I->seeInRepository(RoomLog::class, [
+                'place' => $this->chun->getPlace()->getName(),
+                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+                'playerInfo' => $this->chun->getPlayerInfo()->getId(),
+                'log' => PlayerModifierLogEnum::GAIN_MORAL_POINT,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]);
+        } elseif ($this->chun->getMovementPoint() === $this->chun->getPlayerInfo()->getCharacterConfig()->getInitMovementPoint() + 2) {
+            $I->seeInRepository(RoomLog::class, [
+                'place' => $this->chun->getPlace()->getName(),
+                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+                'playerInfo' => $this->chun->getPlayerInfo()->getId(),
+                'log' => PlayerModifierLogEnum::GAIN_MOVEMENT_POINT,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]);
+        } else {
+            $I->fail('Chun should have gained only one health point or one morale point or two movement points, not all three.');
+        }
+    }
+
+    public function shouldNotGiveThalassoBonusToMushPlayers(FunctionalTester $I): void
+    {
+        // given a Thalasso in KT's room
+        $thalasso = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::THALASSO,
+            equipmentHolder: $this->kuanTi->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given KT is Mush
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when KT takes a shower
+        $this->showerAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $thalasso,
+            player: $this->kuanTi,
+            target: $thalasso
+        );
+        $this->showerAction->execute();
+
+        // then KT should not have gained any health point, morale point or movement point
+        $expectedKTHealthPoint = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint() - 3; // -3 from Mush shower malus
+        $expectedKTMoralePoint = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint();
+        $expectedKTMovementPoint = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitMovementPoint();
+
+        $I->assertEquals($expectedKTHealthPoint, $this->kuanTi->getHealthPoint());
+        $I->assertEquals($expectedKTMoralePoint, $this->kuanTi->getMoralPoint());
+        $I->assertEquals($expectedKTMovementPoint, $this->kuanTi->getMovementPoint());
     }
 }

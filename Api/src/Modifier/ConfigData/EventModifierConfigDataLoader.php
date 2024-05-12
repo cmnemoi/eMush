@@ -42,7 +42,7 @@ class EventModifierConfigDataLoader extends ModifierConfigDataLoader
         $modifierConfig
             ->setPriority($modifierConfigData['priority'])
             ->setTargetEvent($modifierConfigData['targetEvent'])
-            ->setApplyOnTarget($modifierConfigData['applyOnTarget'])
+            ->setApplyWhenTargeted($modifierConfigData['applyOnTarget'])
             ->setTagConstraints($modifierConfigData['tagConstraints'])
             ->setModifierRange($modifierConfigData['modifierRange'])
             ->setModifierName($modifierConfigData['modifierName']);

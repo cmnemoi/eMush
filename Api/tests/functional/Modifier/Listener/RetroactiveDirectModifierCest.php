@@ -81,7 +81,7 @@ final class RetroactiveDirectModifierCest extends AbstractFunctionalTest
         $I->assertEquals($initMaxPoint - 4, $variable->getValue());
         $variable = $this->player2->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $I->assertEquals($initMaxPoint - 4, $variable->getMaxValue());
-        $I->assertEquals($initPoint - 4, $variable->getValue());
+        $I->assertEquals(max($initPoint, $initMaxPoint - 4), $variable->getValue());
         $I->assertEquals(0, $variable->getMinValue());
 
         // Given a new player that wake up in this Daedalus
@@ -103,7 +103,7 @@ final class RetroactiveDirectModifierCest extends AbstractFunctionalTest
         $I->assertEquals(0, $variable->getMinValue());
         $variable = $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $I->assertEquals($initMaxPoint, $variable->getMaxValue());
-        $I->assertEquals($initPoint - 4, $variable->getValue());
+        $I->assertEquals(max($initPoint, $initMaxPoint - 4), $variable->getValue());
         $variable = $newPlayer->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $I->assertEquals($initMaxPoint, $variable->getMaxValue());
         $I->assertEquals(0, $variable->getMinValue());

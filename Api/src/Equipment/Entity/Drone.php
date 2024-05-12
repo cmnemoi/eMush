@@ -76,7 +76,14 @@ class Drone extends GameItem
 
     public function getRepairSuccessRateForEquipment(GameEquipment $gameEquipment): int
     {
-        $baseSuccessRate = $gameEquipment->getActionConfigByNameOrThrow(ActionEnum::REPAIR)->getSuccessRate();
+        $repairActionConfig = $gameEquipment->getActionConfigByNameOrNull(ActionEnum::REPAIR);
+
+        // Handle patrol ship case
+        if ($repairActionConfig === null) {
+            $repairActionConfig = $gameEquipment->getActionConfigByNameOrThrow(ActionEnum::RENOVATE);
+        }
+
+        $baseSuccessRate = $repairActionConfig->getSuccessRate();
 
         return (int) ($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getFailedRepairAttempts());
     }

@@ -46,7 +46,7 @@ class Shower extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        if ($this->player->getStatusByName(PlayerStatusEnum::MUSH)) {
+        if ($this->player->hasStatus(PlayerStatusEnum::MUSH)) {
             return new Fail();
         }
 

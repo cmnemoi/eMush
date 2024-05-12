@@ -11,8 +11,6 @@ import { Hunter } from "@/entities/Hunter";
 import { Terminal } from "@/entities/Terminal";
 import { Planet } from "@/entities/Planet";
 import { Project } from "@/entities/Project";
-import { Status } from "@/entities/Status";
-import { Room } from "@/entities/Room";
 
 // @ts-ignore
 const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "player");
@@ -33,7 +31,6 @@ const ActionService = {
     ): Promise<AxiosResponse> {
         const currentPlayer = store.getters["player/player"];
 
-        console.log(buildActionProvider());
         return ApiService.post(urlJoin(PLAYER_ENDPOINT, String(currentPlayer.id),'action'), {
             action: action.id,
             params: {
@@ -65,10 +62,10 @@ const ActionService = {
         }
 
         function buildActionProvider(): Record<string, unknown> | undefined | null {
-            const className = action.actionProviderClass;
+            const className = action.actionProvider.class;
 
-            if ( className !== null){
-                return { className: className, id: action.actionProviderId };
+            if ( className !== null) {
+                return { className: className, id: action.actionProvider.id };
             }
 
             return null;

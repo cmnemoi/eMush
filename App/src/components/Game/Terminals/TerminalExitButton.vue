@@ -18,7 +18,6 @@ export default defineComponent ({
             const action = this.terminal?.actions.find(action => action.key === ActionEnum.EXIT_TERMINAL);
             if (!action) throw new Error(`No exit_terminal action found for terminal ${this.terminal?.key}`);
 
-            console.log(action);
             return action;
         },
         target(): Terminal {

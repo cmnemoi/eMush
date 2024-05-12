@@ -373,7 +373,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return new ArrayCollection($actions);
     }
 
-    public function getActionConfigByNameOrThrow(ActionEnum $actionName): ActionConfig
+    public function getActionConfigByNameOrNull(ActionEnum $actionName): ?ActionConfig
     {
         /** @var ActionConfig $actionConfig */
         foreach ($this->equipment->getActionConfigs() as $actionConfig) {
@@ -382,7 +382,17 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
             }
         }
 
-        throw new \RuntimeException("ActionConfig {$actionName->value} not found in the actionConfigs of {$this->name} equipment.");
+        return null;
+    }
+
+    public function getActionConfigByNameOrThrow(ActionEnum $actionName): ActionConfig
+    {
+        $actionConfig = $this->getActionConfigByNameOrNull($actionName);
+        if ($actionConfig === null) {
+            throw new \RuntimeException("Action {$actionName->value} not found in the actions of {$this->name} equipment.");
+        }
+
+        return $actionConfig;
     }
 
     public function canPlayerReach(Player $player): bool

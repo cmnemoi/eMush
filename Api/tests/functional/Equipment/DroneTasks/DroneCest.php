@@ -300,6 +300,32 @@ final class DroneCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldRepairBrokenPatrolShip(FunctionalTester $I): void
+    {
+        // given a broken Patrol Ship in the room
+        $patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $patrolShip,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given drone has a 100% chance to repair the equipment
+        $patrolShip->getActionConfigByNameOrThrow(ActionEnum::RENOVATE)->setSuccessRate(100);
+
+        // when drone acts
+        $this->droneTasksHandler->execute($this->drone, new \DateTime());
+
+        // then the Patrol Ship should be repaired
+        $I->assertFalse($patrolShip->hasStatus(EquipmentStatusEnum::BROKEN));
+    }
+
     private function setupDroneNicknameAndSerialNumber(Drone $drone, int $nickName, int $serialNumber): void
     {
         $droneInfo = $drone->getDroneInfo();

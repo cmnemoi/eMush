@@ -114,9 +114,11 @@ final class AdminActionsController extends AbstractFOSRestController
     public function createAllPlayersInitStatusesEndpoint(): View
     {
         $ongoingDaedaluses = $this->daedalusRepository->findNonFinishedDaedaluses();
+
         /** @var Daedalus $daedalus */
         foreach ($ongoingDaedaluses as $daedalus) {
             $players = $daedalus->getPlayers()->getPlayerAlive();
+
             /** @var Player $player */
             foreach ($players as $player) {
                 /** @var StatusConfig $initStatus */

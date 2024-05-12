@@ -42,8 +42,15 @@ class AddEvent extends AbstractModifierHandler
 
         $newEvents = new EventChain([]);
         if ($eventConfig instanceof VariableEventConfig) {
+            $author = $events->getInitialEvent()?->getAuthor();
+            if ($author !== null && $modifierConfig->getApplyWhenTargeted()) {
+                $modifierTarget = $author;
+            } else {
+                $modifierTarget = $modifier->getModifierHolder();
+            }
+
             $newEvents = $this->createVariableEvents(
-                $modifier->getModifierHolder(),
+                $modifierTarget,
                 $eventConfig,
                 $priority,
                 $tags,
@@ -69,7 +76,10 @@ class AddEvent extends AbstractModifierHandler
     ): EventChain {
         $events = [];
 
-        $eventTargets = $this->eventCreationService->getEventTargetsFromModifierHolder($eventConfig->getVariableHolderClass(), $modifierHolder);
+        $eventTargets = $this->eventCreationService->getEventTargetsFromModifierHolder(
+            $eventConfig->getVariableHolderClass(),
+            $modifierHolder,
+        );
 
         foreach ($eventTargets as $target) {
             $event = $eventConfig->createEvent($priority, $tags, $time, $target);

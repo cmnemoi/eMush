@@ -39,8 +39,9 @@ final class EventCreationService implements EventCreationServiceInterface
         }
     }
 
-    private function getPlayersFromModifierHolder(ModifierHolderInterface $modifierHolder): PlayerCollection
-    {
+    private function getPlayersFromModifierHolder(
+        ModifierHolderInterface $modifierHolder,
+    ): PlayerCollection {
         if ($modifierHolder instanceof Player) {
             return new PlayerCollection([$modifierHolder]);
         }
@@ -56,12 +57,6 @@ final class EventCreationService implements EventCreationServiceInterface
 
             if ($holder instanceof Player) {
                 return new PlayerCollection([$holder]);
-            }
-            // This is a non-working Hack for Thalasso modifier.
-            // Thalasso's holder is a place, but I want to apply the modifier on the player
-            // who triggered the event.
-            if ($holder instanceof Place) {
-                return $holder->getPlayers()->getPlayerAlive();
             }
 
             return new PlayerCollection([]);

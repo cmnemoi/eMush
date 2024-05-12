@@ -212,6 +212,11 @@ final class ShowerActionCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime()
         );
+        $I->assertCount(3, $thalasso->getModifiers());
+
+        $chunInitialHealthPoint = $this->chun->getHealthPoint();
+        $chunInitialMoralePoint = $this->chun->getMoralPoint();
+        $chunInitialMovementPoint = $this->chun->getMovementPoint();
 
         // when Chun takes a shower
         $this->showerAction->loadParameters(
@@ -220,11 +225,8 @@ final class ShowerActionCest extends AbstractFunctionalTest
             player: $this->chun,
             target: $thalasso
         );
+        $I->assertNull($this->showerAction->cannotExecuteReason());
         $this->showerAction->execute();
-
-        $chunInitialHealthPoint = $this->chun->getHealthPoint();
-        $chunInitialMoralePoint = $this->chun->getMoralPoint();
-        $chunInitialMovementPoint = $this->chun->getMovementPoint();
 
         // then Chun should have gained one health point or one morale point or two movement points
         $I->assertTrue(

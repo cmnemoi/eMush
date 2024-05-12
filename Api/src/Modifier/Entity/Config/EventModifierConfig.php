@@ -30,7 +30,7 @@ class EventModifierConfig extends AbstractModifierConfig
     protected string $priority = ModifierPriorityEnum::BEFORE_INITIAL_EVENT;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
-    protected bool $applyOnTarget = false;
+    protected bool $applyWhenTargeted = false;
 
     #[ORM\Column(type: 'array', nullable: false)]
     protected array $tagConstraints = [];
@@ -68,14 +68,14 @@ class EventModifierConfig extends AbstractModifierConfig
         return $this;
     }
 
-    public function getApplyOnTarget(): bool
+    public function getApplyWhenTargeted(): bool
     {
-        return $this->applyOnTarget;
+        return $this->applyWhenTargeted;
     }
 
-    public function setApplyOnTarget(bool $onTargetOnly): self
+    public function setApplyWhenTargeted(bool $onTargetOnly): self
     {
-        $this->applyOnTarget = $onTargetOnly;
+        $this->applyWhenTargeted = $onTargetOnly;
 
         return $this;
     }

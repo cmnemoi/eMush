@@ -301,7 +301,7 @@ class PlayerCycleSubscriberCest
         $symptomConfig = new EventModifierConfig('biting_test');
         $symptomConfig
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(SymptomEnum::BITING);

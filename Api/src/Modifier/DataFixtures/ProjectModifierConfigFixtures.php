@@ -45,7 +45,7 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(DaedalusCycleEvent::DAEDALUS_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
 
         $manager->persist($plasmaShieldNewCycleModifier);

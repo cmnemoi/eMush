@@ -73,7 +73,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS])
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
         $manager->persist($frozenModifier);
 
@@ -143,7 +143,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $antisocialModifier
             ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($notAloneActivationRequirement)
             ->addModifierRequirement($modifierRequirementNotMush)
@@ -158,7 +158,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setModifierName(ModifierNameEnum::LOST_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($lostModifier);
@@ -169,7 +169,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints(['base_player_cycle_change' => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
@@ -183,7 +183,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::STARVING);
         $manager->persist($starvingModifier);
@@ -195,7 +195,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setTagConstraints([PlayerEvent::CYCLE_DISEASE => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($increaseCycleDiseaseChances30);
@@ -222,7 +222,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setTagConstraints([
                 ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::CONSUME_DRUG->value => ModifierRequirementEnum::ANY_TAGS,
@@ -235,7 +235,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $mushConsumeModifier
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setTagConstraints([
                 ActionEnum::CONSUME->value => ModifierRequirementEnum::ALL_TAGS,
                 PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ANY_TAGS,
@@ -254,7 +254,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setTagConstraints([
                 ActionTypeEnum::ACTION_SHOOT_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionTypeEnum::ACTION_SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
@@ -270,7 +270,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setTagConstraints([
                 PlayerVariableEnum::MORAL_POINT => ModifierRequirementEnum::ALL_TAGS,
                 VariableEventInterface::LOSS => ModifierRequirementEnum::ALL_TAGS,
@@ -343,7 +343,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($immunizedModifierSet0SporesOnChangeVariable);
 
@@ -354,7 +354,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setTagConstraints([
                 ActionTypeEnum::ACTION_TECHNICIAN->value => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -383,7 +383,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setTagConstraints([
                 ActionTypeEnum::ACTION_CONCEPTOR->value => ModifierRequirementEnum::ANY_TAGS,
             ])

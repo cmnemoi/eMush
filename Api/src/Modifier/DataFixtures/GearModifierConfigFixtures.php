@@ -89,7 +89,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
                 ActionOutputEnum::CRITICAL_SUCCESS => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER);
         $manager->persist($armorModifier);
 
@@ -107,7 +107,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $glovesModifier = new EventModifierConfig('preventClumsinessModifier');
         $glovesModifier
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setTagConstraints([EndCauseEnum::CLUMSINESS => ModifierRequirementEnum::ALL_TAGS])
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
@@ -248,7 +248,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([PlayerService::BASE_PLAYER_CYCLE_CHANGE => ModifierRequirementEnum::ALL_TAGS])
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
 
         $manager->persist($gravityCycleModifier);
@@ -317,7 +317,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setTagConstraints([
                 ActionEnum::INSERT_FUEL_CHAMBER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::INSERT_FUEL->value => ModifierRequirementEnum::ANY_TAGS,
@@ -332,7 +332,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setTagConstraints([
                 ActionEnum::SHOOT_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::SHOOT_RANDOM_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
@@ -343,7 +343,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $ropeModifier = new EventModifierConfig(self::ROPE_MODIFIER);
         $ropeModifier
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setTagConstraints([
                 PlanetSectorEvent::ACCIDENT => ModifierRequirementEnum::ALL_TAGS,
                 PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ALL_TAGS,
@@ -376,7 +376,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
                 ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ])
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setModifierName(ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
         $manager->persist($thalassoHealthPointModifier);
@@ -391,7 +391,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ])
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setModifierName(ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
         $manager->persist($thalassoMoralePointModifier);
@@ -406,7 +406,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ])
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setModifierName(ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
         $manager->persist($thalassoMovementPointModifier);

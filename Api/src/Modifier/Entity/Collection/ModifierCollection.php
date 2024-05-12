@@ -63,7 +63,7 @@ class ModifierCollection extends ArrayCollection
     {
         return $this->filter(static fn (GameModifier $modifier) => (
             ($modifierConfig = $modifier->getModifierConfig()) instanceof EventModifierConfig
-            && $modifierConfig->getApplyOnTarget() === $condition
+            && $modifierConfig->getApplyWhenTargeted() === $condition
         ));
     }
 }

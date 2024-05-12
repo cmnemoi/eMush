@@ -234,7 +234,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $cannotMoveModifier = new EventModifierConfig('prevent_move');
         $cannotMoveModifier
             ->setTargetEvent(ActionEvent::PRE_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setTagConstraints([
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
@@ -251,7 +251,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $preventTakeHeavy = new EventModifierConfig('prevent_pick_heavy_item');
         $preventTakeHeavy
             ->setTargetEvent(ActionEvent::PRE_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setTagConstraints([
                 ActionEnum::TAKE->value => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -265,7 +265,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $preventAttackActions = new EventModifierConfig('prevent_attack_action');
         $preventAttackActions
             ->setTargetEvent(ActionEvent::PRE_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setTagConstraints([
                 ActionTypeEnum::ACTION_ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -277,7 +277,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $preventPiloting = new EventModifierConfig('prevent_piloting_actions');
         $preventPiloting
             ->setTargetEvent(ActionEvent::PRE_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setTagConstraints([
                 ActionTypeEnum::ACTION_PILOT->value => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -289,7 +289,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $preventShoot = new EventModifierConfig('prevent_shooting');
         $preventShoot
             ->setTargetEvent(ActionEvent::PRE_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setTagConstraints([
                 ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -301,7 +301,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $muteModifier = new EventModifierConfig('mute_modifier');
         $muteModifier
             ->setTargetEvent(MessageEvent::NEW_MESSAGE)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
@@ -316,7 +316,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $septicemiaCycleChange = new EventModifierConfig('septicemia_cycle_change');
         $septicemiaCycleChange
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->addModifierRequirement($dirtyRequirement)
@@ -327,7 +327,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $septicemiaPostAction = new EventModifierConfig('septicemia_post_action');
         $septicemiaPostAction
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->addModifierRequirement($dirtyRequirement)
@@ -338,7 +338,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $septicemiaOnDirty = new EventModifierConfig('septicemia_on_dirty');
         $septicemiaOnDirty
             ->setTargetEvent(StatusEvent::STATUS_APPLIED)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
@@ -358,7 +358,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $fearOfCat = new EventModifierConfig('fear_of_cat_modifier');
         $fearOfCat
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
@@ -372,7 +372,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $psychoticAttack = new EventModifierConfig('psychotic_attacks');
         $psychoticAttack
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
@@ -384,7 +384,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $bitingModifier = new EventModifierConfig('biting_modifier');
         $bitingModifier
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -395,7 +395,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $breakoutsModifier = new EventModifierConfig('breakouts_modifier');
         $breakoutsModifier
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
@@ -407,7 +407,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $catAllergySymptom = new EventModifierConfig('cat_allergy');
         $catAllergySymptom
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
@@ -422,7 +422,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $catSneezing = new EventModifierConfig('cat_sneezing');
         $catSneezing
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ALL_TAGS,
@@ -439,7 +439,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $vomitingConsume = new EventModifierConfig('vomiting_consume');
         $vomitingConsume
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::CONSUME_DRUG->value => ModifierRequirementEnum::ANY_TAGS,
@@ -456,7 +456,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $vomitingMove = new EventModifierConfig('vomiting_move_random_40');
         $vomitingMove
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
@@ -470,7 +470,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $cycleDirtiness = new EventModifierConfig('cycle_dirtiness');
         $cycleDirtiness
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -480,7 +480,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $cycleDirtinessRandom = new EventModifierConfig('cycle_dirtiness_random_40');
         $cycleDirtinessRandom
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -491,7 +491,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $drooling = new EventModifierConfig('drooling_on_move');
         $drooling
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
@@ -505,7 +505,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $foamingMouth = new EventModifierConfig('foaming_mouth');
         $foamingMouth
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
@@ -524,7 +524,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $mushSneezing = new EventModifierConfig('mush_sneezing');
         $mushSneezing
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setApplyOnTarget(false)
+            ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,

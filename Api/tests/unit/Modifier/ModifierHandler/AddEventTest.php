@@ -111,7 +111,7 @@ final class AddEventTest extends TestCase
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ])
-            ->setApplyOnTarget(true)
+            ->setApplyWhenTargeted(true)
             ->setModifierName(ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
 

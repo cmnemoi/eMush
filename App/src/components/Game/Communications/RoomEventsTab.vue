@@ -5,7 +5,7 @@
             :id="id"
             :key="id"
             class="unit"
-            :cycleRoomLog="cycleRoomLog"
+            :cycle-room-log="cycleRoomLog"
             :calendar="calendar"
         />
     </TabContainer>
@@ -19,7 +19,6 @@ import TabContainer from "@/components/Game/Communications/TabContainer.vue";
 import { defineComponent } from "vue";
 import { GameCalendar } from "@/entities/GameCalendar";
 import { RoomLog } from "@/entities/RoomLog";
-import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: "RoomEventsTab",
@@ -29,7 +28,7 @@ export default defineComponent ({
     },
     data() {
         return {
-            showComponent: true,
+            showComponent: true
         };
     },
     props: {

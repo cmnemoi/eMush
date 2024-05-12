@@ -20,17 +20,17 @@ import { getImgUrl } from "@/utils/getImgUrl";
 export default defineComponent ({
     name: "LogsUnit",
     components: {
-        Log    
+        Log
     },
     data() {
         return {
-            isOpen: true,
+            isOpen: true
         };
     },
     props: {
         cycleRoomLog: Object,
         calendar: GameCalendar,
-        retracted: Boolean,
+        retracted: Boolean
     },
     computed: {
         ...mapGetters('communication', [

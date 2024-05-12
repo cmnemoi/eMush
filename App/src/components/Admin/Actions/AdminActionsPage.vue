@@ -43,7 +43,7 @@ export default defineComponent ({
                 quantity: 1,
                 place: 'laboratory'
             }
-        }
+        };
     },
     methods: {
         ...mapActions({
@@ -53,7 +53,7 @@ export default defineComponent ({
         }),
         createEquipment(createEquipmentDto: CreateEquipmentDto) {
             this.createEquipmentForOnGoingDaedaluses(createEquipmentDto);
-        },
+        }
     }
 });
 </script>

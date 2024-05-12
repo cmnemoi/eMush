@@ -875,7 +875,7 @@
                     }}
                     other {invalid version input}
                 }</target>
-        </segment>
+      </segment>
     </unit>
   </file>
 </xliff>

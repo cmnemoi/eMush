@@ -104,7 +104,7 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
       </segment>
       <segment id="tips" state="final">
         <source>block_of_post_it.tips</source>
-        <target>&lt;target/&gt;</target>
+        <target/>
       </segment>
     </unit>
     <unit id="exploration">

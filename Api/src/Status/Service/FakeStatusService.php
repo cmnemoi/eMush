@@ -166,4 +166,10 @@ final class FakeStatusService implements StatusServiceInterface
 
         return $chargeStatus;
     }
+
+    public function deleteAllStatusesByName(string $name): void
+    {
+        $this->statuses->filter(static fn (Status $status) => $status->getName() === $name)
+            ->map(fn (Status $status) => $this->statuses->removeElement($status));
+    }
 }

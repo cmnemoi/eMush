@@ -1,21 +1,28 @@
 <template>
     <h1>{{ $t('admin.actions.title') }}</h1>
-    <h2>{{ $t('admin.actions.projects') }}</h2>
+    <h2>{{$t('admin.actions.equipment.title') }}</h2>
     <div class="flex-row">
-        <button class="action-button" @click="createProjects">
-            {{ $t('admin.actions.createProjects') }}
-        </button>
-        <button class="action-button" @click="proposeProjects">
-            {{ $t('admin.actions.proposeProjects') }}
+        <Input :label="$t('admin.actions.equipment.name')" type="text" v-model="createEquipmentDto.equipmentName" />
+        <Input :label="$t('admin.actions.equipment.quantity')" type="number" v-model="createEquipmentDto.quantity" />
+        <Input :label="$t('admin.actions.equipment.place')" type="text" v-model="createEquipmentDto.place" />
+        <button class="action-button" @click="createEquipment(createEquipmentDto)">
+            {{ $t('admin.actions.equipment.create') }}
         </button>
     </div>
-    <h2>{{$t('admin.actions.equipment') }}</h2>
+    <h2>{{ $t('admin.actions.projects.title') }}</h2>
     <div class="flex-row">
-        <Input :label="$t('admin.actions.equipmentName')" type="text" v-model="createEquipmentDto.equipmentName" />
-        <Input :label="$t('admin.actions.equipmentQuantity')" type="number" v-model="createEquipmentDto.quantity" />
-        <Input :label="$t('admin.actions.equipmentPlace')" type="text" v-model="createEquipmentDto.place" />
-        <button class="action-button" @click="createEquipment(createEquipmentDto)">
-            {{ $t('admin.actions.createEquipment') }}
+        <button class="action-button" @click="createProjects">
+            {{ $t('admin.actions.projects.create') }}
+        </button>
+        <button class="action-button" @click="proposeProjects">
+            {{ $t('admin.actions.projects.propose') }}
+        </button>
+    </div>
+    <h2>{{$t('admin.actions.statuses.title') }}</h2>
+    <div class="flex-row">
+        <Input :label="$t('admin.actions.statuses.name')" type="text" v-model="deleteAllStatusesDto.statusName" />
+        <button class="action-button" @click="deleteAllStatuses(deleteAllStatusesDto)">
+            {{ $t('admin.actions.statuses.deleteAllByName') }}
         </button>
     </div>
 </template>
@@ -31,6 +38,10 @@ interface CreateEquipmentDto {
     place: string;
 }
 
+interface DeleteAllStatusesDto {
+    statusName: string;
+}
+
 export default defineComponent ({
     name: 'AdminActionsPage',
     components: {
@@ -42,6 +53,9 @@ export default defineComponent ({
                 equipmentName: 'metal_scraps',
                 quantity: 1,
                 place: 'laboratory'
+            },
+            deleteAllStatusesDto: {
+                statusName: 'mush'
             }
         };
     },
@@ -49,10 +63,14 @@ export default defineComponent ({
         ...mapActions({
             createProjects: 'adminActions/createProjectsForOnGoingDaedaluses',
             createEquipmentForOnGoingDaedaluses: 'adminActions/createEquipmentForOnGoingDaedaluses',
+            deleteAllStatusesByName: 'adminActions/deleteAllStatusesByName',
             proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses'
         }),
         createEquipment(createEquipmentDto: CreateEquipmentDto) {
             this.createEquipmentForOnGoingDaedaluses(createEquipmentDto);
+        },
+        deleteAllStatuses(deleteAllStatusesDto: DeleteAllStatusesDto) {
+            this.deleteAllStatusesByName(deleteAllStatusesDto);
         }
     }
 });

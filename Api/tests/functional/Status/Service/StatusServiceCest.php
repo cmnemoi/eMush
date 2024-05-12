@@ -505,4 +505,25 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(2, $room->getEquipments()->first()->getStatuses());
     }
+
+    public function shouldDeleteAllStatusesByName(FunctionalTester $I): void
+    {
+        // given some starving statuses
+        foreach ($this->players as $player) {
+            $this->statusService->createStatusFromName(
+                statusName: PlayerStatusEnum::STARVING,
+                holder: $player,
+                tags: [],
+                time: new \DateTime(),
+            );
+        }
+
+        // when we delete all statuses with name 'starving'
+        $this->statusService->deleteAllStatusesByName(PlayerStatusEnum::STARVING);
+
+        // then players should not have any statuses
+        foreach ($this->players as $player) {
+            $I->assertFalse($player->hasStatus(PlayerStatusEnum::STARVING));
+        }
+    }
 }

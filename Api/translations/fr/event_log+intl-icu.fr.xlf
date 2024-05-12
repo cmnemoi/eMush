@@ -768,114 +768,28 @@
       </segment>
     </unit>
     <unit id="drone">
-      <segment state="translated">
+      <segment state="initial">
         <source>drone</source>
-        <target>**Robo {drone_nickname, select,
-        1 {Betty}
-        2 {Charlotte}
-        3 {Dalek}
-        4 {Dave}
-        5 {Doc}
-        6 {Doudou}
-        7 {Douglams}
-        8 {Einstein}
-        9 {Fido}
-        10 {Fito}
-        11 {Groo}
-        12 {Isaac}
-        13 {Loulou}
-        14 {Médor}
-        15 {Nabuk}
-        16 {Papitou}
-        17 {Poutou}
-        18 {Rex}
-        19 {Robbie}
-        20 {Robert}
-        21 {Selry}
-        22 {Steve}
-        23 {Terminus}
-        24 {Troll}
-        25 {Vortex}
-        26 {Weathley}
-        other {Wealthley}} #{drone_serial_number}**</target>
+        <target>drone</target>
       </segment>
     </unit>
     <unit id="drone_entered_room">
-      <segment state="translated">
+      <segment state="initial">
         <source>drone_entered_room</source>
-        <target>{drone} est entré.</target>
+        <target>drone_entered_room</target>
       </segment>
     </unit>
     <unit id="drone_exit_room">
-      <segment state="translated">
+      <segment state="initial">
         <source>drone_exited_room</source>
-        <target>{drone} est sorti.</target>
+        <target>drone_exited_room</target>
       </segment>
     </unit>
     <unit id="drone_repaired_equipment">
-      <segment id="drone_repaired_equipment" state="final">
+      <segment id="drone_repaired_equipment" state="initial">
         <source>drone_repaired_equipment</source>
-        <target>{version, select,
-                    1 {{target_equipment_first_letter, select,
-                        vowel {La dernière tentative de {drone} pour réparer l'**{target_equipment}** s'est avérée fructueuse.}
-                        other {{target_equipment_gender, select,
-                            male {La dernière tentative de {drone} pour réparer le **{target_equipment}** s'est avérée fructueuse.}
-                            female {La dernière tentative de {drone} pour réparer la **{target_equipment}** s'est avérée fructueuse.}
-                            other {invalid gender input}
-                        }}
-                    }}
-                    2 {{target_equipment_first_letter, select,
-                        vowel {Félicitations {drone}. L'**{target_equipment}** fonctionne à nouveau.}
-                        other {{target_equipment_gender, select,
-                            male {Félicitations {drone}. Le **{target_equipment}** fonctionne à nouveau.}
-                            female {Félicitations {drone}. La **{target_equipment}** fonctionne à nouveau.}
-                            other {invalid gender input}
-                        }}
-                    }}
-                    3 {{target_equipment_first_letter, select,
-                        vowel {{target_equipment_gender, select,
-                            male {L'**{target_equipment}** est à nouveau fonctionnel, merci {drone}.}
-                            female {L'**{target_equipment}** est à nouveau fonctionnelle, merci {drone}.}
-                            other {invalid gender input}
-                        }}
-                        other {{target_equipment_gender, select,
-                            male {Le **{target_equipment}** est à nouveau fonctionnel, merci {drone}.}
-                            female {La **{target_equipment}** est à nouveau fonctionnelle, merci {drone}.}
-                            other {invalid gender input}
-                        }}
-                    }}
-                    4 {{target_equipment_gender, select,
-                        male {{drone} a enfin réussi les réparations sur ce maudit **{target_equipment}**.}
-                        female {{drone} a enfin réussi les réparations sur cette maudite **{target_equipment}**.}
-                        other {invalid gender input}
-                    }}
-                    5 {{target_equipment_first_letter, select,
-                        vowel {{drone} a enfin remis l'**{target_equipment}** à neuf.}
-                        other {{target_equipment_gender, select,
-                            male {{drone} a enfin remis le **{target_equipment}** à neuf.}
-                            female {{drone} a enfin remis la **{target_equipment}** à neuf.}
-                            other {invalid gender input}
-                        }}
-                    }}
-                    6 {{target_equipment_first_letter, select,
-                        vowel {{target_equipment_gender, select,
-                            male {{drone} peut se féliciter. L'**{target_equipment}** est réparé.}
-                            female {{drone} peut se féliciter. L'**{target_equipment}** est réparée.}
-                            other {invalid gender input}
-                        }}
-                        other {{target_equipment_gender, select,
-                            male {{drone} peut se féliciter. Le **{target_equipment}** est réparé.}
-                            female {{drone} peut se féliciter. La **{target_equipment}** est réparée.}
-                            other {invalid gender input}
-                        }}
-                    }}
-                    7 {{target_equipment_first_letter, select,
-                        vowel {{drone} s'est finalement motivé et a réparé l'**{target_equipment}**. Bravo.}
-                        other {{drone} s'est finalement motivé et a réparé le **{target_equipment}**. Bravo.}
-                    }}
-                    other {invalid version input}
-                }</target>
-        </segment>
+        <target>drone_repaired_equipment</target>
+      </segment>
     </unit>
   </file>
 </xliff>

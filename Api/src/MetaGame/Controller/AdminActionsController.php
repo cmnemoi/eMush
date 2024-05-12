@@ -9,12 +9,15 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepository;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\MetaGame\Controller\Dto\CreateEquipmentForDaedalusesDto;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -28,6 +31,7 @@ final class AdminActionsController extends AbstractFOSRestController
     public function __construct(
         private readonly CreateProjectFromConfigForDaedalusUseCase $createProjectFromConfigForDaedalusUseCase,
         private readonly DaedalusRepository $daedalusRepository,
+        private readonly GameEquipmentServiceInterface $gameEquipmentService,
         private readonly ProposeNewNeronProjectsUseCase $proposeNewNeronProjectsUseCase
     ) {}
 
@@ -55,6 +59,41 @@ final class AdminActionsController extends AbstractFOSRestController
         }
 
         return $this->view(['detail' => 'Projects created successfully.'], Response::HTTP_CREATED);
+    }
+
+    /**
+     * Create pieces of equipment for all on-going Daedaluses.
+     *
+     * @OA\Tag(name="Admin")
+     *
+     * @Security(name="Bearer")
+     *
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @Rest\Post(path="/create-equipment-for-on-going-daedaluses")
+     */
+    public function createEquipmentForDaedaluses(Request $request): View
+    {
+        $dto = new CreateEquipmentForDaedalusesDto(...$request->toArray());
+
+        $onGoingDaedaluses = $this->daedalusRepository->findNonFinishedDaedaluses();
+        $count = \count($onGoingDaedaluses);
+
+        /** @var Daedalus $daedalus */
+        foreach ($onGoingDaedaluses as $daedalus) {
+            $this->gameEquipmentService->createGameEquipmentsFromName(
+                equipmentName: $dto->equipmentName,
+                equipmentHolder: $daedalus->getPlaceByNameOrThrow($dto->place),
+                reasons: ['admin_action'],
+                time: new \DateTime(),
+                quantity: $dto->quantity,
+            );
+        }
+
+        return $this->view(
+            ['detail' => "{$dto->quantity} {$dto->equipmentName} created successfully in {$dto->place} for {$count} Daedaluses."],
+            Response::HTTP_CREATED
+        );
     }
 
     /**

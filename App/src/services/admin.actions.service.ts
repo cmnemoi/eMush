@@ -8,6 +8,16 @@ const AdminActionsService = {
     createProjectsForOnGoingDaedaluses: async(): Promise<any> => {
         return await ApiService.post(ADMIN_ACTIONS_ENDPOINT + '/create-all-projects-for-on-going-daedaluses');
     },
+    createEquipmentForOnGoingDaedaluses: async(equipmentName: string, quantity: integer, place: string): Promise<any> => {
+        return await ApiService.post(
+            urlJoin(ADMIN_ACTIONS_ENDPOINT, 'create-equipment-for-on-going-daedaluses'),
+            {
+                equipmentName: equipmentName,
+                quantity: quantity,
+                place: place
+            }
+        );
+    },
     proposeNewNeronProjectsForOnGoingDaedaluses: async(): Promise<any> => {
         return await ApiService.put(ADMIN_ACTIONS_ENDPOINT + '/propose-new-neron-projects-for-on-going-daedaluses');
     }

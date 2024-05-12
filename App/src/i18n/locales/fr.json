@@ -201,7 +201,13 @@
 	},
 	"admin": {
 		"actions": {
+			"createEquipment": "Créer de l'équipment pour les vaisseaux en cours",
 			"createProjects": "Créer les projets pour les Daedalus en cours",
+			"equipment": "Équipement",
+			"equipmentName":"Nom de l'équipement",
+			"equipmentQuantity": "Quantité",
+			"equipmentPlace": "Salle où créer l'équipement",
+			"projects": "Projets",
 			"proposeProjects": "Proposer des projets pour les Daedalus en cours",
 			"title": "Actions administratives"
 		},

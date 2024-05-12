@@ -21,7 +21,8 @@ class PlayerVariableEvent extends PlayerEvent implements VariableEventInterface
         $this->variableName = $variableName;
 
         parent::__construct($player, $tags, $time);
-        $this->setQuantity($quantity);
+        $this->quantity = $quantity;
+        $this->addTagsFromQuantity();
         $this->addTag($variableName);
     }
 
@@ -37,25 +38,18 @@ class PlayerVariableEvent extends PlayerEvent implements VariableEventInterface
 
     public function setQuantity(float $quantity): self
     {
-        $this->quantity = $quantity;
-
-        if ($quantity < 0) {
-            $key = array_search(VariableEventInterface::GAIN, $this->tags, true);
-
-            if ($key === false) {
-                $this->addTag(VariableEventInterface::LOSS);
-            } elseif (!\in_array(VariableEventInterface::LOSS, $this->tags, true)) {
-                $this->tags[$key] = VariableEventInterface::LOSS;
-            }
-        } elseif ($quantity > 0) {
-            $key = array_search(VariableEventInterface::LOSS, $this->tags, true);
-
-            if ($key === false) {
-                $this->addTag(VariableEventInterface::GAIN);
-            } elseif (!\in_array(VariableEventInterface::GAIN, $this->tags, true)) {
-                $this->tags[$key] = VariableEventInterface::GAIN;
-            }
+        // this event quantity should never change sign
+        if (
+            $quantity !== 0.
+            && $this->quantity !== 0.
+            && abs($this->quantity) / $this->quantity !== abs($quantity) / $quantity
+        ) {
+            $this->quantity = 0;
+        } else {
+            $this->quantity = $quantity;
         }
+
+        $this->addTagsFromQuantity();
 
         return $this;
     }
@@ -76,5 +70,26 @@ class PlayerVariableEvent extends PlayerEvent implements VariableEventInterface
         $params['quantity'] = abs($this->quantity);
 
         return $params;
+    }
+
+    private function addTagsFromQuantity(): void
+    {
+        if ($this->quantity < 0) {
+            $this->addTag(VariableEventInterface::LOSS);
+        } else {
+            $key = array_search(VariableEventInterface::LOSS, $this->tags, true);
+            if ($key !== false) {
+                unset($this->tags[$key]);
+            }
+        }
+
+        if ($this->quantity > 0) {
+            $this->addTag(VariableEventInterface::GAIN);
+        } else {
+            $key = array_search(VariableEventInterface::GAIN, $this->tags, true);
+            if ($key !== false) {
+                unset($this->tags[$key]);
+            }
+        }
     }
 }

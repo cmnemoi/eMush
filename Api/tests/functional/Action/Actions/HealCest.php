@@ -24,6 +24,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
@@ -114,6 +115,8 @@ final class HealCest extends AbstractFunctionalTest
         $healedPlayer->setPlayerInfo($healedPlayerInfo);
         $I->refreshEntities($healedPlayer);
 
+        $initHealthPoint = $healedPlayer->getHealthPoint();
+
         $this->healAction->loadParameters(
             actionConfig: $action,
             actionProvider: $healerPlayer,
@@ -127,7 +130,7 @@ final class HealCest extends AbstractFunctionalTest
         $this->healAction->execute();
 
         $I->assertEquals(0, $healerPlayer->getActionPoint());
-        $I->assertEquals(9, $healedPlayer->getHealthPoint());
+        $I->assertEquals($initHealthPoint + 3, $healedPlayer->getHealthPoint());
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $medlab->getName(),
@@ -223,6 +226,12 @@ final class HealCest extends AbstractFunctionalTest
             player: $this->player2,
             reasons: []
         );
+
+        $this->player2->setHealthPoint(14);
+        $I->refreshEntities($this->player2);
+
+        $healthVariable = $this->player2->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
+        $I->assertTrue($healthVariable->isMax());
 
         // when player 1 heals player 2
         $this->healAction->loadParameters(

@@ -473,9 +473,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $characterConfig
             ->setMaxNumberPrivateChannel(3)
-            ->setInitHealthPoint(14)
+            ->setInitHealthPoint(10)
             ->setMaxHealthPoint(14)
-            ->setInitMoralPoint(14)
+            ->setInitMoralPoint(10)
             ->setMaxMoralPoint(14)
             ->setInitSatiety(0)
             ->setInitActionPoint(8)

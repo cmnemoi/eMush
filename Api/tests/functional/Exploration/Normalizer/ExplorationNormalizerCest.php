@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mush\Exploration\Normalizer;
+namespace Mush\Tests\functional\Exploration\Normalizer;
 
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Exploration\Normalizer\ExplorationNormalizer;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -97,7 +98,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                     [
                         'key' => CharacterEnum::CHUN,
                         'name' => 'Chun',
-                        'healthPoints' => 14,
+                        'healthPoints' => $this->chun->getCharacterConfig()->getInitHealthPoint(),
                         'isDead' => false,
                         'isLost' => false,
                         'isStuck' => false,
@@ -181,7 +182,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                     [
                         'key' => CharacterEnum::CHUN,
                         'name' => 'Chun',
-                        'healthPoints' => 14,
+                        'healthPoints' => $this->chun->getCharacterConfig()->getInitHealthPoint(),
                         'isDead' => false,
                         'isLost' => true,
                         'isStuck' => false,

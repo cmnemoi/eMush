@@ -11,9 +11,11 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\MetaGame\Dto\CreateEquipmentForDaedalusesDto;
+use Mush\Player\Entity\Player;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Service\StatusServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -96,6 +98,40 @@ final class AdminActionsController extends AbstractFOSRestController
             ['detail' => "{$dto->quantity} {$dto->equipmentName} created successfully in {$dto->place} for {$count} Daedaluses."],
             Response::HTTP_CREATED
         );
+    }
+
+    /**
+     * Create all players init statuses for on-going Daedaluses.
+     *
+     * @OA\Tag(name="Admin")
+     *
+     * @Security(name="Bearer")
+     *
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @Rest\Post(path="/create-all-players-init-statuses")
+     */
+    public function createAllPlayersInitStatusesEndpoint(): View
+    {
+        $ongoingDaedaluses = $this->daedalusRepository->findNonFinishedDaedaluses();
+        /** @var Daedalus $daedalus */
+        foreach ($ongoingDaedaluses as $daedalus) {
+            $players = $daedalus->getPlayers()->getPlayerAlive();
+            /** @var Player $player */
+            foreach ($players as $player) {
+                /** @var StatusConfig $initStatus */
+                foreach ($player->getCharacterConfig()->getInitStatuses() as $initStatus) {
+                    $this->statusService->createStatusFromConfig(
+                        statusConfig: $initStatus,
+                        holder: $player,
+                        tags: ['admin_action'],
+                        time: new \DateTime(),
+                    );
+                }
+            }
+        }
+
+        return $this->view(['detail' => 'All init statuses created successfully.'], Response::HTTP_CREATED);
     }
 
     /**

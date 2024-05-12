@@ -215,6 +215,7 @@
 			},
 			"statuses": {
 				"title": "Status",
+				"createAllPlayersInitStatuses": "Créer les status de départ pour tous les joueurs",
 				"deleteAllByName": "Supprimer tous les status portant ce nom",
 				"name": "Nom"
 			},

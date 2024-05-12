@@ -18,6 +18,9 @@ const AdminActionsService = {
             }
         );
     },
+    createPlayersAllInitStatusesForOnGoingDaedaluses: async(): Promise<any> => {
+        return await ApiService.post(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'create-all-players-init-statuses'));
+    },
     deleteAllStatusesByName: async(statusName: string): Promise<any> => {
         return await ApiService.delete(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'delete-all-statuses-by-name', statusName));
     },

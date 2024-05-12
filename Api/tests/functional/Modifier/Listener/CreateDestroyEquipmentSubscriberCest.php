@@ -261,8 +261,8 @@ class CreateDestroyEquipmentSubscriberCest
 
         $name = 'test name';
 
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, [
+        /** @var ItemConfig $equipmentConfig */
+        $equipmentConfig = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$gear]),
             'name' => $name,
             'equipmentName' => $name,
@@ -289,6 +289,9 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $I->haveInRepository($playerInfo);
 
         $equipment = $this->gameEquipmentService->createGameEquipmentFromName(
             $name,

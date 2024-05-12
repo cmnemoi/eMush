@@ -89,4 +89,13 @@ interface GameEquipmentServiceInterface
      * @param array         $tags       tags of the event leading to the destruction
      */
     public function handlePatrolShipDestruction(GameEquipment $patrolShip, ?Player $player, array $tags): void;
+
+    public function moveEquipmentTo(
+        GameEquipment $equipment,
+        EquipmentHolderInterface $newHolder,
+        string $visibility = VisibilityEnum::HIDDEN,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
+        ?Player $author = null
+    ): void;
 }

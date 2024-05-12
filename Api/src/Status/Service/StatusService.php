@@ -7,13 +7,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
@@ -184,49 +182,19 @@ class StatusService implements StatusServiceInterface
     }
 
     public function handleAttempt(
-        Player $player,
-        ActionEnum $actionName,
+        StatusHolderInterface $holder,
+        string $actionName,
         ActionResult $result,
         array $tags,
         \DateTime $time
     ): void {
         /** @var Attempt $attempt */
-        $attempt = $player->getStatusByName(StatusEnum::ATTEMPT);
+        $attempt = $holder->getStatusByName(StatusEnum::ATTEMPT);
 
         if ($result instanceof Success) {
             $this->handleAttemptOnSuccess($attempt);
         } else {
-            $this->handleAttemptOnFailure($attempt, $player, $actionName, $tags, $time);
-        }
-    }
-
-    public function handleAttemptOnFailure(
-        ?Attempt $attempt,
-        Player $player,
-        ActionEnum $actionName,
-        array $tags,
-        \DateTime $time
-    ): void {
-        if ($attempt && $attempt->getAction() !== $actionName) {
-            // Re-initialize attempts with new action
-            $attempt
-                ->setAction($actionName);
-            $attempt->getGameVariables()->setValueByName(0, $attempt->getName());
-        } elseif ($attempt === null) { // Create Attempt
-            $attempt = $this->createAttemptStatus(
-                $actionName,
-                $player
-            );
-        }
-        $this->persist($attempt);
-
-        $this->updateCharge($attempt, 1, $tags, $time);
-    }
-
-    public function handleAttemptOnSuccess(?Attempt $attempt): void
-    {
-        if ($attempt !== null) {
-            $this->delete($attempt);
+            $this->handleAttemptOnFailure($attempt, $holder, $actionName, $tags, $time);
         }
     }
 
@@ -314,12 +282,42 @@ class StatusService implements StatusServiceInterface
         return $chargeStatus;
     }
 
-    private function createAttemptStatus(ActionEnum $action, Player $player): Attempt
+    private function handleAttemptOnFailure(
+        ?Attempt $attempt,
+        StatusHolderInterface $holder,
+        string $actionName,
+        array $tags,
+        \DateTime $time
+    ): void {
+        if ($attempt && $attempt->getAction() !== $actionName) {
+            // Re-initialize attempts with new action
+            $attempt
+                ->setAction($actionName);
+            $attempt->getGameVariables()->setValueByName(0, $attempt->getName());
+        } elseif ($attempt === null) { // Create Attempt
+            $attempt = $this->createAttemptStatus(
+                $actionName,
+                $holder
+            );
+        }
+        $this->persist($attempt);
+
+        $this->updateCharge($attempt, 1, $tags, $time);
+    }
+
+    private function handleAttemptOnSuccess(?Attempt $attempt): void
+    {
+        if ($attempt !== null) {
+            $this->delete($attempt);
+        }
+    }
+
+    private function createAttemptStatus(string $action, StatusHolderInterface $holder): Attempt
     {
         /** @var ChargeStatusConfig $attemptConfig */
-        $attemptConfig = $this->getStatusConfigByNameAndDaedalus(StatusEnum::ATTEMPT, $player->getDaedalus());
+        $attemptConfig = $this->getStatusConfigByNameAndDaedalus(StatusEnum::ATTEMPT, $holder->getDaedalus());
 
-        $attempt = new Attempt($player, $attemptConfig);
+        $attempt = new Attempt($holder, $attemptConfig);
         $attempt->setAction($action);
 
         return $attempt;

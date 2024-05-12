@@ -12,6 +12,7 @@ use Mush\Disease\ConfigData\DiseaseConfigDataLoader;
 use Mush\Equipment\ConfigData\BlueprintDataLoader;
 use Mush\Equipment\ConfigData\BookDataLoader;
 use Mush\Equipment\ConfigData\DocumentDataLoader;
+use Mush\Equipment\ConfigData\DroneDataLoader;
 use Mush\Equipment\ConfigData\DrugDataLoader;
 use Mush\Equipment\ConfigData\EquipmentCommandConfigDataLoader;
 use Mush\Equipment\ConfigData\EquipmentConfigDataLoader;
@@ -74,6 +75,7 @@ class ConfigDataLoaderService
         WeaponDataLoader $weaponDataLoader,
         PatrolShipDataLoader $patrolShipDataLoader,
         ItemConfigDataLoader $itemConfigDataLoader,
+        DroneDataLoader $droneDataLoader,
         EquipmentConfigDataLoader $equipmentConfigDataLoader,
         CharacterConfigDataLoader $characterConfigDataLoader,
         RandomItemPlacesDataLoader $randomItemPlacesDataLoader,
@@ -120,6 +122,7 @@ class ConfigDataLoaderService
                 $weaponDataLoader,
                 $equipmentConfigDataLoader,
                 $itemConfigDataLoader,
+                $droneDataLoader,
                 $characterConfigDataLoader,
                 $randomItemPlacesDataLoader,
                 $placeConfigDataLoader,

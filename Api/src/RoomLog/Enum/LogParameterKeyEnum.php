@@ -12,4 +12,5 @@ class LogParameterKeyEnum
     public const string PLACE = 'place';
     public const string PLANET = 'planet';
     public const string PROJECT = 'project';
+    public const string DRONE = 'drone';
 }

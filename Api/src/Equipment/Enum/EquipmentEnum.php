@@ -26,7 +26,6 @@ class EquipmentEnum
     public const string KITCHEN = 'kitchen';
     public const string NARCOTIC_DISTILLER = 'narcotic_distiller';
     public const string SHOWER = 'shower';
-    public const string SUPPORT_DRONE = 'support_drone';
     public const string DYNARCADE = 'dynarcade';
     public const string JUKEBOX = 'jukebox';
     public const string RESEARCH_LABORATORY = 'research_laboratory';

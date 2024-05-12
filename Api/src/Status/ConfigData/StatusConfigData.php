@@ -3,6 +3,7 @@
 namespace Mush\Status\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -1216,6 +1217,19 @@ abstract class StatusConfigData
             'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
             'maxCharge' => null,
             'startCharge' => 1,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => false,
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE . '_default',
+            'statusName' => EquipmentStatusEnum::ELECTRIC_CHARGES,
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => 'hidden',
+            'chargeStrategy' => 'cycle_increment',
+            'maxCharge' => null,
+            'startCharge' => 0,
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [],

@@ -115,6 +115,9 @@ const COOKED_RATION = "cooked_ration";
 const ORGANIC_WASTE = "organic_waste";
 const ALIEN_STEAK = "alien_steak";
 
+// NPCs
+const SUPPORT_DRONE = "support_drone";
+
 
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
@@ -428,5 +431,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [WHITE_FLAG]: {
         'image': getImgUrl('items/white_flag.jpg')
+    },
+    [SUPPORT_DRONE] : {
+        'image': getImgUrl('items/help_drone.jpg')
     }
 };

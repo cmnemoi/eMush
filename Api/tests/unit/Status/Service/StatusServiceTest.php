@@ -282,12 +282,12 @@ final class StatusServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
-        $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult, [], new \DateTime());
+        $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE->value, $actionResult, [], new \DateTime());
 
         self::assertCount(1, $player->getStatuses());
         self::assertSame($player->getStatuses()->first()->getName(), StatusEnum::ATTEMPT);
         self::assertSame($player->getStatuses()->first()->getCharge(), 0);
-        self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE);
+        self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE->value);
     }
 
     public function testHandleAttemptStatusSameAction(): void
@@ -305,19 +305,19 @@ final class StatusServiceTest extends TestCase
 
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
-            ->setAction(ActionEnum::DISASSEMBLE)
+            ->setAction(ActionEnum::DISASSEMBLE->value)
             ->setCharge(3);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult, [], new \DateTime());
+        $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE->value, $actionResult, [], new \DateTime());
 
         self::assertCount(1, $player->getStatuses());
         self::assertSame($player->getStatuses()->first()->getName(), StatusEnum::ATTEMPT);
         self::assertSame($player->getStatuses()->first()->getCharge(), 3);
-        self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE);
+        self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE->value);
     }
 
     public function testHandleAttemptStatusNewAction(): void
@@ -334,19 +334,19 @@ final class StatusServiceTest extends TestCase
 
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
-            ->setAction(ActionEnum::DISASSEMBLE)
+            ->setAction(ActionEnum::DISASSEMBLE->value)
             ->setCharge(3);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->service->handleAttempt($player, ActionEnum::INSTALL_CAMERA, $actionResult, [], new \DateTime());
+        $this->service->handleAttempt($player, ActionEnum::INSTALL_CAMERA->value, $actionResult, [], new \DateTime());
 
         self::assertCount(1, $player->getStatuses());
         self::assertSame($player->getStatuses()->first()->getName(), StatusEnum::ATTEMPT);
         self::assertSame($player->getStatuses()->first()->getCharge(), 0);
-        self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::INSTALL_CAMERA);
+        self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::INSTALL_CAMERA->value);
     }
 
     public function testHandleAttemptStatusSuccess(): void
@@ -363,12 +363,12 @@ final class StatusServiceTest extends TestCase
 
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
-            ->setAction(ActionEnum::DISASSEMBLE)
+            ->setAction(ActionEnum::DISASSEMBLE->value)
             ->setCharge(3);
 
         $this->entityManager->shouldReceive('remove')->with($attempt)->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult, [], new \DateTime());
+        $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE->value, $actionResult, [], new \DateTime());
 
         self::assertCount(0, $player->getStatuses());
     }

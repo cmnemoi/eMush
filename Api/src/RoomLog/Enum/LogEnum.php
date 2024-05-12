@@ -64,6 +64,9 @@ abstract class LogEnum
     public const string LOST_ON_PLANET = 'lost_on_planet';
     public const string FITFUL_SLEEP = 'fitful_sleep';
     public const string ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
+    public const string DRONE_ENTERED_ROOM = 'drone_entered_room';
+    public const string DRONE_EXITED_ROOM = 'drone_exited_room';
+    public const string DRONE_REPAIRED_EQUIPMENT = 'drone_repaired_equipment';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

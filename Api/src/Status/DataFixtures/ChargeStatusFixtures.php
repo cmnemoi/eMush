@@ -534,6 +534,16 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($conceptorSkill);
 
+        $droneCharges = new ChargeStatusConfig();
+        $droneCharges
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setAutoRemove(false)
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($droneCharges);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -571,7 +581,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($changedCpuPriority)
             ->addStatusConfig($technicianSkill)
             ->addStatusConfig($conceptorSkill)
-            ->addStatusConfig($autoWateringFiresKilled);
+            ->addStatusConfig($autoWateringFiresKilled)
+            ->addStatusConfig($droneCharges);
 
         $manager->persist($gameConfig);
 
@@ -613,6 +624,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(SkillEnum::TECHNICIAN, $technicianSkill);
         $this->addReference(SkillEnum::CONCEPTOR, $conceptorSkill);
         $this->addReference(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES, $autoWateringFiresKilled);
+        $this->addReference(EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE, $droneCharges);
     }
 
     public function getDependencies(): array

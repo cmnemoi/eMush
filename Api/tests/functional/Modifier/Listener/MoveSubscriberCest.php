@@ -166,7 +166,7 @@ class MoveSubscriberCest
             'mechanics' => new ArrayCollection([$gear2]),
         ]);
 
-        $gameEquipment2 = $equipmentConfig2->createGameItem($player);
+        $gameEquipment2 = $equipmentConfig2->createGameEquipment($player);
 
         $I->haveInRepository($gameEquipment2);
         $I->refreshEntities($player);

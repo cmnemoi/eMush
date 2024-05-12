@@ -41,6 +41,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'game_equipment' => GameEquipment::class,
     'door' => Door::class,
     'game_item' => GameItem::class,
+    'drone' => Drone::class,
 ])]
 class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface
 {
@@ -213,6 +214,9 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
             ->exists(static fn (int $key, Status $status) => ($status->getName() === EquipmentStatusEnum::BROKEN));
     }
 
+    /**
+     * Checks if the equipment is operational: : it is not broken and has charges remaining.
+     */
     public function isOperational(): bool
     {
         /** @var Status $status */
@@ -229,6 +233,14 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
 
         return true;
+    }
+
+    /**
+     * Checks if the equipment is not operational: it is broken or has no charges remaining.
+     */
+    public function isNotOperational(): bool
+    {
+        return !$this->isOperational();
     }
 
     public function isBreakable(): bool
@@ -359,6 +371,18 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         )->toArray());
 
         return new ArrayCollection($actions);
+    }
+
+    public function getActionConfigByNameOrThrow(ActionEnum $actionName): ActionConfig
+    {
+        /** @var ActionConfig $actionConfig */
+        foreach ($this->equipment->getActionConfigs() as $actionConfig) {
+            if ($actionConfig->getActionName() === $actionName) {
+                return $actionConfig;
+            }
+        }
+
+        throw new \RuntimeException("ActionConfig {$actionName->value} not found in the actionConfigs of {$this->name} equipment.");
     }
 
     public function canPlayerReach(Player $player): bool

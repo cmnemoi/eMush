@@ -29,23 +29,19 @@ class RationCycleHandler extends AbstractCycleHandler
         $this->statusService = $statusService;
     }
 
-    public function handleNewCycle($object, \DateTime $dateTime): void {}
+    public function handleNewCycle(GameEquipment $gameEquipment, \DateTime $dateTime): void {}
 
-    public function handleNewDay($object, \DateTime $dateTime): void
+    public function handleNewDay(GameEquipment $gameEquipment, \DateTime $dateTime): void
     {
-        if (!$object instanceof GameEquipment) {
-            return;
-        }
-
         /** @var Ration $rationType */
-        $rationType = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
+        $rationType = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
         if ($rationType === null) {
             return;
         }
 
         // @TODO destroy perishable item according to NERON BIOS
-        $this->handleStatus($object, $rationType);
-        $this->gameEquipmentService->persist($object);
+        $this->handleStatus($gameEquipment, $rationType);
+        $this->gameEquipmentService->persist($gameEquipment);
     }
 
     private function handleStatus(GameEquipment $gameRation, Ration $ration): void

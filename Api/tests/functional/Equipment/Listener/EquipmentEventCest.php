@@ -92,7 +92,7 @@ class EquipmentEventCest
         /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'name' => 'item_name']);
 
-        $equipment = $equipmentConfig->createGameItem($player);
+        $equipment = $equipmentConfig->createGameEquipment($player);
         $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(
@@ -114,7 +114,7 @@ class EquipmentEventCest
             'equipmentName' => 'item_name',
         ]);
 
-        $equipment = $equipmentConfig->createGameItem($player);
+        $equipment = $equipmentConfig->createGameEquipment($player);
         $I->haveInRepository($equipment);
 
         // Case of a game Item full inventory

@@ -84,7 +84,7 @@ final class EventModifierServiceTest extends TestCase
         $statusConfig->setStatusName(StatusEnum::ATTEMPT);
         $attempt = new Attempt($player, $statusConfig);
         $attempt->setCharge(1);
-        $attempt->setAction(ActionEnum::BUILD);
+        $attempt->setAction(ActionEnum::BUILD->value);
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 
@@ -130,7 +130,7 @@ final class EventModifierServiceTest extends TestCase
         $statusConfig->setStatusName(StatusEnum::ATTEMPT);
         $attempt = new Attempt($player, $statusConfig);
         $attempt->setCharge(1);
-        $attempt->setAction(ActionEnum::ATTACK);
+        $attempt->setAction(ActionEnum::ATTACK->value);
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 

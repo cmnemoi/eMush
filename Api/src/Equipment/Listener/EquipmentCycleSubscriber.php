@@ -2,21 +2,20 @@
 
 namespace Mush\Equipment\Listener;
 
+use Mush\Equipment\DroneTasks\DroneTasksHandler;
+use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\Service\EquipmentCycleHandlerServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class EquipmentCycleSubscriber implements EventSubscriberInterface
+final class EquipmentCycleSubscriber implements EventSubscriberInterface
 {
-    private EquipmentCycleHandlerServiceInterface $equipmentCycleHandler;
-
     public function __construct(
-        EquipmentCycleHandlerServiceInterface $equipmentCycleHandler,
-    ) {
-        $this->equipmentCycleHandler = $equipmentCycleHandler;
-    }
+        private DroneTasksHandler $droneTasksHandler,
+        private EquipmentCycleHandlerServiceInterface $equipmentCycleHandler,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -29,7 +28,7 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getGameEquipment();
 
-        // @var EquipmentMechanic $mechanic
+        /** @var EquipmentMechanic $mechanics */
         foreach ($equipment->getEquipment()->getMechanics() as $mechanics) {
             foreach ($mechanics->getMechanics() as $mechanicName) {
                 if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanicName)) {
@@ -40,6 +39,10 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
                     $cycleHandler->handleNewCycle($equipment, $event->getTime());
                 }
             }
+        }
+
+        if ($equipment instanceof Drone) {
+            $this->droneTasksHandler->execute($equipment, $event->getTime());
         }
     }
 }

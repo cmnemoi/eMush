@@ -84,7 +84,7 @@ class EquipmentEventCest
             'initStatuses' => new ArrayCollection([$heavyStatusConfig]),
         ]);
 
-        $equipment = $itemConfig->createGameItem($player);
+        $equipment = $itemConfig->createGameEquipment($player);
         $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(

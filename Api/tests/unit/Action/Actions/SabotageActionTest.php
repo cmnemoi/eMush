@@ -82,7 +82,7 @@ final class SabotageActionTest extends AbstractActionTest
         $attemptConfig->setStatusName('attempt');
         $attempt = new Attempt(new Player(), $attemptConfig);
         $attempt
-            ->setAction($this->actionConfig->getActionName());
+            ->setAction($this->actionConfig->getActionName()->value);
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
 
         $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);

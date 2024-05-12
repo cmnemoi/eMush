@@ -2,6 +2,7 @@
 
 namespace Mush\Place\ConfigData;
 
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 
@@ -142,7 +143,7 @@ class PlaceConfigData
             'placeName' => 'front_corridor',
             'type' => 'room',
             'doors' => ['front_corridor_front_alpha_turret', 'front_corridor_front_beta_turret', 'front_corridor_bridge', 'front_corridor_garden', 'front_corridor_front_storage', 'front_corridor_laboratory', 'front_corridor_medlab', 'front_corridor_central_corridor'],
-            'items' => [],
+            'items' => [ItemEnum::SUPPORT_DRONE],
             'equipments' => [],
         ],
         [

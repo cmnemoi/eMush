@@ -2,6 +2,8 @@
 
 namespace Mush\Game\CycleHandler;
 
+use Mush\Equipment\Entity\GameEquipment;
+
 abstract class AbstractCycleHandler
 {
     protected string $name;
@@ -11,7 +13,7 @@ abstract class AbstractCycleHandler
         return $this->name;
     }
 
-    abstract public function handleNewCycle($object, \DateTime $dateTime): void;
+    abstract public function handleNewCycle(GameEquipment $gameEquipment, \DateTime $dateTime): void;
 
-    abstract public function handleNewDay($object, \DateTime $dateTime): void;
+    abstract public function handleNewDay(GameEquipment $gameEquipment, \DateTime $dateTime): void;
 }

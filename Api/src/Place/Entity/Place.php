@@ -250,6 +250,11 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first() ?: null;
     }
 
+    public function getBrokenEquipments(): Collection
+    {
+        return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isBroken());
+    }
+
     /**
      * @return Collection<array-key, Door>
      */
@@ -278,6 +283,20 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         }
 
         return $this;
+    }
+
+    /**
+     * @return ArrayCollection<int, Place>
+     */
+    public function getAdjacentRooms(): ArrayCollection
+    {
+        /** @var ArrayCollection<int, Place> $adjacentRooms */
+        $adjacentRooms = new ArrayCollection();
+        foreach ($this->getDoors() as $door) {
+            $adjacentRooms->add($door->getOtherRoom($this));
+        }
+
+        return $adjacentRooms;
     }
 
     public function addStatus(Status $status): static

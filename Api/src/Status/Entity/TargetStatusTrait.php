@@ -50,11 +50,9 @@ trait TargetStatusTrait
 
     public function getChargeStatusByName(string $name): ?ChargeStatus
     {
-        $status = $this->getStatuses()
-            ->filter(static fn (Status $status) => ($status instanceof ChargeStatus && $status->getName() === $name))
-            ->first();
+        $status = $this->getStatusByName($name);
 
-        return $status ?: null;
+        return $status instanceof ChargeStatus ? $status : null;
     }
 
     public function getChargeStatusByNameOrThrow(string $name): ChargeStatus

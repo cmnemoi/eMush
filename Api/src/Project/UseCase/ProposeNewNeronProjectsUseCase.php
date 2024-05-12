@@ -18,6 +18,10 @@ final readonly class ProposeNewNeronProjectsUseCase
 
     public function execute(Daedalus $daedalus, int $number): void
     {
+        if ($daedalus->hasProposedNeronProjects()) {
+            return;
+        }
+
         $projectsToPropose = $this->getRandomElementsFromArrayService->execute(
             elements: $daedalus->getAvailableNeronProjects()->toArray(),
             number: $number

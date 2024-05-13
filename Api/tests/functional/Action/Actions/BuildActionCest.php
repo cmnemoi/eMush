@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -171,6 +172,49 @@ final class BuildActionCest extends AbstractFunctionalTest
 
         // then I have the thermosensor in my inventory
         $this->player->getEquipmentByName(ItemEnum::THERMOSENSOR);
+
+        // then I see a private room log
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getLogName(),
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'log' => ActionLogEnum::BUILD_SUCCESS,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
+    }
+
+    public function shouldBuildSofaInRoom(FunctionalTester $I): void
+    {
+        // given I have a swedish_sofa blueprint in room
+        $sofaBlueprint = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::SWEDISH_SOFA . '_blueprint',
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given I have some ingredients to build it
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::THICK_TUBE,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::METAL_SCRAPS,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // when I build the blueprint
+        $this->buildAction->loadParameters($this->buildConfig, $sofaBlueprint, $this->player, $sofaBlueprint);
+        $this->buildAction->execute();
+
+        // then I have the swedish sofa in the room
+        $this->player->getEquipmentByName(EquipmentEnum::SWEDISH_SOFA);
 
         // then I see a private room log
         $I->seeInRepository(

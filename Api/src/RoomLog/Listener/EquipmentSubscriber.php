@@ -109,7 +109,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     private function createEventLog(string $logKey, EquipmentEvent $event, string $visibility): void
     {
-        // @var Player|null $player
+        // @var ?Player $player
         if ($event->getAuthor() instanceof Player) {
             $player = $event->getAuthor();
         } elseif ($event->isCreated()) {

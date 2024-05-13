@@ -135,7 +135,8 @@ class Build extends AbstractAction
             $this->player,
             $this->getActionConfig()->getActionTags(),
             new \DateTime(),
-            VisibilityEnum::PRIVATE
+            VisibilityEnum::PRIVATE,
+            author: $this->player
         );
     }
 }

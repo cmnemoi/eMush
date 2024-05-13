@@ -448,6 +448,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SPECIALIST_POINTS->value,
+                'extinguish_manually',
             ],
             'initDiseases' => [],
             'startingItems' => [

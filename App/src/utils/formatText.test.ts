@@ -89,7 +89,7 @@ describe('formatText', () => {
             Raluca a pris un Débris métallique.`);
         });
         it('should replace 1 :pmo: by 1 image', () => {
-            const text = "Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU + 1 :pmo: OU + 2:pm:."
+            const text = "Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU + 1 :pmo: OU + 2:pm:.";
 
             const result = formatText(text);
 

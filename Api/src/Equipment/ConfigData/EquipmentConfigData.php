@@ -3062,7 +3062,9 @@ class EquipmentConfigData
                 'report_equipment',
                 'examine',
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                'tool_combustion_chamber_default',
+            ],
             'initStatuses' => [],
         ],
         [

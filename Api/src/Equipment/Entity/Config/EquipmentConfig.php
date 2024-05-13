@@ -12,6 +12,8 @@ use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 
@@ -69,6 +71,12 @@ class EquipmentConfig
 
     public function createGameEquipment(EquipmentHolderInterface $holder): GameEquipment
     {
+        // Do not allow GameEquipment holders to be players
+        $holder = $holder instanceof Player ? $holder->getPlace() : $holder;
+        if (($holder instanceof Place) === false) {
+            throw new \InvalidArgumentException('The holder of a GameEquipment must be a Place');
+        }
+
         $gameEquipment = new GameEquipment($holder);
         $gameEquipment
             ->setName($this->getEquipmentShortName())

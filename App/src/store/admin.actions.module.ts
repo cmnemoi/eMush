@@ -1,5 +1,5 @@
 import AdminActionsService from "@/services/admin.actions.service";
-import { ActionTree, GetterTree, MutationTree } from "vuex";
+import { ActionTree, Dispatch, GetterTree, MutationTree } from "vuex";
 import store from ".";
 import { SuccessReponse } from "@/services/api.service";
 
@@ -26,9 +26,7 @@ const actions: ActionTree<any, any> = {
             const response: SuccessReponse = await AdminActionsService.createProjectsForOnGoingDaedaluses();
             await dispatch('toast/openSuccessToast', response.data.detail, { root: true });
         } catch (error) {
-            console.error(error);
-            await dispatch('error/setError', error, { root: true });
-            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+            await displayToastError(error, dispatch);
         }
         await dispatch('admin/endLoading', null, { root: true });
     },
@@ -38,9 +36,7 @@ const actions: ActionTree<any, any> = {
             const response: SuccessReponse = await AdminActionsService.createEquipmentForOnGoingDaedaluses(equipmentName, quantity, place);
             await dispatch('toast/openSuccessToast', response.data.detail, { root: true });
         } catch (error) {
-            console.error(error);
-            await dispatch('error/setError', error, { root: true });
-            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+            await displayToastError(error, dispatch);
         }
         await dispatch('admin/endLoading', null, { root: true });
     },
@@ -50,9 +46,7 @@ const actions: ActionTree<any, any> = {
             const response: SuccessReponse = await AdminActionsService.createPlayersAllInitStatusesForOnGoingDaedaluses();
             await dispatch('toast/openSuccessToast', response.data.detail, { root: true });
         } catch (error) {
-            console.error(error);
-            await dispatch('error/setError', error, { root: true });
-            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+            await displayToastError(error, dispatch);
         }
         await dispatch('admin/endLoading', null, { root: true });
     },
@@ -62,9 +56,17 @@ const actions: ActionTree<any, any> = {
             const response: SuccessReponse = await AdminActionsService.deleteAllStatusesByName(statusName);
             await dispatch('toast/openSuccessToast', response.data.detail, { root: true });
         } catch (error) {
-            console.error(error);
-            await dispatch('error/setError', error, { root: true });
-            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+            await displayToastError(error, dispatch);
+        }
+        await dispatch('admin/endLoading', null, { root: true });
+    },
+    async makeNonFinishedNeronProjectsAvailableForOnGoingDaedaluses({ dispatch }): Promise<void> {
+        await dispatch('admin/displayLoading', null, { root: true });
+        try {
+            const response: SuccessReponse = await AdminActionsService.makeNonFinishedNeronProjectsAvailableForOnGoingDaedaluses();
+            await dispatch('toast/openSuccessToast', response.data.detail, { root: true });
+        } catch (error) {
+            await displayToastError(error, dispatch);
         }
         await dispatch('admin/endLoading', null, { root: true });
     },
@@ -74,9 +76,7 @@ const actions: ActionTree<any, any> = {
             const response: SuccessReponse = await AdminActionsService.proposeNewNeronProjectsForOnGoingDaedaluses();
             await dispatch('toast/openSuccessToast', response.data.detail, { root: true });
         } catch (error) {
-            console.error(error);
-            await dispatch('error/setError', error, { root: true });
-            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+            await displayToastError(error, dispatch);
         }
         await dispatch('admin/endLoading', null, { root: true });
     },
@@ -86,9 +86,7 @@ const actions: ActionTree<any, any> = {
             const response: SuccessReponse = await AdminActionsService.unproposeAllNeronProjectsForOnGoingDaedaluses();
             await dispatch('toast/openSuccessToast', response.data.detail, { root: true });
         } catch (error) {
-            console.error(error);
-            await dispatch('error/setError', error, { root: true });
-            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+            await displayToastError(error, dispatch);
         }
         await dispatch('admin/endLoading', null, { root: true });
     }
@@ -100,6 +98,12 @@ const mutations: MutationTree<any> = {
     }
 };
 
+async function displayToastError(error: unknown, dispatch: Dispatch): Promise<void> {
+    console.error(error);
+    await dispatch('error/setError', error, { root: true });
+    await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+}
+
 export const adminActions = {
     namespaced: true,
     state,
@@ -107,3 +111,5 @@ export const adminActions = {
     actions,
     mutations
 };
+
+

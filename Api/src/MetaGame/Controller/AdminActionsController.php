@@ -14,6 +14,7 @@ use Mush\MetaGame\Dto\CreateEquipmentForDaedalusesDto;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
+use Mush\Project\UseCase\MakeNonFinishedNeronProjectsAvailableUseCase;
 use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
 use Mush\Project\UseCase\UnproposeAllNeronProjectsUseCase;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -36,6 +37,7 @@ final class AdminActionsController extends AbstractFOSRestController
         private readonly CreateProjectFromConfigForDaedalusUseCase $createProjectFromConfigForDaedalusUseCase,
         private readonly DaedalusRepository $daedalusRepository,
         private readonly GameEquipmentServiceInterface $gameEquipmentService,
+        private readonly MakeNonFinishedNeronProjectsAvailableUseCase $makeNonFinishedNeronProjectsAvailable,
         private readonly ProposeNewNeronProjectsUseCase $proposeNewNeronProjectsUseCase,
         private readonly UnproposeAllNeronProjectsUseCase $unproposeAllNeronProjectsUseCase,
         private readonly StatusServiceInterface $statusService,
@@ -154,6 +156,27 @@ final class AdminActionsController extends AbstractFOSRestController
         $this->statusService->deleteAllStatusesByName($name);
 
         return $this->view(['detail' => "All statuses with name {$name} deleted successfully."], Response::HTTP_OK);
+    }
+
+    /**
+     * Make non-finished Neron projects available for on-going Daedaluses.
+     *
+     * @OA\Tag(name="Admin")
+     *
+     * @Security(name="Bearer")
+     *
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @Rest\Put(path="/make-non-finished-neron-projects-available-for-on-going-daedaluses")
+     */
+    public function makeNonFinishedNeronProjectsAvailableForDaedalusesEndpoint(): View
+    {
+        /** @var Daedalus $daedalus */
+        foreach ($this->daedalusRepository->findNonFinishedDaedaluses() as $daedalus) {
+            $this->makeNonFinishedNeronProjectsAvailable->execute($daedalus);
+        }
+
+        return $this->view(['detail' => 'Neron projects made available successfully.'], Response::HTTP_OK);
     }
 
     /**

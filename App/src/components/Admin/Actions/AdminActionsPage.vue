@@ -20,6 +20,9 @@
         <button class="action-button" @click="unproposeProjects">
             {{ $t('admin.actions.projects.unpropose') }}
         </button>
+        <button class="action-button" @click="makeNonFinishedProjectsAvailable">
+            {{ $t('admin.actions.projects.makeNonFinishedAvailable') }}
+        </button>
     </div>
     <h2>{{$t('admin.actions.statuses.title') }}</h2>
     <div class="flex-row">
@@ -73,6 +76,7 @@ export default defineComponent ({
             createProjects: 'adminActions/createProjectsForOnGoingDaedaluses',
             createStatuses: 'adminActions/createPlayersAllInitStatusesForOnGoingDaedaluses',
             deleteAllStatusesByName: 'adminActions/deleteAllStatusesByName',
+            makeNonFinishedProjectsAvailable: 'adminActions/makeNonFinishedNeronProjectsAvailableForOnGoingDaedaluses',
             proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses',
             unproposeProjects: 'adminActions/unproposeAllNeronProjectsForOnGoingDaedaluses'
         }),

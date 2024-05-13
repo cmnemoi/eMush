@@ -58,7 +58,7 @@ class Project implements LogParameterInterface, ActionHolderInterface
 
         $this->daedalus->addProject($this);
 
-        if ($config->getType() !== ProjectType::NERON_PROJECT) {
+        if ($this->isNeronProject() === false) {
             $this->proposed = true;
         }
     }
@@ -127,6 +127,11 @@ class Project implements LogParameterInterface, ActionHolderInterface
     public function isAvailable(): bool
     {
         return $this->available;
+    }
+
+    public function makeAvailable(): void
+    {
+        $this->available = true;
     }
 
     public function isProposed(): bool

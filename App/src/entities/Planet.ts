@@ -10,7 +10,7 @@ export class Planet {
     public orientation: string|null = null;
     public distance: number|null = null;
     public sectors: PlanetSector[]|null = null;
-    public actions: Action[]|null = null;
+    public actions: Action[] = [];
 
     public load(object: any): Planet {
         if (object) {
@@ -20,7 +20,12 @@ export class Planet {
             this.orientation = object.orientation || null;
             this.distance = object.distance || null;
             this.sectors = object.sectors || null;
-            this.actions = object.actions || null;
+            if (typeof object.actions !== 'undefined') {
+                object.actions.forEach((actionObject: any) => {
+                    const action = (new Action()).load(actionObject);
+                    this.actions.push(action);
+                });
+            }
         }
         return this;
     }

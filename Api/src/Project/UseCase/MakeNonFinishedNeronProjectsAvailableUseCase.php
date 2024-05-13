@@ -14,9 +14,9 @@ final class MakeNonFinishedNeronProjectsAvailableUseCase
 
     public function execute(Daedalus $daedalus): void
     {
-        $projects = $daedalus->getFinishedNeronProjects();
+        $projects = $daedalus->getNonFinishedNeronProjects();
 
-        $projects->map(static fn (Project $project) => $project->unpropose());
+        $projects->map(static fn (Project $project) => $project->makeAvailable());
         $projects->map(fn (Project $project) => $this->projectRepository->save($project));
     }
 }

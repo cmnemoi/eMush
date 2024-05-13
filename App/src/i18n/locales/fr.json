@@ -211,7 +211,8 @@
 			"projects": {
 				"title": "Projets",
 				"create": "Créer les projets pour les Daedalus en cours",
-				"propose": "Proposer des projets pour les Daedalus en cours"
+				"propose": "Proposer des projets pour les Daedalus en cours",
+				"unpropose": "Retirer tous les projets proposés pour les Daedalus en cours"
 			},
 			"statuses": {
 				"title": "Status",

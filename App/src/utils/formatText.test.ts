@@ -88,6 +88,13 @@ describe('formatText', () => {
             expect(result).to.equal(`Raluca a pris un Débris métallique:<br>
             Raluca a pris un Débris métallique.`);
         });
+        it('should replace 1 :pmo: by 1 image', () => {
+            const text = "Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU + 1 :pmo: OU + 2:pm:."
+
+            const result = formatText(text);
+
+            expect(result).to.equal("Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 <img/> OU + 1 <img/> OU + 2<img/>.");
+        });
     });
 
     describe("Complex tests", () => {

@@ -17,6 +17,9 @@
         <button class="action-button" @click="proposeProjects">
             {{ $t('admin.actions.projects.propose') }}
         </button>
+        <button class="action-button" @click="unproposeProjects">
+            {{ $t('admin.actions.projects.unpropose') }}
+        </button>
     </div>
     <h2>{{$t('admin.actions.statuses.title') }}</h2>
     <div class="flex-row">
@@ -70,7 +73,8 @@ export default defineComponent ({
             createProjects: 'adminActions/createProjectsForOnGoingDaedaluses',
             createStatuses: 'adminActions/createPlayersAllInitStatusesForOnGoingDaedaluses',
             deleteAllStatusesByName: 'adminActions/deleteAllStatusesByName',
-            proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses'
+            proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses',
+            unproposeProjects: 'adminActions/unproposeAllNeronProjectsForOnGoingDaedaluses'
         }),
         createEquipment(createEquipmentDto: CreateEquipmentDto) {
             this.createEquipmentForOnGoingDaedaluses(createEquipmentDto);

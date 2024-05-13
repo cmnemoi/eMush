@@ -15,6 +15,7 @@ use Mush\Player\Entity\Player;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
+use Mush\Project\UseCase\UnproposeAllNeronProjectsUseCase;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Service\StatusServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -36,6 +37,7 @@ final class AdminActionsController extends AbstractFOSRestController
         private readonly DaedalusRepository $daedalusRepository,
         private readonly GameEquipmentServiceInterface $gameEquipmentService,
         private readonly ProposeNewNeronProjectsUseCase $proposeNewNeronProjectsUseCase,
+        private readonly UnproposeAllNeronProjectsUseCase $unproposeAllNeronProjectsUseCase,
         private readonly StatusServiceInterface $statusService,
     ) {}
 
@@ -173,5 +175,26 @@ final class AdminActionsController extends AbstractFOSRestController
         }
 
         return $this->view(['detail' => 'Neron projects proposed successfully.'], Response::HTTP_OK);
+    }
+
+    /**
+     * Unpropose all Neron projects for on-going Daedaluses.
+     *
+     * @OA\Tag(name="Admin")
+     *
+     * @Security(name="Bearer")
+     *
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @Rest\Put(path="/unpropose-all-neron-projects-for-on-going-daedaluses")
+     */
+    public function unproposeAllNeronProjectsForDaedalusesEndpoint(): View
+    {
+        /** @var Daedalus $daedalus */
+        foreach ($this->daedalusRepository->findNonFinishedDaedaluses() as $daedalus) {
+            $this->unproposeAllNeronProjectsUseCase->execute($daedalus);
+        }
+
+        return $this->view(['detail' => 'Neron projects unproposed successfully.'], Response::HTTP_OK);
     }
 }

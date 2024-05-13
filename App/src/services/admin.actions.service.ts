@@ -26,6 +26,9 @@ const AdminActionsService = {
     },
     proposeNewNeronProjectsForOnGoingDaedaluses: async(): Promise<any> => {
         return await ApiService.put(ADMIN_ACTIONS_ENDPOINT + '/propose-new-neron-projects-for-on-going-daedaluses');
+    },
+    unproposeAllNeronProjectsForOnGoingDaedaluses: async(): Promise<any> => {
+        return await ApiService.put(ADMIN_ACTIONS_ENDPOINT + '/unpropose-all-neron-projects-for-on-going-daedaluses');
     }
 };
 export default AdminActionsService;

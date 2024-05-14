@@ -26,6 +26,7 @@ class ContentStatusConfigDataLoader extends StatusConfigDataLoader
                 ->setStatusName($statusConfigData['statusName'])
                 ->setVisibility($statusConfigData['visibility']);
             $this->setStatusConfigModifierConfigs($statusConfig, $statusConfigData['modifierConfigs']);
+            $this->setStatusConfigActionConfigs($statusConfig, $statusConfigData['actionConfigs']);
 
             $this->entityManager->persist($statusConfig);
         }

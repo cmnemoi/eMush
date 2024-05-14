@@ -67,7 +67,7 @@
             </div>
             -->
         </section>
-        <section class="newsgroup">
+        <section v-if="newsAvailable" class="newsgroup">
             <h1>{{ $t('homePage.latestNews') }}</h1>
             <NewsItem class="news" :news="news" @click="$router.push('news')"/>
             <router-link class="more" :to="{ name: 'NewsPage' }">{{ $t('homePage.seeAllNews') }}</router-link>
@@ -192,6 +192,7 @@ export default defineComponent ({
     data: function() {
         return {
             news: new News(),
+            newsAvailable: false,
             slide: 0,
             timerDelay: 3000,
             toggleTimer: true,
@@ -231,9 +232,12 @@ export default defineComponent ({
     },
     mounted: function() {
         this.getMostRecentNews().then((news: News) => {
-            this.news = news;
-            this.news = this.displayNews(this.news);
-            this.news = this.fillEmptyNews(this.news);
+            if (news) { // Check if there is a news
+                this.newsAvailable = true;
+                this.news = news;
+                this.news = this.displayNews(this.news);
+                this.news = this.fillEmptyNews(this.news);
+            }
         });
         this.autoPlay();
     }

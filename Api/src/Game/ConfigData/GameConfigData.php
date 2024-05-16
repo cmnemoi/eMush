@@ -8,6 +8,7 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Project\Enum\ProjectName;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -429,6 +430,7 @@ class GameConfigData
                 'defence_neron_cpu_priority_default',
                 'changed_cpu_priority_default',
                 'electric_charges_support_drone_default',
+                DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

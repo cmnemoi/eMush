@@ -17,6 +17,7 @@ use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Tool;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -427,6 +428,26 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
 
         throw new \RuntimeException("Mechanic {$mechanicName} not found in the mechanics of {$this->name} equipment.");
+    }
+
+    public function getDecompositionStatusNameOrEmptyString(): string
+    {
+        if (GameRationEnum::getAll()->contains($this->getName()) === false) {
+            return '';
+        }
+
+        foreach (EquipmentStatusEnum::getDecomposingStatuses() as $statusName) {
+            if ($this->hasStatus($statusName)) {
+                return $statusName;
+            }
+        }
+
+        return '';
+    }
+
+    public function isDecomposing(): bool
+    {
+        return $this->getDecompositionStatusNameOrEmptyString() !== '';
     }
 
     private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool

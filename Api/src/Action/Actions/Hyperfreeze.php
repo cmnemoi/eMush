@@ -2,6 +2,7 @@
 
 namespace Mush\Action\Actions;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -29,6 +30,8 @@ class Hyperfreeze extends AbstractAction
     protected GameEquipmentServiceInterface $gameEquipmentService;
     protected StatusServiceInterface $statusService;
 
+    private ArrayCollection $foodToTransformIntoStandardRation;
+
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
@@ -40,6 +43,11 @@ class Hyperfreeze extends AbstractAction
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->statusService = $statusService;
+
+        $this->foodToTransformIntoStandardRation = new ArrayCollection([
+            GameRationEnum::COOKED_RATION,
+            GameRationEnum::ALIEN_STEAK,
+        ]);
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -62,23 +70,35 @@ class Hyperfreeze extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $target */
-        $target = $this->target;
+        /** @var GameEquipment $food */
+        $food = $this->target;
         $time = new \DateTime();
 
-        if (\in_array($target->getName(), [GameRationEnum::COOKED_RATION, GameRationEnum::ALIEN_STEAK], true)) {
-            $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
+        if ($this->foodToTransformIntoStandardRation->contains($food->getName())) {
+            $isFoodDecomposing = $food->isDecomposing();
+            $decompositionStatusName = $food->getDecompositionStatusNameOrEmptyString();
+
+            $ration = $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
                 GameRationEnum::STANDARD_RATION,
-                $target,
+                $food,
                 $this->player,
                 $this->getActionConfig()->getActionTags(),
-                new \DateTime(),
+                $time,
                 VisibilityEnum::PUBLIC
             );
+
+            if ($isFoodDecomposing) {
+                $this->statusService->createStatusFromName(
+                    statusName: $decompositionStatusName,
+                    holder: $ration,
+                    tags: $this->getActionConfig()->getActionTags(),
+                    time: $time
+                );
+            }
         } else {
             $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::FROZEN,
-                $target,
+                $food,
                 $this->getActionConfig()->getActionTags(),
                 $time
             );

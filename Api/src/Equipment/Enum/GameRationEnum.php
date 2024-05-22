@@ -18,6 +18,7 @@ abstract class GameRationEnum
     public const SPACE_POTATO = 'space_potato';
     public const STANDARD_RATION = 'standard_ration';
     public const SUPERVITAMIN_BAR = 'supervitamin_bar';
+    public const NULL = '';
 
     public static function getAll(): ArrayCollection
     {

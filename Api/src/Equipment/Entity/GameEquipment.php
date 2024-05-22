@@ -432,8 +432,8 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function getDecompositionStatusNameOrEmptyString(): string
     {
-        if (GameRationEnum::getAll()->contains($this->getName()) === false) {
-            return '';
+        if ($this->isNotAFood()) {
+            return GameRationEnum::NULL;
         }
 
         foreach (EquipmentStatusEnum::getDecomposingStatuses() as $statusName) {
@@ -442,12 +442,17 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
             }
         }
 
-        return '';
+        return GameRationEnum::NULL;
     }
 
     public function isDecomposing(): bool
     {
-        return $this->getDecompositionStatusNameOrEmptyString() !== '';
+        return $this->getDecompositionStatusNameOrEmptyString() !== GameRationEnum::NULL;
+    }
+
+    public function isNotAFood(): bool
+    {
+        return GameRationEnum::getAll()->contains($this->getName()) === false;
     }
 
     private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool

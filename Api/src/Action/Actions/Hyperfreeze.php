@@ -30,7 +30,7 @@ class Hyperfreeze extends AbstractAction
     protected GameEquipmentServiceInterface $gameEquipmentService;
     protected StatusServiceInterface $statusService;
 
-    private ArrayCollection $foodToTransformIntoStandardRation;
+    private readonly ArrayCollection $foodToTransformIntoStandardRation;
 
     public function __construct(
         EventServiceInterface $eventService,

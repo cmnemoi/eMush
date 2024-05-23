@@ -3,6 +3,9 @@
 namespace Mush\Equipment\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Action\Entity\ActionResult\CriticalSuccess;
+use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -12,22 +15,27 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Factory\PlayerFactory;
+use Mush\Project\Enum\ProjectName;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class DaedalusEventSubscriber implements EventSubscriberInterface
+final class DaedalusEventSubscriber implements EventSubscriberInterface
 {
     private EquipmentEffectServiceInterface $equipmentEffectService;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService;
 
     public function __construct(
         EquipmentEffectServiceInterface $equipmentEffectService,
         EventServiceInterface $eventService,
-        GameEquipmentServiceInterface $gameEquipmentService
+        GameEquipmentServiceInterface $gameEquipmentService,
+        PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService
     ) {
         $this->equipmentEffectService = $equipmentEffectService;
         $this->eventService = $eventService;
         $this->gameEquipmentService = $gameEquipmentService;
+        $this->patrolShipManoeuvreService = $patrolShipManoeuvreService;
     }
 
     public static function getSubscribedEvents(): array
@@ -45,25 +53,38 @@ class DaedalusEventSubscriber implements EventSubscriberInterface
 
     public function onTravelLaunched(DaedalusEvent $event): void
     {
-        $this->destroyPatrolShipsInBattle($event);
+        $daedalus = $event->getDaedalus();
+
+        if ($daedalus->hasFinishedProject(ProjectName::MAGNETIC_NET)) {
+            $this->makePatrolShipsInBattleLand($event);
+        } else {
+            $this->destroyPatrolShipsInBattle($event);
+        }
+
         $this->destroyAllEquipmentInSpace($event);
+    }
+
+    private function makePatrolShipsInBattleLand(DaedalusEvent $event): void
+    {
+        $patrolShipsInSpaceBattle = $this->getPatrolShipsInBattleFromDaedalus($event->getDaedalus());
+
+        foreach ($patrolShipsInSpaceBattle as $patrolShip) {
+            // if no alive pilot (dead, drone...), create a dummy one : it won't be used anyway
+            $patrolShipPilot = $patrolShip->getPlace()->getPlayers()->getPlayerAlive()->first() ?: PlayerFactory::createPlayer();
+
+            $this->patrolShipManoeuvreService->handleLand(
+                patrolShip: $patrolShip,
+                pilot: $patrolShipPilot,
+                actionResult: new CriticalSuccess(), // Magentic net landing never hurt the patrol ship (?)
+                tags: $event->getTags(),
+                time: $event->getTime()
+            );
+        }
     }
 
     private function destroyPatrolShipsInBattle(DaedalusEvent $event): void
     {
-        $daedalus = $event->getDaedalus();
-
-        /** @var ArrayCollection<int, GameEquipment> $patrolShips */
-        $patrolShips = new ArrayCollection();
-
-        foreach (EquipmentEnum::getPatrolShips() as $patrolShipName) {
-            $patrolShip = $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShipName, $daedalus)->first();
-            if ($patrolShip instanceof GameEquipment) {
-                $patrolShips->add($patrolShip);
-            }
-        }
-
-        $patrolShipsInSpaceBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
+        $patrolShipsInSpaceBattle = $this->getPatrolShipsInBattleFromDaedalus($event->getDaedalus());
 
         foreach ($patrolShipsInSpaceBattle as $patrolShip) {
             $destroyEquipmentEvent = new InteractWithEquipmentEvent(
@@ -89,5 +110,23 @@ class DaedalusEventSubscriber implements EventSubscriberInterface
             );
             $this->eventService->callEvent($destroyEquipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
+    }
+
+    /**
+     * @return ArrayCollection<int, GameEquipment>
+     */
+    private function getPatrolShipsInBattleFromDaedalus(Daedalus $daedalus): ArrayCollection
+    {
+        /** @var ArrayCollection<int, GameEquipment> $patrolShips */
+        $patrolShips = new ArrayCollection();
+
+        foreach (EquipmentEnum::getPatrolShips() as $patrolShipName) {
+            $patrolShip = $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShipName, $daedalus)->first();
+            if ($patrolShip instanceof GameEquipment) {
+                $patrolShips->add($patrolShip);
+            }
+        }
+
+        return $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
     }
 }

@@ -25,14 +25,13 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class GameEquipmentService implements GameEquipmentServiceInterface
+final class GameEquipmentService implements GameEquipmentServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private GameEquipmentRepository $repository;
@@ -293,23 +292,18 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         /** @var Daedalus $daedalus */
         $daedalus = $patrolShip->getDaedalus();
 
-        /** @var Place $patrolShipPlace */
-        $patrolShipPlace = $daedalus->getPlaceByName($patrolShip->getName());
-        if (!$patrolShipPlace instanceof Place) {
-            throw new \LogicException('Patrol ship holder should be a place');
-        }
+        $patrolShipPlace = $daedalus->getPlaceByNameOrThrow($patrolShip->getName());
 
         /** @var GameEquipment $item */
         foreach ($patrolShipPlace->getEquipments() as $item) {
-            $moveEquipmentEvent = new MoveEquipmentEvent(
+            $this->moveEquipmentTo(
                 equipment: $item,
                 newHolder: $daedalus->getSpace(),
-                author: $player,
                 visibility: VisibilityEnum::HIDDEN,
                 tags: $tags,
                 time: new \DateTime(),
+                author: $player
             );
-            $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);
         }
     }
 

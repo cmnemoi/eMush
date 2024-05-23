@@ -113,11 +113,12 @@ abstract class AbstractAction
             return new Error($reason);
         }
 
-        $preActionEvent = new ActionEvent($this->actionConfig, $this->actionProvider, $this->player, $this->target);
-        $this->eventService->callEvent($preActionEvent, ActionEvent::PRE_ACTION);
-
         $result = $this->checkResult();
         $result->setVisibility($this->actionConfig->getVisibility($result->getName()));
+
+        $preActionEvent = new ActionEvent($this->actionConfig, $this->actionProvider, $this->player, $this->target);
+        $preActionEvent->setActionResult($result);
+        $this->eventService->callEvent($preActionEvent, ActionEvent::PRE_ACTION);
 
         $this->actionService->applyCostToPlayer(
             $this->player,

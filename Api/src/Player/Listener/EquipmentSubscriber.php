@@ -34,15 +34,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
         $patrolShip = $event->getGameEquipment();
-        $patrolShipSpace = $event->getPlace();
+        $patrolShipPlace = $event->getPlace();
+
         // only handle patrol ship destructions
         if (!EquipmentEnum::getPatrolShips()->contains($patrolShip->getName())) {
             return;
         }
 
-        $players = $patrolShipSpace->getPlayers();
-
-        foreach ($players as $player) {
+        foreach ($patrolShipPlace->getPlayers() as $player) {
             $this->ejectPlayer($player, $event->getTags(), $event->getTime());
         }
     }
@@ -50,8 +49,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     private function ejectPlayer(Player $player, array $tags, \DateTime $time): void
     {
         // move player to the space instead of landing bay
-        $player->changePlace($player->getDaedalus()->getSpace());
-        $this->playerService->persist($player);
+        $this->playerService->changePlace($player, $player->getDaedalus()->getSpace());
 
         // kill player if they don't have an operational spacesuit
         if ($player->isAlive() && !$player->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)) {

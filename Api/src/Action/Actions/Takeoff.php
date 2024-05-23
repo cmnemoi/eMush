@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
@@ -33,6 +34,7 @@ final class Takeoff extends AbstractAction
 {
     protected ActionEnum $name = ActionEnum::TAKEOFF;
 
+    private PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService;
     private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
 
@@ -40,6 +42,7 @@ final class Takeoff extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
     ) {
@@ -49,6 +52,7 @@ final class Takeoff extends AbstractAction
             $validator
         );
 
+        $this->patrolShipManoeuvreService = $patrolShipManoeuvreService;
         $this->playerService = $playerService;
         $this->randomService = $randomService;
     }
@@ -88,30 +92,20 @@ final class Takeoff extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $patrolship */
-        $patrolship = $this->target;
+        $daedalus = $this->player->getDaedalus();
 
-        $patrolshipRoom = $this->player->getDaedalus()->getPlaceByName($patrolship->getName());
-        if ($patrolshipRoom === null) {
-            throw new \RuntimeException('Patrol ship room not found');
-        }
+        /** @var GameEquipment $patrolShip */
+        $patrolShip = $this->target;
 
         $this->dropCriticalItems();
-
-        // @TODO: use PlayerService::changePlace instead.
-        // /!\ You need to delete all treatments in Modifier::ActionSubscriber before! /!\
-        $this->player->changePlace($patrolshipRoom);
-        $this->playerService->persist($this->player);
-
-        $equipmentEvent = new MoveEquipmentEvent(
-            equipment: $patrolship,
-            newHolder: $patrolshipRoom,
-            author: $this->player,
-            visibility: VisibilityEnum::HIDDEN,
+        $this->playerService->changePlace($this->player, $daedalus->getPlaceByNameOrThrow($patrolShip->getName()));
+        $this->patrolShipManoeuvreService->handleTakeoff(
+            patrolShip: $patrolShip,
+            pilot: $this->player,
+            actionResult: $result,
             tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
     }
 
     private function dropCriticalItems(): void

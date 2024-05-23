@@ -6,15 +6,12 @@ namespace Mush\Action\Listener;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
-use Mush\Player\Entity\Player;
-use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -116,24 +113,5 @@ final class ActionSubscriber implements EventSubscriberInterface
         }
 
         $player->getDaedalus()->addDailyActionPointsSpent($actionConfig->getActionCost());
-
-        $changingRoomPatrolshipActions = ActionEnum::getChangingRoomPatrolshipActions()->toArray();
-        if ($event->hasAnyTag($changingRoomPatrolshipActions)) {
-            $this->patrolShipManoeuvreService->handlePatrolshipManoeuvreDamage($event);
-        }
-
-        if ($event->getActionConfig()->getActionName() === ActionEnum::LAND) {
-            $this->patrolShipManoeuvreService->handleLand($event);
-        }
-    }
-
-    private function handleForceGetUp(ActionConfig $actionConfig, LogParameterInterface $actionTarget): void
-    {
-        if ($actionTarget instanceof Player
-            && \in_array($actionConfig->getActionName(), ActionEnum::getForceGetUpActions(), true)
-            && $lyingDownStatus = $actionTarget->getStatusByName(PlayerStatusEnum::LYING_DOWN)
-        ) {
-            $actionTarget->removeStatus($lyingDownStatus);
-        }
     }
 }

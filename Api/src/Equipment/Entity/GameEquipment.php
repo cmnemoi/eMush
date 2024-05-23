@@ -418,6 +418,17 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return LogParameterKeyEnum::EQUIPMENT . 's';
     }
 
+    public function getMechanicByNameOrThrow(string $mechanicName): ?EquipmentMechanic
+    {
+        foreach ($this->getEquipment()->getMechanics() as $mechanic) {
+            if (\in_array($mechanicName, $mechanic->getMechanics(), true)) {
+                return $mechanic;
+            }
+        }
+
+        throw new \RuntimeException("Mechanic {$mechanicName} not found in the mechanics of {$this->name} equipment.");
+    }
+
     private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool
     {
         foreach ($this->equipment->getMechanics() as $mechanic) {

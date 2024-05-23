@@ -27,9 +27,19 @@ final class ActionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            ActionEvent::PRE_ACTION => 'onPreAction',
             ActionEvent::RESULT_ACTION => 'onResultAction',
             ActionEvent::POST_ACTION => 'onPostAction',
         ];
+    }
+
+    public function onPreAction(ActionEvent $event): void
+    {
+        $actionName = $event->getActionConfig()->getActionName();
+
+        if ($actionName === ActionEnum::TAKEOFF) {
+            $this->createTakeoffActionLog($event);
+        }
     }
 
     public function onResultAction(ActionEvent $event): void
@@ -128,6 +138,21 @@ final class ActionSubscriber implements EventSubscriberInterface
             'actions_log',
             $player,
             [$player->getLogKey() => $player->getLogName(), 'content' => $content],
+            new \DateTime('now')
+        );
+    }
+
+    private function createTakeoffActionLog(ActionEvent $event): void
+    {
+        $player = $event->getAuthor();
+
+        $this->roomLogService->createLog(
+            $event->getActionResult() instanceof CriticalSuccess ? ActionLogEnum::TAKEOFF_SUCCESS : ActionLogEnum::TAKEOFF_NO_PILOT,
+            $player->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'actions_log',
+            $player,
+            [$player->getLogKey() => $player->getLogName()],
             new \DateTime('now')
         );
     }

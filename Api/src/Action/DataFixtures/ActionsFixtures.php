@@ -852,8 +852,8 @@ class ActionsFixtures extends Fixture
             ->setActionCost(2)
             ->setSuccessRate(100)
             ->setCriticalRate(20)
-            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC);
+            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::HIDDEN)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN);
         $manager->persist($takeoff);
 
         $accessTerminal = new ActionConfig();

@@ -79,4 +79,9 @@ abstract class ActionResult
 
         return $this;
     }
+
+    public function isNotACriticalSuccess(): bool
+    {
+        return $this instanceof CriticalSuccess === false;
+    }
 }

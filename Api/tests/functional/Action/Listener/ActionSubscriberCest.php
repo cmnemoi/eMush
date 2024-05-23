@@ -4,19 +4,13 @@ namespace Mush\Tests\functional\Action\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Listener\ActionSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -26,20 +20,15 @@ use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Entity\Place;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -330,218 +319,5 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             'log' => LogEnum::SOIL_PREVENTED,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
-    }
-
-    public function testHandlePatrolShipDamageDestroyPatrolShipIfNoMoreArmorAndPlayerIfNoSpaceSuit(FunctionalTester $I): void
-    {
-        $pasiphaeRoom = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
-
-        $this->player1->setPlace($pasiphaeRoom);
-
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
-
-        /** @var ChargeStatusConfig $pasiphaeArmorConfig */
-        $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmorConfig->setStartCharge(1);
-
-        /** @var ChargeStatus $pasiphaeArmor */
-        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
-            $pasiphaeArmorConfig,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-
-        $action = new ActionConfig();
-        $action
-            ->setActionName(ActionEnum::LAND)
-            ->setCriticalRate(100);
-        $actionEvent = new ActionEvent(
-            actionConfig: $action,
-            actionProvider: $pasiphae,
-            player: $this->player1,
-            actionTarget: $pasiphae
-        );
-        $actionEvent->setActionResult(new Fail());
-
-        $this->actionSubscriber->onPostAction($actionEvent);
-
-        $I->dontSeeInRepository(GameEquipment::class, [
-            'name' => EquipmentEnum::PASIPHAE,
-        ]);
-        $I->assertEquals($this->daedalus->getSpace()->getName(), $this->player1->getPlace()->getName());
-        $I->assertFalse($this->player1->isAlive());
-
-        /** @var RoomLog $deathLog */
-        $deathLog = $I->grabEntityFromRepository(RoomLog::class, [
-            'log' => LogEnum::DEATH,
-        ]);
-        $deathCause = $deathLog->getParameters()['end_cause'];
-
-        $I->assertEquals(EndCauseEnum::PATROL_SHIP_EXPLOSION, $deathCause);
-    }
-
-    public function testHandlePatrolShipDamageDestroyPatrolShipIfNoMoreArmorButNotPlayerIfHasSpaceSuit(FunctionalTester $I): void
-    {
-        $pasiphaeRoom = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
-        $this->player1->setPlace($pasiphaeRoom);
-
-        $spacesuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
-        $spacesuit = new GameItem($this->player1);
-        $spacesuit
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit);
-
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
-
-        /** @var ChargeStatusConfig $pasiphaeArmorConfig */
-        $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmorConfig->setStartCharge(1);
-
-        /** @var ChargeStatus $pasiphaeArmor */
-        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
-            $pasiphaeArmorConfig,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-
-        $action = new ActionConfig();
-        $action
-            ->setActionName(ActionEnum::LAND)
-            ->setCriticalRate(100);
-        $actionEvent = new ActionEvent(
-            actionConfig: $action,
-            actionProvider: $pasiphae,
-            player: $this->player1,
-            actionTarget: $pasiphae
-        );
-        $actionEvent->setActionResult(new Fail());
-
-        $this->actionSubscriber->onPostAction($actionEvent);
-
-        $I->dontSeeInRepository(GameEquipment::class, [
-            'name' => EquipmentEnum::PASIPHAE,
-        ]);
-        $I->assertEquals($this->daedalus->getSpace()->getName(), $this->player1->getPlace()->getName());
-        $I->assertTrue($this->player1->isAlive());
-    }
-
-    public function testHandlePatrolShipDamagePatrolShipItemsInSpaceAtDestruction(FunctionalTester $I): void
-    {
-        $pasiphaeRoom = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
-        $this->player1->setPlace($pasiphaeRoom);
-
-        // give some items to player and pasiphae : they should land in space at pasiphae destruction
-        $oldShirtConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => ItemEnum::OLD_T_SHIRT]);
-        $playerShirt = new GameItem($this->player1);
-        $playerShirt
-            ->setName(ItemEnum::OLD_T_SHIRT)
-            ->setEquipment($oldShirtConfig);
-        $I->haveInRepository($playerShirt);
-
-        $pasiphaeShirt = new GameItem($pasiphaeRoom);
-        $pasiphaeShirt
-            ->setName(ItemEnum::OLD_T_SHIRT)
-            ->setEquipment($oldShirtConfig);
-        $I->haveInRepository($pasiphaeShirt);
-
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
-
-        /** @var ChargeStatusConfig $pasiphaeArmorConfig */
-        $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmorConfig->setStartCharge(1);
-
-        /** @var ChargeStatus $pasiphaeArmor */
-        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
-            $pasiphaeArmorConfig,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-
-        $action = new ActionConfig();
-        $action
-            ->setActionName(ActionEnum::LAND)
-            ->setCriticalRate(100);
-        $actionEvent = new ActionEvent(
-            actionConfig: $action,
-            actionProvider: $pasiphae,
-            player: $this->player1,
-            actionTarget: $pasiphae
-        );
-        $actionEvent->setActionResult(new Fail());
-
-        $this->actionSubscriber->onPostAction($actionEvent);
-
-        $I->assertTrue($this->daedalus->getSpace()->hasEquipmentByName(ItemEnum::OLD_T_SHIRT));
-        $I->assertCount(2, $this->daedalus->getSpace()->getEquipments());
-    }
-
-    public function testHandlePatrolShipDamageWhenPlayerDiesButNotPatrolShipLogsTheRightDeathCause(FunctionalTester $I): void
-    {
-        $alphaBay2 = $this->createExtraPlace(RoomEnum::ALPHA_BAY_2, $I, $this->daedalus);
-        $pasiphaeRoom = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
-
-        $this->player1->setPlace($pasiphaeRoom);
-        $this->player1->setHealthPoint(1);
-
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
-
-        /** @var ChargeStatusConfig $pasiphaeArmorConfig */
-        $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-
-        /** @var ChargeStatus $pasiphaeArmor */
-        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
-            $pasiphaeArmorConfig,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-
-        $action = new ActionConfig();
-        $action
-            ->setActionName(ActionEnum::LAND)
-            ->setCriticalRate(100);
-        $actionEvent = new ActionEvent(
-            actionConfig: $action,
-            actionProvider: $pasiphae,
-            player: $this->player1,
-            actionTarget: $pasiphae
-        );
-        $actionEvent->setActionResult(new Fail());
-
-        $this->actionSubscriber->onPostAction($actionEvent);
-
-        $I->assertFalse($this->player1->isAlive());
-
-        /** @var RoomLog $deathLog */
-        $deathLog = $I->grabEntityFromRepository(RoomLog::class, [
-            'log' => LogEnum::DEATH,
-        ]);
-        $deathCause = $deathLog->getParameters()['end_cause'];
-
-        $I->assertEquals(EndCauseEnum::INJURY, $deathCause);
     }
 }

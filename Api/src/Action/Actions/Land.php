@@ -10,18 +10,15 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Event\MoveEquipmentEvent;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -32,6 +29,7 @@ final class Land extends AbstractAction
 {
     protected ActionEnum $name = ActionEnum::LAND;
 
+    private PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService;
     private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
 
@@ -39,6 +37,7 @@ final class Land extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
     ) {
@@ -48,6 +47,7 @@ final class Land extends AbstractAction
             $validator
         );
 
+        $this->patrolShipManoeuvreService = $patrolShipManoeuvreService;
         $this->playerService = $playerService;
         $this->randomService = $randomService;
     }
@@ -83,33 +83,22 @@ final class Land extends AbstractAction
         /** @var GameEquipment $patrolShip */
         $patrolShip = $this->target;
 
+        $daedalus = $patrolShip->getDaedalus();
+
         /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
-        if (!$patrolShipMechanic instanceof PatrolShip) {
-            throw new \RuntimeException("Patrol ship {$patrolShip->getName()} should have a patrol ship mechanic");
+        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+        $patrolShipDockingPlace = $daedalus->getPlaceByNameOrThrow($patrolShipMechanic->getDockingPlace());
+
+        foreach ($this->player->getPlace()->getPlayers()->getPlayerAlive() as $player) {
+            $this->playerService->changePlace($player, $patrolShipDockingPlace);
         }
 
-        /** @var Place $patrolShipDockingPlace */
-        $patrolShipDockingPlace = $this->player->getDaedalus()->getPlaceByName($patrolShipMechanic->getDockingPlace());
-        if (!$patrolShipDockingPlace instanceof Place) {
-            throw new \RuntimeException("Patrol ship {$patrolShip->getName()} should have a docking place");
-        }
-
-        $equipmentEvent = new MoveEquipmentEvent(
-            equipment: $patrolShip,
-            newHolder: $patrolShipDockingPlace,
-            author: $this->player,
-            visibility: VisibilityEnum::HIDDEN,
+        $this->patrolShipManoeuvreService->handleLand(
+            patrolShip: $patrolShip,
+            pilot: $this->player,
+            actionResult: $result,
             tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
-
-        // @TODO: use PlayerService::changePlace instead.
-        // /!\ You need to delete all treatments in Modifier::ActionSubscriber before! /!\
-        foreach ($this->player->getPlace()->getPlayers()->getPlayerAlive() as $player) {
-            $player->changePlace($patrolShipDockingPlace);
-            $this->playerService->persist($player);
-        }
     }
 }

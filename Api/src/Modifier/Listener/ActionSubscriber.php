@@ -6,20 +6,16 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
-use Mush\Modifier\Service\ModifierListenerService\PlayerModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ActionSubscriber implements EventSubscriberInterface
+final class ActionSubscriber implements EventSubscriberInterface
 {
     private EquipmentModifierServiceInterface $equipmentModifierService;
-    private PlayerModifierServiceInterface $playerModifierService;
 
     public function __construct(
         EquipmentModifierServiceInterface $equipmentModifierService,
-        PlayerModifierServiceInterface $playerModifierService
     ) {
         $this->equipmentModifierService = $equipmentModifierService;
-        $this->playerModifierService = $playerModifierService;
     }
 
     public static function getSubscribedEvents(): array
@@ -43,16 +39,6 @@ class ActionSubscriber implements EventSubscriberInterface
         /** @var GameEquipment $actionEquipment */
         $actionEquipment = $event->getActionTarget();
 
-        // move player and player equipment modifiers to their new place
-        if (ActionEnum::getChangingRoomActions()->contains($actionName->value)) {
-            $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
-
-            /** @var GameEquipment $equipment */
-            foreach ($player->getEquipments() as $equipment) {
-                $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
-            }
-        }
-
         // move patrol ship modifiers to their new place
         if (ActionEnum::getChangingRoomPatrolshipActions()->contains($actionName->value)) {
             $this->equipmentModifierService->equipmentEnterRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
@@ -66,16 +52,6 @@ class ActionSubscriber implements EventSubscriberInterface
 
         /** @var GameEquipment $actionEquipment */
         $actionEquipment = $event->getActionTarget();
-
-        // delete player and player equipment modifiers from their old place
-        if (ActionEnum::getChangingRoomActions()->contains($actionName->value)) {
-            $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
-
-            /** @var GameEquipment $equipment */
-            foreach ($player->getEquipments() as $equipment) {
-                $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
-            }
-        }
 
         // delete patrol ship modifiers from their old place
         if (ActionEnum::getChangingRoomPatrolshipActions()->contains($actionName->value)) {

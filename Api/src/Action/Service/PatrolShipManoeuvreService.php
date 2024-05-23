@@ -206,14 +206,6 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
             parameters: ['quantity' => $damage],
             dateTime: new \DateTime()
         );
-
-        if (!$patrolShipArmor->isCharged()) {
-            $this->gameEquipmentService->handlePatrolShipDestruction(
-                $patrolShip,
-                $pilot,
-                $tags
-            );
-        }
     }
 
     private function inflictDamageToPlayer(Player $player, GameEquipment $patrolShip, array $tags, \DateTime $time): void

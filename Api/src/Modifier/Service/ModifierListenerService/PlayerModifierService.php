@@ -18,7 +18,7 @@ final class PlayerModifierService implements PlayerModifierServiceInterface
     }
 
     public function playerEnterRoom(PlayerChangedPlaceEvent $event): void
-    {   
+    {
         $player = $event->getPlayer();
         $place = $player->getPlace();
         $tags = $event->getTags();
@@ -37,7 +37,7 @@ final class PlayerModifierService implements PlayerModifierServiceInterface
     }
 
     public function playerLeaveRoom(PlayerChangedPlaceEvent $event): void
-    {   
+    {
         $player = $event->getPlayer();
         $oldPlace = $event->getOldPlace();
         $tags = $event->getTags();

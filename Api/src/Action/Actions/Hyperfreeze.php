@@ -30,8 +30,6 @@ class Hyperfreeze extends AbstractAction
     protected GameEquipmentServiceInterface $gameEquipmentService;
     protected StatusServiceInterface $statusService;
 
-    private readonly ArrayCollection $foodToTransformIntoStandardRation;
-
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
@@ -43,11 +41,6 @@ class Hyperfreeze extends AbstractAction
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->statusService = $statusService;
-
-        $this->foodToTransformIntoStandardRation = new ArrayCollection([
-            GameRationEnum::COOKED_RATION,
-            GameRationEnum::ALIEN_STEAK,
-        ]);
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -74,11 +67,8 @@ class Hyperfreeze extends AbstractAction
         $food = $this->target;
         $time = new \DateTime();
 
-        if ($this->foodToTransformIntoStandardRation->contains($food->getName())) {
-            $isFoodDecomposing = $food->isDecomposing();
-            $decompositionStatusName = $food->getDecompositionStatusNameOrEmptyString();
-
-            $ration = $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
+        if ($food->shouldBeTransformedIntoStandardRation()) {
+            $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
                 GameRationEnum::STANDARD_RATION,
                 $food,
                 $this->player,
@@ -86,15 +76,6 @@ class Hyperfreeze extends AbstractAction
                 $time,
                 VisibilityEnum::PUBLIC
             );
-
-            if ($isFoodDecomposing) {
-                $this->statusService->createStatusFromName(
-                    statusName: $decompositionStatusName,
-                    holder: $ration,
-                    tags: $this->getActionConfig()->getActionTags(),
-                    time: $time
-                );
-            }
         } else {
             $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::FROZEN,

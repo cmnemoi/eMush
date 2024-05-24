@@ -430,29 +430,9 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         throw new \RuntimeException("Mechanic {$mechanicName} not found in the mechanics of {$this->name} equipment.");
     }
 
-    public function getDecompositionStatusNameOrEmptyString(): string
+    public function shouldBeTransformedIntoStandardRation(): bool
     {
-        if ($this->isNotAFood()) {
-            return GameRationEnum::NULL;
-        }
-
-        foreach (EquipmentStatusEnum::getDecomposingStatuses() as $statusName) {
-            if ($this->hasStatus($statusName)) {
-                return $statusName;
-            }
-        }
-
-        return GameRationEnum::NULL;
-    }
-
-    public function isDecomposing(): bool
-    {
-        return $this->getDecompositionStatusNameOrEmptyString() !== GameRationEnum::NULL;
-    }
-
-    public function isNotAFood(): bool
-    {
-        return GameRationEnum::getAll()->contains($this->getName()) === false;
+        return GameRationEnum::getFoodToTransformIntoStandardRation()->contains($this->getName());
     }
 
     private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool

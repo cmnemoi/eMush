@@ -57,9 +57,9 @@ final class MoveActionTest extends AbstractActionTest
         $roomStart->addDoor($door);
         $roomEnd->addDoor($door);
 
-        $this->playerService->shouldReceive('persist');
-
         $player = $this->createPlayer(new Daedalus(), $roomStart);
+
+        $this->playerService->shouldReceive('changePlace')->twice()->with($player, $roomEnd);
 
         $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $door);
 
@@ -67,7 +67,6 @@ final class MoveActionTest extends AbstractActionTest
         $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
-        self::assertSame($player->getPlace(), $roomEnd);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
@@ -75,6 +74,5 @@ final class MoveActionTest extends AbstractActionTest
         $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
-        self::assertSame($player->getPlace(), $roomStart);
     }
 }

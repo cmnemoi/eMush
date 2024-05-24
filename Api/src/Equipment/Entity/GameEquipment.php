@@ -418,7 +418,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     {
         return LogParameterKeyEnum::EQUIPMENT . 's';
     }
-
+    
     public function getMechanicByNameOrThrow(string $mechanicName): EquipmentMechanic
     {
         foreach ($this->getEquipment()->getMechanics() as $mechanic) {
@@ -430,6 +430,9 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         throw new \RuntimeException("Mechanic {$mechanicName} not found in the mechanics of {$this->name} equipment.");
     }
 
+    /**
+     * @psalm-suppress ArgumentTypeCoercion
+     */
     public function shouldBeTransformedIntoStandardRation(): bool
     {
         return (new ArrayCollection([GameRationEnum::COOKED_RATION, GameRationEnum::ALIEN_STEAK]))->contains($this->getName());

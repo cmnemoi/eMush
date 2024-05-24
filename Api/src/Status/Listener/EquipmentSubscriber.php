@@ -2,10 +2,8 @@
 
 namespace Mush\Status\Listener;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;

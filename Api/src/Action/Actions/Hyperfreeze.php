@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;

@@ -2,8 +2,6 @@
 
 namespace Mush\Status\Enum;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 class EquipmentStatusEnum
 {
     public const ALIEN_ARTEFACT = 'alien_artefact';
@@ -47,14 +45,5 @@ class EquipmentStatusEnum
             self::BROKEN,
             self::UPDATING,
         ];
-    }
-
-    public static function getDecomposingStatuses(): ArrayCollection
-    {
-        return new ArrayCollection([
-            self::UNSTABLE,
-            self::HAZARDOUS,
-            self::DECOMPOSING,
-        ]);
     }
 }

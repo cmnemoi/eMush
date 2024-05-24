@@ -35,12 +35,4 @@ abstract class GameRationEnum
             self::SUPERVITAMIN_BAR,
         ]);
     }
-
-    public static function getFoodToTransformIntoStandardRation(): ArrayCollection
-    {
-        return new ArrayCollection([
-            self::COOKED_RATION,
-            self::ALIEN_STEAK,
-        ]);
-    }
 }

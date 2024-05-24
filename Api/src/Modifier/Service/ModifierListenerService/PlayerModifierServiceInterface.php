@@ -2,11 +2,11 @@
 
 namespace Mush\Modifier\Service\ModifierListenerService;
 
-use Mush\Player\Entity\Player;
+use Mush\Player\Event\PlayerChangedPlaceEvent;
 
 interface PlayerModifierServiceInterface
 {
-    public function playerEnterRoom(Player $player, array $tags, \DateTime $time): void;
+    public function playerEnterRoom(PlayerChangedPlaceEvent $event): void;
 
-    public function playerLeaveRoom(Player $player, array $tags, \DateTime $time): void;
+    public function playerLeaveRoom(PlayerChangedPlaceEvent $event): void;
 }

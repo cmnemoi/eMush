@@ -87,7 +87,9 @@ class MoveSubscriberCest
         $I->haveInRepository($door);
         $room->addDoor($door);
         $room2->addDoor($door);
-        $I->refreshEntities($room, $room2, $door);
+        $I->haveInRepository($room);
+        $I->haveInRepository($room2);
+        $I->haveInRepository($door);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
@@ -105,7 +107,7 @@ class MoveSubscriberCest
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         // first let create a gear with an irrelevant reach
         $modifierConfig1 = new VariableEventModifierConfig('testModifierShower');
@@ -116,7 +118,7 @@ class MoveSubscriberCest
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setMode(VariableModifierModeEnum::ADDITIVE);
         $I->haveInRepository($modifierConfig1);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
         $modifier = new GameModifier($player, $modifierConfig1);
         $I->haveInRepository($modifier);
 
@@ -137,9 +139,9 @@ class MoveSubscriberCest
             ->setEquipment($equipmentConfig)
             ->setName('some name');
         $I->haveInRepository($gameEquipment);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
         $player->addEquipment($gameEquipment);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         // let's create a gear with room reach in player inventory
         $modifierConfig2 = new VariableEventModifierConfig('testModifierShower2');
@@ -169,9 +171,9 @@ class MoveSubscriberCest
         $gameEquipment2 = $equipmentConfig2->createGameEquipment($player);
 
         $I->haveInRepository($gameEquipment2);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
         $player->addEquipment($gameEquipment2);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         // let's create a status with modifier with room reach on player
         $modifier3 = new GameModifier($room, $modifierConfig2);

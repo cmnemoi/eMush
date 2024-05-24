@@ -18,7 +18,6 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
     public const string CONVERSION_PLAYER = 'conversion.player';
     public const string END_PLAYER = 'end.player';
     public const string DELETE_PLAYER = 'delete.player';
-    public const string CHANGED_PLACE = 'changed.place';
     public const string TITLE_ATTRIBUTED = 'title.attributed';
     public const string TITLE_REMOVED = 'title.removed';
 

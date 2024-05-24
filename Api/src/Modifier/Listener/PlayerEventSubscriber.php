@@ -7,6 +7,7 @@ use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Service\ModifierCreationService;
 use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
 use Mush\Modifier\Service\ModifierListenerService\PlayerModifierServiceInterface;
+use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -29,29 +30,29 @@ class PlayerEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PlayerEvent::CHANGED_PLACE => 'onChangedPlace',
+            PlayerChangedPlaceEvent::class => 'onChangedPlace',
             PlayerEvent::NEW_PLAYER => 'appliesDirectModifiers',
         ];
     }
 
-    public function onChangedPlace(PlayerEvent $event): void
+    public function onChangedPlace(PlayerChangedPlaceEvent $event): void
     {
         $player = $event->getPlayer();
 
         // delete modifiers from old place
-        $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
+        $this->playerModifierService->playerLeaveRoom($event);
+
+        /** @var GameEquipment $equipment */
+        foreach ($player->getEquipments() as $equipment) {
+            $this->equipmentModifierService->equipmentLeaveRoom($equipment, $event->getOldPlace(), $event->getTags(), $event->getTime());
+        }
+
+        // add modifiers to new place
+        $this->playerModifierService->playerEnterRoom($event);
 
         /** @var GameEquipment $equipment */
         foreach ($player->getEquipments() as $equipment) {
             $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
-        }
-
-        // add modifiers to new place
-        $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
-
-        /** @var GameEquipment $equipment */
-        foreach ($player->getEquipments() as $equipment) {
-            $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
         }
     }
 

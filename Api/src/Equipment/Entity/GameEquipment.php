@@ -432,7 +432,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function shouldBeTransformedIntoStandardRation(): bool
     {
-        return GameRationEnum::getFoodToTransformIntoStandardRation()->contains($this->getName());
+        return (new ArrayCollection([GameRationEnum::COOKED_RATION, GameRationEnum::ALIEN_STEAK]))->contains($this->getName());
     }
 
     private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool

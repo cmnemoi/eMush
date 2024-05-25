@@ -262,9 +262,9 @@
         <source>thalasso.name</source>
         <target>Thalasso</target>
       </segment>
-      <segment id="thalasso.description" state="translated">
+      <segment id="thalasso.description" state="final">
         <source>thalasso.description</source>
-        <target>Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU + 1 :pmo: OU + 2:pm:.</target>
+        <target>Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU +1 :pmo: OU +2 :pm:.</target>
       </segment>
       <segment id="thalasso.lore" state="translated">
         <source>thalasso.lore</source>

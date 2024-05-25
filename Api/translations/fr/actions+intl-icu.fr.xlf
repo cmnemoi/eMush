@@ -262,7 +262,7 @@
       </segment>
       <segment id="description" state="final">
         <source>repair.description</source>
-        <target>Un objet non équipement endommagé est remis en état.</target>
+        <target>Un objet ou un équipement endommagé est remis en état.</target>
       </segment>
     </unit>
     <unit id="search">

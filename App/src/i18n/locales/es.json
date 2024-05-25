@@ -201,8 +201,24 @@
 	},
 	"admin": {
 		"actions": {
-			"createProjects": "Créer les projets pour les Daedalus en cours",
-			"proposeProjects": "Proposer des projets pour les Daedalus en cours",
+			"equipment": {
+				"title": "Équipement",
+				"create": "Créer de l'équipment pour les vaisseaux en cours",
+				"name": "Nom de l'équipement",
+				"quantity": "Quantité",
+				"place": "Salle où créer l'équipement"
+			},
+			"projects": {
+				"title": "Projets",
+				"create": "Créer les projets pour les Daedalus en cours",
+				"propose": "Proposer des projets pour les Daedalus en cours"
+			},
+			"statuses": {
+				"title": "Status",
+				"createAllPlayersInitStatuses": "Créer les status de départ pour tous les joueurs",
+				"deleteAllByName": "Supprimer tous les status portant ce nom",
+				"name": "Nom"
+			},
 			"title": "Actions administratives"
 		},
 		"banner": {

@@ -289,5 +289,23 @@
         <target>bric_broc.lore</target>
       </segment>
     </unit>
+    <unit id="magnetic_net">
+      <segment id="magnetic_net.type" state="initial">
+        <source>magnetic_net.type</source>
+        <target>magnetic_net.type</target>
+      </segment>
+      <segment id="magnetic_net.name" state="initial">
+        <source>magnetic_net.name</source>
+        <target>magnetic_net.name</target>
+      </segment>
+      <segment id="magnetic_net.description" state="initial">
+        <source>magnetic_net.description</source>
+        <target>magnetic_net.description</target>
+      </segment>
+      <segment id="magnetic_net.lore" state="initial">
+        <source>magnetic_net.lore</source>
+        <target>magnetic_net.lore</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

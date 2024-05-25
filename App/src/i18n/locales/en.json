@@ -201,8 +201,24 @@
 	},
 	"admin": {
 		"actions": {
-			"createProjects": "Create projects for ongoing Daedaluses",
-			"proposeProjects": "Propose projects for on-going Daedaluses",
+			"equipment": {
+				"title": "Equipment",
+				"create": "Create equipment for ongoing Daedaluses",
+				"name": "Equipment name",
+				"quantity": "Quantity",
+				"place": "Room in which to create equipment"
+			},
+			"projects": {
+				"title": "Projects",
+				"create": "Create projects for ongoing Daedaluses",
+				"propose": "Propose projects for ongoing Daedaluses"
+			},
+			"statuses": {
+				"title": "Status",
+				"createAllPlayersInitStatuses": "Create starting statuses for all players",
+				"deleteAllByName": "Delete all status with this name",
+				"name": "Name"
+			},
 			"title": "Administrative actions"
 		},
 		"banner": {

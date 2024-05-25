@@ -203,8 +203,8 @@
 		"actions": {
 			"equipment": {
 				"title": "Équipement",
-				"create": "Créer de l'équipment pour les vaisseaux en cours",
-				"name":"Nom de l'équipement",
+				"create": "Créer de l'équipement pour les vaisseaux en cours",
+				"name": "Nom de l'équipement",
 				"quantity": "Quantité",
 				"place": "Salle où créer l'équipement"
 			},

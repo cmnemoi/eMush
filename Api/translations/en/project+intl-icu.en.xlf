@@ -289,5 +289,23 @@
         <target>Did someone think to SCREW the steel plating back down?</target>
       </segment>
     </unit>
+    <unit id="magnetic_net">
+      <segment id="magnetic_net.type" state="translated">
+        <source>magnetic_net.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="magnetic_net.name" state="translated">
+        <source>magnetic_net.name</source>
+        <target>Magnetic Net</target>
+      </segment>
+      <segment id="magnetic_net.description" state="translated">
+        <source>magnetic_net.description</source>
+        <target>When the Daedalus moves, its surrounding patrol ships are automatically brought back on board.</target>
+      </segment>
+      <segment id="magnetic_net.lore" state="translated">
+        <source>magnetic_net.lore</source>
+        <target>One of the great assets of the Magellan was that the stellar ark could mobilize its own flotilla. You debug the last packets of code from the Magnet automatic pilot program. That'll do the trick.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

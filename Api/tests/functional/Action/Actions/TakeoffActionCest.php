@@ -16,11 +16,15 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
@@ -37,19 +41,40 @@ use Mush\Tests\FunctionalTester;
  */
 final class TakeoffActionCest extends AbstractFunctionalTest
 {
-    private StatusServiceInterface $statusService;
     private Takeoff $takeoffAction;
     private ActionConfig $action;
+
+    private GameEquipment $pasiphae;
+    private ChargeStatus $pasiphaeArmor;
+
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $this->createExtraRooms($I, $this->daedalus);
 
-        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKEOFF]);
-
-        $this->takeoffAction = $I->grabService(Takeoff::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $this->pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $this->pasiphae
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig);
+        $I->haveInRepository($this->pasiphae);
+
+        $this->pasiphaeArmor = $this->statusService->createStatusFromName(
+            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
+            $this->pasiphae,
+            [],
+            new \DateTime()
+        );
+        $I->haveInRepository($this->pasiphae);
+
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKEOFF]);
+        $this->takeoffAction = $I->grabService(Takeoff::class);
     }
 
     public function testTakeoffCriticalSuccess(FunctionalTester $I)
@@ -317,6 +342,136 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         // then the hacker kit is dropped in the take off room but not the extinguisher
         $I->assertFalse($this->player1->hasEquipmentByName(ToolItemEnum::HACKER_KIT));
         $I->assertTrue($this->player1->hasEquipmentByName(ToolItemEnum::EXTINGUISHER));
+    }
+
+    public function shouldDestroyPatrolShipIfNoEnoughArmor(FunctionalTester $I): void
+    {
+        // given land action has a 0% critical rate so it will fail
+        $this->action->setCriticalRate(0);
+
+        // given pasiphae armor is equals to one so it will be destroyed at landing
+        $this->pasiphaeArmor->setCharge(1);
+
+        // when player lands
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
+        $this->takeoffAction->execute();
+
+        // then pasiphae is destroyed
+        $I->dontSeeInRepository(GameEquipment::class, ['name' => EquipmentEnum::PASIPHAE]);
+    }
+
+    public function shouldKillPlayerWithoutSpacesuitIfPatrolShipExplodes(FunctionalTester $I): void
+    {
+        // given land action has a 0% critical rate so it will fail
+        $this->action->setCriticalRate(0);
+
+        // given pasiphae armor is equals to one so it will be destroyed at landing
+        $this->pasiphaeArmor->setCharge(1);
+
+        // when player lands
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
+        $this->takeoffAction->execute();
+
+        // then player is dead from patrol ship explosion
+        $I->assertEquals(
+            expected: EndCauseEnum::PATROL_SHIP_EXPLOSION,
+            actual: $this->player->getPlayerInfo()->getClosedPlayer()->getEndCause(),
+        );
+    }
+
+    public function shouldNotKillPlayerWithSpacesuitIfPatrolShipExplodes(FunctionalTester $I): void
+    {
+        // given land action has a 0% critical rate so it will fail
+        $this->action->setCriticalRate(0);
+
+        // given pasiphae armor is equals to one so it will be destroyed at landing
+        $this->pasiphaeArmor->setCharge(1);
+
+        // given player has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // when player lands
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
+        $this->takeoffAction->execute();
+
+        // then player is alive
+        $I->assertTrue($this->player->isAlive());
+    }
+
+    public function shouldMovePatrolShipContentInSpaceIfPatrolShipExplodes(FunctionalTester $I): void
+    {
+        // given land action has a 0% critical rate so it will fail
+        $this->action->setCriticalRate(0);
+
+        // given pasiphae armor is equals to one so it will be destroyed at landing
+        $this->pasiphaeArmor->setCharge(1);
+
+        // given there is an old shirt in pasiphae
+        $oldShirt = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::OLD_T_SHIRT,
+            equipmentHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::PASIPHAE),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // when player lands
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
+        $this->takeoffAction->execute();
+
+        // then old shirt is in space
+        $I->assertEquals(
+            expected: RoomEnum::SPACE,
+            actual: $oldShirt->getPlace()->getName(),
+        );
+    }
+
+    public function shouldKillPlayerByInjuryIfTheyDontHaveHealthPoints(FunctionalTester $I): void
+    {
+        // given land action has a 0% critical rate so it will fail
+        $this->action->setCriticalRate(0);
+
+        // given player has only one health point
+        $this->player1->setHealthPoint(1);
+
+        // when player lands
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
+        $this->takeoffAction->execute();
+
+        // then player is dead from injury
+        $I->assertEquals(
+            expected: EndCauseEnum::INJURY,
+            actual: $this->player1->getPlayerInfo()->getClosedPlayer()->getEndCause(),
+        );
     }
 
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void

@@ -1525,7 +1525,7 @@ class ActionData
             'types' => [ActionTypeEnum::ACTION_PILOT],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
-            'visibilities' => ['critical_success' => 'public', 'success' => 'public'],
+            'visibilities' => ['critical_success' => 'hidden', 'success' => 'hidden'],
             'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

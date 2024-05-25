@@ -2,8 +2,8 @@
 
 namespace Mush\Action\Service;
 
-use Mush\Action\Entity\ActionResult\CriticalSuccess;
-use Mush\Action\Event\ActionEvent;
+use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
@@ -17,6 +17,7 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -26,7 +27,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInterface
+final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInterface
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -48,49 +49,70 @@ class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInterface
         $this->statusService = $statusService;
     }
 
-    public function handlePatrolshipManoeuvreDamage(ActionEvent $event): void
-    {
-        if (!$event->getActionResult() instanceof CriticalSuccess) {
-            $this->inflictDamageToDaedalus($event);
-            $this->inflictDamageToPatrolShip($event);
-            $this->inflictDamageToPlayer($event);
-        }
-    }
+    public function handleLand(
+        GameEquipment $patrolShip,
+        Player $pilot,
+        ActionResult $actionResult,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
+    ): void {
+        $daedalus = $patrolShip->getDaedalus();
 
-    public function handleLand(ActionEvent $event): void
-    {
-        /** @var GameEquipment $patrolShip */
-        $patrolShip = $event->getActionTarget();
+        /** @var PatrolShip $patrolShipMechanic */
+        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+        $dockingPlaceName = $patrolShipMechanic->getDockingPlace();
+
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $patrolShip,
+            newHolder: $daedalus->getPlaceByNameOrThrow($dockingPlaceName),
+            tags: $tags,
+            time: $time,
+            author: $pilot,
+        );
+
+        if ($actionResult->isNotACriticalSuccess()) {
+            $this->handlePatrolShipManoeuvreDamage($patrolShip, $pilot, $tags, $time);
+        }
 
         /** @var ?ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
-        if ($patrolShipArmor instanceof ChargeStatus && $patrolShipArmor->isCharged()) {
-            $this->moveScrapToPatrolShipDockingPlace($event);
+        $isPatrolShipAlive = $patrolShipArmor?->isCharged();
+        if ($isPatrolShipAlive) {
+            $this->moveScrapToPatrolShipDockingPlace($patrolShip, $tags, $time, $pilot);
         }
     }
 
-    private function moveScrapToPatrolShipDockingPlace(ActionEvent $event): void
-    {
-        $player = $event->getAuthor();
-        $daedalus = $player->getDaedalus();
+    public function handleTakeoff(
+        GameEquipment $patrolShip,
+        Player $pilot,
+        ActionResult $actionResult,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
+    ): void {
+        $daedalus = $patrolShip->getDaedalus();
 
-        /** @var GameEquipment $patrolShip */
-        $patrolShip = $event->getActionTarget();
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $patrolShip,
+            newHolder: $daedalus->getPlaceByNameOrThrow($patrolShip->getName()),
+            tags: $tags,
+            time: $time
+        );
+
+        if ($actionResult->isNotACriticalSuccess()) {
+            $this->handlePatrolShipManoeuvreDamage($patrolShip, $pilot, $tags, $time);
+        }
+    }
+
+    private function moveScrapToPatrolShipDockingPlace(GameEquipment $patrolShip, array $tags, \DateTime $time, Player $pilot): void
+    {
+        $daedalus = $patrolShip->getDaedalus();
 
         /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
-        if ($patrolShipMechanic === null) {
-            throw new \LogicException("Patrol ship {$patrolShip->getName()} should have a patrol ship mechanic");
-        }
+        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
 
-        /** @var Place $patrolShipDockingPlace */
-        $patrolShipDockingPlace = $daedalus->getPlaceByName($patrolShipMechanic->getDockingPlace());
-        if ($patrolShipDockingPlace === null) {
-            throw new \LogicException("Patrol ship docking place {$patrolShipMechanic->getDockingPlace()} not found");
-        }
+        $patrolShipDockingPlace = $daedalus->getPlaceByNameOrThrow($patrolShipMechanic->getDockingPlace());
 
-        /** @var Place $patrolShipPlace */
-        $patrolShipPlace = $daedalus->getPlaceByName($patrolShip->getName());
+        $patrolShipPlace = $daedalus->getPlaceByNameOrThrow($patrolShip->getName());
         $patrolShipPlaceContent = $patrolShipPlace->getEquipments();
 
         // if no scrap in patrol ship, then there is nothing to move : abort
@@ -103,66 +125,66 @@ class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInterface
             $moveEquipmentEvent = new MoveEquipmentEvent(
                 equipment: $scrap,
                 newHolder: $patrolShipDockingPlace,
-                author: $player,
+                author: $pilot,
                 visibility: VisibilityEnum::HIDDEN,
-                tags: $event->getTags(),
-                time: new \DateTime(),
+                tags: $tags,
+                time: $time,
             );
             $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);
         }
 
-        $logParameters = [
-            $player->getLogKey() => $player->getLogName(),
-        ];
+        // Create discharge log only if it's a real player who triggered the landing
+        if ($pilot->isNull()) {
+            return;
+        }
+
         $this->roomLogService->createLog(
             logKey: LogEnum::PATROL_DISCHARGE,
             place: $patrolShipDockingPlace,
             visibility: VisibilityEnum::PUBLIC,
             type: 'event_log',
-            player: $player,
-            parameters: $logParameters,
-            dateTime: new \DateTime()
+            player: $pilot,
+            parameters: [$pilot->getLogKey() => $pilot->getLogName()],
+            dateTime: $time,
         );
     }
 
-    private function inflictDamageToDaedalus(ActionEvent $event): void
-    {
-        /** @var GameEquipment $patrolShip */
-        $patrolShip = $event->getActionTarget();
+    private function handlePatrolShipManoeuvreDamage(
+        GameEquipment $patrolShip,
+        Player $pilot,
+        array $tags,
+        \DateTime $time
+    ): void {
+        $this->inflictDamageToDaedalus($patrolShip, $tags, $time);
+        $this->inflictDamageToPatrolShip($patrolShip, $tags, $time, $pilot);
+        $this->inflictDamageToPlayer($pilot, $patrolShip, $tags, $time);
+    }
 
+    private function inflictDamageToDaedalus(GameEquipment $patrolShip, array $tags, \DateTime $time): void
+    {
         /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
+        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
             $patrolShipMechanic->getFailedManoeuvreDaedalusDamage()
         );
 
         $daedalusVariableModifierEvent = new DaedalusVariableEvent(
-            $event->getAuthor()->getDaedalus(),
+            $patrolShip->getDaedalus(),
             DaedalusVariableEnum::HULL,
             -$damage,
-            $event->getTags(),
-            new \DateTime(),
+            $tags,
+            $time,
         );
-
         $this->eventService->callEvent($daedalusVariableModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function inflictDamageToPatrolShip(ActionEvent $event): void
+    private function inflictDamageToPatrolShip(GameEquipment $patrolShip, array $tags, \DateTime $time, Player $pilot): void
     {
-        /** @var GameEquipment $patrolShip */
-        $patrolShip = $event->getActionTarget();
-
         /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
-        if ($patrolShipMechanic === null) {
-            throw new \LogicException("Patrol ship {$patrolShip->getName()} should have a patrol ship mechanic");
-        }
+        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
 
         /** @var ChargeStatus $patrolShipArmor */
-        $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
-        if ($patrolShipArmor === null) {
-            throw new \LogicException("Patrol ship {$patrolShip->getName()} should have an armor status");
-        }
+        $patrolShipArmor = $patrolShip->getStatusByNameOrThrow(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
             $patrolShipMechanic->getFailedManoeuvrePatrolShipDamage()
@@ -171,47 +193,52 @@ class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInterface
         $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,
             delta: -$damage,
-            tags: $event->getTags(),
-            time: new \DateTime()
+            tags: $tags,
+            time: $time,
         );
 
         $this->roomLogService->createLog(
             logKey: LogEnum::PATROL_DAMAGE,
-            place: $event->getAuthor()->getPlace(),
+            place: $this->getPatrolDamageLogPlace($patrolShip, $tags),
             visibility: VisibilityEnum::PUBLIC,
             type: 'event_log',
-            player: $event->getAuthor(),
+            player: $pilot,
             parameters: ['quantity' => $damage],
             dateTime: new \DateTime()
         );
-
-        if (!$patrolShipArmor->isCharged()) {
-            $this->gameEquipmentService->handlePatrolShipDestruction($patrolShip, $event->getAuthor(), $event->getTags());
-        }
     }
 
-    private function inflictDamageToPlayer(ActionEvent $event): void
+    private function inflictDamageToPlayer(Player $player, GameEquipment $patrolShip, array $tags, \DateTime $time): void
     {
-        /** @var GameEquipment $patrolShip */
-        $patrolShip = $event->getActionTarget();
-
         /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
+        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
             $patrolShipMechanic->getFailedManoeuvrePlayerDamage()
         );
 
         $playerModifierEvent = new PlayerVariableEvent(
-            $event->getAuthor(),
+            $player,
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
-            $event->getTags(),
-            new \DateTime(),
+            $tags,
+            $time,
         );
         $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
         // change death cause from patrol ship explosion to injury because patrol ship is not destroyed
         $playerModifierEvent->addTag(EndCauseEnum::INJURY);
 
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function getPatrolDamageLogPlace(GameEquipment $patrolShip, array $tags): Place
+    {
+        $daedalus = $patrolShip->getDaedalus();
+
+        /** @var PatrolShip $patrolShipMechanic */
+        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+
+        $placeName = \in_array(ActionEnum::LAND->value, $tags, strict: true) ? $patrolShipMechanic->getDockingPlace() : $patrolShip->getName();
+
+        return $daedalus->getPlaceByNameOrThrow($placeName);
     }
 }

@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -23,8 +24,10 @@ use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -40,6 +43,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
     protected StatusServiceInterface $statusService;
     protected PlanetServiceInterface $planetService;
     private AlertServiceInterface $alertService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private Place $bridge;
 
     public function _before(FunctionalTester $I): void
@@ -50,6 +54,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $this->bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
         $this->alertService = $I->grabService(AlertServiceInterface::class);
         $this->planetService = $I->grabService(PlanetServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
         $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => DaedalusStatusEnum::TRAVELING]);
         $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => DaedalusStatusEnum::IN_ORBIT]);
@@ -546,6 +551,91 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // then there is no fuel in the combustion chamber
         $I->assertEquals(0, $this->daedalus->getCombustionChamberFuel());
+    }
+
+    public function shouldMakePasiphaeLandingWithMagneticNetProject(FunctionalTester $I): void
+    {
+        $this->createExtraPlace(RoomEnum::ALPHA_BAY_2, $I, $this->daedalus);
+
+        // given Magnetic Net Project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::MAGNETIC_NET),
+            author: $this->chun,
+            I: $I
+        );
+
+        // given Pasiphae is in space battle
+        $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
+        $pasiphae = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PASIPHAE,
+            equipmentHolder: $pasiphaePlace,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when player moves daedalus
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->moveDaedalusAction->execute();
+
+        // then pasiphae should be in Alpha Bay 2
+        $I->assertEquals(RoomEnum::ALPHA_BAY_2, $pasiphae->getPlace()->getName());
+    }
+
+    public function shouldNotCreateDischargeLogIfPasiphaeLandingWithMagneticNetProjectWithoutAPilot(FunctionalTester $I): void
+    {
+        $alphaBay2 = $this->createExtraPlace(RoomEnum::ALPHA_BAY_2, $I, $this->daedalus);
+
+        // given Magnetic Net Project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::MAGNETIC_NET),
+            author: $this->chun,
+            I: $I
+        );
+
+        // given Pasiphae is in space battle
+        $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PASIPHAE,
+            equipmentHolder: $pasiphaePlace,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given there is some scrap in Pasiphae's place
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::METAL_SCRAPS,
+            equipmentHolder: $pasiphaePlace,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when player moves daedalus
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->moveDaedalusAction->execute();
+
+        // then I should see metal scraps in Alpha Bay 2
+        $I->assertTrue($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
+
+        // then there is no discharge log
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => RoomEnum::ALPHA_BAY_2,
+                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+                'log' => LogEnum::PATROL_DISCHARGE,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
     }
 
     protected function createHunterByName(string $hunterName, FunctionalTester $I): Hunter

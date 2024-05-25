@@ -58,14 +58,11 @@ class Move extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Door $target */
-        $target = $this->target;
+        /** @var Door $door */
+        $door = $this->target;
 
-        $newRoom = $target->getOtherRoom($this->player->getPlace());
+        $newRoom = $door->getOtherRoom($this->player->getPlace());
 
-        // @TODO: use PlayerService::changePlace instead.
-        // /!\ You need to delete all treatments in Modifier::ActionSubscriber before! /!\
-        $this->player->changePlace($newRoom);
-        $this->playerService->persist($this->player);
+        $this->playerService->changePlace($this->player, $newRoom);
     }
 }

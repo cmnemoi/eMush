@@ -379,7 +379,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testLandSuccessWihScrapCollectedButPasiphaeIsDestroyed(FunctionalTester $I): void
+    public function testLandSuccessWithScrapCollectedButPasiphaeIsDestroyed(FunctionalTester $I): void
     {
         // given we collected scrap successfully
         $this->testCollectScrapActionSuccess($I);
@@ -400,7 +400,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $this->landAction->execute();
 
         // then there should not be scrap in alpha bay 2
-        $alphaBay2 = $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2);
+        $alphaBay2 = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::ALPHA_BAY_2);
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
     }
 

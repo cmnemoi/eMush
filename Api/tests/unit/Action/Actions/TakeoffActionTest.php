@@ -7,6 +7,7 @@ use Mush\Action\Actions\Takeoff;
 use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -43,6 +44,7 @@ final class TakeoffActionTest extends AbstractActionTest
             $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->createStub(PatrolShipManoeuvreServiceInterface::class),
             $this->playerService,
             $this->randomService
         );
@@ -78,13 +80,12 @@ final class TakeoffActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')->andReturn(100);
         $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(false);
-        $this->eventService->shouldReceive('callEvent')->times(1);
+        $this->playerService->shouldReceive('changePlace')->once();
 
         $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertNotInstanceOf(CriticalSuccess::class, $result);
-        self::assertSame($player->getPlace(), $roomEnd);
     }
 
     public function testExecuteSuccess()
@@ -109,11 +110,10 @@ final class TakeoffActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')->andReturn(100);
         $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(true);
-        $this->eventService->shouldReceive('callEvent')->times(1);
+        $this->playerService->shouldReceive('changePlace')->once();
 
         $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(CriticalSuccess::class, $result);
-        self::assertSame($player->getPlace(), $roomEnd);
     }
 }

@@ -133,6 +133,9 @@ class EquipmentConfig
         return $this;
     }
 
+    /**
+     * @return Collection<int, EquipmentMechanic>
+     */
     public function getMechanics(): Collection
     {
         return $this->mechanics;

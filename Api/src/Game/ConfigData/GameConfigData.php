@@ -530,6 +530,7 @@ class GameConfigData
                 ProjectName::PLASMA_SHIELD,
                 ProjectName::THALASSO,
                 ProjectName::TRAIL_REDUCER,
+                ProjectName::MAGNETIC_NET,
             ],
         ],
     ];

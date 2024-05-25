@@ -20,6 +20,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerInfoRepository;
@@ -133,13 +134,13 @@ class PlayerService implements PlayerServiceInterface
 
     public function changePlace(Player $player, Place $place): Player
     {
+        $oldPlace = $player->getPlace();
         $player->changePlace($place);
-        $playerEvent = new PlayerEvent(
+        $playerEvent = new PlayerChangedPlaceEvent(
             $player,
-            [PlayerEvent::CHANGED_PLACE],
-            new \DateTime()
+            $oldPlace,
         );
-        $this->eventService->callEvent($playerEvent, PlayerEvent::CHANGED_PLACE);
+        $this->eventService->callEvent($playerEvent, PlayerChangedPlaceEvent::class);
 
         return $this->persist($player);
     }

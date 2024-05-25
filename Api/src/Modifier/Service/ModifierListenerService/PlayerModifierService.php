@@ -2,24 +2,31 @@
 
 namespace Mush\Modifier\Service\ModifierListenerService;
 
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
-use Mush\Player\Entity\Player;
+use Mush\Player\Event\PlayerChangedPlaceEvent;
 
-class PlayerModifierService implements PlayerModifierServiceInterface
+final class PlayerModifierService implements PlayerModifierServiceInterface
 {
     private ModifierCreationServiceInterface $modifierCreationService;
+    private EquipmentModifierServiceInterface $equipmentModifierService;
 
     public function __construct(
         ModifierCreationServiceInterface $modifierCreationService,
+        EquipmentModifierServiceInterface $equipmentModifierService
     ) {
         $this->modifierCreationService = $modifierCreationService;
+        $this->equipmentModifierService = $equipmentModifierService;
     }
 
-    public function playerEnterRoom(Player $player, array $tags, \DateTime $time): void
+    public function playerEnterRoom(PlayerChangedPlaceEvent $event): void
     {
+        $player = $event->getPlayer();
         $place = $player->getPlace();
+        $tags = $event->getTags();
+        $time = $event->getTime();
 
         foreach ($player->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
@@ -31,11 +38,19 @@ class PlayerModifierService implements PlayerModifierServiceInterface
                 }
             }
         }
+
+        /** @var GameEquipment $item */
+        foreach ($player->getEquipments() as $item) {
+            $this->equipmentModifierService->equipmentEnterRoom($item, $place, $tags, $time);
+        }
     }
 
-    public function playerLeaveRoom(Player $player, array $tags, \DateTime $time): void
+    public function playerLeaveRoom(PlayerChangedPlaceEvent $event): void
     {
-        $place = $player->getPlace();
+        $player = $event->getPlayer();
+        $oldPlace = $event->getOldPlace();
+        $tags = $event->getTags();
+        $time = $event->getTime();
 
         foreach ($player->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
@@ -43,9 +58,14 @@ class PlayerModifierService implements PlayerModifierServiceInterface
             /** @var AbstractModifierConfig $modifierConfig */
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
                 if ($modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLACE) {
-                    $this->modifierCreationService->deleteModifier($modifierConfig, $place, $tags, $time);
+                    $this->modifierCreationService->deleteModifier($modifierConfig, $oldPlace, $tags, $time);
                 }
             }
+        }
+
+        /** @var GameEquipment $item */
+        foreach ($player->getEquipments() as $item) {
+            $this->equipmentModifierService->equipmentLeaveRoom($item, $oldPlace, $tags, $time);
         }
     }
 }

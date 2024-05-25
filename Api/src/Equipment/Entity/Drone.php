@@ -19,7 +19,7 @@ class Drone extends GameItem
 {
     private const float ATTEMPT_INCREASE = 1.25;
 
-    #[ORM\OneToOne(mappedBy: 'drone', targetEntity: DroneInfo::class)]
+    #[ORM\OneToOne(mappedBy: 'drone', targetEntity: DroneInfo::class, cascade: ['remove'])]
     private DroneInfo $droneInfo;
 
     public function __construct(

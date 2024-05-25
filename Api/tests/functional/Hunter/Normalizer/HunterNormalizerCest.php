@@ -64,8 +64,7 @@ final class HunterNormalizerCest extends AbstractFunctionalTest
 
         // then the normalized hunter should be the expected array
         $I->assertEquals(
-            expected: $normalizedHunter,
-            actual: [
+            expected: [
                 'id' => $hunter->getId(),
                 'key' => HunterEnum::HUNTER,
                 'name' => 'Hunter',
@@ -88,7 +87,8 @@ final class HunterNormalizerCest extends AbstractFunctionalTest
                         'actionProvider' => ['class' => $turret->getClassName(), 'id' => $turret->getId()],
                     ],
                 ],
-            ]
+            ],
+            actual: $normalizedHunter,
         );
     }
 

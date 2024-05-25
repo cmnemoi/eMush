@@ -2,7 +2,6 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Service\ModifierCreationService;
 use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
@@ -42,18 +41,8 @@ class PlayerEventSubscriber implements EventSubscriberInterface
         // delete modifiers from old place
         $this->playerModifierService->playerLeaveRoom($event);
 
-        /** @var GameEquipment $equipment */
-        foreach ($player->getEquipments() as $equipment) {
-            $this->equipmentModifierService->equipmentLeaveRoom($equipment, $event->getOldPlace(), $event->getTags(), $event->getTime());
-        }
-
         // add modifiers to new place
         $this->playerModifierService->playerEnterRoom($event);
-
-        /** @var GameEquipment $equipment */
-        foreach ($player->getEquipments() as $equipment) {
-            $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
-        }
     }
 
     // Applies direct modifiers already present in the daedalus to the newly created player

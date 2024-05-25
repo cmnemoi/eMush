@@ -289,5 +289,23 @@
         <target>Quelqu'un a pensé à REVISSER les plaques de tôles ?</target>
       </segment>
     </unit>
+    <unit id="magnetic_net">
+      <segment id="magnetic_net.type" state="translated">
+        <source>magnetic_net.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="magnetic_net.name" state="translated">
+        <source>magnetic_net.name</source>
+        <target>Filet magnétique</target>
+      </segment>
+      <segment id="magnetic_net.description" state="translated">
+        <source>magnetic_net.description</source>
+        <target>Lorsque le Daedalus se déplace les Patrouilleurs sont automatiquement ramenés à bord.</target>
+      </segment>
+      <segment id="magnetic_net.lore" state="translated">
+        <source>magnetic_net.lore</source>
+        <target>Un des grands apports de Magellan était que l'arche stellaire pouvait traîner sa flotte. Vous débuguez les derniers écueils du programme Magnet de pilotage magnétique. Ça va le faire.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

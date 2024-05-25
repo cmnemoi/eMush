@@ -174,9 +174,9 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::MAGNETIC_NET,
                 'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 3,
-                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::FIREFIGHTER],
-                'activationRate' => 25,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::PILOT, SkillEnum::PHYSICIST],
+                'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],

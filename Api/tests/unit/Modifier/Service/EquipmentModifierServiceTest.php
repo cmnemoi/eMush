@@ -260,13 +260,14 @@ final class EquipmentModifierServiceTest extends TestCase
         $this->service->takeEquipment($gameEquipment, $player, [], $date);
     }
 
-    public function testDropGear()
+    public function testDropGearDaedalusRange()
     {
         $daedalus = new Daedalus();
         $room = new Place();
         $room->setDaedalus($daedalus);
         $player = new Player();
         $player->setPlace($room)->setDaedalus($daedalus);
+        $date = new \DateTime();
 
         // gear with daedalus modifier
         $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
@@ -287,8 +288,21 @@ final class EquipmentModifierServiceTest extends TestCase
         $gameEquipment = new GameItem($room);
         $gameEquipment->setEquipment($equipmentConfig);
 
-        $date = new \DateTime();
+        $this->modifierService
+            ->shouldReceive('deleteModifier')
+            ->with($modifierConfig1, $player, [], $date)
+            ->once();
         $this->service->dropEquipment($gameEquipment, $player, [], $date);
+    }
+
+    public function testDropGear()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $room->setDaedalus($daedalus);
+        $player = new Player();
+        $player->setPlace($room)->setDaedalus($daedalus);
+        $date = new \DateTime();
 
         // gear with player GameModifier
         $modifierConfig2 = new VariableEventModifierConfig('unitTestVariableEventModifier');

@@ -12,7 +12,6 @@ use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\EquipmentMechanic as Mechanic;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -75,7 +74,7 @@ class ShootHunter extends AttemptAction
         }
 
         /** @var GameEquipment $shootingEquipment */
-        $shootingEquipment = $this->getShootingEquipment();
+        $shootingEquipment = $this->getActionProvider();
 
         /** @var Weapon $weapon */
         $weapon = $this->getWeaponMechanic($shootingEquipment);
@@ -102,22 +101,6 @@ class ShootHunter extends AttemptAction
         );
         $hunterVariableEvent->setAuthor($this->player);
         $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
-    }
-
-    // @TODO: hack to recover shooting equipment. This has to be improved in a bigger weapon rework (and all items which "target" something)
-    private function getShootingEquipment(): GameEquipment
-    {
-        /** @var GameEquipment $shootingEquipment */
-        $shootingEquipment = $this->player->getPlace()->getEquipments()
-            ->filter(static fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
-            ->filter(static fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(static fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
-            ->first();
-
-        if (!$shootingEquipment instanceof GameEquipment) {
-            throw new \Exception("Shoot hunter action : {$this->player->getPlace()->getName()} should have a shooting equipment (turret or patrol ship)");
-        }
-
-        return $shootingEquipment;
     }
 
     private function getWeaponMechanic(GameEquipment $shootingEquipment): Weapon

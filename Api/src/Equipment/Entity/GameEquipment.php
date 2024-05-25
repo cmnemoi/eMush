@@ -418,7 +418,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     {
         return LogParameterKeyEnum::EQUIPMENT . 's';
     }
-    
+
     public function getMechanicByNameOrThrow(string $mechanicName): EquipmentMechanic
     {
         foreach ($this->getEquipment()->getMechanics() as $mechanic) {

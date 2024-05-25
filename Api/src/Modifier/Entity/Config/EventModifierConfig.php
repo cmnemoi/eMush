@@ -119,7 +119,7 @@ class EventModifierConfig extends AbstractModifierConfig
         foreach (array_keys($tagConstraints) as $tagKey) {
             if ($tagConstraints[$tagKey] !== ModifierRequirementEnum::NONE_TAGS
                 && ActionTypeEnum::getAll()->contains($tagKey)
-                || ActionEnum::getAll()->contains($tagKey)
+                || ActionEnum::getAllAsStrings()->contains($tagKey)
             ) {
                 $parameters['action_name'] = $tagKey;
             }

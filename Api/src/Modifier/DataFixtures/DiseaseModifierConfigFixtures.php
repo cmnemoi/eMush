@@ -246,9 +246,12 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($cycle1ActionLostRand16);
 
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_1);
+
         $cycle1HealthLostRand16 = new TriggerEventModifierConfig('cycle1HealthLostRand16');
         $cycle1HealthLostRand16
-            ->setTriggeredEvent($eventConfigLose1Health)
+            ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyWhenTargeted(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)

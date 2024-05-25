@@ -252,13 +252,13 @@ enum ActionEnum: string
         ]);
     }
 
-    public static function getAll(): ArrayCollection
+    public static function getAllAsStrings(): ArrayCollection
     {
         $actions = new ArrayCollection();
         $reflectionClass = new \ReflectionClass(__CLASS__);
         $constants = $reflectionClass->getConstants();
         foreach ($constants as $constant) {
-            $actions->add($constant);
+            $actions->add($constant->value);
         }
 
         return $actions;

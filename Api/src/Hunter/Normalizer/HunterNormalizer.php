@@ -6,7 +6,6 @@ namespace Mush\Hunter\Normalizer;
 
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Player\Entity\Player;
@@ -21,14 +20,9 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
     use ActionHolderNormalizerTrait;
     use NormalizerAwareTrait;
 
-    private GearToolServiceInterface $gearToolService;
-    private TranslationServiceInterface $translationService;
-
     public function __construct(
-        GearToolServiceInterface $gearToolService,
-        TranslationServiceInterface $translationService
+        private TranslationServiceInterface $translationService
     ) {
-        $this->gearToolService = $gearToolService;
         $this->translationService = $translationService;
     }
 

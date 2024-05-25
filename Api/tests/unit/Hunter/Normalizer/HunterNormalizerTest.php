@@ -7,7 +7,6 @@ namespace Mush\Tests\unit\Hunter\Normalizer;
 use Mockery;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Entity\Hunter;

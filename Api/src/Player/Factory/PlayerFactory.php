@@ -24,7 +24,7 @@ final class PlayerFactory
             ->setUsername(Uuid::v4()->toRfc4122());
 
         $characterConfig = new CharacterConfig();
-        $characterConfig->setCharacterName(CharacterEnum::CHUN);
+        $characterConfig->setCharacterName(CharacterEnum::null);
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

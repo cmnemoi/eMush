@@ -103,7 +103,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         }
     }
 
-    private function moveScrapToPatrolShipDockingPlace(GameEquipment $patrolShip, array $tags, \DateTime $time, ?Player $pilot): void
+    private function moveScrapToPatrolShipDockingPlace(GameEquipment $patrolShip, array $tags, \DateTime $time, Player $pilot): void
     {
         $daedalus = $patrolShip->getDaedalus();
 
@@ -133,8 +133,8 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
             $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);
         }
 
-        // Create discharge log only if it's a player who triggered the landing
-        if ($pilot === null) {
+        // Create discharge log only if it's a real player who triggered the landing
+        if ($pilot->isNull()) {
             return;
         }
 

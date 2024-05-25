@@ -1974,7 +1974,10 @@ abstract class ModifierConfigData
             'targetVariable' => EquipmentStatusEnum::ELECTRIC_CHARGES,
             'mode' => 'additive',
             'modifierActivationRequirements' => ['random_50'],
-            'tagConstraints' => [EquipmentEnum::TURRET_COMMAND => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [
+                EquipmentEnum::TURRET_COMMAND => ModifierRequirementEnum::ALL_TAGS,
+                VariableEventInterface::GAIN => ModifierRequirementEnum::ALL_TAGS,
+            ],
         ],
         [
             'name' => 'rope_modifier_for_player_prevent_change.variable_if_reason_accident_and_variable_healthPoint',

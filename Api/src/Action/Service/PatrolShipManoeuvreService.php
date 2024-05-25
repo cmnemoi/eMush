@@ -71,7 +71,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         );
 
         if ($actionResult->isNotACriticalSuccess()) {
-            $this->handlePatrolshipManoeuvreDamage($patrolShip, $pilot, $tags, $time);
+            $this->handlePatrolShipManoeuvreDamage($patrolShip, $pilot, $tags, $time);
         }
 
         /** @var ?ChargeStatus $patrolShipArmor */
@@ -99,7 +99,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         );
 
         if ($actionResult->isNotACriticalSuccess()) {
-            $this->handlePatrolshipManoeuvreDamage($patrolShip, $pilot, $tags, $time);
+            $this->handlePatrolShipManoeuvreDamage($patrolShip, $pilot, $tags, $time);
         }
     }
 
@@ -149,11 +149,11 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         );
     }
 
-    private function handlePatrolshipManoeuvreDamage(
+    private function handlePatrolShipManoeuvreDamage(
         GameEquipment $patrolShip,
         Player $pilot,
-        array $tags = [],
-        \DateTime $time = new \DateTime()
+        array $tags,
+        \DateTime $time
     ): void {
         $this->inflictDamageToDaedalus($patrolShip, $tags, $time);
         $this->inflictDamageToPatrolShip($patrolShip, $tags, $time, $pilot);

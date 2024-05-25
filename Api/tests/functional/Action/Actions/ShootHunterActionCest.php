@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Weapon;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -24,6 +25,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -67,7 +69,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $turretConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'turret_command_default']);
         $this->turret = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::FRONT_ALPHA_TURRET));
         $this->turret
-            ->setName('turret')
+            ->setName(EquipmentEnum::TURRET_COMMAND)
             ->setEquipment($turretConfig);
         $I->haveInRepository($this->turret);
 
@@ -318,5 +320,39 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
             expected: 2,
             actual: $hunter->getHealth()
         );
+    }
+
+    public function testShootHunterWithDefenseCPU(FunctionalTester $I): void
+    {
+        $this->action->setSuccessRate(0);
+
+        /** @var StatusServiceInterface $statusService */
+        $statusService = $I->grabService(StatusServiceInterface::class);
+        $statusService->createStatusFromName(
+            DaedalusStatusEnum::DEFENCE_NERON_CPU_PRIORITY,
+            $this->daedalus,
+            [],
+            new \DateTime()
+        );
+
+        /** @var ChargeStatus $chargeStatus */
+        $chargeStatus = $this->turret->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $I->assertCount(2, $this->daedalus->getModifiers());
+        $I->assertEquals($chargeStatus->getVariableByName(EquipmentStatusEnum::ELECTRIC_CHARGES)->getMaxValue(), 6);
+        $I->assertEquals($chargeStatus->getVariableByName(EquipmentStatusEnum::ELECTRIC_CHARGES)->getValue(), 4);
+
+        /** @var Hunter $hunter */
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+
+        $this->shootHunterAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->turret,
+            player: $this->player1,
+            target: $hunter
+        );
+        $I->assertTrue($this->shootHunterAction->isVisible());
+        $this->shootHunterAction->execute();
+
+        $I->assertEquals($chargeStatus->getCharge(), 3);
     }
 }

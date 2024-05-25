@@ -332,6 +332,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([
                 EquipmentEnum::TURRET_COMMAND => ModifierRequirementEnum::ALL_TAGS,
+                VariableEventInterface::GAIN => ModifierRequirementEnum::ALL_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($defenceCpuPriorityIncreaseTurretRecharge);

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php 
+
+declare(strict_types=1);
 
 namespace Mush;
 
@@ -32,20 +34,22 @@ final class OpenTelemetry {
             return;
         }
 
+        $apiConfig = new ApiConfig($_ENV);
+
         $resource = ResourceInfoFactory::emptyResource()->merge(ResourceInfo::create(Attributes::create([
-            ResourceAttributes::SERVICE_NAME => 'emush',
-            ResourceAttributes::DEPLOYMENT_ENVIRONMENT => 'dev',
+            ResourceAttributes::SERVICE_NAME => $apiConfig->appName,
+            ResourceAttributes::DEPLOYMENT_ENVIRONMENT => $apiConfig->appEnv
         ])));
         $spanExporter = new SpanExporter(
             PsrTransportFactory::discover()
                 ->create(
-                    'http://eternaltwin:50320/v1/traces',
+                    $apiConfig->otelExporterOltpEndpoint,
                     'application/x-protobuf',
-                    array('authorization' => self::getAuthorizationHeader('emush_dev@clients', 'dev_secret'))
+                    array('authorization' => self::getAuthorizationHeader($apiConfig->oauthClientId, $apiConfig->oauthClientSecret))
                 )
         );
 
-        $spanProcessor = true ? new SimpleSpanProcessor($spanExporter) : new BatchSpanProcessor($spanExporter, Clock::getDefault());
+        $spanProcessor = $apiConfig->isApiOnDev() ? new SimpleSpanProcessor($spanExporter) : new BatchSpanProcessor($spanExporter, Clock::getDefault());
 
         $tracerProvider = TracerProvider::builder()
             ->addSpanProcessor($spanProcessor)

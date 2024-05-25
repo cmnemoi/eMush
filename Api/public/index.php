@@ -1,7 +1,7 @@
 <?php
 
 use Mush\Kernel;
-use OpenTelemetry\API\Globals;
+use OpenTelemetry\API\Globals as OpenTelemetryGlobals;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +26,7 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
     Request::setTrustedHosts([$trustedHosts]);
 }
 
-$tracer = \OpenTelemetry\API\Globals::tracerProvider()->getTracer('index.php');
+$tracer = OpenTelemetryGlobals::tracerProvider()->getTracer('index.php');
 $span = $tracer->spanBuilder('test')->startSpan();
 $span->end();
 $kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);

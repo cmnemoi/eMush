@@ -51,9 +51,8 @@ final class HunterNormalizerCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime(),
         );
-        $shootHunterActionId = $turret->getEquipment()
-            ->getMechanicByName(EquipmentMechanicEnum::WEAPON)
-            ->getActionByNameOrThrow(ActionEnum::SHOOT_HUNTER)
+        $shootHunterActionId = $turret
+            ->getMechanicActionByNameOrThrow(ActionEnum::SHOOT_HUNTER)
             ->getId();
 
         // given 1 hunter is spawned

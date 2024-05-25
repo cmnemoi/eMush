@@ -44,7 +44,7 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
 
         /** @var Hunter $hunter */
         $hunter = $object;
-        $context['hunter'] = $hunter;
+        $context[$hunter->getClassName()] = $hunter;
 
         /** @var ChargeStatus $asteroidTruceCyclesStatus */
         $asteroidTruceCyclesStatus = $hunter->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);

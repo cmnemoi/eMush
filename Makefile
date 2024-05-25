@@ -26,8 +26,6 @@ build:
 create-crew: docker-start
 	@echo "Waiting for ET server to start..."
 	@sleep 3
-	@echo "Waiting for ET server to start..."
-	@sleep 3
 	docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:create-crew
 
 docker-fresh-start: docker-stop

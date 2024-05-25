@@ -29,9 +29,6 @@ final class HunterNormalizerTest extends TestCase
 
     private HunterNormalizer $normalizer;
 
-    /** @var GearToolServiceInterface|Mockery\Mock */
-    private GearToolServiceInterface $gearToolService;
-
     /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
@@ -40,9 +37,8 @@ final class HunterNormalizerTest extends TestCase
      */
     public function before()
     {
-        $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
-        $this->normalizer = new HunterNormalizer($this->gearToolService, $this->translationService);
+        $this->normalizer = new HunterNormalizer($this->translationService);
     }
 
     /**

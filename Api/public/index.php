@@ -27,10 +27,10 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
 }
 
 $tracer = OpenTelemetryGlobals::tracerProvider()->getTracer('index.php');
-$span = $tracer->spanBuilder('test')->startSpan();
-$span->end();
 $kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);
 $request = Request::createFromGlobals();
+$span = $tracer->spanBuilder($request->getRequestUri())->startSpan();
 $response = $kernel->handle($request);
 $response->send();
 $kernel->terminate($request, $response);
+$span->end();

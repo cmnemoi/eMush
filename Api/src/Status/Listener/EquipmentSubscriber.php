@@ -16,7 +16,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class EquipmentSubscriber implements EventSubscriberInterface
+final class EquipmentSubscriber implements EventSubscriberInterface
 {
     private StatusServiceInterface $statusService;
 
@@ -56,8 +56,12 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
         /** @var Status $status */
         foreach ($oldEquipment->getStatuses() as $status) {
-            $newEquipment->addStatus($status);
-            $this->statusService->persist($status);
+            $this->statusService->createStatusFromName(
+                $status->getName(),
+                $newEquipment,
+                $event->getTags(),
+                $event->getTime(),
+            );
         }
     }
 

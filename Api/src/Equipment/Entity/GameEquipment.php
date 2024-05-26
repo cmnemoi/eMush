@@ -17,6 +17,7 @@ use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Tool;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -427,6 +428,14 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
 
         throw new \RuntimeException("Mechanic {$mechanicName} not found in the mechanics of {$this->name} equipment.");
+    }
+
+    /**
+     * @psalm-suppress ArgumentTypeCoercion
+     */
+    public function shouldBeTransformedIntoStandardRation(): bool
+    {
+        return (new ArrayCollection([GameRationEnum::COOKED_RATION, GameRationEnum::ALIEN_STEAK]))->contains($this->getName());
     }
 
     private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool

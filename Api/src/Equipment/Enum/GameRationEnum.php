@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\Enum;
 
-class GameRationEnum
+abstract class GameRationEnum
 {
     public const LOMBRICK_BAR = 'lombrick_bar';
     public const ORGANIC_WASTE = 'organic_waste';
@@ -14,4 +16,5 @@ class GameRationEnum
     public const SPACE_POTATO = 'space_potato';
     public const STANDARD_RATION = 'standard_ration';
     public const SUPERVITAMIN_BAR = 'supervitamin_bar';
+    public const NULL = '';
 }

@@ -62,23 +62,23 @@ class Hyperfreeze extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $target */
-        $target = $this->target;
+        /** @var GameEquipment $food */
+        $food = $this->target;
         $time = new \DateTime();
 
-        if (\in_array($target->getName(), [GameRationEnum::COOKED_RATION, GameRationEnum::ALIEN_STEAK], true)) {
+        if ($food->shouldBeTransformedIntoStandardRation()) {
             $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
                 GameRationEnum::STANDARD_RATION,
-                $target,
+                $food,
                 $this->player,
                 $this->getActionConfig()->getActionTags(),
-                new \DateTime(),
+                $time,
                 VisibilityEnum::PUBLIC
             );
         } else {
             $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::FROZEN,
-                $target,
+                $food,
                 $this->getActionConfig()->getActionTags(),
                 $time
             );

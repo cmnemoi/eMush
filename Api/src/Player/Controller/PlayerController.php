@@ -69,11 +69,7 @@ class PlayerController extends AbstractGameController
      * @Rest\Get(path="/{id}")
      */
     public function getPlayerAction(Player $player): View
-    {   
-        $tracer = Globals::tracerProvider()->getTracer('demo');
-
-        $span = $tracer->spanBuilder('getPlayerAction')->startSpan();
-
+    {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
         }
@@ -85,9 +81,6 @@ class PlayerController extends AbstractGameController
 
         $view = $this->view($player, Response::HTTP_OK);
         $view->setContext($context);
-
-        $span->addEvent('getPlayerAction', ['player' => $player->getId()]);
-        $span->end();
 
         return $view;
     }

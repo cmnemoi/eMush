@@ -15,3 +15,8 @@ monolog:
             type: service
             level: error
             channels: [ "!event", "!doctrine" ]
+        Mush\Logger\Handler\MonologOltpHandler:
+            id: Mush\Logger\Handler\MonologOltpHandler
+            type: service
+            level: error
+            channels: [ "!event", "!doctrine" ]

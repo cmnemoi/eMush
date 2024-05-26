@@ -5,6 +5,7 @@ export class ModerationSanction {
     public isActive!: boolean;
     public startDate!: Date;
     public endDate!: Date;
+    public authorName!: string;
     public isWarning!: boolean;
 
     public load(object: any): ModerationSanction {
@@ -15,6 +16,7 @@ export class ModerationSanction {
             this.isActive = object.isActive;
             this.startDate = new Date(object.startDate);
             this.endDate = new Date(object.endDate);
+            this.authorName = object.authorName;
             this.isWarning = object.moderationAction === 'warning';
         }
         return this;

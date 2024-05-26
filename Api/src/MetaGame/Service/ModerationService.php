@@ -34,6 +34,7 @@ final class ModerationService implements ModerationServiceInterface
 
     public function editClosedPlayerMessage(
         ClosedPlayer $closedPlayer,
+        User $author,
         string $reason,
         ?string $adminMessage
     ): void {
@@ -50,6 +51,7 @@ final class ModerationService implements ModerationServiceInterface
 
         $this->addSanctionEntity(
             $closedPlayer->getUser(),
+            $author,
             ModerationSanctionEnum::DELETE_END_MESSAGE,
             $reason,
             new \DateTime(),
@@ -59,6 +61,7 @@ final class ModerationService implements ModerationServiceInterface
 
     public function hideClosedPlayerEndMessage(
         ClosedPlayer $closedPlayer,
+        User $author,
         string $reason,
         ?string $adminMessage
     ): void {
@@ -68,6 +71,7 @@ final class ModerationService implements ModerationServiceInterface
 
         $this->addSanctionEntity(
             $closedPlayer->getUser(),
+            $author,
             ModerationSanctionEnum::HIDE_END_MESSAGE,
             $reason,
             new \DateTime(),
@@ -97,6 +101,7 @@ final class ModerationService implements ModerationServiceInterface
 
     public function banUser(
         User $user,
+        User $author,
         ?\DateInterval $duration,
         string $reason,
         ?string $message,
@@ -104,6 +109,7 @@ final class ModerationService implements ModerationServiceInterface
     ): User {
         return $this->addSanctionEntity(
             $user,
+            $author,
             ModerationSanctionEnum::BAN_USER,
             $reason,
             $startingDate,
@@ -114,6 +120,7 @@ final class ModerationService implements ModerationServiceInterface
 
     public function addSanctionEntity(
         User $user,
+        User $author,
         string $sanctionType,
         string $reason,
         ?\DateTime $startingDate,
@@ -136,6 +143,7 @@ final class ModerationService implements ModerationServiceInterface
         $sanction = new ModerationSanction($user, $startingDate);
         $sanction
             ->setModerationAction($sanctionType)
+            ->setAuthor($author)
             ->setReason($reason)
             ->setMessage($message)
             ->setEndDate($endDate)
@@ -152,6 +160,7 @@ final class ModerationService implements ModerationServiceInterface
 
     public function quarantinePlayer(
         Player $player,
+        User $author,
         string $reason,
         ?string $message = null
     ): Player {
@@ -160,6 +169,7 @@ final class ModerationService implements ModerationServiceInterface
 
         $this->addSanctionEntity(
             $player->getUser(),
+            $author,
             ModerationSanctionEnum::QUARANTINE_PLAYER,
             $reason,
             new \DateTime(),
@@ -171,16 +181,18 @@ final class ModerationService implements ModerationServiceInterface
 
     public function deleteMessage(
         Message $message,
+        User $author,
         string $reason,
         ?string $adminMessage
     ): void {
-        $author = $message->getAuthor();
-        if ($author === null) {
+        $messageAuthor = $message->getAuthor();
+        if ($messageAuthor === null) {
             return;
         }
 
         $this->addSanctionEntity(
-            $author->getUser(),
+            $messageAuthor->getUser(),
+            $author,
             ModerationSanctionEnum::DELETE_MESSAGE,
             $reason,
             new \DateTime(),
@@ -198,6 +210,7 @@ final class ModerationService implements ModerationServiceInterface
 
     public function warnUser(
         User $user,
+        User $author,
         ?\DateInterval $duration,
         string $reason,
         string $message,
@@ -205,6 +218,7 @@ final class ModerationService implements ModerationServiceInterface
     ): User {
         return $this->addSanctionEntity(
             $user,
+            $author,
             ModerationSanctionEnum::WARNING,
             $reason,
             $startingDate,

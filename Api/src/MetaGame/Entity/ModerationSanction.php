@@ -38,6 +38,9 @@ class ModerationSanction
     #[ORM\Column(type: 'datetime', nullable: false)]
     private \DateTime $endDate;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private User $author;
+
     public function __construct(User $user, \DateTime $startDate)
     {
         $this->startDate = $startDate;
@@ -134,5 +137,22 @@ class ModerationSanction
         }
 
         return false;
+    }
+
+    public function setAuthor(User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    public function getAuthorName(): string
+    {
+        return $this->author->getUsername();
     }
 }

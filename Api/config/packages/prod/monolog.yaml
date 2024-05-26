@@ -19,8 +19,3 @@ monolog:
             type: service
             level: error
             channels: [ "!event", "!doctrine" ]
-        Mush\Logger\Handler\MonologOpenTelemetryHandler:
-            id: Mush\Logger\Handler\MonologOpenTelemetryHandler
-            type: service
-            level: error
-            channels: [ "!event", "!doctrine" ]

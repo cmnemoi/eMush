@@ -7,14 +7,9 @@ namespace Mush;
 use OpenTelemetry\API\Common\Time\Clock;
 use OpenTelemetry\API\Trace\Propagation\TraceContextPropagator;
 use OpenTelemetry\Context\Context;
-use OpenTelemetry\Contrib\Otlp\LogsExporter;
 use OpenTelemetry\Contrib\Otlp\SpanExporter;
 use OpenTelemetry\SDK\Common\Attribute\Attributes;
 use OpenTelemetry\SDK\Common\Export\Http\PsrTransportFactory;
-use OpenTelemetry\SDK\Common\Export\Stream\StreamTransportFactory;
-use OpenTelemetry\SDK\Logs\LoggerProvider;
-use OpenTelemetry\SDK\Logs\Processor\BatchLogRecordProcessor;
-use OpenTelemetry\SDK\Logs\Processor\SimpleLogRecordProcessor;
 use OpenTelemetry\SDK\Resource\ResourceInfo;
 use OpenTelemetry\SDK\Resource\ResourceInfoFactory;
 use OpenTelemetry\SDK\Sdk;
@@ -53,12 +48,8 @@ final class OpenTelemetry {
                     array('authorization' => self::getAuthorizationHeader($apiConfig->oauthClientId, $apiConfig->oauthClientSecret))
                 )
         );
-        $logsExporter = new LogsExporter(
-            (new StreamTransportFactory())->create('php://stdout', 'application/json')
-        );
 
         $spanProcessor = $apiConfig->isApiOnDev() ? new SimpleSpanProcessor($spanExporter) : new BatchSpanProcessor($spanExporter, Clock::getDefault());
-        $logsProcessor = $apiConfig->isApiOnDev() ? new SimpleLogRecordProcessor($logsExporter) : new BatchLogRecordProcessor($logsExporter, Clock::getDefault());
 
         $tracerProvider = TracerProvider::builder()
             ->addSpanProcessor($spanProcessor)
@@ -66,14 +57,8 @@ final class OpenTelemetry {
             ->setSampler(new ParentBased(new AlwaysOnSampler()))
             ->build();
 
-        $loggerProvider = LoggerProvider::builder()
-            ->setResource($resource)
-            ->addLogRecordProcessor($logsProcessor)
-            ->build();
-
         Sdk::builder()
             ->setTracerProvider($tracerProvider)
-            ->setLoggerProvider($loggerProvider)
             ->setPropagator(TraceContextPropagator::getInstance())
             ->setAutoShutdown(true)
             ->buildAndRegisterGlobal();

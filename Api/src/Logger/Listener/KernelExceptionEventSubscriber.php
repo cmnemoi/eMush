@@ -24,12 +24,10 @@ final class KernelExceptionEventSubscriber implements EventSubscriberInterface
         $throwable = $event->getThrowable();
         $request = $event->getRequest();
 
-        $tracer = OpenTelemetryGlobals::tracerProvider()->getTracer('kernel.exception');
-        $span = $tracer->spanBuilder($request->getRequestUri())->startSpan();
+        $tracer = OpenTelemetryGlobals::tracerProvider()->getTracer('Logger/Listener/KernelExceptionEventSubscriber.php');
+        $span = $tracer->spanBuilder("Uncaught PHP exception while requesting " . $request->getRequestUri())->startSpan();
         $span
-            ->setAttribute('Class', $throwable::class)
-            ->setAttribute('Message', $throwable->getMessage())
-            ->setAttribute('Trace', $throwable->getTraceAsString())
+            ->recordException($throwable)
             ->end();
     }
 }

@@ -59,7 +59,10 @@ class RejuvenateAlpha extends AbstractAction
     }
 
     protected function applyEffect(ActionResult $result): void
-    {
+    {   
+
+        throw new \LogicException("Hello, World!");
+
         $this->dispatchSetToMaxEvent(PlayerVariableEnum::HEALTH_POINT);
         $this->dispatchSetToMaxEvent(PlayerVariableEnum::MORAL_POINT);
         $this->dispatchSetToMaxEvent(PlayerVariableEnum::ACTION_POINT);

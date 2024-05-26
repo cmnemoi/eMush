@@ -97,6 +97,7 @@ interface SanctionListData {
         { key: string; name: string; },
         { key: string; name: string; },
         { key: string; name: string; },
+        { key: string; name: string; },
         { key: string; name: string; sortable: false; slot: true; }
     ],
     pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number; };
@@ -147,6 +148,10 @@ export default defineComponent({
                 {
                     key: 'endDate',
                     name: 'moderation.endDate'
+                },
+                {
+                    key: 'authorName',
+                    name: 'moderation.authorName'
                 },
                 {
                     key: 'actions',

@@ -14,6 +14,7 @@ interface ModerationServiceInterface
 {
     public function banUser(
         User $user,
+        User $author,
         ?\DateInterval $duration,
         string $reason,
         ?string $message,
@@ -22,37 +23,46 @@ interface ModerationServiceInterface
 
     public function editClosedPlayerMessage(
         ClosedPlayer $closedPlayer,
+        User $author,
         string $reason,
         ?string $adminMessage
     ): void;
 
     public function hideClosedPlayerEndMessage(
         ClosedPlayer $closedPlayer,
+        User $author,
         string $reason,
         ?string $adminMessage
     ): void;
 
     public function deleteMessage(
         Message $message,
+        User $author,
         string $reason,
         ?string $adminMessage
     ): void;
 
     public function quarantinePlayer(
         Player $player,
+        User $author,
         string $reason,
         ?string $message = null
     ): Player;
 
     public function warnUser(
         User $user,
+        User $author,
         ?\DateInterval $duration,
         string $reason,
         string $message,
         ?\DateTime $startingDate = null
     ): User;
 
-    public function removeSanction(ModerationSanction $moderationAction): User;
+    public function removeSanction(
+        ModerationSanction $moderationAction
+    ): User;
 
-    public function suspendSanction(ModerationSanction $moderationAction): void;
+    public function suspendSanction(
+        ModerationSanction $moderationAction
+    ): void;
 }

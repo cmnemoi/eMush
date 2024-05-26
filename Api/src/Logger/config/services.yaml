@@ -19,7 +19,7 @@ services:
     class: Mush\Logger\Processor\RequestProcessor
     tags:
         - { name: monolog.processor, handler: Mush\Logger\Handler\MonologDiscordWebHookHandler }
-        - { name: monolog.processor, handler: Mush\Logger\Handler\MonologOltpHandler }
+        - { name: monolog.processor, handler: Mush\Logger\Handler\MonologOpenTelemetryHandler }
 
   Mush\Logger\Handler\MonologDiscordWebHookHandler:
     calls:

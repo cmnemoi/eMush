@@ -15,9 +15,6 @@ RUN apt-get -yq update && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
     docker-php-ext-install pdo pdo_pgsql pgsql && \
     docker-php-ext-install opcache && \
-    # OpenTelemetry
-    pecl install protobuf opentelemetry && \
-    docker-php-ext-enable protobuf opentelemetry && \
     # Composer
     curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
     mv composer.phar /usr/local/bin/composer && \

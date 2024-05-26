@@ -8,11 +8,14 @@ stages:
   cache:
     paths:
       - "Api/vendor/"
+      - "Api/.php-cs-fixer.cache"
+      - "Api/.psalm/"
+      
   before_script:
     - php -v
     - cd Api
     # Install all project dependencies
-    - composer install
+    - composer install --ignore-platform-req=ext-protobuf
     - cp .env.gitlab .env
 
 .php_with_db_template: &php_with_db_template

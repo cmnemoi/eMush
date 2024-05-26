@@ -22,7 +22,7 @@ class DaedalusConfigData
             'maxShield' => 100,
             'maxCombustionChamberFuel' => 9,
             'dailySporeNb' => 4,
-            'nbMush' => 2,
+            'nbMush' => 3,
             'cyclePerGameDay' => 8,
             'cycleLength' => 180,
             'randomItemPlaces' => 'default',

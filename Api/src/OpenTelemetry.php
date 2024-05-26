@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 declare(strict_types=1);
 
@@ -20,16 +20,21 @@ use OpenTelemetry\SDK\Trace\SpanProcessor\SimpleSpanProcessor;
 use OpenTelemetry\SDK\Trace\TracerProvider;
 use OpenTelemetry\SemConv\ResourceAttributes;
 
-final class OpenTelemetry {
+final class OpenTelemetry
+{
     /**
      * Ensure that the global OpenTelemetry context is registered.
      *
      * If the global OpenTelemetry context is already registered, this call has no effect.
      *
      * @throws \JsonException Propagated from `Config::getConfig`
+     *
+     * @psalm-suppress ArgumentTypeCoercion
+     * @psalm-suppress UndefinedClass
      */
-    final public static function register(): void {
-        if (Context::storage()->scope() != null) {
+    public static function register(): void
+    {
+        if (Context::storage()->scope() !== null) {
             // already registered
             return;
         }
@@ -38,14 +43,14 @@ final class OpenTelemetry {
 
         $resource = ResourceInfoFactory::emptyResource()->merge(ResourceInfo::create(Attributes::create([
             ResourceAttributes::SERVICE_NAME => $apiConfig->appName,
-            ResourceAttributes::DEPLOYMENT_ENVIRONMENT => $apiConfig->appEnv
+            ResourceAttributes::DEPLOYMENT_ENVIRONMENT => $apiConfig->appEnv,
         ])));
         $spanExporter = new SpanExporter(
             PsrTransportFactory::discover()
                 ->create(
                     $apiConfig->otelExporterOltpEndpoint,
                     'application/x-protobuf',
-                    array('authorization' => self::getAuthorizationHeader($apiConfig->oauthClientId, $apiConfig->oauthClientSecret))
+                    ['authorization' => self::getAuthorizationHeader($apiConfig->oauthClientId, $apiConfig->oauthClientSecret)]
                 )
         );
 
@@ -64,7 +69,8 @@ final class OpenTelemetry {
             ->buildAndRegisterGlobal();
     }
 
-    private static function getAuthorizationHeader(string $clientRef, string $secret): string {
+    private static function getAuthorizationHeader(string $clientRef, string $secret): string
+    {
         return 'Basic ' . base64_encode($clientRef . ':' . $secret);
     }
 }

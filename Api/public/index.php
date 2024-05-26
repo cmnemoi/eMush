@@ -1,6 +1,7 @@
 <?php
 
 use Mush\Kernel;
+use Mush\OpenTelemetry;
 use OpenTelemetry\API\Globals as OpenTelemetryGlobals;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\ErrorHandler\Debug;
@@ -10,7 +11,7 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 
 (new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
 
-Mush\OpenTelemetry::register();
+OpenTelemetry::register();
 
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);

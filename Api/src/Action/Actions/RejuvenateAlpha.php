@@ -7,6 +7,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\HasRole;
 use Mush\Action\Validator\HasStatus;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
@@ -16,6 +17,7 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\User\Enum\RoleEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -38,14 +40,12 @@ class RejuvenateAlpha extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new HasStatus([
-            'status' => PlayerStatusEnum::HAS_REJUVENATED,
-            'contain' => false,
-            'target' => HasStatus::PLAYER,
-            'groups' => ['execute'],
-            'bypassIfUserIsAdmin' => true,
-            'message' => ActionImpossibleCauseEnum::DAILY_LIMIT,
-        ]));
+        $metadata->addConstraint(
+            new HasRole([
+                'roles' => [RoleEnum::SUPER_ADMIN, RoleEnum::ADMIN],
+                'groups' => ['visibility'],
+            ])
+        );
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

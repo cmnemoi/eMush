@@ -25,7 +25,6 @@ services:
   eternaltwin:
     ports:
       - 50320:50320
-      - 50321:50321
     build:
       args:
         - UID=33333

@@ -64,7 +64,7 @@ class PlaceConfigData
             'type' => 'room',
             'doors' => ['front_corridor_laboratory', 'medlab_laboratory'],
             'items' => [],
-            'equipments' => ['gravity_simulator', 'research_laboratory', 'cryo_module', 'mycoscan'],
+            'equipments' => ['gravity_simulator', 'research_laboratory', 'cryo_module'],
         ],
         [
             'name' => 'refectory_default',

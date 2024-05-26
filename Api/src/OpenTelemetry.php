@@ -19,6 +19,8 @@ use OpenTelemetry\SDK\Trace\SpanProcessor\BatchSpanProcessor;
 use OpenTelemetry\SDK\Trace\SpanProcessor\SimpleSpanProcessor;
 use OpenTelemetry\SDK\Trace\TracerProvider;
 use OpenTelemetry\SemConv\ResourceAttributes;
+use OpenTelemetry\SemConv\TraceAttributes;
+use Symfony\Component\HttpFoundation\Request;
 
 final class OpenTelemetry
 {
@@ -69,8 +71,48 @@ final class OpenTelemetry
             ->buildAndRegisterGlobal();
     }
 
+    /**
+     * Get span attributes from a request.
+     *
+     * @return array<non-empty-string, null|string>
+     */
+    public static function getSpanAttributesFromRequest(Request $request): array
+    {
+        return [
+            TraceAttributes::HTTP_REQUEST_METHOD => $request->getMethod(),
+            TraceAttributes::URL_PATH => self::getTemplatedRequestUri($request),
+            TraceAttributes::HTTP_ROUTE => self::getTemplatedRequestUri($request),
+            TraceAttributes::HTTP_REQUEST_METHOD_ORIGINAL => $request->getRealMethod(),
+            TraceAttributes::URL_QUERY => $request->getQueryString(),
+            TraceAttributes::URL_SCHEME => $request->getScheme(),
+        ];
+    }
+
+    /**
+     * Get span name from a request.
+     *
+     * @return non-empty-string
+     */
+    public static function getSpanNameFromRequest(Request $request): string
+    {
+        return sprintf('%s %s', $request->getMethod(), self::getTemplatedRequestUri($request));
+    }
+
     private static function getAuthorizationHeader(string $clientRef, string $secret): string
     {
         return 'Basic ' . base64_encode($clientRef . ':' . $secret);
+    }
+
+    private static function getTemplatedRequestUri(Request $request): string
+    {
+        $idRegex = '/\/\d+/';
+        $uuidRegex = '/\/[a-f0-9]{8}-([a-f0-9]{4}-){3}[a-f0-9]{12}/';
+
+        // replace id and uuid with templated values
+        $templatedRequestUri = preg_replace($idRegex, '/:id', $request->getRequestUri());
+        $templatedRequestUri = preg_replace($uuidRegex, '/:uuid', $templatedRequestUri);
+
+        // remove query string
+        return explode('?', $templatedRequestUri)[0];
     }
 }

@@ -21,14 +21,12 @@ use Mush\Equipment\DataFixtures\ToolConfigFixtures;
 use Mush\Equipment\DataFixtures\WeaponConfigFixtures;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameDrugEnum;
-use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
 use Mush\Place\Enum\PlaceTypeEnum;
@@ -187,21 +185,6 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
         $laboratory = new PlaceConfig();
         $laboratory
             ->setPlaceName(RoomEnum::LABORATORY)
-            ->setItems([
-                ItemEnum::APPRENTON . '_' . SkillEnum::PILOT,
-                GearItemEnum::SNIPER_HELMET . '_' . ItemEnum::BLUEPRINT,
-                ItemEnum::ECHOLOCATOR . '_' . ItemEnum::BLUEPRINT,
-                GearItemEnum::ALIEN_BOTTLE_OPENER,
-                GearItemEnum::ROLLING_BOULDER,
-                ItemEnum::METAL_SCRAPS,
-                ItemEnum::PLASTIC_SCRAPS,
-                GameFruitEnum::BANANA,
-                GameFruitEnum::CREEPNUT,
-                GameFruitEnum::BOTTINE,
-                GameFruitEnum::FRAGILANE,
-                GameFruitEnum::FILANDRA,
-                ToolItemEnum::ALIEN_HOLOGRAPHIC_TV,
-            ])
             ->setDoors([
                 DoorEnum::FRONT_CORRIDOR_LABORATORY,
                 DoorEnum::MEDLAB_LABORATORY,
@@ -210,7 +193,6 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::GRAVITY_SIMULATOR,
                 EquipmentEnum::RESEARCH_LABORATORY,
                 EquipmentEnum::CRYO_MODULE,
-                EquipmentEnum::MYCOSCAN,
             ])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($laboratory);

@@ -8,6 +8,8 @@ stages:
   cache:
     paths:
       - "Api/vendor/"
+      - "Api/.php-cs-fixer.cache"
+      - "Api/.psalm/"
   before_script:
     - php -v
     - cd Api

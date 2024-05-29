@@ -30,6 +30,12 @@
             {{ $t('admin.actions.statuses.createAllPlayersInitStatuses') }}
         </button>
     </div>
+    <h2>{{$t('admin.actions.rules.title') }}</h2>
+    <div class="flex-row">
+        <button class="action-button" @click="resetRulesAcceptance">
+            {{ $t('admin.actions.rules.resetAcceptance') }}
+        </button>
+    </div>
 </template>
 
 <script lang="ts">
@@ -70,7 +76,8 @@ export default defineComponent ({
             createProjects: 'adminActions/createProjectsForOnGoingDaedaluses',
             createStatuses: 'adminActions/createPlayersAllInitStatusesForOnGoingDaedaluses',
             deleteAllStatusesByName: 'adminActions/deleteAllStatusesByName',
-            proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses'
+            proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses',
+            resetRulesAcceptance: 'adminActions/resetRulesAcceptanceForAllUsers'
         }),
         createEquipment(createEquipmentDto: CreateEquipmentDto) {
             this.createEquipmentForOnGoingDaedaluses(createEquipmentDto);

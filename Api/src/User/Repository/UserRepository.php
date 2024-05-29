@@ -25,7 +25,7 @@ final class UserRepository extends ServiceEntityRepository implements UserLoader
      */
     public function findAll(): array
     {
-        return $this->findAll();
+        return parent::findAll();
     }
 
     public function loadUserByUsername(string $username): ?User
@@ -70,5 +70,11 @@ final class UserRepository extends ServiceEntityRepository implements UserLoader
             ->setParameter('user_id', $user->getId());
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function save(User $user): void
+    {
+        $this->_em->persist($user);
+        $this->_em->flush();
     }
 }

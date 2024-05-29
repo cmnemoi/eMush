@@ -1,4 +1,5 @@
 import ApiService from "@/services/api.service";
+import { url } from "inspector";
 import urlJoin from "url-join";
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
@@ -26,6 +27,9 @@ const AdminActionsService = {
     },
     proposeNewNeronProjectsForOnGoingDaedaluses: async(): Promise<any> => {
         return await ApiService.put(ADMIN_ACTIONS_ENDPOINT + '/propose-new-neron-projects-for-on-going-daedaluses');
+    },
+    resetRulesAcceptanceForAllUsers: async(): Promise<any> => {
+        return await ApiService.put(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'reset-rules-acceptance'));
     }
 };
 export default AdminActionsService;

@@ -12,4 +12,6 @@ interface UserRepositoryInterface
      * @return User[]
      */
     public function findAll(): array;
+
+    public function save(User $user): void;
 }

@@ -15,6 +15,7 @@ final class ResetRulesAcceptanceForAllUsersUseCase
         $users = $this->userRepository->findAll();
         foreach ($users as $user) {
             $user->refuseRules();
+            $this->userRepository->save($user);
         }
     }
 }

@@ -164,6 +164,7 @@ enum ActionEnum: string
     case REPAIR_PILGRED = 'repair_pilgred';
     case RETURN_TO_SOL = 'return_to_sol';
     case PARTICIPATE = 'participate';
+    case CHANGE_NERON_CREW_LOCK = 'change_neron_crew_lock';
 
     public static function getPermanentItemActions(): array
     {

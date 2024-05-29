@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mush\Daedalus\UseCase;
+namespace Mush\Daedalus\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Daedalus\Repository\NeronRepositoryInterface;
 
 final class NeronRepository extends ServiceEntityRepository implements NeronRepositoryInterface
 {

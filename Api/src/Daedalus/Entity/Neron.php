@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
+use Mush\Daedalus\Enum\NeronCrewLockEnum;
 
 #[ORM\Entity]
 class Neron
@@ -21,6 +22,9 @@ class Neron
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => NeronCpuPriorityEnum::NONE])]
     private string $cpuPriority = NeronCpuPriorityEnum::NONE;
+
+    #[ORM\Column(type: 'string', enumType: NeronCrewLockEnum::class, nullable: false, options: ['default' => NeronCrewLockEnum::PILOTING])]
+    private NeronCrewLockEnum $crewLock = NeronCrewLockEnum::PILOTING;
 
     public function getId(): ?int
     {
@@ -61,5 +65,15 @@ class Neron
     public function getCpuPriority(): string
     {
         return $this->cpuPriority;
+    }
+
+    public function getCrewLock(): NeronCrewLockEnum
+    {
+        return $this->crewLock;
+    }
+
+    public function changeCrewLockTo(NeronCrewLockEnum $newCrewLock): void
+    {
+        $this->crewLock = $newCrewLock;
     }
 }

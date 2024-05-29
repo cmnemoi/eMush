@@ -10,7 +10,7 @@
                 </template>
             </Tippy>
             <div
-                class="cpu-priority-container"
+                class="radio-buttons-container"
                 v-for="priority in terminal.infos?.availableCpuPriorities"
                 :key="priority.key"
             >
@@ -23,6 +23,31 @@
                     @change="executeTargetAction(terminal, changeNeronCpuPriorityAction, { cpuPriority: selectedCpuPriority })"
                 >
                 <label :key="priority.key">{{ priority.name }}</label>
+            </div>
+        </section>
+        <section class="crew-lock-section">
+            <Tippy tag="h3">
+                <img :src="getImgUrl('notes.gif')" />
+                {{ terminal.sectionTitles?.crewLockName }}
+                <template #content>
+                    <h1 v-html="formatText(terminal.sectionTitles?.crewLockName)" />
+                    <p v-html="formatText(terminal.sectionTitles?.crewLockDescription)" />
+                </template>
+            </Tippy>
+            <div
+                class="radio-buttons-container"
+                v-for="lock in terminal.infos?.availableCrewLocks"
+                :key="lock.key"
+            >
+                <input
+                    type="radio"
+                    v-model="selectedCrewLock"
+                    :value="lock.key"
+                    :checked="selectedCrewLock === lock.key"
+                    :disabled="!changeNeronCrewLockAction.canExecute"
+                    @change="executeTargetAction(terminal, changeNeronCrewLockAction, { crewLock: selectedCrewLock })"
+                >
+                <label :key="lock.key">{{ lock.name }}</label>
             </div>
         </section>
     </div>
@@ -44,6 +69,12 @@ export default defineComponent ({
         changeNeronCpuPriorityAction(): Action {
             const action = this.terminal.getActionByKey(ActionEnum.CHANGE_NERON_CPU_PRIORITY);
             if (!action) throw new Error(`No change_neron_cpu_priority action found for terminal ${this.terminal?.key}`);
+
+            return action;
+        },
+        changeNeronCrewLockAction(): Action {
+            const action = this.terminal.getActionByKey(ActionEnum.CHANGE_NERON_CREW_LOCK);
+            if (!action) throw new Error(`No change_neron_crew_lock action found for terminal ${this.terminal?.key}`);
 
             return action;
         },
@@ -72,13 +103,18 @@ export default defineComponent ({
     data() {
         return {
             ActionEnum,
-            selectedCpuPriority: ''
+            selectedCpuPriority: '',
+            selectedCrewLock: ''
         };
     },
     beforeMount() {
         const currentCpuPriority = this.terminal.infos?.currentCpuPriority;
         if (!currentCpuPriority) throw new Error(`No currentCpuPriority found for terminal ${this.terminal?.key}`);
         this.selectedCpuPriority = currentCpuPriority;
+        
+        const currentCrewLock = this.terminal.infos?.currentCrewLock;
+        if (!currentCrewLock) throw new Error(`No currentCrewLock found for terminal ${this.terminal?.key}`);
+        this.selectedCrewLock = currentCrewLock;
     }
 });
 </script>
@@ -98,7 +134,7 @@ section {
 
     p { text-align: left; }
 
-    .cpu-priority-container {
+    .radio-buttons-container {
         flex-direction: row;
 
         input {

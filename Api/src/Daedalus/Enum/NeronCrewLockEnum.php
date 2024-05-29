@@ -18,4 +18,12 @@ enum NeronCrewLockEnum: string
             default => self::NULL,
         };
     }
+
+    public static function getValues(): array
+    {
+        return [
+            self::PROJECTS,
+            self::PILOTING,
+        ];
+    }
 }

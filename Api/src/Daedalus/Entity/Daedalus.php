@@ -705,6 +705,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getProjectByName($projectName)->isFinished();
     }
 
+    public function projectIsNotFinished(ProjectName $projectName): bool
+    {
+        return !$this->hasFinishedProject($projectName);
+    }
+
     public function hasNoProposedNeronProjects(): bool
     {
         return $this->getProposedNeronProjects()->isEmpty();

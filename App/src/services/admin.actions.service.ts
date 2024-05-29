@@ -1,5 +1,4 @@
 import ApiService from "@/services/api.service";
-import { url } from "inspector";
 import urlJoin from "url-join";
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;

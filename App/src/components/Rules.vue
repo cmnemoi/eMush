@@ -29,7 +29,8 @@
                 <li class="rule"> <span v-html="$t('rules.behaviour.multiAccounts')"></span></li>
                 <li class="rule"> <span v-html="$t('rules.behaviour.suicide')"></span></li>
                 <li class="rule"><img class="alpha" :src="getImgUrl('action_points/pa_core.png')"> <span v-html="$t('rules.behaviour.spoilingHuman')"></span></li>
-                <li class="rule"><img class="alpha" :src="getImgUrl('action_points/pa_core.png')"> <span  v-html="$t('rules.behaviour.spoilingMush')"></span></li>
+                <li class="rule"><span  v-html="$t('rules.behaviour.spoilingMush')"></span></li>
+                <li class="rule"><span  v-html="$t('rules.behaviour.mushCooperation')"></span></li>
             </ul>
         </div>
 
@@ -46,7 +47,6 @@
             <ul class="rulesList">
                 <li class="rule" v-html="$t('rules.alphaRules.tests')"></li>
                 <li class="rule" v-html="$t('rules.alphaRules.spokenLanguage')"></li>
-                <li class="rule" v-html="$t('rules.alphaRules.cooperation')"></li>
             </ul>
             <p class="text"> {{ $t("rules.alphaRules.endText") }} </p>
         </div>

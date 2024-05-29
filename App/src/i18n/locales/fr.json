@@ -833,6 +833,7 @@
 			"multiAccounts": "<strong>Multicompte</strong> : Il est interdit de posséder plus d’un compte par personne sur le jeu eMush. Le prêt, don ou partage de compte est également interdit.",
 			"spoilingHuman": "<strong>Anti-jeu Humain</strong> : En tant qu’humain, il est interdit de nuire gravement à l’expérience de jeu des autres joueurs en effectuant volontairement et en pleine conscience des actions menaçant l’atteinte de l’objectif du camp humain.",
 			"spoilingMush": "<strong>Anti-jeu Mush</strong> : En tant que Mush, il est interdit de nuire volontairement à son camp. Cela inclut, sans s’y limiter, de dévoiler son appartenance au camp Mush ou de divulguer l’identité des autres Mushs. Une tolérance s’applique dans le cas d’un Mush redevenu humain grâce à l’utilisation du sérum mais il convient de faire preuve de bon sens.",
+			"mushCooperation": "<strong>Coopération entre Mushs et humains</strong> : Il est interdit de coopérer avec les humains en tant que Mush, et inversement. Les Mushs et les humains doivent respecter leur rôle et leur objectif.",
 			"suicide": "<strong>Suicide</strong> : Il est interdit de quitter volontairement une partie, que ce soit activement ou passivement, en exploitant les mécanismes du jeu."
 		},
 		"sanctionsAppeal": {

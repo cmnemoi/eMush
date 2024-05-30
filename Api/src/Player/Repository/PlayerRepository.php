@@ -13,7 +13,7 @@ use Mush\Player\Entity\PlayerInfo;
 /**
  * @template-extends ServiceEntityRepository<Player>
  */
-final class PlayerRepository extends ServiceEntityRepository
+class PlayerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

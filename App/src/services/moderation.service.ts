@@ -72,9 +72,14 @@ const ModerationService = {
         store.dispatch('gameConfig/setLoading', { loading: true });
 
         const response = await ApiService.get(PLAYER_INFO_ENDPOINT, params);
-        response.data['hydra:member'] = response.data['hydra:member'].map((playerInfoData: Record<string, any>) => {
-            return (new PlayerInfo()).load(playerInfoData);
-        });
+        const playerInfos = [];
+        for (const data of response.data['hydra:member']) {
+            if (data) {
+                playerInfos.push(new PlayerInfo().load(data));
+            }
+        }
+        response.data['hydra:member'] = playerInfos;
+
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;

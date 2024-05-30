@@ -29,4 +29,9 @@ final class InMemoryPlayerInfoRepository implements PlayerInfoRepositoryInterfac
     {
         $this->playerInfos[] = $playerInfo;
     }
+
+    public function clear(): void
+    {
+        $this->playerInfos = [];
+    }
 }

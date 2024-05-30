@@ -46,7 +46,7 @@ class MessageVoter extends Voter
     {
         /** @var User $user */
         $user = $token->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        $playerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user);
 
         // User must be logged in and have a current game
         if ($playerInfo === null) {

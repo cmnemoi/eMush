@@ -278,7 +278,7 @@ class ChannelController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        $playerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user);
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
@@ -335,7 +335,7 @@ class ChannelController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        $playerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user);
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
@@ -475,7 +475,7 @@ class ChannelController extends AbstractGameController
         $user = $this->getUser();
 
         /** @var PlayerInfo $currentPlayerInfo */
-        $currentPlayerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        $currentPlayerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user);
 
         /** @var Player $currentPlayer */
         $currentPlayer = $currentPlayerInfo->getPlayer();
@@ -764,7 +764,7 @@ class ChannelController extends AbstractGameController
 
     private function getUserPlayer(User $user): Player
     {
-        $player = $this->playerInfoRepository->findCurrentGameByUser($user)?->getPlayer();
+        $player = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user)?->getPlayer();
         if (!$player) {
             throw new AccessDeniedException('In game user should have a player');
         }

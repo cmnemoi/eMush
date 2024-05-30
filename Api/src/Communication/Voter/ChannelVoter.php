@@ -73,7 +73,7 @@ class ChannelVoter extends Voter
     {
         /** @var User $user */
         $user = $token->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        $playerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user);
         $player = $playerInfo?->getPlayer();
 
         if (!$player) {
@@ -86,8 +86,7 @@ class ChannelVoter extends Voter
 
         switch ($attribute) {
             case self::VIEW:
-                // @TODO : in the future, do not allow moderators to see channels of their own games
-                return $user->isModerator() || $playerInfo && $this->canView($channel, $playerInfo);
+                return $playerInfo && $this->canView($channel, $playerInfo);
 
             case self::POST:
                 return $this->canPost($channel, $player);

@@ -51,7 +51,7 @@ final class MessageVoterTest extends TestCase
         $player->setPlayerInfo($playerInfo);
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();
@@ -78,7 +78,7 @@ final class MessageVoterTest extends TestCase
         $message->setChannel($channel);
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();
@@ -90,7 +90,7 @@ final class MessageVoterTest extends TestCase
         $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();
@@ -113,7 +113,7 @@ final class MessageVoterTest extends TestCase
         $message->setChannel($channel);
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();
@@ -129,7 +129,7 @@ final class MessageVoterTest extends TestCase
         $channel->addParticipant($channelPlayer);
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();
@@ -141,7 +141,7 @@ final class MessageVoterTest extends TestCase
         $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();

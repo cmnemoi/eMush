@@ -111,4 +111,13 @@ class PlayerInfo
 
         return $this->closedPlayer->getClosedDaedalus()->getId();
     }
+
+    public function getDaedalusName(): string
+    {
+        if ($this->player) {
+            return $this->player->getDaedalus()->getName();
+        }
+
+        return $this->closedPlayer->getClosedDaedalus()->getDaedalusInfo()->getName();
+    }
 }

@@ -13,7 +13,6 @@ Mush\Player\Entity\PlayerInfo:
         'moderationPlayerInfo.search_filter' , 
         'moderationPlayerInfo.boolean_filter',
       ]
-      security: 'is_granted("ROLE_MODERATOR")'
   itemOperations:
     get:
       security: 'is_granted("ROLE_MODERATOR")'

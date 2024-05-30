@@ -11,14 +11,14 @@ use Mush\User\Entity\User;
 /**
  * @template-extends ServiceEntityRepository<PlayerInfo>
  */
-class PlayerInfoRepository extends ServiceEntityRepository
+final class PlayerInfoRepository extends ServiceEntityRepository implements PlayerInfoRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, PlayerInfo::class);
     }
 
-    public function findCurrentGameByUser(User $user): ?PlayerInfo
+    public function getCurrentPlayerInfoForUserOrNull(User $user): ?PlayerInfo
     {
         $qb = $this->createQueryBuilder('player_info');
 

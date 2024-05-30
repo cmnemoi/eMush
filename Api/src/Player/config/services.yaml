@@ -25,5 +25,4 @@ services:
     tags:
       - { name: 'request.param_converter', converter: PlayerCreateRequestConverter }
 
-  Mush\Player\ConfigData\CharacterConfigDataLoader:
-    public: true
+  Mush\Player\Repository\PlayerInfoRepositoryInterface: '@Mush\Player\Repository\PlayerInfoRepository'

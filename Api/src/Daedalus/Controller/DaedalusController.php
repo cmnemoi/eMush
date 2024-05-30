@@ -148,7 +148,7 @@ class DaedalusController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        $playerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user);
 
         if (!$playerInfo) {
             throw $this->createAccessDeniedException('User should be in game');

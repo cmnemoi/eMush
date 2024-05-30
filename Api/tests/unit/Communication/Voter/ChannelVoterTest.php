@@ -119,7 +119,7 @@ final class ChannelVoterTest extends TestCase
         $playerInfo = new PlayerInfo($player, $user, new CharacterConfig());
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();

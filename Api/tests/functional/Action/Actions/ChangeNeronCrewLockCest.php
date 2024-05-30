@@ -47,6 +47,48 @@ final class ChangeNeronCrewLockCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldNotBeVisibleIfChunIsNotFocusedOnBiosTerminal(FunctionalTester $I): void
+    {
+        // when Chun changes NERON crew lock to projects
+        $this->changeNeronCrewLockAction->loadParameters(
+            actionConfig: $this->changeNeronCrewLockConfig,
+            actionProvider: $this->biosTerminal,
+            player: $this->player,
+            target: $this->biosTerminal,
+            parameters: ['crewLock' => NeronCrewLockEnum::PROJECTS->value],
+        );
+
+        // then action is not visible
+        $I->assertFalse($this->changeNeronCrewLockAction->isVisible());
+    }
+
+    public function shouldNotBeVisibleIfChunIsNotInTerminalRoom(FunctionalTester $I): void
+    {
+        // given Chun is not in the same place as BIOS terminal
+        $this->chun->changePlace($this->daedalus->getSpace());
+
+        // given Chun is focused on BIOS terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->biosTerminal,
+        );
+
+        // when Chun changes NERON crew lock to projects
+        $this->changeNeronCrewLockAction->loadParameters(
+            actionConfig: $this->changeNeronCrewLockConfig,
+            actionProvider: $this->biosTerminal,
+            player: $this->player,
+            target: $this->biosTerminal,
+            parameters: ['crewLock' => NeronCrewLockEnum::PROJECTS->value],
+        );
+
+        // then action is not visible
+        $I->assertFalse($this->changeNeronCrewLockAction->isVisible());
+    }
+
     public function shouldChangeCrewLockToProjects(FunctionalTester $I): void
     {
         // given Chun is focused on BIOS terminal

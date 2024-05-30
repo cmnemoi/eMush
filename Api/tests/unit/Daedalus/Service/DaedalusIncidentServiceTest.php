@@ -9,6 +9,7 @@ use Mush\Daedalus\Service\DaedalusIncidentService;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -393,5 +394,49 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         // then we should not have any metal plates event
         self::assertSame(0, $metalPlates);
+    }
+
+    public function testShouldHandlOxygenTankBreak(): void
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given an oxygen tank
+        $oxygenTank = GameEquipmentFactory::createEquipmentByNameForHolder(
+            EquipmentEnum::OXYGEN_TANK, 
+            $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)
+        );
+
+        // setup universe state
+        $this->gameEquipmentRepository->shouldReceive('findByNameAndDaedalus')->once()->andReturn([$oxygenTank]);
+        $this->statusService->shouldReceive('createStatusFromName')->once();
+
+        // when we handle break oxygen tank events
+        $breaks = $this->service->handleOxygenTankBreak($daedalus, new \DateTime());
+
+        // then we should have one break event
+        self::assertSame(1, $breaks);
+    }
+
+    public function testShouldHandleFuelTankBreak(): void
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given a fuel tank
+        $fuelTank = GameEquipmentFactory::createEquipmentByNameForHolder(
+            EquipmentEnum::FUEL_TANK, 
+            $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)
+        );
+
+        // setup universe state
+        $this->gameEquipmentRepository->shouldReceive('findByNameAndDaedalus')->once()->andReturn([$fuelTank]);
+        $this->statusService->shouldReceive('createStatusFromName')->once();
+
+        // when we handle break fuel tank events
+        $breaks = $this->service->handleFuelTankBreak($daedalus, new \DateTime());
+
+        // then we should have one break event
+        self::assertSame(1, $breaks);
     }
 }

@@ -64,8 +64,6 @@ class DifficultyConfigData
                 EquipmentEnum::THALASSO => 25,
                 EquipmentEnum::CAMERA_EQUIPMENT => 25,
                 EquipmentEnum::SHOWER => 25,
-                EquipmentEnum::FUEL_TANK => 25,
-                EquipmentEnum::OXYGEN_TANK => 25,
             ],
             'difficultyModes' => [
                 DifficultyEnum::NORMAL => 1,

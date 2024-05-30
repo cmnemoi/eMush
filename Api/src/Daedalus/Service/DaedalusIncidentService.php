@@ -2,10 +2,12 @@
 
 namespace Mush\Daedalus\Service;
 
+use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\Collection\ProbaCollection;
@@ -228,11 +230,50 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         return $numberOfDiseasedPlayers;
     }
 
+    public function handleOxygenTankBreak(Daedalus $daedalus, DateTime $date): int
+    {
+        $oxygenTanks = $this->gameEquipmentRepository->findByNameAndDaedalus(EquipmentEnum::OXYGEN_TANK, $daedalus);
+        $oxygenTanksToBreak = $this->getRandomElementsFromArray->execute(
+            elements: $oxygenTanks,
+            number: $this->getNumberOfIncident($daedalus)
+        );
+
+        foreach ($oxygenTanksToBreak as $oxygenTank) {
+            $this->statusService->createStatusFromName(
+                EquipmentStatusEnum::BROKEN,
+                $oxygenTank,
+                [EventEnum::NEW_CYCLE, EquipmentEvent::EQUIPMENT_BROKEN],
+                $date
+            );
+        }
+
+        return \count($oxygenTanksToBreak);
+    }
+
+    public function handleFuelTankBreak(Daedalus $daedalus, DateTime $date): int
+    {
+        $fuelTanks = $this->gameEquipmentRepository->findByNameAndDaedalus(EquipmentEnum::FUEL_TANK, $daedalus);
+        $fuelTanksToBreak = $this->getRandomElementsFromArray->execute(
+            elements: $fuelTanks,
+            number: $this->getNumberOfIncident($daedalus)
+        );
+
+        foreach ($fuelTanksToBreak as $fuelTank) {
+            $this->statusService->createStatusFromName(
+                EquipmentStatusEnum::BROKEN,
+                $fuelTank,
+                [EventEnum::NEW_CYCLE, EquipmentEvent::EQUIPMENT_BROKEN],
+                $date
+            );
+        }
+
+        return \count($fuelTanksToBreak);
+    }
+
     /**
      * Get the number of incidents that will happen during the cycle.
      * Incident number follows approximately a Poisson distribution P(lambda)
      * where lambda = 3.3*10^(-3) * day^1.7 is the average number of incidents per cycle.
-     * During this alpha phase, the number of incidents is multiplied by a constant (currently 4).
      */
     private function getNumberOfIncident(Daedalus $daedalus): int
     {
@@ -260,8 +301,14 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             // If the equipment is not found, it means it hasn't been build yet (Calculator, Thalasso, etc.)
             // and therefore can't be broken : we skip it.
             try {
-                /** @var ?GameEquipment $equipment */
-                $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
+                /** @var array<int, GameEquipment> $equipments */
+                $equipments = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus);
+                /** @var GameEquipment $equipment */
+                $equipment = $this->getRandomElementsFromArray->execute(
+                    elements: $equipments,
+                    number: 1
+                )->first();
+
                 if ($equipment === null || $equipment->isBroken() || $equipment->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
                     $absentEquipments[] = $equipmentName;
 

@@ -21,4 +21,8 @@ interface DaedalusIncidentServiceInterface
     public function handleMetalPlates(Daedalus $daedalus, \DateTime $date): int;
 
     public function handleCrewDisease(Daedalus $daedalus, \DateTime $date): int;
+
+    public function handleOxygenTankBreak(Daedalus $daedalus, \DateTime $date): int;
+
+    public function handleFuelTankBreak(Daedalus $daedalus, \DateTime $date): int;
 }

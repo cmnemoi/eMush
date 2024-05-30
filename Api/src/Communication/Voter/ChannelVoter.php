@@ -8,6 +8,7 @@ use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\PlayerInfoRepository;
+use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -19,12 +20,12 @@ class ChannelVoter extends Voter
 
     private ChannelServiceInterface $channelService;
     private MessageServiceInterface $messageService;
-    private PlayerInfoRepository $playerInfoRepository;
+    private PlayerInfoRepositoryInterface $playerInfoRepository;
 
     public function __construct(
         ChannelServiceInterface $channelService,
         MessageServiceInterface $messageService,
-        PlayerInfoRepository $playerInfoRepository
+        PlayerInfoRepositoryInterface $playerInfoRepository
     ) {
         $this->channelService = $channelService;
         $this->messageService = $messageService;

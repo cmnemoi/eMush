@@ -24,6 +24,7 @@ use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerInfoRepository;
+use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -48,7 +49,7 @@ class PlayerService implements PlayerServiceInterface
     private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
-    private PlayerInfoRepository $playerInfoRepository;
+    private PlayerInfoRepositoryInterface $playerInfoRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -57,7 +58,7 @@ class PlayerService implements PlayerServiceInterface
         RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
-        PlayerInfoRepository $playerInfoRepository
+        PlayerInfoRepositoryInterface $playerInfoRepository
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;

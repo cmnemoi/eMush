@@ -49,4 +49,12 @@ final class PlayerInfoRepository extends ServiceEntityRepository implements Play
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findOneByUserAndGameStatusOrNull(User $user, string $gameStatus): ?PlayerInfo
+    {
+        return $this->findOneBy([
+            'user' => $user,
+            'gameStatus' => $gameStatus,
+        ]);
+    }
 }

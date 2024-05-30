@@ -11,6 +11,10 @@ use Mush\Daedalus\Enum\NeronCrewLockEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -47,7 +51,7 @@ final class ChangeNeronCrewLockCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNotBeVisibleIfChunIsNotFocusedOnBiosTerminal(FunctionalTester $I): void
+    public function shouldNotBeVisibleIfPlayerIsNotFocusedOnBiosTerminal(FunctionalTester $I): void
     {
         // when Chun changes NERON crew lock to projects
         $this->changeNeronCrewLockAction->loadParameters(
@@ -62,7 +66,7 @@ final class ChangeNeronCrewLockCest extends AbstractFunctionalTest
         $I->assertFalse($this->changeNeronCrewLockAction->isVisible());
     }
 
-    public function shouldNotBeVisibleIfChunIsNotInTerminalRoom(FunctionalTester $I): void
+    public function shouldNotBeVisibleIfPlayerIsNotInTerminalRoom(FunctionalTester $I): void
     {
         // given Chun is not in the same place as BIOS terminal
         $this->chun->changePlace($this->daedalus->getSpace());
@@ -115,5 +119,36 @@ final class ChangeNeronCrewLockCest extends AbstractFunctionalTest
             expected: NeronCrewLockEnum::PROJECTS,
             actual: $this->daedalus->getNeron()->getCrewLock()
         );
+    }
+
+    public function shouldCreateAPrivateLog(FunctionalTester $I): void
+    {
+        // given Chun is focused on BIOS terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->biosTerminal,
+        );
+
+        // when Chun changes NERON crew lock to projects
+        $this->changeNeronCrewLockAction->loadParameters(
+            actionConfig: $this->changeNeronCrewLockConfig,
+            actionProvider: $this->biosTerminal,
+            player: $this->player,
+            target: $this->biosTerminal,
+            parameters: ['crewLock' => NeronCrewLockEnum::PROJECTS->value],
+        );
+        $this->changeNeronCrewLockAction->execute();
+
+        // then a private log should be created in Chun's room
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $this->chun->getPlace()->getLogName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->chun->getPlayerInfo(),
+            'log' => ActionLogEnum::CHANGE_NERON_PARAMETER_SUCCESS,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
     }
 }

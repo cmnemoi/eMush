@@ -120,7 +120,7 @@ abstract class ActionLogEnum
     public const string DELETE_PLANET_SUCCESS = 'delete_planet_success';
     public const string TAKEOFF_TO_PLANET_SUCCESS = 'takeoff_to_planet_success';
     public const string TAKEOFF_TO_PLANET_PATROL_SHIP_SUCCESS = 'takeoff_to_planet_patrol_ship_success';
-    public const string CHANGE_NERON_CPU_PRIORITY_SUCCESS = 'change_neron_cpu_priority_success';
+    public const string CHANGE_NERON_PARAMETER_SUCCESS = 'change_neron_cpu_priority_success';
     public const string DEFAULT_FAIL = 'default_fail';
     public const string VISIBILITY = 'visibility';
     public const string VALUE = 'value';
@@ -428,7 +428,7 @@ abstract class ActionLogEnum
             ActionOutputEnum::SUCCESS => self::TAKEOFF_TO_PLANET_PATROL_SHIP_SUCCESS,
         ],
         ActionEnum::CHANGE_NERON_CPU_PRIORITY->value => [
-            ActionOutputEnum::SUCCESS => self::CHANGE_NERON_CPU_PRIORITY_SUCCESS,
+            ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
         ],
         ActionEnum::REPAIR_PILGRED->value => [
             ActionOutputEnum::SUCCESS => self::REPAIR_PILGRED_SUCCESS,
@@ -438,6 +438,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::TRAP_CLOSET->value => [
             ActionOutputEnum::SUCCESS => self::TRAP_CLOSET_SUCCESS,
+        ],
+        ActionEnum::CHANGE_NERON_CREW_LOCK->value => [
+            ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
         ],
     ];
 }

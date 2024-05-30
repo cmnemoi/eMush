@@ -113,7 +113,7 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
             params: [
                 'place' => $this->player->getPlace()->getLogName(),
                 'playerInfo' => $this->player->getPlayerInfo(),
-                'log' => ActionLogEnum::CHANGE_NERON_CPU_PRIORITY_SUCCESS,
+                'log' => ActionLogEnum::CHANGE_NERON_PARAMETER_SUCCESS,
                 'visibility' => VisibilityEnum::PRIVATE,
             ]
         );

@@ -12,6 +12,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AllPlanetSectorsVisited;
 use Mush\Action\Validator\ExplorationAlreadyOngoing;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\NeronCrewLock;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
@@ -68,6 +69,10 @@ class TakeoffToPlanet extends AbstractAction
         $metadata->addConstraint(new ExplorationAlreadyOngoing([
             'message' => ActionImpossibleCauseEnum::EXPLORATION_ALREADY_ONGOING,
             'groups' => ['execute'],
+        ]));
+        $metadata->addConstraint(new NeronCrewLock([
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::TERMINAL_NERON_LOCK,
         ]));
     }
 

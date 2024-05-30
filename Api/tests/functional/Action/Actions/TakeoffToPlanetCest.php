@@ -25,6 +25,7 @@ use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -79,6 +80,30 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $I->haveInRepository($this->icarus);
 
         $this->createPlanetForTest($I);
+
+        // given player1 is a pilot so they can takeoff to planet
+        $this->statusService->createStatusFromName(
+            SkillEnum::PILOT,
+            $this->player1,
+            [],
+            new \DateTime()
+        );
+    }
+
+    public function shouldNotBeExecutableIfPlayerIsNotAPilot(FunctionalTester $I): void
+    {
+        // given KT is not a pilot (default)
+
+        // when KT tries to take off
+        $this->takeoffToPlanetAction->loadParameters(
+            actionConfig: $this->takeoffToPlanetConfig,
+            actionProvider: $this->icarus,
+            player: $this->kuanTi,
+            target: $this->icarus
+        );
+
+        // then the action is not executable
+        $I->assertEquals(ActionImpossibleCauseEnum::TERMINAL_NERON_LOCK, $this->takeoffToPlanetAction->cannotExecuteReason());
     }
 
     public function testTakeoffToPlanetNotVisibleIfDaedalusIsNotInOrbit(FunctionalTester $I): void

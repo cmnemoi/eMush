@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Enum\PlaceStatusEnum;
@@ -29,7 +30,11 @@ final class ActionEventSubscriber implements EventSubscriberInterface
         $author = $event->getAuthor();
         $place = $event->getPlace();
 
-        if ($author->isNotMush() && $place->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)) {
+        $mushTrappedStatus = $place->getStatusByName(PlaceStatusEnum::MUSH_TRAPPED->value);
+        /** @var Player $trapper */
+        $trapper = $mushTrappedStatus?->getTarget();
+
+        if ($author->isNotMush() && $mushTrappedStatus) {
             $playerModifierEvent = new PlayerVariableEvent(
                 player: $event->getAuthor(),
                 variableName: PlayerVariableEnum::SPORE,
@@ -37,7 +42,10 @@ final class ActionEventSubscriber implements EventSubscriberInterface
                 tags: $event->getTags(),
                 time: $event->getTime(),
             );
+            
+            $playerModifierEvent->setAuthor($trapper);
             $playerModifierEvent->addTag(PlaceStatusEnum::MUSH_TRAPPED->value);
+            
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }

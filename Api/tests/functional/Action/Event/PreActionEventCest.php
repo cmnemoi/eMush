@@ -12,6 +12,7 @@ use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\MushMessageEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -215,6 +216,53 @@ final class PreActionEventCest extends AbstractFunctionalTest
             [
                 'message' => MushMessageEnum::INFECT_TRAP,
             ]
+        );
+    }
+
+    public function shouldPrintMushChannelMessageWithRightParameters(FunctionalTester $I): void
+    {   
+        // given KT's room has been trapped by Gioele
+        $this->statusService->createStatusFromName(
+            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
+            holder: $this->kuanTi->getPlace(),
+            tags: [],
+            time: new \DateTime(),
+            target: $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE)
+        );
+
+        // given a post it in the room
+        $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::POST_IT,
+            equipmentHolder: $this->kuanTi->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when KT starts an action
+        $actionEvent = new ActionEvent(
+            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
+            actionProvider: $postIt,
+            player: $this->kuanTi,
+        );
+        $actionEvent->setActionResult(new Success());
+        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+
+        // then the message should have the right parameters
+        $mushChannelMessage = $I->grabEntityFromRepository(
+            Message::class,
+            [
+                'message' => MushMessageEnum::INFECT_TRAP,
+            ]
+        );
+
+        $I->assertEquals(
+            expected: CharacterEnum::KUAN_TI,
+            actual: $mushChannelMessage->getTranslationParameters()['target_character'],
+        );
+
+        $I->assertEquals(
+            expected: CharacterEnum::GIOELE,
+            actual: $mushChannelMessage->getTranslationParameters()['character'],
         );
     }
 }

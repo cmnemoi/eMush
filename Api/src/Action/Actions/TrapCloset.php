@@ -94,6 +94,7 @@ final class TrapCloset extends AbstractAction
             holder: $this->player->getPlace(),
             tags: $this->getTags(),
             time: new \DateTime(),
+            target: $this->player,
         );
     }
 }

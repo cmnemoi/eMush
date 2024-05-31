@@ -7,8 +7,10 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\GameVariableLevel;
+use Mush\Action\Validator\HasStatus;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -44,6 +46,15 @@ final class TrapCloset extends AbstractAction
                 'target' => GameVariableLevel::PLAYER,
                 'checkMode' => GameVariableLevel::IS_MIN,
                 'groups' => ['visibility'],
+            ])
+        );
+        $metadata->addConstraint(
+            new HasStatus([
+                'status' => PlaceStatusEnum::MUSH_TRAPPED->value,
+                'target' => HasStatus::PLAYER_ROOM,
+                'contain' => false,
+                'groups' => ['execute'],
+                'message' => ActionImpossibleCauseEnum::BOOBY_TRAP_ALREADY_DONE,
             ])
         );
     }

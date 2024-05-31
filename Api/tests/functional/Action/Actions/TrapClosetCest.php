@@ -95,4 +95,32 @@ final class TrapClosetCest extends AbstractFunctionalTest
         // then the room should have a trapped status
         $I->assertTrue($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
     }
+
+    public function shouldNotBeExecutableIfRoomIsAlreadyTrapped(FunctionalTester $I): void
+    {   
+        // given KT has one spore
+        $this->kuanTi->setSpores(1);
+
+        // given KT's room has been trapped already
+        $this->statusService->createStatusFromName(
+            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
+            holder: $this->kuanTi->getPlace(),
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when KT tries to trap the closet
+        $this->trapClosetAction->loadParameters(
+            actionConfig: $this->trapClosetConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi,
+            target: null,
+        );
+
+        // then the action should not be executable
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::BOOBY_TRAP_ALREADY_DONE,
+            actual: $this->trapClosetAction->cannotExecuteReason(),
+        );
+    }
 }

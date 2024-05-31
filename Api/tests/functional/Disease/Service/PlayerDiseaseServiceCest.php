@@ -295,4 +295,57 @@ final class PlayerDiseaseServiceCest extends AbstractFunctionalTest
             ]
         );
     }
+
+    public function shouldPrintDisorderCuredLogWithShrinkAndPatient(FunctionalTester $I): void
+    {
+        // given Chun has a depression (a disorder)
+        $disorder = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DisorderEnum::DEPRESSION,
+            player: $this->chun,
+            reasons: [],
+        );
+
+        // given disorder has 1 disease point
+        $disorder->setDiseasePoint(1);
+
+        // given KT is a psy
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::SHRINK,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun is lying down
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when I call handleNewCycle on the disease
+        $this->playerDiseaseService->handleNewCycle($disorder, new \DateTime());
+
+        // then I should see a public room log reporting the disorder cure
+        $log = $I->grabEntityFromRepository(
+            RoomLog::class,
+            [
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'log' => LogEnum::DISORDER_CURED,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+
+        // then the log should contain the shrink and the patient
+        $I->assertEquals(
+            expected: 'kuan_ti',
+            actual: $log->getParameters()['character']
+        );
+        $I->assertEquals(
+            expected: 'chun',
+            actual: $log->getParameters()['target_character']
+        );
+    }
 }

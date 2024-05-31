@@ -67,7 +67,7 @@ import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
 import { Action } from "@/entities/Action";
 import { Status } from "@/entities/Status";
-import { statusPlayerEnum } from "@/enums/status.player.enum";
+import { SkillIconRecord } from "@/enums/skill.enum";
 import { formatText } from "@/utils/formatText";
 
 
@@ -123,7 +123,7 @@ export default defineComponent ({
         },
         formatText,
         skillImage(skill: Status): string {
-            return statusPlayerEnum[skill.key].icon ?? '';
+            return SkillIconRecord[skill.key].icon ?? '';
         }
     }
 });

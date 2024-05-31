@@ -400,7 +400,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         /** @var AbstractEventConfig $eventConfigIncreaseOneMoralePoint */
         $eventConfigIncreaseOneMoralePoint = $this->getReference('change.variable_player_+1moralePoint');
-        
+
         $lyingDownShrinkModifier = new TriggerEventModifierConfig('modifier_for_player_+1morale_point_on_new_cycle_if_shrink_in_room');
         $lyingDownShrinkModifier
             ->setTriggeredEvent($eventConfigIncreaseOneMoralePoint)

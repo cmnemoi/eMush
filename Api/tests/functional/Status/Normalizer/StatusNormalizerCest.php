@@ -10,6 +10,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class StatusNormalizerCest extends AbstractFunctionalTest
 {
     private StatusNormalizer $normalizer;
@@ -17,7 +20,7 @@ final class StatusNormalizerCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
-    {   
+    {
         parent::_before($I);
         $this->normalizer = $I->grabService(StatusNormalizer::class);
 

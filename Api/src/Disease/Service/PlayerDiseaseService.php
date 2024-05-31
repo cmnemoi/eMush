@@ -132,7 +132,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             return;
         }
 
-        if ($this->diseaseHealsAtCycleChange($playerDisease) ) {
+        if ($this->diseaseHealsAtCycleChange($playerDisease)) {
             $newDiseasePoint = $playerDisease->getDiseasePoint() - 1;
             $playerDisease->setDiseasePoint($newDiseasePoint);
         }
@@ -140,10 +140,11 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         if ($playerDisease->isTreatedByAShrink()) {
             $playerRoom = $player->getPlace();
             $this->treatDisorder(
-                $playerDisease, 
-                shrink: $this->randomService->getRandomPlayer($playerRoom->getAliveShrinks()), 
+                $playerDisease,
+                shrink: $this->randomService->getRandomPlayer($playerRoom->getAliveShrinks()),
                 time: $time
             );
+
             return;
         }
 
@@ -245,7 +246,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
     private function treatDisorder(PlayerDisease $playerDisease, Player $shrink, \DateTime $time): void
     {
         $playerDisease->setDiseasePoint($playerDisease->getDiseasePoint() - 1);
-        
+
         $event = new DiseaseEvent(
             $playerDisease,
             tags: [SkillEnum::SHRINK],
@@ -259,10 +260,10 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
         if ($playerDisease->getDiseasePoint() <= 0) {
             $this->removePlayerDisease(
-                $playerDisease, 
-                [SkillEnum::SHRINK], 
-                $time, 
-                VisibilityEnum::PUBLIC, 
+                $playerDisease,
+                [SkillEnum::SHRINK],
+                $time,
+                VisibilityEnum::PUBLIC,
                 $shrink
             );
         }

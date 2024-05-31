@@ -28,6 +28,10 @@ final class RequirementSkillInRoom extends AbstractModifierRequirementHandler
         }
 
         $skillToFind = $modifierRequirement->getActivationRequirement();
+        if ($skillToFind === null) {
+            return false;
+        }
+
         $alivePlayers = $room->getPlayers()->getPlayerAlive();
 
         return $alivePlayers->filter(static fn (Player $player) => $player->hasSkill($skillToFind))->count() > 0;

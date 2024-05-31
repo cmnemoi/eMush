@@ -28,7 +28,6 @@ use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Factory\StatusFactory;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
-use Psr\Log\LoggerInterface;
 
 /**
  * @internal
@@ -44,9 +43,6 @@ final class DaedalusIncidentServiceTest extends TestCase
     /** @var GameEquipmentRepository|Mockery\Mock */
     private GameEquipmentRepository $gameEquipmentRepository;
 
-    /** @var LoggerInterface|Mockery\Mock */
-    private LoggerInterface $logger;
-
     /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
@@ -60,7 +56,6 @@ final class DaedalusIncidentServiceTest extends TestCase
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->gameEquipmentRepository = \Mockery::mock(GameEquipmentRepository::class);
-        $this->logger = \Mockery::mock(LoggerInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new DaedalusIncidentService(
@@ -70,7 +65,6 @@ final class DaedalusIncidentServiceTest extends TestCase
             $this->eventService,
             $this->gameEquipmentRepository,
             $this->statusService,
-            $this->logger,
         );
     }
 

@@ -17,13 +17,11 @@ use Mush\Game\Service\Random\GetRandomPoissonIntegerServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\DoorEnum;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Psr\Log\LoggerInterface;
 
 final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 {
@@ -33,7 +31,6 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     private EventServiceInterface $eventService;
     private GameEquipmentRepository $gameEquipmentRepository;
     private StatusServiceInterface $statusService;
-    private LoggerInterface $logger;
 
     public function __construct(
         GetRandomElementsFromArrayServiceInterface $getRandomElementsFromArray,
@@ -42,14 +39,12 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         EventServiceInterface $eventService,
         GameEquipmentRepository $gameEquipmentRepository,
         StatusServiceInterface $statusService,
-        LoggerInterface $logger,
     ) {
         $this->getRandomElementsFromArray = $getRandomElementsFromArray;
         $this->getRandomPoissonInteger = $getRandomPoissonInteger;
         $this->randomService = $randomService;
         $this->eventService = $eventService;
         $this->gameEquipmentRepository = $gameEquipmentRepository;
-        $this->logger = $logger;
         $this->statusService = $statusService;
     }
 
@@ -300,31 +295,18 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
         /** @var string $equipmentName */
         foreach ($equipmentBreakRateDistribution as $equipmentName => $probability) {
-            // If the equipment is not found, it means it hasn't been build yet (Calculator, Thalasso, etc.)
-            // and therefore can't be broken : we skip it.
-            try {
-                /** @var array<int, GameEquipment> $equipments */
-                $equipments = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus);
-
-                /** @var ?GameEquipment $equipment */
-                $equipment = $this->getRandomElementsFromArray->execute(
-                    elements: $equipments,
-                    number: 1
-                )->first() ?: null;
-
-                if ($equipment === null || $equipment->isBroken() || $equipment->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
-                    $absentEquipments[] = $equipmentName;
-
-                    continue;
-                }
-            } catch (\Exception $e) {
-                $this->logger->info($e->getMessage(), [
-                    'equipmentName' => $equipmentName,
-                    'daedalus' => $daedalus->getId(),
-                    'trace' => $e->getTraceAsString(),
-                ]);
+            /** @var array<int, GameEquipment> $equipments */
+            $equipments = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus);
+            if (empty($equipments)) {
+                $absentEquipments[] = $equipmentName;
 
                 continue;
+            }
+
+            foreach ($equipments as $equipment) {
+                if ($equipment->isBroken() || $equipment->isInSpaceBattle()) {
+                    $absentEquipments[] = $equipmentName;
+                }
             }
         }
 

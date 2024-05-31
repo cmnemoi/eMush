@@ -45,35 +45,21 @@
             :filter="filter"
             @pagination-click="paginationClick"
             @sort-table="sortTable"
+            @row-click="showSanctionDetails"
         >
             <template #header-actions>
                 Actions
             </template>
             <template #row-actions="sanction">
-                <div v-if="isModerator">
-                    <Tippy
-                        tag="button"
-                        class="action-button"
-                        @click="removeSanction(sanction.id)">
-                        {{ $t('moderation.removeSanction') }}
-                        <template #content>
-                            <h1>{{ $t('moderation.removeSanction') }}</h1>
-                            <p>{{ $t('moderation.removeSanctionDescription') }}</p>
-                        </template>
-                    </Tippy>
-                    <Tippy
-                        tag="button"
-                        class="action-button"
-                        @click="suspendSanction(sanction.id)">
-                        {{ $t('moderation.suspendSanction') }}
-                        <template #content>
-                            <h1>{{ $t('moderation.suspendSanction') }}</h1>
-                            <p>{{ $t('moderation.suspendSanctionDescription') }}</p>
-                        </template>
-                    </Tippy>
-                </div>
+                <button class="action-button" @click="showSanctionDetails(sanction)">Voir Détails</button>
             </template>
         </Datatable>
+        <SanctionDetailPage
+            v-if="showModal"
+            :sanction-details="selectedSanction"
+            :show-modal="showModal"
+            @close="showModal = false"
+        />
     </div>
 </template>
 
@@ -86,37 +72,33 @@ import ApiService from "@/services/api.service";
 import { mapGetters } from "vuex";
 import ModerationService from "@/services/moderation.service";
 import { Tippy } from "vue-tippy";
+import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
 
 interface SanctionListData {
     userId: string,
     username: string,
-    fields: [
-        { key: string; name: string; },
-        { key: string; name: string; },
-        { key: string; name: string; },
-        { key: string; name: string; },
-        { key: string; name: string; },
-        { key: string; name: string; },
-        { key: string; name: string; sortable: false; slot: true; }
-    ],
-    pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number; };
-    rowData: never[];
-    filter: string;
-    sortField: string;
-    sortDirection: string;
-    loading: boolean;
-    pageSizeOptions: { text: number; value: number; }[];
+    fields: Array<{ key: string; name: string; sortable?: boolean; slot?: boolean }>,
+    pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number },
+    rowData: never[],
+    filter: string,
+    sortField: string,
+    sortDirection: string,
+    loading: boolean,
+    pageSizeOptions: { text: number; value: number }[],
     typeFilter: string,
     reasonFilter: string,
     isActiveFilter: boolean,
+    showModal: boolean,
+    selectedSanction: any
 }
 
 export default defineComponent({
     name: "SanctionListPage",
     components: {
         Tippy,
-        Datatable
+        Datatable,
+        SanctionDetailPage
     },
     computed: {
         ...mapGetters({
@@ -138,26 +120,8 @@ export default defineComponent({
                     name: 'moderation.sanctionReason'
                 },
                 {
-                    key: 'message',
-                    name: 'moderation.adminMessage'
-                },
-                {
-                    key: 'startDate',
-                    name: 'moderation.startDate'
-                },
-                {
                     key: 'endDate',
                     name: 'moderation.endDate'
-                },
-                {
-                    key: 'authorName',
-                    name: 'moderation.authorName'
-                },
-                {
-                    key: 'actions',
-                    name: 'Action',
-                    sortable: false,
-                    slot: true
                 }
             ],
             pagination: {
@@ -178,7 +142,9 @@ export default defineComponent({
             ],
             typeFilter: '',
             reasonFilter: '',
-            isActiveFilter: false
+            isActiveFilter: false,
+            showModal: false,
+            selectedSanction: {}
         };
     },
     methods: {
@@ -257,18 +223,22 @@ export default defineComponent({
             }
             if (this.sortField === selectedField.key) {
                 switch (this.sortDirection) {
-                case 'DESC':
-                    this.sortDirection = 'ASC';
-                    break;
-                case 'ASC':
-                    this.sortDirection = 'DESC';
-                    break;
+                    case 'DESC':
+                        this.sortDirection = 'ASC';
+                        break;
+                    case 'ASC':
+                        this.sortDirection = 'DESC';
+                        break;
                 }
             } else {
                 this.sortDirection = 'DESC';
             }
             this.sortField = selectedField.key;
             this.loadData();
+        },
+        showSanctionDetails(sanction: any) {
+            this.selectedSanction = sanction;
+            this.showModal = true;
         },
         updateFilter() {
             this.pagination.currentPage = 1;

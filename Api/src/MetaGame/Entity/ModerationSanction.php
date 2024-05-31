@@ -4,6 +4,7 @@ namespace Mush\MetaGame\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 
 #[ORM\Entity]
@@ -19,6 +20,9 @@ class ModerationSanction
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'moderationSanctions')]
     private User $user;
+
+    #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]
+    private ?PlayerInfo $player;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $moderationAction;
@@ -67,6 +71,18 @@ class ModerationSanction
     public function getUser(): User
     {
         return $this->user;
+    }
+
+    public function setPlayer(?PlayerInfo $player): self
+    {
+        $this->player = $player;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?PlayerInfo
+    {
+        return $this->player;
     }
 
     public function getReason(): string

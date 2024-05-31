@@ -126,15 +126,14 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void
     {
         $player = $playerDisease->getPlayer();
-        if ($player->isMush() && $playerDisease->getDiseaseConfig()->getType() === MedicalConditionTypeEnum::DISEASE) {
+        if ($player->isMush() && $playerDisease->isAPhysicalDisease()) {
             $this->removePlayerDisease($playerDisease, [DiseaseStatusEnum::MUSH_CURE], $time, VisibilityEnum::HIDDEN);
 
             return;
         }
 
         if ($this->diseaseHealsAtCycleChange($playerDisease)) {
-            $newDiseasePoint = $playerDisease->getDiseasePoint() - 1;
-            $playerDisease->setDiseasePoint($newDiseasePoint);
+            $playerDisease->decrementDiseasePoint();
         }
 
         if ($playerDisease->isTreatedByAShrink()) {
@@ -245,7 +244,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
     private function treatDisorder(PlayerDisease $playerDisease, Player $shrink, \DateTime $time): void
     {
-        $playerDisease->setDiseasePoint($playerDisease->getDiseasePoint() - 1);
+        $playerDisease->decrementDiseasePoint();
 
         $event = new DiseaseEvent(
             $playerDisease,

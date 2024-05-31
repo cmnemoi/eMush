@@ -89,6 +89,13 @@ class PlayerDisease
         return $this;
     }
 
+    public function decrementDiseasePoint(): self
+    {
+        $this->diseasePoint -= 1;
+
+        return $this;
+    }
+
     public function getResistancePoint(): int
     {
         return $this->resistancePoint;
@@ -122,5 +129,10 @@ class PlayerDisease
     public function isADisorder(): bool
     {
         return $this->diseaseConfig->getType() === MedicalConditionTypeEnum::DISORDER;
+    }
+
+    public function isAPhysicalDisease(): bool
+    {
+        return $this->diseaseConfig->getType() === MedicalConditionTypeEnum::DISEASE;
     }
 }

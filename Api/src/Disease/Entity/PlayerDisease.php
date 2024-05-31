@@ -89,9 +89,9 @@ class PlayerDisease
         return $this;
     }
 
-    public function decrementDiseasePoint(): self
+    public function decrementDiseasePoints(): self
     {
-        $this->diseasePoint -= 1;
+        --$this->diseasePoint;
 
         return $this;
     }

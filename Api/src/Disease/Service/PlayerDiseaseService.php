@@ -133,7 +133,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         }
 
         if ($this->diseaseHealsAtCycleChange($playerDisease)) {
-            $playerDisease->decrementDiseasePoint();
+            $playerDisease->decrementDiseasePoints();
         }
 
         if ($playerDisease->isTreatedByAShrink()) {
@@ -244,8 +244,22 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
     private function treatDisorder(PlayerDisease $playerDisease, Player $shrink, \DateTime $time): void
     {
-        $playerDisease->decrementDiseasePoint();
+        $playerDisease->decrementDiseasePoints();
 
+        // if disorder is cured, remove it
+        if ($playerDisease->getDiseasePoint() <= 0) {
+            $this->removePlayerDisease(
+                $playerDisease,
+                [SkillEnum::SHRINK],
+                $time,
+                VisibilityEnum::PUBLIC,
+                $shrink
+            );
+
+            return;
+        }
+
+        // else, send an event to other modules saying that the disorder is still being treated
         $event = new DiseaseEvent(
             $playerDisease,
             tags: [SkillEnum::SHRINK],
@@ -256,15 +270,5 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $this->eventService->callEvent($event, DiseaseEvent::TREAT_DISEASE);
 
         $this->persist($playerDisease);
-
-        if ($playerDisease->getDiseasePoint() <= 0) {
-            $this->removePlayerDisease(
-                $playerDisease,
-                [SkillEnum::SHRINK],
-                $time,
-                VisibilityEnum::PUBLIC,
-                $shrink
-            );
-        }
     }
 }

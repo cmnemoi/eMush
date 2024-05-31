@@ -4,6 +4,7 @@ namespace Mush\Status\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
@@ -24,7 +25,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ActionEvent::PRE_ACTION => 'onPreAction',
+            ActionEvent::PRE_ACTION => ['onPreAction', EventPriorityEnum::LOW],
             ActionEvent::RESULT_ACTION => 'onResultAction',
             ActionEvent::POST_ACTION => 'onPostAction',
         ];

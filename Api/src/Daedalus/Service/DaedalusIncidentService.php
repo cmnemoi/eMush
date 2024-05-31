@@ -28,8 +28,6 @@ use Psr\Log\LoggerInterface;
 
 final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 {
-    private const ALPHA_MULTIPLIER = 3;
-
     private GetRandomElementsFromArrayServiceInterface $getRandomElementsFromArray;
     private GetRandomPoissonIntegerServiceInterface $getRandomPoissonInteger;
     private RandomServiceInterface $randomService;
@@ -276,10 +274,22 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
      * where lambda = 3.3*10^(-3) * day^1.7 is the average number of incidents per cycle.
      */
     private function getNumberOfIncident(Daedalus $daedalus): int
-    {
-        $averageIncidentsPerCycle = self::ALPHA_MULTIPLIER * 3.3 * 10 ** (-3) * $daedalus->getDay() ** 1.7;
+    {   
+        /**
+         * The idea of `earlyStart` is to have more incidents at the beginning of the game,
+         * to compensate the lack of researches and communications terminal.
+         * 
+         * We estimated that 20 action points per day were put in those activites, on average.
+         * Moreover, an incident takes 9 action points to be handled, on average.
+         * 
+         * So, we can estimate that we need 20/9 ~= 2.1 incidents per day to keep the players busy,
+         * ie. 2.1 / `nbOfCyclesPerDay` incidents per cycle.
+         */
 
-        return $this->getRandomPoissonInteger->execute($averageIncidentsPerCycle);
+        $earlyStart = 2.1 / $daedalus->getNumberOfCyclesPerDay();
+        $averageIncidentsPerCycle = 3.3 * 10 ** (-3) * $daedalus->getDay() ** 1.7;
+
+        return $this->getRandomPoissonInteger->execute(max($earlyStart, $averageIncidentsPerCycle));
     }
 
     /**
@@ -303,11 +313,11 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             try {
                 /** @var array<int, GameEquipment> $equipments */
                 $equipments = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus);
-                /** @var GameEquipment $equipment */
+                /** @var ?GameEquipment $equipment */
                 $equipment = $this->getRandomElementsFromArray->execute(
                     elements: $equipments,
                     number: 1
-                )->first();
+                )->first() ?: null;
 
                 if ($equipment === null || $equipment->isBroken() || $equipment->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
                     $absentEquipments[] = $equipmentName;

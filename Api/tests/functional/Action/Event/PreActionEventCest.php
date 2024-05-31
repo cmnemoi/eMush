@@ -286,7 +286,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
 
         // when KT starts an action
         $actionEvent = new ActionEvent(
-            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]),
+            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::READ_DOCUMENT]),
             actionProvider: $postIt,
             player: $this->kuanTi,
         );

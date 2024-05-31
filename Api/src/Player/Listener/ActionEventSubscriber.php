@@ -36,10 +36,10 @@ final class ActionEventSubscriber implements EventSubscriberInterface
         $place = $event->getPlace();
 
         $authorInteractsWithRoomEquipment = $actionProvider instanceof GameEquipment && $actionProvider->isInShelf();
-        $actionDoesNotInteractWithRoomEquipmentButShouldTriggerRoomTrap = $actionConfig->shouldTriggerRoomTrap() && !$authorInteractsWithRoomEquipment;
-
+        $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap = $actionProvider instanceof GameEquipment === false && $actionConfig->shouldTriggerRoomTrap();
+        
         if (
-            ($authorInteractsWithRoomEquipment|| $actionDoesNotInteractWithRoomEquipmentButShouldTriggerRoomTrap)
+            ($authorInteractsWithRoomEquipment || $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap)
             && $author->isNotMush() 
             && $place->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)
         ) {

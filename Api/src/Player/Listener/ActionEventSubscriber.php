@@ -25,8 +25,10 @@ final class ActionEventSubscriber implements EventSubscriberInterface
 
     public function onPreAction(ActionEvent $event): void
     {   
+        $author = $event->getAuthor();
         $place = $event->getPlace();
-        if ($place->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)) {
+
+        if ($author->isNotMush() && $place->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)) {
             $playerModifierEvent = new PlayerVariableEvent(
                 player: $event->getAuthor(),
                 variableName: PlayerVariableEnum::SPORE,

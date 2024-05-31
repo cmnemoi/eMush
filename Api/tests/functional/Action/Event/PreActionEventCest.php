@@ -12,6 +12,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Enum\PlaceStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -48,7 +49,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // after KT has done an action
+        // when KT starts an action
         $actionEvent = new ActionEvent(
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
             actionProvider: $postIt,
@@ -79,7 +80,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // after KT has done an action
+        // when KT starts an action
         $actionEvent = new ActionEvent(
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
             actionProvider: $postIt,
@@ -91,6 +92,90 @@ final class PreActionEventCest extends AbstractFunctionalTest
         // then KT should get a spore
         $I->assertEquals(
             expected: 1,
+            actual: $this->kuanTi->getSpores(),
+        );
+    }
+
+    public function shouldNotInfectImmunizedPlayerInteractingWithTrappedRoom(FunctionalTester $I): void
+    {
+        // given Chun's room has been trapped
+        $this->statusService->createStatusFromName(
+            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
+            holder: $this->chun->getPlace(),
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given chun is immunized
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::IMMUNIZED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given a post it in the room
+        $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::POST_IT,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when Chun starts an action
+        $actionEvent = new ActionEvent(
+            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
+            actionProvider: $postIt,
+            player: $this->chun,
+        );
+        $actionEvent->setActionResult(new Success());
+        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+
+        // then Chun should not get a spore
+        $I->assertEquals(
+            expected: 0,
+            actual: $this->chun->getSpores(),
+        );
+    }
+
+    public function shouldNotInfectMushPlayerInteractingWithTrappedRoom(FunctionalTester $I): void
+    {
+        // given KT's room has been trapped
+        $this->statusService->createStatusFromName(
+            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
+            holder: $this->kuanTi->getPlace(),
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given KT is mush
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given a post it in the room
+        $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::POST_IT,
+            equipmentHolder: $this->kuanTi->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when KT starts an action
+        $actionEvent = new ActionEvent(
+            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
+            actionProvider: $postIt,
+            player: $this->kuanTi,
+        );
+        $actionEvent->setActionResult(new Success());
+        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+
+        // then KT should not get a spore
+        $I->assertEquals(
+            expected: 0,
             actual: $this->kuanTi->getSpores(),
         );
     }

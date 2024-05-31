@@ -806,4 +806,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
         return $efficiency;
     }
+
+    public function isNotMush(): bool
+    {
+        return $this->isMush() === false;
+    }
 }

@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -23,9 +24,24 @@ final class ActionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            ActionEvent::PRE_ACTION => 'onPreAction',
             ActionEvent::RESULT_ACTION => 'onResultAction',
             ActionEvent::POST_ACTION => 'onPostAction',
         ];
+    }
+
+    public function onPreAction(ActionEvent $event): void
+    {
+        $place = $event->getPlace();
+
+        if ($place->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)) {
+            $this->statusService->removeStatus(
+                statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
+                holder: $place,
+                tags: $event->getTags(),
+                time: $event->getTime()
+            );
+        }
     }
 
     public function onResultAction(ActionEvent $event): void

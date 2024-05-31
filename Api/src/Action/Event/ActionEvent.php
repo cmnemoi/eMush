@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -105,5 +106,10 @@ class ActionEvent extends AbstractGameEvent
         }
 
         return $modifiers;
+    }
+
+    public function getPlace(): Place
+    {
+        return $this->getAuthor()->getPlace();
     }
 }

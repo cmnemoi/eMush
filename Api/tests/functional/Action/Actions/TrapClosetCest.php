@@ -8,6 +8,11 @@ use Mush\Action\Actions\TrapCloset;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -121,6 +126,35 @@ final class TrapClosetCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: ActionImpossibleCauseEnum::BOOBY_TRAP_ALREADY_DONE,
             actual: $this->trapClosetAction->cannotExecuteReason(),
+        );
+    }
+
+    public function shouldPrintASecretLog(FunctionalTester $I): void
+    {   
+        // given Chun is another room to not reveal the secret log
+        $this->chun->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::SPACE));
+
+        // given KT has one spore
+        $this->kuanTi->setSpores(1);
+
+        // when KT traps the closet
+        $this->trapClosetAction->loadParameters(
+            actionConfig: $this->trapClosetConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi,
+            target: null,
+        );
+        $this->trapClosetAction->execute();
+
+        // then the room should have a trapped status
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->kuanTi->getPlace()->getLogName(),
+                'playerInfo' => $this->kuanTi->getPlayerInfo(),
+                'visibility' => VisibilityEnum::SECRET,
+                'log' => ActionLogEnum::TRAP_CLOSET_SUCCESS,
+            ],
         );
     }
 }

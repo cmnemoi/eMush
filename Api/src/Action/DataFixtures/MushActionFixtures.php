@@ -113,7 +113,7 @@ class MushActionFixtures extends Fixture
             ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
             ->setActionCost(1);
-        
+
         $manager->persist($trapClosetAction);
 
         $manager->flush();

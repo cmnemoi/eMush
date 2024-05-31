@@ -8,7 +8,6 @@ use Mush\Action\Actions\TrapCloset;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -19,6 +18,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class TrapClosetCest extends AbstractFunctionalTest
 {
     private ActionConfig $trapClosetConfig;
@@ -102,7 +104,7 @@ final class TrapClosetCest extends AbstractFunctionalTest
     }
 
     public function shouldNotBeExecutableIfRoomIsAlreadyTrapped(FunctionalTester $I): void
-    {   
+    {
         // given KT has one spore
         $this->kuanTi->setSpores(1);
 
@@ -130,7 +132,7 @@ final class TrapClosetCest extends AbstractFunctionalTest
     }
 
     public function shouldPrintASecretLog(FunctionalTester $I): void
-    {   
+    {
         // given Chun is another room to not reveal the secret log
         $this->chun->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::SPACE));
 

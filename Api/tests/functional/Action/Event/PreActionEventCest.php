@@ -20,6 +20,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class PreActionEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
@@ -220,7 +223,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
     }
 
     public function shouldPrintMushChannelMessageWithRightParameters(FunctionalTester $I): void
-    {   
+    {
         // given KT's room has been trapped by Gioele
         $this->statusService->createStatusFromName(
             statusName: PlaceStatusEnum::MUSH_TRAPPED->value,

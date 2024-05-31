@@ -15,6 +15,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class ActionNormalizerCest extends AbstractFunctionalTest
 {
     private ActionNormalizer $normalizer;
@@ -45,7 +48,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
         /** @var Action $trapClosetAction */
         $trapClosetAction = $this->kuanTi
             ->getProvidedActions(ActionHolderEnum::PLAYER, [ActionRangeEnum::SELF])
-            ->filter(fn (Action $action) => $action->getActionConfig()->getActionName() === ActionEnum::TRAP_CLOSET)
+            ->filter(static fn (Action $action) => $action->getActionConfig()->getActionName() === ActionEnum::TRAP_CLOSET)
             ->first();
 
         $normalizedAction = $this->normalizer->normalize($trapClosetAction, format: null, context: ['currentPlayer' => $this->kuanTi]);
@@ -70,6 +73,6 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'confirmation' => null,
             ],
             actual: $normalizedAction,
-        );   
+        );
     }
 }

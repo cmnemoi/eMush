@@ -58,7 +58,7 @@ final class TrapCloset extends AbstractAction
             ])
         );
     }
-    
+
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target === null;

@@ -1,4 +1,7 @@
+import {PlayerInfo} from "@/entities/PlayerInfo";
+
 export class ModerationSanction {
+    public userId!: number;
     public moderationAction!: string;
     public reason!: string;
     public message: string|null = null;
@@ -7,6 +10,7 @@ export class ModerationSanction {
     public endDate!: Date;
     public authorName!: string;
     public isWarning!: boolean;
+    public playerId!: number;
 
     public load(object: any): ModerationSanction {
         if (object) {
@@ -17,6 +21,8 @@ export class ModerationSanction {
             this.startDate = new Date(object.startDate);
             this.endDate = new Date(object.endDate);
             this.authorName = object.authorName;
+            this.playerId = object.player;
+            this.userId = object.user;
             this.isWarning = object.moderationAction === 'warning';
         }
         return this;

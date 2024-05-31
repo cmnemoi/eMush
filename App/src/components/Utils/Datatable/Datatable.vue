@@ -3,29 +3,33 @@
         <Spinner :loading="loading"></Spinner>
         <table id="tableComponent" class="table table-bordered table-striped">
             <thead>
-                <tr>
-                    <th
-                        v-for="field in headers"
-                        :key='field'
-                        @click="sortTable(field)"
-                        :class=sortClassname(field)
-                    >
-                        <slot v-if="field.slot" :name="[`header-${field.key}`]" v-bind="field" />
-                        <span v-else class="header-text">{{ $t(field.name) }}</span>
-                    </th>
-                </tr>
+            <tr>
+                <th
+                    v-for="field in headers"
+                    :key='field.key'
+                    @click="sortTable(field)"
+                    :class=sortClassname(field)
+                >
+                    <slot v-if="field.slot" :name="`header-${field.key}`" v-bind="field" />
+                    <span v-else class="header-text">{{ $t(field.name) }}</span>
+                </th>
+            </tr>
             </thead>
             <tbody>
-                <tr v-for="row in rowData" :key='row'>
-                    <td v-for="field in headers" :key='field'>
-                        <slot v-if="field.slot" :name="[`row-${field.key}`]" v-bind="row" />
-                        <span v-else> <img
-                            :src="row[field.image]"
-                            v-if="row[field.image]"
-                            :alt="row[field.name]"
-                            id="row-image"/> {{ $t(String(field.subkey ? row[field.key][field.subkey] : row[field.key]))  }}</span>
-                    </td>
-                </tr>
+            <tr v-for="row in rowData" :key='row.id' @click="onRowClick(row)">
+                <td v-for="field in headers" :key='field.key'>
+                    <slot v-if="field.slot" :name="`row-${field.key}`" v-bind="row" />
+                    <span v-else>
+                            <img
+                                :src="row[field.image]"
+                                v-if="row[field.image]"
+                                :alt="row[field.name]"
+                                id="row-image"
+                            />
+                            {{ $t(String(field.subkey ? row[field.key][field.subkey] : row[field.key])) }}
+                        </span>
+                </td>
+            </tr>
             </tbody>
         </table>
         <div class="datable-pagination-container">
@@ -61,10 +65,11 @@ export default defineComponent ({
     },
     emits: {
         'pagination-click': null,
-        'sort-table': null
+        'sort-table': null,
+        'row-click': null
     },
-    props:{
-        headers:{
+    props: {
+        headers: {
             type: Array,
             required: true
         },
@@ -100,12 +105,12 @@ export default defineComponent ({
             }
             if (this.sortField === selectedField.key) {
                 switch (this.sortDirection) {
-                case 'DESC':
-                    this.sortDirection = 'ASC';
-                    break;
-                case 'ASC':
-                    this.sortDirection = 'DESC';
-                    break;
+                    case 'DESC':
+                        this.sortDirection = 'ASC';
+                        break;
+                    case 'ASC':
+                        this.sortDirection = 'DESC';
+                        break;
                 }
             } else {
                 this.sortDirection = 'DESC';
@@ -115,6 +120,9 @@ export default defineComponent ({
         },
         paginationClick(page: number) {
             this.$emit('pagination-click', page);
+        },
+        onRowClick(row: any) {
+            this.$emit('row-click', row);
         },
         sortClassname(field: Header) {
             if (!field.sortable) {

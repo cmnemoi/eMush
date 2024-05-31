@@ -12,6 +12,7 @@ use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\User\Entity\User;
@@ -51,6 +52,7 @@ final class ModerationService implements ModerationServiceInterface
 
         $this->addSanctionEntity(
             $closedPlayer->getUser(),
+            $closedPlayer->getPlayerInfo(),
             $author,
             ModerationSanctionEnum::DELETE_END_MESSAGE,
             $reason,
@@ -71,6 +73,7 @@ final class ModerationService implements ModerationServiceInterface
 
         $this->addSanctionEntity(
             $closedPlayer->getUser(),
+            $closedPlayer->getPlayerInfo(),
             $author,
             ModerationSanctionEnum::HIDE_END_MESSAGE,
             $reason,
@@ -109,6 +112,7 @@ final class ModerationService implements ModerationServiceInterface
     ): User {
         return $this->addSanctionEntity(
             $user,
+            null,
             $author,
             ModerationSanctionEnum::BAN_USER,
             $reason,
@@ -120,6 +124,7 @@ final class ModerationService implements ModerationServiceInterface
 
     public function addSanctionEntity(
         User $user,
+        ?PlayerInfo $player,
         User $author,
         string $sanctionType,
         string $reason,
@@ -143,6 +148,7 @@ final class ModerationService implements ModerationServiceInterface
         $sanction = new ModerationSanction($user, $startingDate);
         $sanction
             ->setModerationAction($sanctionType)
+            ->setPlayer($player)
             ->setAuthor($author)
             ->setReason($reason)
             ->setMessage($message)
@@ -169,6 +175,7 @@ final class ModerationService implements ModerationServiceInterface
 
         $this->addSanctionEntity(
             $player->getUser(),
+            $player->getPlayerInfo(),
             $author,
             ModerationSanctionEnum::QUARANTINE_PLAYER,
             $reason,
@@ -192,6 +199,7 @@ final class ModerationService implements ModerationServiceInterface
 
         $this->addSanctionEntity(
             $messageAuthor->getUser(),
+            $messageAuthor,
             $author,
             ModerationSanctionEnum::DELETE_MESSAGE,
             $reason,
@@ -218,6 +226,7 @@ final class ModerationService implements ModerationServiceInterface
     ): User {
         return $this->addSanctionEntity(
             $user,
+            null,
             $author,
             ModerationSanctionEnum::WARNING,
             $reason,

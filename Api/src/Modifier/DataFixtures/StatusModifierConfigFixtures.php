@@ -410,7 +410,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->addModifierRequirement($shrinkInRoomActivationRequirement)
             ->setModifierStrategy(ModifierStrategyEnum::ADD_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER);
         $manager->persist($lyingDownShrinkModifier);
 
         $manager->flush();

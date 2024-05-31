@@ -265,4 +265,38 @@ final class PreActionEventCest extends AbstractFunctionalTest
             actual: $mushChannelMessage->getTranslationParameters()['character'],
         );
     }
+
+    public function shouldNotTriggerRoomTrapIfEquipmentIsNotInTheRoom(FunctionalTester $I): void
+    {
+        // given KT's room has been trapped
+        $this->statusService->createStatusFromName(
+            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
+            holder: $this->kuanTi->getPlace(),
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given a post it in KT's inventory
+        $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::POST_IT,
+            equipmentHolder: $this->kuanTi,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when KT starts an action
+        $actionEvent = new ActionEvent(
+            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]),
+            actionProvider: $postIt,
+            player: $this->kuanTi,
+        );
+        $actionEvent->setActionResult(new Success());
+        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+
+        // then KT should not get a spore
+        $I->assertEquals(
+            expected: 0,
+            actual: $this->kuanTi->getSpores(),
+        );
+    }
 }

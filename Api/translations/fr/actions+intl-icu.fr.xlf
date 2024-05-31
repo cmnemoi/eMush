@@ -1142,5 +1142,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Avance le Projet en fonction de vos capacités.</target>
       </segment>
     </unit>
+    <unit id="trap_closet">
+      <segment id="trap_closet" state="final">
+        <source>trap_closet.name</source>
+        <target>Piéger pièce</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>trap_closet.description</source>
+        <target>Permet de piéger la pièce, toutes les interactions avec les objets et équipements de la pièce déclencheront le piège.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

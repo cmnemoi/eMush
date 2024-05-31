@@ -119,7 +119,7 @@ class PlayerDisease
         return $this->isADisorder() && $this->player->hasStatus(PlayerStatusEnum::LYING_DOWN) && $this->player->getPlace()->hasAnAliveShrink();
     }
 
-    private function isADisorder(): bool
+    public function isADisorder(): bool
     {
         return $this->diseaseConfig->getType() === MedicalConditionTypeEnum::DISORDER;
     }

@@ -278,15 +278,8 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         /**
          * The idea of `earlyStart` is to have more incidents at the beginning of the game,
          * to compensate the lack of researches and communications terminal.
-         * 
-         * We estimated that 20 action points per day were put in those activites, on average.
-         * Moreover, an incident takes 9 action points to be handled, on average.
-         * 
-         * So, we can estimate that we need 20/9 ~= 2.1 incidents per day to keep the players busy,
-         * ie. 2.1 / `nbOfCyclesPerDay` incidents per cycle.
          */
-
-        $earlyStart = 2.1 / $daedalus->getNumberOfCyclesPerDay();
+        $earlyStart = 0.4 / $daedalus->getNumberOfCyclesPerDay();
         $averageIncidentsPerCycle = 3.3 * 10 ** (-3) * $daedalus->getDay() ** 1.7;
 
         return $this->getRandomPoissonInteger->execute(max($earlyStart, $averageIncidentsPerCycle));

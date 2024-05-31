@@ -403,7 +403,7 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         // given an oxygen tank
         $oxygenTank = GameEquipmentFactory::createEquipmentByNameForHolder(
-            EquipmentEnum::OXYGEN_TANK, 
+            EquipmentEnum::OXYGEN_TANK,
             $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)
         );
 
@@ -425,7 +425,7 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         // given a fuel tank
         $fuelTank = GameEquipmentFactory::createEquipmentByNameForHolder(
-            EquipmentEnum::FUEL_TANK, 
+            EquipmentEnum::FUEL_TANK,
             $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)
         );
 

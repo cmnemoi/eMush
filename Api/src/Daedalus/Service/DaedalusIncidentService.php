@@ -2,7 +2,6 @@
 
 namespace Mush\Daedalus\Service;
 
-use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
@@ -228,7 +227,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         return $numberOfDiseasedPlayers;
     }
 
-    public function handleOxygenTankBreak(Daedalus $daedalus, DateTime $date): int
+    public function handleOxygenTankBreak(Daedalus $daedalus, \DateTime $date): int
     {
         $oxygenTanks = $this->gameEquipmentRepository->findByNameAndDaedalus(EquipmentEnum::OXYGEN_TANK, $daedalus);
         $oxygenTanksToBreak = $this->getRandomElementsFromArray->execute(
@@ -248,7 +247,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         return \count($oxygenTanksToBreak);
     }
 
-    public function handleFuelTankBreak(Daedalus $daedalus, DateTime $date): int
+    public function handleFuelTankBreak(Daedalus $daedalus, \DateTime $date): int
     {
         $fuelTanks = $this->gameEquipmentRepository->findByNameAndDaedalus(EquipmentEnum::FUEL_TANK, $daedalus);
         $fuelTanksToBreak = $this->getRandomElementsFromArray->execute(
@@ -274,7 +273,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
      * where lambda = 3.3*10^(-3) * day^1.7 is the average number of incidents per cycle.
      */
     private function getNumberOfIncident(Daedalus $daedalus): int
-    {   
+    {
         /**
          * The idea of `earlyStart` is to have more incidents at the beginning of the game,
          * to compensate the lack of researches and communications terminal.
@@ -306,6 +305,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             try {
                 /** @var array<int, GameEquipment> $equipments */
                 $equipments = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus);
+
                 /** @var ?GameEquipment $equipment */
                 $equipment = $this->getRandomElementsFromArray->execute(
                     elements: $equipments,

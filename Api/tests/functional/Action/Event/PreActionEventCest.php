@@ -8,6 +8,8 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\MushMessageEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -177,6 +179,42 @@ final class PreActionEventCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: 0,
             actual: $this->kuanTi->getSpores(),
+        );
+    }
+
+    public function shouldPrintAMessageInMushChannelAfterPlayerInteractsWithTrappedRoom(FunctionalTester $I): void
+    {
+        // given KT's room has been trapped
+        $this->statusService->createStatusFromName(
+            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
+            holder: $this->kuanTi->getPlace(),
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given a post it in the room
+        $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::POST_IT,
+            equipmentHolder: $this->kuanTi->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when KT starts an action
+        $actionEvent = new ActionEvent(
+            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
+            actionProvider: $postIt,
+            player: $this->kuanTi,
+        );
+        $actionEvent->setActionResult(new Success());
+        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+
+        // then a message should be printed in the mush channel
+        $I->haveInRepository(
+            Message::class,
+            [
+                'message' => MushMessageEnum::INFECT_TRAP,
+            ]
         );
     }
 }

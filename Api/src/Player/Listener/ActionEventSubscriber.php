@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Player\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -36,6 +37,7 @@ final class ActionEventSubscriber implements EventSubscriberInterface
                 tags: $event->getTags(),
                 time: $event->getTime(),
             );
+            $playerModifierEvent->addTag(PlaceStatusEnum::MUSH_TRAPPED->value);
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }

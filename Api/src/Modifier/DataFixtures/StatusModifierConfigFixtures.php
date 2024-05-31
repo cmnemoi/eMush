@@ -409,7 +409,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($shrinkInRoomActivationRequirement)
             ->setModifierStrategy(ModifierStrategyEnum::ADD_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($lyingDownShrinkModifier);
 
         $manager->flush();

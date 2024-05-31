@@ -207,6 +207,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($ian);
 
+        /** @var StatusConfig $shrinkSkill */
+        $shrinkSkill = $this->getReference(SkillEnum::SHRINK);
+
         $janice = $this->buildDefaultCharacterConfig();
         $janice
             ->setName(CharacterEnum::JANICE)
@@ -219,7 +222,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SELF_SACRIFICE,
                 SkillEnum::SHRINK,
             ])
-            ->setStartingItems($iTrackieCollection);
+            ->setStartingItems($iTrackieCollection)
+            ->setInitStatuses([$shrinkSkill]);
         $manager->persist($janice);
 
         $jinSu = $this->buildDefaultCharacterConfig();

@@ -137,7 +137,7 @@ enum ActionEnum: string
     case PHAGOCYTE = 'eat_spore';
     case FUNGAL_KITCHEN = 'mix_ration_spore';
     case DEPRESS = 'depress';
-    case TRAP_SHELF = 'trap_closet';
+    case TRAP_CLOSET = 'trap_closet';
     case SLIME_OBJECT = 'slime_object';
     case EXCHANGE_BODY = 'exchange_body';
     case DOOR_SABOTAGE = 'door_sabotage';

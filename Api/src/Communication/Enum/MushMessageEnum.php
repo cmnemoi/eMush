@@ -18,7 +18,7 @@ class MushMessageEnum
     public const PLAYER_INFECTION_LOGS = [
         ActionEnum::INFECT->value => self::INFECT_ACTION,
         ActionEnum::DO_THE_THING->value => self::INFECT_STD,
-        ActionEnum::TRAP_SHELF->value => self::INFECT_TRAP,
+        ActionEnum::TRAP_CLOSET->value => self::INFECT_TRAP,
         PlanetSectorEvent::MUSH_TRAP => self::INFECT_MUSH_RAID,
     ];
 }

@@ -105,6 +105,17 @@ class MushActionFixtures extends Fixture
 
         $manager->persist($phagocyteAction);
 
+        $trapClosetAction = new ActionConfig();
+        $trapClosetAction
+            ->setName(ActionEnum::TRAP_CLOSET->value)
+            ->setActionName(ActionEnum::TRAP_CLOSET)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
+            ->setActionCost(1);
+        
+        $manager->persist($trapClosetAction);
+
         $manager->flush();
 
         $this->addReference(self::EXTRACT_SPORE, $extractSporeAction);
@@ -114,5 +125,6 @@ class MushActionFixtures extends Fixture
         $this->addReference(self::FAKE_DISEASE, $fakeDiseaseAction);
         $this->addReference(self::SCREW_TALKIE, $screwTalkieAction);
         $this->addReference(self::PHAGOCYTE, $phagocyteAction);
+        $this->addReference(ActionEnum::TRAP_CLOSET->value, $trapClosetAction);
     }
 }

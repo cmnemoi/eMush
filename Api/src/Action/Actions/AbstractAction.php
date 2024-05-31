@@ -216,6 +216,11 @@ abstract class AbstractAction
         return $this->actionConfig;
     }
 
+    public function getTags(): array
+    {
+        return $this->actionConfig->getActionTags();
+    }
+
     abstract public function support(?LogParameterInterface $target, array $parameters): bool;
 
     abstract protected function checkResult(): ActionResult;

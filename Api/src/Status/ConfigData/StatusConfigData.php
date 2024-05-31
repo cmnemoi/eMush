@@ -1209,6 +1209,7 @@ abstract class StatusConfigData
             'modifierConfigs' => [
                 'modifier_specialist_point_core',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
@@ -1222,6 +1223,7 @@ abstract class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE . '_default',
@@ -1235,6 +1237,7 @@ abstract class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => SkillEnum::SHRINK . '_default',

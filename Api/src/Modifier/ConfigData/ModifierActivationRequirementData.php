@@ -3,6 +3,7 @@
 namespace Mush\Modifier\ConfigData;
 
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -122,6 +123,12 @@ class ModifierActivationRequirementData
             'name' => 'holder_name_turret',
             'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
             'activationRequirement' => EquipmentEnum::TURRET_COMMAND,
+            'value' => 100,
+        ],
+        [
+            'name' => ModifierRequirementEnum::SKILL_IN_ROOM . '_shrink',
+            'activationRequirementName' => ModifierRequirementEnum::SKILL_IN_ROOM,
+            'activationRequirement' => SkillEnum::SHRINK,
             'value' => 100,
         ],
     ];

@@ -481,6 +481,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [
                 'lying_down_modifier_for_player_+1actionPoint_on_new_cycle',
+                'modifier_for_player_+1morale_point_on_new_cycle_if_shrink_in_room',
             ],
             'actionConfigs' => ['get_up'],
         ],

@@ -8,6 +8,7 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
@@ -35,6 +36,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         ActionTypeEnum::ACTION_HEAL->value => LogEnum::DISEASE_TREATED_PLAYER,
         ActionEnum::CONSUME->value => LogEnum::DISEASE_TREATED_DRUG,
         ActionEnum::CONSUME_DRUG->value => LogEnum::DISEASE_TREATED_DRUG,
+        SkillEnum::SHRINK => LogEnum::DISORDER_TREATED,
     ];
     private RoomLogServiceInterface $roomLogService;
 

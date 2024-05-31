@@ -11,6 +11,7 @@ use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -124,15 +125,22 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void
     {
-        if ($playerDisease->getPlayer()->isMush() && $playerDisease->getDiseaseConfig()->getType() === MedicalConditionTypeEnum::DISEASE) {
+        $player = $playerDisease->getPlayer();
+        if ($player->isMush() && $playerDisease->getDiseaseConfig()->getType() === MedicalConditionTypeEnum::DISEASE) {
             $this->removePlayerDisease($playerDisease, [DiseaseStatusEnum::MUSH_CURE], $time, VisibilityEnum::HIDDEN);
 
             return;
         }
 
-        if ($this->diseaseHealsAtCycleChange($playerDisease) || $playerDisease->isTreatedByAShrink()) {
+        if ($this->diseaseHealsAtCycleChange($playerDisease) ) {
             $newDiseasePoint = $playerDisease->getDiseasePoint() - 1;
             $playerDisease->setDiseasePoint($newDiseasePoint);
+        }
+
+        if ($playerDisease->isTreatedByAShrink()) {
+            $playerRoom = $player->getPlace();
+            $shrink = $this->randomService->getRandomPlayer($playerRoom->getAliveShrinks());
+            $this->treatDisorder($playerDisease, shrink: $shrink, time: $time);
         }
 
         $diseasePoint = $playerDisease->getDiseasePoint();
@@ -228,5 +236,18 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
         return $playerDisease->getDiseaseConfig()->getType() === MedicalConditionTypeEnum::DISEASE
             || \in_array($playerDisease->getDiseaseConfig()->getDiseaseName(), $spontaneousHealingDisorders, true);
+    }
+
+    private function treatDisorder(PlayerDisease $playerDisease, Player $shrink, \DateTime $time): void
+    {
+        $playerDisease->setDiseasePoint($playerDisease->getDiseasePoint() - 1);
+        $event = new DiseaseEvent(
+            $playerDisease,
+            tags: [SkillEnum::SHRINK],
+            time: $time,
+        );
+        $event->setAuthor($shrink);
+        $event->setVisibility(VisibilityEnum::PUBLIC);
+        $this->eventService->callEvent($event, DiseaseEvent::TREAT_DISEASE);
     }
 }

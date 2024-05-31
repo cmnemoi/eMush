@@ -127,4 +127,135 @@ final class PlayerDiseaseServiceCest extends AbstractFunctionalTest
         // then the disease point should decrease by 1
         $I->assertEquals(4, $disorder->getDiseasePoint());
     }
+
+    public function shouldHealDisorderForLyingDownPlayerWithShrinkInTheRoom(FunctionalTester $I): void
+    {
+        // given Chun has a depression (a disorder)
+        $disorder = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DisorderEnum::DEPRESSION,
+            player: $this->chun,
+            reasons: [],
+        );
+
+        // given disorder has 1 disease point
+        $disorder->setDiseasePoint(1);
+
+        // given KT is a psy
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::SHRINK,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun is lying down
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when I call handleNewCycle on the disease
+        $this->playerDiseaseService->handleNewCycle($disorder, new \DateTime());
+
+        // then the disease should be removed
+        $I->assertNull($this->chun->getMedicalConditionByName(DisorderEnum::DEPRESSION));
+    }
+
+    public function shouldPrintAPublicLogWhenTreatingADisorderWithShrink(FunctionalTester $I): void
+    {
+        // given Chun has a depression (a disorder)
+        $disorder = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DisorderEnum::DEPRESSION,
+            player: $this->chun,
+            reasons: [],
+        );
+
+        // given disorder has 1 disease point
+        $disorder->setDiseasePoint(1);
+
+        // given KT is a psy
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::SHRINK,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun is lying down
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when I call handleNewCycle on the disease
+        $this->playerDiseaseService->handleNewCycle($disorder, new \DateTime());
+
+        // then I should see a public room log reporting the disorder treatment progress
+        $I->seeInRepository(
+            RoomLog::class,
+            [
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'log' => LogEnum::DISORDER_TREATED,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+    }
+
+    public function shouldPrintDisorderTreatmentLogWithShrinkAndPatientInDifferentRooms(FunctionalTester $I): void
+    {
+        // given Chun has a depression (a disorder)
+        $disorder = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DisorderEnum::DEPRESSION,
+            player: $this->chun,
+            reasons: [],
+        );
+
+        // given disorder has 1 disease point
+        $disorder->setDiseasePoint(1);
+
+        // given KT is a psy
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::SHRINK,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun is lying down
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when I call handleNewCycle on the disease
+        $this->playerDiseaseService->handleNewCycle($disorder, new \DateTime());
+
+        // then I should see a public room log reporting the disorder treatment progress
+        $log = $I->grabEntityFromRepository(
+            RoomLog::class,
+            [
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'log' => LogEnum::DISORDER_TREATED,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+
+        // then the log should contain the shrink and the patient
+        $I->assertEquals(
+            expected: 'kuan_ti',
+            actual: $log->getParameters()['character']
+        );
+        $I->assertEquals(
+            expected: 'chun',
+            actual: $log->getParameters()['target_character']
+        );
+    }
 }

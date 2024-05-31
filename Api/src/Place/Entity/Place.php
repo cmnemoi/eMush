@@ -453,8 +453,13 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $charge;
     }
 
+    public function getAliveShrinks(): PlayerCollection
+    {
+        return $this->getPlayers()->getPlayerAlive()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::SHRINK));
+    }
+
     public function hasAnAliveShrink(): bool
     {
-        return $this->getPlayers()->getPlayerAlive()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::SHRINK))->count() > 0;
+        return $this->getAliveShrinks()->count() > 0;
     }
 }

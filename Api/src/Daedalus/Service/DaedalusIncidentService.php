@@ -297,12 +297,14 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         foreach ($equipmentBreakRateDistribution as $equipmentName => $probability) {
             /** @var array<int, GameEquipment> $equipments */
             $equipments = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus);
+            // first, remove equipment which not present on the daedalus
             if (empty($equipments)) {
                 $absentEquipments[] = $equipmentName;
 
                 continue;
             }
 
+            // then, remove equipment which is already broken or patrol ships in space battle
             foreach ($equipments as $equipment) {
                 if ($equipment->isBroken() || $equipment->isInSpaceBattle()) {
                     $absentEquipments[] = $equipmentName;

@@ -431,6 +431,7 @@ class GameConfigData
                 'changed_cpu_priority_default',
                 'electric_charges_support_drone_default',
                 DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
+                SkillEnum::SHRINK . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

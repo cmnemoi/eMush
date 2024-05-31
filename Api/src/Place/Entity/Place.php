@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -450,5 +451,10 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         }
 
         return $charge;
+    }
+
+    public function hasAnAliveShrink(): bool
+    {
+        return $this->getPlayers()->getPlayerAlive()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::SHRINK))->count() > 0;
     }
 }

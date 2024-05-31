@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Disease\Service;
 
 use Mush\Disease\Enum\DiseaseEnum;
+use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -89,5 +91,40 @@ final class PlayerDiseaseServiceCest extends AbstractFunctionalTest
                 'visibility' => VisibilityEnum::PRIVATE,
             ]
         );
+    }
+
+    public function shouldDecreaseDisorderDiseasePointIfPlayerSleepInAShrinkRoom(FunctionalTester $I): void
+    {
+        // given Chun has a depression (a disorder)
+        $disorder = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DisorderEnum::DEPRESSION,
+            player: $this->chun,
+            reasons: [],
+        );
+
+        // given disorder has 5 disease points
+        $disorder->setDiseasePoint(5);
+
+        // given KT is a psy
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::SHRINK,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun is lying down
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when I call handleNewCycle on the disease
+        $this->playerDiseaseService->handleNewCycle($disorder, new \DateTime());
+
+        // then the disease point should decrease by 1
+        $I->assertEquals(4, $disorder->getDiseasePoint());
     }
 }

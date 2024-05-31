@@ -1233,5 +1233,13 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
         ],
+        [
+            'name' => SkillEnum::SHRINK . '_default',
+            'statusName' => SkillEnum::SHRINK,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 }

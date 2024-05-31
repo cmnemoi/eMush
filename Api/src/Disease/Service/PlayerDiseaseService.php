@@ -130,7 +130,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             return;
         }
 
-        if ($this->diseaseHealsAtCycleChange($playerDisease)) {
+        if ($this->diseaseHealsAtCycleChange($playerDisease) || $playerDisease->isTreatedByAShrink()) {
             $newDiseasePoint = $playerDisease->getDiseasePoint() - 1;
             $playerDisease->setDiseasePoint($newDiseasePoint);
         }

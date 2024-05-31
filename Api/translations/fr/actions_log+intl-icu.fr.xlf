@@ -1202,7 +1202,7 @@
     <unit id="trap_closet_success">
       <segment id="trap_closet_success" state="final">
         <source>trap_closet_success</source>
-        <target>:mush: L'air de rien et avec un air nullement coupable, **{character}** semble avoir glisser quelque chose dans l'étagère.</target>
+        <target>:mush: L'air de rien et avec un air nullement coupable, **{character}** semble avoir glissé quelque chose dans l'étagère.</target>
       </segment>
     </unit>
   </file>

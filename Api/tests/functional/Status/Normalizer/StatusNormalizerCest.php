@@ -39,7 +39,7 @@ final class StatusNormalizerCest extends AbstractFunctionalTest
             expected: [
                 'key' => SkillEnum::SHRINK,
                 'name' => 'Psy',
-                'description' => ':point: A chaque cycle, **1 Point de Moral (:pmo:) est régénéré** à chaque personnage allongé dans sa pièce.//:point: **Soigne les maladies Psy**.//:point: Accorde l\'action **Réconforter**, laquelle améliore le moral.//:point: Bonus pour développer certains **Projets NERON**.',
+                'description' => 'Le psy occupe un poste de soutien psychologique. Il permet de garder le moral et soigne les maladies psychologiques.//:point: A chaque cycle, **1 Point de Moral (:pmo:) est régénéré** à chaque personnage allongé dans sa pièce.//:point: **Soigne les maladies Psy**.//:point: Accorde l\'action **Réconforter**, laquelle améliore le moral.//:point: Bonus pour développer certains **Projets NERON**.',
                 'isPrivate' => false,
             ],
             actual: $normalizedStatus,

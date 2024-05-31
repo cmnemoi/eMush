@@ -30,14 +30,16 @@ final class ActionEventSubscriber implements EventSubscriberInterface
 
     public function onPreAction(ActionEvent $event): void
     {   
+        $actionConfig = $event->getActionConfig();
         $actionProvider = $event->getActionProvider();
         $author = $event->getAuthor();
         $place = $event->getPlace();
 
         $authorInteractsWithRoomEquipment = $actionProvider instanceof GameEquipment && $actionProvider->isInShelf();
+        $actionDoesNotInteractWithRoomEquipmentButShouldTriggerRoomTrap = $actionConfig->shouldTriggerRoomTrap() && !$authorInteractsWithRoomEquipment;
 
         if (
-            $authorInteractsWithRoomEquipment   
+            ($authorInteractsWithRoomEquipment|| $actionDoesNotInteractWithRoomEquipmentButShouldTriggerRoomTrap)
             && $author->isNotMush() 
             && $place->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)
         ) {

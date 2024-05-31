@@ -299,4 +299,29 @@ final class PreActionEventCest extends AbstractFunctionalTest
             actual: $this->kuanTi->getSpores(),
         );
     }
+
+    public function shouldTriggerRoomTrapForSpecificActions(FunctionalTester $I): void
+    {
+        // given KT's room has been trapped
+        $this->statusService->createStatusFromName(
+            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
+            holder: $this->kuanTi->getPlace(),
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        $actionEvent = new ActionEvent(
+            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]),
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi,
+        );
+        $actionEvent->setActionResult(new Success());
+        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+
+        // then KT should get a spore
+        $I->assertEquals(
+            expected: 1,
+            actual: $this->kuanTi->getSpores(),
+        );
+    }
 }

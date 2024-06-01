@@ -172,7 +172,6 @@ export default defineComponent({
             setTimeout(() => {
                 this.setIsHunterBeenHit(false);
                 this.setIsHunterBeenKilled(false);
-                this.reloadPlayer();
             }, 1000);
         },
         selectHunter(hunter: Hunter | null): void {

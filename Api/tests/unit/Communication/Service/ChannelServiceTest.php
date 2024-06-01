@@ -770,11 +770,7 @@ final class ChannelServiceTest extends TestCase
 
         $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
 
-        $this->entityManager
-            ->shouldReceive('remove')
-            ->with($channelPlayer)
-            ->once();
-
+        $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->removePlayer($playerInfo, $channel);

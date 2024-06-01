@@ -94,8 +94,10 @@ class ChannelRepository extends ServiceEntityRepository
             ->leftJoin('channel.participants', 'channelPlayer')
             ->where($queryBuilder->expr()->eq('channelPlayer.participant', ':playerInfo'))
             ->andWhere($queryBuilder->expr()->eq('channel.scope', ':private'))
+            ->andWhere($queryBuilder->expr()->eq('channelPlayer.leftChannel', ':leftChannel'))
             ->setParameter('playerInfo', $playerInfo->getId())
-            ->setParameter('private', ChannelScopeEnum::PRIVATE);
+            ->setParameter('private', ChannelScopeEnum::PRIVATE)
+            ->setParameter('leftChannel', false);
 
         return new ArrayCollection($queryBuilder->getQuery()->getResult());
     }

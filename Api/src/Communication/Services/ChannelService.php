@@ -234,6 +234,7 @@ class ChannelService implements ChannelServiceInterface
     {
         $channels = $this->getPlayerChannels($player, true);
 
+        /** @var Channel $channel */
         foreach ($channels as $channel) {
             $this->updatePrivateChannel($channel, $reason, $time);
         }
@@ -320,7 +321,9 @@ class ChannelService implements ChannelServiceInterface
             return false;
         }
 
-        $this->entityManager->remove($channelParticipant->first());
+        $channelParticipant->first()->leaveChannel();
+
+        $this->entityManager->persist($channelParticipant->first());
         $this->entityManager->flush();
 
         return true;

@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 class ContentStatus extends Status
 {
     #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $content = null;
+    private string $content;
 
-    public function getContent(): ?string
+    public function getContent(): string
     {
         return $this->content;
     }
@@ -18,7 +18,7 @@ class ContentStatus extends Status
     /**
      * @return static
      */
-    public function setContent(?string $content): self
+    public function setContent(string $content): self
     {
         $this->content = $content;
 

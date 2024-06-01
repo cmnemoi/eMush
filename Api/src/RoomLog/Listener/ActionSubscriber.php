@@ -81,7 +81,8 @@ final class ActionSubscriber implements EventSubscriberInterface
             $this->createLandActionLog($event);
         }
 
-        if ($content = $actionResult->getContent()) {
+        $content = $actionResult->getContent();
+        if ($content !== null) {
             $this->createContentLog($event, $content);
         }
     }

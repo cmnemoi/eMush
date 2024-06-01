@@ -79,7 +79,7 @@ class Write extends AbstractAction
         );
 
         $params = $this->getParameters();
-        $content = ($params && \array_key_exists('content', $params)) ? $params['content'] : null;
+        $content = ($params && \array_key_exists('content', $params)) ? $params['content'] : '';
 
         /** @var ContentStatus $contentStatus */
         $contentStatus = $this->statusService->createStatusFromName(

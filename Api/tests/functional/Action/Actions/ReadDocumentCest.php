@@ -96,9 +96,9 @@ final class ReadDocumentCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testReadDocumentActionCreatesActionLogOnlyWhenNoContent(FunctionalTester $I): void
+    public function testReadDocumentActionCreatesActionLogEvenWithNoContent(FunctionalTester $I): void
     {
-        $this->contentStatus->setContent(null);
+        $this->contentStatus->setContent('');
 
         $this->whenPlayerReadsDocument($this->postIt);
 
@@ -110,7 +110,7 @@ final class ReadDocumentCest extends AbstractFunctionalTest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        $I->dontSeeInRepository(RoomLog::class, [
+        $I->seeInRepository(RoomLog::class, [
             'place' => $this->room->getName(),
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player->getPlayerInfo(),

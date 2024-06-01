@@ -21,6 +21,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Project\Enum\ProjectName;
 
 final class ExplorationService implements ExplorationServiceInterface
 {
@@ -189,7 +190,8 @@ final class ExplorationService implements ExplorationServiceInterface
     }
 
     private function drawPlanetSectorEvent(PlanetSector $sector, Exploration $exploration): string
-    {
+    {   
+        $daedalus = $exploration->getDaedalus();
         $sectorEvents = clone $sector->getExplorationEvents();
         if ($exploration->hasAFunctionalCompass()) {
             $sectorEvents->remove(PlanetSectorEvent::AGAIN);
@@ -197,6 +199,10 @@ final class ExplorationService implements ExplorationServiceInterface
         if ($exploration->hasAFunctionalBabelModule() && $sector->getName() === PlanetSectorEnum::INTELLIGENT) {
             $newProbability = $sectorEvents->getElementProbability(PlanetSectorEvent::ARTEFACT) * 2;
             $sectorEvents->setElementProbability(PlanetSectorEvent::ARTEFACT, $newProbability);
+        }
+        if ($daedalus->hasFinishedProject(ProjectName::ICARUS_ANTIGRAV_PROPELLER) && $sector->getName() === PlanetSectorEnum::LANDING) {
+            $newProbability = $sectorEvents->getElementProbability(PlanetSectorEvent::NOTHING_TO_REPORT) * 2;
+            $sectorEvents->setElementProbability(PlanetSectorEvent::NOTHING_TO_REPORT, $newProbability);
         }
 
         return (string) $this->randomService->getSingleRandomElementFromProbaCollection($sectorEvents);

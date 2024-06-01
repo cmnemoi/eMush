@@ -396,6 +396,6 @@ final class StatusServiceTest extends TestCase
         self::assertSame($result->getOwner(), $gameEquipment);
         self::assertSame($result->getName(), PlayerStatusEnum::GUARDIAN);
         self::assertSame($result->getVisibility(), VisibilityEnum::MUSH);
-        self::assertSame($result->getContent(), 'test content');
+        self::assertSame($result->getFormattedContent(), '« test content »');
     }
 }

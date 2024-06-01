@@ -204,6 +204,7 @@ final class ChannelService implements ChannelServiceInterface
     {
         $channels = $this->getPlayerChannels($player, true);
 
+        /** @var Channel $channel */
         foreach ($channels as $channel) {
             $this->updatePrivateChannel($channel, $reason, $time);
         }
@@ -284,7 +285,9 @@ final class ChannelService implements ChannelServiceInterface
             return false;
         }
 
-        $this->channelPlayerRepository->delete($channelParticipant);
+        $channelParticipant->leaveChannel();
+
+        $this->channelPlayerRepository->save($channelParticipant);
 
         return true;
     }

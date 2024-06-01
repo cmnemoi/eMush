@@ -23,6 +23,9 @@ class ChannelPlayer
     #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]
     private PlayerInfo $participant;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $leftChannel = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -36,6 +39,7 @@ class ChannelPlayer
     public function setChannel(Channel $channel): self
     {
         $this->channel = $channel;
+        $channel->addParticipant($this);
 
         return $this;
     }
@@ -48,6 +52,18 @@ class ChannelPlayer
     public function setParticipant(PlayerInfo $participant): self
     {
         $this->participant = $participant;
+
+        return $this;
+    }
+
+    public function hasLeftChannel(): bool
+    {
+        return $this->leftChannel;
+    }
+
+    public function leaveChannel(): self
+    {
+        $this->leftChannel = true;
 
         return $this;
     }

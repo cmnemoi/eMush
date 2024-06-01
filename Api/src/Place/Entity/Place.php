@@ -251,6 +251,16 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first() ?: null;
     }
 
+    public function getEquipmentByNameOrThrow(string $name): GameEquipment
+    {
+        $equipment = $this->getEquipmentByName($name);
+        if ($equipment === null) {
+            throw new \RuntimeException("There should be a {$name} equipment in the place");
+        }
+
+        return $equipment;
+    }
+
     public function getBrokenEquipments(): Collection
     {
         return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isBroken());

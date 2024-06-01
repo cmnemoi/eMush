@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Event;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Place\Entity\Place;
 
 class ExplorationEvent extends AbstractGameEvent
 {
@@ -30,5 +32,15 @@ class ExplorationEvent extends AbstractGameEvent
     public function getExploration(): Exploration
     {
         return $this->exploration;
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        return $this->exploration->getDaedalus();
+    }
+
+    public function getStartPlace(): Place
+    {
+        return $this->getDaedalus()->getPlaceByNameOrThrow($this->exploration->getStartPlaceName());
     }
 }

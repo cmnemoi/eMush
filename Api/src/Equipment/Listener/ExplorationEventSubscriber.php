@@ -5,23 +5,14 @@ declare(strict_types=1);
 namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Event\MoveEquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
-use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
-use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ExplorationEventSubscriber implements EventSubscriberInterface
 {
-    private EventServiceInterface $eventService;
-
-    public function __construct(EventServiceInterface $eventService)
-    {
-        $this->eventService = $eventService;
-    }
+    public function __construct(private GameEquipmentServiceInterface $gameEquipmentService) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -33,56 +24,36 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
 
     public function onExplorationStarted(ExplorationEvent $event): void
     {
+        $daedalus = $event->getDaedalus();
         $exploration = $event->getExploration();
+        $startPlace = $event->getStartPlace();
 
-        /** @var Player $explorator */
-        $explorator = $exploration->getExplorators()->first();
-        if (!$explorator) {
-            throw new \RuntimeException('You need a non-empty explorator collection to create an exploration');
-        }
-
-        $explorationShip = $explorator->getPlace()->getEquipmentByName($exploration->getShipUsedName());
-        if (!$explorationShip) {
-            throw new \RuntimeException("There should be a {$exploration->getShipUsedName()} ship in explorator's place");
-        }
-
-        $equipmentEvent = new MoveEquipmentEvent(
-            equipment: $explorationShip,
-            newHolder: $exploration->getDaedalus()->getPlanetPlace(),
-            author: null,
-            visibility: VisibilityEnum::HIDDEN,
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $startPlace->getEquipmentByNameOrThrow($exploration->getShipUsedName()),
+            newHolder: $daedalus->getPlanetPlace(),
             tags: $event->getTags(),
             time: $event->getTime(),
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
     }
 
     public function onExplorationFinished(ExplorationEvent $event): void
     {
+        $daedalus = $event->getDaedalus();
         $exploration = $event->getExploration();
-        $daedalus = $exploration->getDaedalus();
 
         // All explorators are dead, all equipment stay on the planet! Unless Daedalus has the Auto Return Icarus project.
         if ($exploration->allExploratorsAreDead() && $daedalus->doesNotHaveAutoReturnIcarusProject()) {
             return;
         }
 
-        $returnPlace = $daedalus->getPlaceByName($exploration->getStartPlaceName());
-        if (!$returnPlace) {
-            throw new \RuntimeException("There should be a {$exploration->getStartPlaceName()} place in Daedalus");
-        }
-
         /** @var GameEquipment $equipment */
         foreach ($daedalus->getPlanetPlace()->getEquipments() as $equipment) {
-            $equipmentEvent = new MoveEquipmentEvent(
+            $this->gameEquipmentService->moveEquipmentTo(
                 equipment: $equipment,
-                newHolder: $returnPlace,
-                author: null,
-                visibility: VisibilityEnum::HIDDEN,
+                newHolder: $event->getStartPlace(),
                 tags: $event->getTags(),
                 time: $event->getTime(),
             );
-            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
         }
     }
 }

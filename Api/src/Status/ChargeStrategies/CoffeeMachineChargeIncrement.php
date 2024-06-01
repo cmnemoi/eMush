@@ -14,7 +14,11 @@ final class CoffeeMachineChargeIncrement extends AbstractChargeStrategy
     {
         $daedalus = $status->getOwner()->getDaedalus();
 
-        if (!$daedalus->isPilgredFinished() && $this->isNotANewDay($reasons)) {
+        if (
+            $daedalus->pilgredIsNotFinished()
+            && $this->isNotANewDay($reasons)
+            && $daedalus->fissionCoffeeRoasterNotReady()
+        ) {
             return $status;
         }
 

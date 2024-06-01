@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -20,7 +21,6 @@ use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
-use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -28,6 +28,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -38,7 +39,6 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlanetServiceInterface $planetService;
     private StatusServiceInterface $statusService;
 
     private GameEquipment $icarus;
@@ -49,7 +49,6 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->planetService = $I->grabService(PlanetServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given there is Icarus Bay on this Daedalus
@@ -471,6 +470,73 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         $this->explorationService->closeExploration($exploration, ['test']);
 
         // then I should not see the spacesuit in Icarus Bay
+        $I->assertFalse(
+            $this->daedalus
+                ->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY)
+                ->hasEquipmentByName(GearItemEnum::SPACESUIT)
+        );
+    }
+
+    public function closeExplorationShouldReturnPlanetEquipmentInDaedalusWithAutoReturnIcarusProject(FunctionalTester $I): void
+    {
+        // given Auto Return Icarus project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::AUTO_RETURN_ICARUS),
+            author: $this->player,
+            I: $I,
+        );
+
+        // given a planet with 1 desert sector
+        $planet = $this->createPlanet([PlanetSectorEnum::DESERT], $I);
+
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $planet,
+            explorators: new PlayerCollection([$this->chun]),
+        );
+
+        // given I have some steaks on the planet
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameRationEnum::ALIEN_STEAK,
+            equipmentHolder: $this->daedalus->getPlanetPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun dies
+        $deathEvent = new PlayerEvent(
+            $this->chun,
+            [EndCauseEnum::INJURY],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
+
+        // when exploration is closed
+        $this->explorationService->closeExploration($exploration, ['test']);
+
+        // then I should see the steaks in Icarus Bay
+        $I->assertTrue(
+            $this->daedalus
+                ->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY)
+                ->hasEquipmentByName(GameRationEnum::ALIEN_STEAK)
+        );
+
+        // then I should see Icarus in Icarus Bay
+        $I->assertTrue(
+            $this->daedalus
+                ->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY)
+                ->hasEquipmentByName(EquipmentEnum::ICARUS)
+        );
+
+        // then I should not see the Chun's spacesuit in Icarus Bay
         $I->assertFalse(
             $this->daedalus
                 ->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY)

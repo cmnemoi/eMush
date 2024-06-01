@@ -208,6 +208,11 @@ class Exploration
         return $this->getExplorators()->getPlayerAlive()->count() > 0;
     }
 
+    public function allExploratorsAreDead(): bool
+    {
+        return $this->getExplorators()->getPlayerAlive()->count() === 0;
+    }
+
     public function hasAPilotAlive(): bool
     {
         return $this->getAliveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::PILOT))->count() > 0;

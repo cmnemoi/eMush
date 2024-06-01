@@ -496,4 +496,85 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
             ],
         ];
     }
+
+    public function shouldNormalizeAutoReturnIcarusProject(FunctionalTester $I): void
+    {
+        // given I have Auto Return Icarus project
+        $project = $this->daedalus->getProjectByName(ProjectName::AUTO_RETURN_ICARUS);
+
+        // when I normalize the project
+        $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
+
+        // then I should get the normalized project
+        $I->assertEqualsIgnoringCase(
+            expected: [
+                'id' => $project->getId(),
+                'key' => 'auto_return_icarus',
+                'name' => 'Rapatriement magnétique',
+                'description' => 'L\'Icarus retourne automatiquement dans le Daedalus en cas d\'échec de la mission.',
+                'lore' => 'En exploitant le code source de NERON, vous vous apercevez que vous pourriez doter l\'Icarus d\'une pseudo-conscience. Vous décidez de virer le code pseudo cognitif et le moteur d\'émotion et de garder le noyau de survie. Maintenant l\'Icarus reviendra si l\'expédition est décimée.',
+                'progress' => '0%',
+                'efficiency' => 'Efficacité : 12-18%',
+                'efficiencyTooltipHeader' => 'Efficacité',
+                'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
+                'bonusSkills' => [
+                    [
+                        'key' => 'it_expert',
+                        'name' => 'Informaticien',
+                        'description' => 'L\'Informaticien est à l\'aise dès qu\'il passe derrière un écran. Il manie à la perfection les
+                    interfaces des terminaux de NERON, d\'astrophysique, et de communication.//:point: +2 :pa_comp: (points
+                    d\'action **Informatique**) par jour.//:point: Chances de réussites doublées avec le **Bidouilleur**.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'robotics_expert',
+                        'name' => 'Robotique',
+                        'description' => 'L\'expert en robotique peut créer et manipuler les drones comme bon lui semble.//:point: Commence
+                    avec le **plan d\'un drone**.//:point: Peut **améliorer les drones**.//:point: Bonus pour développer
+                    certains **Projets NERON**.',
+                    ],
+                ],
+                'actions' => [
+                    [
+                        'id' => $this->participateActionId,
+                        'key' => ActionEnum::PARTICIPATE->value,
+                        'name' => 'Participer',
+                        'actionPointCost' => 2,
+                        'movementPointCost' => 0,
+                        'moralPointCost' => 0,
+                        'specialistPointCosts' => [],
+                        'successRate' => 100,
+                        'description' => 'Avance le Projet en fonction de vos capacités.',
+                        'canExecute' => true,
+                        'confirmation' => null,
+                        'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
+                    ],
+                ],
+            ],
+            actual: $normalizedProject
+        );
+    }
+
+    public function shouldNormalizeAutoReturnIcarusProjectInDaedalusNormalizationContext(FunctionalTester $I): void
+    {
+        // given I have Auto Return Icarus project
+        $project = $this->daedalus->getProjectByName(ProjectName::AUTO_RETURN_ICARUS);
+
+        // when I normalize the project in daedalus normalization context
+        $normalizedProject = $this->projectNormalizer->normalize($project, null, [
+            'currentPlayer' => $this->chun,
+            'normalizing_daedalus' => true,
+        ]);
+
+        // then I should get the normalized project
+        $I->assertEquals(
+            expected: [
+                'type' => 'Projet',
+                'key' => 'auto_return_icarus',
+                'name' => 'Rapatriement magnétique',
+                'description' => 'L\'Icarus retourne automatiquement dans le Daedalus en cas d\'échec de la mission.',
+                'lore' => 'En exploitant le code source de NERON, vous vous apercevez que vous pourriez doter l\'Icarus d\'une pseudo-conscience. Vous décidez de virer le code pseudo cognitif et le moteur d\'émotion et de garder le noyau de survie. Maintenant l\'Icarus reviendra si l\'expédition est décimée.',
+            ],
+            actual: $normalizedProject
+        );
+    }
 }

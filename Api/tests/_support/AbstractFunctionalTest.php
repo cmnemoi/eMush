@@ -38,6 +38,7 @@ class AbstractFunctionalTest
     protected Player $player2;
     protected Player $chun;
     protected Player $kuanTi;
+    protected Channel $publicChannel;
 
     public function _before(FunctionalTester $I)
     {
@@ -81,11 +82,11 @@ class AbstractFunctionalTest
             ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
-        $channel = new Channel();
-        $channel
+        $this->publicChannel = new Channel();
+        $this->publicChannel
             ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC);
-        $I->haveInRepository($channel);
+        $I->haveInRepository($this->publicChannel);
 
         $mushChannel = new Channel();
         $mushChannel

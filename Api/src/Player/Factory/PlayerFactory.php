@@ -69,4 +69,9 @@ final class PlayerFactory
 
         return $player;
     }
+
+    public static function createNullPlayer(): Player
+    {
+        return self::createPlayer();
+    }
 }

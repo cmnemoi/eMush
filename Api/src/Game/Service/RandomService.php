@@ -20,6 +20,7 @@ use Mush\Hunter\Entity\HunterCollection;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\Factory\PlayerFactory;
 
 class RandomService implements RandomServiceInterface
 {
@@ -106,7 +107,7 @@ class RandomService implements RandomServiceInterface
     public function getRandomPlayer(PlayerCollection $players): Player
     {
         if ($players->isEmpty()) {
-            throw new \Exception('getRandomPlayer: collection is empty');
+            return PlayerFactory::createNullPlayer();
         }
 
         return current($this->getRandomElements($players->toArray()));

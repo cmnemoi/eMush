@@ -34,24 +34,19 @@ final class Biting extends AbstractSymptomHandler
         array $tags,
         \DateTime $time
     ): void {
-        if ($this->playerIsAloneInRoom($player)) {
+        if ($player->isAloneInRoom()) {
             return;
         }
 
-        $playerToBite = $this->getRandomPlayerInRoom($player);
-        if ($playerToBite->isDead()) {
+        $victims = $player->getAlivePlayersInRoomExceptSelf();
+        $playerToBite = $this->randomService->getRandomPlayer($victims);
+        // for some reason (race condition killing the player at the same time?), sometimes the player to bite is not found
+        // so we handle this case with a Null Object check
+        if ($playerToBite->isNull()) {
             return;
         }
 
         $this->removeHealthPointToBittenPlayer($player, $playerToBite, $time);
-    }
-
-    private function getRandomPlayerInRoom(Player $player): Player
-    {
-        $victims = $player->getPlace()->getPlayers()->getPlayerAlive();
-        $victims->removeElement($player);
-
-        return $this->randomService->getRandomPlayer($victims);
     }
 
     private function removeHealthPointToBittenPlayer(Player $bitingPlayer, Player $bitPlayer, \DateTime $time): void
@@ -65,10 +60,5 @@ final class Biting extends AbstractSymptomHandler
         );
         $playerModifierEvent->setAuthor($bitingPlayer);
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
-    }
-
-    private function playerIsAloneInRoom(Player $player): bool
-    {
-        return $player->getPlace()->getNumberOfPlayersAlive() === 1;
     }
 }

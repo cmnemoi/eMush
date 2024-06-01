@@ -758,6 +758,18 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->isAlive() === false;
     }
 
+    public function getAlivePlayersInRoomExceptSelf(): PlayerCollection
+    {
+        return $this->getPlace()->getPlayers()->getPlayerAlive()->filter(
+            fn (Player $player) => $player->getId() !== $this->getId()
+        );
+    }
+
+    public function isAloneInRoom(): bool
+    {
+        return $this->getPlace()->getNumberOfPlayersAlive() === 1;
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);

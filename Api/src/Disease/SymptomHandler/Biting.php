@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Disease\SymptomHandler;
 
 use Mush\Disease\Enum\SymptomEnum;
@@ -9,25 +11,21 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 
-class Biting extends AbstractSymptomHandler
+final class Biting extends AbstractSymptomHandler
 {
     private const BITING_DAMAGE = 1;
     protected string $name = SymptomEnum::BITING;
 
     private EventServiceInterface $eventService;
     private RandomServiceInterface $randomService;
-    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
-        RoomLogServiceInterface $roomLogService
     ) {
         $this->eventService = $eventService;
         $this->randomService = $randomService;
-        $this->roomLogService = $roomLogService;
     }
 
     public function applyEffects(
@@ -41,6 +39,9 @@ class Biting extends AbstractSymptomHandler
         }
 
         $playerToBite = $this->getRandomPlayerInRoom($player);
+        if ($playerToBite->isDead()) {
+            return;
+        }
 
         $this->removeHealthPointToBittenPlayer($player, $playerToBite, $time);
     }

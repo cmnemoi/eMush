@@ -753,6 +753,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getName() === CharacterEnum::null;
     }
 
+    public function isDead(): bool
+    {
+        return $this->isAlive() === false;
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);

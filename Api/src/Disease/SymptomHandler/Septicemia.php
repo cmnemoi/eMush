@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Disease\SymptomHandler;
 
 use Mush\Disease\Enum\SymptomEnum;
@@ -8,7 +10,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 
-class Septicemia extends AbstractSymptomHandler
+final class Septicemia extends AbstractSymptomHandler
 {
     protected string $name = SymptomEnum::SEPTICEMIA;
 
@@ -26,10 +28,6 @@ class Septicemia extends AbstractSymptomHandler
         array $tags,
         \DateTime $time
     ): void {
-        if (!$player->isAlive()) {
-            return;
-        }
-
         $playerEvent = new PlayerEvent(
             $player,
             [EndCauseEnum::INFECTION],

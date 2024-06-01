@@ -209,4 +209,24 @@ final class ChannelServiceCest extends AbstractFunctionalTest
         // then Chun should not have access to the Mush channel
         $I->assertNotContains(ChannelScopeEnum::MUSH, $channels->map(static fn (Channel $channel) => $channel->getScope()));
     }
+
+    public function shouldNotDeleteEmptyChannels(FunctionalTester $I): void
+    {
+        // given player has a talkie
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::WALKIE_TALKIE,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given player creates a private channel
+        $channel = $this->channelService->createPrivateChannel($this->player);
+
+        // when player exits the channel
+        $this->channelService->exitChannel($this->player, $channel);
+
+        // then the channel should not be deleted
+        $I->assertNotNull($channel);
+    }
 }

@@ -90,6 +90,6 @@ final class WriteTest extends AbstractActionTest
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());
-        self::assertSame($status->getFormattedContent(), '« test content »');
+        self::assertSame($status->getContent(), 'test content');
     }
 }

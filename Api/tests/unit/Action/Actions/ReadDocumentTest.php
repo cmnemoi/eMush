@@ -81,6 +81,6 @@ final class ReadDocumentTest extends AbstractActionTest
         $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
-        self::assertSame('« test content »', $result->getContent());
+        self::assertSame('test content', $result->getContent());
     }
 }

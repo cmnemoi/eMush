@@ -72,7 +72,7 @@ final class ReadDocumentCest extends AbstractFunctionalTest
         $result = $this->whenPlayerReadsDocument($this->postIt);
 
         $I->assertInstanceOf(Success::class, $result);
-        $I->assertEquals(expected: '« test content »', actual: $result->getContent());
+        $I->assertEquals(expected: 'test content', actual: $result->getContent());
     }
 
     public function testReadDocumentActionCreatesActionLogAndContentLog(FunctionalTester $I): void

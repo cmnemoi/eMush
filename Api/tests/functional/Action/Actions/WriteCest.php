@@ -88,7 +88,10 @@ final class WriteCest extends AbstractFunctionalTest
         // then a post it with the correct content is created in player's inventory
         $I->assertTrue($this->player->hasEquipmentByName(ItemEnum::POST_IT));
         $I->assertTrue($this->player->getEquipmentByName(ItemEnum::POST_IT)->hasStatus(EquipmentStatusEnum::DOCUMENT_CONTENT));
-        $I->assertEquals($this->player->getEquipmentByName(ItemEnum::POST_IT)->getStatusByName(EquipmentStatusEnum::DOCUMENT_CONTENT)->getContent(), '');
+        $I->assertEquals(
+            expected: '« »',
+            actual: $this->player->getEquipmentByName(ItemEnum::POST_IT)->getStatusByName(EquipmentStatusEnum::DOCUMENT_CONTENT)->getContent()
+        );
     }
 
     public function testWriteActionNotVisibleIfPlayerNotFocusedOnTerminal(FunctionalTester $I): void

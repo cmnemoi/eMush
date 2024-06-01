@@ -2153,7 +2153,7 @@ abstract class ModifierConfigData
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
-            'modifierRange' => 'daedalus',
+            'modifierRange' => 'place',
             'type' => 'trigger_event_modifier',
             'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_+1moralePoint',

@@ -24,3 +24,7 @@ Mush\Status\Entity\Config\StatusConfig:
       subresource:
         resourceClass: 'Mush\Modifier\Entity\ModifierConfig'
         collection: true
+    actionConfigs:
+      subresource:
+        resourceClass: 'Mush\Action\Entity\ActionConfig'
+        collection: true

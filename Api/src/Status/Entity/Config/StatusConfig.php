@@ -116,7 +116,7 @@ class StatusConfig
         return $this;
     }
 
-    public function getActionConfig(): Collection
+    public function getActionConfigs(): Collection
     {
         return $this->actionConfigs;
     }

@@ -72,7 +72,7 @@ final class ReadDocumentCest extends AbstractFunctionalTest
         $result = $this->whenPlayerReadsDocument($this->postIt);
 
         $I->assertInstanceOf(Success::class, $result);
-        $I->assertEquals($result->getContent(), 'test content');
+        $I->assertEquals(expected: '« test content »', actual: $result->getContent());
     }
 
     public function testReadDocumentActionCreatesActionLogAndContentLog(FunctionalTester $I): void
@@ -100,7 +100,7 @@ final class ReadDocumentCest extends AbstractFunctionalTest
     {
         $this->contentStatus->setContent('');
 
-        $this->whenPlayerReadsDocument($this->postIt);
+        $result = $this->whenPlayerReadsDocument($this->postIt);
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $this->room->getName(),
@@ -117,6 +117,9 @@ final class ReadDocumentCest extends AbstractFunctionalTest
             'log' => ActionLogEnum::READ_CONTENT,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
+
+        $I->assertInstanceOf(Success::class, $result);
+        $I->assertEquals(expected: '« »', actual: $result->getContent());
     }
 
     private function whenPlayerReadsDocument(GameItem $postIt): ActionResult

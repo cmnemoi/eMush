@@ -344,7 +344,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         if (!$statusesName->isEmpty()) {
             /** @var Status $status */
             $status = $statusesName->first();
-            $pileName = ($status instanceof ContentStatus) ? $status->getContent() : $status->getName();
+            $pileName = ($status instanceof ContentStatus) ? $status->getFormattedContent() : $status->getName();
         }
 
         return $pileName ?? 'no_status';

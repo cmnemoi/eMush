@@ -10,11 +10,6 @@ class ContentStatus extends Status
     #[ORM\Column(type: 'string', nullable: false)]
     private string $content;
 
-    public function getContent(): string
-    {
-        return $this->content;
-    }
-
     /**
      * @return static
      */
@@ -23,5 +18,10 @@ class ContentStatus extends Status
         $this->content = $content;
 
         return $this;
+    }
+
+    public function getFormattedContent(): string
+    {
+        return $this->content !== '' ? sprintf('« %s »', $this->content) : '« »';
     }
 }

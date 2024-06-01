@@ -40,7 +40,7 @@ class ReadDocument extends AbstractAction
         if ($target->hasStatus(EquipmentStatusEnum::DOCUMENT_CONTENT)) {
             /** @var ContentStatus $status */
             $status = $target->getStatusByName(EquipmentStatusEnum::DOCUMENT_CONTENT);
-            $success->setContent($status->getContent());
+            $success->setContent($status->getFormattedContent());
         }
 
         return $success;

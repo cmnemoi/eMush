@@ -307,5 +307,23 @@
         <target>Un des grands apports de Magellan était que l'arche stellaire pouvait traîner sa flotte. Vous débuguez les derniers écueils du programme Magnet de pilotage magnétique. Ça va le faire.</target>
       </segment>
     </unit>
+    <unit id="icarus_antigrav_propeller">
+      <segment id="icarus_antigrav_propeller.type" state="translated">
+        <source>icarus_antigrav_propeller.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="icarus_antigrav_propeller.name" state="translated">
+        <source>icarus_antigrav_propeller.name</source>
+        <target>Propulseurs antigrav</target>
+      </segment>
+      <segment id="icarus_antigrav_propeller.description" state="translated">
+        <source>icarus_antigrav_propeller.description</source>
+        <target>Augmente vos chances de réussites pour atterrir sur des planètes.</target>
+      </segment>
+      <segment id="icarus_antigrav_propeller.lore" state="translated">
+        <source>icarus_antigrav_propeller.lore</source>
+        <target>Grâce à ces propulseurs anti-gravité, les manoeuvres de décollage et d'atterissage de l'Icarus deviennent un jeu d'enfant. L'entrée dans l'atmosphère devient d'une simplicité incroyable. Bref l'Icarus, un vaisseau qu'il est bien à faire voler !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

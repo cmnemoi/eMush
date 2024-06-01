@@ -415,7 +415,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     [
                         'key' => SkillEnum::CAFFEINE_JUNKIE,
                         'name' => 'Caféinomane',
-                        'description' => 'Le Caféinomane travaille deux fois mieux que ses collègues tant qu\'il a accès à la machine à café.//:point: +2:pa: lorsqu\'il consomme un **Café**.//:point: Bonus pour développer certains *Projets NERON*.',
+                        'description' => 'Le Caféinomane travaille deux fois mieux que ses collègues tant qu\'il a accès à la machine à café.//:point: +2:pa: lorsqu\'il consomme un **Café**.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                     [
                         'key' => 'physicist',

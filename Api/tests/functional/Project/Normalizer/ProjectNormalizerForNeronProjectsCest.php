@@ -220,4 +220,84 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
             actual: $normalizedProject
         );
     }
+
+    public function shouldNormalizeFoodRetailerProject(FunctionalTester $I): void
+    {
+        // given I have Food Retailer project
+        $project = $this->daedalus->getProjectByName(ProjectName::FOOD_RETAILER);
+
+        // when I normalize the project
+        $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
+
+        // then I should get the normalized project
+        $I->assertEqualsIgnoringCase(
+            expected: [
+                'id' => $project->getId(),
+                'key' => 'food_retailer',
+                'name' => 'Distributeur pneumatique',
+                'description' => 'La nourriture du Jardin est envoyée directement au Réfectoire via le Pneumatique.',
+                'lore' => 'Oh pinaise... Vous n\'y aviez jamais songé mais cette canalisation vous inspire. Dans certaines sociétés préhistoriques, ils se servaient de tubes aéro induits pour faire passer des messages... Mais on peut aussi s\'en servir pour la nourriture ! Vous transformez la gouttière en tube pneumatique. (Quel intérêt peut avoir une gouttière dans l\'espace...)',
+                'progress' => '0%',
+                'efficiency' => 'Efficacité : 6-9%',
+                'efficiencyTooltipHeader' => 'Efficacité',
+                'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
+                'bonusSkills' => [
+                    [
+                        'key' => 'robotics_expert',
+                        'name' => 'Robotique',
+                        'description' => 'L\'expert en robotique peut créer et manipuler les drones comme bon lui semble.//:point: Commence
+                    avec le **plan d\'un drone**.//:point: Peut **améliorer les drones**.//:point: Bonus pour développer
+                    certains **Projets NERON**.',
+                    ],
+
+                    [
+                        'key' => 'chef',
+                        'name' => 'Cuistot',
+                        'description' => 'Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4:pa_cook: par jour (points d\'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+                'actions' => [
+                    [
+                        'id' => $this->participateActionId,
+                        'key' => ActionEnum::PARTICIPATE->value,
+                        'name' => 'Participer',
+                        'actionPointCost' => 2,
+                        'movementPointCost' => 0,
+                        'moralPointCost' => 0,
+                        'specialistPointCosts' => [],
+                        'successRate' => 100,
+                        'description' => 'Avance le Projet en fonction de vos capacités.',
+                        'canExecute' => true,
+                        'confirmation' => null,
+                        'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
+                    ],
+                ],
+            ],
+            actual: $normalizedProject
+        );
+    }
+
+    public function shouldNormalizeFoodRetailerProjectInDaedalusNormalizationContext(FunctionalTester $I): void
+    {
+        // given I have Food Retailer project
+        $project = $this->daedalus->getProjectByName(ProjectName::FOOD_RETAILER);
+
+        // when I normalize the project in daedalus normalization context
+        $normalizedProject = $this->projectNormalizer->normalize($project, null, [
+            'currentPlayer' => $this->chun,
+            'normalizing_daedalus' => true,
+        ]);
+
+        // then I should get the normalized project
+        $I->assertEquals(
+            expected: [
+                'type' => 'Projet',
+                'key' => 'food_retailer',
+                'name' => 'Distributeur pneumatique',
+                'description' => 'La nourriture du Jardin est envoyée directement au Réfectoire via le Pneumatique.',
+                'lore' => 'Oh pinaise... Vous n\'y aviez jamais songé mais cette canalisation vous inspire. Dans certaines sociétés préhistoriques, ils se servaient de tubes aéro induits pour faire passer des messages... Mais on peut aussi s\'en servir pour la nourriture ! Vous transformez la gouttière en tube pneumatique. (Quel intérêt peut avoir une gouttière dans l\'espace...)',
+            ],
+            actual: $normalizedProject
+        );
+    }
 }

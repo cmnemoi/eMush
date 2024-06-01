@@ -12,7 +12,7 @@ abstract class SkillEnum
     public const string BIOLOGIST = 'biologist';
     public const string BOTANIST = 'botanist';
     public const string CAFFEINE_JUNKIE = 'caffeine_junkie';
-    public const string CHEF = ' chef';
+    public const string CHEF = 'chef';
     public const string COLD_BLOODED = 'cold_blooded';
     public const string CONFIDENT = 'confident';
     public const string CRAZY_EYE = 'crazy_eye';

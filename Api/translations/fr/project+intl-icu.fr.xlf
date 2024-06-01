@@ -307,5 +307,23 @@
         <target>Un des grands apports de Magellan était que l'arche stellaire pouvait traîner sa flotte. Vous débuguez les derniers écueils du programme Magnet de pilotage magnétique. Ça va le faire.</target>
       </segment>
     </unit>
+    <unit id="food_retailer">
+      <segment id="food_retailer.type" state="translated">
+        <source>food_retailer.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="food_retailer.name" state="translated">
+        <source>food_retailer.name</source>
+        <target>Distributeur pneumatique</target>
+      </segment>
+      <segment id="food_retailer.description" state="translated">
+        <source>food_retailer.description</source>
+        <target>La nourriture du Jardin est envoyée directement au Réfectoire via le Pneumatique.</target>
+      </segment>
+      <segment id="food_retailer.lore" state="translated">
+        <source>food_retailer.lore</source>
+        <target>Oh pinaise... Vous n'y aviez jamais songé mais cette canalisation vous inspire. Dans certaines sociétés préhistoriques, ils se servaient de tubes aéro induits pour faire passer des messages... Mais on peut aussi s'en servir pour la nourriture ! Vous transformez la gouttière en tube pneumatique. (Quel intérêt peut avoir une gouttière dans l'espace...)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

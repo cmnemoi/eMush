@@ -44,15 +44,15 @@ final class CycleEventCest extends AbstractFunctionalTest
     }
 
     public function testLieDownStatus(FunctionalTester $I)
-    {   
+    {
         // given daedalus is Day 0 so there will be no panic crisis
         $this->daedalus->setDay(0);
 
         // given player is lying down
         $this->statusService->createStatusFromName(
-            PlayerStatusEnum::LYING_DOWN, 
-            $this->player1, 
-            [], 
+            PlayerStatusEnum::LYING_DOWN,
+            $this->player1,
+            [],
             new \DateTime()
         );
 
@@ -65,7 +65,7 @@ final class CycleEventCest extends AbstractFunctionalTest
 
         // then player gains 2 action points
         $I->assertEquals($actionPointBefore + 2, $this->player1->getActionPoint());
-        
+
         // then player gains 0 morale points (no shrink)
         $I->assertEquals($moralePointBefore, $this->player1->getMoralPoint());
 

@@ -33,6 +33,7 @@ abstract class CharacterEnum
         self::ELEESHA => '#D08500',
         self::FINOLA => '#4EA9B6',
         self::FRIEDA => '#206786',
+        self::GIOELE => '#DD702A',
         self::HUA => '#805441',
         self::IAN => '#237C68',
         self::JANICE => '#B44753',

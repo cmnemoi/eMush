@@ -78,7 +78,7 @@ api-test:
     - job: build-front
       optional: true
   script:
-    - composer test
+    - php vendor/bin/codecept run
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["Api/**/*.php"]

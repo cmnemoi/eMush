@@ -21,9 +21,9 @@ class ModerationSanctionEnum
     public const string HIDE_END_MESSAGE = 'hide_end_message';
 
     // moderation actions
-    public const string COMPLAINT = 'complaint';
-    public const string COMPLAINT_ABUSIVE = 'complaint_abusive';
-    public const string COMPLAINT_PROCESSED = 'complaint_processed';
+    public const string REPORT = 'report';
+    public const string REPORT_ABUSIVE = 'report_abusive';
+    public const string REPORT_PROCESSED = 'report_processed';
 
     // reasons for the ban
     public const string MULTI_ACCOUNT = 'multi_account';

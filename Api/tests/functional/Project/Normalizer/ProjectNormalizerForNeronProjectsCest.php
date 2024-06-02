@@ -251,9 +251,9 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     équipiers dans la même pièce de 50%.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                     [
-                        'key' => 'nurse',
-                        'name' => 'Infirmier',
-                        'description' => 'L\'Infirmier est toujours prêt à rendre service.//:point: +1:pa_heal: chaque jour (point d\'action **Soin**).//:point: Peut lire les **propriétés des médicaments.**//:point: Bonus pour participer à certains **Projets NERON**.',
+                        'key' => 'paranoid',
+                        'name' => 'Paranoïaque',
+                        'description' => 'Le Paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce à ses caméras supplémentaires.//:point: Commence avec 2 **Caméras** supplémentaires.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
                 'actions' => [

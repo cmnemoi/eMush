@@ -13,6 +13,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlantLogEnum;
@@ -39,6 +40,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     private const MOVE_EQUIPMENT_LOG_MAP = [
         ActionEnum::COLLECT_SCRAP->value => LogEnum::SCRAP_COLLECTED,
+        ProjectName::FOOD_RETAILER->value => LogEnum::FRUIT_TRANSPORTED,
     ];
     private RoomLogServiceInterface $roomLogService;
 
@@ -139,5 +141,18 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $parameters,
             $event->getTime(),
         );
+
+        // If event is fruit transport, also create a log in starting place
+        if ($event->hasTag(ProjectName::FOOD_RETAILER->value)) {
+            $this->roomLogService->createLog(
+                $logKey,
+                $event->getPlace(),
+                $visibility,
+                'event_log',
+                $player,
+                $parameters,
+                $event->getTime(),
+            );
+        }
     }
 }

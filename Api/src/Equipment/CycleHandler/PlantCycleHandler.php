@@ -175,6 +175,8 @@ class PlantCycleHandler extends AbstractCycleHandler
                 $this->gameEquipmentService->moveEquipmentTo(
                     equipment: $producedFruit,
                     newHolder: $daedalus->getPlaceByNameOrThrow(RoomEnum::REFECTORY),
+                    visibility: VisibilityEnum::PUBLIC,
+                    tags: [ProjectName::FOOD_RETAILER->value],
                     time: $dateTime,
                 );
             }

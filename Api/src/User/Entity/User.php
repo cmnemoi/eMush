@@ -193,4 +193,11 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function refuseRules(): self
+    {
+        $this->hasAcceptedRules = false;
+
+        return $this;
+    }
 }

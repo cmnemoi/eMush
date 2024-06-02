@@ -13,11 +13,19 @@ use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 /**
  * @template-extends ServiceEntityRepository<User>
  */
-class UserRepository extends ServiceEntityRepository implements UserLoaderInterface
+final class UserRepository extends ServiceEntityRepository implements UserLoaderInterface, UserRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    /**
+     * @return User[]
+     */
+    public function findAll(): array
+    {
+        return parent::findAll();
     }
 
     public function loadUserByUsername(string $username): ?User
@@ -62,5 +70,11 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->setParameter('user_id', $user->getId());
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function save(User $user): void
+    {
+        $this->_em->persist($user);
+        $this->_em->flush();
     }
 }

@@ -26,6 +26,9 @@ const AdminActionsService = {
     },
     proposeNewNeronProjectsForOnGoingDaedaluses: async(): Promise<any> => {
         return await ApiService.put(ADMIN_ACTIONS_ENDPOINT + '/propose-new-neron-projects-for-on-going-daedaluses');
+    },
+    resetRulesAcceptanceForAllUsers: async(): Promise<any> => {
+        return await ApiService.put(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'reset-rules-acceptance'));
     }
 };
 export default AdminActionsService;

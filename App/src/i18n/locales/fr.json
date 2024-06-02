@@ -219,6 +219,10 @@
 				"deleteAllByName": "Supprimer tous les status portant ce nom",
 				"name": "Nom"
 			},
+			"rules": {
+				"title": "Règles",
+				"resetAcceptance": "Réinitialiser l'acceptation des règles pour tous les utilisateurs"
+			},
 			"title": "Actions administratives"
 		},
 		"banner": {

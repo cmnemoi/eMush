@@ -10,6 +10,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Entity\Message;
 use Mush\MetaGame\Entity\ModerationSanction;
+use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
@@ -504,6 +505,97 @@ final class ModerationController extends AbstractFOSRestController
         $this->moderationService->removeSanction($moderationSanction);
 
         return $this->view(['detail' => 'sanction deleted successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Report something that needs moderation action.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The player id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="reason",
+     *     in="query",
+     *     description="Reason for the message deletion",
+     *
+     *     @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="adminMessage",
+     *     in="query",
+     *     description="Message of the user",
+     *
+     *     @OA\Schema(type="string", nullable=true)
+     * )
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post(path="/report-player/{id}")
+     *
+     * @Rest\View()
+     */
+    public function reportPlayer(Player $player, Request $request): View
+    {
+        /** @var User $reportAuthor */
+        $reportAuthor = $this->getUser();
+
+        $this->moderationService->reportPlayer(
+            $player,
+            $reportAuthor,
+            $request->get('reason'),
+            $request->get('adminMessage')
+        );
+
+        return $this->view(['detail' => 'player reported'], Response::HTTP_OK);
+    }
+
+    /**
+     * remove a sanction.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The sanction id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="isAbusive",
+     *     in="query",
+     *     description="Is the report abusive",
+     *
+     *     @OA\Schema(type="boolean")
+     * )
+     * @OA\Schema(type="string", nullable=true)
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post(path="/remove-sanction/{id}")
+     *
+     * @Rest\View()
+     */
+    public function archiveReport(ModerationSanction $moderationSanction, bool $isAbusive): View
+    {
+        $this->denyAccessIfNotModerator();
+
+        if ($moderationSanction->getModerationAction() !== ModerationSanctionEnum::REPORT) {
+            throw new HttpException(Response::HTTP_FORBIDDEN, 'Only sanction with report action can be archived');
+        }
+
+        $this->moderationService->archiveReport($moderationSanction, $isAbusive);
+
+        return $this->view(['detail' => 'report archived'], Response::HTTP_OK);
     }
 
     private function denyAccessIfNotModerator(): void

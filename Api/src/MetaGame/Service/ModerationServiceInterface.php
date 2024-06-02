@@ -58,6 +58,18 @@ interface ModerationServiceInterface
         ?\DateTime $startingDate = null
     ): User;
 
+    public function reportPlayer(
+        Player $player,
+        User $author,
+        string $reason,
+        ?string $message,
+    ): Player;
+
+    public function archiveReport(
+        ModerationSanction $moderationAction,
+        bool $isAbusive
+    ): ModerationSanction;
+
     public function removeSanction(
         ModerationSanction $moderationAction
     ): User;

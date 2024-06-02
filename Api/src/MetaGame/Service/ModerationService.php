@@ -236,4 +236,44 @@ final class ModerationService implements ModerationServiceInterface
             true
         );
     }
+
+    public function reportPlayer(
+        Player $player,
+        User $author,
+        string $reason,
+        ?string $message = null
+    ): Player {
+        $deathEvent = new PlayerEvent($player, [EndCauseEnum::QUARANTINE], new \DateTime());
+        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
+
+        $this->addSanctionEntity(
+            $player->getUser(),
+            $player->getPlayerInfo(),
+            $author,
+            ModerationSanctionEnum::REPORT,
+            $reason,
+            new \DateTime(),
+            $message
+        );
+
+        return $player;
+    }
+
+    public function archiveReport(
+        ModerationSanction $moderationAction,
+        bool $isAbusive
+    ): ModerationSanction {
+        if ($isAbusive) {
+            $decision = ModerationSanctionEnum::REPORT_ABUSIVE;
+        } else {
+            $decision = ModerationSanctionEnum::REPORT_PROCESSED;
+        }
+
+        $moderationAction->setModerationAction($decision);
+
+        $this->entityManager->persist($moderationAction);
+        $this->entityManager->flush();
+
+        return $moderationAction;
+    }
 }

@@ -307,5 +307,23 @@
         <target>Un des grands apports de Magellan était que l'arche stellaire pouvait traîner sa flotte. Vous débuguez les derniers écueils du programme Magnet de pilotage magnétique. Ça va le faire.</target>
       </segment>
     </unit>
+    <unit id="whos_who">
+      <segment id="whos_who.type" state="translated">
+        <source>whos_who.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="whos_who.name" state="translated">
+        <source>whos_who.name</source>
+        <target>Protocle ACTOPI</target>
+      </segment>
+      <segment id="whos_who.description" state="translated">
+        <source>whos_who.description</source>
+        <target>Affiche l'identité des équipiers sur le Traqueur.</target>
+      </segment>
+      <segment id="whos_who.lore" state="translated">
+        <source>whos_who.lore</source>
+        <target>Affiche un pixel de couleur unique qui indique qui est qui à bord sur le traqueur. Pratique pour traquer les moindres faits et gestes de chacun.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

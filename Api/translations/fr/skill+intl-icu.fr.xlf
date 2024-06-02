@@ -144,5 +144,15 @@
         <target>Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre *1* :pa:.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
+    <unit id="nurse">
+      <segment id="nurse.name" state="translated">
+        <source>nurse.name</source>
+        <target>Infirmier</target>
+      </segment>
+      <segment id="nurse.description" state="translated">
+        <source>nurse.description</source>
+        <target>L'Infirmier est toujours prêt à rendre service.//:point: +1:pa_heal: chaque jour (point d'action **Soin**).//:point: Peut lire les **propriétés des médicaments.**//:point: Bonus pour participer à certains **Projets NERON**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

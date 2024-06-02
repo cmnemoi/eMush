@@ -531,6 +531,7 @@ class GameConfigData
                 ProjectName::THALASSO,
                 ProjectName::TRAIL_REDUCER,
                 ProjectName::MAGNETIC_NET,
+                ProjectName::WHOS_WHO,
             ],
         ],
     ];

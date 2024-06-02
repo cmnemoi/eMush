@@ -188,8 +188,12 @@ final class ModerationController extends AbstractFOSRestController
             $startDate = null;
         }
 
+        /** @var User $sanctionAuthor */
+        $sanctionAuthor = $this->getUser();
+
         $this->moderationService->warnUser(
             $user,
+            $sanctionAuthor,
             $duration,
             $request->get('reason'),
             $request->get('adminMessage', ''),
@@ -275,7 +279,17 @@ final class ModerationController extends AbstractFOSRestController
             return $this->view(['error' => 'Player is already dead'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $this->moderationService->quarantinePlayer($player, $request->get('reason'), $request->get('adminMessage', null));
+        /** @var User $sanctionAuthor */
+        $sanctionAuthor = $this->getUser();
+
+        $this->moderationService->quarantinePlayer(
+            $player,
+            $sanctionAuthor,
+            $request->get('reason'),
+            $request->get(
+                'adminMessage'
+            )
+        );
 
         return $this->view(['detail' => 'Player quarantined successfully'], Response::HTTP_OK);
     }
@@ -319,8 +333,12 @@ final class ModerationController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotModerator();
 
+        /** @var User $sanctionAuthor */
+        $sanctionAuthor = $this->getUser();
+
         $this->moderationService->editClosedPlayerMessage(
             $closedPlayer,
+            $sanctionAuthor,
             $request->get('reason'),
             $request->get('adminMessage', null),
         );
@@ -367,8 +385,12 @@ final class ModerationController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotModerator();
 
+        /** @var User $sanctionAuthor */
+        $sanctionAuthor = $this->getUser();
+
         $this->moderationService->hideClosedPlayerEndMessage(
             $closedPlayer,
+            $sanctionAuthor,
             $request->get('reason'),
             $request->get('message', null),
         );
@@ -415,8 +437,12 @@ final class ModerationController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotModerator();
 
+        /** @var User $sanctionAuthor */
+        $sanctionAuthor = $this->getUser();
+
         $this->moderationService->deleteMessage(
             $message,
+            $sanctionAuthor,
             $request->get('reason'),
             $request->get('adminMessage', null),
         );

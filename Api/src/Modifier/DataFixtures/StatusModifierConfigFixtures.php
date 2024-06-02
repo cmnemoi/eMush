@@ -392,6 +392,26 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierName(ModifierNameEnum::SPECIALIST_POINT_CORE);
         $manager->persist($coreSpecialistPoint);
 
+        $shrinkInRoomActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::SKILL_IN_ROOM);
+        $shrinkInRoomActivationRequirement
+            ->setActivationRequirement('shrink')
+            ->buildName();
+        $manager->persist($shrinkInRoomActivationRequirement);
+
+        /** @var AbstractEventConfig $eventConfigIncreaseOneMoralePoint */
+        $eventConfigIncreaseOneMoralePoint = $this->getReference('change.variable_player_+1moralePoint');
+
+        $lyingDownShrinkModifier = new TriggerEventModifierConfig('modifier_for_player_+1morale_point_on_new_cycle_if_shrink_in_room');
+        $lyingDownShrinkModifier
+            ->setTriggeredEvent($eventConfigIncreaseOneMoralePoint)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyWhenTargeted(true)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
+            ->addModifierRequirement($shrinkInRoomActivationRequirement)
+            ->setModifierStrategy(ModifierStrategyEnum::ADD_EVENT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $manager->persist($lyingDownShrinkModifier);
+
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -420,6 +440,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::TECHNICIAN_SPECIALIST_POINT, $technicianSpecialist);
         $this->addReference(self::TECHNICIAN_DOUBLE_REPAIR_CHANCE, $technicianDoubleRepairChance);
         $this->addReference(self::CONCEPTOR_SPECIALIST_POINT, $coreSpecialistPoint);
+        $this->addReference('modifier_for_player_+1morale_point_on_new_cycle_if_shrink_in_room', $lyingDownShrinkModifier);
     }
 
     public function getDependencies(): array

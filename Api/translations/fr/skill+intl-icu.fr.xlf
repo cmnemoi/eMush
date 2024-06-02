@@ -144,5 +144,15 @@
         <target>Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre *1* :pa:.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
+    <unit id="shrink">
+      <segment id="shrink.name" state="translated">
+        <source>shrink.name</source>
+        <target>Psy</target>
+      </segment>
+      <segment id="shrink.description" state="translated">
+        <source>shrink.description</source>
+        <target>Le psy occupe un poste de soutien psychologique. Il permet de garder le moral et soigne les maladies psychologiques.//:point: A chaque cycle, **1 Point de Moral (:pmo:) est régénéré** à chaque personnage allongé dans sa pièce.//:point: **Soigne les maladies Psy**.//:point: Accorde l'action **Réconforter**, laquelle améliore le moral.//:point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

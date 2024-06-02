@@ -500,7 +500,9 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [],
+            'initStatuses' => [
+                SkillEnum::SHRINK . '_default',
+            ],
         ],
         [
             'name' => 'jin_su',

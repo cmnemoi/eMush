@@ -409,6 +409,35 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldGiveOneMoralePointToLyingDownPlayersWithShrinkInTheRoom(FunctionalTester $I): void
+    {
+        // given Chun is lying down
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given KT is a shrink
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::SHRINK,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Chun has 10 morale points
+        $this->chun->setMoralPoint(10);
+
+        // when cycle change is triggered
+        $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+
+        // then Chun should have 11 morale points
+        $I->assertEquals(11, $this->chun->getMoralPoint());
+    }
+
     private function getPanicCrisisPlayerDamage(): int
     {
         return array_keys($this->daedalus->getGameConfig()->getDifficultyConfig()->getPanicCrisisPlayerDamage()->toArray())[0];

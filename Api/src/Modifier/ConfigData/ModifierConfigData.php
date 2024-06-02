@@ -2146,5 +2146,21 @@ abstract class ModifierConfigData
                 ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_player_+1morale_point_on_new_cycle_if_shrink_in_room',
+            'modifierName' => null,
+            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => 'place',
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
+            'triggeredEvent' => 'change.variable_player_+1moralePoint',
+            'modifierActivationRequirements' => [
+                ModifierRequirementEnum::SKILL_IN_ROOM . '_shrink',
+            ],
+            'tagConstraints' => [],
+        ],
     ];
 }

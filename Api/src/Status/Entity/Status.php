@@ -208,7 +208,7 @@ class Status implements ActionProviderInterface
         $actions = [];
 
         /** @var ActionConfig $actionConfig */
-        foreach ($this->statusConfig->getActionConfig() as $actionConfig) {
+        foreach ($this->statusConfig->getActionConfigs() as $actionConfig) {
             if (
                 $actionConfig->getDisplayHolder() === $actionTarget
                 && \in_array($actionConfig->getRange(), $actionRanges, true)

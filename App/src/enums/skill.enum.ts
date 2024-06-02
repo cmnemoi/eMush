@@ -273,7 +273,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.SHOOTER]: {
-        'icon': getImgUrl('skills/human/shooter.png')
+        'icon': getImgUrl('skills/human/gunman.png')
     },
 
     [SkillEnum.SHRINK]: {

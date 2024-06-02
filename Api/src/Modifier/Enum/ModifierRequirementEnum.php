@@ -44,6 +44,7 @@ abstract class ModifierRequirementEnum
     public const string PLAYER_EQUIPMENT = 'player_equipment';
     public const string HOLDER_HAS_STATUS = 'status';
     public const string HOLDER_NAME = 'holder_name';
+    public const string SKILL_IN_ROOM = 'skill_in_room';
     public const string ANY_TAGS = 'any_tags';
     public const string NONE_TAGS = 'none_tags';
     public const string ALL_TAGS = 'all_tags';

@@ -45,18 +45,29 @@ final class CycleEventCest extends AbstractFunctionalTest
 
     public function testLieDownStatus(FunctionalTester $I)
     {
-        $this->statusService->createStatusFromName(PlayerStatusEnum::LYING_DOWN, $this->player1, [], new \DateTime());
+        // given daedalus is Day 0 so there will be no panic crisis
+        $this->daedalus->setDay(0);
+
+        // given player is lying down
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::LYING_DOWN,
+            $this->player1,
+            [],
+            new \DateTime()
+        );
 
         $actionPointBefore = $this->player1->getActionPoint();
+        $moralePointBefore = $this->player1->getMoralPoint();
 
-        $I->assertCount(1, $this->player1->getStatuses());
-        $I->assertCount(1, $this->player1->getModifiers());
-
+        // when a new cycle passes
         $daedalusCycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then player gains 2 action points
         $I->assertEquals($actionPointBefore + 2, $this->player1->getActionPoint());
+
+        // then player gains 0 morale points (no shrink)
+        $I->assertEquals($moralePointBefore, $this->player1->getMoralPoint());
 
         // then I should not see any log for this modifier
         $I->dontSeeInRepository(RoomLog::class, [

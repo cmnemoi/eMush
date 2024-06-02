@@ -320,11 +320,15 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var VariableEventModifierConfig $lyingDownModifier */
         $lyingDownModifier = $this->getReference(StatusModifierConfigFixtures::LYING_DOWN_MODIFIER);
+
+        /** @var VariableEventModifierConfig $shrinkLyingDownModifier */
+        $shrinkLyingDownModifier = $this->getReference('modifier_for_player_+1morale_point_on_new_cycle_if_shrink_in_room');
+
         $lyingDown = new StatusConfig();
         $lyingDown
             ->setStatusName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs([$lyingDownModifier])
+            ->setModifierConfigs([$lyingDownModifier, $shrinkLyingDownModifier])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($lyingDown);
 
@@ -470,6 +474,13 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($defenceCpuPriority);
 
+        $shrinkSkill = new StatusConfig();
+        $shrinkSkill
+            ->setStatusName(SkillEnum::SHRINK)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($shrinkSkill);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -517,7 +528,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($inOrbit)
             ->addStatusConfig($pocPilotSkill)
             ->addStatusConfig($astronavigationNeronCpuPriority)
-            ->addStatusConfig($defenceCpuPriority);
+            ->addStatusConfig($defenceCpuPriority)
+            ->addStatusConfig($shrinkSkill);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -565,6 +577,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::IN_ORBIT_STATUS, $inOrbit);
         $this->addReference(self::POC_PILOT_SKILL_STATUS, $pocPilotSkill);
         $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_STATUS, $astronavigationNeronCpuPriority);
+        $this->addReference(SkillEnum::SHRINK, $shrinkSkill);
 
         $manager->flush();
     }

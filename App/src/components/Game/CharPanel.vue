@@ -152,11 +152,12 @@ import { Action } from "@/entities/Action";
 import { Door } from "@/entities/Door";
 import { defineComponent } from "vue";
 import { Status } from "@/entities/Status";
-import { StatusPlayerNameEnum, statusPlayerEnum } from "@/enums/status.player.enum";
+import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { formatText } from "@/utils/formatText";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { SpecialistPoint } from "@/entities/SpecialistPoint";
-import { SpecialistPointEnum, specialistPointEnum } from "@/enums/specialistPoint.enum";
+import { specialistPointEnum } from "@/enums/specialistPoint.enum";
+import { SkillIconRecord } from "@/enums/skill.enum";
 
 interface CharPanelState {
     selectedItem: Item | Player | null
@@ -206,7 +207,7 @@ export default defineComponent ({
         getImgUrl,
         formatText,
         skillImage(skill: Status): string {
-            return statusPlayerEnum[skill.key].icon ?? '';
+            return SkillIconRecord[skill.key].icon ?? '';
         },
         specialistPointImg(point: SpecialistPoint): string {
             return specialistPointEnum[point.key].icon ?? '';

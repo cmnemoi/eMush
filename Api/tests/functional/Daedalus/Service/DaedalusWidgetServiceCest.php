@@ -188,7 +188,7 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
                 [
                     'initials' => 'CZ',
                     'color' => '#DDD3CA',
-                ]
+                ],
             ],
             actual: $minimap[RoomEnum::LABORATORY]['actopi']
         );
@@ -197,7 +197,7 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
                 [
                     'initials' => 'KTL',
                     'color' => '#F39B01',
-                ]
+                ],
             ],
             actual: $minimap[RoomEnum::MEDLAB]['actopi']
         );

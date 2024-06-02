@@ -90,7 +90,7 @@ api-lint:
     - job: build-front
       optional: true
   script:
-    - ./linters.sh
+    - sh linters.sh
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["Api/**/*.php"]

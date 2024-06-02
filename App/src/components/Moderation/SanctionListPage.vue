@@ -1,5 +1,5 @@
 <template>
-    <div class="user_list_container">
+    <div class="sanction_list_container">
         <h2 class="sanction_heading">{{ $t('moderation.sanctionsFor', { username: username }) }}</h2>
         <div class="sanction_filter_options">
             <label>{{ $t('admin.show') }}
@@ -55,10 +55,10 @@
             </template>
         </Datatable>
         <SanctionDetailPage
-            :isOpen="showModal"
+            :isOpen="showDetailPopup"
             :moderationSanction="selectedSanction"
             :username="username"
-            @close="showModal = false"
+            @close="showDetailPopup = false"
         />
     </div>
 </template>
@@ -143,7 +143,7 @@ export default defineComponent({
             typeFilter: '',
             reasonFilter: '',
             isActiveFilter: false,
-            showModal: false,
+            showDetailPopup: false,
             selectedSanction: {}
         };
     },
@@ -238,7 +238,7 @@ export default defineComponent({
         },
         showSanctionDetails(sanction: any) {
             this.selectedSanction = sanction;
-            this.showModal = true;
+            this.showDetailPopup = true;
         },
         updateFilter() {
             this.pagination.currentPage = 1;

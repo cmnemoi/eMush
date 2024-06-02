@@ -162,7 +162,14 @@ const ModerationService = {
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
-    }
+    },
+    reportPlayer: async(playerId: number, params: URLSearchParams): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(MODERATION_ENDPOINT + '/report-player/' + playerId + '?' + params.toString());
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
 };
 
 export default ModerationService;

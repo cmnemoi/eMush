@@ -39,8 +39,7 @@ final class ActionEventSubscriber implements EventSubscriberInterface
                 time: $event->getTime(),
             );
 
-            /** @var Status $mushTrappedStatus */
-            $mushTrappedStatus = $place->getStatusByName(PlaceStatusEnum::MUSH_TRAPPED->value);
+            $mushTrappedStatus = $place->getStatusByNameOrThrow(PlaceStatusEnum::MUSH_TRAPPED->value);
 
             /** @var Player $trapper */
             $trapper = $mushTrappedStatus->getTarget();

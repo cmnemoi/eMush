@@ -9,6 +9,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusWidgetService;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -39,6 +40,7 @@ final class DaedalusWidgetServiceTest extends TestCase
 
         $this->service = new DaedalusWidgetService(
             $this->alertService,
+            $this->createStub(TranslationServiceInterface::class)
         );
     }
 
@@ -62,7 +64,7 @@ final class DaedalusWidgetServiceTest extends TestCase
             ->addPlace($room)
             ->addPlace($room2);
 
-        $this->createSensorProjectsForDaedalus($daedalus);
+        $this->createProjectsForDaedalus($daedalus);
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -105,7 +107,7 @@ final class DaedalusWidgetServiceTest extends TestCase
             ->addPlace($room)
             ->addPlace($room2);
 
-        $this->createSensorProjectsForDaedalus($daedalus);
+        $this->createProjectsForDaedalus($daedalus);
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -153,7 +155,7 @@ final class DaedalusWidgetServiceTest extends TestCase
             ->addPlace($room2)
             ->addPlace($room3);
 
-        $this->createSensorProjectsForDaedalus($daedalus);
+        $this->createProjectsForDaedalus($daedalus);
 
         $fireConfig = new StatusConfig();
         $fireConfig->setStatusName(StatusEnum::FIRE);
@@ -188,12 +190,13 @@ final class DaedalusWidgetServiceTest extends TestCase
         self::assertFalse($minimap[RoomEnum::CENTRAL_CORRIDOR]['fire']);
     }
 
-    private function createSensorProjectsForDaedalus(Daedalus $daedalus): array
+    private function createProjectsForDaedalus(Daedalus $daedalus): array
     {
         $projects = [];
         $projects[] = ProjectFactory::createNeronProjectByNameForDaedalus(ProjectName::FIRE_SENSOR, $daedalus);
         $projects[] = ProjectFactory::createNeronProjectByNameForDaedalus(ProjectName::DOOR_SENSOR, $daedalus);
         $projects[] = ProjectFactory::createNeronProjectByNameForDaedalus(ProjectName::EQUIPMENT_SENSOR, $daedalus);
+        $projects[] = ProjectFactory::createNeronProjectByNameForDaedalus(ProjectName::WHOS_WHO, $daedalus);
 
         return $projects;
     }

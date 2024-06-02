@@ -11,6 +11,7 @@ export class ModerationSanction {
     public authorName!: string;
     public isWarning!: boolean;
     public playerId!: number;
+    public playerName!: string;
 
     public load(object: any): ModerationSanction {
         if (object) {
@@ -21,7 +22,8 @@ export class ModerationSanction {
             this.startDate = new Date(object.startDate);
             this.endDate = new Date(object.endDate);
             this.authorName = object.authorName;
-            this.playerId = object.player;
+            this.playerId = object.playerId;
+            this.playerName = object.playerName;
             this.userId = object.user;
             this.isWarning = object.moderationAction === 'warning';
         }

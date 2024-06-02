@@ -779,6 +779,16 @@
 			"2_month": "2 mois",
 			"3_month": "3 mois"
 		},
+    "sanctionDetail": {
+      "user": "Nom d'utilisateur : ",
+      "player": "Personage joué : ",
+      "endDate": "Fin de la sanction : ",
+      "startDate": "Début de la sanction : ",
+      "author": "Modérateur : ",
+      "message": "Message :",
+      "sanctionType": "Type de sanction : ",
+      "reason": "Raison : "
+    },
 		"reduce": "Réduire",
 		"showAll": "Montrer toutes les sanctions",
 		"sanctionsFor": "Liste des sanctions de {username}",

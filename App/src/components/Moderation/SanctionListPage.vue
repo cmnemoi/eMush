@@ -55,9 +55,9 @@
             </template>
         </Datatable>
         <SanctionDetailPage
-            v-if="showModal"
-            :sanction-details="selectedSanction"
-            :show-modal="showModal"
+            :isOpen="showModal"
+            :moderationSanction="selectedSanction"
+            :username="username"
             @close="showModal = false"
         />
     </div>

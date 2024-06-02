@@ -296,6 +296,9 @@ final class PreActionEventCest extends AbstractFunctionalTest
         $actionEvent->setActionResult(new Success());
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
 
+        // then room trap should not be triggered
+        $I->assertTrue($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
+
         // then KT should not get a spore
         $I->assertEquals(
             expected: 0,
@@ -320,6 +323,9 @@ final class PreActionEventCest extends AbstractFunctionalTest
         );
         $actionEvent->setActionResult(new Success());
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+
+        // then trap should be triggered
+        $I->assertFalse($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
 
         // then KT should get a spore
         $I->assertEquals(

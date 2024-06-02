@@ -4,6 +4,7 @@ namespace Mush\Status\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -33,9 +34,17 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public function onPreAction(ActionEvent $event): void
     {
+        $actionConfig = $event->getActionConfig();
+        $actionProvider = $event->getActionProvider();
         $place = $event->getPlace();
 
-        if ($place->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)) {
+        $authorInteractsWithRoomEquipment = $actionProvider instanceof GameEquipment && $actionProvider->isInShelf();
+        $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap = $actionProvider instanceof GameEquipment === false && $actionConfig->shouldTriggerRoomTrap();
+
+        if (
+            ($authorInteractsWithRoomEquipment || $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap)
+            && $place->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)
+        ) {
             $this->statusService->removeStatus(
                 statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
                 holder: $place,

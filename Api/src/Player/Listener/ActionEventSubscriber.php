@@ -32,7 +32,7 @@ final class ActionEventSubscriber implements EventSubscriberInterface
 
         if ($event->shouldTriggerRoomTrap() && $author->isHuman()) {
             $playerModifierEvent = new PlayerVariableEvent(
-                player: $event->getAuthor(),
+                player: $author,
                 variableName: PlayerVariableEnum::SPORE,
                 quantity: 1,
                 tags: $event->getTags(),

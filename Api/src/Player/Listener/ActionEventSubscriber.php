@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Player\Listener;
 
 use Mush\Action\Event\ActionEvent;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -28,19 +27,10 @@ final class ActionEventSubscriber implements EventSubscriberInterface
 
     public function onPreAction(ActionEvent $event): void
     {
-        $actionConfig = $event->getActionConfig();
-        $actionProvider = $event->getActionProvider();
         $author = $event->getAuthor();
         $place = $event->getPlace();
 
-        $authorInteractsWithRoomEquipment = $actionProvider instanceof GameEquipment && $actionProvider->isInShelf();
-        $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap = $actionProvider instanceof GameEquipment === false && $actionConfig->shouldTriggerRoomTrap();
-
-        if (
-            ($authorInteractsWithRoomEquipment || $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap)
-            && $author->isNotMush()
-            && $place->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)
-        ) {
+        if ($event->shouldTriggerRoomTrap() && $author->isHuman()) {
             $playerModifierEvent = new PlayerVariableEvent(
                 player: $event->getAuthor(),
                 variableName: PlayerVariableEnum::SPORE,

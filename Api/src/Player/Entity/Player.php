@@ -770,7 +770,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getPlace()->getNumberOfPlayersAlive() === 1;
     }
 
-    public function isNotMush(): bool
+    public function isHuman(): bool
     {
         return $this->isMush() === false;
     }

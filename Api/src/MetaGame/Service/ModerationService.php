@@ -238,17 +238,14 @@ final class ModerationService implements ModerationServiceInterface
     }
 
     public function reportPlayer(
-        Player $player,
+        PlayerInfo $player,
         User $author,
         string $reason,
         ?string $message = null
-    ): Player {
-        $deathEvent = new PlayerEvent($player, [EndCauseEnum::QUARANTINE], new \DateTime());
-        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
-
+    ): PlayerInfo {
         $this->addSanctionEntity(
             $player->getUser(),
-            $player->getPlayerInfo(),
+            $player,
             $author,
             ModerationSanctionEnum::REPORT,
             $reason,

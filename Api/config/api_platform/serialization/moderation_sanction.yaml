@@ -2,6 +2,10 @@ Mush\MetaGame\Entity\ModerationSanction:
   attributes:                          # optional
     id:
       groups: [ 'moderation_sanction_read' ]
+    username:
+      groups: [ 'moderation_sanction_read' ]
+    userId:
+      groups: [ 'moderation_sanction_read' ]
     moderationAction:
       groups: [ 'moderation_sanction_read' ]
     reason:

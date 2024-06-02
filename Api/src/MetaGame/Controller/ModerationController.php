@@ -14,6 +14,7 @@ use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -508,7 +509,7 @@ final class ModerationController extends AbstractFOSRestController
     }
 
     /**
-     * Report something that needs moderation action.
+     * Report a end message that needs moderation action.
      *
      * @OA\Parameter(
      *     name="id",
@@ -521,7 +522,7 @@ final class ModerationController extends AbstractFOSRestController
      * @OA\Parameter(
      *     name="reason",
      *     in="query",
-     *     description="Reason for the message deletion",
+     *     description="Reason for the report",
      *
      *     @OA\Schema(type="string")
      * )
@@ -542,10 +543,66 @@ final class ModerationController extends AbstractFOSRestController
      *
      * @Rest\View()
      */
-    public function reportPlayer(Player $player, Request $request): View
-    {
+    public function reportPlayer(
+        PlayerInfo $player,
+        Request $request
+    ): View {
         /** @var User $reportAuthor */
         $reportAuthor = $this->getUser();
+
+        $this->moderationService->reportPlayer(
+            $player,
+            $reportAuthor,
+            $request->get('reason'),
+            $request->get('adminMessage')
+        );
+
+        return $this->view(['detail' => 'player reported'], Response::HTTP_OK);
+    }
+
+    /**
+     * Report a message that needs moderation action.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The message id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="reason",
+     *     in="query",
+     *     description="Reason for the report",
+     *
+     *     @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="adminMessage",
+     *     in="query",
+     *     description="Message of the user",
+     *
+     *     @OA\Schema(type="string", nullable=true)
+     * )
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post(path="/report-message/{id}")
+     *
+     * @Rest\View()
+     */
+    public function reportMessage(
+        Message $message,
+        Request $request
+    ): View {
+        /** @var User $reportAuthor */
+        $reportAuthor = $this->getUser();
+
+        $player = $message->getAuthor();
 
         $this->moderationService->reportPlayer(
             $player,

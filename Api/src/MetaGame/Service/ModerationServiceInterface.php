@@ -8,6 +8,7 @@ use Mush\Communication\Entity\Message;
 use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 
 interface ModerationServiceInterface
@@ -59,11 +60,11 @@ interface ModerationServiceInterface
     ): User;
 
     public function reportPlayer(
-        Player $player,
+        PlayerInfo $player,
         User $author,
         string $reason,
         ?string $message,
-    ): Player;
+    ): PlayerInfo;
 
     public function archiveReport(
         ModerationSanction $moderationAction,

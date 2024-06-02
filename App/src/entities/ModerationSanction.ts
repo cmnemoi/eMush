@@ -1,7 +1,8 @@
 import {PlayerInfo} from "@/entities/PlayerInfo";
 
 export class ModerationSanction {
-    public userId!: number;
+    public userId!: string;
+    public username!: string;
     public moderationAction!: string;
     public reason!: string;
     public message: string|null = null;
@@ -24,7 +25,8 @@ export class ModerationSanction {
             this.authorName = object.authorName;
             this.playerId = object.playerId;
             this.playerName = object.playerName;
-            this.userId = object.user;
+            this.userId = object.userId;
+            this.username = object.username;
             this.isWarning = object.moderationAction === 'warning';
         }
         return this;

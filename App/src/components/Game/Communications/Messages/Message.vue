@@ -7,8 +7,9 @@
     />
     <ReportPopup
         :report-dialog-visible="reportPopupVisible"
-        :player="{ name: message.character.name, id: message.character.id }"
+        :player="{ name: message.character.name }"
         @close=closeReportDialog
+        @submit-report=submitReport
     />
     <div
         v-if="isRoot && !isSystemMessage"
@@ -101,7 +102,7 @@ import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
-import ReportPopup from "@/components/ReportPopup.vue";
+import ReportPopup from "@/components/Moderation/ReportPopup.vue";
 
 export default defineComponent ({
     name: "Message",
@@ -200,6 +201,20 @@ export default defineComponent ({
             this.reportPopupVisible = true;
         },
         closeReportDialog() {
+            this.reportPopupVisible = false;
+        },
+        submitReport(params: URLSearchParams) {
+            if (this.isNeronMessage) {
+                return;
+            }
+
+            ModerationService.reportMessage(this.message.id, params)
+                .then(() => {
+                    this.loadData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
             this.reportPopupVisible = false;
         },
         async read(message: Message) {

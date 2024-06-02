@@ -934,7 +934,7 @@ export default defineComponent ({
                         const left = roomCoord.A.x + Math.round(Math.random() * (roomCoord.B.x - 4 - roomCoord.A.x));
                         const top = roomCoord.A.y + Math.round(Math.random() * (roomCoord.C.y - 4 - roomCoord.B.y));
                         const name = room.actopi.length > 0 ? room.actopi[i].initials : '';
-                        const color = room.actopi.length > 0 ? room.actopi[i].color : '#f88'
+                        const color = room.actopi.length > 0 ? room.actopi[i].color : '#f88';
                         this.playersPoints.push( { left, top, name, color });
                         i++;
                     }

@@ -865,7 +865,8 @@
                     :key="player.name"
                     :style="{
                         left: `${player.left}px`,
-                        top: `${player.top}px`
+                        top: `${player.top}px`,
+                        background: `${player.color}`
                     }"
                     :class="`${player.name}`"
                 />
@@ -933,7 +934,8 @@ export default defineComponent ({
                         const left = roomCoord.A.x + Math.round(Math.random() * (roomCoord.B.x - 4 - roomCoord.A.x));
                         const top = roomCoord.A.y + Math.round(Math.random() * (roomCoord.C.y - 4 - roomCoord.B.y));
                         const name = room.actopi.length > 0 ? room.actopi[i].initials : '';
-                        this.playersPoints.push( { left, top, name } );
+                        const color = room.actopi.length > 0 ? room.actopi[i].color : '#f88'
+                        this.playersPoints.push( { left, top, name, color });
                         i++;
                     }
                 });
@@ -976,6 +978,7 @@ interface PlayersPoints {
     left: number;
     top: number;
     name: string;
+    color: `#${string}`;
 }
 interface Doors {
     name: string,
@@ -1106,32 +1109,6 @@ svg {
             animation: self-position-color 1.1s infinite;
         }
 
-        $actopi-color: //defines the color of each crewmate in the minimap when actopi project is active
-            "AG"    rgb(135, 206, 250),
-            "CW"     rgb(88 , 99 , 177),
-            "CZ"     rgb(221, 211, 202),
-            "DH"    rgb(255, 69 , 0  ), //rgb(136, 156, 40) ?
-            "EW"  rgb(208, 133, 0  ),
-            "FK"   rgb(78 , 169, 182),
-            "FB"   rgb(32 , 103, 134),
-            "GR"   rgb(221, 112, 42 ),
-            "HJ"      rgb(128, 84 , 65 ),
-            "IS"      rgb(35 , 124, 104),
-            "JK"   rgb(180, 71 , 83 ),
-            "JSK"      rgb(192, 48 , 76 ),
-            "KTL"     rgb(243, 155, 1  ),
-            "PR"    rgb(255, 154, 250),
-            "RT"   rgb(134, 134, 129),
-            "RZ"   rgb(255, 163, 109),
-            "SS"  rgb(255, 255, 255),
-            "TA" rgb(211, 40 , 55 ),
-        ;
-
-        @each $crewmate, $color in $actopi-color {
-            &.#{$crewmate} {
-                background: $color;
-            }
-        }
     }
 }
 

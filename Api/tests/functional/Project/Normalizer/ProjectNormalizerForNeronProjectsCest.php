@@ -8,7 +8,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Normalizer\ProjectNormalizer;
 use Mush\Status\Enum\PlayerStatusEnum;

@@ -162,6 +162,47 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
         $I->assertCount(1, $minimap[RoomEnum::LABORATORY]['broken_doors']);
     }
 
+    public function shouldReturnPlayerPositionWithWhosWhoProject(FunctionalTester $I): void
+    {
+        // given whos who project is completed
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::WHOS_WHO),
+            author: $this->chun,
+            I: $I,
+        );
+
+        // given Chun is in the laboratory
+        $I->assertEquals(expected: RoomEnum::LABORATORY, actual: $this->chun->getPlace()->getName());
+
+        // given KT is in the medlab
+        $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
+        $this->kuanTi->changePlace($medlab);
+        $I->assertEquals(expected: RoomEnum::MEDLAB, actual: $this->kuanTi->getPlace()->getName());
+
+        // when I get the minimap
+        $minimap = $this->daedalusService->getMinimap($this->daedalus, $this->chun);
+
+        // then I should see Chun in laboratory and KT in medlab
+        $I->assertEquals(
+            expected: [
+                [
+                    'initials' => 'CZ',
+                    'color' => '#DDD3CA',
+                ]
+            ],
+            actual: $minimap[RoomEnum::LABORATORY]['actopi']
+        );
+        $I->assertEquals(
+            expected: [
+                [
+                    'initials' => 'KTL',
+                    'color' => '#F39B01',
+                ]
+            ],
+            actual: $minimap[RoomEnum::MEDLAB]['actopi']
+        );
+    }
+
     private function createDoorFromLaboratoryToFrontCorridor(FunctionalTester $I): Door
     {
         $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);

@@ -7,6 +7,7 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
@@ -15,13 +16,10 @@ use Mush\Status\Enum\StatusEnum;
 
 final class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 {
-    private AlertServiceInterface $alertService;
-
     public function __construct(
-        AlertServiceInterface $alertService,
-    ) {
-        $this->alertService = $alertService;
-    }
+        private AlertServiceInterface $alertService,
+        private TranslationServiceInterface $translationService
+    ) {}
 
     public function getMinimap(Daedalus $daedalus, Player $player): array
     {
@@ -37,6 +35,7 @@ final class DaedalusWidgetService implements DaedalusWidgetServiceInterface
             return $minimap;
         }
 
+        /** @var Place $room */
         foreach ($daedalus->getRooms() as $room) {
             $roomName = $room->getName();
 
@@ -53,7 +52,7 @@ final class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 
             $minimap[$roomName] = [
                 'players_count' => $room->getPlayers()->getPlayerAlive()->count(),
-                'actopi' => [],
+                'actopi' => $daedalus->hasFinishedProject(ProjectName::WHOS_WHO) ? $this->getNormalizedRoomPlayers($room) : [],
                 'fire' => $this->isFireDisplayed($room),
                 'broken_count' => \count($brokenEquipmentsList) + \count($brokenDoorsList),
                 'broken_doors' => $brokenDoorsList,
@@ -103,6 +102,26 @@ final class DaedalusWidgetService implements DaedalusWidgetServiceInterface
         }
 
         return $displayedBrokenEquipments;
+    }
+
+    private function getNormalizedRoomPlayers(Place $room): array
+    {
+        $normalizedPlayers = [];
+
+        /** @var Player $player */
+        foreach ($room->getPlayers()->getPlayerAlive() as $player) {
+            $normalizedPlayers[] = [
+                'initials' => $this->translationService->translate(
+                    key: $player->getName() . '.initials',
+                    parameters: [],
+                    domain: 'characters',
+                    language: $player->getLanguage(),
+                ),
+                'color' => $player->getWhosWhoColor(),
+            ];
+        }
+
+        return $normalizedPlayers;
     }
 
     private function hasPlayerAccessToMinimap(Player $player): bool

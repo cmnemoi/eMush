@@ -22,6 +22,7 @@ RUN apt-get -yq update && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
     docker-php-ext-install pdo pdo_pgsql pgsql && \
     docker-php-ext-install opcache && \
+    docker-php-ext-configure opcache --enable-opcache && \
     # Xdebug
     pecl install xdebug && \
     docker-php-ext-enable xdebug && \

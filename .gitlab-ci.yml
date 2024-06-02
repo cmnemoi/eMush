@@ -20,7 +20,7 @@ stages:
 .php_with_db_template: &php_with_db_template
   extends: .php_template
   services:
-    - postgres:15.1-alpine
+    - postgres:16.3-alpine
   variables:
     POSTGRES_DB: emush_test
     POSTGRES_USER: runner

@@ -1,17 +1,16 @@
 <template>
-    <PopUp :is-open=reportDialogVisible @close="closeReportDialog()" v-if="player">
+    <PopUp :is-open=reportDialogVisible @close="closeReportDialog()" v-if="player" class="report">
         <h1 class="title">{{ $t('reportPopup.title') }}</h1>
         <p class="message" v-html="formatText($t('moderation.report.message', { playerName: player.name }))"></p>
         <label>{{ $t("moderation.report.playerMessage") }}:
             <textarea v-model="moderationMessage" />
         </label>
         <label>{{ $t("moderation.sanctionReason") }}:
-            <select v-model="moderationReason" required>
+            <select v-model="reason" required>
                 <option
                     value=""
                     selected
                     disabled
-                    hidden
                 >
                     {{ $t("moderation.chooseReason") }}
                 </option>
@@ -21,7 +20,13 @@
             </select>
         </label>
         <div class="actions">
-            <button class="action-button" @click="submitReport()">{{ $t('moderation.report.submit') }}</button>
+            <button
+                class="action-button"
+                @click="submitReport()"
+                :disabled="reason == ''"
+            >
+                {{ $t('moderation.report.submit') }}
+            </button>
         </div>
     </PopUp>
 </template>
@@ -47,6 +52,7 @@ export default defineComponent ({
         return {
             reportReason: "",
             reportMessage: "",
+            reason: ""
         };
     },
     computed: {
@@ -83,21 +89,59 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-.message {
-    :deep(a) {
+.report {
+    color: white;
+
+    h1 {
+        margin-top: 0.6em;
+        font-size: 1.4em;
+        line-height: 1.2em;
+    }
+
+    a {
         color: $green;
         text-decoration: none;
         &:hover, &:focus, &:active { color: white; }
+    }
+
+    p, label {
+        padding: 0.6em 0;
+        margin-bottom: 0.2em;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    textarea {
+        width: 100%;
+        height: 4em;
+        max-height: 10em;
+        resize: vertical;
+    }
+
+    select {
+        width: 100%;
     }
 }
 
 .actions {
     flex-direction: row;
     align-self: center;
+    padding: 0.6em;
 
      button, a {
         min-width: 160px;
+        padding-top: .3em;
+        padding-bottom: .3em;
      }
+}
+
+.modal-background {
+    position: absolute;
+
+    :deep(.modal-box) {
+        min-width: auto;
+        width: calc(100% - 2em);
+        padding-bottom: 0.6em;
+    }
 }
 
 </style>

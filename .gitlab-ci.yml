@@ -70,13 +70,15 @@ build-front:
 api-test:
   <<: *php_with_db_template
   stage: test
+  tags:
+    - saas-linux-large-amd64
   needs: 
     - job: check
       optional: true
     - job: build-front
       optional: true
   script:
-    - php vendor/bin/codecept run
+    - composer test
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["Api/**/*.php"]
@@ -84,6 +86,8 @@ api-test:
 api-lint:
   <<: *php_template
   stage: test
+  tags: 
+    - saas-linux-large-amd64
   needs:
     - job: check
       optional: true

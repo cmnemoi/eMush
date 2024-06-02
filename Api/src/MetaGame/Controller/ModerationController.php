@@ -513,7 +513,7 @@ final class ModerationController extends AbstractFOSRestController
      * @OA\Parameter(
      *     name="id",
      *     in="path",
-     *     description="The player id",
+     *     description="The player info id",
      *
      *     @OA\Schema(type="integer")
      * )

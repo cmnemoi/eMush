@@ -7,7 +7,6 @@
         <router-view v-else/>
         <ErrorPopup />
         <ConfirmPopup />
-        <ReportPopup />
         <Thanks />
         <ModerationWarningBanner :user-sanctions="userSanctions" />
         <LocaleChange />
@@ -19,7 +18,6 @@
 import Banner from "@/components/Banner.vue";
 import ErrorPopup from "@/components/ErrorPopup.vue";
 import ConfirmPopup from "@/components/ConfirmPopup.vue";
-import ReportPopup from "@/components/ReportPopup.vue";
 import Spinner from "@/components/Utils/Spinner.vue";
 import { mapGetters, mapActions } from "vuex";
 import LocaleChange from "@/components/Utils/LocaleChange.vue";
@@ -48,7 +46,6 @@ export default defineComponent({
         Banner,
         ErrorPopup,
         ConfirmPopup,
-        ReportPopup,
         LocaleChange,
         Thanks,
         MaintenancePage,

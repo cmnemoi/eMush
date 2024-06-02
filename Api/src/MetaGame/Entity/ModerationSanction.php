@@ -73,6 +73,16 @@ class ModerationSanction
         return $this->user;
     }
 
+    public function getUsername(): string
+    {
+        return $this->user->getUsername();
+    }
+
+    public function getUserId(): string
+    {
+        return $this->user->getUserId();
+    }
+
     public function setPlayer(?PlayerInfo $player): self
     {
         $this->player = $player;

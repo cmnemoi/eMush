@@ -2,7 +2,7 @@
     <popUp :isOpen="isOpen" @close="close">
         <div class="sanction-details">
             <div class="row">
-                <div class="cell"><strong>{{ $t('moderation.sanctionDetail.user') }}</strong> {{ username }}</div>
+                <div class="cell"><strong>{{ $t('moderation.sanctionDetail.user') }}</strong> {{ moderationSanction.username }}</div>
                 <div class="cell">
                     <div class="action-button router-button">
                         <router-link
@@ -67,7 +67,6 @@ export default defineComponent({
     props: {
         isOpen: Boolean,
         moderationSanction: ModerationSanction,
-        username: "",
     },
     emits: [
         "close"

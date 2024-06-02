@@ -21,7 +21,6 @@
         <SanctionDetailPage
             :isOpen="showDetailPopup"
             :moderationSanction="selectedSanction"
-            :username="username"
             @close="showDetailPopup = false"
         />
     </div>
@@ -159,7 +158,7 @@
                     qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
                 }
 
-                params.params['moderationAction'] = 'complaint';
+                params.params['moderationAction'] = 'report';
 
                 ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params)
                     .then((result) => {

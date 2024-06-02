@@ -6,9 +6,10 @@
         @submit-sanction="applySanction"
     />
     <ReportPopup
-        :report-dialog-visible="reportDialogVisible"
-        :player="{ name: currentPlayer?.name, id: currentPlayer?.id }"
+        :report-dialog-visible="reportPopupVisible"
+        :player="{ name: currentPlayer?.name }"
         @close=closeReportDialog
+        @submit-report=submitReport
     />
     <div class="container" v-if="closedDaedalus">
         <div class="ending-screen">
@@ -63,7 +64,7 @@
                             <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
                         </template>
                     </Tippy>
-                    <Tippy tag="span" v-if="!goldNovaPlayer.messageHasBeenModerated" @click="openReportDialog">
+                    <Tippy tag="span" v-if="!goldNovaPlayer.messageHasBeenModerated" @click="openReportDialog(goldNovaPlayer)">
                         <img :src="getImgUrl('comms/alert.png')" alt="Report message">
                         <template #content>
                             <h1>{{ $t('moderation.report')}}</h1>
@@ -173,7 +174,7 @@
                                     <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
                                 </template>
                             </Tippy>
-                            <Tippy tag="span" v-if="!goldNovaPlayer.messageHasBeenModerated" @click="openReportDialog">
+                            <Tippy tag="span" v-if="!goldNovaPlayer.messageHasBeenModerated" @click="openReportDialog(player)">
                                 <img :src="getImgUrl('comms/alert.png')" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.report')}}</h1>
@@ -259,7 +260,7 @@
                                     <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
                                 </template>
                             </Tippy>
-                            <Tippy tag="span" v-if="!goldNovaPlayer?.messageHasBeenModerated" @click="openReportDialog">
+                            <Tippy tag="span" v-if="!goldNovaPlayer?.messageHasBeenModerated" @click="openReportDialog(player)">
                                 <img :src="getImgUrl('comms/alert.png')" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.report')}}</h1>
@@ -405,11 +406,11 @@ import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import ApiService from "@/services/api.service";
 import DaedalusService from "@/services/daedalus.service";
 import ModerationService from "@/services/moderation.service";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import { formatText } from "@/utils/formatText";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 import { getImgUrl } from "@/utils/getImgUrl";
-import ReportPopup from "@/components/ReportPopup.vue";
+import ReportPopup from "@/components/Moderation/ReportPopup.vue";
 
 interface ClosedDaedalusState {
     closedDaedalus: ClosedDaedalus|null
@@ -418,7 +419,7 @@ interface ClosedDaedalusState {
     mainRolesPlayers: ClosedPlayer[]|null,
     figurantPlayers: ClosedPlayer[]|null,
     moderationDialogVisible: boolean,
-    reportDialogVisible: boolean,
+    reportPopupVisible: boolean,
     currentAction: { key: string, value: string },
     currentPlayer: ClosedPlayer|null,
 }
@@ -439,7 +440,7 @@ export default defineComponent ({
             mainRolesPlayers: [],
             figurantPlayers: [],
             moderationDialogVisible: false,
-            reportDialogVisible: false,
+            reportPopupVisible: false,
             currentAction: { key: "", value: "" },
             currentPlayer: null
         };
@@ -495,10 +496,10 @@ export default defineComponent ({
         },
         openReportDialog(player: ClosedPlayer) {
             this.currentPlayer = player;
-            this.reportDialogVisible = true;
+            this.reportPopupVisible = true;
         },
         closeReportDialog() {
-            this.reportDialogVisible = false;
+            this.reportPopupVisible = false;
         },
         async applySanction(params: any) {
             if (this.currentPlayer === null || this.currentPlayer.id === null) return;
@@ -510,6 +511,19 @@ export default defineComponent ({
             }
             this.moderationDialogVisible = false;
             await this.loadData();
+        },
+        submitReport(params: URLSearchParams) {
+            if (this.currentPlayer === null) {
+                return;
+            }
+            ModerationService.reportPlayer(this.currentPlayer.id, params)
+                .then(() => {
+                    this.loadData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+            this.reportPopupVisible = false;
         },
         getAmountOfMushPlayers() {
             if (this.closedDaedalus && this.closedDaedalus.players) {

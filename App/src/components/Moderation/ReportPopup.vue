@@ -3,10 +3,10 @@
         <h1 class="title">{{ $t('reportPopup.title') }}</h1>
         <p class="message" v-html="formatText($t('moderation.report.message', { playerName: player.name }))"></p>
         <label>{{ $t("moderation.report.playerMessage") }}:
-            <textarea v-model="moderationMessage" />
+            <textarea v-model="reportMessage" />
         </label>
         <label>{{ $t("moderation.sanctionReason") }}:
-            <select v-model="reason" required>
+            <select v-model="reportReason" required>
                 <option
                     value=""
                     selected
@@ -23,7 +23,7 @@
             <button
                 class="action-button"
                 @click="submitReport()"
-                :disabled="reason == ''"
+                :disabled="reportReason == ''"
             >
                 {{ $t('moderation.report.submit') }}
             </button>
@@ -46,13 +46,12 @@ export default defineComponent ({
     },
     props: {
         reportDialogVisible: Boolean,
-        player: { name: String, id: String } // the player to report
+        player: { name: String } // the player to report
     },
     data() {
         return {
             reportReason: "",
             reportMessage: "",
-            reason: ""
         };
     },
     computed: {
@@ -75,13 +74,7 @@ export default defineComponent ({
                 params.append('adminMessage', this.reportMessage);
             }
 
-            ModerationService.reportPlayer(this.player.id, params)
-                .then(() => {
-                    this.loadData();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+            this.$emit("submitReport", params);
         },
         formatText
     }

@@ -57,7 +57,6 @@
         <SanctionDetailPage
             :isOpen="showDetailPopup"
             :moderationSanction="selectedSanction"
-            :username="username"
             @close="showDetailPopup = false"
         />
     </div>

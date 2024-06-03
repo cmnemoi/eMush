@@ -100,4 +100,28 @@ final class DiseaseNormalizerCest extends AbstractFunctionalTest
             $normalizedDisease
         );
     }
+
+    public function shouldNormalizeParanoia(FunctionalTester $I): void
+    {
+        // given a player with paranoia
+        $this->playerDisease = $this->playerDiseaseService->createDiseaseFromName(
+            DisorderEnum::PARANOIA,
+            $this->player,
+            []
+        );
+
+        // when normalizing the paranoia
+        $normalizedDisease = $this->diseaseNormalizer->normalize($this->playerDisease, format: null, context: ['currentPlayer' => $this->player]);
+
+        // then the normalized paranoia is as expected
+        $I->assertEquals(
+            [
+                'key' => DisorderEnum::PARANOIA,
+                'name' => 'Crise Paranoïaque',
+                'type' => MedicalConditionTypeEnum::DISORDER,
+                'description' => 'Vous avez peur pour votre vie et éventuellement le faites savoir.//Max :pmo: **-3**.//Vos messages sont parfois modifiés.',
+            ],
+            $normalizedDisease
+        );
+    }
 }

@@ -209,8 +209,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(MessageEvent::NEW_MESSAGE)
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('paranoia_modifier_fixture');
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($paranoia);
 
         $paranoiaDenial = new EventModifierConfig(MessageModificationEnum::PARANOIA_DENIAL);
@@ -218,8 +217,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(MessageEvent::READ_MESSAGE)
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('paranoia_denial_fixture');
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($paranoiaDenial);
 
         $coprolalia = new EventModifierConfig(MessageModificationEnum::COPROLALIA_MESSAGES);

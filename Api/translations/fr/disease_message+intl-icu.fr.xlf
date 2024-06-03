@@ -348,10 +348,10 @@
       <segment id="pre" state="final">
         <source>pre_paranoia</source>
         <target>{version, select,
-                    {Ptain, }
-                    {Bordel, }
-                    {Fait iech, }
-                    {Iech, }
+                    1 {Ptain, }
+                    2 {Bordel, }
+                    3 {Fait iech, }
+                    4 {Iech, }
                     other {invalid version}
                     }</target>
       </segment>

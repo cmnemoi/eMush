@@ -232,7 +232,9 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::ROBOTICS_EXPERT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
-                'spawnEquipmentConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    '1_support_drone_in_nexus',
+                ],
                 'replaceEquipmentConfigs' => [],
             ],
         ];

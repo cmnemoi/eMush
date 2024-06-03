@@ -386,7 +386,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierActivationRequirements([$random16])
+            ->setModifierActivationRequirements([])
             ->setModifierName(SymptomEnum::BITING);
         $manager->persist($bitingModifier);
 

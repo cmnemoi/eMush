@@ -25,6 +25,11 @@ class SymptomSubscriber implements EventSubscriberInterface
 
     public function onTriggerSymptom(SymptomEvent $event): void
     {
+        $player = $event->getTargetPlayer();
+        if ($player->isDead()) {
+            return;
+        }
+
         $symptomHandler = $this->symptomHandlerService->getSymptomHandler(
             $event->getSymptomName()
         );

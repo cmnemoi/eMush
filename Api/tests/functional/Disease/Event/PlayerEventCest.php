@@ -232,4 +232,34 @@ final class PlayerEventCest extends AbstractFunctionalTest
         // then Chun should be dirty
         $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::DIRTY));
     }
+
+    public function shouldNotTriggerBitingSymptomIfTargetDiesAtCycleChange(FunctionalTester $I): void
+    {
+        // given Chun has space rabies, so she has the biting symptom
+        $spaceRabies = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DiseaseEnum::SPACE_RABIES,
+            player: $this->chun,
+            reasons: [],
+        );
+
+        // given KT has 0 morale points so she will die at cycle change
+        $this->kuanTi->setMoralPoint(0);
+
+        // when cycle change occurs for both players
+        $playerEvent = new PlayerCycleEvent(
+            player: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($playerEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        $playerEvent = new PlayerCycleEvent(
+            player: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($playerEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+
+        // then no exception is thrown
+        $I->expect('No exception is thrown');
+    }
 }

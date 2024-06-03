@@ -220,4 +220,91 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
             actual: $normalizedProject
         );
     }
+
+    public function shouldNormalizeIcarusAntiGravPropeller(FunctionalTester $I): void
+    {
+        // given I have Icarus Anti-Grav Propeller project
+        $project = $this->daedalus->getProjectByName(ProjectName::ICARUS_ANTIGRAV_PROPELLER);
+
+        // when I normalize the project
+        $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
+
+        // then I should get the normalized project
+        $I->assertEqualsIgnoringCase(
+            expected: [
+                'id' => $project->getId(),
+                'key' => 'icarus_antigrav_propeller',
+                'name' => 'Propulseurs antigrav',
+                'description' => 'Augmente vos chances de réussites pour atterrir sur des planètes.',
+                'lore' => 'Grâce à ces propulseurs anti-gravité, les manoeuvres de décollage et d\'atterissage de l\'Icarus deviennent un jeu d\'enfant. L\'entrée dans l\'atmosphère devient d\'une simplicité incroyable. Bref l\'Icarus, un vaisseau qu\'il est bien à faire voler !',
+                'progress' => '0%',
+                'efficiency' => 'Efficacité : 12-18%',
+                'efficiencyTooltipHeader' => 'Efficacité',
+                'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
+                'bonusSkills' => [
+                    [
+                        'key' => 'pilot',
+                        'name' => 'Pilote',
+                        'description' => 'Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa
+                    maîtrise aérienne est impressionnante.
+                    //
+                    :point: **Chances doublées** de toucher en Patrouilleur.
+                    //
+                    :point: **Ne rate jamais** les atterrissages et décollages.
+                    //
+                    :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'physicist',
+                        'name' => 'Physicien',
+                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
+                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
+                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
+                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+                'actions' => [
+                    [
+                        'id' => $this->participateActionId,
+                        'key' => ActionEnum::PARTICIPATE->value,
+                        'name' => 'Participer',
+                        'actionPointCost' => 2,
+                        'movementPointCost' => 0,
+                        'moralPointCost' => 0,
+                        'specialistPointCosts' => [],
+                        'successRate' => 100,
+                        'description' => 'Avance le Projet en fonction de vos capacités.',
+                        'canExecute' => true,
+                        'confirmation' => null,
+                        'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
+                    ],
+                ],
+            ],
+            actual: $normalizedProject
+        );
+    }
+
+    public function shouldNormalizeIcarusAntiGravPropellerInDaedalusNormalizationContext(FunctionalTester $I): void
+    {
+        // given I have Icarus Anti-Grav Propeller project
+        $project = $this->daedalus->getProjectByName(ProjectName::ICARUS_ANTIGRAV_PROPELLER);
+
+        // when I normalize the project in daedalus normalization context
+        $normalizedProject = $this->projectNormalizer->normalize($project, null, [
+            'currentPlayer' => $this->chun,
+            'normalizing_daedalus' => true,
+        ]);
+
+        // then I should get the normalized project
+        $I->assertEquals(
+            expected: [
+                'type' => 'Projet',
+                'key' => 'icarus_antigrav_propeller',
+                'name' => 'Propulseurs antigrav',
+                'description' => 'Augmente vos chances de réussites pour atterrir sur des planètes.',
+                'lore' => 'Grâce à ces propulseurs anti-gravité, les manoeuvres de décollage et d\'atterissage de l\'Icarus deviennent un jeu d\'enfant. L\'entrée dans l\'atmosphère devient d\'une simplicité incroyable. Bref l\'Icarus, un vaisseau qu\'il est bien à faire voler !',
+            ],
+            actual: $normalizedProject
+        );
+    }
 }

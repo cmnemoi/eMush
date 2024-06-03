@@ -9,6 +9,8 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\MetaGame\Entity\ModerationSanction;
+use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 
 /**
@@ -43,6 +45,24 @@ final class ModerationSanctionRepository extends ServiceEntityRepository
 
         $query = $this->entityManager->createNativeQuery($sql, $rsm);
         $query->setParameter('userId', $user->getId());
+
+        return $query->getResult();
+    }
+
+    public function findAllPlayerReport(PlayerInfo $player): array
+    {
+        $sql = <<<'EOD'
+        SELECT *
+        FROM moderationSanction
+        WHERE player_id = :playerId
+        AND moderation_action IN ('report', 'report_abusive', 'report_processed')
+        EOD;
+
+        $rsm = new ResultSetMappingBuilder($this->entityManager);
+        $rsm->addRootEntityFromClassMetadata(ModerationSanction::class, 'moderation_sanction');
+
+        $query = $this->entityManager->createNativeQuery($sql, $rsm);
+        $query->setParameter('playerId', $player->getId());
 
         return $query->getResult();
     }

@@ -449,6 +449,24 @@ export default defineComponent({
                     });
             }
         },
+        async loadPlayerReports(player: ModerationViewPlayer) {
+            this.publicChannelMessages = [];
+            const publicChannel = await ModerationService.getPlayerDaedalusChannelByScope(player, "public").then((channel: Channel) => {
+                return channel;
+            }).catch((error) => {
+                console.error(error);
+            });
+
+            if (publicChannel) {
+                await ModerationService.getChannelMessages(publicChannel, this.generalChannelStartDateFilter, this.generalChannelEndDateFilter, this.generalChannelMessageFilter, this.generalChannelAuthorFilter)
+                    .then((response) => {
+                        this.publicChannelMessages = response;
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+        },
         goBack() {
             this.$router.go(-1);
         },

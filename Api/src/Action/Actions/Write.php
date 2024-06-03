@@ -18,8 +18,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Entity\ContentStatus;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -68,27 +66,25 @@ class Write extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $time = new \DateTime();
-
         $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
-            ItemEnum::POST_IT,
-            $this->player,
-            $this->getActionConfig()->getActionTags(),
-            $time,
-            VisibilityEnum::HIDDEN
+            equipmentName: ItemEnum::POST_IT,
+            equipmentHolder: $this->player,
+            reasons: $this->getActionConfig()->getActionTags(),
+            time: new \DateTime(),
+            visibility: VisibilityEnum::HIDDEN
         );
 
+        $this->statusService->createContentStatus(
+            content: $this->getPostItContent(),
+            holder: $postIt,
+            tags: $this->getActionConfig()->getActionTags(),
+        );
+    }
+
+    private function getPostItContent(): string
+    {
         $params = $this->getParameters();
-        $content = ($params && \array_key_exists('content', $params)) ? $params['content'] : '';
 
-        /** @var ContentStatus $contentStatus */
-        $contentStatus = $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::DOCUMENT_CONTENT,
-            $postIt,
-            $this->getActionConfig()->getActionTags(),
-            new \DateTime(),
-        );
-
-        $contentStatus->setContent($content);
+        return ($params && \array_key_exists('content', $params)) ? $params['content'] : '';
     }
 }

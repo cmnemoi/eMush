@@ -23,6 +23,7 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\ChargeStatusEvent;
 use Mush\Status\Event\StatusEvent;
@@ -313,6 +314,31 @@ class StatusService implements StatusServiceInterface
                 new \DateTime(),
             );
         }
+    }
+
+    /**
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     */
+    public function createContentStatus(
+        string $content,
+        StatusHolderInterface $holder,
+        string $visibility = VisibilityEnum::HIDDEN,
+        array $tags = [],
+        \DateTime $time = new \DateTime()
+    ): ContentStatus {
+        /** @var ContentStatus $status */
+        $status = $this->createStatusFromName(
+            statusName: EquipmentStatusEnum::DOCUMENT_CONTENT,
+            holder: $holder,
+            tags: $tags,
+            time: $time,
+            target: null,
+            visibility: $visibility
+        );
+        $status->setContent($content);
+
+        return $this->persist($status);
     }
 
     private function handleAttemptOnFailure(

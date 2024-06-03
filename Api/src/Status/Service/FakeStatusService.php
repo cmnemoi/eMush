@@ -17,7 +17,9 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ContentStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Factory\StatusFactory;
@@ -171,5 +173,22 @@ final class FakeStatusService implements StatusServiceInterface
     {
         $this->statuses->filter(static fn (Status $status) => $status->getName() === $name)
             ->map(fn (Status $status) => $this->statuses->removeElement($status));
+    }
+
+    /**
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     */
+    public function createContentStatus(
+        string $content,
+        StatusHolderInterface $holder,
+        string $visibility = VisibilityEnum::HIDDEN,
+        array $tags = [],
+        \DateTime $time = new \DateTime()
+    ): ContentStatus {
+        $status = new ContentStatus($holder, new ContentStatusConfig());
+        $status->setContent($content);
+
+        return $this->persist($status);
     }
 }

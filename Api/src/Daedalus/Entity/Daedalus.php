@@ -725,6 +725,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getPilgred()->isFinished();
     }
 
+    public function pilgredIsNotFinished(): bool
+    {
+        return $this->isPilgredFinished() === false;
+    }
+
     public function getDaedalusConfig(): DaedalusConfig
     {
         return $this->getGameConfig()->getDaedalusConfig();
@@ -753,5 +758,10 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getNumberOfFiresKilledByAutoWateringProject(): int
     {
         return $this->getChargeStatusByName(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES)?->getCharge() ?? 0;
+    }
+
+    public function fissionCoffeeRoasterNotReady(): bool
+    {
+        return $this->hasFinishedProject(ProjectName::FISSION_COFFEE_ROASTER) === false || $this->cycle !== 4;
     }
 }

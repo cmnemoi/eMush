@@ -533,6 +533,7 @@ class GameConfigData
                 ProjectName::TRAIL_REDUCER,
                 ProjectName::MAGNETIC_NET,
                 ProjectName::ICARUS_ANTIGRAV_PROPELLER,
+                ProjectName::FISSION_COFFEE_ROASTER,
             ],
         ],
     ];

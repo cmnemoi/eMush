@@ -23,6 +23,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -282,6 +283,58 @@ final class CoffeeActionCest extends AbstractFunctionalTest
             expected: ActionImpossibleCauseEnum::DAILY_LIMIT,
             actual: $this->coffeeAction->cannotExecuteReason()
         );
+    }
+
+    public function shouldBeExecutableAtCycleFourWithFissionCoffeeRoasterProject(FunctionalTester $I): void
+    {
+        // given Daedalus is Day 0 so coffee machine cannot break and make the test fail
+        $this->daedalus->setDay(0);
+
+        // given Daedalus is at cycle 3
+        $this->daedalus->setCycle(3);
+
+        // given I have a coffee machine in Chun's room
+        $coffeeMachine = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::COFFEE_MACHINE,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given Fission Coffee Roaster project is completed
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::FISSION_COFFEE_ROASTER),
+            author: $this->chun,
+            I: $I
+        );
+
+        // given Chun executes the coffee action
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
+        );
+        $this->coffeeAction->execute();
+
+        // when a cycle passes
+        $statusEvent = new DaedalusCycleEvent(
+            $this->daedalus,
+            tags: [EventEnum::NEW_CYCLE],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($statusEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        $I->assertEquals(4, $this->daedalus->getCycle());
+
+        // then Chun should be able to execute the coffee action again
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
+        );
+        $I->assertNull($this->coffeeAction->cannotExecuteReason());
     }
 
     private function createPlayer(Daedalus $daedalus, Place $room): Player

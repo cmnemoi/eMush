@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Normalizer\ProjectNormalizer;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -385,6 +386,86 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                         'actionProvider' => ['class' => $this->terminal->getClassName(), 'id' => $this->terminal->getId()],
                     ],
                 ],
+            ],
+            actual: $normalizedProject
+        );
+    }
+
+    public function shouldNormalizeFissionCoffeeRoasterProject(FunctionalTester $I): void
+    {
+        // given I have Fission Coffee Roaster project
+        $project = $this->daedalus->getProjectByName(ProjectName::FISSION_COFFEE_ROASTER);
+
+        // when I normalize the project
+        $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
+
+        // then I should get the normalized project
+        $I->assertEqualsIgnoringCase(
+            expected: [
+                'id' => $project->getId(),
+                'key' => 'fission_coffee_roaster',
+                'name' => 'Torréfacteur à fission',
+                'description' => 'La machine à café se régénère également au cycle 4.',
+                'lore' => 'Yeehaa !! En branchant un bête accélérateur de particules portatif sur l\'évacuation de la pompe du torréfacteur, il est désormais possible d\'obtenir un café goûtu en moins de 12h !!',
+                'progress' => '0%',
+                'efficiency' => 'Efficacité : 6-9%',
+                'efficiencyTooltipHeader' => 'Efficacité',
+                'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
+                'bonusSkills' => [
+                    [
+                        'key' => SkillEnum::CAFFEINE_JUNKIE,
+                        'name' => 'Caféinomane',
+                        'description' => 'Le Caféinomane travaille deux fois mieux que ses collègues tant qu\'il a accès à la machine à café.//:point: +2:pa: lorsqu\'il consomme un **Café**.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'physicist',
+                        'name' => 'Physicien',
+                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
+                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
+                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
+                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+                'actions' => [
+                    [
+                        'id' => $this->participateActionId,
+                        'key' => ActionEnum::PARTICIPATE->value,
+                        'name' => 'Participer',
+                        'actionPointCost' => 2,
+                        'movementPointCost' => 0,
+                        'moralPointCost' => 0,
+                        'specialistPointCosts' => [],
+                        'successRate' => 100,
+                        'description' => 'Avance le Projet en fonction de vos capacités.',
+                        'canExecute' => true,
+                        'confirmation' => null,
+                        'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
+                    ],
+                ],
+            ],
+            actual: $normalizedProject
+        );
+    }
+
+    public function shouldNormalizeFissionCoffeeRoasterProjectInDaedalusNormalizationContext(FunctionalTester $I): void
+    {
+        // given I have Fission Coffee Roaster project
+        $project = $this->daedalus->getProjectByName(ProjectName::FISSION_COFFEE_ROASTER);
+
+        // when I normalize the project in daedalus normalization context
+        $normalizedProject = $this->projectNormalizer->normalize($project, null, [
+            'currentPlayer' => $this->chun,
+            'normalizing_daedalus' => true,
+        ]);
+
+        // then I should get the normalized project
+        $I->assertEquals(
+            expected: [
+                'type' => 'Projet',
+                'key' => 'fission_coffee_roaster',
+                'name' => 'Torréfacteur à fission',
+                'description' => 'La machine à café se régénère également au cycle 4.',
+                'lore' => 'Yeehaa !! En branchant un bête accélérateur de particules portatif sur l\'évacuation de la pompe du torréfacteur, il est désormais possible d\'obtenir un café goûtu en moins de 12h !!',
             ],
             actual: $normalizedProject
         );

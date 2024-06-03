@@ -325,5 +325,23 @@
         <target>Grâce à ces propulseurs anti-gravité, les manoeuvres de décollage et d'atterissage de l'Icarus deviennent un jeu d'enfant. L'entrée dans l'atmosphère devient d'une simplicité incroyable. Bref l'Icarus, un vaisseau qu'il est bien à faire voler !</target>
       </segment>
     </unit>
+    <unit id="fission_coffee_roaster">
+      <segment id="fission_coffee_roaster.type" state="translated">
+        <source>fission_coffee_roaster.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="fission_coffee_roaster.name" state="translated">
+        <source>fission_coffee_roaster.name</source>
+        <target>Torréfacteur à fission</target>
+      </segment>
+      <segment id="fission_coffee_roaster.description" state="translated">
+        <source>fission_coffee_roaster.description</source>
+        <target>La machine à café se régénère également au cycle 4.</target>
+      </segment>
+      <segment id="fission_coffee_roaster.lore" state="translated">
+        <source>fission_coffee_roaster.lore</source>
+        <target>Yeehaa !! En branchant un bête accélérateur de particules portatif sur l'évacuation de la pompe du torréfacteur, il est désormais possible d'obtenir un café goûtu en moins de 12h !!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

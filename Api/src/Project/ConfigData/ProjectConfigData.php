@@ -225,6 +225,16 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::EXTRA_DRONE,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::ROBOTICS_EXPERT],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

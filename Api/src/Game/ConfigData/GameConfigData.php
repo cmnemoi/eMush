@@ -536,6 +536,7 @@ class GameConfigData
                 ProjectName::FISSION_COFFEE_ROASTER,
                 ProjectName::ARMOUR_CORRIDOR,
                 ProjectName::CALL_OF_DIRTY,
+                ProjectName::EXTRA_DRONE,
             ],
         ],
     ];

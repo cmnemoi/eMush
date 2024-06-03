@@ -31,17 +31,16 @@ export default defineComponent ({
     display: inline-block;
     align-items: stretch;
 
-    &.right-align .dropdown-content {
+    &.align-right .dropdown-content {
         right: 0;
         // align-items: flex-end;
     }
 
     button {
         @include button-style();
-        padding-left: 1em;
-        padding-right: 1em;;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
+        padding: .3em 1em;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
     }
 }
 
@@ -52,14 +51,18 @@ export default defineComponent ({
     z-index: 2;
     min-width: 100%;
     width: max-content;
-    // padding: .4em;
-    // background: #222b6b;
-    // border-radius: 5px;
-    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+    padding: 0 2px;
+    background: darken(#222b6b, 3%);
+    box-shadow: 0px 5px 8px transparentize(black, 0.5);
 
     // transition: visibility .4s;
 
-    &::v-deep(button) { width: auto; }
+    &::v-deep(*) {
+        @include button-style();
+        width: 100%;
+        padding: .4em 1em;
+    }
+    
 }
 
 .dropdown:hover,

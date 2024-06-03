@@ -70,10 +70,12 @@
                 Actions
             </template>
             <template #row-actions="player">
-                <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': player.id} }">{{ $t("moderation.goToPlayerDetails") }}</router-link>
-                <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
-                <router-link :to="{ name: 'SanctionListPage', params: { username: player.user.username, userId : player.user.userId } }">{{ $t('moderation.sanctionList') }}</router-link>
-                <button class="action-button" @click="closePlayer(player.id)" v-if="isAdmin && player.gameStatus === $t('moderation.playerList.gameStatuses.finished')">{{ $t("admin.playerList.closePlayer") }}</button>
+                <DropList class="align-right">
+                    <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': player.id} }">{{ $t("moderation.goToPlayerDetails") }}</router-link>
+                    <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
+                    <router-link :to="{ name: 'SanctionListPage', params: { username: player.user.username, userId : player.user.userId } }">{{ $t('moderation.sanctionList') }}</router-link>
+                    <button class="action-button" @click="closePlayer(player.id)" v-if="isAdmin && player.gameStatus === $t('moderation.playerList.gameStatuses.finished')">{{ $t("admin.playerList.closePlayer") }}</button>
+                </DropList>
             </template>
         </Datatable>
     </div>
@@ -82,6 +84,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
+import DropList from "@/components/Utils/DropList.vue";
 import qs from "qs";
 import AdminService from "@/services/admin.service";
 import { format } from "date-fns";
@@ -93,7 +96,8 @@ import { characterEnum } from "@/enums/character";
 export default defineComponent({
     name: "ModerationPlayerListPage",
     components: {
-        Datatable
+        Datatable,
+        DropList
     },
     computed: {
         ...mapGetters({

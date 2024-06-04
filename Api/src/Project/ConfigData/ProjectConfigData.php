@@ -244,6 +244,7 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::PILOT, SkillEnum::SHOOTER],
                 'activationRate' => 100,
                 'modifierConfigs' => [
+                    'modifier_for_daedalus_-1hunter_health_on_change.variable',
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],

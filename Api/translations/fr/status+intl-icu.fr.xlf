@@ -1579,10 +1579,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>shooter.description</source>
-        <target>Le tireur manipule les armes de tout type avec beaucoup d'aisance.//
-        :point: +2 **Tirs gratuits** :pa_shoot: par jour.//
-        :point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.//
-        :point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le Tireur manipule les armes de tout type avec beaucoup d'aisance.//:point: +2 **Tirs gratuits** :pa_shoot: par jour.//:point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="technician">

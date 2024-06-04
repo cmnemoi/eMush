@@ -164,5 +164,15 @@
         <target>Le Caféinomane travaille deux fois mieux que ses collègues tant qu'il a accès à la machine à café.//:point: +2:pa: lorsqu'il consomme un **Café**.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
+    <unit id="shooter">
+      <segment id="name" state="translated">
+        <source>shooter.name</source>
+        <target>Tireur</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shooter.description</source>
+        <target>Le Tireur manipule les armes de tout type avec beaucoup d'aisance.//:point: +2 **Tirs gratuits** :pa_shoot: par jour.//:point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.//:point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

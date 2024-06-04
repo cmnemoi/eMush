@@ -297,7 +297,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
 
     public function testMakeHuntersShootAsteroidFullHealth(FunctionalTester $I): void
     {
-        $daedalus = $this->createDaedalusForAsteroidTest($I);
+        $daedalus = $this->getDaedalusForAsteroidTest($I);
 
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
@@ -318,7 +318,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
 
     public function testMakeHuntersShootAsteroidNotFullHealth(FunctionalTester $I)
     {
-        $daedalus = $this->createDaedalusForAsteroidTest($I);
+        $daedalus = $this->getDaedalusForAsteroidTest($I);
 
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
@@ -359,7 +359,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
 
     public function testMakeHuntersShootAsteroidNotDestroyedIfCantShoot(FunctionalTester $I)
     {
-        $daedalus = $this->createDaedalusForAsteroidTest($I);
+        $daedalus = $this->getDaedalusForAsteroidTest($I);
 
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
@@ -445,7 +445,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
     public function shouldNotReduceShieldIfHunterShootingIsAsteroid(FunctionalTester $I): void
     {
         // given I have one asteroid
-        $daedalus = $this->createDaedalusForAsteroidTest($I);
+        $daedalus = $this->getDaedalusForAsteroidTest($I);
 
         // remove asteroid truce status
         $asteroid = $daedalus->getAttackingHunters()->first();
@@ -473,75 +473,98 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         );
     }
 
-    private function createDaedalusForAsteroidTest(FunctionalTester $I): Daedalus
+    public function hunterShouldMakeOneLessDamageToHullWithArmourCorridorProject(FunctionalTester $I): void
     {
-        /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        // given I have one hunter
+        $hunter = $this->createHunterTargetingDaedalusByName($I, HunterEnum::HUNTER);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = new Daedalus();
-        $daedalus
+        // given this hunter deals 6 damage
+        $hunter->getHunterConfig()->setDamageRange([6 => 1]);
+
+        // given Armour Corridor project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::ARMOUR_CORRIDOR),
+            author: $this->player,
+            I: $I
+        );
+
+        // when I make the hunter shoot
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // then the hull should be damaged by 1 less
+        $I->assertEquals(
+            expected: $this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull() - 5,
+            actual: $this->daedalus->getHull(),
+        );
+    }
+
+    public function asteroidShouldMakeOneLessDamageToHullWithArmourCorridorProject(FunctionalTester $I): void
+    {
+        // given I have one asteroid
+        $daedalus = $this->getDaedalusForAsteroidTest($I);
+
+        /** @var Hunter $asteroid */
+        $asteroid = $daedalus->getAttackingHunters()->first();
+
+        // remove asteroid truce status
+        $truceStatus = $asteroid->getStatusByNameOrThrow(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
+        $asteroid->removeStatus($truceStatus);
+
+        // given this asteroid has 6 health
+        $asteroid->setHealth(6);
+
+        // given Armour Corridor project is finished
+        $this->finishProject(
+            project: $daedalus->getProjectByName(ProjectName::ARMOUR_CORRIDOR),
+            author: $this->player,
+            I: $I
+        );
+
+        // when I make the asteroid shoot
+        $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
+
+        // then the hull should be damaged by 1 less
+        $I->assertEquals(
+            expected: $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull() - 5,
+            actual: $daedalus->getHull(),
+        );
+    }
+
+    private function getDaedalusForAsteroidTest(FunctionalTester $I): Daedalus
+    {
+        $this->daedalus
             ->setDay(5) // so asteroid can spawn
-            ->setCycle(0)
-            ->setDaedalusVariables($daedalusConfig)
-            ->setCycleStartedAt(new \DateTime());
+            ->setCycle(0);
 
-        $I->haveInRepository($daedalus);
-
-        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PLASMA_SHIELD]);
-        $project = new Project($projectConfig, $daedalus);
-        $I->haveInRepository($project);
-
-        $this->daedalus->addProject($project);
-
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         // only asteroids can spawn
+        $gameConfig = $this->daedalus->getGameConfig();
         $gameConfig->setHunterConfigs(
             $gameConfig->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)
         );
 
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-        $neron = new Neron();
-        $I->haveInRepository($neron);
+        $I->haveInRepository($this->daedalus);
 
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo
-            ->setName(Uuid::v4()->toRfc4122())
-            ->setNeron($neron);
-        $I->haveInRepository($daedalusInfo);
-
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
-        $I->haveInRepository($channel);
-
-        $I->haveInRepository($daedalusInfo);
-
-        $places = $this->createPlaces($I, $daedalus);
-        $daedalus->setPlaces($places);
-
-        $daedalus->setDaedalusVariables($daedalusConfig);
-
-        $I->haveInRepository($daedalus);
-
-        $daedalus->setHunterPoints(25);
-        $hunterPoolEvent = new HunterPoolEvent($daedalus, ['test'], new \DateTime());
+        $this->daedalus->setHunterPoints(25);
+        $hunterPoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
         /** @var Hunter $asteroid */
-        $asteroid = $daedalus
+        $asteroid = $this->daedalus
             ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
             ->first();
         $hunterTarget = new HunterTarget($asteroid);
-        $hunterTarget->setTargetEntity($daedalus);
+        $hunterTarget->setTargetEntity($this->daedalus);
         $asteroid->setTarget($hunterTarget);
         $I->haveInRepository($asteroid);
 
-        return $daedalus;
+        // delete hunters
+        $hunters = $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER);
+        foreach ($hunters as $hunter) {
+            $this->daedalus->removeHunter($hunter);
+        }
+
+        return $this->daedalus;
     }
 
     private function createDaedalusForD1000Test(FunctionalTester $I): Daedalus

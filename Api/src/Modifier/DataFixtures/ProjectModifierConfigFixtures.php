@@ -8,9 +8,11 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Hunter\Event\HunterEvent;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -63,6 +65,18 @@ final class ProjectModifierConfigFixtures extends Fixture
 
         $manager->persist($cpuOverclock);
         $this->addReference($cpuOverclock->getName(), $cpuOverclock);
+
+        $armourCorridorModifier = new VariableEventModifierConfig('modifier_for_daedalus_+1hull_on_change.variable_if_reason_hunter_shot');
+        $armourCorridorModifier
+            ->setTargetVariable(DaedalusVariableEnum::HULL)
+            ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([HunterEvent::HUNTER_SHOT => ModifierRequirementEnum::ALL_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($armourCorridorModifier);
+        $this->addReference($armourCorridorModifier->getName(), $armourCorridorModifier);
 
         $manager->flush();
     }

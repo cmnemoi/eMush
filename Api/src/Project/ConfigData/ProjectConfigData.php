@@ -207,7 +207,9 @@ abstract class ProjectConfigData
                 'efficiency' => 3,
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::PHYSICIST],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_+1hull_on_change.variable_if_reason_hunter_shot',
+                ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],

@@ -47,9 +47,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         // then I should see 5 metal scrap in Engine Room
         $I->assertCount(
             expectedCount: 5,
-            haystack: $engineRoom->getEquipments()->filter(
-                static fn (GameItem $item) => $item->getName() === ItemEnum::METAL_SCRAPS
-            )
+            haystack: $engineRoom->getAllEquipmentsByName(ItemEnum::METAL_SCRAPS)
         );
     }
 
@@ -79,17 +77,13 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         // then I should see one Auxiliary Terminal in medlab
         $I->assertCount(
             expectedCount: 1,
-            haystack: $medlab->getEquipments()->filter(
-                static fn (GameEquipment $equipment) => $equipment->getName() === EquipmentEnum::AUXILIARY_TERMINAL
-            )
+            haystack: $medlab->getAllEquipmentsByName(EquipmentEnum::AUXILIARY_TERMINAL)
         );
 
         // and another one in engine room
         $I->assertCount(
             expectedCount: 1,
-            haystack: $engineRoom->getEquipments()->filter(
-                static fn (GameEquipment $equipment) => $equipment->getName() === EquipmentEnum::AUXILIARY_TERMINAL
-            )
+            haystack: $engineRoom->getAllEquipmentsByName(EquipmentEnum::AUXILIARY_TERMINAL)
         );
     }
 
@@ -98,7 +92,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         $room = $this->player->getPlace();
 
         // given I have a Shower in my current room.
-        $equipment = $this->gameEquipmentService->createGameEquipmentFromName(
+        $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::SHOWER,
             equipmentHolder: $room,
             reasons: [],
@@ -113,19 +107,14 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         );
 
         // then the room should not contain a shower
-        $I->assertCount(
-            expectedCount: 0,
-            haystack: $room->getEquipments()->filter(
-                static fn (GameEquipment $equipment) => $equipment->getName() === EquipmentEnum::SHOWER
-            )
+        $I->assertTrue(
+            condition: $room->getAllEquipmentsByName(EquipmentEnum::SHOWER)->isEmpty()
         );
 
         // but the room should contain a thalasso
         $I->assertCount(
             expectedCount: 1,
-            haystack: $room->getEquipments()->filter(
-                static fn (GameEquipment $equipment) => $equipment->getName() === EquipmentEnum::THALASSO
-            )
+            haystack: $room->getAllEquipmentsByName(EquipmentEnum::THALASSO)
         );
     }
 }

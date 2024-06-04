@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Equipment\Event;
 
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -28,69 +28,29 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    public function shouldCreateItemWhenProjectIsFinished(FunctionalTester $I): void
+    #[DataProvider(method: 'shouldCreateEquipmentWhenProjectIsFinishedDataProvider')]
+    public function shouldCreateEquipmentWhenProjectIsFinished(FunctionalTester $I, Example $example): void
     {
-        // given Daedalus has an engine room
-        $engineRoom = $this->createExtraPlace(
-            placeName: RoomEnum::ENGINE_ROOM,
-            I: $I,
-            daedalus: $this->daedalus
-        );
+        // given I have the equipment creation places in this Daedalus
+        $places = [];
+        foreach ($example['creationPlaces'] as $creationPlace) {
+            $places[] = $this->createExtraPlace(placeName: $creationPlace, I: $I, daedalus: $this->daedalus);
+        }
 
-        // when Dismantling project is finished
+        // when I finish the project
         $this->finishProject(
-            project: $this->daedalus->getProjectByName(ProjectName::DISMANTLING),
+            project: $this->daedalus->getProjectByName(ProjectName::from($example['project'])),
             author: $this->chun,
             I: $I
         );
 
-        // then I should see 5 metal scrap in Engine Room
-        $I->assertCount(
-            expectedCount: 5,
-            haystack: $engineRoom->getEquipments()->filter(
-                static fn (GameItem $item) => $item->getName() === ItemEnum::METAL_SCRAPS
-            )
-        );
-    }
-
-    public function shouldCreateEquipmentWhenProjectIsFinished(FunctionalTester $I): void
-    {
-        // given Daedalus has a medlab room
-        $medlab = $this->createExtraPlace(
-            placeName: RoomEnum::MEDLAB,
-            I: $I,
-            daedalus: $this->daedalus
-        );
-
-        // and an engine room
-        $engineRoom = $this->createExtraPlace(
-            placeName: RoomEnum::ENGINE_ROOM,
-            I: $I,
-            daedalus: $this->daedalus
-        );
-
-        // when Auxiliary Terminal project is finished
-        $this->finishProject(
-            project: $this->daedalus->getProjectByName(ProjectName::AUXILIARY_TERMINAL),
-            author: $this->chun,
-            I: $I
-        );
-
-        // then I should see one Auxiliary Terminal in medlab
-        $I->assertCount(
-            expectedCount: 1,
-            haystack: $medlab->getEquipments()->filter(
-                static fn (GameEquipment $equipment) => $equipment->getName() === EquipmentEnum::AUXILIARY_TERMINAL
-            )
-        );
-
-        // and another one in engine room
-        $I->assertCount(
-            expectedCount: 1,
-            haystack: $engineRoom->getEquipments()->filter(
-                static fn (GameEquipment $equipment) => $equipment->getName() === EquipmentEnum::AUXILIARY_TERMINAL
-            )
-        );
+        // then the places should contain the equipment in the expected quantity
+        foreach ($places as $place) {
+            $I->assertCount(
+                expectedCount: $example['quantity'],
+                haystack: $place->getAllEquipmentsByName($example['equipment'])
+            );
+        }
     }
 
     public function shouldReplaceEquipmentWhenProjectIsFinished(FunctionalTester $I): void
@@ -98,7 +58,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         $room = $this->player->getPlace();
 
         // given I have a Shower in my current room.
-        $equipment = $this->gameEquipmentService->createGameEquipmentFromName(
+        $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::SHOWER,
             equipmentHolder: $room,
             reasons: [],
@@ -113,19 +73,44 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         );
 
         // then the room should not contain a shower
-        $I->assertCount(
-            expectedCount: 0,
-            haystack: $room->getEquipments()->filter(
-                static fn (GameEquipment $equipment) => $equipment->getName() === EquipmentEnum::SHOWER
-            )
+        $I->assertTrue(
+            condition: $room->getAllEquipmentsByName(EquipmentEnum::SHOWER)->isEmpty()
         );
 
-        // but the room should contain a thalasso
+        // but the room should contain 1 thalasso
         $I->assertCount(
             expectedCount: 1,
-            haystack: $room->getEquipments()->filter(
-                static fn (GameEquipment $equipment) => $equipment->getName() === EquipmentEnum::THALASSO
-            )
+            haystack: $room->getAllEquipmentsByName(EquipmentEnum::THALASSO)
         );
+    }
+
+    private function shouldCreateEquipmentWhenProjectIsFinishedDataProvider(): array
+    {
+        return [
+            [
+                'project' => ProjectName::DISMANTLING->value,
+                'equipment' => ItemEnum::METAL_SCRAPS,
+                'quantity' => 5,
+                'creationPlaces' => [RoomEnum::ENGINE_ROOM],
+            ],
+            [
+                'project' => ProjectName::AUXILIARY_TERMINAL->value,
+                'equipment' => EquipmentEnum::AUXILIARY_TERMINAL,
+                'quantity' => 1,
+                'creationPlaces' => [RoomEnum::MEDLAB, RoomEnum::ENGINE_ROOM],
+            ],
+            [
+                'project' => ProjectName::TRASH_LOAD->value,
+                'equipment' => ItemEnum::METAL_SCRAPS,
+                'quantity' => 4,
+                'creationPlaces' => [RoomEnum::ENGINE_ROOM],
+            ],
+            [
+                'project' => ProjectName::TRASH_LOAD->value,
+                'equipment' => ItemEnum::PLASTIC_SCRAPS,
+                'quantity' => 4,
+                'creationPlaces' => [RoomEnum::ENGINE_ROOM],
+            ],
+        ];
     }
 }

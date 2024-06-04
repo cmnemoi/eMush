@@ -208,7 +208,10 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::ROBOTICS_EXPERT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
-                'spawnEquipmentConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    '4_metal_scraps_in_engine_room',
+                    '4_plastic_scraps_in_engine_room',
+                ],
                 'replaceEquipmentConfigs' => [],
             ],
         ];

@@ -41,6 +41,18 @@ abstract class SpawnEquipmentConfigData
                 placeName: RoomEnum::ENGINE_ROOM,
                 quantity: 1,
             ),
+            new SpawnEquipmentConfigDto(
+                name: '4_metal_scraps_in_engine_room',
+                equipmentName: ItemEnum::METAL_SCRAPS,
+                placeName: RoomEnum::ENGINE_ROOM,
+                quantity: 4,
+            ),
+            new SpawnEquipmentConfigDto(
+                name: '4_plastic_scraps_in_engine_room',
+                equipmentName: ItemEnum::PLASTIC_SCRAPS,
+                placeName: RoomEnum::ENGINE_ROOM,
+                quantity: 4,
+            ),
         ];
     }
 }

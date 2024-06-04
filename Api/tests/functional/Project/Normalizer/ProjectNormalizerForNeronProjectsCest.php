@@ -338,30 +338,13 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
-        ];
-    }
-
-    public function shouldNormalizeCallOfDirtyProject(FunctionalTester $I): void
-    {
-        // given I have Call of Dirty project
-        $project = $this->daedalus->getProjectByName(ProjectName::CALL_OF_DIRTY);
-
-        // when I normalize the project
-        $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
-
-        // then I should get the normalized project
-        $I->assertEqualsIgnoringCase(
-            expected: [
-                'id' => $project->getId(),
-                'key' => 'call_of_dirty',
-                'name' => 'Dynarcade',
-                'description' => 'Rend disponible la Dynarcade en Baie Alpha 2. Permet de se défouler au détriment de quelques contusions. La Dynarcade permet de regagner du moral.',
-                'lore' => 'La Dynarcade, cette vieille machine de guerre bricolée pour l\'entraînement des bleusailles peut facilement être recyclée en jeu vidéo.',
-                'progress' => '0%',
-                'efficiency' => 'Efficacité : 18-27%',
-                'efficiencyTooltipHeader' => 'Efficacité',
-                'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
-                'bonusSkills' => [
+            [
+                'projectKey' => 'call_of_dirty',
+                'projectName' => 'Dynarcade',
+                'projectDescription' => 'Rend disponible la Dynarcade en Baie Alpha 2. Permet de se défouler au détriment de quelques contusions. La Dynarcade permet de regagner du moral.',
+                'projectLore' => 'La Dynarcade, cette vieille machine de guerre bricolée pour l\'entraînement des bleusailles peut facilement être recyclée en jeu vidéo.',
+                'projectEfficiency' => 'Efficacité : 18-27%',
+                'projectBonusSkills' => [
                     [
                         'key' => 'technician',
                         'name' => 'Technicien',
@@ -379,24 +362,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                         'description' => 'Le Tireur manipule les armes de tout type avec beaucoup d\'aisance.//:point: +2 **Tirs gratuits** :pa_shoot: par jour.//:point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
-                'actions' => [
-                    [
-                        'id' => $this->participateActionId,
-                        'key' => ActionEnum::PARTICIPATE->value,
-                        'name' => 'Participer',
-                        'actionPointCost' => 2,
-                        'movementPointCost' => 0,
-                        'moralPointCost' => 0,
-                        'specialistPointCosts' => [],
-                        'successRate' => 100,
-                        'description' => 'Avance le Projet en fonction de vos capacités.',
-                        'canExecute' => true,
-                        'confirmation' => null,
-                        'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
-                    ],
-                ],
             ],
-            actual: $normalizedProject
-        );
+        ];
     }
 }

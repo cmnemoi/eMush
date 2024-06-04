@@ -255,7 +255,9 @@ abstract class ProjectConfigData
                 'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::PILOT, SkillEnum::TECHNICIAN],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    'modifier_for_player_x1.5percentage_for_takeoff_and_land_actions',
+                ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],

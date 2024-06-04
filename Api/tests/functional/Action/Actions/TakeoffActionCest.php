@@ -25,6 +25,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
@@ -472,6 +473,31 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             expected: EndCauseEnum::INJURY,
             actual: $this->player1->getPlayerInfo()->getClosedPlayer()->getEndCause(),
         );
+    }
+
+    public function shouldHaveIncreasedChanceOfCriticalSuccessWithBayDoorXXLProject(FunctionalTester $I): void
+    {
+        // given land action has a 75% critical rate
+        $this->action->setCriticalRate(75);
+
+        // given Bay Door XXL project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::BAY_DOOR_XXL),
+            author: $this->player,
+            I: $I
+        );
+
+        // when player lands
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
+        $result = $this->takeoffAction->execute();
+
+        // then landing should always be a critical success thanks to increased chances
+        $I->assertInstanceOf(CriticalSuccess::class, $result);
     }
 
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void

@@ -37,8 +37,8 @@ enum ProjectName: string
     case NULL = '';
     case OXY_MORE = 'oxy_more';
     case PARASITE_ELIM = 'parasite_elim';
-    case PATROL_SHIP_BLASTER_GUN = 'patrol_ship_blaster_gun';
-    case PATROL_SHIP_EXTRA_AMMO = 'patrol_ship_extra_ammo';
+    case PATROLSHIP_BLASTER_GUN = 'patrolship_blaster_gun';
+    case PATROLSHIP_EXTRA_AMMO = 'patrolship_extra_ammo';
     case PATROL_SHIP_LAUNCHER = 'patrol_ship_launcher';
     case PILGRED = 'pilgred';
     case PLASMA_SHIELD = 'plasma_shield';

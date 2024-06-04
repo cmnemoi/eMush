@@ -220,7 +220,9 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::SHOOTER],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
-                'spawnEquipmentConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    '1_dynarcade_in_alpha_bay_2',
+                ],
                 'replaceEquipmentConfigs' => [],
             ],
         ];

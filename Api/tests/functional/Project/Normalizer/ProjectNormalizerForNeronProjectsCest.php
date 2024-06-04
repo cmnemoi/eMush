@@ -449,6 +449,37 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'bay_door_xxl',
+                'projectName' => 'Portail de décollage extra-large',
+                'projectDescription' => 'Les manœuvres de décollage et d’atterrissage sont beaucoup plus simples.',
+                'projectLore' => 'Après de savants calculs, les ingénieurs de la Fédération avaient publié un superbe rapport sur la corrélation entre la taille des portes des baies et la facilité de décollage. Étonnant.',
+                'projectEfficiency' => 'Efficacité : 6-9%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'pilot',
+                        'name' => 'Pilote',
+                        'description' => 'Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa
+                    maîtrise aérienne est impressionnante.
+                    //
+                    :point: **Chances doublées** de toucher en Patrouilleur.
+                    //
+                    :point: **Ne rate jamais** les atterrissages et décollages.
+                    //
+                    :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'technician',
+                        'name' => 'Technicien',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
+        :point: Peut **Démonter** des objets.//
+        :point: Chances de réussites doublées pour les **Réparations**.//
+        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

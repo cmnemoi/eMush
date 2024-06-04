@@ -249,6 +249,16 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::BAY_DOOR_XXL,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::PILOT, SkillEnum::TECHNICIAN],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

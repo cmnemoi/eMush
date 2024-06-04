@@ -343,5 +343,23 @@
         <target>Yeehaa !! En branchant un bête accélérateur de particules portatif sur l'évacuation de la pompe du torréfacteur, il est désormais possible d'obtenir un café goûtu en moins de 12h !!</target>
       </segment>
     </unit>
+    <unit id="trash_load">
+      <segment id="trash_load.type" state="translated">
+        <source>trash_load.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="trash_load.name" state="translated">
+        <source>trash_load.name</source>
+        <target>Tas de débris</target>
+      </segment>
+      <segment id="trash_load.description" state="translated">
+        <source>trash_load.description</source>
+        <target>Génère 4 débris métalliques et 4 débris plastiques.</target>
+      </segment>
+      <segment id="trash_load.lore" state="translated">
+        <source>trash_load.lore</source>
+        <target>L'ennemi est trop coriace ? Mettez donc un peu de fer dans les épinards !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

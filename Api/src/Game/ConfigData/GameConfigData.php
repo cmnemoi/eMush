@@ -534,6 +534,7 @@ class GameConfigData
                 ProjectName::MAGNETIC_NET,
                 ProjectName::ICARUS_ANTIGRAV_PROPELLER,
                 ProjectName::FISSION_COFFEE_ROASTER,
+                ProjectName::TRASH_LOAD,
             ],
         ],
     ];

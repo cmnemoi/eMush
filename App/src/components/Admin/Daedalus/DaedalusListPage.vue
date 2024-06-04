@@ -22,25 +22,25 @@
                     @change="updateFilter"
                 >
             </label>
-            <router-link :to="{ name: 'AdminDaedalusCreate' }">{{$t("admin.daedalus.create")}}</router-link>
-            <router-link :to="{ name: 'AdminNeronAnnouncement' }">{{$t("admin.neronAnnouncement.sendNeronAnnouncement")}}</router-link>
-            <button class = "action-button" type="button" @click="destroyAllDaedaluses">
-                {{$t("admin.daedalus.destroyAllDaedaluses")}}
-            </button>
-            <button
-                class="action-button"
-                type="button"
-                @click="removeGameFromMaintenance"
-                v-if="gameInMaintenance()">
-                {{$t("admin.daedalus.maintenanceOff")}}
-            </button>
-            <button
-                class="action-button"
-                type="button"
-                @click="putGameInMaintenance"
-                v-else>
-                {{$t("admin.daedalus.maintenanceOn")}}
-            </button>
+            <DropList class="align-right" :name="$t('admin.daedalus.globalActions')">
+                <router-link :to="{ name: 'AdminDaedalusCreate' }">{{$t("admin.daedalus.create")}}</router-link>
+                <router-link :to="{ name: 'AdminNeronAnnouncement' }">{{$t("admin.neronAnnouncement.sendNeronAnnouncement")}}</router-link>
+                <button type="button" @click="destroyAllDaedaluses">
+                    {{$t("admin.daedalus.destroyAllDaedaluses")}}
+                </button>
+                <button
+                    type="button"
+                    @click="removeGameFromMaintenance"
+                    v-if="gameInMaintenance()">
+                    {{$t("admin.daedalus.maintenanceOff")}}
+                </button>
+                <button
+                    type="button"
+                    @click="putGameInMaintenance"
+                    v-else>
+                    {{$t("admin.daedalus.maintenanceOn")}}
+                </button>
+            </DropList>
         </div>
         <Datatable
             :headers='fields'
@@ -62,36 +62,28 @@
                 Actions
             </template>
             <template #row-actions="slotProps">
-                <div class="flex-row">
+                <DropList class="align-right" v-if="!daedalusIsFinished(slotProps)">
                     <button
-                        v-if="!daedalusIsFinished(slotProps)"
-                        class="action-button"
                         type="button"
                         @click="destroyDaedalus(slotProps.id)">
                         {{ $t("admin.daedalus.destroy") }}
                     </button>
                     <button
-                        v-if="!daedalusIsFinished(slotProps)"
-                        class="action-button"
                         type="button"
                         @click="unlockDaedalus(slotProps.id)">
                         {{ $t("admin.daedalus.unlock") }}
                     </button>
                     <button
-                        v-if="!daedalusIsFinished(slotProps)"
-                        class="action-button"
                         type="button"
                         @click="addNewRoomsToDaedalus(slotProps.id)">
                         {{ $t("admin.daedalus.addNewRooms") }}
                     </button>
                     <button
-                        v-if="!daedalusIsFinished(slotProps)"
-                        class="action-button"
                         type="button"
                         @click="deleteDaedalusDuplicatedAlertElements(slotProps.id)">
                         {{ $t("admin.daedalus.deleteDuplicatedAlertElements") }}
                     </button>
-                </div>
+                </DropList>
             </template>
 
         </Datatable>
@@ -102,6 +94,7 @@
 import { defineComponent } from "vue";
 import urlJoin from "url-join";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
+import DropList from "@/components/Utils/DropList.vue";
 import qs from "qs";
 import ApiService from "@/services/api.service";
 import { format } from "date-fns";
@@ -114,7 +107,8 @@ import { mapActions, mapGetters } from "vuex";
 export default defineComponent({
     name: "DeadalusListPage",
     components: {
-        Datatable
+        Datatable,
+        DropList
     },
     data() {
         return {
@@ -288,11 +282,5 @@ export default defineComponent({
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
-
-    a {
-        @include button-style();
-        padding: 2px 15px 4px;
-    }
 }
-
 </style>

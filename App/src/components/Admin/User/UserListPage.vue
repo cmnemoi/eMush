@@ -42,20 +42,21 @@
                 Actions
             </template>
             <template #row-actions="user">
-                <router-link :to="{ name: 'SanctionListPage', params: { username: user.username, userId : user.userId } }">{{ $t('moderation.sanctionList') }}</router-link>
-                <router-link :to="{ name: 'ModerationUserListUserPage', params: { userId : user.userId } }">{{ $t('moderation.goToUserProfile') }}</router-link>
-                <Tippy
-                    tag="button"
-                    class="action-button"
-                    v-if="!user.isBanned"
-                    @click="openModerationDialog(user)">
-                    {{ $t('moderation.sanction.ban_user') }}
-                    <template #content>
-                        <h1>{{ $t('moderation.sanction.ban_user') }}</h1>
-                        <p>{{ $t('moderation.sanction.banDescription') }}</p>
-                    </template>
-                </Tippy>
-                <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isAdmin">{{ $t('admin.edit') }}</router-link>
+                <DropList class="align-right">
+                    <router-link :to="{ name: 'SanctionListPage', params: { username: user.username, userId : user.userId } }">{{ $t('moderation.sanctionList') }}</router-link>
+                    <router-link :to="{ name: 'ModerationUserListUserPage', params: { userId : user.userId } }">{{ $t('moderation.goToUserProfile') }}</router-link>
+                    <Tippy
+                        tag="button"
+                        v-if="!user.isBanned"
+                        @click="openModerationDialog(user)">
+                        {{ $t('moderation.sanction.ban_user') }}
+                        <template #content>
+                            <h1>{{ $t('moderation.sanction.ban_user') }}</h1>
+                            <p>{{ $t('moderation.sanction.banDescription') }}</p>
+                        </template>
+                    </Tippy>
+                    <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isAdmin">{{ $t('admin.edit') }}</router-link>
+                </DropList>
             </template>
         </Datatable>
     </div>
@@ -65,6 +66,7 @@
 import { defineComponent } from "vue";
 import urlJoin from "url-join";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
+import DropList from "@/components/Utils/DropList.vue";
 import qs from "qs";
 import ApiService from "@/services/api.service";
 import { mapGetters } from "vuex";
@@ -94,7 +96,8 @@ export default defineComponent({
     name: "UserListPage",
     components: {
         ModerationActionPopup,
-        Datatable
+        Datatable,
+        DropList
     },
     computed: {
         ...mapGetters({

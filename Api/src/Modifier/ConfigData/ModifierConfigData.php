@@ -9,6 +9,7 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Communication\Event\MessageEvent;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -17,6 +18,7 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Hunter\Event\HunterEvent;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
@@ -2161,6 +2163,25 @@ abstract class ModifierConfigData
                 ModifierRequirementEnum::SKILL_IN_ROOM . '_shrink',
             ],
             'tagConstraints' => [],
+        ],
+        [
+            'name' => 'modifier_for_daedalus_+1hull_on_change.variable_if_reason_hunter_shot',
+            'modifierName' => null,
+            'targetEvent' => 'change.variable',
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 1,
+            'targetVariable' => DaedalusVariableEnum::HULL,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                HunterEvent::HUNTER_SHOT => ModifierRequirementEnum::ALL_TAGS,
+            ],
         ],
     ];
 }

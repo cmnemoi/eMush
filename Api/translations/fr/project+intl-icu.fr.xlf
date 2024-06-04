@@ -343,5 +343,23 @@
         <target>Yeehaa !! En branchant un bête accélérateur de particules portatif sur l'évacuation de la pompe du torréfacteur, il est désormais possible d'obtenir un café goûtu en moins de 12h !!</target>
       </segment>
     </unit>
+    <unit id="armour_corridor">
+      <segment id="armour_corridor.type" state="translated">
+        <source>armour_corridor.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="armour_corridor.name" state="translated">
+        <source>armour_corridor.name</source>
+        <target>Coursives blindées</target>
+      </segment>
+      <segment id="armour_corridor.description" state="translated">
+        <source>armour_corridor.description</source>
+        <target>Chaque attaque subie par le Daedalus est diminuée d'un point.</target>
+      </segment>
+      <segment id="armour_corridor.lore" state="translated">
+        <source>armour_corridor.lore</source>
+        <target>Eurêka ! Dans Magellan, les fibres optiques qui longent les coursives peuvent se compresser automatiquement pour pouvoir rajouter facilement des câbles. En injectant des câbles en trop, vous pouvez créer une pseudo armure !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -201,6 +201,18 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::ARMOUR_CORRIDOR,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 3,
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::PHYSICIST],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_+1hull_on_change.variable_if_reason_hunter_shot',
+                ],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

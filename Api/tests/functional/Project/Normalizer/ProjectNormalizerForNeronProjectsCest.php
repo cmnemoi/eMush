@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Project\Normalizer;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Normalizer\ProjectNormalizer;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -58,10 +59,11 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
         $this->participateActionId = $this->terminal->getMechanicActionByNameOrThrow(ActionEnum::PARTICIPATE)->getId();
     }
 
-    public function shouldNormalizeBricBrocProject(FunctionalTester $I): void
+    #[DataProvider('normalizedProjectsdataProvider')]
+    public function shouldNormalizeProject(FunctionalTester $I, Example $example): void
     {
-        // given I have Bric Broc project
-        $project = $this->daedalus->getProjectByName(ProjectName::BRIC_BROC);
+        // given I have a project
+        $project = $this->daedalus->getProjectByName(ProjectName::from($example['projectKey']));
 
         // when I normalize the project
         $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
@@ -70,26 +72,15 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
         $I->assertEqualsIgnoringCase(
             expected: [
                 'id' => $project->getId(),
-                'key' => 'bric_broc',
-                'name' => 'Rafistolage Général',
-                'description' => 'À chaque cycle, le Daedalus a 15% de chances de ne pas partir en miette...',
-                'lore' => 'Quelqu\'un a pensé à REVISSER les plaques de tôles ?',
+                'key' => $example['projectKey'],
+                'name' => $example['projectName'],
+                'description' => $example['projectDescription'],
+                'lore' => $example['projectLore'],
                 'progress' => '0%',
-                'efficiency' => 'Efficacité : 6-9%',
+                'efficiency' => $example['projectEfficiency'],
                 'efficiencyTooltipHeader' => 'Efficacité',
                 'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
-                'bonusSkills' => [
-                    [
-                        'key' => 'conceptor',
-                        'name' => 'Concepteur',
-                        'description' => 'Le Concepteur dispose de deux actions gratuites chaque jour pour utiliser le Cœur de NERON.//:point: +2 :pa_core: (points d\'action **Conception**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
-                    ],
-                    [
-                        'key' => 'creative',
-                        'name' => 'Créatif',
-                        'description' => 'Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre *1* :pa:.//:point: Bonus pour développer certains **Projets NERON**.',
-                    ],
-                ],
+                'bonusSkills' => $example['projectBonusSkills'],
                 'actions' => [
                     [
                         'id' => $this->participateActionId,
@@ -111,10 +102,11 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNormalizeBricBrocProjectInDaedalusNormalizationContext(FunctionalTester $I): void
+    #[DataProvider('normalizedProjectsdataProvider')]
+    public function shouldNormalizeProjectInDaedalusNormalizationContext(FunctionalTester $I, Example $example): void
     {
-        // given I have Bric Broc project
-        $project = $this->daedalus->getProjectByName(ProjectName::BRIC_BROC);
+        // given I have a
+        $project = $this->daedalus->getProjectByName(ProjectName::from($example['projectKey']));
 
         // when I normalize the project in daedalus normalization context
         $normalizedProject = $this->projectNormalizer->normalize($project, null, [
@@ -126,184 +118,10 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 'type' => 'Projet',
-                'key' => 'bric_broc',
-                'name' => 'Rafistolage Général',
-                'description' => 'À chaque cycle, le Daedalus a 15% de chances de ne pas partir en miette...',
-                'lore' => 'Quelqu\'un a pensé à REVISSER les plaques de tôles ?',
-            ],
-            actual: $normalizedProject
-        );
-    }
-
-    public function shouldNormalizeMagneticNetProject(FunctionalTester $I): void
-    {
-        // given I have Magnetic Net project
-        $project = $this->daedalus->getProjectByName(ProjectName::MAGNETIC_NET);
-
-        // when I normalize the project
-        $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
-
-        // then I should get the normalized project
-        $I->assertEqualsIgnoringCase(
-            expected: [
-                'id' => $project->getId(),
-                'key' => 'magnetic_net',
-                'name' => 'Filet magnétique',
-                'description' => 'Lorsque le Daedalus se déplace les Patrouilleurs sont automatiquement ramenés à bord.',
-                'lore' => 'Un des grands apports de Magellan était que l\'arche stellaire pouvait traîner sa flotte. Vous débuguez les derniers écueils du programme Magnet de pilotage magnétique. Ça va le faire.',
-                'progress' => '0%',
-                'efficiency' => 'Efficacité : 6-9%',
-                'efficiencyTooltipHeader' => 'Efficacité',
-                'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
-                'bonusSkills' => [
-                    [
-                        'key' => 'pilot',
-                        'name' => 'Pilote',
-                        'description' => 'Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa
-                    maîtrise aérienne est impressionnante.
-                    //
-                    :point: **Chances doublées** de toucher en Patrouilleur.
-                    //
-                    :point: **Ne rate jamais** les atterrissages et décollages.
-                    //
-                    :point: Bonus pour développer certains **Projets NERON**.',
-                    ],
-                    [
-                        'key' => 'physicist',
-                        'name' => 'Physicien',
-                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
-                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
-                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
-                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
-                    ],
-                ],
-                'actions' => [
-                    [
-                        'id' => $this->participateActionId,
-                        'key' => ActionEnum::PARTICIPATE->value,
-                        'name' => 'Participer',
-                        'actionPointCost' => 2,
-                        'movementPointCost' => 0,
-                        'moralPointCost' => 0,
-                        'specialistPointCosts' => [],
-                        'successRate' => 100,
-                        'description' => 'Avance le Projet en fonction de vos capacités.',
-                        'canExecute' => true,
-                        'confirmation' => null,
-                        'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
-                    ],
-                ],
-            ],
-            actual: $normalizedProject
-        );
-    }
-
-    public function shouldNormalizeMagneticNetProjectInDaedalusNormalizationContext(FunctionalTester $I): void
-    {
-        // given I have Magnetic Net project
-        $project = $this->daedalus->getProjectByName(ProjectName::MAGNETIC_NET);
-
-        // when I normalize the project in daedalus normalization context
-        $normalizedProject = $this->projectNormalizer->normalize($project, null, [
-            'currentPlayer' => $this->chun,
-            'normalizing_daedalus' => true,
-        ]);
-
-        // then I should get the normalized project
-        $I->assertEquals(
-            expected: [
-                'type' => 'Projet',
-                'key' => 'magnetic_net',
-                'name' => 'Filet magnétique',
-                'description' => 'Lorsque le Daedalus se déplace les Patrouilleurs sont automatiquement ramenés à bord.',
-                'lore' => 'Un des grands apports de Magellan était que l\'arche stellaire pouvait traîner sa flotte. Vous débuguez les derniers écueils du programme Magnet de pilotage magnétique. Ça va le faire.',
-            ],
-            actual: $normalizedProject
-        );
-    }
-
-    public function shouldNormalizeIcarusAntiGravPropeller(FunctionalTester $I): void
-    {
-        // given I have Icarus Anti-Grav Propeller project
-        $project = $this->daedalus->getProjectByName(ProjectName::ICARUS_ANTIGRAV_PROPELLER);
-
-        // when I normalize the project
-        $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
-
-        // then I should get the normalized project
-        $I->assertEqualsIgnoringCase(
-            expected: [
-                'id' => $project->getId(),
-                'key' => 'icarus_antigrav_propeller',
-                'name' => 'Propulseurs antigrav',
-                'description' => 'Augmente vos chances de réussites pour atterrir sur des planètes.',
-                'lore' => 'Grâce à ces propulseurs anti-gravité, les manoeuvres de décollage et d\'atterissage de l\'Icarus deviennent un jeu d\'enfant. L\'entrée dans l\'atmosphère devient d\'une simplicité incroyable. Bref l\'Icarus, un vaisseau qu\'il est bien à faire voler !',
-                'progress' => '0%',
-                'efficiency' => 'Efficacité : 12-18%',
-                'efficiencyTooltipHeader' => 'Efficacité',
-                'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
-                'bonusSkills' => [
-                    [
-                        'key' => 'pilot',
-                        'name' => 'Pilote',
-                        'description' => 'Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa
-                    maîtrise aérienne est impressionnante.
-                    //
-                    :point: **Chances doublées** de toucher en Patrouilleur.
-                    //
-                    :point: **Ne rate jamais** les atterrissages et décollages.
-                    //
-                    :point: Bonus pour développer certains **Projets NERON**.',
-                    ],
-                    [
-                        'key' => 'physicist',
-                        'name' => 'Physicien',
-                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
-                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
-                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
-                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
-                    ],
-                ],
-                'actions' => [
-                    [
-                        'id' => $this->participateActionId,
-                        'key' => ActionEnum::PARTICIPATE->value,
-                        'name' => 'Participer',
-                        'actionPointCost' => 2,
-                        'movementPointCost' => 0,
-                        'moralPointCost' => 0,
-                        'specialistPointCosts' => [],
-                        'successRate' => 100,
-                        'description' => 'Avance le Projet en fonction de vos capacités.',
-                        'canExecute' => true,
-                        'confirmation' => null,
-                        'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
-                    ],
-                ],
-            ],
-            actual: $normalizedProject
-        );
-    }
-
-    public function shouldNormalizeIcarusAntiGravPropellerInDaedalusNormalizationContext(FunctionalTester $I): void
-    {
-        // given I have Icarus Anti-Grav Propeller project
-        $project = $this->daedalus->getProjectByName(ProjectName::ICARUS_ANTIGRAV_PROPELLER);
-
-        // when I normalize the project in daedalus normalization context
-        $normalizedProject = $this->projectNormalizer->normalize($project, null, [
-            'currentPlayer' => $this->chun,
-            'normalizing_daedalus' => true,
-        ]);
-
-        // then I should get the normalized project
-        $I->assertEquals(
-            expected: [
-                'type' => 'Projet',
-                'key' => 'icarus_antigrav_propeller',
-                'name' => 'Propulseurs antigrav',
-                'description' => 'Augmente vos chances de réussites pour atterrir sur des planètes.',
-                'lore' => 'Grâce à ces propulseurs anti-gravité, les manoeuvres de décollage et d\'atterissage de l\'Icarus deviennent un jeu d\'enfant. L\'entrée dans l\'atmosphère devient d\'une simplicité incroyable. Bref l\'Icarus, un vaisseau qu\'il est bien à faire voler !',
+                'key' => $example['projectKey'],
+                'name' => $example['projectName'],
+                'description' => $example['projectDescription'],
+                'lore' => $example['projectLore'],
             ],
             actual: $normalizedProject
         );
@@ -391,29 +209,95 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNormalizeFissionCoffeeRoasterProject(FunctionalTester $I): void
+    private function normalizedProjectsdataProvider(): array
     {
-        // given I have Fission Coffee Roaster project
-        $project = $this->daedalus->getProjectByName(ProjectName::FISSION_COFFEE_ROASTER);
-
-        // when I normalize the project
-        $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
-
-        // then I should get the normalized project
-        $I->assertEqualsIgnoringCase(
-            expected: [
-                'id' => $project->getId(),
-                'key' => 'fission_coffee_roaster',
-                'name' => 'Torréfacteur à fission',
-                'description' => 'La machine à café se régénère également au cycle 4.',
-                'lore' => 'Yeehaa !! En branchant un bête accélérateur de particules portatif sur l\'évacuation de la pompe du torréfacteur, il est désormais possible d\'obtenir un café goûtu en moins de 12h !!',
-                'progress' => '0%',
-                'efficiency' => 'Efficacité : 6-9%',
-                'efficiencyTooltipHeader' => 'Efficacité',
-                'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
-                'bonusSkills' => [
+        return [
+            [
+                'projectKey' => 'bric_broc',
+                'projectName' => 'Rafistolage Général',
+                'projectDescription' => 'À chaque cycle, le Daedalus a 15% de chances de ne pas partir en miette...',
+                'projectLore' => 'Quelqu\'un a pensé à REVISSER les plaques de tôles ?',
+                'projectEfficiency' => 'Efficacité : 6-9%',
+                'projectBonusSkills' => [
                     [
-                        'key' => SkillEnum::CAFFEINE_JUNKIE,
+                        'key' => 'conceptor',
+                        'name' => 'Concepteur',
+                        'description' => 'Le Concepteur dispose de deux actions gratuites chaque jour pour utiliser le Cœur de NERON.//:point: +2 :pa_core: (points d\'action **Conception**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'creative',
+                        'name' => 'Créatif',
+                        'description' => 'Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre *1* :pa:.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
+            [
+                'projectKey' => 'magnetic_net',
+                'projectName' => 'Filet magnétique',
+                'projectDescription' => 'Lorsque le Daedalus se déplace les Patrouilleurs sont automatiquement ramenés à bord.',
+                'projectLore' => 'Un des grands apports de Magellan était que l\'arche stellaire pouvait traîner sa flotte. Vous débuguez les derniers écueils du programme Magnet de pilotage magnétique. Ça va le faire.',
+                'projectEfficiency' => 'Efficacité : 6-9%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'pilot',
+                        'name' => 'Pilote',
+                        'description' => 'Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa
+                    maîtrise aérienne est impressionnante.
+                    //
+                    :point: **Chances doublées** de toucher en Patrouilleur.
+                    //
+                    :point: **Ne rate jamais** les atterrissages et décollages.
+                    //
+                    :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'physicist',
+                        'name' => 'Physicien',
+                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
+                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
+                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
+                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
+            [
+                'projectKey' => 'icarus_antigrav_propeller',
+                'projectName' => 'Propulseurs antigrav',
+                'projectDescription' => 'Augmente vos chances de réussites pour atterrir sur des planètes.',
+                'projectLore' => 'Grâce à ces propulseurs anti-gravité, les manoeuvres de décollage et d\'atterissage de l\'Icarus deviennent un jeu d\'enfant. L\'entrée dans l\'atmosphère devient d\'une simplicité incroyable. Bref l\'Icarus, un vaisseau qu\'il est bien à faire voler !',
+                'projectEfficiency' => 'Efficacité : 12-18%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'pilot',
+                        'name' => 'Pilote',
+                        'description' => 'Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa
+                    maîtrise aérienne est impressionnante.
+                    //
+                    :point: **Chances doublées** de toucher en Patrouilleur.
+                    //
+                    :point: **Ne rate jamais** les atterrissages et décollages.
+                    //
+                    :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'physicist',
+                        'name' => 'Physicien',
+                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
+                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
+                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
+                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
+            [
+                'projectKey' => 'fission_coffee_roaster',
+                'projectName' => 'Torréfacteur à fission',
+                'projectDescription' => 'La machine à café se régénère également au cycle 4.',
+                'projectLore' => 'Yeehaa !! En branchant un bête accélérateur de particules portatif sur l\'évacuation de la pompe du torréfacteur, il est désormais possible d\'obtenir un café goûtu en moins de 12h !!',
+                'projectEfficiency' => 'Efficacité : 6-9%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'caffeine_junkie',
                         'name' => 'Caféinomane',
                         'description' => 'Le Caféinomane travaille deux fois mieux que ses collègues tant qu\'il a accès à la machine à café.//:point: +2:pa: lorsqu\'il consomme un **Café**.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
@@ -426,48 +310,34 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
-                'actions' => [
+            ],
+            [
+                'projectKey' => 'armour_corridor',
+                'projectName' => 'Coursives blindées',
+                'projectDescription' => 'Chaque attaque subie par le Daedalus est diminuée d\'un point.',
+                'projectLore' => 'Eurêka ! Dans Magellan, les fibres optiques qui longent les coursives peuvent se compresser automatiquement pour pouvoir rajouter facilement des câbles. En injectant des câbles en trop, vous pouvez créer une pseudo armure !',
+                'projectEfficiency' => 'Efficacité : 3-4%',
+                'projectBonusSkills' => [
                     [
-                        'id' => $this->participateActionId,
-                        'key' => ActionEnum::PARTICIPATE->value,
-                        'name' => 'Participer',
-                        'actionPointCost' => 2,
-                        'movementPointCost' => 0,
-                        'moralPointCost' => 0,
-                        'specialistPointCosts' => [],
-                        'successRate' => 100,
-                        'description' => 'Avance le Projet en fonction de vos capacités.',
-                        'canExecute' => true,
-                        'confirmation' => null,
-                        'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
+                        'key' => 'technician',
+                        'name' => 'Technicien',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
+        :point: Peut **Démonter** des objets.//
+        :point: Chances de réussites doublées pour les **Réparations**.//
+        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'physicist',
+                        'name' => 'Physicien',
+                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
+                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
+                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
+                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
             ],
-            actual: $normalizedProject
-        );
-    }
-
-    public function shouldNormalizeFissionCoffeeRoasterProjectInDaedalusNormalizationContext(FunctionalTester $I): void
-    {
-        // given I have Fission Coffee Roaster project
-        $project = $this->daedalus->getProjectByName(ProjectName::FISSION_COFFEE_ROASTER);
-
-        // when I normalize the project in daedalus normalization context
-        $normalizedProject = $this->projectNormalizer->normalize($project, null, [
-            'currentPlayer' => $this->chun,
-            'normalizing_daedalus' => true,
-        ]);
-
-        // then I should get the normalized project
-        $I->assertEquals(
-            expected: [
-                'type' => 'Projet',
-                'key' => 'fission_coffee_roaster',
-                'name' => 'Torréfacteur à fission',
-                'description' => 'La machine à café se régénère également au cycle 4.',
-                'lore' => 'Yeehaa !! En branchant un bête accélérateur de particules portatif sur l\'évacuation de la pompe du torréfacteur, il est désormais possible d\'obtenir un café goûtu en moins de 12h !!',
-            ],
-            actual: $normalizedProject
-        );
+        ];
     }
 }

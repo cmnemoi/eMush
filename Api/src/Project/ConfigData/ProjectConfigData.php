@@ -201,6 +201,16 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::ARMOUR_CORRIDOR,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 3,
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::PHYSICIST],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

@@ -119,9 +119,9 @@
       </segment>
       <segment id="it_expert.description" state="translated">
         <source>it_expert.description</source>
-        <target>L'informaticien est à l'aise dès qu'il passe derrière un écran. Il manie à la perfection les
-                    interfaces des terminaux du nexus, de navigation, communication.//:point: +2 :pa_comp: (points
-                    d'action **Informatique**) par jour.//:point: Chances de réussites doublées avec le **Bidouilleur**.//:point: Bonus pour développer certains projets NERON.</target>
+        <target>L'Informaticien est à l'aise dès qu'il passe derrière un écran. Il manie à la perfection les
+                    interfaces des terminaux de NERON, d'astrophysique, et de communication.//:point: +2 :pa_comp: (points
+                    d'action **Informatique**) par jour.//:point: Chances de réussites doublées avec le **Bidouilleur**.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="conceptor">

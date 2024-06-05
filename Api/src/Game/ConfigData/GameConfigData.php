@@ -541,6 +541,7 @@ class GameConfigData
                 ProjectName::BAY_DOOR_XXL,
                 ProjectName::TRASH_LOAD,
                 ProjectName::FOOD_RETAILER,
+                ProjectName::AUTO_RETURN_ICARUS,
             ],
         ],
     ];

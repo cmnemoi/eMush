@@ -469,5 +469,23 @@
         <target>Oh pinaise... Vous n'y aviez jamais songé mais cette canalisation vous inspire. Dans certaines sociétés préhistoriques, ils se servaient de tubes aéro induits pour faire passer des messages... Mais on peut aussi s'en servir pour la nourriture ! Vous transformez la gouttière en tube pneumatique. (Quel intérêt peut avoir une gouttière dans l'espace...)</target>
       </segment>
     </unit>
+    <unit id="auto_return_icarus">
+      <segment id="auto_return_icarus.type" state="translated">
+        <source>auto_return_icarus.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="auto_return_icarus.name" state="translated">
+        <source>auto_return_icarus.name</source>
+        <target>Rapatriement magnétique</target>
+      </segment>
+      <segment id="auto_return_icarus.description" state="translated">
+        <source>auto_return_icarus.description</source>
+        <target>L'Icarus retourne automatiquement dans le Daedalus en cas d'échec de la mission.</target>
+      </segment>
+      <segment id="auto_return_icarus.lore" state="translated">
+        <source>auto_return_icarus.lore</source>
+        <target>En exploitant le code source de NERON, vous vous apercevez que vous pourriez doter l'Icarus d'une pseudo-conscience. Vous décidez de virer le code pseudo cognitif et le moteur d'émotion et de garder le noyau de survie. Maintenant l'Icarus reviendra si l'expédition est décimée.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

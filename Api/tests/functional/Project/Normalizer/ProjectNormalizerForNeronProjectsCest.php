@@ -494,6 +494,29 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'auto_return_icarus',
+                'projectName' => 'Rapatriement magnétique',
+                'projectDescription' => 'L\'Icarus retourne automatiquement dans le Daedalus en cas d\'échec de la mission.',
+                'projectLore' => 'En exploitant le code source de NERON, vous vous apercevez que vous pourriez doter l\'Icarus d\'une pseudo-conscience. Vous décidez de virer le code pseudo cognitif et le moteur d\'émotion et de garder le noyau de survie. Maintenant l\'Icarus reviendra si l\'expédition est décimée.',
+                'projectEfficiency' => 'Efficacité : 12-18%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'it_expert',
+                        'name' => 'Informaticien',
+                        'description' => 'L\'Informaticien est à l\'aise dès qu\'il passe derrière un écran. Il manie à la perfection les
+                    interfaces des terminaux de NERON, d\'astrophysique, et de communication.//:point: +2 :pa_comp: (points
+                    d\'action **Informatique**) par jour.//:point: Chances de réussites doublées avec le **Bidouilleur**.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'robotics_expert',
+                        'name' => 'Robotique',
+                        'description' => 'L\'expert en robotique peut créer et manipuler les drones comme bon lui semble.//:point: Commence
+                    avec le **plan d\'un drone**.//:point: Peut **améliorer les drones**.//:point: Bonus pour développer
+                    certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

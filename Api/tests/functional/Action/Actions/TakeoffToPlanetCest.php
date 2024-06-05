@@ -502,7 +502,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
     public function shouldCreateAnExplorationWithOnlyFourPlayers(FunctionalTester $I): void
     {
-        // given I have Janice, Derek and Raluca in Incarus Bay too
+        // given I have Janice, Derek and Raluca in Icarus Bay too
         $icarusBay = $this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY);
         $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
         $janice->changePlace($icarusBay);
@@ -528,7 +528,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
     public function shouldCreateAnExplorationWithTwoMorePlayersWithLargeBayUpgradeProject(FunctionalTester $I): void
     {
-        // given I have Janice, Derek, Ian and Raluca in Incarus Bay too
+        // given I have Janice, Derek, Ian and Raluca in Icarus Bay too
         $icarusBay = $this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY);
         $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
         $janice->changePlace($icarusBay);

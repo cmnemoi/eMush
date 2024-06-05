@@ -340,6 +340,17 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::ICARUS_LAVATORY,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 18,
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::TECHNICIAN],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                ],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

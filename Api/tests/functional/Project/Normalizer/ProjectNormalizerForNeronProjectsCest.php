@@ -591,7 +591,31 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                         'description' => 'Le Paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce à ses caméras supplémentaires.//:point: Commence avec 2 **Caméras** supplémentaires.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
-            ]
+            ],
+            [
+                'projectKey' => 'icarus_lavatory',
+                'projectName' => 'Lavabo opportun',
+                'projectDescription' => 'Permet de ne pas se salir en revenant d\'expédition.',
+                'projectLore' => 'Quel magnifique lavabo inoxydable, vous n\'avez plus d\'excuses pour ne pas vous laver les mains entre chaque mission.',
+                'projectEfficiency' => 'Efficacité : 18-27%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'biologist',
+                        'name' => 'Biologiste',
+                        'description' => 'Le Biologiste est plus efficace dans les recherches du laboratoire.//:point: Peut lire les **propriétés des médicaments**.//:point: **+4% de bonus** sur chacune des **Recherches** du Laboratoire.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'technician',
+                        'name' => 'Technicien',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
+        :point: Peut **Démonter** des objets.//
+        :point: Chances de réussites doublées pour les **Réparations**.//
+        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
             [
                 'projectKey' => 'hydroponic_incubator',
                 'projectName' => 'Couveuse hydroponique',

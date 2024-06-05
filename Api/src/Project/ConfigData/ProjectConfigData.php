@@ -352,6 +352,16 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::ICARUS_LARGER_BAY,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::PILOT, SkillEnum::TECHNICIAN],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

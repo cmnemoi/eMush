@@ -877,5 +877,15 @@
                 }</target>
       </segment>
     </unit>
+    <unit id="fruit_transported">
+      <segment id="fruit_transported" state="final">
+        <source>fruit_transported</source>
+        <target>{target_equipment_gender, select,
+                    male {Un **{target_equipment}** a été transporté.}
+                    female {Une **{target_equipment}** a été transportée.}
+                    other {Un **{target_equipment}** a été transporté.}
+                }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

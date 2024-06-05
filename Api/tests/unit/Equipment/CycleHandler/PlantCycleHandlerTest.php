@@ -26,6 +26,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
+use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -48,6 +49,7 @@ final class PlantCycleHandlerTest extends TestCase
     private PlantCycleHandler $plantCycleHandler;
     private Daedalus $daedalus;
     private Project $heatLamps;
+    private Project $foodRetailer;
 
     /**
      * @before
@@ -70,6 +72,7 @@ final class PlantCycleHandlerTest extends TestCase
 
         $this->daedalus = DaedalusFactory::createDaedalus();
         $this->heatLamps = ProjectFactory::createHeatLampProjectForDaedalus($this->daedalus);
+        $this->foodRetailer = ProjectFactory::createNeronProjectByNameForDaedalus(name: ProjectName::FOOD_RETAILER, daedalus: $this->daedalus);
     }
 
     /**

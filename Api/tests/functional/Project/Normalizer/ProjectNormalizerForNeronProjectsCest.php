@@ -471,7 +471,29 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     certains **Projets NERON**.',
                     ],
                 ],
-            ]
+            ],
+            [
+                'projectKey' => 'food_retailer',
+                'projectName' => 'Distributeur pneumatique',
+                'projectDescription' => 'La nourriture du Jardin est envoyée directement au Réfectoire via le Pneumatique.',
+                'projectLore' => 'Oh pinaise... Vous n\'y aviez jamais songé mais cette canalisation vous inspire. Dans certaines sociétés préhistoriques, ils se servaient de tubes aéro induits pour faire passer des messages... Mais on peut aussi s\'en servir pour la nourriture ! Vous transformez la gouttière en tube pneumatique. (Quel intérêt peut avoir une gouttière dans l\'espace...)',
+                'projectEfficiency' => 'Efficacité : 6-9%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'robotics_expert',
+                        'name' => 'Robotique',
+                        'description' => 'L\'expert en robotique peut créer et manipuler les drones comme bon lui semble.//:point: Commence
+                    avec le **plan d\'un drone**.//:point: Peut **améliorer les drones**.//:point: Bonus pour développer
+                    certains **Projets NERON**.',
+                    ],
+
+                    [
+                        'key' => 'chef',
+                        'name' => 'Cuistot',
+                        'description' => 'Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4 :pa_cook: par jour (points d\'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

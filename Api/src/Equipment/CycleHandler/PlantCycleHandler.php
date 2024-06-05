@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\CycleHandler;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
@@ -139,28 +140,46 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function addFruit(GameEquipment $gamePlant, Plant $plantType, \DateTime $dateTime): void
     {
-        $this->gameEquipmentService->createGameEquipmentFromName(
+        /** @var ArrayCollection<int, GameEquipment> $producedFruits */
+        $producedFruits = new ArrayCollection();
+
+        $fruit = $this->gameEquipmentService->createGameEquipmentFromName(
             $plantType->getFruitName(),
             $gamePlant->getPlace(), // If plant is not in a room, it is in player inventory
             [EventEnum::PLANT_PRODUCTION],
             $dateTime,
             VisibilityEnum::PUBLIC
         );
+        $producedFruits->add($fruit);
 
-        $heatLamps = $gamePlant->getDaedalus()->getProjectByName(ProjectName::HEAT_LAMP);
+        $daedalus = $gamePlant->getDaedalus();
+        $heatLamps = $daedalus->getProjectByName(ProjectName::HEAT_LAMP);
 
-        $isPlantInGarden = $gamePlant->getPlace()->getName() === RoomEnum::HYDROPONIC_GARDEN;
+        $plantIsInGarden = $gamePlant->getPlace()->getName() === RoomEnum::HYDROPONIC_GARDEN;
         $heatLampsAreFinished = $heatLamps->isFinished();
         $heatLampsAreActivated = $this->randomService->isSuccessful($heatLamps->getActivationRate());
 
-        if ($isPlantInGarden && $heatLampsAreFinished && $heatLampsAreActivated) {
-            $this->gameEquipmentService->createGameEquipmentFromName(
+        if ($plantIsInGarden && $heatLampsAreFinished && $heatLampsAreActivated) {
+            $fruit = $this->gameEquipmentService->createGameEquipmentFromName(
                 $plantType->getFruitName(),
                 $gamePlant->getPlace(),
                 [EventEnum::PLANT_PRODUCTION],
                 $dateTime,
                 VisibilityEnum::PUBLIC
             );
+            $producedFruits->add($fruit);
+        }
+
+        if ($daedalus->hasFinishedProject(ProjectName::FOOD_RETAILER) && $plantIsInGarden) {
+            foreach ($producedFruits as $producedFruit) {
+                $this->gameEquipmentService->moveEquipmentTo(
+                    equipment: $producedFruit,
+                    newHolder: $daedalus->getPlaceByNameOrThrow(RoomEnum::REFECTORY),
+                    visibility: VisibilityEnum::PUBLIC,
+                    tags: [ProjectName::FOOD_RETAILER->value],
+                    time: $dateTime,
+                );
+            }
         }
     }
 

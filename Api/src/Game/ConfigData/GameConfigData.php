@@ -540,6 +540,7 @@ class GameConfigData
                 ProjectName::PATROLSHIP_BLASTER_GUN,
                 ProjectName::BAY_DOOR_XXL,
                 ProjectName::TRASH_LOAD,
+                ProjectName::FOOD_RETAILER,
             ],
         ],
     ];

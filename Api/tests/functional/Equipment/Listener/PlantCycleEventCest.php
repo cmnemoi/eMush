@@ -200,6 +200,11 @@ class PlantCycleEventCest
         $I->haveInRepository($project);
         $daedalus->addProject($project);
 
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::FOOD_RETAILER]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+        $daedalus->addProject($project);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);

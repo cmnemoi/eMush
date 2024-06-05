@@ -174,5 +174,15 @@
         <target>Le Tireur manipule les armes de tout type avec beaucoup d'aisance.//:point: +2 **Tirs gratuits** :pa_shoot: par jour.//:point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
+    <unit id="chef">
+      <segment id="chef.name" state="translated">
+        <source>chef.name</source>
+        <target>Cuistot</target>
+      </segment>
+      <segment id="chef.description" state="translated">
+        <source>chef.description</source>
+        <target>Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4 :pa_cook: par jour (points d'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -11,6 +11,7 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 
@@ -80,4 +81,12 @@ interface StatusServiceInterface
     ): ChargeStatus;
 
     public function deleteAllStatusesByName(string $name): void;
+
+    public function createContentStatus(
+        string $content,
+        StatusHolderInterface $holder,
+        string $visibility = VisibilityEnum::HIDDEN,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
+    ): ContentStatus;
 }

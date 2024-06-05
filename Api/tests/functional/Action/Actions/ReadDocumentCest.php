@@ -72,7 +72,7 @@ final class ReadDocumentCest extends AbstractFunctionalTest
         $result = $this->whenPlayerReadsDocument($this->postIt);
 
         $I->assertInstanceOf(Success::class, $result);
-        $I->assertEquals($result->getContent(), 'test content');
+        $I->assertEquals(expected: 'test content', actual: $result->getContent());
     }
 
     public function testReadDocumentActionCreatesActionLogAndContentLog(FunctionalTester $I): void
@@ -96,11 +96,11 @@ final class ReadDocumentCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testReadDocumentActionCreatesActionLogOnlyWhenNoContent(FunctionalTester $I): void
+    public function testReadDocumentActionCreatesActionLogEvenWithNoContent(FunctionalTester $I): void
     {
-        $this->contentStatus->setContent(null);
+        $this->contentStatus->setContent('');
 
-        $this->whenPlayerReadsDocument($this->postIt);
+        $result = $this->whenPlayerReadsDocument($this->postIt);
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $this->room->getName(),
@@ -110,13 +110,16 @@ final class ReadDocumentCest extends AbstractFunctionalTest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        $I->dontSeeInRepository(RoomLog::class, [
+        $I->seeInRepository(RoomLog::class, [
             'place' => $this->room->getName(),
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player->getPlayerInfo(),
             'log' => ActionLogEnum::READ_CONTENT,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
+
+        $I->assertInstanceOf(Success::class, $result);
+        $I->assertEquals(expected: 'empty', actual: $result->getContent());
     }
 
     private function whenPlayerReadsDocument(GameItem $postIt): ActionResult

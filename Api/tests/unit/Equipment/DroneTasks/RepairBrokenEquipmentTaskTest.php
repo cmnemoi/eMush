@@ -37,7 +37,7 @@ final class RepairBrokenEquipmentTaskTest extends TestCase
         $this->task = new RepairBrokenEquipmentTask(
             $stubEventService,
             new FakeStatusService(),
-            new FakeD100Roll(isAFailure: true),
+            new FakeD100Roll(isSuccessful: false),
             new FakeGetRandomElementsFromArrayService(),
         );
     }

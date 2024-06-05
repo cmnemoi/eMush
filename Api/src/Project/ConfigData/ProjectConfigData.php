@@ -300,7 +300,9 @@ abstract class ProjectConfigData
                 'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::PILOT, SkillEnum::PHYSICIST],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_-1action_point_on_action_take_off',
+                ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],

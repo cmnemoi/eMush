@@ -2223,5 +2223,22 @@ abstract class ModifierConfigData
                 ActionEnum::LAND->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_daedalus_-1action_point_on_action_take_off',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'daedalus',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => -1,
+            'targetVariable' => 'actionPoint',
+            'mode' => 'additive',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [ActionEnum::TAKEOFF->value => ModifierRequirementEnum::ANY_TAGS],
+        ],
     ];
 }

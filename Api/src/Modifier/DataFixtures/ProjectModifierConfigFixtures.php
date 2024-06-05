@@ -110,6 +110,18 @@ final class ProjectModifierConfigFixtures extends Fixture
         $manager->persist($bayDoorXXLModifier);
         $this->addReference($bayDoorXXLModifier->getName(), $bayDoorXXLModifier);
 
+        $patrolShipLauncherModifier = new VariableEventModifierConfig('modifier_for_daedalus_-1action_point_on_action_take_off');
+        $patrolShipLauncherModifier
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([ActionEnum::TAKEOFF->value => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($patrolShipLauncherModifier);
+        $this->addReference($patrolShipLauncherModifier->getName(), $patrolShipLauncherModifier);
+
         $manager->flush();
     }
 }

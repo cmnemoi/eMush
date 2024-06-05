@@ -163,6 +163,18 @@ final class ProjectModifierConfigFixtures extends Fixture
         $manager->persist($icarusLavatoryModifier);
         $this->addReference($icarusLavatoryModifier->getName(), $icarusLavatoryModifier);
 
+        $icarusLargerBayModifier = new VariableEventModifierConfig('modifier_for_place_+2players_allowed_on_takeoff_to_planet');
+        $icarusLargerBayModifier
+            ->setTargetVariable(ActionVariableEnum::OUTPUT_QUANTITY)
+            ->setDelta(2)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([ActionEnum::TAKEOFF_TO_PLANET->value => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($icarusLargerBayModifier);
+        $this->addReference($icarusLargerBayModifier->getName(), $icarusLargerBayModifier);
+
         $manager->flush();
     }
 }

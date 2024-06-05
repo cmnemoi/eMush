@@ -487,5 +487,23 @@
         <target>En exploitant le code source de NERON, vous vous apercevez que vous pourriez doter l'Icarus d'une pseudo-conscience. Vous décidez de virer le code pseudo cognitif et le moteur d'émotion et de garder le noyau de survie. Maintenant l'Icarus reviendra si l'expédition est décimée.</target>
       </segment>
     </unit>
+    <unit id="patrol_ship_launcher">
+      <segment id="patrol_ship_launcher.type" state="translated">
+        <source>patrol_ship_launcher.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="patrol_ship_launcher.name" state="translated">
+        <source>patrol_ship_launcher.name</source>
+        <target>Propulseur de décollage</target>
+      </segment>
+      <segment id="patrol_ship_launcher.description" state="translated">
+        <source>patrol_ship_launcher.description</source>
+        <target>Les manœuvres de décollage vous coûtent moins de :pa:.</target>
+      </segment>
+      <segment id="patrol_ship_launcher.lore" state="translated">
+        <source>patrol_ship_launcher.lore</source>
+        <target>En finissant d'implémenter le noyau des servo-moteurs de la porte, NERON s'est aperçu qu'il y en avait sous la piste ! Et ça accélère sacrément les manœuvres...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

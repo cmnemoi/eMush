@@ -397,5 +397,23 @@
         <target>En récupérant les données des drones de Terrence dans une vieille archive, il devrait être possible de demander à NERON de nous en construire une nouvelle copie.</target>
       </segment>
     </unit>
+    <unit id="patrolship_blaster_gun">
+      <segment id="patrolship_blaster_gun.type" state="translated">
+        <source>patrolship_blaster_gun.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="patrolship_blaster_gun.name" state="translated">
+        <source>patrolship_blaster_gun.name</source>
+        <target>Canon blaster</target>
+      </segment>
+      <segment id="patrolship_blaster_gun.description" state="translated">
+        <source>patrolship_blaster_gun.description</source>
+        <target>Augmente la puissance de feu des Patrouilleurs d'un point.</target>
+      </segment>
+      <segment id="patrolship_blaster_gun.lore" state="translated">
+        <source>patrolship_blaster_gun.lore</source>
+        <target>Un canon de 40mm c'est bien. Un Blaster de 80, c'est mieux.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

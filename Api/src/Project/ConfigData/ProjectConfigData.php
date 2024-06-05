@@ -237,6 +237,18 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::PATROLSHIP_BLASTER_GUN,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::PILOT, SkillEnum::SHOOTER],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_-1hunter_health_on_change.variable',
+                ],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

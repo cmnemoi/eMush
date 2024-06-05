@@ -537,6 +537,7 @@ class GameConfigData
                 ProjectName::ARMOUR_CORRIDOR,
                 ProjectName::CALL_OF_DIRTY,
                 ProjectName::EXTRA_DRONE,
+                ProjectName::PATROLSHIP_BLASTER_GUN,
             ],
         ],
     ];

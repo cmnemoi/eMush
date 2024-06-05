@@ -18,6 +18,7 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -2181,6 +2182,26 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 HunterEvent::HUNTER_SHOT => ModifierRequirementEnum::ALL_TAGS,
+            ],
+        ],
+        [
+            'name' => 'modifier_for_daedaus_-1hunter_health_on_change.variable',
+            'modifierName' => null,
+            'targetEvent' => 'change.variable',
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => -1,
+            'targetVariable' => HunterVariableEnum::HEALTH,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::SHOOT_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
     ];

@@ -12,6 +12,7 @@ use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -77,6 +78,21 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($armourCorridorModifier);
         $this->addReference($armourCorridorModifier->getName(), $armourCorridorModifier);
+
+        $blasterGunModifier = new VariableEventModifierConfig('modifier_for_daedalus_-1hunter_health_on_change.variable');
+        $blasterGunModifier
+            ->setTargetVariable(HunterVariableEnum::HEALTH)
+            ->setDelta(-1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([
+                ActionEnum::SHOOT_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($blasterGunModifier);
+        $this->addReference($blasterGunModifier->getName(), $blasterGunModifier);
 
         $manager->flush();
     }

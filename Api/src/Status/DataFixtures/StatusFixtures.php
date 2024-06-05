@@ -17,6 +17,7 @@ use Mush\Status\Entity\Config\ContentStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 class StatusFixtures extends Fixture implements DependentFixtureInterface
@@ -481,6 +482,13 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($shrinkSkill);
 
+        $mushTrapped = new StatusConfig();
+        $mushTrapped
+            ->setStatusName(PlaceStatusEnum::MUSH_TRAPPED->value)
+            ->setVisibility(VisibilityEnum::MUSH)
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($mushTrapped);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -529,7 +537,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($pocPilotSkill)
             ->addStatusConfig($astronavigationNeronCpuPriority)
             ->addStatusConfig($defenceCpuPriority)
-            ->addStatusConfig($shrinkSkill);
+            ->addStatusConfig($shrinkSkill)
+            ->addStatusConfig($mushTrapped);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -578,6 +587,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::POC_PILOT_SKILL_STATUS, $pocPilotSkill);
         $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_STATUS, $astronavigationNeronCpuPriority);
         $this->addReference(SkillEnum::SHRINK, $shrinkSkill);
+        $this->addReference(PlaceStatusEnum::MUSH_TRAPPED->value, $mushTrapped);
 
         $manager->flush();
     }

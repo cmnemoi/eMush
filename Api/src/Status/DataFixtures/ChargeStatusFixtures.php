@@ -255,6 +255,9 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         /** @var VariableEventModifierConfig $moraleModifier */
         $moraleModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_MORALE_MODIFIER);
 
+        /** @var ActionConfig $trapClosetAction */
+        $trapClosetAction = $this->getReference(ActionEnum::TRAP_CLOSET->value);
+
         $mushStatus = new ChargeStatusConfig();
         $mushStatus
             ->setStatusName(PlayerStatusEnum::MUSH)
@@ -269,6 +272,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
                 $consumeSatietyModifier,
                 $moraleModifier,
             ])
+            ->setActionConfigs([$trapClosetAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mushStatus);
 

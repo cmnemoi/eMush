@@ -770,6 +770,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getPlace()->getNumberOfPlayersAlive() === 1;
     }
 
+    public function isHuman(): bool
+    {
+        return $this->isMush() === false;
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);

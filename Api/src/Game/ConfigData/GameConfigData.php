@@ -11,6 +11,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 /** @codeCoverageIgnore */
@@ -432,6 +433,7 @@ class GameConfigData
                 'electric_charges_support_drone_default',
                 DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
                 SkillEnum::SHRINK . '_default',
+                PlaceStatusEnum::MUSH_TRAPPED->value . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

@@ -338,4 +338,9 @@ class ActionConfig implements GameVariableHolderInterface
 
         return $this;
     }
+
+    public function shouldTriggerRoomTrap(): bool
+    {
+        return ActionEnum::getActionsWhichTriggerRoomTraps()->contains($this->actionName);
+    }
 }

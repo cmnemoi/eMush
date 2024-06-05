@@ -5,12 +5,15 @@ namespace Mush\Action\Event;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 
 class ActionEvent extends AbstractGameEvent
 {
@@ -105,5 +108,20 @@ class ActionEvent extends AbstractGameEvent
         }
 
         return $modifiers;
+    }
+
+    public function getPlace(): Place
+    {
+        return $this->getAuthor()->getPlace();
+    }
+
+    public function shouldTriggerRoomTrap(): bool
+    {
+        $authorInteractsWithRoomEquipment = $this->actionProvider instanceof GameEquipment && $this->actionProvider->isInShelf();
+        $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap = $this->actionProvider instanceof GameEquipment === false
+            && $this->actionConfig->shouldTriggerRoomTrap();
+
+        return $this->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)
+            && ($authorInteractsWithRoomEquipment || $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap);
     }
 }

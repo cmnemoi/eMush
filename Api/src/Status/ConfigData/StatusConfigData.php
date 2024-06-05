@@ -11,6 +11,7 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 /** @codeCoverageIgnore */
@@ -864,6 +865,7 @@ abstract class StatusConfigData
                 'extract_spore',
                 'make_sick',
                 'screw_talkie',
+                ActionEnum::TRAP_CLOSET->value,
             ],
         ],
         [
@@ -1207,6 +1209,7 @@ abstract class StatusConfigData
             'modifierConfigs' => [
                 'modifier_specialist_point_core',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
@@ -1220,6 +1223,7 @@ abstract class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE . '_default',
@@ -1233,11 +1237,20 @@ abstract class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => SkillEnum::SHRINK . '_default',
             'statusName' => SkillEnum::SHRINK,
             'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlaceStatusEnum::MUSH_TRAPPED->value . '_default',
+            'statusName' => PlaceStatusEnum::MUSH_TRAPPED->value,
+            'visibility' => VisibilityEnum::MUSH,
             'type' => 'status_config',
             'modifierConfigs' => [],
             'actionConfigs' => [],

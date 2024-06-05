@@ -4,6 +4,7 @@ namespace Mush\Communication\Enum;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Status\Enum\PlaceStatusEnum;
 
 class MushMessageEnum
 {
@@ -18,7 +19,7 @@ class MushMessageEnum
     public const PLAYER_INFECTION_LOGS = [
         ActionEnum::INFECT->value => self::INFECT_ACTION,
         ActionEnum::DO_THE_THING->value => self::INFECT_STD,
-        ActionEnum::TRAP_SHELF->value => self::INFECT_TRAP,
+        PlaceStatusEnum::MUSH_TRAPPED->value => self::INFECT_TRAP,
         PlanetSectorEvent::MUSH_TRAP => self::INFECT_MUSH_RAID,
     ];
 }

@@ -513,7 +513,10 @@
     <unit id="infect_trap">
       <segment id="infect_trap" state="final">
         <source>infect_trap</source>
-        <target>**{target_character}** a été contaminé en ouvrant une étagère piégée par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        <target>{target_character_gender, select,
+        male {**{target_character}** a été contaminé}
+        female {**{target_character}** a été contaminée}
+        other {**{target_character}** a été contaminé}} en ouvrant une étagère piégée par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_std">

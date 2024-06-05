@@ -32,6 +32,7 @@ class ChargeStatusConfigDataLoader extends StatusConfigDataLoader
                 ->setDischargeStrategies($statusConfigData['dischargeStrategies'])
                 ->setAutoRemove($statusConfigData['autoRemove']);
             $this->setStatusConfigModifierConfigs($statusConfig, $statusConfigData['modifierConfigs']);
+            $this->setStatusConfigActionConfigs($statusConfig, $statusConfigData['actionConfigs']);
 
             $this->entityManager->persist($statusConfig);
         }

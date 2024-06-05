@@ -235,9 +235,9 @@
         <target>Vous ne pouvez pas transporter plus de deux spores.</target>
       </segment>
     </unit>
-    <unit id="boobytrap_already_done">
+    <unit id="booby_trap_already_done">
       <segment id="description" state="final">
-        <source>boobytrap_already_done.description</source>
+        <source>booby_trap_already_done.description</source>
         <target>Les grands champis se rencontrent. Cette étagère est déjà piégée...</target>
       </segment>
     </unit>

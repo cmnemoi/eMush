@@ -266,7 +266,9 @@
     <unit id="read_content">
       <segment id="read_content" state="final">
         <source>read_content</source>
-        <target>{content}</target>
+        <target>{content, select,
+        {Ce carré jaune ne cesse d'atirer votre regard, comme s'il manquait quelque chose.}
+        other {content}}</target>
       </segment>
     </unit>
     <unit id="repair_fail">

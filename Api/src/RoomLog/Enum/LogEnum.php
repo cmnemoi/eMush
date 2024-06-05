@@ -67,6 +67,7 @@ abstract class LogEnum
     public const string DRONE_ENTERED_ROOM = 'drone_entered_room';
     public const string DRONE_EXITED_ROOM = 'drone_exited_room';
     public const string DRONE_REPAIRED_EQUIPMENT = 'drone_repaired_equipment';
+    public const string EMPTY_POST_IT = 'empty_post_it';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

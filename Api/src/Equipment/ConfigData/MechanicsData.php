@@ -3606,6 +3606,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::HACK->value,
                 ActionEnum::CHANGE_NERON_CPU_PRIORITY->value,
+                ActionEnum::CHANGE_NERON_CREW_LOCK->value,
                 ActionEnum::ACCESS_TERMINAL->value,
                 ActionEnum::EXIT_TERMINAL->value,
             ],

@@ -9,9 +9,12 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Daedalus\Enum\NeronCrewLockEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -28,6 +31,8 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
     private ActionConfig $accessTerminalConfig;
     private GameEquipment $astroTerminal;
     private GameEquipment $commandTerminal;
+
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
@@ -57,6 +62,7 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         // given player is on the bridge
         $this->player->changePlace($bridge);
 
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
@@ -140,5 +146,73 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
 
         // then the action is not visible
         $I->assertFalse($this->accessTerminal->isVisible());
+    }
+
+    public function shouldNotBeExecutableOnNeronCoreForNonConceptorsWithProjectsCrewLock(FunctionalTester $I): void
+    {
+        // given a NERON's core in player2's place
+        $neronCore = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::NERON_CORE,
+            equipmentHolder: $this->player2->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Crew Lock is set to Projects
+        $neron = $this->daedalus->getNeron();
+        $reflection = new \ReflectionClass($neron);
+        $reflection->getProperty('crewLock')->setValue($neron, NeronCrewLockEnum::PROJECTS);
+
+        // given player2 is not a conceptor
+        $I->assertFalse($this->player2->hasSkill(SkillEnum::CONCEPTOR));
+
+        // when player2 access NERON's core
+        $this->accessTerminal->loadParameters(
+            actionConfig: $this->accessTerminalConfig,
+            actionProvider: $neronCore,
+            player: $this->player2,
+            target: $neronCore
+        );
+
+        // then the action is not executable
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::TERMINAL_NERON_LOCK,
+            actual: $this->accessTerminal->cannotExecuteReason(),
+        );
+    }
+
+    public function shouldBeExecutableOnNeronCoreForAConceptorWithProjectsCrewLock(FunctionalTester $I): void
+    {
+        // given a NERON's core in player2's place
+        $neronCore = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::NERON_CORE,
+            equipmentHolder: $this->player2->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Crew Lock is set to Projects
+        $neron = $this->daedalus->getNeron();
+        $reflection = new \ReflectionClass($neron);
+        $reflection->getProperty('crewLock')->setValue($neron, NeronCrewLockEnum::PROJECTS);
+
+        // given player2 is a conceptor
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::CONCEPTOR,
+            holder: $this->player2,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when player2 access NERON's core
+        $this->accessTerminal->loadParameters(
+            actionConfig: $this->accessTerminalConfig,
+            actionProvider: $neronCore,
+            player: $this->player2,
+            target: $neronCore
+        );
+
+        // then the action is executable
+        $I->assertNull($this->accessTerminal->cannotExecuteReason());
     }
 }

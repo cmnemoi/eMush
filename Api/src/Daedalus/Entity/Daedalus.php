@@ -769,4 +769,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     {
         return $this->hasFinishedProject(ProjectName::AUTO_RETURN_ICARUS) === false;
     }
+
+    public function getNeron(): Neron
+    {
+        return $this->daedalusInfo->getNeron();
+    }
 }

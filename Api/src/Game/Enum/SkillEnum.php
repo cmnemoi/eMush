@@ -70,6 +70,7 @@ abstract class SkillEnum
     public const string VICTIMIZER = 'victimizer';
     public const string WRESTLER = 'wrestler';
     public const string HYGIENIST = 'hygienist';
+    public const string null = '';
 
     public static function getAll(): ArrayCollection
     {

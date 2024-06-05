@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
+use Mush\Daedalus\Enum\NeronCrewLockEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -257,9 +258,13 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             return [];
         }
 
+        $neron = $terminal->getDaedalus()->getNeron();
+
         return [
             'availableCpuPriorities' => $this->getTranslatedAvailableCpuPriorities($terminal),
-            'currentCpuPriority' => $terminal->getDaedalus()->getDaedalusInfo()->getNeron()->getCpuPriority(),
+            'currentCpuPriority' => $neron->getCpuPriority(),
+            'crewLocks' => $this->getTranslatedAvailableCrewLocks($terminal),
+            'currentCrewLock' => $neron->getCrewLock()->value,
         ];
     }
 
@@ -318,5 +323,23 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         }
 
         return $availableCpuPriorities;
+    }
+
+    private function getTranslatedAvailableCrewLocks(GameEquipment $terminal): array
+    {
+        $availableCrewLocks = [];
+        foreach (NeronCrewLockEnum::getValues() as $crewLock) {
+            $availableCrewLocks[] = [
+                'key' => $crewLock->value,
+                'name' => $this->translationService->translate(
+                    key: $terminal->getName() . '.crew_lock_' . $crewLock->value,
+                    parameters: [],
+                    domain: 'terminal',
+                    language: $terminal->getDaedalus()->getLanguage()
+                ),
+            ];
+        }
+
+        return $availableCrewLocks;
     }
 }

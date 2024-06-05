@@ -1151,6 +1151,16 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($participate);
 
+        $changeNeronCrewLock = new ActionConfig();
+        $changeNeronCrewLock
+            ->setName(ActionEnum::CHANGE_NERON_CREW_LOCK->value)
+            ->setActionName(ActionEnum::CHANGE_NERON_CREW_LOCK)
+            ->setRange(ActionRangeEnum::ROOM)
+            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $manager->persist($changeNeronCrewLock);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1249,5 +1259,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::REPAIR_PILGRED->value, $repairPilgred);
         $this->addReference(ActionEnum::RETURN_TO_SOL->value, $returnToSol);
         $this->addReference(ActionEnum::PARTICIPATE->value, $participate);
+        $this->addReference(ActionEnum::CHANGE_NERON_CREW_LOCK->value, $changeNeronCrewLock);
     }
 }

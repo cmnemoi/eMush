@@ -180,6 +180,22 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <source>bios_terminal.cpu_priority_none</source>
         <target>Aucune</target>
       </segment>
+      <segment id="crew_lock.name" state="translated">
+        <source>bios_terminal.crew_lock_name</source>
+        <target>Verrou équipage</target>
+      </segment>
+      <segment id="crew_lock.description" state="translated">
+        <source>bios_terminal.crew_lock_description</source>
+        <target>:point: Verrouillage Pilotage : Les non-pilotes ne sont pas autorisés à piloter un Patrouilleur/Icarus.//:point: Verrouillage Projet : les non-concepteurs ne sont pas autorisés à participer au développement des projets.</target>
+      </segment>
+      <segment id="crew_lock.projects" state="translated">
+        <source>bios_terminal.crew_lock_projects</source>
+        <target>Projets</target>
+      </segment>
+      <segment id="crew_lock.piloting" state="translated">
+        <source>bios_terminal.crew_lock_piloting</source>
+        <target>Pilotage</target>
+      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="name" state="final">

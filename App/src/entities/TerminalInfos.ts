@@ -14,6 +14,8 @@ export class TerminalInfos {
     public pilgredFinishedDescription: string|null = null;
     public noProposedNeronProjects: boolean|null = null;
     public noProposedNeronProjectsDescription: string|null = null;
+    public availableCrewLocks: {key: string, name: string}[]|null = null;
+    public currentCrewLock: string|null = null;
 
     constructor() {
         this.difficulty = null;
@@ -40,6 +42,8 @@ export class TerminalInfos {
             this.pilgredFinishedDescription = object.pilgredFinishedDescription;
             this.noProposedNeronProjects = object.noProposedNeronProjects;
             this.noProposedNeronProjectsDescription = object.noProposedNeronProjectsDescription;
+            this.availableCrewLocks = object.crewLocks;
+            this.currentCrewLock = object.currentCrewLock;
         }
         return this;
     }

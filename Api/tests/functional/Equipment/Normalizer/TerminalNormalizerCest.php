@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Equipment\Normalizer;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -252,5 +253,78 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertArrayHasKey('projects', $normalizedTerminal);
         $I->assertFalse($normalizedTerminal['infos']['noProposedNeronProjects']);
         $I->assertCount(expectedCount: 3, haystack: $normalizedTerminal['projects']);
+    }
+
+    public function shouldNormalizeBiosTerminal(FunctionalTester $I): void
+    {
+        // given I have a BIOS terminal
+        $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::BIOS_TERMINAL,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given Chun is focused on the terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+            target: $terminal
+        );
+
+        // when I normalize the terminal for Chun
+        $normalizedTerminal = $this->terminalNormalizer->normalize(
+            $terminal,
+            format: null,
+            context: ['currentPlayer' => $this->chun]
+        );
+
+        // then I should get the normalized terminal
+        $I->assertEquals(expected: EquipmentEnum::BIOS_TERMINAL, actual: $normalizedTerminal['key']);
+        $I->assertEquals(expected: 'Terminal BIOS', actual: $normalizedTerminal['name']);
+        $I->assertEquals(
+            expected: 'Vous accédez au BIOS de NERON. Seul son administrateur peut modifier la configuration.',
+            actual: $normalizedTerminal['tips']
+        );
+        $I->assertEquals(
+            expected: [ActionEnum::EXIT_TERMINAL->value, ActionEnum::CHANGE_NERON_CPU_PRIORITY->value, ActionEnum::CHANGE_NERON_CREW_LOCK->value],
+            actual: array_map(static fn ($action) => $action['key'], $normalizedTerminal['actions'])
+        );
+        $I->assertEquals(
+            expected: [
+                'cpu_priority_name' => 'Priorité CPU',
+                'cpu_priority_description' => 'Contrôle la répartition des tranches CPU. Soit elle rend les projets plus faciles à réaliser, soit elle accroît le nombre de GeoDonnées fournies par les analyses de planètes, soit les CPU sont en mode paresseux et ne favorisent rien du tout.//Cette propriété ne peut être changée qu\'*une fois par jour et par personne* pour ne pas entraîner une surcharge cognitive de NERON.',
+                'crew_lock_name' => 'Verrou équipage',
+                'crew_lock_description' => ':point: Verrouillage Pilotage : Les non-pilotes ne sont pas autorisés à piloter un Patrouilleur/Icarus.//:point: Verrouillage Projet : les non-concepteurs ne sont pas autorisés à participer au développement des projets.',
+            ],
+            actual: $normalizedTerminal['sectionTitles']
+        );
+        $I->assertEquals(
+            expected: [],
+            actual: $normalizedTerminal['buttons']
+        );
+        $I->assertEquals(
+            expected: [],
+            actual: $normalizedTerminal['projects']
+        );
+        $I->assertEquals(
+            expected: [
+                'availableCpuPriorities' => [
+                    ['key' => 'none', 'name' => 'Aucune'],
+                    ['key' => 'astronavigation', 'name' => 'Astronavigation'],
+                    ['key' => 'defence', 'name' => 'Système de défense'],
+                    ['key' => 'projects', 'name' => 'Projets'],
+                ],
+                'currentCpuPriority' => 'none',
+                'crewLocks' => [
+                    ['key' => 'projects', 'name' => 'Projets'],
+                    ['key' => 'piloting', 'name' => 'Pilotage'],
+                ],
+                'currentCrewLock' => 'piloting',
+            ],
+            actual: $normalizedTerminal['infos']
+        );
     }
 }

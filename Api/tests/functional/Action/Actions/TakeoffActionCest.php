@@ -20,6 +20,7 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
@@ -74,8 +75,32 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         );
         $I->haveInRepository($this->pasiphae);
 
+        // given player1 is a pilot so they can take off
+        $this->statusService->createStatusFromName(
+            SkillEnum::PILOT,
+            $this->player1,
+            [],
+            new \DateTime()
+        );
+
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKEOFF]);
         $this->takeoffAction = $I->grabService(Takeoff::class);
+    }
+
+    public function shouldNotBeExecutableIfPlayerIsNotAPilot(FunctionalTester $I): void
+    {
+        // given KT is not a pilot (default)
+
+        // when KT tries to take off
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->kuanTi,
+            target: $this->pasiphae
+        );
+
+        // then the action is not executable
+        $I->assertEquals(ActionImpossibleCauseEnum::TERMINAL_NERON_LOCK, $this->takeoffAction->cannotExecuteReason());
     }
 
     public function testTakeoffCriticalSuccess(FunctionalTester $I)

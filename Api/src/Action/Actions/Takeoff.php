@@ -13,6 +13,7 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\NeronCrewLock;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
@@ -67,6 +68,10 @@ final class Takeoff extends AbstractAction
             'target' => HasStatus::DAEDALUS,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DAEDALUS_TRAVELING,
+        ]));
+        $metadata->addConstraint(new NeronCrewLock([
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::TERMINAL_NERON_LOCK,
         ]));
     }
 

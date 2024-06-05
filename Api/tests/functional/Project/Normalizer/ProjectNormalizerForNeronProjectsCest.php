@@ -517,6 +517,27 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'neron_project_thread',
+                'projectName' => 'Participation de NERON',
+                'projectDescription' => 'Si un projet est au dessus de 0%, il est automatiquement amélioré de 5% à chaque cycle.',
+                'projectLore' => 'Après une engueulade NERON devient souvent plus productif, surtout pour bosser sur lui-même. Vous installez un réveil qui insulte sa mémoire vive automatiquement tous les heures.',
+                'projectEfficiency' => 'Efficacité : 6-9%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'it_expert',
+                        'name' => 'Informaticien',
+                        'description' => 'L\'Informaticien est à l\'aise dès qu\'il passe derrière un écran. Il manie à la perfection les
+                    interfaces des terminaux de NERON, d\'astrophysique, et de communication.//:point: +2 :pa_comp: (points
+                    d\'action **Informatique**) par jour.//:point: Chances de réussites doublées avec le **Bidouilleur**.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'shrink',
+                        'name' => 'Psy',
+                        'description' => 'Le psy occupe un poste de soutien psychologique. Il permet de garder le moral et soigne les maladies psychologiques.//:point: A chaque cycle, **1 Point de Moral (:pmo:) est régénéré** à chaque personnage allongé dans sa pièce.//:point: **Soigne les maladies Psy**.//:point: Accorde l\'action **Réconforter**, laquelle améliore le moral.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

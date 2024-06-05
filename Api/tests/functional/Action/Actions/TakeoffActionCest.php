@@ -533,7 +533,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         // given player has 2 action points
         $this->player->setActionPoint(2);
 
-        // given Bay Door XXL project is finished
+        // given Patrol ship launcher project is finished
         $this->finishProject(
             project: $this->daedalus->getProjectByName(ProjectName::PATROL_SHIP_LAUNCHER),
             author: $this->player,

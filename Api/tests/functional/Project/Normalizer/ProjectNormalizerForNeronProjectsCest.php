@@ -59,7 +59,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
         $this->participateActionId = $this->terminal->getMechanicActionByNameOrThrow(ActionEnum::PARTICIPATE)->getId();
     }
 
-    #[DataProvider('normalizedProjectsdataProvider')]
+    #[DataProvider('normalizedProjectsDataProvider')]
     public function shouldNormalizeProject(FunctionalTester $I, Example $example): void
     {
         // given I have a project
@@ -102,7 +102,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
         );
     }
 
-    #[DataProvider('normalizedProjectsdataProvider')]
+    #[DataProvider('normalizedProjectsDataProvider')]
     public function shouldNormalizeProjectInDaedalusNormalizationContext(FunctionalTester $I, Example $example): void
     {
         // given I have a
@@ -209,67 +209,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNormalizeExtraDroneProject(FunctionalTester $I): void
-    {
-        // given I have Extra Drone project
-        $project = $this->daedalus->getProjectByName(ProjectName::EXTRA_DRONE);
-
-        // when I normalize the project
-        $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
-
-        // then I should get the normalized project
-        $I->assertEqualsIgnoringCase(
-            expected: [
-                'id' => $project->getId(),
-                'key' => 'extra_drone',
-                'name' => 'Drone supplémentaire',
-                'description' => 'Ajoute un Drone pour prendre soin du Daedalus dans le Nexus.',
-                'lore' => 'En récupérant les données des drones de Terrence dans une vieille archive, il devrait être possible de demander à NERON de nous en construire une nouvelle copie.',
-                'progress' => '0%',
-                'efficiency' => 'Efficacité : 6-9%',
-                'efficiencyTooltipHeader' => 'Efficacité',
-                'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
-                'bonusSkills' => [
-                    [
-                        'key' => 'technician',
-                        'name' => 'Technicien',
-                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
-        :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
-        :point: Peut **Démonter** des objets.//
-        :point: Chances de réussites doublées pour les **Réparations**.//
-        :point: Chances de réussites doublées pour les **Rénovations**.//
-        :point: Bonus pour développer certains **Projets NERON**.',
-                    ],
-                    [
-                        'key' => 'robotics_expert',
-                        'name' => 'Robotique',
-                        'description' => 'L\'expert en robotique peut créer et manipuler les drones comme bon lui semble.//:point: Commence
-                    avec le **plan d\'un drone**.//:point: Peut **améliorer les drones**.//:point: Bonus pour développer
-                    certains **Projets NERON**.',
-                    ],
-                ],
-                'actions' => [
-                    [
-                        'id' => $this->participateActionId,
-                        'key' => ActionEnum::PARTICIPATE->value,
-                        'name' => 'Participer',
-                        'actionPointCost' => 2,
-                        'movementPointCost' => 0,
-                        'moralPointCost' => 0,
-                        'specialistPointCosts' => [],
-                        'successRate' => 100,
-                        'description' => 'Avance le Projet en fonction de vos capacités.',
-                        'canExecute' => true,
-                        'confirmation' => null,
-                        'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
-                    ],
-                ],
-            ],
-            actual: $normalizedProject
-        );
-    }
-
-    private function normalizedProjectsdataProvider(): array
+    private function normalizedProjectsDataProvider(): array
     {
         return [
             [
@@ -480,6 +420,58 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'trash_load',
+                'projectName' => 'Tas de débris',
+                'projectDescription' => 'Génère 4 débris métalliques et 4 débris plastiques.',
+                'projectLore' => 'L\'ennemi est trop coriace ? Mettez donc un peu de fer dans les épinards !',
+                'projectEfficiency' => 'Efficacité : 18-27%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'technician',
+                        'name' => 'Technicien',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
+        :point: Peut **Démonter** des objets.//
+        :point: Chances de réussites doublées pour les **Réparations**.//
+        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'robotics_expert',
+                        'name' => 'Robotique',
+                        'description' => 'L\'expert en robotique peut créer et manipuler les drones comme bon lui semble.//:point: Commence
+                    avec le **plan d\'un drone**.//:point: Peut **améliorer les drones**.//:point: Bonus pour développer
+                    certains **Projets NERON**.',
+                    ],
+                ],
+            ],
+            [
+                'projectKey' => 'extra_drone',
+                'projectName' => 'Drone supplémentaire',
+                'projectDescription' => 'Ajoute un Drone pour prendre soin du Daedalus dans le Nexus.',
+                'projectLore' => 'En récupérant les données des drones de Terrence dans une vieille archive, il devrait être possible de demander à NERON de nous en construire une nouvelle copie.',
+                'projectEfficiency' => 'Efficacité : 6-9%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'technician',
+                        'name' => 'Technicien',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
+        :point: Peut **Démonter** des objets.//
+        :point: Chances de réussites doublées pour les **Réparations**.//
+        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'robotics_expert',
+                        'name' => 'Robotique',
+                        'description' => 'L\'expert en robotique peut créer et manipuler les drones comme bon lui semble.//:point: Commence
+                    avec le **plan d\'un drone**.//:point: Peut **améliorer les drones**.//:point: Bonus pour développer
+                    certains **Projets NERON**.',
+                    ],
+                ],
+            ]
         ];
     }
 }

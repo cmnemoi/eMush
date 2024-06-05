@@ -539,6 +539,7 @@ class GameConfigData
                 ProjectName::EXTRA_DRONE,
                 ProjectName::PATROLSHIP_BLASTER_GUN,
                 ProjectName::BAY_DOOR_XXL,
+                ProjectName::TRASH_LOAD,
             ],
         ],
     ];

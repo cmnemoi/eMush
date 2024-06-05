@@ -261,6 +261,19 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::TRASH_LOAD,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 18,
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::ROBOTICS_EXPERT],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    '4_metal_scraps_in_engine_room',
+                    '4_plastic_scraps_in_engine_room',
+                ],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

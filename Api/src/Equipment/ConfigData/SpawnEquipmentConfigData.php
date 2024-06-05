@@ -47,6 +47,12 @@ abstract class SpawnEquipmentConfigData
                 placeName: RoomEnum::ALPHA_BAY_2,
                 quantity: 1,
             ),
+            new SpawnEquipmentConfigDto(
+                name: '1_support_drone_in_nexus',
+                equipmentName: ItemEnum::SUPPORT_DRONE,
+                placeName: RoomEnum::NEXUS,
+                quantity: 1,
+            ),
         ];
     }
 }

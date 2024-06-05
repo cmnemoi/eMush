@@ -379,5 +379,23 @@
         <target>La Dynarcade, cette vieille machine de guerre bricolée pour l'entraînement des bleusailles peut facilement être recyclée en jeu vidéo.</target>
       </segment>
     </unit>
+    <unit id="extra_drone">
+      <segment id="extra_drone.type" state="translated">
+        <source>extra_drone.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="extra_drone.name" state="translated">
+        <source>extra_drone.name</source>
+        <target>Drone supplémentaire</target>
+      </segment>
+      <segment id="extra_drone.description" state="translated">
+        <source>extra_drone.description</source>
+        <target>Ajoute un Drone pour prendre soin du Daedalus dans le Nexus.</target>
+      </segment>
+      <segment id="extra_drone.lore" state="translated">
+        <source>extra_drone.lore</source>
+        <target>En récupérant les données des drones de Terrence dans une vieille archive, il devrait être possible de demander à NERON de nous en construire une nouvelle copie.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

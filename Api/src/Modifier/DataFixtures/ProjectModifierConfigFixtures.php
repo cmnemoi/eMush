@@ -21,6 +21,7 @@ use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
@@ -171,7 +172,8 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([ActionEnum::TAKEOFF_TO_PLANET->value => ModifierRequirementEnum::ANY_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierName(ModifierNameEnum::ICARUS_LARGER_BAY_MODIFIER);
         $manager->persist($icarusLargerBayModifier);
         $this->addReference($icarusLargerBayModifier->getName(), $icarusLargerBayModifier);
 

@@ -8,7 +8,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
-use Mush\Action\Repository\ActionRepository;
+use Mush\Action\Repository\ActionConfigRepository;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -33,8 +33,8 @@ final class ActionServiceTest extends TestCase
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
 
-    /** @var ActionRepository|Mockery\Mock */
-    private ActionRepository $actionRepository;
+    /** @var ActionConfigRepository|Mockery\Mock */
+    private ActionConfigRepository $actionConfigRepository;
 
     private ActionServiceInterface $service;
 
@@ -44,14 +44,14 @@ final class ActionServiceTest extends TestCase
     public function before()
     {
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
-        $this->actionRepository = \Mockery::mock(ActionRepository::class);
+        $this->actionConfigRepository = \Mockery::mock(ActionConfigRepository::class);
 
         $this->actionService = \Mockery::mock(ActionServiceInterface::class);
         $this->validator = \Mockery::mock(ValidatorInterface::class);
 
         $this->service = new ActionService(
             $this->eventService,
-            $this->actionRepository
+            $this->actionConfigRepository
         );
     }
 
@@ -180,7 +180,7 @@ final class ActionServiceTest extends TestCase
             ->once();
 
         // Start conversion
-        $this->actionRepository->shouldReceive('findOneBy')
+        $this->actionConfigRepository->shouldReceive('findOneBy')
             ->with(['actionName' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT])
             ->andReturn($convertActionToMovement)
             ->once();
@@ -300,7 +300,7 @@ final class ActionServiceTest extends TestCase
             ->once();
 
         // Start conversion
-        $this->actionRepository->shouldReceive('findOneBy')
+        $this->actionConfigRepository->shouldReceive('findOneBy')
             ->with(['actionName' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT])
             ->andReturn($convertActionToMovement)
             ->once();

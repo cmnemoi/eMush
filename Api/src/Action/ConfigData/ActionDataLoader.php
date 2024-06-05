@@ -7,27 +7,27 @@ namespace Mush\Action\ConfigData;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionVariableEnum;
-use Mush\Action\Repository\ActionRepository;
+use Mush\Action\Repository\ActionConfigRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Player\Enum\PlayerVariableEnum;
 
 final class ActionDataLoader extends ConfigDataLoader
 {
-    private ActionRepository $actionRepository;
+    private ActionConfigRepository $actionConfigRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        ActionRepository $actionRepository
+        ActionConfigRepository $actionConfigRepository
     ) {
         parent::__construct($entityManager);
-        $this->actionRepository = $actionRepository;
+        $this->actionConfigRepository = $actionConfigRepository;
     }
 
     public function loadConfigsData(): void
     {
         foreach (ActionData::$dataArray as $actionData) {
             /** @var null|ActionConfig $action */
-            $action = $this->actionRepository->findOneBy(['name' => $actionData['name']]);
+            $action = $this->actionConfigRepository->findOneBy(['name' => $actionData['name']]);
 
             if ($action === null) {
                 $action = new ActionConfig();

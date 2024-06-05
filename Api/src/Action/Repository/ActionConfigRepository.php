@@ -9,7 +9,7 @@ use Mush\Action\Entity\ActionConfig;
 /**
  * @template-extends ServiceEntityRepository<ActionConfig>
  */
-class ActionRepository extends ServiceEntityRepository
+class ActionConfigRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

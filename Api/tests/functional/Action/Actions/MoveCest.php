@@ -17,6 +17,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -245,15 +246,59 @@ final class MoveCest extends AbstractFunctionalTest
         );
     }
 
+    public function icarusBayShouldAllowTwoExtraPlayersWithLargeBayUpgradeProject(FunctionalTester $I): void
+    {
+        // given there is a door leading to Icarus Bay
+        $door = $this->createDoorFromTo($I, RoomEnum::LABORATORY, RoomEnum::ICARUS_BAY);
+
+        // given all 4 players except derek are in Icarus Bay
+        /** @var Player $player */
+        foreach ($this->players as $player) {
+            $player->changePlace($this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY));
+        }
+
+        // given Large Bay Upgrade project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::ICARUS_LARGER_BAY),
+            author: $this->player,
+            I: $I,
+        );
+
+        // when derek tries to move to Icarus Bay
+        $this->moveAction->loadParameters(
+            actionConfig: $this->moveConfig,
+            actionProvider: $door,
+            player: $this->derek,
+            target: $door
+        );
+        $result = $this->moveAction->execute();
+
+        // then Derek is in Icarus Bay
+        $I->assertEquals(
+            expected: $this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY)->getName(),
+            actual: $this->derek->getPlace()->getName(),
+        );
+    }
+
     private function createDoorFromLaboratoryToFrontCorridor(FunctionalTester $I): Door
     {
         $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
         $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
-        $door = new Door($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $door = new Door($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
         $door
             ->setName('door_default')
             ->setEquipment($doorConfig)
-            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR));
+            ->addRoom($this->daedalus->getPlaceByNameOrThrow(RoomEnum::FRONT_CORRIDOR));
+        $I->haveInRepository($door);
+
+        return $door;
+    }
+
+    private function createDoorFromTo(FunctionalTester $I, string $from, string $to): Door
+    {
+        $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
+        $door = Door::createFromRooms($this->daedalus->getPlaceByNameOrThrow($from), $this->daedalus->getPlaceByNameOrThrow($to));
+        $door->setEquipment($doorConfig);
         $I->haveInRepository($door);
 
         return $door;

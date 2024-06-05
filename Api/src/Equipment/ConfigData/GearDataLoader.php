@@ -3,7 +3,7 @@
 namespace Mush\Equipment\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\Repository\ActionRepository;
+use Mush\Action\Repository\ActionConfigRepository;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Repository\MechanicsRepository;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
@@ -16,10 +16,10 @@ class GearDataLoader extends MechanicsDataLoader
     public function __construct(
         EntityManagerInterface $entityManager,
         MechanicsRepository $mechanicsRepository,
-        ActionRepository $actionRepository,
+        ActionConfigRepository $actionConfigRepository,
         ModifierConfigRepository $modifierConfigRepository
     ) {
-        parent::__construct($entityManager, $mechanicsRepository, $actionRepository);
+        parent::__construct($entityManager, $mechanicsRepository, $actionConfigRepository);
 
         $this->modifierConfigRepository = $modifierConfigRepository;
     }

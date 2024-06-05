@@ -21,6 +21,7 @@ abstract class ModifierNameEnum
     public const string THALASSO_HEALTH_POINTS_MODIFIER = 'thalasso_health_points_modifier';
     public const string THALASSO_MORALE_POINTS_MODIFIER = 'thalasso_morale_points_modifier';
     public const string THALASSO_MOVEMENT_POINTS_MODIFIER = 'thalasso_movement_points_modifier';
+    public const string ICARUS_LARGER_BAY_MODIFIER = 'icarus_larger_bay_modifier';
 
     /** @TODO Rename that SPECIALIST_POINT_SHOOTER */
     public const string SHOOTER_SPECIALIST_POINT = 'shooter_specialist_point';

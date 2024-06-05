@@ -2226,7 +2226,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_place_+2players_allowed_on_takeoff_to_planet',
-            'modifierName' => null,
+            'modifierName' => ModifierNameEnum::ICARUS_LARGER_BAY_MODIFIER,
             'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,

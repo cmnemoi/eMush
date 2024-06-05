@@ -8,14 +8,14 @@
       </segment>
       <segment id="botanist.description" state="translated">
         <source>botanist.description</source>
-        <target>Le botaniste peut distinguer les caractéristiques des fruits et des plantes. Il est également
+        <target>Le Botaniste peut distinguer les caractéristiques des fruits et des plantes. Il est également
                     redoutablement efficace dans la maintenance du Jardin.//:point: Peut lire les **propriétés des
                     fruits**.//
                     :point: Peut lire les **propriétés des plantes**.//
                     :point: Peut effectuer des **greffes**.//
                     :point: +2 :pa_garden: par jour (points d'action **Jardinage**).//
                     :point: Expédition : L'évènement **Récolte** donne un fruit de plus.//
-                    :point: Bonus pour développer certains **Projets NERON**.//</target>
+                    :point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="firefighter">

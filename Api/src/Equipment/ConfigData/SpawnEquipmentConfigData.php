@@ -53,6 +53,12 @@ abstract class SpawnEquipmentConfigData
                 placeName: RoomEnum::NEXUS,
                 quantity: 1,
             ),
+            new SpawnEquipmentConfigDto(
+                name: '1_hydroponic_incubator_in_hydroponic_garden',
+                equipmentName: EquipmentEnum::HYDROPONIC_INCUBATOR,
+                placeName: RoomEnum::HYDROPONIC_GARDEN,
+                quantity: 1,
+            ),
         ];
     }
 }

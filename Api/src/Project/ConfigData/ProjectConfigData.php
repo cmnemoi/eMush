@@ -237,6 +237,18 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::HYDROPONIC_INCUBATOR,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::BOTANIST],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    '1_hydroponic_incubator_in_hydroponic_garden',
+                ],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

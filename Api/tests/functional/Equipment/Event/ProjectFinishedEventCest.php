@@ -111,6 +111,12 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'quantity' => 1,
                 'creationPlaces' => [RoomEnum::NEXUS],
             ],
+            [
+                'project' => ProjectName::HYDROPONIC_INCUBATOR->value,
+                'equipment' => EquipmentEnum::HYDROPONIC_INCUBATOR,
+                'quantity' => 1,
+                'creationPlaces' => [RoomEnum::HYDROPONIC_GARDEN],
+            ],
         ];
     }
 }

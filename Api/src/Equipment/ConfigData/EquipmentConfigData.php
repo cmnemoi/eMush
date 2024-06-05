@@ -3916,5 +3916,26 @@ class EquipmentConfigData
                 EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE . '_default',
             ],
         ],
+        [
+            'name' => EquipmentEnum::HYDROPONIC_INCUBATOR . '_default',
+            'equipmentName' => EquipmentEnum::HYDROPONIC_INCUBATOR,
+            'isBreakable' => false,
+            'isFireDestroyable' => false,
+            'isFireBreakable' => false,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'equipment_config',
+            'isStackable' => false,
+            'actions' => [],
+            'mechanics' => [
+                'gear_hydroponic_incubator_default',
+            ],
+            'initStatuses' => [],
+        ],
     ];
+
+    public static function getByEquipmentName(string $name): array
+    {
+        return current(array_filter(self::$dataArray, static fn (array $data) => $data['equipmentName'] === $name));
+    }
 }

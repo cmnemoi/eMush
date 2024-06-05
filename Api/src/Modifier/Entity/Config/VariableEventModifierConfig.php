@@ -43,6 +43,24 @@ class VariableEventModifierConfig extends EventModifierConfig
         parent::__construct($name);
     }
 
+    public static function fromConfigData(array $configData): self
+    {
+        $modifier = new self($configData['name']);
+
+        $modifier
+            ->setDelta($configData['delta'])
+            ->setTargetVariable($configData['targetVariable'])
+            ->setMode($configData['mode'])
+            ->setPriority($configData['priority'])
+            ->setTargetEvent($configData['targetEvent'])
+            ->setApplyWhenTargeted($configData['applyOnTarget'])
+            ->setTagConstraints($configData['tagConstraints'])
+            ->setModifierRange($configData['modifierRange'])
+            ->setModifierName($configData['modifierName']);
+
+        return $modifier;
+    }
+
     public function buildName(): static
     {
         $modifierName = $this->modifierName;

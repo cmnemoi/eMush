@@ -13,6 +13,7 @@ use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Event\HunterEvent;
+use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -77,6 +78,10 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($armourCorridorModifier);
         $this->addReference($armourCorridorModifier->getName(), $armourCorridorModifier);
+
+        $hydroponicIncubatorModifier = VariableEventModifierConfig::fromConfigData(ModifierConfigData::getByName('modifier_for_place_x2_maturation_time'));
+        $manager->persist($hydroponicIncubatorModifier);
+        $this->addReference($hydroponicIncubatorModifier->getName(), $hydroponicIncubatorModifier);
 
         $manager->flush();
     }

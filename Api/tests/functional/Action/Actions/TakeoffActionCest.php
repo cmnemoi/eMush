@@ -25,6 +25,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
@@ -346,13 +347,13 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
     public function shouldDestroyPatrolShipIfNoEnoughArmor(FunctionalTester $I): void
     {
-        // given land action has a 0% critical rate so it will fail
+        // given takeoff action has a 0% critical rate so it will fail
         $this->action->setCriticalRate(0);
 
-        // given pasiphae armor is equals to one so it will be destroyed at landing
+        // given pasiphae armor is equals to one so it will be destroyed at takeoffing
         $this->pasiphaeArmor->setCharge(1);
 
-        // when player lands
+        // when player takeoffs
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
@@ -367,13 +368,13 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
     public function shouldKillPlayerWithoutSpacesuitIfPatrolShipExplodes(FunctionalTester $I): void
     {
-        // given land action has a 0% critical rate so it will fail
+        // given takeoff action has a 0% critical rate so it will fail
         $this->action->setCriticalRate(0);
 
-        // given pasiphae armor is equals to one so it will be destroyed at landing
+        // given pasiphae armor is equals to one so it will be destroyed at takeoffing
         $this->pasiphaeArmor->setCharge(1);
 
-        // when player lands
+        // when player takeoffs
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
@@ -391,10 +392,10 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
     public function shouldNotKillPlayerWithSpacesuitIfPatrolShipExplodes(FunctionalTester $I): void
     {
-        // given land action has a 0% critical rate so it will fail
+        // given takeoff action has a 0% critical rate so it will fail
         $this->action->setCriticalRate(0);
 
-        // given pasiphae armor is equals to one so it will be destroyed at landing
+        // given pasiphae armor is equals to one so it will be destroyed at takeoffing
         $this->pasiphaeArmor->setCharge(1);
 
         // given player has a spacesuit
@@ -405,7 +406,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             time: new \DateTime()
         );
 
-        // when player lands
+        // when player takeoffs
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
@@ -420,10 +421,10 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
     public function shouldMovePatrolShipContentInSpaceIfPatrolShipExplodes(FunctionalTester $I): void
     {
-        // given land action has a 0% critical rate so it will fail
+        // given takeoff action has a 0% critical rate so it will fail
         $this->action->setCriticalRate(0);
 
-        // given pasiphae armor is equals to one so it will be destroyed at landing
+        // given pasiphae armor is equals to one so it will be destroyed at takeoffing
         $this->pasiphaeArmor->setCharge(1);
 
         // given there is an old shirt in pasiphae
@@ -434,7 +435,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             time: new \DateTime()
         );
 
-        // when player lands
+        // when player takeoffs
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
@@ -452,13 +453,13 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
     public function shouldKillPlayerByInjuryIfTheyDontHaveHealthPoints(FunctionalTester $I): void
     {
-        // given land action has a 0% critical rate so it will fail
+        // given takeoff action has a 0% critical rate so it will fail
         $this->action->setCriticalRate(0);
 
         // given player has only one health point
         $this->player1->setHealthPoint(1);
 
-        // when player lands
+        // when player takeoffs
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
@@ -472,6 +473,31 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             expected: EndCauseEnum::INJURY,
             actual: $this->player1->getPlayerInfo()->getClosedPlayer()->getEndCause(),
         );
+    }
+
+    public function shouldHaveIncreasedChanceOfCriticalSuccessWithBayDoorXXLProject(FunctionalTester $I): void
+    {
+        // given takeoff action has a 75% critical rate
+        $this->action->setCriticalRate(75);
+
+        // given Bay Door XXL project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::BAY_DOOR_XXL),
+            author: $this->player,
+            I: $I
+        );
+
+        // when player takeoffs
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
+        $result = $this->takeoffAction->execute();
+
+        // then takeoff should always be a critical success thanks to increased chances
+        $I->assertInstanceOf(CriticalSuccess::class, $result);
     }
 
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void

@@ -7,6 +7,7 @@ namespace Mush\Modifier\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
@@ -93,6 +94,21 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($blasterGunModifier);
         $this->addReference($blasterGunModifier->getName(), $blasterGunModifier);
+
+        $bayDoorXXLModifier = new VariableEventModifierConfig('modifier_for_player_x1.5percentage_for_takeoff_and_land_actions');
+        $bayDoorXXLModifier
+            ->setTargetVariable(ActionVariableEnum::PERCENTAGE_CRITICAL)
+            ->setDelta(1.5)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
+            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
+            ->setTagConstraints([
+                ActionEnum::TAKEOFF->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::LAND->value => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $manager->persist($bayDoorXXLModifier);
+        $this->addReference($bayDoorXXLModifier->getName(), $bayDoorXXLModifier);
 
         $manager->flush();
     }

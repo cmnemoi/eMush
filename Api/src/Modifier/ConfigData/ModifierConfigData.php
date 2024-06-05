@@ -2204,5 +2204,24 @@ abstract class ModifierConfigData
                 ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_player_x1.5percentage_for_takeoff_and_land_actions',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'visibility' => null,
+            'delta' => 1.5,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_CRITICAL,
+            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::TAKEOFF->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::LAND->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 }

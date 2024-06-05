@@ -10,7 +10,6 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

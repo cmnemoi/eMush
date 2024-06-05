@@ -47,7 +47,7 @@ final class DiseaseNormalizerCest extends AbstractFunctionalTest
                 'key' => DiseaseEnum::FLU,
                 'name' => 'Grippe',
                 'type' => MedicalConditionTypeEnum::DISEASE,
-                'description' => 'Variante sévère de la grippe du poney... Irritable, autoritaire, mal de crâne, rhume, courbatures, rien ne vous est épargné. Attention à ne pas trop laisser traîner, on ne sait jamais.//Max :hp: **-2**.//Max :pmo: **-2**.//Chaque cycle, **10%** de chances de perdre **1** :hp:.//Chaque cycle, **20%** de chances de perdre **1** :pa:.//Fait subir le symptôme **Vomissements**.//Fait subir le symptôme **Nausée**.//Chaque cycle, **40%** de chances de rendre sale.',
+                'description' => 'Variante sévère de la grippe du poney... Irritable, autoritaire, mal de crâne, rhume, courbatures, rien ne vous est épargné. Attention à ne pas trop laisser traîner, on ne sait jamais.//Chaque cycle, **40%** de chances de rendre sale.//Max :hp: **-2**.//Max :pmo: **-2**.//Chaque cycle, **10%** de chances de perdre **1** :hp:.//Chaque cycle, **20%** de chances de perdre **1** :pa:.//Fait subir le symptôme **Vomissements**.//Fait subir le symptôme **Nausée**.',
             ],
             $normalizedDisease
         );

@@ -487,5 +487,23 @@
         <target>En exploitant le code source de NERON, vous vous apercevez que vous pourriez doter l'Icarus d'une pseudo-conscience. Vous décidez de virer le code pseudo cognitif et le moteur d'émotion et de garder le noyau de survie. Maintenant l'Icarus reviendra si l'expédition est décimée.</target>
       </segment>
     </unit>
+    <unit id="quantum_sensors">
+      <segment id="quantum_sensors.type" state="translated">
+        <source>quantum_sensors.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="quantum_sensors.name" state="translated">
+        <source>quantum_sensors.name</source>
+        <target>Détecteur à ondes de probabilité</target>
+      </segment>
+      <segment id="quantum_sensors.description" state="translated">
+        <source>quantum_sensors.description</source>
+        <target>Le scanner de planète révèle une section de plus par essai.</target>
+      </segment>
+      <segment id="quantum_sensors.lore" state="translated">
+        <source>quantum_sensors.lore</source>
+        <target>Les InfraSenseurs disposent aussi d'un capteur de probabilité de présence de matière noire ce qui devrait notablement améliorer leur rendement.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

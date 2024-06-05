@@ -41,6 +41,12 @@ abstract class SpawnEquipmentConfigData
                 placeName: RoomEnum::ENGINE_ROOM,
                 quantity: 1,
             ),
+            new SpawnEquipmentConfigDto(
+                name: '1_dynarcade_in_alpha_bay_2',
+                equipmentName: EquipmentEnum::DYNARCADE,
+                placeName: RoomEnum::ALPHA_BAY_2,
+                quantity: 1,
+            ),
         ];
     }
 }

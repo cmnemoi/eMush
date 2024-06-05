@@ -338,6 +338,31 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'call_of_dirty',
+                'projectName' => 'Dynarcade',
+                'projectDescription' => 'Rend disponible la Dynarcade en Baie Alpha 2. Permet de se défouler au détriment de quelques contusions. La Dynarcade permet de regagner du moral.',
+                'projectLore' => 'La Dynarcade, cette vieille machine de guerre bricolée pour l\'entraînement des bleusailles peut facilement être recyclée en jeu vidéo.',
+                'projectEfficiency' => 'Efficacité : 18-27%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'technician',
+                        'name' => 'Technicien',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
+        :point: Peut **Démonter** des objets.//
+        :point: Chances de réussites doublées pour les **Réparations**.//
+        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+
+                    [
+                        'key' => 'shooter',
+                        'name' => 'Tireur',
+                        'description' => 'Le Tireur manipule les armes de tout type avec beaucoup d\'aisance.//:point: +2 **Tirs gratuits** :pa_shoot: par jour.//:point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

@@ -361,5 +361,23 @@
         <target>Eurêka ! Dans Magellan, les fibres optiques qui longent les coursives peuvent se compresser automatiquement pour pouvoir rajouter facilement des câbles. En injectant des câbles en trop, vous pouvez créer une pseudo armure !</target>
       </segment>
     </unit>
+    <unit id="call_of_dirty">
+      <segment id="call_of_dirty.type" state="translated">
+        <source>call_of_dirty.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="call_of_dirty.name" state="translated">
+        <source>call_of_dirty.name</source>
+        <target>Dynarcade</target>
+      </segment>
+      <segment id="call_of_dirty.description" state="translated">
+        <source>call_of_dirty.description</source>
+        <target>Rend disponible la Dynarcade en Baie Alpha 2. Permet de se défouler au détriment de quelques contusions. La Dynarcade permet de regagner du moral.</target>
+      </segment>
+      <segment id="call_of_dirty.lore" state="translated">
+        <source>call_of_dirty.lore</source>
+        <target>La Dynarcade, cette vieille machine de guerre bricolée pour l'entraînement des bleusailles peut facilement être recyclée en jeu vidéo.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

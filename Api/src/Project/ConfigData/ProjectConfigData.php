@@ -213,6 +213,18 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::CALL_OF_DIRTY,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 18,
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::SHOOTER],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    '1_dynarcade_in_alpha_bay_2',
+                ],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

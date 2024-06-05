@@ -40,7 +40,7 @@ class PlaceConfigData
             'type' => 'room',
             'doors' => ['alpha_bay_alpha_bay_2', 'engine_room_bay_alpha_2', 'rear_corridor_bay_alpha_2', 'rear_alpha_turret_bay_alpha_2'],
             'items' => ['oscilloscope_blueprint', 'sniper_helmet_blueprint'],
-            'equipments' => ['patrol_ship_alpha_2_wallis', 'pasiphae', 'dynarcade', 'jukebox'],
+            'equipments' => ['patrol_ship_alpha_2_wallis', 'pasiphae', 'jukebox'],
         ],
         [
             'name' => 'nexus_default',

@@ -110,7 +110,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'equipment' => ItemEnum::SUPPORT_DRONE,
                 'quantity' => 1,
                 'creationPlaces' => [RoomEnum::NEXUS],
-            ]
+            ],
         ];
     }
 }

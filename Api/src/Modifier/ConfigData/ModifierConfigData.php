@@ -14,6 +14,7 @@ use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\RollPercentageEvent;
@@ -2261,6 +2262,23 @@ abstract class ModifierConfigData
                 ActionEnum::SHOOT_RANDOM_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::SHOOT_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'modifier_for_player_prevent_dirty_for_exploration_finished',
+            'modifierName' => null,
+            'targetEvent' => StatusEvent::STATUS_APPLIED,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => ModifierPriorityEnum::PREVENT_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'replaceEvent' => true,
+            'triggeredEvent' => null,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ALL_TAGS,
+                ExplorationEvent::EXPLORATION_FINISHED => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
         [

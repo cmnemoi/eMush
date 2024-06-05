@@ -347,6 +347,7 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::TECHNICIAN],
                 'activationRate' => 100,
                 'modifierConfigs' => [
+                    'modifier_for_player_prevent_dirty_for_exploration_finished',
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],

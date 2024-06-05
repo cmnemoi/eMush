@@ -31,6 +31,7 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
@@ -542,5 +543,38 @@ final class ExplorationServiceCest extends AbstractExplorationTester
                 ->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY)
                 ->hasEquipmentByName(GearItemEnum::SPACESUIT)
         );
+    }
+
+    public function closeExplorationShouldNotGetPlayerDirtyWithIcarusLavatoryProject(FunctionalTester $I): void
+    {
+        // given Icarus Lavatory project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::ICARUS_LAVATORY),
+            author: $this->player,
+            I: $I,
+        );
+
+        // given a planet with 1 desert sector
+        $planet = $this->createPlanet([PlanetSectorEnum::DESERT], $I);
+
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $planet,
+            explorators: new PlayerCollection([$this->chun]),
+        );
+
+        // when exploration is closed
+        $this->explorationService->closeExploration($exploration, []);
+
+        // then Chun should not be dirty
+        $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::DIRTY));
     }
 }

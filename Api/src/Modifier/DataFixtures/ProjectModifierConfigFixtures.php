@@ -11,19 +11,24 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Modifier\ConfigData\ModifierConfigData;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 
 final class ProjectModifierConfigFixtures extends Fixture
 {
@@ -143,6 +148,20 @@ final class ProjectModifierConfigFixtures extends Fixture
         $hydroponicIncubatorModifier = VariableEventModifierConfig::fromConfigData(ModifierConfigData::getByName('modifier_for_place_x2_maturation_time'));
         $manager->persist($hydroponicIncubatorModifier);
         $this->addReference($hydroponicIncubatorModifier->getName(), $hydroponicIncubatorModifier);
+
+        $icarusLavatoryModifier = new EventModifierConfig('modifier_for_player_prevent_dirty_for_exploration_finished');
+        $icarusLavatoryModifier
+            ->setApplyWhenTargeted(true)
+            ->setTargetEvent(StatusEvent::STATUS_APPLIED)
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
+            ->setTagConstraints([
+                PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ALL_TAGS,
+                ExplorationEvent::EXPLORATION_FINISHED => ModifierRequirementEnum::ALL_TAGS,
+            ])
+            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $manager->persist($icarusLavatoryModifier);
+        $this->addReference($icarusLavatoryModifier->getName(), $icarusLavatoryModifier);
 
         $manager->flush();
     }

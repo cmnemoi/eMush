@@ -12,7 +12,7 @@ class ContentStatus extends Status
 
     public function getContent(): string
     {
-        return $this->content;
+        return $this->content === '' ? 'empty' : $this->content;
     }
 
     /**

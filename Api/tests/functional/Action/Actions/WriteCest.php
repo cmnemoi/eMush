@@ -89,7 +89,7 @@ final class WriteCest extends AbstractFunctionalTest
         $I->assertTrue($this->player->hasEquipmentByName(ItemEnum::POST_IT));
         $I->assertTrue($this->player->getEquipmentByName(ItemEnum::POST_IT)->hasStatus(EquipmentStatusEnum::DOCUMENT_CONTENT));
         $I->assertEquals(
-            expected: '',
+            expected: 'empty',
             actual: $this->player->getEquipmentByName(ItemEnum::POST_IT)->getStatusByName(EquipmentStatusEnum::DOCUMENT_CONTENT)->getContent()
         );
     }

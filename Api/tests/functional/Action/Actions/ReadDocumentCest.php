@@ -119,7 +119,7 @@ final class ReadDocumentCest extends AbstractFunctionalTest
         ]);
 
         $I->assertInstanceOf(Success::class, $result);
-        $I->assertEquals(expected: '', actual: $result->getContent());
+        $I->assertEquals(expected: 'empty', actual: $result->getContent());
     }
 
     private function whenPlayerReadsDocument(GameItem $postIt): ActionResult

@@ -267,7 +267,7 @@
       <segment id="read_content" state="final">
         <source>read_content</source>
         <target>{content, select,
-        empty {Ce carré jaune ne cesse d'atirer votre regard, comme s'il manquait quelque chose...}
+        empty {Ce carré jaune ne cesse d'attirer votre regard, comme s'il manquait quelque chose...}
         other {{content}}}</target>
       </segment>
     </unit>

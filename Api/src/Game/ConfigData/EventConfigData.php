@@ -4,9 +4,11 @@ namespace Mush\Game\ConfigData;
 
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Game\Enum\GameVariableHolderEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Project\Enum\ProjectVariablesEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
 /** @codeCoverageIgnore */
@@ -268,6 +270,14 @@ class EventConfigData
             'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
             'eventName' => VariableEventInterface::CHANGE_VARIABLE,
             'name' => 'change.variable_player_+2movementPoint',
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 5,
+            'targetVariable' => ProjectVariablesEnum::PROGRESS->value,
+            'variableHolderClass' => ModifierHolderClassEnum::DAEDALUS,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => 'change.variable_project_progress_+5',
         ],
     ];
 

@@ -2223,5 +2223,19 @@ abstract class ModifierConfigData
                 ActionEnum::LAND->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_daedalus_+5project_progress_on_new_cycle',
+            'modifierName' => '',
+            'targetEvent' => 'daedalus.new.cycle',
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => false,
+            'modifierRange' => 'daedalus',
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
+            'triggeredEvent' => 'change.variable_project_progress_+5',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
 }

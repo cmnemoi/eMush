@@ -7,7 +7,7 @@ export enum SkillEnum {
     BIOLOGIST = 'biologist',
     BOTANIST = 'botanist',
     CAFFEINE_JUNKIE = 'caffeine_junkie',
-    CHEF = ' chef',
+    CHEF = 'chef',
     COLD_BLOODED = 'cold_blooded',
     CONFIDENT = 'confident',
     CRAZY_EYE = 'crazy_eye',

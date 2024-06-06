@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="equipments.ext">
-    <unit id="radar_trans_void_antenna">
+    <unit id="antenna">
       <segment id="name" state="final">
-        <source>radar_trans_void_antenna.name</source>
+        <source>antenna.name</source>
         <target>Antenne</target>
       </segment>
       <segment id="short_name" state="final">
-        <source>radar_trans_void_antenna.short_name</source>
+        <source>antenna.short_name</source>
         <target>Antenne</target>
       </segment>
       <segment id="plural_name" state="final">
-        <source>radar_trans_void_antenna.plural_name</source>
+        <source>antenna.plural_name</source>
         <target>Antennes</target>
       </segment>
       <segment id="genre" state="final">
-        <source>radar_trans_void_antenna.gender</source>
+        <source>antenna.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="final">
-        <source>radar_trans_void_antenna.first_letter</source>
+        <source>antenna.first_letter</source>
         <target>vowel</target>
       </segment>
       <segment id="examine" state="final">
-        <source>radar_trans_void_antenna.examine</source>
+        <source>antenna.examine</source>
         <target>Améliore grandement le rendement du Centre de Communication. Diminue de 1 pa le coût des actions de communication. Le manuel stipule que l'antenne stellaire est le must have en terme de communication, avec sa bande passante de 24 Bauds, il vous permettra de communiquer à l'autre bout de l'univers sans effort.</target>
       </segment>
     </unit>

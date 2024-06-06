@@ -35,6 +35,15 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         $this->thenPatrolShipShouldHaveSixteenMaxCharges($patrolShip, $I);
     }
 
+    public function shouldIncreasePatrolShipChargesToMaximumWhenPatrolshipExtraAmmoProjectIsFinished(FunctionalTester $I): void
+    {
+        $patrolShip = $this->givenAPatrolShipWithTenMaxCharges();
+
+        $this->whenPatrolshipExtraAmmoProjectIsFinished($I);
+
+        $this->thenPatrolShipShouldHaveMaximumCharges($patrolShip, $I);
+    }
+
     private function givenAPatrolShipWithTenMaxCharges(): GameEquipment
     {
         return $this->gameEquipmentService->createGameEquipmentFromName(
@@ -59,6 +68,14 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: 16,
             actual: $patrolShip->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getMaxChargeOrThrow(),
+        );
+    }
+
+    private function thenPatrolShipShouldHaveMaximumCharges(GameEquipment $patrolShip, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $patrolShip->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getMaxChargeOrThrow(),
+            actual: $patrolShip->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getCharge(),
         );
     }
 }

@@ -277,6 +277,14 @@ class EventConfigData
             'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
             'name' => 'change.variable_patrol_ship_max_charges_+6',
         ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 1_000_000,
+            'targetVariable' => EquipmentStatusEnum::ELECTRIC_CHARGES,
+            'variableHolderClass' => ModifierHolderClassEnum::EQUIPMENT,
+            'eventName' => VariableEventInterface::SET_VALUE,
+            'name' => 'change.variable_patrol_ship_set_charges_to_maximum',
+        ],
     ];
 
     public static array $planetSectorEventConfigData = [

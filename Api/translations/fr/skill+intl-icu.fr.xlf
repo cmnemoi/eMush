@@ -181,7 +181,7 @@
       </segment>
       <segment id="chef.description" state="translated">
         <source>chef.description</source>
-        <target>Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4 :pa_cook: par jour (points d'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.//:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4 :pa_cook: par jour (points d'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
   </file>

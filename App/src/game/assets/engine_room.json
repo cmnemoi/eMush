@@ -1608,6 +1608,34 @@
                  "width":62,
                  "x":42.5,
                  "y":329.5
+                }, 
+                {
+                 "gid":351,
+                 "height":60,
+                 "id":38,
+                 "name":"quantum_sensors_planet_scanner",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":48
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":67,
+                 "x":180.833333333333,
+                 "y":386.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1616,10 +1644,10 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":38,
+ "nextobjectid":39,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.10.2",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {

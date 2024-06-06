@@ -2185,7 +2185,7 @@ abstract class ModifierConfigData
             ],
         ],
         [
-            'name' => 'modifier_for_daedaus_-1hunter_health_on_change.variable',
+            'name' => 'modifier_for_daedalus_-1hunter_health_on_change.variable',
             'modifierName' => null,
             'targetEvent' => 'change.variable',
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,

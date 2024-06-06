@@ -110,6 +110,23 @@ final class ProjectModifierConfigFixtures extends Fixture
         $manager->persist($bayDoorXXLModifier);
         $this->addReference($bayDoorXXLModifier->getName(), $bayDoorXXLModifier);
 
+        $neronTargetingAssistModifier = new VariableEventModifierConfig('modifier_for_daedalus_x1.25_percentage_on_shoot_hunter');
+        $neronTargetingAssistModifier
+            ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->setDelta(1.25)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
+            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
+            ->setTagConstraints([
+                ActionEnum::SHOOT_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_RANDOM_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($neronTargetingAssistModifier);
+        $this->addReference($neronTargetingAssistModifier->getName(), $neronTargetingAssistModifier);
+
         $manager->flush();
     }
 }

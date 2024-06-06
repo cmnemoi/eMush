@@ -300,7 +300,9 @@ abstract class ProjectConfigData
                 'efficiency' => 3,
                 'bonusSkills' => [SkillEnum::PILOT, SkillEnum::SHOOTER],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_x1.25_percentage_on_shoot_hunter',
+                ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],

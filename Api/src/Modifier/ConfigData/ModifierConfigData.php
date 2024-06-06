@@ -2230,7 +2230,7 @@ abstract class ModifierConfigData
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
             'applyOnTarget' => false,
-            'modifierRange' => 'player',
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
             'type' => 'variable_event_modifier',
             'visibility' => null,
             'delta' => 1.25,

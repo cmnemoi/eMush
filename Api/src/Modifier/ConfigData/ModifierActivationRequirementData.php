@@ -126,6 +126,48 @@ class ModifierActivationRequirementData
             'value' => 100,
         ],
         [
+            'name' => 'holder_name_patrol_ship_alpha_tamarin',
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
+            'activationRequirement' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            'value' => 100,
+        ],
+        [
+            'name' => 'holder_name_patrol_ship_alpha_longane',
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
+            'activationRequirement' => EquipmentEnum::PATROL_SHIP_ALPHA_LONGANE,
+            'value' => 100,
+        ],
+        [
+            'name' => 'holder_name_patrol_ship_alpha_jujube',
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
+            'activationRequirement' => EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
+            'value' => 100,
+        ],
+        [
+            'name' => 'holder_name_patrol_ship_bravo_socrate',
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
+            'activationRequirement' => EquipmentEnum::PATROL_SHIP_BRAVO_SOCRATE,
+            'value' => 100,
+        ],
+        [
+            'name' => 'holder_name_patrol_ship_bravo_epicure',
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
+            'activationRequirement' => EquipmentEnum::PATROL_SHIP_BRAVO_EPICURE,
+            'value' => 100,
+        ],
+        [
+            'name' => 'holder_name_patrol_ship_bravo_planton',
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
+            'activationRequirement' => EquipmentEnum::PATROL_SHIP_BRAVO_PLANTON,
+            'value' => 100,
+        ],
+        [
+            'name' => 'holder_name_patrol_ship_alpha_2_wallis',
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
+            'activationRequirement' => EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
+            'value' => 100,
+        ],
+        [
             'name' => ModifierRequirementEnum::SKILL_IN_ROOM . '_shrink',
             'activationRequirementName' => ModifierRequirementEnum::SKILL_IN_ROOM,
             'activationRequirement' => SkillEnum::SHRINK,

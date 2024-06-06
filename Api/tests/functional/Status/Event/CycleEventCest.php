@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
@@ -41,6 +42,7 @@ use Mush\User\Entity\User;
 final class CycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $equipmentService;
     private StatusCycleSubscriber $cycleSubscriber;
     private StatusServiceInterface $statusService;
 
@@ -48,6 +50,7 @@ final class CycleEventCest extends AbstractFunctionalTest
     {
         parent::_before($I);
         $this->cycleSubscriber = $I->grabService(StatusCycleSubscriber::class);
+        $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
@@ -331,5 +334,38 @@ final class CycleEventCest extends AbstractFunctionalTest
 
         // then the fire should be killed
         $I->assertFalse($this->chun->getPlace()->hasStatus(StatusEnum::FIRE));
+    }
+
+    public function shouldIncreaseNumberOfChargesEarnedByTurretWithTurretExtraFireRateProject(FunctionalTester $I): void
+    {
+        // given a turret in Chun's room
+        $turret = $this->equipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::TURRET_COMMAND,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given turret has 1 charge
+        $turretCharges = $turret->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->setCharge(1);
+
+        // given Turret Extra Fire rate project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::TURRET_EXTRA_FIRE_RATE),
+            author: $this->chun,
+            I: $I
+        );
+
+        // when a cycle passes
+        $cycleEvent = new StatusCycleEvent(
+            status: $turretCharges,
+            holder: $turret,
+            tags: [EventEnum::NEW_CYCLE],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($cycleEvent, StatusCycleEvent::STATUS_NEW_CYCLE);
+
+        // then turret should have 3 charges
+        $I->assertEquals(3, $turretCharges->getCharge());
     }
 }

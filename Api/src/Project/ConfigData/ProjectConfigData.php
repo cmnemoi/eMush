@@ -392,7 +392,9 @@ abstract class ProjectConfigData
                 'efficiency' => 12,
                 'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_x2_turret_charges_on_new_cycle',
+                ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],

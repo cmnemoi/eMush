@@ -896,6 +896,30 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'oxy_more',
+                'projectName' => 'Conduites oxygénées',
+                'projectDescription' => 'A chaque cycle, le Daedalus a 20% de chance d\'économiser l\'oxygène de l\'équipage.',
+                'projectLore' => 'Des algues qui poussent dans les conduites de climatisation. On pourrait peut-être faire pousser des bananiers rampants aussi non ?',
+                'projectEfficiency' => 'Efficacité : 6-9%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'technician',
+                        'name' => 'Technicien',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
+        :point: Peut **Démonter** des objets.//
+        :point: Chances de réussites doublées pour les **Réparations**.//
+        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'biologist',
+                        'name' => 'Biologiste',
+                        'description' => 'Le Biologiste est plus efficace dans les recherches du laboratoire.//:point: Peut lire les **propriétés des médicaments**.//:point: **+4% de bonus** sur chacune des **Recherches** du Laboratoire.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

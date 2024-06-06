@@ -482,6 +482,16 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::OXY_MORE,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BIOLOGIST],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

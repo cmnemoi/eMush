@@ -487,5 +487,23 @@
         <target>En exploitant le code source de NERON, vous vous apercevez que vous pourriez doter l'Icarus d'une pseudo-conscience. Vous décidez de virer le code pseudo cognitif et le moteur d'émotion et de garder le noyau de survie. Maintenant l'Icarus reviendra si l'expédition est décimée.</target>
       </segment>
     </unit>
+    <unit id="patrolship_extra_ammo">
+      <segment id="patrolship_extra_ammo.type" state="translated">
+        <source>patrolship_extra_ammo.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="patrolship_extra_ammo.name" state="translated">
+        <source>patrolship_extra_ammo.name</source>
+        <target>Réservoir de Teslatron</target>
+      </segment>
+      <segment id="patrolship_extra_ammo.description" state="translated">
+        <source>patrolship_extra_ammo.description</source>
+        <target>Les patrouilleurs disposent de 6 charges supplémentaires.</target>
+      </segment>
+      <segment id="patrolship_extra_ammo.lore" state="translated">
+        <source>patrolship_extra_ammo.lore</source>
+        <target>En ajoutant un piston de compression, on peut doubler la capacité de stockage des cuves à Teslatron des patrouilleurs.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

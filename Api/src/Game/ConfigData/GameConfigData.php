@@ -544,6 +544,7 @@ class GameConfigData
                 ProjectName::TRASH_LOAD,
                 ProjectName::FOOD_RETAILER,
                 ProjectName::AUTO_RETURN_ICARUS,
+                ProjectName::PATROLSHIP_EXTRA_AMMO,
             ],
         ],
     ];

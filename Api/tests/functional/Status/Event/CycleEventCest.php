@@ -25,6 +25,7 @@ use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -338,7 +339,17 @@ final class CycleEventCest extends AbstractFunctionalTest
 
     public function shouldIncreaseNumberOfChargesEarnedByTurretWithTurretExtraFireRateProject(FunctionalTester $I): void
     {
-        // given a turret in Chun's room
+        [$turret, $turretCharges] = $this->givenATurretWithOneCharge();
+
+        $this->givenTurretExtraFireRateProjectIsFinished($I);
+
+        $this->whenACyclePassesForTurretCharges($turretCharges);
+
+        $this->thenTurretShouldHaveThreeCharges($turret, $I);
+    }
+
+    private function givenATurretWithOneCharge(): array
+    {
         $turret = $this->equipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::TURRET_COMMAND,
             equipmentHolder: $this->chun->getPlace(),
@@ -346,26 +357,34 @@ final class CycleEventCest extends AbstractFunctionalTest
             time: new \DateTime()
         );
 
-        // given turret has 1 charge
         $turretCharges = $turret->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->setCharge(1);
 
-        // given Turret Extra Fire rate project is finished
+        return [$turret, $turretCharges];
+    }
+
+    private function givenTurretExtraFireRateProjectIsFinished(FunctionalTester $I): void
+    {
         $this->finishProject(
             project: $this->daedalus->getProjectByName(ProjectName::TURRET_EXTRA_FIRE_RATE),
             author: $this->chun,
             I: $I
         );
+    }
 
-        // when a cycle passes
+    private function whenACyclePassesForTurretCharges(ChargeStatus $turretCharges): void
+    {
         $cycleEvent = new StatusCycleEvent(
             status: $turretCharges,
-            holder: $turret,
+            holder: $turretCharges->getOwner(),
             tags: [EventEnum::NEW_CYCLE],
             time: new \DateTime()
         );
         $this->eventService->callEvent($cycleEvent, StatusCycleEvent::STATUS_NEW_CYCLE);
+    }
 
-        // then turret should have 3 charges
+    private function thenTurretShouldHaveThreeCharges(GameEquipment $turret, FunctionalTester $I): void
+    {
+        $turretCharges = $turret->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
         $I->assertEquals(3, $turretCharges->getCharge());
     }
 }

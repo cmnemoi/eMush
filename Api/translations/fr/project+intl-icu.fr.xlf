@@ -487,5 +487,23 @@
         <target>En exploitant le code source de NERON, vous vous apercevez que vous pourriez doter l'Icarus d'une pseudo-conscience. Vous décidez de virer le code pseudo cognitif et le moteur d'émotion et de garder le noyau de survie. Maintenant l'Icarus reviendra si l'expédition est décimée.</target>
       </segment>
     </unit>
+    <unit id="radar_trans_void">
+      <segment id="radar_trans_void.type" state="translated">
+        <source>radar_trans_void.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="radar_trans_void.name" state="translated">
+        <source>radar_trans_void.name</source>
+        <target>Radar à ondes spatiales</target>
+      </segment>
+      <segment id="radar_trans_void.description" state="translated">
+        <source>radar_trans_void.description</source>
+        <target>L’antenne stellaire double désormais les progrès des tentatives de connexion avec Sol.</target>
+      </segment>
+      <segment id="radar_trans_void.lore" state="translated">
+        <source>radar_trans_void.lore</source>
+        <target>Que ne feriez-vous pas pour les beaux yeux de la Comm... En augmentant la priorité CPU du thread Fourier, vous leur rendrez la vie plus facile...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

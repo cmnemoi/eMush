@@ -294,6 +294,16 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::RADAR_TRANS_VOID,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 12,
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::RADIO_EXPERT],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

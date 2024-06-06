@@ -337,6 +337,27 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($antenna);
         $manager->persist($antennaGear);
 
+        $radarTransVoidAntennaGear = $this->createGear(
+            [
+                GearModifierConfigFixtures::ANTENNA_MODIFIER,
+                'modifier_for_daedalus_x2_signal_on_action_contact_sol',
+            ],
+            EquipmentEnum::RADAR_TRANS_VOID_ANTENNA
+        );
+        $manager->persist($radarTransVoidAntennaGear);
+
+        $radarTransVoidAntenna = new EquipmentConfig();
+        $radarTransVoidAntenna
+            ->setEquipmentName(EquipmentEnum::RADAR_TRANS_VOID_ANTENNA)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setIsBreakable(true)
+            ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
+            ->setMechanics([$radarTransVoidAntennaGear])
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($radarTransVoidAntenna);
+        $manager->persist($radarTransVoidAntennaGear);
+
         $gravitySimulator = new EquipmentConfig();
         $gravitySimulator
             ->setEquipmentName(EquipmentEnum::GRAVITY_SIMULATOR)
@@ -859,6 +880,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addEquipmentConfig($reactorLateralAlpha)
             ->addEquipmentConfig($reactorLateralBravo)
             ->addEquipmentConfig($antenna)
+            ->addEquipmentConfig($radarTransVoidAntenna)
             ->addEquipmentConfig($gravitySimulator)
             ->addEquipmentConfig($thalasso)
             ->addEquipmentConfig($patrolShip)

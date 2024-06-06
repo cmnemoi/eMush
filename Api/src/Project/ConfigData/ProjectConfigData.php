@@ -302,7 +302,9 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
-                'replaceEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [
+                    'replace_antenna_by_radar_trans_void_antenna',
+                ],
             ],
         ];
     }

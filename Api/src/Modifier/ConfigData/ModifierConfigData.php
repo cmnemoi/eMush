@@ -2223,5 +2223,24 @@ abstract class ModifierConfigData
                 ActionEnum::LAND->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_daedalus_x2_signal_on_action_contact_sol',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 2,
+            'targetVariable' => 'outputQuantity',
+            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 }

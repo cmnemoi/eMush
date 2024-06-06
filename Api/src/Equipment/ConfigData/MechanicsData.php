@@ -2620,6 +2620,15 @@ class MechanicsData
             ],
         ],
         [
+            'name' => 'gear_radar_trans_void_antenna_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                'modifier_for_daedalus_-1actionPoint_on_TODO coms. action',
+                'modifier_for_daedalus_x2_signal_on_action_contact_sol',
+            ],
+        ],
+        [
             'name' => 'gear_oxygen_tank_default',
             'type' => 'gear',
             'craftedEquipmentName' => null,

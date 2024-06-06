@@ -562,6 +562,7 @@ class GameConfigData
                 ProjectName::APERO_KITCHEN,
                 ProjectName::FLOOR_HEATING,
                 ProjectName::PARASITE_ELIM,
+                ProjectName::OXY_MORE,
             ],
         ],
     ];

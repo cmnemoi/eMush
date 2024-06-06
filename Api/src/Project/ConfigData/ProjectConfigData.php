@@ -386,6 +386,16 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::TURRET_EXTRA_FIRE_RATE,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 12,
+                'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

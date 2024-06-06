@@ -553,6 +553,7 @@ class GameConfigData
                 ProjectName::ICARUS_LARGER_BAY,
                 ProjectName::PATROL_SHIP_LAUNCHER,
                 ProjectName::NERON_PROJECT_THREAD,
+                ProjectName::TURRET_EXTRA_FIRE_RATE,
             ],
         ],
     ];

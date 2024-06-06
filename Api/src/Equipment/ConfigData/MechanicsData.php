@@ -3559,6 +3559,15 @@ class MechanicsData
             ],
         ],
         [
+            'name' => 'gear_quantum_sensors_planet_scanner_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                'modifier_for_daedalus_+30percentage_on_action_scan',
+                'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
+            ],
+        ],
+        [
             'name' => 'gear_magellan_liquid_map_default',
             'type' => 'gear',
             'actions' => [],

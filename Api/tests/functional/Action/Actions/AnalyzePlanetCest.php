@@ -13,11 +13,13 @@ use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -33,6 +35,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
 {
     private ActionConfig $analyzePlanetConfig;
     private AnalyzePlanet $analyzePlanetAction;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private NeronServiceInterface $neronService;
     private PlanetServiceInterface $planetService;
     private StatusServiceInterface $statusService;
@@ -45,6 +48,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->analyzePlanetConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::ANALYZE_PLANET]);
         $this->analyzePlanetAction = $I->grabService(AnalyzePlanet::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->planetService = $I->grabService(PlanetServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -228,6 +232,58 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->analyzePlanetAction->execute();
 
         // then an expected amount of planet sections are revealed
+        $I->assertEquals(2, $this->planet->getRevealedSectors()->count());
+    }
+
+    public function shouldRevealOneMoreSectionWithQuantumSensorsProject(FunctionalTester $I): void
+    {
+        $this->givenAPlanetScannerInEngineRoom($I);
+        $this->givenPlanetHasZeroRevealedSectors($I);
+        $this->givenQuantumSensorsProjectIsFinished($I);
+
+        $this->whenPlayerAnalyzesThePlanet($I);
+
+        $this->thenPlanetHasTwoRevealedSectors($I);
+    }
+
+    private function givenAPlanetScannerInEngineRoom(FunctionalTester $I): void
+    {
+        $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PLANET_SCANNER,
+            equipmentHolder: $engineRoom,
+            reasons: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenPlanetHasZeroRevealedSectors(FunctionalTester $I): void
+    {
+        $I->assertEquals(0, $this->planet->getRevealedSectors()->count());
+    }
+
+    private function givenQuantumSensorsProjectIsFinished(FunctionalTester $I): void
+    {
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::QUANTUM_SENSORS),
+            author: $this->chun,
+            I: $I
+        );
+    }
+
+    private function whenPlayerAnalyzesThePlanet(FunctionalTester $I): void
+    {
+        $this->analyzePlanetAction->loadParameters(
+            actionConfig: $this->analyzePlanetConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->planet
+        );
+        $this->analyzePlanetAction->execute();
+    }
+
+    private function thenPlanetHasTwoRevealedSectors(FunctionalTester $I): void
+    {
         $I->assertEquals(2, $this->planet->getRevealedSectors()->count());
     }
 }

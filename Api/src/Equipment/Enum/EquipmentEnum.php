@@ -45,6 +45,7 @@ class EquipmentEnum
     public const string FUEL_TANK = 'fuel_tank';
     public const string OXYGEN_TANK = 'oxygen_tank';
     public const string PLANET_SCANNER = 'planet_scanner';
+    public const string QUANTUM_SENSORS_PLANET_SCANNER = 'quantum_sensors_planet_scanner';
     public const string GRAVITY_SIMULATOR = 'gravity_simulator';
     public const string ASTRO_TERMINAL = 'astro_terminal';
     public const string COMMAND_TERMINAL = 'command_terminal';

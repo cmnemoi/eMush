@@ -285,6 +285,7 @@ class GameConfigData
                 'bios_terminal_default',
                 'command_terminal_default',
                 'planet_scanner_default',
+                'quantum_sensors_planet_scanner_default',
                 'jukebox_default',
                 'emergency_reactor_default',
                 'reactor_lateral_default',

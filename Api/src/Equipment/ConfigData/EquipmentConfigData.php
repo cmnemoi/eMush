@@ -2720,6 +2720,27 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
+            'name' => 'quantum_sensors_planet_scanner_default',
+            'equipmentName' => EquipmentEnum::QUANTUM_SENSORS_PLANET_SCANNER,
+            'isBreakable' => true,
+            'isFireDestroyable' => false,
+            'isFireBreakable' => true,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'equipment_config',
+            'isStackable' => null,
+            'actions' => [
+                'repair_percent_12',
+                'sabotage_percent_12',
+                'report_equipment',
+                'examine',
+            ],
+            'mechanics' => [
+                'gear_quantum_sensors_planet_scanner_default',
+            ],
+            'initStatuses' => [],
+        ],
+        [
             'name' => 'jukebox_default',
             'equipmentName' => 'jukebox',
             'isBreakable' => true,

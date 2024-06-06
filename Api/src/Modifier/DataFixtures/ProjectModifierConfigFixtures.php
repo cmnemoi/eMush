@@ -12,6 +12,7 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\VariableEventConfig;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
@@ -20,6 +21,7 @@ use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -109,6 +111,22 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($bayDoorXXLModifier);
         $this->addReference($bayDoorXXLModifier->getName(), $bayDoorXXLModifier);
+
+        $quantumSensorModifier = new VariableEventModifierConfig('modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet');
+        $quantumSensorModifier
+            ->setTargetVariable(ActionVariableEnum::OUTPUT_QUANTITY)
+            ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([
+                ActionEnum::ANALYZE_PLANET->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+            ])
+            ->setModifierStrategy(ModifierStrategyEnum::VARIABLE_MODIFIER)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($quantumSensorModifier);
+        $this->addReference($quantumSensorModifier->getName(), $quantumSensorModifier);
 
         $manager->flush();
     }

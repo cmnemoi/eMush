@@ -302,7 +302,9 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
-                'replaceEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [
+                    'replace_planet_scanner_by_quantum_sensors_planet_scanner',
+                ],
             ],
         ];
     }

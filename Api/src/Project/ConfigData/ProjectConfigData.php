@@ -488,7 +488,9 @@ abstract class ProjectConfigData
                 'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BIOLOGIST],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_+1oxygen_on_change.variable_if_reason_new_cycle_random_20',
+                ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],

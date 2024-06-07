@@ -326,7 +326,9 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
-                'replaceEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [
+                    'replace_kitchen_by_snc_kitchen',
+                ],
             ],
         ];
     }

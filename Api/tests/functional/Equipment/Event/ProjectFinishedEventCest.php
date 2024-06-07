@@ -140,6 +140,11 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'equipmentToRemove' => EquipmentEnum::ANTENNA,
                 'equipmentToAdd' => EquipmentEnum::RADAR_TRANS_VOID_ANTENNA,
             ],
+            [
+                'project' => ProjectName::APERO_KITCHEN->value,
+                'equipmentToRemove' => EquipmentEnum::KITCHEN,
+                'equipmentToAdd' => EquipmentEnum::SNC_KITCHEN,
+            ]
         ];
     }
 }

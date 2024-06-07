@@ -25,6 +25,11 @@ abstract class ReplaceEquipmentConfigData
                 equipmentName: EquipmentEnum::RADAR_TRANS_VOID_ANTENNA,
                 replaceEquipmentName: EquipmentEnum::ANTENNA,
             ),
+            new ReplaceEquipmentConfigDto(
+                name: 'replace_kitchen_by_snc_kitchen',
+                equipmentName: EquipmentEnum::SNC_KITCHEN,
+                replaceEquipmentName: EquipmentEnum::KITCHEN,
+            ),
         ];
     }
 }

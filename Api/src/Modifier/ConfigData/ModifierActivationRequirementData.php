@@ -5,6 +5,7 @@ namespace Mush\Modifier\ConfigData;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -129,6 +130,12 @@ class ModifierActivationRequirementData
             'name' => ModifierRequirementEnum::SKILL_IN_ROOM . '_shrink',
             'activationRequirementName' => ModifierRequirementEnum::SKILL_IN_ROOM,
             'activationRequirement' => SkillEnum::SHRINK,
+            'value' => 100,
+        ],
+        [
+            'name' => ModifierRequirementEnum::HOLDER_PLACE_GARDEN,
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_PLACE,
+            'activationRequirement' => RoomEnum::HYDROPONIC_GARDEN,
             'value' => 100,
         ],
     ];

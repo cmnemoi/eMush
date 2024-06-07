@@ -544,6 +544,32 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'neron_targeting_assist',
+                'projectName' => 'Visée heuristique',
+                'projectDescription' => 'Augmente la visée en vol et en tourelle de 25%.',
+                'projectLore' => 'NERON peut aussi vous faciliter la vie. Un petit patch de son algorithme de remplissage des tableaux de bords et hop !',
+                'projectEfficiency' => 'Efficacité : 3-4%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'pilot',
+                        'name' => 'Pilote',
+                        'description' => 'Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa
+                    maîtrise aérienne est impressionnante.
+                    //
+                    :point: **Chances doublées** de toucher en Patrouilleur.
+                    //
+                    :point: **Ne rate jamais** les atterrissages et décollages.
+                    //
+                    :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'shooter',
+                        'name' => 'Tireur',
+                        'description' => 'Le Tireur manipule les armes de tout type avec beaucoup d\'aisance.//:point: +2 **Tirs gratuits** :pa_shoot: par jour.//:point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

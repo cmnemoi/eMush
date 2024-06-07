@@ -20,6 +20,7 @@ use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
@@ -354,5 +355,45 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $this->shootHunterAction->execute();
 
         $I->assertEquals($chargeStatus->getCharge(), 3);
+    }
+
+    public function shouldHaveIncreasedSuccessRateWithNeronTargetingAssistProject(FunctionalTester $I): void
+    {
+        $this->givenActionSuccessRateIs(30);
+        $this->givenNeronTargetingAssistProjectIsFinished($I);
+
+        $this->whenPlayerWantsToShootHunter();
+
+        $this->thenActionSuccessRateShouldBe(37, $I);
+    }
+
+    private function givenActionSuccessRateIs(int $successRate): void
+    {
+        $this->action->setSuccessRate($successRate);
+    }
+
+    private function givenNeronTargetingAssistProjectIsFinished(FunctionalTester $I): void
+    {
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::NERON_TARGETING_ASSIST),
+            author: $this->player,
+            I: $I
+        );
+    }
+
+    private function whenPlayerWantsToShootHunter(): void
+    {
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $this->shootHunterAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->turret,
+            player: $this->player1,
+            target: $hunter
+        );
+    }
+
+    private function thenActionSuccessRateShouldBe(int $successRate, FunctionalTester $I): void
+    {
+        $I->assertEquals($successRate, $this->shootHunterAction->getSuccessRate());
     }
 }

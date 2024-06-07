@@ -546,6 +546,7 @@ class GameConfigData
                 ProjectName::FOOD_RETAILER,
                 ProjectName::AUTO_RETURN_ICARUS,
                 ProjectName::RADAR_TRANS_VOID,
+                ProjectName::NERON_TARGETING_ASSIST,
             ],
         ],
     ];

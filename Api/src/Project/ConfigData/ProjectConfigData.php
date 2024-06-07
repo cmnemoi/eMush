@@ -306,6 +306,18 @@ abstract class ProjectConfigData
                     'replace_antenna_by_radar_trans_void_antenna',
                 ],
             ],
+            [
+                'name' => ProjectName::NERON_TARGETING_ASSIST,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 3,
+                'bonusSkills' => [SkillEnum::PILOT, SkillEnum::SHOOTER],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_x1.25_percentage_on_shoot_hunter',
+                ],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

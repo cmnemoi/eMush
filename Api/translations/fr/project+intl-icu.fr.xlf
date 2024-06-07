@@ -505,5 +505,23 @@
         <target>Que ne feriez-vous pas pour les beaux yeux de la Comm... En augmentant la priorité CPU du thread Fourier, vous leur rendrez la vie plus facile...</target>
       </segment>
     </unit>
+    <unit id="neron_targeting_assist">
+      <segment id="neron_targeting_assist.type" state="translated">
+        <source>neron_targeting_assist.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="neron_targeting_assist.name" state="translated">
+        <source>neron_targeting_assist.name</source>
+        <target>Visée heuristique</target>
+      </segment>
+      <segment id="neron_targeting_assist.description" state="translated">
+        <source>neron_targeting_assist.description</source>
+        <target>Augmente la visée en vol et en tourelle de 25%.</target>
+      </segment>
+      <segment id="neron_targeting_assist.lore" state="translated">
+        <source>neron_targeting_assist.lore</source>
+        <target>NERON peut aussi vous faciliter la vie. Un petit patch de son algorithme de remplissage des tableaux de bords et hop !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

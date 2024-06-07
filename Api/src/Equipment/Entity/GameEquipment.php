@@ -22,6 +22,7 @@ use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Place\Entity\MoveableEntityInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
@@ -44,7 +45,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'game_item' => GameItem::class,
     'drone' => Drone::class,
 ])]
-class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface
+class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, MoveableEntityInterface
 {
     use TargetStatusTrait;
     use TimestampableEntity;

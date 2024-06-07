@@ -43,6 +43,7 @@ class RoomEnum
     public const string PATROL_SHIP_BRAVO_PLANTON = 'patrol_ship_bravo_planton';
     public const string PATROL_SHIP_ALPHA_2_WALLIS = 'patrol_ship_alpha_2_wallis';
     public const string PASIPHAE = 'pasiphae';
+    public const string null = '';
 
     public static function getAllDaedalusRooms(): array
     {

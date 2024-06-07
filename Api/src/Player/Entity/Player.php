@@ -36,6 +36,7 @@ use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Place\Entity\MoveableEntityInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -58,7 +59,7 @@ use Mush\User\Entity\User;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface
+class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, MoveableEntityInterface
 {
     use TargetStatusTrait;
     use TimestampableEntity;

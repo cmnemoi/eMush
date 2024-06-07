@@ -685,5 +685,23 @@
         <target>En ajoutant un piston de compression, on peut doubler la capacité de stockage des cuves à Teslatron des patrouilleurs.</target>
       </segment>
     </unit>
+    <unit id="noise_reducer">
+      <segment id="noise_reducer.type" state="translated">
+        <source>noise_reducer.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="noise_reducer.name" state="translated">
+        <source>noise_reducer.name</source>
+        <target>Isolateur phonique</target>
+      </segment>
+      <segment id="noise_reducer.description" state="translated">
+        <source>noise_reducer.description</source>
+        <target>Augmente de 2 le nombre de :pa: maximal de chaque équipier.</target>
+      </segment>
+      <segment id="noise_reducer.lore" state="translated">
+        <source>noise_reducer.lore</source>
+        <target>Le bruit infernal des moteurs vous empêche de profiter de votre potentiel ? Il y a une solution pour ça.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

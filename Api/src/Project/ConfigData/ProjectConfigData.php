@@ -435,6 +435,16 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::NOISE_REDUCER,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 3,
+                'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::BIOLOGIST],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

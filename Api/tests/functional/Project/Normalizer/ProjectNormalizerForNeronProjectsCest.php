@@ -803,6 +803,28 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'noise_reducer',
+                'projectName' => 'Isolateur phonique',
+                'projectDescription' => 'Augmente de 2 le nombre de :pa: maximal de chaque équipier.',
+                'projectLore' => 'Le bruit infernal des moteurs vous empêche de profiter de votre potentiel ? Il y a une solution pour ça.',
+                'projectEfficiency' => 'Efficacité : 3-4%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'physicist',
+                        'name' => 'Physicien',
+                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
+                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
+                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
+                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'biologist',
+                        'name' => 'Biologiste',
+                        'description' => 'Le Biologiste est plus efficace dans les recherches du laboratoire.//:point: Peut lire les **propriétés des médicaments**.//:point: **+4% de bonus** sur chacune des **Recherches** du Laboratoire.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

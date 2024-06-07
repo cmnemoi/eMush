@@ -9,6 +9,7 @@ use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Project\Collection\ProjectCollection;
+use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Project\Repository\ProjectRepositoryInterface;
@@ -48,27 +49,30 @@ final class DaedalusCycleEventSubscriber implements EventSubscriberInterface
         $this->makeProjectsProgress($proposedNeronProjects);
         $this->finishOnlyLastAdvancedProjectFrom($proposedNeronProjects);
         $this->dispatchProjectAdvancedEventForAllProjects($proposedNeronProjects, $event);
+        $this->saveProjectsInRepository($proposedNeronProjects);
     }
 
     private function makeProjectsProgress(ProjectCollection $proposedNeronProjects): void
     {
         foreach ($proposedNeronProjects as $project) {
             $project->makeProgress(self::NERON_PROJECT_THREAD_PROGRESS);
-            $this->projectRepository->save($project);
         }
     }
 
     private function finishOnlyLastAdvancedProjectFrom(ProjectCollection $proposedNeronProjects): void
     {
+        // If there is at most one project at 100% progress, we don't need to do anything
         $projectsAt100Percents = $proposedNeronProjects->getFinishedProjects();
-        if ($projectsAt100Percents->count() > 1) {
-            $lastAdvancedProject = $projectsAt100Percents->getLastAdvancedProjectOrThrow();
-            $projectsToDrop = $projectsAt100Percents->getAllProjectsExcept($lastAdvancedProject);
+        if ($projectsAt100Percents->count() <= 1) {
+            return;
+        }
 
-            foreach ($projectsToDrop as $project) {
-                $project->revertProgress(self::NERON_PROJECT_THREAD_PROGRESS);
-                $this->projectRepository->save($project);
-            }
+        // else, we need to revert progress for all projects except the last advanced one by a player
+        $lastAdvancedProject = $projectsAt100Percents->getLastAdvancedProjectOrThrow();
+        $projectsToDrop = $projectsAt100Percents->getAllProjectsExcept($lastAdvancedProject);
+
+        foreach ($projectsToDrop as $project) {
+            $project->revertProgress(self::NERON_PROJECT_THREAD_PROGRESS);
         }
     }
 
@@ -82,6 +86,13 @@ final class DaedalusCycleEventSubscriber implements EventSubscriberInterface
                 time: $event->getTime(),
             );
             $this->eventService->callEvent($projectEvent, ProjectEvent::PROJECT_ADVANCED);
+        }
+    }
+
+    private function saveProjectsInRepository(ProjectCollection $proposedNeronProjects): void
+    {
+        foreach ($proposedNeronProjects as $project) {
+            $this->projectRepository->save($project);
         }
     }
 }

@@ -110,18 +110,6 @@ final class ProjectModifierConfigFixtures extends Fixture
         $manager->persist($bayDoorXXLModifier);
         $this->addReference($bayDoorXXLModifier->getName(), $bayDoorXXLModifier);
 
-        /** @var VariableEventConfig $eventConfig */
-        $eventConfig = $this->getReference('change.variable_project_progress_+5');
-        $neronProjectThreadModifier = new TriggerEventModifierConfig('modifier_for_daedalus_+5project_progress_on_new_cycle');
-        $neronProjectThreadModifier
-            ->setTriggeredEvent($eventConfig)
-            ->setTargetEvent(DaedalusCycleEvent::DAEDALUS_NEW_CYCLE)
-            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-            ->setApplyWhenTargeted(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
-        $manager->persist($neronProjectThreadModifier);
-        $this->addReference($neronProjectThreadModifier->getName(), $neronProjectThreadModifier);
-
         $manager->flush();
     }
 }

@@ -6,7 +6,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
-use Mush\Game\Enum\GameVariableHolderEnum;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Place\Entity\Place;
@@ -24,19 +23,16 @@ final class EventCreationService implements EventCreationServiceInterface
         ModifierHolderInterface $holder,
     ): array {
         switch ($eventTarget) {
-            case GameVariableHolderEnum::DAEDALUS->value:
+            case ModifierHolderClassEnum::DAEDALUS:
                 $daedalus = $holder->getDaedalus();
 
                 return [$daedalus];
 
-            case GameVariableHolderEnum::PLAYER->value:
+            case ModifierHolderClassEnum::PLAYER:
                 return $this->getPlayersFromModifierHolder($holder)->toArray();
 
             case ModifierHolderClassEnum::EQUIPMENT:
                 return $this->getEquipmentsFromModifierHolder($holder);
-
-            case GameVariableHolderEnum::PROJECT->value:
-                return $holder instanceof Daedalus ? $holder->getAllAvailableProjects()->toArray() : [];
 
             default:
                 throw new \Exception("This variableHolderClass {$eventTarget} is not supported");

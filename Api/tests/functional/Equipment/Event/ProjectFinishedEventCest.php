@@ -144,7 +144,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'project' => ProjectName::APERO_KITCHEN->value,
                 'equipmentToRemove' => EquipmentEnum::KITCHEN,
                 'equipmentToAdd' => EquipmentEnum::SNC_KITCHEN,
-            ]
+            ],
         ];
     }
 }

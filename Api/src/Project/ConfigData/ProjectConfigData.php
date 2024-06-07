@@ -299,7 +299,7 @@ abstract class ProjectConfigData
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::IT_EXPERT, SkillEnum::SHRINK],
-                'activationRate' => 100,
+                'activationRate' => 5,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],

@@ -51,6 +51,9 @@ class Project implements LogParameterInterface, ActionHolderInterface
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $lastParticipantNumberOfParticipations = 0;
 
+    #[ORM\Column(type: 'datetime', nullable: false, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private \DateTime $lastParticipationTime;
+
     public function __construct(ProjectConfig $config, Daedalus $daedalus)
     {
         $this->config = $config;
@@ -61,6 +64,8 @@ class Project implements LogParameterInterface, ActionHolderInterface
         if ($config->getType() !== ProjectType::NERON_PROJECT) {
             $this->proposed = true;
         }
+
+        $this->lastParticipationTime = new \DateTime();
     }
 
     public function getId(): int
@@ -161,6 +166,8 @@ class Project implements LogParameterInterface, ActionHolderInterface
         if ($this->progress > 100) {
             $this->progress = 100;
         }
+
+        $this->lastParticipationTime = new \DateTime();
     }
 
     public function revertProgress(int $progress): void
@@ -246,5 +253,10 @@ class Project implements LogParameterInterface, ActionHolderInterface
             $this->lastParticipant = null;
             $this->lastParticipantNumberOfParticipations = 0;
         }
+    }
+
+    public function getLastParticipationTime(): \DateTime
+    {
+        return $this->lastParticipationTime;
     }
 }

@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\tests\unit\Project\Listener;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
@@ -52,20 +50,20 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
         $this->thenProjectShouldHaveProgressByFivePercent($project);
     }
 
-    public function testShouldFinishOnlyOneNeronProjectWithNeronProjectThreadProject(): void
+    public function testShouldFinishOnlyLastAdvancedNeronProjectWithNeronProjectThreadProject(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
-        $this->givenNeronProjectThreadProjectIsFinished($daedalus);
 
-        $projects = new ArrayCollection();
-        $project1 = $this->givenAProposedNeronProjectForDaedalusAtProgress($daedalus, 99);
-        $projects->add($project1);
-        $project2 = $this->givenAProposedNeronProjectForDaedalusAtProgress($daedalus, 99);
-        $projects->add($project2);
+        $this->givenNeronProjectThreadProjectIsFinished($daedalus);
+        [$project1, $project2] = $this->givenTwoProposedNeronProjectsAt99PercentForDaedalus($daedalus);
+
+        $this->givenProjectWasAdvancedAtDate($project1, new \DateTime('now'));
+        $this->givenProjectWasAdvancedAtDate($project2, new \DateTime('yesterday'));
 
         $this->whenIListenToDaedalusCycleChangeEvent($daedalus);
 
-        self::assertCount(1, $projects->filter(static fn (Project $project) => $project->isFinished()));
+        $this->thenProjectShouldBeFinished($project1);
+        $this->thenProjectShouldNotBeFinished($project2);
     }
 
     private function givenNeronProjectThreadProjectIsFinished(Daedalus $daedalus): void
@@ -85,6 +83,22 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
         return $project;
     }
 
+    private function givenTwoProposedNeronProjectsAt99PercentForDaedalus(Daedalus $daedalus): array
+    {
+        $project1 = $this->givenAProposedNeronProjectForDaedalusAtProgress($daedalus, 99);
+        $project2 = $this->givenAProposedNeronProjectForDaedalusAtProgress($daedalus, 99);
+        $this->projectRepository->save($project1);
+        $this->projectRepository->save($project2);
+
+        return [$project1, $project2];
+    }
+
+    private function givenProjectWasAdvancedAtDate(Project $project, \DateTime $date): void
+    {
+        $ref = new \ReflectionProperty(Project::class, 'lastParticipationTime');
+        $ref->setValue($project, $date);
+    }
+
     private function whenIListenToDaedalusCycleChangeEvent(Daedalus $daedalus): void
     {
         $event = new DaedalusCycleEvent(
@@ -92,15 +106,22 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
             tags: [EventEnum::NEW_CYCLE],
             time: new \DateTime(),
         );
-        $subscriber = new DaedalusCycleEventSubscriber(
-            new FakeGetRandomElementsFromArrayService(),
-            $this->projectRepository
-        );
+        $subscriber = new DaedalusCycleEventSubscriber($this->projectRepository);
         $subscriber->onDaedalusNewCycle($event);
     }
 
     private function thenProjectShouldHaveProgressByFivePercent(Project $project): void
     {
         self::assertEquals(5, $project->getProgress());
+    }
+
+    private function thenProjectShouldBeFinished(Project $project): void
+    {
+        self::assertTrue($project->isFinished());
+    }
+
+    private function thenProjectShouldNotBeFinished(Project $project): void
+    {
+        self::assertFalse($project->isFinished());
     }
 }

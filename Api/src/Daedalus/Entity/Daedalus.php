@@ -660,11 +660,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     }
 
     /**
-     * @return Collection<int, Project>
+     * @return ArrayCollection<int, Project>
      */
     public function getProposedNeronProjects(): Collection
     {
-        return $this->projects->filter(static fn (Project $project) => $project->isProposedNeronProject());
+        return new ArrayCollection($this->projects->filter(static fn (Project $project) => $project->isProposedNeronProject())->toArray());
     }
 
     public function hasProposedNeronProjects(): bool

@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Project\Listener;
 
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\EventPriorityEnum;
-use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Repository\ProjectRepositoryInterface;
@@ -17,10 +18,7 @@ final class DaedalusCycleEventSubscriber implements EventSubscriberInterface
 {
     private const int NERON_PROJECT_THREAD_PROGRESS = 5;
 
-    public function __construct(
-        private GetRandomElementsFromArrayServiceInterface $getRandomElementsFromArray,
-        private ProjectRepositoryInterface $projectRepository,
-    ) {}
+    public function __construct(private ProjectRepositoryInterface $projectRepository) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -49,10 +47,10 @@ final class DaedalusCycleEventSubscriber implements EventSubscriberInterface
 
         $projectsAt100Percents = $proposedNeronProjects->filter(static fn (Project $project) => $project->isFinished());
         if ($projectsAt100Percents->count() > 1) {
-            /** @var Project $projectToDrop */
-            $projectToDrop = $this->getRandomElementsFromArray->execute($proposedNeronProjects->toArray(), number: 1)->first();
-            $projectToDrop->revertProgress(self::NERON_PROJECT_THREAD_PROGRESS);
-            $this->projectRepository->save($projectToDrop);
+            /** @var Project $oldestAdvancedProject */
+            $oldestAdvancedProject = $projectsAt100Percents->matching(Criteria::create()->orderBy(['lastParticipationTime' => Order::Descending]))->first();
+            $oldestAdvancedProject->revertProgress(self::NERON_PROJECT_THREAD_PROGRESS);
+            $this->projectRepository->save($oldestAdvancedProject);
         }
     }
 }

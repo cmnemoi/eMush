@@ -9,12 +9,14 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Entity\Message;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -31,6 +33,7 @@ use Symfony\Component\Routing\Annotation\Route;
 final class ModerationController extends AbstractFOSRestController
 {
     private ModerationServiceInterface $moderationService;
+    private PlayerInfoRepository $playerInfoRepository;
 
     public function __construct(ModerationServiceInterface $moderationService)
     {
@@ -509,12 +512,12 @@ final class ModerationController extends AbstractFOSRestController
     }
 
     /**
-     * Report a end message that needs moderation action.
+     * Report an end message that needs moderation action.
      *
      * @OA\Parameter(
      *     name="id",
      *     in="path",
-     *     description="The player info id",
+     *     description="The closed player id",
      *
      *     @OA\Schema(type="integer")
      * )
@@ -539,22 +542,23 @@ final class ModerationController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Post(path="/report-player/{id}")
+     * @Rest\Post(path="/report-closed-player/{id}")
      *
      * @Rest\View()
      */
-    public function reportPlayer(
-        PlayerInfo $player,
+    public function reportClosedPlayer(
+        ClosedPlayer $closedPlayer,
         Request $request
     ): View {
         /** @var User $reportAuthor */
         $reportAuthor = $this->getUser();
 
         $this->moderationService->reportPlayer(
-            $player,
+            $closedPlayer->getPlayerInfo(),
             $reportAuthor,
             $request->get('reason'),
-            $request->get('adminMessage')
+            $request->get('adminMessage'),
+            $closedPlayer
         );
 
         return $this->view(['detail' => 'player reported'], Response::HTTP_OK);
@@ -580,6 +584,14 @@ final class ModerationController extends AbstractFOSRestController
      * )
      *
      * @OA\Parameter(
+     *     name="player",
+     *     in="query",
+     *     description="the player info id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
      *     name="adminMessage",
      *     in="query",
      *     description="Message of the user",
@@ -602,13 +614,15 @@ final class ModerationController extends AbstractFOSRestController
         /** @var User $reportAuthor */
         $reportAuthor = $this->getUser();
 
-        $player = $message->getAuthor();
+        /** @var PlayerInfo $playerInfo */
+        $playerInfo = $this->playerInfoRepository->find($request->get('player'));
 
         $this->moderationService->reportPlayer(
-            $player,
+            $playerInfo,
             $reportAuthor,
             $request->get('reason'),
-            $request->get('adminMessage')
+            $request->get('adminMessage'),
+            $message
         );
 
         return $this->view(['detail' => 'player reported'], Response::HTTP_OK);
@@ -653,6 +667,31 @@ final class ModerationController extends AbstractFOSRestController
         $this->moderationService->archiveReport($moderationSanction, $isAbusive);
 
         return $this->view(['detail' => 'report archived'], Response::HTTP_OK);
+    }
+
+    /**
+     * Get reportable players for a Daedalus.
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Get(path="/{daedalus}/reportable")
+     */
+    public function getInvitablePlayerAction(Request $request, Daedalus $daedalus): View
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+
+        if ($daedalus !== $playerInfo?->getPlayer()->getDaedalus()) {
+            return $this->view(['error' => 'player is not from this daedalus'], 422);
+        }
+
+        return $this->view(
+            $daedalus->getPlayers(),
+            200
+        );
     }
 
     private function denyAccessIfNotModerator(): void

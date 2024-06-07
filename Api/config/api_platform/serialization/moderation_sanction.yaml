@@ -24,3 +24,5 @@ Mush\MetaGame\Entity\ModerationSanction:
       groups: [ 'moderation_sanction_read' ]
     playerName:
       groups: [ 'moderation_sanction_read' ]
+    sanctionEvidenceArray:
+      groups: [ 'moderation_sanction_read' ]

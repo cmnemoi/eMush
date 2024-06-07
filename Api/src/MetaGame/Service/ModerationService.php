@@ -9,6 +9,8 @@ use Mush\Communication\Entity\Message;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\MetaGame\Entity\ModerationSanction;
+use Mush\MetaGame\Entity\SanctionEvidence;
+use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
@@ -131,7 +133,8 @@ final class ModerationService implements ModerationServiceInterface
         ?\DateTime $startingDate,
         ?string $message = null,
         ?\DateInterval $duration = null,
-        bool $isVisibleByUser = false
+        bool $isVisibleByUser = false,
+        ?SanctionEvidenceInterface $sanctionEvidence = null
     ): User {
         if ($startingDate === null) {
             $startingDate = new \DateTime();
@@ -145,6 +148,13 @@ final class ModerationService implements ModerationServiceInterface
             $endDate = new \DateTime('99999/12/31');
         }
 
+        if ($sanctionEvidence !== null) {
+            $sanctionEvidenceEntity = new SanctionEvidence();
+            $sanctionEvidenceEntity->setSanctionEvidence($sanctionEvidence);
+        } else {
+            $sanctionEvidenceEntity = null;
+        }
+
         $sanction = new ModerationSanction($user, $startingDate);
         $sanction
             ->setModerationAction($sanctionType)
@@ -153,7 +163,8 @@ final class ModerationService implements ModerationServiceInterface
             ->setReason($reason)
             ->setMessage($message)
             ->setEndDate($endDate)
-            ->setIsVisibleByUser($isVisibleByUser);
+            ->setIsVisibleByUser($isVisibleByUser)
+            ->setEvidence($sanctionEvidenceEntity);
 
         $user->addModerationSanction($sanction);
 
@@ -241,7 +252,8 @@ final class ModerationService implements ModerationServiceInterface
         PlayerInfo $player,
         User $author,
         string $reason,
-        ?string $message = null
+        ?string $message,
+        SanctionEvidenceInterface $sanctionEvidence
     ): PlayerInfo {
         $this->addSanctionEntity(
             $player->getUser(),
@@ -250,7 +262,10 @@ final class ModerationService implements ModerationServiceInterface
             ModerationSanctionEnum::REPORT,
             $reason,
             new \DateTime(),
-            $message
+            $message,
+            null,
+            false,
+            $sanctionEvidence
         );
 
         return $player;

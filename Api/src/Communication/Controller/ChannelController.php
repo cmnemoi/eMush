@@ -339,12 +339,12 @@ class ChannelController extends AbstractGameController
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
-        if ($channel->getDaedalusInfo()->getDaedalus() !== $playerInfo?->getPlayer()->getDaedalus()) {
+        /** @var Daedalus $daedalus */
+        $daedalus = $channel->getDaedalusInfo()->getDaedalus();
+        if ($daedalus !== $playerInfo?->getPlayer()->getDaedalus()) {
             return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }

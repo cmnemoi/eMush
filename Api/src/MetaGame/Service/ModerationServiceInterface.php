@@ -6,6 +6,7 @@ namespace Mush\MetaGame\Service;
 
 use Mush\Communication\Entity\Message;
 use Mush\MetaGame\Entity\ModerationSanction;
+use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -64,6 +65,7 @@ interface ModerationServiceInterface
         User $author,
         string $reason,
         ?string $message,
+        SanctionEvidenceInterface $sanctionEvidence
     ): PlayerInfo;
 
     public function archiveReport(

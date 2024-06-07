@@ -45,6 +45,9 @@ class ModerationSanction
     #[ORM\ManyToOne(targetEntity: User::class)]
     private User $author;
 
+    #[ORM\OneToOne(mappedBy: 'moderationSanction', targetEntity: SanctionEvidence::class, cascade: ['ALL'])]
+    private ?SanctionEvidence $sanctionEvidence;
+
     public function __construct(User $user, \DateTime $startDate)
     {
         $this->startDate = $startDate;
@@ -190,5 +193,26 @@ class ModerationSanction
     public function getAuthorName(): string
     {
         return $this->author->getUsername();
+    }
+
+    public function setEvidence(?SanctionEvidence $sanctionEvidence): static
+    {
+        $this->sanctionEvidence = $sanctionEvidence;
+
+        if ($sanctionEvidence !== null) {
+            $sanctionEvidence->setModerationSanction($this);
+        }
+
+        return $this;
+    }
+
+    public function getEvidence(): ?SanctionEvidence
+    {
+        return $this->sanctionEvidence;
+    }
+
+    public function getSanctionEvidenceArray(): ?array
+    {
+        return $this->sanctionEvidence?->getEvidenceAsArray();
     }
 }

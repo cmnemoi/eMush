@@ -79,7 +79,7 @@ final class ModerationSanctionController extends AbstractFOSRestController
      * @OA\Tag(name="Moderation")
      *
      * @Security(name="Bearer")
- */
+     */
     public function getPlayerActiveReports(PlayerInfo $player): View
     {
         $moderator = $this->getUser();

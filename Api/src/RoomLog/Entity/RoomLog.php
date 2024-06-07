@@ -8,12 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\TimestampableCancelInterface;
+use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Repository\RoomLogRepository;
 
 #[ORM\Entity(repositoryClass: RoomLogRepository::class)]
-class RoomLog implements TimestampableCancelInterface
+class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
 {
     use TimestampableEntity;
 
@@ -122,6 +123,11 @@ class RoomLog implements TimestampableCancelInterface
         return $this->log;
     }
 
+    public function getMessage(): string
+    {
+        return $this->log;
+    }
+
     public function setLog(string $log): static
     {
         $this->log = $log;
@@ -216,5 +222,10 @@ class RoomLog implements TimestampableCancelInterface
     public function cancelTimestampable(): void
     {
         $this->timestampableCanceled = true;
+    }
+
+    public function getClassName(): string
+    {
+        return static::class;
     }
 }

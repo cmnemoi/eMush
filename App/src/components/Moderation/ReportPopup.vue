@@ -2,6 +2,10 @@
     <PopUp :is-open=reportDialogVisible @close="closeReportDialog()" v-if="player" class="report">
         <h1 class="title">{{ $t('reportPopup.title') }}</h1>
         <p class="message" v-html="formatText($t('moderation.report.message', { playerName: player.name }))"></p>
+        <button v-for="(player, key) in invitablePlayers" :key="key" @click="invitePlayer({player: player, channel: invitationChannel})">
+            <img :src="characterBody(player.character.key)">
+            <p>{{ player.character.name }}</p>
+        </button>
         <label>{{ $t("moderation.report.playerMessage") }}:
             <textarea v-model="reportMessage" />
         </label>
@@ -57,6 +61,7 @@ export default defineComponent ({
     computed: {
         ...mapGetters({
             user: 'auth/getUserInfo',
+            moderation: 'moderation/reportablePlayers'
         })
     },
     methods: {

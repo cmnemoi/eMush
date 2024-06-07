@@ -53,34 +53,35 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         }
     }
 
-    public function shouldReplaceEquipmentWhenProjectIsFinished(FunctionalTester $I): void
+    #[DataProvider(method: 'shouldReplaceEquipmentWhenProjectIsFinishedDataProvider')]
+    public function shouldReplaceEquipmentWhenProjectIsFinished(FunctionalTester $I, Example $example): void
     {
         $room = $this->player->getPlace();
 
-        // given I have a Shower in my current room.
+        // given I have the equipment to replace in the room
         $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::SHOWER,
+            equipmentName: $example['equipmentToRemove'],
             equipmentHolder: $room,
             reasons: [],
             time: new \DateTime()
         );
 
-        // when Thalasso project is finished
+        // when project is finished
         $this->finishProject(
-            project: $this->daedalus->getProjectByName(ProjectName::THALASSO),
+            project: $this->daedalus->getProjectByName(ProjectName::from($example['project'])),
             author: $this->chun,
             I: $I
         );
 
-        // then the room should not contain a shower
+        // then the room should not contain the equipment to remove
         $I->assertTrue(
-            condition: $room->getAllEquipmentsByName(EquipmentEnum::SHOWER)->isEmpty()
+            condition: $room->getAllEquipmentsByName($example['equipmentToRemove'])->isEmpty()
         );
 
-        // but the room should contain 1 thalasso
+        // but the room should contain the equipment to add
         $I->assertCount(
             expectedCount: 1,
-            haystack: $room->getAllEquipmentsByName(EquipmentEnum::THALASSO)
+            haystack: $room->getAllEquipmentsByName($example['equipmentToAdd'])
         );
     }
 
@@ -122,6 +123,22 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'equipment' => ItemEnum::PLASTIC_SCRAPS,
                 'quantity' => 4,
                 'creationPlaces' => [RoomEnum::ENGINE_ROOM],
+            ],
+        ];
+    }
+
+    private function shouldReplaceEquipmentWhenProjectIsFinishedDataProvider(): array
+    {
+        return [
+            [
+                'project' => ProjectName::THALASSO->value,
+                'equipmentToRemove' => EquipmentEnum::SHOWER,
+                'equipmentToAdd' => EquipmentEnum::THALASSO,
+            ],
+            [
+                'project' => ProjectName::RADAR_TRANS_VOID->value,
+                'equipmentToRemove' => EquipmentEnum::ANTENNA,
+                'equipmentToAdd' => EquipmentEnum::RADAR_TRANS_VOID_ANTENNA,
             ],
         ];
     }

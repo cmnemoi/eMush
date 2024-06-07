@@ -1608,6 +1608,34 @@
                  "width":62,
                  "x":42.5,
                  "y":329.5
+                }, 
+                {
+                 "gid":342,
+                 "height":68,
+                 "id":38,
+                 "name":"radar_trans_void_antenna",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":51,
+                 "x":164.5,
+                 "y":9.33333333333334
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1616,10 +1644,10 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":38,
+ "nextobjectid":39,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.10.2",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {

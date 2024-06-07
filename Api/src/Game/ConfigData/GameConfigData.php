@@ -291,6 +291,7 @@ class GameConfigData
                 'reactor_lateral_alpha_default',
                 'reactor_lateral_bravo_default',
                 'antenna_default',
+                'radar_trans_void_antenna_default',
                 'gravity_simulator_default',
                 'thalasso_default',
                 'patrol_ship_alpha_longane_default',
@@ -544,6 +545,7 @@ class GameConfigData
                 ProjectName::TRASH_LOAD,
                 ProjectName::FOOD_RETAILER,
                 ProjectName::AUTO_RETURN_ICARUS,
+                ProjectName::RADAR_TRANS_VOID,
             ],
         ],
     ];

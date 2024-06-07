@@ -110,6 +110,18 @@ final class ProjectModifierConfigFixtures extends Fixture
         $manager->persist($bayDoorXXLModifier);
         $this->addReference($bayDoorXXLModifier->getName(), $bayDoorXXLModifier);
 
+        $radarTransVoidModifier = new VariableEventModifierConfig('modifier_for_daedalus_x2_signal_on_action_contact_sol');
+        $radarTransVoidModifier
+            ->setTargetVariable(ActionVariableEnum::OUTPUT_QUANTITY)
+            ->setDelta(2)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
+            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
+            ->setTagConstraints([ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($radarTransVoidModifier);
+        $this->addReference($radarTransVoidModifier->getName(), $radarTransVoidModifier);
+
         $manager->flush();
     }
 }

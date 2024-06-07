@@ -2836,6 +2836,27 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
+            'name' => 'radar_trans_void_antenna_default',
+            'equipmentName' => EquipmentEnum::RADAR_TRANS_VOID_ANTENNA,
+            'isBreakable' => true,
+            'isFireDestroyable' => false,
+            'isFireBreakable' => true,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'equipment_config',
+            'isStackable' => null,
+            'actions' => [
+                'repair_percent_12',
+                'sabotage_percent_12',
+                'report_equipment',
+                'examine',
+            ],
+            'mechanics' => [
+                'gear_radar_trans_antenna_default',
+            ],
+            'initStatuses' => [],
+        ],
+        [
             'name' => 'gravity_simulator_default',
             'equipmentName' => 'gravity_simulator',
             'isBreakable' => true,

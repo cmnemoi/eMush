@@ -20,6 +20,11 @@ abstract class ReplaceEquipmentConfigData
                 equipmentName: EquipmentEnum::THALASSO,
                 replaceEquipmentName: EquipmentEnum::SHOWER,
             ),
+            new ReplaceEquipmentConfigDto(
+                name: 'replace_antenna_by_radar_trans_void_antenna',
+                equipmentName: EquipmentEnum::RADAR_TRANS_VOID_ANTENNA,
+                replaceEquipmentName: EquipmentEnum::ANTENNA,
+            ),
         ];
     }
 }

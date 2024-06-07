@@ -19,6 +19,7 @@ class EquipmentEnum
     public const string PASIPHAE = 'pasiphae';
     public const string ICARUS = 'icarus';
     public const string ANTENNA = 'antenna';
+    public const string RADAR_TRANS_VOID_ANTENNA = 'radar_trans_void_antenna';
     public const string CALCULATOR = 'calculator';
     public const string COMMUNICATION_CENTER = 'communication_center';
     public const string COMBUSTION_CHAMBER = 'combustion_chamber';

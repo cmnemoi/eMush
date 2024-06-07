@@ -517,6 +517,33 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'radar_trans_void',
+                'projectName' => 'Radar à ondes spatiales',
+                'projectDescription' => 'L’antenne stellaire double désormais les progrès des tentatives de connexion avec Sol.',
+                'projectLore' => 'Que ne feriez-vous pas pour les beaux yeux de la Comm... En augmentant la priorité CPU du thread Fourier, vous leur rendrez la vie plus facile...',
+                'projectEfficiency' => 'Efficacité : 12-18%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'technician',
+                        'name' => 'Technicien',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
+        :point: Peut **Démonter** des objets.//
+        :point: Chances de réussites doublées pour les **Réparations**.//
+        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'radio_expert',
+                        'name' => 'Expert radio',
+                        'description' => 'L\'Expert radio peut décoder les enchevêtrements les plus complexes d\'ondes spatiales afin de
+                    reconstituer ou envoyer des messages à l\'autre bout de l\'Univers.//:point: **Double efficacité**
+                    pour établir le **contact** vers Sol.//:point: Améliore les tentatives de **contact** de Sol des
+                    équipiers dans la même pièce de 50%.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

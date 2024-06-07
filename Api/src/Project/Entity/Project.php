@@ -12,18 +12,14 @@ use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
-use Mush\Game\Entity\Collection\GameVariableCollection;
-use Mush\Game\Entity\GameVariable;
-use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectType;
-use Mush\Project\Enum\ProjectVariablesEnum;
 use Mush\Project\Exception\ProgressShouldBePositive;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
-class Project implements LogParameterInterface, ActionHolderInterface, GameVariableHolderInterface
+class Project implements LogParameterInterface, ActionHolderInterface
 {
     public const int CPU_PRIORITY_BONUS = 1;
     public const int PARTICIPATION_MALUS = 2;
@@ -37,8 +33,8 @@ class Project implements LogParameterInterface, ActionHolderInterface, GameVaria
     #[ORM\ManyToOne(targetEntity: ProjectConfig::class)]
     private ProjectConfig $config;
 
-    #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
-    private ProjectProgress $progress;
+    #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 0])]
+    private int $progress = 0;
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
     private bool $available = true;
@@ -65,8 +61,6 @@ class Project implements LogParameterInterface, ActionHolderInterface, GameVaria
         if ($config->getType() !== ProjectType::NERON_PROJECT) {
             $this->proposed = true;
         }
-
-        $this->progress = new ProjectProgress();
     }
 
     public function getId(): int
@@ -127,7 +121,7 @@ class Project implements LogParameterInterface, ActionHolderInterface, GameVaria
 
     public function getProgress(): int
     {
-        return $this->progress->getValueByName(ProjectVariablesEnum::PROGRESS->value);
+        return $this->progress;
     }
 
     public function isAvailable(): bool
@@ -163,7 +157,10 @@ class Project implements LogParameterInterface, ActionHolderInterface, GameVaria
             throw new ProgressShouldBePositive($progress);
         }
 
-        $this->getVariableByName(ProjectVariablesEnum::PROGRESS->value)->changeValue($progress);
+        $this->progress += $progress;
+        if ($this->progress > 100) {
+            $this->progress = 100;
+        }
     }
 
     public function getClassName(): string
@@ -183,7 +180,7 @@ class Project implements LogParameterInterface, ActionHolderInterface, GameVaria
 
     public function isFinished(): bool
     {
-        return $this->getProgress() >= 100;
+        return $this->progress >= 100;
     }
 
     public function isNeronProject(): bool
@@ -241,20 +238,5 @@ class Project implements LogParameterInterface, ActionHolderInterface, GameVaria
             $this->lastParticipant = null;
             $this->lastParticipantNumberOfParticipations = 0;
         }
-    }
-
-    public function getVariableByName(string $variableName): GameVariable
-    {
-        return $this->progress->getVariableByName($variableName);
-    }
-
-    public function getGameVariables(): GameVariableCollection
-    {
-        return $this->progress;
-    }
-
-    public function hasVariable(string $variableName): bool
-    {
-        return $this->progress->hasVariable($variableName);
     }
 }

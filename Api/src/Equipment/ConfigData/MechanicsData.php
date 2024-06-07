@@ -2541,6 +2541,15 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
+            'name' => 'tools_snc_kitchen_default',
+            'type' => 'tool',
+            'actions' => [
+                'cook',
+                'wash_in_sink',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
             'name' => 'tools_surgery_plot_default',
             'type' => 'tool',
             'craftedEquipmentName' => null,

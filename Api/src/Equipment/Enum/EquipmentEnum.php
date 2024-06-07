@@ -54,6 +54,7 @@ class EquipmentEnum
     public const string AUXILIARY_TERMINAL = 'auxiliary_terminal';
     public const string CAMERA_EQUIPMENT = 'camera_equipment';
     public const string TABULATRIX = 'tabulatrix';
+    public const string SNC_KITCHEN = 'snc_kitchen';
 
     public static array $terminalSectionTitlesMap = [
         self::COMMAND_TERMINAL => ['orientate_daedalus', 'move_daedalus', 'general_informations', 'pilgred'],

@@ -305,6 +305,7 @@ class GameConfigData
                 'camera_equipment_default',
                 'combustion_chamber_default',
                 'kitchen_default',
+                'snc_kitchen_default',
                 'narcotic_distiller_default',
                 'shower_default',
                 'dynarcade_default',

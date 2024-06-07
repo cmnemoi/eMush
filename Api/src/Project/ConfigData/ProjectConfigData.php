@@ -441,7 +441,9 @@ abstract class ProjectConfigData
                 'efficiency' => 3,
                 'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::BIOLOGIST],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    'direct_modifier_player_+2_max_actionPoint',
+                ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],

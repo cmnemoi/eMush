@@ -7,18 +7,19 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\User\Entity\User;
 
 #[ORM\Entity]
-class ClosedPlayer
+class ClosedPlayer implements SanctionEvidenceInterface
 {
     use TimestampableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\OneToOne(mappedBy: 'closedPlayer', targetEntity: PlayerInfo::class)]
     private PlayerInfo $playerInfo;
@@ -53,7 +54,7 @@ class ClosedPlayer
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $messageIsEdited = false;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -234,5 +235,10 @@ class ClosedPlayer
     public function getUser(): User
     {
         return $this->playerInfo->getUser();
+    }
+
+    public function getClassName(): string
+    {
+        return static::class;
     }
 }

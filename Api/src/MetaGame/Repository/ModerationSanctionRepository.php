@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\MetaGame\Entity\ModerationSanction;
-use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 

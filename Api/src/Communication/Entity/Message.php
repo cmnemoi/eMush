@@ -8,18 +8,19 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\TimestampableCancelInterface;
+use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 
 #[ORM\Entity]
-class Message implements TimestampableCancelInterface
+class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
 {
     use TimestampableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]
     private ?PlayerInfo $author = null;
@@ -61,7 +62,7 @@ class Message implements TimestampableCancelInterface
         $this->favorites = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -203,5 +204,10 @@ class Message implements TimestampableCancelInterface
     public function cancelTimestampable(): void
     {
         $this->timestampableCanceled = true;
+    }
+
+    public function getClassName(): string
+    {
+        return static::class;
     }
 }

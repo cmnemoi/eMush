@@ -1,4 +1,4 @@
-import {PlayerInfo} from "@/entities/PlayerInfo";
+import * as string_decoder from "node:string_decoder";
 
 export class ModerationSanction {
     public userId!: string;
@@ -43,5 +43,28 @@ export class ModerationSanction {
         }
 
         return this;
+    }
+}
+
+export class SanctionEvidence {
+    public className: string;
+    public id: number;
+    public message: string;
+
+    public load(object: any): SanctionEvidence {
+        if (object) {
+            this.className = object.className;
+            this.id = object.id;
+            this.message = object.message;
+        }
+        return this;
+    }
+
+    jsonEncode() : object {
+        const data: any = {
+            'id': this.id,
+            'className': this.className,
+            'equip}entBreakRate': this.message,
+        };
     }
 }

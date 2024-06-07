@@ -318,6 +318,16 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::APERO_KITCHEN,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 18,
+                'bonusSkills' => [SkillEnum::CHEF, SkillEnum::CREATIVE],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

@@ -570,6 +570,25 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'apero_kitchen',
+                'projectName' => 'Cuisine SNC',
+                'projectDescription' => 'Améliore la cuisine du Réfectoire.',
+                'projectLore' => 'La division R&D de SNC a mis au point l\'outil ultime pour ruiner la productivité. Et on a retrouvé les cartons ! Attention aux projections. APÉRO !',
+                'projectEfficiency' => 'Efficacité : 18-27%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'chef',
+                        'name' => 'Cuistot',
+                        'description' => 'Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4 :pa_cook: par jour (points d\'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'creative',
+                        'name' => 'Créatif',
+                        'description' => 'Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre *1* :pa:.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

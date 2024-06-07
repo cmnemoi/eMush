@@ -163,6 +163,14 @@ class Project implements LogParameterInterface, ActionHolderInterface
         }
     }
 
+    public function revertProgress(int $progress): void
+    {
+        $this->progress -= $progress;
+        if ($this->progress < 0) {
+            $this->progress = 0;
+        }
+    }
+
     public function getClassName(): string
     {
         return self::class;

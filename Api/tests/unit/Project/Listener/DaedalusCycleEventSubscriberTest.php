@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Mush\tests\unit\Project\Listener;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
@@ -43,11 +45,27 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
         $daedalus = DaedalusFactory::createDaedalus();
         $this->givenNeronProjectThreadProjectIsFinished($daedalus);
 
-        $project = $this->givenAProposedNeronProjectForDaedalusAtZeroProgress($daedalus);
+        $project = $this->givenAProposedNeronProjectForDaedalusAtProgress($daedalus, 0);
 
         $this->whenIListenToDaedalusCycleChangeEvent($daedalus);
 
         $this->thenProjectShouldHaveProgressByFivePercent($project);
+    }
+
+    public function testShouldFinishOnlyOneNeronProjectWithNeronProjectThreadProject(): void
+    {
+        $daedalus = DaedalusFactory::createDaedalus();
+        $this->givenNeronProjectThreadProjectIsFinished($daedalus);
+
+        $projects = new ArrayCollection();
+        $project1 = $this->givenAProposedNeronProjectForDaedalusAtProgress($daedalus, 99);
+        $projects->add($project1);
+        $project2 = $this->givenAProposedNeronProjectForDaedalusAtProgress($daedalus, 99);
+        $projects->add($project2);
+
+        $this->whenIListenToDaedalusCycleChangeEvent($daedalus);
+
+        self::assertCount(1, $projects->filter(static fn (Project $project) => $project->isFinished()));
     }
 
     private function givenNeronProjectThreadProjectIsFinished(Daedalus $daedalus): void
@@ -57,10 +75,11 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
         $this->projectRepository->save($project);
     }
 
-    private function givenAProposedNeronProjectForDaedalusAtZeroProgress(Daedalus $daedalus): Project
+    private function givenAProposedNeronProjectForDaedalusAtProgress(Daedalus $daedalus, int $progress): Project
     {
         $project = ProjectFactory::createDummyNeronProjectForDaedalus($daedalus);
         $project->propose();
+        $project->makeProgress($progress);
         $this->projectRepository->save($project);
 
         return $project;
@@ -73,7 +92,10 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
             tags: [EventEnum::NEW_CYCLE],
             time: new \DateTime(),
         );
-        $subscriber = new DaedalusCycleEventSubscriber($this->projectRepository);
+        $subscriber = new DaedalusCycleEventSubscriber(
+            new FakeGetRandomElementsFromArrayService(),
+            $this->projectRepository
+        );
         $subscriber->onDaedalusNewCycle($event);
     }
 

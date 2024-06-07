@@ -8,6 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
@@ -86,7 +87,13 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
     private function givenTwoProposedNeronProjectsAt99PercentForDaedalus(Daedalus $daedalus): array
     {
         $project1 = $this->givenAProposedNeronProjectForDaedalusAtProgress($daedalus, 99);
+        $ref = new \ReflectionProperty(Project::class, 'id');
+        $ref->setValue($project1, 1);
+
         $project2 = $this->givenAProposedNeronProjectForDaedalusAtProgress($daedalus, 99);
+        $ref = new \ReflectionProperty(Project::class, 'id');
+        $ref->setValue($project2, 2);
+
         $this->projectRepository->save($project1);
         $this->projectRepository->save($project2);
 
@@ -106,7 +113,10 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
             tags: [EventEnum::NEW_CYCLE],
             time: new \DateTime(),
         );
-        $subscriber = new DaedalusCycleEventSubscriber($this->projectRepository);
+        $subscriber = new DaedalusCycleEventSubscriber(
+            $this->createStub(EventServiceInterface::class),
+            $this->projectRepository,
+        );
         $subscriber->onDaedalusNewCycle($event);
     }
 

@@ -7,6 +7,7 @@ namespace Mush\Player\Factory;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -30,6 +31,7 @@ final class PlayerFactory
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlayerVariables($characterConfig);
+        $player->setPlace(Place::createRoomByName(RoomEnum::null));
 
         return $player;
     }

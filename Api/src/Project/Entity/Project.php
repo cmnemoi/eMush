@@ -172,10 +172,11 @@ class Project implements LogParameterInterface, ActionHolderInterface
 
     public function revertProgress(int $progress): void
     {
-        $this->progress -= $progress;
-        if ($this->progress < 0) {
-            $this->progress = 0;
+        if ($progress < 0) {
+            throw new ProgressShouldBePositive($progress);
         }
+
+        $this->progress -= $progress;
     }
 
     public function getClassName(): string
@@ -258,5 +259,10 @@ class Project implements LogParameterInterface, ActionHolderInterface
     public function getLastParticipationTime(): \DateTime
     {
         return $this->lastParticipationTime;
+    }
+
+    public function notEqualsTo(self $project): bool
+    {
+        return $this->id !== $project->getId();
     }
 }

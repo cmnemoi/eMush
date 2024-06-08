@@ -15,15 +15,12 @@ use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
-use Mush\Modifier\Entity\Config\DirectModifierConfig;
-use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 
@@ -141,25 +138,6 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($neronTargetingAssistModifier);
         $this->addReference($neronTargetingAssistModifier->getName(), $neronTargetingAssistModifier);
-
-        $modifierRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_PLACE);
-        $modifierRequirement
-            ->setActivationRequirement(RoomEnum::HYDROPONIC_GARDEN)
-            ->buildName();
-        $manager->persist($modifierRequirement);
-        $this->addReference($modifierRequirement->getName(), $modifierRequirement);
-
-        /** @var VariableEventConfig $eventConfig */
-        $eventConfig = $this->getReference('change.variable_young_status_max_charge_-4');
-
-        $parasiteElimModifier = new DirectModifierConfig('modifier_for_daedalus_-4_max_maturation_time_for_plant');
-        $parasiteElimModifier
-            ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([$modifierRequirement]);
-        $manager->persist($parasiteElimModifier);
-        $this->addReference($parasiteElimModifier->getName(), $parasiteElimModifier);
 
         $manager->flush();
     }

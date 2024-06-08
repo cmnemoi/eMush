@@ -269,14 +269,6 @@ class EventConfigData
             'eventName' => VariableEventInterface::CHANGE_VARIABLE,
             'name' => 'change.variable_player_+2movementPoint',
         ],
-        [
-            'type' => 'variable_event_config',
-            'quantity' => -4,
-            'targetVariable' => EquipmentStatusEnum::PLANT_YOUNG,
-            'variableHolderClass' => ModifierHolderClassEnum::EQUIPMENT,
-            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
-            'name' => 'change.variable_young_status_max_charge_-4',
-        ],
     ];
 
     public static array $planetSectorEventConfigData = [

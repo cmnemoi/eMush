@@ -570,6 +570,34 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'parasite_elim',
+                'projectName' => 'Nano-Coccinelles',
+                'projectDescription' => 'Les jeunes plantes dans le Jardin voient leur durée de croissance diminuée de 4 cycles.',
+                'projectLore' => 'Des nano-coccinelles à vapeur. Pourquoi n\'y avoir pas pensé plus tôt !',
+                'projectEfficiency' => 'Efficacité : 12-18%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'botanist',
+                        'name' => 'Botaniste',
+                        'description' => 'Le Botaniste peut distinguer les caractéristiques des fruits et des plantes. Il est également
+                    redoutablement efficace dans la maintenance du Jardin.//:point: Peut lire les **propriétés des
+                    fruits**.//
+                    :point: Peut lire les **propriétés des plantes**.//
+                    :point: Peut effectuer des **greffes**.//
+                    :point: +2 :pa_garden: par jour (points d\'action **Jardinage**).//
+                    :point: Expédition : L\'évènement **Récolte** donne un fruit de plus.//
+                    :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'robotics_expert',
+                        'name' => 'Robotique',
+                        'description' => 'L\'expert en robotique peut créer et manipuler les drones comme bon lui semble.//:point: Commence
+                    avec le **plan d\'un drone**.//:point: Peut **améliorer les drones**.//:point: Bonus pour développer
+                    certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

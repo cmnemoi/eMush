@@ -318,6 +318,17 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::PARASITE_ELIM,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 12,
+                'bonusSkills' => [SkillEnum::BOTANIST, SkillEnum::ROBOTICS_EXPERT],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                ],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

@@ -29,7 +29,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
 
     public function parasiteElimProjectShouldDecreasePlantMaturationTimeInGarden(FunctionalTester $I): void
     {
-        $bananaTree = $this->givenABananaTreeInTheGarden($I);
+        $bananaTree = $this->givenABananaTreeInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
 
         $this->givenBananaTreeShouldNormallyMatureIn36Cycles($I, $bananaTree);
 
@@ -38,17 +38,42 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         $this->thenBananaTreeShouldMatureIn32Cycles($I, $bananaTree);
     }
 
-    private function givenABananaTreeInTheGarden(FunctionalTester $I): GameItem
+    public function parasiteElimShouldDecreasePlantMaturationTimeWhenPlantEntersGarden(FunctionalTester $I): void
     {
-        $garden = $this->createExtraPlace(
-            placeName: RoomEnum::HYDROPONIC_GARDEN,
-            I: $I,
-            daedalus: $this->daedalus
+        $bananaTree = $this->givenABananaTreeInPlace(RoomEnum::LABORATORY, $I);
+
+        $this->givenBananaTreeShouldNormallyMatureIn36Cycles($I, $bananaTree);
+
+        $this->whenParasiteElimProjectIsFinished($I);
+
+        // move banana tree into the garden
+        $this->equipmentService->moveEquipmentTo(
+            equipment: $bananaTree,
+            newHolder: $this->createExtraPlace(
+                placeName: RoomEnum::HYDROPONIC_GARDEN,
+                I: $I,
+                daedalus: $this->daedalus
+            ),
         );
+
+        $this->thenBananaTreeShouldMatureIn32Cycles($I, $bananaTree);
+    }
+
+    private function givenABananaTreeInPlace(string $placeName, FunctionalTester $I): GameItem
+    {   
+        if ($this->daedalus->getPlaceByName($placeName) === null) {
+            $this->createExtraPlace(
+                placeName: $placeName,
+                I: $I,
+                daedalus: $this->daedalus
+            );
+        }
+
+        $place = $this->daedalus->getPlaceByNameOrThrow($placeName);
 
         return $this->equipmentService->createGameEquipmentFromName(
             equipmentName: GamePlantEnum::BANANA_TREE,
-            equipmentHolder: $garden,
+            equipmentHolder: $place,
             reasons: [],
             time: new \DateTime()
         );

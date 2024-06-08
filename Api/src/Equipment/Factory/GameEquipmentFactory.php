@@ -15,7 +15,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Factory\StatusFactory;
 
@@ -41,7 +40,6 @@ final class GameEquipmentFactory
     public static function createEquipmentByName(string $name): GameEquipment
     {
         $holder = new Place();
-        $holder->setName(RoomEnum::null);
 
         $equipmentConfig = new EquipmentConfig();
         $equipmentConfig

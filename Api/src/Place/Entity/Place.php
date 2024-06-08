@@ -83,7 +83,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         $this->hunters = new ArrayCollection();
     }
 
-    public static function createByName(string $name): self
+    public static function createRoomByName(string $name): self
     {
         $place = new self();
         $place
@@ -95,7 +95,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
 
     public static function createRoomByNameInDaedalus(string $name, Daedalus $daedalus): self
     {
-        $place = self::createByName($name);
+        $place = self::createRoomByName($name);
         $place->setDaedalus($daedalus);
 
         return $place;

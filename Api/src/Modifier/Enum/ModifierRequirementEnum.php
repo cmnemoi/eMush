@@ -25,10 +25,6 @@ namespace Mush\Modifier\Enum;
  *
  * HOLDER_NAME: the activation requirement is applied on the name of the holder (used mostly for equipments)
  *
- * SKILL_IN_ROOM: the activationRequirement is applied if there is a player with the specified skill in the room
- *
- * HOLDER_PLACE: the activationRequirement is applied if holder is in the specified place
- *
  * The following conditions are used on EventModifiers, the tags of the event are compared with the tagConstraint of the modifier
  * ANY_TAG: The event must have at least ONE of the following tag
  * ALL_TAG: The event must have ALL the following tags
@@ -49,7 +45,6 @@ abstract class ModifierRequirementEnum
     public const string HOLDER_HAS_STATUS = 'status';
     public const string HOLDER_NAME = 'holder_name';
     public const string SKILL_IN_ROOM = 'skill_in_room';
-    public const string HOLDER_PLACE = 'holder_place';
     public const string ANY_TAGS = 'any_tags';
     public const string NONE_TAGS = 'none_tags';
     public const string ALL_TAGS = 'all_tags';

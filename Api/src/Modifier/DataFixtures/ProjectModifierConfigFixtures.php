@@ -15,8 +15,6 @@ use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
-use Mush\Modifier\ConfigData\ModifierConfigData;
-use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -140,14 +138,6 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($neronTargetingAssistModifier);
         $this->addReference($neronTargetingAssistModifier->getName(), $neronTargetingAssistModifier);
-
-        /** @var VariableEventConfig $eventConfig */
-        $eventConfig = $this->getReference('change.variable_young_status_max_charge_-4');
-
-        $parasiteElimModifier = DirectModifierConfig::fromConfigData(ModifierConfigData::getByName('modifier_for_place_-4_max_maturation_time_for_plant'));
-        $parasiteElimModifier->setTriggeredEvent($eventConfig);
-        $manager->persist($parasiteElimModifier);
-        $this->addReference($parasiteElimModifier->getName(), $parasiteElimModifier);
 
         $manager->flush();
     }

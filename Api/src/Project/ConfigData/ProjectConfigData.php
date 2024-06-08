@@ -326,9 +326,7 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [
                 ],
-                'spawnEquipmentConfigs' => [
-                    '1_nano_ladybugs_in_hydroponic_garden',
-                ],
+                'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
         ];

@@ -10,7 +10,6 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
@@ -864,16 +863,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($swedishSofa);
 
-        $nanoLadybugsGear = $this->createGear(
-            ['modifier_for_place_-4_max_maturation_time_for_plant'], 
-            EquipmentEnum::NANO_LADYBUGS
-        );
-        $manager->persist($nanoLadybugsGear);
-
-        $nanoLadybugs = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::NANO_LADYBUGS));
-        $nanoLadybugs->setMechanics([$nanoLadybugsGear]);
-        $manager->persist($nanoLadybugs);
-
         $gameConfig
             ->addEquipmentConfig($icarus)
             ->addEquipmentConfig($door)
@@ -913,8 +902,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addEquipmentConfig($oxygenTank)
             ->addEquipmentConfig($tabulatrix)
             ->addEquipmentConfig($swedishSofa)
-            ->addEquipmentConfig($auxiliaryTerminal)
-            ->addEquipmentConfig($nanoLadybugs);
+            ->addEquipmentConfig($auxiliaryTerminal);
         $manager->persist($gameConfig);
 
         $manager->flush();

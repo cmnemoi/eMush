@@ -3,7 +3,6 @@
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -3689,14 +3688,6 @@ class MechanicsData
                 'modifier_for_player_set_+1moralePoint_on_post.action_if_reason_shower',
                 'modifier_for_player_set_+1healthPoint_on_post.action_if_reason_shower',
                 'modifier_for_player_set_+2movementPoint_on_post.action_if_reason_shower',
-            ],
-        ],
-        [
-            'name' => 'gear_nano_ladybugs_default',
-            'type' => EquipmentMechanicEnum::GEAR,
-            'actions' => [],
-            'modifierConfigs' => [
-                'modifier_for_place_-4_max_maturation_time_for_plant',
             ],
         ],
     ];

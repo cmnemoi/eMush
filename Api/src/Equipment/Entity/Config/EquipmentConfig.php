@@ -69,21 +69,6 @@ class EquipmentConfig
         $this->initStatuses = new ArrayCollection();
     }
 
-    public static function fromConfigData(array $configData): self
-    {
-        $equipmentConfig = new self();
-        $equipmentConfig
-            ->setEquipmentName($configData['equipmentName'])
-            ->setName($configData['name'])
-            ->setIsBreakable($configData['isBreakable'])
-            ->setIsFireDestroyable($configData['isFireDestroyable'])
-            ->setIsFireBreakable($configData['isFireBreakable'])
-            ->setDismountedProducts($configData['dismountedProducts'])
-            ->setIsPersonal($configData['isPersonal']);
-
-        return $equipmentConfig;
-    }
-
     public function createGameEquipment(EquipmentHolderInterface $holder): GameEquipment
     {
         // Do not allow GameEquipment holders to be players

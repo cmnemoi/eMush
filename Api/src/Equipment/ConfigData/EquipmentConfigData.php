@@ -2852,7 +2852,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'gear_radar_trans_antenna_default',
+                'gear_radar_trans_void_antenna_default',
             ],
             'initStatuses' => [],
         ],
@@ -3937,5 +3937,26 @@ class EquipmentConfigData
                 EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE . '_default',
             ],
         ],
+        [
+            'name' => EquipmentEnum::NANO_LADYBUGS . '_default',
+            'equipmentName' => EquipmentEnum::NANO_LADYBUGS,
+            'isBreakable' => false,
+            'isFireDestroyable' => false,
+            'isFireBreakable' => false,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'equipment_config',
+            'isStackable' => false,
+            'actions' => [],
+            'mechanics' => [
+                'swedish_sofa_blueprint_default',
+            ],
+            'initStatuses' => [],
+        ],
     ];
+
+    public static function getByEquipmentName(string $equipmentName): array
+    {
+        return current(array_filter(self::$dataArray, static fn (array $data) => $data['equipmentName'] === $equipmentName));
+    }
 }

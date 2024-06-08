@@ -65,6 +65,12 @@ abstract class SpawnEquipmentConfigData
                 placeName: RoomEnum::ENGINE_ROOM,
                 quantity: 4,
             ),
+            new SpawnEquipmentConfigDto(
+                name: '1_nano_ladybugs_in_hydroponic_garden',
+                equipmentName: EquipmentEnum::NANO_LADYBUGS,
+                placeName: RoomEnum::HYDROPONIC_GARDEN,
+                quantity: 1,
+            )
         ];
     }
 }

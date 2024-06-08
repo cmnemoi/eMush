@@ -25,6 +25,11 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->equipmentService = $I->grabService(GameEquipmentService::class);
+        $this->createExtraPlace(
+            placeName: RoomEnum::HYDROPONIC_GARDEN,
+            I: $I,
+            daedalus: $this->daedalus
+        );
     }
 
     public function parasiteElimProjectShouldDecreasePlantMaturationTimeInGarden(FunctionalTester $I): void
@@ -49,11 +54,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         // move banana tree into the garden
         $this->equipmentService->moveEquipmentTo(
             equipment: $bananaTree,
-            newHolder: $this->createExtraPlace(
-                placeName: RoomEnum::HYDROPONIC_GARDEN,
-                I: $I,
-                daedalus: $this->daedalus
-            ),
+            newHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::HYDROPONIC_GARDEN),
         );
 
         $this->thenBananaTreeShouldMatureIn32Cycles($I, $bananaTree);

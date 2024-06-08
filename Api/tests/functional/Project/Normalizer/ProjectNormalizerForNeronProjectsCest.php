@@ -570,6 +570,30 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'floor_heating',
+                'projectName' => 'Chauffage au sol',
+                'projectDescription' => 'Diminue de 50% les blessures dûes aux actions.',
+                'projectLore' => 'Fini le froid stellaire du parquet du Daedalus. Désormais, vous êtes toujours au chaud !',
+                'projectEfficiency' => 'Efficacité : 12-18%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'technician',
+                        'name' => 'Technicien',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
+        :point: Peut **Démonter** des objets.//
+        :point: Chances de réussites doublées pour les **Réparations**.//
+        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'conceptor',
+                        'name' => 'Concepteur',
+                        'description' => 'Le Concepteur dispose de deux actions gratuites chaque jour pour utiliser le Cœur de NERON.//:point: +2 :pa_core: (points d\'action **Conception**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

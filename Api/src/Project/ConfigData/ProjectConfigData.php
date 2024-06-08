@@ -318,6 +318,17 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::FLOOR_HEATING,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 12,
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::CONCEPTOR],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                ],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

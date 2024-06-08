@@ -523,5 +523,23 @@
         <target>NERON peut aussi vous faciliter la vie. Un petit patch de son algorithme de remplissage des tableaux de bords et hop !</target>
       </segment>
     </unit>
+    <unit id="floor_heating">
+      <segment id="floor_heating.type" state="translated">
+        <source>floor_heating.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="floor_heating.name" state="translated">
+        <source>floor_heating.name</source>
+        <target>Chauffage au sol</target>
+      </segment>
+      <segment id="floor_heating.description" state="translated">
+        <source>floor_heating.description</source>
+        <target>Diminue de 50% les blessures dûes aux actions.</target>
+      </segment>
+      <segment id="floor_heating.lore" state="translated">
+        <source>floor_heating.lore</source>
+        <target>Fini le froid stellaire du parquet du Daedalus. Désormais, vous êtes toujours au chaud !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

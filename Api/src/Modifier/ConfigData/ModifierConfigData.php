@@ -2263,5 +2263,15 @@ abstract class ModifierConfigData
                 ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_daedalus_-4_max_maturation_time_for_plant',
+            'modifierName' => null,
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'direct_modifier',
+            'triggeredEvent' => 'change.variable_young_status_max_charge_-4',
+            'modifierActivationRequirements' => [ModifierRequirementEnum::HOLDER_PLACE_GARDEN],
+            'revertOnRemove' => true,
+        ],
     ];
 }

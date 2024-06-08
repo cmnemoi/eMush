@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Status\Event;
 
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Place\Enum\RoomEnum;
@@ -26,35 +27,51 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         $this->equipmentService = $I->grabService(GameEquipmentService::class);
     }
 
-    public function parasiteElimProjectShouldDecreasePlantMaturationTime(FunctionalTester $I): void
+    public function parasiteElimProjectShouldDecreasePlantMaturationTimeInGarden(FunctionalTester $I): void
     {
-        // given there is a garden in the Daedalus
+        $bananaTree = $this->givenABananaTreeInTheGarden($I);
+
+        $this->givenBananaTreeShouldNormallyMatureIn36Cycles($I, $bananaTree);
+
+        $this->whenParasiteElimProjectIsFinished($I);
+
+        $this->thenBananaTreeShouldMatureIn32Cycles($I, $bananaTree);
+    }
+
+    private function givenABananaTreeInTheGarden(FunctionalTester $I): GameItem
+    {
         $garden = $this->createExtraPlace(
             placeName: RoomEnum::HYDROPONIC_GARDEN,
             I: $I,
             daedalus: $this->daedalus
         );
 
-        // given a banana tree
-        $bananaTree = $this->equipmentService->createGameEquipmentFromName(
+        return $this->equipmentService->createGameEquipmentFromName(
             equipmentName: GamePlantEnum::BANANA_TREE,
             equipmentHolder: $garden,
             reasons: [],
             time: new \DateTime()
         );
+    }
 
-        // given this banana tree should normally mature in 36 cycles
+    private function givenBananaTreeShouldNormallyMatureIn36Cycles(FunctionalTester $I, GameItem $bananaTree): void
+    {
         $maturationStatus = $bananaTree->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG);
         $I->assertEquals(36, $maturationStatus->getVariableByName(EquipmentStatusEnum::PLANT_YOUNG)->getMaxValue());
+    }
 
-        // when Parasite Elim project is finished
+    private function whenParasiteElimProjectIsFinished(FunctionalTester $I): void
+    {
         $this->finishProject(
             project: $this->daedalus->getProjectByName(ProjectName::PARASITE_ELIM),
-            author: $this->chun,
+            author: $this->player,
             I: $I
         );
+    }
 
-        // then this banana tree should mature in 32 cycles
+    private function thenBananaTreeShouldMatureIn32Cycles(FunctionalTester $I, GameItem $bananaTree): void
+    {
+        $maturationStatus = $bananaTree->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG);
         $I->assertEquals(32, $maturationStatus->getVariableByName(EquipmentStatusEnum::PLANT_YOUNG)->getMaxValue());
     }
 }

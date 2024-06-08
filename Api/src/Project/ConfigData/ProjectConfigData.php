@@ -325,6 +325,7 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::BOTANIST, SkillEnum::ROBOTICS_EXPERT],
                 'activationRate' => 100,
                 'modifierConfigs' => [
+                    'modifier_for_daedalus_-4_max_maturation_time_for_plant',
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],

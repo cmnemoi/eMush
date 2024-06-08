@@ -54,4 +54,6 @@ abstract class ModifierRequirementEnum
     public const string NONE_TAGS = 'none_tags';
     public const string ALL_TAGS = 'all_tags';
     public const int ABSENT_STATUS = 0;
+
+    public const string HOLDER_PLACE_GARDEN = 'holder_place_garden';
 }

@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
@@ -33,23 +32,16 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-/**
- * @internal
- */
-final class PlantCycleEventCest extends AbstractFunctionalTest
+class PlantCycleEventCest
 {
     private EventServiceInterface $eventService;
-    private GameEquipmentServiceInterface $equipmentService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
-        parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 

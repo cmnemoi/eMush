@@ -143,7 +143,7 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
     {
         $owner = $this->getOwner();
         if (!$owner instanceof GameItem) {
-            throw new \LogicException("{$owner->getClassName()} {$owner->getName()} entity should be a GameItem for its charge status be a maturation time.");
+            throw new \LogicException("{$owner->getName()} entity should be a GameItem, got {$owner->getClassName()}" instead.);
         }
 
         return $owner;
@@ -153,7 +153,7 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
     {
         $maxCharge = $this->getVariableByName($this->getName())->getMaxValue();
         if ($maxCharge === null) {
-            throw new \LogicException('Max charge is not set');
+            throw new \LogicException('Max charge is not set for {$this->getName()} status.');
         }
 
         return $maxCharge;

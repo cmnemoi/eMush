@@ -64,6 +64,7 @@ class DaedalusConfigData
                 RoomEnum::PATROL_SHIP_BRAVO_SOCRATE . '_default',
                 RoomEnum::PASIPHAE . '_default',
                 RoomEnum::PLANET . '_default',
+                RoomEnum::PLANET_DEPTHS . '_default',
             ],
             'numberOfProjectsByBatch' => 3,
         ],

@@ -25,6 +25,7 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -1066,12 +1067,20 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // when player lost event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
 
-        // then Chun or Kuan-Ti is lost
+        // then Chun or Kuan-Ti is lost and be in planet depths
         if (!$this->chun->hasStatus(PlayerStatusEnum::LOST)) {
             $I->assertTrue($this->kuanTi->hasStatus(PlayerStatusEnum::LOST));
+            $I->assertEquals(
+                expected: RoomEnum::PLANET_DEPTHS,
+                actual: $this->kuanTi->getPlace()->getName(),
+            );
             $lostPlayer = $this->kuanTi;
         } else {
             $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::LOST));
+            $I->assertEquals(
+                expected: RoomEnum::PLANET_DEPTHS,
+                actual: $this->chun->getPlace()->getName(),
+            );
             $lostPlayer = $this->chun;
         }
 
@@ -1149,6 +1158,9 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             explorators: $this->players
         );
 
+        // given Janice is in Planet Depths
+        $this->janice->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::PLANET_DEPTHS));
+
         // given only find lost event can happen in lost sector
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::LOST,
@@ -1160,6 +1172,12 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then Janice is not lost anymore
         $I->assertFalse($this->janice->hasStatus(PlayerStatusEnum::LOST));
+
+        // then Janice should be in Planet place
+        $I->assertEquals(
+            expected: RoomEnum::PLANET,
+            actual: $this->janice->getPlace()->getName(),
+        );
 
         // then Janice should have gained 3 morale points
         $I->assertEquals(

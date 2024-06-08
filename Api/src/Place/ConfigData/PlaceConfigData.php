@@ -314,5 +314,13 @@ class PlaceConfigData
             'items' => [],
             'equipments' => [],
         ],
+        [
+            'name' => RoomEnum::PLANET_DEPTHS . '_default',
+            'placeName' => RoomEnum::PLANET_DEPTHS,
+            'type' => PlaceTypeEnum::PLANET,
+            'doors' => [],
+            'items' => [],
+            'equipments' => [],
+        ],
     ];
 }

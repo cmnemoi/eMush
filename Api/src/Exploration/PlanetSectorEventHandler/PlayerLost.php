@@ -7,7 +7,6 @@ namespace Mush\Exploration\PlanetSectorEventHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\ExplorationLog;
-use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
@@ -16,23 +15,23 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 final class PlayerLost extends AbstractPlanetSectorEventHandler
 {
-    private StatusServiceInterface $statusService;
-
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
         TranslationServiceInterface $translationService,
-        StatusServiceInterface $statusService
+        private StatusServiceInterface $statusService,
+        private PlayerServiceInterface $playerService,
     ) {
         parent::__construct($entityManager, $eventService, $randomService, $translationService);
-        $this->statusService = $statusService;
     }
 
     public function getName(): string
@@ -42,6 +41,7 @@ final class PlayerLost extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
+        $daedalus = $event->getExploration()->getDaedalus();
         $exploration = $event->getExploration();
 
         $exploratorsWithoutACompass = $exploration
@@ -55,7 +55,6 @@ final class PlayerLost extends AbstractPlanetSectorEventHandler
         }
 
         $lostPlayer = $this->randomService->getRandomPlayer($exploratorsWithoutACompass);
-
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::LOST,
             holder: $lostPlayer,
@@ -64,10 +63,9 @@ final class PlayerLost extends AbstractPlanetSectorEventHandler
             visibility: VisibilityEnum::PRIVATE,
         );
 
-        $lostPlanetSector = $this->getLostPlanetSector($event);
-        $lostPlanetSector->reveal();
+        $this->playerService->changePlace($lostPlayer, $daedalus->getPlaceByNameOrThrow(RoomEnum::PLANET_DEPTHS));
 
-        $this->addLostPlanetSectorToPlanet($lostPlanetSector, $exploration->getPlanet());
+        $this->addLostPlanetSectorToPlanet($event);
 
         $logParameters = $this->getLogParameters($event);
         $logParameters[$lostPlayer->getLogKey()] = $lostPlayer->getLogName();
@@ -75,9 +73,15 @@ final class PlayerLost extends AbstractPlanetSectorEventHandler
         return $this->createExplorationLog($event, $logParameters);
     }
 
-    private function addLostPlanetSectorToPlanet(PlanetSector $lostPlanetSector, Planet $planet): void
+    private function addLostPlanetSectorToPlanet(PlanetSectorEvent $event): void
     {
+        $planet = $event->getExploration()->getPlanet();
+
+        $lostPlanetSector = $this->getLostPlanetSector($event);
+        $lostPlanetSector->reveal();
+
         $planet->addSector($lostPlanetSector);
+
         $this->entityManager->persist($lostPlanetSector);
     }
 

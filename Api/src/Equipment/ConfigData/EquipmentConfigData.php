@@ -2852,7 +2852,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'gear_radar_trans_antenna_default',
+                'gear_radar_trans_void_antenna_default',
             ],
             'initStatuses' => [],
         ],

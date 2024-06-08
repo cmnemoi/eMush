@@ -147,8 +147,15 @@ class AbstractFunctionalTest
             ->setType($planetConfig->getType())
             ->setDaedalus($daedalus);
         $I->haveInRepository($planet);
+        $planetDepthsConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::PLANET_DEPTHS]);
+        $planetDepths = new Place();
+        $planetDepths
+            ->setName(RoomEnum::PLANET_DEPTHS)
+            ->setType($planetDepthsConfig->getType())
+            ->setDaedalus($daedalus);
+        $I->haveInRepository($planetDepths);
 
-        return new ArrayCollection([$laboratory, $space, $planet]);
+        return new ArrayCollection([$laboratory, $space, $planet, $planetDepths]);
     }
 
     protected function createExtraPlace(string $placeName, FunctionalTester $I, Daedalus $daedalus): Place

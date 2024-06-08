@@ -15,6 +15,7 @@ use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
+use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -138,6 +139,10 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($neronTargetingAssistModifier);
         $this->addReference($neronTargetingAssistModifier->getName(), $neronTargetingAssistModifier);
+
+        $floorHeatingModifier = VariableEventModifierConfig::fromConfigData(ModifierConfigData::getByName('modifier_for_daedalus_x0.5clumsiness'));
+        $manager->persist($floorHeatingModifier);
+        $this->addReference($floorHeatingModifier->getName(), $floorHeatingModifier);
 
         $manager->flush();
     }

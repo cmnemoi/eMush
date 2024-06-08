@@ -325,6 +325,7 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::CONCEPTOR],
                 'activationRate' => 100,
                 'modifierConfigs' => [
+                    'modifier_for_daedalus_x0.5clumsiness',
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],

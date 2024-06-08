@@ -2263,5 +2263,25 @@ abstract class ModifierConfigData
                 ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_daedalus_x0.5clumsiness',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'variable_event_modifier',
+            'delta' => 0.5,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_INJURY,
+            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
+
+    public static function getByName(string $name): array
+    {
+        return current(array_filter(self::$dataArray, static fn ($modifier) => $modifier['name'] === $name));
+    }
 }

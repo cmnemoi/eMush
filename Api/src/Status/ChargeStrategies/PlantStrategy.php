@@ -23,7 +23,7 @@ class PlantStrategy extends AbstractChargeStrategy
         $status = $this->statusService->updateCharge($status, 1, $reasons, $time);
 
         // if the plant reached the number of cycles required to mature, remove the status
-        if ($status->getVariableByName($status->getName())->isMax()) {
+        if ($status->getCharge() >= $status->getMaturationTimeOrThrow()) {
             $this->statusService->removeStatus(
                 EquipmentStatusEnum::PLANT_YOUNG,
                 $status->getOwner(),

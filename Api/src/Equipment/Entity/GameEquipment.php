@@ -438,6 +438,11 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return (new ArrayCollection([GameRationEnum::COOKED_RATION, GameRationEnum::ALIEN_STEAK]))->contains($this->getName());
     }
 
+    public function isInPlaceByName(string $place): bool
+    {
+        return $this->getPlace() === $this->getDaedalus()->getPlaceByName($place);
+    }
+
     private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool
     {
         foreach ($this->equipment->getMechanics() as $mechanic) {

@@ -323,7 +323,7 @@ abstract class ProjectConfigData
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 12,
                 'bonusSkills' => [SkillEnum::BOTANIST, SkillEnum::ROBOTICS_EXPERT],
-                'activationRate' => 100,
+                'activationRate' => 4,
                 'modifierConfigs' => [
                 ],
                 'spawnEquipmentConfigs' => [],

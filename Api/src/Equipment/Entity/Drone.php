@@ -59,9 +59,9 @@ class Drone extends GameItem
     /**
      * @return Collection<int, GameEquipment>
      */
-    public function getBrokenEquipmentsInRoom(): Collection
+    public function getBrokenDoorsAndEquipmentsInRoom(): Collection
     {
-        return $this->getPlace()->getBrokenEquipments();
+        return $this->getPlace()->getBrokenDoorsAndEquipments();
     }
 
     public function getChargesStatus(): ChargeStatus

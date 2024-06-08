@@ -63,7 +63,7 @@ final class RepairBrokenEquipmentTask extends AbstractDroneTask
 
     private function getEquipmentToRepair(Drone $drone): ?GameEquipment
     {
-        $brokenRoomEquipment = $drone->getBrokenEquipmentsInRoom();
+        $brokenRoomEquipment = $drone->getBrokenDoorsAndEquipmentsInRoom();
         $equipmentToRepair = $this->getRandomElementsFromArray->execute(
             elements: $brokenRoomEquipment->toArray(),
             number: 1

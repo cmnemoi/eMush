@@ -6,8 +6,10 @@ namespace Mush\tests\functional\Equipment\DroneTasks;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\DroneTasks\DroneTasksHandler;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\Drone;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -324,6 +326,50 @@ final class DroneCest extends AbstractFunctionalTest
 
         // then the Patrol Ship should be repaired
         $I->assertFalse($patrolShip->hasStatus(EquipmentStatusEnum::BROKEN));
+    }
+
+    public function shouldRepairBrokenDoor(FunctionalTester $I): void
+    {
+        $door = $this->givenABrokenDoor($I);
+        $this->givenDroneHas100PercentChanceToRepairEquipment($door);
+
+        $this->whenDroneActs();
+
+        $this->thenEquipmentShouldBeRepaired($door, $I);
+    }
+
+    private function givenABrokenDoor(FunctionalTester $I): Door
+    {
+        $door = Door::createFromRooms(
+            $this->chun->getPlace(),
+            $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus)
+        );
+        $door->setEquipment($I->grabEntityFromRepository(entity: EquipmentConfig::class, params: ['name' => 'door_default']));
+        $I->haveInRepository($door);
+
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $door,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        return $door;
+    }
+
+    private function givenDroneHas100PercentChanceToRepairEquipment(GameEquipment $equipment): void
+    {
+        $equipment->getActionConfigByNameOrThrow(ActionEnum::REPAIR)->setSuccessRate(100);
+    }
+
+    private function whenDroneActs(): void
+    {
+        $this->droneTasksHandler->execute($this->drone, new \DateTime());
+    }
+
+    private function thenEquipmentShouldBeRepaired(GameEquipment $equipment, FunctionalTester $I): void
+    {
+        $I->assertFalse($equipment->hasStatus(EquipmentStatusEnum::BROKEN));
     }
 
     private function setupDroneNicknameAndSerialNumber(Drone $drone, int $nickName, int $serialNumber): void

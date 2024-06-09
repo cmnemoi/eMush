@@ -214,5 +214,15 @@
         <target>Le Biologiste est plus efficace dans les recherches du laboratoire.//:point: Peut lire les **propriétés des médicaments**.//:point: **+4% de bonus** sur chacune des **Recherches** du Laboratoire.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
+    <unit id="biologist">
+      <segment id="biologist.name" state="translated">
+        <source>biologist.name</source>
+        <target>Biologiste</target>
+      </segment>
+      <segment id="biologist.description" state="translated">
+        <source>biologist.description</source>
+        <target>Le Biologiste est plus efficace dans les recherches du laboratoire.//:point: Peut lire les **propriétés des médicaments**.//:point: **+4% de bonus** sur chacune des **Recherches** du Laboratoire.//:point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

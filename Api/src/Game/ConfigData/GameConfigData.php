@@ -557,6 +557,7 @@ class GameConfigData
                 ProjectName::TURRET_EXTRA_FIRE_RATE,
                 ProjectName::QUANTUM_SENSORS,
                 ProjectName::PATROLSHIP_EXTRA_AMMO,
+                ProjectName::NOISE_REDUCER,
             ],
         ],
     ];

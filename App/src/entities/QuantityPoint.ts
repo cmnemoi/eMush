@@ -3,6 +3,7 @@ export class QuantityPoint {
     public name!: string;
     public description: string|null;
     public quantity!: number;
+    public max!: number;
 
     constructor() {
         this.description = null;
@@ -12,6 +13,7 @@ export class QuantityPoint {
             this.name = object.name;
             this.description = object.description;
             this.quantity = object.quantity;
+            this.max = object.max;
         }
         return this;
     }

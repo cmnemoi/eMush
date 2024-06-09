@@ -2226,6 +2226,16 @@ abstract class ModifierConfigData
             ],
         ],
         [
+            'name' => 'direct_modifier_player_+2_max_actionPoint',
+            'modifierName' => null,
+            'revertOnRemove' => true,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'direct_modifier',
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'triggeredEvent' => 'change.value.max_player_+2_actionPoint',
+            'modifierActivationRequirements' => [],
+        ],
+        [
             'name' => 'modifier_for_daedalus_+6_patrol_ship_alpha_tamarin_max_charges',
             'modifierName' => null,
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,

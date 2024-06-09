@@ -20,7 +20,7 @@
                         <Tippy tag="ol">
                             <li class="quantityLife">
                                 <ul>
-                                    <li v-for="n in 14" :key="n" :class="isFull(n, player.healthPoint.quantity)" />
+                                    <li v-for="n in player?.healthPoint?.max" :key="n" :class="isFull(n, player.healthPoint.quantity)" />
                                 </ul>
                             </li>
                             <li class="iconLife">
@@ -36,7 +36,7 @@
                         <Tippy tag="ol">
                             <li class="quantityMorale">
                                 <ul>
-                                    <li v-for="n in 14" :key="n" :class="isFull(n, player.moralPoint.quantity)" />
+                                    <li v-for="n in player?.moralPoint?.max" :key="n" :class="isFull(n, player.moralPoint.quantity)" />
                                 </ul>
                             </li>
                             <li class="iconMorale">
@@ -106,12 +106,12 @@
                     <div class="action-points">
                         <div class="actions">
                             <ul>
-                                <li v-for="n in 12" :key="n" :class="isFull(n, player.actionPoint.quantity)" />
+                                <li v-for="n in player?.actionPoint?.max" :key="n" :class="isFull(n, player.actionPoint.quantity)" />
                             </ul>
                         </div>
                         <div class="movements">
                             <ul>
-                                <li v-for="n in 12" :key="n" :class="isFull(n, player.movementPoint.quantity)" />
+                                <li v-for="n in player?.movementPoint?.max" :key="n" :class="isFull(n, player.movementPoint.quantity)" />
                             </ul>
                         </div>
                     </div>

@@ -285,6 +285,14 @@ class EventConfigData
             'eventName' => VariableEventInterface::SET_VALUE,
             'name' => 'change.variable_patrol_ship_set_charges_to_maximum',
         ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 2,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
+            'name' => 'change.value.max_player_+2_actionPoint',
+        ],
     ];
 
     public static array $planetSectorEventConfigData = [

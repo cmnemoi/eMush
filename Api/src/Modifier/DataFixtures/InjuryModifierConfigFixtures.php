@@ -408,11 +408,11 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyWhenTargeted(false)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
+                ItemEnum::SCHRODINGER . '_action_target' => ModifierRequirementEnum::ALL_TAGS,
                 ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setModifierActivationRequirements([$random16])
+            ->setModifierActivationRequirements([])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(SymptomEnum::CAT_ALLERGY);
         $manager->persist($catAllergySymptom);

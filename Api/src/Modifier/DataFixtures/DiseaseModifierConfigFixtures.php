@@ -363,7 +363,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-            ->setTagConstraints([ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS, ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ItemEnum::SCHRODINGER . '_action_target' => ModifierRequirementEnum::ALL_TAGS, ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($takeCat6HealthLost);
 

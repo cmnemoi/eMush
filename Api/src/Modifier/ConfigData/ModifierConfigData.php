@@ -1544,7 +1544,7 @@ abstract class ModifierConfigData
             ],
             'tagConstraints' => [
                 ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
-                ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
+                ItemEnum::SCHRODINGER . '_action_target' => ModifierRequirementEnum::ALL_TAGS,
                 SymptomEnum::CAT_ALLERGY => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],

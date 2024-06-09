@@ -12,7 +12,7 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -24,19 +24,11 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
 {
     public const int DIRTY_RATE = 15;
 
-    private EventServiceInterface $eventService;
-    private RandomServiceInterface $randomService;
-    private StatusServiceInterface $statusService;
-
     public function __construct(
-        EventServiceInterface $eventService,
-        RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService
-    ) {
-        $this->eventService = $eventService;
-        $this->randomService = $randomService;
-        $this->statusService = $statusService;
-    }
+        private D100RollServiceInterface $d100Roll,
+        private EventServiceInterface $eventService,
+        private StatusServiceInterface $statusService
+    ) {}
 
     public static function getSubscribedEvents()
     {
@@ -168,7 +160,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
 
         /** @var Player $explorator */
         foreach ($explorators as $explorator) {
-            if ($this->randomService->isSuccessful(self::DIRTY_RATE)) {
+            if ($this->d100Roll->isSuccessful(self::DIRTY_RATE)) {
                 $this->statusService->createStatusFromName(
                     statusName: PlayerStatusEnum::DIRTY,
                     holder: $explorator,

@@ -559,5 +559,23 @@
         <target>Grâce à cet aménagement spécialement destiné aux jeunes pousses, on peut saturer leur environnement d'azote afin d'accélérer leur développement sans risquer d'endommager les plants adultes.</target>
       </segment>
     </unit>
+    <unit id="icarus_lavatory">
+      <segment id="icarus_lavatory.type" state="translated">
+        <source>icarus_lavatory.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="icarus_lavatory.name" state="translated">
+        <source>icarus_lavatory.name</source>
+        <target>Lavabo opportun</target>
+      </segment>
+      <segment id="icarus_lavatory.description" state="translated">
+        <source>icarus_lavatory.description</source>
+        <target>Permet de ne pas se salir en revenant d'expédition.</target>
+      </segment>
+      <segment id="icarus_lavatory.lore" state="translated">
+        <source>icarus_lavatory.lore</source>
+        <target>Quel magnifique lavabo inoxydable, vous n'avez plus d'excuses pour ne pas vous laver les mains entre chaque mission.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

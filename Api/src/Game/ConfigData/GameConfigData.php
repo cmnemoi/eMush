@@ -549,6 +549,7 @@ class GameConfigData
                 ProjectName::NERON_TARGETING_ASSIST,
                 ProjectName::WHOS_WHO,
                 ProjectName::HYDROPONIC_INCUBATOR,
+                ProjectName::ICARUS_LAVATORY,
             ],
         ],
     ];

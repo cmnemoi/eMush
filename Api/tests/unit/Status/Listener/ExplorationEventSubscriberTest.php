@@ -16,13 +16,14 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\Random\FakeD100RollService;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Listener\ExplorationEventSubscriber;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Service\FakeStatusService;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -31,51 +32,32 @@ use PHPUnit\Framework\TestCase;
  */
 final class ExplorationEventSubscriberTest extends TestCase
 {
-    private ExplorationEventSubscriber $explorationEventSubscriber;
-
-    /** @var EventServiceInterface|Mockery\Spy */
-    private EventServiceInterface $eventService;
-
-    /** @var Mockery\Mock|RandomServiceInterface */
-    private RandomServiceInterface $randomService;
-
-    /** @var Mockery\Spy|StatusServiceInterface */
-    private StatusServiceInterface $statusService;
-
     private Exploration $exploration;
+
+    private Player $player;
 
     /**
      * @before
      */
     public function before(): void
     {
-        $this->eventService = \Mockery::spy(EventServiceInterface::class);
-        $this->randomService = \Mockery::spy(RandomServiceInterface::class);
-        $this->statusService = \Mockery::spy(StatusServiceInterface::class);
-
-        $this->explorationEventSubscriber = new ExplorationEventSubscriber(
-            $this->eventService,
-            $this->randomService,
-            $this->statusService
-        );
-
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
-        $player = new Player();
-        $player->setDaedalus($daedalus);
-        new PlayerInfo($player, new User(), new CharacterConfig());
+        $this->player = new Player();
+        $this->player->setDaedalus($daedalus);
+        new PlayerInfo($this->player, new User(), new CharacterConfig());
 
         $spacesuitConfig = new EquipmentConfig();
         $spacesuitConfig->setName(GearItemEnum::SPACESUIT);
-        $spacesuit = new GameItem($player);
+        $spacesuit = new GameItem($this->player);
         $spacesuit->setEquipment($spacesuitConfig);
         $spacesuit->setName(GearItemEnum::SPACESUIT);
 
-        $planet = new Planet($player);
+        $planet = new Planet($this->player);
         $planet->setName(new PlanetName());
 
         $this->exploration = new Exploration($planet);
-        $this->exploration->setExplorators(new PlayerCollection([$player]));
+        $this->exploration->setExplorators(new PlayerCollection([$this->player]));
     }
 
     /**
@@ -95,19 +77,15 @@ final class ExplorationEventSubscriberTest extends TestCase
             time: new \DateTime(),
         );
 
-        // given the universe is in a state where the player should get dirty
-        $this->randomService
-            ->shouldReceive('isSuccessful')
-            ->with(ExplorationEventSubscriber::DIRTY_RATE)
-            ->andReturn(true)
-            ->once();
-
         // when I listen to the exploration finished event
-        $this->explorationEventSubscriber->onExplorationFinished($explorationEvent);
+        $explorationEventSubscriber = new ExplorationEventSubscriber(
+            new FakeD100RollService(isSuccessful: true), // random roll for dirty status is successful
+            $this->createStub(EventServiceInterface::class),
+            new FakeStatusService(),
+        );
+        $explorationEventSubscriber->onExplorationFinished($explorationEvent);
 
         // then the player should get dirty
-        $this->statusService
-            ->shouldHaveReceived('createStatusFromName')
-            ->once();
+        self::assertTrue($this->player->hasStatus(PlayerStatusEnum::DIRTY));
     }
 }

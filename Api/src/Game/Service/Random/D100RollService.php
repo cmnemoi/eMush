@@ -8,10 +8,15 @@ final class D100RollService implements D100RollServiceInterface
 {
     public function __construct(private GetRandomIntegerServiceInterface $getRandomInteger) {}
 
-    public function isAFailure(int $failureRate): bool
+    public function isSuccessful(int $successRate): bool
     {
         $roll = $this->getRandomInteger->execute(1, 100);
 
-        return $roll > $failureRate;
+        return $roll <= $successRate;
+    }
+
+    public function isAFailure(int $successRate): bool
+    {
+        return $this->isSuccessful($successRate) === false;
     }
 }

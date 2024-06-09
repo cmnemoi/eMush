@@ -87,6 +87,8 @@ final class ExplorationService implements ExplorationServiceInterface
             tags: $reasons,
             time: new \DateTime(),
         );
+        $explorationEvent->addTag(ExplorationEvent::EXPLORATION_FINISHED);
+
         $this->eventService->callEvent($explorationEvent, ExplorationEvent::EXPLORATION_FINISHED);
 
         $closedExploration->finishExploration();

@@ -6,5 +6,7 @@ namespace Mush\Game\Service\Random;
 
 interface D100RollServiceInterface
 {
-    public function isAFailure(int $failureRate): bool;
+    public function isSuccessful(int $successRate): bool;
+
+    public function isAFailure(int $successRate): bool;
 }

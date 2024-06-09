@@ -541,5 +541,23 @@
         <target>Affiche un pixel de couleur unique qui indique qui est qui à bord sur le traqueur. Pratique pour traquer les moindres faits et gestes de chacun.</target>
       </segment>
     </unit>
+    <unit id="hydroponic_incubator">
+      <segment id="hydroponic_incubator.type" state="translated">
+        <source>hydroponic_incubator.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="hydroponic_incubator.name" state="translated">
+        <source>hydroponic_incubator.name</source>
+        <target>Couveuse hydroponique</target>
+      </segment>
+      <segment id="hydroponic_incubator.description" state="translated">
+        <source>hydroponic_incubator.description</source>
+        <target>Dans le jardin, les jeunes pousses croissent 2 fois plus vite.</target>
+      </segment>
+      <segment id="hydroponic_incubator.lore" state="translated">
+        <source>hydroponic_incubator.lore</source>
+        <target>Grâce à cet aménagement spécialement destiné aux jeunes pousses, on peut saturer leur environnement d'azote afin d'accélérer leur développement sans risquer d'endommager les plants adultes.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

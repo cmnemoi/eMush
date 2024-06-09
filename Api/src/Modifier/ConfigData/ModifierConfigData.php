@@ -2263,5 +2263,25 @@ abstract class ModifierConfigData
                 ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_place_x2_maturation_time',
+            'modifierName' => null,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLACE,
+            'type' => 'variable_event_modifier',
+            'delta' => 2,
+            'targetVariable' => EquipmentStatusEnum::PLANT_YOUNG,
+            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
+
+    public static function getByName(string $name): array
+    {
+        return current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
+    }
 }

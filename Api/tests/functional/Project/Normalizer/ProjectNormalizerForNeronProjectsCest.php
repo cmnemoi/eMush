@@ -592,6 +592,35 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ]
+            [
+                'projectKey' => 'hydroponic_incubator',
+                'projectName' => 'Couveuse hydroponique',
+                'projectDescription' => 'Dans le jardin, les jeunes pousses croissent 2 fois plus vite.',
+                'projectLore' => 'Grâce à cet aménagement spécialement destiné aux jeunes pousses, on peut saturer leur environnement d\'azote afin d\'accélérer leur développement sans risquer d\'endommager les plants adultes.',
+                'projectEfficiency' => 'Efficacité : 6-9%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'physicist',
+                        'name' => 'Physicien',
+                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
+                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
+                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
+                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'botanist',
+                        'name' => 'Botaniste',
+                        'description' => 'Le Botaniste peut distinguer les caractéristiques des fruits et des plantes. Il est également
+                    redoutablement efficace dans la maintenance du Jardin.//:point: Peut lire les **propriétés des
+                    fruits**.//
+                    :point: Peut lire les **propriétés des plantes**.//
+                    :point: Peut effectuer des **greffes**.//
+                    :point: +2 :pa_garden: par jour (points d\'action **Jardinage**).//
+                    :point: Expédition : L\'évènement **Récolte** donne un fruit de plus.//
+                    :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

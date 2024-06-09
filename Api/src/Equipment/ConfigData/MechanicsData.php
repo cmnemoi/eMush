@@ -3690,5 +3690,13 @@ class MechanicsData
                 'modifier_for_player_set_+2movementPoint_on_post.action_if_reason_shower',
             ],
         ],
+        [
+            'name' => 'gear_hydroponic_incubator_default',
+            'type' => EquipmentMechanicEnum::GEAR,
+            'actions' => [],
+            'modifierConfigs' => [
+                'modifier_for_place_x2_maturation_time',
+            ],
+        ],
     ];
 }

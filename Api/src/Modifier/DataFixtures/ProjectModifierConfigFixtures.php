@@ -15,6 +15,7 @@ use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
+use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -138,6 +139,10 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($neronTargetingAssistModifier);
         $this->addReference($neronTargetingAssistModifier->getName(), $neronTargetingAssistModifier);
+
+        $hydroponicIncubatorModifier = VariableEventModifierConfig::fromConfigData(ModifierConfigData::getByName('modifier_for_place_x2_maturation_time'));
+        $manager->persist($hydroponicIncubatorModifier);
+        $this->addReference($hydroponicIncubatorModifier->getName(), $hydroponicIncubatorModifier);
 
         $manager->flush();
     }

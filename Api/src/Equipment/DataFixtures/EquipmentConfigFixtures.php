@@ -10,6 +10,7 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
@@ -863,6 +864,18 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($swedishSofa);
 
+        $hydroponicIncubatorGear = $this->createGear(
+            [
+                'modifier_for_place_x2_maturation_time',
+            ],
+            EquipmentEnum::HYDROPONIC_INCUBATOR
+        );
+        $manager->persist($hydroponicIncubatorGear);
+
+        $hydroponicIncubator = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::HYDROPONIC_INCUBATOR));
+        $hydroponicIncubator->setMechanics([$hydroponicIncubatorGear]);
+        $manager->persist($hydroponicIncubator);
+
         $gameConfig
             ->addEquipmentConfig($icarus)
             ->addEquipmentConfig($door)
@@ -902,7 +915,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addEquipmentConfig($oxygenTank)
             ->addEquipmentConfig($tabulatrix)
             ->addEquipmentConfig($swedishSofa)
-            ->addEquipmentConfig($auxiliaryTerminal);
+            ->addEquipmentConfig($auxiliaryTerminal)
+            ->addEquipmentConfig($hydroponicIncubator);
         $manager->persist($gameConfig);
 
         $manager->flush();

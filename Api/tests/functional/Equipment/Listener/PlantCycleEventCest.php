@@ -13,6 +13,7 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
@@ -20,6 +21,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
@@ -32,16 +34,24 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class PlantCycleEventCest
+/**
+ * @internal
+ */
+final class PlantCycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $equipmentService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
@@ -330,5 +340,72 @@ class PlantCycleEventCest
         $I->assertCount(1, $room2->getEquipments());
         $I->assertEquals(ItemEnum::HYDROPOT, $room2->getEquipments()->first()->getName());
         $I->assertEquals(11, $daedalus->getOxygen());
+    }
+
+    public function shouldMakePlantsGrowTwiceFasterInGardenWithHydroponicIncubatorProject(FunctionalTester $I): void
+    {
+        $this->givenThereIsAGardenInDaedalus($I);
+        $bananaTree = $this->givenABananaTreeWithOneMaturationCycleInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
+        $this->givenHydroponicIncubatorProjectIsFinished($I);
+
+        $this->whenCycleChangesForBananaTree($bananaTree);
+
+        $this->thenBananaTreeShouldBe(3, $bananaTree, $I);
+    }
+
+    private function givenThereIsAGardenInDaedalus(FunctionalTester $I): Place
+    {
+        return $this->createExtraPlace(
+            placeName: RoomEnum::HYDROPONIC_GARDEN,
+            I: $I,
+            daedalus: $this->daedalus
+        );
+    }
+
+    private function givenABananaTreeWithOneMaturationCycleInPlace(string $placeName, FunctionalTester $I): GameItem
+    {
+        $place = $this->daedalus->getPlaceByName($placeName);
+        if ($place === null) {
+            $this->createExtraPlace(
+                placeName: $placeName,
+                I: $I,
+                daedalus: $this->daedalus
+            );
+        }
+
+        $bananaTree = $this->equipmentService->createGameEquipmentFromName(
+            equipmentName: GamePlantEnum::BANANA_TREE,
+            equipmentHolder: $place,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        $maturationStatus = $bananaTree->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG);
+        $maturationStatus->setCharge(1);
+
+        return $bananaTree;
+    }
+
+    private function givenHydroponicIncubatorProjectIsFinished(FunctionalTester $I): void
+    {
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::HYDROPONIC_INCUBATOR),
+            author: $this->chun,
+            I: $I
+        );
+    }
+
+    private function whenCycleChangesForBananaTree(GameItem $bananaTree): void
+    {
+        $cycleEvent = new EquipmentCycleEvent($bananaTree, $this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
+    }
+
+    private function thenBananaTreeShouldBe(int $age, GameItem $bananaTree, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $age,
+            actual: $bananaTree->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG)->getCharge()
+        );
     }
 }

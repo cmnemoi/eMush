@@ -1116,5 +1116,15 @@ Or you simply need some fresh air.... or not.</target>
         <target>Advance a project if you are cappable of doing so.</target>
       </segment>
     </unit>
+    <unit id="trap_closet">
+      <segment id="trap_closet" state="translated">
+        <source>trap_closet.name</source>
+        <target>Booby-trap unit</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>trap_closet.description</source>
+        <target>Allows you to booby-trap a unit in order to ultimately infect a teammate.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

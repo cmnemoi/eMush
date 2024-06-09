@@ -175,6 +175,12 @@
         <target>Your messages are sometimes modified.</target>
       </segment>
     </unit>
+    <unit id="paranoia_denial_on_read_message">
+      <segment id="description" state="translated">
+        <source>paranoia_denial_on_read_message.description</source>
+        <target>Your messages are sometimes modified.</target>
+      </segment>
+    </unit>
     <unit id="paranoia_messages_on_new_message">
       <segment id="description" state="translated">
         <source>paranoia_messages_on_new_message.description</source>

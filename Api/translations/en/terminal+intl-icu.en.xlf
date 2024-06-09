@@ -175,6 +175,22 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         <source>bios_terminal.cpu_priority_none</source>
         <target>None</target>
       </segment>
+      <segment id="crew_lock.name" state="translated">
+        <source>bios_terminal.crew_lock_name</source>
+        <target>Crew lock</target>
+      </segment>
+      <segment id="crew_lock.description" state="translated">
+        <source>bios_terminal.crew_lock_description</source>
+        <target>:point: Piloting lock: Non pilots are not authorized to pilot a Patrol Craft/Icarus.//:point: Projects lock: Non-designers are not authorized to participate in project development.</target>
+      </segment>
+      <segment id="crew_lock.projects" state="translated">
+        <source>bios_terminal.crew_lock_projects</source>
+        <target>Projects</target>
+      </segment>
+      <segment id="crew_lock.piloting" state="translated">
+        <source>bios_terminal.crew_lock_piloting</source>
+        <target>Piloting</target>
+      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="name" state="translated">

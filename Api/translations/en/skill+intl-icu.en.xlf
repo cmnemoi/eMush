@@ -139,5 +139,75 @@
         <target>Sometimes you need to think outside the box.//:point: Every time you fail in an attempt to do something, there is a 50% chance of regaining **1** :pa:.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
+    <unit id="shrink">
+      <segment id="shrink.name" state="translated">
+        <source>shrink.name</source>
+        <target>Shrink</target>
+      </segment>
+      <segment id="shrink.description" state="translated">
+        <source>shrink.description</source>
+        <target>The Shrink is in charge of psychological support. They are able to keep morale high and treat psychological illnesses.//:point: Each cycle, **1 Morale Point (:pmo:) is regained** by all crewmates lying down in the same room.//:point: **Treats psychological illnesses**.//:point: Grants the **Comfort** Action for raising morale.//:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
+    <unit id="caffeine_junkie">
+      <segment id="caffeine_junkie.name" state="translated">
+        <source>caffeine_junkie.name</source>
+        <target>Caffeine Junkie</target>
+      </segment>
+      <segment id="caffeine_junkie.description" state="translated">
+        <source>caffeine_junkie.description</source>
+        <target>The Caffeine Junkie is twice as effective as their colleagues when they have access to the coffee machine.//:point: +2 :pa: when they drink a **Coffee**.//:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
+    <unit id="shooter">
+      <segment id="name" state="translated">
+        <source>shooter.name</source>
+        <target>Shooter</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shooter.description</source>
+        <target>At ease handling all kinds of weapons.//:point: +2 :pa_shoot: per day (**Shoot** Action Points).//:point: Expedition: +1 to combat strength, if you have a gun.//:point: Bonus for developing certain ** NERON projects **.</target>
+      </segment>
+    </unit>
+    <unit id="chef">
+      <segment id="chef.name" state="translated">
+        <source>chef.name</source>
+        <target>Chef</target>
+      </segment>
+      <segment id="chef.description" state="translated">
+        <source>chef.description</source>
+        <target>Formidable when it comes to knocking meals together. They also have an impressive awareness of what you should eat.//:point: Can read **food nutrition information**.//:point: Can read **fruit nutrition information**.//:point: +4 :pa_cook: per day (**Cooking** Action Points).//:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
+    <unit id="nurse">
+      <segment id="nurse.name" state="translated">
+        <source>nurse.name</source>
+        <target>Nurse</target>
+      </segment>
+      <segment id="nurse.description" state="translated">
+        <source>nurse.description</source>
+        <target>Always ready to help.//:point: +1 :pa_heal: every day (**Heal** Action Point).//:point: Can read **properties of medicines**.//:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
+    <unit id="paranoid">
+      <segment id="paranoid.name" state="translated">
+        <source>paranoid.name</source>
+        <target>Paranoid</target>
+      </segment>
+      <segment id="paranoid.description" state="translated">
+        <source>paranoid.description</source>
+        <target>The Paranoid crewmember always believes their crewmates to be potentially dangerous, they always watch their back using their extra cameras.//Starts out with 2 additional **cameras**.//:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
+    <unit id="biologist">
+      <segment id="biologist.name" state="translated">
+        <source>biologist.name</source>
+        <target>Biologist</target>
+      </segment>
+      <segment id="biologist.description" state="translated">
+        <source>biologist.description</source>
+        <target>Highly skilled in laboratory research.//:point: Can read **properties of medicines**.//:point: **+4% bonus** of all **Research** in the laboratory.//:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

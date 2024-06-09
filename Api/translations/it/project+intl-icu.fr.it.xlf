@@ -307,5 +307,437 @@
         <target>magnetic_net.lore</target>
       </segment>
     </unit>
+    <unit id="icarus_antigrav_propeller">
+      <segment id="icarus_antigrav_propeller.type" state="initial">
+        <source>icarus_antigrav_propeller.type</source>
+        <target>icarus_antigrav_propeller.type</target>
+      </segment>
+      <segment id="icarus_antigrav_propeller.name" state="initial">
+        <source>icarus_antigrav_propeller.name</source>
+        <target>icarus_antigrav_propeller.name</target>
+      </segment>
+      <segment id="icarus_antigrav_propeller.description" state="initial">
+        <source>icarus_antigrav_propeller.description</source>
+        <target>icarus_antigrav_propeller.description</target>
+      </segment>
+      <segment id="icarus_antigrav_propeller.lore" state="initial">
+        <source>icarus_antigrav_propeller.lore</source>
+        <target>icarus_antigrav_propeller.lore</target>
+      </segment>
+    </unit>
+    <unit id="fission_coffee_roaster">
+      <segment id="fission_coffee_roaster.type" state="initial">
+        <source>fission_coffee_roaster.type</source>
+        <target>fission_coffee_roaster.type</target>
+      </segment>
+      <segment id="fission_coffee_roaster.name" state="initial">
+        <source>fission_coffee_roaster.name</source>
+        <target>fission_coffee_roaster.name</target>
+      </segment>
+      <segment id="fission_coffee_roaster.description" state="initial">
+        <source>fission_coffee_roaster.description</source>
+        <target>fission_coffee_roaster.description</target>
+      </segment>
+      <segment id="fission_coffee_roaster.lore" state="initial">
+        <source>fission_coffee_roaster.lore</source>
+        <target>fission_coffee_roaster.lore</target>
+      </segment>
+    </unit>
+    <unit id="armour_corridor">
+      <segment id="armour_corridor.type" state="initial">
+        <source>armour_corridor.type</source>
+        <target>armour_corridor.type</target>
+      </segment>
+      <segment id="armour_corridor.name" state="initial">
+        <source>armour_corridor.name</source>
+        <target>armour_corridor.name</target>
+      </segment>
+      <segment id="armour_corridor.description" state="initial">
+        <source>armour_corridor.description</source>
+        <target>armour_corridor.description</target>
+      </segment>
+      <segment id="armour_corridor.lore" state="initial">
+        <source>armour_corridor.lore</source>
+        <target>armour_corridor.lore</target>
+      </segment>
+    </unit>
+    <unit id="call_of_dirty">
+      <segment id="call_of_dirty.type" state="initial">
+        <source>call_of_dirty.type</source>
+        <target>call_of_dirty.type</target>
+      </segment>
+      <segment id="call_of_dirty.name" state="initial">
+        <source>call_of_dirty.name</source>
+        <target>call_of_dirty.name</target>
+      </segment>
+      <segment id="call_of_dirty.description" state="initial">
+        <source>call_of_dirty.description</source>
+        <target>call_of_dirty.description</target>
+      </segment>
+      <segment id="call_of_dirty.lore" state="initial">
+        <source>call_of_dirty.lore</source>
+        <target>call_of_dirty.lore</target>
+      </segment>
+    </unit>
+    <unit id="extra_drone">
+      <segment id="extra_drone.type" state="initial">
+        <source>extra_drone.type</source>
+        <target>extra_drone.type</target>
+      </segment>
+      <segment id="extra_drone.name" state="initial">
+        <source>extra_drone.name</source>
+        <target>extra_drone.name</target>
+      </segment>
+      <segment id="extra_drone.description" state="initial">
+        <source>extra_drone.description</source>
+        <target>extra_drone.description</target>
+      </segment>
+      <segment id="extra_drone.lore" state="initial">
+        <source>extra_drone.lore</source>
+        <target>extra_drone.lore</target>
+      </segment>
+    </unit>
+    <unit id="patrolship_blaster_gun">
+      <segment id="patrolship_blaster_gun.type" state="initial">
+        <source>patrolship_blaster_gun.type</source>
+        <target>patrolship_blaster_gun.type</target>
+      </segment>
+      <segment id="patrolship_blaster_gun.name" state="initial">
+        <source>patrolship_blaster_gun.name</source>
+        <target>patrolship_blaster_gun.name</target>
+      </segment>
+      <segment id="patrolship_blaster_gun.description" state="initial">
+        <source>patrolship_blaster_gun.description</source>
+        <target>patrolship_blaster_gun.description</target>
+      </segment>
+      <segment id="patrolship_blaster_gun.lore" state="initial">
+        <source>patrolship_blaster_gun.lore</source>
+        <target>patrolship_blaster_gun.lore</target>
+      </segment>
+    </unit>
+    <unit id="bay_door_xxl">
+      <segment id="bay_door_xxl.type" state="initial">
+        <source>bay_door_xxl.type</source>
+        <target>bay_door_xxl.type</target>
+      </segment>
+      <segment id="bay_door_xxl.name" state="initial">
+        <source>bay_door_xxl.name</source>
+        <target>bay_door_xxl.name</target>
+      </segment>
+      <segment id="bay_door_xxl.description" state="initial">
+        <source>bay_door_xxl.description</source>
+        <target>bay_door_xxl.description</target>
+      </segment>
+      <segment id="bay_door_xxl.lore" state="initial">
+        <source>bay_door_xxl.lore</source>
+        <target>bay_door_xxl.lore</target>
+      </segment>
+    </unit>
+    <unit id="trash_load">
+      <segment id="trash_load.type" state="initial">
+        <source>trash_load.type</source>
+        <target>trash_load.type</target>
+      </segment>
+      <segment id="trash_load.name" state="initial">
+        <source>trash_load.name</source>
+        <target>trash_load.name</target>
+      </segment>
+      <segment id="trash_load.description" state="initial">
+        <source>trash_load.description</source>
+        <target>trash_load.description</target>
+      </segment>
+      <segment id="trash_load.lore" state="initial">
+        <source>trash_load.lore</source>
+        <target>trash_load.lore</target>
+      </segment>
+    </unit>
+    <unit id="food_retailer">
+      <segment id="food_retailer.type" state="initial">
+        <source>food_retailer.type</source>
+        <target>food_retailer.type</target>
+      </segment>
+      <segment id="food_retailer.name" state="initial">
+        <source>food_retailer.name</source>
+        <target>food_retailer.name</target>
+      </segment>
+      <segment id="food_retailer.description" state="initial">
+        <source>food_retailer.description</source>
+        <target>food_retailer.description</target>
+      </segment>
+      <segment id="food_retailer.lore" state="initial">
+        <source>food_retailer.lore</source>
+        <target>food_retailer.lore</target>
+      </segment>
+    </unit>
+    <unit id="auto_return_icarus">
+      <segment id="auto_return_icarus.type" state="initial">
+        <source>auto_return_icarus.type</source>
+        <target>auto_return_icarus.type</target>
+      </segment>
+      <segment id="auto_return_icarus.name" state="initial">
+        <source>auto_return_icarus.name</source>
+        <target>auto_return_icarus.name</target>
+      </segment>
+      <segment id="auto_return_icarus.description" state="initial">
+        <source>auto_return_icarus.description</source>
+        <target>auto_return_icarus.description</target>
+      </segment>
+      <segment id="auto_return_icarus.lore" state="initial">
+        <source>auto_return_icarus.lore</source>
+        <target>auto_return_icarus.lore</target>
+      </segment>
+    </unit>
+    <unit id="radar_trans_void">
+      <segment id="radar_trans_void.type" state="initial">
+        <source>radar_trans_void.type</source>
+        <target>radar_trans_void.type</target>
+      </segment>
+      <segment id="radar_trans_void.name" state="initial">
+        <source>radar_trans_void.name</source>
+        <target>radar_trans_void.name</target>
+      </segment>
+      <segment id="radar_trans_void.description" state="initial">
+        <source>radar_trans_void.description</source>
+        <target>radar_trans_void.description</target>
+      </segment>
+      <segment id="radar_trans_void.lore" state="initial">
+        <source>radar_trans_void.lore</source>
+        <target>radar_trans_void.lore</target>
+      </segment>
+    </unit>
+    <unit id="neron_targeting_assist">
+      <segment id="neron_targeting_assist.type" state="initial">
+        <source>neron_targeting_assist.type</source>
+        <target>neron_targeting_assist.type</target>
+      </segment>
+      <segment id="neron_targeting_assist.name" state="initial">
+        <source>neron_targeting_assist.name</source>
+        <target>neron_targeting_assist.name</target>
+      </segment>
+      <segment id="neron_targeting_assist.description" state="initial">
+        <source>neron_targeting_assist.description</source>
+        <target>neron_targeting_assist.description</target>
+      </segment>
+      <segment id="neron_targeting_assist.lore" state="initial">
+        <source>neron_targeting_assist.lore</source>
+        <target>neron_targeting_assist.lore</target>
+      </segment>
+    </unit>
+    <unit id="whos_who">
+      <segment id="whos_who.type" state="initial">
+        <source>whos_who.type</source>
+        <target>whos_who.type</target>
+      </segment>
+      <segment id="whos_who.name" state="initial">
+        <source>whos_who.name</source>
+        <target>whos_who.name</target>
+      </segment>
+      <segment id="whos_who.description" state="initial">
+        <source>whos_who.description</source>
+        <target>whos_who.description</target>
+      </segment>
+      <segment id="whos_who.lore" state="initial">
+        <source>whos_who.lore</source>
+        <target>whos_who.lore</target>
+      </segment>
+    </unit>
+    <unit id="hydroponic_incubator">
+      <segment id="hydroponic_incubator.type" state="initial">
+        <source>hydroponic_incubator.type</source>
+        <target>hydroponic_incubator.type</target>
+      </segment>
+      <segment id="hydroponic_incubator.name" state="initial">
+        <source>hydroponic_incubator.name</source>
+        <target>hydroponic_incubator.name</target>
+      </segment>
+      <segment id="hydroponic_incubator.description" state="initial">
+        <source>hydroponic_incubator.description</source>
+        <target>hydroponic_incubator.description</target>
+      </segment>
+      <segment id="hydroponic_incubator.lore" state="initial">
+        <source>hydroponic_incubator.lore</source>
+        <target>hydroponic_incubator.lore</target>
+      </segment>
+    </unit>
+    <unit id="icarus_lavatory">
+      <segment id="icarus_lavatory.type" state="initial">
+        <source>icarus_lavatory.type</source>
+        <target>icarus_lavatory.type</target>
+      </segment>
+      <segment id="icarus_lavatory.name" state="initial">
+        <source>icarus_lavatory.name</source>
+        <target>icarus_lavatory.name</target>
+      </segment>
+      <segment id="icarus_lavatory.description" state="initial">
+        <source>icarus_lavatory.description</source>
+        <target>icarus_lavatory.description</target>
+      </segment>
+      <segment id="icarus_lavatory.lore" state="initial">
+        <source>icarus_lavatory.lore</source>
+        <target>icarus_lavatory.lore</target>
+      </segment>
+    </unit>
+    <unit id="icarus_larger_bay">
+      <segment id="icarus_larger_bay.type" state="initial">
+        <source>icarus_larger_bay.type</source>
+        <target>icarus_larger_bay.type</target>
+      </segment>
+      <segment id="icarus_larger_bay.name" state="initial">
+        <source>icarus_larger_bay.name</source>
+        <target>icarus_larger_bay.name</target>
+      </segment>
+      <segment id="icarus_larger_bay.description" state="initial">
+        <source>icarus_larger_bay.description</source>
+        <target>icarus_larger_bay.description</target>
+      </segment>
+      <segment id="icarus_larger_bay.lore" state="initial">
+        <source>icarus_larger_bay.lore</source>
+        <target>icarus_larger_bay.lore</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_launcher">
+      <segment id="patrol_ship_launcher.type" state="initial">
+        <source>patrol_ship_launcher.type</source>
+        <target>patrol_ship_launcher.type</target>
+      </segment>
+      <segment id="patrol_ship_launcher.name" state="initial">
+        <source>patrol_ship_launcher.name</source>
+        <target>patrol_ship_launcher.name</target>
+      </segment>
+      <segment id="patrol_ship_launcher.description" state="initial">
+        <source>patrol_ship_launcher.description</source>
+        <target>patrol_ship_launcher.description</target>
+      </segment>
+      <segment id="patrol_ship_launcher.lore" state="initial">
+        <source>patrol_ship_launcher.lore</source>
+        <target>patrol_ship_launcher.lore</target>
+      </segment>
+    </unit>
+    <unit id="neron_project_thread">
+      <segment id="neron_project_thread.type" state="initial">
+        <source>neron_project_thread.type</source>
+        <target>neron_project_thread.type</target>
+      </segment>
+      <segment id="neron_project_thread.name" state="initial">
+        <source>neron_project_thread.name</source>
+        <target>neron_project_thread.name</target>
+      </segment>
+      <segment id="neron_project_thread.description" state="initial">
+        <source>neron_project_thread.description</source>
+        <target>neron_project_thread.description</target>
+      </segment>
+      <segment id="neron_project_thread.lore" state="initial">
+        <source>neron_project_thread.lore</source>
+        <target>neron_project_thread.lore</target>
+      </segment>
+    </unit>
+    <unit id="turret_extra_fire_rate">
+      <segment id="turret_extra_fire_rate.type" state="initial">
+        <source>turret_extra_fire_rate.type</source>
+        <target>turret_extra_fire_rate.type</target>
+      </segment>
+      <segment id="turret_extra_fire_rate.name" state="initial">
+        <source>turret_extra_fire_rate.name</source>
+        <target>turret_extra_fire_rate.name</target>
+      </segment>
+      <segment id="turret_extra_fire_rate.description" state="initial">
+        <source>turret_extra_fire_rate.description</source>
+        <target>turret_extra_fire_rate.description</target>
+      </segment>
+      <segment id="turret_extra_fire_rate.lore" state="initial">
+        <source>turret_extra_fire_rate.lore</source>
+        <target>turret_extra_fire_rate.lore</target>
+      </segment>
+    </unit>
+    <unit id="quantum_sensors">
+      <segment id="quantum_sensors.type" state="initial">
+        <source>quantum_sensors.type</source>
+        <target>quantum_sensors.type</target>
+      </segment>
+      <segment id="quantum_sensors.name" state="initial">
+        <source>quantum_sensors.name</source>
+        <target>quantum_sensors.name</target>
+      </segment>
+      <segment id="quantum_sensors.description" state="initial">
+        <source>quantum_sensors.description</source>
+        <target>quantum_sensors.description</target>
+      </segment>
+      <segment id="quantum_sensors.lore" state="initial">
+        <source>quantum_sensors.lore</source>
+        <target>quantum_sensors.lore</target>
+      </segment>
+    </unit>
+    <unit id="patrolship_extra_ammo">
+      <segment id="patrolship_extra_ammo.type" state="initial">
+        <source>patrolship_extra_ammo.type</source>
+        <target>patrolship_extra_ammo.type</target>
+      </segment>
+      <segment id="patrolship_extra_ammo.name" state="initial">
+        <source>patrolship_extra_ammo.name</source>
+        <target>patrolship_extra_ammo.name</target>
+      </segment>
+      <segment id="patrolship_extra_ammo.description" state="initial">
+        <source>patrolship_extra_ammo.description</source>
+        <target>patrolship_extra_ammo.description</target>
+      </segment>
+      <segment id="patrolship_extra_ammo.lore" state="initial">
+        <source>patrolship_extra_ammo.lore</source>
+        <target>patrolship_extra_ammo.lore</target>
+      </segment>
+    </unit>
+    <unit id="noise_reducer">
+      <segment id="noise_reducer.type" state="initial">
+        <source>noise_reducer.type</source>
+        <target>noise_reducer.type</target>
+      </segment>
+      <segment id="noise_reducer.name" state="initial">
+        <source>noise_reducer.name</source>
+        <target>noise_reducer.name</target>
+      </segment>
+      <segment id="noise_reducer.description" state="initial">
+        <source>noise_reducer.description</source>
+        <target>noise_reducer.description</target>
+      </segment>
+      <segment id="noise_reducer.lore" state="initial">
+        <source>noise_reducer.lore</source>
+        <target>noise_reducer.lore</target>
+      </segment>
+    </unit>
+    <unit id="apero_kitchen">
+      <segment id="apero_kitchen.type" state="initial">
+        <source>apero_kitchen.type</source>
+        <target>apero_kitchen.type</target>
+      </segment>
+      <segment id="apero_kitchen.name" state="initial">
+        <source>apero_kitchen.name</source>
+        <target>apero_kitchen.name</target>
+      </segment>
+      <segment id="apero_kitchen.description" state="initial">
+        <source>apero_kitchen.description</source>
+        <target>apero_kitchen.description</target>
+      </segment>
+      <segment id="apero_kitchen.lore" state="initial">
+        <source>apero_kitchen.lore</source>
+        <target>apero_kitchen.lore</target>
+      </segment>
+    </unit>
+    <unit id="floor_heating">
+      <segment id="floor_heating.type" state="initial">
+        <source>floor_heating.type</source>
+        <target>floor_heating.type</target>
+      </segment>
+      <segment id="floor_heating.name" state="initial">
+        <source>floor_heating.name</source>
+        <target>floor_heating.name</target>
+      </segment>
+      <segment id="floor_heating.description" state="initial">
+        <source>floor_heating.description</source>
+        <target>floor_heating.description</target>
+      </segment>
+      <segment id="floor_heating.lore" state="initial">
+        <source>floor_heating.lore</source>
+        <target>floor_heating.lore</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

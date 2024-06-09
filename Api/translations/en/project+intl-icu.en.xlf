@@ -307,5 +307,437 @@
         <target>One of the great assets of the Magellan was that the stellar ark could mobilize its own flotilla. You debug the last packets of code from the Magnet automatic pilot program. That'll do the trick.</target>
       </segment>
     </unit>
+    <unit id="icarus_antigrav_propeller">
+      <segment id="icarus_antigrav_propeller.type" state="translated">
+        <source>icarus_antigrav_propeller.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="icarus_antigrav_propeller.name" state="translated">
+        <source>icarus_antigrav_propeller.name</source>
+        <target>Antigravity Thrusters</target>
+      </segment>
+      <segment id="icarus_antigrav_propeller.description" state="translated">
+        <source>icarus_antigrav_propeller.description</source>
+        <target>Increases your chances of successfully landing on a planet.</target>
+      </segment>
+      <segment id="icarus_antigrav_propeller.lore" state="translated">
+        <source>icarus_antigrav_propeller.lore</source>
+        <target>Thanks to these antigravity thrusters, taking off and landing in the Icarus become child's play. Entering the atmosphere becomes easier than falling off a log. In short, the Icarus, is a hell of a machine to go flying in!</target>
+      </segment>
+    </unit>
+    <unit id="fission_coffee_roaster">
+      <segment id="fission_coffee_roaster.type" state="translated">
+        <source>fission_coffee_roaster.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="fission_coffee_roaster.name" state="translated">
+        <source>fission_coffee_roaster.name</source>
+        <target>Fission Coffee Roaster</target>
+      </segment>
+      <segment id="fission_coffee_roaster.description" state="translated">
+        <source>fission_coffee_roaster.description</source>
+        <target>The coffee machine regenerates automatically on Cycle 4.</target>
+      </segment>
+      <segment id="fission_coffee_roaster.lore" state="translated">
+        <source>fission_coffee_roaster.lore</source>
+        <target>Yeehaa!! By plugging in a basic portable particle accelerator to the exhaust of the roaster pump, it is now possible to obtain a coffee in less than 12h!!</target>
+      </segment>
+    </unit>
+    <unit id="armour_corridor">
+      <segment id="armour_corridor.type" state="translated">
+        <source>armour_corridor.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="armour_corridor.name" state="translated">
+        <source>armour_corridor.name</source>
+        <target>Armored Corridors</target>
+      </segment>
+      <segment id="armour_corridor.description" state="translated">
+        <source>armour_corridor.description</source>
+        <target>All attack damage sustained by the Daedalus is reduced by one point.</target>
+      </segment>
+      <segment id="armour_corridor.lore" state="translated">
+        <source>armour_corridor.lore</source>
+        <target>Eureka! In Magellan, the fibre optic cables which line the corridors can easily be compressed in order to add extra cabling. By adding even more cables, you can build a kind of pseudo-armor!</target>
+      </segment>
+    </unit>
+    <unit id="call_of_dirty">
+      <segment id="call_of_dirty.type" state="translated">
+        <source>call_of_dirty.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="call_of_dirty.name" state="translated">
+        <source>call_of_dirty.name</source>
+        <target>Call of Dirty</target>
+      </segment>
+      <segment id="call_of_dirty.description" state="translated">
+        <source>call_of_dirty.description</source>
+        <target>Now available in Alpha Bay 2. Lets you unwind a little at the expense of a few contusions.</target>
+      </segment>
+      <segment id="call_of_dirty.lore" state="translated">
+        <source>call_of_dirty.lore</source>
+        <target>Dynarcade, this old war machine originally put together to train rookies can easily be converted into a video game.</target>
+      </segment>
+    </unit>
+    <unit id="extra_drone">
+      <segment id="extra_drone.type" state="translated">
+        <source>extra_drone.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="extra_drone.name" state="translated">
+        <source>extra_drone.name</source>
+        <target>Extra Drone</target>
+      </segment>
+      <segment id="extra_drone.description" state="translated">
+        <source>extra_drone.description</source>
+        <target>Adds another drone to protect the Daedalus in the Nexus.</target>
+      </segment>
+      <segment id="extra_drone.lore" state="translated">
+        <source>extra_drone.lore</source>
+        <target>Going through an old archive and examining data on Terrence's drones, it appears that it should be possible to ask NERON to build us another one.</target>
+      </segment>
+    </unit>
+    <unit id="patrolship_blaster_gun">
+      <segment id="patrolship_blaster_gun.type" state="translated">
+        <source>patrolship_blaster_gun.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="patrolship_blaster_gun.name" state="translated">
+        <source>patrolship_blaster_gun.name</source>
+        <target>Blaster Gun</target>
+      </segment>
+      <segment id="patrolship_blaster_gun.description" state="translated">
+        <source>patrolship_blaster_gun.description</source>
+        <target>Increases the firepower of all patrol ships by one point.</target>
+      </segment>
+      <segment id="patrolship_blaster_gun.lore" state="translated">
+        <source>patrolship_blaster_gun.lore</source>
+        <target>A 40mm cannon is good. A Blaster at 80mm is better.</target>
+      </segment>
+    </unit>
+    <unit id="bay_door_xxl">
+      <segment id="bay_door_xxl.type" state="translated">
+        <source>bay_door_xxl.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="bay_door_xxl.name" state="translated">
+        <source>bay_door_xxl.name</source>
+        <target>Bay Door XXL</target>
+      </segment>
+      <segment id="bay_door_xxl.description" state="translated">
+        <source>bay_door_xxl.description</source>
+        <target>Takeoff and landing maneuvers are much more straightforward.</target>
+      </segment>
+      <segment id="bay_door_xxl.lore" state="translated">
+        <source>bay_door_xxl.lore</source>
+        <target>After running the numbers, federation engineers released a superb report on the correlation between the ease of takeoff and the size of the bay doors. Astonishing.</target>
+      </segment>
+    </unit>
+    <unit id="trash_load">
+      <segment id="trash_load.type" state="translated">
+        <source>trash_load.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="trash_load.name" state="translated">
+        <source>trash_load.name</source>
+        <target>Scrapheap</target>
+      </segment>
+      <segment id="trash_load.description" state="translated">
+        <source>trash_load.description</source>
+        <target>Generates 4 pieces of scrap metal and 4 of plastic scrap.</target>
+      </segment>
+      <segment id="trash_load.lore" state="translated">
+        <source>trash_load.lore</source>
+        <target>Is the enemy too tenacious? Trash'em up good!</target>
+      </segment>
+    </unit>
+    <unit id="food_retailer">
+      <segment id="food_retailer.type" state="translated">
+        <source>food_retailer.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="food_retailer.name" state="translated">
+        <source>food_retailer.name</source>
+        <target>Pneumatic Distributor</target>
+      </segment>
+      <segment id="food_retailer.description" state="translated">
+        <source>food_retailer.description</source>
+        <target>Food from the garden is now sent directly to the refectory via a system of pneumatic piping.</target>
+      </segment>
+      <segment id="food_retailer.lore" state="translated">
+        <source>food_retailer.lore</source>
+        <target>Wow... You never really thought of it, but this tubing system has inspired you. In certain prehistoric societies, they used induced air tubes to send messages... However, these could just as easily be used to transport food! You convert the guttering into a pneumatic tube. (What would be the point of having guttering in space...)</target>
+      </segment>
+    </unit>
+    <unit id="auto_return_icarus">
+      <segment id="auto_return_icarus.type" state="translated">
+        <source>auto_return_icarus.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="auto_return_icarus.name" state="translated">
+        <source>auto_return_icarus.name</source>
+        <target>Magnetic Return</target>
+      </segment>
+      <segment id="auto_return_icarus.description" state="translated">
+        <source>auto_return_icarus.description</source>
+        <target>The Icarus automatically returns to the Daedalus in the event of mission failure.</target>
+      </segment>
+      <segment id="auto_return_icarus.lore" state="translated">
+        <source>auto_return_icarus.lore</source>
+        <target>Using NERON's source code, you realize that you can give the Icarus a kind of pseudo-awareness. You decide to get rid of the pseudo-cognitive code and the emotion engine but keep the survival kernel. Now if a mission is a failure, the Icarus returns automatically.</target>
+      </segment>
+    </unit>
+    <unit id="radar_trans_void">
+      <segment id="radar_trans_void.type" state="translated">
+        <source>radar_trans_void.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="radar_trans_void.name" state="translated">
+        <source>radar_trans_void.name</source>
+        <target>Spatial Wave Radar</target>
+      </segment>
+      <segment id="radar_trans_void.description" state="translated">
+        <source>radar_trans_void.description</source>
+        <target>Using the stellar antenna will double your progress from now on.</target>
+      </segment>
+      <segment id="radar_trans_void.lore" state="translated">
+        <source>radar_trans_void.lore</source>
+        <target>What wouldn't you give to please the Comm... By increasing the CPU priority of the harbinger thread, you make life a lot easier...</target>
+      </segment>
+    </unit>
+    <unit id="neron_targeting_assist">
+      <segment id="neron_targeting_assist.type" state="translated">
+        <source>neron_targeting_assist.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="neron_targeting_assist.name" state="translated">
+        <source>neron_targeting_assist.name</source>
+        <target>Targeting Assist</target>
+      </segment>
+      <segment id="neron_targeting_assist.description" state="translated">
+        <source>neron_targeting_assist.description</source>
+        <target>Improved in-flight and turret targeting by 25%.</target>
+      </segment>
+      <segment id="neron_targeting_assist.lore" state="translated">
+        <source>neron_targeting_assist.lore</source>
+        <target>NERON can also make life easier for you. A small patch in the instrument panel filling algorithm and voilà!</target>
+      </segment>
+    </unit>
+    <unit id="whos_who">
+      <segment id="whos_who.type" state="translated">
+        <source>whos_who.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="whos_who.name" state="translated">
+        <source>whos_who.name</source>
+        <target>ACTOPI Protocol</target>
+      </segment>
+      <segment id="whos_who.description" state="translated">
+        <source>whos_who.description</source>
+        <target>Displays the identity of crewmembers on the Tracker.</target>
+      </segment>
+      <segment id="whos_who.lore" state="translated">
+        <source>whos_who.lore</source>
+        <target>Displays a uniquely coloured pixel indicating who is on board on the tracker. Useful for tracking anyone's slightest movements.</target>
+      </segment>
+    </unit>
+    <unit id="hydroponic_incubator">
+      <segment id="hydroponic_incubator.type" state="translated">
+        <source>hydroponic_incubator.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="hydroponic_incubator.name" state="translated">
+        <source>hydroponic_incubator.name</source>
+        <target>Hydroponic Incubator</target>
+      </segment>
+      <segment id="hydroponic_incubator.description" state="translated">
+        <source>hydroponic_incubator.description</source>
+        <target>In the garden, young shoots crossbreed twice as quickly.</target>
+      </segment>
+      <segment id="hydroponic_incubator.lore" state="translated">
+        <source>hydroponic_incubator.lore</source>
+        <target>This piece of equipment, which was specially designed for seedlings and young hybrids, is able to saturate a plant's environment with nitrogen in order to accelerate their development without harming the adult plants.</target>
+      </segment>
+    </unit>
+    <unit id="icarus_lavatory">
+      <segment id="icarus_lavatory.type" state="translated">
+        <source>icarus_lavatory.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="icarus_lavatory.name" state="translated">
+        <source>icarus_lavatory.name</source>
+        <target>Convenient Sink</target>
+      </segment>
+      <segment id="icarus_lavatory.description" state="translated">
+        <source>icarus_lavatory.description</source>
+        <target>Allows to not come dirty from an expedition.</target>
+      </segment>
+      <segment id="icarus_lavatory.lore" state="translated">
+        <source>icarus_lavatory.lore</source>
+        <target>What a magnificent stainless steel sink! You now have no excuse for not washing your hands between missions.</target>
+      </segment>
+    </unit>
+    <unit id="icarus_larger_bay">
+      <segment id="icarus_larger_bay.type" state="translated">
+        <source>icarus_larger_bay.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="icarus_larger_bay.name" state="translated">
+        <source>icarus_larger_bay.name</source>
+        <target>Large Bay Upgrade</target>
+      </segment>
+      <segment id="icarus_larger_bay.description" state="translated">
+        <source>icarus_larger_bay.description</source>
+        <target>The Icarus can carry 2 additional passengers.</target>
+      </segment>
+      <segment id="icarus_larger_bay.lore" state="translated">
+        <source>icarus_larger_bay.lore</source>
+        <target>By getting rid of the backup motor which still remains to be proven useful, we can squeeze in another 2 seats.</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_launcher">
+      <segment id="patrol_ship_launcher.type" state="translated">
+        <source>patrol_ship_launcher.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="patrol_ship_launcher.name" state="translated">
+        <source>patrol_ship_launcher.name</source>
+        <target>Launch Propulsion System</target>
+      </segment>
+      <segment id="patrol_ship_launcher.description" state="translated">
+        <source>patrol_ship_launcher.description</source>
+        <target>Takeoff maneuvers cost less :pa:.</target>
+      </segment>
+      <segment id="patrol_ship_launcher.lore" state="translated">
+        <source>patrol_ship_launcher.lore</source>
+        <target>While finalizing the implementation of new door servos, NERON realized what it had under the hood! That speeded things up no end...</target>
+      </segment>
+    </unit>
+    <unit id="neron_project_thread">
+      <segment id="neron_project_thread.type" state="translated">
+        <source>neron_project_thread.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="neron_project_thread.name" state="translated">
+        <source>neron_project_thread.name</source>
+        <target>NERON Participation</target>
+      </segment>
+      <segment id="neron_project_thread.description" state="translated">
+        <source>neron_project_thread.description</source>
+        <target>If a project is over 0% complete, it automatically improves by 5% every cycle.</target>
+      </segment>
+      <segment id="neron_project_thread.lore" state="translated">
+        <source>neron_project_thread.lore</source>
+        <target>After a good telling off, NERON often becomes more productive, especially when it comes to working on itself. You install an alarm clock which insults its active memory automatically every hour.</target>
+      </segment>
+    </unit>
+    <unit id="turret_extra_fire_rate">
+      <segment id="turret_extra_fire_rate.type" state="translated">
+        <source>turret_extra_fire_rate.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="turret_extra_fire_rate.name" state="translated">
+        <source>turret_extra_fire_rate.name</source>
+        <target>Rerouted Charges</target>
+      </segment>
+      <segment id="turret_extra_fire_rate.description" state="translated">
+        <source>turret_extra_fire_rate.description</source>
+        <target>Turrets recharge twice as quickly.</target>
+      </segment>
+      <segment id="turret_extra_fire_rate.lore" state="translated">
+        <source>turret_extra_fire_rate.lore</source>
+        <target>By reversing the polarity of the Tesla turret modulator, it is possible to double their firing rate!</target>
+      </segment>
+    </unit>
+    <unit id="quantum_sensors">
+      <segment id="quantum_sensors.type" state="translated">
+        <source>quantum_sensors.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="quantum_sensors.name" state="translated">
+        <source>quantum_sensors.name</source>
+        <target>Quantum Sensors</target>
+      </segment>
+      <segment id="quantum_sensors.description" state="translated">
+        <source>quantum_sensors.description</source>
+        <target>The planet scanner reveals an additional section every time it is used.</target>
+      </segment>
+      <segment id="quantum_sensors.lore" state="translated">
+        <source>quantum_sensors.lore</source>
+        <target>The InfraSensors also have a dark matter probability detector and recorder which should noticeably increase their utility.</target>
+      </segment>
+    </unit>
+    <unit id="patrolship_extra_ammo">
+      <segment id="patrolship_extra_ammo.type" state="translated">
+        <source>patrolship_extra_ammo.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="patrolship_extra_ammo.name" state="translated">
+        <source>patrolship_extra_ammo.name</source>
+        <target>Teslatron Reservoir</target>
+      </segment>
+      <segment id="patrolship_extra_ammo.description" state="translated">
+        <source>patrolship_extra_ammo.description</source>
+        <target>Patrol ships have 6 additional charges.</target>
+      </segment>
+      <segment id="patrolship_extra_ammo.lore" state="translated">
+        <source>patrolship_extra_ammo.lore</source>
+        <target>By adding a piston-based compression system, the storage capacity of the Teslatron reservoirs on the patrol ships can be doubled.</target>
+      </segment>
+    </unit>
+    <unit id="noise_reducer">
+      <segment id="noise_reducer.type" state="translated">
+        <source>noise_reducer.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="noise_reducer.name" state="translated">
+        <source>noise_reducer.name</source>
+        <target>Noise Reducer</target>
+      </segment>
+      <segment id="noise_reducer.description" state="translated">
+        <source>noise_reducer.description</source>
+        <target>Increases maximum :pa: for all crewmembers by 2.</target>
+      </segment>
+      <segment id="noise_reducer.lore" state="translated">
+        <source>noise_reducer.lore</source>
+        <target>Is the infernal din from the engines stopping you from realizing your potential? There's a solution for that.</target>
+      </segment>
+    </unit>
+    <unit id="apero_kitchen">
+      <segment id="apero_kitchen.type" state="translated">
+        <source>apero_kitchen.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="apero_kitchen.name" state="translated">
+        <source>apero_kitchen.name</source>
+        <target>SNC Kitchen</target>
+      </segment>
+      <segment id="apero_kitchen.description" state="translated">
+        <source>apero_kitchen.description</source>
+        <target>Improves Refectory kitchen.</target>
+      </segment>
+      <segment id="apero_kitchen.lore" state="translated">
+        <source>apero_kitchen.lore</source>
+        <target>The SNC R&amp;D has updated the ultimate productivity killer. And we've found their stash! Watch out for fallout. DRINKS!</target>
+      </segment>
+    </unit>
+    <unit id="floor_heating">
+      <segment id="floor_heating.type" state="translated">
+        <source>floor_heating.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="floor_heating.name" state="translated">
+        <source>floor_heating.name</source>
+        <target>Underfloor Heating</target>
+      </segment>
+      <segment id="floor_heating.description" state="translated">
+        <source>floor_heating.description</source>
+        <target>Reduce injuries caused by actions by 50%.</target>
+      </segment>
+      <segment id="floor_heating.lore" state="translated">
+        <source>floor_heating.lore</source>
+        <target>Puts an end to the stellar coldness of the Daedalus' parquet flooring. From now on, you're in the warmth!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

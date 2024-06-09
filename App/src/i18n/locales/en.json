@@ -219,6 +219,10 @@
 				"deleteAllByName": "Delete all status with this name",
 				"name": "Name"
 			},
+			"rules": {
+				"title": "Rules",
+				"resetAcceptance": "Réinitialiser l'acceptation des règles pour tous les utilisateurs"
+			},
 			"title": "Administrative actions"
 		},
 		"banner": {
@@ -819,7 +823,7 @@
 		"introduction": {
 			"textIntro": "eMush is a community game offering numerous ways of communication and means of acting. The aim of these rules is to allow games to run smoothly and to ensure a pleasant game experience to all the players. The rules stated here are not meant to be exhaustive and are likely to evolve along with the development of the game. Players will be informed of each update via a notification on the Eternaltwin Discord server.",
 			"alphaLeeway": "The rules marked by this icon signal that a certain leeway is applied during the period of open alpha tests (see last paragraph).",
-			"lastUpdated": "<em>Last updated : April, 14th 2024</em>"
+			"lastUpdated": "<em>Last updated : June, 9th 2024</em>"
 		},
 		"communication": {
 			"title": "Communication",
@@ -833,6 +837,7 @@
 			"multiAccounts": "<strong>Multi-accounts</strong>: It is forbidden to have more than one account per person on the eMush game. Lending, giving or sharing accounts is also forbidden.",
 			"spoilingHuman": "<strong>Human griefing</strong>: As a human, it is forbidden to seriously ruin the other players’ playing experience by committing deliberate and conscious actions threatening to impede the objective of the human side.",
 			"spoilingMush": "<strong>Mush griefing</strong>: As a Mush, it is forbidden to deliberately harm your own side, including but not limited to revealing the identity of the Mush, either yourself or the other Mush. This can only be tolerated for ex-Mush on whom the serum has been used, but it is advised to use common sense.",
+			"mushCooperation": "<strong>Cooperation between Mushs and humans</strong>: It is forbidden to cooperate with humans as Mush, and vice versa. Mushs and humans must respect each other's roles and objectives.",
 			"suicide": "<strong>Suicide</strong> : It is forbidden to voluntarily leave a game, either actively or passively, by exploiting the game's mechanisms."
 		},
 		"sanctionsAppeal": {

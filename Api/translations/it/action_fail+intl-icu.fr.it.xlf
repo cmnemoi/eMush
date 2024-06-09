@@ -211,10 +211,10 @@
         <target>personal_spore_limit.description</target>
       </segment>
     </unit>
-    <unit id="boobytrap_already_done">
+    <unit id="booby_trap_already_done">
       <segment id="description" state="initial">
-        <source>boobytrap_already_done.description</source>
-        <target>boobytrap_already_done.description</target>
+        <source>booby_trap_already_done.description</source>
+        <target>booby_trap_already_done.description</target>
       </segment>
     </unit>
     <unit id="slime_already_done">

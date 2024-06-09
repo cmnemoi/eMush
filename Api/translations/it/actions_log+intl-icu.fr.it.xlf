@@ -703,5 +703,11 @@
         <target>participate_success</target>
       </segment>
     </unit>
+    <unit id="trap_closet_success">
+      <segment id="trap_closet_success" state="initial">
+        <source>trap_closet_success</source>
+        <target>trap_closet_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

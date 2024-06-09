@@ -160,6 +160,22 @@
         <source>bios_terminal.cpu_priority_none</source>
         <target>bios_terminal.cpu_priority_none</target>
       </segment>
+      <segment id="crew_lock.name" state="initial">
+        <source>bios_terminal.crew_lock_name</source>
+        <target>bios_terminal.crew_lock_name</target>
+      </segment>
+      <segment id="crew_lock.description" state="initial">
+        <source>bios_terminal.crew_lock_description</source>
+        <target>bios_terminal.crew_lock_description</target>
+      </segment>
+      <segment id="crew_lock.projects" state="initial">
+        <source>bios_terminal.crew_lock_projects</source>
+        <target>bios_terminal.crew_lock_projects</target>
+      </segment>
+      <segment id="crew_lock.piloting" state="initial">
+        <source>bios_terminal.crew_lock_piloting</source>
+        <target>bios_terminal.crew_lock_piloting</target>
+      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="name" state="initial">

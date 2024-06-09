@@ -293,15 +293,15 @@
                 }</target>
       </segment>
     </unit>
-    <unit id="disorder_curred_player">
-      <segment state="translated">
-        <source>disorder_cured_player</source>
-        <target>**{character}** is happy. The **{target_character}** session went well. But more will be required.</target>
-      </segment>
-    </unit>
     <unit id="disorder_treated_player">
       <segment state="translated">
         <source>disorder_treated_player</source>
+        <target>**{character}** is happy. The **{target_character}** session went well. But more will be required.</target>
+      </segment>
+    </unit>
+    <unit id="disorder_cured_player">
+      <segment state="translated">
+        <source>disorder_cured_player</source>
         <target>{target_character_gender, select,
                     male {The session is a success, **{target_character}** is cured of his disease ({disease}).}
                     female {The session is a success, **{target_character}** is cured of her disease ({disease}).}
@@ -324,7 +324,7 @@
     <unit id="screaming">
       <segment state="translated">
         <source>screaming</source>
-        <target>{character_gender, select,
+        <target>{target_character_gender, select,
     male {:pill: **{target_character}** throws himself on the floor, wailing and calling for his mother...}
     female {:pill: **{target_character}** throws herself on the floor, wailing and calling for her mother...}
     other {:pill: **{target_character}** throws themselves on the floor, wailing and calling for their mother...}
@@ -334,7 +334,7 @@
     <unit id="wall_head_bang">
       <segment state="translated">
         <source>wall_head_bang</source>
-        <target>{character_gender, select,
+        <target>{target_character_gender, select,
     male {:pill: **{target_character}** suddenly starts bashing his head against the wall... looks like it hurts too...}
     female {:pill: **{target_character}** suddenly starts bashing her head against the wall... looks like it hurts too...}
     other {:pill: **{target_character}** suddenly starts bashing their head against the wall... looks like it hurts too...}
@@ -344,7 +344,7 @@
     <unit id="run_in_circles">
       <segment state="translated">
         <source>run_in_circles</source>
-        <target>{character_gender, select,
+        <target>{target_character_gender, select,
     male {:pill: **{target_character}** starts running in circles, and nothing seems to stop him... except fatigue...}
     female {:pill: **{target_character}** starts running in circles, and nothing seems to stop her... except fatigue...}
     other {:pill: **{target_character}** starts running in circles, and nothing seems to stop them... except fatigue...}
@@ -492,7 +492,7 @@
     <unit id="infect_mush_raid">
       <segment id="infect_mush_raid" state="translated">
         <source>infect_mush_raid</source>
-        <target>**{character}** has been contaminated by a Mush raid during exploration. Their contamination level is now **{quantity}**.</target>
+        <target>**{target_character}** has been contaminated by a Mush raid during exploration. Their contamination level is now **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_trapped_ration">
@@ -758,6 +758,12 @@
     1 {Congratulations {drone}. The **{target_equipment}** works again.}
     other {The **{target_equipment}** is working again, thanks to {drone}.}
 }</target>
+      </segment>
+    </unit>
+    <unit id="fruit_transported">
+      <segment id="fruit_transported" state="translated">
+        <source>fruit_transported</source>
+        <target>A **{target_equipment}** has been transported.</target>
       </segment>
     </unit>
   </file>

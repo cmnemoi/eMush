@@ -111,5 +111,75 @@
         <target>creative.description</target>
       </segment>
     </unit>
+    <unit id="shrink">
+      <segment id="shrink.name" state="initial">
+        <source>shrink.name</source>
+        <target>shrink.name</target>
+      </segment>
+      <segment id="shrink.description" state="initial">
+        <source>shrink.description</source>
+        <target>shrink.description</target>
+      </segment>
+    </unit>
+    <unit id="caffeine_junkie">
+      <segment id="caffeine_junkie.name" state="initial">
+        <source>caffeine_junkie.name</source>
+        <target>caffeine_junkie.name</target>
+      </segment>
+      <segment id="caffeine_junkie.description" state="initial">
+        <source>caffeine_junkie.description</source>
+        <target>caffeine_junkie.description</target>
+      </segment>
+    </unit>
+    <unit id="shooter">
+      <segment id="name" state="initial">
+        <source>shooter.name</source>
+        <target>shooter.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shooter.description</source>
+        <target>shooter.description</target>
+      </segment>
+    </unit>
+    <unit id="chef">
+      <segment id="chef.name" state="initial">
+        <source>chef.name</source>
+        <target>chef.name</target>
+      </segment>
+      <segment id="chef.description" state="initial">
+        <source>chef.description</source>
+        <target>chef.description</target>
+      </segment>
+    </unit>
+    <unit id="nurse">
+      <segment id="nurse.name" state="initial">
+        <source>nurse.name</source>
+        <target>nurse.name</target>
+      </segment>
+      <segment id="nurse.description" state="initial">
+        <source>nurse.description</source>
+        <target>nurse.description</target>
+      </segment>
+    </unit>
+    <unit id="paranoid">
+      <segment id="paranoid.name" state="initial">
+        <source>paranoid.name</source>
+        <target>paranoid.name</target>
+      </segment>
+      <segment id="paranoid.description" state="initial">
+        <source>paranoid.description</source>
+        <target>paranoid.description</target>
+      </segment>
+    </unit>
+    <unit id="biologist">
+      <segment id="biologist.name" state="initial">
+        <source>biologist.name</source>
+        <target>biologist.name</target>
+      </segment>
+      <segment id="biologist.description" state="initial">
+        <source>biologist.description</source>
+        <target>biologist.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

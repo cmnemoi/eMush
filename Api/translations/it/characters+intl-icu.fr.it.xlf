@@ -20,6 +20,10 @@
         <source>andie.fullname</source>
         <target>andie.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>andie.initials</source>
+        <target>andie.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>andie.age</source>
         <target>andie.age</target>
@@ -49,6 +53,10 @@
       <segment id="fullname" state="initial">
         <source>chao.fullname</source>
         <target>chao.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>chao.initials</source>
+        <target>chao.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>chao.age</source>
@@ -80,6 +88,10 @@
         <source>chun.fullname</source>
         <target>chun.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>chun.initials</source>
+        <target>chun.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>chun.age</source>
         <target>chun.age</target>
@@ -109,6 +121,10 @@
       <segment id="fullname" state="initial">
         <source>derek.fullname</source>
         <target>derek.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>derek.initials</source>
+        <target>derek.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>derek.age</source>
@@ -140,6 +156,10 @@
         <source>eleesha.fullname</source>
         <target>eleesha.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>eleesha.initials</source>
+        <target>eleesha.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>eleesha.age</source>
         <target>eleesha.age</target>
@@ -169,6 +189,10 @@
       <segment id="fullname" state="initial">
         <source>finola.fullname</source>
         <target>finola.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>finola.initials</source>
+        <target>finola.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>finola.age</source>
@@ -200,6 +224,10 @@
         <source>frieda.fullname</source>
         <target>frieda.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>frieda.initials</source>
+        <target>frieda.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>frieda.age</source>
         <target>frieda.age</target>
@@ -229,6 +257,10 @@
       <segment id="fullname" state="initial">
         <source>gioele.fullname</source>
         <target>gioele.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>gioele.initials</source>
+        <target>gioele.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>gioele.age</source>
@@ -260,6 +292,10 @@
         <source>hua.fullname</source>
         <target>hua.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>hua.initials</source>
+        <target>hua.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>hua.age</source>
         <target>hua.age</target>
@@ -289,6 +325,10 @@
       <segment id="fullname" state="initial">
         <source>ian.fullname</source>
         <target>ian.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>ian.initials</source>
+        <target>ian.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>ian.age</source>
@@ -320,6 +360,10 @@
         <source>jin_su.fullname</source>
         <target>jin_su.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>jin_su.initials</source>
+        <target>jin_su.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>jin_su.age</source>
         <target>jin_su.age</target>
@@ -349,6 +393,10 @@
       <segment id="fullname" state="initial">
         <source>kuan_ti.fullname</source>
         <target>kuan_ti.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>kuan_ti.initials</source>
+        <target>kuan_ti.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>kuan_ti.age</source>
@@ -380,6 +428,10 @@
         <source>paola.fullname</source>
         <target>paola.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>paola.initials</source>
+        <target>paola.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>paola.age</source>
         <target>paola.age</target>
@@ -409,6 +461,10 @@
       <segment id="fullname" state="initial">
         <source>raluca.fullname</source>
         <target>raluca.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>raluca.initials</source>
+        <target>raluca.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>raluca.age</source>
@@ -440,6 +496,10 @@
         <source>roland.fullname</source>
         <target>roland.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>roland.initials</source>
+        <target>roland.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>roland.age</source>
         <target>roland.age</target>
@@ -469,6 +529,10 @@
       <segment id="fullname" state="initial">
         <source>stephen.fullname</source>
         <target>stephen.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>stephen.initials</source>
+        <target>stephen.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>stephen.age</source>
@@ -500,6 +564,10 @@
         <source>terrence.fullname</source>
         <target>terrence.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>terrence.initials</source>
+        <target>terrence.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>terrence.age</source>
         <target>terrence.age</target>
@@ -529,6 +597,10 @@
       <segment id="fullname" state="initial">
         <source>janice.fullname</source>
         <target>janice.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>janice.initials</source>
+        <target>janice.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>janice.age</source>

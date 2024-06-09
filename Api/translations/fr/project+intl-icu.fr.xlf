@@ -358,7 +358,7 @@
       </segment>
       <segment id="armour_corridor.lore" state="translated">
         <source>armour_corridor.lore</source>
-        <target>Eurêka ! Dans Magellan, les fibres optiques qui longent les coursives peuvent se compresser automatiquement pour pouvoir rajouter facilement des câbles. En injectant des câbles en trop, vous pouvez créer une pseudo armure !</target>
+        <target>Eurêka ! Dans Magellan, les fibres optiques qui longent les coursives peuvent se compresser automatiquement pour pouvoir rajouter facilement des câbles. En injectant des câbles en trop, vous pouvez créer une pseudo-armure !</target>
       </segment>
     </unit>
     <unit id="call_of_dirty">
@@ -624,11 +624,11 @@
       </segment>
       <segment id="neron_project_thread.description" state="translated">
         <source>neron_project_thread.description</source>
-        <target>Si un projet est au dessus de 0%, il est automatiquement amélioré de 5% à chaque cycle.</target>
+        <target>Si un projet est au-dessus de 0%, il est automatiquement amélioré de 5% à chaque cycle.</target>
       </segment>
       <segment id="neron_project_thread.lore" state="translated">
         <source>neron_project_thread.lore</source>
-        <target>Après une engueulade NERON devient souvent plus productif, surtout pour bosser sur lui-même. Vous installez un réveil qui insulte sa mémoire vive automatiquement tous les heures.</target>
+        <target>Après une engueulade NERON devient souvent plus productif, surtout pour bosser sur lui-même. Vous installez un réveil qui insulte sa mémoire vive automatiquement toutes les heures.</target>
       </segment>
     </unit>
     <unit id="turret_extra_fire_rate">
@@ -732,7 +732,7 @@
       </segment>
       <segment id="floor_heating.description" state="translated">
         <source>floor_heating.description</source>
-        <target>Diminue de 50% les blessures dûes aux actions.</target>
+        <target>Diminue de 50% les blessures dues aux actions.</target>
       </segment>
       <segment id="floor_heating.lore" state="translated">
         <source>floor_heating.lore</source>

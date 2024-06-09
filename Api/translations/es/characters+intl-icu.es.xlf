@@ -2,27 +2,31 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="characters.ext">
     <unit id="Neron">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>neron.name</source>
-        <target>Nerón</target>
+        <target>neron.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>neron.fullname</source>
-        <target>Nerón</target>
+        <target>neron.fullname</target>
       </segment>
     </unit>
     <unit id="Andie">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>andie.name</source>
-        <target>Andie</target>
+        <target>andie.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>andie.fullname</source>
-        <target>Andie Graham</target>
+        <target>andie.fullname</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="initials" state="initial">
+        <source>andie.initials</source>
+        <target>andie.initials</target>
+      </segment>
+      <segment id="age" state="initial">
         <source>andie.age</source>
-        <target>24 años</target>
+        <target>andie.age</target>
       </segment>
       <segment id="description" state="initial">
         <source>andie.description</source>
@@ -49,6 +53,10 @@
       <segment id="fullname" state="initial">
         <source>chao.fullname</source>
         <target>chao.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>chao.initials</source>
+        <target>chao.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>chao.age</source>
@@ -80,6 +88,10 @@
         <source>chun.fullname</source>
         <target>chun.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>chun.initials</source>
+        <target>chun.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>chun.age</source>
         <target>chun.age</target>
@@ -102,41 +114,37 @@
       </segment>
     </unit>
     <unit id="Derek">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>derek.name</source>
-        <target>Derek</target>
+        <target>derek.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>derek.fullname</source>
-        <target>Derek Hogan</target>
+        <target>derek.fullname</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="initials" state="initial">
+        <source>derek.initials</source>
+        <target>derek.initials</target>
+      </segment>
+      <segment id="age" state="initial">
         <source>derek.age</source>
-        <target>39 años</target>
+        <target>derek.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>derek.description</source>
-        <target>Un verdadero héroe a pesar de todo.</target>
+        <target>derek.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>derek.employment</source>
-        <target>Ex-sargento de la FDS</target>
+        <target>derek.employment</target>
       </segment>
-      <segment id="abstract" state="translated">
+      <segment id="abstract" state="initial">
         <source>derek.abstract</source>
-        <target>Derek Hogan está asignado a la seguridad del Daedalus. Robusto y seguro de sí mismo, será un activo importante para el éxito de esta misión extrema. Su pasado es una sucesión de acontecimientos, cada uno más increíble que el anterior. Derek lo ha experimentado todo, los campos de batalla de Sol, las misiones suicidas de Tau-Ceti... Sin embargo, siempre está buscando un alma gemela. Desde su apresurada salida de su hogar, Derek ha dedicado su existencia a las mujeres, pero sin éxito.</target>
+        <target>derek.abstract</target>
       </segment>
-      <segment id="biography" state="translated">
+      <segment id="biography" state="initial">
         <source>derek.biography</source>
-        <target>- 3109: Nace en la Tierra.
-- 3121: Derek se corta torpemente al afeitarse y no se le ocurre mejor idea que mostrar esa cicatriz (en especial a sus conquistas amorosas) diciendo que es una herida de combate en Tau-Ceti.
-- 3139: Derek es reclutado por una batida militar en una discoteca de Nueva Ibiza. Su madre lloró, imploró que no ingrese al cuartel, pero Derek prefirió enrolarse, atraído por el mito de tener una novia en cada puerto o mejor dicho, base espacial.
-- 3145: Derek asciende rápidamente y se impone como líder. Participa en varias batallas y conquistas planetarias. Haber tomado una base enemiga le ayuda a recibir el rango de sargento.
-- 3146: Se le asigna la seguridad de la construcción del arca Magallanes en Xyloph-17 junto a un tal Wang Chao. Sus aventuras amorosas con el personal de la estación le valen más de un lío con sus superiores y los maridos de sus víctimas.
-- 3151: Derek ejecuta diversas misiones en Encélado para recuperar la confianza de sus superiores en la FDS.
-- 3151: Para complementar sus bajos ingresos, Derek trabaja como instructor en la Universidad de la FDS.
-- 3153:El comandante Jin-Su le confía la protección del comando que secuestrará a la científica Finola Keegan para obligarle a formar parte de la misión.
-- 3154: Derek se embarca en el Daedalus junto al resto del equipo. ¡La FDS le tiene en su lista negra!</target>
+        <target>derek.biography</target>
       </segment>
     </unit>
     <unit id="Eleesha">
@@ -147,6 +155,10 @@
       <segment id="fullname" state="initial">
         <source>eleesha.fullname</source>
         <target>eleesha.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>eleesha.initials</source>
+        <target>eleesha.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>eleesha.age</source>
@@ -178,6 +190,10 @@
         <source>finola.fullname</source>
         <target>finola.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>finola.initials</source>
+        <target>finola.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>finola.age</source>
         <target>finola.age</target>
@@ -200,25 +216,29 @@
       </segment>
     </unit>
     <unit id="Frieda">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>frieda.name</source>
-        <target>Frieda</target>
+        <target>frieda.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>frieda.fullname</source>
-        <target>Frieda Bergmann</target>
+        <target>frieda.fullname</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="initials" state="initial">
+        <source>frieda.initials</source>
+        <target>frieda.initials</target>
+      </segment>
+      <segment id="age" state="initial">
         <source>frieda.age</source>
-        <target>66 años</target>
+        <target>frieda.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>frieda.description</source>
-        <target>Científica milenaria.</target>
+        <target>frieda.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>frieda.employment</source>
-        <target>Navegante</target>
+        <target>frieda.employment</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>frieda.abstract</source>
@@ -230,41 +250,37 @@
       </segment>
     </unit>
     <unit id="Gioele">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>gioele.name</source>
-        <target>Gioele</target>
+        <target>gioele.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>gioele.fullname</source>
-        <target>Gioele Rinaldo</target>
+        <target>gioele.fullname</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="initials" state="initial">
+        <source>gioele.initials</source>
+        <target>gioele.initials</target>
+      </segment>
+      <segment id="age" state="initial">
         <source>gioele.age</source>
-        <target>55 años</target>
+        <target>gioele.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>gioele.description</source>
-        <target>Adicto a la cafeína, propietario de un barco y listo para el combate.</target>
+        <target>gioele.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>gioele.employment</source>
-        <target>Magnate constructor de naves de gran escala.</target>
+        <target>gioele.employment</target>
       </segment>
-      <segment id="abstract" state="translated">
+      <segment id="abstract" state="initial">
         <source>gioele.abstract</source>
-        <target>Gioele es el propietario de la nave. Es un multimillonario de la Tierra obsesionado por los viajes espaciales, que financió el proyecto inicial del Daedalus. Ante la amenaza de los Mush, Gioele entró en pánico e in extremis, con la ayuda de los diseñadores, consiguió un puesto a bordo de la nave como navegante. También consiguió expulsar a un biólogo de la tripulación original para hacer sitio a su hija Paola.</target>
+        <target>gioele.abstract</target>
       </segment>
-      <segment id="biography" state="translated">
+      <segment id="biography" state="initial">
         <source>gioele.biography</source>
-        <target>- 3099: Nace en la Tierra.
-- 3118: Gracias a los contactos de su padre, Gioele consiguió un espacio como ***pasajero a bordo del Gonzak*** con la misión de explorar ***Epsilon Indi***. Fue allí donde conoció a su ídolo ***GL Maubrick***. A su regreso, comenzó a estudiar astrofísica para poder convertirse en explorador algún día.
-- 3120: La muerte de su padre hizo que Gioele se diera cuenta de la situación económica de su familia. Se hizo cargo de la empresa de gestión de prisiones de su padre, pero cambió su funcionamiento para adaptarlo a sus propios fines: Enviaba a los prisioneros a nuevos sistemas para llevar a cabo operaciones de minería de asteroides.
-- 3136: Gioele estaba haciendo fortuna, pero aún no había cumplido sus sueños. En un anuncio publicitario en SNC ***ofreció un presupuesto de 4.000 millones de créditos*** a quien pudiera proponer un proyecto viable de arca estelar, que le permitiera unir la Vía Láctea y la ***Nube de Magallanes***.
-- 3137: Se reunió con ***Kuan-Ti*** quien, al año siguiente, entregó un gigantesco proyecto de Arca Mundial que implicaba a 7000 personas. Gioele ***asignó el presupuesto prometido***.
-- 3146: La Federación quiso participar en la financiación del proyecto y aportó 9.000 millones de créditos adicionales que engrasarían las ruedas en el avance del ***Reactor filogrande***. El explorador, y ahora representante oficial del gobierno, ***Kim Jin-Su***, fue asignado como líder del proyecto.
-- 3152: Gioele se entera por casualidad de que Jin-Su y Kuan-Ti han manipulado el proyecto original para permitir la construcción de una nave de exploración más pequeña, llamada ***Daedalus***. Continuando con su investigación, registra el despacho de Kuan-Ti y encuentra documentos que prueban que Mush ha infectado a los líderes de la Federación. Su posterior temor es la razón por la que se desespera por acceder al Daedalus y unirse a la evacuación.
-- 3153: A medida que la Federación reduce gradualmente la frecuencia de los pagos, Gioele ***ofrece apoyo financiero adicional para el proyecto*** a Raluca, Jin-Su y Kuan-Ti. Su única condición es que ***Nils Carlsson*** sea apartado del equipo y sustituido por su hija ***Paola Rinaldo***. El equipo se niega.
-- 3154: Nils cae enfermo durante una grave crisis entre ***Xyloph-17*** y la Federación. La ***SDF toma el control del proyecto***, pero Kim Jin-Su organiza la salida clandestina del Daedalus. Gioele y Paola son finalmente embarcadas.</target>
+        <target>gioele.biography</target>
       </segment>
     </unit>
     <unit id="Hua">
@@ -275,6 +291,10 @@
       <segment id="fullname" state="initial">
         <source>hua.fullname</source>
         <target>hua.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>hua.initials</source>
+        <target>hua.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>hua.age</source>
@@ -306,6 +326,10 @@
         <source>ian.fullname</source>
         <target>ian.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>ian.initials</source>
+        <target>ian.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>ian.age</source>
         <target>ian.age</target>
@@ -335,6 +359,10 @@
       <segment id="fullname" state="initial">
         <source>jin_su.fullname</source>
         <target>jin_su.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>jin_su.initials</source>
+        <target>jin_su.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>jin_su.age</source>
@@ -366,6 +394,10 @@
         <source>kuan_ti.fullname</source>
         <target>kuan_ti.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>kuan_ti.initials</source>
+        <target>kuan_ti.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>kuan_ti.age</source>
         <target>kuan_ti.age</target>
@@ -395,6 +427,10 @@
       <segment id="fullname" state="initial">
         <source>paola.fullname</source>
         <target>paola.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>paola.initials</source>
+        <target>paola.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>paola.age</source>
@@ -426,6 +462,10 @@
         <source>raluca.fullname</source>
         <target>raluca.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>raluca.initials</source>
+        <target>raluca.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>raluca.age</source>
         <target>raluca.age</target>
@@ -455,6 +495,10 @@
       <segment id="fullname" state="initial">
         <source>roland.fullname</source>
         <target>roland.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>roland.initials</source>
+        <target>roland.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>roland.age</source>
@@ -486,6 +530,10 @@
         <source>stephen.fullname</source>
         <target>stephen.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>stephen.initials</source>
+        <target>stephen.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>stephen.age</source>
         <target>stephen.age</target>
@@ -516,6 +564,10 @@
         <source>terrence.fullname</source>
         <target>terrence.fullname</target>
       </segment>
+      <segment id="initials" state="initial">
+        <source>terrence.initials</source>
+        <target>terrence.initials</target>
+      </segment>
       <segment id="age" state="initial">
         <source>terrence.age</source>
         <target>terrence.age</target>
@@ -545,6 +597,10 @@
       <segment id="fullname" state="initial">
         <source>janice.fullname</source>
         <target>janice.fullname</target>
+      </segment>
+      <segment id="initials" state="initial">
+        <source>janice.initials</source>
+        <target>janice.initials</target>
       </segment>
       <segment id="age" state="initial">
         <source>janice.age</source>

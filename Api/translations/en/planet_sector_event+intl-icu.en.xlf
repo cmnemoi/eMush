@@ -421,9 +421,9 @@
         <source>harvest.name</source>
         <target>Harvest</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>harvest.description</source>
-        <target>Vous gagnez {quantity, plural, one {# Alien fruit} other {# Alien fruits}}.{fight_prevented_by_item}</target>
+        <target>You have earned {quantity, plural, one {# Alien fruit} other {# Alien fruits}}.{fight_prevented_by_item}</target>
       </segment>
       <segment id="forest_description" state="translated">
         <source>harvest.forest_description</source>

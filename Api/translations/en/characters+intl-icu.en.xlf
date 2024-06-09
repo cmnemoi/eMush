@@ -20,6 +20,10 @@
         <source>andie.fullname</source>
         <target>Andie Graham</target>
       </segment>
+      <segment id="initials" state="translated">
+        <source>andie.initials</source>
+        <target>AG</target>
+      </segment>
       <segment id="age" state="translated">
         <source>andie.age</source>
         <target>24</target>
@@ -55,6 +59,10 @@
       <segment id="fullname" state="translated">
         <source>chao.fullname</source>
         <target>Wang Chao</target>
+      </segment>
+      <segment id="initials" state="translated">
+        <source>chao.initials</source>
+        <target>CW</target>
       </segment>
       <segment id="age" state="translated">
         <source>chao.age</source>
@@ -92,6 +100,10 @@
       <segment id="fullname" state="translated">
         <source>chun.fullname</source>
         <target>Zhong Chun</target>
+      </segment>
+      <segment id="initials" state="translated">
+        <source>chun.initials</source>
+        <target>CZ</target>
       </segment>
       <segment id="age" state="translated">
         <source>chun.age</source>
@@ -136,6 +148,10 @@
         <source>derek.fullname</source>
         <target>Derek Hogan</target>
       </segment>
+      <segment id="initials" state="translated">
+        <source>derek.initials</source>
+        <target>DH</target>
+      </segment>
       <segment id="age" state="translated">
         <source>derek.age</source>
         <target>just turned 39</target>
@@ -173,6 +189,10 @@
       <segment id="fullname" state="translated">
         <source>eleesha.fullname</source>
         <target>Eleesha Williams</target>
+      </segment>
+      <segment id="initials" state="translated">
+        <source>eleesha.initials</source>
+        <target>EW</target>
       </segment>
       <segment id="age" state="translated">
         <source>eleesha.age</source>
@@ -219,6 +239,10 @@
         <source>finola.fullname</source>
         <target>Finola Keegan</target>
       </segment>
+      <segment id="initials" state="translated">
+        <source>finola.initials</source>
+        <target>FK</target>
+      </segment>
       <segment id="age" state="translated">
         <source>finola.age</source>
         <target>30</target>
@@ -257,6 +281,10 @@
       <segment id="fullname" state="translated">
         <source>frieda.fullname</source>
         <target>Frieda Bergmann</target>
+      </segment>
+      <segment id="initials" state="translated">
+        <source>frieda.initials</source>
+        <target>FB</target>
       </segment>
       <segment id="age" state="translated">
         <source>frieda.age</source>
@@ -298,6 +326,10 @@
         <source>gioele.fullname</source>
         <target>Gioele Rinaldo</target>
       </segment>
+      <segment id="initials" state="translated">
+        <source>gioele.initials</source>
+        <target>GR</target>
+      </segment>
       <segment id="age" state="translated">
         <source>gioele.age</source>
         <target>55</target>
@@ -336,6 +368,10 @@
         <source>hua.fullname</source>
         <target>Jiang Hua</target>
       </segment>
+      <segment id="initials" state="translated">
+        <source>hua.initials</source>
+        <target>JH</target>
+      </segment>
       <segment id="age" state="translated">
         <source>hua.age</source>
         <target>32</target>
@@ -373,6 +409,10 @@
       <segment id="fullname" state="translated">
         <source>ian.fullname</source>
         <target>Ian Soulton</target>
+      </segment>
+      <segment id="initials" state="translated">
+        <source>ian.initials</source>
+        <target>IS</target>
       </segment>
       <segment id="age" state="translated">
         <source>ian.age</source>
@@ -414,6 +454,10 @@
         <source>jin_su.fullname</source>
         <target>Kim Jin-Su</target>
       </segment>
+      <segment id="initials" state="translated">
+        <source>jin_su.initials</source>
+        <target>JSK</target>
+      </segment>
       <segment id="age" state="translated">
         <source>jin_su.age</source>
         <target>40</target>
@@ -453,6 +497,10 @@
         <source>kuan_ti.fullname</source>
         <target>Lai Kuan-Ti</target>
       </segment>
+      <segment id="initials" state="translated">
+        <source>kuan_ti.initials</source>
+        <target>KTL</target>
+      </segment>
       <segment id="age" state="translated">
         <source>kuan_ti.age</source>
         <target>37</target>
@@ -491,6 +539,10 @@
         <source>paola.fullname</source>
         <target>Paola Rinaldo</target>
       </segment>
+      <segment id="initials" state="translated">
+        <source>paola.initials</source>
+        <target>PR</target>
+      </segment>
       <segment id="age" state="translated">
         <source>paola.age</source>
         <target>23</target>
@@ -527,6 +579,10 @@
       <segment id="fullname" state="translated">
         <source>raluca.fullname</source>
         <target>Raluca Tomescu</target>
+      </segment>
+      <segment id="initials" state="translated">
+        <source>raluca.initials</source>
+        <target>RT</target>
       </segment>
       <segment id="age" state="translated">
         <source>raluca.age</source>
@@ -570,6 +626,10 @@
         <source>roland.fullname</source>
         <target>Roland Zuccali</target>
       </segment>
+      <segment id="initials" state="translated">
+        <source>roland.initials</source>
+        <target>RZ</target>
+      </segment>
       <segment id="age" state="translated">
         <source>roland.age</source>
         <target>27</target>
@@ -607,6 +667,10 @@
       <segment id="fullname" state="translated">
         <source>stephen.fullname</source>
         <target>Stephen Seagull</target>
+      </segment>
+      <segment id="initials" state="translated">
+        <source>stephen.initials</source>
+        <target>SS</target>
       </segment>
       <segment id="age" state="translated">
         <source>stephen.age</source>
@@ -651,6 +715,10 @@
         <source>terrence.fullname</source>
         <target>Terrence Archer</target>
       </segment>
+      <segment id="initials" state="translated">
+        <source>terrence.initials</source>
+        <target>TA</target>
+      </segment>
       <segment id="age" state="translated">
         <source>terrence.age</source>
         <target>44</target>
@@ -690,6 +758,10 @@
       <segment id="fullname" state="translated">
         <source>janice.fullname</source>
         <target>Janice Kent</target>
+      </segment>
+      <segment id="initials" state="translated">
+        <source>janice.initials</source>
+        <target>JK</target>
       </segment>
       <segment id="age" state="translated">
         <source>janice.age</source>

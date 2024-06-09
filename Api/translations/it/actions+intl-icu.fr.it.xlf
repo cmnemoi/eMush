@@ -1085,5 +1085,15 @@
         <target>participate.description</target>
       </segment>
     </unit>
+    <unit id="trap_closet">
+      <segment id="trap_closet" state="initial">
+        <source>trap_closet.name</source>
+        <target>trap_closet.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>trap_closet.description</source>
+        <target>trap_closet.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

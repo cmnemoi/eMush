@@ -1599,5 +1599,15 @@
         <target>conceptor.description</target>
       </segment>
     </unit>
+    <unit id="shrink">
+      <segment id="shrink.name" state="initial">
+        <source>shrink.name</source>
+        <target>shrink.name</target>
+      </segment>
+      <segment id="shrink.description" state="initial">
+        <source>shrink.description</source>
+        <target>shrink.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

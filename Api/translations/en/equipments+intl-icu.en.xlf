@@ -31,6 +31,36 @@
 The manual states that the stellar antenna is the "must have" communications device, with a bandwidth of 24 Baud, it allows you to effortlessly communicate with the other end of the universe.</target>
       </segment>
     </unit>
+    <unit id="radar_trans_void_antenna">
+      <segment id="name" state="translated">
+        <source>radar_trans_void_antenna.name</source>
+        <target>Antenna</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>radar_trans_void_antenna.short_name</source>
+        <target>Antenna</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>radar_trans_void_antenna.plural_name</source>
+        <target>Antennas</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>radar_trans_void_antenna.gender</source>
+        <target>female</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>radar_trans_void_antenna.first_letter</source>
+        <target>vowel</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>radar_trans_void_antenna.examine</source>
+        <target>The Antenna is a significant upgrade to the Comms. Center.
+//
+    This impressive piece of kit reduces the cost of communications actions by 1.
+//
+The manual states that the stellar antenna is the "must have" communications device, with a bandwidth of 24 Baud, it allows you to effortlessly communicate with the other end of the universe.</target>
+      </segment>
+    </unit>
     <unit id="astro_terminal">
       <segment id="name" state="translated">
         <source>astro_terminal.name</source>
@@ -706,7 +736,7 @@ Daedalus oxygen reservoir, operate with caution. DO NOT EMPTY for a laugh.</targ
         <source>pasiphae.examine</source>
         <target>Pasiphae
         //
-Pasiphae armor: 12
+Pasiphae armor: {armor}
 //
 It's no longer all shiny and new, but it does the job.</target>
       </segment>
@@ -985,6 +1015,36 @@ Tear through space-time in complete safety.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>planet_scanner.examine</source>
+        <target>Significantly upgrades the Astro Terminal.
+//
+    +30% chance of finding a planet.
+//
+Music plays when you start it up. The engineers responsible for this were eccentric at best... Who would have thought that Verdi could have inspired this glorified calculator...</target>
+      </segment>
+    </unit>
+    <unit id="quantum_sensors_planet_scanner">
+      <segment id="name" state="translated">
+        <source>quantum_sensors_planet_scanner.name</source>
+        <target>Planet Scanner</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>quantum_sensors_planet_scanner.short_name</source>
+        <target>Planet Scanner</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>quantum_sensors_planet_scanner.plural_name</source>
+        <target>Planet Scanners</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>quantum_sensors_planet_scanner.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>quantum_sensors_planet_scanner.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>quantum_sensors_planet_scanner.examine</source>
         <target>Significantly upgrades the Astro Terminal.
 //
     +30% chance of finding a planet.

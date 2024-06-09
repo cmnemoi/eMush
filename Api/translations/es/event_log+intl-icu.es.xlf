@@ -253,16 +253,16 @@
         <target>disease_treated_drug</target>
       </segment>
     </unit>
-    <unit id="disorder_curred_player">
-      <segment state="initial">
-        <source>disorder_cured_player</source>
-        <target>disorder_cured_player</target>
-      </segment>
-    </unit>
     <unit id="disorder_treated_player">
       <segment state="initial">
         <source>disorder_treated_player</source>
         <target>disorder_treated_player</target>
+      </segment>
+    </unit>
+    <unit id="disorder_cured_player">
+      <segment state="initial">
+        <source>disorder_cured_player</source>
+        <target>disorder_cured_player</target>
       </segment>
     </unit>
     <unit id="injury_appear">
@@ -623,6 +623,12 @@
       <segment id="drone_repaired_equipment" state="initial">
         <source>drone_repaired_equipment</source>
         <target>drone_repaired_equipment</target>
+      </segment>
+    </unit>
+    <unit id="fruit_transported">
+      <segment id="fruit_transported" state="initial">
+        <source>fruit_transported</source>
+        <target>fruit_transported</target>
       </segment>
     </unit>
   </file>

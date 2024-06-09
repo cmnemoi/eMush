@@ -163,6 +163,12 @@
         <target>coprolalia_messages_on_new_message.description</target>
       </segment>
     </unit>
+    <unit id="paranoia_denial_on_read_message">
+      <segment id="description" state="initial">
+        <source>paranoia_denial_on_read_message.description</source>
+        <target>paranoia_denial_on_read_message.description</target>
+      </segment>
+    </unit>
     <unit id="paranoia_messages_on_new_message">
       <segment id="description" state="initial">
         <source>paranoia_messages_on_new_message.description</source>

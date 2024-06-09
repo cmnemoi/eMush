@@ -211,10 +211,10 @@
         <target>No puedes transportar más de 2 esporas.</target>
       </segment>
     </unit>
-    <unit id="boobytrap_already_done">
-      <segment id="description" state="translated">
-        <source>boobytrap_already_done.description</source>
-        <target>Uno de los tuyos ya estuvo aquí. Esta estantería ya tiene una trampa...</target>
+    <unit id="booby_trap_already_done">
+      <segment id="description" state="initial">
+        <source>booby_trap_already_done.description</source>
+        <target>booby_trap_already_done.description</target>
       </segment>
     </unit>
     <unit id="slime_already_done">

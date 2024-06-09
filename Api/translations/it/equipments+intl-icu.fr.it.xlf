@@ -27,6 +27,32 @@
         <target>antenna.examine</target>
       </segment>
     </unit>
+    <unit id="radar_trans_void_antenna">
+      <segment id="name" state="initial">
+        <source>radar_trans_void_antenna.name</source>
+        <target>radar_trans_void_antenna.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>radar_trans_void_antenna.short_name</source>
+        <target>radar_trans_void_antenna.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>radar_trans_void_antenna.plural_name</source>
+        <target>radar_trans_void_antenna.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>radar_trans_void_antenna.gender</source>
+        <target>radar_trans_void_antenna.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>radar_trans_void_antenna.first_letter</source>
+        <target>radar_trans_void_antenna.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>radar_trans_void_antenna.examine</source>
+        <target>radar_trans_void_antenna.examine</target>
+      </segment>
+    </unit>
     <unit id="astro_terminal">
       <segment id="name" state="initial">
         <source>astro_terminal.name</source>
@@ -909,6 +935,32 @@
       <segment id="examine" state="initial">
         <source>planet_scanner.examine</source>
         <target>planet_scanner.examine</target>
+      </segment>
+    </unit>
+    <unit id="quantum_sensors_planet_scanner">
+      <segment id="name" state="initial">
+        <source>quantum_sensors_planet_scanner.name</source>
+        <target>quantum_sensors_planet_scanner.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>quantum_sensors_planet_scanner.short_name</source>
+        <target>quantum_sensors_planet_scanner.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>quantum_sensors_planet_scanner.plural_name</source>
+        <target>quantum_sensors_planet_scanner.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>quantum_sensors_planet_scanner.gender</source>
+        <target>quantum_sensors_planet_scanner.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>quantum_sensors_planet_scanner.first_letter</source>
+        <target>quantum_sensors_planet_scanner.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>quantum_sensors_planet_scanner.examine</source>
+        <target>quantum_sensors_planet_scanner.examine</target>
       </segment>
     </unit>
     <unit id="research_laboratory">

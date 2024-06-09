@@ -203,7 +203,7 @@
 		"actions": {
 			"equipment": {
 				"title": "Équipement",
-				"create": "Créer de l'équipment pour les vaisseaux en cours",
+				"create": "Créer de l'équipement pour les vaisseaux en cours",
 				"name": "Nom de l'équipement",
 				"quantity": "Quantité",
 				"place": "Salle où créer l'équipement"
@@ -218,6 +218,10 @@
 				"createAllPlayersInitStatuses": "Créer les status de départ pour tous les joueurs",
 				"deleteAllByName": "Supprimer tous les status portant ce nom",
 				"name": "Nom"
+			},
+			"rules": {
+				"title": "Règles",
+				"resetAcceptance": "Réinitialiser l'acceptation des règles pour tous les utilisateurs"
 			},
 			"title": "Actions administratives"
 		},
@@ -819,7 +823,7 @@
 		"introduction": {
 			"textIntro": "eMush est un jeu communautaire présentant de nombreuses façons de communiquer et de se comporter. L’objectif de ce règlement est de permettre le bon déroulement des parties et d’assurer une expérience de jeu agréable pour tous les joueurs. Les règles énoncées ne se veulent pas exhaustives et sont amenées à évoluer au fur et à mesure du développement du jeu. Les joueurs seront informés lors de toute mise à jour par une notification sur le serveur Discord d’Eternaltwin.",
 			"alphaLeeway": "Les règles signalées par cette icône indiquent qu’une tolérance durant la période d’alpha ouverte s’applique (voir dernier paragraphe).",
-			"lastUpdated": "<em>Dernière mise à jour : 14 avril 2024</em>"
+			"lastUpdated": "<em>Dernière mise à jour : 9 juin 2024</em>"
 		},
 		"communication": {
 			"title": "Communication",
@@ -833,6 +837,7 @@
 			"multiAccounts": "<strong>Multicompte</strong> : Il est interdit de posséder plus d’un compte par personne sur le jeu eMush. Le prêt, don ou partage de compte est également interdit.",
 			"spoilingHuman": "<strong>Anti-jeu Humain</strong> : En tant qu’humain, il est interdit de nuire gravement à l’expérience de jeu des autres joueurs en effectuant volontairement et en pleine conscience des actions menaçant l’atteinte de l’objectif du camp humain.",
 			"spoilingMush": "<strong>Anti-jeu Mush</strong> : En tant que Mush, il est interdit de nuire volontairement à son camp. Cela inclut, sans s’y limiter, de dévoiler son appartenance au camp Mush ou de divulguer l’identité des autres Mushs. Une tolérance s’applique dans le cas d’un Mush redevenu humain grâce à l’utilisation du sérum mais il convient de faire preuve de bon sens.",
+			"mushCooperation": "<strong>Coopération entre Mushs et humains</strong> : Il est interdit de coopérer avec les humains en tant que Mush, et inversement. Les Mushs et les humains doivent respecter leur rôle et leurs objectifs.",
 			"suicide": "<strong>Suicide</strong> : Il est interdit de quitter volontairement une partie, que ce soit activement ou passivement, en exploitant les mécanismes du jeu."
 		},
 		"sanctionsAppeal": {

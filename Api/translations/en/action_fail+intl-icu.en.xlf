@@ -211,9 +211,9 @@
         <target>You cannot carry more than two spores.</target>
       </segment>
     </unit>
-    <unit id="boobytrap_already_done">
-      <segment id="description" state="final">
-        <source>boobytrap_already_done.description</source>
+    <unit id="booby_trap_already_done">
+      <segment id="description" state="translated">
+        <source>booby_trap_already_done.description</source>
         <target>Great funghi think alike. This shelving unit is already booby-trapped...</target>
       </segment>
     </unit>

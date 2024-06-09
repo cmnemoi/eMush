@@ -1615,5 +1615,15 @@
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
+    <unit id="shrink">
+      <segment id="shrink.name" state="translated">
+        <source>shrink.name</source>
+        <target>Shrink</target>
+      </segment>
+      <segment id="shrink.description" state="translated">
+        <source>shrink.description</source>
+        <target>The Shrink is in charge of psychological support. They are able to keep morale high and treat psychological illnesses.//:point: Each cycle, **1 Morale Point (:pmo:) is regained** by all crewmates lying down in the same room.//:point: **Treats psychological illnesses**.//:point: Grants the **Comfort** Action for raising morale.//:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

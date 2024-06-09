@@ -933,5 +933,11 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>Research into « **{target_project}** » : progress recorded.</target>
       </segment>
     </unit>
+    <unit id="trap_closet_success">
+      <segment id="trap_closet_success" state="translated">
+        <source>trap_closet_success</source>
+        <target>:mush: Looking like the most normal thing in the world, **{character}** seemed to slip something into the shelving unit.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

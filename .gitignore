@@ -28,3 +28,5 @@ docker/docker-compose.dev.yml
 .phpunit.result.cache
 .vscode/
 *.sql
+
+vendor/

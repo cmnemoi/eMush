@@ -1,0 +1,24 @@
+{
+    "require-dev": {
+        "jschaedl/composer-git-hooks": "^4.0"
+    },
+    "scripts": {
+        "cghooks": "php vendor/bin/cghooks"
+    },
+    "extra": {
+        "hooks": {
+            "pre-commit": [
+                "echo 'Running php-cs-fixer'",
+                "docker compose -f docker/docker-compose.yml exec -T -u dev mush_php php vendor/bin/php-cs-fixer fix"
+            ],
+            "pre-push": [
+                "echo 'Running php-cs-fixer, Psalm, PHPMD and Codeception tests'",
+                "docker compose -f docker/docker-compose.yml exec -T -u dev mush_php php vendor/bin/php-cs-fixer check",
+                "docker compose -f docker/docker-compose.yml exec -T -u dev mush_php php vendor/bin/psalm",
+                "docker compose -f docker/docker-compose.yml exec -T -u dev mush_php php vendor/bin/phpmd src text phpmd.xml --exclude src/*/DataFixtures/*,src/*/ConfigData/* --ignore-errors-on-exit",
+                "docker compose -f docker/docker-compose.yml exec -T -u dev mush_php php vendor/bin/codecept run"
+            ],
+            "post-merge": "composer install"
+        }
+    }
+}

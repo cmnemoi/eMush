@@ -30,3 +30,4 @@ docker/docker-compose.dev.yml
 *.sql
 
 vendor/
+install_php.log

@@ -43,7 +43,7 @@ docker-watch:
 fill-daedalus:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:fill-daedalus
 
-install: setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates create-crew fill-daedalus
+install: install-pre-commit-hooks setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates create-crew fill-daedalus
 	@echo "Installation completed successfully ! You can access eMush at http://localhost/."
 	@echo "You can log in with the following credentials:"
 	@echo "Username: chun"
@@ -61,6 +61,14 @@ install-eternaltwin:
 install-front:
 	docker compose -f docker/docker-compose.yml run -u node mush_front yarn install &&\
 	docker compose -f docker/docker-compose.yml run -u node mush_front ./reset.sh
+
+install-pre-commit-hooks: install-php
+	composer install
+	composer cghooks update
+
+install-php:
+	chmod +x ./install_php.sh
+	./install_php.sh
 
 remove-all: #Warning, it will remove EVERY container, images, volumes and network not only emushs ones
 	docker system prune --volumes -a
@@ -84,7 +92,7 @@ setup-JWT-certificates:
 start-eternaltwin-server:
 	docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn etwin start
 
-gitpod-install: gitpod-setup-env-variables gitpod-build install-api install-front install-eternaltwin setup-JWT-certificates create-crew fill-daedalus
+gitpod-install: install-pre-commit-hooks gitpod-setup-env-variables gitpod-build install-api install-front install-eternaltwin setup-JWT-certificates create-crew fill-daedalus
 
 gitpod-build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml build

@@ -44,7 +44,7 @@ class ActionEvent extends AbstractGameEvent
         parent::__construct($actionConfig->getActionTags(), new \DateTime());
 
         if ($actionTarget !== null) {
-            $this->addTag($actionTarget->getLogName());
+            $this->addTag($actionTarget->getLogName() . '_action_target');
         }
 
         $daedalus = $this->author->getDaedalus();

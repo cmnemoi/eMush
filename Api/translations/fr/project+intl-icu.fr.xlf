@@ -444,7 +444,7 @@
       </segment>
       <segment id="trash_load.description" state="translated">
         <source>trash_load.description</source>
-        <target>Génère 4 débris métalliques et 4 débris plastiques.</target>
+        <target>Génère 4 débris métalliques et 4 débris plastiques en Salle des moteurs.</target>
       </segment>
       <segment id="trash_load.lore" state="translated">
         <source>trash_load.lore</source>

@@ -444,7 +444,7 @@
       </segment>
       <segment id="trash_load.description" state="translated">
         <source>trash_load.description</source>
-        <target>Generates 4 pieces of scrap metal and 4 of plastic scrap.</target>
+        <target>Generates 4 pieces of scrap metal and 4 of plastic scrap in Engine Room.</target>
       </segment>
       <segment id="trash_load.lore" state="translated">
         <source>trash_load.lore</source>

@@ -315,7 +315,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                 'projectKey' => 'armour_corridor',
                 'projectName' => 'Coursives blindées',
                 'projectDescription' => 'Chaque attaque subie par le Daedalus est diminuée d\'un point.',
-                'projectLore' => 'Eurêka ! Dans Magellan, les fibres optiques qui longent les coursives peuvent se compresser automatiquement pour pouvoir rajouter facilement des câbles. En injectant des câbles en trop, vous pouvez créer une pseudo armure !',
+                'projectLore' => 'Eurêka ! Dans Magellan, les fibres optiques qui longent les coursives peuvent se compresser automatiquement pour pouvoir rajouter facilement des câbles. En injectant des câbles en trop, vous pouvez créer une pseudo-armure !',
                 'projectEfficiency' => 'Efficacité : 3-4%',
                 'projectBonusSkills' => [
                     [
@@ -708,8 +708,8 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
             [
                 'projectKey' => 'neron_project_thread',
                 'projectName' => 'Participation de NERON',
-                'projectDescription' => 'Si un projet est au dessus de 0%, il est automatiquement amélioré de 5% à chaque cycle.',
-                'projectLore' => 'Après une engueulade NERON devient souvent plus productif, surtout pour bosser sur lui-même. Vous installez un réveil qui insulte sa mémoire vive automatiquement tous les heures.',
+                'projectDescription' => 'Si un projet est au-dessus de 0%, il est automatiquement amélioré de 5% à chaque cycle.',
+                'projectLore' => 'Après une engueulade NERON devient souvent plus productif, surtout pour bosser sur lui-même. Vous installez un réveil qui insulte sa mémoire vive automatiquement toutes les heures.',
                 'projectEfficiency' => 'Efficacité : 6-9%',
                 'projectBonusSkills' => [
                     [
@@ -847,7 +847,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
             [
                 'projectKey' => 'floor_heating',
                 'projectName' => 'Chauffage au sol',
-                'projectDescription' => 'Diminue de 50% les blessures dûes aux actions.',
+                'projectDescription' => 'Diminue de 50% les blessures dues aux actions.',
                 'projectLore' => 'Fini le froid stellaire du parquet du Daedalus. Désormais, vous êtes toujours au chaud !',
                 'projectEfficiency' => 'Efficacité : 12-18%',
                 'projectBonusSkills' => [

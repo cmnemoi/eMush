@@ -143,7 +143,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::THALASSO,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 18,
-                'bonusSkills' => [],
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::NURSE],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],

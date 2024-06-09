@@ -595,5 +595,23 @@
         <target>En nous débarrassant d'un moteur auxiliaire dont personne n'a réussi à prouver l'utilité à ce jour, nous pouvons installer deux sièges supplémentaires.</target>
       </segment>
     </unit>
+    <unit id="patrol_ship_launcher">
+      <segment id="patrol_ship_launcher.type" state="translated">
+        <source>patrol_ship_launcher.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="patrol_ship_launcher.name" state="translated">
+        <source>patrol_ship_launcher.name</source>
+        <target>Propulseur de décollage</target>
+      </segment>
+      <segment id="patrol_ship_launcher.description" state="translated">
+        <source>patrol_ship_launcher.description</source>
+        <target>Les manœuvres de décollage vous coûtent moins de :pa:.</target>
+      </segment>
+      <segment id="patrol_ship_launcher.lore" state="translated">
+        <source>patrol_ship_launcher.lore</source>
+        <target>En finissant d'implémenter le noyau des servo-moteurs de la porte, NERON s'est aperçu qu'il y en avait sous la piste ! Et ça accélère sacrément les manœuvres...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

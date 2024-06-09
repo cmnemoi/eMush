@@ -551,6 +551,7 @@ class GameConfigData
                 ProjectName::HYDROPONIC_INCUBATOR,
                 ProjectName::ICARUS_LAVATORY,
                 ProjectName::ICARUS_LARGER_BAY,
+                ProjectName::PATROL_SHIP_LAUNCHER,
             ],
         ],
     ];

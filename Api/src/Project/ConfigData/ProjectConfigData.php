@@ -364,6 +364,18 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::PATROL_SHIP_LAUNCHER,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::PILOT, SkillEnum::PHYSICIST],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_-1action_point_on_action_take_off',
+                ],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

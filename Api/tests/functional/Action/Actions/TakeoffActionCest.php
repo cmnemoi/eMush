@@ -525,6 +525,34 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->assertInstanceOf(CriticalSuccess::class, $result);
     }
 
+    public function shouldCostOneLessActionPointWithPatrolShipLauncherProject(FunctionalTester $I): void
+    {
+        // given takeoff action cost is 2 action points
+        $I->assertEquals(2, $this->action->getActionCost());
+
+        // given player has 2 action points
+        $this->player->setActionPoint(2);
+
+        // given Patrol ship launcher project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::PATROL_SHIP_LAUNCHER),
+            author: $this->player,
+            I: $I
+        );
+
+        // when player takeoffs
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->player,
+            target: $this->pasiphae
+        );
+        $this->takeoffAction->execute();
+
+        // then player should have 1 action point left
+        $I->assertEquals(1, $this->player->getActionPoint());
+    }
+
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void
     {
         /** @var PlaceConfig $pasiphaeRoomConfig */

@@ -676,6 +676,35 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'patrol_ship_launcher',
+                'projectName' => 'Propulseur de décollage',
+                'projectDescription' => 'Les manœuvres de décollage vous coûtent moins de :pa:.',
+                'projectLore' => 'En finissant d\'implémenter le noyau des servo-moteurs de la porte, NERON s\'est aperçu qu\'il y en avait sous la piste ! Et ça accélère sacrément les manœuvres...',
+                'projectEfficiency' => 'Efficacité : 6-9%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'pilot',
+                        'name' => 'Pilote',
+                        'description' => 'Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa
+                    maîtrise aérienne est impressionnante.
+                    //
+                    :point: **Chances doublées** de toucher en Patrouilleur.
+                    //
+                    :point: **Ne rate jamais** les atterrissages et décollages.
+                    //
+                    :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'physicist',
+                        'name' => 'Physicien',
+                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
+                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
+                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
+                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

@@ -2,6 +2,9 @@
 
 PHP_VERSION=8.3.7
 
+set -e
+set -x
+
 echo "This script (install_php_debian.sh) requires sudo permissions to install dependencies. Do you want to continue? (y/n)"
 echo "Note : you should probably not run random scripts from the internet without understanding what they do. I highly suggest you read the script before you answer :)"
 read -r response

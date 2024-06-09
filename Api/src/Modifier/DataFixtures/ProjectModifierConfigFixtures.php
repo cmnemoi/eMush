@@ -11,8 +11,8 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
@@ -30,9 +30,9 @@ use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Enum\EquipmentStatusEnum;
 
 final class ProjectModifierConfigFixtures extends Fixture
 {

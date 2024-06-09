@@ -22,6 +22,9 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -80,6 +83,8 @@ class DaedalusDestroyedOnEndDayCest
             ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
+        $this->createProjects($I, $daedalus);
+
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
@@ -122,5 +127,16 @@ class DaedalusDestroyedOnEndDayCest
         $I->seeInRepository(ClosedDaedalus::class);
         $I->assertEquals(1, $daedalus->getCycle());
         $I->assertEquals(11, $daedalus->getDay());
+    }
+
+    private function createProjects(FunctionalTester $I, Daedalus $daedalus): void
+    {
+        $projects = [ProjectName::NERON_PROJECT_THREAD];
+        foreach ($projects as $project) {
+            $config = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => $project]);
+            $project = new Project($config, $daedalus);
+            $I->haveInRepository($project);
+            $daedalus->addProject($project);
+        }
     }
 }

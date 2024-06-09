@@ -7,6 +7,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
@@ -83,6 +84,8 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
+        $this->createProjects($I, $daedalus);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -101,13 +104,13 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
             ->setName(GamePlantEnum::BANANA_TREE);
         $I->haveInRepository($plantMechanic);
 
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, [
+        /** @var ItemConfig $equipmentConfig */
+        $equipmentConfig = $I->have(ItemConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$plantMechanic]),
         ]);
 
-        $gameEquipment = new GameEquipment($room);
+        $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName(GamePlantEnum::BANANA_TREE);
@@ -154,7 +157,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
 
         // then the log is correcly parametrized
         $logParameters = $roomLog->getParameters();
-        $I->assertEquals($logParameters['equipment'], GamePlantEnum::BANANA_TREE);
+        $I->assertEquals($logParameters['item'], GamePlantEnum::BANANA_TREE);
 
         // then... actually, what is this assertion for ?
         $I->assertCount(0, $room->getStatuses());
@@ -205,15 +208,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         $daedalus->setDaedalusVariables($daedalusConfig);
         $daedalus->setOxygen(10);
 
-        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::HEAT_LAMP]);
-        $project = new Project($projectConfig, $daedalus);
-        $I->haveInRepository($project);
-        $daedalus->addProject($project);
-
-        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::FOOD_RETAILER]);
-        $project = new Project($projectConfig, $daedalus);
-        $I->haveInRepository($project);
-        $daedalus->addProject($project);
+        $this->createProjects($I, $daedalus);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
@@ -407,5 +402,16 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
             expected: $age,
             actual: $bananaTree->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG)->getCharge()
         );
+    }
+
+    private function createProjects(FunctionalTester $I, Daedalus $daedalus): void
+    {
+        $projects = [ProjectName::PARASITE_ELIM, ProjectName::HEAT_LAMP, ProjectName::FOOD_RETAILER];
+        foreach ($projects as $project) {
+            $config = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => $project]);
+            $project = new Project($config, $daedalus);
+            $I->haveInRepository($project);
+            $daedalus->addProject($project);
+        }
     }
 }

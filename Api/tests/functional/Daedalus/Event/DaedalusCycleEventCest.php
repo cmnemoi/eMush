@@ -171,8 +171,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldCreateANeronAnnouncementWhenAutoWateringRemovesFires(FunctionalTester $I): void
     {
-        // given Daedalus is at Day 0 so no incidents are triggered
-        $this->daedalus->setDay(0);
+        $this->setupNoIncidents();
 
         // given auto watering project is finished
         $autoWatering = $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING);
@@ -363,5 +362,13 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
                 'message' => NeronMessageEnum::PATCHING_UP,
             ]
         );
+    }
+
+    private function setupNoIncidents(): void
+    {
+        $this->daedalus->setDay(0);
+        $daedalusConfig = $this->daedalus->getDaedalusConfig();
+        $ref = new \ReflectionClass($daedalusConfig);
+        $ref->getProperty('cyclePerGameDay')->setValue($daedalusConfig, PHP_INT_MAX);
     }
 }

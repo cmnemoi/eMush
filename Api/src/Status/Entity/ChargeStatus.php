@@ -99,16 +99,6 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
         return $this->getStatusConfig()->getMaxCharge();
     }
 
-    public function getMaxChargeOrThrow(): int
-    {
-        $maxCharge = $this->getVariableByName($this->getName())->getMaxValue();
-        if ($maxCharge === null) {
-            throw new \RuntimeException("This status ({$this->getName()}) does not have a max charge.");
-        }
-
-        return $maxCharge;
-    }
-
     public function isAutoRemove(): bool
     {
         return $this->getStatusConfig()->isAutoRemove();
@@ -132,6 +122,16 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
         return ActionProviderOperationalStateEnum::OPERATIONAL;
     }
 
+    public function getMaxChargeOrThrow(): int
+    {
+        $maxCharge = $this->getVariableByName($this->getName())->getMaxValue();
+        if ($maxCharge === null) {
+            throw new \LogicException('Max charge is not set for {$this->getName()} status.');
+        }
+
+        return $maxCharge;
+    }
+
     public function getMaturationTimeOrThrow(): int
     {
         if ($this->getName() !== EquipmentStatusEnum::PLANT_YOUNG) {
@@ -153,19 +153,9 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
     {
         $owner = $this->getOwner();
         if (!$owner instanceof GameItem) {
-            throw new \LogicException("{$owner->getName()} entity should be a GameItem, got {$owner->getClassName()}" instead.);
+            throw new \LogicException("{$owner->getName()} entity should be a GameItem, got {$owner->getClassName()} instead.");
         }
 
         return $owner;
-    }
-
-    private function getMaxChargeOrThrow(): int
-    {
-        $maxCharge = $this->getVariableByName($this->getName())->getMaxValue();
-        if ($maxCharge === null) {
-            throw new \LogicException('Max charge is not set for {$this->getName()} status.');
-        }
-
-        return $maxCharge;
     }
 }

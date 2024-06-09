@@ -124,6 +124,12 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'quantity' => 4,
                 'creationPlaces' => [RoomEnum::ENGINE_ROOM],
             ],
+            [
+                'project' => ProjectName::HYDROPONIC_INCUBATOR->value,
+                'equipment' => EquipmentEnum::HYDROPONIC_INCUBATOR,
+                'quantity' => 1,
+                'creationPlaces' => [RoomEnum::HYDROPONIC_GARDEN],
+            ],
         ];
     }
 
@@ -139,12 +145,6 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'project' => ProjectName::RADAR_TRANS_VOID->value,
                 'equipmentToRemove' => EquipmentEnum::ANTENNA,
                 'equipmentToAdd' => EquipmentEnum::RADAR_TRANS_VOID_ANTENNA,
-            ],
-            [
-                'project' => ProjectName::HYDROPONIC_INCUBATOR->value,
-                'equipment' => EquipmentEnum::HYDROPONIC_INCUBATOR,
-                'quantity' => 1,
-                'creationPlaces' => [RoomEnum::HYDROPONIC_GARDEN],
             ],
             [
                 'project' => ProjectName::APERO_KITCHEN->value,

@@ -318,6 +318,16 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::WHOS_WHO,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 18,
+                'bonusSkills' => [SkillEnum::RADIO_EXPERT, SkillEnum::PARANOID],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

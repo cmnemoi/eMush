@@ -490,7 +490,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     [
                         'key' => 'chef',
                         'name' => 'Cuistot',
-                        'description' => 'Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4 :pa_cook: par jour (points d\'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.',
+                        'description' => 'Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.//:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4 :pa_cook: par jour (points d\'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
             ],
@@ -570,6 +570,28 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'whos_who',
+                'projectName' => 'Protocle ACTOPI',
+                'projectDescription' => 'Affiche l\'identité des équipiers sur le Traqueur.',
+                'projectLore' => 'Affiche un pixel de couleur unique qui indique qui est qui à bord sur le traqueur. Pratique pour traquer les moindres faits et gestes de chacun.',
+                'projectEfficiency' => 'Efficacité : 18-27%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'radio_expert',
+                        'name' => 'Expert radio',
+                        'description' => 'L\'Expert radio peut décoder les enchevêtrements les plus complexes d\'ondes spatiales afin de
+                    reconstituer ou envoyer des messages à l\'autre bout de l\'Univers.//:point: **Double efficacité**
+                    pour établir le **contact** vers Sol.//:point: Améliore les tentatives de **contact** de Sol des
+                    équipiers dans la même pièce de 50%.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'paranoid',
+                        'name' => 'Paranoïaque',
+                        'description' => 'Le Paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce à ses caméras supplémentaires.//:point: Commence avec 2 **Caméras** supplémentaires.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ]
         ];
     }
 }

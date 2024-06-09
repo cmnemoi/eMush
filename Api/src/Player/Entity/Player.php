@@ -775,6 +775,16 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->isMush() === false;
     }
 
+    public function getLanguage(): string
+    {
+        return $this->getDaedalus()->getLanguage();
+    }
+
+    public function getWhosWhoColor(): string
+    {
+        return CharacterEnum::$characterColorMap[$this->getName()];
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);

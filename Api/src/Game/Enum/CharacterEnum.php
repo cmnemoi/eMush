@@ -25,6 +25,27 @@ abstract class CharacterEnum
     public const string NERON = 'neron';
     public const string null = '';
 
+    public static array $characterColorMap = [
+        self::ANDIE => '#DDDDDD',
+        self::CHAO => '#5863B1',
+        self::CHUN => '#DDD3CA',
+        self::DEREK => '#FF4500',
+        self::ELEESHA => '#D08500',
+        self::FINOLA => '#4EA9B6',
+        self::FRIEDA => '#206786',
+        self::GIOELE => '#DD702A',
+        self::HUA => '#805441',
+        self::IAN => '#237C68',
+        self::JANICE => '#B44753',
+        self::JIN_SU => '#C0304C',
+        self::KUAN_TI => '#F39B01',
+        self::PAOLA => '#FF9AFA',
+        self::RALUCA => '#868681',
+        self::ROLAND => '#FFA36D',
+        self::STEPHEN => '#BBBBBB',
+        self::TERRENCE => '#D32837',
+    ];
+
     public static function getAll(): array
     {
         return [

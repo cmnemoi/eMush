@@ -547,6 +547,7 @@ class GameConfigData
                 ProjectName::AUTO_RETURN_ICARUS,
                 ProjectName::RADAR_TRANS_VOID,
                 ProjectName::NERON_TARGETING_ASSIST,
+                ProjectName::WHOS_WHO,
             ],
         ],
     ];

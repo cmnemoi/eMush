@@ -181,7 +181,27 @@
       </segment>
       <segment id="chef.description" state="translated">
         <source>chef.description</source>
-        <target>Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4 :pa_cook: par jour (points d'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.//:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4 :pa_cook: par jour (points d'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
+    <unit id="nurse">
+      <segment id="nurse.name" state="translated">
+        <source>nurse.name</source>
+        <target>Infirmier</target>
+      </segment>
+      <segment id="nurse.description" state="translated">
+        <source>nurse.description</source>
+        <target>L'Infirmier est toujours prêt à rendre service.//:point: +1 :pa_heal: chaque jour (point d'action **Soin**).//:point: Peut lire les **propriétés des médicaments.**//:point: Bonus pour participer à certains **Projets NERON**.</target>
+      </segment>
+    </unit>
+    <unit id="paranoid">
+      <segment id="paranoid.name" state="translated">
+        <source>paranoid.name</source>
+        <target>Paranoïaque</target>
+      </segment>
+      <segment id="paranoid.description" state="translated">
+        <source>paranoid.description</source>
+        <target>Le Paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce à ses caméras supplémentaires.//:point: Commence avec 2 **Caméras** supplémentaires.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
   </file>

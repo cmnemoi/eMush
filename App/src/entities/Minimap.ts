@@ -1,5 +1,11 @@
+type HexColor = `#${string}`;
+
+type ActopiPlayer = {
+    initials: string;
+    color: HexColor;
+};
 export class Minimap {
-    public actopi: Array<number> = [];
+    public actopi: Array<ActopiPlayer> = [];
     public broken_count = 0;
     public broken_doors: Array<string> = [];
     public broken_equipments: Array<string> = [];

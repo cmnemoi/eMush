@@ -184,6 +184,8 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $this->daedalusIncidentService->handleElectricArcEvents($daedalus, $time);
         $this->daedalusIncidentService->handleFireEvents($daedalus, $time);
         $this->daedalusIncidentService->handleCrewDisease($daedalus, $time);
+        $this->daedalusIncidentService->handleOxygenTankBreak($daedalus, $time);
+        $this->daedalusIncidentService->handleFuelTankBreak($daedalus, $time);
     }
 
     private function updateDaedalusCycleJob(DaedalusCycleEvent $event): void

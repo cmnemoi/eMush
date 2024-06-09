@@ -774,4 +774,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     {
         return $this->daedalusInfo->getNeron();
     }
+
+    public function getNumberOfCyclesPerDay(): int
+    {
+        return $this->getDaedalusConfig()->getCyclePerGameDay();
+    }
 }

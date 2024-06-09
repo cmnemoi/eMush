@@ -585,6 +585,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($planet);
 
+        $planetDepths = new PlaceConfig();
+        $planetDepths
+            ->setPlaceName(RoomEnum::PLANET_DEPTHS)
+            ->setType(PlaceTypeEnum::PLANET)
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($planetDepths);
+
         /** @var ArrayCollection $placeCollection */
         $placeCollection = new ArrayCollection([
             $bridge,
@@ -596,7 +603,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             $alphaDorm, $bravoDorm,
             $frontStorage, $centerAlphaStorage, $centreBravoStorage, $rearAlphaStorage, $rearBravoStorage, $space,
             $patrolship_alpha_2_wallis, $patrolship_alpha_longane, $patrolship_alpha_jujube, $patrolship_alpha_tamarin,
-            $patrolship_bravo_socrate, $patrolship_bravo_planton, $patrolship_bravo_epicure, $pasiphae, $planet,
+            $patrolship_bravo_socrate, $patrolship_bravo_planton, $patrolship_bravo_epicure, $pasiphae, $planet, $planetDepths,
         ]);
         $daedalusConfig->setPlaceConfigs($placeCollection);
         $manager->persist($daedalusConfig);
@@ -640,6 +647,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(RoomEnum::PATROL_SHIP_BRAVO_EPICURE, $patrolship_bravo_epicure);
         $this->addReference(RoomEnum::PASIPHAE, $pasiphae);
         $this->addReference(RoomEnum::PLANET, $planet);
+        $this->addReference(RoomEnum::PLANET_DEPTHS, $planetDepths);
     }
 
     public function getDependencies(): array

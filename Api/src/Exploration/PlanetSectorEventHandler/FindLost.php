@@ -12,6 +12,8 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -19,20 +21,16 @@ final class FindLost extends AbstractPlanetSectorEventHandler
 {
     private const NUMBER_OF_DESCRIPTIONS = 2;
 
-    private AddPlayerToExplorationTeamServiceInterface $addPlayerToExplorationTeam;
-    private StatusServiceInterface $statusService;
-
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
         TranslationServiceInterface $translationService,
-        AddPlayerToExplorationTeamServiceInterface $addPlayerToExplorationTeam,
-        StatusServiceInterface $statusService
+        private AddPlayerToExplorationTeamServiceInterface $addPlayerToExplorationTeam,
+        private StatusServiceInterface $statusService,
+        private PlayerServiceInterface $playerService
     ) {
         parent::__construct($entityManager, $eventService, $randomService, $translationService);
-        $this->addPlayerToExplorationTeam = $addPlayerToExplorationTeam;
-        $this->statusService = $statusService;
     }
 
     public function getName(): string
@@ -42,12 +40,14 @@ final class FindLost extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
+        $daedalus = $event->getExploration()->getDaedalus();
         $exploration = $event->getExploration();
         $foundPlayer = $this->randomService->getRandomPlayer($exploration->getDaedalus()->getLostPlayers());
         if (!$exploration->getExplorators()->contains($foundPlayer)) {
             $this->addPlayerToExplorationTeam->execute($foundPlayer, $exploration);
         }
 
+        $this->playerService->changePlace($foundPlayer, $daedalus->getPlaceByNameOrThrow(RoomEnum::PLANET));
         $this->statusService->removeStatus(
             statusName: PlayerStatusEnum::LOST,
             holder: $foundPlayer,

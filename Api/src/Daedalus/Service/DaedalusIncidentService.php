@@ -273,7 +273,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
          * The idea of `earlyStart` is to have more incidents at the beginning of the game,
          * to compensate the lack of researches and communications terminal.
          */
-        $earlyStart = 0.4 / $daedalus->getNumberOfCyclesPerDay();
+        $earlyStart = 0.8 / $daedalus->getNumberOfCyclesPerDay();
         $averageIncidentsPerCycle = 3.3 * 10 ** (-3) * $daedalus->getDay() ** 1.7;
 
         return $this->getRandomPoissonInteger->execute(max($earlyStart, $averageIncidentsPerCycle));

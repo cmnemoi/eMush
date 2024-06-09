@@ -17,6 +17,7 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
@@ -2222,6 +2223,26 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::TAKEOFF->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::LAND->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'modifier_for_daedalus_x2_turret_charges_on_new_cycle',
+            'modifierName' => null,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'daedalus',
+            'type' => 'variable_event_modifier',
+            'visibility' => null,
+            'delta' => 2,
+            'targetVariable' => EquipmentStatusEnum::ELECTRIC_CHARGES,
+            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                EquipmentEnum::TURRET_COMMAND => ModifierRequirementEnum::ALL_TAGS,
+                EventEnum::NEW_CYCLE => ModifierRequirementEnum::ALL_TAGS,
+                VariableEventInterface::GAIN => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
         [

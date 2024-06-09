@@ -631,5 +631,23 @@
         <target>Après une engueulade NERON devient souvent plus productif, surtout pour bosser sur lui-même. Vous installez un réveil qui insulte sa mémoire vive automatiquement tous les heures.</target>
       </segment>
     </unit>
+    <unit id="turret_extra_fire_rate">
+      <segment id="turret_extra_fire_rate.type" state="translated">
+        <source>turret_extra_fire_rate.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="turret_extra_fire_rate.name" state="translated">
+        <source>turret_extra_fire_rate.name</source>
+        <target>Pulsateur inversé</target>
+      </segment>
+      <segment id="turret_extra_fire_rate.description" state="translated">
+        <source>turret_extra_fire_rate.description</source>
+        <target>Les tourelles se rechargent deux fois plus vite.</target>
+      </segment>
+      <segment id="turret_extra_fire_rate.lore" state="translated">
+        <source>turret_extra_fire_rate.lore</source>
+        <target>En inversant les priorités du modulateur Tesla des tourelles, il est possible de doubler leur cadence !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -144,4 +144,19 @@ class EquipmentEnum
 
         return new ArrayCollection($criticalItems);
     }
+
+    public static function getPilotingCrewLockRestrictedTerminals(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::PATROL_SHIP_ALPHA_LONGANE,
+            self::PATROL_SHIP_ALPHA_JUJUBE,
+            self::PATROL_SHIP_ALPHA_TAMARIN,
+            self::PATROL_SHIP_BRAVO_SOCRATE,
+            self::PATROL_SHIP_BRAVO_EPICURE,
+            self::PATROL_SHIP_BRAVO_PLANTON,
+            self::PATROL_SHIP_ALPHA_2_WALLIS,
+            self::PASIPHAE,
+            self::ICARUS,
+        ]);
+    }
 }

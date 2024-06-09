@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Action\Validator;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
 use Mush\Equipment\Entity\GameEquipment;
@@ -53,17 +54,17 @@ final class NeronCrewLockValidator extends ConstraintValidator
         };
     }
 
-    private function getRestrictedTerminals(string $crewLock): array
+    private function getRestrictedTerminals(string $crewLock): ArrayCollection
     {
         return match ($crewLock) {
-            NeronCrewLockEnum::PILOTING->value => EquipmentEnum::getPatrolShips()->toArray(),
-            NeronCrewLockEnum::PROJECTS->value => EquipmentEnum::getProjectTerminals()->toArray(),
-            default => [],
+            NeronCrewLockEnum::PILOTING->value => EquipmentEnum::getPilotingCrewLockRestrictedTerminals(),
+            NeronCrewLockEnum::PROJECTS->value => EquipmentEnum::getProjectTerminals(),
+            default => new ArrayCollection(),
         };
     }
 
-    private function isTerminalRestricted(GameEquipment $terminal, array $restrictedTerminals): bool
+    private function isTerminalRestricted(GameEquipment $terminal, ArrayCollection $restrictedTerminals): bool
     {
-        return \in_array($terminal->getName(), $restrictedTerminals, true);
+        return $restrictedTerminals->contains($terminal->getName());
     }
 }

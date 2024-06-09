@@ -14,7 +14,6 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NeronCrewLock;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -59,7 +58,6 @@ final class AccessTerminal extends AbstractAction
             'message' => ActionImpossibleCauseEnum::TERMINAL_ROLE_RESTRICTED,
         ]));
         $metadata->addConstraint(new NeronCrewLock([
-            'terminals' => [EquipmentEnum::NERON_CORE, EquipmentEnum::AUXILIARY_TERMINAL],
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::TERMINAL_NERON_LOCK,
         ]));

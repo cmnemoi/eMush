@@ -215,4 +215,28 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         // then the action is executable
         $I->assertNull($this->accessTerminal->cannotExecuteReason());
     }
+
+    public function shouldBeExecutableOnNeronCoreForANonConceptorWithPilotingCrewLock(FunctionalTester $I): void
+    {
+        // given a NERON's core in player2's place
+        $neronCore = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::NERON_CORE,
+            equipmentHolder: $this->player2->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Crew Lock is set to piloting
+
+        // when player2 access NERON's core
+        $this->accessTerminal->loadParameters(
+            actionConfig: $this->accessTerminalConfig,
+            actionProvider: $neronCore,
+            player: $this->player2,
+            target: $neronCore
+        );
+
+        // then the action is executable
+        $I->assertNull($this->accessTerminal->cannotExecuteReason());
+    }
 }

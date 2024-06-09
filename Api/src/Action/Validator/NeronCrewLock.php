@@ -10,6 +10,4 @@ namespace Mush\Action\Validator;
 final class NeronCrewLock extends ClassConstraint
 {
     public string $message = 'player do not have the skill satisfying the Neron Crew Lock';
-
-    public array $terminals = [];
 }

@@ -15,6 +15,7 @@ abstract class EventPriorityEnum
     public const int HIGHEST = 1000;
 
     // those priority are for cycle changes
+    public const int NERON_PROJECT_THREAD = 14; // NERON makes projects progress before oxygen consumption
     public const int DAEDALUS_VARIABLES = 12; // oxygen consumption
     public const int PLAYERS = 10; // New points for players // effect of player statuses
     public const int EQUIPMENTS = 8;  // recharge, effect of statuses

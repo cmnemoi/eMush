@@ -134,7 +134,7 @@ class AbstractGameEvent extends Event
     {
         $player = $this->author;
 
-        if ($player === null) {
+        if (!$player || $player->isNull()) {
             return new ModifierCollection();
         }
 

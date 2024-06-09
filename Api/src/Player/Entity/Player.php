@@ -42,6 +42,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Project\Entity\Project;
 use Mush\Project\ValueObject\PlayerEfficiency;
@@ -124,6 +125,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->modifiers = new ModifierCollection();
         $this->planets = new ArrayCollection();
         $this->favoriteMessages = new ArrayCollection();
+    }
+
+    public static function createNull(): self
+    {
+        return PlayerFactory::createNullPlayer();
     }
 
     public function getId(): int

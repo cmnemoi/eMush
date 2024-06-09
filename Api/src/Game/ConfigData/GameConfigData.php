@@ -552,6 +552,7 @@ class GameConfigData
                 ProjectName::ICARUS_LAVATORY,
                 ProjectName::ICARUS_LARGER_BAY,
                 ProjectName::PATROL_SHIP_LAUNCHER,
+                ProjectName::NERON_PROJECT_THREAD,
             ],
         ],
     ];

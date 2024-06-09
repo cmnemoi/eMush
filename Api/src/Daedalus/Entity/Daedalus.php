@@ -27,6 +27,7 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Project\Collection\ProjectCollection;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Exception\DaedalusShouldHaveProjectException;
@@ -659,9 +660,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->projects->filter(static fn (Project $project) => $project->isAvailableNeronProject());
     }
 
-    public function getProposedNeronProjects(): Collection
+    public function getProposedNeronProjects(): ProjectCollection
     {
-        return $this->projects->filter(static fn (Project $project) => $project->isProposedNeronProject());
+        return new ProjectCollection($this->projects->filter(static fn (Project $project) => $project->isProposedNeronProject())->toArray());
     }
 
     public function hasProposedNeronProjects(): bool

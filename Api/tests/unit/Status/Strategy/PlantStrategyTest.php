@@ -2,15 +2,22 @@
 
 namespace Mush\Tests\unit\Status\Strategy;
 
-use Mockery;
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Equipment\Enum\GamePlantEnum;
+use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\Enum\EventEnum;
-use Mush\Player\Entity\Player;
+use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Enum\ProjectName;
+use Mush\Project\Factory\ProjectFactory;
 use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
 use Mush\Status\ChargeStrategies\PlantStrategy;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\FakeStatusService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,16 +25,27 @@ use PHPUnit\Framework\TestCase;
  */
 final class PlantStrategyTest extends TestCase
 {
-    /** @var Mockery\Mock|StatusServiceInterface */
-    private StatusServiceInterface $statusService;
     private AbstractChargeStrategy $strategy;
+
+    private FakeStatusService $statusService;
+
+    private ChargeStatus $youngStatus;
+
+    private Daedalus $daedalus;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+        $this->youngStatus = $this->createYoungStatusForPlantInGarden();
+        $this->daedalus = $this->youngStatus->getOwner()->getDaedalus();
+        ProjectFactory::createNeronProjectByNameForDaedalus(
+            ProjectName::PARASITE_ELIM,
+            $this->daedalus
+        );
+
+        $this->statusService = new FakeStatusService();
 
         $this->strategy = new PlantStrategy($this->statusService);
     }
@@ -37,48 +55,60 @@ final class PlantStrategyTest extends TestCase
      */
     public function after()
     {
-        \Mockery::close();
+        $this->statusService->statuses->clear();
     }
 
-    public function testIncrement()
+    public function testShouldIncrementStatusCharge(): void
     {
-        $status = $this->createStatus();
         $time = new \DateTime();
 
-        $this->statusService->shouldReceive('updateCharge')
-            ->with($status, 1, [EventEnum::NEW_CYCLE], $time)
-            ->andReturn($status)
-            ->once();
+        $this->strategy->execute($this->youngStatus, [EventEnum::NEW_CYCLE], $time);
 
-        $this->strategy->execute($status, [EventEnum::NEW_CYCLE], $time);
+        self::assertEquals(1, $this->youngStatus->getCharge());
     }
 
-    public function testMaturity()
+    public function testShouldMakePlantMature(): void
     {
-        $status = $this->createStatus();
-        $status->setCharge(10);
+        $this->youngStatus->setCharge(10);
         $time = new \DateTime();
 
-        $this->statusService->shouldReceive('updateCharge')
-            ->with($status, 1, [EventEnum::NEW_CYCLE], $time)
-            ->andReturn($status)
-            ->once();
-        $this->statusService->shouldReceive('removeStatus')->once();
+        $this->strategy->execute($this->youngStatus, [EventEnum::NEW_CYCLE], $time);
 
-        $this->strategy->execute($status, [EventEnum::NEW_CYCLE], $time);
+        self::assertNull($this->statusService->getByNameOrNull($this->youngStatus->getName()));
     }
 
-    private function createStatus(): ChargeStatus
+    public function testShouldMakePlantMatureEarlyWithParasiteElimProject(): void
     {
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig
+        // given a young plant is 6 cycles old
+        $this->youngStatus->setCharge(6);
+
+        // given parasite elim project is completed
+        $this->daedalus->getProjectByName(ProjectName::PARASITE_ELIM)->makeProgress(100);
+
+        // when the plant grows
+        $this->strategy->execute($this->youngStatus, [EventEnum::NEW_CYCLE], new \DateTime());
+
+        // then the plant should mature (4 cycles earlier)
+        self::assertNull($this->statusService->getByNameOrNull($this->youngStatus->getName()));
+    }
+
+    private function createYoungStatusForPlantInGarden(): ChargeStatus
+    {
+        $plant = GameEquipmentFactory::createItemByNameForHolder(
+            GamePlantEnum::BANANA_TREE,
+            Place::createRoomByNameInDaedalus(RoomEnum::HYDROPONIC_GARDEN, DaedalusFactory::createDaedalus())
+        );
+
+        $youngStatusConfig = new ChargeStatusConfig();
+        $youngStatusConfig
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->setMaxCharge(10)
-            ->setStatusName('status');
-        $status = new ChargeStatus(new Player(), $statusConfig);
-        $status->getVariableByName($status->getName())->setValue(0);
-        $status->getVariableByName($status->getName())->setMaxValue(10);
+            ->setStatusName(EquipmentStatusEnum::PLANT_YOUNG)
+            ->setAutoRemove(true);
+        $youngStatus = new ChargeStatus($plant, $youngStatusConfig);
+        $youngStatus->getVariableByName($youngStatus->getName())->setValue(0);
+        $youngStatus->getVariableByName($youngStatus->getName())->setMaxValue(10);
 
-        return $status;
+        return $youngStatus;
     }
 }

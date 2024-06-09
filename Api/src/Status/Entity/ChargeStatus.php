@@ -5,10 +5,14 @@ namespace Mush\Status\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 #[ORM\Entity]
@@ -126,5 +130,42 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
         }
 
         return ActionProviderOperationalStateEnum::OPERATIONAL;
+    }
+
+    public function getMaturationTimeOrThrow(): int
+    {
+        if ($this->getName() !== EquipmentStatusEnum::PLANT_YOUNG) {
+            throw new \LogicException("Charge status should be plant_young status for its maturation time be calculated, got {$this->getName()} instead.");
+        }
+
+        $plant = $this->getItemOwnerOrThrow();
+        $parasiteElimProject = $plant->getDaedalus()->getProjectByName(ProjectName::PARASITE_ELIM);
+
+        $maturationTime = $this->getMaxChargeOrThrow();
+        if ($parasiteElimProject->isFinished() && $plant->isInPlaceByName(RoomEnum::HYDROPONIC_GARDEN)) {
+            $maturationTime -= $parasiteElimProject->getActivationRate();
+        }
+
+        return $maturationTime;
+    }
+
+    private function getItemOwnerOrThrow(): GameItem
+    {
+        $owner = $this->getOwner();
+        if (!$owner instanceof GameItem) {
+            throw new \LogicException("{$owner->getName()} entity should be a GameItem, got {$owner->getClassName()}" instead.);
+        }
+
+        return $owner;
+    }
+
+    private function getMaxChargeOrThrow(): int
+    {
+        $maxCharge = $this->getVariableByName($this->getName())->getMaxValue();
+        if ($maxCharge === null) {
+            throw new \LogicException('Max charge is not set for {$this->getName()} status.');
+        }
+
+        return $maxCharge;
     }
 }

@@ -54,7 +54,9 @@ final class FakeStatusService implements StatusServiceInterface
         array $tags,
         \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN
-    ): void {}
+    ): void {
+        $this->statuses->remove($statusName);
+    }
 
     public function createStatusFromConfig(
         StatusConfig $statusConfig,
@@ -134,7 +136,14 @@ final class FakeStatusService implements StatusServiceInterface
         \DateTime $time,
         string $mode = VariableEventInterface::CHANGE_VARIABLE
     ): ?ChargeStatus {
-        $chargeStatus->setCharge($chargeStatus->getCharge() + $delta);
+        $chargeVariable = $chargeStatus->getVariableByName($chargeStatus->getName());
+        $chargeVariable->changeValue($delta);
+
+        if ($chargeStatus->isAutoRemove() && $chargeVariable->isMin()) {
+            $this->removeStatus($chargeStatus->getName(), $chargeStatus->getOwner(), $tags, $time);
+
+            return null;
+        }
 
         $this->persist($chargeStatus);
 
@@ -190,5 +199,10 @@ final class FakeStatusService implements StatusServiceInterface
         $status->setContent($content);
 
         return $this->persist($status);
+    }
+
+    public function getByNameOrNull(string $name): ?Status
+    {
+        return $this->statuses->get($name) ?: null;
     }
 }

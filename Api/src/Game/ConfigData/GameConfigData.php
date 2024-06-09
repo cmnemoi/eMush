@@ -561,6 +561,7 @@ class GameConfigData
                 ProjectName::NOISE_REDUCER,
                 ProjectName::APERO_KITCHEN,
                 ProjectName::FLOOR_HEATING,
+                ProjectName::PARASITE_ELIM,
             ],
         ],
     ];

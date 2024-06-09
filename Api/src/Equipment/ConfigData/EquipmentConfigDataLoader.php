@@ -4,7 +4,7 @@ namespace Mush\Equipment\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Repository\ActionRepository;
+use Mush\Action\Repository\ActionConfigRepository;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\EquipmentMechanic as Mechanics;
 use Mush\Equipment\Repository\EquipmentConfigRepository;
@@ -15,20 +15,20 @@ use Mush\Status\Repository\StatusConfigRepository;
 class EquipmentConfigDataLoader extends ConfigDataLoader
 {
     protected EquipmentConfigRepository $equipmentConfigRepository;
-    protected ActionRepository $actionRepository;
+    protected ActionConfigRepository $actionConfigRepository;
     protected MechanicsRepository $mechanicsRepository;
     protected StatusConfigRepository $statusConfigRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EquipmentConfigRepository $equipmentConfigRepository,
-        ActionRepository $actionRepository,
+        ActionConfigRepository $actionConfigRepository,
         MechanicsRepository $mechanicsRepository,
         StatusConfigRepository $statusConfigRepository
     ) {
         parent::__construct($entityManager);
         $this->equipmentConfigRepository = $equipmentConfigRepository;
-        $this->actionRepository = $actionRepository;
+        $this->actionConfigRepository = $actionConfigRepository;
         $this->mechanicsRepository = $mechanicsRepository;
         $this->statusConfigRepository = $statusConfigRepository;
     }
@@ -73,7 +73,7 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
         $actions = [];
         foreach ($equipmentConfigData['actions'] as $actionName) {
             /** @var ActionConfig $action */
-            $action = $this->actionRepository->findOneBy(['name' => $actionName]);
+            $action = $this->actionConfigRepository->findOneBy(['name' => $actionName]);
             if ($action === null) {
                 throw new \Exception('ActionConfig not found: ' . $actionName);
             }

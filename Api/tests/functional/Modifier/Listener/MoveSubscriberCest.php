@@ -28,6 +28,9 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -58,6 +61,11 @@ class MoveSubscriberCest
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::ICARUS_LARGER_BAY]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+        $daedalus->addProject($project);
 
         // Given 2 rooms joined by a door
         $this->currentRoom = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'currentPlace']);

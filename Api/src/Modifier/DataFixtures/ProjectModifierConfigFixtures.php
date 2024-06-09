@@ -21,6 +21,7 @@ use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
@@ -162,6 +163,66 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($icarusLavatoryModifier);
         $this->addReference($icarusLavatoryModifier->getName(), $icarusLavatoryModifier);
+
+        $radarTransVoidModifier = new VariableEventModifierConfig('modifier_for_daedalus_x2_signal_on_action_contact_sol');
+        $radarTransVoidModifier
+            ->setTargetVariable(ActionVariableEnum::OUTPUT_QUANTITY)
+            ->setDelta(2)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
+            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
+            ->setTagConstraints([ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($radarTransVoidModifier);
+        $this->addReference($radarTransVoidModifier->getName(), $radarTransVoidModifier);
+
+        $neronTargetingAssistModifier = new VariableEventModifierConfig('modifier_for_daedalus_x1.25_percentage_on_shoot_hunter');
+        $neronTargetingAssistModifier
+            ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->setDelta(1.25)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
+            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
+            ->setTagConstraints([
+                ActionEnum::SHOOT_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_RANDOM_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($neronTargetingAssistModifier);
+        $this->addReference($neronTargetingAssistModifier->getName(), $neronTargetingAssistModifier);
+
+        $hydroponicIncubatorModifier = VariableEventModifierConfig::fromConfigData(ModifierConfigData::getByName('modifier_for_place_x2_maturation_time'));
+        $manager->persist($hydroponicIncubatorModifier);
+        $this->addReference($hydroponicIncubatorModifier->getName(), $hydroponicIncubatorModifier);
+
+        $icarusLavatoryModifier = new EventModifierConfig('modifier_for_player_prevent_dirty_for_exploration_finished');
+        $icarusLavatoryModifier
+            ->setApplyWhenTargeted(true)
+            ->setTargetEvent(StatusEvent::STATUS_APPLIED)
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
+            ->setTagConstraints([
+                PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ALL_TAGS,
+                ExplorationEvent::EXPLORATION_FINISHED => ModifierRequirementEnum::ALL_TAGS,
+            ])
+            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $manager->persist($icarusLavatoryModifier);
+        $this->addReference($icarusLavatoryModifier->getName(), $icarusLavatoryModifier);
+
+        $icarusLargerBayModifier = new VariableEventModifierConfig('modifier_for_daedalus_+2players_allowed_on_takeoff_to_planet');
+        $icarusLargerBayModifier
+            ->setTargetVariable(ActionVariableEnum::OUTPUT_QUANTITY)
+            ->setDelta(2)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([ActionEnum::TAKEOFF_TO_PLANET->value => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierName(ModifierNameEnum::ICARUS_LARGER_BAY_MODIFIER);
+        $manager->persist($icarusLargerBayModifier);
+        $this->addReference($icarusLargerBayModifier->getName(), $icarusLargerBayModifier);
 
         $manager->flush();
     }

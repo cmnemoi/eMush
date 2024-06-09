@@ -645,6 +645,37 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'icarus_larger_bay',
+                'projectName' => 'Agrandissement de la cale',
+                'projectDescription' => 'L\'Icarus peut transporter 2 personnes supplémentaires.',
+                'projectLore' => 'En nous débarrassant d\'un moteur auxiliaire dont personne n\'a réussi à prouver l\'utilité à ce jour, nous pouvons installer deux sièges supplémentaires.',
+                'projectEfficiency' => 'Efficacité : 6-9%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'pilot',
+                        'name' => 'Pilote',
+                        'description' => 'Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa
+                    maîtrise aérienne est impressionnante.
+                    //
+                    :point: **Chances doublées** de toucher en Patrouilleur.
+                    //
+                    :point: **Ne rate jamais** les atterrissages et décollages.
+                    //
+                    :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'technician',
+                        'name' => 'Technicien',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
+        :point: Peut **Démonter** des objets.//
+        :point: Chances de réussites doublées pour les **Réparations**.//
+        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

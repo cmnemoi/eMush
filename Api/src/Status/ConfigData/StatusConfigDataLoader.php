@@ -4,7 +4,7 @@ namespace Mush\Status\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Repository\ActionRepository;
+use Mush\Action\Repository\ActionConfigRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Repository\ModifierConfigRepository;
@@ -15,18 +15,18 @@ class StatusConfigDataLoader extends ConfigDataLoader
 {
     protected StatusConfigRepository $statusConfigRepository;
     protected ModifierConfigRepository $modifierConfigRepository;
-    protected ActionRepository $actionRepository;
+    protected ActionConfigRepository $actionConfigRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         StatusConfigRepository $statusConfigRepository,
         ModifierConfigRepository $modifierConfigRepository,
-        ActionRepository $actionRepository
+        ActionConfigRepository $actionConfigRepository
     ) {
         parent::__construct($entityManager);
         $this->statusConfigRepository = $statusConfigRepository;
         $this->modifierConfigRepository = $modifierConfigRepository;
-        $this->actionRepository = $actionRepository;
+        $this->actionConfigRepository = $actionConfigRepository;
     }
 
     public function loadConfigsData(): void
@@ -72,7 +72,7 @@ class StatusConfigDataLoader extends ConfigDataLoader
         $actionConfigs = [];
         foreach ($actionConfigsArray as $actionConfigName) {
             /** @var ActionConfig $actionConfig */
-            $actionConfig = $this->actionRepository->findOneBy(['name' => $actionConfigName]);
+            $actionConfig = $this->actionConfigRepository->findOneBy(['name' => $actionConfigName]);
             if ($actionConfig === null) {
                 throw new \Exception("Action config {$actionConfigName} not found");
             }

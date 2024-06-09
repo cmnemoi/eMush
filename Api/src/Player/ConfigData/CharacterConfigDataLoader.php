@@ -4,7 +4,7 @@ namespace Mush\Player\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Repository\ActionRepository;
+use Mush\Action\Repository\ActionConfigRepository;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Repository\EquipmentConfigRepository;
@@ -16,7 +16,7 @@ use Mush\Status\Repository\StatusConfigRepository;
 class CharacterConfigDataLoader extends ConfigDataLoader
 {
     private CharacterConfigRepository $characterConfigRepository;
-    private ActionRepository $actionRepository;
+    private ActionConfigRepository $actionConfigRepository;
     private DiseaseConfigRepository $diseaseConfigRepository;
     private EquipmentConfigRepository $itemConfigRepository;
     private StatusConfigRepository $statusConfigRepository;
@@ -24,14 +24,14 @@ class CharacterConfigDataLoader extends ConfigDataLoader
     public function __construct(
         EntityManagerInterface $entityManager,
         CharacterConfigRepository $characterConfigRepository,
-        ActionRepository $actionRepository,
+        ActionConfigRepository $actionConfigRepository,
         DiseaseConfigRepository $diseaseConfigRepository,
         EquipmentConfigRepository $itemConfigRepository,
         StatusConfigRepository $statusConfigRepository
     ) {
         parent::__construct($entityManager);
         $this->characterConfigRepository = $characterConfigRepository;
-        $this->actionRepository = $actionRepository;
+        $this->actionConfigRepository = $actionConfigRepository;
         $this->diseaseConfigRepository = $diseaseConfigRepository;
         $this->itemConfigRepository = $itemConfigRepository;
         $this->statusConfigRepository = $statusConfigRepository;
@@ -82,7 +82,7 @@ class CharacterConfigDataLoader extends ConfigDataLoader
         $actions = [];
         foreach ($characterConfigData['actions'] as $actionName) {
             /** @var ActionConfig $action */
-            $action = $this->actionRepository->findOneBy(['name' => $actionName]);
+            $action = $this->actionConfigRepository->findOneBy(['name' => $actionName]);
             if ($action === null) {
                 throw new \Exception('ActionConfig not found: ' . $actionName);
             }

@@ -577,5 +577,23 @@
         <target>Quel magnifique lavabo inoxydable, vous n'avez plus d'excuses pour ne pas vous laver les mains entre chaque mission.</target>
       </segment>
     </unit>
+    <unit id="icarus_larger_bay">
+      <segment id="icarus_larger_bay.type" state="translated">
+        <source>icarus_larger_bay.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="icarus_larger_bay.name" state="translated">
+        <source>icarus_larger_bay.name</source>
+        <target>Agrandissement de la cale</target>
+      </segment>
+      <segment id="icarus_larger_bay.description" state="translated">
+        <source>icarus_larger_bay.description</source>
+        <target>L'Icarus peut transporter 2 personnes supplémentaires.</target>
+      </segment>
+      <segment id="icarus_larger_bay.lore" state="translated">
+        <source>icarus_larger_bay.lore</source>
+        <target>En nous débarrassant d'un moteur auxiliaire dont personne n'a réussi à prouver l'utilité à ce jour, nous pouvons installer deux sièges supplémentaires.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

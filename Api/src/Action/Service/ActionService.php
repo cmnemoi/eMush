@@ -8,7 +8,7 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
-use Mush\Action\Repository\ActionRepository;
+use Mush\Action\Repository\ActionConfigRepository;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -17,14 +17,14 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 class ActionService implements ActionServiceInterface
 {
     private EventServiceInterface $eventService;
-    private ActionRepository $actionRepository;
+    private ActionConfigRepository $actionConfigRepository;
 
     public function __construct(
         EventServiceInterface $eventService,
-        ActionRepository $actionRepository
+        ActionConfigRepository $actionConfigRepository
     ) {
         $this->eventService = $eventService;
-        $this->actionRepository = $actionRepository;
+        $this->actionConfigRepository = $actionConfigRepository;
     }
 
     public function applyCostToPlayer(
@@ -171,7 +171,7 @@ class ActionService implements ActionServiceInterface
         bool $dispatch
     ): int {
         /** @var ActionConfig $convertActionConfig */
-        $convertActionConfig = $this->actionRepository->findOneBy([
+        $convertActionConfig = $this->actionConfigRepository->findOneBy([
             'actionName' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT,
         ]);
 

@@ -48,6 +48,9 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Tests\FunctionalTester;
@@ -83,6 +86,11 @@ class ActionSubscriberCest
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::ICARUS_LARGER_BAY]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+        $daedalus->addProject($project);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -309,6 +317,11 @@ class ActionSubscriberCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::ICARUS_LARGER_BAY]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+        $daedalus->addProject($project);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -418,6 +431,11 @@ class ActionSubscriberCest
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::ICARUS_LARGER_BAY]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+        $daedalus->addProject($project);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -529,6 +547,11 @@ class ActionSubscriberCest
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::ICARUS_LARGER_BAY]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+        $daedalus->addProject($project);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -645,6 +668,11 @@ class ActionSubscriberCest
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::ICARUS_LARGER_BAY]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+        $daedalus->addProject($project);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -822,6 +850,11 @@ class ActionSubscriberCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::ICARUS_LARGER_BAY]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+        $daedalus->addProject($project);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -990,6 +1023,11 @@ class ActionSubscriberCest
         $daedalusInfo
             ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::ICARUS_LARGER_BAY]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+        $daedalus->addProject($project);
 
         $channel = new Channel();
         $channel

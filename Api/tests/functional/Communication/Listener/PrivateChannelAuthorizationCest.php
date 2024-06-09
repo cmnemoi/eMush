@@ -36,6 +36,9 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
@@ -194,6 +197,11 @@ class PrivateChannelAuthorizationCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::ICARUS_LARGER_BAY]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+        $daedalus->addProject($project);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -341,6 +349,11 @@ class PrivateChannelAuthorizationCest
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::ICARUS_LARGER_BAY]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+        $daedalus->addProject($project);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -647,6 +660,11 @@ class PrivateChannelAuthorizationCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::ICARUS_LARGER_BAY]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+        $daedalus->addProject($project);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);

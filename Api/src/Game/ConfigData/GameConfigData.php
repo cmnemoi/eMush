@@ -550,6 +550,7 @@ class GameConfigData
                 ProjectName::WHOS_WHO,
                 ProjectName::HYDROPONIC_INCUBATOR,
                 ProjectName::ICARUS_LAVATORY,
+                ProjectName::ICARUS_LARGER_BAY,
             ],
         ],
     ];

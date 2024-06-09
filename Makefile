@@ -1,3 +1,5 @@
+UNAME := $(shell uname -s)
+
 bash-apache:
 	docker exec -it mush_apache bash
 
@@ -67,8 +69,14 @@ install-pre-commit-hooks: install-php
 	composer cghooks update
 
 install-php:
-	chmod +x ./install_php.sh
-	./install_php.sh
+ifeq ($(UNAME), Linux)
+	chmod +x ./install_php_debian.sh
+	./install_php_debian.sh
+endif
+ifeq ($(UNAME), Darwin)
+	chmod +x ./install_php_macos.sh
+	./install_php_macos.sh
+endif
 
 remove-all: #Warning, it will remove EVERY container, images, volumes and network not only emushs ones
 	docker system prune --volumes -a

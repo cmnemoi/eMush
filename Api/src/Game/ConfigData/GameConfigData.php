@@ -556,6 +556,7 @@ class GameConfigData
                 ProjectName::NERON_PROJECT_THREAD,
                 ProjectName::TURRET_EXTRA_FIRE_RATE,
                 ProjectName::QUANTUM_SENSORS,
+                ProjectName::PATROLSHIP_EXTRA_AMMO,
             ],
         ],
     ];

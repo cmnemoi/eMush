@@ -410,6 +410,31 @@ abstract class ProjectConfigData
                     'replace_planet_scanner_by_quantum_sensors_planet_scanner',
                 ],
             ],
+            [
+                'name' => ProjectName::PATROLSHIP_EXTRA_AMMO,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_+6_patrol_ship_alpha_tamarin_max_charges',
+                    'modifier_for_daedalus_+6_patrol_ship_alpha_longane_max_charges',
+                    'modifier_for_daedalus_+6_patrol_ship_alpha_jujube_max_charges',
+                    'modifier_for_daedalus_+6_patrol_ship_bravo_planton_max_charges',
+                    'modifier_for_daedalus_+6_patrol_ship_bravo_epicure_max_charges',
+                    'modifier_for_daedalus_+6_patrol_ship_bravo_socrate_max_charges',
+                    'modifier_for_daedalus_+6_patrol_ship_alpha_2_wallis_max_charges',
+                    'modifier_for_daedalus_patrol_ship_alpha_tamarin_set_charges_to_maximum',
+                    'modifier_for_daedalus_patrol_ship_alpha_longane_set_charges_to_maximum',
+                    'modifier_for_daedalus_patrol_ship_alpha_jujube_set_charges_to_maximum',
+                    'modifier_for_daedalus_patrol_ship_bravo_planton_set_charges_to_maximum',
+                    'modifier_for_daedalus_patrol_ship_bravo_epicure_set_charges_to_maximum',
+                    'modifier_for_daedalus_patrol_ship_bravo_socrate_set_charges_to_maximum',
+                    'modifier_for_daedalus_patrol_ship_alpha_2_wallis_set_charges_to_maximum',
+                ],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

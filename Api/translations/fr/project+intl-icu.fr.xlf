@@ -667,5 +667,23 @@
         <target>Les InfraSenseurs disposent aussi d'un capteur de probabilité de présence de matière noire ce qui devrait notablement améliorer leur rendement.</target>
       </segment>
     </unit>
+    <unit id="patrolship_extra_ammo">
+      <segment id="patrolship_extra_ammo.type" state="translated">
+        <source>patrolship_extra_ammo.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="patrolship_extra_ammo.name" state="translated">
+        <source>patrolship_extra_ammo.name</source>
+        <target>Réservoir de Teslatron</target>
+      </segment>
+      <segment id="patrolship_extra_ammo.description" state="translated">
+        <source>patrolship_extra_ammo.description</source>
+        <target>Les patrouilleurs disposent de 6 charges supplémentaires.</target>
+      </segment>
+      <segment id="patrolship_extra_ammo.lore" state="translated">
+        <source>patrolship_extra_ammo.lore</source>
+        <target>En ajoutant un piston de compression, on peut doubler la capacité de stockage des cuves à Teslatron des patrouilleurs.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

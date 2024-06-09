@@ -95,6 +95,16 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
         return $this->getStatusConfig()->getMaxCharge();
     }
 
+    public function getMaxChargeOrThrow(): int
+    {
+        $maxCharge = $this->getVariableByName($this->getName())->getMaxValue();
+        if ($maxCharge === null) {
+            throw new \RuntimeException("This status ({$this->getName()}) does not have a max charge.");
+        }
+
+        return $maxCharge;
+    }
+
     public function isAutoRemove(): bool
     {
         return $this->getStatusConfig()->isAutoRemove();

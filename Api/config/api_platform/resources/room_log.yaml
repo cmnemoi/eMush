@@ -2,7 +2,7 @@ Mush\RoomLog\Entity\RoomLog:
   shortName: 'RoomLog'
   description: 'eMush RoomLogs'
   attributes:
-    pagination_items_per_page: 25
+    paginationEnabled: false
     normalization_context:
       groups: [ 'room_log_read', 'moderation_read' ]
     denormalization_context:

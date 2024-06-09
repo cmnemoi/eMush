@@ -27,7 +27,7 @@ const ModerationService = {
     },
     getChannelMessages: async(channel: Channel,startDate: string, endDate: string, message?: string, author?: string): Promise<Message[]> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const queryParameters = `channel.id=${channel.id}` + (startDate ? `&updatedAt[after]=${startDate}` : '') + (endDate ? `&updatedAt[before]=${endDate}` : '') + (message ? `&message=${message}` : '') + (author ? `&author.characterConfig.characterName=${author}` : '') + '&order[updatedAt]=desc';
+        const queryParameters = `pagination=false&channel.id=${channel.id}` + (startDate ? `&updatedAt[after]=${startDate}` : '') + (endDate ? `&updatedAt[before]=${endDate}` : '') + (message ? `&message=${message}` : '') + (author ? `&author.characterConfig.characterName=${author}` : '') + '&order[updatedAt]=desc';
 
         const messages = await ApiService.get(`${MESSAGES_ENDPOINT}?${queryParameters}`).then((response) => {
             return response.data['hydra:member'].map((messageData: object) => {
@@ -86,7 +86,7 @@ const ModerationService = {
     },
     getPlayerLogs: async(playerId: number, day: integer, cycle: integer | null, content?: string, place?: string): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const queryParameters = `playerInfo.id=${playerId}` + (day ? `&day=${day}` : '') + (cycle ? `&cycle=${cycle}` : '') + (content ? `&log=${content}` : '') + (place ? `&place=${place}` : '');
+        const queryParameters = `pagination=false&playerInfo.id=${playerId}` + (day ? `&day=${day}` : '') + (cycle ? `&cycle=${cycle}` : '') + (content ? `&log=${content}` : '') + (place ? `&place=${place}` : '');
         const response = await ApiService.get(`${ROOM_LOG_ENDPOINT}?${queryParameters}`);
 
         const roomLogs: RoomLog[] = [];

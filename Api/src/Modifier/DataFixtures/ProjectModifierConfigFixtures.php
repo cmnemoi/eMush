@@ -15,6 +15,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
@@ -208,6 +209,22 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($turretExtraFireRateModifier);
         $this->addReference($turretExtraFireRateModifier->getName(), $turretExtraFireRateModifier);
+
+        $quantumSensorModifier = new VariableEventModifierConfig('modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet');
+        $quantumSensorModifier
+            ->setTargetVariable(ActionVariableEnum::OUTPUT_QUANTITY)
+            ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([
+                ActionEnum::ANALYZE_PLANET->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+            ])
+            ->setModifierStrategy(ModifierStrategyEnum::VARIABLE_MODIFIER)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($quantumSensorModifier);
+        $this->addReference($quantumSensorModifier->getName(), $quantumSensorModifier);
 
         $manager->flush();
     }

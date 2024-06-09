@@ -148,4 +148,20 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
             ],
         ];
     }
+
+    private function shouldReplaceEquipmentWhenProjectIsFinishedDataProvider(): array
+    {
+        return [
+            [
+                'project' => ProjectName::THALASSO->value,
+                'equipmentToRemove' => EquipmentEnum::SHOWER,
+                'equipmentToAdd' => EquipmentEnum::THALASSO,
+            ],
+            [
+                'project' => ProjectName::QUANTUM_SENSORS->value,
+                'equipmentToRemove' => EquipmentEnum::PLANET_SCANNER,
+                'equipmentToAdd' => EquipmentEnum::QUANTUM_SENSORS_PLANET_SCANNER,
+            ],
+        ];
+    }
 }

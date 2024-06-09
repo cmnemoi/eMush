@@ -1636,6 +1636,34 @@
                  "width":51,
                  "x":164.5,
                  "y":9.33333333333334
+                }, 
+                {
+                 "gid":351,
+                 "height":60,
+                 "id":38,
+                 "name":"quantum_sensors_planet_scanner",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":48
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":67,
+                 "x":180.833333333333,
+                 "y":386.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",

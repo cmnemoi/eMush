@@ -284,6 +284,26 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($planetScanner);
 
+        $quantumSensorsPlanetScannerGear = $this->createGear(
+            [
+                GearModifierConfigFixtures::PLANET_SCANNER_MODIFIER,
+                'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
+            ],
+            EquipmentEnum::QUANTUM_SENSORS_PLANET_SCANNER
+        );
+        $manager->persist($quantumSensorsPlanetScannerGear);
+
+        $quantumSensorsPlanetScanner = new EquipmentConfig();
+        $quantumSensorsPlanetScanner
+            ->setEquipmentName(EquipmentEnum::QUANTUM_SENSORS_PLANET_SCANNER)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setIsBreakable(true)
+            ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
+            ->setMechanics([$quantumSensorsPlanetScannerGear])
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($quantumSensorsPlanetScanner);
+
         $jukebox = new EquipmentConfig();
         $jukebox
             ->setEquipmentName(EquipmentEnum::JUKEBOX)
@@ -888,6 +908,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addEquipmentConfig($biosTerminal)
             ->addEquipmentConfig($commandTerminal)
             ->addEquipmentConfig($planetScanner)
+            ->addEquipmentConfig($quantumSensorsPlanetScanner)
             ->addEquipmentConfig($jukebox)
             ->addEquipmentConfig($emergencyReactor)
             ->addEquipmentConfig($reactorLateralAlpha)

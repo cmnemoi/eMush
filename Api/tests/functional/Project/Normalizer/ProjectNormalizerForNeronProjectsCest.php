@@ -753,6 +753,29 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'quantum_sensors',
+                'projectName' => 'Détecteur à ondes de probabilité',
+                'projectDescription' => 'Le scanner de planète révèle une section de plus par essai.',
+                'projectLore' => 'Les InfraSenseurs disposent aussi d\'un capteur de probabilité de présence de matière noire ce qui devrait notablement améliorer leur rendement.',
+                'projectEfficiency' => 'Efficacité : 6-9%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'astrophysicist',
+                        'name' => 'Astrophysicien',
+                        'description' => 'L\'Astrophysicien est habilité à lancer des scans pour trouver des planètes à portée ou
+                    déterminer leur composition.//:point: L\'action **Scanner** coûte 1 :pa: de moins.//:point: L\'action **Analyse** révèle une section de planète supplémentaire.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'radio_expert',
+                        'name' => 'Expert radio',
+                        'description' => 'L\'Expert radio peut décoder les enchevêtrements les plus complexes d\'ondes spatiales afin de
+                    reconstituer ou envoyer des messages à l\'autre bout de l\'Univers.//:point: **Double efficacité**
+                    pour établir le **contact** vers Sol.//:point: Améliore les tentatives de **contact** de Sol des
+                    équipiers dans la même pièce de 50%.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

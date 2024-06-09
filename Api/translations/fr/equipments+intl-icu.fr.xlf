@@ -989,6 +989,32 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
         <target>Améliore grandement le rendement du Terminal Astro. +30% de chance de trouver une planète. Il émet de la musique quand vous le démarrez. Ces ingénieurs sont décidément excentriques... Qui eût cru que Verdi aurait pu inspirer un tel calculateur...</target>
       </segment>
     </unit>
+    <unit id="quantum_sensors_planet_scanner">
+      <segment id="name" state="final">
+        <source>quantum_sensors_planet_scanner.name</source>
+        <target>Scanner de Planète</target>
+      </segment>
+      <segment id="short_name" state="final">
+        <source>quantum_sensors_planet_scanner.short_name</source>
+        <target>Scanner de Planète</target>
+      </segment>
+      <segment id="plural_name" state="final">
+        <source>quantum_sensors_planet_scanner.plural_name</source>
+        <target>Scanners de Planète</target>
+      </segment>
+      <segment id="genre" state="final">
+        <source>quantum_sensors_planet_scanner.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="final">
+        <source>quantum_sensors_planet_scanner.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="examine" state="final">
+        <source>quantum_sensors_planet_scanner.examine</source>
+        <target>Améliore grandement le rendement du Terminal Astro. +30% de chance de trouver une planète. Il émet de la musique quand vous le démarrez. Ces ingénieurs sont décidément excentriques... Qui eût cru que Verdi aurait pu inspirer un tel calculateur...</target>
+      </segment>
+    </unit>
     <unit id="research_laboratory">
       <segment id="name" state="final">
         <source>research_laboratory.name</source>

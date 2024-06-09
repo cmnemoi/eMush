@@ -25,6 +25,11 @@ abstract class ReplaceEquipmentConfigData
                 equipmentName: EquipmentEnum::RADAR_TRANS_VOID_ANTENNA,
                 replaceEquipmentName: EquipmentEnum::ANTENNA,
             ),
+            new ReplaceEquipmentConfigDto(
+                name: 'replace_planet_scanner_by_quantum_sensors_planet_scanner',
+                equipmentName: EquipmentEnum::QUANTUM_SENSORS_PLANET_SCANNER,
+                replaceEquipmentName: EquipmentEnum::PLANET_SCANNER,
+            ),
         ];
     }
 }

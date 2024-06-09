@@ -7,7 +7,7 @@ use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Repository\PlayerInfoRepository;
+use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -19,12 +19,12 @@ class ChannelVoter extends Voter
 
     private ChannelServiceInterface $channelService;
     private MessageServiceInterface $messageService;
-    private PlayerInfoRepository $playerInfoRepository;
+    private PlayerInfoRepositoryInterface $playerInfoRepository;
 
     public function __construct(
         ChannelServiceInterface $channelService,
         MessageServiceInterface $messageService,
-        PlayerInfoRepository $playerInfoRepository
+        PlayerInfoRepositoryInterface $playerInfoRepository
     ) {
         $this->channelService = $channelService;
         $this->messageService = $messageService;
@@ -73,7 +73,7 @@ class ChannelVoter extends Voter
     {
         /** @var User $user */
         $user = $token->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        $playerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user);
         $player = $playerInfo?->getPlayer();
 
         if (!$player) {
@@ -86,8 +86,7 @@ class ChannelVoter extends Voter
 
         switch ($attribute) {
             case self::VIEW:
-                // @TODO : in the future, do not allow moderators to see channels of their own games
-                return $user->isModerator() || $playerInfo && $this->canView($channel, $playerInfo);
+                return $playerInfo && $this->canView($channel, $playerInfo);
 
             case self::POST:
                 return $this->canPost($channel, $player);

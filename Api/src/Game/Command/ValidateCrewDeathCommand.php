@@ -56,7 +56,7 @@ class ValidateCrewDeathCommand extends Command
 
                     continue;
                 }
-                $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+                $playerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user);
                 if ($playerInfo === null) {
                     $io->warning("{$name} has already validated his death, nothing to do. Skipping ...");
 

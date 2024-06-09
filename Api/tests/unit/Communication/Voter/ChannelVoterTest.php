@@ -16,7 +16,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Repository\PlayerInfoRepository;
+use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -32,8 +32,8 @@ final class ChannelVoterTest extends TestCase
     /** @var MessageServiceInterface|Mockery\mock */
     private MessageServiceInterface $messageService;
 
-    /** @var Mockery\mock|PlayerInfoRepository */
-    private PlayerInfoRepository $playerInfoRepository;
+    /** @var Mockery\mock|PlayerInfoRepositoryInterface */
+    private PlayerInfoRepositoryInterface $playerInfoRepository;
 
     private ChannelVoter $channelVoter;
 
@@ -46,7 +46,7 @@ final class ChannelVoterTest extends TestCase
         $this->channelService->shouldIgnoreMissing();
 
         $this->messageService = \Mockery::mock(MessageServiceInterface::class);
-        $this->playerInfoRepository = \Mockery::mock(PlayerInfoRepository::class);
+        $this->playerInfoRepository = \Mockery::mock(PlayerInfoRepositoryInterface::class);
 
         $this->channelVoter = new ChannelVoter($this->channelService, $this->messageService, $this->playerInfoRepository);
     }
@@ -119,7 +119,7 @@ final class ChannelVoterTest extends TestCase
         $playerInfo = new PlayerInfo($player, $user, new CharacterConfig());
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();

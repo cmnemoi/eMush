@@ -8,7 +8,7 @@ Mush\Player\Entity\Config\CharacterConfig:
       groups: [ 'character_config_read', 'character_config_write', 'player_info_read' ]
     initStatuses:
       groups: [ 'character_config_read', 'character_config_write' ]
-    actions:
+    actionConfigs:
       groups: [ 'character_config_read', 'character_config_write' ]
     skills:
       groups: [ 'character_config_read', 'character_config_write' ]

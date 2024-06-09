@@ -23,9 +23,9 @@ Mush\Player\Entity\Config\CharacterConfig:
       subresource:
         resourceClass: 'Mush\Status\Entity\Config\StatusConfig'
         collection: true
-    actions:
+    actionConfigs:
       subresource:
-        resourceClass: 'Mush\Action\Entity\Action'
+        resourceClass: 'Mush\Action\Entity\ActionConfig'
         collection: true
     startingItems:
       subresource:

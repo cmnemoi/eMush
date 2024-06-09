@@ -17,6 +17,7 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
+use Symfony\Component\Uid\Uuid;
 
 final class DaedalusFactory
 {
@@ -30,6 +31,7 @@ final class DaedalusFactory
         $daedalus->setDaedalusVariables($gameConfig->getDaedalusConfig());
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, self::getFrenchLocalizationConfig());
         $daedalusInfo->setNeron(new Neron());
+        $daedalusInfo->setName(Uuid::v4()->toRfc4122());
 
         self::createSpacePlace($daedalus);
         self::createLaboratoryPlace($daedalus);

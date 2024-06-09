@@ -13,7 +13,7 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Repository\PlayerInfoRepository;
+use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -27,8 +27,8 @@ final class MessageVoterTest extends TestCase
     /** @var ChannelServiceInterface|Mockery\mock */
     private ChannelServiceInterface $channelService;
 
-    /** @var Mockery\mock|PlayerInfoRepository */
-    private PlayerInfoRepository $playerInfoRepository;
+    /** @var Mockery\mock|PlayerInfoRepositoryInterface */
+    private PlayerInfoRepositoryInterface $playerInfoRepository;
 
     private Voter $voter;
 
@@ -38,7 +38,7 @@ final class MessageVoterTest extends TestCase
     public function before()
     {
         $this->channelService = \Mockery::mock(ChannelServiceInterface::class);
-        $this->playerInfoRepository = \Mockery::mock(PlayerInfoRepository::class);
+        $this->playerInfoRepository = \Mockery::mock(PlayerInfoRepositoryInterface::class);
 
         $this->voter = new MessageVoter($this->channelService, $this->playerInfoRepository);
     }
@@ -51,7 +51,7 @@ final class MessageVoterTest extends TestCase
         $player->setPlayerInfo($playerInfo);
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();
@@ -78,7 +78,7 @@ final class MessageVoterTest extends TestCase
         $message->setChannel($channel);
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();
@@ -90,7 +90,7 @@ final class MessageVoterTest extends TestCase
         $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();
@@ -113,7 +113,7 @@ final class MessageVoterTest extends TestCase
         $message->setChannel($channel);
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();
@@ -129,7 +129,7 @@ final class MessageVoterTest extends TestCase
         $channel->addParticipant($channelPlayer);
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();
@@ -141,7 +141,7 @@ final class MessageVoterTest extends TestCase
         $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
 
         $this->playerInfoRepository
-            ->shouldReceive('findCurrentGameByUser')
+            ->shouldReceive('getCurrentPlayerInfoForUserOrNull')
             ->with($user)
             ->andReturn($playerInfo)
             ->once();

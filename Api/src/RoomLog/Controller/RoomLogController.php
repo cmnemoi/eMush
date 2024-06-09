@@ -180,7 +180,7 @@ class RoomLogController extends AbstractGameController
         /** @var User $user */
         $user = $this->getUser();
 
-        $player = $this->playerInfoRepository->findCurrentGameByUser($user)?->getPlayer();
+        $player = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user)?->getPlayer();
 
         if (!$player) {
             throw new AccessDeniedException();

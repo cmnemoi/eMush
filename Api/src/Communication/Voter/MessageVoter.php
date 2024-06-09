@@ -7,7 +7,7 @@ use Mush\Communication\Entity\Message;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Repository\PlayerInfoRepository;
+use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -18,11 +18,11 @@ class MessageVoter extends Voter
     public const CREATE = 'create';
 
     private ChannelServiceInterface $channelService;
-    private PlayerInfoRepository $playerInfoRepository;
+    private PlayerInfoRepositoryInterface $playerInfoRepository;
 
     public function __construct(
         ChannelServiceInterface $channelService,
-        PlayerInfoRepository $playerInfoRepository
+        PlayerInfoRepositoryInterface $playerInfoRepository
     ) {
         $this->channelService = $channelService;
         $this->playerInfoRepository = $playerInfoRepository;
@@ -46,7 +46,7 @@ class MessageVoter extends Voter
     {
         /** @var User $user */
         $user = $token->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        $playerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user);
 
         // User must be logged in and have a current game
         if ($playerInfo === null) {

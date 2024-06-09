@@ -459,6 +459,18 @@ abstract class ProjectConfigData
                     'replace_kitchen_by_snc_kitchen',
                 ],
             ],
+            [
+                'name' => ProjectName::FLOOR_HEATING,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 12,
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::CONCEPTOR],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_x0.5clumsiness',
+                ],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

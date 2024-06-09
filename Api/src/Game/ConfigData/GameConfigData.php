@@ -560,6 +560,7 @@ class GameConfigData
                 ProjectName::PATROLSHIP_EXTRA_AMMO,
                 ProjectName::NOISE_REDUCER,
                 ProjectName::APERO_KITCHEN,
+                ProjectName::FLOOR_HEATING,
             ],
         ],
     ];

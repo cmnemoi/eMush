@@ -835,12 +835,36 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     [
                         'key' => 'chef',
                         'name' => 'Cuistot',
-                        'description' => 'Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4 :pa_cook: par jour (points d\'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.',
+                        'description' => 'Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.//:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4 :pa_cook: par jour (points d\'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                     [
                         'key' => 'creative',
                         'name' => 'Créatif',
                         'description' => 'Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre *1* :pa:.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
+            [
+                'projectKey' => 'floor_heating',
+                'projectName' => 'Chauffage au sol',
+                'projectDescription' => 'Diminue de 50% les blessures dûes aux actions.',
+                'projectLore' => 'Fini le froid stellaire du parquet du Daedalus. Désormais, vous êtes toujours au chaud !',
+                'projectEfficiency' => 'Efficacité : 12-18%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'technician',
+                        'name' => 'Technicien',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
+        :point: Peut **Démonter** des objets.//
+        :point: Chances de réussites doublées pour les **Réparations**.//
+        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'conceptor',
+                        'name' => 'Concepteur',
+                        'description' => 'Le Concepteur dispose de deux actions gratuites chaque jour pour utiliser le Cœur de NERON.//:point: +2 :pa_core: (points d\'action **Conception**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
             ],

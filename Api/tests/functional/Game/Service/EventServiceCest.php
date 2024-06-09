@@ -2,6 +2,10 @@
 
 namespace Mush\Tests\functional\Game\Service;
 
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Game\Entity\VariableEventConfig;
@@ -12,6 +16,7 @@ use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Event\ModifierEvent;
+use Mush\Project\Enum\ProjectName;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -101,5 +106,60 @@ final class EventServiceCest extends AbstractFunctionalTest
         $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
 
         $I->assertEquals($hullInitial - 8, $this->daedalus->getHull());
+    }
+
+    public function floorHeatingShouldReduceClumsinessChance(FunctionalTester $I): void
+    {
+        $this->givenFloorHeatingProjectIsFinished($I);
+        $actionConfig = $this->givenAnActionConfigWithInjuryRate(20, $I);
+        $actionVariableEvent = $this->givenAClumsinessActionVariableEvent($actionConfig);
+
+        $modifiedActionVariableEvent = $this->whenIDispatchClumsinessActionVariableEvent($actionVariableEvent);
+
+        $this->thenTheInjuryRateShouldBe(10, $modifiedActionVariableEvent, $I);
+    }
+
+    private function givenAnActionConfigWithInjuryRate(int $injuryRate, FunctionalTester $I): ActionConfig
+    {
+        $actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]);
+        $actionConfig->setInjuryRate($injuryRate);
+
+        return $actionConfig;
+    }
+
+    private function givenFloorHeatingProjectIsFinished(FunctionalTester $I): void
+    {
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::FLOOR_HEATING),
+            author: $this->player,
+            I: $I
+        );
+    }
+
+    private function givenAClumsinessActionVariableEvent(ActionConfig $actionConfig): ActionVariableEvent
+    {
+        $actionProvider = $this->player;
+
+        return new ActionVariableEvent(
+            $actionConfig,
+            $actionProvider,
+            ActionVariableEnum::PERCENTAGE_INJURY,
+            $actionConfig->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_INJURY),
+            $this->player,
+            null
+        );
+    }
+
+    private function whenIDispatchClumsinessActionVariableEvent(ActionVariableEvent $actionEvent): ActionVariableEvent
+    {
+        return $this->eventService->callEvent(
+            $actionEvent,
+            ActionVariableEvent::ROLL_ACTION_PERCENTAGE
+        )->getInitialEvent();
+    }
+
+    private function thenTheInjuryRateShouldBe(int $expectedInjuryRate, ActionVariableEvent $modifiedActionEvent, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedInjuryRate, $modifiedActionEvent->getRoundedQuantity());
     }
 }

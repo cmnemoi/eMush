@@ -3133,6 +3133,29 @@ class EquipmentConfigData
             ],
         ],
         [
+            'name' => 'snc_kitchen_default',
+            'equipmentName' => EquipmentEnum::SNC_KITCHEN,
+            'isBreakable' => true,
+            'isFireDestroyable' => false,
+            'isFireBreakable' => true,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'equipment_config',
+            'isStackable' => null,
+            'actions' => [
+                'repair_percent_12',
+                'sabotage_percent_12',
+                'report_equipment',
+                'examine',
+            ],
+            'mechanics' => [
+                'tools_snc_kitchen_default',
+            ],
+            'initStatuses' => [
+                'sink_charge_default',
+            ],
+        ],
+        [
             'name' => 'narcotic_distiller_default',
             'equipmentName' => 'narcotic_distiller',
             'isBreakable' => false,

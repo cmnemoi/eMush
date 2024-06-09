@@ -30,6 +30,11 @@ abstract class ReplaceEquipmentConfigData
                 equipmentName: EquipmentEnum::QUANTUM_SENSORS_PLANET_SCANNER,
                 replaceEquipmentName: EquipmentEnum::PLANET_SCANNER,
             ),
+            new ReplaceEquipmentConfigDto(
+                name: 'replace_kitchen_by_snc_kitchen',
+                equipmentName: EquipmentEnum::SNC_KITCHEN,
+                replaceEquipmentName: EquipmentEnum::KITCHEN,
+            ),
         ];
     }
 }

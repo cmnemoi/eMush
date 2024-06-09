@@ -146,21 +146,10 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'quantity' => 1,
                 'creationPlaces' => [RoomEnum::HYDROPONIC_GARDEN],
             ],
-        ];
-    }
-
-    private function shouldReplaceEquipmentWhenProjectIsFinishedDataProvider(): array
-    {
-        return [
             [
-                'project' => ProjectName::THALASSO->value,
-                'equipmentToRemove' => EquipmentEnum::SHOWER,
-                'equipmentToAdd' => EquipmentEnum::THALASSO,
-            ],
-            [
-                'project' => ProjectName::QUANTUM_SENSORS->value,
-                'equipmentToRemove' => EquipmentEnum::PLANET_SCANNER,
-                'equipmentToAdd' => EquipmentEnum::QUANTUM_SENSORS_PLANET_SCANNER,
+                'project' => ProjectName::APERO_KITCHEN->value,
+                'equipmentToRemove' => EquipmentEnum::KITCHEN,
+                'equipmentToAdd' => EquipmentEnum::SNC_KITCHEN,
             ],
         ];
     }

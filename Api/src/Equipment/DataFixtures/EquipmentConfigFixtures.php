@@ -637,6 +637,26 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($kitchen);
         $manager->persist($kitchenMechanic);
 
+        $sncKitchenMechanic = $this->createTool([$cookAction, $washAction], EquipmentEnum::SNC_KITCHEN);
+
+        $sncKitchen = new EquipmentConfig();
+        $sncKitchen
+            ->setEquipmentName(EquipmentEnum::SNC_KITCHEN)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setIsBreakable(true)
+            ->setInitStatuses([$sinkCharge])
+            ->setMechanics([$sncKitchenMechanic])
+            ->setActionConfigs([
+                $repair12,
+                $sabotage12,
+                $reportAction,
+                $examineAction,
+            ])
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($sncKitchen);
+        $manager->persist($sncKitchenMechanic);
+
         /** @var ActionConfig $dispenseAction */
         $dispenseAction = $this->getReference(ActionsFixtures::DISPENSE_DRUG);
 
@@ -922,6 +942,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addEquipmentConfig($camera)
             ->addEquipmentConfig($combustionChamber)
             ->addEquipmentConfig($kitchen)
+            ->addEquipmentConfig($sncKitchen)
             ->addEquipmentConfig($narcoticDistiller)
             ->addEquipmentConfig($shower)
             ->addEquipmentConfig($dynarcade)

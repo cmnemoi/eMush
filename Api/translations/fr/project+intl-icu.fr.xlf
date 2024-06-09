@@ -703,5 +703,23 @@
         <target>Le bruit infernal des moteurs vous empêche de profiter de votre potentiel ? Il y a une solution pour ça.</target>
       </segment>
     </unit>
+    <unit id="apero_kitchen">
+      <segment id="apero_kitchen.type" state="translated">
+        <source>apero_kitchen.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="apero_kitchen.name" state="translated">
+        <source>apero_kitchen.name</source>
+        <target>Cuisine SNC</target>
+      </segment>
+      <segment id="apero_kitchen.description" state="translated">
+        <source>apero_kitchen.description</source>
+        <target>Améliore la cuisine du Réfectoire.</target>
+      </segment>
+      <segment id="apero_kitchen.lore" state="translated">
+        <source>apero_kitchen.lore</source>
+        <target>La division R&amp;D de SNC a mis au point l'outil ultime pour ruiner la productivité. Et on a retrouvé les cartons ! Attention aux projections. APÉRO !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

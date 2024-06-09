@@ -56,6 +56,7 @@ class EquipmentEnum
     public const string CAMERA_EQUIPMENT = 'camera_equipment';
     public const string TABULATRIX = 'tabulatrix';
     public const string HYDROPONIC_INCUBATOR = 'hydroponic_incubator';
+    public const string SNC_KITCHEN = 'snc_kitchen';
 
     public static array $terminalSectionTitlesMap = [
         self::COMMAND_TERMINAL => ['orientate_daedalus', 'move_daedalus', 'general_informations', 'pilgred'],

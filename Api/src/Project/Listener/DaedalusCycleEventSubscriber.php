@@ -39,20 +39,20 @@ final class DaedalusCycleEventSubscriber implements EventSubscriberInterface
 
     private function applyNeronProjectThread(DaedalusCycleEvent $event): void
     {
-        $this->makeProjectsProgress($event);
+        $this->makeAdvancedNeronProjectsProgress($event);
         $this->finishOnlyLastAdvancedProject($event);
         $this->dispatchProjectAdvancedEventForAllProjects($event);
         $this->saveProjectsInRepository($event);
     }
 
-    private function makeProjectsProgress(DaedalusCycleEvent $event): void
+    private function makeAdvancedNeronProjectsProgress(DaedalusCycleEvent $event): void
     {
         $daedalus = $event->getDaedalus();
         $neronProjectThreadBonus = $daedalus->getProjectByName(ProjectName::NERON_PROJECT_THREAD)->getActivationRate();
 
-        $proposedNeronProjects = $daedalus->getProposedNeronProjects();
+        $advancedNeronProjects = $daedalus->getAdvancedNeronProjects();
 
-        foreach ($proposedNeronProjects as $project) {
+        foreach ($advancedNeronProjects as $project) {
             $project->makeProgress($neronProjectThreadBonus);
         }
     }
@@ -60,10 +60,10 @@ final class DaedalusCycleEventSubscriber implements EventSubscriberInterface
     private function finishOnlyLastAdvancedProject(DaedalusCycleEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $proposedNeronProjects = $daedalus->getProposedNeronProjects();
+        $advancedNeronProjects = $daedalus->getAdvancedNeronProjects();
 
         // If there is at most one project at 100% progress, we don't need to do anything
-        $projectsAt100Percents = $proposedNeronProjects->getFinishedProjects();
+        $projectsAt100Percents = $advancedNeronProjects->getFinishedProjects();
         if ($projectsAt100Percents->count() <= 1) {
             return;
         }
@@ -80,9 +80,9 @@ final class DaedalusCycleEventSubscriber implements EventSubscriberInterface
 
     private function dispatchProjectAdvancedEventForAllProjects(DaedalusCycleEvent $event): void
     {
-        $proposedNeronProjects = $event->getDaedalus()->getProposedNeronProjects();
+        $advancedNeronProjects = $event->getDaedalus()->getAdvancedNeronProjects();
 
-        foreach ($proposedNeronProjects as $project) {
+        foreach ($advancedNeronProjects as $project) {
             $projectEvent = new ProjectEvent(
                 project: $project,
                 author: Player::createNull(),
@@ -95,9 +95,9 @@ final class DaedalusCycleEventSubscriber implements EventSubscriberInterface
 
     private function saveProjectsInRepository(DaedalusCycleEvent $event): void
     {
-        $proposedNeronProjects = $event->getDaedalus()->getProposedNeronProjects();
+        $advancedNeronProjects = $event->getDaedalus()->getAdvancedNeronProjects();
 
-        foreach ($proposedNeronProjects as $project) {
+        foreach ($advancedNeronProjects as $project) {
             $this->projectRepository->save($project);
         }
     }

@@ -23,6 +23,8 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
 {
     private InMemoryProjectRepository $projectRepository;
 
+    private Project $project;
+
     /**
      * @before
      */
@@ -44,11 +46,23 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
         $daedalus = DaedalusFactory::createDaedalus();
         $this->givenNeronProjectThreadProjectIsFinished($daedalus);
 
-        $project = $this->givenAProposedNeronProjectForDaedalusAtProgress($daedalus, 0);
+        $this->givenAProposedNeronProjectForDaedalusAtProgress($daedalus, 1);
 
         $this->whenIListenToDaedalusCycleChangeEvent($daedalus);
 
-        $this->thenProjectShouldHaveProgressByFivePercent($project);
+        $this->thenProjectShouldHaveProgressAt(6);
+    }
+
+    public function testShouldNotMakeProposedNeronProjectProgressAtCycleChangeWithNeronProjectThreadProjectIfNotAdvanced(): void
+    {
+        $daedalus = DaedalusFactory::createDaedalus();
+        $this->givenNeronProjectThreadProjectIsFinished($daedalus);
+
+        $this->givenAProposedNeronProjectForDaedalusAtProgress($daedalus, 0);
+
+        $this->whenIListenToDaedalusCycleChangeEvent($daedalus);
+
+        $this->thenProjectShouldHaveProgressAt(0);
     }
 
     public function testShouldFinishOnlyLastAdvancedNeronProjectWithNeronProjectThreadProject(): void
@@ -76,12 +90,12 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
 
     private function givenAProposedNeronProjectForDaedalusAtProgress(Daedalus $daedalus, int $progress): Project
     {
-        $project = ProjectFactory::createDummyNeronProjectForDaedalus($daedalus);
-        $project->propose();
-        $project->makeProgress($progress);
-        $this->projectRepository->save($project);
+        $this->project = ProjectFactory::createDummyNeronProjectForDaedalus($daedalus);
+        $this->project->propose();
+        $this->project->makeProgress($progress);
+        $this->projectRepository->save($this->project);
 
-        return $project;
+        return $this->project;
     }
 
     private function givenTwoProposedNeronProjectsAt99PercentForDaedalus(Daedalus $daedalus): array
@@ -120,9 +134,9 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
         $subscriber->onDaedalusNewCycle($event);
     }
 
-    private function thenProjectShouldHaveProgressByFivePercent(Project $project): void
+    private function thenProjectShouldHaveProgressAt(int $progress): void
     {
-        self::assertEquals(5, $project->getProgress());
+        self::assertEquals($progress, $this->project->getProgress());
     }
 
     private function thenProjectShouldBeFinished(Project $project): void

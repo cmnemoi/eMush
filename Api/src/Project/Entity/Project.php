@@ -129,6 +129,11 @@ class Project implements LogParameterInterface, ActionHolderInterface
         return $this->progress;
     }
 
+    public function hasBeenAdvanced(): bool
+    {
+        return $this->progress > 0;
+    }
+
     public function isAvailable(): bool
     {
         return $this->available;

@@ -33,4 +33,11 @@ final class ProjectCollection extends ArrayCollection
     {
         return $this->filter(static fn (Project $project) => $project->notEqualsTo($projectToExclude));
     }
+
+    public function getAdvancedNeronProjects(): self
+    {
+        return $this
+            ->filter(static fn (Project $project) => $project->isProposedNeronProject())
+            ->filter(static fn (Project $project) => $project->hasBeenAdvanced());
+    }
 }

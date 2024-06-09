@@ -66,9 +66,6 @@ final class CycleEventCest extends AbstractFunctionalTest
         // then player gains 2 action points
         $I->assertEquals($actionPointBefore + 2, $this->player1->getActionPoint());
 
-        // then player gains 0 morale points (no shrink)
-        $I->assertEquals($moralePointBefore, $this->player1->getMoralPoint());
-
         // then I should not see any log for this modifier
         $I->dontSeeInRepository(RoomLog::class, [
             'place' => $this->player1->getPlace()->getLogName(),

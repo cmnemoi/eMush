@@ -423,7 +423,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
             [
                 'projectKey' => 'trash_load',
                 'projectName' => 'Tas de débris',
-                'projectDescription' => 'Génère 4 débris métalliques et 4 débris plastique en Salle des moteurs.',
+                'projectDescription' => 'Génère 4 débris métalliques et 4 débris plastiques en Salle des moteurs.',
                 'projectLore' => 'L\'ennemi est trop coriace ? Mettez donc un peu de fer dans les épinards !',
                 'projectEfficiency' => 'Efficacité : 18-27%',
                 'projectBonusSkills' => [

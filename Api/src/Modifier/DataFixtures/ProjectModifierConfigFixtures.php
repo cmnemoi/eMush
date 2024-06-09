@@ -143,18 +143,6 @@ final class ProjectModifierConfigFixtures extends Fixture
         $manager->persist($noiseReducerModifier);
         $this->addReference($noiseReducerModifier->getName(), $noiseReducerModifier);
 
-        /** @var VariableEventConfig $eventConfig */
-        $eventConfig = $this->getReference('change.value.max_player_+2_actionPoint');
-
-        $noiseReducerModifier = new DirectModifierConfig('direct_modifier_player_+2_max_actionPoint');
-        $noiseReducerModifier
-            ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierStrategy(ModifierStrategyEnum::DIRECT_MODIFIER)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
-        $manager->persist($noiseReducerModifier);
-        $this->addReference($noiseReducerModifier->getName(), $noiseReducerModifier);
-
         $radarTransVoidModifier = new VariableEventModifierConfig('modifier_for_daedalus_x2_signal_on_action_contact_sol');
         $radarTransVoidModifier
             ->setTargetVariable(ActionVariableEnum::OUTPUT_QUANTITY)

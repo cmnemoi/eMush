@@ -197,7 +197,7 @@ final class PlayerDiseaseServiceCest extends AbstractFunctionalTest
             [
                 'place' => $this->chun->getPlace()->getLogName(),
                 'playerInfo' => $this->chun->getPlayerInfo(),
-                'log' => LogEnum::DISORDER_TREATED,
+                'log' => LogEnum::DISORDER_TREATED_PLAYER,
                 'visibility' => VisibilityEnum::PUBLIC,
             ]
         );
@@ -237,7 +237,7 @@ final class PlayerDiseaseServiceCest extends AbstractFunctionalTest
             [
                 'place' => $this->chun->getPlace()->getLogName(),
                 'playerInfo' => $this->chun->getPlayerInfo(),
-                'log' => LogEnum::DISORDER_TREATED,
+                'log' => LogEnum::DISORDER_TREATED_PLAYER,
                 'visibility' => VisibilityEnum::PUBLIC,
             ]
         );
@@ -386,7 +386,7 @@ final class PlayerDiseaseServiceCest extends AbstractFunctionalTest
             [
                 'place' => $this->chun->getPlace()->getLogName(),
                 'playerInfo' => $this->chun->getPlayerInfo(),
-                'log' => LogEnum::DISORDER_TREATED,
+                'log' => LogEnum::DISORDER_TREATED_PLAYER,
                 'visibility' => VisibilityEnum::PUBLIC,
             ]
         );

@@ -37,7 +37,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         ActionTypeEnum::ACTION_HEAL->value => LogEnum::DISEASE_TREATED_PLAYER,
         ActionEnum::CONSUME->value => LogEnum::DISEASE_TREATED_DRUG,
         ActionEnum::CONSUME_DRUG->value => LogEnum::DISEASE_TREATED_DRUG,
-        SkillEnum::SHRINK => LogEnum::DISORDER_TREATED,
+        SkillEnum::SHRINK => LogEnum::DISORDER_TREATED_PLAYER,
     ];
     private RoomLogServiceInterface $roomLogService;
 

@@ -35,6 +35,7 @@ abstract class LogEnum
     public const string DISEASE_TREATED_PLAYER = 'disease_treated_player';
     public const string DISORDER_CURED = 'disorder_cured';
     public const string DISORDER_TREATED = 'disorder_treated';
+    public const string DISORDER_TREATED_PLAYER = 'disorder_treated_player';
     public const string INJURY_APPEAR = 'injury_appear';
     public const string SURGERY_SUCCESS = 'surgery_success';
     public const string SURGERY_CRITICAL_SUCCESS = 'surgery_critical_success';

@@ -90,6 +90,11 @@ class Door extends GameEquipment
         return LogParameterKeyEnum::DOOR;
     }
 
+    public function shouldTriggerRoomTrap(): bool
+    {
+        return false;
+    }
+
     private function buildName(): string
     {
         return implode('_', $this->getRooms()->map(static fn (Place $room) => $room->getName())->toArray());

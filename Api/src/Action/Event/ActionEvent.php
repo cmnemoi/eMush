@@ -117,7 +117,7 @@ class ActionEvent extends AbstractGameEvent
 
     public function shouldTriggerRoomTrap(): bool
     {
-        $authorInteractsWithRoomEquipment = $this->actionProvider instanceof GameEquipment && $this->actionProvider->isInShelf();
+        $authorInteractsWithRoomEquipment = $this->actionProvider instanceof GameEquipment && $this->actionProvider->shouldTriggerRoomTrap();
         $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap = $this->actionProvider instanceof GameEquipment === false
             && $this->actionConfig->shouldTriggerRoomTrap();
 

@@ -251,7 +251,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function isInShelf(): bool
     {
-        return true;
+        return false;
     }
 
     public function getLogName(): string

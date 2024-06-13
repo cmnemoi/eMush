@@ -249,7 +249,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->getEquipment()->isBreakable();
     }
 
-    public function isInShelf(): bool
+    public function shouldTriggerRoomTrap(): bool
     {
         return true;
     }

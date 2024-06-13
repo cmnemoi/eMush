@@ -10,10 +10,13 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\MushMessageEnum;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -330,6 +333,40 @@ final class PreActionEventCest extends AbstractFunctionalTest
         // then KT should get a spore
         $I->assertEquals(
             expected: 1,
+            actual: $this->kuanTi->getSpores(),
+        );
+    }
+
+    public function shouldNotTriggerRoomTrapWhenExitingTheRoom(FunctionalTester $I): void
+    {
+        // given KT's room has been trapped
+        $this->statusService->createStatusFromName(
+            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
+            holder: $this->kuanTi->getPlace(),
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given a door in the room
+        $door = Door::createFromRooms($this->kuanTi->getPlace(), $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus));
+        $door->setEquipment($I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']));
+        $I->haveInRepository($door);
+
+        // when KT starts an action
+        $actionEvent = new ActionEvent(
+            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]),
+            actionProvider: $door,
+            player: $this->kuanTi,
+        );
+        $actionEvent->setActionResult(new Success());
+        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+
+        // then trap should not be triggered
+        $I->assertTrue($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
+
+        // then KT should not get a spore
+        $I->assertEquals(
+            expected: 0,
             actual: $this->kuanTi->getSpores(),
         );
     }

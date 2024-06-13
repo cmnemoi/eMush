@@ -73,7 +73,7 @@ class GameItem extends GameEquipment
         throw new \LogicException('Cannot find a holder');
     }
 
-    public function isInShelf(): bool
+    public function shouldTriggerRoomTrap(): bool
     {
         return $this->getHolder() instanceof Place;
     }

@@ -2360,7 +2360,7 @@ class MechanicsData
             'criticalSuccessRate' => 25.0,
             'criticalFailRate' => 20.0,
             'oneShotRate' => 2.0,
-            'actions' => ['attack'],
+            'actions' => [],
             'modifierConfigs' => [],
         ],
         [

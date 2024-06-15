@@ -32,6 +32,7 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -140,7 +141,8 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints(['base_daedalus_cycle_change' => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierStrategy(ModifierStrategyEnum::VARIABLE_MODIFIER)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierName(ProjectName::OXY_MORE->value);
         $manager->persist($oxyMoreModifier);
         $this->addReference($oxyMoreModifier->getName(), $oxyMoreModifier);
 

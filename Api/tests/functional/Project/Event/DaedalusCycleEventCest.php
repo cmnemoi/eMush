@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Project\Event;
 
+use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -35,6 +37,16 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $this->thenDaedalusHasOneOxygen($I);
     }
 
+    public function shouldCreateANeronAnnouncementWhenOxyMoreProjectWorks(FunctionalTester $I): void
+    {
+        $this->givenDaedalusHasThreeOxygen();
+        $this->givenOxyMoreProjectIsFinished($I);
+
+        $this->whenCycleChanges();
+
+        $this->thenThereIsANeronAnnouncement($I);
+    }
+
     private function givenDaedalusHasThreeOxygen(): void
     {
         $this->daedalus->setOxygen(3);
@@ -62,5 +74,16 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
     private function thenDaedalusHasOneOxygen(FunctionalTester $I): void
     {
         $I->assertEquals(1, $this->daedalus->getOxygen());
+    }
+
+    private function thenThereIsANeronAnnouncement(FunctionalTester $I): void
+    {
+        $I->seeInRepository(
+            entity: Message::class,
+            params: [
+                'neron' => $this->daedalus->getNeron(),
+                'message' => NeronMessageEnum::OXYGENATED_DUCTS,
+            ]
+        );
     }
 }

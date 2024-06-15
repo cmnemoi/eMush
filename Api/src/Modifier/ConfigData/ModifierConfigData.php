@@ -32,6 +32,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -2227,7 +2228,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_daedalus_+1oxygen_on_change.variable_if_reason_new_cycle_random_20',
-            'modifierName' => null,
+            'modifierName' => ProjectName::OXY_MORE->value,
             'targetEvent' => 'change.variable',
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,

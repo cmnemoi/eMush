@@ -15,7 +15,7 @@
                         tag="div"
                         v-for="skill in project.bonusSkills"
                         :key="skill.name">
-                        <img :src="skillIcons[skill.key].icon" alt="{{ skill.key }}">
+                        <img :src="skillIcons[skill.key].icon" :alt="skill.key">
                         <template #content>
                             <h1 v-html="formatText(skill.name)"></h1>
                             <p v-html="formatText(skill.description)"></p>

@@ -791,6 +791,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return CharacterEnum::$characterColorMap[$this->getName()];
     }
 
+    public function isLaidDownInShrinkRoom(): bool
+    {
+        return $this->hasStatus(PlayerStatusEnum::LYING_DOWN) && $this->place->hasAnAliveShrinkExceptPlayer($this);
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);

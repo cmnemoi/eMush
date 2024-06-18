@@ -140,7 +140,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             $playerRoom = $player->getPlace();
             $this->treatDisorder(
                 $playerDisease,
-                shrink: $this->randomService->getRandomPlayer($playerRoom->getAliveShrinks()),
+                shrink: $this->randomService->getRandomPlayer($playerRoom->getAliveShrinksExceptPlayer($player)),
                 time: $time
             );
 

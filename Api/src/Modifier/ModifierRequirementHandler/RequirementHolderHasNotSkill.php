@@ -13,12 +13,17 @@ final class RequirementHolderHasNotSkill extends AbstractModifierRequirementHand
 {
     protected string $name = ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL;
 
-    public function checkRequirement(ModifierActivationRequirement $modifierActivationRequirement, ModifierHolderInterface $holder): bool
+    public function checkRequirement(ModifierActivationRequirement $modifierRequirement, ModifierHolderInterface $holder): bool
     {
         if (!$holder instanceof Player) {
-            throw new \InvalidArgumentException("{$this->name} activationRequirement can only be applied to a Player modifier holder, got a {$holder->getClassName()} {$holder->getName()} instead.");
+            throw new \InvalidArgumentException("{$this->name} activation requirement can only be applied to a Player modifier holder, got a {$holder->getClassName()} {$holder->getName()} instead.");
         }
 
-        return $holder->hasSkill($modifierActivationRequirement->getActivationRequirement()) === false;
+        $skillToCheck = $modifierRequirement->getActivationRequirement();
+        if ($skillToCheck === null) {
+            throw new \InvalidArgumentException("{$this->name} activation requirement value is missing.");
+        }
+
+        return $holder->hasSkill($skillToCheck) === false;
     }
 }

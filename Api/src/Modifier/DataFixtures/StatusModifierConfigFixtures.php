@@ -15,6 +15,7 @@ use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Entity\VariableEventConfig;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
@@ -394,9 +395,15 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $shrinkInRoomActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::SKILL_IN_ROOM);
         $shrinkInRoomActivationRequirement
-            ->setActivationRequirement('shrink')
+            ->setActivationRequirement(SkillEnum::SHRINK)
             ->buildName();
         $manager->persist($shrinkInRoomActivationRequirement);
+
+        $holderIsNotAShrinkActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL);
+        $holderIsNotAShrinkActivationRequirement
+            ->setActivationRequirement(SkillEnum::SHRINK)
+            ->buildName();
+        $manager->persist($holderIsNotAShrinkActivationRequirement);
 
         /** @var AbstractEventConfig $eventConfigIncreaseOneMoralePoint */
         $eventConfigIncreaseOneMoralePoint = $this->getReference('change.variable_player_+1moralePoint');
@@ -408,6 +415,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyWhenTargeted(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($shrinkInRoomActivationRequirement)
+            ->addModifierRequirement($holderIsNotAShrinkActivationRequirement)
             ->setModifierStrategy(ModifierStrategyEnum::ADD_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($lyingDownShrinkModifier);

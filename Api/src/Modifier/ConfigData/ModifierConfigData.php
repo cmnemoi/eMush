@@ -2164,6 +2164,7 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_+1moralePoint',
             'modifierActivationRequirements' => [
                 ModifierRequirementEnum::SKILL_IN_ROOM . '_shrink',
+                ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL_SHRINK,
             ],
             'tagConstraints' => [],
         ],

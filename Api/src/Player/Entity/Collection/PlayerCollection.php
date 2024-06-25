@@ -39,4 +39,14 @@ class PlayerCollection extends ArrayCollection
 
         return $player;
     }
+
+    public function getPlayersWithSkill(string $skill): self
+    {
+        return $this->filter(static fn (Player $player) => $player->hasSkill($skill));
+    }
+
+    public function getAllExcept(Player $playerToExclude): self
+    {
+        return $this->filter(static fn (Player $player) => $player->getId() !== $playerToExclude->getId());
+    }
 }

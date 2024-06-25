@@ -8,7 +8,6 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Player\Entity\Player;
-use Mush\Status\Enum\PlayerStatusEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_player')]
@@ -123,7 +122,7 @@ class PlayerDisease
      */
     public function isTreatedByAShrink(): bool
     {
-        return $this->isADisorder() && $this->player->hasStatus(PlayerStatusEnum::LYING_DOWN) && $this->player->getPlace()->hasAnAliveShrink();
+        return $this->isADisorder() && $this->player->isLaidDownInShrinkRoom();
     }
 
     public function isADisorder(): bool

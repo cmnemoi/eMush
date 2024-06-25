@@ -391,4 +391,39 @@ final class PlayerDiseaseServiceCest extends AbstractFunctionalTest
             ]
         );
     }
+
+    public function shouldNotSelfHealShrinkDisorder(FunctionalTester $I): void
+    {
+        // given Chun has a depression (a disorder)
+        $disorder = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DisorderEnum::DEPRESSION,
+            player: $this->chun,
+            reasons: [],
+        );
+
+        // given disorder has 1 disease point
+        $disorder->setDiseasePoint(1);
+
+        // given Chun is a shrink
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::SHRINK,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun is lying down
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when I call handleNewCycle on the disease
+        $this->playerDiseaseService->handleNewCycle($disorder, new \DateTime());
+
+        // then the disorder should not be removed
+        $I->assertNotNull($this->chun->getMedicalConditionByName(DisorderEnum::DEPRESSION));
+    }
 }

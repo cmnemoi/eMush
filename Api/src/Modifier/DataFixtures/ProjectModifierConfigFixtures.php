@@ -32,6 +32,7 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -130,6 +131,20 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $this->manager->persist($bayDoorXXLModifier);
         $this->addReference($bayDoorXXLModifier->getName(), $bayDoorXXLModifier);
+
+        $oxyMoreModifier = new VariableEventModifierConfig('modifier_for_daedalus_+1oxygen_on_change.variable_if_reason_new_cycle_random_20');
+        $oxyMoreModifier
+            ->setTargetVariable(DaedalusVariableEnum::OXYGEN)
+            ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints(['base_daedalus_cycle_change' => ModifierRequirementEnum::ALL_TAGS])
+            ->setModifierStrategy(ModifierStrategyEnum::VARIABLE_MODIFIER)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierName(ProjectName::OXY_MORE->value);
+        $manager->persist($oxyMoreModifier);
+        $this->addReference($oxyMoreModifier->getName(), $oxyMoreModifier);
 
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference('change.value.max_player_+2_actionPoint');

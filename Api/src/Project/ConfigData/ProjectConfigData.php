@@ -482,6 +482,18 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::OXY_MORE,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BIOLOGIST],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_+1oxygen_on_change.variable_if_reason_new_cycle_random_20',
+                ],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

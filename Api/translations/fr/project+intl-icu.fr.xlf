@@ -739,5 +739,23 @@
         <target>Fini le froid stellaire du parquet du Daedalus. Désormais, vous êtes toujours au chaud !</target>
       </segment>
     </unit>
+    <unit id="oxy_more">
+      <segment id="oxy_more.type" state="translated">
+        <source>oxy_more.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="oxy_more.name" state="translated">
+        <source>oxy_more.name</source>
+        <target>Conduites oxygénées</target>
+      </segment>
+      <segment id="oxy_more.description" state="translated">
+        <source>oxy_more.description</source>
+        <target>A chaque cycle, le Daedalus a 20% de chance d'économiser l'oxygène de l'équipage.</target>
+      </segment>
+      <segment id="oxy_more.lore" state="translated">
+        <source>oxy_more.lore</source>
+        <target>Des algues qui poussent dans les conduites de climatisation. On pourrait peut-être faire pousser des bananiers rampants aussi non ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

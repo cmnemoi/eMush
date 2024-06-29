@@ -29,7 +29,7 @@ stages:
     - php -v
     - cd Api
     # Install all project dependencies
-    - composer install
+    - composer install --ignore-platform-req=ext-protobuf
     - cp .env.gitlab .env.test
     - cp .env.gitlab .env
     - bin/console doctrine:schema:update -f

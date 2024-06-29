@@ -173,5 +173,11 @@ class ModifierActivationRequirementData
             'activationRequirement' => SkillEnum::SHRINK,
             'value' => 100,
         ],
+        [
+            'name' => ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL_SHRINK,
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL,
+            'activationRequirement' => SkillEnum::SHRINK,
+            'value' => 100,
+        ],
     ];
 }

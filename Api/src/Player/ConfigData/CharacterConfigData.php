@@ -118,6 +118,7 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'immunized_default',
+                SkillEnum::MANKIND_ONLY_HOPE,
             ],
         ],
         [

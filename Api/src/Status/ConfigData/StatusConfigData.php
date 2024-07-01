@@ -1255,5 +1255,15 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => SkillEnum::MANKIND_ONLY_HOPE,
+            'statusName' => SkillEnum::MANKIND_ONLY_HOPE,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'status_config',
+            'modifierConfigs' => [
+                'modifier_for_daedalus_+1moral_on_day_change',
+            ],
+            'actionConfigs' => [],
+        ],
     ];
 }

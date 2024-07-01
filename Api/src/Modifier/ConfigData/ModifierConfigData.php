@@ -18,6 +18,7 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
@@ -32,6 +33,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerService;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -2580,6 +2582,26 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+        ],
+        [
+            'name' => 'modifier_for_daedalus_+1moral_on_day_change',
+            'modifierName' => SkillEnum::MANKIND_ONLY_HOPE,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 1.0,
+            'targetVariable' => PlayerVariableEnum::MORAL_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                PlayerService::BASE_PLAYER_DAY_CHANGE => ModifierRequirementEnum::ALL_TAGS,
+                SkillEnum::MANKIND_ONLY_HOPE => ModifierRequirementEnum::NONE_TAGS,
+            ],
         ],
     ];
 

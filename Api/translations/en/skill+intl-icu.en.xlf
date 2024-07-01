@@ -209,5 +209,15 @@
         <target>Highly skilled in laboratory research.//:point: Can read **properties of medicines**.//:point: **+4% bonus** of all **Research** in the laboratory.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
+    <unit id="mankind_only_hope">
+      <segment id="mankind_only_hope.name" state="translated">
+        <source>mankind_only_hope.name</source>
+        <target>Mankind's only hope</target>
+      </segment>
+      <segment id="mankind_only_hope.description" state="translated">
+        <source>mankind_only_hope.description</source>
+        <target>Her unique immune system makes her the last hope for humanity. As long as she stays alive, we'll have a shot at combatting the Mush invasion.//:point: Daily morale loss is reduced by 1 point.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -437,6 +437,7 @@ class GameConfigData
                 DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
                 SkillEnum::SHRINK . '_default',
                 PlaceStatusEnum::MUSH_TRAPPED->value . '_default',
+                SkillEnum::MANKIND_ONLY_HOPE,
             ],
             'triumphConfigs' => [
                 'alien_science',

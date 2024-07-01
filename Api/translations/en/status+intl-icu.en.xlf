@@ -1625,5 +1625,15 @@
         <target>The Shrink is in charge of psychological support. They are able to keep morale high and treat psychological illnesses.//:point: Each cycle, **1 Morale Point (:pmo:) is regained** by all crewmates lying down in the same room.//:point: **Treats psychological illnesses**.//:point: Grants the **Comfort** Action for raising morale.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
+    <unit id="mankind_only_hope">
+      <segment id="mankind_only_hope.name" state="translated">
+        <source>mankind_only_hope.name</source>
+        <target>Mankind's only hope</target>
+      </segment>
+      <segment id="mankind_only_hope.description" state="translated">
+        <source>mankind_only_hope.description</source>
+        <target>Her unique immune system makes her the last hope for humanity. As long as she stays alive, we'll have a shot at combatting the Mush invasion.//:point: Daily morale loss is reduced by 1 point.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

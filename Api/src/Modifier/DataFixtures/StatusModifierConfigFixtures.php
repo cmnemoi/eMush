@@ -32,6 +32,7 @@ use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerService;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -63,6 +64,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string TECHNICIAN_SPECIALIST_POINT = 'technician_specialist_point';
     public const string TECHNICIAN_DOUBLE_REPAIR_CHANCE = 'technician_double_repair_chance';
     public const string CONCEPTOR_SPECIALIST_POINT = 'conceptor_specialist_point';
+
+    public const string MANKIND_ONLY_HOPE_MODIFIER = 'modifier_for_daedalus_+1moral_on_day_change';
 
     public function load(ObjectManager $manager): void
     {
@@ -420,6 +423,22 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($lyingDownShrinkModifier);
 
+        $mankindOnlyHopeModifier = new VariableEventModifierConfig('modifier_for_daedalus_+1moral_on_day_change');
+        $mankindOnlyHopeModifier
+            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
+            ->setDelta(1.0)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
+            ->setApplyWhenTargeted(true)
+            ->setTagConstraints([
+                PlayerService::BASE_PLAYER_DAY_CHANGE => ModifierRequirementEnum::ALL_TAGS,
+                SkillEnum::MANKIND_ONLY_HOPE => ModifierRequirementEnum::NONE_TAGS,
+            ])
+            ->setModifierName(SkillEnum::MANKIND_ONLY_HOPE)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($mankindOnlyHopeModifier);
+
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -449,6 +468,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::TECHNICIAN_DOUBLE_REPAIR_CHANCE, $technicianDoubleRepairChance);
         $this->addReference(self::CONCEPTOR_SPECIALIST_POINT, $coreSpecialistPoint);
         $this->addReference('modifier_for_player_+1morale_point_on_new_cycle_if_shrink_in_room', $lyingDownShrinkModifier);
+        $this->addReference(self::MANKIND_ONLY_HOPE_MODIFIER, $mankindOnlyHopeModifier);
     }
 
     public function getDependencies(): array

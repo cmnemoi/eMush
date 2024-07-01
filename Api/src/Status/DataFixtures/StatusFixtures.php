@@ -489,6 +489,16 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mushTrapped);
 
+        /** @var VariableEventModifierConfig $mankindOnlyHopeModifier */
+        $mankindOnlyHopeModifier = $this->getReference(StatusModifierConfigFixtures::MANKIND_ONLY_HOPE_MODIFIER);
+        $mankindOnlyHopeSkill = new StatusConfig();
+        $mankindOnlyHopeSkill
+            ->setStatusName(SkillEnum::MANKIND_ONLY_HOPE)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs([$mankindOnlyHopeModifier])
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($mankindOnlyHopeSkill);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -538,7 +548,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($astronavigationNeronCpuPriority)
             ->addStatusConfig($defenceCpuPriority)
             ->addStatusConfig($shrinkSkill)
-            ->addStatusConfig($mushTrapped);
+            ->addStatusConfig($mushTrapped)
+            ->addStatusConfig($mankindOnlyHopeSkill);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);

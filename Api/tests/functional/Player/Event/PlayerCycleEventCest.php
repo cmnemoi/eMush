@@ -467,6 +467,78 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(10, $this->chun->getMoralPoint());
     }
 
+    public function mankindOnlyHopeShouldReduceDailyMoralePointLossByOne(FunctionalTester $I): void
+    {
+        // given Chun is the mankind only hope
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::MANKIND_ONLY_HOPE,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given the daedalus is D1C8 so next cycle is a new day
+        $this->daedalus->setDay(1);
+        $this->daedalus->setCycle(8);
+
+        // given player, Chun and Kuan Ti have 10 morale points
+        $this->player->setMoralPoint(10);
+        $this->chun->setMoralPoint(10);
+        $this->kuanTi->setMoralPoint(10);
+
+        // when the new cycle event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then player, Chun and Kuan Ti should have 9 morale points
+        $I->assertTrue($this->player->getMoralPoint() === 9 || $this->player->getMoralPoint() === 9 - $this->getPanicCrisisPlayerDamage());
+        $I->assertTrue($this->chun->getMoralPoint() === 9 || $this->chun->getMoralPoint() === 9 - $this->getPanicCrisisPlayerDamage());
+        $I->assertTrue($this->kuanTi->getMoralPoint() === 9 || $this->kuanTi->getMoralPoint() === 9 - $this->getPanicCrisisPlayerDamage());
+    }
+
+    public function twoMankindOnlyHopeShouldStillReduceDailyMoralePointLossByOne(FunctionalTester $I): void
+    {
+        // given Chun and Kuan Ti are the mankind only hopes
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::MANKIND_ONLY_HOPE,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::MANKIND_ONLY_HOPE,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given the daedalus is D1C8 so next cycle is a new day
+        $this->daedalus->setDay(1);
+        $this->daedalus->setCycle(8);
+
+        // given player, Chun and Kuan Ti have 10 morale points
+        $this->player->setMoralPoint(10);
+        $this->chun->setMoralPoint(10);
+        $this->kuanTi->setMoralPoint(10);
+
+        // when the new cycle event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then player, Chun and Kuan Ti should have 9 morale points
+        $I->assertTrue($this->player->getMoralPoint() === 9 || $this->player->getMoralPoint() === 9 - $this->getPanicCrisisPlayerDamage());
+        $I->assertTrue($this->chun->getMoralPoint() === 9 || $this->chun->getMoralPoint() === 9 - $this->getPanicCrisisPlayerDamage());
+        $I->assertTrue($this->kuanTi->getMoralPoint() === 9 || $this->kuanTi->getMoralPoint() === 9 - $this->getPanicCrisisPlayerDamage());
+    }
+
     private function getPanicCrisisPlayerDamage(): int
     {
         return array_keys($this->daedalus->getGameConfig()->getDifficultyConfig()->getPanicCrisisPlayerDamage()->toArray())[0];

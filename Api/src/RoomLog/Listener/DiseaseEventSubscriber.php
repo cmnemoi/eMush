@@ -28,7 +28,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         LogEnum::SELF_SURGERY_SUCCESS => LogEnum::SELF_SURGERY_SUCCESS,
         DiseaseCauseEnum::OVERRODE => LogEnum::DISEASE_OVERRIDDEN,
         DiseaseStatusEnum::DRUG_HEALED => LogEnum::DISEASE_CURED_DRUG,
-        SkillEnum::SHRINK => LogEnum::DISORDER_CURED,
+        SkillEnum::SHRINK => LogEnum::DISORDER_CURED_PLAYER,
     ];
 
     private const array TREAT_LOG_MAP = [

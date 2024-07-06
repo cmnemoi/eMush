@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace Mush\Player\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Equipment\Entity\Mechanics\PatrolShip;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusEventSubscriber implements EventSubscriberInterface
 {
-    private EventServiceInterface $eventService;
-
-    public function __construct(EventServiceInterface $eventService)
-    {
-        $this->eventService = $eventService;
-    }
+    public function __construct(
+        private EventServiceInterface $eventService,
+        private PlayerServiceInterface $playerService,
+    ) {}
 
     public static function getSubscribedEvents()
     {
@@ -34,7 +35,9 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
         $this->killPlayersOnPlanet($event);
 
-        if ($daedalus->projectIsNotFinished(ProjectName::MAGNETIC_NET)) {
+        if ($daedalus->hasFinishedProject(ProjectName::MAGNETIC_NET)) {
+            $this->movePatrolShipPilotsToLandingBays($event);
+        } else {
             $this->killPlayersInSpaceBattle($event);
         }
     }
@@ -68,6 +71,27 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
                 $event->getTime(),
             );
             $this->eventService->callEvent($playerDeathEvent, PlayerEvent::DEATH_PLAYER);
+        }
+    }
+
+    private function movePatrolShipPilotsToLandingBays(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $playersToMove = $event->getDaedalus()->getPlayers()->getPlayerAlive()->filter(
+            static fn (Player $player) => $player->isInAPatrolShip()
+        );
+
+        /** @var Player $player */
+        foreach ($playersToMove as $player) {
+            /** @var PatrolShip $patrolShipMechanic */
+            $patrolShipMechanic = $player
+                ->getPlace()
+                ->getFirstEquipmentByMechanicNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP)
+                ->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+
+            $patrolShipDockingPlace = $daedalus->getPlaceByNameOrThrow($patrolShipMechanic->getDockingPlace());
+
+            $this->playerService->changePlace($player, $patrolShipDockingPlace);
         }
     }
 }

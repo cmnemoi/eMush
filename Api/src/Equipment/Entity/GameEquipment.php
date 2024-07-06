@@ -430,6 +430,17 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         throw new \RuntimeException("Mechanic {$mechanicName} not found in the mechanics of {$this->name} equipment.");
     }
 
+    public function hasMechanicByName(string $mechanicName): bool
+    {
+        foreach ($this->getEquipment()->getMechanics() as $mechanic) {
+            if (\in_array($mechanicName, $mechanic->getMechanics(), true)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * @psalm-suppress ArgumentTypeCoercion
      */

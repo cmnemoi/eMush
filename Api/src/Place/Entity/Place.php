@@ -261,6 +261,18 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $equipment;
     }
 
+    public function getFirstEquipmentByMechanicNameOrThrow(string $mechanicName): GameEquipment
+    {
+        /** @var GameEquipment $equipment */
+        foreach ($this->equipments as $equipment) {
+            if ($equipment->hasMechanicByName($mechanicName)) {
+                return $equipment;
+            }
+        }
+
+        throw new \RuntimeException("There should be an equipment with {$mechanicName} mechanic in the place {$this->name}");
+    }
+
     /**
      * @return Collection<int, GameEquipment>
      */

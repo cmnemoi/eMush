@@ -674,6 +674,19 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $I->assertTrue($this->kuanTi->isAlive());
     }
 
+    public function shouldMovePatrolShipPilotToLandingBayWithMagneticNetProject(FunctionalTester $I): void
+    {
+        $this->createExtraPlace(RoomEnum::ALPHA_BAY_2, $I, $this->daedalus);
+
+        $this->givenMagneticNetProjectIsFinished($I);
+        $this->givenPasiphaeIsInSpaceBattle($I);
+        $this->givenKuanTiIsInPasiphae($I);
+
+        $this->whenChunMovesDaedalus($I);
+
+        $this->thenKuanTiShouldBeInAlphaBay2($I);
+    }
+
     protected function createHunterByName(string $hunterName, FunctionalTester $I): Hunter
     {
         /** @var HunterConfig $hunterConfig */
@@ -688,5 +701,48 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $this->alertService->handleHunterArrival($this->daedalus);
 
         return $hunter;
+    }
+
+    private function givenMagneticNetProjectIsFinished(FunctionalTester $I): void
+    {
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::MAGNETIC_NET),
+            author: $this->chun,
+            I: $I
+        );
+    }
+
+    private function givenPasiphaeIsInSpaceBattle(FunctionalTester $I): void
+    {
+        $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PASIPHAE,
+            equipmentHolder: $pasiphaePlace,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenKuanTiIsInPasiphae(FunctionalTester $I): void
+    {
+        $pasiphaePlace = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::PASIPHAE);
+        $this->kuanTi->changePlace($pasiphaePlace);
+    }
+
+    private function whenChunMovesDaedalus(FunctionalTester $I): void
+    {
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->chun,
+            target: $this->commandTerminal
+        );
+        $this->moveDaedalusAction->execute();
+    }
+
+    private function thenKuanTiShouldBeInAlphaBay2(FunctionalTester $I): void
+    {
+        $alphaBay2 = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::ALPHA_BAY_2);
+        $I->assertEquals($alphaBay2, $this->kuanTi->getPlace());
     }
 }

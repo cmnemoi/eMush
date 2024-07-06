@@ -2,6 +2,7 @@
 
 namespace Mush\Game\ConfigData;
 
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\SkillEnum;
@@ -348,6 +349,7 @@ class GameConfigData
                 'sniper_helmet_blueprint_default',
                 'swedish_sofa_blueprint_default',
                 ItemEnum::SUPPORT_DRONE . '_default',
+                EquipmentEnum::HYDROPONIC_INCUBATOR . '_default',
             ],
             'statusConfigs' => [
                 'alien_artefact_default',

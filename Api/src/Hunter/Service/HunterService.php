@@ -419,7 +419,10 @@ class HunterService implements HunterServiceInterface
         );
         $this->eventService->callEvent($daedalusVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
 
-        // then shoot at hull
+        // then shoot at hull if there is any damage left to deal
+        if ($damageOnHull === 0) {
+            return;
+        }
         $daedalusVariableEvent = new DaedalusVariableEvent(
             daedalus: $daedalus,
             variableName: DaedalusVariableEnum::HULL,

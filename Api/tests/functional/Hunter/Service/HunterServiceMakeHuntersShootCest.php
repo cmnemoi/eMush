@@ -530,6 +530,50 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldNotRaiseArmorWithArmoredCorridorsAndPlasmaShield(FunctionalTester $I): void
+    {
+        // given I have one hunter
+        $hunter = $this->createHunterTargetingDaedalusByName($I, HunterEnum::HUNTER);
+
+        // given this hunter deals 6 damage
+        $hunter->getHunterConfig()->setDamageRange([6 => 1]);
+
+        // given Armour Corridor project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::ARMOUR_CORRIDOR),
+            author: $this->player,
+            I: $I
+        );
+
+        // given plasma shield project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD),
+            author: $this->player,
+            I: $I
+        );
+
+        // given hull is at 90
+        $this->daedalus->setHull(90);
+
+        // given shield is at 10
+        $this->daedalus->setShield(10);
+
+        // when I make the hunter shoot
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // then plasma shield should be damaged
+        $I->assertEquals(
+            expected: $this->daedalus->getShield(),
+            actual: 4,
+        );
+
+        // then the hull should stay the same
+        $I->assertEquals(
+            expected: 90,
+            actual: $this->daedalus->getHull(),
+        );
+    }
+
     private function getDaedalusForAsteroidTest(FunctionalTester $I): Daedalus
     {
         $this->daedalus

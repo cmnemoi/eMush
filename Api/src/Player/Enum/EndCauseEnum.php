@@ -8,6 +8,7 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
 class EndCauseEnum
@@ -101,6 +102,7 @@ class EndCauseEnum
         PlanetSectorEvent::KILL_LOST => self::EXPLORATION_LOST,
         PlanetSectorEvent::PLANET_SECTOR_EVENT => self::EXPLORATION,
         ActionEnum::RETURN_TO_SOL->value => self::SOL_RETURN,
+        PlayerStatusEnum::STARVING => self::STARVATION,
     ];
 
     public static function getAll(): array

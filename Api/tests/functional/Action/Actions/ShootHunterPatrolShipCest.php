@@ -12,9 +12,14 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Enum\ProjectName;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -64,22 +69,50 @@ final class ShootHunterPatrolShipCest extends AbstractFunctionalTest
 
     public function shouldMakeOneMoreDamagePointWithBlasterGunProject(FunctionalTester $I): void
     {
-        // given Blaster Gun project is finished
+        $this->givenBlasterGunProjectIsFinished($I);
+        $this->givenPatrolShipDealsDamagePoints(1);
+        $this->givenChunHas100PercentChanceToHit();
+
+        $this->whenChunShootsWithBlasterGunOnAHunterWithSixHealthPoints();
+
+        $this->thenHunterShouldHaveLostTwoHealthPoints($I);
+    }
+
+    public function shouldLogCorrectlyWithBlasterGunProject(FunctionalTester $I): void
+    {
+        $this->givenBlasterGunProjectIsFinished($I);
+        $this->givenPatrolShipDealsDamagePoints(5);
+        $this->givenChunHas100PercentChanceToHit();
+
+        $this->whenChunShootsWithBlasterGunOnAHunterWithSixHealthPoints();
+
+        $this->thenIShouldNotSeeShootHunterSuccessLog($I);
+        $this->thenIShouldSeeHunterDeathLog($I);
+    }
+
+    private function givenBlasterGunProjectIsFinished(FunctionalTester $I): void
+    {
         $this->finishProject(
             project: $this->daedalus->getProjectByName(ProjectName::PATROLSHIP_BLASTER_GUN),
             author: $this->player,
             I: $I,
         );
+    }
 
-        // given patrol ship deals 1 damage point
+    private function givenPatrolShipDealsDamagePoints(int $damage): void
+    {
         /** @var Weapon $patrolShipWeaponMechanic */
         $patrolShipWeaponMechanic = $this->patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::WEAPON);
-        $patrolShipWeaponMechanic->setBaseDamageRange([1 => 1]);
+        $patrolShipWeaponMechanic->setBaseDamageRange([$damage => 1]);
+    }
 
-        // given Chun has a 100% chance to hit
+    private function givenChunHas100PercentChanceToHit(): void
+    {
         $this->actionConfig->setSuccessRate(100);
+    }
 
-        // when Chun shoots with Blaster Gun on a hunter with 6 health points
+    private function whenChunShootsWithBlasterGunOnAHunterWithSixHealthPoints(): void
+    {
         $hunter = $this->daedalus->getAttackingHunters()->first();
         $hunter->setHealth(6);
 
@@ -90,8 +123,39 @@ final class ShootHunterPatrolShipCest extends AbstractFunctionalTest
             target: $hunter,
         );
         $this->shootHunterPatrolShipAction->execute();
+    }
 
-        // then hunter should have lost 2 health points
+    private function thenHunterShouldHaveLostTwoHealthPoints(FunctionalTester $I): void
+    {
+        $hunter = $this->daedalus->getAttackingHunters()->first();
         $I->assertEquals(4, $hunter->getHealth());
+    }
+
+    private function thenIShouldNotSeeShootHunterSuccessLog(FunctionalTester $I): void
+    {
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => RoomEnum::PATROL_SHIP_ALPHA_TAMARIN,
+                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'log' => ActionLogEnum::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+    }
+
+    private function thenIShouldSeeHunterDeathLog(FunctionalTester $I): void
+    {
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => RoomEnum::PATROL_SHIP_ALPHA_TAMARIN,
+                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'log' => LogEnum::HUNTER_DEATH_PATROL_SHIP,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
     }
 }

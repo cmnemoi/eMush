@@ -10,9 +10,9 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\NumberOfAttackingHunters;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\EquipmentMechanic as Mechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Weapon;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
@@ -73,45 +73,48 @@ class ShootHunter extends AttemptAction
             return;
         }
 
-        /** @var GameEquipment $shootingEquipment */
-        $shootingEquipment = $this->getActionProvider();
-
-        /** @var Weapon $weapon */
-        $weapon = $this->getWeaponMechanic($shootingEquipment);
-        $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($weapon->getBaseDamageRange());
-
-        /** @var Hunter $hunter */
         $hunter = $this->selectHunterToShoot();
+        $hunterId = $hunter->getId();
+        $initialHunterHealth = $hunter->getHealth();
 
-        $shotDoesNotKillHunter = $damage < $hunter->getHealth();
+        $damage = $this->damageHunter($hunter, $this->getPatrolShipBaseDamage());
+
+        $shotDoesNotKillHunter = $damage < $initialHunterHealth;
         if ($shotDoesNotKillHunter) {
             $this->logShootHunterSuccess($hunter);
         }
 
         // Add some extra info to enable hunter hit/death animations in front-end
+        $result->addDetail('targetedHunterId', $hunterId);
         $result->addDetail('hunterIsAlive', $shotDoesNotKillHunter);
-        $result->addDetail('targetedHunterId', $hunter->getId());
+    }
 
+    private function getPatrolShipBaseDamage(): int
+    {
+        /** @var GameEquipment $shootingEquipment */
+        $shootingEquipment = $this->getActionProvider();
+
+        /** @var Weapon $weapon */
+        $weapon = $shootingEquipment->getMechanicByNameOrThrow(EquipmentMechanicEnum::WEAPON);
+
+        return (int) $this->randomService->getSingleRandomElementFromProbaCollection($weapon->getBaseDamageRange());
+    }
+
+    private function damageHunter(Hunter $hunter, int $baseDamage): float
+    {
         $hunterVariableEvent = new HunterVariableEvent(
             $hunter,
             HunterVariableEnum::HEALTH,
-            -$damage,
+            -$baseDamage,
             $this->getActionConfig()->getActionTags(),
             new \DateTime()
         );
         $hunterVariableEvent->setAuthor($this->player);
-        $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
-    }
 
-    private function getWeaponMechanic(GameEquipment $shootingEquipment): Weapon
-    {
-        /** @var Weapon $weapon */
-        $weapon = $shootingEquipment->getEquipment()->getMechanics()->filter(static fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->first();
-        if (!$weapon instanceof Weapon) {
-            throw new \Exception("Shoot hunter action : {$shootingEquipment->getName()} should have a weapon mechanic");
-        }
+        /** @var HunterVariableEvent $modifiedEvent */
+        $modifiedEvent = $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE)->first();
 
-        return $weapon;
+        return abs($modifiedEvent->getQuantity());
     }
 
     private function logShootHunterSuccess(Hunter $hunter): void
@@ -139,8 +142,7 @@ class ShootHunter extends AttemptAction
         }
 
         $hunters = $this->player->getDaedalus()->getAttackingHunters()->toArray();
-        $hunterToShoot = $this->randomService->getRandomElements($hunters, number: 1);
 
-        return reset($hunterToShoot);
+        return $this->randomService->getRandomElement($hunters);
     }
 }

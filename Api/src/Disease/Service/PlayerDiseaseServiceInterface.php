@@ -30,4 +30,6 @@ interface PlayerDiseaseServiceInterface
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void;
 
     public function healDisease(Player $author, PlayerDisease $playerDisease, array $reasons, \DateTime $time, string $visibility): void;
+
+    public function treatDisorder(PlayerDisease $playerDisease, \DateTime $time): void;
 }

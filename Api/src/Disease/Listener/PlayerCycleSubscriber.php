@@ -29,5 +29,10 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
         foreach ($player->getMedicalConditions() as $disease) {
             $this->playerDiseaseService->handleNewCycle($disease, $event->getTime());
         }
+
+        $disorder = $player->getDisorderWithMostDiseasePoints();
+        if ($disorder->isTreatedByAShrink()) {
+            $this->playerDiseaseService->treatDisorder($disorder, $event->getTime());
+        }
     }
 }

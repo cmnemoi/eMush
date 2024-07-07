@@ -5,6 +5,7 @@ namespace Mush\Player\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OrderBy;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -315,6 +316,21 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $disease = $this->medicalConditions->filter(static fn (PlayerDisease $playerDisease) => ($playerDisease->getDiseaseConfig()->getDiseaseName() === $diseaseName));
 
         return $disease->isEmpty() ? null : $disease->first();
+    }
+
+    public function getPhysicalDiseases(): PlayerDiseaseCollection
+    {
+        return $this->getMedicalConditions()->filter(static fn (PlayerDisease $playerDisease) => $playerDisease->isAPhysicalDisease());
+    }
+
+    public function getDisorders(): PlayerDiseaseCollection
+    {
+        return $this->getMedicalConditions()->filter(static fn (PlayerDisease $playerDisease) => $playerDisease->isADisorder());
+    }
+
+    public function getDisorderWithMostDiseasePoints(): PlayerDisease
+    {
+        return $this->getDisorders()->getSortedByDiseasePoints(order: Order::Descending)->first() ?: PlayerDisease::createNull();
     }
 
     public function setMedicalConditions(Collection $medicalConditions): static

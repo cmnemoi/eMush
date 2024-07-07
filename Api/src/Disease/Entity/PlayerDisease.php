@@ -35,6 +35,15 @@ class PlayerDisease
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $resistancePoint = 0;
 
+    public static function createNull(): self
+    {
+        $disease = new self();
+        $disease->diseaseConfig = new DiseaseConfig();
+        $disease->player = Player::createNull();
+
+        return $disease;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

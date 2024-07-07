@@ -136,17 +136,6 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             $playerDisease->decrementDiseasePoints();
         }
 
-        if ($playerDisease->isTreatedByAShrink()) {
-            $playerRoom = $player->getPlace();
-            $this->treatDisorder(
-                $playerDisease,
-                shrink: $this->randomService->getRandomPlayer($playerRoom->getAliveShrinksExceptPlayer($player)),
-                time: $time
-            );
-
-            return;
-        }
-
         $diseasePoint = $playerDisease->getDiseasePoint();
         if ($diseasePoint <= 0) {
             if ($playerDisease->getStatus() === DiseaseStatusEnum::INCUBATING) {
@@ -189,6 +178,40 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             $playerDisease->setResistancePoint($playerDisease->getResistancePoint() - 1);
             $this->persist($playerDisease);
         }
+    }
+
+    public function treatDisorder(PlayerDisease $playerDisease, \DateTime $time): void
+    {
+        $playerDisease->decrementDiseasePoints();
+
+        $player = $playerDisease->getPlayer();
+        $playerRoom = $player->getPlace();
+        $shrink = $this->randomService->getRandomPlayer($playerRoom->getAliveShrinksExceptPlayer($player));
+
+        // if disorder is cured, remove it
+        if ($playerDisease->getDiseasePoint() <= 0) {
+            $this->removePlayerDisease(
+                $playerDisease,
+                [SkillEnum::SHRINK],
+                $time,
+                VisibilityEnum::PUBLIC,
+                $shrink
+            );
+
+            return;
+        }
+
+        // else, send an event to other modules saying that the disorder is still being treated
+        $event = new DiseaseEvent(
+            $playerDisease,
+            tags: [SkillEnum::SHRINK],
+            time: $time,
+        );
+        $event->setAuthor($shrink);
+        $event->setVisibility(VisibilityEnum::PUBLIC);
+        $this->eventService->callEvent($event, DiseaseEvent::TREAT_DISEASE);
+
+        $this->persist($playerDisease);
     }
 
     private function findDiseaseConfigByNameAndDaedalus(string $diseaseName, Daedalus $daedalus): DiseaseConfig
@@ -240,35 +263,5 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
         return $playerDisease->getDiseaseConfig()->getType() === MedicalConditionTypeEnum::DISEASE
             || \in_array($playerDisease->getDiseaseConfig()->getDiseaseName(), $spontaneousHealingDisorders, true);
-    }
-
-    private function treatDisorder(PlayerDisease $playerDisease, Player $shrink, \DateTime $time): void
-    {
-        $playerDisease->decrementDiseasePoints();
-
-        // if disorder is cured, remove it
-        if ($playerDisease->getDiseasePoint() <= 0) {
-            $this->removePlayerDisease(
-                $playerDisease,
-                [SkillEnum::SHRINK],
-                $time,
-                VisibilityEnum::PUBLIC,
-                $shrink
-            );
-
-            return;
-        }
-
-        // else, send an event to other modules saying that the disorder is still being treated
-        $event = new DiseaseEvent(
-            $playerDisease,
-            tags: [SkillEnum::SHRINK],
-            time: $time,
-        );
-        $event->setAuthor($shrink);
-        $event->setVisibility(VisibilityEnum::PUBLIC);
-        $this->eventService->callEvent($event, DiseaseEvent::TREAT_DISEASE);
-
-        $this->persist($playerDisease);
     }
 }

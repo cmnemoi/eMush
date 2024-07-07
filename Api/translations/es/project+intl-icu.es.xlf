@@ -739,5 +739,23 @@
         <target>floor_heating.lore</target>
       </segment>
     </unit>
+    <unit id="oxy_more">
+      <segment id="oxy_more.type" state="initial">
+        <source>oxy_more.type</source>
+        <target>oxy_more.type</target>
+      </segment>
+      <segment id="oxy_more.name" state="initial">
+        <source>oxy_more.name</source>
+        <target>oxy_more.name</target>
+      </segment>
+      <segment id="oxy_more.description" state="initial">
+        <source>oxy_more.description</source>
+        <target>oxy_more.description</target>
+      </segment>
+      <segment id="oxy_more.lore" state="initial">
+        <source>oxy_more.lore</source>
+        <target>oxy_more.lore</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

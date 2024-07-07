@@ -899,7 +899,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
             [
                 'projectKey' => 'oxy_more',
                 'projectName' => 'Conduites oxygénées',
-                'projectDescription' => 'A chaque cycle, le Daedalus a 20% de chance d\'économiser l\'oxygène de l\'équipage.',
+                'projectDescription' => 'À chaque cycle, le Daedalus a 20% de chance d\'économiser l\'oxygène de l\'équipage.',
                 'projectLore' => 'Des algues qui poussent dans les conduites de climatisation. On pourrait peut-être faire pousser des bananiers rampants aussi non ?',
                 'projectEfficiency' => 'Efficacité : 6-9%',
                 'projectBonusSkills' => [

@@ -750,7 +750,7 @@
       </segment>
       <segment id="oxy_more.description" state="translated">
         <source>oxy_more.description</source>
-        <target>A chaque cycle, le Daedalus a 20% de chance d'économiser l'oxygène de l'équipage.</target>
+        <target>À chaque cycle, le Daedalus a 20% de chance d'économiser l'oxygène de l'équipage.</target>
       </segment>
       <segment id="oxy_more.lore" state="translated">
         <source>oxy_more.lore</source>

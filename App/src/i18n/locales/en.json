@@ -221,7 +221,7 @@
 			},
 			"rules": {
 				"title": "Rules",
-				"resetAcceptance": "Réinitialiser l'acceptation des règles pour tous les utilisateurs"
+				"resetAcceptance": "Reset rule acceptance for all users"
 			},
 			"title": "Administrative actions"
 		},

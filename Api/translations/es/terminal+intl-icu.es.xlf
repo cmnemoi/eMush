@@ -156,7 +156,7 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
       </segment>
       <segment id="cpu_priority.pilgred" state="translated">
         <source>bios_terminal.cpu_priority_pilgred</source>
-        <target/>
+        <target>PILGRED</target>
       </segment>
       <segment id="cpu_priority.projects" state="initial">
         <source>bios_terminal.cpu_priority_projects</source>

@@ -739,5 +739,23 @@
         <target>Puts an end to the stellar coldness of the Daedalus' parquet flooring. From now on, you're in the warmth!</target>
       </segment>
     </unit>
+    <unit id="oxy_more">
+      <segment id="oxy_more.type" state="translated">
+        <source>oxy_more.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="oxy_more.name" state="translated">
+        <source>oxy_more.name</source>
+        <target>Oxygenated Ducts</target>
+      </segment>
+      <segment id="oxy_more.description" state="translated">
+        <source>oxy_more.description</source>
+        <target>Every cycle, the Daedalus has a 20% chance of saving oxygen from the crew.</target>
+      </segment>
+      <segment id="oxy_more.lore" state="translated">
+        <source>oxy_more.lore</source>
+        <target>Algae growing in the air-conditioning ducts. Maybe we could encourage rampant growth of banana trees?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

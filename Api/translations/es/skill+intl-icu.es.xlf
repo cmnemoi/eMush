@@ -181,5 +181,15 @@
         <target>biologist.description</target>
       </segment>
     </unit>
+    <unit id="mankind_only_hope">
+      <segment id="mankind_only_hope.name" state="initial">
+        <source>mankind_only_hope.name</source>
+        <target>mankind_only_hope.name</target>
+      </segment>
+      <segment id="mankind_only_hope.description" state="initial">
+        <source>mankind_only_hope.description</source>
+        <target>mankind_only_hope.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

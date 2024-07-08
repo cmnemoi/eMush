@@ -25,11 +25,6 @@ build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_php chown -R dev:dev /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-start
 
-create-crew: docker-start
-	@echo "Waiting for ET server to start..."
-	@sleep 3
-	docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:create-crew
-
 docker-fresh-start: docker-stop
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --force-recreate --remove-orphans
 
@@ -45,7 +40,7 @@ docker-watch:
 fill-daedalus:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:fill-daedalus
 
-install: install-pre-commit-hooks setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates create-crew fill-daedalus
+install: install-pre-commit-hooks setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates fill-daedalus
 	@echo "Installation completed successfully ! You can access eMush at http://localhost/."
 	@echo "You can log in with the following credentials:"
 	@echo "Username: chun"
@@ -100,7 +95,7 @@ setup-JWT-certificates:
 start-eternaltwin-server:
 	docker compose -f docker/docker-compose.yml run -u node eternaltwin yarn etwin start
 
-gitpod-install: install-pre-commit-hooks gitpod-setup-env-variables gitpod-build install-api install-front install-eternaltwin setup-JWT-certificates create-crew fill-daedalus
+gitpod-install: install-pre-commit-hooks gitpod-setup-env-variables gitpod-build install-api install-front install-eternaltwin setup-JWT-certificates fill-daedalus
 
 gitpod-build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml build

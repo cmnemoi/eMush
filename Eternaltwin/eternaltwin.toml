@@ -13,3 +13,75 @@ display_name = "eMush"
 uri = "http://localhost/"
 oauth_callback = "http://localhost:8080/oauth/callback"
 secret = "dev_secret"
+
+[seed.user.andie]
+username = "andie"
+password = "1234567891"
+
+[seed.user.chao]
+username = "chao"
+password = "1234567891"
+
+[seed.user.chun]
+username = "chun"
+password = "1234567891"
+
+[seed.user.derek]
+username = "derek"
+password = "1234567891"
+
+[seed.user.eleesha]
+username = "eleesha"
+password = "1234567891"
+
+[seed.user.finola]
+username = "finola"
+password = "1234567891"
+
+[seed.user.frieda]
+username = "frieda"
+password = "1234567891"
+
+[seed.user.gioele]
+username = "gioele"
+password = "1234567891"
+
+[seed.user.hua]
+username = "hua"
+password = "1234567891"
+
+[seed.user.ian]
+username = "ian"
+password = "1234567891"
+
+[seed.user.janice]
+username = "janice"
+password = "1234567891"
+
+[seed.user.jin_su]
+username = "jin_su"
+password = "1234567891"
+
+[seed.user.kuan_ti]
+username = "kuan_ti"
+password = "1234567891"
+
+[seed.user.paola]
+username = "paola"
+password = "1234567891"
+
+[seed.user.raluca]
+username = "raluca"
+password = "1234567891"
+
+[seed.user.roland]
+username = "roland"
+password = "1234567891"
+
+[seed.user.stephen]
+username = "stephen"
+password = "1234567891"
+
+[seed.user.terrence]
+username = "terrence"
+password = "1234567891"

@@ -2589,7 +2589,7 @@ abstract class ModifierConfigData
             'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
-            'applyOnTarget' => false,
+            'applyOnTarget' => true,
             'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
             'type' => 'variable_event_modifier',
             'triggeredEvent' => null,

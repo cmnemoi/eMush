@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eux
+
 PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --dry-run --diff
 if [ $? -ne 0 ];
 then

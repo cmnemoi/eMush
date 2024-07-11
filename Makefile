@@ -40,7 +40,7 @@ docker-watch:
 fill-daedalus:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:fill-daedalus
 
-install: install-pre-commit-hooks setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates fill-daedalus
+install: setup-git-hooks setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates fill-daedalus
 	@echo "Installation completed successfully ! You can access eMush at http://localhost/."
 	@echo "You can log in with the following credentials:"
 	@echo "Username: chun"
@@ -59,20 +59,6 @@ install-front:
 	docker compose -f docker/docker-compose.yml run -u node mush_front yarn install &&\
 	docker compose -f docker/docker-compose.yml run -u node mush_front ./reset.sh
 
-install-pre-commit-hooks: install-php
-	composer install
-	composer cghooks update
-
-install-php:
-ifeq ($(UNAME), Linux)
-	chmod +x ./install_php_debian.sh
-	./install_php_debian.sh
-endif
-ifeq ($(UNAME), Darwin)
-	chmod +x ./install_php_macos.sh
-	./install_php_macos.sh
-endif
-
 remove-all: #Warning, it will remove EVERY container, images, volumes and network not only emushs ones
 	docker system prune --volumes -a
 
@@ -87,6 +73,11 @@ setup-env-variables:
 	cp ./App/.env.dist ./App/.env
 	cp ./Eternaltwin/eternaltwin.toml ./Eternaltwin/eternaltwin.local.toml
 
+setup-git-hooks:
+	chmod +x hooks/pre-commit
+	chmod +x hooks/pre-push
+	git config core.hooksPath hooks
+
 setup-JWT-certificates:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php openssl genpkey -pass pass:mush -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
 	docker compose -f docker/docker-compose.yml run -u dev mush_php openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout
@@ -95,7 +86,7 @@ setup-JWT-certificates:
 start-eternaltwin-server:
 	docker compose -f docker/docker-compose.yml run -u node eternaltwin yarn etwin start
 
-gitpod-install: install-pre-commit-hooks gitpod-setup-env-variables gitpod-build install-api install-front install-eternaltwin setup-JWT-certificates fill-daedalus
+gitpod-install: setup-git-hooks gitpod-setup-env-variables gitpod-build install-api install-front install-eternaltwin setup-JWT-certificates fill-daedalus
 
 gitpod-build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml build

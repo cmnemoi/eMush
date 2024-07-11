@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo 'Running php-cs-fixer'
+docker compose -f docker/docker-compose.yml exec -T -u dev mush_php php vendor/bin/php-cs-fixer fix

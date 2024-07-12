@@ -15,8 +15,6 @@ use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -39,8 +37,7 @@ final class ModerationController extends AbstractFOSRestController
     public function __construct(
         ModerationServiceInterface $moderationService,
         PlayerRepository $playerRepository
-    )
-    {
+    ) {
         $this->moderationService = $moderationService;
         $this->playerRepository = $playerRepository;
     }
@@ -634,7 +631,7 @@ final class ModerationController extends AbstractFOSRestController
     }
 
     /**
-     * archive a report
+     * archive a report.
      *
      * @OA\Parameter(
      *     name="id",
@@ -690,9 +687,9 @@ final class ModerationController extends AbstractFOSRestController
         $neron = $message->getNeron();
         $author = $message->getAuthor();
 
-        if($neron !== null) {
+        if ($neron !== null) {
             $daedalus = $neron->getDaedalusInfo()->getDaedalus();
-        } else if ($author !== null) {
+        } elseif ($author !== null) {
             $daedalus = $author->getPlayer()->getDaedalus();
         } else {
             throw new HttpException(Response::HTTP_UNAUTHORIZED, 'No daedalus found for this message');

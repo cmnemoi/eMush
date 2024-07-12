@@ -5,6 +5,29 @@
             :action="currentAction"
             @close="closeModerationDialog"
             @submit-sanction="applySanction" />
+        <SanctionDetailPage
+            :isOpen="showDetailPopup"
+            :moderationSanction="selectedSanction"
+            @close="showDetailPopup = false"
+        />
+        <h2 class="sanction_heading">{{ $t('moderation.reportToAddress') }}</h2>
+        <Datatable
+            :headers='reportFields'
+            :row-data="playerReports"
+            :pagination="reportPagination"
+            @pagination-click="paginationClick"
+        >
+            <template #header-actions>
+                Actions
+            </template>
+            <template #row-actions="report">
+                <DropList class="align-right">
+                    <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.name') }}</button>
+                    <button class="action-button" @click="archiveReport(report.id)">{{ $t('moderation.actions.archive') }}</button>
+                    <button class="action-button" @click="closeReport(report.id)">{{ $t('moderation.actions.close') }}</button>
+                </DropList>
+            </template>
+        </Datatable>
         <div class="flex-row">
             <Tippy
                 tag="button"
@@ -272,6 +295,13 @@ import ModerationService from "@/services/moderation.service";
 import { Message as MessageEntity } from "@/entities/Message";
 import { Channel } from "@/entities/Channel";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
+import Datatable from "@/components/Utils/Datatable/Datatable.vue";
+import qs from "qs";
+import ApiService from "@/services/api.service";
+import urlJoin from "url-join";
+import ModerationSanctionService from "@/services/moderation_sanction.service";
+import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
+import DropList from "@/components/Utils/DropList.vue";
 
 interface PrivateChannel {
     id: number,
@@ -302,12 +332,17 @@ interface ModerationViewPlayerData {
     privateChannels: PrivateChannel[],
     errors: any,
     moderationDialogVisible: boolean,
-    currentAction: { key: string, value: string }
+    currentAction: { key: string, value: string },
+    showDetailPopup: boolean,
+    selectedSanction: any
 }
 
 export default defineComponent({
     name: "ModerationViewPlayerDetail",
     components: {
+        DropList,
+        SanctionDetailPage,
+        Datatable,
         Log,
         Message,
         ModerationActionPopup
@@ -337,7 +372,36 @@ export default defineComponent({
             privateChannels: [],
             errors: {},
             moderationDialogVisible: false,
-            currentAction: { key: "", value: "" }
+            currentAction: { key: "", value: "" },
+            playerReports: [],
+            reportPagination: {
+                currentPage: 1,
+                pageSize: 5,
+                totalItem: 1,
+                totalPage: 1
+            },
+            reportFields: [
+                {
+                    key: 'reason',
+                    name: 'moderation.sanctionReason'
+                },
+                {
+                    key: 'message',
+                    name: 'moderation.report.playerMessage'
+                },
+                {
+                    key: 'evidence',
+                    name: 'moderation.sanctionDetail.evidence'
+                },
+                {
+                    key: 'actions',
+                    name: 'Actions',
+                    sortable: false,
+                    slot: true
+                }
+            ],
+            showDetailPopup: false,
+            selectedSanction: {}
         };
     },
     methods: {
@@ -347,6 +411,10 @@ export default defineComponent({
         },
         closeModerationDialog() {
             this.moderationDialogVisible = false;
+        },
+        showSanctionDetails(sanction: any) {
+            this.selectedSanction = sanction;
+            this.showDetailPopup = true;
         },
         applySanction(params: URLSearchParams) {
             if (this.player === null) {
@@ -381,6 +449,28 @@ export default defineComponent({
                     });
             }
             this.moderationDialogVisible = false;
+        },
+        archiveReport(sanctionId) {
+            const params = new URLSearchParams();
+            params.append('isAbusive', false);
+
+            ModerationService.archiveReport(sanctionId, params)
+                .catch((error) => {
+                    console.error(error);
+                });
+            this.$emit('close');
+            this.loadPlayerReports()
+        },
+        closeReport(sanctionId) {
+            const params = new URLSearchParams();
+            params.append('isAbusive', true);
+
+            ModerationService.archiveReport(sanctionId, params)
+                .catch((error) => {
+                    console.error(error);
+                });
+            this.$emit('close');
+            this.loadPlayerReports()
         },
         async loadLogs(player: ModerationViewPlayer) {
             if (this.logsDay === null) {
@@ -449,23 +539,35 @@ export default defineComponent({
                     });
             }
         },
-        async loadPlayerReports(player: ModerationViewPlayer) {
-            this.publicChannelMessages = [];
-            const publicChannel = await ModerationService.getPlayerDaedalusChannelByScope(player, "public").then((channel: Channel) => {
-                return channel;
-            }).catch((error) => {
-                console.error(error);
-            });
+        async loadPlayerReports() {
+            this.loading = true;
+            const params: any = {
+                header: {
+                    'accept': 'application/ld+json'
+                },
+                params: {},
+                paramsSerializer: qs.stringify
+            };
+            params.params['moderationAction'] = 'report';
+            params.params['user.userId'] = this.player.user.userId;
 
-            if (publicChannel) {
-                await ModerationService.getChannelMessages(publicChannel, this.generalChannelStartDateFilter, this.generalChannelEndDateFilter, this.generalChannelMessageFilter, this.generalChannelAuthorFilter)
-                    .then((response) => {
-                        this.publicChannelMessages = response;
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
+            if (this.reportPagination.currentPage) {
+                params.params['page'] = this.reportPagination.currentPage;
             }
+            if (this.reportPagination.pageSize) {
+                params.params['itemsPerPage'] = this.reportPagination.pageSize;
+            }
+
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params)
+                .then((result) => {
+                    return result.data;
+                })
+                .then((remoteRowData: any) => {
+                    this.playerReports = remoteRowData['hydra:member'];
+                    this.reportPagination.totalItem = remoteRowData['hydra:totalItems'];
+                    this.reportPagination.totalPage = this.reportPagination.totalItem / this.reportPagination.pageSize;
+                    this.loading = false;
+                });
         },
         goBack() {
             this.$router.go(-1);
@@ -485,6 +587,7 @@ export default defineComponent({
                 await this.loadPublicChannelMessages(this.player);
                 await this.loadMushChannelMessages(this.player);
                 await this.loadPrivateChannelsMessages(this.player);
+                await this.loadPlayerReports()
             }
         },
         getDateMinusOneDay(date: Date) {
@@ -503,6 +606,10 @@ export default defineComponent({
                 this.generalChannelStartDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
                 this.privateChannelStartDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
             }
+        },
+        paginationClick(page: number) {
+            this.pagination.currentPage = page;
+            this.loadData();
         }
     },
     beforeMount() {

@@ -3,7 +3,6 @@
 namespace Mush\Communication\Listener;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\CommunicationActionEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Event\ChannelEvent;

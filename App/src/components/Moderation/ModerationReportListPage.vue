@@ -75,7 +75,7 @@
                 username: '',
                 fields: [
                     {
-                        key: 'userName',
+                        key: 'username',
                         name: 'admin.user.username'
                     },
                     {
@@ -88,7 +88,7 @@
                     },
                     {
                         key: 'startDate',
-                        name: 'moderation.filter.date'
+                        name: 'moderation.sanctionDetail.date'
                     }
                 ],
                 pagination: {

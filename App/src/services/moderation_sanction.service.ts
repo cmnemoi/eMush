@@ -28,25 +28,5 @@ const ModerationSanctionService = {
 
         return sanctions;
     },
-    getPlayerReports: async(playerInfoId: integer): Promise<ModerationSanction[]> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.get(
-            urlJoin(MODERATION_SANCTION_ENDPOINT, String(playerInfoId), 'reports')
-        ).then((response) => {
-            return response.data;
-        }).catch(async (error) => {
-            console.error(error);
-            await store.dispatch('error/setError', { error: error });
-            await store.dispatch('gameConfig/setLoading', { loading: false });
-            return [];
-        });
-
-        const sanctions = response.map((sanctionData: any) => {
-            return (new ModerationSanction()).load(sanctionData);
-        });
-        store.dispatch('gameConfig/setLoading', { loading: false });
-
-        return sanctions;
-    }
 };
 export default ModerationSanctionService;

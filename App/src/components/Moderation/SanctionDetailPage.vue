@@ -125,7 +125,6 @@ export default defineComponent({
             return characterEnum[characterKey].body;
         },
         isReport() {
-            console.log(this.moderationSanction?.moderationAction);
             return (
                 this.moderationSanction?.moderationAction === 'report'
             );

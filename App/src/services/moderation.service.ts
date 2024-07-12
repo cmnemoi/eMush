@@ -6,6 +6,8 @@ import { PlayerInfo } from "@/entities/PlayerInfo";
 import { Message } from "@/entities/Message";
 import { Channel } from "@/entities/Channel";
 import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
+import {Player} from "@/entities/Player";
+import {Daedalus} from "@/entities/Daedalus";
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
@@ -16,6 +18,10 @@ const PLAYER_INFO_ENDPOINT = urlJoin(API_URL, "player_infos");
 const ROOM_LOG_ENDPOINT = urlJoin(API_URL, "room_logs");
 
 type ChannelScope = "public" | "mush" | "private";
+
+function toArray(data: any): any[] {
+    return Array.isArray(data) ? data : Object.values(data);
+}
 
 const ModerationService = {
     banUser: async(userId: integer, params: URLSearchParams): Promise<any> => {
@@ -163,19 +169,30 @@ const ModerationService = {
 
         return response;
     },
-    reportPlayer: async(playerId: number, params: URLSearchParams): Promise<any> => {
+    reportClosedPlayer: async(playerId: number, params: URLSearchParams): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.post(MODERATION_ENDPOINT + '/report-player/' + playerId + '?' + params.toString());
+        const response = await ApiService.post(MODERATION_ENDPOINT + '/report-closed-player/' + playerId + '?' + params.toString());
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    reportMessage: async(playerId: number, params: URLSearchParams): Promise<any> => {
+    reportMessage: async(messageId: number, params: URLSearchParams): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.post(MODERATION_ENDPOINT + '/report-message/' + playerId + '?' + params.toString());
+        const response = await ApiService.post(MODERATION_ENDPOINT + '/report-message/' + messageId + '?' + params.toString());
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
+    },
+    loadReportablePlayers: async (message: Message): Promise<Player[]> => {
+        const playersData = await ApiService.get(MODERATION_ENDPOINT + '/' + message.id + '/reportable');
+
+        const players:Player[] = [];
+        if (playersData.data) {
+            toArray(playersData.data).forEach((data: any) => {
+                players.push((new Player()).load(data));
+            });
+        }
+        return players;
     },
 };
 

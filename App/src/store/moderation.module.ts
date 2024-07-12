@@ -1,14 +1,20 @@
 import { ModerationSanction } from "@/entities/ModerationSanction";
 import ModerationSanctionService from "@/services/moderation_sanction.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
+import ModerationService from "@/services/moderation.service";
+import { Player } from "@/entities/Player";
 
 const state = {
-    userSanctions: [] as ModerationSanction[]
+    userSanctions: [] as ModerationSanction[],
+    reportablePlayers : [] as Player
 };
 
 const getters: GetterTree<any, any> = {
     userSanctions: (state: any): ModerationSanction[] => {
         return state.userSanctions;
+    },
+    getReportablePlayers: (state: any): Player[] => {
+        return state.reportablePlayers;
     }
 };
 
@@ -25,12 +31,21 @@ const actions: ActionTree<any, any> = {
             console.error(e);
             return false;
         }
-    }
+    },
+    async getReportablePlayers({ commit }, message) {
+        commit("player/setLoading", true, { root: true });
+        const reportablePlayers = await ModerationService.loadReportablePlayers(message);
+        commit("player/setLoading", false, { root: true });
+        commit('setReportablePlayers', { reportablePlayers: reportablePlayers });
+    },
 };
 
 const mutations: MutationTree<any> = {
     setUserSanctions(state: any, sanctions: ModerationSanction[]): void {
         state.userSanctions = sanctions;
+    },
+    setReportablePlayers(state: any, { reportablePlayers }): void {
+        state.reportablePlayers = reportablePlayers;
     }
 };
 

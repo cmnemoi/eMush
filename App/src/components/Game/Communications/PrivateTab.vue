@@ -3,10 +3,9 @@
         <div class="actions">
             <ActionButtons
                 class="action-buttons"
-                :actions="['refresh', 'invite', 'report', 'leave']"
+                :actions="['refresh', 'invite', 'leave']"
                 @leave="leavePrivateChannel(channel)"
                 @invite="getInvitablePlayersToPrivateChannel(channel)"
-                @report="openReportPopup()"
             />
         </div>
         <ul class="participants">
@@ -63,9 +62,6 @@ export default defineComponent ({
             'loadMessages',
             'getInvitablePlayersToPrivateChannel'
         ]),
-        ...mapActions('popup', [
-            'openReportPopup'
-        ])
     }
 });
 </script>

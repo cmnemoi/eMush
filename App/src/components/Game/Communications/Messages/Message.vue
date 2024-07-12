@@ -7,7 +7,6 @@
     />
     <ReportPopup
         :report-dialog-visible="reportPopupVisible"
-        :player="{ name: message.character.name }"
         @close=closeReportDialog
         @submit-report=submitReport
     />
@@ -26,23 +25,25 @@
         </p>
         <div class="actions" @click.stop>
             <ActionButtons
-                v-if="isPlayerAlive && isReplyable && !channel.isFavorite()"
-                :actions="['reply', 'favorite', 'report']"
-                @reply="$emit('reply')"
+                v-if="isPlayerAlive && !channel.isFavorite()"
+                :actions="['favorite']"
                 @favorite="favorite(message)"
-                @report=openReportDialog
             />
             <ActionButtons
-                v-if="isPlayerAlive && isReplyable && channel.isFavorite()"
-                :actions="['reply', 'unfavorite', 'report']"
-                @reply="$emit('reply')"
+                v-if="isPlayerAlive && channel.isFavorite()"
+                :actions="['unfavorite']"
                 @unfavorite="unfavorite(message)"
-                @report=openReportDialog
             />
             <ActionButtons
                 v-if="adminMode"
-                :actions="['delete']"
+                :actions="['delete', 'report']"
                 @delete="openModerationDialog('delete_message')"
+            />
+            <ActionButtons
+                v-if="isPlayerAlive"
+                :actions="['report', 'reply']"
+                @report=openReportDialog
+                @reply="$emit('reply')"
             />
         </div>
     </div>
@@ -176,6 +177,7 @@ export default defineComponent ({
             readMessage: 'communication/readMessage',
             releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
             unfavoriteMessage: 'communication/unfavoriteMessage',
+            getReportablePlayers: 'moderation/getReportablePlayers',
         }),
         formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
@@ -199,19 +201,13 @@ export default defineComponent ({
         },
         openReportDialog() {
             this.reportPopupVisible = true;
+            this.getReportablePlayers(this.message)
         },
         closeReportDialog() {
             this.reportPopupVisible = false;
         },
         submitReport(params: URLSearchParams) {
-            if (this.isNeronMessage) {
-                return;
-            }
-
             ModerationService.reportMessage(this.message.id, params)
-                .then(() => {
-                    this.loadData();
-                })
                 .catch((error) => {
                     console.error(error);
                 });

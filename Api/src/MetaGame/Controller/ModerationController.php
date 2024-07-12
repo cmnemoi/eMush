@@ -17,6 +17,7 @@ use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\PlayerInfoRepository;
+use Mush\Player\Repository\PlayerRepository;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -33,11 +34,15 @@ use Symfony\Component\Routing\Annotation\Route;
 final class ModerationController extends AbstractFOSRestController
 {
     private ModerationServiceInterface $moderationService;
-    private PlayerInfoRepository $playerInfoRepository;
+    private PlayerRepository $playerRepository;
 
-    public function __construct(ModerationServiceInterface $moderationService)
+    public function __construct(
+        ModerationServiceInterface $moderationService,
+        PlayerRepository $playerRepository
+    )
     {
         $this->moderationService = $moderationService;
+        $this->playerRepository = $playerRepository;
     }
 
     /**
@@ -586,7 +591,7 @@ final class ModerationController extends AbstractFOSRestController
      * @OA\Parameter(
      *     name="player",
      *     in="query",
-     *     description="the player info id",
+     *     description="the player id",
      *
      *     @OA\Schema(type="integer")
      * )
@@ -614,11 +619,11 @@ final class ModerationController extends AbstractFOSRestController
         /** @var User $reportAuthor */
         $reportAuthor = $this->getUser();
 
-        /** @var PlayerInfo $playerInfo */
-        $playerInfo = $this->playerInfoRepository->find($request->get('player'));
+        /** @var Player $player */
+        $player = $this->playerRepository->find($request->get('player'));
 
         $this->moderationService->reportPlayer(
-            $playerInfo,
+            $player->getPlayerInfo(),
             $reportAuthor,
             $request->get('reason'),
             $request->get('adminMessage'),
@@ -676,16 +681,19 @@ final class ModerationController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Get(path="/{daedalus}/reportable")
+     * @Rest\Get(path="/{message}/reportable")
      */
-    public function getInvitablePlayerAction(Request $request, Daedalus $daedalus): View
+    public function getReportablePlayerAction(Message $message): View
     {
-        /** @var User $user */
-        $user = $this->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        $neron = $message->getNeron();
+        $author = $message->getAuthor();
 
-        if ($daedalus !== $playerInfo?->getPlayer()->getDaedalus()) {
-            return $this->view(['error' => 'player is not from this daedalus'], 422);
+        if($neron !== null) {
+            $daedalus = $neron->getDaedalusInfo()->getDaedalus();
+        } else if ($author !== null) {
+            $daedalus = $author->getPlayer()->getDaedalus();
+        } else {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'No daedalus found for this message');
         }
 
         return $this->view(

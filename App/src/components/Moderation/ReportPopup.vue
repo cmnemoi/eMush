@@ -1,11 +1,22 @@
 <template>
-    <PopUp :is-open=reportDialogVisible @close="closeReportDialog()" v-if="player" class="report">
+    <PopUp :is-open=reportDialogVisible @close="closeReportDialog()" class="report">
         <h1 class="title">{{ $t('reportPopup.title') }}</h1>
-        <p class="message" v-html="formatText($t('moderation.report.message', { playerName: player.name }))"></p>
-        <button v-for="(player, key) in invitablePlayers" :key="key" @click="invitePlayer({player: player, channel: invitationChannel})">
-            <img :src="characterBody(player.character.key)">
-            <p>{{ player.character.name }}</p>
-        </button>
+        <p class="message" v-html="formatText($t('moderation.report.message'))"></p>
+        <label>{{ $t("moderation.player") }}:
+            <select v-model="reportedPlayer" required>
+                <option
+                    value=""
+                    selected
+                    disabled
+                >
+                    {{ $t("moderation.choosePlayer") }}
+                </option>
+                <option v-for="(player, key) in reportablePlayers" :key="player.id" :value="player.id">
+                    <img :src="characterBody(player.character.key)">
+                    {{ $t(player.character.name) }}
+                </option>
+            </select>
+        </label>
         <label>{{ $t("moderation.report.playerMessage") }}:
             <textarea v-model="reportMessage" />
         </label>
@@ -27,7 +38,7 @@
             <button
                 class="action-button"
                 @click="submitReport()"
-                :disabled="reportReason == ''"
+                :disabled="reportReason == '' || reportedPlayer == ''"
             >
                 {{ $t('moderation.report.submit') }}
             </button>
@@ -42,6 +53,11 @@ import { defineComponent } from "vue";
 import { formatText } from "@/utils/formatText";
 import { moderationReasons } from "@/enums/moderation_reason.enum";
 import ModerationService from "@/services/moderation.service";
+import {moderation} from "@/store/moderation.module";
+import {characterEnum} from "@/enums/character";
+import ParseImageLayers = Phaser.Tilemaps.Parsers.Tiled.ParseImageLayers;
+import {Player} from "@/entities/Player";
+import {PlayerInfo} from "@/entities/PlayerInfo";
 
 export default defineComponent ({
     name: 'ReportPopup',
@@ -50,18 +66,18 @@ export default defineComponent ({
     },
     props: {
         reportDialogVisible: Boolean,
-        player: { name: String } // the player to report
     },
     data() {
         return {
             reportReason: "",
             reportMessage: "",
+            reportedPlayer: "",
         };
     },
     computed: {
         ...mapGetters({
             user: 'auth/getUserInfo',
-            moderation: 'moderation/reportablePlayers'
+            reportablePlayers: 'moderation/getReportablePlayers'
         })
     },
     methods: {
@@ -75,11 +91,16 @@ export default defineComponent ({
             const params = new URLSearchParams();
 
             params.append('reason', this.reportReason);
-            if (this.moderationMessage) {
+            params.append('player', this.reportedPlayer);
+            if (this.reportMessage) {
                 params.append('adminMessage', this.reportMessage);
             }
 
             this.$emit("submitReport", params);
+        },
+        characterBody: function(character: string): string {
+            const images = characterEnum[character];
+            return images.body;
         },
         formatText
     }

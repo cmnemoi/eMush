@@ -13,6 +13,7 @@ export class ModerationSanction {
     public isWarning!: boolean;
     public playerId!: number;
     public playerName!: string;
+    public sanctionEvidence!: SanctionEvidence
 
     public load(object: any): ModerationSanction {
         if (object) {
@@ -20,14 +21,27 @@ export class ModerationSanction {
             this.reason = object.reason;
             this.message = object.message;
             this.isActive = object.isActive;
-            this.startDate = new Date(object.startDate);
-            this.endDate = new Date(object.endDate);
+            this.startDate = new Date(object.startDate).toLocaleString("en-US", {
+                weekday: "short",
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "numeric"
+            });
+            this.endDate = new Date(object.endDate).toLocaleString("en-US", {
+                weekday: "short",
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "numeric"
+            });
             this.authorName = object.authorName;
             this.playerId = object.playerId;
             this.playerName = object.playerName;
             this.userId = object.userId;
             this.username = object.username;
             this.isWarning = object.moderationAction === 'warning';
+            this.sanctionEvidence = new SanctionEvidence().load(object.sanctionEvidenceArray);
         }
         return this;
     }
@@ -64,7 +78,7 @@ export class SanctionEvidence {
         const data: any = {
             'id': this.id,
             'className': this.className,
-            'equip}entBreakRate': this.message,
+            'message': this.message,
         };
     }
 }

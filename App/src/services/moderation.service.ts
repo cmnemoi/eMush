@@ -7,6 +7,7 @@ import { Message } from "@/entities/Message";
 import { Channel } from "@/entities/Channel";
 import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 import { Player } from "@/entities/Player";
+import {ModerationSanction} from "@/entities/ModerationSanction";
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
@@ -199,6 +200,26 @@ const ModerationService = {
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
+    },
+    getUserActiveBansAndWarnings: async(userId: integer): Promise<ModerationSanction[]> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.get(
+            urlJoin(MODERATION_ENDPOINT, String(userId), 'active-bans-and-warnings')
+        ).then((response) => {
+            return response.data;
+        }).catch(async (error) => {
+            console.error(error);
+            await store.dispatch('error/setError', { error: error });
+            await store.dispatch('gameConfig/setLoading', { loading: false });
+            return [];
+        });
+
+        const sanctions = response.map((sanctionData: any) => {
+            return (new ModerationSanction()).load(sanctionData);
+        });
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return sanctions;
     },
 };
 

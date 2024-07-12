@@ -41,6 +41,16 @@
                 <div class="cell triple"><strong>{{ $t('moderation.sanctionDetail.message') }}</strong> {{ moderationSanction.message }}</div>
                 <div class="cell"><strong>{{ $t('moderation.sanctionDetail.author') }}</strong> {{ moderationSanction.authorName }}</div>
             </div>
+            <div class="row">
+                <div class="cell triple"><strong>{{ $t('moderation.sanctionDetail.evidence') }}</strong> {{ moderationSanction.sanctionEvidence.message }}</div>
+                <div class="cell">
+                    <button
+                        class="action-button"
+                        @click="goToSanctionEvidence(moderationSanction)">
+                        {{ $t('moderation.report.seeContext') }}
+                    </button>
+                </div>
+            </div>
             <div class="row" :class="{ active: moderationSanction.isActive, inactive: !moderationSanction.isActive }">
                 <div class="cell double"><strong>{{ $t('moderation.sanctionDetail.startDate') }}</strong> {{ moderationSanction.startDate }}</div>
                 <div class="cell double"><strong>{{ $t('moderation.sanctionDetail.endDate') }}</strong> {{ moderationSanction.endDate }}</div>
@@ -60,12 +70,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import {computed, defineComponent} from "vue";
 import popUp from "@/components/Utils/PopUp.vue";
-import { ModerationSanction } from "@/entities/ModerationSanction";
+import {ModerationSanction, SanctionEvidence} from "@/entities/ModerationSanction";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
 import { characterEnum } from "@/enums/character";
 import ModerationService from "@/services/moderation.service";
+import {useRouter} from "vue-router";
 
 export default defineComponent({
     components: {
@@ -78,6 +89,25 @@ export default defineComponent({
     emits: [
         "close"
     ],
+    setup() {
+        const router = useRouter();
+
+        const goToSanctionEvidence = (sanction: any) => {
+            const sanctionEvidence = sanction.sanctionEvidence;
+            if (
+                sanctionEvidence.className === 'Proxies\\__CG__\\Mush\\Communication\\Entity\\Message' ||
+                sanctionEvidence.className === 'Proxies\\__CG__\\Mush\\RoomLog\\Entity\\RoomLog'
+            ) {
+                router.push({ name: 'ModerationViewPlayerDetail', params: { playerId: sanction.playerId } });
+            } else {
+                router.push({ name: 'ModerationPlayerDetailPage', params: { playerId: sanction.playerId } });
+            }
+        };
+
+        return {
+            goToSanctionEvidence,
+        };
+    },
     methods: {
         close() {
             this.$emit('close');

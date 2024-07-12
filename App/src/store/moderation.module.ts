@@ -1,5 +1,4 @@
 import { ModerationSanction } from "@/entities/ModerationSanction";
-import ModerationSanctionService from "@/services/moderation_sanction.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import ModerationService from "@/services/moderation.service";
 import { Player } from "@/entities/Player";
@@ -21,7 +20,7 @@ const getters: GetterTree<any, any> = {
 const actions: ActionTree<any, any> = {
     async loadUserSanctions({ commit }, userId: integer): Promise<boolean> {
         try {
-            const userSanctions = await ModerationSanctionService.getUserActiveBansAndWarnings(userId)
+            const userSanctions = await ModerationService.getUserActiveBansAndWarnings(userId)
                 .then((response: ModerationSanction[]) => {
                     return response;
                 });

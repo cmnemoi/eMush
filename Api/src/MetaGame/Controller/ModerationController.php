@@ -12,6 +12,7 @@ use Mush\Communication\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;
+use Mush\MetaGame\Repository\ModerationSanctionRepository;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
@@ -23,6 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class ModerationController.
@@ -33,13 +35,16 @@ final class ModerationController extends AbstractFOSRestController
 {
     private ModerationServiceInterface $moderationService;
     private PlayerRepository $playerRepository;
+    private ModerationSanctionRepository $moderationSanctionRepository;
 
     public function __construct(
         ModerationServiceInterface $moderationService,
-        PlayerRepository $playerRepository
+        PlayerRepository $playerRepository,
+        ModerationSanctionRepository $moderationSanctionRepository
     ) {
         $this->moderationService = $moderationService;
         $this->playerRepository = $playerRepository;
+        $this->moderationSanctionRepository = $moderationSanctionRepository;
     }
 
     /**
@@ -699,6 +704,34 @@ final class ModerationController extends AbstractFOSRestController
             $daedalus->getPlayers(),
             200
         );
+    }
+
+    /**
+     * Get user active sanctions.
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The user id",
+     *
+     *       @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Tag(name="moderationSanction")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Get(path="/{id}/active-bans-and-warnings")
+     *
+     * @Rest\View()
+     *
+     * @IsGranted("IS_REQUEST_USER", subject="user", message="You cannot access other player's sanctions!")
+     */
+    public function getUserActiveBansAndWarnings(User $user): View
+    {
+        $warnings = $this->moderationSanctionRepository->findAllUserActiveBansAndWarnings($user);
+
+        return $this->view($warnings, Response::HTTP_OK);
     }
 
     private function denyAccessIfNotModerator(): void

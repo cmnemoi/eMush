@@ -73,6 +73,7 @@ import ModerationService from "@/services/moderation.service";
 import { Tippy } from "vue-tippy";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
+import {ModerationSanction} from "@/entities/ModerationSanction";
 
 interface SanctionListData {
     userId: string,
@@ -210,7 +211,9 @@ export default defineComponent({
                     return result.data;
                 })
                 .then((remoteRowData: any) => {
-                    this.rowData = remoteRowData['hydra:member'];
+                    this.rowData = remoteRowData['hydra:member'].map((reportData: object) => {
+                        return (new ModerationSanction()).load(reportData);
+                    })
                     this.pagination.totalItem = remoteRowData['hydra:totalItems'];
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
                     this.loading = false;

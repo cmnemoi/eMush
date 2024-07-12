@@ -11,11 +11,11 @@
             @sort-table="sortTable"
             @row-click="showSanctionDetails"
         >
-            <template #header-actions>
-                Actions
+            <template #header-evidence>
+                {{ $t('moderation.sanctionDetail.evidence') }}
             </template>
-            <template #row-actions="sanction">
-                <button class="action-button" @click="showSanctionDetails(sanction)">Voir Détails</button>
+            <template #row-evidence="report">
+                {{ report.sanctionEvidence.message }}
             </template>
         </Datatable>
         <SanctionDetailPage
@@ -37,6 +37,7 @@
     import { Tippy } from "vue-tippy";
     import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
     import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
+    import {ModerationSanction} from "@/entities/ModerationSanction";
 
     interface SanctionListData {
         userId: string,
@@ -85,6 +86,11 @@
                     {
                         key: 'reason',
                         name: 'moderation.sanctionReason'
+                    },
+                    {
+                        key: 'evidence',
+                        name: 'moderation.sanctionDetail.evidence',
+                        slot: true
                     },
                     {
                         key: 'startDate',
@@ -169,7 +175,9 @@
                         return result.data;
                     })
                     .then((remoteRowData: any) => {
-                        this.rowData = remoteRowData['hydra:member'];
+                        this.rowData = remoteRowData['hydra:member'].map((reportData: object) => {
+                            return (new ModerationSanction()).load(reportData);
+                        })
                         this.pagination.totalItem = remoteRowData['hydra:totalItems'];
                         this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
                         this.loading = false;

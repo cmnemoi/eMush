@@ -17,6 +17,12 @@
             :pagination="reportPagination"
             @pagination-click="paginationClick"
         >
+            <template #header-evidence>
+                {{ $t('moderation.sanctionDetail.evidence') }}
+            </template>
+            <template #row-evidence="report">
+                {{ report.sanctionEvidence.message }}
+            </template>
             <template #header-actions>
                 Actions
             </template>
@@ -299,9 +305,9 @@ import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
-import ModerationSanctionService from "@/services/moderation_sanction.service";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
 import DropList from "@/components/Utils/DropList.vue";
+import {ModerationSanction} from "@/entities/ModerationSanction";
 
 interface PrivateChannel {
     id: number,
@@ -391,7 +397,8 @@ export default defineComponent({
                 },
                 {
                     key: 'evidence',
-                    name: 'moderation.sanctionDetail.evidence'
+                    name: 'moderation.sanctionDetail.evidence',
+                    slot: true
                 },
                 {
                     key: 'actions',
@@ -563,7 +570,9 @@ export default defineComponent({
                     return result.data;
                 })
                 .then((remoteRowData: any) => {
-                    this.playerReports = remoteRowData['hydra:member'];
+                    this.playerReports = remoteRowData['hydra:member'].map((reportData: object) => {
+                        return (new ModerationSanction()).load(reportData);
+                    });
                     this.reportPagination.totalItem = remoteRowData['hydra:totalItems'];
                     this.reportPagination.totalPage = this.reportPagination.totalItem / this.reportPagination.pageSize;
                     this.loading = false;

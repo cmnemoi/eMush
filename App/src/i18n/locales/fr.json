@@ -679,11 +679,6 @@
 		"og:title": "eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace !",
 		"og:description": "eMush est une reprise de Mush, le jeu de survie et d'enquête récompensé de Motion Twin (Twinoid). Plongez maintenant dans un space opera palpitant qui mêle la survie, la déduction sociale et le jeu de rôle dans une expérience multijoueur unique !"
 	},
-	"reportPopup": {
-		"message": "Vous pouvez signaler un comportement inapproprié sur le <a href='https://discord.gg/Jb8Nwjck6r' target='_blank'>serveur Discord d'Eternaltwin</a>.//// Lors de votre arrivée sur le serveur, demandez à ouvrir un ticket pour signaler un comportement inapproprié sur eMush.// Vous serez alors mis en contact avec nos modérateurs. N'oubliez pas de leur fournir les informations suivantes :////- Votre nom d'utilisateur eMush (vous êtes **{username}**)// - Votre identifiant de vaisseau (vous êtes dans le vaisseau **numéro {daedalusId}**)// - Le personnage à signaler// - La raison de votre signalement",
-		"ok": "J'ai compris",
-		"title": "Signaler un comportement inapproprié"
-	},
 	"moderation": {
 		"banner": {
 			"players": "Joueurs",
@@ -791,6 +786,15 @@
       "sanctionType": "Type de sanction : ",
       "reason": "Raison : "
     },
+    "report": {
+      "name": "Plainte",
+      "description": "Faire remonter un message problématique à la modération.",
+      "submit": "Déposer la plainte",
+      "choosePlayer": "Sélectionner le personnage",
+      "playerMessage": "Description de la situation :",
+      "player": "Joueur visé par la plainte",
+      "message": ""
+    },
 		"reduce": "Réduire",
 		"showAll": "Montrer toutes les sanctions",
 		"sanctionsFor": "Liste des sanctions de {username}",
@@ -826,9 +830,7 @@
 		"suspendSanction": "Suspendre la sanction",
 		"suspendSanctionDescription": "Suspendre la sanction. La date de fin est définie à la date courante. La sanction reste dans l'historique de l'utilisateur",
 		"removeSanction": "Supprimer la sanction",
-		"removeSanctionDescription": "Supprimer la sanction. La sanction est complétement supprimée de l'historique de l'utilisateur",
-		"report": "Plainte",
-		"reportDescription": "Faire remonter un message problématique à la modération."
+		"removeSanctionDescription": "Supprimer la sanction. La sanction est complétement supprimée de l'historique de l'utilisateur"
 	},
 	"rules": {
 		"title": "Règlement de eMush",

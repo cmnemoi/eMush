@@ -2,14 +2,14 @@
     <PopUp :is-open=reportDialogVisible @close="closeReportDialog()" class="report">
         <h1 class="title">{{ $t('reportPopup.title') }}</h1>
         <p class="message" v-html="formatText($t('moderation.report.message'))"></p>
-        <label>{{ $t("moderation.player") }}:
+        <label v-if="selectPlayer"> {{ $t("moderation.report.player") }}:
             <select v-model="reportedPlayer" required>
                 <option
                     value=""
                     selected
                     disabled
                 >
-                    {{ $t("moderation.choosePlayer") }}
+                    {{ $t("moderation.report.choosePlayer") }}
                 </option>
                 <option v-for="(player, key) in reportablePlayers" :key="player.id" :value="player.id">
                     <img :src="characterBody(player.character.key)">
@@ -17,7 +17,7 @@
                 </option>
             </select>
         </label>
-        <label>{{ $t("moderation.report.playerMessage") }}:
+        <label>{{ $t("moderation.report.playerMessage") }}
             <textarea v-model="reportMessage" />
         </label>
         <label>{{ $t("moderation.sanctionReason") }}:
@@ -66,6 +66,7 @@ export default defineComponent ({
     },
     props: {
         reportDialogVisible: Boolean,
+        selectPlayer: false,
     },
     data() {
         return {

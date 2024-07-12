@@ -7,6 +7,7 @@
     />
     <ReportPopup
         :report-dialog-visible="reportPopupVisible"
+        :select-player="true"
         @close=closeReportDialog
         @submit-report=submitReport
     />

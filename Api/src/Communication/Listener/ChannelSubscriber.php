@@ -88,9 +88,5 @@ class ChannelSubscriber implements EventSubscriberInterface
                 );
             }
         }
-
-        if ($channel->getScope() === ChannelScopeEnum::PRIVATE && $channel->getParticipants()->isEmpty()) {
-            $this->channelService->deleteChannel($channel);
-        }
     }
 }

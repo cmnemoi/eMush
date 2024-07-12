@@ -7,7 +7,7 @@
     />
     <ReportPopup
         :report-dialog-visible="reportPopupVisible"
-        :player="{ name: currentPlayer?.name }"
+        :select-player="false"
         @close=closeReportDialog
         @submit-report=submitReport
     />
@@ -67,8 +67,8 @@
                     <Tippy tag="span" v-if="!goldNovaPlayer.messageHasBeenModerated" @click="openReportDialog(goldNovaPlayer)">
                         <img :src="getImgUrl('comms/alert.png')" alt="Report message">
                         <template #content>
-                            <h1>{{ $t('moderation.report')}}</h1>
-                            <p>{{ $t('moderation.reportDescription') }}</p>
+                            <h1>{{ $t('moderation.report.name')}}</h1>
+                            <p>{{ $t('moderation.report.description') }}</p>
                         </template>
                     </Tippy>
                 </p>

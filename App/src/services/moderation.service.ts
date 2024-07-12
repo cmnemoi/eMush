@@ -6,8 +6,7 @@ import { PlayerInfo } from "@/entities/PlayerInfo";
 import { Message } from "@/entities/Message";
 import { Channel } from "@/entities/Channel";
 import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
-import {Player} from "@/entities/Player";
-import {Daedalus} from "@/entities/Daedalus";
+import { Player } from "@/entities/Player";
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
@@ -193,6 +192,13 @@ const ModerationService = {
             });
         }
         return players;
+    },
+    archiveReport: async(sanctionId: number, params: URLSearchParams): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.patch(MODERATION_ENDPOINT + '/archive-report/' + sanctionId + '?' + params.toString());
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
     },
 };
 

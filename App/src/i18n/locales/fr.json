@@ -747,7 +747,10 @@
 			"hide_end_message": "Cacher le message de fin",
 			"allTypes": "Toutes les sanctions",
 			"until": "jusqu'au",
-			"banned": "Banni"
+			"banned": "Banni",
+      "report": "Plainte",
+      "report_abusive": "Plainte abusive",
+      "report_processed": "Plainte traitée"
 		},
 		"reason": {
 			"multi_account": "Multicompte",
@@ -788,12 +791,20 @@
     },
     "report": {
       "name": "Plainte",
-      "description": "Faire remonter un message problématique à la modération.",
+      "description": "Faire remonter un comportement problématique à la modération.",
       "submit": "Déposer la plainte",
-      "choosePlayer": "Sélectionner le personnage",
+      "choosePlayer": "Sélectionner le coéquipier",
       "playerMessage": "Description de la situation :",
       "player": "Joueur visé par la plainte",
-      "message": ""
+      "message": "Si vous pensez qu'un coéquipier enfreint le règlement de eMush, merci de vous assurez d'avoir sélectionné un message illustrant le problème et d'expliquer en détail le motif de votre plainte"
+    },
+    "actions": {
+      "suspend": "Suspendre la sanction",
+      "delete": "Supprimer la sanction",
+      "archive": "Archiver la plainte",
+      "archiveDescription": "Archiver la plainte et marquer comme traitée",
+      "close": "Plainte abusive",
+      "closeDescription": "Fermer la plainte et marquer comme abusif"
     },
 		"reduce": "Réduire",
 		"showAll": "Montrer toutes les sanctions",

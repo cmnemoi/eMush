@@ -21,7 +21,7 @@
         <SanctionDetailPage
             :isOpen="showDetailPopup"
             :moderationSanction="selectedSanction"
-            @close="showDetailPopup = false"
+            @close="closeDetailPopUp"
         />
     </div>
 </template>
@@ -138,6 +138,10 @@
                     .catch((error) => {
                         console.error(error);
                     });
+            },
+            closeDetailPopUp() {
+                this.showDetailPopup = false;
+                this.loadData();
             },
             loadData() {
                 this.loading = true;

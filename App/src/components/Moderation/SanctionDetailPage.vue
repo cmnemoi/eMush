@@ -46,8 +46,14 @@
                 <div class="cell double"><strong>{{ $t('moderation.sanctionDetail.endDate') }}</strong> {{ moderationSanction.endDate }}</div>
             </div>
             <div class="row actions">
-                <div class="cell double"><button class="action-button" @click="removeSanction(moderationSanction.id)">Supprimer la sanction</button></div>
-                <div class="cell double"><button class="action-button" @click="suspendSanction(moderationSanction.id)">Suspendre la sanction</button></div>
+                <div class="cell double" v-if="isReport()">
+                    <button class="action-button" @click="archiveReport(moderationSanction.id)">{{ $t('moderation.actions.archive') }}</button>
+                    <button class="action-button" @click="closeReport(moderationSanction.id)">{{ $t('moderation.actions.close') }}</button>
+                </div>
+                <div class="cell double" v-else>
+                    <button class="action-button" @click="suspendSanction(moderationSanction.id)">{{ $t('moderation.actions.suspend') }}</button>
+                    <button class="action-button" @click="removeSanction(moderationSanction.id)">{{ $t('moderation.actions.remove') }}</button>
+                </div>
             </div>
         </div>
     </popUp>
@@ -58,7 +64,8 @@ import { defineComponent } from "vue";
 import popUp from "@/components/Utils/PopUp.vue";
 import { ModerationSanction } from "@/entities/ModerationSanction";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
-import {characterEnum} from "@/enums/character";
+import { characterEnum } from "@/enums/character";
+import ModerationService from "@/services/moderation.service";
 
 export default defineComponent({
     components: {
@@ -77,9 +84,31 @@ export default defineComponent({
         },
         removeSanction(sanctionId) {
             this.$emit('remove', sanctionId);
+            this.$emit('close');
         },
         suspendSanction(sanctionId) {
             this.$emit('suspend', sanctionId);
+            this.$emit('close');
+        },
+        archiveReport(sanctionId) {
+            const params = new URLSearchParams();
+            params.append('isAbusive', false);
+
+            ModerationService.archiveReport(sanctionId, params)
+                .catch((error) => {
+                    console.error(error);
+                });
+            this.$emit('close');
+        },
+        closeReport(sanctionId) {
+            const params = new URLSearchParams();
+            params.append('isAbusive', true);
+
+            ModerationService.archiveReport(sanctionId, params)
+                .catch((error) => {
+                    console.error(error);
+                });
+            this.$emit('close');
         },
         getReasonTranslation(reason) {
             const reasonObj = moderationReasons.find(item => item.value === reason);
@@ -94,6 +123,12 @@ export default defineComponent({
         },
         getCharacterBodyFromKey(characterKey: string) {
             return characterEnum[characterKey].body;
+        },
+        isReport() {
+            console.log(this.moderationSanction?.moderationAction);
+            return (
+                this.moderationSanction?.moderationAction === 'report'
+            );
         },
     }
 });

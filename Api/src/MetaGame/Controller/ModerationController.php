@@ -634,7 +634,7 @@ final class ModerationController extends AbstractFOSRestController
     }
 
     /**
-     * remove a sanction.
+     * archive a report
      *
      * @OA\Parameter(
      *     name="id",
@@ -657,17 +657,19 @@ final class ModerationController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Post(path="/remove-sanction/{id}")
+     * @Rest\Patch(path="/archive-report/{id}")
      *
      * @Rest\View()
      */
-    public function archiveReport(ModerationSanction $moderationSanction, bool $isAbusive): View
+    public function archiveReport(ModerationSanction $moderationSanction, Request $request): View
     {
         $this->denyAccessIfNotModerator();
 
         if ($moderationSanction->getModerationAction() !== ModerationSanctionEnum::REPORT) {
             throw new HttpException(Response::HTTP_FORBIDDEN, 'Only sanction with report action can be archived');
         }
+
+        $isAbusive = $request->get('isAbusive') === 'true';
 
         $this->moderationService->archiveReport($moderationSanction, $isAbusive);
 

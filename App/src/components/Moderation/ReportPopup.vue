@@ -52,12 +52,8 @@ import PopUp from "@/components/Utils/PopUp.vue";
 import { defineComponent } from "vue";
 import { formatText } from "@/utils/formatText";
 import { moderationReasons } from "@/enums/moderation_reason.enum";
-import ModerationService from "@/services/moderation.service";
-import {moderation} from "@/store/moderation.module";
-import {characterEnum} from "@/enums/character";
-import ParseImageLayers = Phaser.Tilemaps.Parsers.Tiled.ParseImageLayers;
-import {Player} from "@/entities/Player";
-import {PlayerInfo} from "@/entities/PlayerInfo";
+import { characterEnum } from "@/enums/character";
+
 
 export default defineComponent ({
     name: 'ReportPopup',

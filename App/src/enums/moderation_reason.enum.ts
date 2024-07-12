@@ -19,9 +19,9 @@ export const moderationSanctionTypes= [
     { key: 'moderation.sanction.delete_message', value: 'delete_message' },
     { key: 'moderation.sanction.delete_end_message', value: 'delete_end_message' },
     { key: 'moderation.sanction.hide_end_message', value: 'hide_end_message' },
-    { key: 'moderation.sanction.complaint', value: 'complaint' },
-    { key: 'moderation.sanction.complaint_abusive', value: 'complaint_abusive' },
-    { key: 'moderation.sanction.complaint_processed', value: 'complaint_processed' }
+    { key: 'moderation.sanction.report', value: 'report' },
+    { key: 'moderation.sanction.report_abusive', value: 'report_abusive' },
+    { key: 'moderation.sanction.report_processed', value: 'report_processed' }
 ];
 
 export const sanctionDuration= [

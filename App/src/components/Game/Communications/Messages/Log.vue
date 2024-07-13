@@ -32,13 +32,13 @@ import { formatText } from "@/utils/formatText";
 import { RoomLog } from "@/entities/RoomLog";
 import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
-import {getImgUrl} from "@/utils/getImgUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 import ReportPopup from "@/components/Moderation/ReportPopup.vue";
 import ModerationService from "@/services/moderation.service";
 
 export default defineComponent ({
     name: "Log",
-    components: {ReportPopup},
+    components: { ReportPopup },
     computed: {
         ...mapGetters({
             isReadingLog: "communication/readMessageMutex",
@@ -53,7 +53,7 @@ export default defineComponent ({
             acquireReadLogMutex: "communication/acquireReadMessageMutex",
             releaseReadLogMutex: "communication/releaseReadMessageMutex",
             readRoomLog: "communication/readRoomLog",
-            getReportablePlayers: 'moderation/getReportablePlayers',
+            getReportablePlayers: 'moderation/getReportablePlayers'
         }),
         formatText,
         getImgUrl,
@@ -66,7 +66,7 @@ export default defineComponent ({
         },
         openReportDialog() {
             this.reportPopupVisible = true;
-            this.getReportablePlayers(this.message)
+            this.getReportablePlayers(this.message);
         },
         closeReportDialog() {
             this.reportPopupVisible = false;
@@ -77,7 +77,7 @@ export default defineComponent ({
                     console.error(error);
                 });
             this.reportPopupVisible = false;
-        },
+        }
     }
 });
 </script>

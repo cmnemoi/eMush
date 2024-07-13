@@ -61,7 +61,7 @@ export default defineComponent ({
             'leavePrivateChannel',
             'loadMessages',
             'getInvitablePlayersToPrivateChannel'
-        ]),
+        ])
     }
 });
 </script>

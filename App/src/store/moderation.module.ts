@@ -36,7 +36,7 @@ const actions: ActionTree<any, any> = {
         const reportablePlayers = await ModerationService.loadReportablePlayers(message);
         commit("player/setLoading", false, { root: true });
         commit('setReportablePlayers', { reportablePlayers: reportablePlayers });
-    },
+    }
 };
 
 const mutations: MutationTree<any> = {

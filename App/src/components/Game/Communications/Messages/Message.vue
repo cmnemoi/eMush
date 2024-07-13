@@ -178,7 +178,7 @@ export default defineComponent ({
             readMessage: 'communication/readMessage',
             releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
             unfavoriteMessage: 'communication/unfavoriteMessage',
-            getReportablePlayers: 'moderation/getReportablePlayers',
+            getReportablePlayers: 'moderation/getReportablePlayers'
         }),
         formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
@@ -202,7 +202,7 @@ export default defineComponent ({
         },
         openReportDialog() {
             this.reportPopupVisible = true;
-            this.getReportablePlayers(this.message)
+            this.getReportablePlayers(this.message);
         },
         closeReportDialog() {
             this.reportPopupVisible = false;

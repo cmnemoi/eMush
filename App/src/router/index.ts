@@ -229,7 +229,7 @@ const routes = [
             {
                 name: "ModerationReportList",
                 path: 'reports',
-                component: ModerationReportListPage,
+                component: ModerationReportListPage
             },
             {
                 name: "ModerationViewPlayerDetail",

@@ -13,7 +13,7 @@ export class ModerationSanction {
     public isWarning!: boolean;
     public playerId!: number;
     public playerName!: string;
-    public sanctionEvidence!: SanctionEvidence
+    public sanctionEvidence!: SanctionEvidence;
 
     public load(object: any): ModerationSanction {
         if (object) {
@@ -75,7 +75,7 @@ export class SanctionEvidence {
             this.message = object.message;
             this.day = object.day;
             this.cycle = object.cycle;
-            this.date = new Date(object.date)
+            this.date = new Date(object.date);
         }
         return this;
     }
@@ -87,7 +87,7 @@ export class SanctionEvidence {
             'message': this.message,
             'cycle': this.cycle,
             'day': this.day,
-            'date': this.date,
+            'date': this.date
         };
     }
 }

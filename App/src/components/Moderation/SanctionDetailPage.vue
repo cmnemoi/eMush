@@ -1,5 +1,5 @@
 <template>
-    <popUp :isOpen="isOpen" @close="close">
+    <popUp :is-open="isOpen" @close="close">
         <div class="sanction-details">
             <div class="row">
                 <div class="cell"><strong>{{ $t('moderation.sanctionDetail.user') }}</strong> {{ moderationSanction.username }}</div>
@@ -63,13 +63,13 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent} from "vue";
+import { computed, defineComponent } from "vue";
 import popUp from "@/components/Utils/PopUp.vue";
-import {ModerationSanction, SanctionEvidence} from "@/entities/ModerationSanction";
+import { ModerationSanction, SanctionEvidence } from "@/entities/ModerationSanction";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
 import { characterEnum } from "@/enums/character";
 import ModerationService from "@/services/moderation.service";
-import {useRouter} from "vue-router";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
     components: {
@@ -77,7 +77,7 @@ export default defineComponent({
     },
     props: {
         isOpen: Boolean,
-        moderationSanction: ModerationSanction,
+        moderationSanction: ModerationSanction
     },
     emits: [
         "close"
@@ -132,7 +132,7 @@ export default defineComponent({
             return (
                 this.moderationSanction?.moderationAction === 'report'
             );
-        },
+        }
     }
 });
 </script>

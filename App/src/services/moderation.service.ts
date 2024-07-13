@@ -7,7 +7,7 @@ import { Message } from "@/entities/Message";
 import { Channel } from "@/entities/Channel";
 import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 import { Player } from "@/entities/Player";
-import {ModerationSanction} from "@/entities/ModerationSanction";
+import { ModerationSanction } from "@/entities/ModerationSanction";
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
@@ -266,7 +266,7 @@ const ModerationService = {
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return sanctions;
-    },
+    }
 };
 
 export default ModerationService;

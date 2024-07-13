@@ -55,8 +55,8 @@
             </template>
         </Datatable>
         <SanctionDetailPage
-            :isOpen="showDetailPopup"
-            :moderationSanction="selectedSanction"
+            :is-open="showDetailPopup"
+            :moderation-sanction="selectedSanction"
             @close="showDetailPopup = false"
         />
     </div>
@@ -70,10 +70,9 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 import { mapGetters } from "vuex";
 import ModerationService from "@/services/moderation.service";
-import { Tippy } from "vue-tippy";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
-import {ModerationSanction} from "@/entities/ModerationSanction";
+import { ModerationSanction } from "@/entities/ModerationSanction";
 
 interface SanctionListData {
     userId: string,
@@ -96,7 +95,6 @@ interface SanctionListData {
 export default defineComponent({
     name: "SanctionListPage",
     components: {
-        Tippy,
         Datatable,
         SanctionDetailPage
     },
@@ -213,7 +211,7 @@ export default defineComponent({
                 .then((remoteRowData: any) => {
                     this.rowData = remoteRowData['hydra:member'].map((reportData: object) => {
                         return (new ModerationSanction()).load(reportData);
-                    })
+                    });
                     this.pagination.totalItem = remoteRowData['hydra:totalItems'];
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
                     this.loading = false;
@@ -225,12 +223,12 @@ export default defineComponent({
             }
             if (this.sortField === selectedField.key) {
                 switch (this.sortDirection) {
-                    case 'DESC':
-                        this.sortDirection = 'ASC';
-                        break;
-                    case 'ASC':
-                        this.sortDirection = 'DESC';
-                        break;
+                case 'DESC':
+                    this.sortDirection = 'ASC';
+                    break;
+                case 'ASC':
+                    this.sortDirection = 'DESC';
+                    break;
                 }
             } else {
                 this.sortDirection = 'DESC';

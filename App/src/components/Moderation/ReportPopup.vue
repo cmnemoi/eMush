@@ -11,7 +11,7 @@
                 >
                     {{ $t("moderation.report.choosePlayer") }}
                 </option>
-                <option v-for="(player, key) in reportablePlayers" :key="player.id" :value="player.id">
+                <option v-for="player in reportablePlayers" :key="player.id" :value="player.id">
                     <img :src="characterBody(player.character.key)">
                     {{ $t(player.character.name) }}
                 </option>
@@ -62,13 +62,13 @@ export default defineComponent ({
     },
     props: {
         reportDialogVisible: Boolean,
-        selectPlayer: false,
+        selectPlayer: Boolean
     },
     data() {
         return {
             reportReason: "",
             reportMessage: "",
-            reportedPlayer: "",
+            reportedPlayer: ""
         };
     },
     computed: {

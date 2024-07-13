@@ -429,7 +429,7 @@ export default defineComponent ({
     components: { ReportPopup, ModerationActionPopup },
     computed: {
         ...mapGetters({
-            isModerator: 'auth/isModerator',
+            isModerator: 'auth/isModerator'
         })
     },
     data: function (): ClosedDaedalusState {
@@ -571,7 +571,7 @@ export default defineComponent ({
                 }
                 return a.cyclesSurvived - b.cyclesSurvived;
             });
-        },
+        }
     },
     beforeMount() {
         this.loadData();

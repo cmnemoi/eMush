@@ -7,8 +7,8 @@
             @submit-sanction="applySanction" />
 
         <SanctionDetailPage
-            :isOpen="showDetailPopup"
-            :moderationSanction="selectedSanction"
+            :is-open="showDetailPopup"
+            :moderation-sanction="selectedSanction"
             @close="showDetailPopup = false"
         />
 
@@ -381,25 +381,25 @@ export default defineComponent({
                     content: "",
                     day: null,
                     cycle: null,
-                    room: "",
+                    room: ""
                 },
                 generalChannel: {
                     author: "",
                     messageContent: "",
                     startDate: "",
-                    endDate: new Date().toISOString(),
+                    endDate: new Date().toISOString()
                 },
                 mushChannel: {
                     author: "",
                     messageContent: "",
                     startDate: "",
-                    endDate: new Date().toISOString(),
+                    endDate: new Date().toISOString()
                 },
                 privateChannel: {
                     author: "",
                     messageContent: "",
                     startDate: "",
-                    endDate: new Date().toISOString(),
+                    endDate: new Date().toISOString()
                 }
             },
             mushChannelMessages: [],
@@ -478,7 +478,7 @@ export default defineComponent({
                     console.error(error);
                 });
             this.$emit('close');
-            this.loadPlayerReports()
+            this.loadPlayerReports();
         },
         closeReport(sanctionId) {
             const params = new URLSearchParams();
@@ -489,7 +489,7 @@ export default defineComponent({
                     console.error(error);
                 });
             this.$emit('close');
-            this.loadPlayerReports()
+            this.loadPlayerReports();
         },
         async loadLogs(player: ModerationViewPlayer) {
             if (this.filters.logs.day === null) {
@@ -608,7 +608,7 @@ export default defineComponent({
                 await this.loadPublicChannelMessages(this.player);
                 await this.loadMushChannelMessages(this.player);
                 await this.loadPrivateChannelsMessages(this.player);
-                await this.loadPlayerReports()
+                await this.loadPlayerReports();
             }
         },
         getDateMinusOneDay(date: Date) {

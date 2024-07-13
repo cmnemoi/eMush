@@ -6,7 +6,7 @@ interface SanctionEvidenceInterface
 {
     public function getMessage(): ?string;
 
-    public function getId(): int;
+    public function getId(): ?int;
 
     public function getClassName(): string;
 

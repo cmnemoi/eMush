@@ -15,7 +15,10 @@ use Mush\Communication\Repository\MessageRepository;
 use Mush\Communication\Services\MessageService;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\Collection\EventChain;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -175,7 +178,9 @@ final class MessageServiceTest extends TestCase
 
     public function testCreateSystemMessage()
     {
+        $daedalusInfo = new DaedalusInfo(new Daedalus(), new GameConfig(), new LocalizationConfig());
         $channel = new Channel();
+        $channel->setDaedalus($daedalusInfo);
         $time = new \DateTime();
 
         $message = $this->service->createSystemMessage(

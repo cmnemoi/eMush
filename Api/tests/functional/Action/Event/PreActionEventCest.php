@@ -217,7 +217,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
 
         // then a message should be printed in the mush channel
-        $I->haveInRepository(
+        $I->seeInRepository(
             Message::class,
             [
                 'message' => MushMessageEnum::INFECT_TRAP,

@@ -20,7 +20,7 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    private int $id;
+    private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]
     private ?PlayerInfo $author = null;
@@ -68,7 +68,7 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
         $this->favorites = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

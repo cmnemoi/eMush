@@ -52,7 +52,13 @@ final class ModerationServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->twice();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->banUser($user, new \DateInterval('P1D'), 'reason', 'adminMessage');
+        $this->service->banUser(
+            $user,
+            new User(),
+            new \DateInterval('P1D'),
+            'reason',
+            'adminMessage'
+        );
 
         self::assertCount(1, $user->getModerationSanctions());
         self::assertTrue($user->isBanned());
@@ -65,7 +71,13 @@ final class ModerationServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->twice();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->banUser($user, null, 'reason', 'adminMessage');
+        $this->service->banUser(
+            $user,
+            new User(),
+            null,
+            'reason',
+            'adminMessage'
+        );
 
         self::assertCount(1, $user->getModerationSanctions());
         self::assertTrue($user->isBanned());

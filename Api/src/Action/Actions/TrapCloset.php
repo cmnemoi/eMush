@@ -11,8 +11,10 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\PlaceType;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -55,6 +57,14 @@ final class TrapCloset extends AbstractAction
                 'contain' => false,
                 'groups' => ['execute'],
                 'message' => ActionImpossibleCauseEnum::BOOBY_TRAP_ALREADY_DONE,
+            ])
+        );
+        $metadata->addConstraint(
+            new PlaceType([
+                'groups' => ['execute'],
+                'type' => PlaceTypeEnum::ROOM,
+                'allowIfTypeMatches' => true,
+                'message' => ActionImpossibleCauseEnum::NOT_A_ROOM,
             ])
         );
     }

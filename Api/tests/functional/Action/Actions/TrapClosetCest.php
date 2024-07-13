@@ -64,6 +64,29 @@ final class TrapClosetCest extends AbstractFunctionalTest
         $I->assertFalse($this->trapClosetAction->isVisible());
     }
 
+    public function shouldNotBeExecutableInNonRoomPlace(FunctionalTester $I): void
+    {
+        // given KT has one spore
+        $this->kuanTi->setSpores(1);
+
+        // given KT is in the space
+        $this->kuanTi->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::SPACE));
+
+        // when KT tries to trap the closet
+        $this->trapClosetAction->loadParameters(
+            actionConfig: $this->trapClosetConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi,
+            target: null,
+        );
+
+        // then the action should not be executable
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::NOT_A_ROOM,
+            actual: $this->trapClosetAction->cannotExecuteReason(),
+        );
+    }
+
     public function shouldConsumeOnePlayerSpore(FunctionalTester $I): void
     {
         // given KT has one spore

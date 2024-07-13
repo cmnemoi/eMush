@@ -57,7 +57,7 @@ final class RoomLogNormalizerTest extends TestCase
         $roomLog1->method('getId')->willReturn(1);
         $roomLog1->method('getLog')->willReturn('logKey1');
         $roomLog1->method('getVisibility')->willReturn(VisibilityEnum::PUBLIC);
-        $roomLog1->method('getDate')->willReturn($date);
+        $roomLog1->method('getCreatedAt')->willReturn($date);
         $roomLog1->method('getParameters')->willReturn([]);
         $roomLog1->method('getDay')->willReturn(1);
         $roomLog1->method('getCycle')->willReturn(3);
@@ -68,7 +68,7 @@ final class RoomLogNormalizerTest extends TestCase
         $roomLog2->method('getId')->willReturn(2);
         $roomLog2->method('getLog')->willReturn('logKey2');
         $roomLog2->method('getVisibility')->willReturn(VisibilityEnum::PUBLIC);
-        $roomLog2->method('getDate')->willReturn($date);
+        $roomLog2->method('getCreatedAt')->willReturn($date);
         $roomLog2->method('getParameters')->willReturn(['player' => 'andie']);
         $roomLog2->method('getDay')->willReturn(1);
         $roomLog2->method('getCycle')->willReturn(4);

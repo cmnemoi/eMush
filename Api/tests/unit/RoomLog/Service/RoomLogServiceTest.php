@@ -531,7 +531,7 @@ final class RoomLogServiceTest extends TestCase
         $roomLog1
             ->setLog('logKey1')
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDate($date)
+            ->setCreatedAt($date)
             ->setParameters([])
             ->setDay(1)
             ->setCycle(3)
@@ -541,7 +541,7 @@ final class RoomLogServiceTest extends TestCase
         $roomLog2
             ->setLog('logKey2')
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDate($date)
+            ->setCreatedAt($date)
             ->setParameters(['player' => 'andie'])
             ->setDay(1)
             ->setCycle(4)
@@ -654,7 +654,7 @@ final class RoomLogServiceTest extends TestCase
                 ->setPlayerInfo($playerInfo)
                 ->setLog('logKey')
                 ->setVisibility(VisibilityEnum::PUBLIC)
-                ->setDate(new \DateTime())
+                ->setCreatedAt(new \DateTime())
                 ->setParameters([])
                 ->setDay(1)
                 ->setCycle(1)

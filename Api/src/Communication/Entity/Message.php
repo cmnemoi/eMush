@@ -55,6 +55,12 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $timestampableCanceled = false;
 
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $day;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $cycle;
+
     public function __construct()
     {
         $this->child = new ArrayCollection();
@@ -209,5 +215,29 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     public function getClassName(): string
     {
         return static::class;
+    }
+
+    public function getDay(): int
+    {
+        return $this->day;
+    }
+
+    public function setDay(int $day): static
+    {
+        $this->day = $day;
+
+        return $this;
+    }
+
+    public function getCycle(): int
+    {
+        return $this->cycle;
+    }
+
+    public function setCycle(int $cycle): static
+    {
+        $this->cycle = $cycle;
+
+        return $this;
     }
 }

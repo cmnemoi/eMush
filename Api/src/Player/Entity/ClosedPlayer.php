@@ -241,4 +241,14 @@ class ClosedPlayer implements SanctionEvidenceInterface
     {
         return static::class;
     }
+
+    public function getCycle(): int
+    {
+        return $this->getCycleDeath();
+    }
+
+    public function getDay(): int
+    {
+        return $this->getDayDeath();
+    }
 }

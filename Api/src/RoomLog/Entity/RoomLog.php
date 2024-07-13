@@ -44,9 +44,6 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
     #[ORM\Column(type: 'string', nullable: false)]
     private string $type;
 
-    #[ORM\Column(type: 'datetime', nullable: false)]
-    private \DateTime $date;
-
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $day;
 
@@ -155,18 +152,6 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
     public function setType(string $type): self
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function getDate(): \DateTime
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTime $date): static
-    {
-        $this->date = $date;
 
         return $this;
     }

@@ -24,6 +24,35 @@ function toArray(data: any): any[] {
 }
 
 const ModerationService = {
+    applySanctionToPlayer: async(player: Player, sanctionName: string, params: URLSearchParams): Promise<any> => {
+        if (sanctionName === 'quarantine_player' || sanctionName === 'quarantine_ban') {
+            ModerationService.quarantinePlayer(player.id, params)
+                .then(() => {
+                    this.loadData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+        if (sanctionName === 'ban_user' || sanctionName === 'quarantine_ban') {
+            ModerationService.banUser(player.user.id, params)
+                .then(() => {
+                    this.loadData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+        if (sanctionName === 'warning') {
+            ModerationService.warnUser(player.user.id, params)
+                .then(() => {
+                    this.loadData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    },
     banUser: async(userId: integer, params: URLSearchParams): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/ban-user/' + userId+ '?' + params.toString());
@@ -31,9 +60,14 @@ const ModerationService = {
 
         return response;
     },
-    getChannelMessages: async(channel: Channel,startDate: string, endDate: string, message?: string, author?: string): Promise<Message[]> => {
+    getChannelMessages: async(channel: Channel, filters: { startDate: string, endDate: string, messageContent?: string, author?: string } ): Promise<Message[]> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const queryParameters = `pagination=false&channel.id=${channel.id}` + (startDate ? `&updatedAt[after]=${startDate}` : '') + (endDate ? `&updatedAt[before]=${endDate}` : '') + (message ? `&message=${message}` : '') + (author ? `&author.characterConfig.characterName=${author}` : '') + '&order[updatedAt]=desc';
+        const queryParameters = `pagination=false&channel.id=${channel.id}`
+            + (filters.startDate ? `&updatedAt[after]=${filters.startDate}` : '')
+            + (filters.endDate ? `&updatedAt[before]=${filters.endDate}` : '')
+            + (filters.messageContent ? `&message=${filters.messageContent}` : '')
+            + (filters.author ? `&author.characterConfig.characterName=${filters.author}` : ''
+            ) + '&order[updatedAt]=desc';
 
         const messages = await ApiService.get(`${MESSAGES_ENDPOINT}?${queryParameters}`).then((response) => {
             return response.data['hydra:member'].map((messageData: object) => {
@@ -92,7 +126,12 @@ const ModerationService = {
     },
     getPlayerLogs: async(playerId: number, day: integer, cycle: integer | null, content?: string, place?: string): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const queryParameters = `pagination=false&playerInfo.id=${playerId}` + (day ? `&day=${day}` : '') + (cycle ? `&cycle=${cycle}` : '') + (content ? `&log=${content}` : '') + (place ? `&place=${place}` : '');
+        const queryParameters = `pagination=false&playerInfo.id=${playerId}`
+            + (day ? `&day=${day}` : '')
+            + (cycle ? `&cycle=${cycle}` : '')
+            + (content ? `&log=${content}` : '')
+            + (place ? `&place=${place}` : ''
+            );
         const response = await ApiService.get(`${ROOM_LOG_ENDPOINT}?${queryParameters}`);
 
         const roomLogs: RoomLog[] = [];

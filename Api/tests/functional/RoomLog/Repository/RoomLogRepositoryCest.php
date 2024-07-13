@@ -64,7 +64,7 @@ class RoomLogRepositoryCest
             ->setDaedalusInfo($daedalusInfo)
             ->setLog('someLog')
             ->setType('type')
-            ->setDate(new \DateTime())
+            ->setCreatedAt(new \DateTime())
             ->setDay(1)
             ->setCycle(1)
             ->setVisibility(VisibilityEnum::PUBLIC);
@@ -130,7 +130,7 @@ class RoomLogRepositoryCest
             ->setLog('someLog')
             ->setPlace('test')
             ->setType('type')
-            ->setDate(new \DateTime())
+            ->setCreatedAt(new \DateTime())
             ->setDay(1)
             ->setCycle(1)
             ->setVisibility(VisibilityEnum::PUBLIC);
@@ -189,7 +189,7 @@ class RoomLogRepositoryCest
         $roomLog
             ->setLog('someLog')
             ->setType('type')
-            ->setDate(new \DateTime())
+            ->setCreatedAt(new \DateTime())
             ->setDay(1)
             ->setCycle(1)
             ->setVisibility(VisibilityEnum::PUBLIC)
@@ -202,7 +202,7 @@ class RoomLogRepositoryCest
 
         $I->assertCount(1, $logs);
 
-        $roomLog->setDate(new \DateTime('-25 hour'));
+        $roomLog->setCreatedAt(new \DateTime('-25 hour'));
 
         $I->haveInRepository($roomLog);
 
@@ -210,7 +210,7 @@ class RoomLogRepositoryCest
 
         $I->assertEmpty($logs);
 
-        $roomLog->setDate(new \DateTime('-23 hour'));
+        $roomLog->setCreatedAt(new \DateTime('-23 hour'));
 
         $I->haveInRepository($roomLog);
 

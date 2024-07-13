@@ -64,12 +64,18 @@ export class SanctionEvidence {
     public className: string;
     public id: number;
     public message: string;
+    public day: number;
+    public cycle: number;
+    public date: Date;
 
     public load(object: any): SanctionEvidence {
         if (object) {
             this.className = object.className;
             this.id = object.id;
             this.message = object.message;
+            this.day = object.day;
+            this.cycle = object.cycle;
+            this.date = new Date(object.date)
         }
         return this;
     }
@@ -79,6 +85,9 @@ export class SanctionEvidence {
             'id': this.id,
             'className': this.className,
             'message': this.message,
+            'cycle': this.cycle,
+            'day': this.day,
+            'date': this.date,
         };
     }
 }

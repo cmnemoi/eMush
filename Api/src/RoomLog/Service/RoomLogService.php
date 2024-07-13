@@ -132,7 +132,7 @@ class RoomLogService implements RoomLogServiceInterface
             ->setPlace($place->getName())
             ->setPlayerInfo($player?->getPlayerInfo())
             ->setVisibility($this->getVisibility($player, $visibility))
-            ->setDate($dateTime ?? new \DateTime('now'))
+            ->setCreatedAt($dateTime ?? new \DateTime('now'))
             ->setCycle($place->getDaedalus()->getCycle())
             ->setDay($place->getDaedalus()->getDay());
 

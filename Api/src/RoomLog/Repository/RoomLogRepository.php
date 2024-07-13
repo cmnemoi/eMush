@@ -37,7 +37,7 @@ class RoomLogRepository extends ServiceEntityRepository
             ->where($queryBuilder->expr()->andX(
                 $queryBuilder->expr()->eq('roomLog.daedalusInfo', ':daedalusInfo'),
                 $queryBuilder->expr()->eq('roomLog.place', ':place'),
-                $queryBuilder->expr()->gte('roomLog.date', ':date'),
+                $queryBuilder->expr()->gte('roomLog.createdAt', ':date'),
                 $queryBuilder->expr()->orX(
                     $queryBuilder->expr()->in('roomLog.visibility', ':publicArray'),
                     $queryBuilder->expr()->andX(
@@ -46,7 +46,7 @@ class RoomLogRepository extends ServiceEntityRepository
                     ),
                 )
             ))
-            ->orderBy('roomLog.date', 'desc')
+            ->orderBy('roomLog.createdAt', 'desc')
             ->addOrderBy('roomLog.id', 'desc')
             ->setParameter('daedalusInfo', $player->getDaedalus()->getDaedalusInfo())
             ->setParameter('place', $player->getPlace()->getName())

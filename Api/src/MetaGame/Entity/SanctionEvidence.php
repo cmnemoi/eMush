@@ -54,6 +54,9 @@ class SanctionEvidence
             'className' => $sanctionEvidence->getClassName(),
             'id' => $sanctionEvidence->getId(),
             'message' => $sanctionEvidence->getMessage(),
+            'day' => $sanctionEvidence->getDay(),
+            'cycle' => $sanctionEvidence->getCycle(),
+            'date' => $sanctionEvidence->getCreatedAt(),
         ];
     }
 

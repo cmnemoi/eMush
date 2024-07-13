@@ -1,6 +1,6 @@
 <template>
     <PopUp :is-open=reportDialogVisible @close="closeReportDialog()" class="report">
-        <h1 class="title">{{ $t('reportPopup.title') }}</h1>
+        <h1 class="title">{{ $t('moderation.report.popUpTitle') }}</h1>
         <p class="message" v-html="formatText($t('moderation.report.message'))"></p>
         <label v-if="selectPlayer"> {{ $t("moderation.report.player") }}:
             <select v-model="reportedPlayer" required>
@@ -38,7 +38,7 @@
             <button
                 class="action-button"
                 @click="submitReport()"
-                :disabled="reportReason == '' || reportedPlayer == ''"
+                :disabled="reportReason == '' || (reportedPlayer == '' && selectPlayer)"
             >
                 {{ $t('moderation.report.submit') }}
             </button>

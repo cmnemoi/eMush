@@ -178,7 +178,7 @@
                                 <img :src="getImgUrl('comms/alert.png')" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.report')}}</h1>
-                                    <p>{{ $t('moderation.reportDescription') }}</p>
+                                    <p>{{ $t('moderation.report.description') }}</p>
                                 </template>
                             </Tippy>
                         </p>
@@ -264,7 +264,7 @@
                                 <img :src="getImgUrl('comms/alert.png')" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.report')}}</h1>
-                                    <p>{{ $t('moderation.reportDescription') }}</p>
+                                    <p>{{ $t('moderation.report.description') }}</p>
                                 </template>
                             </Tippy>
                         </p>
@@ -516,7 +516,7 @@ export default defineComponent ({
             if (this.currentPlayer === null) {
                 return;
             }
-            ModerationService.reportPlayer(this.currentPlayer.id, params)
+            ModerationService.reportClosedPlayer(this.currentPlayer.id, params)
                 .then(() => {
                     this.loadData();
                 })

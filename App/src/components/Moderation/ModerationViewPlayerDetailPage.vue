@@ -22,6 +22,11 @@
             </template>
             <template #row-evidence="report">
                 {{ report.sanctionEvidence.message }}
+                <button
+                    class="action-button"
+                    @click="goToSanctionEvidence(report)">
+                    {{ $t('moderation.report.seeContext') }}
+                </button>
             </template>
             <template #header-actions>
                 Actions
@@ -308,6 +313,8 @@ import urlJoin from "url-join";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
 import DropList from "@/components/Utils/DropList.vue";
 import {ModerationSanction} from "@/entities/ModerationSanction";
+import {useRouter} from "vue-router";
+import {ClosedPlayer} from "@/entities/ClosedPlayer";
 
 interface PrivateChannel {
     id: number,
@@ -352,6 +359,37 @@ export default defineComponent({
         Log,
         Message,
         ModerationActionPopup
+    },
+    setup() {
+        const router = useRouter();
+
+        const getClosedDaedalusId = async (closedPlayerId: number): Promise<number> => {
+            const closedPlayer = new ClosedPlayer();
+            try {
+                const result = await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'closed_players', String(closedPlayerId)));
+                closedPlayer.load(result.data);
+                return closedPlayer.closedDaedalusId;
+            } catch (error) {
+                throw error;
+            }
+        };
+
+        const goToSanctionEvidence = async (sanction: any) => {
+            const sanctionEvidence = sanction.sanctionEvidence;
+            const evidenceClass = sanctionEvidence.className;
+
+
+            if (evidenceClass === 'Proxies\\__CG__\\Mush\\Communication\\Entity\\Message') {
+            } else if (evidenceClass === 'Proxies\\__CG__\\Mush\\RoomLog\\Entity\\RoomLog') {
+            } else if (evidenceClass === 'Proxies\\__CG__\\Mush\\Player\\Entity\\ClosedPlayer') {
+                const closedDaedalusId = await getClosedDaedalusId(sanctionEvidence.id);
+                router.push({ name: 'TheEnd', params: { closedDaedalusId } });
+            }
+        };
+
+        return {
+            goToSanctionEvidence,
+        };
     },
     data() : ModerationViewPlayerData {
         return {

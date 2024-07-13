@@ -43,13 +43,6 @@
             </div>
             <div class="row">
                 <div class="cell triple"><strong>{{ $t('moderation.sanctionDetail.evidence') }}</strong> {{ moderationSanction.sanctionEvidence.message }}</div>
-                <div class="cell">
-                    <button
-                        class="action-button"
-                        @click="goToSanctionEvidence(moderationSanction)">
-                        {{ $t('moderation.report.seeContext') }}
-                    </button>
-                </div>
             </div>
             <div class="row" :class="{ active: moderationSanction.isActive, inactive: !moderationSanction.isActive }">
                 <div class="cell double"><strong>{{ $t('moderation.sanctionDetail.startDate') }}</strong> {{ moderationSanction.startDate }}</div>
@@ -89,25 +82,6 @@ export default defineComponent({
     emits: [
         "close"
     ],
-    setup() {
-        const router = useRouter();
-
-        const goToSanctionEvidence = (sanction: any) => {
-            const sanctionEvidence = sanction.sanctionEvidence;
-            if (
-                sanctionEvidence.className === 'Proxies\\__CG__\\Mush\\Communication\\Entity\\Message' ||
-                sanctionEvidence.className === 'Proxies\\__CG__\\Mush\\RoomLog\\Entity\\RoomLog'
-            ) {
-                router.push({ name: 'ModerationViewPlayerDetail', params: { playerId: sanction.playerId } });
-            } else {
-                router.push({ name: 'ModerationPlayerDetailPage', params: { playerId: sanction.playerId } });
-            }
-        };
-
-        return {
-            goToSanctionEvidence,
-        };
-    },
     methods: {
         close() {
             this.$emit('close');

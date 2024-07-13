@@ -9,13 +9,23 @@
             :pagination="pagination"
             @pagination-click="paginationClick"
             @sort-table="sortTable"
-            @row-click="showSanctionDetails"
         >
             <template #header-evidence>
                 {{ $t('moderation.sanctionDetail.evidence') }}
             </template>
             <template #row-evidence="report">
                 {{ report.sanctionEvidence.message }}
+                <button
+                    class="action-button"
+                    @click="goToSanctionEvidence(report)">
+                    {{ $t('moderation.report.seeContext') }}
+                </button>
+            </template>
+            <template #header-actions>
+                Actions
+            </template>
+            <template #row-actions="report">
+                <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.name') }}</button>
             </template>
         </Datatable>
         <SanctionDetailPage
@@ -38,6 +48,10 @@
     import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
     import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
     import {ModerationSanction} from "@/entities/ModerationSanction";
+    import {useRouter} from "vue-router";
+    import {ClosedPlayer} from "@/entities/ClosedPlayer";
+    import {ClosedDaedalus} from "@/entities/ClosedDaedalus";
+    import DropList from "@/components/Utils/DropList.vue";
 
     interface SanctionListData {
         userId: string,
@@ -60,6 +74,7 @@
     export default defineComponent({
         name: "SanctionListPage",
         components: {
+            DropList,
             Tippy,
             Datatable,
             SanctionDetailPage
@@ -69,6 +84,39 @@
                 isAdmin: 'auth/isAdmin',
                 isModerator: 'auth/isModerator'
             })
+        },
+        setup() {
+            const router = useRouter();
+
+            const getClosedDaedalusId = async (closedPlayerId: number): Promise<number> => {
+                const closedPlayer = new ClosedPlayer();
+                try {
+                    const result = await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'closed_players', String(closedPlayerId)));
+                    closedPlayer.load(result.data);
+                    return closedPlayer.closedDaedalusId;
+                } catch (error) {
+                    throw error;
+                }
+            };
+
+            const goToSanctionEvidence = async (sanction: any) => {
+                const sanctionEvidence = sanction.sanctionEvidence;
+                const evidenceClass = sanctionEvidence.className;
+
+                if (
+                    evidenceClass === 'Proxies\\__CG__\\Mush\\Communication\\Entity\\Message' ||
+                    evidenceClass === 'Proxies\\__CG__\\Mush\\RoomLog\\Entity\\RoomLog'
+                ) {
+                    router.push({ name: 'ModerationViewPlayerDetail', params: { playerId: sanction.playerId } });
+                } else if (evidenceClass === 'Proxies\\__CG__\\Mush\\Player\\Entity\\ClosedPlayer') {
+                    const closedDaedalusId = await getClosedDaedalusId(sanctionEvidence.id);
+                    router.push({ name: 'TheEnd', params: { closedDaedalusId } });
+                }
+            };
+
+            return {
+                goToSanctionEvidence,
+            };
         },
         data(): SanctionListData {
             return {
@@ -95,6 +143,12 @@
                     {
                         key: 'startDate',
                         name: 'moderation.sanctionDetail.date'
+                    },
+                    {
+                        key: 'actions',
+                        name: 'Actions',
+                        sortable: false,
+                        slot: true
                     }
                 ],
                 pagination: {
@@ -209,7 +263,7 @@
             paginationClick(page: number) {
                 this.pagination.currentPage = page;
                 this.loadData();
-            }
+            },
         },
         beforeMount() {
             this.loadData();

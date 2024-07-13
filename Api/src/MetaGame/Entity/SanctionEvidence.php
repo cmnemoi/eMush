@@ -14,6 +14,12 @@ class SanctionEvidence
 {
     use TimestampableEntity;
 
+    private const array ENTITY_NAME_MAP = [
+        Message::class => 'message',
+        ClosedPlayer::class => 'closedPlayer',
+        RoomLog::class => 'roomLog',
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
@@ -51,7 +57,7 @@ class SanctionEvidence
         $sanctionEvidence = $this->getSanctionEvidence();
 
         return [
-            'className' => $sanctionEvidence->getClassName(),
+            'className' => self::ENTITY_NAME_MAP[$sanctionEvidence->getClassName()],
             'id' => $sanctionEvidence->getId(),
             'message' => $sanctionEvidence->getMessage(),
             'day' => $sanctionEvidence->getDay(),

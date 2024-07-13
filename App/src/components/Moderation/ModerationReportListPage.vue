@@ -282,11 +282,11 @@
                 const evidenceClass = sanctionEvidence.className;
 
                 if (
-                    evidenceClass === 'Proxies\\__CG__\\Mush\\Communication\\Entity\\Message' ||
-                    evidenceClass === 'Proxies\\__CG__\\Mush\\RoomLog\\Entity\\RoomLog'
+                    evidenceClass === 'message' ||
+                    evidenceClass === 'roomLog'
                 ) {
                     router.push({ name: 'ModerationViewPlayerDetail', params: { playerId: sanction.playerId } });
-                } else if (evidenceClass === 'Proxies\\__CG__\\Mush\\Player\\Entity\\ClosedPlayer') {
+                } else if (evidenceClass === 'closedPlayer') {
                     const closedDaedalusId = this.getClosedDaedalusId(sanctionEvidence.id);
                     router.push({ name: 'TheEnd', params: { closedDaedalusId } });
                 }

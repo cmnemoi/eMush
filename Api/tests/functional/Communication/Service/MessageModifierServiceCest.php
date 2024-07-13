@@ -34,7 +34,8 @@ final class MessageModifierServiceCest extends AbstractFunctionalTest
         $message
             ->setChannel($this->publicChannel)
             ->setAuthor($this->chun->getPlayerInfo())
-            ->setMessage('Hello, World!');
+            ->setMessage('Hello, World!')
+            ->setDay(1)->setCycle(1);
         $I->haveInRepository($message);
 
         // when applying paranoia effects

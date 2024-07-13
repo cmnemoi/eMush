@@ -52,6 +52,7 @@
     import {ClosedPlayer} from "@/entities/ClosedPlayer";
     import {ClosedDaedalus} from "@/entities/ClosedDaedalus";
     import DropList from "@/components/Utils/DropList.vue";
+    import router from "@/router";
 
     interface SanctionListData {
         userId: string,
@@ -263,6 +264,32 @@
             paginationClick(page: number) {
                 this.pagination.currentPage = page;
                 this.loadData();
+            },
+            getClosedDaedalusId(closedPlayerId: number): Promise<number>
+            {
+                const closedPlayer = new ClosedPlayer();
+                try {
+                    const result = ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'closed_players', String(closedPlayerId)));
+                    closedPlayer.load(result.data);
+                    return closedPlayer.closedDaedalusId;
+                } catch (error) {
+                    throw error;
+                }
+            },
+            goToSanctionEvidence(sanction: any)
+            {
+                const sanctionEvidence = sanction.sanctionEvidence;
+                const evidenceClass = sanctionEvidence.className;
+
+                if (
+                    evidenceClass === 'Proxies\\__CG__\\Mush\\Communication\\Entity\\Message' ||
+                    evidenceClass === 'Proxies\\__CG__\\Mush\\RoomLog\\Entity\\RoomLog'
+                ) {
+                    router.push({ name: 'ModerationViewPlayerDetail', params: { playerId: sanction.playerId } });
+                } else if (evidenceClass === 'Proxies\\__CG__\\Mush\\Player\\Entity\\ClosedPlayer') {
+                    const closedDaedalusId = this.getClosedDaedalusId(sanctionEvidence.id);
+                    router.push({ name: 'TheEnd', params: { closedDaedalusId } });
+                }
             },
         },
         beforeMount() {

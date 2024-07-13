@@ -177,7 +177,7 @@
                             <Tippy tag="span" v-if="!goldNovaPlayer.messageHasBeenModerated" @click="openReportDialog(player)">
                                 <img :src="getImgUrl('comms/alert.png')" alt="Edit message">
                                 <template #content>
-                                    <h1>{{ $t('moderation.report')}}</h1>
+                                    <h1>{{ $t('moderation.report.name')}}</h1>
                                     <p>{{ $t('moderation.report.description') }}</p>
                                 </template>
                             </Tippy>
@@ -261,9 +261,9 @@
                                 </template>
                             </Tippy>
                             <Tippy tag="span" v-if="!goldNovaPlayer?.messageHasBeenModerated" @click="openReportDialog(player)">
-                                <img :src="getImgUrl('comms/alert.png')" alt="Edit message">
+                                <img :src="getImgUrl('comms/alert.png')" alt="Report message">
                                 <template #content>
-                                    <h1>{{ $t('moderation.report')}}</h1>
+                                    <h1>{{ $t('moderation.report.name')}}</h1>
                                     <p>{{ $t('moderation.report.description') }}</p>
                                 </template>
                             </Tippy>

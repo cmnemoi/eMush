@@ -136,7 +136,7 @@
                 </template>
             </Tippy>
         </div>
-        <div class="logs-container">
+        <div class="logs-container" ref="logsContainer">
             <h2>{{ $t('moderation.logs') }}</h2>
             <div class="logs" v-if="playerLogs">
                 <section v-for="(cycleRoomLog, id) in playerLogs.slice().reverse()" :key="id">
@@ -318,6 +318,7 @@ import DropList from "@/components/Utils/DropList.vue";
 import { ModerationSanction } from "@/entities/ModerationSanction";
 import { useRouter } from "vue-router";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
+import router from "@/router";
 
 interface PrivateChannel {
     id: number,
@@ -372,39 +373,6 @@ export default defineComponent({
         Log,
         Message,
         ModerationActionPopup
-    },
-    setup() {
-        const router = useRouter();
-
-        const getClosedDaedalusId = async (closedPlayerId: number): Promise<number> => {
-            const closedPlayer = new ClosedPlayer();
-            try {
-                const result = await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'closed_players', String(closedPlayerId)));
-                closedPlayer.load(result.data);
-                return closedPlayer.closedDaedalusId;
-            } catch (error) {
-                throw error;
-            }
-        };
-
-        const goToSanctionEvidence = async (sanction: any) => {
-            const sanctionEvidence = sanction.sanctionEvidence;
-            const evidenceClass = sanctionEvidence.className;
-
-
-            if (
-                evidenceClass === 'Proxies\\__CG__\\Mush\\Communication\\Entity\\Message'
-                || evidenceClass === 'Proxies\\__CG__\\Mush\\RoomLog\\Entity\\RoomLog'
-            ) {
-            } else if (evidenceClass === 'Proxies\\__CG__\\Mush\\Player\\Entity\\ClosedPlayer') {
-                const closedDaedalusId = await getClosedDaedalusId(sanctionEvidence.id);
-                router.push({ name: 'TheEnd', params: { closedDaedalusId } });
-            }
-        };
-
-        return {
-            goToSanctionEvidence,
-        };
     },
     data() : ModerationViewPlayerData {
         return {
@@ -663,6 +631,55 @@ export default defineComponent({
         paginationClick(page: number) {
             this.pagination.currentPage = page;
             this.loadData();
+        },
+        getClosedDaedalusId(closedPlayerId: number): Promise<number>
+        {
+            const closedPlayer = new ClosedPlayer();
+            try {
+                const result = ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'closed_players', String(closedPlayerId)));
+                closedPlayer.load(result.data);
+                return closedPlayer.closedDaedalusId;
+            } catch (error) {
+                throw error;
+            }
+        },
+        goToSanctionEvidence(sanction: any)
+        {
+            const sanctionEvidence = sanction.sanctionEvidence;
+            const evidenceClass = sanctionEvidence.className;
+
+            if (
+                evidenceClass === 'Proxies\\__CG__\\Mush\\Communication\\Entity\\Message'
+                || evidenceClass === 'Proxies\\__CG__\\Mush\\RoomLog\\Entity\\RoomLog'
+            ) {
+                const startDate = new Date(sanctionEvidence.date.getTime() - 30*60000).toISOString();
+                const endDate = new Date(sanctionEvidence.date.getTime() + 30*60000).toISOString();
+
+                this.filters.logs.cycle = sanctionEvidence.cycle;
+                this.filters.logs.day = sanctionEvidence.day;
+                this.filters.privateChannel.startDate = startDate;
+                this.filters.privateChannel.endDate = endDate;
+                this.filters.mushChannel.startDate = startDate;
+                this.filters.mushChannel.endDate = endDate;
+                this.filters.generalChannel.startDate = startDate;
+                this.filters.generalChannel.endDate = endDate;
+
+                this.loadLogs(this.player);
+                this.loadPublicChannelMessages(this.player);
+                this.loadMushChannelMessages(this.player);
+                this.loadPrivateChannelsMessages(this.player);
+
+                this.$nextTick(() => {
+                    const logsContainer = this.$refs.logsContainer as HTMLElement;
+                    if (logsContainer) {
+                        logsContainer.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+
+            } else if (evidenceClass === 'Proxies\\__CG__\\Mush\\Player\\Entity\\ClosedPlayer') {
+                const closedDaedalusId = this.getClosedDaedalusId(sanctionEvidence.id);
+                router.push({ name: 'TheEnd', params: { closedDaedalusId } });
+            }
         }
     },
     beforeMount() {

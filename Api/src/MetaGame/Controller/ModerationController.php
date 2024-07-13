@@ -17,6 +17,7 @@ use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\PlayerRepository;
+use Mush\RoomLog\Entity\RoomLog;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -630,6 +631,70 @@ final class ModerationController extends AbstractFOSRestController
             $request->get('reason'),
             $request->get('adminMessage'),
             $message
+        );
+
+        return $this->view(['detail' => 'player reported'], Response::HTTP_OK);
+    }
+
+    /**
+     * Report a log that needs moderation action.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The message id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="reason",
+     *     in="query",
+     *     description="Reason for the report",
+     *
+     *     @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="player",
+     *     in="query",
+     *     description="the player id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="adminMessage",
+     *     in="query",
+     *     description="Message of the user",
+     *
+     *     @OA\Schema(type="string", nullable=true)
+     * )
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post(path="/report-log/{id}")
+     *
+     * @Rest\View()
+     */
+    public function reportLog(
+        RoomLog $roomLog,
+        Request $request
+    ): View {
+        /** @var User $reportAuthor */
+        $reportAuthor = $this->getUser();
+
+        /** @var Player $player */
+        $player = $this->playerRepository->find($request->get('player'));
+
+        $this->moderationService->reportPlayer(
+            $player->getPlayerInfo(),
+            $reportAuthor,
+            $request->get('reason'),
+            $request->get('adminMessage'),
+            $roomLog
         );
 
         return $this->view(['detail' => 'player reported'], Response::HTTP_OK);

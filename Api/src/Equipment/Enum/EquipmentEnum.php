@@ -101,6 +101,14 @@ class EquipmentEnum
         ]);
     }
 
+    public static function getNeronProjectTerminals(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::NERON_CORE,
+            self::AUXILIARY_TERMINAL,
+        ]);
+    }
+
     public static function getTerminals(): ArrayCollection
     {
         return new ArrayCollection([

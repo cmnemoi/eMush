@@ -239,4 +239,34 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         // then the action is executable
         $I->assertNull($this->accessTerminal->cannotExecuteReason());
     }
+
+    public function shouldBeExecutableOnPilgredTerminalForNonConceptorsWithProjectsCrewLock(FunctionalTester $I): void
+    {
+        // given a Pilgred's terminal in Chun's place
+        $pilgredTerminal = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PILGRED,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Crew Lock is set to Projects
+        $neron = $this->daedalus->getNeron();
+        $reflection = new \ReflectionClass($neron);
+        $reflection->getProperty('crewLock')->setValue($neron, NeronCrewLockEnum::PROJECTS);
+
+        // given Chun is not a conceptor
+        $I->assertFalse($this->chun->hasSkill(SkillEnum::CONCEPTOR));
+
+        // when Chun access Pilgred's terminal
+        $this->accessTerminal->loadParameters(
+            actionConfig: $this->accessTerminalConfig,
+            actionProvider: $pilgredTerminal,
+            player: $this->chun,
+            target: $pilgredTerminal
+        );
+
+        // then the action is executable
+        $I->assertNull($this->accessTerminal->cannotExecuteReason());
+    }
 }

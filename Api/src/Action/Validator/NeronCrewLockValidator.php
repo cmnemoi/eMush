@@ -58,7 +58,7 @@ final class NeronCrewLockValidator extends ConstraintValidator
     {
         return match ($crewLock) {
             NeronCrewLockEnum::PILOTING->value => EquipmentEnum::getPilotingCrewLockRestrictedTerminals(),
-            NeronCrewLockEnum::PROJECTS->value => EquipmentEnum::getProjectTerminals(),
+            NeronCrewLockEnum::PROJECTS->value => EquipmentEnum::getNeronProjectTerminals(),
             default => new ArrayCollection(),
         };
     }

@@ -1,5 +1,5 @@
 <template>
-    <div class="project" v-if="project">
+    <div :class="['project', { 'ongoing': project.isLastAdvancedProject }]" v-if="project">
         <h3>{{ project.name }}</h3>
         <div class="card">
             <Tippy>

@@ -174,7 +174,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         );
 
         // given PILGRED is completed
-        $this->daedalus->getPilgred()->makeProgress(100);
+        $this->daedalus->getPilgred()->makeProgressAndUpdateParticipationDate(100);
 
         // given Chun executes the coffee action
         $this->coffeeAction->loadParameters(
@@ -215,7 +215,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         );
 
         // given PILGRED is completed
-        $this->daedalus->getPilgred()->makeProgress(100);
+        $this->daedalus->getPilgred()->makeProgressAndUpdateParticipationDate(100);
 
         // when Chun executes the coffee action
         $this->coffeeAction->loadParameters(
@@ -252,7 +252,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         );
 
         // given PILGRED is not completed
-        $this->daedalus->getPilgred()->makeProgress(0);
+        $this->daedalus->getPilgred()->makeProgressAndUpdateParticipationDate(0);
 
         // given Chun executes the coffee action
         $this->coffeeAction->loadParameters(

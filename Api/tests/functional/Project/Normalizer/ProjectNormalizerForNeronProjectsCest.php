@@ -81,6 +81,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                 'efficiencyTooltipHeader' => 'Efficacité',
                 'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
                 'bonusSkills' => $example['projectBonusSkills'],
+                'isLastAdvancedProject' => false,
                 'actions' => [
                     [
                         'id' => $this->participateActionId,
@@ -188,6 +189,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
+                'isLastAdvancedProject' => false,
                 'actions' => [
                     [
                         'id' => $participateActionId,
@@ -207,6 +209,29 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
             ],
             actual: $normalizedProject
         );
+    }
+
+    public function shouldNormalizeLastAdvancedProject(FunctionalTester $I): void
+    {
+        // given I have two projects
+        $plasmaShield = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
+        $armouredCorridor = $this->daedalus->getProjectByName(ProjectName::ARMOUR_CORRIDOR);
+        $plasmaShield->propose();
+        $armouredCorridor->propose();
+
+        // make them advance
+        $plasmaShield->makeProgressAndUpdateParticipationDate(1);
+        $armouredCorridor->makeProgressAndUpdateParticipationDate(1);
+
+        // when I normalize the projects
+        $normalizedPlasmaShield = $this->projectNormalizer->normalize($plasmaShield, null, ['currentPlayer' => $this->chun]);
+        $normalizedArmouredCorridor = $this->projectNormalizer->normalize($armouredCorridor, null, ['currentPlayer' => $this->chun]);
+
+        // then I should see that armoured corridor is the last advanced project
+        $I->assertTrue($normalizedArmouredCorridor['isLastAdvancedProject']);
+
+        // and plasma shield is not
+        $I->assertFalse($normalizedPlasmaShield['isLastAdvancedProject']);
     }
 
     private function normalizedProjectsDataProvider(): array

@@ -127,6 +127,7 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
                 language: $language
             ),
             'bonusSkills' => $this->getTranslatedSkills($project->getBonusSkills(), $language),
+            'isLastAdvancedProject' => $project->isLastProjectAdvanced(),
             'actions' => $this->getNormalizedActions($project, ActionHolderEnum::PROJECT, $currentPlayer, $format, $context),
         ];
     }

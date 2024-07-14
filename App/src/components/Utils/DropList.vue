@@ -21,7 +21,7 @@ export default defineComponent ({
         }
     }
 });
-    
+
 </script>
 
 <style  lang="scss" scoped>
@@ -62,7 +62,7 @@ export default defineComponent ({
         width: 100%;
         padding: .4em 1em;
     }
-    
+
 }
 
 .dropdown:hover,

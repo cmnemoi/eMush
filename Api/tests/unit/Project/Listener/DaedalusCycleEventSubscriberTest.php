@@ -84,7 +84,7 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
     private function givenNeronProjectThreadProjectIsFinished(Daedalus $daedalus): void
     {
         $project = ProjectFactory::createNeronProjectByNameForDaedalus(ProjectName::NERON_PROJECT_THREAD, $daedalus);
-        $project->makeProgress(100);
+        $project->makeProgressAndUpdateParticipationDate(100);
         $this->projectRepository->save($project);
     }
 
@@ -92,7 +92,7 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
     {
         $this->project = ProjectFactory::createDummyNeronProjectForDaedalus($daedalus);
         $this->project->propose();
-        $this->project->makeProgress($progress);
+        $this->project->makeProgressAndUpdateParticipationDate($progress);
         $this->projectRepository->save($this->project);
 
         return $this->project;

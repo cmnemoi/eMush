@@ -18,6 +18,7 @@ export class Project {
     public efficiencyTooltipHeader!: string;
     public efficiencyTooltipText!: string;
     public bonusSkills!: BonusSkill[];
+    public isLastAdvancedProject!: boolean;
     public repairPilgredAction: Action|null = null;
     public participateAction: Action|null = null;
 
@@ -33,6 +34,7 @@ export class Project {
             this.efficiencyTooltipHeader = object.efficiencyTooltipHeader;
             this.efficiencyTooltipText = object.efficiencyTooltipText;
             this.bonusSkills = object.bonusSkills;
+            this.isLastAdvancedProject = object.isLastAdvancedProject;
             const repairPilgredActionData = object.actions.filter((action: any) => action.key === ActionEnum.REPAIR_PILGRED)[0];
             const participateActionData = object.actions.filter((action: any) => action.key === ActionEnum.PARTICIPATE)[0];
             if (repairPilgredActionData) {

@@ -196,7 +196,7 @@ final class ParticipateCest extends AbstractFunctionalTest
     public function shouldCreateANeronAnnouncementWhenProjectIsFinished(FunctionalTester $I): void
     {
         // given PILGRED progress is 99%
-        $this->project->makeProgress(99);
+        $this->project->makeProgressAndUpdateParticipationDate(99);
 
         // when Chun participates in the project
         $this->participateAction->loadParameters(
@@ -219,7 +219,7 @@ final class ParticipateCest extends AbstractFunctionalTest
     public function shouldNotBeVisibleIfProjectIsFinished(FunctionalTester $I): void
     {
         // given project progress is 100%
-        $this->project->makeProgress(100);
+        $this->project->makeProgressAndUpdateParticipationDate(100);
 
         // when Chun tries to participate in the project
         $this->participateAction->loadParameters(
@@ -316,7 +316,7 @@ final class ParticipateCest extends AbstractFunctionalTest
         $otherProject->propose();
 
         // given project progress is 99%
-        $this->project->makeProgress(99);
+        $this->project->makeProgressAndUpdateParticipationDate(99);
 
         // when Chun participates in the project to finish it
         $this->participateAction->loadParameters(
@@ -337,7 +337,7 @@ final class ParticipateCest extends AbstractFunctionalTest
     public function shouldProposeNewProjectsWhenAProjectIsFinished(FunctionalTester $I): void
     {
         // given PILGRED progress is 99%
-        $this->project->makeProgress(99);
+        $this->project->makeProgressAndUpdateParticipationDate(99);
 
         // when Chun participates in the project to finish it
         $this->participateAction->loadParameters(

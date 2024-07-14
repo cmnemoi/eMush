@@ -94,7 +94,7 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
     {
         // given fre sensor project is completed
         $fireDetector = $this->daedalus->getProjectByName(ProjectName::FIRE_SENSOR);
-        $fireDetector->makeProgress(100);
+        $fireDetector->makeProgressAndUpdateParticipationDate(100);
 
         // given there is a broken piece of equipment in the laboratory
         $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
@@ -116,7 +116,7 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
     {
         // given equipment sensor project is completed
         $equipmentDetector = $this->daedalus->getProjectByName(ProjectName::EQUIPMENT_SENSOR);
-        $equipmentDetector->makeProgress(100);
+        $equipmentDetector->makeProgressAndUpdateParticipationDate(100);
 
         // given there is a broken piece of equipment in the laboratory
         $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
@@ -144,7 +144,7 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
     {
         // given door sensor project is completed
         $doorDetector = $this->daedalus->getProjectByName(ProjectName::DOOR_SENSOR);
-        $doorDetector->makeProgress(100);
+        $doorDetector->makeProgressAndUpdateParticipationDate(100);
 
         // given there is a broken door
         $door = $this->createDoorFromLaboratoryToFrontCorridor($I);

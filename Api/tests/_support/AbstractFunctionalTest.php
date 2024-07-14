@@ -213,7 +213,7 @@ class AbstractFunctionalTest
 
     protected function finishProject(Project $project, Player $author, FunctionalTester $I): void
     {
-        $project->makeProgress(100);
+        $project->makeProgressAndUpdateParticipationDate(100);
         $I->haveInRepository($project);
 
         $eventService = $I->grabService(EventServiceInterface::class);

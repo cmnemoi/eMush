@@ -81,7 +81,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     public function testShouldNormalizeExtraInfosWhenPilgredIsFinished(FunctionalTester $I): void
     {
         // given PILGRED is finished
-        $this->pilgredProject->makeProgress(100);
+        $this->pilgredProject->makeProgressAndUpdateParticipationDate(100);
 
         // given I have a PILGRED terminal
         $terminal = $this->gameEquipmentService->createGameEquipmentFromName(

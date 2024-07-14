@@ -202,7 +202,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $pilgredProject = $this->daedalus->getPilgred();
 
         // given PILGRED progress is 99%
-        $pilgredProject->makeProgress(99);
+        $pilgredProject->makeProgressAndUpdateParticipationDate(99);
 
         // when Chun repairs the PILGRED project
         $this->repairPilgredAction->loadParameters(
@@ -227,7 +227,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $pilgredProject = $this->daedalus->getPilgred();
 
         // given PILGRED progress is 100%
-        $pilgredProject->makeProgress(100);
+        $pilgredProject->makeProgressAndUpdateParticipationDate(100);
 
         // when Chun tries to repair the PILGRED project
         $this->repairPilgredAction->loadParameters(

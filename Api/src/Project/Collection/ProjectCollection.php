@@ -14,10 +14,17 @@ use Mush\Project\Entity\Project;
  */
 final class ProjectCollection extends ArrayCollection
 {
+    public function getLastAdvancedProject(): Project
+    {
+        return $this->matching(
+            Criteria::create()->orderBy(['lastParticipationTime' => Order::Descending])
+        )->first() ?: Project::createNull();
+    }
+
     public function getLastAdvancedProjectOrThrow(): Project
     {
-        $project = $this->matching(Criteria::create()->orderBy(['lastParticipationTime' => Order::Ascending]))->first();
-        if (!$project) {
+        $project = $this->getLastAdvancedProject();
+        if ($project->isNull()) {
             throw new \RuntimeException('No last advanced project found');
         }
 
@@ -31,7 +38,7 @@ final class ProjectCollection extends ArrayCollection
 
     public function getAllProjectsExcept(Project $projectToExclude): self
     {
-        return $this->filter(static fn (Project $project) => $project->notEqualsTo($projectToExclude));
+        return $this->filter(static fn (Project $project) => $project->notEquals($projectToExclude));
     }
 
     public function getAdvancedNeronProjects(): self

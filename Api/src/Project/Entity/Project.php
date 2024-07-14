@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Exception\ProgressShouldBePositive;
+use Mush\Project\Factory\ProjectFactory;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
@@ -66,6 +67,11 @@ class Project implements LogParameterInterface, ActionHolderInterface
         }
 
         $this->lastParticipationTime = new \DateTime();
+    }
+
+    public static function createNull(): self
+    {
+        return ProjectFactory::createNullProject();
     }
 
     public function getId(): int
@@ -171,6 +177,11 @@ class Project implements LogParameterInterface, ActionHolderInterface
         if ($this->progress > 100) {
             $this->progress = 100;
         }
+    }
+
+    public function makeProgressAndUpdateParticipationDate(int $progress): void
+    {
+        $this->makeProgress($progress);
 
         $this->lastParticipationTime = new \DateTime();
     }
@@ -266,8 +277,25 @@ class Project implements LogParameterInterface, ActionHolderInterface
         return $this->lastParticipationTime;
     }
 
-    public function notEqualsTo(self $project): bool
+    public function isLastProjectAdvanced(): bool
     {
-        return $this->id !== $project->getId();
+        $lastAdvancedProject = $this->daedalus->getAdvancedNeronProjects()->getLastAdvancedProject();
+
+        return $this->equals($lastAdvancedProject);
+    }
+
+    public function notEquals(self $project): bool
+    {
+        return $this->equals($project) === false;
+    }
+
+    public function isNull(): bool
+    {
+        return $this->equals(self::createNull());
+    }
+
+    private function equals(self $project): bool
+    {
+        return $this->id === $project->getId();
     }
 }

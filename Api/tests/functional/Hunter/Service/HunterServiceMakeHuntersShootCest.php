@@ -454,7 +454,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
 
         // given plasma shield project is finished
         $plasmaShield = $daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
-        $plasmaShield->makeProgress(100);
+        $plasmaShield->makeProgressAndUpdateParticipationDate(100);
         $daedalus->setShield(5);
 
         // when I make the asteroid shoot

@@ -397,7 +397,7 @@ final class PlantCycleHandlerTest extends TestCase
         $gamePlant = $this->createPlant($place);
 
         // given Heat Lamps project is finished
-        $this->heatLamps->makeProgress(100);
+        $this->heatLamps->makeProgressAndUpdateParticipationDate(100);
 
         // Setup universe state
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($this->getPlantEffect());
@@ -425,7 +425,7 @@ final class PlantCycleHandlerTest extends TestCase
         $gamePlant = $this->createPlant($place);
 
         // given Heat Lamps project is finished
-        $this->heatLamps->makeProgress(100);
+        $this->heatLamps->makeProgressAndUpdateParticipationDate(100);
 
         // Setup universe state
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($this->getPlantEffect());

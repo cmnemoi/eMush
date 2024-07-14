@@ -122,4 +122,20 @@ final class ProjectFactory
             daedalus: $daedalus,
         );
     }
+
+    public static function createNullProject(): Project
+    {
+        $project = new Project(
+            config: ProjectConfigFactory::createNullConfig(),
+            daedalus: DaedalusFactory::createDaedalus(),
+        );
+        self::setId($project, 0);
+
+        return $project;
+    }
+
+    private static function setId(Project $project, int $id): void
+    {
+        (new \ReflectionProperty($project, 'id'))->setValue($project, $id);
+    }
 }

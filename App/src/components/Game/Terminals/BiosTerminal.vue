@@ -111,7 +111,7 @@ export default defineComponent ({
         const currentCpuPriority = this.terminal.infos?.currentCpuPriority;
         if (!currentCpuPriority) throw new Error(`No currentCpuPriority found for terminal ${this.terminal?.key}`);
         this.selectedCpuPriority = currentCpuPriority;
-        
+
         const currentCrewLock = this.terminal.infos?.currentCrewLock;
         if (!currentCrewLock) throw new Error(`No currentCrewLock found for terminal ${this.terminal?.key}`);
         this.selectedCrewLock = currentCrewLock;

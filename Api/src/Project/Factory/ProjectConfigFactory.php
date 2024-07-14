@@ -36,6 +36,16 @@ final class ProjectConfigFactory
         return new ProjectConfig(...self::getConfigDataFromName($name));
     }
 
+    public static function createNullConfig(): ProjectConfig
+    {
+        return new ProjectConfig(
+            name: ProjectName::NULL,
+            type: ProjectType::NULL,
+            efficiency: 0,
+            bonusSkills: []
+        );
+    }
+
     public static function createPilgredConfig(): ProjectConfig
     {
         return new ProjectConfig(

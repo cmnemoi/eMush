@@ -85,7 +85,7 @@ final class ReturnToSolCest extends AbstractFunctionalTest
     {
         // given Pilgred is finished
         $pilgred = $this->daedalus->getPilgred();
-        $pilgred->makeProgress(100);
+        $pilgred->makeProgressAndUpdateParticipationDate(100);
 
         // when Chun executes ReturnToSol action
         $this->returnToSolAction->loadParameters(
@@ -106,7 +106,7 @@ final class ReturnToSolCest extends AbstractFunctionalTest
     {
         // given Pilgred is finished
         $pilgred = $this->daedalus->getPilgred();
-        $pilgred->makeProgress(100);
+        $pilgred->makeProgressAndUpdateParticipationDate(100);
 
         // when Chun executes ReturnToSol action
         $this->returnToSolAction->loadParameters(
@@ -130,7 +130,7 @@ final class ReturnToSolCest extends AbstractFunctionalTest
     {
         // given Pilgred is finished
         $pilgred = $this->daedalus->getPilgred();
-        $pilgred->makeProgress(100);
+        $pilgred->makeProgressAndUpdateParticipationDate(100);
 
         // when Chun executes ReturnToSol action
         $this->returnToSolAction->loadParameters(
@@ -155,7 +155,7 @@ final class ReturnToSolCest extends AbstractFunctionalTest
     {
         // given Pilgred is finished
         $pilgred = $this->daedalus->getPilgred();
-        $pilgred->makeProgress(100);
+        $pilgred->makeProgressAndUpdateParticipationDate(100);
 
         // when Chun executes ReturnToSol action
         $this->returnToSolAction->loadParameters(
@@ -174,7 +174,7 @@ final class ReturnToSolCest extends AbstractFunctionalTest
     {
         // given Pilgred is finished
         $pilgred = $this->daedalus->getPilgred();
-        $pilgred->makeProgress(100);
+        $pilgred->makeProgressAndUpdateParticipationDate(100);
 
         // when Chun executes ReturnToSol action
         $this->returnToSolAction->loadParameters(
@@ -198,7 +198,7 @@ final class ReturnToSolCest extends AbstractFunctionalTest
     {
         // given Pilgred is finished
         $pilgred = $this->daedalus->getPilgred();
-        $pilgred->makeProgress(100);
+        $pilgred->makeProgressAndUpdateParticipationDate(100);
 
         // when Chun executes ReturnToSol action
         $this->returnToSolAction->loadParameters(
@@ -222,7 +222,7 @@ final class ReturnToSolCest extends AbstractFunctionalTest
     {
         // given Pilgred is finished
         $pilgred = $this->daedalus->getPilgred();
-        $pilgred->makeProgress(100);
+        $pilgred->makeProgressAndUpdateParticipationDate(100);
 
         // when Chun executes ReturnToSol action
         $this->returnToSolAction->loadParameters(

@@ -302,7 +302,7 @@ final class DaedalusNormalizerTest extends TestCase
     {
         // given I have a finishedP ILGRED project
         $pilgred = ProjectFactory::createPilgredProject();
-        $pilgred->makeProgress(100);
+        $pilgred->makeProgressAndUpdateParticipationDate(100);
         $daedalus = $pilgred->getDaedalus();
         ProjectFactory::createPlasmaShieldProjectForDaedalus($daedalus);
 
@@ -340,7 +340,7 @@ final class DaedalusNormalizerTest extends TestCase
             ProjectFactory::createDummyNeronProjectForDaedalus($daedalus),
             ProjectFactory::createDummyNeronProjectForDaedalus($daedalus),
         ];
-        array_map(static fn ($project) => $project->makeProgress(100), $projects);
+        array_map(static fn ($project) => $project->makeProgressAndUpdateParticipationDate(100), $projects);
 
         // setup
         ProjectFactory::createPilgredProjectForDaedalus($daedalus);

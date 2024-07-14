@@ -98,6 +98,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
         :point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
+                'isLastAdvancedProject' => false,
                 'actions' => [
                     [
                         'id' => $this->repairActionId,

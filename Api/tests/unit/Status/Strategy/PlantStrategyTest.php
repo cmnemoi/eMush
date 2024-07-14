@@ -83,7 +83,7 @@ final class PlantStrategyTest extends TestCase
         $this->youngStatus->setCharge(6);
 
         // given parasite elim project is completed
-        $this->daedalus->getProjectByName(ProjectName::PARASITE_ELIM)->makeProgress(100);
+        $this->daedalus->getProjectByName(ProjectName::PARASITE_ELIM)->makeProgressAndUpdateParticipationDate(100);
 
         // when the plant grows
         $this->strategy->execute($this->youngStatus, [EventEnum::NEW_CYCLE], new \DateTime());

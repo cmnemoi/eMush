@@ -1,6 +1,7 @@
 import * as string_decoder from "node:string_decoder";
 
 export class ModerationSanction {
+    public id!: number;
     public userId!: string;
     public username!: string;
     public moderationAction!: string;
@@ -17,6 +18,7 @@ export class ModerationSanction {
 
     public load(object: any): ModerationSanction {
         if (object) {
+            this.id = object.id;
             this.moderationAction = object.moderationAction;
             this.reason = object.reason;
             this.message = object.message;

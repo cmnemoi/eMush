@@ -100,4 +100,3 @@ export default defineComponent({
     margin-left: auto;
 }
 </style>
-@/services/moderation_sanction.service

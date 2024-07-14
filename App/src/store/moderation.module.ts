@@ -32,9 +32,9 @@ const actions: ActionTree<any, any> = {
         }
     },
     async getReportablePlayers({ commit }, message) {
-        commit("player/setLoading", true, { root: true });
+        commit('player/setLoading', true, { root: true });
         const reportablePlayers = await ModerationService.loadReportablePlayers(message);
-        commit("player/setLoading", false, { root: true });
+        commit('player/setLoading', false, { root: true });
         commit('setReportablePlayers', { reportablePlayers: reportablePlayers });
     }
 };

@@ -2032,7 +2032,9 @@ abstract class ModifierConfigData
             'type' => 'trigger_event_modifier',
             'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_daedalus_shield_+5',
-            'modifierActivationRequirements' => [],
+            'modifierActivationRequirements' => [
+                ModifierRequirementEnum::PROJECT_IS_ACTIVE_PLASMA_SHIELD,
+            ],
             'tagConstraints' => [],
         ],
         [

@@ -51,6 +51,8 @@ abstract class ModifierRequirementEnum
     public const string SKILL_IN_ROOM = 'skill_in_room';
     public const string HOLDER_HAS_NOT_SKILL = 'holder_has_not_skill';
     public const string HOLDER_HAS_NOT_SKILL_SHRINK = 'holder_has_not_skill_shrink';
+    public const string PROJECT_IS_ACTIVE = 'project_is_active';
+    public const string PROJECT_IS_ACTIVE_PLASMA_SHIELD = 'project_is_active_plasma_shield';
     public const string ANY_TAGS = 'any_tags';
     public const string NONE_TAGS = 'none_tags';
     public const string ALL_TAGS = 'all_tags';

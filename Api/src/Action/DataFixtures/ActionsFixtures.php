@@ -1161,6 +1161,16 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($changeNeronCrewLock);
 
+        $togglePlasmaShield = new ActionConfig();
+        $togglePlasmaShield
+            ->setName(ActionEnum::TOGGLE_PLASMA_SHIELD->value)
+            ->setActionName(ActionEnum::TOGGLE_PLASMA_SHIELD)
+            ->setRange(ActionRangeEnum::ROOM)
+            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $manager->persist($togglePlasmaShield);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1260,5 +1270,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::RETURN_TO_SOL->value, $returnToSol);
         $this->addReference(ActionEnum::PARTICIPATE->value, $participate);
         $this->addReference(ActionEnum::CHANGE_NERON_CREW_LOCK->value, $changeNeronCrewLock);
+        $this->addReference(ActionEnum::TOGGLE_PLASMA_SHIELD->value, $togglePlasmaShield);
     }
 }

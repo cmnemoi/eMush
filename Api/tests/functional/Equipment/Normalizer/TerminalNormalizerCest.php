@@ -274,6 +274,9 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             target: $terminal
         );
 
+        $plasmaShieldProject = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
+        $plasmaShieldProject->finish();
+
         // when I normalize the terminal for Chun
         $normalizedTerminal = $this->terminalNormalizer->normalize(
             $terminal,
@@ -289,7 +292,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             actual: $normalizedTerminal['tips']
         );
         $I->assertEquals(
-            expected: [ActionEnum::EXIT_TERMINAL->value, ActionEnum::CHANGE_NERON_CPU_PRIORITY->value, ActionEnum::CHANGE_NERON_CREW_LOCK->value],
+            expected: [ActionEnum::EXIT_TERMINAL->value, ActionEnum::CHANGE_NERON_CPU_PRIORITY->value, ActionEnum::CHANGE_NERON_CREW_LOCK->value, ActionEnum::TOGGLE_PLASMA_SHIELD->value],
             actual: array_map(static fn ($action) => $action['key'], $normalizedTerminal['actions'])
         );
         $I->assertEquals(
@@ -298,6 +301,8 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 'cpu_priority_description' => 'Contrôle la répartition des tranches CPU. Soit elle rend les projets plus faciles à réaliser, soit elle accroît le nombre de GeoDonnées fournies par les analyses de planètes, soit les CPU sont en mode paresseux et ne favorisent rien du tout.//Cette propriété ne peut être changée qu\'*une fois par jour et par personne* pour ne pas entraîner une surcharge cognitive de NERON.',
                 'crew_lock_name' => 'Verrou équipage',
                 'crew_lock_description' => ':point: Verrouillage Pilotage : Les non-pilotes ne sont pas autorisés à piloter un Patrouilleur/Icarus.//:point: Verrouillage Projet : les non-concepteurs ne sont pas autorisés à participer au développement des projets.',
+                'plasma_shield_name' => 'Bouclier Plasma',
+                'plasma_shield_description' => 'Active le bouclier plasma.',
             ],
             actual: $normalizedTerminal['sectionTitles']
         );
@@ -323,6 +328,11 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                     ['key' => 'piloting', 'name' => 'Pilotage'],
                 ],
                 'currentCrewLock' => 'piloting',
+                'plasmaShieldToggles' => [
+                    ['key' => 'activate', 'name' => 'Activer'],
+                    ['key' => 'deactivate', 'name' => 'Désactiver'],
+                ],
+                'isPlasmaShieldActive' => false,
             ],
             actual: $normalizedTerminal['infos']
         );

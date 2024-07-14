@@ -66,13 +66,20 @@ final class ProjectModifierConfigFixtures extends Fixture
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference('change.variable_daedalus_shield_+5');
 
+        $plasmaShieldIsActiveModifierRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PROJECT_IS_ACTIVE);
+        $plasmaShieldIsActiveModifierRequirement
+            ->setActivationRequirement(ProjectName::PLASMA_SHIELD->value)
+            ->buildName();
+        $manager->persist($plasmaShieldIsActiveModifierRequirement);
+
         $plasmaShieldNewCycleModifier = new TriggerEventModifierConfig('modifier_for_daedalus_+5shield_on_new_cycle');
         $plasmaShieldNewCycleModifier
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(DaedalusCycleEvent::DAEDALUS_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyWhenTargeted(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierActivationRequirements([$plasmaShieldIsActiveModifierRequirement]);
 
         $this->manager->persist($plasmaShieldNewCycleModifier);
         $this->addReference($plasmaShieldNewCycleModifier->getName(), $plasmaShieldNewCycleModifier);

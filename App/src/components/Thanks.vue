@@ -160,10 +160,7 @@ export default defineComponent({
             version: version as string,
             release: import.meta.env.VITE_APP_API_RELEASE_COMMIT as string,
             channel: import.meta.env.VITE_APP_API_RELEASE_CHANNEL as string,
-            displayedContributors: team
-                .filter((member) => !member.coreTeam)
-                .sort(() => 0.5 - Math.random()) // shuffle the list
-                .slice(0, 6)
+            displayedContributors: team.filter((member) => !member.coreTeam).slice(0, 6)
         };
     },
     mounted() {
@@ -192,7 +189,7 @@ export default defineComponent({
         startScrolling() {
             let currentIndex = 0;
             const displayedNames = 6;
-            const contributorList = this.team.filter((member) => !member.coreTeam);
+            const contributorList = this.team.filter((member) => !member.coreTeam).sort(() => 0.5 - Math.random());
 
             setInterval(() => {
                 this.displayedContributors = contributorList.slice(currentIndex, currentIndex + displayedNames);
@@ -351,7 +348,8 @@ footer {
         min-width: 0;
         max-width: 392px;
 
-        &.small { max-width: 152px; }
+        &.small { max-width: 175px; }
+
     }
 }
 

@@ -5,6 +5,7 @@ namespace Mush\Modifier\ConfigData;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -177,6 +178,12 @@ class ModifierActivationRequirementData
             'name' => ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL_SHRINK,
             'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL,
             'activationRequirement' => SkillEnum::SHRINK,
+            'value' => 100,
+        ],
+        [
+            'name' => ModifierRequirementEnum::PROJECT_IS_ACTIVE_PLASMA_SHIELD,
+            'activationRequirementName' => ModifierRequirementEnum::PROJECT_IS_ACTIVE,
+            'activationRequirement' => ProjectName::PLASMA_SHIELD->value,
             'value' => 100,
         ],
     ];

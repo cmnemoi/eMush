@@ -35,14 +35,37 @@ final class DaedalusNormalizerCest extends AbstractFunctionalTest
         $I->assertNull($normalizedDaedalus['shield']);
     }
 
-    public function shouldNormalizeShieldIfPlasmaShieldProjectIsFinished(FunctionalTester $I): void
+    public function shouldNormalizeShieldIfPlasmaShieldProjectButNotActivated(FunctionalTester $I): void
     {
-        // given PlasmaShield is finished
+        // given Plasma Shield is finished and activated
         $this->finishProject(
             $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD),
             $this->chun,
             $I
         );
+
+        // when I normalize the daedalus
+        $normalizedDaedalus = $this->normalizer->normalize($this->daedalus);
+
+        $I->assertEquals(
+            expected: [
+                'quantity' => 0,
+                'name' => 'Bouclier plasma : 0',
+                'description' => "Le bouclier plasma a été désactivé par l'Administrateur NERON.",
+            ],
+            actual: $normalizedDaedalus['shield']
+        );
+    }
+
+    public function shouldNormalizeShieldIfPlasmaShieldProjectIsActivated(FunctionalTester $I): void
+    {
+        // given Plasma Shield is finished and activated
+        $this->finishProject(
+            $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD),
+            $this->chun,
+            $I
+        );
+        $this->daedalus->getNeron()->togglePlasmaShield();
 
         // when I normalize the daedalus
         $normalizedDaedalus = $this->normalizer->normalize($this->daedalus);

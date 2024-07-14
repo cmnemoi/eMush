@@ -46,7 +46,11 @@
                         </template>
                     </Tippy>
                     <Tippy tag="li" v-if="daedalus.shield">
-                        <span>{{ daedalus.shield.quantity }} <img :src="getImgUrl('plasma.png')"></span>
+                        <span>
+                            {{ daedalus.shield.quantity }}
+                            <img :src="getImgUrl('plasma.png')" v-if="daedalus.shield.quantity > 0">
+                            <img :src="getImgUrl('plasma_off.png')" v-else>
+                        </span>
                         <template #content>
                             <h1 v-html="formatContent(daedalus.shield.name)" />
                             <p v-html="formatContent(daedalus.shield.description)" />

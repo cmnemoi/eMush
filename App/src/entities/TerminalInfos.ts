@@ -16,6 +16,8 @@ export class TerminalInfos {
     public noProposedNeronProjectsDescription: string|null = null;
     public availableCrewLocks: {key: string, name: string}[]|null = null;
     public currentCrewLock: string|null = null;
+    public plasmaShieldToggles: {key: string, name: string}[]|null = null;
+    public isPlasmaShieldActive: boolean|null = null;
 
     constructor() {
         this.difficulty = null;
@@ -44,6 +46,8 @@ export class TerminalInfos {
             this.noProposedNeronProjectsDescription = object.noProposedNeronProjectsDescription;
             this.availableCrewLocks = object.crewLocks;
             this.currentCrewLock = object.currentCrewLock;
+            this.plasmaShieldToggles = object.plasmaShieldToggles;
+            this.isPlasmaShieldActive = object.isPlasmaShieldActive;
         }
         return this;
     }

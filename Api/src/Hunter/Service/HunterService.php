@@ -27,7 +27,6 @@ use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
-use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -402,7 +401,7 @@ class HunterService implements HunterServiceInterface
         /** @var Daedalus $daedalus */
         $daedalus = $hunter->getTargetEntityOrThrow();
 
-        $shouldHurtShield = $daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD) && $hunter->isNotAnAsteroid();
+        $shouldHurtShield = $daedalus->isPlasmaShieldActive() && $hunter->isNotAnAsteroid();
         $damage = $this->getHunterDamage($hunter);
 
         // Get the lowest value between the shield or the damage given to it if this one is lower.

@@ -145,9 +145,34 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(4, $this->daedalus->getSpores());
     }
 
-    public function shouldImproveDaedalusShieldByFiveIfPlasmaShieldProjectIsFinished(FunctionalTester $I): void
+    public function shouldImproveDaedalusShieldByFiveIfPlasmaShieldProjectIsActive(FunctionalTester $I): void
     {
-        // given Plasma Shield project is finished
+        // given Plasma Shield project is finished and activated
+        $this->finishProject(
+            $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD),
+            $this->chun,
+            $I
+        );
+        $this->daedalus->getNeron()->togglePlasmaShield();
+
+        // given Daedalus has 50 shield
+        $I->assertEquals(50, $this->daedalus->getShield());
+
+        // when cycle change event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then Daedalus has 55 shield
+        $I->assertEquals(55, $this->daedalus->getShield());
+    }
+
+    public function shouldNotImproveDaedalusShieldByFiveIfPlasmaShieldIsDeactivated(FunctionalTester $I): void
+    {
+        // given Plasma Shield project is finished but not activated
         $this->finishProject(
             $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD),
             $this->chun,
@@ -165,8 +190,8 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         );
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        // then Daedalus has 55 shield
-        $I->assertEquals(55, $this->daedalus->getShield());
+        // then Daedalus has 50 shield
+        $I->assertEquals(50, $this->daedalus->getShield());
     }
 
     public function shouldCreateANeronAnnouncementWhenAutoWateringRemovesFires(FunctionalTester $I): void

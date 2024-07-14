@@ -382,9 +382,10 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         // given I have one hunter
         $this->createHunterTargetingDaedalusByName($I, HunterEnum::HUNTER);
 
-        // given plasma shield project is finished
+        // given plasma shield project is finished and active
         $plasmaShield = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
         $this->finishProject($plasmaShield, $this->chun, $I);
+        $this->daedalus->getNeron()->togglePlasmaShield();
 
         // when I make the hunter shoot
         $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
@@ -401,9 +402,10 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         // given I have one hunter
         $this->createHunterTargetingDaedalusByName($I, HunterEnum::HUNTER);
 
-        // given plasma shield project is finished
+        // given plasma shield project is finished and active
         $plasmaShield = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
         $this->finishProject($plasmaShield, $this->chun, $I);
+        $this->daedalus->getNeron()->togglePlasmaShield();
         $initShield = $this->daedalus->getShield();
 
         // when I make the hunter shoot
@@ -421,9 +423,10 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         // given I have one hunter
         $this->createHunterTargetingDaedalusByName($I, HunterEnum::HUNTER);
 
-        // given plasma shield project is finished
+        // given plasma shield project is finished and active
         $plasmaShield = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
         $this->finishProject($plasmaShield, $this->chun, $I);
+        $this->daedalus->getNeron()->togglePlasmaShield();
         $this->daedalus->setShield(1);
 
         // when I make the hunter shoot
@@ -452,9 +455,10 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
         $asteroid->removeStatus($truceStatus);
 
-        // given plasma shield project is finished
+        // given plasma shield project is finished and active
         $plasmaShield = $daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
-        $plasmaShield->makeProgressAndUpdateParticipationDate(100);
+        $this->finishProject($plasmaShield, $this->chun, $I);
+        $daedalus->getNeron()->togglePlasmaShield();
         $daedalus->setShield(5);
 
         // when I make the asteroid shoot
@@ -545,12 +549,13 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
             I: $I
         );
 
-        // given plasma shield project is finished
+        // given plasma shield project is finished and active
         $this->finishProject(
             project: $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD),
             author: $this->player,
             I: $I
         );
+        $this->daedalus->getNeron()->togglePlasmaShield();
 
         // given hull is at 90
         $this->daedalus->setHull(90);
@@ -571,6 +576,34 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: 90,
             actual: $this->daedalus->getHull(),
+        );
+    }
+
+    public function shouldNotAimAtPlasmaShieldIfDeactivated(FunctionalTester $I): void
+    {
+        // given I have one hunter
+        $hunter = $this->createHunterTargetingDaedalusByName($I, HunterEnum::HUNTER);
+
+        // given this hunter deals 6 damage
+        $hunter->getHunterConfig()->setDamageRange([6 => 1]);
+
+        // given Plasma Shield project is finished but deactivated
+        $plasmaShield = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
+        $this->finishProject($plasmaShield, $this->player, $I);
+
+        // when I make the hunter shoot
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // then the hull should be damaged
+        $I->assertEquals(
+            expected: $this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull() - 6,
+            actual: $this->daedalus->getHull(),
+        );
+
+        // then the shield should not be damaged
+        $I->assertEquals(
+            expected: 50,
+            actual: $this->daedalus->getShield(),
         );
     }
 

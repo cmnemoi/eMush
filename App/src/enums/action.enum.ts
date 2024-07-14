@@ -12,6 +12,7 @@ export enum ActionEnum {
     SCAN = "scan",
     SHOOT_HUNTER = "shoot_hunter",
     SHOOT_HUNTER_PATROL_SHIP = "shoot_hunter_patrol_ship",
+    TOGGLE_PLASMA_SHIELD = "toggle_plasma_shield",
     TURN_DAEDALUS_LEFT = "turn_daedalus_left",
     TURN_DAEDALUS_RIGHT = "turn_daedalus_right",
     WRITE = "write",

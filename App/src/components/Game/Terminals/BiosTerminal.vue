@@ -50,6 +50,31 @@
                 <label :key="lock.key">{{ lock.name }}</label>
             </div>
         </section>
+        <section class="plasma-shield-section" v-if="togglePlasmaShieldAction">
+            <Tippy tag="h3">
+                <img :src="getImgUrl('notes.gif')" />
+                {{ terminal.sectionTitles?.plasmaShieldName }}
+                <template #content>
+                    <h1 v-html="formatText(terminal.sectionTitles?.plasmaShieldName)" />
+                    <p v-html="formatText(terminal.sectionTitles?.plasmaShieldDescription)" />
+                </template>
+            </Tippy>
+            <div
+                class="radio-buttons-container"
+                v-for="toggle in terminal.infos?.plasmaShieldToggles"
+                :key="toggle.key"
+            >
+                <input
+                    type="radio"
+                    v-model="selectedPlasmaShieldToggle"
+                    :value="toggle.key"
+                    :checked="selectedPlasmaShieldToggle === toggle.key"
+                    :disabled="!togglePlasmaShieldAction.canExecute"
+                    @change="executeTargetAction(terminal, togglePlasmaShieldAction)"
+                >
+                <label :key="toggle.key">{{ toggle.name }}</label>
+            </div>
+        </section>
     </div>
 </template>
 
@@ -61,7 +86,6 @@ import { Action } from "@/entities/Action";
 import { ActionEnum } from "@/enums/action.enum";
 import { mapActions } from "vuex";
 import { getImgUrl } from "@/utils/getImgUrl";
-
 
 export default defineComponent ({
     name: "BiosTerminal",
@@ -78,6 +102,9 @@ export default defineComponent ({
 
             return action;
         },
+        togglePlasmaShieldAction(): Action | null {
+            return this.terminal.getActionByKey(ActionEnum.TOGGLE_PLASMA_SHIELD);
+        },
         target(): Terminal {
             return this.terminal;
         }
@@ -92,7 +119,7 @@ export default defineComponent ({
         ...mapActions({
             'executeAction': 'action/executeAction'
         }),
-        async executeTargetAction(target: Terminal, action: Action, params: object): Promise<void> {
+        async executeTargetAction(target: Terminal, action: Action, params: object = {}): Promise<void> {
             if (action.canExecute) {
                 await this.executeAction({ target, action, params });
             }
@@ -104,7 +131,8 @@ export default defineComponent ({
         return {
             ActionEnum,
             selectedCpuPriority: '',
-            selectedCrewLock: ''
+            selectedCrewLock: '',
+            selectedPlasmaShieldToggle: ''
         };
     },
     beforeMount() {
@@ -115,6 +143,11 @@ export default defineComponent ({
         const currentCrewLock = this.terminal.infos?.currentCrewLock;
         if (!currentCrewLock) throw new Error(`No currentCrewLock found for terminal ${this.terminal?.key}`);
         this.selectedCrewLock = currentCrewLock;
+
+        const isPlasmaShieldActive = this.terminal.infos?.isPlasmaShieldActive;
+        if (isPlasmaShieldActive !== null) {
+            this.selectedPlasmaShieldToggle = isPlasmaShieldActive ? 'activate' : 'deactivate';
+        }
     }
 });
 </script>

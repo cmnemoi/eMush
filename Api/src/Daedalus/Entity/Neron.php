@@ -26,6 +26,9 @@ class Neron
     #[ORM\Column(type: 'string', enumType: NeronCrewLockEnum::class, nullable: false, options: ['default' => NeronCrewLockEnum::PILOTING])]
     private NeronCrewLockEnum $crewLock = NeronCrewLockEnum::PILOTING;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $isPlasmaShieldActive = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,5 +78,15 @@ class Neron
     public function changeCrewLockTo(NeronCrewLockEnum $newCrewLock): void
     {
         $this->crewLock = $newCrewLock;
+    }
+
+    public function isPlasmaShieldActive(): bool
+    {
+        return $this->isPlasmaShieldActive;
+    }
+
+    public function togglePlasmaShield(): void
+    {
+        $this->isPlasmaShieldActive = !$this->isPlasmaShieldActive;
     }
 }

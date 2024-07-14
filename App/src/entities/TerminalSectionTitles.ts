@@ -9,6 +9,8 @@ export class TerminalSectionTitles {
     public cpuPriorityDescription: string|null = null;
     public crewLockName: string|null = null;
     public crewLockDescription: string|null = null;
+    public plasmaShieldName: string|null = null;
+    public plasmaShieldDescription: string|null = null;
 
     public load(object: any): TerminalSectionTitles {
         if (object) {
@@ -22,6 +24,8 @@ export class TerminalSectionTitles {
             this.cpuPriorityDescription = object['cpu_priority_description'];
             this.crewLockName = object['crew_lock_name'];
             this.crewLockDescription = object['crew_lock_description'];
+            this.plasmaShieldName = object['plasma_shield_name'];
+            this.plasmaShieldDescription = object['plasma_shield_description'];
         }
         return this;
     }

@@ -195,6 +195,11 @@ class Project implements LogParameterInterface, ActionHolderInterface
         $this->progress -= $progress;
     }
 
+    public function finish(): void
+    {
+        $this->progress = 100;
+    }
+
     public function getClassName(): string
     {
         return self::class;

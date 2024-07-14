@@ -196,6 +196,22 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <source>bios_terminal.crew_lock_piloting</source>
         <target>Pilotage</target>
       </segment>
+      <segment id="plasma_shield.name" state="translated">
+        <source>bios_terminal.plasma_shield_name</source>
+        <target>Bouclier Plasma</target>
+      </segment>
+      <segment id="plasma_shield.description" state="translated">
+        <source>bios_terminal.plasma_shield_description</source>
+        <target>Active le bouclier plasma.</target>
+      </segment>
+      <segment id="plasma_shield.toggle_activate" state="translated">
+        <source>bios_terminal.plasma_shield_toggle_activate</source>
+        <target>Activer</target>
+      </segment>
+      <segment id="plasma_shield.toggle_deactivate" state="translated">
+        <source>bios_terminal.plasma_shield_toggle_deactivate</source>
+        <target>Désactiver</target>
+      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="name" state="final">

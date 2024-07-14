@@ -19,6 +19,7 @@ use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -258,14 +259,21 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             return [];
         }
 
-        $neron = $terminal->getDaedalus()->getNeron();
+        $daedalus = $terminal->getDaedalus();
+        $neron = $daedalus->getNeron();
 
-        return [
+        $infos = [
             'availableCpuPriorities' => $this->getTranslatedAvailableCpuPriorities($terminal),
             'currentCpuPriority' => $neron->getCpuPriority(),
             'crewLocks' => $this->getTranslatedAvailableCrewLocks($terminal),
             'currentCrewLock' => $neron->getCrewLock()->value,
         ];
+        if ($daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD)) {
+            $infos['plasmaShieldToggles'] = $this->getTranslatedPlasmaShieldToggles($terminal);
+            $infos['isPlasmaShieldActive'] = $neron->isPlasmaShieldActive();
+        }
+
+        return $infos;
     }
 
     private function getNormalizedNeronCoreInfos(GameEquipment $terminal): array
@@ -341,5 +349,23 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         }
 
         return $availableCrewLocks;
+    }
+
+    private function getTranslatedPlasmaShieldToggles(GameEquipment $terminal): array
+    {
+        $plasmaShieldToggles = [];
+        foreach (['activate', 'deactivate'] as $toggle) {
+            $plasmaShieldToggles[] = [
+                'key' => $toggle,
+                'name' => $this->translationService->translate(
+                    key: $terminal->getName() . '.plasma_shield_toggle_' . $toggle,
+                    parameters: [],
+                    domain: 'terminal',
+                    language: $terminal->getDaedalus()->getLanguage()
+                ),
+            ];
+        }
+
+        return $plasmaShieldToggles;
     }
 }

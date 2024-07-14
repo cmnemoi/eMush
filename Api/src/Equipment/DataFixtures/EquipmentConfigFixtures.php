@@ -210,7 +210,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $changeNeronCrewLockAction */
         $changeNeronCrewLockAction = $this->getReference(ActionEnum::CHANGE_NERON_CREW_LOCK->value);
 
-        $biosTerminalTool = $this->createTool([$changeNeronCpuPriorityAction, $changeNeronCrewLockAction, $accessTerminalAction, $exitTerminalAction], EquipmentEnum::BIOS_TERMINAL);
+        /** @var ActionConfig $togglePlasmaShieldAction */
+        $togglePlasmaShieldAction = $this->getReference(ActionEnum::TOGGLE_PLASMA_SHIELD->value);
+
+        $biosTerminalTool = $this->createTool([$changeNeronCpuPriorityAction, $changeNeronCrewLockAction, $togglePlasmaShieldAction, $accessTerminalAction, $exitTerminalAction], EquipmentEnum::BIOS_TERMINAL);
         $manager->persist($biosTerminalTool);
 
         $biosTerminal = new EquipmentConfig();

@@ -127,25 +127,34 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
 
     private function normalizeDaedalusVariable(Daedalus $daedalus, string $variable, string $language): ?array
     {
-        if ($variable === DaedalusVariableEnum::SHIELD && !$daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD)) {
+        $isVariableShield = $variable === DaedalusVariableEnum::SHIELD;
+        $isPlasmaShieldDeactivated = $daedalus->isPlasmaShieldActive() === false;
+        $plasmaShieldIsNotFinished = $daedalus->projectIsNotFinished(ProjectName::PLASMA_SHIELD);
+
+        if ($isVariableShield && $plasmaShieldIsNotFinished) {
             return null;
         }
 
         $gameVariable = $daedalus->getVariableByName($variable);
         $maxValue = $gameVariable->getMaxValue();
-        $quantity = $gameVariable->getValue();
+        $quantity = $isVariableShield && $isPlasmaShieldDeactivated ? 0 : $gameVariable->getValue();
+
+        $descriptionTranslationParameters = $isVariableShield ? ['isPlasmaShieldDeactivated' => $isPlasmaShieldDeactivated ? 'true' : 'false'] : [];
 
         return [
             'quantity' => $quantity,
             'name' => $this->translationService->translate(
                 $variable . '.name',
-                ['maximum' => $maxValue, 'quantity' => $quantity],
+                [
+                    'maximum' => $maxValue,
+                    'quantity' => $quantity,
+                ],
                 'daedalus',
                 $language
             ),
             'description' => $this->translationService->translate(
                 $variable . '.description',
-                [],
+                $descriptionTranslationParameters,
                 'daedalus',
                 $language
             ),

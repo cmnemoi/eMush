@@ -34,11 +34,12 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
         $this->killPlayersOnPlanet($event);
+        $this->killPlayersInSpace($event);
 
         if ($daedalus->hasFinishedProject(ProjectName::MAGNETIC_NET)) {
             $this->movePatrolShipPilotsToLandingBays($event);
         } else {
-            $this->killPlayersInSpaceBattle($event);
+            $this->killPlayersInPatrolShips($event);
         }
     }
 
@@ -58,10 +59,26 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function killPlayersInSpaceBattle(DaedalusEvent $event): void
+    private function killPlayersInSpace(DaedalusEvent $event): void
     {
         $playersToKill = $event->getDaedalus()->getPlayers()->getPlayerAlive()->filter(
-            static fn (Player $player) => $player->isInSpaceBattle()
+            static fn (Player $player) => $player->isInSpace()
+        );
+
+        foreach ($playersToKill as $player) {
+            $playerDeathEvent = new PlayerEvent(
+                $player,
+                $event->getTags(),
+                $event->getTime(),
+            );
+            $this->eventService->callEvent($playerDeathEvent, PlayerEvent::DEATH_PLAYER);
+        }
+    }
+
+    private function killPlayersInPatrolShips(DaedalusEvent $event): void
+    {
+        $playersToKill = $event->getDaedalus()->getPlayers()->getPlayerAlive()->filter(
+            static fn (Player $player) => $player->isInAPatrolShip()
         );
 
         foreach ($playersToKill as $player) {

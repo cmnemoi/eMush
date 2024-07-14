@@ -680,11 +680,20 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         $this->givenMagneticNetProjectIsFinished($I);
         $this->givenPasiphaeIsInSpaceBattle($I);
-        $this->givenKuanTiIsInPasiphae($I);
+        $this->givenKuanTiIsInPasiphae();
 
-        $this->whenChunMovesDaedalus($I);
+        $this->whenChunMovesDaedalus();
 
         $this->thenKuanTiShouldBeInAlphaBay2($I);
+    }
+
+    public function shouldKillPlayersInSpaceWithMagneticNetProject(FunctionalTester $I): void
+    {
+        $this->givenMagneticNetProjectIsFinished($I);
+        $this->givenKuanTiIsInSpace();
+        $this->whenChunMovesDaedalus();
+
+        $I->assertFalse($this->kuanTi->isAlive());
     }
 
     protected function createHunterByName(string $hunterName, FunctionalTester $I): Hunter
@@ -723,13 +732,18 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenKuanTiIsInPasiphae(FunctionalTester $I): void
+    private function givenKuanTiIsInPasiphae(): void
     {
         $pasiphaePlace = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::PASIPHAE);
         $this->kuanTi->changePlace($pasiphaePlace);
     }
 
-    private function whenChunMovesDaedalus(FunctionalTester $I): void
+    private function givenKuanTiIsInSpace(): void
+    {
+        $this->kuanTi->changePlace($this->daedalus->getSpace());
+    }
+
+    private function whenChunMovesDaedalus(): void
     {
         $this->moveDaedalusAction->loadParameters(
             actionConfig: $this->moveDaedalusActionConfig,

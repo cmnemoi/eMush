@@ -24,7 +24,9 @@ class ChannelNormalizer implements NormalizerInterface
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof Channel && !\in_array('moderation_read', $context['groups'] ?? [], true);
+        return $data instanceof Channel
+            && !\in_array('moderation_read', $context['groups'] ?? [], true)
+            && $data->isNotTipsChannel();
     }
 
     public function normalize($object, ?string $format = null, array $context = []): array

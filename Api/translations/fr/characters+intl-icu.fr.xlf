@@ -50,6 +50,14 @@
 - 3154 : Ses études terminées, Andie décide de devenir pilote, il/elle s'engage donc dans la division aérienne de la fédération et passe son brevet haut la main. ***Il/Elle demande à être affecté(e) sur Xyloph-17*** et ne tarde pas à être remarqué(e) par Kim Jin Su. Derek lui ne le/la reconnait pas.
 - 3154 : Loin de se douter des enjeux qui se dessine dans l'ombre, et pensant toujours servir la fédération ardemment, Andie embarque à bord du Daedalus.</target>
       </segment>
+      <segment id="tips" state="final">
+        <source>andie.tips</source>
+        <target>**Éliminer les hunters** avec les Patrouilleurs dans les Baies pour protéger le vaisseau.//**Récolter les débris** des hunters éliminés avec le Pasiphae en Baie Alpha 2 pour réparer l'armure du vaisseau.//**Lancer des expéditions** sur des planètes avec Icarus en Baie Icarus pour récolter des ressources.</target>
+      </segment>
+      <segment id="tutorial" state="final">
+        <source>andie.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/andie-premiers-pas.html</target>
+      </segment>
     </unit>
     <unit id="Chao">
       <segment id="name" state="final">
@@ -90,6 +98,14 @@
 - 3152 : De retour dans l'équipe Magellan, Chao et Derek apprennent le changement d'objectif du projet. L'arche Monde a désormais pour mission de préserver l'espèce humaine de l'invasion du Mush. Selon eux, celui-ci a déjà pris possession de la guérilla Rebelle et de la Fédération. ***La nouvelle arche est nommée Daedalus***.
 - 3153 : Le responsable du projet Daedalus Kim Jin Su missionne officieusement ***Chao et Derek pour enlever Finola Keegan***, une éminence grise de la recherche anti-mush refusant de rejoindre leur alliance. Derek Hogan disparait durant l'opération dans des conditions mystérieuses, mais la mission est un succès. Finola est ramenée et cryogénisée sur Xyloph-17.
 - 3154 : Lorsqu'il apprend que celui-ci est infecté par le Mush, Chao élimine le nouveau responsable envoyé par la fédération sans le consentement des ses collègues. Cet événement provoque une dégradation des relations avec la Fédération qui ordonne au contingent de la FDS en place de suspendre le projet. Chao refuse d'appliquer l'ordre et aide l'équipe restante à organiser un départ surprise du Daedalus.</target>
+      </segment>
+      <segment id="tips" state="final">
+        <source>chao.tips</source>
+        <target>**Enquêter pour identifier les Mushs** avec vos coéquipiers humains et vos canaux privés.//**Torturer les coéquipiers suspects** afin d'identifier des actions Mushs grâce à votre compétence Bourreau.//**Participer à des expéditions** pour récolter plus de ressources grâce à votre compétence Survie.</target>
+      </segment>
+      <segment id="tutorial" state="final">
+        <source>chao.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/chao-premiers-pas.html</target>
       </segment>
     </unit>
     <unit id="Chun">
@@ -138,6 +154,14 @@
 - 3153 : Le professeur Carlsson parvient finalement à rejoindre la plateforme orbitale, l'identité réel de Chun est révélée au reste de l'équipage. Ils reprennent ensemble les travaux afin d'isoler une nouvelle souche permettant de reprendre la production du vaccin. Cependant l'état de santé de Nils se dégrade et sa progression en est entravée.
 - 3154 : L'invasion de la plateforme orbitale par la FDS provoque le départ anticipé du Daedalus. Le professeur Carlsson n'est pas en mesure de suivre l'équipage, il laisse Chun face à son écrasante destinée.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>chun.tips</source>
+        <target>**Identifier des coéquipiers humains**.//**Enquêter pour identifier les Mushs** avec vos coéquipiers humains et vos canaux privés.//**Soigner les coéquipiers blessés** avec le Médikit ou à l'Infirmerie.</target>
+      </segment>
+      <segment id="tutorial" state="final">
+        <source>chun.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/chun-premiers-pas.html</target>
+      </segment>
     </unit>
     <unit id="Derek">
       <segment id="name" state="final">
@@ -179,6 +203,14 @@
 - 3151 : Devant les résultats catastrophiques des étudiants placés sous la responsabilité du sergent instructeur Hogan, celui-ci doit revenir sur le terrain.
 - 3153 : Le commandant Jin-su prend Derek sous son aile et ne tarde pas à lui confier une mission officieuse d'extraction. Il se retrouve malheureusement dans l'incapacité de désamorcer le système de sécurité du domicile de la ***scientifique Finola Keagan***. Celle-ci, ayant laissé un objet trop extrême dans son coffre, provoque la perte de connaissance du sergent. *Son binôme dans cette mission, Chao Wang, meurt, poursuivi par une meute de vigiles quadrupèdes. Ce dernier aurait eu mal aux fesses avant de succomber de ses blessures.*
 - 3154 : *Derek parvient à monter à bord du Daedalus en compagnie de 15 autres membres de l'équipage.* Plus jamais il ne sera trimbalé par la FDS !</target>
+      </segment>
+      <segment id="tips" state="final">
+        <source>derek.tips</source>
+        <target>**Identifier des coéquipiers humains**.//**Enquêter pour identifier les Mushs** avec vos coéquipiers humains et vos canaux privés.//**Participer à des expéditions** pour les rendre plus sûres grâce à votre compétence Tireur.</target>
+      </segment>
+      <segment id="tips" state="final">
+        <source>derek.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/derek-tutoriel.html</target>
       </segment>
     </unit>
     <unit id="Eleesha">
@@ -229,6 +261,14 @@
 - 3153 : Finola est finalement débarqué sur Xyloph-17, menottes aux poignets. Eleesha s'insurge contre ces méthodes mais espère secrètement qu'elle sera en mesure de fabriquer le détecteur.
 - 3154 : Suite à une regrettable erreur diplomatique, la Fédération prend le contrôle de Xyloph-17. Eleesha participe à l'expédition visant a rejoindre le Daedalus pour prendre la fuite. Une fois en orbite, l'équipe décide de propulser le vaisseau vers le nuage de Magellan. Eleesha est cryogénisée pour la première fois de sa vie.</target>
       </segment>
+      <segment id="tips" state="final">
+        <source>eleesha.tips</source>
+        <target>**Identifier des coéquipiers humains**.//**Enquêter pour identifier les Mushs** avec vos coéquipiers humains et vos canaux privés.//**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.</target>
+      </segment>
+      <segment id="tutorial" state="final">
+        <source>eleesha.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/eleesha-premiers-pas.html</target>
+      </segment>
     </unit>
     <unit id="Finola">
       <segment id="name" state="final">
@@ -271,6 +311,14 @@
 - 3152 : Eleesha Williams, une journaliste clandestine ayant déjà publié les travaux de Finola la contacte pour l'avertir de la dégradation de la situation au sein de la fédération. Plusieurs parlementaires dont le président ***GL Maubrick*** seraient infectés par le Mush. Elle lui propose de rejoindre le Daedalus, un vaisseau en partance pour une autre galaxie, mais Finola est scandalisée à l'idée d'abandonner une majorité d'êtres humains pour une minorité d'infectés haut placés. Son collègue Ian Soulton ne partage pas son avis et embarque pour Jupiter.
 - 3153 : Finola est enlevée devant son domicile par des hommes de mains du projet Magellan. Elle est cryogénisé sur Jupiter sans pouvoir exprimer son point de vue.
 - 3170 : Lorsqu'elle se reveille sur le Daedalus, Finola est à plus de 170,000 années lumières de la terre. Pendant son sommeil, le Mush a sans doute pris contrôle de l'integralité de l'administration de Sol. Cela explique peut-être la présence de chasseurs de la fédération autour du vaisseau.</target>
+      </segment>
+      <segment id="tips" state="final">
+        <source>finola.tips</source>
+        <target>**Participer aux recherches** à l'aide du Laboratoire de Recherche au Laboratoire pour affaiblir les Mushs.//**Soigner les coéquipiers blessés** avec le Médikit ou à l'Infirmerie.//**Participer à des expéditions** pour les rendre plus sûres à l'aide de votre compétence Diplomatie.</target>
+      </segment>
+      <segment id="tutorial" state="final">
+        <source>finola.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/finola-tutoriel.html</target>
       </segment>
     </unit>
     <unit id="Frieda">
@@ -316,6 +364,14 @@
 - 3150 : A 63 ans, les espoirs d'évasion de Frieda Bergmann sont définitivement enterrés. Elle quitte son observatoire de Düsseldorf pour profiter d'une retraite méritée en Bavière.
 - 3151 : Jin-Su fait appel à Frieda pour un repérage de corps dans des systèmes du grand nuage de Magellan. Il s'agit d'un véritable défit technique du fait de l'incroyable distance séparant cette galaxie et la voie lactée. Frieda accepte à la condtion qu'elle puisse participer à l'exploration du nuage. Kim Jin-Su la nomme navigatrice mais il sait parfaitement que ***ses chances de survie d'un cryo-sommeil de 16 ans sont mineures.***</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>frieda.tips</source>
+        <target>**Éliminer les hunters** avec les Patrouilleurs dans les Baies pour protéger le vaisseau.//**Récolter les débris** des hunters éliminés avec le Pasiphae en Baie Alpha 2 pour réparer l'armure du vaisseau.//**Lancer des expéditions** sur des planètes avec Icarus en Baie Icarus pour récolter des ressources.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>frieda.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/frieda-tutoriel.html</target>
+      </segment>
     </unit>
     <unit id="Gioele">
       <segment id="name" state="final">
@@ -358,6 +414,14 @@
 - 3153 : Alors que la fédération diminue la fréquence des versements pour le projet, Gioele propose un nouvel apport pécunier pour le projet à Raluca Jin-Su et Kuan-Ti. Sa seule condition est l'éviction de ***Nils Carlsson*** au profit de sa fille ***Paola Rinaldo***. L'équipe refuse.
 - 3154 : Nils tombe malade alors qu'une grave crise se profile entre Xyloph-17 et la fédération. La FDS prend le controle du projet mais Kim Jin-Su organise un départ clandestin du Daedalus. Gioele et Paola sont finalement embarqués.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>gioele.tips</source>
+        <target>**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Scanner des planètes** à l'aide du Terminal Astro sur le Pont pour organiser des expéditions.//**Réparer l'équipment vital** du vaisseau.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>gioele.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/gioele-tutoriel.html</target>
+      </segment>
     </unit>
     <unit id="Hua">
       <segment id="name" state="final">
@@ -399,6 +463,14 @@
 - 3146 : Lorsqu'il est nommé pour diriger le projet Magellan, Kim Jin-Su passe un contrat avec ChangMei-Tech pour équiper l'arche d'une navette d'exploration. Jiang Hua est envoyée dans l'équipe de Jin-Su pour intégrer la navette à l'arche.
 - 3152 : Hua assiste Ian Soulton dans l'élaboration d'un jardin hydroponique de dimension réduite pouvant assurer la subistance d'une équipe de 16 personnes.
 - 3153 : Le prototype Icarus est livré à l'équipe, il est longuement testé par les pilotes dans les conditions les plus extrêmes. Un accident lors d'un des tests à proximité du Soleil force Hua et le jeune pilote Rolland Zucalli à survivre 36h en surface de Mercure.</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>hua.tips</source>
+        <target>**Éliminer les hunters** avec les Patrouilleurs dans les Baies pour protéger le vaisseau.//**Récolter les débris** des hunters éliminés avec le Pasiphae en Baie Alpha 2 pour réparer l'armure du vaisseau.//**Lancer des expéditions** sur des planètes avec Icarus en Baie Icarus pour récolter des ressources.//**Réparer l'équipment vital** du vaisseau.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>hua.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/hua-tutoriel.html</target>
       </segment>
     </unit>
     <unit id="Ian">
@@ -444,6 +516,14 @@
 - 3153 : Ian modernise le projet de jardin hydroponique du Daedalus. Il parvient grâce au regroupement de 12 espèces de plantes à assurer le renouvellement constant de l'oxygène et de la nourriture du vaisseau.
 - 3170 : Lorsque Ian se réveille, l'alarme incendie indique des dommages dans la salle du jardin. A son arrivée il est déjà bien trop tard, seul trois plantes ont survécu, condamnant l'équipage à une mort certaine.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>ian.tips</source>
+        <target>**Arroser les plantes** assoiffées et désséchées.//**Traiter les plantes** malades.//**Semer les fruits** dans les hydropots.//**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>ian.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/ian-premiers-pas.html</target>
+      </segment>
     </unit>
     <unit id="jin_su">
       <segment id="name" state="final">
@@ -487,6 +567,14 @@
 - 3153 : Suite à la disparition du ***sergent Derek Hogan***, Jin-Su parvient à dissuader les inspecteurs de la FDS de lancer une enquête. Il s'attire cependant la méfiance de l'administration qui souhaite avancer la date du rapport biennal sur le projet Magellan. Jin-Su qui ne peut prendre le risque d'une infection au Mush refuse et se voit démis de ses fonctions.
 - 3154 : Son remplaçant, ***le capitaine Baranov*** est assassiné dès son arrivée sur Xyloph-17. La fédération planifie une contre-attaque immédiate mais Jin-Su parvient avec l'aide d'un trooper FDS rebelle à évacuer ses 16 membres d'équipage. Le démarrage anticipé du réacteur PILGRED est un succès, le Daedalus est projeté vers le nuage de Magellan à plus d'un milliard de m/s.</target>
       </segment>
+      <segment id="tips" state="final">
+        <source>jin_su.tips</source>
+        <target>**Éliminer les hunters** avec les Patrouilleurs dans les Baies pour protéger le vaisseau.//**Récolter les débris** des hunters éliminés avec le Pasiphae en Baie Alpha 2 pour réparer l'armure du vaisseau.//**Orienter et faire voyager le vaisseau** à l'aide du Terminal de Commandement sur le Pont pour explorer des planètes.//**Donner des Discours enflammés** aux coéquipiers démoralisés pour améliorer leur moral.</target>
+      </segment>
+      <segment id="tutorial" state="final">
+        <source>jin_su.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/jin-su-premiers-pas.html</target>
+      </segment>
     </unit>
     <unit id="kuan_ti">
       <segment id="name" state="final">
@@ -529,6 +617,14 @@
 - 3153 : La morosité et la méfiance s'installent dans l'équipe au fur et a mesure que les mauvaises nouvelles sur l'invasion Mush s'entassent. Les tests du ***professeur Carlsson*** ne suffisent plus à rassurer l'équipe qui réclame un moyen sûr de déterminer la présence du Mush dans l'équipage avant le départ. Kuan-Ti se résout à faire enlever la biologiste ***Finola Keegan*** qui selon son confrère le ***professeur Ian Soulton*** serait en mesure de créer un scanner à Mush.
 - 3154 : Le départ du Daedalus doit être précipité alors que les troupes de la FDS prennent le contrôle de la plateforme orbital. Le professeur Keegan qui n'a pas encore été réveillée est chargée avec les 14 autres membres de l'équipage final.</target>
       </segment>
+      <segment id="tips" state="final">
+        <source>kuan_ti.tips</source>
+        <target>**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Participer à la réparation du PILGRED** en Salle des Moteurs pour rentrer sur Sol.//**Réparer l'équipment vital** du vaisseau.//**Donner des Discours enflammés** aux coéquipiers démoralisés pour améliorer leur moral.</target>
+      </segment>
+      <segment id="tutorial" state="final">
+        <source>kuan_ti.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/kuan-ti-premiers-pas.html</target>
+      </segment>
     </unit>
     <unit id="Paola">
       <segment id="name" state="final">
@@ -569,6 +665,14 @@
 - 3151 : Alors que les brouillages se multiplient, Kivanç et Paola identifient des échanges dans un langage inconnu. Kivanç entreprend des recherches pour déchiffrer ce langage et parvient à traduire certains des messages les plus récurrents. On y parle "d'assainissement du système Sol", de "transfert des sujets violents", ou encore "de banque de spores". Il est finalement arrêté le mois suivant suite à un contrôle anti-fongique de la FDS.
 - 3152 : Gioele contacte sa fille pour l'avertir d'un danger imminent. L'invasion Mush décrite par le gouvernement 3 ans auparavant est bien réelle. L'intégrité de tout le système Sol est menacée. Il lui propose une place dans son arche-Monde nommée Daedalus qui doit sauver la race humaine d'une fin inéluctable. Paola accepte mais elle veut d'abord sauver Kivanç qui se trouve dans un centre de détention en France. Elle demande a son père de le faire transférer sur Titan dans une de ses exploitations minières.
 - 3154 : 48h avant la date organisée pour l’évasion de Kivanç, l'équipe du Daedalus vit un incident tragique l'obligeant à précipiter son départ. Paola doit se résoudre à quitter le système Sol sans Kivanç mais elle jure de reprendre contact avec lui quelle que soit la distance qui les sépare.</target>
+      </segment>
+      <segment id="tips" state="final">
+        <source>paola.tips</source>
+        <target>**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Scanner des planètes** à l'aide du Terminal Astro sur le Pont pour organiser des expéditions.</target>
+      </segment>
+      <segment id="tutorial" state="final">
+        <source>paola.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/paola-premiers-pas.html</target>
       </segment>
     </unit>
     <unit id="Raluca">
@@ -616,6 +720,14 @@
 - 3154 : Une dégradation des relations entre la fédération et Xyloph-17 pousse l'équipe à fuir Jupiter en catastrophe. Le réacteur PILGRED V3 est lancé pour la première fois dans des conditions réelles. Malgré des risques sanitaires évidents, Raluca parvient à dissimuler Schrödinger dans sa capsule de cryogénisation.
 - 3170 : Raluca et Schrödinger se réveillent dans le vide spatial de Magellan. D'après NERON, le réacteur les a propulsés dans la bonne direction. Cependant celui-ci est désormais inutilisable et le Daedalus subit actuellement une attaque...</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>raluca.tips</source>
+        <target>**Participer à la réparation du PILGRED** en Salle des Moteurs pour rentrer sur Sol.//**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Réparer l'équipment vital** du vaisseau.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>raluca.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/raluca-premiers-pas.html</target>
+      </segment>
     </unit>
     <unit id="Roland">
       <segment id="name" state="final">
@@ -648,7 +760,7 @@
       </segment>
       <segment id="biography" state="translated">
         <source>roland.biography</source>
-        <target>- 3127 : Naissance en France a Aix-en-Provence.
+        <target>- 3127 : Naissance en France a Aix-en-Provence.Z
 - 3145 : Roland s'engage dans la FDS pour réaliser le rêve de sa vie : devenir pilote de jets spatiaux. Il devient rapidement un élément talentueux de son académie en effectuant plus de 1600h de vol en une seule année. Malheureusement, la moitié de ses heures sont effectuées ***sans autorisation*** ce qui lui vaut des mises à pied régulières. Cependant ses différentes facéties rendent Roland très populaire au sein de son escadron.
 - 3146 : Lors d'un saut en parachute sur la surface de Mars, Roland est suspendu pour avoir fait chuter avec lui une journaliste de SNC... sans parachute. Il doit passer 6 mois au trou mais il est finalement libéré pour pouvoir ***défendre la fédération contre l'invasion de Sol***.
 - 3149 : Pour jouer une plaisanterie à son escadron lors d'une mission de survie en forêt, Roland prétend avoir été infecté au Mush par un cèpe. Ses supérieurs prennent la menace au sérieux et le transfère dans une cellule de quarantaine.
@@ -657,6 +769,14 @@
 - 3152 : Alors qu'il cherche à prendre contact avec la rébellion pour partager ses informations, Roland est mis en relation avec ***la journaliste Eleesha Williams*** qu'il a poussée dans le ciel de Mars. Elle est désormais recherchée par la fédération pour trahison et a trouvé refuge dans une base sur Jupiter où elle prépare la construction d'une Arche pour fuir Sol.
 - 3153 : Roland est accepté dans l'équipe du Daedalus qui manque cruellement de pilotes pour ses patrouilleurs. L'exploratrice Jiang-Hua lui apprend les subtilités du maniement de l'engin et planifie son entrainement sur la plateforme orbitale.
 - 3153 : Suite à une éruption solaire exceptionnelle, la fusion d'une aile de la navette force Roland à négocier un atterrissage forcé sur Mercure. Avec sa copilote Jiang Hua, ils devront attendre 36h l'arrivée des secours dans des conditions de températures extrêmes.</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>roland.tips</source>
+        <target>**Éliminer les hunters** avec les Patrouilleurs dans les Baies pour protéger le vaisseau.//**Récolter les débris** des hunters éliminés avec le Pasiphae en Baie Alpha 2 pour réparer l'armure du vaisseau.//**Lancer des expéditions** sur des planètes avec Icarus en Baie Icarus pour récolter des ressources.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>roland.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/roland-tutoriel.html</target>
       </segment>
     </unit>
     <unit id="Stephen">
@@ -705,6 +825,14 @@
 - 3153 : Le jour même de son exécution publique, Stephen est sauvé de justesse par un commando formé de deux soldats d'élite de la FDS. Ceux-ci le prennent pour un éminent scientifique spécialiste des champignons. Stephen dont les talents de cuisinier n'ont reçu jusque-là que peu d’échos, est flatté. Ils l'amènent sur une station orbitale nommée Xyloph-17 en orbite autour de Jupiter. Là-bas Stephen est démasqué par l'équipe du Daedalus et placé... en détention.
 - 3154 : Alors que plusieurs bataillons de la FDS semblent vouloir prendre le contrôle du laboratoire, Stephen profite de la confusion générale pour quitter sa zone de quarantaine. Il parvient à se hisser à l’intérieur d'un grand vaisseau de type explorateur, mais il est poursuivi par un groupe d'individus armés. Il trouve finalement refuge dans une capsule du laboratoire très confortable bien qu'un peu fraiche.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>stephen.tips</source>
+        <target>**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Scanner des planètes** à l'aide du Terminal Astro sur le Pont pour organiser des expéditions.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>stephen.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/stephen-premiers-pas.html</target>
+      </segment>
     </unit>
     <unit id="Terrence">
       <segment id="name" state="final">
@@ -749,6 +877,14 @@
 - 3153 : Les automates de Terrence se révèlent extrêmement efficaces pour la construction du Daedalus. En les liant à l'IA du cœur du vaisseau nommé NERON, Janice arrive à augmenter encore leur productivité.
 - 3154 : Suite à une prise de contrôle du laboratoire par la FDS, Terrence est contraint de fuir avec le reste de l'équipage à bord du Daedalus. Il est sauf mais anéanti : la totalité de son œuvre et les 32 drones d'assistances restent derrière lui sur Xyloph-17.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>terrence.tips</source>
+        <target>**Éliminer les hunters** avec les Patrouilleurs dans les Baies pour protéger le vaisseau.//**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Réparer l'équipment vital** du vaisseau.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>terrence.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/terrence-premiers-pas.html</target>
+      </segment>
     </unit>
     <unit id="janice">
       <segment id="name" state="final">
@@ -791,6 +927,14 @@
 - 3151 : Janice tente d'optimiser les fonctions de réflexions de NERON mais la cadence infernale imposée par les tests du ***réacteur PILGRED*** de la chercheuse ***Raluca Tomescu*** monopolise le bloc processeur de l'ordinateur central.
 - 3152 : Suite à une réduction de ses objectifs, NERON voit sa participation aux calculs diminuer de 75%. Sa capacité d’évolution s'en trouve considérablement améliorée. Janice contacte Terrence pour lui demander de réaliser des automates capable d'achever la construction du Daedalus en temps et en heure.
 - 3154 : Alors que les militaires de la FDS tentent de reprendre le contrôle de la base, le protocole A-TRUE de NERON est activé. Il refuse l'accès des bâtiments aux troupes retardant ainsi la progression de l'armée a l’intérieur de Xyloph-17. Janice qui est alors la seule à pouvoir contrôler l'ordinateur central, libère ses collègues et tente de transférer les données prioritaires sur le Daedalus. Quelques heures plus tard le vaisseau décolle ***vers la galaxie de Magellan.***</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>janice.tips</source>
+        <target>**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Réconforter les coéquipiers démoralisés** afin d'améliorer leur moral.//**Être présente auprès de coéquipiers allongés** afin d'améliorer leur moral.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>janice.tutorial</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/janice-premiers-pas.html</target>
       </segment>
     </unit>
   </file>

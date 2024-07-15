@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 
 #[ORM\Entity]
@@ -37,6 +38,25 @@ class Channel
     {
         $this->participants = new ArrayCollection();
         $this->messages = new ArrayCollection();
+    }
+
+    public static function createPublicChannel(): self
+    {
+        return (new self())->setScope(ChannelScopeEnum::PUBLIC);
+    }
+
+    public static function createTipsChannel(): self
+    {
+        return (new self())->setScope(ChannelScopeEnum::TIPS);
+    }
+
+    public static function createTipsChannelForPlayer(Player $player): self
+    {
+        $channel = self::createTipsChannel()->setDaedalus($player->getDaedalusInfo());
+        // We need an id to normalize the channel so we make a fake one here. It won't be used for other purposes
+        self::setupFakeIdForChannel($channel);
+
+        return $channel;
     }
 
     public function getId(): ?int
@@ -135,5 +155,20 @@ class Channel
         $this->messages = $messages;
 
         return $this;
+    }
+
+    public function isTipsChannel(): bool
+    {
+        return ChannelScopeEnum::TIPS === $this->scope;
+    }
+
+    public function isNotTipsChannel(): bool
+    {
+        return ChannelScopeEnum::TIPS !== $this->scope;
+    }
+
+    private static function setupFakeIdForChannel(self $channel): void
+    {
+        (new \ReflectionClass($channel))->getProperty('id')->setValue($channel, random_int(1, PHP_INT_MAX));
     }
 }

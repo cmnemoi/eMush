@@ -1,6 +1,29 @@
 import { ChannelParticipant } from "./ChannelParticipant";
 import { ChannelType } from "@/enums/communication.enum";
 
+type Tips = {
+    teamObjectives: {
+        title: string;
+        elements: string[];
+        tutorial?: {
+            title: string;
+            link: string;
+        }
+    };
+    characterObjectives: {
+        title: string;
+        elements: string[];
+        tutorial: {
+            title: string;
+            link: string;
+        }
+    };
+    externalResources: {
+        title: string;
+        elements: Array<{ text: string, link?: string }>;
+    };
+}
+
 export class Channel {
 
     static get MESSAGE_LIMIT() {
@@ -16,6 +39,7 @@ export class Channel {
     public name!: string;
     public description!: string;
     public numberOfNewMessages!: integer;
+    public tips?: Tips;
 
     constructor() {
         this.participants = [];
@@ -38,6 +62,7 @@ export class Channel {
             this.name = object.name;
             this.description = object.description;
             this.numberOfNewMessages = object.numberOfNewMessages;
+            this.tips = object.tips;
         }
         return this;
     }
@@ -53,6 +78,7 @@ export class Channel {
             this.name = object.name;
             this.description = object.description;
             this.numberOfNewMessages = object.numberOfNewMessages;
+            this.tips = object.tips;
         }
 
         return this;
@@ -68,5 +94,9 @@ export class Channel {
 
     isFavorite(): boolean {
         return this.scope === ChannelType.FAVORITES;
+    }
+
+    isNotTipsChannel(): boolean {
+        return this.scope !== ChannelType.TIPS;
     }
 }

@@ -322,6 +322,10 @@ class ChannelService implements ChannelServiceInterface
 
     public function markChannelAsReadForPlayer(Channel $channel, Player $player): void
     {
+        if ($channel->isTipsChannel()) {
+            return;
+        }
+
         $unreadMessages = $channel->getMessages()->filter(
             static fn (Message $message) => $message->isUnreadBy($player)
         );

@@ -27,7 +27,7 @@
         <button class="action-button" @click="loadMoreMessages()" v-if="canLoadMoreMessages()">
             {{ $t('game.communications.loadMoreMessages') }}
         </button>
-        <button class="action-button" @click="markAsRead()">
+        <button class="action-button" @click="markAsRead()" v-if="currentChannel.isNotTipsChannel()">
             {{ $t('game.communications.markChannelAsRead') }}
         </button>
     </div>
@@ -75,9 +75,8 @@ export default defineComponent ({
         currentTabComponent(): Component {
             if (this.currentChannel instanceof Channel) {
                 switch (this.currentChannel.scope) {
-                // TODO: not implemented yet
-                // case ChannelType.TIPS:
-                //     return TipsTab;
+                case ChannelType.TIPS:
+                    return TipsTab;
                 case ChannelType.ROOM_LOG:
                     return RoomEventsTab;
                 case ChannelType.MUSH:

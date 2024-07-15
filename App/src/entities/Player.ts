@@ -268,4 +268,8 @@ export class Player {
     public isAlive(): boolean {
         return !this.isDead();
     }
+
+    public isMush(): boolean {
+        return this.hasStatusByKey(StatusPlayerNameEnum.MUSH);
+    }
 }

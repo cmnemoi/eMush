@@ -24,7 +24,8 @@ export enum StatusPlayerNameEnum {
     PILOT = "pilot",
     SHOOTER = "shooter",
     TECHNICIAN = "technician",
-    LOST = "lost"
+    LOST = "lost",
+    BERZERK = "berzerk",
 };
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -99,5 +100,8 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [StatusPlayerNameEnum.LOST]: {
         'icon': getImgUrl('status/lost_on_planet.png')
+    },
+    [StatusPlayerNameEnum.BERZERK]: {
+        'icon': getImgUrl('status/berzerk.png')
     }
 };

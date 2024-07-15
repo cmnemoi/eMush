@@ -10,6 +10,67 @@
         <source>tips.description</source>
         <target>Trouvez ici des **conseils pratiques** pour la vie quotidienne (sponsorisé par mangerbouger.fr).</target>
       </segment>
+      <segment id="teamObjectives.title" state="final">
+        <source>tips.teamObjectives.title</source>
+        <target>{team, select,
+        mush {Vos objectifs en tant que :berzerk: Mush}
+        other {{character_gender, select,
+        female {Vos objectifs en tant qu':female_admin: humaine}
+        other {Vos objectifs en tant qu':male_admin: humain}
+        }}}</target>
+      </segment>
+      <segment id="teamObjectives.elements" state="final">
+        <source>tips.teamObjectives.elements</source>
+        <target>{team, select,
+        mush {**Éliminer tous les humains** en coopérant avec les autres Mushs.//**Contaminer des humains** pour les transformer en Mushs.//**Manipuler les humains** pour les pousser à faire des actions qui les désavantagent.//**Saboter les actions humaines** aux bons moments, pour les empêcher de réparer le PILGRED et rentrer sur Sol.}
+        other {**Éliminer les Mushs à bord**.//**Réparer le PILGRED** pour rentrer sur Sol.//**Coopérer avec les autres humains** pour survivre à l'aide de vos compétences. 👇}}</target>
+      </segment>
+      <segment id="teamObjectives.mushTutorialTitle" state="final">
+        <source>tips.teamObjectives.mushTutorialTitle</source>
+        <target>**Plus d'informations dans le tutoriel communautaire**</target>
+      </segment>
+      <segment id="teamObjectives.mushTutorialLink" state="final">
+        <source>tips.teamObjectives.mushTutorialLink</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/etre-mush-premiers-pas.html</target>
+      </segment>
+      <segment id="characterObjectives.title" state="final">
+        <source>tips.characterObjectives.title</source>
+        <target>Vos objectifs en tant que :{characterKey}: {character}</target>
+      </segment>
+      <segment id="characterObjectives.tutorial" state="final">
+        <source>tips.characterObjectives.tutorial</source>
+        <target>**Plus d'informations dans le tutoriel communautaire**</target>
+      </segment>
+      <segment id="externalResources.title" state="final">
+        <source>tips.externalResources.title</source>
+        <target>Besoin d'aide ? N'hésitez pas à consulter</target>
+      </segment>
+      <segment id="externalResources.crewmates" state="final">
+        <source>tips.externalResources.crewmates</source>
+        <target>{team, select,
+        mush {Vos coéquipiers à l'aide du :mush: **canal Mush**}
+        other {Vos coéquipiers à l'aide du :wall: **canal général**}}</target>
+      </segment>
+      <segment id="externalResources.discord" state="final">
+        <source>tips.externalResources.discord</source>
+        <target>**Le serveur Discord** d'Eternaltwin</target>
+      </segment>
+      <segment id="externalResources.tutorials" state="final">
+        <source>tips.externalResources.tutorials</source>
+        <target>**Les tutoriels communautaires** de l'Aide aux bolets</target>
+      </segment>
+      <segment id="externalResources.wiki" state="final">
+        <source>tips.externalResources.wiki</source>
+        <target>**Le wiki** Twinpédia</target>
+      </segment>
+      <segment id="externalResources.tutorialsLink" state="final">
+        <source>tips.externalResources.tutorialsLink</source>
+        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/</target>
+      </segment>
+      <segment id="externalResources.wikiLink" state="final">
+        <source>tips.externalResources.wikiLink</source>
+        <target>https://twin.tithom.fr/mush</target>
+      </segment>
     </unit>
     <unit id="room_log">
       <segment id="name" state="final">

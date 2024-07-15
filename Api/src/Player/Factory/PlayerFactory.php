@@ -72,6 +72,20 @@ final class PlayerFactory
         return $player;
     }
 
+    public static function createPlayerForUser(User $user): Player
+    {
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName(CharacterEnum::null);
+
+        $player = new Player();
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
+        $player->setPlayerVariables($characterConfig);
+        $player->setPlace(Place::createRoomByName(RoomEnum::null));
+
+        return $player;
+    }
+
     public static function createNullPlayer(): Player
     {
         return self::createPlayer();

@@ -1,45 +1,48 @@
 <template>
-    <TabContainer id="tips-tab" :channel="channel" style="display: none;">
+    <TabContainer id="tips-tab" :channel="channel" v-if="channel?.tips">
         <section class="unit">
             <div class="banner">
-                <span><img :src="getImgUrl('comms/tip.png')"> Conseils <img :src="getImgUrl('comms/tip.png')"></span>
+                <span><img :src="getImgUrl('comms/tip.png')"> {{ channel.name }} <img :src="getImgUrl('comms/tip.png')"></span>
+            </div>
+            <div :class="'tip ' + (player.isMush() ? ' red' : 'cyan')">
+                <span class="title" v-html="formatText(channel.tips.teamObjectives.title)"/>
+                <ul class="list">
+                    <li v-for="element in channel.tips.teamObjectives.elements" :key="element" v-html="formatText(element)"/>
+                </ul>
+                <a
+                    v-if="channel.tips.teamObjectives.tutorial"
+                    :href="channel.tips.teamObjectives.tutorial.link"
+                    class="link"
+                    target="_blank"
+                    rel="noopener"
+                    v-html="formatText(channel.tips.teamObjectives.tutorial.title)"/>
             </div>
             <div class="tip focus">
-                <span class="title">Rétablir la communication</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque et arcu sit amet arcu convallis dictum. Nam vehicula gravida pretium. Nunc nec malesuada turpis. Vivamus vitae orci leo. Suspendisse potenti. In eu felis quam. Nullam non urna quis sem molestie blandit sit amet eget tortor. Duis aliquet eros quis tempor ornare. Maecenas eu semper quam. Cras malesuada bibendum leo, vel mollis lectus lacinia eget. Nam et lorem eu diam consectetur tempus. Proin fermentum dolor in ullamcorper fermentum. Sed consequat ex vel odio tempus, vitae scelerisque ante tristique.</p>
+                <span class="title" v-html="formatText(channel.tips.characterObjectives.title)"/>
+                <ul class="list">
+                    <li v-for="element in channel.tips.characterObjectives.elements" :key="element" v-html="formatText(element)"/>
+                </ul>
+                <a
+                    :href="channel.tips.characterObjectives.tutorial.link"
+                    class="link"
+                    target="_blank"
+                    rel="noopener"
+                    v-html="formatText(channel.tips.characterObjectives.tutorial.title)"/>
             </div>
             <div class="tip">
-                <span class="title">Avancer un projet</span>
-                <p>Vivamus iaculis magna nec egestas venenatis. Curabitur sed aliquam ex, vel lobortis risus. Aenean consequat pulvinar metus quis accumsan. Duis dictum dictum neque at pharetra. Sed enim justo, porttitor vitae urna eu, rhoncus mattis felis. Nullam in felis quis mi faucibus consequat. Pellentesque congue sagittis libero sed porta. In vitae sagittis sapien. Suspendisse potenti. Duis dignissim eget lorem vel finibus.</p>
-            </div>
-        </section>
-
-        <section class="unit">
-            <div class="banner">
-                <span><img :src="getImgUrl('comms/star.png')"> Annonce Générale <img :src="getImgUrl('comms/star.png')"></span>
-            </div>
-            <div class="message">
-                <div class="char-portrait">
-                    <img :src="getImgUrl('char/body/paola.png')">
-                </div>
-                <p>
-                    <span class="author">Paola :</span><strong>Salut à tous !</strong><br>
-                    Ceci est une annonce générale !
-                </p>
-                <span class="timestamp">~1d</span>
-            </div>
-        </section>
-
-        <section class="unit">
-            <div class="banner">
-                <span><img :src="getImgUrl('comms/notebook.png')"> Missions <img :src="getImgUrl('comms/notebook.png')"></span>
-            </div>
-            <div class="message">
-                <div class="char-portrait">
-                    <img :src="getImgUrl('char/body/jin_su.png')">
-                </div>
-                <p><span class="author">Jin Su :</span>Mission pour rétablir les comms.</p>
-                <span class="timestamp">~1d</span>
+                <span class="title">{{ channel.tips.externalResources.title }}</span>
+                <ul class="list">
+                    <li v-for="element in channel.tips.externalResources.elements" :key="element.text">
+                        <a
+                            :href="element.link"
+                            v-if="element.link"
+                            class="link"
+                            target="_blank"
+                            rel="noopener"
+                            v-html="formatText(element.text)"/>
+                        <p v-else v-html="formatText(element.text)"/>
+                    </li>
+                </ul>
             </div>
         </section>
     </TabContainer>
@@ -50,6 +53,8 @@ import { Channel } from "@/entities/Channel";
 import TabContainer from "@/components/Game/Communications/TabContainer.vue";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { formatText } from "@/utils/formatText";
+import { mapGetters } from "vuex";
 
 
 export default defineComponent ({
@@ -60,8 +65,14 @@ export default defineComponent ({
     props: {
         channel: Channel
     },
+    computed: {
+        ...mapGetters({
+            player: "player/player"
+        })
+    },
     methods: {
-        getImgUrl
+        getImgUrl,
+        formatText
     }
 });
 </script>
@@ -92,7 +103,7 @@ export default defineComponent ({
         word-break: break-word;
 
         .author {
-            color: $blue;
+            color: $cyan;
             font-weight: 700;
             font-variant: small-caps;
             padding-right: 0.25em;
@@ -192,6 +203,8 @@ export default defineComponent ({
 /* --- END OF PROVISIONAL --- */
 
 #tips-tab {
+    a { color: $deepGreen; }
+
     .unit {
         padding: 1px 0 !important;
     }
@@ -202,8 +215,16 @@ export default defineComponent ({
         background: white;
         box-shadow: 0 1px 1px 0 rgba(9, 10, 97, 0.15);
 
+        &.cyan {
+            border: 3px solid $cyan;
+            box-shadow: 0 7px 6px -4px rgba(9, 10, 97, 0.5);
+        }
         &.focus {
             border: 3px solid $green;
+            box-shadow: 0 7px 6px -4px rgba(9, 10, 97, 0.5);
+        }
+        &.red {
+            border: 3px solid $mushRed;
             box-shadow: 0 7px 6px -4px rgba(9, 10, 97, 0.5);
         }
 
@@ -214,6 +235,15 @@ export default defineComponent ({
         }
 
         p { margin: 4px 0; }
+    }
+
+    .list {
+        flex-direction: column;
+
+        li {
+            list-style: disc;
+            margin-left: 20px;
+        }
     }
 }
 

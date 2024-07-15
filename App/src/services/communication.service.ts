@@ -14,6 +14,7 @@ const CHANNELS_ENDPOINT = urlJoin(API_URL, "channel");
 const PIRATED_CHANNELS_ENDPOINT = urlJoin(API_URL, "channel/pirated");
 const ROOM_LOGS_ENDPOINT = urlJoin(API_URL, "room-log");
 const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(API_URL, "room-log/channel");
+const TIPS_CHANNEL_ENDPOINT = urlJoin(API_URL, "channel/tips");
 
 // If there is only one element found, the API returns an object instead of an array.
 // We need to handle this case to avoid not being able to load the channels / messages.
@@ -49,6 +50,17 @@ const CommunicationService = {
             }));
         }
 
+        const tipsChannelData = await ApiService.get(TIPS_CHANNEL_ENDPOINT);
+        if (tipsChannelData.data) {
+            channels.push((new Channel()).load({
+                scope: ChannelType.TIPS,
+                id: ChannelType.TIPS,
+                name: tipsChannelData.data.name,
+                description: tipsChannelData.data.description,
+                tips: tipsChannelData.data.tips
+            }));
+        }
+
         return channels;
     },
 
@@ -80,7 +92,9 @@ const CommunicationService = {
     },
 
     loadMessages: async (channel: Channel, page: integer = 1, limit: integer = Channel.MESSAGE_LIMIT): Promise<Array<Message|Record<string, unknown>>> => {
-        if (channel.scope === ChannelType.ROOM_LOG) {
+        if (channel.scope === ChannelType.TIPS) {
+            return [];
+        } else if (channel.scope === ChannelType.ROOM_LOG) {
             return await loadRoomLogs();
         } else if (channel.scope === ChannelType.FAVORITES) {
             return await loadFavoritesChannelMessages(page, limit);

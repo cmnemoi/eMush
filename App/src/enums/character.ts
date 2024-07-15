@@ -1,7 +1,5 @@
 import { getImgUrl } from "@/utils/getImgUrl";
 
-const DEFAULT = "default";
-
 export enum CharacterEnum {
     ANDIE = "andie",
     CHAO = "chao",
@@ -21,7 +19,9 @@ export enum CharacterEnum {
     ROLAND = "roland",
     STEPHEN = "stephen",
     TERRENCE = "terrence",
-    NERON = "neron"
+    NERON = "neron",
+    FEMALE_ADMIN = "female_admin",
+    MALE_ADMIN = "male_admin",
 }
 
 export interface CharacterInfos {
@@ -165,10 +165,14 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
         'head': getImgUrl('comms/neron-mini.png'),
         'body': getImgUrl('comms/neron_chat.png')
     },
-    [DEFAULT]: {
-        'name': 'Hero',
+    [CharacterEnum.FEMALE_ADMIN]: {
+        'name': 'Admin',
         'head': getImgUrl('char/head/lambda_f.png'),
         'body': getImgUrl('char/body/lambda_f.png')
+    },
+    [CharacterEnum.MALE_ADMIN]: {
+        'name': 'Admin',
+        'head': getImgUrl('char/head/lambda_m.png'),
+        'body': getImgUrl('char/body/lambda_m.png')
     }
-}
-;
+};

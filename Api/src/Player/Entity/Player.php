@@ -19,6 +19,7 @@ use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
@@ -182,6 +183,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $daedalus->addPlayer($this);
 
         return $this;
+    }
+
+    public function getDaedalusInfo(): DaedalusInfo
+    {
+        return $this->daedalus->getDaedalusInfo();
     }
 
     public function getPlace(): Place

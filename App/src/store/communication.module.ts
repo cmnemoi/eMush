@@ -344,8 +344,7 @@ const mutations: MutationTree<any> = {
 
 export function sortChannels(channels: Channel[]): Channel[] {
     const channelOrderValue = {
-        // TODO: not implemented yet
-        // [ChannelType.TIPS] : 0,
+        [ChannelType.TIPS] : 0,
         [ChannelType.MUSH] : 1,
         [ChannelType.ROOM_LOG] : 2,
         [ChannelType.PUBLIC] : 3,

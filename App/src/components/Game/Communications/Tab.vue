@@ -55,9 +55,8 @@ export default defineComponent ({
                 return getImgUrl('comms/wall.png');
             case ChannelType.ROOM_LOG:
                 return getImgUrl('comms/local.png');
-            // TODO: not implemented yet
-            // case ChannelType.TIPS:
-            //     return getImgUrl('comms/tip.png');
+            case ChannelType.TIPS:
+                return getImgUrl('comms/tip.png');
             case "new":
             default:
                 return getImgUrl('comms/newtab.png');

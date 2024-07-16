@@ -60,8 +60,8 @@ services:
       - CHOKIDAR_INTERVAL=100
       - YOUR_APP_WEB_HTTP_PORT=8080
 
-  eternaltwin:
-    container_name: eternaltwin
+  mush_eternaltwin:
+    container_name: mush_eternaltwin
     build:
       context: ./Eternaltwin
       dockerfile: Dockerfile

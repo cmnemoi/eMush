@@ -22,7 +22,7 @@ services:
         - UID=1000
         - GID=1000
 
-  eternaltwin:
+  mush_eternaltwin:
     ports:
       - 50320:50320
     build:

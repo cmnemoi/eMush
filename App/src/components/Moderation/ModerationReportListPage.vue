@@ -25,7 +25,7 @@
                 Actions
             </template>
             <template #row-actions="report">
-                <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.name') }}</button>
+                <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.report') }}</button>
             </template>
         </Datatable>
         <SanctionDetailPage

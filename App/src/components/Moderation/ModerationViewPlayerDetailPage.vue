@@ -35,7 +35,7 @@
             </template>
             <template #row-actions="report">
                 <DropList class="align-right">
-                    <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.name') }}</button>
+                    <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.report') }}</button>
                     <button class="action-button" @click="archiveReport(report.id)">{{ $t('moderation.actions.archive') }}</button>
                     <button class="action-button" @click="closeReport(report.id)">{{ $t('moderation.actions.close') }}</button>
                 </DropList>

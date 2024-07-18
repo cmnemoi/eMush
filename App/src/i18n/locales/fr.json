@@ -780,6 +780,7 @@
 		},
     "sanctionDetail": {
       "name": "Détails de la sanction",
+      "report": "Détails de la plainte",
       "user": "Nom d'utilisateur : ",
       "player": "Personage joué : ",
       "endDate": "Fin de la sanction : ",

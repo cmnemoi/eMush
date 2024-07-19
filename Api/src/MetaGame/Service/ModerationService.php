@@ -53,13 +53,13 @@ final class ModerationService implements ModerationServiceInterface
         $this->entityManager->flush();
 
         $this->addSanctionEntity(
-            $closedPlayer->getUser(),
-            $closedPlayer->getPlayerInfo(),
-            $author,
-            ModerationSanctionEnum::DELETE_END_MESSAGE,
-            $reason,
-            new \DateTime(),
-            $adminMessage
+            user: $closedPlayer->getUser(),
+            player: $closedPlayer->getPlayerInfo(),
+            author: $author,
+            sanctionType: ModerationSanctionEnum::DELETE_END_MESSAGE,
+            reason: $reason,
+            startingDate: new \DateTime(),
+            message: $adminMessage
         );
     }
 
@@ -74,13 +74,13 @@ final class ModerationService implements ModerationServiceInterface
         $this->entityManager->flush();
 
         $this->addSanctionEntity(
-            $closedPlayer->getUser(),
-            $closedPlayer->getPlayerInfo(),
-            $author,
-            ModerationSanctionEnum::HIDE_END_MESSAGE,
-            $reason,
-            new \DateTime(),
-            $adminMessage
+            user: $closedPlayer->getUser(),
+            player: $closedPlayer->getPlayerInfo(),
+            author: $author,
+            sanctionType: ModerationSanctionEnum::HIDE_END_MESSAGE,
+            reason: $reason,
+            startingDate: new \DateTime(),
+            message: $adminMessage
         );
     }
 
@@ -113,14 +113,14 @@ final class ModerationService implements ModerationServiceInterface
         ?\DateTime $startingDate = null
     ): User {
         return $this->addSanctionEntity(
-            $user,
-            null,
-            $author,
-            ModerationSanctionEnum::BAN_USER,
-            $reason,
-            $startingDate,
-            $message,
-            $duration,
+            user: $user,
+            player: null,
+            author: $author,
+            sanctionType: ModerationSanctionEnum::BAN_USER,
+            reason: $reason,
+            startingDate: $startingDate,
+            message: $message,
+            duration: $duration,
         );
     }
 
@@ -185,13 +185,13 @@ final class ModerationService implements ModerationServiceInterface
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
         $this->addSanctionEntity(
-            $player->getUser(),
-            $player->getPlayerInfo(),
-            $author,
-            ModerationSanctionEnum::QUARANTINE_PLAYER,
-            $reason,
-            new \DateTime(),
-            $message
+            user: $player->getUser(),
+            player: $player->getPlayerInfo(),
+            author: $author,
+            sanctionType: ModerationSanctionEnum::QUARANTINE_PLAYER,
+            reason: $reason,
+            startingDate: new \DateTime(),
+            message: $message
         );
 
         return $player;
@@ -209,13 +209,13 @@ final class ModerationService implements ModerationServiceInterface
         }
 
         $this->addSanctionEntity(
-            $messageAuthor->getUser(),
-            $messageAuthor,
-            $author,
-            ModerationSanctionEnum::DELETE_MESSAGE,
-            $reason,
-            new \DateTime(),
-            $adminMessage
+            user: $messageAuthor->getUser(),
+            player: $messageAuthor,
+            author: $author,
+            sanctionType: ModerationSanctionEnum::DELETE_MESSAGE,
+            reason: $reason,
+            startingDate: new \DateTime(),
+            message: $adminMessage
         );
 
         $message
@@ -236,15 +236,15 @@ final class ModerationService implements ModerationServiceInterface
         ?\DateTime $startingDate = null
     ): User {
         return $this->addSanctionEntity(
-            $user,
-            null,
-            $author,
-            ModerationSanctionEnum::WARNING,
-            $reason,
-            $startingDate,
-            $message,
-            $duration,
-            true
+            user: $user,
+            player: null,
+            author: $author,
+            sanctionType: ModerationSanctionEnum::WARNING,
+            reason: $reason,
+            startingDate: $startingDate,
+            message: $message,
+            duration: $duration,
+            isVisibleByUser: true
         );
     }
 
@@ -256,16 +256,14 @@ final class ModerationService implements ModerationServiceInterface
         SanctionEvidenceInterface $sanctionEvidence
     ): PlayerInfo {
         $this->addSanctionEntity(
-            $player->getUser(),
-            $player,
-            $author,
-            ModerationSanctionEnum::REPORT,
-            $reason,
-            new \DateTime(),
-            $message,
-            null,
-            false,
-            $sanctionEvidence
+            user: $player->getUser(),
+            player: $player,
+            author: $author,
+            sanctionType: ModerationSanctionEnum::REPORT,
+            reason: $reason,
+            startingDate: new \DateTime(),
+            message: $message,
+            sanctionEvidence: $sanctionEvidence
         );
 
         return $player;

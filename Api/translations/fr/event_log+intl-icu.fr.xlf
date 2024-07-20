@@ -890,5 +890,45 @@
                 }</target>
       </segment>
     </unit>
+    <unit id="jukebox_played">
+      <segment id="jukebox_played" state="final">
+        <source>jukebox_played</source>
+        <target>Durant ce cycle, vous pouvez écouter le célèbre {player, select,
+                    chao {**Unleash The Party**}
+                    chun {**Star Walker : Infinite And Beyond OST**}
+                    eleesha {**To Whom The Rockets Tolls**}
+                    finola {**Night Flowers**}
+                    gioele {**Die Die My Lightning**}
+                    hua {**Mon Clavier Pleure**}
+                    ian {**Take The Truth**}
+                    janice {**Dutch Dawn**}
+                    jin_su {**Bad Requiem**}
+                    kuan_ti {**Touching And Fading**}
+                    paola {**Audacity**}
+                    raluca {**Stoner And Sweeter**}
+                    roland {**A Weekend In Blood**}
+                    stephen {**Return Of The Haze**}
+                    terrence {**4ème symphonie en Ut majeur**}
+                    other {**Al's Ballad**}
+                } interprété par {player, select,
+                    chao {**Tree Pot**}
+                    chun {**Jon Roger**}
+                    eleesha {**Mario Leone**}
+                    finola {**Rob Vivan**}
+                    gioele {**MetalliCorn**}
+                    hua {**Claude Chevalier**}
+                    ian {**Neil Washed**}
+                    janice {**Faded Happiness**}
+                    jin_su {**The Stoojazz**}
+                    kuan_ti {**VOSTeX**}
+                    paola {**ShipSalt**}
+                    raluca {**Old Crooks**}
+                    roland {**Steel Panzer Society**}
+                    stephen {**Sweet Symphonies**}
+                    terrence {**Mozoven**}
+                    other {**Massive Expenditure**}
+                } !!!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

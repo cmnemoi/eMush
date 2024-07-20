@@ -494,6 +494,18 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
             ],
+            [
+                'name' => ProjectName::BEAT_BOX,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 18,
+                'bonusSkills' => [SkillEnum::RADIO_EXPERT, SkillEnum::CREATIVE],
+                'activationRate' => 2,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    '1_jukebox_blueprint_in_nexus',
+                ],
+                'replaceEquipmentConfigs' => [],
+            ],
         ];
     }
 }

@@ -1265,5 +1265,13 @@ abstract class StatusConfigData
             ],
             'actionConfigs' => [],
         ],
+        [
+            'name' => EquipmentStatusEnum::JUKEBOX_SONG . '_default',
+            'statusName' => EquipmentStatusEnum::JUKEBOX_SONG,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 }

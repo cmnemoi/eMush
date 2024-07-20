@@ -1,2762 +1,2747 @@
-{
-  "compressionlevel": -1,
-  "height": 16,
-  "infinite": false,
-  "layers": [
-    {
-      "draworder": "topdown",
-      "id": 8,
-      "name": "doors",
-      "objects": [
+{ "compressionlevel":-1,
+ "height":16,
+ "infinite":false,
+ "layers":[
         {
-          "gid": 107,
-          "height": 73,
-          "id": 9,
-          "name": "bridge_front_alpha_turret",
-          "properties": [
+         "draworder":"topdown",
+         "id":8,
+         "name":"doors",
+         "objects":[
+                {
+                 "gid":107,
+                 "height":73,
+                 "id":9,
+                 "name":"bridge_front_alpha_turret",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"door",
+                 "visible":true,
+                 "width":48,
+                 "x":139.5,
+                 "y":-4.5
+                }, 
+                {
+                 "gid":20,
+                 "height":36,
+                 "id":10,
+                 "name":"bridge_front_alpha_turret",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":32
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":174,
+                 "y":14
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 267, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":16,
+         "id":2,
+         "name":"wall",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":15,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":16,
+         "id":9,
+         "name":"ground",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":20
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":15,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 237, 239, 237, 239, 237, 239, 237, 247, 246, 238, 0, 0,
+            0, 0, 0, 236, 238, 236, 238, 236, 238, 236, 247, 246, 238, 0, 0,
+            0, 0, 0, 238, 238, 239, 239, 241, 243, 237, 247, 246, 239, 0, 0,
+            0, 0, 0, 238, 238, 238, 238, 240, 242, 236, 247, 246, 238, 0, 0,
+            0, 0, 0, 256, 256, 256, 239, 237, 239, 237, 247, 246, 243, 0, 0,
+            0, 0, 0, 256, 256, 256, 238, 236, 238, 236, 247, 250, 245, 0, 0,
+            0, 0, 0, 256, 256, 256, 238, 237, 239, 237, 247, 249, 244, 0, 0,
+            0, 0, 0, 256, 256, 256, 238, 236, 238, 236, 247, 246, 238, 0, 0,
+            0, 0, 0, 237, 239, 241, 243, 237, 239, 237, 247, 246, 243, 0, 0,
+            0, 0, 0, 236, 238, 240, 242, 236, 238, 236, 247, 246, 242, 0, 0,
+            0, 0, 0, 237, 239, 237, 239, 237, 239, 237, 247, 246, 239, 0, 0,
+            0, 0, 0, 236, 238, 236, 238, 236, 238, 236, 247, 246, 238, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":16,
+         "id":1,
+         "name":"ground",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":7
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":21
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":15,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"index",
+         "id":5,
+         "name":"objects",
+         "objects":[
+                {
+                 "gid":318,
+                 "height":166,
+                 "id":31,
+                 "name":"cockpit_window",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":205,
+                 "x":15.25,
+                 "y":92.75
+                }, 
+                {
+                 "gid":299,
+                 "height":106,
+                 "id":8,
+                 "name":"command_board",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":120,
+                 "x":80.5,
+                 "y":5.5
+                }, 
+                {
+                 "gid":276,
+                 "height":48,
+                 "id":26,
+                 "name":"communication_center_deo",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":24
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":64,
+                 "x":16.5,
+                 "y":31.5
+                }, 
+                {
+                 "gid":284,
+                 "height":52,
+                 "id":5,
+                 "name":"command_terminal",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":94,
+                 "x":-2,
+                 "y":104
+                }, 
+                {
+                 "gid":25,
+                 "height":36,
+                 "id":11,
+                 "name":"front_corridor_bridge",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":32
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":221,
+                 "y":125
+                }, 
+                {
+                 "gid":15,
+                 "height":36,
+                 "id":12,
+                 "name":"bridge_front_bravo_turret",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":32
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":174,
+                 "y":236
+                }, 
+                {
+                 "gid":306,
+                 "height":40,
+                 "id":13,
+                 "name":"shelf",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"shelf",
+                 "visible":true,
+                 "width":33,
+                 "x":184.25,
+                 "y":71.75
+                }, 
+                {
+                 "gid":257,
+                 "height":15,
+                 "id":14,
+                 "name":"wall_box",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":14,
+                 "x":159,
+                 "y":-8
+                }, 
+                {
+                 "gid":307,
+                 "height":29,
+                 "id":15,
+                 "name":"aeration4",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":54,
+                 "x":132,
+                 "y":35
+                }, 
+                {
+                 "gid":307,
+                 "height":29,
+                 "id":16,
+                 "name":"aeration3",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":54,
+                 "x":68,
+                 "y":35
+                }, 
+                {
+                 "gid":307,
+                 "height":29,
+                 "id":17,
+                 "name":"aeration2",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":54,
+                 "x":68,
+                 "y":211
+                }, 
+                {
+                 "gid":307,
+                 "height":29,
+                 "id":18,
+                 "name":"aeration1",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":54,
+                 "x":132,
+                 "y":211
+                }, 
+                {
+                 "gid":1,
+                 "height":17,
+                 "id":19,
+                 "name":"camera_equipment",
+                 "properties":[
+                        {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":25,
+                 "x":112.75,
+                 "y":-7.75
+                }, 
+                {
+                 "gid":335,
+                 "height":51,
+                 "id":28,
+                 "name":"semi_circle_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":104,
+                 "x":96.5,
+                 "y":122.5
+                }, 
+                {
+                 "gid":308,
+                 "height":37,
+                 "id":27,
+                 "name":"semicircle_floor",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":72,
+                 "x":25.5,
+                 "y":119.5
+                },
+            
+                {
+                 "gid":341,
+                 "height":36,
+                 "id":41,
+                 "name":"communication_center",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_front"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":34,
+                 "x":54.5,
+                 "y":49.5
+                }, 
+                {
+                 "gid":311,
+                 "height":61,
+                 "id":30,
+                 "name":"communication_center",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":60
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":86,
+                 "x":52,
+                 "y":71
+                }, 
+                {
+                 "gid":309,
+                 "height":79,
+                 "id":29,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":9
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":96,
+                 "x":52.5,
+                 "y":100.5
+                }, 
+                {
+                 "gid":275,
+                 "height":46,
+                 "id":3,
+                 "name":"astro_terminal",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":40
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":52,
+                 "x":60.5,
+                 "y":151.5
+                }, 
+                {
+                 "gid":319,
+                 "height":71,
+                 "id":34,
+                 "name":"astro_terminal_deco",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":24
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":60,
+                 "x":14,
+                 "y":169
+                }, 
+                {
+                 "gid":289,
+                 "height":72,
+                 "id":6,
+                 "name":"astro_terminal",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-12
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-20
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":24
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":24
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":77,
+                 "x":22.75,
+                 "y":161.25
+                }, 
+                {
+                 "gid":350,
+                 "height":36,
+                 "id":39,
+                 "name":"command_terminal",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_back"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":-10
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":-6
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":34,
+                 "x":10.5,
+                 "y":99.5
+                }, 
+                {
+                 "gid":342,
+                 "height":36,
+                 "id":40,
+                 "name":"astro_terminal",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_back"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":-6
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":-10
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":34,
+                 "x":56,
+                 "y":168
+                }, 
+                {
+                 "gid":354,
+                 "height":47,
+                 "id":43,
+                 "name":"swedish_sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":44
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":2
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":-2
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":108.5,
+                 "y":28.5
+                }, 
+                {
+                 "gid":359,
+                 "height":47,
+                 "id":44,
+                 "name":"swedish_sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-10
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":108.5,
+                 "y":28.5
+                }, 
+                {
+                 "gid":2147484019,
+                 "height":31,
+                 "id":46,
+                 "name":"jukebox",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":20,
+                 "x":46.8574652230905,
+                 "y":25.3160322372182
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":11,
+ "nextobjectid":47,
+ "orientation":"isometric",
+ "renderorder":"right-down",
+ "tiledversion":"1.10.1",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "columns":14,
+         "firstgid":1,
+         "image":"tilemaps\/camera_object.png",
+         "imageheight":17,
+         "imagewidth":350,
+         "margin":0,
+         "name":"camera_object",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":14,
+         "tileheight":17,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":300,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":7
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":8
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":9
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":10
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":11
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":12
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":13
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":12
+                        },
+                    
+                        {
+                         "duration":300,
+                         "tileid":11
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":10
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":9
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":8
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":7
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":0
+                        }],
+                 "id":0
+                }],
+         "tilewidth":25
+        }, 
+        {
+         "columns":5,
+         "firstgid":15,
+         "grid":
             {
-              "name": "collides",
-              "type": "bool",
-              "value": false
+             "height":36,
+             "orientation":"isometric",
+             "width":64
             },
+         "image":"tilemaps\/door_ground_tileset.png",
+         "imageheight":144,
+         "imagewidth":320,
+         "margin":0,
+         "name":"door_ground_tileset",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":20,
+         "tileheight":36,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":4
+                        }],
+                 "id":0
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":7
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":8
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":9
+                        }],
+                 "id":5
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":10
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":11
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":12
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":13
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":14
+                        }],
+                 "id":10
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":15
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":16
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":17
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":18
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":19
+                        }],
+                 "id":15
+                }],
+         "tilewidth":64
+        }, 
+        {
+         "columns":24,
+         "firstgid":35,
+         "grid":
             {
-              "name": "depth",
-              "type": "int",
-              "value": 4
+             "height":73,
+             "orientation":"isometric",
+             "width":48
             },
+         "image":"tilemaps\/door_object.png",
+         "imageheight":584,
+         "imagewidth":1152,
+         "margin":0,
+         "name":"door_object",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":192,
+         "tileheight":73,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":7
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":8
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":9
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":10
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":11
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":12
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":13
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":14
+                        },
+                    
+                        {
+                         "duration":100,
+                         "tileid":15
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":16
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":17
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":18
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":19
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":20
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":21
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":22
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":23
+                        }],
+                 "id":0
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":24
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":25
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":26
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":27
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":28
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":29
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":30
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":31
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":32
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":33
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":34
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":35
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":36
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":37
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":38
+                        },
+                    
+                        {
+                         "duration":100,
+                         "tileid":39
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":40
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":41
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":42
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":43
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":44
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":45
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":46
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":47
+                        }],
+                 "id":24
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":48
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":49
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":50
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":51
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":52
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":53
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":54
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":55
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":56
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":57
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":58
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":59
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":60
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":61
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":62
+                        },
+                    
+                        {
+                         "duration":100,
+                         "tileid":63
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":64
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":65
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":66
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":67
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":68
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":69
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":70
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":71
+                        }],
+                 "id":48
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":72
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":73
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":74
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":75
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":76
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":77
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":78
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":79
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":80
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":81
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":82
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":83
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":84
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":85
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":86
+                        },
+                    
+                        {
+                         "duration":100,
+                         "tileid":87
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":88
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":89
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":90
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":91
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":92
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":93
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":94
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":95
+                        }],
+                 "id":72
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":96
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":97
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":98
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":99
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":100
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":101
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":102
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":103
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":104
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":105
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":106
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":107
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":108
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":109
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":110
+                        },
+                    
+                        {
+                         "duration":100,
+                         "tileid":111
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":112
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":113
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":114
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":115
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":116
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":117
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":118
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":119
+                        }],
+                 "id":96
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":120
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":121
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":122
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":123
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":124
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":125
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":126
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":127
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":128
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":129
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":130
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":131
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":132
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":133
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":134
+                        },
+                    
+                        {
+                         "duration":100,
+                         "tileid":135
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":136
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":137
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":138
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":139
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":140
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":141
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":142
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":143
+                        }],
+                 "id":120
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":144
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":145
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":146
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":147
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":148
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":149
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":150
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":151
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":152
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":153
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":154
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":155
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":156
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":157
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":158
+                        },
+                    
+                        {
+                         "duration":100,
+                         "tileid":159
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":160
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":161
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":162
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":163
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":164
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":165
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":166
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":167
+                        }],
+                 "id":144
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":168
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":169
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":170
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":171
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":172
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":173
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":174
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":175
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":176
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":177
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":178
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":179
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":180
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":181
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":182
+                        },
+                    
+                        {
+                         "duration":100,
+                         "tileid":183
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":184
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":185
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":186
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":187
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":188
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":189
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":190
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":191
+                        }],
+                 "id":168
+                }],
+         "tilewidth":48
+        }, 
+        {
+         "columns":30,
+         "firstgid":227,
+         "grid":
             {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
+             "height":72,
+             "orientation":"isometric",
+             "width":32
             },
+         "image":"tilemaps\/ground_tileset.png",
+         "imageheight":72,
+         "imagewidth":960,
+         "margin":0,
+         "name":"ground_tileset",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":30,
+         "tileheight":72,
+         "tilewidth":32
+        }, 
+        {
+         "columns":4,
+         "firstgid":257,
+         "image":"tilemaps\/wall_box.png",
+         "imageheight":15,
+         "imagewidth":56,
+         "margin":0,
+         "name":"wall_box",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":15,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":1500,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":1500,
+                         "tileid":1
+                        }],
+                 "id":0
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":1500,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":1500,
+                         "tileid":3
+                        }],
+                 "id":2
+                }],
+         "tilewidth":14
+        }, 
+        {
+         "columns":14,
+         "firstgid":261,
+         "grid":
             {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
+             "height":72,
+             "orientation":"isometric",
+             "width":32
             },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 4
-            }
-          ],
-          "rotation": 0,
-          "type": "door",
-          "visible": true,
-          "width": 48,
-          "x": 139.5,
-          "y": -4.5
+         "image":"tilemaps\/wall_tileset.png",
+         "imageheight":72,
+         "imagewidth":448,
+         "margin":0,
+         "name":"wall_tileset",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":14,
+         "tileheight":72,
+         "tilewidth":32
+        }, 
+        {
+         "columns":1,
+         "firstgid":275,
+         "image":"tilemaps\/astro_terminal2.png",
+         "imageheight":46,
+         "imagewidth":52,
+         "margin":0,
+         "name":"astro_terminal2",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":46,
+         "tilewidth":52
+        }, 
+        {
+         "columns":8,
+         "firstgid":276,
+         "image":"tilemaps\/comms_center.png",
+         "imageheight":48,
+         "imagewidth":512,
+         "margin":0,
+         "name":"comms_center",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":8,
+         "tileheight":48,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":200,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":7
+                        }],
+                 "id":0
+                }],
+         "tilewidth":64
+        }, 
+        {
+         "columns":5,
+         "firstgid":284,
+         "image":"tilemaps\/command_terminal.png",
+         "imageheight":52,
+         "imagewidth":470,
+         "margin":0,
+         "name":"command_terminal",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":5,
+         "tileheight":52,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":1500,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":1500,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":1500,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":1500,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":1500,
+                         "tileid":4
+                        }],
+                 "id":0
+                }],
+         "tilewidth":94
+        }, 
+        {
+         "columns":5,
+         "firstgid":289,
+         "image":"tilemaps\/astro_terminal.png",
+         "imageheight":144,
+         "imagewidth":385,
+         "margin":0,
+         "name":"astro_terminal",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":10,
+         "tileheight":72,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":150,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":150,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":150,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":150,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":150,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":150,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":150,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":150,
+                         "tileid":7
+                        }, 
+                        {
+                         "duration":150,
+                         "tileid":8
+                        }, 
+                        {
+                         "duration":150,
+                         "tileid":9
+                        }],
+                 "id":0
+                }],
+         "tilewidth":77
+        }, 
+        {
+         "columns":4,
+         "firstgid":299,
+         "image":"tilemaps\/command_board.png",
+         "imageheight":106,
+         "imagewidth":480,
+         "margin":0,
+         "name":"command_board",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":106,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":800,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":800,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":800,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":800,
+                         "tileid":3
+                        }],
+                 "id":0
+                }],
+         "tilewidth":120
+        }, 
+        {
+         "columns":4,
+         "firstgid":303,
+         "image":"tilemaps\/shelf_object.png",
+         "imageheight":40,
+         "imagewidth":132,
+         "margin":0,
+         "name":"shelf_object",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":40,
+         "tilewidth":33
+        }, 
+        {
+         "columns":1,
+         "firstgid":307,
+         "image":"tilemaps\/aeration_grid.png",
+         "imageheight":29,
+         "imagewidth":54,
+         "margin":0,
+         "name":"aeration_grid",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":29,
+         "tilewidth":54,
+         "transparentcolor":"#ffffff"
+        }, 
+        {
+         "columns":1,
+         "firstgid":308,
+         "image":"tilemaps\/semicircle_floor.png",
+         "imageheight":37,
+         "imagewidth":72,
+         "margin":0,
+         "name":"semicircle_floor",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":37,
+         "tilewidth":72
+        }, 
+        {
+         "columns":2,
+         "firstgid":309,
+         "image":"tilemaps\/floor_lamp_bridge.png",
+         "imageheight":92,
+         "imagewidth":192,
+         "margin":0,
+         "name":"floor_lamp_bridge",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":79,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":5,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":5,
+                         "tileid":1
+                        }],
+                 "id":0
+                }],
+         "tilewidth":96
         },
+    
         {
-          "gid": 20,
-          "height": 36,
-          "id": 10,
-          "name": "bridge_front_alpha_turret",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 3
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 32
-            }
-          ],
-          "rotation": 0,
-          "type": "door_ground",
-          "visible": true,
-          "width": 64,
-          "x": 174,
-          "y": 14
-        }
-      ],
-      "opacity": 1,
-      "type": "objectgroup",
-      "visible": true,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "data": [
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 267, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      ],
-      "height": 16,
-      "id": 2,
-      "name": "wall",
-      "opacity": 1,
-      "properties": [
+         "columns":7,
+         "firstgid":311,
+         "image":"tilemaps\/comms_center2.png",
+         "imageheight":61,
+         "imagewidth":602,
+         "margin":0,
+         "name":"comms_center2",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":7,
+         "tileheight":61,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":200,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":5
+                        }],
+                 "id":0
+                }],
+         "tilewidth":86
+        }, 
         {
-          "name": "depth",
-          "type": "int",
-          "value": 5
-        }
-      ],
-      "type": "tilelayer",
-      "visible": true,
-      "width": 15,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "data": [
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      ],
-      "height": 16,
-      "id": 9,
-      "name": "ground",
-      "opacity": 1,
-      "properties": [
+         "columns":1,
+         "firstgid":318,
+         "image":"tilemaps\/cockpit_window.png",
+         "imageheight":166,
+         "imagewidth":205,
+         "margin":0,
+         "name":"cockpit_window",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":166,
+         "tilewidth":205
+        }, 
         {
-          "name": "depth",
-          "type": "int",
-          "value": 6
-        },
+         "columns":8,
+         "firstgid":319,
+         "image":"tilemaps\/scanner.png",
+         "imageheight":142,
+         "imagewidth":480,
+         "margin":0,
+         "name":"scanner",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":71,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":200,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":7
+                        }],
+                 "id":0
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":200,
+                         "tileid":8
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":9
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":10
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":11
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":12
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":13
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":14
+                        }, 
+                        {
+                         "duration":200,
+                         "tileid":15
+                        }],
+                 "id":8
+                }],
+         "tilewidth":60
+        }, 
         {
-          "name": "walkingDepth",
-          "type": "int",
-          "value": 20
-        }
-      ],
-      "type": "tilelayer",
-      "visible": true,
-      "width": 15,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "data": [
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 237, 239, 237, 239, 237, 239, 237, 247, 246, 238, 0, 0,
-        0, 0, 0, 236, 238, 236, 238, 236, 238, 236, 247, 246, 238, 0, 0,
-        0, 0, 0, 238, 238, 239, 239, 241, 243, 237, 247, 246, 239, 0, 0,
-        0, 0, 0, 238, 238, 238, 238, 240, 242, 236, 247, 246, 238, 0, 0,
-        0, 0, 0, 256, 256, 256, 239, 237, 239, 237, 247, 246, 243, 0, 0,
-        0, 0, 0, 256, 256, 256, 238, 236, 238, 236, 247, 250, 245, 0, 0,
-        0, 0, 0, 256, 256, 256, 238, 237, 239, 237, 247, 249, 244, 0, 0,
-        0, 0, 0, 256, 256, 256, 238, 236, 238, 236, 247, 246, 238, 0, 0,
-        0, 0, 0, 237, 239, 241, 243, 237, 239, 237, 247, 246, 243, 0, 0,
-        0, 0, 0, 236, 238, 240, 242, 236, 238, 236, 247, 246, 242, 0, 0,
-        0, 0, 0, 237, 239, 237, 239, 237, 239, 237, 247, 246, 239, 0, 0,
-        0, 0, 0, 236, 238, 236, 238, 236, 238, 236, 247, 246, 238, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      ],
-      "height": 16,
-      "id": 1,
-      "name": "ground",
-      "opacity": 1,
-      "properties": [
+         "columns":2,
+         "firstgid":335,
+         "image":"tilemaps\/semi_circle_lamp.png",
+         "imageheight":51,
+         "imagewidth":208,
+         "margin":0,
+         "name":"semi_circle_lamp",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":51,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":50,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":50,
+                         "tileid":1
+                        }],
+                 "id":0
+                }],
+         "tilewidth":104
+        }, 
         {
-          "name": "depth",
-          "type": "int",
-          "value": 7
-        },
+         "columns":7,
+         "firstgid":337,
+         "image":"tilemaps\/chair_object.png",
+         "imageheight":72,
+         "imagewidth":238,
+         "margin":0,
+         "name":"chair_object",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":14,
+         "tileheight":36,
+         "tilewidth":34
+        }, 
         {
-          "name": "walkingDepth",
-          "type": "int",
-          "value": 21
-        }
-      ],
-      "type": "tilelayer",
-      "visible": true,
-      "width": 15,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "draworder": "index",
-      "id": 5,
-      "name": "objects",
-      "objects": [
+         "columns":5,
+         "firstgid":351,
+         "image":"tilemaps\/sofa_asset.png",
+         "imageheight":188,
+         "imagewidth":310,
+         "margin":0,
+         "name":"sofa_asset",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":20,
+         "tileheight":47,
+         "tilewidth":62
+        }, 
         {
-          "gid": 318,
-          "height": 166,
-          "id": 31,
-          "name": "cockpit_window",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 1
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 205,
-          "x": 15.25,
-          "y": 92.75
-        },
-        {
-          "gid": 299,
-          "height": 106,
-          "id": 8,
-          "name": "command_board",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 120,
-          "x": 80.5,
-          "y": 5.5
-        },
-        {
-          "gid": 276,
-          "height": 48,
-          "id": 26,
-          "name": "communication_center_deo",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 16
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 24
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 64,
-          "x": 16.5,
-          "y": 31.5
-        },
-        {
-          "gid": 284,
-          "height": 52,
-          "id": 5,
-          "name": "command_terminal",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 2
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 94,
-          "x": -2,
-          "y": 104
-        },
-        {
-          "gid": 25,
-          "height": 36,
-          "id": 11,
-          "name": "front_corridor_bridge",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 10
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 32
-            }
-          ],
-          "rotation": 0,
-          "type": "door_ground",
-          "visible": true,
-          "width": 64,
-          "x": 221,
-          "y": 125
-        },
-        {
-          "gid": 15,
-          "height": 36,
-          "id": 12,
-          "name": "bridge_front_bravo_turret",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 10
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 32
-            }
-          ],
-          "rotation": 0,
-          "type": "door_ground",
-          "visible": true,
-          "width": 64,
-          "x": 174,
-          "y": 236
-        },
-        {
-          "gid": 306,
-          "height": 40,
-          "id": 13,
-          "name": "shelf",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 16
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 16
-            }
-          ],
-          "rotation": 0,
-          "type": "shelf",
-          "visible": true,
-          "width": 33,
-          "x": 184.25,
-          "y": 71.75
-        },
-        {
-          "gid": 257,
-          "height": 15,
-          "id": 14,
-          "name": "wall_box",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 14,
-          "x": 159,
-          "y": -8
-        },
-        {
-          "gid": 307,
-          "height": 29,
-          "id": 15,
-          "name": "aeration4",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 8
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 54,
-          "x": 132,
-          "y": 35
-        },
-        {
-          "gid": 307,
-          "height": 29,
-          "id": 16,
-          "name": "aeration3",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 8
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 54,
-          "x": 68,
-          "y": 35
-        },
-        {
-          "gid": 307,
-          "height": 29,
-          "id": 17,
-          "name": "aeration2",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 8
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 54,
-          "x": 68,
-          "y": 211
-        },
-        {
-          "gid": 307,
-          "height": 29,
-          "id": 18,
-          "name": "aeration1",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 8
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 54,
-          "x": 132,
-          "y": 211
-        },
-        {
-          "gid": 1,
-          "height": 17,
-          "id": 19,
-          "name": "camera_equipment",
-          "properties": [
-            {
-              "name": "animationYoyo",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 5
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 16
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 16
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 25,
-          "x": 112.75,
-          "y": -7.75
-        },
-        {
-          "gid": 335,
-          "height": 51,
-          "id": 28,
-          "name": "semi_circle_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 8
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 104,
-          "x": 96.5,
-          "y": 122.5
-        },
-        {
-          "gid": 308,
-          "height": 37,
-          "id": 27,
-          "name": "semicircle_floor",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 8
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 72,
-          "x": 25.5,
-          "y": 119.5
-        },
-        {
-          "gid": 341,
-          "height": 36,
-          "id": 41,
-          "name": "communication_center",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 12
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 12
-            },
-            {
-              "name": "sitAnimation",
-              "type": "string",
-              "value": "sit_front"
-            },
-            {
-              "name": "sitAutoTrigger",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "sitDepth",
-              "type": "int",
-              "value": 1
-            },
-            {
-              "name": "sitFlip",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "sitX",
-              "type": "float",
-              "value": 0
-            },
-            {
-              "name": "sitY",
-              "type": "float",
-              "value": 0
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 34,
-          "x": 54.5,
-          "y": 49.5
-        },
-        {
-          "gid": 311,
-          "height": 61,
-          "id": 30,
-          "name": "communication_center",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 60
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 16
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 86,
-          "x": 52,
-          "y": 71
-        },
-        {
-          "gid": 309,
-          "height": 79,
-          "id": 29,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 9
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 96,
-          "x": 52.5,
-          "y": 100.5
-        },
-        {
-          "gid": 275,
-          "height": 46,
-          "id": 3,
-          "name": "astro_terminal",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 40
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 16
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 52,
-          "x": 60.5,
-          "y": 151.5
-        },
-        {
-          "gid": 319,
-          "height": 71,
-          "id": 34,
-          "name": "astro_terminal_deco",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 16
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 24
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 60,
-          "x": 14,
-          "y": 169
-        },
-        {
-          "gid": 289,
-          "height": 72,
-          "id": 6,
-          "name": "astro_terminal",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoShiftHitboxX",
-              "type": "int",
-              "value": -12
-            },
-            {
-              "name": "isoShiftHitboxY",
-              "type": "int",
-              "value": -20
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 24
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 24
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 77,
-          "x": 22.75,
-          "y": 161.25
-        },
-        {
-          "gid": 350,
-          "height": 36,
-          "id": 39,
-          "name": "command_terminal",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 12
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 12
-            },
-            {
-              "name": "sitAnimation",
-              "type": "string",
-              "value": "sit_back"
-            },
-            {
-              "name": "sitAutoTrigger",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "sitDepth",
-              "type": "int",
-              "value": 1
-            },
-            {
-              "name": "sitFlip",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "sitX",
-              "type": "float",
-              "value": -10
-            },
-            {
-              "name": "sitY",
-              "type": "float",
-              "value": -6
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 34,
-          "x": 10.5,
-          "y": 99.5
-        },
-        {
-          "gid": 342,
-          "height": 36,
-          "id": 40,
-          "name": "astro_terminal",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 12
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 12
-            },
-            {
-              "name": "sitAnimation",
-              "type": "string",
-              "value": "sit_back"
-            },
-            {
-              "name": "sitAutoTrigger",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "sitDepth",
-              "type": "int",
-              "value": 1
-            },
-            {
-              "name": "sitFlip",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "sitX",
-              "type": "float",
-              "value": -6
-            },
-            {
-              "name": "sitY",
-              "type": "float",
-              "value": -10
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 34,
-          "x": 56,
-          "y": 168
-        },
-        {
-          "gid": 354,
-          "height": 47,
-          "id": 43,
-          "name": "swedish_sofa",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoShiftHitboxX",
-              "type": "int",
-              "value": -6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 44
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 16
-            },
-            {
-              "name": "sitAnimation",
-              "type": "string",
-              "value": "lie_down"
-            },
-            {
-              "name": "sitAutoTrigger",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "sitDepth",
-              "type": "int",
-              "value": 1
-            },
-            {
-              "name": "sitFlip",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "sitX",
-              "type": "float",
-              "value": 2
-            },
-            {
-              "name": "sitY",
-              "type": "float",
-              "value": -2
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 62,
-          "x": 108.5,
-          "y": 28.5
-        },
-        {
-          "gid": 359,
-          "height": 47,
-          "id": 44,
-          "name": "swedish_sofa",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoShiftHitboxX",
-              "type": "int",
-              "value": 8
-            },
-            {
-              "name": "isoShiftHitboxY",
-              "type": "int",
-              "value": -10
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 3
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 16
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 62,
-          "x": 108.5,
-          "y": 28.5
-        }
-      ],
-      "opacity": 1,
-      "type": "objectgroup",
-      "visible": true,
-      "x": 0,
-      "y": 0
-    }
-  ],
-  "nextlayerid": 11,
-  "nextobjectid": 45,
-  "orientation": "isometric",
-  "renderorder": "right-down",
-  "tiledversion": "git",
-  "tileheight": 16,
-  "tilesets": [
-    {
-      "columns": 14,
-      "firstgid": 1,
-      "image": "tilemaps\/camera_object.png",
-      "imageheight": 17,
-      "imagewidth": 350,
-      "margin": 0,
-      "name": "camera_object",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 14,
-      "tileheight": 17,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 300,
-              "tileid": 0
-            },
-            {
-              "duration": 300,
-              "tileid": 1
-            },
-            {
-              "duration": 300,
-              "tileid": 2
-            },
-            {
-              "duration": 300,
-              "tileid": 3
-            },
-            {
-              "duration": 300,
-              "tileid": 4
-            },
-            {
-              "duration": 300,
-              "tileid": 5
-            },
-            {
-              "duration": 300,
-              "tileid": 6
-            },
-            {
-              "duration": 300,
-              "tileid": 7
-            },
-            {
-              "duration": 300,
-              "tileid": 8
-            },
-            {
-              "duration": 300,
-              "tileid": 9
-            },
-            {
-              "duration": 300,
-              "tileid": 10
-            },
-            {
-              "duration": 300,
-              "tileid": 11
-            },
-            {
-              "duration": 300,
-              "tileid": 12
-            },
-            {
-              "duration": 300,
-              "tileid": 13
-            },
-            {
-              "duration": 300,
-              "tileid": 12
-            },
-            {
-              "duration": 300,
-              "tileid": 11
-            },
-            {
-              "duration": 300,
-              "tileid": 10
-            },
-            {
-              "duration": 300,
-              "tileid": 9
-            },
-            {
-              "duration": 300,
-              "tileid": 8
-            },
-            {
-              "duration": 300,
-              "tileid": 7
-            },
-            {
-              "duration": 300,
-              "tileid": 6
-            },
-            {
-              "duration": 300,
-              "tileid": 5
-            },
-            {
-              "duration": 300,
-              "tileid": 4
-            },
-            {
-              "duration": 300,
-              "tileid": 3
-            },
-            {
-              "duration": 300,
-              "tileid": 2
-            },
-            {
-              "duration": 300,
-              "tileid": 1
-            },
-            {
-              "duration": 300,
-              "tileid": 0
-            }
-          ],
-          "id": 0
-        }
-      ],
-      "tilewidth": 25
-    },
-    {
-      "columns": 5,
-      "firstgid": 15,
-      "grid": {
-        "height": 36,
-        "orientation": "isometric",
-        "width": 64
-      },
-      "image": "tilemaps\/door_ground_tileset.png",
-      "imageheight": 144,
-      "imagewidth": 320,
-      "margin": 0,
-      "name": "door_ground_tileset",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 20,
-      "tileheight": 36,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 0
-            },
-            {
-              "duration": 100,
-              "tileid": 1
-            },
-            {
-              "duration": 100,
-              "tileid": 2
-            },
-            {
-              "duration": 100,
-              "tileid": 3
-            },
-            {
-              "duration": 100,
-              "tileid": 4
-            }
-          ],
-          "id": 0
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 5
-            },
-            {
-              "duration": 100,
-              "tileid": 6
-            },
-            {
-              "duration": 100,
-              "tileid": 7
-            },
-            {
-              "duration": 100,
-              "tileid": 8
-            },
-            {
-              "duration": 100,
-              "tileid": 9
-            }
-          ],
-          "id": 5
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 10
-            },
-            {
-              "duration": 100,
-              "tileid": 11
-            },
-            {
-              "duration": 100,
-              "tileid": 12
-            },
-            {
-              "duration": 100,
-              "tileid": 13
-            },
-            {
-              "duration": 100,
-              "tileid": 14
-            }
-          ],
-          "id": 10
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 15
-            },
-            {
-              "duration": 100,
-              "tileid": 16
-            },
-            {
-              "duration": 100,
-              "tileid": 17
-            },
-            {
-              "duration": 100,
-              "tileid": 18
-            },
-            {
-              "duration": 100,
-              "tileid": 19
-            }
-          ],
-          "id": 15
-        }
-      ],
-      "tilewidth": 64
-    },
-    {
-      "columns": 24,
-      "firstgid": 35,
-      "grid": {
-        "height": 73,
-        "orientation": "isometric",
-        "width": 48
-      },
-      "image": "tilemaps\/door_object.png",
-      "imageheight": 584,
-      "imagewidth": 1152,
-      "margin": 0,
-      "name": "door_object",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 192,
-      "tileheight": 73,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 0
-            },
-            {
-              "duration": 100,
-              "tileid": 1
-            },
-            {
-              "duration": 100,
-              "tileid": 2
-            },
-            {
-              "duration": 100,
-              "tileid": 3
-            },
-            {
-              "duration": 100,
-              "tileid": 4
-            },
-            {
-              "duration": 100,
-              "tileid": 5
-            },
-            {
-              "duration": 100,
-              "tileid": 6
-            },
-            {
-              "duration": 100,
-              "tileid": 7
-            },
-            {
-              "duration": 100,
-              "tileid": 8
-            },
-            {
-              "duration": 100,
-              "tileid": 9
-            },
-            {
-              "duration": 100,
-              "tileid": 10
-            },
-            {
-              "duration": 100,
-              "tileid": 11
-            },
-            {
-              "duration": 100,
-              "tileid": 12
-            },
-            {
-              "duration": 100,
-              "tileid": 13
-            },
-            {
-              "duration": 100,
-              "tileid": 14
-            },
-            {
-              "duration": 100,
-              "tileid": 15
-            },
-            {
-              "duration": 100,
-              "tileid": 16
-            },
-            {
-              "duration": 100,
-              "tileid": 17
-            },
-            {
-              "duration": 100,
-              "tileid": 18
-            },
-            {
-              "duration": 100,
-              "tileid": 19
-            },
-            {
-              "duration": 100,
-              "tileid": 20
-            },
-            {
-              "duration": 100,
-              "tileid": 21
-            },
-            {
-              "duration": 100,
-              "tileid": 22
-            },
-            {
-              "duration": 100,
-              "tileid": 23
-            }
-          ],
-          "id": 0
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 24
-            },
-            {
-              "duration": 100,
-              "tileid": 25
-            },
-            {
-              "duration": 100,
-              "tileid": 26
-            },
-            {
-              "duration": 100,
-              "tileid": 27
-            },
-            {
-              "duration": 100,
-              "tileid": 28
-            },
-            {
-              "duration": 100,
-              "tileid": 29
-            },
-            {
-              "duration": 100,
-              "tileid": 30
-            },
-            {
-              "duration": 100,
-              "tileid": 31
-            },
-            {
-              "duration": 100,
-              "tileid": 32
-            },
-            {
-              "duration": 100,
-              "tileid": 33
-            },
-            {
-              "duration": 100,
-              "tileid": 34
-            },
-            {
-              "duration": 100,
-              "tileid": 35
-            },
-            {
-              "duration": 100,
-              "tileid": 36
-            },
-            {
-              "duration": 100,
-              "tileid": 37
-            },
-            {
-              "duration": 100,
-              "tileid": 38
-            },
-            {
-              "duration": 100,
-              "tileid": 39
-            },
-            {
-              "duration": 100,
-              "tileid": 40
-            },
-            {
-              "duration": 100,
-              "tileid": 41
-            },
-            {
-              "duration": 100,
-              "tileid": 42
-            },
-            {
-              "duration": 100,
-              "tileid": 43
-            },
-            {
-              "duration": 100,
-              "tileid": 44
-            },
-            {
-              "duration": 100,
-              "tileid": 45
-            },
-            {
-              "duration": 100,
-              "tileid": 46
-            },
-            {
-              "duration": 100,
-              "tileid": 47
-            }
-          ],
-          "id": 24
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 48
-            },
-            {
-              "duration": 100,
-              "tileid": 49
-            },
-            {
-              "duration": 100,
-              "tileid": 50
-            },
-            {
-              "duration": 100,
-              "tileid": 51
-            },
-            {
-              "duration": 100,
-              "tileid": 52
-            },
-            {
-              "duration": 100,
-              "tileid": 53
-            },
-            {
-              "duration": 100,
-              "tileid": 54
-            },
-            {
-              "duration": 100,
-              "tileid": 55
-            },
-            {
-              "duration": 100,
-              "tileid": 56
-            },
-            {
-              "duration": 100,
-              "tileid": 57
-            },
-            {
-              "duration": 100,
-              "tileid": 58
-            },
-            {
-              "duration": 100,
-              "tileid": 59
-            },
-            {
-              "duration": 100,
-              "tileid": 60
-            },
-            {
-              "duration": 100,
-              "tileid": 61
-            },
-            {
-              "duration": 100,
-              "tileid": 62
-            },
-            {
-              "duration": 100,
-              "tileid": 63
-            },
-            {
-              "duration": 100,
-              "tileid": 64
-            },
-            {
-              "duration": 100,
-              "tileid": 65
-            },
-            {
-              "duration": 100,
-              "tileid": 66
-            },
-            {
-              "duration": 100,
-              "tileid": 67
-            },
-            {
-              "duration": 100,
-              "tileid": 68
-            },
-            {
-              "duration": 100,
-              "tileid": 69
-            },
-            {
-              "duration": 100,
-              "tileid": 70
-            },
-            {
-              "duration": 100,
-              "tileid": 71
-            }
-          ],
-          "id": 48
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 72
-            },
-            {
-              "duration": 100,
-              "tileid": 73
-            },
-            {
-              "duration": 100,
-              "tileid": 74
-            },
-            {
-              "duration": 100,
-              "tileid": 75
-            },
-            {
-              "duration": 100,
-              "tileid": 76
-            },
-            {
-              "duration": 100,
-              "tileid": 77
-            },
-            {
-              "duration": 100,
-              "tileid": 78
-            },
-            {
-              "duration": 100,
-              "tileid": 79
-            },
-            {
-              "duration": 100,
-              "tileid": 80
-            },
-            {
-              "duration": 100,
-              "tileid": 81
-            },
-            {
-              "duration": 100,
-              "tileid": 82
-            },
-            {
-              "duration": 100,
-              "tileid": 83
-            },
-            {
-              "duration": 100,
-              "tileid": 84
-            },
-            {
-              "duration": 100,
-              "tileid": 85
-            },
-            {
-              "duration": 100,
-              "tileid": 86
-            },
-            {
-              "duration": 100,
-              "tileid": 87
-            },
-            {
-              "duration": 100,
-              "tileid": 88
-            },
-            {
-              "duration": 100,
-              "tileid": 89
-            },
-            {
-              "duration": 100,
-              "tileid": 90
-            },
-            {
-              "duration": 100,
-              "tileid": 91
-            },
-            {
-              "duration": 100,
-              "tileid": 92
-            },
-            {
-              "duration": 100,
-              "tileid": 93
-            },
-            {
-              "duration": 100,
-              "tileid": 94
-            },
-            {
-              "duration": 100,
-              "tileid": 95
-            }
-          ],
-          "id": 72
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 96
-            },
-            {
-              "duration": 100,
-              "tileid": 97
-            },
-            {
-              "duration": 100,
-              "tileid": 98
-            },
-            {
-              "duration": 100,
-              "tileid": 99
-            },
-            {
-              "duration": 100,
-              "tileid": 100
-            },
-            {
-              "duration": 100,
-              "tileid": 101
-            },
-            {
-              "duration": 100,
-              "tileid": 102
-            },
-            {
-              "duration": 100,
-              "tileid": 103
-            },
-            {
-              "duration": 100,
-              "tileid": 104
-            },
-            {
-              "duration": 100,
-              "tileid": 105
-            },
-            {
-              "duration": 100,
-              "tileid": 106
-            },
-            {
-              "duration": 100,
-              "tileid": 107
-            },
-            {
-              "duration": 100,
-              "tileid": 108
-            },
-            {
-              "duration": 100,
-              "tileid": 109
-            },
-            {
-              "duration": 100,
-              "tileid": 110
-            },
-            {
-              "duration": 100,
-              "tileid": 111
-            },
-            {
-              "duration": 100,
-              "tileid": 112
-            },
-            {
-              "duration": 100,
-              "tileid": 113
-            },
-            {
-              "duration": 100,
-              "tileid": 114
-            },
-            {
-              "duration": 100,
-              "tileid": 115
-            },
-            {
-              "duration": 100,
-              "tileid": 116
-            },
-            {
-              "duration": 100,
-              "tileid": 117
-            },
-            {
-              "duration": 100,
-              "tileid": 118
-            },
-            {
-              "duration": 100,
-              "tileid": 119
-            }
-          ],
-          "id": 96
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 120
-            },
-            {
-              "duration": 100,
-              "tileid": 121
-            },
-            {
-              "duration": 100,
-              "tileid": 122
-            },
-            {
-              "duration": 100,
-              "tileid": 123
-            },
-            {
-              "duration": 100,
-              "tileid": 124
-            },
-            {
-              "duration": 100,
-              "tileid": 125
-            },
-            {
-              "duration": 100,
-              "tileid": 126
-            },
-            {
-              "duration": 100,
-              "tileid": 127
-            },
-            {
-              "duration": 100,
-              "tileid": 128
-            },
-            {
-              "duration": 100,
-              "tileid": 129
-            },
-            {
-              "duration": 100,
-              "tileid": 130
-            },
-            {
-              "duration": 100,
-              "tileid": 131
-            },
-            {
-              "duration": 100,
-              "tileid": 132
-            },
-            {
-              "duration": 100,
-              "tileid": 133
-            },
-            {
-              "duration": 100,
-              "tileid": 134
-            },
-            {
-              "duration": 100,
-              "tileid": 135
-            },
-            {
-              "duration": 100,
-              "tileid": 136
-            },
-            {
-              "duration": 100,
-              "tileid": 137
-            },
-            {
-              "duration": 100,
-              "tileid": 138
-            },
-            {
-              "duration": 100,
-              "tileid": 139
-            },
-            {
-              "duration": 100,
-              "tileid": 140
-            },
-            {
-              "duration": 100,
-              "tileid": 141
-            },
-            {
-              "duration": 100,
-              "tileid": 142
-            },
-            {
-              "duration": 100,
-              "tileid": 143
-            }
-          ],
-          "id": 120
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 144
-            },
-            {
-              "duration": 100,
-              "tileid": 145
-            },
-            {
-              "duration": 100,
-              "tileid": 146
-            },
-            {
-              "duration": 100,
-              "tileid": 147
-            },
-            {
-              "duration": 100,
-              "tileid": 148
-            },
-            {
-              "duration": 100,
-              "tileid": 149
-            },
-            {
-              "duration": 100,
-              "tileid": 150
-            },
-            {
-              "duration": 100,
-              "tileid": 151
-            },
-            {
-              "duration": 100,
-              "tileid": 152
-            },
-            {
-              "duration": 100,
-              "tileid": 153
-            },
-            {
-              "duration": 100,
-              "tileid": 154
-            },
-            {
-              "duration": 100,
-              "tileid": 155
-            },
-            {
-              "duration": 100,
-              "tileid": 156
-            },
-            {
-              "duration": 100,
-              "tileid": 157
-            },
-            {
-              "duration": 100,
-              "tileid": 158
-            },
-            {
-              "duration": 100,
-              "tileid": 159
-            },
-            {
-              "duration": 100,
-              "tileid": 160
-            },
-            {
-              "duration": 100,
-              "tileid": 161
-            },
-            {
-              "duration": 100,
-              "tileid": 162
-            },
-            {
-              "duration": 100,
-              "tileid": 163
-            },
-            {
-              "duration": 100,
-              "tileid": 164
-            },
-            {
-              "duration": 100,
-              "tileid": 165
-            },
-            {
-              "duration": 100,
-              "tileid": 166
-            },
-            {
-              "duration": 100,
-              "tileid": 167
-            }
-          ],
-          "id": 144
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 168
-            },
-            {
-              "duration": 100,
-              "tileid": 169
-            },
-            {
-              "duration": 100,
-              "tileid": 170
-            },
-            {
-              "duration": 100,
-              "tileid": 171
-            },
-            {
-              "duration": 100,
-              "tileid": 172
-            },
-            {
-              "duration": 100,
-              "tileid": 173
-            },
-            {
-              "duration": 100,
-              "tileid": 174
-            },
-            {
-              "duration": 100,
-              "tileid": 175
-            },
-            {
-              "duration": 100,
-              "tileid": 176
-            },
-            {
-              "duration": 100,
-              "tileid": 177
-            },
-            {
-              "duration": 100,
-              "tileid": 178
-            },
-            {
-              "duration": 100,
-              "tileid": 179
-            },
-            {
-              "duration": 100,
-              "tileid": 180
-            },
-            {
-              "duration": 100,
-              "tileid": 181
-            },
-            {
-              "duration": 100,
-              "tileid": 182
-            },
-            {
-              "duration": 100,
-              "tileid": 183
-            },
-            {
-              "duration": 100,
-              "tileid": 184
-            },
-            {
-              "duration": 100,
-              "tileid": 185
-            },
-            {
-              "duration": 100,
-              "tileid": 186
-            },
-            {
-              "duration": 100,
-              "tileid": 187
-            },
-            {
-              "duration": 100,
-              "tileid": 188
-            },
-            {
-              "duration": 100,
-              "tileid": 189
-            },
-            {
-              "duration": 100,
-              "tileid": 190
-            },
-            {
-              "duration": 100,
-              "tileid": 191
-            }
-          ],
-          "id": 168
-        }
-      ],
-      "tilewidth": 48
-    },
-    {
-      "columns": 30,
-      "firstgid": 227,
-      "grid": {
-        "height": 72,
-        "orientation": "isometric",
-        "width": 32
-      },
-      "image": "tilemaps\/ground_tileset.png",
-      "imageheight": 72,
-      "imagewidth": 960,
-      "margin": 0,
-      "name": "ground_tileset",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 30,
-      "tileheight": 72,
-      "tilewidth": 32
-    },
-    {
-      "columns": 4,
-      "firstgid": 257,
-      "image": "tilemaps\/wall_box.png",
-      "imageheight": 15,
-      "imagewidth": 56,
-      "margin": 0,
-      "name": "wall_box",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 4,
-      "tileheight": 15,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 1500,
-              "tileid": 0
-            },
-            {
-              "duration": 1500,
-              "tileid": 1
-            }
-          ],
-          "id": 0
-        },
-        {
-          "animation": [
-            {
-              "duration": 1500,
-              "tileid": 2
-            },
-            {
-              "duration": 1500,
-              "tileid": 3
-            }
-          ],
-          "id": 2
-        }
-      ],
-      "tilewidth": 14
-    },
-    {
-      "columns": 14,
-      "firstgid": 261,
-      "grid": {
-        "height": 72,
-        "orientation": "isometric",
-        "width": 32
-      },
-      "image": "tilemaps\/wall_tileset.png",
-      "imageheight": 72,
-      "imagewidth": 448,
-      "margin": 0,
-      "name": "wall_tileset",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 14,
-      "tileheight": 72,
-      "tilewidth": 32
-    },
-    {
-      "columns": 1,
-      "firstgid": 275,
-      "image": "tilemaps\/astro_terminal2.png",
-      "imageheight": 46,
-      "imagewidth": 52,
-      "margin": 0,
-      "name": "astro_terminal2",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 1,
-      "tileheight": 46,
-      "tilewidth": 52
-    },
-    {
-      "columns": 8,
-      "firstgid": 276,
-      "image": "tilemaps\/comms_center.png",
-      "imageheight": 48,
-      "imagewidth": 512,
-      "margin": 0,
-      "name": "comms_center",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 8,
-      "tileheight": 48,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 200,
-              "tileid": 0
-            },
-            {
-              "duration": 200,
-              "tileid": 1
-            },
-            {
-              "duration": 200,
-              "tileid": 2
-            },
-            {
-              "duration": 200,
-              "tileid": 3
-            },
-            {
-              "duration": 200,
-              "tileid": 4
-            },
-            {
-              "duration": 200,
-              "tileid": 5
-            },
-            {
-              "duration": 200,
-              "tileid": 6
-            },
-            {
-              "duration": 200,
-              "tileid": 7
-            }
-          ],
-          "id": 0
-        }
-      ],
-      "tilewidth": 64
-    },
-    {
-      "columns": 5,
-      "firstgid": 284,
-      "image": "tilemaps\/command_terminal.png",
-      "imageheight": 52,
-      "imagewidth": 470,
-      "margin": 0,
-      "name": "command_terminal",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 5,
-      "tileheight": 52,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 1500,
-              "tileid": 0
-            },
-            {
-              "duration": 1500,
-              "tileid": 1
-            },
-            {
-              "duration": 1500,
-              "tileid": 2
-            },
-            {
-              "duration": 1500,
-              "tileid": 3
-            },
-            {
-              "duration": 1500,
-              "tileid": 4
-            }
-          ],
-          "id": 0
-        }
-      ],
-      "tilewidth": 94
-    },
-    {
-      "columns": 5,
-      "firstgid": 289,
-      "image": "tilemaps\/astro_terminal.png",
-      "imageheight": 144,
-      "imagewidth": 385,
-      "margin": 0,
-      "name": "astro_terminal",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 10,
-      "tileheight": 72,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 150,
-              "tileid": 0
-            },
-            {
-              "duration": 150,
-              "tileid": 1
-            },
-            {
-              "duration": 150,
-              "tileid": 2
-            },
-            {
-              "duration": 150,
-              "tileid": 3
-            },
-            {
-              "duration": 150,
-              "tileid": 4
-            },
-            {
-              "duration": 150,
-              "tileid": 5
-            },
-            {
-              "duration": 150,
-              "tileid": 6
-            },
-            {
-              "duration": 150,
-              "tileid": 7
-            },
-            {
-              "duration": 150,
-              "tileid": 8
-            },
-            {
-              "duration": 150,
-              "tileid": 9
-            }
-          ],
-          "id": 0
-        }
-      ],
-      "tilewidth": 77
-    },
-    {
-      "columns": 4,
-      "firstgid": 299,
-      "image": "tilemaps\/command_board.png",
-      "imageheight": 106,
-      "imagewidth": 480,
-      "margin": 0,
-      "name": "command_board",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 4,
-      "tileheight": 106,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 800,
-              "tileid": 0
-            },
-            {
-              "duration": 800,
-              "tileid": 1
-            },
-            {
-              "duration": 800,
-              "tileid": 2
-            },
-            {
-              "duration": 800,
-              "tileid": 3
-            }
-          ],
-          "id": 0
-        }
-      ],
-      "tilewidth": 120
-    },
-    {
-      "columns": 4,
-      "firstgid": 303,
-      "image": "tilemaps\/shelf_object.png",
-      "imageheight": 40,
-      "imagewidth": 132,
-      "margin": 0,
-      "name": "shelf_object",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 4,
-      "tileheight": 40,
-      "tilewidth": 33
-    },
-    {
-      "columns": 1,
-      "firstgid": 307,
-      "image": "tilemaps\/aeration_grid.png",
-      "imageheight": 29,
-      "imagewidth": 54,
-      "margin": 0,
-      "name": "aeration_grid",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 1,
-      "tileheight": 29,
-      "tilewidth": 54,
-      "transparentcolor": "#ffffff"
-    },
-    {
-      "columns": 1,
-      "firstgid": 308,
-      "image": "tilemaps\/semicircle_floor.png",
-      "imageheight": 37,
-      "imagewidth": 72,
-      "margin": 0,
-      "name": "semicircle_floor",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 1,
-      "tileheight": 37,
-      "tilewidth": 72
-    },
-    {
-      "columns": 2,
-      "firstgid": 309,
-      "image": "tilemaps\/floor_lamp_bridge.png",
-      "imageheight": 92,
-      "imagewidth": 192,
-      "margin": 0,
-      "name": "floor_lamp_bridge",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 2,
-      "tileheight": 79,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 5,
-              "tileid": 0
-            },
-            {
-              "duration": 5,
-              "tileid": 1
-            }
-          ],
-          "id": 0
-        }
-      ],
-      "tilewidth": 96
-    },
-    {
-      "columns": 7,
-      "firstgid": 311,
-      "image": "tilemaps\/comms_center2.png",
-      "imageheight": 61,
-      "imagewidth": 602,
-      "margin": 0,
-      "name": "comms_center2",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 7,
-      "tileheight": 61,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 200,
-              "tileid": 0
-            },
-            {
-              "duration": 200,
-              "tileid": 1
-            },
-            {
-              "duration": 200,
-              "tileid": 2
-            },
-            {
-              "duration": 200,
-              "tileid": 3
-            },
-            {
-              "duration": 200,
-              "tileid": 4
-            },
-            {
-              "duration": 200,
-              "tileid": 5
-            }
-          ],
-          "id": 0
-        }
-      ],
-      "tilewidth": 86
-    },
-    {
-      "columns": 1,
-      "firstgid": 318,
-      "image": "tilemaps\/cockpit_window.png",
-      "imageheight": 166,
-      "imagewidth": 205,
-      "margin": 0,
-      "name": "cockpit_window",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 1,
-      "tileheight": 166,
-      "tilewidth": 205
-    },
-    {
-      "columns": 8,
-      "firstgid": 319,
-      "image": "tilemaps\/scanner.png",
-      "imageheight": 142,
-      "imagewidth": 480,
-      "margin": 0,
-      "name": "scanner",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 16,
-      "tileheight": 71,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 200,
-              "tileid": 0
-            },
-            {
-              "duration": 200,
-              "tileid": 1
-            },
-            {
-              "duration": 200,
-              "tileid": 2
-            },
-            {
-              "duration": 200,
-              "tileid": 3
-            },
-            {
-              "duration": 200,
-              "tileid": 4
-            },
-            {
-              "duration": 200,
-              "tileid": 5
-            },
-            {
-              "duration": 200,
-              "tileid": 6
-            },
-            {
-              "duration": 200,
-              "tileid": 7
-            }
-          ],
-          "id": 0
-        },
-        {
-          "animation": [
-            {
-              "duration": 200,
-              "tileid": 8
-            },
-            {
-              "duration": 200,
-              "tileid": 9
-            },
-            {
-              "duration": 200,
-              "tileid": 10
-            },
-            {
-              "duration": 200,
-              "tileid": 11
-            },
-            {
-              "duration": 200,
-              "tileid": 12
-            },
-            {
-              "duration": 200,
-              "tileid": 13
-            },
-            {
-              "duration": 200,
-              "tileid": 14
-            },
-            {
-              "duration": 200,
-              "tileid": 15
-            }
-          ],
-          "id": 8
-        }
-      ],
-      "tilewidth": 60
-    },
-    {
-      "columns": 2,
-      "firstgid": 335,
-      "image": "tilemaps\/semi_circle_lamp.png",
-      "imageheight": 51,
-      "imagewidth": 208,
-      "margin": 0,
-      "name": "semi_circle_lamp",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 2,
-      "tileheight": 51,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 50,
-              "tileid": 0
-            },
-            {
-              "duration": 50,
-              "tileid": 1
-            }
-          ],
-          "id": 0
-        }
-      ],
-      "tilewidth": 104
-    },
-    {
-      "columns": 7,
-      "firstgid": 337,
-      "image": "tilemaps\/chair_object.png",
-      "imageheight": 72,
-      "imagewidth": 238,
-      "margin": 0,
-      "name": "chair_object",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 14,
-      "tileheight": 36,
-      "tilewidth": 34
-    },
-    {
-      "columns": 5,
-      "firstgid": 351,
-      "image": "tilemaps\/sofa_asset.png",
-      "imageheight": 188,
-      "imagewidth": 310,
-      "margin": 0,
-      "name": "sofa_asset",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 20,
-      "tileheight": 47,
-      "tilewidth": 62
-    }
-  ],
-  "tilewidth": 32,
-  "type": "map",
-  "version": "1.10",
-  "width": 15
+         "columns":1,
+         "firstgid":371,
+         "image":"tilemaps\/jukebox.png",
+         "imageheight":31,
+         "imagewidth":20,
+         "margin":0,
+         "name":"jukebox",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":31,
+         "tilewidth":20
+        }],
+ "tilewidth":32,
+ "type":"map",
+ "version":"1.10",
+ "width":15
 }

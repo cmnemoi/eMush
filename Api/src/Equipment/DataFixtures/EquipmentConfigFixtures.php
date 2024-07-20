@@ -29,6 +29,8 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\EquipmentStatusEnum;
 
 /** @codeCoverageIgnore */
 class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -307,6 +309,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($quantumSensorsPlanetScanner);
 
+        /** @var StatusConfig $jukeboxSongStatus */
+        $jukeboxSongStatus = $this->getReference(EquipmentStatusEnum::JUKEBOX_SONG);
+
         $jukebox = new EquipmentConfig();
         $jukebox
             ->setEquipmentName(EquipmentEnum::JUKEBOX)
@@ -314,6 +319,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
+            ->setInitStatuses([$jukeboxSongStatus])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($jukebox);
 

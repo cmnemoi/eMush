@@ -823,6 +823,39 @@
                  "width":62,
                  "x":116,
                  "y":27
+                }, 
+                {
+                 "gid":313,
+                 "height":31,
+                 "id":18,
+                 "name":"jukebox",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"string",
+                         "value":"5"
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":20,
+                 "x":154.736220470142,
+                 "y":21.5853812867911
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -831,10 +864,10 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":18,
+ "nextobjectid":19,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.10.2",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {
@@ -2069,6 +2102,21 @@
          "tilecount":20,
          "tileheight":47,
          "tilewidth":62
+        },
+    
+        {
+         "columns":1,
+         "firstgid":313,
+         "image":"tilemaps\/jukebox.png",
+         "imageheight":31,
+         "imagewidth":20,
+         "margin":0,
+         "name":"jukebox",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":31,
+         "tilewidth":20
         }],
  "tilewidth":32,
  "type":"map",

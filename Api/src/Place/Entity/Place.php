@@ -23,6 +23,7 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Repository\PlaceRepository;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -101,6 +102,17 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $place;
     }
 
+    public static function createNull(): self
+    {
+        $place = new self();
+        $place
+            ->setName(RoomEnum::null)
+            ->setType('');
+        (new \ReflectionProperty($place, 'id'))->setValue($place, 0);
+
+        return $place;
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -151,6 +163,11 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         }
 
         return $this->players;
+    }
+
+    public function getPlayerByName(string $name): Player
+    {
+        return $this->getPlayers()->getPlayerByName($name) ?: Player::createNull();
     }
 
     /** /!\ Do not use this method if you want the number of players ALIVE ! Use `$place->getNumberOfPlayersAlive()` instead. /!\ */

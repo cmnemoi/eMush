@@ -130,6 +130,12 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'quantity' => 1,
                 'creationPlaces' => [RoomEnum::HYDROPONIC_GARDEN],
             ],
+            [
+                'project' => ProjectName::BEAT_BOX->value,
+                'equipment' => 'blueprint',
+                'quantity' => 1,
+                'creationPlaces' => [RoomEnum::NEXUS],
+            ],
         ];
     }
 

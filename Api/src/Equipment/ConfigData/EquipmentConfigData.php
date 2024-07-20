@@ -2757,7 +2757,9 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [],
-            'initStatuses' => [],
+            'initStatuses' => [
+                EquipmentStatusEnum::JUKEBOX_SONG . '_default',
+            ],
         ],
         [
             'name' => 'emergency_reactor_default',
@@ -3957,6 +3959,27 @@ class EquipmentConfigData
             ],
             'mechanics' => [
                 'swedish_sofa_blueprint_default',
+            ],
+            'initStatuses' => [],
+        ],
+        [
+            'name' => 'jukebox_blueprint_default',
+            'equipmentName' => 'jukebox_blueprint',
+            'isBreakable' => false,
+            'isFireDestroyable' => true,
+            'isFireBreakable' => false,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => true,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => [
+                'jukebox_blueprint_default',
             ],
             'initStatuses' => [],
         ],

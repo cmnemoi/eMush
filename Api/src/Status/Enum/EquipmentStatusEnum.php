@@ -23,7 +23,7 @@ class EquipmentStatusEnum
     public const REINFORCED = 'reinforced';
     public const PATROL_SHIP_ARMOR = 'patrol_ship_armor';
     public const SINK_CHARGE = 'sink_charge';
-    public const DRONE_REPAIR_SUCCESS_RATE = 'DRONE_REPAIR_SUCCESS_RATE';
+    public const JUKEBOX_SONG = 'jukebox_song';
 
     public const UPDATING = 'updating';
 

@@ -50,6 +50,8 @@ final class DaedalusFactory
             ->setName(RoomEnum::SPACE)
             ->setType(PlaceTypeEnum::SPACE)
             ->setDaedalus($daedalus);
+
+        (new \ReflectionProperty($space, 'id'))->setValue($space, random_int(1, PHP_INT_MAX));
     }
 
     private static function createLaboratoryPlace(Daedalus $daedalus): void
@@ -59,6 +61,8 @@ final class DaedalusFactory
             ->setName(RoomEnum::LABORATORY)
             ->setType(PlaceTypeEnum::ROOM)
             ->setDaedalus($daedalus);
+
+        (new \ReflectionProperty($laboratory, 'id'))->setValue($laboratory, random_int(1, PHP_INT_MAX));
     }
 
     private static function createMycoscanEquipment(Daedalus $daedalus): void

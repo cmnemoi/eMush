@@ -1212,6 +1212,34 @@
                  "width":159,
                  "x":75.3625050999592,
                  "y":11.4136406908745
+                }, 
+                {
+                 "gid":322,
+                 "height":31,
+                 "id":30,
+                 "name":"jukebox",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":20,
+                 "x":23.5421565584249,
+                 "y":74.8334337803687
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1220,7 +1248,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":30,
+ "nextobjectid":31,
  "orientation":"isometric",
  "properties":[
         {
@@ -2516,6 +2544,21 @@
          "tilecount":20,
          "tileheight":47,
          "tilewidth":62
+        },
+    
+        {
+         "columns":1,
+         "firstgid":322,
+         "image":"tilemaps\/jukebox.png",
+         "imageheight":31,
+         "imagewidth":20,
+         "margin":0,
+         "name":"jukebox",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":31,
+         "tilewidth":20
         }],
  "tilewidth":32,
  "type":"map",

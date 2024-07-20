@@ -241,8 +241,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldNotCreateANeronAnnouncementWhenAutoWateringDoesNotRemoveFire(FunctionalTester $I): void
     {
-        // given Daedalus is at Day 0 so no incidents are triggered
-        $this->daedalus->setDay(0);
+        $this->setupNoIncidents();
 
         // given auto watering project is finished
         $autoWatering = $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING);

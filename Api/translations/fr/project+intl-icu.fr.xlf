@@ -757,5 +757,23 @@
         <target>Des algues qui poussent dans les conduites de climatisation. On pourrait peut-être faire pousser des bananiers rampants aussi non ?</target>
       </segment>
     </unit>
+    <unit id="beat_box">
+      <segment id="beat_box.type" state="translated">
+        <source>beat_box.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="beat_box.name" state="translated">
+        <source>beat_box.name</source>
+        <target>Jukebox</target>
+      </segment>
+      <segment id="beat_box.description" state="translated">
+        <source>beat_box.description</source>
+        <target>Rend disponible un Plan du Jukebox au Nexus. Le Jukebox permet de se relaxer en écoutant de la musique.</target>
+      </segment>
+      <segment id="beat_box.lore" state="translated">
+        <source>beat_box.lore</source>
+        <target>À chaque cycle, le Jukebox diffuse une chanson différente. Chaque personnage peut gagner 2 :pmo: quand sa chanson passe.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

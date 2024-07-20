@@ -14,7 +14,7 @@ use Mush\Equipment\Entity\Drone;
  * Example : If the drone is in a room with broken equipment, it will repair it.
  * But if there is no broken equipment, it will skip directly by moving to a random adjacent room.
  */
-final class DroneTasksHandler
+class DroneTasksHandler
 {
     public function __construct(
         private RepairBrokenEquipmentTask $repairBrokenEquipmentTask,

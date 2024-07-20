@@ -32,4 +32,8 @@ interface StatusHolderInterface
     public function getName(): string;
 
     public function getStatusByNameAndTarget(string $name, self $target): ?Status;
+
+    public function equals(self $statusHolder): bool;
+
+    public function notEquals(self $statusHolder): bool;
 }

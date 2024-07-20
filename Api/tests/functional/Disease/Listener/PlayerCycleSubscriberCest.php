@@ -24,6 +24,9 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerCycleEvent;
+use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -263,6 +266,8 @@ class PlayerCycleSubscriberCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
+        $this->createProjects($I, $daedalus);
+
         /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
@@ -357,6 +362,8 @@ class PlayerCycleSubscriberCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
+        $this->createProjects($I, $daedalus);
+
         /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
@@ -415,5 +422,16 @@ class PlayerCycleSubscriberCest
         ]);
         $I->assertCount(1, $player->getStatuses());
         $I->assertTrue($player->hasStatus(PlayerStatusEnum::DIRTY));
+    }
+
+    private function createProjects(FunctionalTester $I, Daedalus $daedalus): void
+    {
+        $projects = [ProjectName::BEAT_BOX];
+        foreach ($projects as $project) {
+            $config = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => $project]);
+            $project = new Project($config, $daedalus);
+            $I->haveInRepository($project);
+            $daedalus->addProject($project);
+        }
     }
 }

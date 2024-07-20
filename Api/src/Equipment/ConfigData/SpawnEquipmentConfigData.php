@@ -71,6 +71,12 @@ abstract class SpawnEquipmentConfigData
                 placeName: RoomEnum::HYDROPONIC_GARDEN,
                 quantity: 1,
             ),
+            new SpawnEquipmentConfigDto(
+                name: '1_jukebox_blueprint_in_nexus',
+                equipmentName: 'jukebox_blueprint',
+                placeName: RoomEnum::NEXUS,
+                quantity: 1,
+            ),
         ];
     }
 }

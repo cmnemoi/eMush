@@ -160,4 +160,14 @@ trait TargetStatusTrait
     {
         return $this->getSkills()->exists(static fn ($key, Status $status) => ($status->getName() === $statusName));
     }
+
+    public function equals(StatusHolderInterface $statusHolder): bool
+    {
+        return $this->getId() === $statusHolder->getId();
+    }
+
+    public function notEquals(StatusHolderInterface $statusHolder): bool
+    {
+        return $this->getId() !== $statusHolder->getId();
+    }
 }

@@ -1,3016 +1,2987 @@
-{
-  "compressionlevel": -1,
-  "height": 14,
-  "infinite": false,
-  "layers": [
-    {
-      "data": [
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      ],
-      "height": 14,
-      "id": 1,
-      "name": "wall",
-      "opacity": 1,
-      "properties": [
-        {
-          "name": "depth",
-          "type": "int",
-          "value": 1
-        }
-      ],
-      "type": "tilelayer",
-      "visible": true,
-      "width": 24,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "data": [
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      ],
-      "height": 14,
-      "id": 2,
-      "name": "wall",
-      "opacity": 1,
-      "properties": [
-        {
-          "name": "depth",
-          "type": "int",
-          "value": 4
-        }
-      ],
-      "type": "tilelayer",
-      "visible": true,
-      "width": 24,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "data": [
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 25, 27, 26, 21, 21, 26, 25, 27, 26, 21, 21, 26, 25, 27, 27, 21, 21, 25, 25, 27, 0, 0,
-        0, 0, 24, 26, 26, 21, 21, 26, 24, 26, 26, 21, 21, 26, 24, 26, 26, 21, 21, 26, 24, 26, 0, 0,
-        0, 0, 25, 27, 26, 21, 21, 26, 25, 27, 26, 21, 21, 26, 29, 31, 26, 21, 21, 25, 25, 27, 0, 0,
-        0, 0, 24, 26, 26, 21, 21, 26, 24, 26, 26, 21, 21, 26, 28, 30, 26, 21, 21, 26, 24, 26, 0, 0,
-        0, 0, 29, 31, 25, 26, 25, 26, 25, 27, 29, 31, 25, 26, 25, 27, 25, 26, 25, 25, 25, 27, 0, 0,
-        0, 0, 28, 30, 24, 26, 24, 26, 24, 26, 28, 30, 24, 26, 24, 26, 24, 26, 24, 26, 24, 26, 0, 0,
-        0, 0, 24, 26, 25, 27, 25, 27, 25, 27, 25, 27, 25, 27, 29, 31, 25, 27, 25, 27, 25, 27, 0, 0,
-        0, 0, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 0, 0,
-        0, 0, 32, 36, 37, 32, 32, 36, 37, 32, 32, 32, 32, 32, 32, 36, 37, 32, 32, 32, 32, 32, 0, 0,
-        0, 0, 24, 35, 34, 26, 28, 35, 34, 26, 24, 26, 28, 30, 24, 35, 34, 26, 28, 30, 24, 26, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      ],
-      "height": 14,
-      "id": 5,
-      "name": "ground",
-      "opacity": 1,
-      "properties": [
-        {
-          "name": "depth",
-          "type": "int",
-          "value": 5
-        },
-        {
-          "name": "walkingDepth",
-          "type": "int",
-          "value": 20
-        }
-      ],
-      "type": "tilelayer",
-      "visible": true,
-      "width": 24,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "draworder": "topdown",
-      "id": 3,
-      "name": "doors",
-      "objects": [
-        {
-          "gid": 247,
-          "height": 36,
-          "id": 9,
-          "name": "alpha_bay_alpha_bay_2",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 10
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 32
-            }
-          ],
-          "rotation": 0,
-          "type": "door_ground",
-          "visible": true,
-          "width": 64,
-          "x": 365,
-          "y": 157
-        },
-        {
-          "gid": 237,
-          "height": 36,
-          "id": 10,
-          "name": "alpha_bay_alpha_dorm",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 10
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 32
-            }
-          ],
-          "rotation": 0,
-          "type": "door_ground",
-          "visible": true,
-          "width": 64,
-          "x": 254,
-          "y": 204
-        },
-        {
-          "gid": 237,
-          "height": 36,
-          "id": 11,
-          "name": "alpha_bay_center_alpha_storage",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 10
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 32
-            }
-          ],
-          "rotation": 0,
-          "type": "door_ground",
-          "visible": true,
-          "width": 64,
-          "x": 125,
-          "y": 205
-        },
-        {
-          "gid": 237,
-          "height": 36,
-          "id": 12,
-          "name": "alpha_bay_central_corridor",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 10
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 32
-            }
-          ],
-          "rotation": 0,
-          "type": "door_ground",
-          "visible": true,
-          "width": 64,
-          "x": 62,
-          "y": 204
-        },
-        {
-          "gid": 252,
-          "height": 36,
-          "id": 13,
-          "name": "alpha_bay_central_alpha_turret",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 2
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 32
-            }
-          ],
-          "rotation": 0,
-          "type": "door_ground",
-          "visible": true,
-          "width": 64,
-          "x": 18,
-          "y": 156
-        },
-        {
-          "gid": 45,
-          "height": 73,
-          "id": 14,
-          "name": "alpha_bay_central_alpha_turret",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 3
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 4
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 32
-            }
-          ],
-          "rotation": 0,
-          "type": "door",
-          "visible": true,
-          "width": 48,
-          "x": -4.5,
-          "y": 121.5
-        }
-      ],
-      "opacity": 1,
-      "type": "objectgroup",
-      "visible": true,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "draworder": "index",
-      "id": 7,
-      "name": "objects",
-      "objects": [
-        {
-          "gid": 303,
-          "height": 106,
-          "id": 33,
-          "name": "small_takeoff_platform",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 64
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 70
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 194,
-          "x": 101.5,
-          "y": 52.5
-        },
-        {
-          "gid": 303,
-          "height": 106,
-          "id": 34,
-          "name": "small_takeoff_platform",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 64
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 70
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 194,
-          "x": 197.5,
-          "y": 52.5
-        },
-        {
-          "gid": 303,
-          "height": 106,
-          "id": 35,
-          "name": "small_takeoff_platform",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 64
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 70
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 194,
-          "x": 293.5,
-          "y": 52.5
-        },
-        {
-          "gid": 325,
-          "height": 27,
-          "id": 38,
-          "name": "A1",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 27,
-          "x": -2,
-          "y": 53.5
-        },
-        {
-          "gid": 311,
-          "height": 17,
-          "id": 37,
-          "name": "camera_equipment",
-          "properties": [
-            {
-              "name": "animationYoyo",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 5
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 16
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 16
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 25,
-          "x": -7.75,
-          "y": 96.75
-        },
-        {
-          "gid": 297,
-          "height": 15,
-          "id": 36,
-          "name": "wall_box",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 2
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 4
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 10
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 14,
-          "x": -15,
-          "y": 10
-        },
-        {
-          "gid": 341,
-          "height": 33,
-          "id": 56,
-          "name": "magnetic_net",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 1
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 48,
-          "x": 370.5,
-          "y": 40.5
-        },
-        {
-          "gid": 331,
-          "height": 24,
-          "id": 57,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 41,
-          "y": 41
-        },
-        {
-          "gid": 331,
-          "height": 24,
-          "id": 58,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 334,
-          "y": 40
-        },
-        {
-          "gid": 331,
-          "height": 24,
-          "id": 59,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 334,
-          "y": 72
-        },
-        {
-          "gid": 331,
-          "height": 24,
-          "id": 60,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 334,
-          "y": 104
-        },
-        {
-          "gid": 333,
-          "height": 24,
-          "id": 61,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 327,
-          "y": 111
-        },
-        {
-          "gid": 332,
-          "height": 24,
-          "id": 62,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 316,
-          "y": 120
-        },
-        {
-          "gid": 332,
-          "height": 24,
-          "id": 63,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 284,
-          "y": 120
-        },
-        {
-          "gid": 332,
-          "height": 24,
-          "id": 64,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 252,
-          "y": 120
-        },
-        {
-          "gid": 332,
-          "height": 24,
-          "id": 65,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 220,
-          "y": 120
-        },
-        {
-          "gid": 332,
-          "height": 24,
-          "id": 66,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 188,
-          "y": 120
-        },
-        {
-          "gid": 332,
-          "height": 24,
-          "id": 67,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 156,
-          "y": 120
-        },
-        {
-          "gid": 332,
-          "height": 24,
-          "id": 68,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 92,
-          "y": 120
-        },
-        {
-          "gid": 332,
-          "height": 24,
-          "id": 69,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 60,
-          "y": 120
-        },
-        {
-          "gid": 335,
-          "height": 24,
-          "id": 70,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 47,
-          "y": 119
-        },
-        {
-          "gid": 331,
-          "height": 24,
-          "id": 71,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 41,
-          "y": 73
-        },
-        {
-          "gid": 331,
-          "height": 24,
-          "id": 72,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 41,
-          "y": 105
-        },
-        {
-          "gid": 332,
-          "height": 24,
-          "id": 73,
-          "name": "floor_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 32
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 32,
-          "x": 124,
-          "y": 120
-        },
-        {
-          "gid": 257,
-          "height": 230,
-          "id": 39,
-          "name": "bay_door",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "depth",
-              "type": "int",
-              "value": 7
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 334,
-          "x": 160.48,
-          "y": -2.48
-        },
-        {
-          "gid": 289,
-          "height": 69,
-          "id": 7,
-          "name": "yellow_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoShiftHitboxX",
-              "type": "int",
-              "value": -16
-            },
-            {
-              "name": "isoShiftHitboxY",
-              "type": "int",
-              "value": -16
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 4
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 4
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 54,
-          "x": 14.5,
-          "y": 14.5
-        },
-        {
-          "gid": 289,
-          "height": 69,
-          "id": 8,
-          "name": "yellow_lamp",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoShiftHitboxX",
-              "type": "int",
-              "value": -16
-            },
-            {
-              "name": "isoShiftHitboxY",
-              "type": "int",
-              "value": -16
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 4
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 4
-            }
-          ],
-          "rotation": 0,
-          "type": "decoration",
-          "visible": true,
-          "width": 54,
-          "x": 222.5,
-          "y": 30.5
-        },
-        {
-          "gid": 301,
-          "height": 40,
-          "id": 15,
-          "name": "shelf",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 16
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 16
-            }
-          ],
-          "rotation": 0,
-          "type": "shelf",
-          "visible": true,
-          "width": 33,
-          "x": 24.25,
-          "y": 103.75
-        },
-        {
-          "gid": 337,
-          "height": 78,
-          "id": 46,
-          "name": "patrol_ship_alpha_tamarin",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 64
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 70
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 103,
-          "x": 272.75,
-          "y": 47.25
-        },
-        {
-          "gid": 337,
-          "height": 78,
-          "id": 45,
-          "name": "patrol_ship_alpha_jujube",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 64
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 70
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 103,
-          "x": 176.75,
-          "y": 47.25
-        },
-        {
-          "gid": 337,
-          "height": 78,
-          "id": 44,
-          "name": "patrol_ship_alpha_longane",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 64
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 70
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 103,
-          "x": 80.75,
-          "y": 47.25
-        },
-        {
-          "gid": 2147483995,
-          "height": 47,
-          "id": 75,
-          "name": "swedish_sofa",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "flipX",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoShiftHitboxY",
-              "type": "int",
-              "value": -6
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 16
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 44
-            },
-            {
-              "name": "sitAnimation",
-              "type": "string",
-              "value": "lie_down"
-            },
-            {
-              "name": "sitAutoTrigger",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "sitDepth",
-              "type": "int",
-              "value": 1
-            },
-            {
-              "name": "sitFlip",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "sitX",
-              "type": "float",
-              "value": -2
-            },
-            {
-              "name": "sitY",
-              "type": "float",
-              "value": 2
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 62,
-          "x": 25.5,
-          "y": 63.5
-        },
-        {
-          "gid": 2147484000,
-          "height": 47,
-          "id": 76,
-          "name": "swedish_sofa",
-          "properties": [
-            {
-              "name": "collides",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "flipX",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "grouped",
-              "type": "bool",
-              "value": true
-            },
-            {
-              "name": "isoShiftHitboxX",
-              "type": "int",
-              "value": -10
-            },
-            {
-              "name": "isoShiftHitboxY",
-              "type": "int",
-              "value": 8
-            },
-            {
-              "name": "isoSizeX",
-              "type": "int",
-              "value": 16
-            },
-            {
-              "name": "isoSizeY",
-              "type": "int",
-              "value": 3
-            }
-          ],
-          "rotation": 0,
-          "type": "equipment",
-          "visible": true,
-          "width": 62,
-          "x": 25.5,
-          "y": 63.5
-        }
-      ],
-      "opacity": 1,
-      "type": "objectgroup",
-      "visible": true,
-      "x": 0,
-      "y": 0
-    }
-  ],
-  "nextlayerid": 10,
-  "nextobjectid": 77,
-  "orientation": "isometric",
-  "renderorder": "right-down",
-  "tiledversion": "git",
-  "tileheight": 16,
-  "tilesets": [
-    {
-      "columns": 14,
-      "firstgid": 1,
-      "grid": {
-        "height": 72,
-        "orientation": "isometric",
-        "width": 32
-      },
-      "image": "tilemaps\/wall_tileset.png",
-      "imageheight": 72,
-      "imagewidth": 448,
-      "margin": 0,
-      "name": "wall_tileset",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 14,
-      "tileheight": 72,
-      "tilewidth": 32
-    },
-    {
-      "columns": 30,
-      "firstgid": 15,
-      "grid": {
-        "height": 72,
-        "orientation": "isometric",
-        "width": 32
-      },
-      "image": "tilemaps\/ground_tileset.png",
-      "imageheight": 72,
-      "imagewidth": 960,
-      "margin": 0,
-      "name": "ground_tileset",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 30,
-      "tileheight": 72,
-      "tilewidth": 32
-    },
-    {
-      "columns": 24,
-      "firstgid": 45,
-      "grid": {
-        "height": 73,
-        "orientation": "isometric",
-        "width": 48
-      },
-      "image": "tilemaps\/door_object.png",
-      "imageheight": 584,
-      "imagewidth": 1152,
-      "margin": 0,
-      "name": "door_object",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 192,
-      "tileheight": 73,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 0
-            },
-            {
-              "duration": 100,
-              "tileid": 1
-            },
-            {
-              "duration": 100,
-              "tileid": 2
-            },
-            {
-              "duration": 100,
-              "tileid": 3
-            },
-            {
-              "duration": 100,
-              "tileid": 4
-            },
-            {
-              "duration": 100,
-              "tileid": 5
-            },
-            {
-              "duration": 100,
-              "tileid": 6
-            },
-            {
-              "duration": 100,
-              "tileid": 7
-            },
-            {
-              "duration": 100,
-              "tileid": 8
-            },
-            {
-              "duration": 100,
-              "tileid": 9
-            },
-            {
-              "duration": 100,
-              "tileid": 10
-            },
-            {
-              "duration": 100,
-              "tileid": 11
-            },
-            {
-              "duration": 100,
-              "tileid": 12
-            },
-            {
-              "duration": 100,
-              "tileid": 13
-            },
-            {
-              "duration": 100,
-              "tileid": 14
-            },
-            {
-              "duration": 100,
-              "tileid": 15
-            },
-            {
-              "duration": 100,
-              "tileid": 16
-            },
-            {
-              "duration": 100,
-              "tileid": 17
-            },
-            {
-              "duration": 100,
-              "tileid": 18
-            },
-            {
-              "duration": 100,
-              "tileid": 19
-            },
-            {
-              "duration": 100,
-              "tileid": 20
-            },
-            {
-              "duration": 100,
-              "tileid": 21
-            },
-            {
-              "duration": 100,
-              "tileid": 22
-            },
-            {
-              "duration": 100,
-              "tileid": 23
-            }
-          ],
-          "id": 0
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 24
-            },
-            {
-              "duration": 100,
-              "tileid": 25
-            },
-            {
-              "duration": 100,
-              "tileid": 26
-            },
-            {
-              "duration": 100,
-              "tileid": 27
-            },
-            {
-              "duration": 100,
-              "tileid": 28
-            },
-            {
-              "duration": 100,
-              "tileid": 29
-            },
-            {
-              "duration": 100,
-              "tileid": 30
-            },
-            {
-              "duration": 100,
-              "tileid": 31
-            },
-            {
-              "duration": 100,
-              "tileid": 32
-            },
-            {
-              "duration": 100,
-              "tileid": 33
-            },
-            {
-              "duration": 100,
-              "tileid": 34
-            },
-            {
-              "duration": 100,
-              "tileid": 35
-            },
-            {
-              "duration": 100,
-              "tileid": 36
-            },
-            {
-              "duration": 100,
-              "tileid": 37
-            },
-            {
-              "duration": 100,
-              "tileid": 38
-            },
-            {
-              "duration": 100,
-              "tileid": 39
-            },
-            {
-              "duration": 100,
-              "tileid": 40
-            },
-            {
-              "duration": 100,
-              "tileid": 41
-            },
-            {
-              "duration": 100,
-              "tileid": 42
-            },
-            {
-              "duration": 100,
-              "tileid": 43
-            },
-            {
-              "duration": 100,
-              "tileid": 44
-            },
-            {
-              "duration": 100,
-              "tileid": 45
-            },
-            {
-              "duration": 100,
-              "tileid": 46
-            },
-            {
-              "duration": 100,
-              "tileid": 47
-            }
-          ],
-          "id": 24
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 48
-            },
-            {
-              "duration": 100,
-              "tileid": 49
-            },
-            {
-              "duration": 100,
-              "tileid": 50
-            },
-            {
-              "duration": 100,
-              "tileid": 51
-            },
-            {
-              "duration": 100,
-              "tileid": 52
-            },
-            {
-              "duration": 100,
-              "tileid": 53
-            },
-            {
-              "duration": 100,
-              "tileid": 54
-            },
-            {
-              "duration": 100,
-              "tileid": 55
-            },
-            {
-              "duration": 100,
-              "tileid": 56
-            },
-            {
-              "duration": 100,
-              "tileid": 57
-            },
-            {
-              "duration": 100,
-              "tileid": 58
-            },
-            {
-              "duration": 100,
-              "tileid": 59
-            },
-            {
-              "duration": 100,
-              "tileid": 60
-            },
-            {
-              "duration": 100,
-              "tileid": 61
-            },
-            {
-              "duration": 100,
-              "tileid": 62
-            },
-            {
-              "duration": 100,
-              "tileid": 63
-            },
-            {
-              "duration": 100,
-              "tileid": 64
-            },
-            {
-              "duration": 100,
-              "tileid": 65
-            },
-            {
-              "duration": 100,
-              "tileid": 66
-            },
-            {
-              "duration": 100,
-              "tileid": 67
-            },
-            {
-              "duration": 100,
-              "tileid": 68
-            },
-            {
-              "duration": 100,
-              "tileid": 69
-            },
-            {
-              "duration": 100,
-              "tileid": 70
-            },
-            {
-              "duration": 100,
-              "tileid": 71
-            }
-          ],
-          "id": 48
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 72
-            },
-            {
-              "duration": 100,
-              "tileid": 73
-            },
-            {
-              "duration": 100,
-              "tileid": 74
-            },
-            {
-              "duration": 100,
-              "tileid": 75
-            },
-            {
-              "duration": 100,
-              "tileid": 76
-            },
-            {
-              "duration": 100,
-              "tileid": 77
-            },
-            {
-              "duration": 100,
-              "tileid": 78
-            },
-            {
-              "duration": 100,
-              "tileid": 79
-            },
-            {
-              "duration": 100,
-              "tileid": 80
-            },
-            {
-              "duration": 100,
-              "tileid": 81
-            },
-            {
-              "duration": 100,
-              "tileid": 82
-            },
-            {
-              "duration": 100,
-              "tileid": 83
-            },
-            {
-              "duration": 100,
-              "tileid": 84
-            },
-            {
-              "duration": 100,
-              "tileid": 85
-            },
-            {
-              "duration": 100,
-              "tileid": 86
-            },
-            {
-              "duration": 100,
-              "tileid": 87
-            },
-            {
-              "duration": 100,
-              "tileid": 88
-            },
-            {
-              "duration": 100,
-              "tileid": 89
-            },
-            {
-              "duration": 100,
-              "tileid": 90
-            },
-            {
-              "duration": 100,
-              "tileid": 91
-            },
-            {
-              "duration": 100,
-              "tileid": 92
-            },
-            {
-              "duration": 100,
-              "tileid": 93
-            },
-            {
-              "duration": 100,
-              "tileid": 94
-            },
-            {
-              "duration": 100,
-              "tileid": 95
-            }
-          ],
-          "id": 72
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 96
-            },
-            {
-              "duration": 100,
-              "tileid": 97
-            },
-            {
-              "duration": 100,
-              "tileid": 98
-            },
-            {
-              "duration": 100,
-              "tileid": 99
-            },
-            {
-              "duration": 100,
-              "tileid": 100
-            },
-            {
-              "duration": 100,
-              "tileid": 101
-            },
-            {
-              "duration": 100,
-              "tileid": 102
-            },
-            {
-              "duration": 100,
-              "tileid": 103
-            },
-            {
-              "duration": 100,
-              "tileid": 104
-            },
-            {
-              "duration": 100,
-              "tileid": 105
-            },
-            {
-              "duration": 100,
-              "tileid": 106
-            },
-            {
-              "duration": 100,
-              "tileid": 107
-            },
-            {
-              "duration": 100,
-              "tileid": 108
-            },
-            {
-              "duration": 100,
-              "tileid": 109
-            },
-            {
-              "duration": 100,
-              "tileid": 110
-            },
-            {
-              "duration": 100,
-              "tileid": 111
-            },
-            {
-              "duration": 100,
-              "tileid": 112
-            },
-            {
-              "duration": 100,
-              "tileid": 113
-            },
-            {
-              "duration": 100,
-              "tileid": 114
-            },
-            {
-              "duration": 100,
-              "tileid": 115
-            },
-            {
-              "duration": 100,
-              "tileid": 116
-            },
-            {
-              "duration": 100,
-              "tileid": 117
-            },
-            {
-              "duration": 100,
-              "tileid": 118
-            },
-            {
-              "duration": 100,
-              "tileid": 119
-            }
-          ],
-          "id": 96
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 120
-            },
-            {
-              "duration": 100,
-              "tileid": 121
-            },
-            {
-              "duration": 100,
-              "tileid": 122
-            },
-            {
-              "duration": 100,
-              "tileid": 123
-            },
-            {
-              "duration": 100,
-              "tileid": 124
-            },
-            {
-              "duration": 100,
-              "tileid": 125
-            },
-            {
-              "duration": 100,
-              "tileid": 126
-            },
-            {
-              "duration": 100,
-              "tileid": 127
-            },
-            {
-              "duration": 100,
-              "tileid": 128
-            },
-            {
-              "duration": 100,
-              "tileid": 129
-            },
-            {
-              "duration": 100,
-              "tileid": 130
-            },
-            {
-              "duration": 100,
-              "tileid": 131
-            },
-            {
-              "duration": 100,
-              "tileid": 132
-            },
-            {
-              "duration": 100,
-              "tileid": 133
-            },
-            {
-              "duration": 100,
-              "tileid": 134
-            },
-            {
-              "duration": 100,
-              "tileid": 135
-            },
-            {
-              "duration": 100,
-              "tileid": 136
-            },
-            {
-              "duration": 100,
-              "tileid": 137
-            },
-            {
-              "duration": 100,
-              "tileid": 138
-            },
-            {
-              "duration": 100,
-              "tileid": 139
-            },
-            {
-              "duration": 100,
-              "tileid": 140
-            },
-            {
-              "duration": 100,
-              "tileid": 141
-            },
-            {
-              "duration": 100,
-              "tileid": 142
-            },
-            {
-              "duration": 100,
-              "tileid": 143
-            }
-          ],
-          "id": 120
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 144
-            },
-            {
-              "duration": 100,
-              "tileid": 145
-            },
-            {
-              "duration": 100,
-              "tileid": 146
-            },
-            {
-              "duration": 100,
-              "tileid": 147
-            },
-            {
-              "duration": 100,
-              "tileid": 148
-            },
-            {
-              "duration": 100,
-              "tileid": 149
-            },
-            {
-              "duration": 100,
-              "tileid": 150
-            },
-            {
-              "duration": 100,
-              "tileid": 151
-            },
-            {
-              "duration": 100,
-              "tileid": 152
-            },
-            {
-              "duration": 100,
-              "tileid": 153
-            },
-            {
-              "duration": 100,
-              "tileid": 154
-            },
-            {
-              "duration": 100,
-              "tileid": 155
-            },
-            {
-              "duration": 100,
-              "tileid": 156
-            },
-            {
-              "duration": 100,
-              "tileid": 157
-            },
-            {
-              "duration": 100,
-              "tileid": 158
-            },
-            {
-              "duration": 100,
-              "tileid": 159
-            },
-            {
-              "duration": 100,
-              "tileid": 160
-            },
-            {
-              "duration": 100,
-              "tileid": 161
-            },
-            {
-              "duration": 100,
-              "tileid": 162
-            },
-            {
-              "duration": 100,
-              "tileid": 163
-            },
-            {
-              "duration": 100,
-              "tileid": 164
-            },
-            {
-              "duration": 100,
-              "tileid": 165
-            },
-            {
-              "duration": 100,
-              "tileid": 166
-            },
-            {
-              "duration": 100,
-              "tileid": 167
-            }
-          ],
-          "id": 144
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 168
-            },
-            {
-              "duration": 100,
-              "tileid": 169
-            },
-            {
-              "duration": 100,
-              "tileid": 170
-            },
-            {
-              "duration": 100,
-              "tileid": 171
-            },
-            {
-              "duration": 100,
-              "tileid": 172
-            },
-            {
-              "duration": 100,
-              "tileid": 173
-            },
-            {
-              "duration": 100,
-              "tileid": 174
-            },
-            {
-              "duration": 100,
-              "tileid": 175
-            },
-            {
-              "duration": 100,
-              "tileid": 176
-            },
-            {
-              "duration": 100,
-              "tileid": 177
-            },
-            {
-              "duration": 100,
-              "tileid": 178
-            },
-            {
-              "duration": 100,
-              "tileid": 179
-            },
-            {
-              "duration": 100,
-              "tileid": 180
-            },
-            {
-              "duration": 100,
-              "tileid": 181
-            },
-            {
-              "duration": 100,
-              "tileid": 182
-            },
-            {
-              "duration": 100,
-              "tileid": 183
-            },
-            {
-              "duration": 100,
-              "tileid": 184
-            },
-            {
-              "duration": 100,
-              "tileid": 185
-            },
-            {
-              "duration": 100,
-              "tileid": 186
-            },
-            {
-              "duration": 100,
-              "tileid": 187
-            },
-            {
-              "duration": 100,
-              "tileid": 188
-            },
-            {
-              "duration": 100,
-              "tileid": 189
-            },
-            {
-              "duration": 100,
-              "tileid": 190
-            },
-            {
-              "duration": 100,
-              "tileid": 191
-            }
-          ],
-          "id": 168
-        }
-      ],
-      "tilewidth": 48
-    },
-    {
-      "columns": 5,
-      "firstgid": 237,
-      "grid": {
-        "height": 36,
-        "orientation": "isometric",
-        "width": 64
-      },
-      "image": "tilemaps\/door_ground_tileset.png",
-      "imageheight": 144,
-      "imagewidth": 320,
-      "margin": 0,
-      "name": "door_ground_tileset",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 20,
-      "tileheight": 36,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 0
-            },
-            {
-              "duration": 100,
-              "tileid": 1
-            },
-            {
-              "duration": 100,
-              "tileid": 2
-            },
-            {
-              "duration": 100,
-              "tileid": 3
-            },
-            {
-              "duration": 100,
-              "tileid": 4
-            }
-          ],
-          "id": 0
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 5
-            },
-            {
-              "duration": 100,
-              "tileid": 6
-            },
-            {
-              "duration": 100,
-              "tileid": 7
-            },
-            {
-              "duration": 100,
-              "tileid": 8
-            },
-            {
-              "duration": 100,
-              "tileid": 9
-            }
-          ],
-          "id": 5
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 10
-            },
-            {
-              "duration": 100,
-              "tileid": 11
-            },
-            {
-              "duration": 100,
-              "tileid": 12
-            },
-            {
-              "duration": 100,
-              "tileid": 13
-            },
-            {
-              "duration": 100,
-              "tileid": 14
-            }
-          ],
-          "id": 10
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 15
-            },
-            {
-              "duration": 100,
-              "tileid": 16
-            },
-            {
-              "duration": 100,
-              "tileid": 17
-            },
-            {
-              "duration": 100,
-              "tileid": 18
-            },
-            {
-              "duration": 100,
-              "tileid": 19
-            }
-          ],
-          "id": 15
-        }
-      ],
-      "tilewidth": 64
-    },
-    {
-      "columns": 16,
-      "firstgid": 257,
-      "image": "tilemaps\/bay_door.png",
-      "imageheight": 465,
-      "imagewidth": 5573,
-      "margin": 0,
-      "name": "bay_door",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 32,
-      "tileheight": 230,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 0
-            },
-            {
-              "duration": 100,
-              "tileid": 1
-            },
-            {
-              "duration": 100,
-              "tileid": 2
-            },
-            {
-              "duration": 100,
-              "tileid": 3
-            },
-            {
-              "duration": 100,
-              "tileid": 4
-            },
-            {
-              "duration": 100,
-              "tileid": 5
-            },
-            {
-              "duration": 100,
-              "tileid": 6
-            },
-            {
-              "duration": 100,
-              "tileid": 7
-            },
-            {
-              "duration": 100,
-              "tileid": 8
-            },
-            {
-              "duration": 100,
-              "tileid": 9
-            },
-            {
-              "duration": 100,
-              "tileid": 10
-            },
-            {
-              "duration": 100,
-              "tileid": 11
-            },
-            {
-              "duration": 100,
-              "tileid": 12
-            },
-            {
-              "duration": 100,
-              "tileid": 13
-            },
-            {
-              "duration": 100,
-              "tileid": 14
-            },
-            {
-              "duration": 100,
-              "tileid": 15
-            }
-          ],
-          "id": 0
-        },
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 16
-            },
-            {
-              "duration": 100,
-              "tileid": 17
-            },
-            {
-              "duration": 100,
-              "tileid": 18
-            },
-            {
-              "duration": 100,
-              "tileid": 19
-            },
-            {
-              "duration": 100,
-              "tileid": 20
-            },
-            {
-              "duration": 100,
-              "tileid": 21
-            },
-            {
-              "duration": 100,
-              "tileid": 22
-            },
-            {
-              "duration": 100,
-              "tileid": 23
-            },
-            {
-              "duration": 100,
-              "tileid": 24
-            },
-            {
-              "duration": 100,
-              "tileid": 25
-            },
-            {
-              "duration": 100,
-              "tileid": 26
-            },
-            {
-              "duration": 100,
-              "tileid": 27
-            },
-            {
-              "duration": 100,
-              "tileid": 28
-            },
-            {
-              "duration": 100,
-              "tileid": 29
-            },
-            {
-              "duration": 100,
-              "tileid": 30
-            },
-            {
-              "duration": 100,
-              "tileid": 31
-            }
-          ],
-          "id": 16
-        }
-      ],
-      "tilewidth": 334
-    },
-    {
-      "columns": 6,
-      "firstgid": 289,
-      "image": "tilemaps\/yellow_lamp.png",
-      "imageheight": 69,
-      "imagewidth": 324,
-      "margin": 0,
-      "name": "yellow_lamp",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 6,
-      "tileheight": 69,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 100,
-              "tileid": 0
-            },
-            {
-              "duration": 100,
-              "tileid": 1
-            },
-            {
-              "duration": 100,
-              "tileid": 2
-            },
-            {
-              "duration": 100,
-              "tileid": 3
-            },
-            {
-              "duration": 100,
-              "tileid": 4
-            },
-            {
-              "duration": 100,
-              "tileid": 5
-            }
-          ],
-          "id": 0
-        }
-      ],
-      "tilewidth": 54
-    },
-    {
-      "columns": 4,
-      "firstgid": 295,
-      "image": "tilemaps\/wall_box.png",
-      "imageheight": 15,
-      "imagewidth": 56,
-      "margin": 0,
-      "name": "wall_box",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 4,
-      "tileheight": 15,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 1500,
-              "tileid": 0
-            },
-            {
-              "duration": 1500,
-              "tileid": 1
-            }
-          ],
-          "id": 0
-        },
-        {
-          "animation": [
-            {
-              "duration": 1500,
-              "tileid": 2
-            },
-            {
-              "duration": 1500,
-              "tileid": 3
-            }
-          ],
-          "id": 2
-        }
-      ],
-      "tilewidth": 14
-    },
-    {
-      "columns": 4,
-      "firstgid": 299,
-      "image": "tilemaps\/shelf_object.png",
-      "imageheight": 40,
-      "imagewidth": 132,
-      "margin": 0,
-      "name": "shelf_object",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 4,
-      "tileheight": 40,
-      "tilewidth": 33
-    },
-    {
-      "columns": 2,
-      "firstgid": 303,
-      "image": "tilemaps\/small_takeoff_platform.png",
-      "imageheight": 430,
-      "imagewidth": 388,
-      "margin": 0,
-      "name": "small_takeoff_platform",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 8,
-      "tileheight": 106,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 400,
-              "tileid": 0
-            },
-            {
-              "duration": 400,
-              "tileid": 1
-            }
-          ],
-          "id": 0
-        },
-        {
-          "animation": [
-            {
-              "duration": 400,
-              "tileid": 2
-            },
-            {
-              "duration": 400,
-              "tileid": 3
-            }
-          ],
-          "id": 2
-        },
-        {
-          "animation": [
-            {
-              "duration": 400,
-              "tileid": 4
-            },
-            {
-              "duration": 400,
-              "tileid": 5
-            }
-          ],
-          "id": 4
-        },
-        {
-          "animation": [
-            {
-              "duration": 400,
-              "tileid": 6
-            },
-            {
-              "duration": 400,
-              "tileid": 7
-            }
-          ],
-          "id": 6
-        }
-      ],
-      "tilewidth": 194
-    },
-    {
-      "columns": 14,
-      "firstgid": 311,
-      "image": "tilemaps\/camera_object.png",
-      "imageheight": 17,
-      "imagewidth": 350,
-      "margin": 0,
-      "name": "camera_object",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 14,
-      "tileheight": 17,
-      "tiles": [
-        {
-          "animation": [
-            {
-              "duration": 300,
-              "tileid": 0
-            },
-            {
-              "duration": 300,
-              "tileid": 1
-            },
-            {
-              "duration": 300,
-              "tileid": 2
-            },
-            {
-              "duration": 300,
-              "tileid": 3
-            },
-            {
-              "duration": 300,
-              "tileid": 4
-            },
-            {
-              "duration": 300,
-              "tileid": 5
-            },
-            {
-              "duration": 300,
-              "tileid": 6
-            },
-            {
-              "duration": 300,
-              "tileid": 7
-            },
-            {
-              "duration": 300,
-              "tileid": 8
-            },
-            {
-              "duration": 300,
-              "tileid": 9
-            },
-            {
-              "duration": 300,
-              "tileid": 10
-            },
-            {
-              "duration": 300,
-              "tileid": 11
-            },
-            {
-              "duration": 300,
-              "tileid": 12
-            },
-            {
-              "duration": 300,
-              "tileid": 13
-            },
-            {
-              "duration": 300,
-              "tileid": 12
-            },
-            {
-              "duration": 300,
-              "tileid": 11
-            },
-            {
-              "duration": 300,
-              "tileid": 10
-            },
-            {
-              "duration": 300,
-              "tileid": 9
-            },
-            {
-              "duration": 300,
-              "tileid": 8
-            },
-            {
-              "duration": 300,
-              "tileid": 7
-            },
-            {
-              "duration": 300,
-              "tileid": 6
-            },
-            {
-              "duration": 300,
-              "tileid": 5
-            },
-            {
-              "duration": 300,
-              "tileid": 4
-            },
-            {
-              "duration": 300,
-              "tileid": 3
-            },
-            {
-              "duration": 300,
-              "tileid": 2
-            },
-            {
-              "duration": 300,
-              "tileid": 1
-            },
-            {
-              "duration": 300,
-              "tileid": 0
-            }
-          ],
-          "id": 0
-        }
-      ],
-      "tilewidth": 25
-    },
-    {
-      "columns": 3,
-      "firstgid": 325,
-      "image": "tilemaps\/bay.png",
-      "imageheight": 55,
-      "imagewidth": 82,
-      "margin": 0,
-      "name": "bay",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 6,
-      "tileheight": 27,
-      "tilewidth": 27
-    },
-    {
-      "columns": 1,
-      "firstgid": 331,
-      "image": "tilemaps\/floor_lamp.png",
-      "imageheight": 159,
-      "imagewidth": 32,
-      "margin": 0,
-      "name": "floor_lamp",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 6,
-      "tileheight": 24,
-      "tilewidth": 32
-    },
-    {
-      "columns": 1,
-      "firstgid": 337,
-      "image": "tilemaps\/patrol_ship.png",
-      "imageheight": 315,
-      "imagewidth": 103,
-      "margin": 0,
-      "name": "patrol_ship",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 4,
-      "tileheight": 78,
-      "tilewidth": 103
-    },
-    {
-      "columns": 1,
-      "firstgid": 341,
-      "image": "tilemaps\/magnetic_net.png",
-      "imageheight": 66,
-      "imagewidth": 48,
-      "margin": 0,
-      "name": "magnetic_net",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 2,
-      "tileheight": 33,
-      "tilewidth": 48
-    },
-    {
-      "columns": 5,
-      "firstgid": 343,
-      "image": "tilemaps\/sofa_asset.png",
-      "imageheight": 188,
-      "imagewidth": 310,
-      "margin": 0,
-      "name": "sofa_asset",
-      "objectalignment": "center",
-      "spacing": 0,
-      "tilecount": 20,
-      "tileheight": 47,
-      "tilewidth": 62
-    }
-  ],
-  "tilewidth": 32,
-  "type": "map",
-  "version": "1.10",
-  "width": 24
+{ "compressionlevel":-1,
+ "height":14,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":14,
+         "id":1,
+         "name":"wall",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":24,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":14,
+         "id":2,
+         "name":"wall",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":24,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 25, 27, 26, 21, 21, 26, 25, 27, 26, 21, 21, 26, 25, 27, 27, 21, 21, 25, 25, 27, 0, 0,
+            0, 0, 24, 26, 26, 21, 21, 26, 24, 26, 26, 21, 21, 26, 24, 26, 26, 21, 21, 26, 24, 26, 0, 0,
+            0, 0, 25, 27, 26, 21, 21, 26, 25, 27, 26, 21, 21, 26, 29, 31, 26, 21, 21, 25, 25, 27, 0, 0,
+            0, 0, 24, 26, 26, 21, 21, 26, 24, 26, 26, 21, 21, 26, 28, 30, 26, 21, 21, 26, 24, 26, 0, 0,
+            0, 0, 29, 31, 25, 26, 25, 26, 25, 27, 29, 31, 25, 26, 25, 27, 25, 26, 25, 25, 25, 27, 0, 0,
+            0, 0, 28, 30, 24, 26, 24, 26, 24, 26, 28, 30, 24, 26, 24, 26, 24, 26, 24, 26, 24, 26, 0, 0,
+            0, 0, 24, 26, 25, 27, 25, 27, 25, 27, 25, 27, 25, 27, 29, 31, 25, 27, 25, 27, 25, 27, 0, 0,
+            0, 0, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 0, 0,
+            0, 0, 32, 36, 37, 32, 32, 36, 37, 32, 32, 32, 32, 32, 32, 36, 37, 32, 32, 32, 32, 32, 0, 0,
+            0, 0, 24, 35, 34, 26, 28, 35, 34, 26, 24, 26, 28, 30, 24, 35, 34, 26, 28, 30, 24, 26, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":14,
+         "id":5,
+         "name":"ground",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":20
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":24,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":3,
+         "name":"doors",
+         "objects":[
+                {
+                 "gid":247,
+                 "height":36,
+                 "id":9,
+                 "name":"alpha_bay_alpha_bay_2",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":32
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":365,
+                 "y":157
+                }, 
+                {
+                 "gid":237,
+                 "height":36,
+                 "id":10,
+                 "name":"alpha_bay_alpha_dorm",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":32
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":254,
+                 "y":204
+                }, 
+                {
+                 "gid":237,
+                 "height":36,
+                 "id":11,
+                 "name":"alpha_bay_center_alpha_storage",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":32
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":125,
+                 "y":205
+                }, 
+                {
+                 "gid":237,
+                 "height":36,
+                 "id":12,
+                 "name":"alpha_bay_central_corridor",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":32
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":62,
+                 "y":204
+                }, 
+                {
+                 "gid":252,
+                 "height":36,
+                 "id":13,
+                 "name":"alpha_bay_central_alpha_turret",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":32
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":18,
+                 "y":156
+                }, 
+                {
+                 "gid":45,
+                 "height":73,
+                 "id":14,
+                 "name":"alpha_bay_central_alpha_turret",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":32
+                        }],
+                 "rotation":0,
+                 "type":"door",
+                 "visible":true,
+                 "width":48,
+                 "x":-4.5,
+                 "y":121.5
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"index",
+         "id":7,
+         "name":"objects",
+         "objects":[
+                {
+                 "gid":303,
+                 "height":106,
+                 "id":33,
+                 "name":"small_takeoff_platform",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":194,
+                 "x":101.5,
+                 "y":52.5
+                }, 
+                {
+                 "gid":303,
+                 "height":106,
+                 "id":34,
+                 "name":"small_takeoff_platform",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":194,
+                 "x":197.5,
+                 "y":52.5
+                }, 
+                {
+                 "gid":303,
+                 "height":106,
+                 "id":35,
+                 "name":"small_takeoff_platform",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":194,
+                 "x":293.5,
+                 "y":52.5
+                }, 
+                {
+                 "gid":325,
+                 "height":27,
+                 "id":38,
+                 "name":"A1",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":27,
+                 "x":-2,
+                 "y":53.5
+                }, 
+                {
+                 "gid":311,
+                 "height":17,
+                 "id":37,
+                 "name":"camera_equipment",
+                 "properties":[
+                        {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":25,
+                 "x":-7.75,
+                 "y":96.75
+                }, 
+                {
+                 "gid":297,
+                 "height":15,
+                 "id":36,
+                 "name":"wall_box",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":10
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":14,
+                 "x":-15,
+                 "y":10
+                }, 
+                {
+                 "gid":341,
+                 "height":33,
+                 "id":56,
+                 "name":"magnetic_net",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":48,
+                 "x":370.5,
+                 "y":40.5
+                }, 
+                {
+                 "gid":331,
+                 "height":24,
+                 "id":57,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":41,
+                 "y":41
+                }, 
+                {
+                 "gid":331,
+                 "height":24,
+                 "id":58,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":334,
+                 "y":40
+                }, 
+                {
+                 "gid":331,
+                 "height":24,
+                 "id":59,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":334,
+                 "y":72
+                }, 
+                {
+                 "gid":331,
+                 "height":24,
+                 "id":60,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":334,
+                 "y":104
+                }, 
+                {
+                 "gid":333,
+                 "height":24,
+                 "id":61,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":327,
+                 "y":111
+                }, 
+                {
+                 "gid":332,
+                 "height":24,
+                 "id":62,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":316,
+                 "y":120
+                }, 
+                {
+                 "gid":332,
+                 "height":24,
+                 "id":63,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":284,
+                 "y":120
+                }, 
+                {
+                 "gid":332,
+                 "height":24,
+                 "id":64,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":252,
+                 "y":120
+                }, 
+                {
+                 "gid":332,
+                 "height":24,
+                 "id":65,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":220,
+                 "y":120
+                }, 
+                {
+                 "gid":332,
+                 "height":24,
+                 "id":66,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":188,
+                 "y":120
+                }, 
+                {
+                 "gid":332,
+                 "height":24,
+                 "id":67,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":156,
+                 "y":120
+                }, 
+                {
+                 "gid":332,
+                 "height":24,
+                 "id":68,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":92,
+                 "y":120
+                }, 
+                {
+                 "gid":332,
+                 "height":24,
+                 "id":69,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":60,
+                 "y":120
+                }, 
+                {
+                 "gid":335,
+                 "height":24,
+                 "id":70,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":47,
+                 "y":119
+                }, 
+                {
+                 "gid":331,
+                 "height":24,
+                 "id":71,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":41,
+                 "y":73
+                }, 
+                {
+                 "gid":331,
+                 "height":24,
+                 "id":72,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":41,
+                 "y":105
+                }, 
+                {
+                 "gid":332,
+                 "height":24,
+                 "id":73,
+                 "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":124,
+                 "y":120
+                },
+            
+                {
+                 "gid":257,
+                 "height":230,
+                 "id":39,
+                 "name":"bay_door",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":334,
+                 "x":160.48,
+                 "y":-2.48
+                }, 
+                {
+                 "gid":289,
+                 "height":69,
+                 "id":7,
+                 "name":"yellow_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-16
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-16
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":54,
+                 "x":14.5,
+                 "y":14.5
+                }, 
+                {
+                 "gid":289,
+                 "height":69,
+                 "id":8,
+                 "name":"yellow_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-16
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-16
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":54,
+                 "x":222.5,
+                 "y":30.5
+                }, 
+                {
+                 "gid":301,
+                 "height":40,
+                 "id":15,
+                 "name":"shelf",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"shelf",
+                 "visible":true,
+                 "width":33,
+                 "x":24.25,
+                 "y":103.75
+                }, 
+                {
+                 "gid":337,
+                 "height":78,
+                 "id":46,
+                 "name":"patrol_ship_alpha_tamarin",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":103,
+                 "x":272.75,
+                 "y":47.25
+                }, 
+                {
+                 "gid":337,
+                 "height":78,
+                 "id":45,
+                 "name":"patrol_ship_alpha_jujube",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":103,
+                 "x":176.75,
+                 "y":47.25
+                }, 
+                {
+                 "gid":337,
+                 "height":78,
+                 "id":44,
+                 "name":"patrol_ship_alpha_longane",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":103,
+                 "x":80.75,
+                 "y":47.25
+                }, 
+                {
+                 "gid":2147483995,
+                 "height":47,
+                 "id":75,
+                 "name":"swedish_sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":44
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":-2
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":25.5,
+                 "y":63.5
+                }, 
+                {
+                 "gid":2147484000,
+                 "height":47,
+                 "id":76,
+                 "name":"swedish_sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-10
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":25.5,
+                 "y":63.5
+                }, 
+                {
+                 "gid":2147484011,
+                 "height":31,
+                 "id":77,
+                 "name":"jukebox",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":20,
+                 "x":332.905348016987,
+                 "y":20.9223709781905
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":10,
+ "nextobjectid":78,
+ "orientation":"isometric",
+ "renderorder":"right-down",
+ "tiledversion":"1.10.1",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "columns":14,
+         "firstgid":1,
+         "grid":
+            {
+             "height":72,
+             "orientation":"isometric",
+             "width":32
+            },
+         "image":"tilemaps\/wall_tileset.png",
+         "imageheight":72,
+         "imagewidth":448,
+         "margin":0,
+         "name":"wall_tileset",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":14,
+         "tileheight":72,
+         "tilewidth":32
+        }, 
+        {
+         "columns":30,
+         "firstgid":15,
+         "grid":
+            {
+             "height":72,
+             "orientation":"isometric",
+             "width":32
+            },
+         "image":"tilemaps\/ground_tileset.png",
+         "imageheight":72,
+         "imagewidth":960,
+         "margin":0,
+         "name":"ground_tileset",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":30,
+         "tileheight":72,
+         "tilewidth":32
+        }, 
+        {
+         "columns":24,
+         "firstgid":45,
+         "grid":
+            {
+             "height":73,
+             "orientation":"isometric",
+             "width":48
+            },
+         "image":"tilemaps\/door_object.png",
+         "imageheight":584,
+         "imagewidth":1152,
+         "margin":0,
+         "name":"door_object",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":192,
+         "tileheight":73,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":7
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":8
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":9
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":10
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":11
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":12
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":13
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":14
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":15
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":16
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":17
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":18
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":19
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":20
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":21
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":22
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":23
+                        }],
+                 "id":0
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":24
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":25
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":26
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":27
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":28
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":29
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":30
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":31
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":32
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":33
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":34
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":35
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":36
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":37
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":38
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":39
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":40
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":41
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":42
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":43
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":44
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":45
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":46
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":47
+                        }],
+                 "id":24
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":48
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":49
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":50
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":51
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":52
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":53
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":54
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":55
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":56
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":57
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":58
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":59
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":60
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":61
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":62
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":63
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":64
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":65
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":66
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":67
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":68
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":69
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":70
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":71
+                        }],
+                 "id":48
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":72
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":73
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":74
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":75
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":76
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":77
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":78
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":79
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":80
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":81
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":82
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":83
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":84
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":85
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":86
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":87
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":88
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":89
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":90
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":91
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":92
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":93
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":94
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":95
+                        }],
+                 "id":72
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":96
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":97
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":98
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":99
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":100
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":101
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":102
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":103
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":104
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":105
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":106
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":107
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":108
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":109
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":110
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":111
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":112
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":113
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":114
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":115
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":116
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":117
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":118
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":119
+                        }],
+                 "id":96
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":120
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":121
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":122
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":123
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":124
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":125
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":126
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":127
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":128
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":129
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":130
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":131
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":132
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":133
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":134
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":135
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":136
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":137
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":138
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":139
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":140
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":141
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":142
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":143
+                        }],
+                 "id":120
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":144
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":145
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":146
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":147
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":148
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":149
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":150
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":151
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":152
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":153
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":154
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":155
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":156
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":157
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":158
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":159
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":160
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":161
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":162
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":163
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":164
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":165
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":166
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":167
+                        }],
+                 "id":144
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":168
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":169
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":170
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":171
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":172
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":173
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":174
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":175
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":176
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":177
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":178
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":179
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":180
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":181
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":182
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":183
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":184
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":185
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":186
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":187
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":188
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":189
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":190
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":191
+                        }],
+                 "id":168
+                }],
+         "tilewidth":48
+        }, 
+        {
+         "columns":5,
+         "firstgid":237,
+         "grid":
+            {
+             "height":36,
+             "orientation":"isometric",
+             "width":64
+            },
+         "image":"tilemaps\/door_ground_tileset.png",
+         "imageheight":144,
+         "imagewidth":320,
+         "margin":0,
+         "name":"door_ground_tileset",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":20,
+         "tileheight":36,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":4
+                        }],
+                 "id":0
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":7
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":8
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":9
+                        }],
+                 "id":5
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":10
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":11
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":12
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":13
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":14
+                        }],
+                 "id":10
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":15
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":16
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":17
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":18
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":19
+                        }],
+                 "id":15
+                }],
+         "tilewidth":64
+        }, 
+        {
+         "columns":16,
+         "firstgid":257,
+         "image":"tilemaps\/bay_door.png",
+         "imageheight":465,
+         "imagewidth":5573,
+         "margin":0,
+         "name":"bay_door",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":32,
+         "tileheight":230,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":7
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":8
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":9
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":10
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":11
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":12
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":13
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":14
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":15
+                        }],
+                 "id":0
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":16
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":17
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":18
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":19
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":20
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":21
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":22
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":23
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":24
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":25
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":26
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":27
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":28
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":29
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":30
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":31
+                        }],
+                 "id":16
+                }],
+         "tilewidth":334
+        }, 
+        {
+         "columns":6,
+         "firstgid":289,
+         "image":"tilemaps\/yellow_lamp.png",
+         "imageheight":69,
+         "imagewidth":324,
+         "margin":0,
+         "name":"yellow_lamp",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":6,
+         "tileheight":69,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":5
+                        }],
+                 "id":0
+                }],
+         "tilewidth":54
+        }, 
+        {
+         "columns":4,
+         "firstgid":295,
+         "image":"tilemaps\/wall_box.png",
+         "imageheight":15,
+         "imagewidth":56,
+         "margin":0,
+         "name":"wall_box",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":15,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":1500,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":1500,
+                         "tileid":1
+                        }],
+                 "id":0
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":1500,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":1500,
+                         "tileid":3
+                        }],
+                 "id":2
+                }],
+         "tilewidth":14
+        }, 
+        {
+         "columns":4,
+         "firstgid":299,
+         "image":"tilemaps\/shelf_object.png",
+         "imageheight":40,
+         "imagewidth":132,
+         "margin":0,
+         "name":"shelf_object",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":40,
+         "tilewidth":33
+        }, 
+        {
+         "columns":2,
+         "firstgid":303,
+         "image":"tilemaps\/small_takeoff_platform.png",
+         "imageheight":430,
+         "imagewidth":388,
+         "margin":0,
+         "name":"small_takeoff_platform",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":8,
+         "tileheight":106,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":400,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":400,
+                         "tileid":1
+                        }],
+                 "id":0
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":400,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":400,
+                         "tileid":3
+                        }],
+                 "id":2
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":400,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":400,
+                         "tileid":5
+                        }],
+                 "id":4
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":400,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":400,
+                         "tileid":7
+                        }],
+                 "id":6
+                }],
+         "tilewidth":194
+        }, 
+        {
+         "columns":14,
+         "firstgid":311,
+         "image":"tilemaps\/camera_object.png",
+         "imageheight":17,
+         "imagewidth":350,
+         "margin":0,
+         "name":"camera_object",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":14,
+         "tileheight":17,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":300,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":7
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":8
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":9
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":10
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":11
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":12
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":13
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":12
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":11
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":10
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":9
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":8
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":7
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":3
+                        },
+                    
+                        {
+                         "duration":300,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":300,
+                         "tileid":0
+                        }],
+                 "id":0
+                }],
+         "tilewidth":25
+        }, 
+        {
+         "columns":3,
+         "firstgid":325,
+         "image":"tilemaps\/bay.png",
+         "imageheight":55,
+         "imagewidth":82,
+         "margin":0,
+         "name":"bay",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":6,
+         "tileheight":27,
+         "tilewidth":27
+        }, 
+        {
+         "columns":1,
+         "firstgid":331,
+         "image":"tilemaps\/floor_lamp.png",
+         "imageheight":159,
+         "imagewidth":32,
+         "margin":0,
+         "name":"floor_lamp",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":6,
+         "tileheight":24,
+         "tilewidth":32
+        }, 
+        {
+         "columns":1,
+         "firstgid":337,
+         "image":"tilemaps\/patrol_ship.png",
+         "imageheight":315,
+         "imagewidth":103,
+         "margin":0,
+         "name":"patrol_ship",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":78,
+         "tilewidth":103
+        }, 
+        {
+         "columns":1,
+         "firstgid":341,
+         "image":"tilemaps\/magnetic_net.png",
+         "imageheight":66,
+         "imagewidth":48,
+         "margin":0,
+         "name":"magnetic_net",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":33,
+         "tilewidth":48
+        }, 
+        {
+         "columns":5,
+         "firstgid":343,
+         "image":"tilemaps\/sofa_asset.png",
+         "imageheight":188,
+         "imagewidth":310,
+         "margin":0,
+         "name":"sofa_asset",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":20,
+         "tileheight":47,
+         "tilewidth":62
+        }, 
+        {
+         "columns":1,
+         "firstgid":363,
+         "image":"tilemaps\/jukebox.png",
+         "imageheight":31,
+         "imagewidth":20,
+         "margin":0,
+         "name":"jukebox",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":31,
+         "tilewidth":20
+        }],
+ "tilewidth":32,
+ "type":"map",
+ "version":"1.10",
+ "width":24
 }

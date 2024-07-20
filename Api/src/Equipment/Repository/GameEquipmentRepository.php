@@ -128,4 +128,10 @@ class GameEquipmentRepository extends ServiceEntityRepository implements GameEqu
 
         return $queryBuilder->getQuery()->getResult();
     }
+
+    public function save(GameEquipment $gameEquipment): void
+    {
+        $this->_em->persist($gameEquipment);
+        $this->_em->flush();
+    }
 }

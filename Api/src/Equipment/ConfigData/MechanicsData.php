@@ -3,6 +3,7 @@
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -3037,6 +3038,16 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'build',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'jukebox_blueprint_default',
+            'type' => EquipmentMechanicEnum::BLUEPRINT,
+            'craftedEquipmentName' => EquipmentEnum::JUKEBOX,
+            'ingredients' => [ItemEnum::METAL_SCRAPS => 1, ItemEnum::PLASTIC_SCRAPS => 1],
+            'actions' => [
+                ActionEnum::BUILD->value,
             ],
             'modifierConfigs' => [],
         ],

@@ -131,7 +131,7 @@ class DaedalusDestroyedOnEndDayCest
 
     private function createProjects(FunctionalTester $I, Daedalus $daedalus): void
     {
-        $projects = [ProjectName::NERON_PROJECT_THREAD];
+        $projects = [ProjectName::NERON_PROJECT_THREAD, ProjectName::BEAT_BOX];
         foreach ($projects as $project) {
             $config = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => $project]);
             $project = new Project($config, $daedalus);

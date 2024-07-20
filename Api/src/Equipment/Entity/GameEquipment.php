@@ -454,6 +454,42 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->getPlace() === $this->getDaedalus()->getPlaceByName($place);
     }
 
+    public function getCurrentJukeboxPlayer(): Player
+    {
+        $song = $this->getStatusByNameOrThrow(EquipmentStatusEnum::JUKEBOX_SONG);
+        $target = $song->getTarget() ?? Player::createNull();
+
+        return $this->getDaedalus()->getPlayerByName($target->getName());
+    }
+
+    public function updateSongWithPlayerFavorite(Player $player): void
+    {
+        $song = $this->getStatusByNameOrThrow(EquipmentStatusEnum::JUKEBOX_SONG);
+
+        $song->setTarget($player);
+    }
+
+    public function currentSongMatchesPlayerFavorite(Player $player): bool
+    {
+        $song = $this->getStatusByNameOrThrow(EquipmentStatusEnum::JUKEBOX_SONG);
+
+        return $song->getTarget()?->equals($player) ?? false;
+    }
+
+    /**
+     * @return ArrayCollection<int, string>
+     */
+    public function getAllMechanicsAndEquipmentName(): ArrayCollection
+    {
+        $names = [];
+        foreach ($this->getEquipment()->getMechanics() as $mechanic) {
+            $names = array_merge($names, $mechanic->getMechanics());
+        }
+        $names[] = $this->getName();
+
+        return new ArrayCollection($names);
+    }
+
     private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool
     {
         foreach ($this->equipment->getMechanics() as $mechanic) {

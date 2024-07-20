@@ -156,6 +156,18 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
+    public function getAlivePlayers(): PlayerCollection
+    {
+        return $this->getPlayers()->getPlayerAlive();
+    }
+
+    public function getPlayerByName(string $name): Player
+    {
+        $player = $this->getPlayers()->getPlayerByName($name);
+
+        return $player ?? Player::createNull();
+    }
+
     public function getPlaces(): Collection
     {
         return $this->places;

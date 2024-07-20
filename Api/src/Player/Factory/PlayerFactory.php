@@ -31,25 +31,16 @@ final class PlayerFactory
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlayerVariables($characterConfig);
-        $player->setPlace(Place::createRoomByName(RoomEnum::null));
+        $player->setPlace(Place::createNull());
+        self::setPlayerId($player);
 
         return $player;
     }
 
     public static function createPlayerByName(string $name): Player
     {
-        $user = new User();
-        $user
-            ->setUserId(Uuid::v4()->toRfc4122())
-            ->setUsername(Uuid::v4()->toRfc4122());
-
-        $characterConfig = new CharacterConfig();
-        $characterConfig->setCharacterName($name);
-
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-        $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
-        $player->setPlayerVariables($characterConfig);
+        $player = self::createPlayer();
+        $player->getCharacterConfig()->setCharacterName($name);
 
         return $player;
     }
@@ -89,5 +80,10 @@ final class PlayerFactory
     public static function createNullPlayer(): Player
     {
         return self::createPlayer();
+    }
+
+    private static function setPlayerId(Player $player): void
+    {
+        (new \ReflectionClass($player))->getProperty('id')->setValue($player, random_int(1, PHP_INT_MAX));
     }
 }

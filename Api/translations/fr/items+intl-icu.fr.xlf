@@ -3576,5 +3576,31 @@ En sa présence, les actions *discrètes* et *furtives* effectuées sont révél
 Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
       </segment>
     </unit>
+    <unit id="jukebox">
+      <segment id="name" state="final">
+        <source>jukebox.name</source>
+        <target>Jukebox</target>
+      </segment>
+      <segment id="short_name" state="final">
+        <source>jukebox.short_name</source>
+        <target>Jukebox</target>
+      </segment>
+      <segment id="plural_name" state="final">
+        <source>jukebox.plural_name</source>
+        <target>Jukeboxes</target>
+      </segment>
+      <segment id="genre" state="final">
+        <source>jukebox.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="final">
+        <source>jukebox.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="examine" state="final">
+        <source>jukebox.examine</source>
+        <target>Le jukebox permet de se faire une bonne petite séance de regression de temps à autre. Le jukebox des années folles par excellence. Et en plus chargé avec les tubes préféré de l'équipage !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

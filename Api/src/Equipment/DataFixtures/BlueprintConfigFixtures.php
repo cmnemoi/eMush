@@ -270,6 +270,25 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($blueprintSwedishSofaMechanic);
         $manager->persist($blueprintSwedishSofa);
 
+        $blueprintJukeboxMechanic = new Blueprint();
+        $blueprintJukeboxMechanic
+            ->setCraftedEquipmentName(EquipmentEnum::JUKEBOX)
+            ->setIngredients([ItemEnum::THICK_TUBE => 1, ItemEnum::METAL_SCRAPS => 1])
+            ->addAction($buildAction)
+            ->buildName('jukebox_blueprint', GameConfigEnum::DEFAULT);
+
+        $blueprintJukebox = new ItemConfig();
+        $blueprintJukebox
+            ->setEquipmentName('jukebox_blueprint')
+            ->setIsStackable(true)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
+            ->setMechanics([$blueprintJukeboxMechanic])
+            ->setActionConfigs($actions)
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($blueprintJukeboxMechanic);
+        $manager->persist($blueprintJukebox);
+
         $gameConfig
             ->addEquipmentConfig($blueprintEcholocator)
             ->addEquipmentConfig($blueprintWhiteFlag)
@@ -282,7 +301,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addEquipmentConfig($blueprintExtinguisher)
             ->addEquipmentConfig($blueprintOscilloscope)
             ->addEquipmentConfig($blueprintSniperHelmet)
-            ->addEquipmentConfig($blueprintSwedishSofa);
+            ->addEquipmentConfig($blueprintSwedishSofa)
+            ->addEquipmentConfig($blueprintJukebox);
         $manager->persist($gameConfig);
 
         $manager->flush();

@@ -235,6 +235,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->items->contains($gameEquipment) || $this->getPlace()->getEquipments()->contains($gameEquipment);
     }
 
+    public function cannotReachEquipment(GameEquipment $gameEquipment): bool
+    {
+        return $this->canReachEquipment($gameEquipment) === false;
+    }
+
     public function getEquipments(): Collection
     {
         return $this->items;

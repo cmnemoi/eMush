@@ -56,4 +56,18 @@ final class StatusFactory
 
         return $attempt;
     }
+
+    public static function createStatusByNameForHolderAndTarget(string $name, StatusHolderInterface $holder, StatusHolderInterface $target): Status
+    {
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setStatusName($name)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::DEFAULT);
+
+        $status = new Status($holder, $statusConfig);
+        $status->setTarget($target);
+
+        return $status;
+    }
 }

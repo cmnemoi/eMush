@@ -945,6 +945,28 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     ],
                 ],
             ],
+            [
+                'projectKey' => 'beat_box',
+                'projectName' => 'Jukebox',
+                'projectDescription' => 'Rend disponible un Plan du Jukebox au Nexus. Le Jukebox permet de se relaxer en écoutant de la musique.',
+                'projectLore' => 'À chaque cycle, le Jukebox diffuse une chanson différente. Chaque personnage peut gagner 2 :pmo: quand sa chanson passe.',
+                'projectEfficiency' => 'Efficacité : 18-27%',
+                'projectBonusSkills' => [
+                    [
+                        'key' => 'radio_expert',
+                        'name' => 'Expert radio',
+                        'description' => 'L\'Expert radio peut décoder les enchevêtrements les plus complexes d\'ondes spatiales afin de
+                    reconstituer ou envoyer des messages à l\'autre bout de l\'Univers.//:point: **Double efficacité**
+                    pour établir le **contact** vers Sol.//:point: Améliore les tentatives de **contact** de Sol des
+                    équipiers dans la même pièce de 50%.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                    [
+                        'key' => 'creative',
+                        'name' => 'Créatif',
+                        'description' => 'Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre *1* :pa:.//:point: Bonus pour développer certains **Projets NERON**.',
+                    ],
+                ],
+            ],
         ];
     }
 }

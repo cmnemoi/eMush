@@ -350,6 +350,7 @@ class GameConfigData
                 'swedish_sofa_blueprint_default',
                 ItemEnum::SUPPORT_DRONE . '_default',
                 EquipmentEnum::HYDROPONIC_INCUBATOR . '_default',
+                'jukebox_blueprint_default',
             ],
             'statusConfigs' => [
                 'alien_artefact_default',
@@ -440,6 +441,7 @@ class GameConfigData
                 SkillEnum::SHRINK . '_default',
                 PlaceStatusEnum::MUSH_TRAPPED->value . '_default',
                 SkillEnum::MANKIND_ONLY_HOPE,
+                EquipmentStatusEnum::JUKEBOX_SONG . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -566,6 +568,7 @@ class GameConfigData
                 ProjectName::FLOOR_HEATING,
                 ProjectName::PARASITE_ELIM,
                 ProjectName::OXY_MORE,
+                ProjectName::BEAT_BOX,
             ],
         ],
     ];

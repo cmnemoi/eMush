@@ -499,6 +499,13 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mankindOnlyHopeSkill);
 
+        $jukeboxSongStatus = new StatusConfig();
+        $jukeboxSongStatus
+            ->setStatusName(EquipmentStatusEnum::JUKEBOX_SONG)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($jukeboxSongStatus);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -549,7 +556,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($defenceCpuPriority)
             ->addStatusConfig($shrinkSkill)
             ->addStatusConfig($mushTrapped)
-            ->addStatusConfig($mankindOnlyHopeSkill);
+            ->addStatusConfig($mankindOnlyHopeSkill)
+            ->addStatusConfig($jukeboxSongStatus);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -599,6 +607,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_STATUS, $astronavigationNeronCpuPriority);
         $this->addReference(SkillEnum::SHRINK, $shrinkSkill);
         $this->addReference(PlaceStatusEnum::MUSH_TRAPPED->value, $mushTrapped);
+        $this->addReference(SkillEnum::MANKIND_ONLY_HOPE, $mankindOnlyHopeSkill);
+        $this->addReference(EquipmentStatusEnum::JUKEBOX_SONG, $jukeboxSongStatus);
 
         $manager->flush();
     }

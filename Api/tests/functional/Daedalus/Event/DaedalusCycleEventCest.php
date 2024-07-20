@@ -20,6 +20,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -120,6 +121,100 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
         // then Jin Su is dead and is not commander, but Gioele is commander
         $I->assertFalse($jinSu->isAlive());
+        $I->assertEmpty($jinSu->getTitles());
+        $I->assertEquals($gioele->getTitles(), [TitleEnum::COMMANDER]);
+    }
+
+    public function shouldNotAssignTitleToInactivePlayer(FunctionalTester $I): void
+    {
+        // given daedalus is in game so titles can be assigned
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+
+        // given those players in the daedalus
+        /** @var Player $jinSu */
+        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+
+        /** @var Player $gioele */
+        $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
+
+        // given Jin Su is inactive
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::INACTIVE,
+            holder: $jinSu,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when cycle change event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then Jin Su is not commander, but Gioele is commander
+        $I->assertEmpty($jinSu->getTitles());
+        $I->assertEquals($gioele->getTitles(), [TitleEnum::COMMANDER]);
+    }
+
+    public function shouldGiveBackTitleToExInactivePlayers(FunctionalTester $I): void
+    {
+        // given daedalus is in game so titles can be assigned
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+
+        // given those players in the daedalus
+        /** @var Player $jinSu */
+        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+
+        /** @var Player $gioele */
+        $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
+
+        // given Gioele is commander
+        $gioele->addTitle(TitleEnum::COMMANDER);
+
+        // when cycle change event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then Jin Su is commander, but Gioele is not commander anymore
+        $I->assertTrue($jinSu->hasTitle(TitleEnum::COMMANDER));
+        $I->assertEmpty($gioele->getTitles());
+    }
+
+    public function shouldNotGiveTitlesToHighlyInactivePlayers(FunctionalTester $I): void
+    {
+        // given daedalus is in game so titles can be assigned
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+
+        // given those players in the daedalus
+        /** @var Player $jinSu */
+        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+
+        /** @var Player $gioele */
+        $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
+
+        // given Jin Su is highly inactive
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::HIGHLY_INACTIVE,
+            holder: $jinSu,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when cycle change event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then Jin Su is not commander, but Gioele is commander
         $I->assertEmpty($jinSu->getTitles());
         $I->assertEquals($gioele->getTitles(), [TitleEnum::COMMANDER]);
     }

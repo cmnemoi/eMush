@@ -4,7 +4,6 @@ namespace Mush\Player\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OrderBy;
@@ -115,8 +114,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     private ?Exploration $exploration = null;
 
     #[ORM\ManyToMany(targetEntity: Message::class, mappedBy: 'favorites')]
-    #[OrderBy(['updatedAt' => Criteria::DESC])]
+    #[OrderBy(['updatedAt' => Order::Descending->value])]
     private Collection $favoriteMessages;
+
+    #[ORM\Column(type: 'datetime', nullable: false, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private \DateTime $lastActionDate;
 
     public function __construct()
     {
@@ -127,6 +129,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->modifiers = new ModifierCollection();
         $this->planets = new ArrayCollection();
         $this->favoriteMessages = new ArrayCollection();
+        $this->lastActionDate = new \DateTime();
     }
 
     public static function createNull(): self
@@ -466,6 +469,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->playerVariables->setValueByName($actionPoint, PlayerVariableEnum::ACTION_POINT);
 
         return $this;
+    }
+
+    public function hasSpentActionPoints(): bool
+    {
+        return $this->getActionPoint() < $this->getCharacterConfig()->getMaxActionPoint();
     }
 
     public function getMovementPoint(): int
@@ -821,6 +829,28 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function isLaidDownInShrinkRoom(): bool
     {
         return $this->hasStatus(PlayerStatusEnum::LYING_DOWN) && $this->place->hasAnAliveShrinkExceptPlayer($this);
+    }
+
+    public function lastActionIsFromYesterdayOrLater(): bool
+    {
+        return $this->lastActionDate <= new \DateTime('yesterday');
+    }
+
+    public function lastActionIsFromTwoDaysAgoOrLater(): bool
+    {
+        return $this->lastActionDate <= new \DateTime('-2 days');
+    }
+
+    public function updateLastActionDate(): static
+    {
+        $this->lastActionDate = new \DateTime();
+
+        return $this;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->hasStatus(PlayerStatusEnum::INACTIVE) === false && $this->hasStatus(PlayerStatusEnum::HIGHLY_INACTIVE) === false;
     }
 
     private function getMinEfficiencyForProject(Project $project): int

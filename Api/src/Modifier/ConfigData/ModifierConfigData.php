@@ -2605,6 +2605,27 @@ abstract class ModifierConfigData
                 SkillEnum::MANKIND_ONLY_HOPE => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_player_x1.5percentage_on_action_attack_hit_shoot',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 1.5,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
+            'mode' => 'multiplicative',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::HIT->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

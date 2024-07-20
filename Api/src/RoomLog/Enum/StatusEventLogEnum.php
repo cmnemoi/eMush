@@ -10,7 +10,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 
-class StatusEventLogEnum
+abstract class StatusEventLogEnum
 {
     public const SOILED = 'soiled';
     public const BECOME_PREGNANT = 'become_pregnant';
@@ -19,6 +19,8 @@ class StatusEventLogEnum
     public const GET_UP_BED_BROKEN = 'get_up_bed_broken';
     public const GAIN_SHOOT_POINT = 'gain_shoot_point';
     public const LOST_IN_EXPLORATION = 'lost_in_exploration';
+    public const PLAYER_FALL_ASLEEP = 'player_fall_asleep';
+    public const PLAYER_WAKE_UP = 'player_wake_up';
 
     public const VALUE = 'value';
     public const VISIBILITY = 'visibility';
@@ -33,10 +35,13 @@ class StatusEventLogEnum
             EquipmentStatusEnum::BROKEN => self::EQUIPMENT_BROKEN,
             PlayerStatusEnum::STUCK_IN_THE_SHIP => self::STUCK_IN_THE_SHIP,
             PlayerStatusEnum::LOST => self::LOST_IN_EXPLORATION,
+            PlayerStatusEnum::INACTIVE => self::PLAYER_FALL_ASLEEP,
         ],
         StatusEvent::STATUS_REMOVED => [
             EquipmentStatusEnum::PLANT_YOUNG => PlantLogEnum::PLANT_MATURITY,
             PlayerStatusEnum::LYING_DOWN => self::GET_UP_BED_BROKEN,
+            PlayerStatusEnum::INACTIVE => self::PLAYER_WAKE_UP,
+            PlayerStatusEnum::HIGHLY_INACTIVE => self::PLAYER_WAKE_UP,
         ],
         VariableEventInterface::CHANGE_VARIABLE => [
             self::VALUE => [

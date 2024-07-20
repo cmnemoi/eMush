@@ -55,6 +55,12 @@ final class FakeStatusService implements StatusServiceInterface
         \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN
     ): void {
+        $status = $holder->getStatusByName($statusName);
+        if ($status === null) {
+            return;
+        }
+
+        $holder->removeStatus($status);
         $this->statuses->remove($statusName);
     }
 

@@ -276,10 +276,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($guardian);
 
+        /** @var VariableEventModifierConfig $inactiveModifier */
+        $inactiveModifier = $this->getReference('modifier_for_player_x1.5percentage_on_action_attack_hit_shoot');
+
         $highlyInactive = new StatusConfig();
         $highlyInactive
             ->setStatusName(PlayerStatusEnum::HIGHLY_INACTIVE)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs([$inactiveModifier])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($highlyInactive);
 
@@ -305,6 +309,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $inactive
             ->setStatusName(PlayerStatusEnum::INACTIVE)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs([$inactiveModifier])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($inactive);
 

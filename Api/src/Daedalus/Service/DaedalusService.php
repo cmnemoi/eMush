@@ -461,8 +461,7 @@ class DaedalusService implements DaedalusServiceInterface
         $titleConfigs = $gameConfig->getTitleConfigs();
 
         // Get the names of all alive players
-        // @TODO: get active players instead
-        $players = $daedalus->getPlayers()->getPlayerAlive();
+        $players = $daedalus->getActivePlayers();
 
         /** @var TitleConfig $titleConfig */
         foreach ($titleConfigs as $titleConfig) {

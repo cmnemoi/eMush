@@ -49,4 +49,9 @@ class PlayerCollection extends ArrayCollection
     {
         return $this->filter(static fn (Player $player) => $player->getId() !== $playerToExclude->getId());
     }
+
+    public function getActivePlayers(): self
+    {
+        return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isActive());
+    }
 }

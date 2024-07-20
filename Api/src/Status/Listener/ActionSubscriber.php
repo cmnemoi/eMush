@@ -9,18 +9,16 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\MakePlayerActiveService;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ActionSubscriber implements EventSubscriberInterface
 {
-    private StatusServiceInterface $statusService;
-
     public function __construct(
-        StatusServiceInterface $statusService,
-    ) {
-        $this->statusService = $statusService;
-    }
+        private MakePlayerActiveService $makePlayerActiveService,
+        private StatusServiceInterface $statusService,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -33,6 +31,8 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public function onPreAction(ActionEvent $event): void
     {
+        $this->makePlayerActiveService->execute($event->getAuthor());
+
         if ($event->shouldTriggerRoomTrap()) {
             $this->statusService->removeStatus(
                 statusName: PlaceStatusEnum::MUSH_TRAPPED->value,

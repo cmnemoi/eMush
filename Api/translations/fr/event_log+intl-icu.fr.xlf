@@ -930,5 +930,21 @@
                 } !!!</target>
       </segment>
     </unit>
+    <unit id="player_fall_asleep">
+      <segment id="player_fall_asleep" state="final">
+        <source>player_fall_asleep</source>
+        <target>{character_gender, select,
+                    male {**{character}** s'endort doucement dans un coin de la pièce. Il est si mignon avec son petit filet de bave.}
+                    female {**{character}** s'endort doucement dans un coin de la pièce. Le ronflement assourdissant enlève tout charme à la scène.}
+                    other {**{character}** s'endort doucement dans un coin de la pièce. Il est si mignon avec son petit filet de bave.}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="player_wake_up">
+      <segment id="player_wake_up" state="final">
+        <source>player_wake_up</source>
+        <target>**{character}** semble émerger péniblement de son sommeil...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

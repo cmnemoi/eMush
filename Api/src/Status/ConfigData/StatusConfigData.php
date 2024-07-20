@@ -406,7 +406,9 @@ abstract class StatusConfigData
             'startCharge' => null,
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
-            'modifierConfigs' => [],
+            'modifierConfigs' => [
+                'modifier_for_player_x1.5percentage_on_action_attack_hit_shoot',
+            ],
             'actionConfigs' => [],
         ],
         [
@@ -450,7 +452,9 @@ abstract class StatusConfigData
             'startCharge' => null,
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
-            'modifierConfigs' => [],
+            'modifierConfigs' => [
+                'modifier_for_player_x1.5percentage_on_action_attack_hit_shoot',
+            ],
             'actionConfigs' => [],
         ],
         [
@@ -1274,4 +1278,9 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
     ];
+
+    public static function getByName(string $name): array
+    {
+        return current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
+    }
 }

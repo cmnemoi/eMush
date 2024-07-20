@@ -86,6 +86,28 @@ class CharacterConfig
         $this->skills = [];
     }
 
+    public static function fromConfigData(array $data): self
+    {
+        $config = new self();
+        $config
+            ->setName($data['name'])
+            ->setCharacterName($data['characterName'])
+            ->setInitHealthPoint($data['initHealthPoint'])
+            ->setInitMoralPoint($data['initMoralPoint'])
+            ->setInitSatiety($data['initSatiety'])
+            ->setInitActionPoint($data['initActionPoint'])
+            ->setInitMovementPoint($data['initMovementPoint'])
+            ->setMaxNumberPrivateChannel($data['maxNumberPrivateChannel'])
+            ->setMaxHealthPoint($data['maxHealthPoint'])
+            ->setMaxMoralPoint($data['maxMoralPoint'])
+            ->setMaxActionPoint($data['maxActionPoint'])
+            ->setMaxMovementPoint($data['maxMovementPoint'])
+            ->setMaxItemInInventory($data['maxItemInInventory'])
+            ->setMaxDiscoverablePlanets($data['maxDiscoverablePlanets']);
+
+        return $config;
+    }
+
     public function getId(): int
     {
         return $this->id;

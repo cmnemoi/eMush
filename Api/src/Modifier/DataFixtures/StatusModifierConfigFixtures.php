@@ -18,6 +18,7 @@ use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
@@ -439,6 +440,11 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($mankindOnlyHopeModifier);
 
+        $inactiveModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_for_player_x1.5percentage_on_action_attack_hit_shoot')
+        );
+        $manager->persist($inactiveModifier);
+
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -469,6 +475,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::CONCEPTOR_SPECIALIST_POINT, $coreSpecialistPoint);
         $this->addReference('modifier_for_player_+1morale_point_on_new_cycle_if_shrink_in_room', $lyingDownShrinkModifier);
         $this->addReference(self::MANKIND_ONLY_HOPE_MODIFIER, $mankindOnlyHopeModifier);
+        $this->addReference($inactiveModifier->getName(), $inactiveModifier);
     }
 
     public function getDependencies(): array

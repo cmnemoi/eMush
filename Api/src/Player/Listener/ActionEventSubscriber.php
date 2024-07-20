@@ -29,6 +29,8 @@ final class ActionEventSubscriber implements EventSubscriberInterface
         $author = $event->getAuthor();
         $place = $event->getPlace();
 
+        $author->updateLastActionDate();
+
         if ($event->shouldTriggerRoomTrap() && $author->isHuman()) {
             $playerModifierEvent = new PlayerVariableEvent(
                 player: $author,

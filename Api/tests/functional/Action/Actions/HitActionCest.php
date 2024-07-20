@@ -8,6 +8,8 @@ use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -18,6 +20,7 @@ final class HitActionCest extends AbstractFunctionalTest
 {
     private Hit $hitAction;
     private ActionConfig $action;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
@@ -26,9 +29,8 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::HIT]);
         $this->action->setDirtyRate(0);
 
-        $I->refreshEntities($this->action);
-
         $this->hitAction = $I->grabService(Hit::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testHitSuccess(FunctionalTester $I)
@@ -146,5 +148,67 @@ final class HitActionCest extends AbstractFunctionalTest
             $this->player1->getActionPoint(),
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
         );
+    }
+
+    public function shouldHaveABonusAgainstInactivePlayers(FunctionalTester $I): void
+    {
+        $this->givenChunHasInactiveStatus();
+
+        $this->givenHitActionHasSuccessRate(60);
+
+        $this->whenKuanTiTriesToHitChun();
+
+        $this->thenHitActionSuccessRateShouldBe(90, $I);
+    }
+
+    public function shouldHaveABonusForHighlyInactivePlayers(FunctionalTester $I): void
+    {
+        $this->givenChunHasHighlyInactiveStatus();
+
+        $this->givenHitActionHasSuccessRate(60);
+
+        $this->whenKuanTiTriesToHitChun();
+
+        $this->thenHitActionSuccessRateShouldBe(90, $I);
+    }
+
+    private function givenChunHasInactiveStatus(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::INACTIVE,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenChunHasHighlyInactiveStatus(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::HIGHLY_INACTIVE,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenHitActionHasSuccessRate(int $successRate): void
+    {
+        $this->action->setSuccessRate($successRate);
+    }
+
+    private function whenKuanTiTriesToHitChun(): void
+    {
+        $this->hitAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi,
+            target: $this->chun
+        );
+    }
+
+    private function thenHitActionSuccessRateShouldBe(int $expectedSuccessRate, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedSuccessRate, $this->hitAction->getSuccessRate());
     }
 }

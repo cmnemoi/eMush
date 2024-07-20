@@ -9,6 +9,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\ConfigData\CharacterConfigData;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -32,15 +33,25 @@ final class PlayerFactory
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlayerVariables($characterConfig);
         $player->setPlace(Place::createNull());
-        self::setPlayerId($player);
+        self::setPlayerId($player, random_int(1, PHP_INT_MAX));
 
         return $player;
     }
 
     public static function createPlayerByName(string $name): Player
     {
-        $player = self::createPlayer();
-        $player->getCharacterConfig()->setCharacterName($name);
+        $user = new User();
+        $user
+            ->setUserId(Uuid::v4()->toRfc4122())
+            ->setUsername(Uuid::v4()->toRfc4122());
+
+        $characterConfig = CharacterConfig::fromConfigData(CharacterConfigData::getByName($name));
+
+        $player = new Player();
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
+        $player->setPlayerVariables($characterConfig);
+        self::setPlayerId($player, random_int(1, PHP_INT_MAX));
 
         return $player;
     }
@@ -79,11 +90,14 @@ final class PlayerFactory
 
     public static function createNullPlayer(): Player
     {
-        return self::createPlayer();
+        $player = self::createPlayer();
+        self::setPlayerId($player, 0);
+
+        return $player;
     }
 
-    private static function setPlayerId(Player $player): void
+    private static function setPlayerId(Player $player, int $id): void
     {
-        (new \ReflectionClass($player))->getProperty('id')->setValue($player, random_int(1, PHP_INT_MAX));
+        (new \ReflectionClass($player))->getProperty('id')->setValue($player, $id);
     }
 }

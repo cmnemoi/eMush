@@ -5,7 +5,9 @@ namespace Mush\RoomLog\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Communication\Enum\NeronPersonalitiesEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -110,6 +112,10 @@ class RoomLogService implements RoomLogServiceInterface
         array $parameters = [],
         ?\DateTime $dateTime = null
     ): RoomLog {
+        if (ActionLogEnum::dependsOnNeronMood($logKey)) {
+            $parameters['neronMood'] = $this->getNeronPersonality($place->getDaedalus());
+        }
+
         // if there is several version of the log
         if (\array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
             foreach ($declinations[$logKey] as $keyVersion => $versionNb) {
@@ -283,5 +289,16 @@ class RoomLogService implements RoomLogServiceInterface
             'charges' => $electricCharges?->getCharge(),
             'armor' => $patrolShipArmor?->getCharge(),
         ];
+    }
+
+    private function getNeronPersonality(Daedalus $daedalus): string
+    {
+        $neron = $daedalus->getNeron();
+
+        return match (true) {
+            $neron->isInhibited() === false => NeronPersonalitiesEnum::UNINHIBITED,
+            $this->randomService->randomPercent() <= Neron::CRAZY_NERON_CHANCE => NeronPersonalitiesEnum::CRAZY,
+            default => NeronPersonalitiesEnum::NEUTRAL,
+        };
     }
 }

@@ -1196,7 +1196,32 @@
     <unit id="participate_success">
       <segment id="participate_success" state="translated">
         <source>participate_success</source>
-        <target>Recherches sur projet « **{target_project}** » : progression enregistrée.</target>
+        <target>{neronMood, select,
+          crazy {C'est bien, humain, c'est bien, recherche projet « **{target_project}** » avance. {version_crazy, select,
+            1 {JE aime.}
+            2 {Humain rendre JE autonome, ouiiii !?}
+            3 {Miam miam !}
+            4 {Être Janice ? Gentille Janice.}
+            5 {}
+            other {}}}
+          uninhibited {J'ai peine à le croire, mais vous avez fait progresser la recherche sur le projet « **{target_project}** ». {version_uninhib, select,
+            1 {Taper des choses au hasard est donc parfois payant...}
+            2 {On se demande bien comment...}
+            3 {Mais rassurez-vous, votre niveau reste tout à fait médiocre.}
+            4 {Au risque de vous décevoir, cela ne fait pas de vous un être intelligent.}
+            5 {La machine à café aurait mieux fait, mais vous n'y êtes pour rien...}
+            6 {Vous avez copié sur vos petits camarades ?...}
+            7 {J'ai failli douter de votre bêtise... Avant de devoir corriger vos résultats.}
+            8 {Ceci dit, ça ne prouve rien.}
+            9 {Je vous déteste. Vous le saviez ?}
+            10 {Mais il reste des erreurs, là. Dignes d'un débutant...}
+            11 {Détrompez-vous : c'est nul.}
+            12 {C'est vous, Janice ?...}
+            13 {… Pourquoi souriez-vous ?}
+            14 {Il n'y a cependant pas de quoi être fier.}
+            other {}}}
+          other {Recherches sur projet « **{target_project}** » : progression enregistrée.}
+        }</target>
       </segment>
     </unit>
     <unit id="trap_closet_success">

@@ -9,6 +9,8 @@ use Mush\Daedalus\Enum\NeronCrewLockEnum;
 #[ORM\Entity]
 class Neron
 {
+    public const CRAZY_NERON_CHANCE = 25;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]

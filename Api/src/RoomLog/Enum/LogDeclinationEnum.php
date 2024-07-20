@@ -85,6 +85,7 @@ abstract class LogDeclinationEnum
             DiseaseMessagesEnum::ACCUSE_PARANOIA => [self::VERSION => 10, self::PARANOIA_VERSION_4 => 4, self::PARANOIA_VERSION_6 => 6],
             DiseaseMessagesEnum::PRE_PARANOIA => [self::VERSION => 4],
             LogEnum::DRONE_REPAIRED_EQUIPMENT => [self::VERSION => 7],
+            ActionLogEnum::PARTICIPATE_SUCCESS => [self::VERSION_UNINHIB => 14, self::VERSION_CRAZY => 5],
         ];
     }
 }

@@ -449,4 +449,9 @@ abstract class ActionLogEnum
             ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
         ],
     ];
+
+    public static function dependsOnNeronMood(string $logKey): bool
+    {
+        return $logKey === self::PARTICIPATE_SUCCESS;
+    }
 }

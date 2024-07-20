@@ -8,6 +8,7 @@ use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Enum\NeronPersonalitiesEnum;
 use Mush\Communication\Repository\MessageRepository;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -21,8 +22,6 @@ use Mush\RoomLog\Enum\LogDeclinationEnum;
 
 class NeronMessageService implements NeronMessageServiceInterface
 {
-    public const CRAZY_NERON_CHANCE = 25;
-
     private ChannelServiceInterface $channelService;
     private EntityManagerInterface $entityManager;
     private RandomServiceInterface $randomService;
@@ -60,7 +59,7 @@ class NeronMessageService implements NeronMessageServiceInterface
         // Get Neron personality
         if (!$neron->isInhibited()) {
             $parameters['neronMood'] = NeronPersonalitiesEnum::UNINHIBITED;
-        } elseif ($this->randomService->randomPercent() <= self::CRAZY_NERON_CHANCE) {
+        } elseif ($this->randomService->randomPercent() <= Neron::CRAZY_NERON_CHANCE) {
             $parameters['neronMood'] = NeronPersonalitiesEnum::CRAZY;
         } else {
             $parameters['neronMood'] = NeronPersonalitiesEnum::NEUTRAL;

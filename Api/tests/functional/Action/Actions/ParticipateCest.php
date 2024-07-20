@@ -140,6 +140,9 @@ final class ParticipateCest extends AbstractFunctionalTest
 
         // then this log should have the project name as a parameter
         $I->assertEquals('trail_reducer', $log->getParameters()['target_project']);
+
+        // then it should contain NERON mood
+        $I->assertArrayHasKey('neronMood', $log->getParameters());
     }
 
     public function shouldReducePlayerEfficiencyForProject(FunctionalTester $I): void

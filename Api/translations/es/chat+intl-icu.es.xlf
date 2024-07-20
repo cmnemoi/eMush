@@ -10,6 +10,58 @@
         <source>tips.description</source>
         <target>Aquí puedes encontrar **consejos prácticos** para tu vida diaria (patrocinado por estilosdevidasaludable.sanidad.gob.es)</target>
       </segment>
+      <segment id="teamObjectives.title" state="initial">
+        <source>tips.teamObjectives.title</source>
+        <target>tips.teamObjectives.title</target>
+      </segment>
+      <segment id="teamObjectives.elements" state="initial">
+        <source>tips.teamObjectives.elements</source>
+        <target>tips.teamObjectives.elements</target>
+      </segment>
+      <segment id="teamObjectives.mushTutorialTitle" state="initial">
+        <source>tips.teamObjectives.mushTutorialTitle</source>
+        <target>tips.teamObjectives.mushTutorialTitle</target>
+      </segment>
+      <segment id="teamObjectives.mushTutorialLink" state="initial">
+        <source>tips.teamObjectives.mushTutorialLink</source>
+        <target>tips.teamObjectives.mushTutorialLink</target>
+      </segment>
+      <segment id="characterObjectives.title" state="initial">
+        <source>tips.characterObjectives.title</source>
+        <target>tips.characterObjectives.title</target>
+      </segment>
+      <segment id="characterObjectives.tutorial" state="initial">
+        <source>tips.characterObjectives.tutorial</source>
+        <target>tips.characterObjectives.tutorial</target>
+      </segment>
+      <segment id="externalResources.title" state="initial">
+        <source>tips.externalResources.title</source>
+        <target>tips.externalResources.title</target>
+      </segment>
+      <segment id="externalResources.crewmates" state="initial">
+        <source>tips.externalResources.crewmates</source>
+        <target>tips.externalResources.crewmates</target>
+      </segment>
+      <segment id="externalResources.discord" state="initial">
+        <source>tips.externalResources.discord</source>
+        <target>tips.externalResources.discord</target>
+      </segment>
+      <segment id="externalResources.tutorials" state="initial">
+        <source>tips.externalResources.tutorials</source>
+        <target>tips.externalResources.tutorials</target>
+      </segment>
+      <segment id="externalResources.wiki" state="initial">
+        <source>tips.externalResources.wiki</source>
+        <target>tips.externalResources.wiki</target>
+      </segment>
+      <segment id="externalResources.tutorialsLink" state="initial">
+        <source>tips.externalResources.tutorialsLink</source>
+        <target>tips.externalResources.tutorialsLink</target>
+      </segment>
+      <segment id="externalResources.wikiLink" state="initial">
+        <source>tips.externalResources.wikiLink</source>
+        <target>tips.externalResources.wikiLink</target>
+      </segment>
     </unit>
     <unit id="room_log">
       <segment id="name" state="initial">

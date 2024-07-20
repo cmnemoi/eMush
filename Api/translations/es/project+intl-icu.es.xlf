@@ -757,5 +757,23 @@
         <target>oxy_more.lore</target>
       </segment>
     </unit>
+    <unit id="beat_box">
+      <segment id="beat_box.type" state="initial">
+        <source>beat_box.type</source>
+        <target>beat_box.type</target>
+      </segment>
+      <segment id="beat_box.name" state="initial">
+        <source>beat_box.name</source>
+        <target>beat_box.name</target>
+      </segment>
+      <segment id="beat_box.description" state="initial">
+        <source>beat_box.description</source>
+        <target>beat_box.description</target>
+      </segment>
+      <segment id="beat_box.lore" state="initial">
+        <source>beat_box.lore</source>
+        <target>beat_box.lore</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

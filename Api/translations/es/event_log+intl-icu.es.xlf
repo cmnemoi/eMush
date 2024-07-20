@@ -631,5 +631,23 @@
         <target>fruit_transported</target>
       </segment>
     </unit>
+    <unit id="jukebox_played">
+      <segment id="jukebox_played" state="initial">
+        <source>jukebox_played</source>
+        <target>jukebox_played</target>
+      </segment>
+    </unit>
+    <unit id="player_fall_asleep">
+      <segment id="player_fall_asleep" state="initial">
+        <source>player_fall_asleep</source>
+        <target>player_fall_asleep</target>
+      </segment>
+    </unit>
+    <unit id="player_wake_up">
+      <segment id="player_wake_up" state="initial">
+        <source>player_wake_up</source>
+        <target>player_wake_up</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

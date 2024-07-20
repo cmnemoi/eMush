@@ -44,6 +44,14 @@
         <source>andie.biography</source>
         <target>andie.biography</target>
       </segment>
+      <segment id="tips" state="initial">
+        <source>andie.tips</source>
+        <target>andie.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>andie.tutorial</source>
+        <target>andie.tutorial</target>
+      </segment>
     </unit>
     <unit id="Chao">
       <segment id="name" state="initial">
@@ -77,6 +85,14 @@
       <segment id="biography" state="initial">
         <source>chao.biography</source>
         <target>chao.biography</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>chao.tips</source>
+        <target>chao.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>chao.tutorial</source>
+        <target>chao.tutorial</target>
       </segment>
     </unit>
     <unit id="Chun">
@@ -112,6 +128,14 @@
         <source>chun.biography</source>
         <target>chun.biography</target>
       </segment>
+      <segment id="tips" state="initial">
+        <source>chun.tips</source>
+        <target>chun.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>chun.tutorial</source>
+        <target>chun.tutorial</target>
+      </segment>
     </unit>
     <unit id="Derek">
       <segment id="name" state="initial">
@@ -145,6 +169,14 @@
       <segment id="biography" state="initial">
         <source>derek.biography</source>
         <target>derek.biography</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>derek.tips</source>
+        <target>derek.tips</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>derek.tutorial</source>
+        <target>derek.tutorial</target>
       </segment>
     </unit>
     <unit id="Eleesha">
@@ -180,6 +212,14 @@
         <source>eleesha.biography</source>
         <target>eleesha.biography</target>
       </segment>
+      <segment id="tips" state="initial">
+        <source>eleesha.tips</source>
+        <target>eleesha.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>eleesha.tutorial</source>
+        <target>eleesha.tutorial</target>
+      </segment>
     </unit>
     <unit id="Finola">
       <segment id="name" state="initial">
@@ -213,6 +253,14 @@
       <segment id="biography" state="initial">
         <source>finola.biography</source>
         <target>finola.biography</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>finola.tips</source>
+        <target>finola.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>finola.tutorial</source>
+        <target>finola.tutorial</target>
       </segment>
     </unit>
     <unit id="Frieda">
@@ -248,6 +296,14 @@
         <source>frieda.biography</source>
         <target>frieda.biography</target>
       </segment>
+      <segment id="tips" state="initial">
+        <source>frieda.tips</source>
+        <target>frieda.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>frieda.tutorial</source>
+        <target>frieda.tutorial</target>
+      </segment>
     </unit>
     <unit id="Gioele">
       <segment id="name" state="initial">
@@ -281,6 +337,14 @@
       <segment id="biography" state="initial">
         <source>gioele.biography</source>
         <target>gioele.biography</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>gioele.tips</source>
+        <target>gioele.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>gioele.tutorial</source>
+        <target>gioele.tutorial</target>
       </segment>
     </unit>
     <unit id="Hua">
@@ -316,6 +380,14 @@
         <source>hua.biography</source>
         <target>hua.biography</target>
       </segment>
+      <segment id="tips" state="initial">
+        <source>hua.tips</source>
+        <target>hua.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>hua.tutorial</source>
+        <target>hua.tutorial</target>
+      </segment>
     </unit>
     <unit id="Ian">
       <segment id="name" state="initial">
@@ -349,6 +421,14 @@
       <segment id="biography" state="initial">
         <source>ian.biography</source>
         <target>ian.biography</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>ian.tips</source>
+        <target>ian.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>ian.tutorial</source>
+        <target>ian.tutorial</target>
       </segment>
     </unit>
     <unit id="jin_su">
@@ -384,6 +464,14 @@
         <source>jin_su.biography</source>
         <target>jin_su.biography</target>
       </segment>
+      <segment id="tips" state="initial">
+        <source>jin_su.tips</source>
+        <target>jin_su.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>jin_su.tutorial</source>
+        <target>jin_su.tutorial</target>
+      </segment>
     </unit>
     <unit id="kuan_ti">
       <segment id="name" state="initial">
@@ -417,6 +505,14 @@
       <segment id="biography" state="initial">
         <source>kuan_ti.biography</source>
         <target>kuan_ti.biography</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>kuan_ti.tips</source>
+        <target>kuan_ti.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>kuan_ti.tutorial</source>
+        <target>kuan_ti.tutorial</target>
       </segment>
     </unit>
     <unit id="Paola">
@@ -452,6 +548,14 @@
         <source>paola.biography</source>
         <target>paola.biography</target>
       </segment>
+      <segment id="tips" state="initial">
+        <source>paola.tips</source>
+        <target>paola.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>paola.tutorial</source>
+        <target>paola.tutorial</target>
+      </segment>
     </unit>
     <unit id="Raluca">
       <segment id="name" state="initial">
@@ -485,6 +589,14 @@
       <segment id="biography" state="initial">
         <source>raluca.biography</source>
         <target>raluca.biography</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>raluca.tips</source>
+        <target>raluca.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>raluca.tutorial</source>
+        <target>raluca.tutorial</target>
       </segment>
     </unit>
     <unit id="Roland">
@@ -520,6 +632,14 @@
         <source>roland.biography</source>
         <target>roland.biography</target>
       </segment>
+      <segment id="tips" state="initial">
+        <source>roland.tips</source>
+        <target>roland.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>roland.tutorial</source>
+        <target>roland.tutorial</target>
+      </segment>
     </unit>
     <unit id="Stephen">
       <segment id="name" state="initial">
@@ -553,6 +673,14 @@
       <segment id="biography" state="initial">
         <source>stephen.biography</source>
         <target>stephen.biography</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>stephen.tips</source>
+        <target>stephen.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>stephen.tutorial</source>
+        <target>stephen.tutorial</target>
       </segment>
     </unit>
     <unit id="Terrence">
@@ -588,6 +716,14 @@
         <source>terrence.biography</source>
         <target>terrence.biography</target>
       </segment>
+      <segment id="tips" state="initial">
+        <source>terrence.tips</source>
+        <target>terrence.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>terrence.tutorial</source>
+        <target>terrence.tutorial</target>
+      </segment>
     </unit>
     <unit id="janice">
       <segment id="name" state="initial">
@@ -621,6 +757,14 @@
       <segment id="biography" state="initial">
         <source>janice.biography</source>
         <target>janice.biography</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>janice.tips</source>
+        <target>janice.tips</target>
+      </segment>
+      <segment id="tutorial" state="initial">
+        <source>janice.tutorial</source>
+        <target>janice.tutorial</target>
       </segment>
     </unit>
   </file>

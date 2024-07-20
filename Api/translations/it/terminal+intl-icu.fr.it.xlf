@@ -176,6 +176,38 @@
         <source>bios_terminal.crew_lock_piloting</source>
         <target>bios_terminal.crew_lock_piloting</target>
       </segment>
+      <segment id="plasma_shield.name" state="initial">
+        <source>bios_terminal.plasma_shield_name</source>
+        <target>bios_terminal.plasma_shield_name</target>
+      </segment>
+      <segment id="plasma_shield.description" state="initial">
+        <source>bios_terminal.plasma_shield_description</source>
+        <target>bios_terminal.plasma_shield_description</target>
+      </segment>
+      <segment id="plasma_shield.toggle_activate" state="initial">
+        <source>bios_terminal.plasma_shield_toggle_activate</source>
+        <target>bios_terminal.plasma_shield_toggle_activate</target>
+      </segment>
+      <segment id="plasma_shield.toggle_deactivate" state="initial">
+        <source>bios_terminal.plasma_shield_toggle_deactivate</source>
+        <target>bios_terminal.plasma_shield_toggle_deactivate</target>
+      </segment>
+      <segment id="magnetic_net.name" state="initial">
+        <source>bios_terminal.magnetic_net_name</source>
+        <target>bios_terminal.magnetic_net_name</target>
+      </segment>
+      <segment id="magnetic_net.description" state="initial">
+        <source>bios_terminal.magnetic_net_description</source>
+        <target>bios_terminal.magnetic_net_description</target>
+      </segment>
+      <segment id="magnetic_net.toggle_active" state="initial">
+        <source>bios_terminal.magnetic_net_toggle_active</source>
+        <target>bios_terminal.magnetic_net_toggle_active</target>
+      </segment>
+      <segment id="magnetic_net.toggle_inactive" state="initial">
+        <source>bios_terminal.magnetic_net_toggle_inactive</source>
+        <target>bios_terminal.magnetic_net_toggle_inactive</target>
+      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="name" state="initial">

@@ -3375,5 +3375,31 @@
         <target>camera_item.examine</target>
       </segment>
     </unit>
+    <unit id="jukebox">
+      <segment id="name" state="initial">
+        <source>jukebox.name</source>
+        <target>jukebox.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>jukebox.short_name</source>
+        <target>jukebox.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>jukebox.plural_name</source>
+        <target>jukebox.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>jukebox.gender</source>
+        <target>jukebox.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>jukebox.first_letter</source>
+        <target>jukebox.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>jukebox.examine</source>
+        <target>jukebox.examine</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

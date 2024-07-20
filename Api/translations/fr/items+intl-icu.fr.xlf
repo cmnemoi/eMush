@@ -3599,7 +3599,7 @@ Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'hi
       </segment>
       <segment id="examine" state="final">
         <source>jukebox.examine</source>
-        <target>Le jukebox permet de se faire une bonne petite séance de regression de temps à autre. Le jukebox des années folles par excellence. Et en plus chargé avec les tubes préféré de l'équipage !</target>
+        <target>Le jukebox permet de se faire une bonne petite séance de régression de temps à autre.//Le jukebox des années folles par excellence. Et en plus chargé avec les tubes préférés de l'équipage !</target>
       </segment>
     </unit>
   </file>

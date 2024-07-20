@@ -206,7 +206,7 @@ final class TipsChannelNormalizerCest extends AbstractFunctionalTest
                 'characterObjectivesElements' => [
                     '**Participer aux projets NERON** à l\'aide du cœur de NERON au Nexus pour améliorer le vaisseau.',
                     '**Scanner des planètes** à l\'aide du Terminal Astro sur le Pont pour organiser des expéditions.',
-                    '**Réparer l\'équipment vital** du vaisseau.',
+                    '**Réparer l\'équipement vital** du vaisseau.',
                 ],
                 'characterObjectivesTutorialLink' => 'https://cmnemoi.github.io/archive_aide_aux_bolets/gioele-tutoriel.html',
                 'teamObjectivesTitle' => 'Vos objectifs en tant qu\':male_admin: humain',
@@ -218,7 +218,7 @@ final class TipsChannelNormalizerCest extends AbstractFunctionalTest
                     '**Éliminer les hunters** avec les Patrouilleurs dans les Baies pour protéger le vaisseau.',
                     '**Récolter les débris** des hunters éliminés avec le Pasiphae en Baie Alpha 2 pour réparer l\'armure du vaisseau.',
                     '**Lancer des expéditions** sur des planètes avec Icarus en Baie Icarus pour récolter des ressources.',
-                    '**Réparer l\'équipment vital** du vaisseau.',
+                    '**Réparer l\'équipement vital** du vaisseau.',
                 ],
                 'characterObjectivesTutorialLink' => 'https://cmnemoi.github.io/archive_aide_aux_bolets/hua-tutoriel.html',
                 'teamObjectivesTitle' => 'Vos objectifs en tant qu\':female_admin: humaine',
@@ -264,7 +264,7 @@ final class TipsChannelNormalizerCest extends AbstractFunctionalTest
                 'characterObjectivesElements' => [
                     '**Participer aux projets NERON** à l\'aide du cœur de NERON au Nexus pour améliorer le vaisseau.',
                     '**Participer à la réparation du PILGRED** en Salle des Moteurs pour rentrer sur Sol.',
-                    '**Réparer l\'équipment vital** du vaisseau.',
+                    '**Réparer l\'équipement vital** du vaisseau.',
                     '**Donner des Discours enflammés** aux coéquipiers démoralisés pour améliorer leur moral.',
                 ],
                 'characterObjectivesTutorialLink' => 'https://cmnemoi.github.io/archive_aide_aux_bolets/kuan-ti-premiers-pas.html',
@@ -286,7 +286,7 @@ final class TipsChannelNormalizerCest extends AbstractFunctionalTest
                 'characterObjectivesElements' => [
                     '**Participer à la réparation du PILGRED** en Salle des Moteurs pour rentrer sur Sol.',
                     '**Participer aux projets NERON** à l\'aide du cœur de NERON au Nexus pour améliorer le vaisseau.',
-                    '**Réparer l\'équipment vital** du vaisseau.',
+                    '**Réparer l\'équipement vital** du vaisseau.',
                 ],
                 'characterObjectivesTutorialLink' => 'https://cmnemoi.github.io/archive_aide_aux_bolets/raluca-premiers-pas.html',
                 'teamObjectivesTitle' => 'Vos objectifs en tant qu\':female_admin: humaine',
@@ -318,7 +318,7 @@ final class TipsChannelNormalizerCest extends AbstractFunctionalTest
                 'characterObjectivesElements' => [
                     '**Éliminer les hunters** avec les Patrouilleurs dans les Baies pour protéger le vaisseau.',
                     '**Participer aux projets NERON** à l\'aide du cœur de NERON au Nexus pour améliorer le vaisseau.',
-                    '**Réparer l\'équipment vital** du vaisseau.',
+                    '**Réparer l\'équipement vital** du vaisseau.',
                 ],
                 'characterObjectivesTutorialLink' => 'https://cmnemoi.github.io/archive_aide_aux_bolets/terrence-premiers-pas.html',
                 'teamObjectivesTitle' => 'Vos objectifs en tant qu\':male_admin: humain',

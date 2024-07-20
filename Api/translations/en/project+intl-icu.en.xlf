@@ -757,5 +757,23 @@
         <target>Algae growing in the air-conditioning ducts. Maybe we could encourage rampant growth of banana trees?</target>
       </segment>
     </unit>
+    <unit id="beat_box">
+      <segment id="beat_box.type" state="translated">
+        <source>beat_box.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="beat_box.name" state="translated">
+        <source>beat_box.name</source>
+        <target>Jukebox</target>
+      </segment>
+      <segment id="beat_box.description" state="translated">
+        <source>beat_box.description</source>
+        <target>Makes a Jukebox Blueprint available in Alpha Bay 2. Lets you relax while listening to some good tunes...</target>
+      </segment>
+      <segment id="beat_box.lore" state="translated">
+        <source>beat_box.lore</source>
+        <target>Each cycle, the Jukebox plays a different song. Each character can gain 2 :pmo: when their song plays.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -766,5 +766,65 @@
         <target>A **{target_equipment}** has been transported.</target>
       </segment>
     </unit>
+    <unit id="jukebox_played">
+      <segment id="jukebox_played" state="translated">
+        <source>jukebox_played</source>
+        <target>During this cycle, you can listen to the famous {player, select,
+                    andie {**That's the way it is**}
+                    chao {**Unleash The Party**}
+                    chun {**Star Walker : Infinite And Beyond OST**}
+                    derek {**She has the sniper eyes**}
+                    eleesha {**To Whom The Rockets Tolls**}
+                    finola {**Night Flowers**}
+                    gioele {**Die Die My Lightning**}
+                    hua {**Mon Clavier Pleure**}
+                    ian {**Take The Truth**}
+                    janice {**Dutch Dawn**}
+                    jin_su {**Bad Requiem**}
+                    kuan_ti {**Touching And Fading**}
+                    paola {**Audacity**}
+                    raluca {**Stoner And Sweeter**}
+                    roland {**A Weekend In Blood**}
+                    stephen {**Return Of The Haze**}
+                    terrence {**4ème symphonie en Ut majeur**}
+                    other {**Al's Ballad**}
+                } interprété par {player, select,
+                    andie {**Rita Risotto**}
+                    chao {**Tree Pot**}
+                    chun {**Jon Roger**}
+                    derek {**Patrick Lavande**}
+                    eleesha {**Mario Leone**}
+                    finola {**Rob Vivan**}
+                    gioele {**MetalliCorn**}
+                    hua {**Claude Chevalier**}
+                    ian {**Neil Washed**}
+                    janice {**Faded Happiness**}
+                    jin_su {**The Stoojazz**}
+                    kuan_ti {**VOSTeX**}
+                    paola {**ShipSalt**}
+                    raluca {**Old Crooks**}
+                    roland {**Steel Panzer Society**}
+                    stephen {**Sweet Symphonies**}
+                    terrence {**Mozoven**}
+                    other {**Massive Expenditure**}
+                } !!!</target>
+      </segment>
+    </unit>
+    <unit id="player_fall_asleep">
+      <segment id="player_fall_asleep" state="translated">
+        <source>player_fall_asleep</source>
+        <target>{character_gender, select,
+                    male {**{character}** is sleeping peacefully in the corner of the room. He's so cute when he drools...}
+                    female {**{character}** is sleeping peacefully in the corner of the room. She's so cute when strings of drool hang from her chin.}
+                    other {**{character}** is sleeping peacefully in the corner of the room. He's so cute when he drools...}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="player_wake_up">
+      <segment id="player_wake_up" state="translated">
+        <source>player_wake_up</source>
+        <target>**{character}** was sleeping but seems to have been rudely awakened...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

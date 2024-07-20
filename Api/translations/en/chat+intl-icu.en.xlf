@@ -10,6 +10,67 @@
         <source>tips.description</source>
         <target>Here you can find **practical tips** for daily life (sponsored by letsmove.gov).</target>
       </segment>
+      <segment id="teamObjectives.title" state="translated">
+        <source>tips.teamObjectives.title</source>
+        <target>{team, select,
+        mush {Your goals as :berzerk: Mush}
+        other {{character_gender, select,
+        female {Your goals as :female_admin: human}
+        other {Your goals as :male_admin: human}
+        }}}</target>
+      </segment>
+      <segment id="teamObjectives.elements" state="translated">
+        <source>tips.teamObjectives.elements</source>
+        <target>{team, select,
+        mush {**Eliminate all humans** by cooperating with other Mushs.//**Contaminate humans** to turn them into Mushs.//**Manipulate humans** to make them do things that put them at a disadvantage.//**Sabotage human actions** at the right moments, to prevent them from repairing the PILGRED and returning to Sol.}
+        other {**Eliminate the Mushs on board**.//**Repair the PILGRED** to return to Sol.//**Cooperate with the other humans** to survive using your skills. 👇}}</target>
+      </segment>
+      <segment id="teamObjectives.mushTutorialTitle" state="translated">
+        <source>tips.teamObjectives.mushTutorialTitle</source>
+        <target>**More information in the community tutorial**.</target>
+      </segment>
+      <segment id="teamObjectives.mushTutorialLink" state="translated">
+        <source>tips.teamObjectives.mushTutorialLink</source>
+        <target>https://www.mushpedia.com/wiki/Mush_Play</target>
+      </segment>
+      <segment id="characterObjectives.title" state="translated">
+        <source>tips.characterObjectives.title</source>
+        <target>Your goals as :{characterKey}: {character}</target>
+      </segment>
+      <segment id="characterObjectives.tutorial" state="translated">
+        <source>tips.characterObjectives.tutorial</source>
+        <target>**More information in the community tutorial**.</target>
+      </segment>
+      <segment id="externalResources.title" state="translated">
+        <source>tips.externalResources.title</source>
+        <target>Need help? Please do not hesitate to consult</target>
+      </segment>
+      <segment id="externalResources.crewmates" state="translated">
+        <source>tips.externalResources.crewmates</source>
+        <target>{team, select,
+        mush {Your teammates using :mush: **Mush channel**}
+        other {Your teammates using the :wall: **general channel**}}</target>
+      </segment>
+      <segment id="externalResources.discord" state="translated">
+        <source>tips.externalResources.discord</source>
+        <target>**Eternaltwin's Discord server**</target>
+      </segment>
+      <segment id="externalResources.tutorials" state="translated">
+        <source>tips.externalResources.tutorials</source>
+        <target>**Mushpedia** tutorials</target>
+      </segment>
+      <segment id="externalResources.wiki" state="translated">
+        <source>tips.externalResources.wiki</source>
+        <target>**Mushpedia** wiki</target>
+      </segment>
+      <segment id="externalResources.tutorialsLink" state="translated">
+        <source>tips.externalResources.tutorialsLink</source>
+        <target>https://www.mushpedia.com/wiki/Game_Basics</target>
+      </segment>
+      <segment id="externalResources.wikiLink" state="translated">
+        <source>tips.externalResources.wikiLink</source>
+        <target>https://www.mushpedia.com/</target>
+      </segment>
     </unit>
     <unit id="room_log">
       <segment id="name" state="translated">

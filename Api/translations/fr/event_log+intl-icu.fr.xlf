@@ -894,8 +894,10 @@
       <segment id="jukebox_played" state="final">
         <source>jukebox_played</source>
         <target>Durant ce cycle, vous pouvez écouter le célèbre {player, select,
+                    andie {**That's the way it is**}
                     chao {**Unleash The Party**}
                     chun {**Star Walker : Infinite And Beyond OST**}
+                    derek {**She has the sniper eyes**}
                     eleesha {**To Whom The Rockets Tolls**}
                     finola {**Night Flowers**}
                     gioele {**Die Die My Lightning**}
@@ -911,8 +913,10 @@
                     terrence {**4ème symphonie en Ut majeur**}
                     other {**Al's Ballad**}
                 } interprété par {player, select,
+                    andie {**Rita Risotto**}
                     chao {**Tree Pot**}
                     chun {**Jon Roger**}
+                    derek {**Patrick Lavande**}
                     eleesha {**Mario Leone**}
                     finola {**Rob Vivan**}
                     gioele {**MetalliCorn**}

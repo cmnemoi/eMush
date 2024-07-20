@@ -191,6 +191,38 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         <source>bios_terminal.crew_lock_piloting</source>
         <target>Piloting</target>
       </segment>
+      <segment id="plasma_shield.name" state="translated">
+        <source>bios_terminal.plasma_shield_name</source>
+        <target>Plasma Shield</target>
+      </segment>
+      <segment id="plasma_shield.description" state="translated">
+        <source>bios_terminal.plasma_shield_description</source>
+        <target>Activates the plasma shield.</target>
+      </segment>
+      <segment id="plasma_shield.toggle_activate" state="translated">
+        <source>bios_terminal.plasma_shield_toggle_activate</source>
+        <target>Active</target>
+      </segment>
+      <segment id="plasma_shield.toggle_deactivate" state="translated">
+        <source>bios_terminal.plasma_shield_toggle_deactivate</source>
+        <target>Inactive</target>
+      </segment>
+      <segment id="magnetic_net.name" state="translated">
+        <source>bios_terminal.magnetic_net_name</source>
+        <target>Magnetic Net</target>
+      </segment>
+      <segment id="magnetic_net.description" state="translated">
+        <source>bios_terminal.magnetic_net_description</source>
+        <target>Activates the magnetic net which allows the crew to leave the Patrol Craft to their doom. Or otherwise...</target>
+      </segment>
+      <segment id="magnetic_net.toggle_active" state="translated">
+        <source>bios_terminal.magnetic_net_toggle_active</source>
+        <target>Yes</target>
+      </segment>
+      <segment id="magnetic_net.toggle_inactive" state="translated">
+        <source>bios_terminal.magnetic_net_toggle_inactive</source>
+        <target>No</target>
+      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="name" state="translated">

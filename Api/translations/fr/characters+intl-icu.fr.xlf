@@ -416,7 +416,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>gioele.tips</source>
-        <target>**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Scanner des planètes** à l'aide du Terminal Astro sur le Pont pour organiser des expéditions.//**Réparer l'équipment vital** du vaisseau.</target>
+        <target>**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Scanner des planètes** à l'aide du Terminal Astro sur le Pont pour organiser des expéditions.//**Réparer l'équipement vital** du vaisseau.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>gioele.tutorial</source>
@@ -466,7 +466,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>hua.tips</source>
-        <target>**Éliminer les hunters** avec les Patrouilleurs dans les Baies pour protéger le vaisseau.//**Récolter les débris** des hunters éliminés avec le Pasiphae en Baie Alpha 2 pour réparer l'armure du vaisseau.//**Lancer des expéditions** sur des planètes avec Icarus en Baie Icarus pour récolter des ressources.//**Réparer l'équipment vital** du vaisseau.</target>
+        <target>**Éliminer les hunters** avec les Patrouilleurs dans les Baies pour protéger le vaisseau.//**Récolter les débris** des hunters éliminés avec le Pasiphae en Baie Alpha 2 pour réparer l'armure du vaisseau.//**Lancer des expéditions** sur des planètes avec Icarus en Baie Icarus pour récolter des ressources.//**Réparer l'équipement vital** du vaisseau.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>hua.tutorial</source>
@@ -619,7 +619,7 @@
       </segment>
       <segment id="tips" state="final">
         <source>kuan_ti.tips</source>
-        <target>**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Participer à la réparation du PILGRED** en Salle des Moteurs pour rentrer sur Sol.//**Réparer l'équipment vital** du vaisseau.//**Donner des Discours enflammés** aux coéquipiers démoralisés pour améliorer leur moral.</target>
+        <target>**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Participer à la réparation du PILGRED** en Salle des Moteurs pour rentrer sur Sol.//**Réparer l'équipement vital** du vaisseau.//**Donner des Discours enflammés** aux coéquipiers démoralisés pour améliorer leur moral.</target>
       </segment>
       <segment id="tutorial" state="final">
         <source>kuan_ti.tutorial</source>
@@ -722,7 +722,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>raluca.tips</source>
-        <target>**Participer à la réparation du PILGRED** en Salle des Moteurs pour rentrer sur Sol.//**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Réparer l'équipment vital** du vaisseau.</target>
+        <target>**Participer à la réparation du PILGRED** en Salle des Moteurs pour rentrer sur Sol.//**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Réparer l'équipement vital** du vaisseau.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>raluca.tutorial</source>
@@ -879,7 +879,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>terrence.tips</source>
-        <target>**Éliminer les hunters** avec les Patrouilleurs dans les Baies pour protéger le vaisseau.//**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Réparer l'équipment vital** du vaisseau.</target>
+        <target>**Éliminer les hunters** avec les Patrouilleurs dans les Baies pour protéger le vaisseau.//**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Réparer l'équipement vital** du vaisseau.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>terrence.tutorial</source>

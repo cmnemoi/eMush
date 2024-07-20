@@ -1265,7 +1265,7 @@ The Icarus was an elite exploration vehicle... a few hundred years ago!</target>
       </segment>
       <segment id="examine" state="translated">
         <source>jukebox.examine</source>
-        <target>The jukebox is great for a little relaxation session from time to time.
+        <target>The jukebox is great for a little relaxation session from time to time.//
 An awesome jukebox from back in the day. Even better, it comes preloaded with the crew's favourite tunes!</target>
       </segment>
     </unit>

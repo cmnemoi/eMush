@@ -50,6 +50,14 @@
 - 3154: Having completed studying, Andie decides to become a pilot, joins the aerial division and gets his/her license easily. Andie ***asks to be stationed on Xyloph-17*** and it doesn't take long for him/her to get noticed by Kim Jin Su. Derek doesn't recognize Andie at all.
 - 3154: Unaware of the stakes, or what is being orchestrated behind the scenes, and still thinking he/she is ardently serving the federation, Andie embarks aboard the Daedalus.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>andie.tips</source>
+        <target>**Eliminate hunters** with Patrol Ships located in Bays to protect the ship.//**Recover scrap** from eliminated hunters with the Pasiphae located in Alpha 2 Bay to repair the ship's armor.//**Launch expeditions** to planets with Icarus located in Icarus Bay to collect resources.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>andie.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Andie_Graham</target>
+      </segment>
     </unit>
     <unit id="Chao">
       <segment id="name" state="translated">
@@ -90,6 +98,14 @@
 - 3152: Having returned to the Magellan team, Chao and Derek learn of an objective change on the project. The Ark World is now charged with the mission of protecting the human race from the Mush. According to them, the Mush has already taken control of the guerilla rebels and the Federation. The new ark is named ***Daedalus***...
 - 3153: The head of the Daedalus project, Kim Jin Su, unofficially tasks Chao and Derek with the ***kidnap of Finola Keegan***, an eminence grise in antimush research circles who refused to join their alliance. Derek Hogan disappears during the operation under mysterious circumstances, but the mission is a success. Finola is collected and cryogenically frozen on Xyloph-17.
 - 3154: When he discovers that the new superior sent by the Federation is a Mush, Chao ***eliminates him without the consent of his colleagues***. This leads to the degeneration of his relationship with the Federation who command SDF operatives in that location to put the project on hold. Chao then helps the remaining members of his team to make their escape from the Daedalus.</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>chao.tips</source>
+        <target>**Investigate to identify Mushs** with your human teammates and private channels.//**Torture suspect teammates** to identify Mush actions with your Torturer skill.//**Participate in expeditions** to harvest more resources with your Survivalist skill.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>chao.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Wang_Chao</target>
       </segment>
     </unit>
     <unit id="Chun">
@@ -138,6 +154,14 @@
 - 3153: Professor Carlsson finally makes it to the orbital platform and Chun's ***true identity is revealed to the crew***. They start working together again to isolate another mycelium sample and restart vaccine production. However, Nils' deteriorating health hampers progress considerably.
 - 3154: The invasion of the orbital platform by the FDS provokes a hurried departure of the ***Daedalus***. Professor Carlsson isn't prepared to follow the team and as such, is forced to leave Chun facing her uncertain destiny.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>chun.tips</source>
+        <target>**Identify human teammates**.//**Investigate to identify Mushs** with your human teammates and private channels.//**Treat injured teammates** with the Medikit or in the Medlab.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>chun.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Zhong_Chun</target>
+      </segment>
     </unit>
     <unit id="Derek">
       <segment id="name" state="translated">
@@ -179,6 +203,14 @@
 - 3151: Faced with the catastrophic results produced by the students under Hogan's tutelage, his superiors sent him back into the field.
 - 3153: ***Commander Jin-Su*** takes Derek under his wing, and soon entrusts him with an unofficial extraction mission. Unfortunately he turns out to be unable to disarm ***the scientist Finola Keagan***'s home security system. In her wisdom, she had left her toybox open, exposing Derek to weaponry the likes of which he had never imagined, causing the sergeant to lose his memory and some potency. *His companion in this mission, Wang Chao, is killed by a squad of vigilante quadrupeds. He experiences a mighty pain in the butt before he eventually succumbs to his injuries.*
 - 3154: *Derek manages to get on board the Daedalus alongside the other 15 crew members*. He shall never again be manipulated by the SDF!</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>derek.tips</source>
+        <target>**Identify human teammates**.//**Investigate to identify Mushs** with your human teammates and private channels.//**Participate in expeditions** to make them safer with your Shooter skill.</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>derek.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Derek_Hogan</target>
       </segment>
     </unit>
     <unit id="Eleesha">
@@ -229,6 +261,14 @@
 - 3153: Finola finally lands on Xyloph-17. Handcuffed. Eleesha is up in arms about their methods, but secretly hopes that she will be capable of building a detector.
 - 3154: Following a regrettable diplomatic error, the ***Federation takes control of Xyloph-17***. Eleesha takes part in the operation to retake the Daedalus in order to flee. Once they are in orbit, the team decides to fly the ship towards the ***Magellan Cloud***. Eleesha is cryogenically frozen for the first time in her life.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>eleesha.tips</source>
+        <target>**Identify human teammates**.//**Investigate to identify Mushs** with your human teammates and private channels.//**Participate in NERON projects** using the NERON's core in the Nexus to improve the ship.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>eleesha.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Eleesha_Williams</target>
+      </segment>
     </unit>
     <unit id="Finola">
       <segment id="name" state="translated">
@@ -271,6 +311,14 @@
 - 3152: ***Eleesha Williams, a clandestine journalist*** who had already published some of Finola's research, contacts her to warn her of the degradation of the Federation's situation. Several members of the parliament including ***GL Maubrick*** are infected by Mush. She proposes that Finola joins the team aboard the ***Daedalus***, a ship headed for another galaxy, but Finola finds the idea of abandoning the majority of human lives in favour of a few well-placed individuals scandalous. Her colleague Ian Soulton doesn't share that sentiment and sets off for Jupiter.
 - 3153: Finola is ***kidnapped from outside her home*** by henchmen of the ***Magellan Project***. She is cryogenically frozen on Jupiter without being given a chance to speak.
 - 3170: When she awakens aboard the Daedalus, Finola is more than 170,000 light years from Earth. While she slept, Mush has no doubt taken control of all officials on Sol. This might explain the presence of federation fighters surrounding the ship.</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>finola.tips</source>
+        <target>**Participate in research** using the Research Laboratory to weaken the Mushs.//**Treat injured teammates** with the Medikit or in the Medlab.//**Participate in expeditions** to make them safer using your Diplomacy skill.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>finola.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Finola_Keegan</target>
       </segment>
     </unit>
     <unit id="Frieda">
@@ -316,6 +364,14 @@
 - 3150: At the age of 63 Frieda Bergmann's hopes of escaping were buried for good. She left her observatory in Düsseldorf and retired to Bavaria.
 - 3151: Jin-Su calls on Frieda to work on the discovery of a body found in Magellan's great cloud. This would be a real challenge given the massive distance between this galaxy and the Milky Way. Frieda accepts the mission on the condition that she can participate in the expedition and go to the cloud. Kim Jin-Su names her as the ship's navigator, even though he knows that ***her chances of surviving 16 years of cryosleep are minimal***.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>frieda.tips</source>
+        <target>**Eliminate hunters** with Patrol Ships located in Bays to protect the ship.//**Recover scrap** from eliminated hunters with the Pasiphae located in Alpha 2 Bay to repair the ship's armor.//**Launch expeditions** to planets with Icarus in Icarus Bay to collect resources.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>frieda.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Frieda_Bergmann</target>
+      </segment>
     </unit>
     <unit id="Gioele">
       <segment id="name" state="translated">
@@ -358,6 +414,14 @@
 - 3153: As the Federation gradually reduces the frequency of payments, Gioele ***offers additional financial support for the project*** to Raluca, Jin-Su and Kuan-Ti. His only condition being that ***Nils Carlsson*** is removed from the team and replaced by his daughter ***Paola Rinaldo***. The team refuses.
 - 3154: Nils falls ill during a serious crisis between ***Xyloph-17*** and the Federation. The ***SDF takes control of the project***, but Kim Jin-Su organizes the clandestine departure of the Daedalus. Gioele and Paola are finally taken aboard.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>gioele.tips</source>
+        <target>**Participate in NERON projects** using NERON's core in the Nexus to improve the ship.//**Scan planets** using the Astro Terminal on the Bridge to organize expeditions.//**Repair vital equipment** from the ship.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>gioele.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Gioele_Rinaldo</target>
+      </segment>
     </unit>
     <unit id="Hua">
       <segment id="name" state="translated">
@@ -399,6 +463,14 @@
 - 3146: When he is named leader of the Magellan Project, Kim Jin-Su signed a contract with ChangMei-Tech to equip the Ark with an exploration vessel. Jiang Hua is sent to ***join Jin-Su's team to integrate the ship aboard the ark***.
 - 3152: Hua assists ***Ian Soulton*** with the creation of a compact hydroponic garden capable of sustaining life for a crew of 16.
 - 3153: The ***Icarus*** prototype is delivered to the team, it is thoroughly tested by the pilots in the most extreme conditions possible. An accident during one of these tests near the Sun's surface forces Hua and the ***young pilot Roland Zucalli*** to survive for 36 hours on the surface of Mercury.</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>hua.tips</source>
+        <target>**Eliminate hunters** with Patrol Ships located in Bays to protect the ship.//**Recover scrap** from eliminated hunters with the Pasiphae located in Alpha 2 Bay to repair the ship's armor.//**Launch expeditions** to planets with Icarus in Icarus Bay to collect resources.//**Repair vital equipment** from the ship.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>hua.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Jiang_Hua</target>
       </segment>
     </unit>
     <unit id="Ian">
@@ -444,6 +516,14 @@
 - 3153: Ian ***modernizes the hydroponic garden*** project aboard the Daedalus. Thanks to a combination of 12 specific species of plant, he manages to ensure a constantly renewing supply of oxygen aboard the ship.
 - 3170: When Ian awakes, the fire alarm indicates damage to the hydroponic garden. When he arrives it is already too late, ***only three plants remain***, thus condemning the team to certain death.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>ian.tips</source>
+        <target>**Water** thirsty and dried out plants.//**Treat** diseased plants.//**Plant fruits** in hydropots.//**Participate in NERON projects** using NERON's core in the Nexus to improve the ship.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>ian.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Ian_Soulton</target>
+      </segment>
     </unit>
     <unit id="jin_su">
       <segment id="name" state="translated">
@@ -487,6 +567,14 @@
 - 3153: Following the ***disappearance of sergeant Derek Hogan***, Jin-Su manages to dissuade the SDF from launching an investigation. He attracts the mistrust of the administration who wish to advance the date of the bi-yearly report on the Magellan report. Jin-Su, who cannot risk a Mush infection, refuses, only to find himself relieved of his duties.
 - 3154: His replacement, ***Captain Baranov is assassinated immediately*** upon his arrival on Xyloph-17. The Federation is planning an immediate counter-attack but Jin-Su, with the help of a rebel SDF Trooper, manages to evacuate 16 members of the crew. The anticipated startup of the PILGRED reactor is a success, the Daedalus is propelled towards the Magellan nebula at more than a billion m/s.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>jin_su.tips</source>
+        <target>**Eliminate hunters** with Patrol Ships located in Bays to protect the ship.//**Recover scrap** from eliminated hunters with the Pasiphae located in Alpha 2 Bay to repair the ship's armor.//**Orientate and travel the ship** using the Command Terminal on the Bridge to explore planets.//**Give motivational speeches** to demoralized teammates to boost morale.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>jin_su.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Kim_Jin_Su</target>
+      </segment>
     </unit>
     <unit id="kuan_ti">
       <segment id="name" state="translated">
@@ -529,6 +617,14 @@
 - 3153: Morosity and mistrust infect the team gradually as the bad news regarding the Mush invasion spreads. ***Professor Carlsson***'s tests don't reassure the team who then demand a means to detect the presence of Mush in the team before the ship launches.. Kuan-Ti resolves to ***kidnap Finola Keegan*** who according to her colleague ***Professor Ian Soulton*** is capable of creating a Mush scanner.
 - 3154: The departure of the Daedalus has to be precipitated as SDF troops are taking control of the orbital platform. Professor Keegan who is still in Cryosleep is admitted on board along with the other 14 crew members.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>kuan_ti.tips</source>
+        <target>**Participate in NERON projects** using NERON's core in the Nexus to improve the ship.//**Participate in PILGRED repairs** in the Engine Room to return to Sol.//**Repair vital equipment** from the ship.//**Give motivational speeches** to demoralized teammates to boost morale.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>kuan_ti.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Lai_Kuan_Ti</target>
+      </segment>
     </unit>
     <unit id="Paola">
       <segment id="name" state="translated">
@@ -569,6 +665,14 @@
 - 3151: When the interference increased, Kivanç and Paola identified exchanges in an unknown language. Kinvanç started trying to decrypt the language and managed to decipher the most commonly recurring messages. They talk about the "purification of the Sol system", "the transfer of violent subjects", and even "the spore bank". He is finally arrested the following month during an anti-fongic check by the FDS.
 - 3152: Gioele contacts his daughter to warn her of imminent danger. ***The Mush invasion described by the government 3 years ago is real***. The entire Sol system is under threat. He ***offers her a place aboard his Ark-World Project ship, the Daedalus***, which must save the human race from certain demise. Paola accepts but she wants to save Kivanç first who is being held in a detention centre in France. She asks her father to transfer him to Titan and into one of his mining colonies.
 - 3154: 48h before the operation to help Kivanç escape, a tragic accident obliges the crew of the Daedalus to move their departure forward. Paola must decide to leave Sol without Kivanç but she vows to get back in touch with him no matter the distance between them.</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>paola.tips</source>
+        <target>**Participate in NERON projects** using the NERON core in the Nexus to improve the ship.//**Scan planets** using the Astro Terminal on the Bridge to organize expeditions.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>paola.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Paola_Rinaldo</target>
       </segment>
     </unit>
     <unit id="Raluca">
@@ -616,6 +720,14 @@
 - 3154: A breakdown in relations between the ***Federation*** and Xyloph-17 force the team to make an emergency departure from Jupiter. The PILGRED V3 reactor is ***fired up for the first time in a real-life situation***. In spite of the inherent hygiene risk, Raluca ***manages to sneak Schrödinger into her cryosleep capsule***.
 - 3170: Raluca and Schrödinger wake up in the spacial void known as Magellan. According to NERON, the reactor is propelling them in the correct direction. However, it is no longer functioning and the Daedalus is currently under attack...</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>raluca.tips</source>
+        <target>**Participate in the repair of the PILGRED** in the Engine Room to return to Sol.//**Participate in NERON projects** using NERON's core at the Nexus to improve the ship.//**Repair vital equipment** from the ship.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>raluca.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Raluca_Tomescu</target>
+      </segment>
     </unit>
     <unit id="Roland">
       <segment id="name" state="translated">
@@ -657,6 +769,14 @@
 - 3152: When Roland tries to get in touch with the rebellion to share his information, Roland gets in touch with the ***journalist Eleesha Williams*** who he pushed into the sky on Mars. She is then hunted by the Federation for treason and finds refuge in a base on Jupiter where she starts planning the construction of an Ark to flee Sol.
 - 3153: Roland is accepted into the Daedalus team which is seriously lacking pilots for patrols. The ***explorer Jiang-Hua*** teaches him the intricacies of engine management and plans his training on the orbital platform.
 - 3153: Following an unprecedented solar explosion, a melting wing on his craft forces Roland to negotiate an ***emergency landing on Mercury***. With Jiang Hua, his co-pilot, they are forced to wait 36h in extreme temperatures until help arrives.</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>roland.tips</source>
+        <target>**Eliminate hunters** with Patrolships located in Bays to protect the ship.//**Recover scrap** from eliminated hunters with the Pasiphae located in Alpha 2 Bay to repair the ship's armor.//**Launch expeditions** to planets with Icarus in Icarus Bay to collect resources.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>roland.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Roland_Zuccali</target>
       </segment>
     </unit>
     <unit id="Stephen">
@@ -705,6 +825,14 @@
 - 3153: The same day as his public execution, Stephen is ***narrowly saved by a commando*** who had been trained by two former elite SDF agents. The commando mistakes Stephen for an prominent scientist, specializing in Mushrooms. Stephen, whose talents as a chef never got that much praise before, is flattered. They take him to the orbital station ***Xyloph-17*** which is in orbit around Jupiter. Once there, Stephen is ***introduced to the team of the Daedalus*** and placed in detention.
 - 3154: While several SDF battalions seem to want to take over the laboratory, Stephen takes advantage of the widespread confusion to leave the quarantine zone. He manages to ***sneak aboard a large exploration-class vessel*** but he is pursued by an armed group. He finally ***finds sanctuary in a large capsule*** which turns out to be extremely comfortable, if a bit cold...</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>stephen.tips</source>
+        <target>**Participate in NERON projects** using NERON's core in the Nexus to improve the ship.//**Scan planets** using the Astro Terminal on the Bridge to organize expeditions.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>stephen.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Stephen_Seagull</target>
+      </segment>
     </unit>
     <unit id="Terrence">
       <segment id="name" state="translated">
@@ -749,6 +877,14 @@
 - 3153: Terrence's drones turn out to be extremely useful in the ***construction of the Daedalus***. By linking them to the vessel's AI core, named ***NERON***, Janice manages to further increase their productivity.
 - 3154: After the SDF seize control of the laboratory, Terrence has no choice but to flee with the crew of the Daedalus. He is safe, but completely devastated: All his work along with his 32 assistant drones have been left behind on Xyloph-17.</target>
       </segment>
+      <segment id="tips" state="translated">
+        <source>terrence.tips</source>
+        <target>**Eliminate hunters** with Patrolships located in Bays to protect the ship.//**Participate in NERON projects** using the NERON core at the Nexus to improve the ship. //**Repair vital equipment** from the ship.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>terrence.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Terrence_Archer</target>
+      </segment>
     </unit>
     <unit id="janice">
       <segment id="name" state="translated">
@@ -791,6 +927,14 @@
 - 3151: Janice tries to optimize NERON's thinking processes but the infernal regularity of the ***PILGRED reactor*** tests carried out by ***researcher Raluca Tomescu*** monopolize the unit's processing power.
 - 3152: Following a reduction of its workload, NERON sees its processing requirement drop to 75%. Thus, its capacities for evolution are considerably improved. Janice contacts Terrence to ask him to build drones capable of completing the construction of the Daedalus on schedule.
 - 3154: While SDF forces attempt to regain control of the base, NERON's A-TRUE protocol is activated. He refuses troops access to buildings thus slowing the army's progression to the interior of Xyloph-17. Janice, who was then the only individual capable of controlling the central computer, frees her colleagues and attempts to transfer essential data to the Daedalus. Several hours later, the ship takes off ***towards the Magellan Galaxy***.</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>janice.tips</source>
+        <target>**Participate in NERON projects** using the NERON heart at the Nexus to improve the ship.//**Comfort demoralized teammates** to improve their morale.//**Be present with laid down teammates** to improve their morale.</target>
+      </segment>
+      <segment id="tutorial" state="translated">
+        <source>janice.tutorial</source>
+        <target>https://www.mushpedia.com/wiki/Janice_Kent</target>
       </segment>
     </unit>
   </file>

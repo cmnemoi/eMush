@@ -696,6 +696,56 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $I->assertFalse($this->kuanTi->isAlive());
     }
 
+    public function shouldNotMovePatrolShipPilotToLandingBayWithInactiveMagneticNet(FunctionalTester $I): void
+    {
+        $this->createExtraPlace(RoomEnum::ALPHA_BAY_2, $I, $this->daedalus);
+
+        $this->givenMagneticNetProjectIsFinishedButInactive($I);
+        $this->givenPasiphaeIsInSpaceBattle($I);
+        $this->givenKuanTiIsInPasiphae();
+
+        $this->whenChunMovesDaedalus();
+
+        $I->assertNotEquals(RoomEnum::ALPHA_BAY_2, $this->kuanTi->getPlace()->getName());
+    }
+
+    public function shouldKillPasiphaePilotWithInactiveMagneticNetProject(FunctionalTester $I): void
+    {
+        $this->createExtraPlace(RoomEnum::ALPHA_BAY_2, $I, $this->daedalus);
+
+        // given Magnetic Net Project is finished but inactive
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::MAGNETIC_NET),
+            author: $this->chun,
+            I: $I
+        );
+        $this->daedalus->getNeron()->toggleMagneticNet();
+
+        // given Pasiphae is in space battle
+        $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
+        $pasiphae = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PASIPHAE,
+            equipmentHolder: $pasiphaePlace,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given KT is in the Pasiphae
+        $this->kuanTi->changePlace($pasiphaePlace);
+
+        // when player moves daedalus
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->moveDaedalusAction->execute();
+
+        // then KT is dead
+        $I->assertFalse($this->kuanTi->isAlive());
+    }
+
     protected function createHunterByName(string $hunterName, FunctionalTester $I): Hunter
     {
         /** @var HunterConfig $hunterConfig */
@@ -719,6 +769,17 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
             author: $this->chun,
             I: $I
         );
+    }
+
+    private function givenMagneticNetProjectIsFinishedButInactive(FunctionalTester $I): void
+    {
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::MAGNETIC_NET),
+            author: $this->chun,
+            I: $I
+        );
+
+        $this->daedalus->getNeron()->toggleMagneticNet();
     }
 
     private function givenPasiphaeIsInSpaceBattle(FunctionalTester $I): void

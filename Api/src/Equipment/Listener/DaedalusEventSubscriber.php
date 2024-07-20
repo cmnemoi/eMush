@@ -16,7 +16,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Factory\PlayerFactory;
-use Mush\Project\Enum\ProjectName;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusEventSubscriber implements EventSubscriberInterface
@@ -55,7 +54,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
 
-        if ($daedalus->hasFinishedProject(ProjectName::MAGNETIC_NET)) {
+        if ($daedalus->isMagneticNetActive()) {
             $this->makePatrolShipsInBattleLand($event);
         } else {
             $this->destroyPatrolShipsInBattle($event);

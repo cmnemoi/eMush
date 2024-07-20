@@ -29,6 +29,9 @@ class Neron
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $isPlasmaShieldActive = false;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
+    private bool $isMagneticNetActive = true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,5 +91,15 @@ class Neron
     public function togglePlasmaShield(): void
     {
         $this->isPlasmaShieldActive = !$this->isPlasmaShieldActive;
+    }
+
+    public function isMagneticNetActive(): bool
+    {
+        return $this->isMagneticNetActive;
+    }
+
+    public function toggleMagneticNet(): void
+    {
+        $this->isMagneticNetActive = !$this->isMagneticNetActive;
     }
 }

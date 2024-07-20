@@ -272,6 +272,10 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             $infos['plasmaShieldToggles'] = $this->getTranslatedPlasmaShieldToggles($terminal);
             $infos['isPlasmaShieldActive'] = $neron->isPlasmaShieldActive();
         }
+        if ($daedalus->hasFinishedProject(ProjectName::MAGNETIC_NET)) {
+            $infos['magneticNetToggles'] = $this->getTranslatedMagneticNetToggles($terminal);
+            $infos['isMagneticNetActive'] = $neron->isMagneticNetActive();
+        }
 
         return $infos;
     }
@@ -367,5 +371,23 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         }
 
         return $plasmaShieldToggles;
+    }
+
+    private function getTranslatedMagneticNetToggles(GameEquipment $terminal): array
+    {
+        $magneticNetToggles = [];
+        foreach (['active', 'inactive'] as $toggle) {
+            $magneticNetToggles[] = [
+                'key' => $toggle,
+                'name' => $this->translationService->translate(
+                    key: $terminal->getName() . '.magnetic_net_toggle_' . $toggle,
+                    parameters: [],
+                    domain: 'terminal',
+                    language: $terminal->getDaedalus()->getLanguage()
+                ),
+            ];
+        }
+
+        return $magneticNetToggles;
     }
 }

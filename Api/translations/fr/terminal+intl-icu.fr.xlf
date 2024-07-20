@@ -212,6 +212,22 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <source>bios_terminal.plasma_shield_toggle_deactivate</source>
         <target>Désactiver</target>
       </segment>
+      <segment id="magnetic_net.name" state="translated">
+        <source>bios_terminal.magnetic_net_name</source>
+        <target>Filet magnétique</target>
+      </segment>
+      <segment id="magnetic_net.description" state="translated">
+        <source>bios_terminal.magnetic_net_description</source>
+        <target>Active le filet magnétique qui permet d'abandonner les Patrouilleurs à leur triste sort. Ou pas...</target>
+      </segment>
+      <segment id="magnetic_net.toggle_active" state="translated">
+        <source>bios_terminal.magnetic_net_toggle_active</source>
+        <target>Actif</target>
+      </segment>
+      <segment id="magnetic_net.toggle_inactive" state="translated">
+        <source>bios_terminal.magnetic_net_toggle_inactive</source>
+        <target>Inactif</target>
+      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="name" state="final">

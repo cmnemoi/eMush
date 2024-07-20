@@ -445,5 +445,8 @@ abstract class ActionLogEnum
         ActionEnum::TOGGLE_PLASMA_SHIELD->value => [
             ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
         ],
+        ActionEnum::TOGGLE_MAGNETIC_NET->value => [
+            ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
+        ],
     ];
 }

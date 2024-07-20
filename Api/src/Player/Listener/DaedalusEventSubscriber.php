@@ -12,7 +12,6 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Project\Enum\ProjectName;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusEventSubscriber implements EventSubscriberInterface
@@ -36,7 +35,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         $this->killPlayersOnPlanet($event);
         $this->killPlayersInSpace($event);
 
-        if ($daedalus->hasFinishedProject(ProjectName::MAGNETIC_NET)) {
+        if ($daedalus->isMagneticNetActive()) {
             $this->movePatrolShipPilotsToLandingBays($event);
         } else {
             $this->killPlayersInPatrolShips($event);

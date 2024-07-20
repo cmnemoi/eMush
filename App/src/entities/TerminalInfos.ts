@@ -18,6 +18,8 @@ export class TerminalInfos {
     public currentCrewLock: string|null = null;
     public plasmaShieldToggles: {key: string, name: string}[]|null = null;
     public isPlasmaShieldActive: boolean|null = null;
+    public magneticNetToggles: {key: string, name: string}[]|null = null;
+    public isMagneticNetActive: boolean|null = null;
 
     constructor() {
         this.difficulty = null;
@@ -48,6 +50,8 @@ export class TerminalInfos {
             this.currentCrewLock = object.currentCrewLock;
             this.plasmaShieldToggles = object.plasmaShieldToggles;
             this.isPlasmaShieldActive = object.isPlasmaShieldActive;
+            this.magneticNetToggles = object.magneticNetToggles;
+            this.isMagneticNetActive = object.isMagneticNetActive;
         }
         return this;
     }

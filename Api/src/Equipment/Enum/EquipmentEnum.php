@@ -62,7 +62,7 @@ class EquipmentEnum
     public static array $terminalSectionTitlesMap = [
         self::COMMAND_TERMINAL => ['orientate_daedalus', 'move_daedalus', 'general_informations', 'pilgred'],
         self::ASTRO_TERMINAL => ['orientation', 'distance'],
-        self::BIOS_TERMINAL => ['cpu_priority_name', 'cpu_priority_description', 'crew_lock_name', 'crew_lock_description', 'plasma_shield_name', 'plasma_shield_description'],
+        self::BIOS_TERMINAL => ['cpu_priority_name', 'cpu_priority_description', 'crew_lock_name', 'crew_lock_description', 'plasma_shield_name', 'plasma_shield_description', 'magnetic_net_name', 'magnetic_net_description'],
     ];
 
     public static array $terminalButtonsMap = [

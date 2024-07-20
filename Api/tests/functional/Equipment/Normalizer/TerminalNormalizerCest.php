@@ -276,6 +276,8 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
 
         $plasmaShieldProject = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
         $plasmaShieldProject->finish();
+        $magneticNetProject = $this->daedalus->getProjectByName(ProjectName::MAGNETIC_NET);
+        $magneticNetProject->finish();
 
         // when I normalize the terminal for Chun
         $normalizedTerminal = $this->terminalNormalizer->normalize(
@@ -292,7 +294,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             actual: $normalizedTerminal['tips']
         );
         $I->assertEquals(
-            expected: [ActionEnum::EXIT_TERMINAL->value, ActionEnum::CHANGE_NERON_CPU_PRIORITY->value, ActionEnum::CHANGE_NERON_CREW_LOCK->value, ActionEnum::TOGGLE_PLASMA_SHIELD->value],
+            expected: [ActionEnum::EXIT_TERMINAL->value, ActionEnum::CHANGE_NERON_CPU_PRIORITY->value, ActionEnum::TOGGLE_MAGNETIC_NET, ActionEnum::CHANGE_NERON_CREW_LOCK->value, ActionEnum::TOGGLE_PLASMA_SHIELD->value],
             actual: array_map(static fn ($action) => $action['key'], $normalizedTerminal['actions'])
         );
         $I->assertEquals(
@@ -303,6 +305,8 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 'crew_lock_description' => ':point: Verrouillage Pilotage : Les non-pilotes ne sont pas autorisés à piloter un Patrouilleur/Icarus.//:point: Verrouillage Projet : les non-concepteurs ne sont pas autorisés à participer au développement des projets.',
                 'plasma_shield_name' => 'Bouclier Plasma',
                 'plasma_shield_description' => 'Active le bouclier plasma.',
+                'magnetic_net_name' => 'Filet magnétique',
+                'magnetic_net_description' => 'Active le filet magnétique qui permet d\'abandonner les Patrouilleurs à leur triste sort. Ou pas...',
             ],
             actual: $normalizedTerminal['sectionTitles']
         );
@@ -333,6 +337,11 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                     ['key' => 'deactivate', 'name' => 'Désactiver'],
                 ],
                 'isPlasmaShieldActive' => false,
+                'magneticNetToggles' => [
+                    ['key' => 'active', 'name' => 'Actif'],
+                    ['key' => 'inactive', 'name' => 'Inactif'],
+                ],
+                'isMagneticNetActive' => true,
             ],
             actual: $normalizedTerminal['infos']
         );

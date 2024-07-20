@@ -75,6 +75,31 @@
                 <label :key="toggle.key">{{ toggle.name }}</label>
             </div>
         </section>
+        <section class="magnetic-net-section" v-if="toggleMagneticNetAction">
+            <Tippy tag="h3">
+                <img :src="getImgUrl('notes.gif')" />
+                {{ terminal.sectionTitles?.magneticNetName }}
+                <template #content>
+                    <h1 v-html="formatText(terminal.sectionTitles?.magneticNetName)" />
+                    <p v-html="formatText(terminal.sectionTitles?.magneticNetDescription)" />
+                </template>
+            </Tippy>
+            <div
+                class="radio-buttons-container"
+                v-for="toggle in terminal.infos?.magneticNetToggles"
+                :key="toggle.key"
+            >
+                <input
+                    type="radio"
+                    v-model="selectedMagneticNetToggle"
+                    :value="toggle.key"
+                    :checked="selectedMagneticNetToggle === toggle.key"
+                    :disabled="!toggleMagneticNetAction.canExecute"
+                    @change="executeTargetAction(terminal, toggleMagneticNetAction)"
+                >
+                <label :key="toggle.key">{{ toggle.name }}</label>
+            </div>
+        </section>
     </div>
 </template>
 
@@ -105,6 +130,9 @@ export default defineComponent ({
         togglePlasmaShieldAction(): Action | null {
             return this.terminal.getActionByKey(ActionEnum.TOGGLE_PLASMA_SHIELD);
         },
+        toggleMagneticNetAction(): Action | null {
+            return this.terminal.getActionByKey(ActionEnum.TOGGLE_MAGNETIC_NET);
+        },
         target(): Terminal {
             return this.terminal;
         }
@@ -132,7 +160,8 @@ export default defineComponent ({
             ActionEnum,
             selectedCpuPriority: '',
             selectedCrewLock: '',
-            selectedPlasmaShieldToggle: ''
+            selectedPlasmaShieldToggle: '',
+            selectedMagneticNetToggle: ''
         };
     },
     beforeMount() {
@@ -147,6 +176,11 @@ export default defineComponent ({
         const isPlasmaShieldActive = this.terminal.infos?.isPlasmaShieldActive;
         if (isPlasmaShieldActive !== null) {
             this.selectedPlasmaShieldToggle = isPlasmaShieldActive ? 'activate' : 'deactivate';
+        }
+
+        const isMagneticNetActive = this.terminal.infos?.isMagneticNetActive;
+        if (isMagneticNetActive !== null) {
+            this.selectedMagneticNetToggle = isMagneticNetActive ? 'active' : 'inactive';
         }
     }
 });

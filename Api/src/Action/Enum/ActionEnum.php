@@ -166,6 +166,7 @@ enum ActionEnum: string
     case PARTICIPATE = 'participate';
     case CHANGE_NERON_CREW_LOCK = 'change_neron_crew_lock';
     case TOGGLE_PLASMA_SHIELD = 'toggle_plasma_shield';
+    case TOGGLE_MAGNETIC_NET = 'toggle_magnetic_net';
 
     public static function getPermanentItemActions(): array
     {

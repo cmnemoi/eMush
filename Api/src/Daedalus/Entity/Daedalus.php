@@ -738,6 +738,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     {
         return match ($projectName) {
             ProjectName::PLASMA_SHIELD => $this->isPlasmaShieldActive(),
+            ProjectName::MAGNETIC_NET => $this->isMagneticNetActive(),
             default => $this->hasFinishedProject($projectName),
         };
     }
@@ -745,6 +746,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function isPlasmaShieldActive(): bool
     {
         return $this->hasFinishedProject(ProjectName::PLASMA_SHIELD) && $this->getNeron()->isPlasmaShieldActive();
+    }
+
+    public function isMagneticNetActive(): bool
+    {
+        return $this->hasFinishedProject(ProjectName::MAGNETIC_NET) && $this->getNeron()->isMagneticNetActive();
     }
 
     public function hasNoProposedNeronProjects(): bool

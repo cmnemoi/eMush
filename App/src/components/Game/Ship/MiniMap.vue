@@ -1,6 +1,6 @@
 <template>
     <div class="map-container">
-        <div class="map">
+        <div :class="mapClass">
             <svg
                 width="100%"
                 height="100%"
@@ -893,9 +893,18 @@ export default defineComponent ({
     },
     computed: {
         ...mapGetters('daedalus', [
+            'daedalus',
             'minimap',
             'loadingMinimap'
-        ])
+        ]),
+        mapClass(): string {
+            if (this.daedalus.hasActivePlasmaShield()) {
+                return 'map-with-blue-halo';
+            } else if (this.daedalus.shieldIsBroken()) {
+                return 'map-with-red-halo';
+            }
+            return 'map';
+        }
     },
     data() {
         return {
@@ -990,10 +999,9 @@ interface Doors {
 <style lang="scss" scoped>
 
 .map-container {
-    position:absolute;
+    position: absolute;
     align-self: flex-end;
     z-index: 5;
-    // bottom: 200px;
     width: 240px;
     height: 200px;
     background: #070724;
@@ -1020,8 +1028,17 @@ interface Doors {
     width: 184px;
     height: 96px;
     margin: auto;
-    filter: drop-shadow(0 0 8px rgba(18,215,255,.6));
     transform: translate(-0.4em, -0.4em) rotate(30deg);
+}
+
+.map-with-blue-halo {
+    @extend .map;
+    filter: drop-shadow(0 0 8px rgba(18,215,255,.6));
+}
+
+.map-with-red-halo {
+    @extend .map;
+    filter: drop-shadow(0 0 4px rgba(166,24,30,.6));
 }
 
 svg {

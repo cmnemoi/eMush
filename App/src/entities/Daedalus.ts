@@ -3,6 +3,7 @@ import { TimerCycle } from "@/entities/TimerCycle";
 import { GameCalendar } from "@/entities/GameCalendar";
 import { Planet } from "@/entities/Planet";
 import { DaedalusExploration } from "./DaedalusExploration";
+import { toArray } from "@/utils/toArray";
 
 type DaedalusProject = {
     type: string;
@@ -108,5 +109,13 @@ export class Daedalus {
         return this;
     }
 
+    hasActivePlasmaShield(): boolean {
+        const neronProjects = toArray(this.projects.neronProjects);
+        return neronProjects.map(project => project.key).includes('plasma_shield') && (this.shield?.quantity ?? 0) > 0;
+    }
 
+    shieldIsBroken(): boolean {
+        const neronProjects = toArray(this.projects.neronProjects);
+        return neronProjects.map(project => project.key).includes('plasma_shield') && this.shield?.quantity === 0;
+    }
 }

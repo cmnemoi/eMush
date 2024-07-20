@@ -30,8 +30,8 @@ final class Version20240714100701 extends AbstractMigration
         $this->addSql('ALTER TABLE sanction_evidence ADD CONSTRAINT FK_31059F50418277A4 FOREIGN KEY (closed_player_id) REFERENCES closed_player (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE sanction_evidence ADD CONSTRAINT FK_31059F50AB299B47 FOREIGN KEY (room_log_id) REFERENCES room_log (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE sanction_evidence ADD CONSTRAINT FK_31059F5099D1ACCF FOREIGN KEY (moderation_sanction_id) REFERENCES moderationSanction (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE message ADD day INT NOT NULL');
-        $this->addSql('ALTER TABLE message ADD cycle INT NOT NULL');
+        $this->addSql('ALTER TABLE message ADD day INT NOT NULL DEFAULT 0');
+        $this->addSql('ALTER TABLE message ADD cycle INT NOT NULL DEFAULT 0');
         $this->addSql('ALTER TABLE moderationsanction ADD player_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE moderationsanction ADD author_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE moderationsanction ADD CONSTRAINT FK_CB19D91B99E6F5DF FOREIGN KEY (player_id) REFERENCES player_info (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -56,7 +56,7 @@ final class Version20240714100701 extends AbstractMigration
         $this->addSql('DROP INDEX IDX_CB19D91BF675F31B');
         $this->addSql('ALTER TABLE moderationSanction DROP player_id');
         $this->addSql('ALTER TABLE moderationSanction DROP author_id');
-        $this->addSql('ALTER TABLE room_log ADD date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL');
+        $this->addSql('ALTER TABLE room_log ADD date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP');
         $this->addSql('ALTER TABLE message DROP day');
         $this->addSql('ALTER TABLE message DROP cycle');
     }

@@ -55,11 +55,11 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $timestampableCanceled = false;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $day;
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $day = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $cycle;
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $cycle = 0;
 
     public function __construct()
     {

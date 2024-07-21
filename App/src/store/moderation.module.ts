@@ -5,7 +5,7 @@ import { Player } from "@/entities/Player";
 
 const state = {
     userSanctions: [] as ModerationSanction[],
-    reportablePlayers : [] as Player
+    reportablePlayers : [] as Player[],
 };
 
 const getters: GetterTree<any, any> = {

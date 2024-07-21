@@ -9,7 +9,6 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Entity\Message;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\MetaGame\Repository\ModerationSanctionRepository;
@@ -17,6 +16,7 @@ use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\PlayerRepository;
+use Mush\Player\UseCase\GetUserCurrentPlayerUseCase;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -34,19 +34,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 final class ModerationController extends AbstractFOSRestController
 {
-    private ModerationServiceInterface $moderationService;
-    private PlayerRepository $playerRepository;
-    private ModerationSanctionRepository $moderationSanctionRepository;
-
     public function __construct(
-        ModerationServiceInterface $moderationService,
-        PlayerRepository $playerRepository,
-        ModerationSanctionRepository $moderationSanctionRepository
-    ) {
-        $this->moderationService = $moderationService;
-        $this->playerRepository = $playerRepository;
-        $this->moderationSanctionRepository = $moderationSanctionRepository;
-    }
+        private GetUserCurrentPlayerUseCase $getUserCurrentPlayerUseCase,
+        private ModerationSanctionRepository $moderationSanctionRepository,
+        private ModerationServiceInterface $moderationService,
+        private PlayerRepository $playerRepository,
+    ) {}
 
     /**
      * Ban an user.
@@ -754,6 +747,7 @@ final class ModerationController extends AbstractFOSRestController
      */
     public function getReportablePlayerAction(Message $message): View
     {
+        $userPlayer = $this->getUserCurrentPlayerUseCase->execute($this->getRequestUser());
         $neron = $message->getNeron();
         $author = $message->getAuthor();
 
@@ -766,8 +760,8 @@ final class ModerationController extends AbstractFOSRestController
         }
 
         return $this->view(
-            $daedalus->getPlayers(),
-            200
+            $daedalus->getPlayers()->getAllExcept($userPlayer),
+            Response::HTTP_OK
         );
     }
 
@@ -808,5 +802,15 @@ final class ModerationController extends AbstractFOSRestController
         if (!$moderator->isModerator()) {
             throw new HttpException(Response::HTTP_FORBIDDEN, 'Only moderators can use this endpoint!');
         }
+    }
+
+    private function getRequestUser(): User
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
+        }
+
+        return $user;
     }
 }

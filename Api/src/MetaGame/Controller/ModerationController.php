@@ -562,7 +562,7 @@ final class ModerationController extends AbstractFOSRestController
             $closedPlayer
         );
 
-        return $this->view(['detail' => 'player reported'], Response::HTTP_OK);
+        return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
     }
 
     /**
@@ -626,7 +626,7 @@ final class ModerationController extends AbstractFOSRestController
             $message
         );
 
-        return $this->view(['detail' => 'player reported'], Response::HTTP_OK);
+        return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
     }
 
     /**
@@ -690,7 +690,7 @@ final class ModerationController extends AbstractFOSRestController
             $roomLog
         );
 
-        return $this->view(['detail' => 'player reported'], Response::HTTP_OK);
+        return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
     }
 
     /**

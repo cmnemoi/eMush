@@ -895,6 +895,9 @@
 		"accept": "Accepter le règlement",
 		"thanks": "Merci d'avoir accepté le règlement de eMush !"
 	},
+	"apiResponse": {
+		"Complaint sent successfully": "Votre plainte a été envoyée avec succès."
+	},
 	"charPanel": {
 		"availableSlot": "Emplacement disponible",
 		"chooseNewSkill": "Cliquez ici pour choisir une **nouvelle compétence** pour {character} !",

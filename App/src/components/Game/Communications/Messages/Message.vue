@@ -9,7 +9,7 @@
         :report-dialog-visible="reportPopupVisible"
         :select-player="true"
         @close=closeReportDialog
-        @submit-report=submitReport
+        @submit-report=submitComplaint
     />
     <div
         v-if="isRoot && !isSystemMessage"
@@ -178,13 +178,13 @@ export default defineComponent ({
             readMessage: 'communication/readMessage',
             releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
             unfavoriteMessage: 'communication/unfavoriteMessage',
-            getReportablePlayers: 'moderation/getReportablePlayers'
+            getReportablePlayers: 'moderation/getReportablePlayers',
+            submitReport: 'moderation/submitReport'
         }),
         formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
         },
         formatMessage(value: string): string {
-            if (! value) return '';
             return formatText(value.toString());
         },
         deleteMessage(params: any) {
@@ -207,11 +207,8 @@ export default defineComponent ({
         closeReportDialog() {
             this.reportPopupVisible = false;
         },
-        submitReport(params: URLSearchParams) {
-            ModerationService.reportMessage(this.message.id, params)
-                .catch((error) => {
-                    console.error(error);
-                });
+        async submitComplaint(params: URLSearchParams) {
+            await this.submitReport({ messageId: this.message.id, params: params });
             this.reportPopupVisible = false;
         },
         async read(message: Message) {

@@ -222,7 +222,7 @@ const ModerationService = {
 
         return response;
     },
-    reportLog: async(messageId: number, params: URLSearchParams): Promise<any> => {
+    reportLog: async(logId: number, params: URLSearchParams): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/report-log/' + logId + '?' + params.toString());
         store.dispatch('gameConfig/setLoading', { loading: false });

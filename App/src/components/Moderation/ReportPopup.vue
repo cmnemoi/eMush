@@ -94,12 +94,18 @@ export default defineComponent ({
             }
 
             this.$emit("submitReport", params);
+            this.resetPopup();
         },
         characterBody: function(character: string): string {
             const images = characterEnum[character];
             return images.body;
         },
-        formatText
+        formatText,
+        resetPopup() {
+            this.reportReason = "";
+            this.reportMessage = "";
+            this.reportedPlayer = "";
+        }
     }
 });
 </script>

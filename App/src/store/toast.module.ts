@@ -1,5 +1,4 @@
 import { ActionTree, GetterTree, MutationTree } from "vuex";
-import store from '@/store';
 
 type ToastType = 'success' | 'error' | 'info' | 'warning';
 
@@ -38,6 +37,11 @@ const mutations: MutationTree<any> = {
         state.toast.type = 'error';
         state.toast.title = title;
     },
+    openInfoToast(state, title: string) {
+        state.toast.isOpen = true;
+        state.toast.type = 'info';
+        state.toast.title = title;
+    },
     openSuccessToast(state, title: string) {
         state.toast.isOpen = true;
         state.toast.type = 'success';
@@ -51,6 +55,9 @@ const mutations: MutationTree<any> = {
 const actions: ActionTree<any, any> = {
     openErrorToast({ commit }, title: string) {
         commit('openErrorToast', title);
+    },
+    openInfoToast({ commit }, title: string) {
+        commit('openInfoToast', title);
     },
     openSuccessToast({ commit }, title: string) {
         commit('openSuccessToast', title);

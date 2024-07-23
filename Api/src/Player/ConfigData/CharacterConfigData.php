@@ -3,7 +3,7 @@
 namespace Mush\Player\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Game\Enum\SkillEnum;
+use Mush\Skill\Enum\SkillName;
 
 class CharacterConfigData
 {
@@ -11,7 +11,9 @@ class CharacterConfigData
         [
             'name' => 'andie',
             'characterName' => 'andie',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillName::PILOT,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -42,14 +44,12 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::PILOT . '_alpha',
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'chao',
             'characterName' => 'chao',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -85,7 +85,7 @@ class CharacterConfigData
         [
             'name' => 'chun',
             'characterName' => 'chun',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -118,13 +118,12 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'immunized_default',
-                SkillEnum::MANKIND_ONLY_HOPE,
             ],
         ],
         [
             'name' => 'derek',
             'characterName' => 'derek',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -159,13 +158,12 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'first_time_default',
-                SkillEnum::SHOOTER . '_alpha',
             ],
         ],
         [
             'name' => 'eleesha',
             'characterName' => 'eleesha',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -199,14 +197,12 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::TECHNICIAN,
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'finola',
             'characterName' => 'finola',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -242,7 +238,7 @@ class CharacterConfigData
         [
             'name' => 'frieda',
             'characterName' => 'frieda',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -273,12 +269,12 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [SkillEnum::PILOT . '_alpha'],
+            'initStatuses' => [],
         ],
         [
             'name' => 'gioele',
             'characterName' => 'gioele',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -314,7 +310,7 @@ class CharacterConfigData
         [
             'name' => 'hua',
             'characterName' => 'hua',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -345,15 +341,12 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::PILOT . '_alpha',
-                SkillEnum::TECHNICIAN,
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'ian',
             'characterName' => 'ian',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -392,7 +385,7 @@ class CharacterConfigData
         [
             'name' => 'janice',
             'characterName' => 'janice',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -424,14 +417,12 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::SHRINK . '_default',
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'jin_su',
             'characterName' => 'jin_su',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -463,15 +454,12 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::PILOT . '_alpha',
-                SkillEnum::SHOOTER . '_alpha',
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'kuan_ti',
             'characterName' => 'kuan_ti',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -503,15 +491,12 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::CONCEPTOR,
-                SkillEnum::TECHNICIAN,
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'paola',
             'characterName' => 'paola',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -542,12 +527,12 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [SkillEnum::SHOOTER . '_alpha'],
+            'initStatuses' => [],
         ],
         [
             'name' => 'raluca',
             'characterName' => 'raluca',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -580,14 +565,12 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'antisocial_default',
-                SkillEnum::TECHNICIAN,
-                SkillEnum::CONCEPTOR,
             ],
         ],
         [
             'name' => 'roland',
             'characterName' => 'roland',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -619,15 +602,12 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::PILOT . '_alpha',
-                SkillEnum::SHOOTER . '_alpha',
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'stephen',
             'characterName' => 'stephen',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -658,12 +638,12 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [SkillEnum::SHOOTER . '_alpha'],
+            'initStatuses' => [],
         ],
         [
             'name' => 'terrence',
             'characterName' => 'terrence',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -696,9 +676,6 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'disabled_default',
-                SkillEnum::PILOT . '_alpha',
-                SkillEnum::SHOOTER . '_alpha',
-                SkillEnum::TECHNICIAN,
             ],
         ],
     ];

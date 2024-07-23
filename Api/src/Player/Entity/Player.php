@@ -49,6 +49,10 @@ use Mush\Project\Entity\Project;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Mush\Skill\Entity\Skill;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Exception\PlayerDoesNotHaveSkillConfigException;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -95,8 +99,8 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
-    #[ORM\Column(type: 'array', nullable: true)]
-    private array $skills = [];
+    #[ORM\OneToOne(targetEntity: Skill::class, cascade: ['ALL'], orphanRemoval: true)]
+    private Collection $skills;
 
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private PlayerVariables $playerVariables;
@@ -127,6 +131,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->medicalConditions = new PlayerDiseaseCollection();
         $this->flirts = new PlayerCollection();
         $this->modifiers = new ModifierCollection();
+        $this->skills = new ArrayCollection();
         $this->planets = new ArrayCollection();
         $this->favoriteMessages = new ArrayCollection();
         $this->lastActionDate = new \DateTime();
@@ -409,18 +414,63 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getFlirts()->exists(static fn (int $id, Player $player) => $player === $playerTarget);
     }
 
-    public function addSkill(string $skill): static
+    public function addSkill(Skill $skill): static
     {
-        $this->skills[] = $skill;
+        if ($this->hasSkill($skill->getName())) {
+            return $this;
+        }
+
+        $this->skills->add($skill);
 
         return $this;
     }
 
-    public function setSkills(array $skills): static
+    /**
+     * @return ArrayCollection<int, Skill>
+     */
+    public function getSkills(): Collection
     {
-        $this->skills = $skills;
+        return new ArrayCollection($this->skills->toArray());
+    }
 
-        return $this;
+    public function getSkillByName(SkillName $name): Skill
+    {
+        $skill = $this->getSkills()->filter(static fn ($_, Skill $skill) => $skill->getName() === $name)->first();
+
+        return $skill ?: Skill::createNull();
+    }
+
+    public function cannotTakeSkill(SkillName $skillName): bool
+    {
+        $skillIsNotAvailableForThisCharacter = $this->getCharacterConfig()->getSkillConfigs()->exists(static fn ($_, SkillConfig $skillConfig) => $skillConfig->getName() === $skillName) === false;
+
+        return $skillIsNotAvailableForThisCharacter || $this->hasSkill($skillName);
+    }
+
+    public function hasSkill(SkillName $skillName): bool
+    {
+        return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
+    }
+
+    public function doesNotHaveSkill(SkillName $skillName): bool
+    {
+        return $this->hasSkill($skillName) === false;
+    }
+
+    /**
+     * @return Collection<int, SkillConfig>
+     */
+    public function getSelectableSkills(): Collection
+    {
+        return $this->getCharacterConfig()->getSkillConfigs()->filter(static fn ($_, SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
+    }
+
+    public function getSkillConfigByNameOrThrow(SkillName $skillName): SkillConfig
+    {
+        return $this
+            ->getCharacterConfig()
+            ->getSkillConfigByNameOrErr($skillName)
+            ->expect(new PlayerDoesNotHaveSkillConfigException(player: $this, skillName: $skillName));
     }
 
     public function getGameVariables(): PlayerVariables

@@ -9,7 +9,12 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\Config\StatusConfig;
+use Prewk\Result;
+use Prewk\Result\Err;
+use Prewk\Result\Ok;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'character_config')]
@@ -32,8 +37,8 @@ class CharacterConfig
     #[ORM\ManyToMany(targetEntity: ActionConfig::class)]
     private Collection $actionConfigs;
 
-    #[ORM\Column(type: 'array', nullable: false)]
-    private array $skills;
+    #[ORM\ManyToMany(targetEntity: SkillConfig::class)]
+    private Collection $skillConfigs;
 
     #[ORM\ManyToMany(targetEntity: ItemConfig::class)]
     private Collection $startingItems;
@@ -83,7 +88,7 @@ class CharacterConfig
         $this->actionConfigs = new ArrayCollection();
         $this->startingItems = new ArrayCollection();
         $this->initDiseases = new ArrayCollection();
-        $this->skills = [];
+        $this->skillConfigs = new ArrayCollection();
     }
 
     public static function fromConfigData(array $data): self
@@ -182,16 +187,44 @@ class CharacterConfig
         return $this;
     }
 
-    public function getSkills(): array
+    public function getSkillConfigs(): Collection
     {
-        return $this->skills;
+        return $this->skillConfigs;
     }
 
-    public function setSkills(array $skills): static
+    /**
+     * @param array<int, SkillConfig>|Collection<int, SkillConfig> $skillConfigs
+     */
+    public function setSkillConfigs(array|Collection $skillConfigs): static
     {
-        $this->skills = $skills;
+        if (\is_array($skillConfigs)) {
+            $skillConfigs = new ArrayCollection($skillConfigs);
+        }
+
+        $this->skillConfigs = $skillConfigs;
 
         return $this;
+    }
+
+    public function addSkillConfig(SkillConfig $skillConfig): static
+    {
+        $this->skillConfigs->add($skillConfig);
+
+        return $this;
+    }
+
+    /**
+     * @return Result<SkillConfig, Err>
+     */
+    public function getSkillConfigByNameOrErr(SkillName $name): Result
+    {
+        $skillConfig = $this->skillConfigs->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $name);
+
+        if ($skillConfig->isEmpty()) {
+            return new Err('Skill config not found');
+        }
+
+        return new Ok($skillConfig->first());
     }
 
     public function getStartingItems(): Collection

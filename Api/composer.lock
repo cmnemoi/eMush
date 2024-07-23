@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fffca2f9e9a547fd9a9c2e054ad8d66f",
+    "content-hash": "2618318e9085a777ea75a19320d474dd",
     "packages": [
         {
             "name": "api-platform/core",
@@ -3360,6 +3360,110 @@
                 "source": "https://github.com/phpstan/phpdoc-parser/tree/1.28.0"
             },
             "time": "2024-04-03T18:51:33+00:00"
+        },
+        {
+            "name": "prewk/option",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/prewk/option.git",
+                "reference": "98dffc5aea1975b718e77da9ec940e465bf2e20f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/prewk/option/zipball/98dffc5aea1975b718e77da9ec940e465bf2e20f",
+                "reference": "98dffc5aea1975b718e77da9ec940e465bf2e20f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1.0",
+                "prewk/result": ">= 1.2.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "2.42.0",
+                "infection/infection": "0.27.11",
+                "phpunit/phpunit": "10.5.15",
+                "psalm/plugin-phpunit": "0.19.0",
+                "symplify/easy-coding-standard": "12.1.14",
+                "vimeo/psalm": "5.24.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "helpers.php"
+                ],
+                "psr-4": {
+                    "Prewk\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "(MIT or Apache-2.0)"
+            ],
+            "authors": [
+                {
+                    "name": "Oskar Thornblad",
+                    "email": "oskar.thornblad@gmail.com"
+                }
+            ],
+            "description": "Option object for PHP inspired by Rust",
+            "support": {
+                "issues": "https://github.com/prewk/option/issues",
+                "source": "https://github.com/prewk/option/tree/4.0.0"
+            },
+            "time": "2024-05-08T09:35:35+00:00"
+        },
+        {
+            "name": "prewk/result",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/prewk/result.git",
+                "reference": "861f5defdf8d54b357d05ef48581685a47a01d2f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/prewk/result/zipball/861f5defdf8d54b357d05ef48581685a47a01d2f",
+                "reference": "861f5defdf8d54b357d05ef48581685a47a01d2f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1.0",
+                "prewk/option": ">= 1.3.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "2.42.0",
+                "infection/infection": "0.27.11",
+                "phpunit/phpunit": "10.5.15",
+                "psalm/plugin-phpunit": "0.19.0",
+                "symplify/easy-coding-standard": "12.1.14",
+                "vimeo/psalm": "5.24.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "helpers.php"
+                ],
+                "psr-4": {
+                    "Prewk\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "(MIT or Apache-2.0)"
+            ],
+            "authors": [
+                {
+                    "name": "Oskar Thornblad",
+                    "email": "oskar.thornblad@gmail.com"
+                }
+            ],
+            "description": "Result object for PHP inspired by Rust",
+            "support": {
+                "issues": "https://github.com/prewk/result/issues",
+                "source": "https://github.com/prewk/result/tree/4.0.0"
+            },
+            "time": "2024-05-10T18:17:35+00:00"
         },
         {
             "name": "psr/cache",

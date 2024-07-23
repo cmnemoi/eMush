@@ -42,6 +42,7 @@ use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Place\ConfigData\PlaceConfigDataLoader;
 use Mush\Player\ConfigData\CharacterConfigDataLoader;
 use Mush\Project\ConfigData\ProjectConfigDataLoader;
+use Mush\Skill\ConfigData\SkillConfigDataLoader;
 use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
 use Mush\Status\ConfigData\ContentStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigDataLoader;
@@ -77,6 +78,7 @@ class ConfigDataLoaderService
         ItemConfigDataLoader $itemConfigDataLoader,
         DroneDataLoader $droneDataLoader,
         EquipmentConfigDataLoader $equipmentConfigDataLoader,
+        SkillConfigDataLoader $skillConfigDataLoader,
         CharacterConfigDataLoader $characterConfigDataLoader,
         RandomItemPlacesDataLoader $randomItemPlacesDataLoader,
         PlaceConfigDataLoader $placeConfigDataLoader,
@@ -123,6 +125,7 @@ class ConfigDataLoaderService
                 $equipmentConfigDataLoader,
                 $itemConfigDataLoader,
                 $droneDataLoader,
+                $skillConfigDataLoader,
                 $characterConfigDataLoader,
                 $randomItemPlacesDataLoader,
                 $placeConfigDataLoader,

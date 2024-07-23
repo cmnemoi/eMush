@@ -112,4 +112,10 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Project/Entity'
                 prefix: 'Mush\Project\Entity'
                 alias: Project
+            Skill:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Skill/Entity'
+                prefix: 'Mush\Skill\Entity'
+                alias: Skill
 

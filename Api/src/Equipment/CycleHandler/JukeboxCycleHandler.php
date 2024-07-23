@@ -32,6 +32,10 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
 
     public function handleNewCycle(GameEquipment $gameEquipment, \DateTime $dateTime): void
     {
+        if ($gameEquipment->getName() !== $this->name) {
+            return;
+        }
+
         $jukebox = $gameEquipment;
         $daedalus = $jukebox->getDaedalus();
         $jukeboxPlayer = $jukebox->getCurrentJukeboxPlayer();

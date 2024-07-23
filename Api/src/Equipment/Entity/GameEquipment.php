@@ -456,8 +456,8 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function getCurrentJukeboxPlayer(): Player
     {
-        $song = $this->getStatusByNameOrThrow(EquipmentStatusEnum::JUKEBOX_SONG);
-        $target = $song->getTarget() ?? Player::createNull();
+        $song = $this->getStatusByName(EquipmentStatusEnum::JUKEBOX_SONG);
+        $target = $song?->getTarget() ?? Player::createNull();
 
         return $this->getDaedalus()->getPlayerByName($target->getName());
     }
@@ -471,9 +471,9 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function currentSongMatchesPlayerFavorite(Player $player): bool
     {
-        $song = $this->getStatusByNameOrThrow(EquipmentStatusEnum::JUKEBOX_SONG);
+        $song = $this->getStatusByName(EquipmentStatusEnum::JUKEBOX_SONG);
 
-        return $song->getTarget()?->equals($player) ?? false;
+        return $song?->getTarget()?->equals($player) ?? false;
     }
 
     /**

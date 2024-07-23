@@ -294,7 +294,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             actual: $normalizedTerminal['tips']
         );
         $I->assertEquals(
-            expected: [ActionEnum::EXIT_TERMINAL->value, ActionEnum::CHANGE_NERON_CPU_PRIORITY->value, ActionEnum::TOGGLE_MAGNETIC_NET, ActionEnum::CHANGE_NERON_CREW_LOCK->value, ActionEnum::TOGGLE_PLASMA_SHIELD->value],
+            expected: [ActionEnum::EXIT_TERMINAL->value, ActionEnum::CHANGE_NERON_CPU_PRIORITY->value, ActionEnum::TOGGLE_MAGNETIC_NET->value, ActionEnum::CHANGE_NERON_CREW_LOCK->value, ActionEnum::TOGGLE_PLASMA_SHIELD->value],
             actual: array_map(static fn ($action) => $action['key'], $normalizedTerminal['actions'])
         );
         $I->assertEquals(

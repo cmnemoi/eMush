@@ -14,6 +14,8 @@ Mush\MetaGame\Entity\ModerationSanction:
       groups: [ 'moderation_sanction_read' ]
     isActive:
       groups: [ 'moderation_sanction_read' ]
+    isReport:
+      groups: [ 'moderation_sanction_read' ]
     startDate:
       groups: [ 'moderation_sanction_read' ]
     endDate:

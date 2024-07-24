@@ -38,11 +38,12 @@ class ModerationSanctionEnum
     public const string EXPLOIT_INCENTIVE = 'exploit_incentive';
     public const string LEAKING_PRIVATE_INFORMATION = 'leaking_private_information';
 
-    public static function isReport(string $value): bool {
+    public static function isReport(string $value): bool
+    {
         return \in_array($value, [
             self::REPORT,
             self::REPORT_PROCESSED,
-            self::REPORT_ABUSIVE
+            self::REPORT_ABUSIVE,
         ], true);
     }
 }

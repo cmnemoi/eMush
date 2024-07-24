@@ -1,7 +1,7 @@
 <template>
     <PopUp :is-open=newRulesPopup.isOpen @close="closeNewRulesPopup()" class="pop-up">
         <h1 class="title">{{ $t('rules.newRulesPopUp.title') }}</h1>
-        <p class="message" v-html="formatText($t('rules.newRulesPopUp.message'))"></p>
+        <p class="message" v-html="formatText($t('rules.newRulesPopUp.message'))" />
         <div class="actions">
             <button class="action-button" @click="closeNewRulesPopup()">{{ $t('rules.newRulesPopUp.ok') }}</button>
         </div>

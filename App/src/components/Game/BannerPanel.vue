@@ -1,7 +1,8 @@
 <template>
-    <div class="game-banner">
+    <SkillSelectionMenu :player="player" />
+    <div class="game-banner" v-if="player">
         <div class="character-banner">
-            <a class="in-game-level" href="#" />
+            <a class="in-game-level">{{ player.level }}</a>
             <div class="in-game-level-progress">
                 <div />
             </div>
@@ -126,6 +127,7 @@ import { Player } from "@/entities/Player";
 import CountdownTimer from "@/components/Utils/CountdownTimer.vue";
 import TitleImage from "@/components/Utils/TitleImage.vue";
 import Alerts from "@/components/Game/Ship/Alerts.vue";
+import SkillSelectionMenu from "@/components/Game/SkillSelectionMenu.vue";
 import { defineComponent } from "vue";
 import PlayerService from "@/services/player.service";
 import { getImgUrl } from "@/utils/getImgUrl";
@@ -133,7 +135,7 @@ import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent({
     name: "BannerPanel",
-    components: { Alerts, CountdownTimer, TitleImage },
+    components: { Alerts, CountdownTimer, SkillSelectionMenu, TitleImage },
     props: {
         player: Player,
         daedalus: Daedalus
@@ -235,7 +237,6 @@ span.tippy-tooltip {
         bottom: 2px;
         width: 9px;
         height: 11px;
-        background: transparent url('/src/assets/images/levelup_arrow_ingame.png') no-repeat center;
     }
 }
 

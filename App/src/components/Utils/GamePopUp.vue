@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-box">
+    <div class="modal-box" v-if="isOpen">
         <h1 class="header">
             {{ title }}
         </h1>
@@ -18,7 +18,8 @@ import { getImgUrl } from "@/utils/getImgUrl";
 export default defineComponent ({
     name: "GamePopUp",
     props: {
-        title: String
+        title: String,
+        isOpen: Boolean
     },
     computed:{
         hasCancelListener() : boolean {

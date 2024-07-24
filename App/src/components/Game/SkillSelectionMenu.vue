@@ -1,32 +1,59 @@
 <template>
-    <GamePopUp title="Choix de Compétence">
+    <GamePopUp 
+        title="Choix de Compétence" 
+        :is-open=popUp.isOpen 
+        @exit="close"
+        v-if="player"
+    >
         <div class="skill-selection">
-            <button>
-                <img :src="getImgUrl('skills/human/cook.png')">
-            </button>
-            <button>
-                <img :src="getImgUrl('skills/human/opportunist.png')">
-            </button>
-            <button>
-                <img :src="getImgUrl('skills/mush/mycellium_spirit.png')">
-            </button>
-            <button>
-                <img :src="getImgUrl('skills/mush/trapper.png')">
-            </button>
+            <Tippy
+                tag="button"
+                v-for="skill in player.character.availableSkills"
+                :key="skill.key"
+            >
+                <img :src="skillImage(skill)">
+                <template #content>
+                    <h1 v-html="formatText(skill.name)" />
+                    <p v-html="formatText(skill.description)" />
+                </template>
+            </Tippy>
         </div>
     </GamePopUp>
 </template>
 
 <script lang="ts">
+import { Player } from "@/entities/Player";
 import GamePopUp from "@/components/Utils/GamePopUp.vue";
 import { defineComponent } from "vue";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { formatText } from "@/utils/formatText";
+import { mapActions, mapGetters } from "vuex";
+import { SkillIconRecord } from "@/enums/skill.enum";
+
+type AvailableSkill = {
+    key: string;
+    name: string;
+    description: string;
+};
 
 export default defineComponent ({
     name: "SkillSelectionMenu",
     components: { GamePopUp },
+    props: {
+        player: Player
+    },
+    computed: {
+        ...mapGetters({
+            popUp: 'popup/skillSelectionPopUp',
+        })
+    },
     methods: {
-        getImgUrl
+        ...mapActions({
+            close: 'popup/closeSkillSelectionPopUp'
+        }),
+        formatText,
+        skillImage(skill: AvailableSkill): string {
+            return SkillIconRecord[skill.key].icon ?? '';
+        },
     }
 });
 </script>

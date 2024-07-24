@@ -35,6 +35,8 @@ export class Player {
     public skills: Array<Status>;
     public specialistPoints: Array<SpecialistPoint>;
     public isSeated: boolean;
+    public numberOfSkillSlots: number = 3;
+    public level: number = 5;
 
     public constructor() {
         this.gameStatus = null;
@@ -64,10 +66,7 @@ export class Player {
             this.id = object.id;
             this.gameStatus = object.gameStatus;
 
-            this.character = new Character();
-            this.character.key = object.character['key'];
-            this.character.name = object.character['value'];
-            this.character.description = object.character['description'];
+            this.character = (new Character()).load(object.character);
 
             this.gameStatus = object.gameStatus;
             if (typeof object.actionPoint !== 'undefined') {

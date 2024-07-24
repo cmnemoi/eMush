@@ -84,12 +84,12 @@
 
         <div class="column">
             <div class="skills">
-                <ul class="innate">
+                <ul>
                     <Tippy
                         tag="li"
-                        v-for="(skill) in player.skills"
+                        v-for="skill, index in player.skills"
                         :key="skill.id"
-                        class="skill"
+                        :class="skillSlotClass(index)"
                     >
                         <img class="skill-image" :src="skillImage(skill)" :alt="skill.name">
                         <template #content>
@@ -97,6 +97,23 @@
                             <p v-html="formatText(skill.description)" />
                         </template>
                     </Tippy>
+                </ul>
+                <ul>
+                    <Tippy
+                        tag="li"
+                        v-for="index in player.numberOfSkillSlots"
+                        :key="index"
+                        :class="skillSlotClass(index)"
+                    >
+                        <button class="action-button flashing" @click="openSkillSelectionPopUp">
+                            <img :src="skillSlotImage(index)" alt="plus">
+                        </button>
+                        <template #content>
+                            <h1 v-html="formatText('Emplacement disponible')" />
+                            <p v-html="formatText(`Cliquez ici pour choisir une **nouvelle compétence** pour ${player.character.name} !`)" />
+                        </template>
+                    </Tippy>
+
                 </ul>
             </div>
 
@@ -196,8 +213,29 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             'executeAction': 'action/executeAction',
-            'selectTarget': 'player/selectTarget'
+            'selectTarget': 'player/selectTarget',
+            'openSkillSelectionPopUp': 'popup/openSkillSelectionPopUp'
         }),
+        skillSlotClass(index: number): string {
+            switch (index) {
+            case 0:
+                return 'skill-slot-basic';
+            case 1:
+                return 'skill-slot-once';
+            default:
+                return 'skill-slot-gold';
+            }
+        },
+        skillSlotImage(index: number): string {
+            switch (index) {
+            case 0:
+                return getImgUrl('skills/basicplus.png');
+            case 1:
+                return getImgUrl('skills/onceplus.png');
+            default:
+                return getImgUrl('skills/goldplus.png');
+            }
+        },
         isFull (value: number, threshold: number): Record<string, boolean> {
             return {
                 "full": value <= threshold,
@@ -406,6 +444,37 @@ div.inventory {
             }
         }
 
+        &.skill-slot {
+
+            &:before {
+                position: absolute;
+                z-index: 1;
+                top: 14px;
+                left: 13px;
+                width: 20px;
+                height: 23px;
+                padding-top: 7px;
+                font-family: $font-days-one;
+                font-size: .9em;
+                text-align: center;
+            }
+        }
+
+        &.skill-slot-basic {
+            @extend .skill-slot;
+            background: transparent url('/src/assets/images/skills/skillblock.png') center left no-repeat;
+        }
+
+        &.skill-slot-once {
+            @extend .skill-slot;
+            background: transparent url('/src/assets/images/skills/skillblock_once.png') center left no-repeat;
+        }
+
+        &.skill-slot-gold {
+            @extend .skill-slot;
+            background: transparent url('/src/assets/images/skills/skillblock_gold.png') center left no-repeat;
+        }
+
         &.locked {
             background: transparent url('/src/assets/images/skills/skillblock_gold.png') center left no-repeat;
 
@@ -428,8 +497,6 @@ div.inventory {
         &:nth-child(2).locked:before { content:"2"; }
         &:nth-child(3).locked:before { content:"3"; }
         &:nth-child(4).locked:before { content:"4"; }
-
-        &.innate.locked { border: 1px solid red; }
 
         &.genome { background-image: url('/src/assets/images/skills/skillblock_once.png'); }
     }

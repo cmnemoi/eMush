@@ -330,21 +330,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($immunizedModifierSet0SporesOnChangeVariable);
 
-        $coreSpecialistPoint = new VariableEventModifierConfig('modifier_specialist_point_core');
-        $coreSpecialistPoint
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(0)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
-            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setApplyWhenTargeted(false)
-            ->setTagConstraints([
-                ActionTypeEnum::ACTION_CONCEPTOR->value => ModifierRequirementEnum::ANY_TAGS,
-            ])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::SPECIALIST_POINT_CORE);
-        $manager->persist($coreSpecialistPoint);
-
         $shrinkInRoomActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::SKILL_IN_ROOM);
         $shrinkInRoomActivationRequirement
             ->setActivationRequirement(SkillName::SHRINK->value)

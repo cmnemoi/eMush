@@ -11,18 +11,21 @@ use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Skill\Dto\SkillConfigDto;
 use Mush\Skill\Entity\SkillConfig;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 final class SkillConfigDataLoader extends ConfigDataLoader
 {
-    private EntityRepository $skillConfigRepository;
     private EntityRepository $modifierConfigRepository;
+    private EntityRepository $skillConfigRepository;
+    private EntityRepository $specialistPointsRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
     ) {
         parent::__construct($entityManager);
-        $this->skillConfigRepository = $entityManager->getRepository(SkillConfig::class);
         $this->modifierConfigRepository = $entityManager->getRepository(AbstractModifierConfig::class);
+        $this->skillConfigRepository = $entityManager->getRepository(SkillConfig::class);
+        $this->specialistPointsRepository = $entityManager->getRepository(ChargeStatusConfig::class);
     }
 
     public function loadConfigsData(): void
@@ -34,6 +37,7 @@ final class SkillConfigDataLoader extends ConfigDataLoader
             $newSkillConfig = new SkillConfig(
                 name: $skillConfigDto->name,
                 modifierConfigs: $this->getModifierConfigsFromDto($skillConfigDto),
+                specialistPointsConfig: $this->getSpecialistPointsConfigFromDto($skillConfigDto),
             );
 
             if ($skillConfig === null) {
@@ -62,5 +66,22 @@ final class SkillConfigDataLoader extends ConfigDataLoader
         }
 
         return $modifierConfigs;
+    }
+
+    private function getSpecialistPointsConfigFromDto(SkillConfigDto $skillConfigDto): ?ChargeStatusConfig
+    {
+        $configName = $skillConfigDto->specialistPointsConfig?->value;
+        if (!$configName) {
+            return null;
+        }
+
+        $specialistPointsConfig = $this->specialistPointsRepository->findOneBy([
+            'name' => $configName,
+        ]);
+        if (!$specialistPointsConfig) {
+            throw new \RuntimeException("SpecialistPointsConfig {$configName} not found for SkillConfig {$skillConfigDto->name}");
+        }
+
+        return $specialistPointsConfig;
     }
 }

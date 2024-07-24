@@ -87,15 +87,8 @@ final class AddSkillToPlayerUseCaseTest extends TestCase
     private function thenPlayerShouldHaveSkill(SkillName $skillName): void
     {
         $player = $this->playerRepository->findOneByName($this->player->getName());
-        $addedSkill = $player->getSkills()->first() ?: new SkillConfig();
+        $addedSkill = $player->getSkillByName($skillName);
         self::assertEquals($skillName, $addedSkill->getName());
-    }
-
-    private function thenPlayerShouldNotHaveSkill(SkillName $skillName): void
-    {
-        $player = $this->playerRepository->findOneByName($this->player->getName());
-        $addedSkill = $player->getSkills()->first() ?: new SkillConfig();
-        self::assertNotEquals($skillName, $addedSkill->getName());
     }
 
     private function thenPlayerShouldOnlyHaveOneSkill(SkillName $skillName): void

@@ -12,6 +12,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SpecialistPointsEnum;
 
 /** @codeCoverageIgnore */
 abstract class StatusConfigData
@@ -1196,6 +1197,54 @@ abstract class StatusConfigData
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'status_config',
             'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => SpecialistPointsEnum::CONCEPTOR_POINTS->value,
+            'statusName' => SpecialistPointsEnum::CONCEPTOR_POINTS->value,
+            'visibility' => VisibilityEnum::PRIVATE,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::PRIVATE,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
+            'maxCharge' => 4,
+            'startCharge' => 4,
+            'dischargeStrategies' => [ModifierNameEnum::SPECIALIST_POINT_CORE],
+            'autoRemove' => true,
+            'modifierConfigs' => [
+                'modifier_specialist_point_core',
+            ],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => SpecialistPointsEnum::SHOOTER_POINTS->value,
+            'statusName' => SpecialistPointsEnum::CONCEPTOR_POINTS->value,
+            'visibility' => VisibilityEnum::PRIVATE,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::PRIVATE,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
+            'maxCharge' => 4,
+            'startCharge' => 4,
+            'dischargeStrategies' => [ModifierNameEnum::SHOOTER_SPECIALIST_POINT],
+            'autoRemove' => true,
+            'modifierConfigs' => [
+                'modifier_shooter_specialist_point',
+            ],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => SpecialistPointsEnum::TECHNICIAN_POINTS->value,
+            'statusName' => SpecialistPointsEnum::TECHNICIAN_POINTS->value,
+            'visibility' => VisibilityEnum::PRIVATE,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::PRIVATE,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
+            'maxCharge' => 2,
+            'startCharge' => 2,
+            'dischargeStrategies' => [ModifierNameEnum::SPECIALIST_POINT_ENGINEER],
+            'autoRemove' => true,
+            'modifierConfigs' => [
+                'modifier_specialist_point_engineer',
+            ],
             'actionConfigs' => [],
         ],
     ];

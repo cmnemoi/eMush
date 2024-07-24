@@ -17,16 +17,19 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Status\ConfigData\StatusConfigData;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SpecialistPointsEnum;
 use Mush\Status\Enum\StatusEnum;
 
 class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
@@ -489,6 +492,39 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($droneCharges);
 
+        $conceptorPointsModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_specialist_point_core')
+        );
+        $manager->persist($conceptorPointsModifier);
+
+        $conceptorPoints = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(SpecialistPointsEnum::CONCEPTOR_POINTS->value)
+        );
+        $conceptorPoints->setModifierConfigs([$conceptorPointsModifier]);
+        $manager->persist($conceptorPoints);
+
+        $shooterPointsModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_shooter_specialist_point')
+        );
+        $manager->persist($shooterPointsModifier);
+
+        $shooterPoints = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(SpecialistPointsEnum::SHOOTER_POINTS->value)
+        );
+        $shooterPoints->setModifierConfigs([$shooterPointsModifier]);
+        $manager->persist($shooterPoints);
+
+        $technicianPointsModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_specialist_point_engineer')
+        );
+        $manager->persist($technicianPointsModifier);
+
+        $technicianPoints = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(SpecialistPointsEnum::TECHNICIAN_POINTS->value)
+        );
+        $technicianPoints->setModifierConfigs([$technicianPointsModifier]);
+        $manager->persist($technicianPoints);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -524,7 +560,10 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($followingHuntersStatus)
             ->addStatusConfig($changedCpuPriority)
             ->addStatusConfig($autoWateringFiresKilled)
-            ->addStatusConfig($droneCharges);
+            ->addStatusConfig($droneCharges)
+            ->addStatusConfig($conceptorPoints)
+            ->addStatusConfig($shooterPoints)
+            ->addStatusConfig($technicianPoints);
 
         $manager->persist($gameConfig);
 
@@ -564,6 +603,9 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::CHANGED_CPU_PRIORITY, $changedCpuPriority);
         $this->addReference(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES, $autoWateringFiresKilled);
         $this->addReference(EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE, $droneCharges);
+        $this->addReference($conceptorPoints->getName(), $conceptorPoints);
+        $this->addReference($shooterPoints->getName(), $shooterPoints);
+        $this->addReference($technicianPoints->getName(), $technicianPoints);
     }
 
     public function getDependencies(): array

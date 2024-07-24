@@ -12,6 +12,8 @@ use Mush\Modifier\DataFixtures\SkillModifierConfigFixtures;
 use Mush\Skill\ConfigData\SkillConfigData;
 use Mush\Skill\Dto\SkillConfigDto;
 use Mush\Skill\Entity\SkillConfig;
+use Mush\Status\DataFixtures\ChargeStatusFixtures;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 /** @codeCoverageIgnore */
 final class SkillConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -22,6 +24,7 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
             $skillConfig = new SkillConfig(
                 name: $skillConfigDto->name,
                 modifierConfigs: $this->getModifierConfigsFromDto($skillConfigDto),
+                specialistPointsConfig: $this->getSpecialistPointsConfigFromDto($skillConfigDto),
             );
             $manager->persist($skillConfig);
             $this->addReference($skillConfigDto->name->value, $skillConfig);
@@ -34,6 +37,7 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
     {
         return [
             SkillModifierConfigFixtures::class,
+            ChargeStatusFixtures::class,
         ];
     }
 
@@ -52,5 +56,20 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
         }
 
         return $modifierConfigs;
+    }
+
+    private function getSpecialistPointsConfigFromDto(SkillConfigDto $skillConfigDto): ?ChargeStatusConfig
+    {
+        $configName = $skillConfigDto->specialistPointsConfig?->value;
+        if (!$configName) {
+            return null;
+        }
+
+        $specialistPointsConfig = $this->getReference($configName);
+        if (!$specialistPointsConfig) {
+            throw new \RuntimeException("SpecialistPointsConfig {$configName} not found for SkillConfig {$skillConfigDto->name}");
+        }
+
+        return $specialistPointsConfig;
     }
 }

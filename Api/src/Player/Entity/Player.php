@@ -435,7 +435,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getSkillByName(SkillName $name): Skill
     {
-        $skill = $this->getSkills()->filter(static fn ($_, Skill $skill) => $skill->getName() === $name)->first();
+        $skill = $this->getSkills()->filter(static fn (Skill $skill) => $skill->getName() === $name)->first();
 
         return $skill ?: Skill::createNullForPlayer($this);
     }
@@ -462,7 +462,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
      */
     public function getSelectableSkills(): Collection
     {
-        return $this->getCharacterConfig()->getSkillConfigs()->filter(static fn ($_, SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
+        return $this->getCharacterConfig()->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
     }
 
     public function getSkillConfigByNameOrThrow(SkillName $skillName): SkillConfig

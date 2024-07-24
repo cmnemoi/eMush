@@ -11,7 +11,7 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Skill\Enum\SkillName;
-use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 #[ORM\Entity]
 class SkillConfig
@@ -27,8 +27,8 @@ class SkillConfig
     #[ORM\ManyToOne(targetEntity: SpawnEquipmentConfig::class, cascade: ['persist'])]
     private ?SpawnEquipmentConfig $spawnEquipmentConfig;
 
-    #[ORM\ManyToOne(targetEntity: StatusConfig::class, cascade: ['persist'])]
-    private ?StatusConfig $specialistPointsConfig;
+    #[ORM\ManyToOne(targetEntity: ChargeStatusConfig::class, cascade: ['persist'])]
+    private ?ChargeStatusConfig $specialistPointsConfig;
 
     #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;
@@ -41,7 +41,7 @@ class SkillConfig
         Collection $modifierConfigs = new ArrayCollection(),
         Collection $actionConfigs = new ArrayCollection(),
         ?SpawnEquipmentConfig $spawnEquipmentConfig = null,
-        ?StatusConfig $specialistPointsConfig = null
+        ?ChargeStatusConfig $specialistPointsConfig = null
     ) {
         $this->name = $name;
         $this->spawnEquipmentConfig = $spawnEquipmentConfig;
@@ -63,6 +63,11 @@ class SkillConfig
     public function getModifierConfigs(): ArrayCollection
     {
         return new ArrayCollection($this->modifierConfigs->toArray());
+    }
+
+    public function getSpecialistPointsConfig(): ?ChargeStatusConfig
+    {
+        return $this->specialistPointsConfig;
     }
 
     public function update(self $skillConfig): void

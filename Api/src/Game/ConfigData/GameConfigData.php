@@ -13,6 +13,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SpecialistPointsEnum;
 
 /** @codeCoverageIgnore */
 class GameConfigData
@@ -170,12 +171,12 @@ class GameConfigData
                 'apprenton_botanist_default',
                 'apprenton_diplomat_default',
                 'apprenton_firefighter_default',
-                'apprenton_ chef_default',
+                'apprenton_chef_default',
                 'apprenton_it_expert_default',
                 'apprenton_logistics_expert_default',
                 'apprenton_medic_default',
                 'apprenton_pilot_default',
-                'apprenton_ radio_expert_default',
+                'apprenton_radio_expert_default',
                 'apprenton_robotics_expert_default',
                 'apprenton_shooter_default',
                 'apprenton_shrink_default',
@@ -435,6 +436,9 @@ class GameConfigData
                 DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
                 PlaceStatusEnum::MUSH_TRAPPED->value . '_default',
                 EquipmentStatusEnum::JUKEBOX_SONG . '_default',
+                SpecialistPointsEnum::CONCEPTOR_POINTS->value,
+                SpecialistPointsEnum::SHOOTER_POINTS->value,
+                SpecialistPointsEnum::TECHNICIAN_POINTS->value,
             ],
             'triumphConfigs' => [
                 'alien_science',

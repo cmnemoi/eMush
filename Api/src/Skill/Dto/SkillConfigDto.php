@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Skill\Dto;
 
 use Mush\Skill\Enum\SkillName;
+use Mush\Status\Enum\SpecialistPointsEnum;
 
 final readonly class SkillConfigDto
 {
@@ -13,6 +14,6 @@ final readonly class SkillConfigDto
         public array $modifierConfigs = [],
         public array $actionConfigs = [],
         public ?string $spawnEquipmentConfig = null,
-        public ?string $specialistPointsConfig = null,
+        public ?SpecialistPointsEnum $specialistPointsConfig = null,
     ) {}
 }

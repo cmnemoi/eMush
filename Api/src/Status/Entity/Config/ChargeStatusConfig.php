@@ -27,6 +27,19 @@ class ChargeStatusConfig extends StatusConfig
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $autoRemove = false;
 
+    public static function fromConfigData(array $configData): self
+    {
+        return (new self())
+            ->setChargeVisibility($configData['chargeVisibility'])
+            ->setChargeStrategy($configData['chargeStrategy'])
+            ->setMaxCharge($configData['maxCharge'])
+            ->setStartCharge($configData['startCharge'])
+            ->setDischargeStrategies($configData['dischargeStrategies'])
+            ->setAutoRemove($configData['autoRemove'])
+            ->setName($configData['name'])
+            ->setStatusName($configData['statusName']);
+    }
+
     public function getChargeVisibility(): string
     {
         return $this->chargeVisibility;

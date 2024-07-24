@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillName;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 #[ORM\Entity]
 class Skill
@@ -42,6 +43,11 @@ class Skill
         return $this->skillConfig->getName();
     }
 
+    public function getNameAsString(): string
+    {
+        return $this->getName()->value;
+    }
+
     public function getPlayer(): Player
     {
         return $this->player;
@@ -55,9 +61,14 @@ class Skill
         return $this->skillConfig->getModifierConfigs();
     }
 
-    public function getCharge(): int
+    public function getSpecialistPointConfigOrNull(): ?ChargeStatusConfig
     {
-        return 0;
+        return $this->skillConfig->getSpecialistPointsConfig();
+    }
+
+    public function getSpecialistPoints(): int
+    {
+        return $this->player->getChargeStatusByName($this->getNameAsString())?->getCharge() ?? 0;
     }
 
     public function isNull(): bool

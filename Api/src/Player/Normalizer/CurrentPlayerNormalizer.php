@@ -17,7 +17,6 @@ use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Service\ClosedExplorationServiceInterface;
 use Mush\Exploration\Service\ExplorationServiceInterface;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Service\HunterNormalizerHelperInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -25,7 +24,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -112,7 +111,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
                 'key' => $character,
                 'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
                 'description' => $this->translationService->translate($character . '.description', [], 'characters', $language),
-                'skills' => $player->getPlayerInfo()->getCharacterConfig()->getSkills(),
+                'availableSkills' => $this->getNormalizedSelectableSkills($player, $language),
             ],
             'gameStatus' => $player->getPlayerInfo()->getGameStatus(),
             'triumph' => [
@@ -148,7 +147,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $playerData = array_merge($playerData, [
             'room' => $this->normalizer->normalize($player->getPlace(), $format, $context),
-            'skills' => $this->getNormalizedPlayerSkills($player, $format, $context),
+            'skills' => $this->getNormalizedPlayerSkills($player),
             'titles' => $titles,
             'actions' => $this->getNormalizedActions($player, ActionHolderEnum::PLAYER, $player, $format, $context),
             'items' => $items,
@@ -257,31 +256,47 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         return $statuses;
     }
 
-    private function getNormalizedPlayerSkills(Player $player, ?string $format = null, array $context = []): array
+    private function getNormalizedPlayerSkills(Player $player): array
     {
         $skills = [];
         foreach ($player->getSkills() as $skill) {
-            $normedSkill = $this->normalizer->normalize($skill, $format, array_merge($context, ['player' => $player]));
-            if (\is_array($normedSkill) && \count($normedSkill) > 0) {
-                $skills[] = $normedSkill;
-            }
+            $normalizedSkill = [
+                'key' => $skill->getNameAsString(),
+                'name' => $this->translationService->translate($skill->getNameAsString() . '.name', [], 'skill', $player->getDaedalus()->getLanguage()),
+                'description' => $this->translationService->translate($skill->getNameAsString() . '.description', [], 'skill', $player->getDaedalus()->getLanguage()),
+            ];
+            $skills[] = $normalizedSkill;
         }
 
         return $skills;
+    }
+
+    private function getNormalizedSelectableSkills(Player $player, string $language): array
+    {
+        $normalizedSelectableSkills = [];
+        foreach ($player->getSelectableSkills() as $selectableSkill) {
+            $normalizedSelectableSkills[] = [
+                'key' => $selectableSkill->getNameAsString(),
+                'name' => $this->translationService->translate($selectableSkill->getNameAsString() . '.name', [], 'skill', $language),
+                'description' => $this->translationService->translate($selectableSkill->getNameAsString() . '.description', [], 'skill', $language),
+            ];
+        }
+
+        return $normalizedSelectableSkills;
     }
 
     private function getSpecialistPointsForPlayer(Player $player, string $language): array
     {
         // TODO Move that in the skill config data
         $skillsList = [
-            SkillEnum::BOTANIST => 'garden',
-            SkillEnum::CHEF => 'cook',
-            SkillEnum::CONCEPTOR => 'core',
-            SkillEnum::PHYSICIST => 'pilgred',
-            SkillEnum::IT_EXPERT => 'computer',
-            SkillEnum::NURSE => 'heal',
-            SkillEnum::TECHNICIAN => 'engineer',
-            SkillEnum::SHOOTER => 'shoot',
+            SkillName::BOTANIST->value => 'garden',
+            SkillName::CHEF->value => 'cook',
+            SkillName::CONCEPTOR->value => 'core',
+            SkillName::PHYSICIST->value => 'pilgred',
+            SkillName::IT_EXPERT->value => 'computer',
+            SkillName::NURSE->value => 'heal',
+            SkillName::TECHNICIAN->value => 'engineer',
+            SkillName::SHOOTER->value => 'shoot',
         ];
 
         $specialistPoints = [];
@@ -296,11 +311,10 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     }
 
     /** @TODO: Move to a SkillNormalizer? */
-    private function getNormalizedSpecialistPoint(Player $player, string $language, string $skill, string $skillId): ?array
+    private function getNormalizedSpecialistPoint(Player $player, string $language, string $skillName, string $skillId): ?array
     {
-        /** @var ?ChargeStatus $skill */
-        $skill = $player->getSkillByName($skill);
-        if ($skill === null) {
+        $skill = $player->getSkillByName(SkillName::from($skillName));
+        if ($skill->isNull()) {
             return null;
         }
 
@@ -309,7 +323,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'quantityPoint' => [
                 'name' => $this->translationService->translate($skillId . '.name', [], 'player', $language),
                 'description' => $this->translationService->translate($skillId . '.description', [], 'player', $language),
-                'quantity' => $skill->getCharge(),
+                'quantity' => $skill->getSpecialistPoints(),
             ],
         ];
     }

@@ -12,8 +12,8 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -104,7 +104,7 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // given Chun is a technician
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
+            statusName: SkillName::TECHNICIAN,
             holder: $this->chun,
             tags: [],
             time: new \DateTime()
@@ -132,7 +132,7 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // given Chun is a technician
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
+            statusName: SkillName::TECHNICIAN,
             holder: $this->chun,
             tags: [],
             time: new \DateTime()
@@ -140,7 +140,7 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // given Chun has one Technician point
         /** @var ChargeStatus $skill */
-        $skill = $this->chun->getSkillByName(SkillEnum::TECHNICIAN);
+        $skill = $this->chun->getSkillByName(SkillName::TECHNICIAN);
         $skill->setCharge(1);
 
         // when Chun repairs the Mycoscan
@@ -163,7 +163,7 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // given Chun is a technician
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
+            statusName: SkillName::TECHNICIAN,
             holder: $this->chun,
             tags: [],
             time: new \DateTime()
@@ -171,7 +171,7 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // given Chun has one Technician point
         /** @var ChargeStatus $skill */
-        $skill = $this->chun->getSkillByName(SkillEnum::TECHNICIAN);
+        $skill = $this->chun->getSkillByName(SkillName::TECHNICIAN);
         $skill->setCharge(1);
 
         // when Chun examines the Mycoscan

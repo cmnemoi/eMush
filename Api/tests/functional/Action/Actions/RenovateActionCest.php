@@ -16,13 +16,13 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -357,7 +357,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         // given Chun is a technician
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
+            statusName: SkillName::TECHNICIAN,
             holder: $this->chun,
             tags: [],
             time: new \DateTime()
@@ -403,7 +403,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         // given Chun is a technician
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
+            statusName: SkillName::TECHNICIAN,
             holder: $this->chun,
             tags: [],
             time: new \DateTime()
@@ -411,7 +411,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         // given Chun has one Technician point
         /** @var ChargeStatus $skill */
-        $skill = $this->chun->getSkillByName(SkillEnum::TECHNICIAN);
+        $skill = $this->chun->getSkillByName(SkillName::TECHNICIAN);
         $skill->setCharge(1);
 
         // when Chun renovates the Pasiphae

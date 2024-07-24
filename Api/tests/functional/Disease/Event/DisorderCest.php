@@ -7,12 +7,12 @@ namespace Mush\Tests\functional\Disease\Event;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -50,7 +50,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a psy
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::SHRINK,
+            statusName: SkillName::SHRINK,
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime(),
@@ -90,7 +90,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a psy
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::SHRINK,
+            statusName: SkillName::SHRINK,
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime(),
@@ -127,7 +127,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a psy
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::SHRINK,
+            statusName: SkillName::SHRINK,
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime(),
@@ -172,7 +172,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a psy
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::SHRINK,
+            statusName: SkillName::SHRINK,
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime(),
@@ -230,7 +230,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a psy
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::SHRINK,
+            statusName: SkillName::SHRINK,
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime(),
@@ -278,7 +278,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a psy
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::SHRINK,
+            statusName: SkillName::SHRINK,
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime(),
@@ -336,7 +336,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a psy
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::SHRINK,
+            statusName: SkillName::SHRINK,
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime(),
@@ -384,7 +384,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given Chun is a shrink
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::SHRINK,
+            statusName: SkillName::SHRINK,
             holder: $this->chun,
             tags: [],
             time: new \DateTime(),
@@ -434,7 +434,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a psy
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::SHRINK,
+            statusName: SkillName::SHRINK,
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime(),

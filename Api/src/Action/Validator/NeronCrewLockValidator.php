@@ -9,7 +9,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Enum\SkillEnum;
+use Mush\Skill\Enum\SkillName;
 use Symfony\Component\HttpFoundation\File\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -45,12 +45,12 @@ final class NeronCrewLockValidator extends ConstraintValidator
         }
     }
 
-    private function getSkillNeeded(string $crewLock): string
+    private function getSkillNeeded(string $crewLock): SkillName
     {
         return match ($crewLock) {
-            NeronCrewLockEnum::PILOTING->value => SkillEnum::PILOT,
-            NeronCrewLockEnum::PROJECTS->value => SkillEnum::CONCEPTOR,
-            default => SkillEnum::null,
+            NeronCrewLockEnum::PILOTING->value => SkillName::PILOT,
+            NeronCrewLockEnum::PROJECTS->value => SkillName::CONCEPTOR,
+            default => SkillName::null,
         };
     }
 

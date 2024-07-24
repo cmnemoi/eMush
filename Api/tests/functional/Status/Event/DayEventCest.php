@@ -9,12 +9,12 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -150,7 +150,7 @@ class DayEventCest
 
         // Specialist point increment
         /** @var ChargeStatusConfig $statusConfig */
-        $statusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => SkillEnum::SHOOTER]);
+        $statusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => SkillName::SHOOTER]);
 
         /** @var ChargeStatus $status */
         $status = $this->statusService->createStatusFromConfig(

@@ -12,7 +12,6 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\PlanetSectorEventHandler\Fight;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -20,6 +19,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -138,7 +138,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given Chun and kuan-ti have the shooter skill
         foreach ([$this->chun, $this->kuanTi] as $player) {
             $this->statusService->createStatusFromName(
-                statusName: SkillEnum::SHOOTER,
+                statusName: SkillName::SHOOTER,
                 holder: $player,
                 tags: [],
                 time: new \DateTime(),
@@ -253,7 +253,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     {
         // given Chun is a pilot to avoid damage at landing
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::PILOT,
+            statusName: SkillName::PILOT,
             holder: $this->chun,
             tags: [],
             time: new \DateTime(),
@@ -304,7 +304,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     {
         // given Chun is a pilot to avoid damage at landing
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::PILOT,
+            statusName: SkillName::PILOT,
             holder: $this->chun,
             tags: [],
             time: new \DateTime(),
@@ -351,7 +351,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     {
         // given Chun is a pilot to avoid damage at landing
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::PILOT,
+            statusName: SkillName::PILOT,
             holder: $this->chun,
             tags: [],
             time: new \DateTime(),

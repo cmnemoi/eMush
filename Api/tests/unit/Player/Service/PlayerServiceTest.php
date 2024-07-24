@@ -113,7 +113,6 @@ final class PlayerServiceTest extends TestCase
         $characterConfig
             ->setCharacterName('character')
             ->setInitStatuses(new ArrayCollection([$statusConfig]))
-            ->setSkills(['some skills'])
             ->setInitMovementPoint(0)
             ->setInitActionPoint(1)
             ->setInitSatiety(2)

@@ -10,8 +10,8 @@ use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Normalizer\ExplorationNormalizer;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
@@ -39,7 +39,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
 
         // given Chun is a pilot so landing is always successful
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::PILOT,
+            statusName: SkillName::PILOT,
             holder: $this->chun,
             tags: [],
             time: new \DateTime()

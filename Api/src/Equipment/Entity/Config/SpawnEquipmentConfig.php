@@ -31,7 +31,7 @@ class SpawnEquipmentConfig
         string $name = '',
         string $equipmentName = '',
         string $placeName = '',
-        int $quantity = 1,
+        int $quantity = 0,
     ) {
         $this->name = $name;
         $this->equipmentName = $equipmentName;

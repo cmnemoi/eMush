@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\Functional\Status\Normalizer;
 
-use Mush\Game\Enum\SkillEnum;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Normalizer\StatusNormalizer;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -30,7 +30,7 @@ final class StatusNormalizerCest extends AbstractFunctionalTest
     public function shouldNormalizeShrinkSkill(FunctionalTester $I): void
     {
         $status = $this->statusService->createStatusFromName(
-            statusName: SkillEnum::SHRINK,
+            statusName: SkillName::SHRINK,
             holder: $this->chun,
             tags: [],
             time: new \DateTime(),
@@ -40,7 +40,7 @@ final class StatusNormalizerCest extends AbstractFunctionalTest
 
         $I->assertEquals(
             expected: [
-                'key' => SkillEnum::SHRINK,
+                'key' => SkillName::SHRINK,
                 'name' => 'Psy',
                 'description' => 'Le psy occupe un poste de soutien psychologique. Il permet de garder le moral et soigne les maladies psychologiques.//:point: A chaque cycle, **1 Point de Moral (:pmo:) est régénéré** à chaque personnage allongé dans sa pièce.//:point: **Soigne les maladies Psy**.//:point: Accorde l\'action **Réconforter**, laquelle améliore le moral.//:point: Bonus pour développer certains **Projets NERON**.',
                 'isPrivate' => false,

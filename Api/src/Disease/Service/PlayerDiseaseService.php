@@ -11,11 +11,11 @@ use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Skill\Enum\SkillName;
 
 class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 {
@@ -192,7 +192,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         if ($playerDisease->getDiseasePoint() <= 0) {
             $this->removePlayerDisease(
                 $playerDisease,
-                [SkillEnum::SHRINK],
+                [SkillName::SHRINK->value],
                 $time,
                 VisibilityEnum::PUBLIC,
                 $shrink
@@ -204,7 +204,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         // else, send an event to other modules saying that the disorder is still being treated
         $event = new DiseaseEvent(
             $playerDisease,
-            tags: [SkillEnum::SHRINK],
+            tags: [SkillName::SHRINK->value],
             time: $time,
         );
         $event->setAuthor($shrink);

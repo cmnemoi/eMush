@@ -6,7 +6,6 @@ use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -16,6 +15,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -303,7 +303,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         // given I have a Shooter player
         /** @var ChargeStatus $shooterSkill * */
         $shooterSkill = $this->statusService->createStatusFromName(
-            statusName: SkillEnum::SHOOTER,
+            statusName: SkillName::SHOOTER,
             holder: $this->player,
             tags: [],
             time: new \DateTime()
@@ -421,7 +421,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
 
         // given KT is a shrink
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::SHRINK,
+            statusName: SkillName::SHRINK,
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime()
@@ -450,7 +450,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
 
         // given Chun is a shrink
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::SHRINK,
+            statusName: SkillName::SHRINK,
             holder: $this->chun,
             tags: [],
             time: new \DateTime()
@@ -471,7 +471,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
     {
         // given Chun is the mankind only hope
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::MANKIND_ONLY_HOPE,
+            statusName: SkillName::MANKIND_ONLY_HOPE,
             holder: $this->chun,
             tags: [],
             time: new \DateTime()
@@ -504,13 +504,13 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
     {
         // given Chun and Kuan Ti are the mankind only hopes
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::MANKIND_ONLY_HOPE,
+            statusName: SkillName::MANKIND_ONLY_HOPE,
             holder: $this->chun,
             tags: [],
             time: new \DateTime()
         );
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::MANKIND_ONLY_HOPE,
+            statusName: SkillName::MANKIND_ONLY_HOPE,
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime()

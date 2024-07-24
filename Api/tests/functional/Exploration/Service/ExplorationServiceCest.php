@@ -22,13 +22,13 @@ use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -381,7 +381,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 
         // given the player is a pilot
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::PILOT,
+            statusName: SkillName::PILOT,
             holder: $this->player1,
             tags: [],
             time: new \DateTime(),

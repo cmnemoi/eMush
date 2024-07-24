@@ -4,12 +4,13 @@ namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Skill\Enum\SkillName;
 
 #[ORM\Entity]
 class Book extends Tool
 {
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $skill;
+    #[ORM\Column(type: 'string', enumType: SkillName::class, nullable: false, options: ['default' => SkillName::NULL])]
+    private SkillName $skill = SkillName::NULL;
 
     public function getMechanics(): array
     {
@@ -19,7 +20,7 @@ class Book extends Tool
         return $mechanics;
     }
 
-    public function getSkill(): string
+    public function getSkill(): SkillName
     {
         return $this->skill;
     }
@@ -27,7 +28,7 @@ class Book extends Tool
     /**
      * @return static
      */
-    public function setSkill(string $skill): self
+    public function setSkill(SkillName $skill): self
     {
         $this->skill = $skill;
 

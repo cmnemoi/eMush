@@ -17,12 +17,12 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -53,7 +53,7 @@ class AttemptActionChangeCest
 
         $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
 
-        $technicianSkillStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => SkillEnum::TECHNICIAN]);
+        $technicianSkillStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => SkillName::TECHNICIAN]);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig->setStatusConfigs(new ArrayCollection([$attemptConfig, $statusConfig, $technicianSkillStatusConfig]));
@@ -91,7 +91,7 @@ class AttemptActionChangeCest
         $I->refreshEntities($player);
 
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
+            statusName: SkillName::TECHNICIAN,
             holder: $player,
             tags: [],
             time: new \DateTime(),
@@ -170,7 +170,7 @@ class AttemptActionChangeCest
 
         $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
 
-        $technicianSkillStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => SkillEnum::TECHNICIAN]);
+        $technicianSkillStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => SkillName::TECHNICIAN]);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig->setStatusConfigs(new ArrayCollection([$attemptConfig, $statusConfig, $technicianSkillStatusConfig]));
@@ -208,7 +208,7 @@ class AttemptActionChangeCest
         $I->refreshEntities($player);
 
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
+            statusName: SkillName::TECHNICIAN,
             holder: $player,
             tags: [],
             time: new \DateTime(),

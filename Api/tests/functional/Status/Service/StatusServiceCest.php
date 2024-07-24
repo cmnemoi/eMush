@@ -25,13 +25,13 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -532,7 +532,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
     {
         // given player is a technician
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
+            statusName: SkillName::TECHNICIAN,
             holder: $this->player,
             tags: [],
             time: new \DateTime(),
@@ -540,7 +540,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
 
         // when we try to create technician skill again
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
+            statusName: SkillName::TECHNICIAN,
             holder: $this->player,
             tags: [],
             time: new \DateTime(),

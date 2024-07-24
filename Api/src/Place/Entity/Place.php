@@ -16,7 +16,6 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -29,6 +28,7 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -510,7 +510,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     {
         return $this
             ->getPlayers()
-            ->getPlayersWithSkill(SkillEnum::SHRINK)
+            ->getPlayersWithSkill(SkillName::SHRINK)
             ->getPlayerAlive()
             ->getAllExcept($player);
     }

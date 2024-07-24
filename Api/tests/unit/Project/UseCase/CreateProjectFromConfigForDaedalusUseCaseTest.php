@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Tests\Unit\Project\UseCase;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
@@ -13,6 +12,7 @@ use Mush\Project\Factory\ProjectConfigFactory;
 use Mush\Project\Factory\ProjectFactory;
 use Mush\Project\Repository\InMemoryProjectRepository;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
+use Mush\Skill\Enum\SkillName;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -90,6 +90,6 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
         self::assertEquals(expected: 0, actual: $project->getProgress());
         self::assertEquals(expected: 100, actual: $project->getActivationRate());
         self::assertEquals(expected: 1, actual: $project->getEfficiency());
-        self::assertEquals(expected: [SkillEnum::TECHNICIAN, SkillEnum::PHYSICIST], actual: $project->getBonusSkills());
+        self::assertEquals(expected: [SkillName::TECHNICIAN, SkillName::PHYSICIST], actual: $project->getBonusSkills());
     }
 }

@@ -20,7 +20,6 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -28,6 +27,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -66,7 +66,7 @@ class AutomaticGetUpCest
             ->setActionConfigs([$getUpAction]);
         $I->haveInRepository($statusConfig);
 
-        $technicianStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => SkillEnum::TECHNICIAN]);
+        $technicianStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => SkillName::TECHNICIAN]);
 
         $dirtyConfig = new StatusConfig();
         $dirtyConfig->setStatusName(PlayerStatusEnum::DIRTY)->buildName(GameConfigEnum::TEST);
@@ -119,7 +119,7 @@ class AutomaticGetUpCest
         $I->haveInRepository($lyingDownStatus);
 
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
+            statusName: SkillName::TECHNICIAN,
             holder: $player,
             tags: [],
             time: new \DateTime(),

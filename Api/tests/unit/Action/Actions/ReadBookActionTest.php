@@ -10,9 +10,9 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Book;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Skill\Enum\SkillName;
 
 /**
  * @internal
@@ -53,7 +53,7 @@ final class ReadBookActionTest extends AbstractActionTest
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $book = new Book();
-        $book->setSkill(SkillEnum::PILOT);
+        $book->setSkill(SkillName::PILOT);
         $item->setMechanics(new ArrayCollection([$book]));
         $gameItem
             ->setEquipment($item)

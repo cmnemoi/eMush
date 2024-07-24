@@ -7,7 +7,6 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
@@ -15,6 +14,7 @@ use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -86,13 +86,13 @@ final class SpecialistPointCest extends AbstractFunctionalTest
         $hunter = $this->daedalus->getAttackingHunters()->first();
 
         /** @var StatusConfig $shooterStatusConfig */
-        $shooterStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => SkillEnum::SHOOTER]);
+        $shooterStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => SkillName::SHOOTER]);
         $this->statusService->createStatusFromConfig($shooterStatusConfig, $this->player1, [], new \DateTime());
 
         /** @var ChargeStatus $shooterStatus */
         $shooterStatus = $this->player1->getSkills()[0];
         $I->assertEquals(
-            SkillEnum::SHOOTER,
+            SkillName::SHOOTER,
             $shooterStatus->getName()
         );
         $I->assertEquals(
@@ -113,7 +113,7 @@ final class SpecialistPointCest extends AbstractFunctionalTest
         /** @var ChargeStatus $shooterStatus */
         $shooterStatus = $this->player1->getSkills()[0];
         $I->assertEquals(
-            SkillEnum::SHOOTER,
+            SkillName::SHOOTER,
             $shooterStatus->getName()
         );
         $I->assertEquals(

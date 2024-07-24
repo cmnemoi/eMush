@@ -164,7 +164,6 @@ class PlayerService implements PlayerServiceInterface
                     ->filter(static fn (Place $room) => RoomEnum::LABORATORY === $room->getName())
                     ->first()
             )
-            ->setSkills([])
             ->setPlayerVariables($characterConfig);
 
         $playerInfo = new PlayerInfo(

@@ -15,12 +15,12 @@ use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Action\Service\GetActionTargetFromContextService;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Service\PlanetServiceInterface;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -247,9 +247,9 @@ class ActionNormalizer implements NormalizerInterface
     {
         /** @var ActionSpecialistPointRule[] $specialistPointCostRules */
         $specialistPointCostRules = [
-            new ActionSpecialistPointRule('shoot', SkillEnum::SHOOTER, [ActionTypeEnum::ACTION_SHOOT->value, ActionTypeEnum::ACTION_SHOOT_HUNTER->value]),
-            new ActionSpecialistPointRule('engineer', SkillEnum::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN->value]),
-            new ActionSpecialistPointRule('core', SkillEnum::CONCEPTOR, [ActionTypeEnum::ACTION_CONCEPTOR->value]),
+            new ActionSpecialistPointRule('shoot', SkillName::SHOOTER, [ActionTypeEnum::ACTION_SHOOT->value, ActionTypeEnum::ACTION_SHOOT_HUNTER->value]),
+            new ActionSpecialistPointRule('engineer', SkillName::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN->value]),
+            new ActionSpecialistPointRule('core', SkillName::CONCEPTOR, [ActionTypeEnum::ACTION_CONCEPTOR->value]),
         ];
 
         $specialistPointCosts = [];

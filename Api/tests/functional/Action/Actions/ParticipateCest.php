@@ -15,7 +15,6 @@ use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
@@ -23,6 +22,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -366,7 +366,7 @@ final class ParticipateCest extends AbstractFunctionalTest
 
         // given Chun is a Conceptor
         $this->statusService->createStatusFromName(
-            statusName: SkillEnum::CONCEPTOR,
+            statusName: SkillName::CONCEPTOR,
             holder: $this->chun,
             tags: [],
             time: new \DateTime()
@@ -374,7 +374,7 @@ final class ParticipateCest extends AbstractFunctionalTest
 
         // given Chun has one Core point
         /** @var ChargeStatus $skill */
-        $skill = $this->chun->getSkillByName(SkillEnum::CONCEPTOR);
+        $skill = $this->chun->getSkillByName(SkillName::CONCEPTOR);
         $skill->setCharge(1);
 
         // when Chun participates in the project

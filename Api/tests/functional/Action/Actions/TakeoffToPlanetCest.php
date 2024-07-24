@@ -26,7 +26,6 @@ use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -36,6 +35,7 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -88,7 +88,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
         // given player1 is a pilot so they can takeoff to planet
         $this->statusService->createStatusFromName(
-            SkillEnum::PILOT,
+            SkillName::PILOT,
             $this->player1,
             [],
             new \DateTime()

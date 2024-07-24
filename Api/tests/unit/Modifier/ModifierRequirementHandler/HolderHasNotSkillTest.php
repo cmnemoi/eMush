@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Modifier\ModifierRequirementHandler;
 
-use Mush\Game\Enum\SkillEnum;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\ModifierRequirementHandler\RequirementHolderHasNotSkill;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Skill\Enum\SkillName;
 use Mush\Status\Factory\StatusFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -31,7 +31,7 @@ final class HolderHasNotSkillTest extends TestCase
     public function testShouldReturnTrueIfPlayerDoesNotHaveTheSkill(): void
     {
         $requirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL);
-        $requirement->setActivationRequirement(SkillEnum::SHRINK);
+        $requirement->setActivationRequirement(SkillName::SHRINK);
 
         $player = PlayerFactory::createPlayer();
 
@@ -42,10 +42,10 @@ final class HolderHasNotSkillTest extends TestCase
     public function testShouldReturnFalseIfPlayerHasTheSkill(): void
     {
         $requirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL);
-        $requirement->setActivationRequirement(SkillEnum::SHRINK);
+        $requirement->setActivationRequirement(SkillName::SHRINK);
 
         $player = PlayerFactory::createPlayer();
-        StatusFactory::createStatusByNameForHolder(SkillEnum::SHRINK, $player);
+        StatusFactory::createStatusByNameForHolder(SkillName::SHRINK, $player);
 
         $result = $this->service->checkRequirement($requirement, $player);
         self::assertFalse($result);
@@ -56,7 +56,7 @@ final class HolderHasNotSkillTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         $requirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL);
-        $requirement->setActivationRequirement(SkillEnum::SHRINK);
+        $requirement->setActivationRequirement(SkillName::SHRINK);
 
         $holder = $this->createStub(ModifierHolderInterface::class);
 

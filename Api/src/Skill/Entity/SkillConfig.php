@@ -60,6 +60,11 @@ class SkillConfig
         return $this->name->value;
     }
 
+    public function getModifierConfigs(): ArrayCollection
+    {
+        return new ArrayCollection($this->modifierConfigs->toArray());
+    }
+
     public function update(self $skillConfig): void
     {
         $this->name = $skillConfig->name;

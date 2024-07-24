@@ -6,3 +6,8 @@ services:
         public: true
         autowire: true     
         autoconfigure: true
+
+    Mush\Skill\UseCase\AddSkillToPlayerUseCase:
+        public: true
+        autowire: true     
+        autoconfigure: true

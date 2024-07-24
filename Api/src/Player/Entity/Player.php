@@ -428,7 +428,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return ArrayCollection<int, Skill>
      */
-    public function getSkills(): Collection
+    public function getSkills(): ArrayCollection
     {
         return new ArrayCollection($this->skills->toArray());
     }
@@ -437,7 +437,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     {
         $skill = $this->getSkills()->filter(static fn ($_, Skill $skill) => $skill->getName() === $name)->first();
 
-        return $skill ?: Skill::createNull();
+        return $skill ?: Skill::createNullForPlayer($this);
     }
 
     public function cannotTakeSkill(SkillName $skillName): bool

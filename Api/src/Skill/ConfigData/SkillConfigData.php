@@ -19,7 +19,33 @@ abstract class SkillConfigData
     {
         return [
             new SkillConfigDto(
+                name: SkillName::CONCEPTOR,
+            ),
+            new SkillConfigDto(
+                name: SkillName::MANKIND_ONLY_HOPE,
+                modifierConfigs: [
+                    'modifier_for_daedalus_+1moral_on_day_change',
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillName::PILOT,
+                modifierConfigs: [
+                    'modifier_pilot_always_critical_success_piloting',
+                    'modifier_pilot_increased_shoot_hunter_chances',
+                ]
+            ),
+            new SkillConfigDto(
+                name: SkillName::SHOOTER,
+            ),
+            new SkillConfigDto(
+                name: SkillName::SHRINK,
+            ),
+            new SkillConfigDto(
+                name: SkillName::TECHNICIAN,
+                modifierConfigs: [
+                    'modifier_for_player_x1.5percentage_on_action_technician',
+                    'modifier_technician_double_repair_and_renovate_chance',
+                ]
             ),
         ];
     }

@@ -49,7 +49,9 @@ class CharacterConfigData
         [
             'name' => 'chao',
             'characterName' => 'chao',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -85,7 +87,9 @@ class CharacterConfigData
         [
             'name' => 'chun',
             'characterName' => 'chun',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::MANKIND_ONLY_HOPE,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -123,7 +127,9 @@ class CharacterConfigData
         [
             'name' => 'derek',
             'characterName' => 'derek',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -163,7 +169,9 @@ class CharacterConfigData
         [
             'name' => 'eleesha',
             'characterName' => 'eleesha',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::TECHNICIAN,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -238,7 +246,9 @@ class CharacterConfigData
         [
             'name' => 'frieda',
             'characterName' => 'frieda',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::PILOT,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -310,7 +320,10 @@ class CharacterConfigData
         [
             'name' => 'hua',
             'characterName' => 'hua',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::PILOT,
+                SkillName::TECHNICIAN,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -385,7 +398,9 @@ class CharacterConfigData
         [
             'name' => 'janice',
             'characterName' => 'janice',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::SHRINK,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -422,7 +437,10 @@ class CharacterConfigData
         [
             'name' => 'jin_su',
             'characterName' => 'jin_su',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::PILOT,
+                SkillName::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -459,7 +477,10 @@ class CharacterConfigData
         [
             'name' => 'kuan_ti',
             'characterName' => 'kuan_ti',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::CONCEPTOR,
+                SkillName::TECHNICIAN,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -496,7 +517,9 @@ class CharacterConfigData
         [
             'name' => 'paola',
             'characterName' => 'paola',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -532,7 +555,10 @@ class CharacterConfigData
         [
             'name' => 'raluca',
             'characterName' => 'raluca',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::TECHNICIAN,
+                SkillName::CONCEPTOR,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -570,7 +596,10 @@ class CharacterConfigData
         [
             'name' => 'roland',
             'characterName' => 'roland',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::PILOT,
+                SkillName::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -607,7 +636,9 @@ class CharacterConfigData
         [
             'name' => 'stephen',
             'characterName' => 'stephen',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -643,7 +674,11 @@ class CharacterConfigData
         [
             'name' => 'terrence',
             'characterName' => 'terrence',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillName::TECHNICIAN,
+                SkillName::PILOT,
+                SkillName::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,

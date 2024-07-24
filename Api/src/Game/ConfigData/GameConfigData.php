@@ -5,7 +5,6 @@ namespace Mush\Game\ConfigData;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Project\Enum\ProjectName;
@@ -429,18 +428,12 @@ class GameConfigData
                 'exploration_oxygen_default',
                 'exploration_fuel_default',
                 'following_hunters_default',
-                SkillEnum::PILOT . '_alpha',
-                SkillEnum::SHOOTER . '_alpha',
-                SkillEnum::TECHNICIAN,
-                SkillEnum::CONCEPTOR,
                 'astronavigation_neron_cpu_priority_default',
                 'defence_neron_cpu_priority_default',
                 'changed_cpu_priority_default',
                 'electric_charges_support_drone_default',
                 DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
-                SkillEnum::SHRINK . '_default',
                 PlaceStatusEnum::MUSH_TRAPPED->value . '_default',
-                SkillEnum::MANKIND_ONLY_HOPE,
                 EquipmentStatusEnum::JUKEBOX_SONG . '_default',
             ],
             'triumphConfigs' => [

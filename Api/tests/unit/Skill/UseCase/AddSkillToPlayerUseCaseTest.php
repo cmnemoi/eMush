@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\tests\unit\Skill\UseCase;
 
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\InMemoryPlayerRepository;
@@ -71,13 +72,15 @@ final class AddSkillToPlayerUseCaseTest extends TestCase
 
     private function givenPlayerHasSkill(SkillName $skillName): void
     {
-        $skill = new Skill(new SkillConfig($skillName));
-        $this->player->addSkill($skill);
+        new Skill(new SkillConfig($skillName), $this->player);
     }
 
     private function whenIAddSkillToPlayer(SkillName $skillName): void
     {
-        $useCase = new AddSkillToPlayerUseCase($this->playerRepository);
+        $useCase = new AddSkillToPlayerUseCase(
+            $this->createStub(EventServiceInterface::class),
+            $this->playerRepository,
+        );
         $useCase->execute($skillName, $this->player);
     }
 

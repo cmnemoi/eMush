@@ -4,7 +4,6 @@ namespace Mush\Status\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -1121,33 +1120,6 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => SkillEnum::SHOOTER . '_alpha',
-            'statusName' => SkillEnum::SHOOTER,
-            'visibility' => VisibilityEnum::PUBLIC,
-            'type' => 'charge_status_config',
-            'chargeVisibility' => VisibilityEnum::PRIVATE,
-            'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
-            'maxCharge' => 4,
-            'startCharge' => 4,
-            'dischargeStrategies' => [ModifierNameEnum::SHOOTER_SPECIALIST_POINT],
-            'autoRemove' => true,
-            'modifierConfigs' => [
-                'modifier_shooter_specialist_point',
-            ],
-            'actionConfigs' => [],
-        ],
-        [
-            'name' => SkillEnum::PILOT . '_alpha',
-            'statusName' => SkillEnum::PILOT,
-            'visibility' => VisibilityEnum::PUBLIC,
-            'type' => 'status_config',
-            'modifierConfigs' => [
-                'modifier_pilot_always_critical_success_piloting',
-                'modifier_pilot_increased_shoot_hunter_chances',
-            ],
-            'actionConfigs' => [],
-        ],
-        [
             'name' => 'astronavigation_neron_cpu_priority_default',
             'statusName' => 'astronavigation_neron_cpu_priority',
             'visibility' => VisibilityEnum::HIDDEN,
@@ -1183,39 +1155,6 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => SkillEnum::TECHNICIAN,
-            'statusName' => SkillEnum::TECHNICIAN,
-            'visibility' => VisibilityEnum::PUBLIC,
-            'type' => 'charge_status_config',
-            'chargeVisibility' => VisibilityEnum::PRIVATE,
-            'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
-            'maxCharge' => 2,
-            'startCharge' => 2,
-            'dischargeStrategies' => [ModifierNameEnum::SPECIALIST_POINT_ENGINEER],
-            'autoRemove' => true,
-            'modifierConfigs' => [
-                'modifier_specialist_point_engineer',
-                'modifier_technician_double_repair_and_renovate_chance',
-            ],
-            'actionConfigs' => [],
-        ],
-        [
-            'name' => SkillEnum::CONCEPTOR,
-            'statusName' => SkillEnum::CONCEPTOR,
-            'visibility' => VisibilityEnum::PUBLIC,
-            'type' => 'charge_status_config',
-            'chargeVisibility' => VisibilityEnum::PRIVATE,
-            'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
-            'maxCharge' => 4,
-            'startCharge' => 4,
-            'dischargeStrategies' => [ModifierNameEnum::SPECIALIST_POINT_CORE],
-            'autoRemove' => true,
-            'modifierConfigs' => [
-                'modifier_specialist_point_core',
-            ],
-            'actionConfigs' => [],
-        ],
-        [
             'name' => DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
             'statusName' => DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES,
             'visibility' => 'hidden',
@@ -1244,29 +1183,11 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => SkillEnum::SHRINK . '_default',
-            'statusName' => SkillEnum::SHRINK,
-            'visibility' => VisibilityEnum::PUBLIC,
-            'type' => 'status_config',
-            'modifierConfigs' => [],
-            'actionConfigs' => [],
-        ],
-        [
             'name' => PlaceStatusEnum::MUSH_TRAPPED->value . '_default',
             'statusName' => PlaceStatusEnum::MUSH_TRAPPED->value,
             'visibility' => VisibilityEnum::MUSH,
             'type' => 'status_config',
             'modifierConfigs' => [],
-            'actionConfigs' => [],
-        ],
-        [
-            'name' => SkillEnum::MANKIND_ONLY_HOPE,
-            'statusName' => SkillEnum::MANKIND_ONLY_HOPE,
-            'visibility' => VisibilityEnum::PUBLIC,
-            'type' => 'status_config',
-            'modifierConfigs' => [
-                'modifier_for_daedalus_+1moral_on_day_change',
-            ],
             'actionConfigs' => [],
         ],
         [

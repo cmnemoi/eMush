@@ -8,7 +8,6 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
@@ -434,13 +433,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($inOrbit);
 
-        $pocPilotSkill = new StatusConfig();
-        $pocPilotSkill
-            ->setStatusName(SkillEnum::PILOT)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT);
-        $manager->persist($pocPilotSkill);
-
         /** @var VariableEventModifierConfig $astronavigatioNeronCpuPriorityModifierPlus1Section */
         $astronavigationNeronCpuPriorityModifierPlus1Section = $this->getReference(StatusModifierConfigFixtures::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION);
 
@@ -480,29 +472,12 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($defenceCpuPriority);
 
-        $shrinkSkill = new StatusConfig();
-        $shrinkSkill
-            ->setStatusName(SkillEnum::SHRINK)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT);
-        $manager->persist($shrinkSkill);
-
         $mushTrapped = new StatusConfig();
         $mushTrapped
             ->setStatusName(PlaceStatusEnum::MUSH_TRAPPED->value)
             ->setVisibility(VisibilityEnum::MUSH)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mushTrapped);
-
-        /** @var VariableEventModifierConfig $mankindOnlyHopeModifier */
-        $mankindOnlyHopeModifier = $this->getReference(StatusModifierConfigFixtures::MANKIND_ONLY_HOPE_MODIFIER);
-        $mankindOnlyHopeSkill = new StatusConfig();
-        $mankindOnlyHopeSkill
-            ->setStatusName(SkillEnum::MANKIND_ONLY_HOPE)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs([$mankindOnlyHopeModifier])
-            ->buildName(GameConfigEnum::DEFAULT);
-        $manager->persist($mankindOnlyHopeSkill);
 
         $jukeboxSongStatus = new StatusConfig();
         $jukeboxSongStatus
@@ -556,12 +531,9 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($watched_public_broadcast)
             ->addStatusConfig($screwedTalkie)
             ->addStatusConfig($inOrbit)
-            ->addStatusConfig($pocPilotSkill)
             ->addStatusConfig($astronavigationNeronCpuPriority)
             ->addStatusConfig($defenceCpuPriority)
-            ->addStatusConfig($shrinkSkill)
             ->addStatusConfig($mushTrapped)
-            ->addStatusConfig($mankindOnlyHopeSkill)
             ->addStatusConfig($jukeboxSongStatus);
         $manager->persist($gameConfig);
 
@@ -608,11 +580,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::WATCHED_PUBLIC_BROADCAST_STATUS, $watched_public_broadcast);
         $this->addReference(self::TALKIE_SCREWED_STATUS, $screwedTalkie);
         $this->addReference(self::IN_ORBIT_STATUS, $inOrbit);
-        $this->addReference(self::POC_PILOT_SKILL_STATUS, $pocPilotSkill);
         $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_STATUS, $astronavigationNeronCpuPriority);
-        $this->addReference(SkillEnum::SHRINK, $shrinkSkill);
         $this->addReference(PlaceStatusEnum::MUSH_TRAPPED->value, $mushTrapped);
-        $this->addReference(SkillEnum::MANKIND_ONLY_HOPE, $mankindOnlyHopeSkill);
         $this->addReference(EquipmentStatusEnum::JUKEBOX_SONG, $jukeboxSongStatus);
 
         $manager->flush();

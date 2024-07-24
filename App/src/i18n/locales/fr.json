@@ -779,7 +779,7 @@
 			"3_month": "3 mois"
 		},
     "sanctionDetail": {
-      "name": "Détails de la sanction",
+      "sanction": "Détails de la sanction",
       "report": "Détails de la plainte",
       "user": "Nom d'utilisateur : ",
       "player": "Personage joué : ",

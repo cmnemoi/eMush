@@ -58,6 +58,7 @@
             :is-open="showDetailPopup"
             :moderation-sanction="selectedSanction"
             @close="showDetailPopup = false"
+            @update="closeDetailAndUpdate"
         />
     </div>
 </template>
@@ -69,7 +70,6 @@ import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
 import ApiService from "@/services/api.service";
 import { mapGetters } from "vuex";
-import ModerationService from "@/services/moderation.service";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
 import { ModerationSanction } from "@/entities/ModerationSanction";
@@ -152,23 +152,9 @@ export default defineComponent({
         moderationSanctionTypes() {
             return moderationSanctionTypes;
         },
-        removeSanction(sanctionId: number) {
-            ModerationService.removeSanction(sanctionId)
-                .then(() => {
-                    this.loadData();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        },
-        suspendSanction(sanctionId: number) {
-            ModerationService.suspendSanction(sanctionId)
-                .then(() => {
-                    this.loadData();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+        closeDetailAndUpdate() {
+            this.showDetailPopup = false;
+            this.loadData();
         },
         loadData() {
             this.loading = true;
@@ -203,6 +189,7 @@ export default defineComponent({
             }
 
             params.params['user.userId'] = this.userId;
+            params.params['isReport'] = false;
 
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params)
                 .then((result) => {

@@ -1,5 +1,11 @@
 <template>
     <popUp :is-open="isOpen" @close="close">
+        <div v-if="isReport()">
+            <h1 class="title">{{ $t('moderation.sanctionDetail.report') }}</h1>
+        </div>
+        <div v-else>
+            <h1 class="title">{{ $t('moderation.sanctionDetail.sanction') }}</h1>
+        </div>
         <div class="sanction-details">
             <div class="row">
                 <div class="cell"><strong>{{ $t('moderation.sanctionDetail.user') }}</strong> {{ moderationSanction.username }}</div>
@@ -46,7 +52,9 @@
             </div>
             <div class="row" :class="{ active: moderationSanction.isActive, inactive: !moderationSanction.isActive }">
                 <div class="cell double"><strong>{{ $t('moderation.sanctionDetail.startDate') }}</strong> {{ moderationSanction.startDate }}</div>
-                <div class="cell double"><strong>{{ $t('moderation.sanctionDetail.endDate') }}</strong> {{ moderationSanction.endDate }}</div>
+                <div class="cell double" v-if="!isReport()">
+                    <div class="cell double"><strong>{{ $t('moderation.sanctionDetail.endDate') }}</strong> {{ moderationSanction.endDate }}</div>
+                </div>
             </div>
             <div class="row actions">
                 <div class="cell double" v-if="isReport()">
@@ -55,7 +63,7 @@
                 </div>
                 <div class="cell double" v-else>
                     <button class="action-button" @click="suspendSanction(moderationSanction.id)">{{ $t('moderation.actions.suspend') }}</button>
-                    <button class="action-button" @click="removeSanction(moderationSanction.id)">{{ $t('moderation.actions.remove') }}</button>
+                    <button class="action-button" @click="removeSanction(moderationSanction.id)">{{ $t('moderation.actions.delete') }}</button>
                 </div>
             </div>
         </div>
@@ -80,39 +88,54 @@ export default defineComponent({
         moderationSanction: ModerationSanction
     },
     emits: [
-        "close"
+        "close",
+        "update"
     ],
     methods: {
         close() {
             this.$emit('close');
         },
-        removeSanction(sanctionId) {
-            this.$emit('remove', sanctionId);
-            this.$emit('close');
+        removeSanction(sanctionId: number) {
+            ModerationService.removeSanction(sanctionId)
+                .then(() => {
+                    this.$emit('update');
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         },
-        suspendSanction(sanctionId) {
-            this.$emit('suspend', sanctionId);
-            this.$emit('close');
+        suspendSanction(sanctionId: number) {
+            ModerationService.suspendSanction(sanctionId)
+                .then(() => {
+                    this.$emit('update');
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         },
         archiveReport(sanctionId) {
             const params = new URLSearchParams();
             params.append('isAbusive', false);
 
             ModerationService.archiveReport(sanctionId, params)
+                .then(() => {
+                    this.$emit('update');
+                })
                 .catch((error) => {
                     console.error(error);
                 });
-            this.$emit('close');
         },
         closeReport(sanctionId) {
             const params = new URLSearchParams();
             params.append('isAbusive', true);
 
             ModerationService.archiveReport(sanctionId, params)
+                .then(() => {
+                    this.$emit('update');
+                })
                 .catch((error) => {
                     console.error(error);
                 });
-            this.$emit('close');
         },
         getReasonTranslation(reason) {
             const reasonObj = moderationReasons.find(item => item.value === reason);

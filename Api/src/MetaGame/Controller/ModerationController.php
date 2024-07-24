@@ -15,6 +15,7 @@ use Mush\MetaGame\Repository\ModerationSanctionRepository;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\UseCase\GetUserCurrentPlayerUseCase;
 use Mush\RoomLog\Entity\RoomLog;
@@ -228,7 +229,7 @@ final class ModerationController extends AbstractFOSRestController
      *
      * @Rest\View()
      */
-    public function getModerationViewPlayer(Player $player): View
+    public function getModerationViewPlayer(PlayerInfo $playerInfo): View
     {
         $this->denyAccessIfNotModerator();
 
@@ -236,7 +237,7 @@ final class ModerationController extends AbstractFOSRestController
         $context->setAttribute('groups', ['moderation_view']);
         $context->setAttribute('user', $this->getUser());
 
-        $view = $this->view($player, Response::HTTP_OK);
+        $view = $this->view($playerInfo, Response::HTTP_OK);
         $view->setContext($context);
 
         return $view;
@@ -743,21 +744,13 @@ final class ModerationController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Get(path="/{message}/reportable")
+     * @Rest\Get(path="/reportable")
      */
-    public function getReportablePlayerAction(Message $message): View
+    public function getReportablePlayerAction(): View
     {
         $userPlayer = $this->getUserCurrentPlayerUseCase->execute($this->getRequestUser());
-        $neron = $message->getNeron();
-        $author = $message->getAuthor();
 
-        if ($neron !== null) {
-            $daedalus = $neron->getDaedalusInfo()->getDaedalus();
-        } elseif ($author !== null) {
-            $daedalus = $author->getPlayer()->getDaedalus();
-        } else {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'No daedalus found for this message');
-        }
+        $daedalus = $userPlayer->getDaedalus();
 
         return $this->view(
             $daedalus->getPlayers()->getAllExcept($userPlayer),

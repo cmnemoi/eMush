@@ -32,6 +32,7 @@
             :is-open="showDetailPopup"
             :moderation-sanction="selectedSanction"
             @close="closeDetailPopUp"
+            @update="closeDetailAndUpdate"
         />
     </div>
 </template>
@@ -49,7 +50,6 @@ import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_r
 import { ModerationSanction } from "@/entities/ModerationSanction";
 import { useRouter } from "vue-router";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
-import { ClosedDaedalus } from "@/entities/ClosedDaedalus";
 import router from "@/router";
 
 interface SanctionListData {
@@ -90,10 +90,6 @@ export default defineComponent({
                 {
                     key: 'username',
                     name: 'admin.user.username'
-                },
-                {
-                    key: 'moderationAction',
-                    name: 'moderation.sanctionType'
                 },
                 {
                     key: 'reason',
@@ -139,6 +135,10 @@ export default defineComponent({
         };
     },
     methods: {
+        closeDetailAndUpdate() {
+            this.showDetailPopup = false;
+            this.loadData();
+        },
         moderationReasons() {
             return moderationReasons;
         },

@@ -178,7 +178,7 @@ export default defineComponent ({
             readMessage: 'communication/readMessage',
             releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
             unfavoriteMessage: 'communication/unfavoriteMessage',
-            getReportablePlayers: 'moderation/getReportablePlayers',
+            loadReportablePlayers: 'moderation/loadReportablePlayers',
             submitReport: 'moderation/submitReport'
         }),
         formatDate: (date: Date): string => {
@@ -202,7 +202,7 @@ export default defineComponent ({
         },
         openReportDialog() {
             this.reportPopupVisible = true;
-            this.getReportablePlayers(this.message);
+            this.loadReportablePlayers();
         },
         closeReportDialog() {
             this.reportPopupVisible = false;

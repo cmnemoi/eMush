@@ -16,7 +16,7 @@
             <span class="timestamp">{{ roomLog?.date }}</span>
         </p>
         <div class="actions" @click.stop>
-            <Tippy tag="span" v-if="!goldNovaPlayer?.messageHasBeenModerated" @click="openReportDialog(player)">
+            <Tippy tag="span" v-if="!goldNovaPlayer?.messageHasBeenModerated" @click="openReportDialog">
                 <img :src="getImgUrl('comms/alert.png')" alt="Report message">
                 <template #content>
                     <h1>{{ $t('moderation.report.name')}}</h1>
@@ -35,10 +35,16 @@ import { mapActions, mapGetters } from "vuex";
 import { getImgUrl } from "@/utils/getImgUrl";
 import ReportPopup from "@/components/Moderation/ReportPopup.vue";
 import ModerationService from "@/services/moderation.service";
+import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
     name: "Log",
-    components: { ReportPopup },
+    components: { Tippy, ReportPopup },
+    data() {
+        return {
+            reportPopupVisible: false
+        };
+    },
     computed: {
         ...mapGetters({
             isReadingLog: "communication/readMessageMutex",
@@ -53,7 +59,8 @@ export default defineComponent ({
             acquireReadLogMutex: "communication/acquireReadMessageMutex",
             releaseReadLogMutex: "communication/releaseReadMessageMutex",
             readRoomLog: "communication/readRoomLog",
-            getReportablePlayers: 'moderation/getReportablePlayers'
+            loadReportablePlayers: 'moderation/loadReportablePlayers',
+            submitReport: 'moderation/submitReport'
         }),
         formatText,
         getImgUrl,
@@ -66,16 +73,13 @@ export default defineComponent ({
         },
         openReportDialog() {
             this.reportPopupVisible = true;
-            this.getReportablePlayers(this.message);
+            this.loadReportablePlayers();
         },
         closeReportDialog() {
             this.reportPopupVisible = false;
         },
-        submitReport(params: URLSearchParams) {
-            ModerationService.reportLog(this.roomLog.id, params)
-                .catch((error) => {
-                    console.error(error);
-                });
+        async submitComplaint(params: URLSearchParams) {
+            await this.submitComplaint({ params: params });
             this.reportPopupVisible = false;
         }
     }

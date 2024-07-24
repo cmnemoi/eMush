@@ -20,9 +20,9 @@ const getters: GetterTree<any, any> = {
 };
 
 const actions: ActionTree<any, any> = {
-    async getReportablePlayers({ commit }, message) {
+    async loadReportablePlayers({ commit }) {
         commit('player/setLoading', true, { root: true });
-        const reportablePlayers = await ModerationService.loadReportablePlayers(message);
+        const reportablePlayers = await ModerationService.loadReportablePlayers();
         commit('player/setLoading', false, { root: true });
         commit('setReportablePlayers', { reportablePlayers: reportablePlayers });
     },

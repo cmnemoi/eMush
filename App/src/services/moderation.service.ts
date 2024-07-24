@@ -229,8 +229,8 @@ const ModerationService = {
 
         return response;
     },
-    loadReportablePlayers: async (message: Message): Promise<Player[]> => {
-        const playersData = await ApiService.get(MODERATION_ENDPOINT + '/' + message.id + '/reportable');
+    loadReportablePlayers: async (): Promise<Player[]> => {
+        const playersData = await ApiService.get(MODERATION_ENDPOINT + '/reportable');
 
         const players:Player[] = [];
         if (playersData.data) {

@@ -4,6 +4,7 @@ namespace Mush\MetaGame\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 
@@ -176,6 +177,11 @@ class ModerationSanction
         }
 
         return false;
+    }
+
+    public function getIsReport(): bool
+    {
+        return ModerationSanctionEnum::isReport($this->getModerationAction());
     }
 
     public function setAuthor(User $author): self

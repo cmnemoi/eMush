@@ -1,6 +1,6 @@
 import { CharacterEnum } from "@/enums/character";
 
-type AvailableSkill = {
+type SelectableSkill = {
     key: string;
     name: string;
     description: string;
@@ -11,7 +11,8 @@ export class Character {
     public name!: string;
     public abstract!: string;
     public description: string|null;
-    public availableSkills!: AvailableSkill[];
+    public selectableSkills!: SelectableSkill[];
+    public level!: number;
 
     constructor() {
         this.description = null;
@@ -23,7 +24,8 @@ export class Character {
             this.name = object.value;
             this.abstract = object.abstract;
             this.description = object.description;
-            this.availableSkills = object.availableSkills;
+            this.selectableSkills = object.selectableSkills;
+            this.level = object.level;
         }
 
         return this;
@@ -38,7 +40,7 @@ export class Character {
             this.name = object.value;
             this.abstract = object.abstract;
             this.description = object.description;
-            this.availableSkills = object.availableSkills;
+            this.selectableSkills = object.selectableSkills;
         }
 
         return this;

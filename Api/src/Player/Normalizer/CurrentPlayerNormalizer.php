@@ -111,7 +111,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
                 'key' => $character,
                 'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
                 'description' => $this->translationService->translate($character . '.description', [], 'characters', $language),
-                'availableSkills' => $this->getNormalizedSelectableSkills($player, $language),
+                'selectableSkills' => $this->getNormalizedSelectableSkills($player, $language),
+                'level' => $player->getLevel(),
             ],
             'gameStatus' => $player->getPlayerInfo()->getGameStatus(),
             'triumph' => [

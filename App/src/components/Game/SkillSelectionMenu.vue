@@ -1,14 +1,14 @@
 <template>
-    <GamePopUp 
-        title="Choix de Compétence" 
-        :is-open=popUp.isOpen 
+    <GamePopUp
+        title="Choix de Compétence"
+        :is-open=popUp.isOpen
         @exit="close"
         v-if="player"
     >
         <div class="skill-selection">
             <Tippy
                 tag="button"
-                v-for="skill in player.character.availableSkills"
+                v-for="skill in player.character.selectableSkills"
                 :key="skill.key"
             >
                 <img :src="skillImage(skill)">
@@ -29,7 +29,7 @@ import { formatText } from "@/utils/formatText";
 import { mapActions, mapGetters } from "vuex";
 import { SkillIconRecord } from "@/enums/skill.enum";
 
-type AvailableSkill = {
+type SelectableSkill = {
     key: string;
     name: string;
     description: string;
@@ -43,7 +43,7 @@ export default defineComponent ({
     },
     computed: {
         ...mapGetters({
-            popUp: 'popup/skillSelectionPopUp',
+            popUp: 'popup/skillSelectionPopUp'
         })
     },
     methods: {
@@ -51,9 +51,9 @@ export default defineComponent ({
             close: 'popup/closeSkillSelectionPopUp'
         }),
         formatText,
-        skillImage(skill: AvailableSkill): string {
+        skillImage(skill: SelectableSkill): string {
             return SkillIconRecord[skill.key].icon ?? '';
-        },
+        }
     }
 });
 </script>

@@ -101,7 +101,7 @@
                 <ul>
                     <Tippy
                         tag="li"
-                        v-for="index in player.numberOfSkillSlots"
+                        v-for="index in player.character.selectableSkills.length"
                         :key="index"
                         :class="skillSlotClass(index)"
                     >
@@ -218,9 +218,9 @@ export default defineComponent ({
         }),
         skillSlotClass(index: number): string {
             switch (index) {
-            case 0:
-                return 'skill-slot-basic';
             case 1:
+                return 'skill-slot-basic';
+            case 2:
                 return 'skill-slot-once';
             default:
                 return 'skill-slot-gold';
@@ -228,9 +228,9 @@ export default defineComponent ({
         },
         skillSlotImage(index: number): string {
             switch (index) {
-            case 0:
-                return getImgUrl('skills/basicplus.png');
             case 1:
+                return getImgUrl('skills/basicplus.png');
+            case 2:
                 return getImgUrl('skills/onceplus.png');
             default:
                 return getImgUrl('skills/goldplus.png');

@@ -13,6 +13,12 @@ import { Exploration } from "@/entities/Exploration";
 import { TerminalEnum } from "@/enums/terminal.enum";
 import { SpecialistPoint } from "@/entities/SpecialistPoint";
 
+export type Skill = {
+    key: string;
+    name: string;
+    description: string;
+};
+
 export class Player {
     public id!: number;
     public gameStatus: string|null;
@@ -32,11 +38,9 @@ export class Player {
     public terminal: Terminal|null;
     public titles: Array<NameDescObject>;
     public exploration: Exploration|null;
-    public skills: Array<Status>;
+    public skills: Array<Skill>;
     public specialistPoints: Array<SpecialistPoint>;
     public isSeated: boolean;
-    public numberOfSkillSlots: number = 3;
-    public level: number = 5;
 
     public constructor() {
         this.gameStatus = null;
@@ -218,8 +222,8 @@ export class Player {
         });
     }
 
-    public getSkillByKey(key: string): Status|null {
-        const skill = this.skills.filter((skill: Status) => {
+    public getSkillByKey(key: string): Skill|null {
+        const skill = this.skills.filter((skill: Skill) => {
             return skill.key === key;
         });
 
@@ -230,18 +234,9 @@ export class Player {
         return skill[0];
     }
 
-    public getSkillPointsByKey(key: string): number | null {
-        const skill = this.getSkillByKey(key);
-        if (!skill) {
-            return null;
-        }
-
-        return skill.charge;
-    }
-
     public getSpecialistPointByKey(key: string): SpecialistPoint|null {
         const points = this.specialistPoints.filter((point: SpecialistPoint) => {
-            return point.name === key;
+            return point.key === key;
         });
 
         if (points.length === 0) {

@@ -2,7 +2,7 @@
     <SkillSelectionMenu :player="player" />
     <div class="game-banner" v-if="player">
         <div class="character-banner">
-            <a class="in-game-level">{{ player.level }}</a>
+            <a class="in-game-level">{{ player.character.level }}</a>
             <div class="in-game-level-progress">
                 <div />
             </div>

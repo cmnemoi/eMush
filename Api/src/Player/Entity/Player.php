@@ -99,7 +99,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
-    #[ORM\OneToOne(targetEntity: Skill::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: Skill::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $skills;
 
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]

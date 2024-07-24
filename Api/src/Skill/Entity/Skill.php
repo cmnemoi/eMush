@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Skill\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillName;
 
 #[ORM\Entity]
@@ -17,6 +18,9 @@ class Skill
 
     #[ORM\ManyToOne(targetEntity: SkillConfig::class)]
     private SkillConfig $skillConfig;
+
+    #[ORM\ManyToOne(targetEntity: Player::class)]
+    private Player $player;
 
     public function __construct(SkillConfig $skillConfig)
     {

@@ -1217,7 +1217,7 @@ abstract class StatusConfigData
         ],
         [
             'name' => SpecialistPointsEnum::SHOOTER_POINTS->value,
-            'statusName' => SpecialistPointsEnum::CONCEPTOR_POINTS->value,
+            'statusName' => SpecialistPointsEnum::SHOOTER_POINTS->value,
             'visibility' => VisibilityEnum::PRIVATE,
             'type' => 'charge_status_config',
             'chargeVisibility' => VisibilityEnum::PRIVATE,

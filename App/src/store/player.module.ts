@@ -3,7 +3,7 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { Player } from "@/entities/Player";
 import { Item } from "@/entities/Item";
 import { ConfirmPopup } from "@/entities/ConfirmPopup";
-
+import store from ".";
 
 const state =  {
     loading: false,
@@ -84,6 +84,17 @@ const actions: ActionTree<any, any> = {
     },
     refuseConfirmPopup({ commit }) {
         commit('refuseConfirmPopup');
+    },
+    async chooseSkill({ commit }, { player, skill }) {
+        commit('setLoading', true);
+        try {
+            await PlayerService.chooseSkill(player, skill);
+            await this.dispatch('popup/closeSkillSelectionPopUp');
+            await this.dispatch('player/reloadPlayer');
+        } catch (error) {
+            console.error(error);
+        }
+        commit('setLoading', false);
     }
 };
 

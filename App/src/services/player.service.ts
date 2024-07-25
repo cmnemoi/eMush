@@ -5,6 +5,12 @@ import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
 import urlJoin from "url-join";
 
+type AvailableSkill = {
+    key: string;
+    name: string;
+    description: string;
+}
+
 // @ts-ignore
 const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "player");
 // @ts-ignore
@@ -17,6 +23,9 @@ const PlayerService = {
         };
         await ApiService.post(PLAYER_ENDPOINT + '/' + player.id + '/like', params);
         await store.dispatch('auth/userInfo');
+    },
+    chooseSkill: async (player: Player, skill: AvailableSkill): Promise<void> => {
+        await ApiService.post(`${PLAYER_ENDPOINT}/${player.id}/choose-skill`, { skill: skill.key });
     },
     loadPlayer: async(playerId: number): Promise<Player | null> => {
         const playerData = await ApiService.get(PLAYER_ENDPOINT + '/' + playerId);

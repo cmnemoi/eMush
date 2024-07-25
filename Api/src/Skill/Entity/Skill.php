@@ -68,7 +68,7 @@ class Skill
 
     public function getSpecialistPoints(): int
     {
-        return $this->player->getChargeStatusByName($this->getNameAsString())?->getCharge() ?? 0;
+        return $this->player->getChargeStatusByName($this->getNameAsString() . '_points')?->getCharge() ?? 0;
     }
 
     public function isNull(): bool

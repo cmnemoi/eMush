@@ -10,24 +10,25 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
 use Mush\MetaGame\Service\AdminServiceInterface;
+use Mush\Player\Dto\ChooseSkillDto;
 use Mush\Player\Entity\Dto\PlayerCreateRequest;
 use Mush\Player\Entity\Dto\PlayerEndRequest;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Voter\PlayerVoter;
+use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Class UsersController.
- *
  * @Route(path="/player")
  */
 class PlayerController extends AbstractGameController
@@ -37,17 +38,20 @@ class PlayerController extends AbstractGameController
     private PlayerServiceInterface $playerService;
     private CycleServiceInterface $cycleService;
     private ValidatorInterface $validator;
+    private AddSkillToPlayerUseCase $addSkillToPlayerUseCase;
 
     public function __construct(
         AdminServiceInterface $adminService,
         PlayerServiceInterface $playerService,
         CycleServiceInterface $cycleStrategyService,
         ValidatorInterface $validator,
+        AddSkillToPlayerUseCase $addSkillToPlayerUseCase
     ) {
         parent::__construct($adminService);
         $this->playerService = $playerService;
         $this->cycleService = $cycleStrategyService;
         $this->validator = $validator;
+        $this->addSkillToPlayerUseCase = $addSkillToPlayerUseCase;
     }
 
     /**
@@ -299,8 +303,6 @@ class PlayerController extends AbstractGameController
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
         }
-        $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
-        $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
 
         if (!$player->isExploring()) {
             return $this->view(['message' => 'You have to be in an exploration to do that!'], Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -316,5 +318,51 @@ class PlayerController extends AbstractGameController
         }
 
         return $this->view(['message' => 'Exploration cycle change(s) triggered successfully (' . $result->explorationCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
+    }
+
+    /**
+     * Choose a skill.
+     *
+     * @OA\RequestBody (
+     *      description="Input data format",
+     *
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *
+     *          @OA\Schema(
+     *              type="object",
+     *
+     *              @OA\Property(
+     *                  type="string",
+     *                  property="skill",
+     *                  description="The skill to choose",
+     *              ),
+     *
+     *          ),
+     *      )
+     *    )
+     * )
+     *
+     * @OA\Tag(name="Player")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post(path="/{id}/choose-skill")
+     *
+     * @Rest\View()
+     */
+    public function chooseSkillEndpoint(Request $request, Player $player): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+        $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
+        $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
+
+        $chooseSkillDto = new ChooseSkillDto($request);
+
+        $this->addSkillToPlayerUseCase->execute(skillName: $chooseSkillDto->skill, player: $player);
+
+        return $this->view(['detail' => 'Skill selected successfully'], Response::HTTP_CREATED);
     }
 }

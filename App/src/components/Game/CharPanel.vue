@@ -88,7 +88,7 @@
                     <Tippy
                         tag="li"
                         v-for="skill, index in player.skills"
-                        :key="skill.id"
+                        :key="skill.key"
                         :class="skillSlotClass(index)"
                     >
                         <img class="skill-image" :src="skillImage(skill)" :alt="skill.name">
@@ -105,7 +105,7 @@
                         :key="index"
                         :class="skillSlotClass(index)"
                     >
-                        <button class="action-button flashing" @click="openSkillSelectionPopUp">
+                        <button class="flashing" @click="openSkillSelectionPopUp">
                             <img :src="skillSlotImage(index)" alt="plus">
                         </button>
                         <template #content>
@@ -113,8 +113,12 @@
                             <p v-html="formatText(`Cliquez ici pour choisir une **nouvelle compétence** pour ${player.character.name} !`)" />
                         </template>
                     </Tippy>
-
                 </ul>
+                <li class="genome" v-if="player.isMush()">
+                    <button>
+                        <img :src="getImgUrl('comms/mush.png')" alt="Access the Mush Genome">
+                    </button>
+                </li>
             </div>
 
             <div class="actions-sheet">
@@ -168,7 +172,6 @@ import { Equipment } from "@/entities/Equipment";
 import { Action } from "@/entities/Action";
 import { Door } from "@/entities/Door";
 import { defineComponent } from "vue";
-import { Status } from "@/entities/Status";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { formatText } from "@/utils/formatText";
 import { getImgUrl } from "@/utils/getImgUrl";
@@ -178,6 +181,12 @@ import { SkillIconRecord } from "@/enums/skill.enum";
 
 interface CharPanelState {
     selectedItem: Item | Player | null
+}
+
+type Skill = {
+    key: string;
+    name: string;
+    description: string;
 }
 
 export default defineComponent ({
@@ -218,9 +227,9 @@ export default defineComponent ({
         }),
         skillSlotClass(index: number): string {
             switch (index) {
-            case 1:
+            case 0:
                 return 'skill-slot-basic';
-            case 2:
+            case 1:
                 return 'skill-slot-once';
             default:
                 return 'skill-slot-gold';
@@ -244,7 +253,7 @@ export default defineComponent ({
         },
         getImgUrl,
         formatText,
-        skillImage(skill: Status): string {
+        skillImage(skill: Skill): string {
             return SkillIconRecord[skill.key].icon ?? '';
         },
         specialistPointImg(point: SpecialistPoint): string {

@@ -10,6 +10,7 @@
                 tag="button"
                 v-for="skill in player.character.selectableSkills"
                 :key="skill.key"
+                @click="chooseSkill({player, skill})"
             >
                 <img :src="skillImage(skill)">
                 <template #content>
@@ -48,6 +49,7 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions({
+            chooseSkill: 'player/chooseSkill',
             close: 'popup/closeSkillSelectionPopUp'
         }),
         formatText,

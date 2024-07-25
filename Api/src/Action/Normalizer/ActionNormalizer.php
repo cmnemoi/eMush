@@ -21,7 +21,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Enum\SkillName;
-use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ActionNormalizer implements NormalizerInterface
@@ -272,10 +271,9 @@ class ActionNormalizer implements NormalizerInterface
             return null;
         }
 
-        /** @var ?ChargeStatus $skill */
         $skill = $currentPlayer->getSkillByName($specialistPointCostRule->skill);
 
-        if ($skill?->getCharge() > 0 && $currentPlayer->hasSkill($specialistPointCostRule->skill)) {
+        if ($skill->getSpecialistPoints() > 0 && $currentPlayer->hasSkill($specialistPointCostRule->skill)) {
             return 1;
         }
 

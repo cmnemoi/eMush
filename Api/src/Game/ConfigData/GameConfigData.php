@@ -13,7 +13,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\SpecialistPointsEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 
 /** @codeCoverageIgnore */
 class GameConfigData
@@ -436,9 +436,9 @@ class GameConfigData
                 DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
                 PlaceStatusEnum::MUSH_TRAPPED->value . '_default',
                 EquipmentStatusEnum::JUKEBOX_SONG . '_default',
-                SpecialistPointsEnum::CONCEPTOR_POINTS->value,
-                SpecialistPointsEnum::SHOOTER_POINTS->value,
-                SpecialistPointsEnum::TECHNICIAN_POINTS->value,
+                SkillPointsEnum::CONCEPTOR_POINTS->value,
+                SkillPointsEnum::SHOOTER_POINTS->value,
+                SkillPointsEnum::TECHNICIAN_POINTS->value,
             ],
             'triumphConfigs' => [
                 'alien_science',

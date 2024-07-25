@@ -6,9 +6,9 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
-final class SpecialistPointsIncrement extends AbstractChargeStrategy
+final class SkillPointsIncrement extends AbstractChargeStrategy
 {
-    protected string $name = ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT;
+    protected string $name = ChargeStrategyTypeEnum::SKILL_POINTS_INCREMENT;
 
     public function apply(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus
     {

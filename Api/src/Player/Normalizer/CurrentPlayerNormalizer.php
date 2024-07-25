@@ -158,7 +158,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'movementPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MOVEMENT_POINT, $language),
             'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
-            'specialistPoints' => $this->getSpecialistPointsForPlayer($player, $language),
+            'skillPoints' => $this->getSkillPointsForPlayer($player, $language),
         ]);
 
         return $playerData;
@@ -286,7 +286,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         return $normalizedSelectableSkills;
     }
 
-    private function getSpecialistPointsForPlayer(Player $player, string $language): array
+    private function getSkillPointsForPlayer(Player $player, string $language): array
     {
         // TODO Move that in the skill config data
         $skillsList = [
@@ -300,19 +300,19 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             SkillName::SHOOTER->value => 'shoot',
         ];
 
-        $specialistPoints = [];
+        $skillPoints = [];
         foreach ($skillsList as $key => $value) {
-            $specialistPoint = $this->getNormalizedSpecialistPoint($player, $language, $key, $value);
-            if ($specialistPoint) {
-                $specialistPoints[] = $specialistPoint;
+            $skillPoint = $this->getNormalizedSkillPoint($player, $language, $key, $value);
+            if ($skillPoint) {
+                $skillPoints[] = $skillPoint;
             }
         }
 
-        return $specialistPoints;
+        return $skillPoints;
     }
 
     /** @TODO: Move to a SkillNormalizer? */
-    private function getNormalizedSpecialistPoint(Player $player, string $language, string $skillName, string $skillId): ?array
+    private function getNormalizedSkillPoint(Player $player, string $language, string $skillName, string $skillId): ?array
     {
         $skill = $player->getSkillByName(SkillName::from($skillName));
         if ($skill->isNull()) {
@@ -324,7 +324,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'quantityPoint' => [
                 'name' => $this->translationService->translate($skillId . '.name', [], 'player', $language),
                 'description' => $this->translationService->translate($skillId . '.description', [], 'player', $language),
-                'quantity' => $skill->getSpecialistPoints(),
+                'quantity' => $skill->getSkillPoints(),
             ],
         ];
     }

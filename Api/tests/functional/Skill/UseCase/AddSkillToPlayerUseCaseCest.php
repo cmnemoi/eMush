@@ -6,7 +6,7 @@ namespace Mush\Tests\functional\Modifier\Event;
 
 use Mush\Skill\Enum\SkillName;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
-use Mush\Status\Enum\SpecialistPointsEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -44,11 +44,11 @@ final class AddSkillToPlayerUseCaseCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveTechnicianModifiers($I);
     }
 
-    public function shouldCreateSpecialistPointsForPlayer(FunctionalTester $I): void
+    public function shouldCreateSkillPointsForPlayer(FunctionalTester $I): void
     {
         $this->whenIAddSkillToKuanTi(SkillName::TECHNICIAN);
 
-        $I->assertTrue($this->kuanTi->hasStatus(SpecialistPointsEnum::TECHNICIAN_POINTS->value));
+        $I->assertTrue($this->kuanTi->hasStatus(SkillPointsEnum::TECHNICIAN_POINTS->value));
     }
 
     private function whenIAddSkillToChun(SkillName $skill): void

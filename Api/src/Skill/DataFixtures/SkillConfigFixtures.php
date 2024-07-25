@@ -24,7 +24,7 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
             $skillConfig = new SkillConfig(
                 name: $skillConfigDto->name,
                 modifierConfigs: $this->getModifierConfigsFromDto($skillConfigDto),
-                specialistPointsConfig: $this->getSpecialistPointsConfigFromDto($skillConfigDto),
+                skillPointsConfig: $this->getSkillPointsConfigFromDto($skillConfigDto),
             );
             $manager->persist($skillConfig);
             $this->addReference($skillConfigDto->name->value, $skillConfig);
@@ -58,18 +58,18 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
         return $modifierConfigs;
     }
 
-    private function getSpecialistPointsConfigFromDto(SkillConfigDto $skillConfigDto): ?ChargeStatusConfig
+    private function getSkillPointsConfigFromDto(SkillConfigDto $skillConfigDto): ?ChargeStatusConfig
     {
-        $configName = $skillConfigDto->specialistPointsConfig?->value;
+        $configName = $skillConfigDto->skillPointsConfig?->value;
         if (!$configName) {
             return null;
         }
 
-        $specialistPointsConfig = $this->getReference($configName);
-        if (!$specialistPointsConfig) {
-            throw new \RuntimeException("SpecialistPointsConfig {$configName} not found for SkillConfig {$skillConfigDto->name}");
+        $skillPointsConfig = $this->getReference($configName);
+        if (!$skillPointsConfig) {
+            throw new \RuntimeException("SkillPointsConfig {$configName} not found for SkillConfig {$skillConfigDto->name}");
         }
 
-        return $specialistPointsConfig;
+        return $skillPointsConfig;
     }
 }

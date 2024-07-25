@@ -11,7 +11,7 @@ import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { Terminal } from "@/entities/Terminal";
 import { Exploration } from "@/entities/Exploration";
 import { TerminalEnum } from "@/enums/terminal.enum";
-import { SpecialistPoint } from "@/entities/SpecialistPoint";
+import { SkillPoint } from "@/entities/SkillPoint";
 
 export type Skill = {
     key: string;
@@ -39,7 +39,7 @@ export class Player {
     public titles: Array<NameDescObject>;
     public exploration: Exploration|null;
     public skills: Array<Skill>;
-    public specialistPoints: Array<SpecialistPoint>;
+    public skillPoints: Array<SkillPoint>;
     public isSeated: boolean;
 
     public constructor() {
@@ -61,7 +61,7 @@ export class Player {
         this.titles = [];
         this.exploration = null;
         this.skills = [];
-        this.specialistPoints = [];
+        this.skillPoints = [];
         this.isSeated = false;
     }
 
@@ -135,14 +135,13 @@ export class Player {
             }
             if (object.skills) {
                 object.skills.forEach((skillObject: any) => {
-                    const skill = (new Status()).load(skillObject);
-                    this.skills.push(skill);
+                    this.skills.push(skillObject);
                 });
             }
-            if (object.specialistPoints) {
-                object.specialistPoints.forEach((specialistPointObject: any) => {
-                    const point = (new SpecialistPoint()).load(specialistPointObject);
-                    this.specialistPoints.push(point);
+            if (object.skillPoints) {
+                object.skillPoints.forEach((skillPointObject: any) => {
+                    const point = (new SkillPoint()).load(skillPointObject);
+                    this.skillPoints.push(point);
                 });
             }
         }
@@ -234,8 +233,8 @@ export class Player {
         return skill[0];
     }
 
-    public getSpecialistPointByKey(key: string): SpecialistPoint|null {
-        const points = this.specialistPoints.filter((point: SpecialistPoint) => {
+    public getSkillPointByKey(key: string): SkillPoint|null {
+        const points = this.skillPoints.filter((point: SkillPoint) => {
             return point.key === key;
         });
 
@@ -246,13 +245,13 @@ export class Player {
         return points[0];
     }
 
-    public getSpecialistPointChargeByKey(key: string): number | null {
-        const specialistPoint = this.getSpecialistPointByKey(key);
-        if (!specialistPoint || !specialistPoint.charge) {
+    public getSkillPointChargeByKey(key: string): number | null {
+        const skillPoint = this.getSkillPointByKey(key);
+        if (!skillPoint || !skillPoint.charge) {
             return null;
         }
 
-        return specialistPoint.charge.quantity;
+        return skillPoint.charge.quantity;
     }
 
     public isDead(): boolean {

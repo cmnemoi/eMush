@@ -1,6 +1,6 @@
 import { QuantityPoint } from "@/entities/QuantityPoint";
 
-export class SpecialistPoint {
+export class SkillPoint {
     public key : string|null;
     public charge: QuantityPoint|null;
 
@@ -9,7 +9,7 @@ export class SpecialistPoint {
         this.charge = null;
     }
 
-    load(object: any): SpecialistPoint {
+    load(object: any): SkillPoint {
         if (typeof object !== "undefined") {
             this.key = object.key;
             if (object.quantityPoint) {
@@ -21,7 +21,7 @@ export class SpecialistPoint {
     jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString: any): SpecialistPoint {
+    decode(jsonString: any): SkillPoint {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);

@@ -1,6 +1,6 @@
 import { getImgUrl } from "@/utils/getImgUrl";
 
-export enum SpecialistPointEnum {
+export enum SkillPointEnum {
     COMPUTER = "computer",
     COOK = "cook",
     CORE = "core",
@@ -11,29 +11,29 @@ export enum SpecialistPointEnum {
     SHOOT = "shoot",
 }
 
-export const specialistPointEnum: {[index: string]: any} = {
-    [SpecialistPointEnum.COMPUTER]: {
+export const skillPointEnum: {[index: string]: any} = {
+    [SkillPointEnum.COMPUTER]: {
         'icon': getImgUrl('action_points/pa_comp.png')
     },
-    [SpecialistPointEnum.COOK]: {
+    [SkillPointEnum.COOK]: {
         'icon': getImgUrl('action_points/pa_cook.png')
     },
-    [SpecialistPointEnum.CORE]: {
+    [SkillPointEnum.CORE]: {
         'icon': getImgUrl('action_points/pa_core.png')
     },
-    [SpecialistPointEnum.ENGINEER]: {
+    [SkillPointEnum.ENGINEER]: {
         'icon': getImgUrl('action_points/pa_eng.png')
     },
-    [SpecialistPointEnum.GARDEN]: {
+    [SkillPointEnum.GARDEN]: {
         'icon': getImgUrl('action_points/pa_garden.png')
     },
-    [SpecialistPointEnum.HEAL]: {
+    [SkillPointEnum.HEAL]: {
         'icon': getImgUrl('action_points/pa_heal.png')
     },
-    [SpecialistPointEnum.PILGRED]: {
+    [SkillPointEnum.PILGRED]: {
         'icon': getImgUrl('action_points/pa_pilgred.png')
     },
-    [SpecialistPointEnum.SHOOT]: {
+    [SkillPointEnum.SHOOT]: {
         'icon': getImgUrl('action_points/pa_shoot.png')
     }
 };

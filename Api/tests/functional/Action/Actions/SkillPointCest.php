@@ -25,7 +25,7 @@ use Mush\Tests\FunctionalTester;
 /**
  * @internal
  */
-final class SpecialistPointCest extends AbstractFunctionalTest
+final class SkillPointCest extends AbstractFunctionalTest
 {
     private ShootHunter $shootHunterAction;
     private ActionConfig $action;
@@ -80,7 +80,7 @@ final class SpecialistPointCest extends AbstractFunctionalTest
         $this->shootHunterAction = $I->grabService(ShootHunter::class);
     }
 
-    public function testShootWithGunmanSpecialistPoints(FunctionalTester $I)
+    public function testShootWithGunmanSkillPoints(FunctionalTester $I)
     {
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();

@@ -6,7 +6,7 @@ namespace Mush\Skill\ConfigData;
 
 use Mush\Skill\Dto\SkillConfigDto;
 use Mush\Skill\Enum\SkillName;
-use Mush\Status\Enum\SpecialistPointsEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 
 /**
  * @codeCoverageIgnore
@@ -21,7 +21,7 @@ abstract class SkillConfigData
         return [
             new SkillConfigDto(
                 name: SkillName::CONCEPTOR,
-                specialistPointsConfig: SpecialistPointsEnum::CONCEPTOR_POINTS,
+                skillPointsConfig: SkillPointsEnum::CONCEPTOR_POINTS,
             ),
             new SkillConfigDto(
                 name: SkillName::MANKIND_ONLY_HOPE,
@@ -38,7 +38,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillName::SHOOTER,
-                specialistPointsConfig: SpecialistPointsEnum::SHOOTER_POINTS,
+                skillPointsConfig: SkillPointsEnum::SHOOTER_POINTS,
             ),
             new SkillConfigDto(
                 name: SkillName::SHRINK,
@@ -49,7 +49,7 @@ abstract class SkillConfigData
                     'modifier_for_player_x1.5percentage_on_action_technician',
                     'modifier_technician_double_repair_and_renovate_chance',
                 ],
-                specialistPointsConfig: SpecialistPointsEnum::TECHNICIAN_POINTS,
+                skillPointsConfig: SkillPointsEnum::TECHNICIAN_POINTS,
             ),
         ];
     }

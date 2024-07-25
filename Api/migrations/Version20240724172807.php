@@ -28,9 +28,9 @@ final class Version20240724172807 extends AbstractMigration
         $this->addSql('CREATE TABLE skill (id INT NOT NULL, skill_config_id INT DEFAULT NULL, player_id INT DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_5E3DE477772A3DDE ON skill (skill_config_id)');
         $this->addSql('CREATE INDEX IDX_5E3DE47799E6F5DF ON skill (player_id)');
-        $this->addSql('CREATE TABLE skill_config (id INT NOT NULL, spawn_equipment_config_id INT DEFAULT NULL, specialist_points_config_id INT DEFAULT NULL, name VARCHAR(255) DEFAULT \'\' NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE skill_config (id INT NOT NULL, spawn_equipment_config_id INT DEFAULT NULL, skill_points_config_id INT DEFAULT NULL, name VARCHAR(255) DEFAULT \'\' NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_FBC07B68F5D9D02 ON skill_config (spawn_equipment_config_id)');
-        $this->addSql('CREATE INDEX IDX_FBC07B68D7E86F28 ON skill_config (specialist_points_config_id)');
+        $this->addSql('CREATE INDEX IDX_FBC07B68D7E86F28 ON skill_config (skill_points_config_id)');
         $this->addSql('CREATE TABLE skill_config_abstract_modifier_config (skill_config_id INT NOT NULL, abstract_modifier_config_id INT NOT NULL, PRIMARY KEY(skill_config_id, abstract_modifier_config_id))');
         $this->addSql('CREATE INDEX IDX_B4A9589E772A3DDE ON skill_config_abstract_modifier_config (skill_config_id)');
         $this->addSql('CREATE INDEX IDX_B4A9589EBFA8DC8C ON skill_config_abstract_modifier_config (abstract_modifier_config_id)');
@@ -42,7 +42,7 @@ final class Version20240724172807 extends AbstractMigration
         $this->addSql('ALTER TABLE skill ADD CONSTRAINT FK_5E3DE477772A3DDE FOREIGN KEY (skill_config_id) REFERENCES skill_config (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE skill ADD CONSTRAINT FK_5E3DE47799E6F5DF FOREIGN KEY (player_id) REFERENCES player (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE skill_config ADD CONSTRAINT FK_FBC07B68F5D9D02 FOREIGN KEY (spawn_equipment_config_id) REFERENCES spawn_equipment_config (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE skill_config ADD CONSTRAINT FK_FBC07B68D7E86F28 FOREIGN KEY (specialist_points_config_id) REFERENCES status_config (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE skill_config ADD CONSTRAINT FK_FBC07B68D7E86F28 FOREIGN KEY (skill_points_config_id) REFERENCES status_config (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE skill_config_abstract_modifier_config ADD CONSTRAINT FK_B4A9589E772A3DDE FOREIGN KEY (skill_config_id) REFERENCES skill_config (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE skill_config_abstract_modifier_config ADD CONSTRAINT FK_B4A9589EBFA8DC8C FOREIGN KEY (abstract_modifier_config_id) REFERENCES abstract_modifier_config (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE skill_config_action_config ADD CONSTRAINT FK_A1153439772A3DDE FOREIGN KEY (skill_config_id) REFERENCES skill_config (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');

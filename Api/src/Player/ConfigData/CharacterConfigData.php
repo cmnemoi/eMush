@@ -38,7 +38,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -76,7 +76,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -114,7 +114,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -155,7 +155,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
                 ActionEnum::EXTINGUISH_MANUALLY->value,
             ],
             'initDiseases' => [],
@@ -197,7 +197,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [
                 'chronic_vertigo_default',
@@ -235,7 +235,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [],
@@ -273,7 +273,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -309,7 +309,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -348,7 +348,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -384,7 +384,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
                 'extinguish_manually',
             ],
             'initDiseases' => [],
@@ -426,7 +426,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -466,7 +466,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -505,7 +505,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
                 'motivational_speech',
             ],
             'initDiseases' => [],
@@ -544,7 +544,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -583,7 +583,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -625,7 +625,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -663,7 +663,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -703,7 +703,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [

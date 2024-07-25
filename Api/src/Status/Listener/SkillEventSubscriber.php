@@ -23,13 +23,13 @@ final class SkillEventSubscriber implements EventSubscriberInterface
     {
         $skill = $event->getSkill();
 
-        $specialistPointsConfig = $skill->getSpecialistPointConfigOrNull();
-        if ($specialistPointsConfig === null) {
+        $skillPointsConfig = $skill->getSkillPointConfigOrNull();
+        if ($skillPointsConfig === null) {
             return;
         }
 
         $this->statusService->createStatusFromConfig(
-            statusConfig: $specialistPointsConfig,
+            statusConfig: $skillPointsConfig,
             holder: $skill->getPlayer(),
             tags: $event->getTags(),
             time: $event->getTime(),

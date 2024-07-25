@@ -358,7 +358,7 @@ final class ParticipateCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldConsumeCoreSpecialistPointWithProject(FunctionalTester $I): void
+    public function shouldConsumeCoreSkillPointWithProject(FunctionalTester $I): void
     {
         // given I have another proposed project
         $project = $this->daedalus->getProjectByName(ProjectName::AUXILIARY_TERMINAL);

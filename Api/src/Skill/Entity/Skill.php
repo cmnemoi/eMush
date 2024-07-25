@@ -61,12 +61,12 @@ class Skill
         return $this->skillConfig->getModifierConfigs();
     }
 
-    public function getSpecialistPointConfigOrNull(): ?ChargeStatusConfig
+    public function getSkillPointConfigOrNull(): ?ChargeStatusConfig
     {
-        return $this->skillConfig->getSpecialistPointsConfig();
+        return $this->skillConfig->getSkillPointsConfig();
     }
 
-    public function getSpecialistPoints(): int
+    public function getSkillPoints(): int
     {
         return $this->player->getChargeStatusByName($this->getNameAsString() . '_points')?->getCharge() ?? 0;
     }

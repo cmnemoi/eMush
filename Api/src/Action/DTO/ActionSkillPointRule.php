@@ -13,7 +13,7 @@ use Mush\Skill\Enum\SkillName;
  *
  * @version 1.0.0
  */
-final readonly class ActionSpecialistPointRule
+final readonly class ActionSkillPointRule
 {
     public function __construct(
         public string $name,

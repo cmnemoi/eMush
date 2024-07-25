@@ -29,7 +29,7 @@ use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\SpecialistPointsEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Enum\StatusEnum;
 
 class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
@@ -493,34 +493,34 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($droneCharges);
 
         $conceptorPointsModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('modifier_specialist_point_core')
+            ModifierConfigData::getByName('modifier_skill_point_core')
         );
         $manager->persist($conceptorPointsModifier);
 
         $conceptorPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SpecialistPointsEnum::CONCEPTOR_POINTS->value)
+            StatusConfigData::getByName(SkillPointsEnum::CONCEPTOR_POINTS->value)
         );
         $conceptorPoints->setModifierConfigs([$conceptorPointsModifier]);
         $manager->persist($conceptorPoints);
 
         $shooterPointsModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('modifier_shooter_specialist_point')
+            ModifierConfigData::getByName('modifier_shooter_skill_point')
         );
         $manager->persist($shooterPointsModifier);
 
         $shooterPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SpecialistPointsEnum::SHOOTER_POINTS->value)
+            StatusConfigData::getByName(SkillPointsEnum::SHOOTER_POINTS->value)
         );
         $shooterPoints->setModifierConfigs([$shooterPointsModifier]);
         $manager->persist($shooterPoints);
 
         $technicianPointsModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('modifier_specialist_point_engineer')
+            ModifierConfigData::getByName('modifier_skill_point_engineer')
         );
         $manager->persist($technicianPointsModifier);
 
         $technicianPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SpecialistPointsEnum::TECHNICIAN_POINTS->value)
+            StatusConfigData::getByName(SkillPointsEnum::TECHNICIAN_POINTS->value)
         );
         $technicianPoints->setModifierConfigs([$technicianPointsModifier]);
         $manager->persist($technicianPoints);

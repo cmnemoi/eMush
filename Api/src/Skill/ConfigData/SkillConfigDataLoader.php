@@ -17,7 +17,7 @@ final class SkillConfigDataLoader extends ConfigDataLoader
 {
     private EntityRepository $modifierConfigRepository;
     private EntityRepository $skillConfigRepository;
-    private EntityRepository $specialistPointsRepository;
+    private EntityRepository $skillPointsRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -25,7 +25,7 @@ final class SkillConfigDataLoader extends ConfigDataLoader
         parent::__construct($entityManager);
         $this->modifierConfigRepository = $entityManager->getRepository(AbstractModifierConfig::class);
         $this->skillConfigRepository = $entityManager->getRepository(SkillConfig::class);
-        $this->specialistPointsRepository = $entityManager->getRepository(ChargeStatusConfig::class);
+        $this->skillPointsRepository = $entityManager->getRepository(ChargeStatusConfig::class);
     }
 
     public function loadConfigsData(): void
@@ -37,7 +37,7 @@ final class SkillConfigDataLoader extends ConfigDataLoader
             $newSkillConfig = new SkillConfig(
                 name: $skillConfigDto->name,
                 modifierConfigs: $this->getModifierConfigsFromDto($skillConfigDto),
-                specialistPointsConfig: $this->getSpecialistPointsConfigFromDto($skillConfigDto),
+                skillPointsConfig: $this->getSkillPointsConfigFromDto($skillConfigDto),
             );
 
             if ($skillConfig === null) {
@@ -68,20 +68,20 @@ final class SkillConfigDataLoader extends ConfigDataLoader
         return $modifierConfigs;
     }
 
-    private function getSpecialistPointsConfigFromDto(SkillConfigDto $skillConfigDto): ?ChargeStatusConfig
+    private function getSkillPointsConfigFromDto(SkillConfigDto $skillConfigDto): ?ChargeStatusConfig
     {
-        $configName = $skillConfigDto->specialistPointsConfig?->value;
+        $configName = $skillConfigDto->skillPointsConfig?->value;
         if (!$configName) {
             return null;
         }
 
-        $specialistPointsConfig = $this->specialistPointsRepository->findOneBy([
+        $skillPointsConfig = $this->skillPointsRepository->findOneBy([
             'name' => $configName,
         ]);
-        if (!$specialistPointsConfig) {
-            throw new \RuntimeException("SpecialistPointsConfig {$configName} not found for SkillConfig {$skillConfigDto->name}");
+        if (!$skillPointsConfig) {
+            throw new \RuntimeException("SkillPointsConfig {$configName} not found for SkillConfig {$skillConfigDto->name}");
         }
 
-        return $specialistPointsConfig;
+        return $skillPointsConfig;
     }
 }

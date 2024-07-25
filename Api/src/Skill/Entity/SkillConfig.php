@@ -28,7 +28,7 @@ class SkillConfig
     private ?SpawnEquipmentConfig $spawnEquipmentConfig;
 
     #[ORM\ManyToOne(targetEntity: ChargeStatusConfig::class, cascade: ['persist'])]
-    private ?ChargeStatusConfig $specialistPointsConfig;
+    private ?ChargeStatusConfig $skillPointsConfig;
 
     #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;
@@ -41,13 +41,13 @@ class SkillConfig
         Collection $modifierConfigs = new ArrayCollection(),
         Collection $actionConfigs = new ArrayCollection(),
         ?SpawnEquipmentConfig $spawnEquipmentConfig = null,
-        ?ChargeStatusConfig $specialistPointsConfig = null
+        ?ChargeStatusConfig $skillPointsConfig = null
     ) {
         $this->name = $name;
         $this->spawnEquipmentConfig = $spawnEquipmentConfig;
         $this->modifierConfigs = $modifierConfigs;
         $this->actionConfigs = $actionConfigs;
-        $this->specialistPointsConfig = $specialistPointsConfig;
+        $this->skillPointsConfig = $skillPointsConfig;
     }
 
     public function getName(): SkillName
@@ -65,9 +65,9 @@ class SkillConfig
         return new ArrayCollection($this->modifierConfigs->toArray());
     }
 
-    public function getSpecialistPointsConfig(): ?ChargeStatusConfig
+    public function getSkillPointsConfig(): ?ChargeStatusConfig
     {
-        return $this->specialistPointsConfig;
+        return $this->skillPointsConfig;
     }
 
     public function update(self $skillConfig): void
@@ -76,6 +76,6 @@ class SkillConfig
         $this->spawnEquipmentConfig = $skillConfig->spawnEquipmentConfig;
         $this->modifierConfigs = $skillConfig->modifierConfigs;
         $this->actionConfigs = $skillConfig->actionConfigs;
-        $this->specialistPointsConfig = $skillConfig->specialistPointsConfig;
+        $this->skillPointsConfig = $skillConfig->skillPointsConfig;
     }
 }

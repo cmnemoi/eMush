@@ -4,7 +4,7 @@ namespace Mush\Action\Normalizer;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\AttemptAction;
-use Mush\Action\DTO\ActionSpecialistPointRule;
+use Mush\Action\DTO\ActionSkillPointRule;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
@@ -145,7 +145,7 @@ class ActionNormalizer implements NormalizerInterface
             );
         }
 
-        $normalizedAction['specialistPointCosts'] = $this->getNormalizedSpecialistPointCosts($currentPlayer, $actionConfig);
+        $normalizedAction['skillPointCosts'] = $this->getNormalizedSkillPointCosts($currentPlayer, $actionConfig);
 
         return $normalizedAction;
     }
@@ -242,38 +242,38 @@ class ActionNormalizer implements NormalizerInterface
         return $translationParameters;
     }
 
-    private function getNormalizedSpecialistPointCosts(Player $currentPlayer, ActionConfig $action): array
+    private function getNormalizedSkillPointCosts(Player $currentPlayer, ActionConfig $action): array
     {
-        /** @var ActionSpecialistPointRule[] $specialistPointCostRules */
-        $specialistPointCostRules = [
-            new ActionSpecialistPointRule('shoot', SkillName::SHOOTER, [ActionTypeEnum::ACTION_SHOOT->value, ActionTypeEnum::ACTION_SHOOT_HUNTER->value]),
-            new ActionSpecialistPointRule('engineer', SkillName::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN->value]),
-            new ActionSpecialistPointRule('core', SkillName::CONCEPTOR, [ActionTypeEnum::ACTION_CONCEPTOR->value]),
+        /** @var ActionSkillPointRule[] $skillPointCostRules */
+        $skillPointCostRules = [
+            new ActionSkillPointRule('shoot', SkillName::SHOOTER, [ActionTypeEnum::ACTION_SHOOT->value, ActionTypeEnum::ACTION_SHOOT_HUNTER->value]),
+            new ActionSkillPointRule('engineer', SkillName::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN->value]),
+            new ActionSkillPointRule('core', SkillName::CONCEPTOR, [ActionTypeEnum::ACTION_CONCEPTOR->value]),
         ];
 
-        $specialistPointCosts = [];
-        foreach ($specialistPointCostRules as $specialistPointCostRule) {
-            $specialistPointCost = $this->getSpecialistPointCost($currentPlayer, $action, $specialistPointCostRule);
-            if ($specialistPointCost) {
-                $specialistPointCosts[] = $specialistPointCostRule->name;
+        $skillPointCosts = [];
+        foreach ($skillPointCostRules as $skillPointCostRule) {
+            $skillPointCost = $this->getSkillPointCost($currentPlayer, $action, $skillPointCostRule);
+            if ($skillPointCost) {
+                $skillPointCosts[] = $skillPointCostRule->name;
             }
         }
 
-        return $specialistPointCosts;
+        return $skillPointCosts;
     }
 
     /**
      * Check how many specialist points the user will be charged for.
      */
-    private function getSpecialistPointCost(Player $currentPlayer, ActionConfig $action, ActionSpecialistPointRule $specialistPointCostRule): ?int
+    private function getSkillPointCost(Player $currentPlayer, ActionConfig $action, ActionSkillPointRule $skillPointCostRule): ?int
     {
-        if (!$this->doesActionTypeMatchArray($action, $specialistPointCostRule->actionTypes)) {
+        if (!$this->doesActionTypeMatchArray($action, $skillPointCostRule->actionTypes)) {
             return null;
         }
 
-        $skill = $currentPlayer->getSkillByName($specialistPointCostRule->skill);
+        $skill = $currentPlayer->getSkillByName($skillPointCostRule->skill);
 
-        if ($skill->getSpecialistPoints() > 0 && $currentPlayer->hasSkill($specialistPointCostRule->skill)) {
+        if ($skill->getSkillPoints() > 0 && $currentPlayer->hasSkill($skillPointCostRule->skill)) {
             return 1;
         }
 

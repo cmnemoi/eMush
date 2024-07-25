@@ -12,7 +12,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\SpecialistPointsEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 
 /** @codeCoverageIgnore */
 abstract class StatusConfigData
@@ -1200,50 +1200,50 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => SpecialistPointsEnum::CONCEPTOR_POINTS->value,
-            'statusName' => SpecialistPointsEnum::CONCEPTOR_POINTS->value,
+            'name' => SkillPointsEnum::CONCEPTOR_POINTS->value,
+            'statusName' => SkillPointsEnum::CONCEPTOR_POINTS->value,
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'charge_status_config',
             'chargeVisibility' => VisibilityEnum::HIDDEN,
-            'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SKILL_POINTS_INCREMENT,
             'maxCharge' => 4,
             'startCharge' => 4,
-            'dischargeStrategies' => [ModifierNameEnum::SPECIALIST_POINT_CORE],
+            'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_CORE],
             'autoRemove' => true,
             'modifierConfigs' => [
-                'modifier_specialist_point_core',
+                'modifier_skill_point_core',
             ],
             'actionConfigs' => [],
         ],
         [
-            'name' => SpecialistPointsEnum::SHOOTER_POINTS->value,
-            'statusName' => SpecialistPointsEnum::SHOOTER_POINTS->value,
+            'name' => SkillPointsEnum::SHOOTER_POINTS->value,
+            'statusName' => SkillPointsEnum::SHOOTER_POINTS->value,
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'charge_status_config',
             'chargeVisibility' => VisibilityEnum::HIDDEN,
-            'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SKILL_POINTS_INCREMENT,
             'maxCharge' => 4,
             'startCharge' => 4,
-            'dischargeStrategies' => [ModifierNameEnum::SHOOTER_SPECIALIST_POINT],
+            'dischargeStrategies' => [ModifierNameEnum::SHOOTER_SKILL_POINT],
             'autoRemove' => true,
             'modifierConfigs' => [
-                'modifier_shooter_specialist_point',
+                'modifier_shooter_skill_point',
             ],
             'actionConfigs' => [],
         ],
         [
-            'name' => SpecialistPointsEnum::TECHNICIAN_POINTS->value,
-            'statusName' => SpecialistPointsEnum::TECHNICIAN_POINTS->value,
+            'name' => SkillPointsEnum::TECHNICIAN_POINTS->value,
+            'statusName' => SkillPointsEnum::TECHNICIAN_POINTS->value,
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'charge_status_config',
             'chargeVisibility' => VisibilityEnum::HIDDEN,
-            'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SKILL_POINTS_INCREMENT,
             'maxCharge' => 2,
             'startCharge' => 2,
-            'dischargeStrategies' => [ModifierNameEnum::SPECIALIST_POINT_ENGINEER],
+            'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_ENGINEER],
             'autoRemove' => true,
             'modifierConfigs' => [
-                'modifier_specialist_point_engineer',
+                'modifier_skill_point_engineer',
             ],
             'actionConfigs' => [],
         ],

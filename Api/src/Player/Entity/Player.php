@@ -52,7 +52,6 @@ use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillName;
-use Mush\Skill\Exception\PlayerDoesNotHaveSkillConfigException;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -467,10 +466,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getSkillConfigByNameOrThrow(SkillName $skillName): SkillConfig
     {
-        return $this
-            ->getCharacterConfig()
-            ->getSkillConfigByNameOrErr($skillName)
-            ->expect(new PlayerDoesNotHaveSkillConfigException(player: $this, skillName: $skillName));
+        return $this->getCharacterConfig()->getSkillConfigByNameOrThrow($skillName);
     }
 
     public function getGameVariables(): PlayerVariables

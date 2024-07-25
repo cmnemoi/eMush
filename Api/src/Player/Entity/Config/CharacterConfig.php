@@ -12,9 +12,6 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\Config\StatusConfig;
-use Prewk\Result;
-use Prewk\Result\Err;
-use Prewk\Result\Ok;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'character_config')]
@@ -213,18 +210,15 @@ class CharacterConfig
         return $this;
     }
 
-    /**
-     * @return Result<SkillConfig, Err>
-     */
-    public function getSkillConfigByNameOrErr(SkillName $name): Result
+    public function getSkillConfigByNameOrThrow(SkillName $skillName): SkillConfig
     {
-        $skillConfig = $this->skillConfigs->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $name);
+        $skillConfig = $this->skillConfigs->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $skillName)->first();
 
-        if ($skillConfig->isEmpty()) {
-            return new Err('Skill config not found');
+        if (!$skillConfig) {
+            throw new \InvalidArgumentException("{$skillName->value} skill is not available for {$this->name}.");
         }
 
-        return new Ok($skillConfig->first());
+        return $skillConfig;
     }
 
     public function getStartingItems(): Collection

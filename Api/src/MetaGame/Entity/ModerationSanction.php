@@ -37,6 +37,9 @@ class ModerationSanction
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $isVisibleByUser = false;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $isReport = false;
+
     #[ORM\Column(type: 'datetime', nullable: false)]
     private \DateTime $startDate;
 
@@ -68,6 +71,12 @@ class ModerationSanction
     public function setModerationAction(string $moderationAction): self
     {
         $this->moderationAction = $moderationAction;
+
+        if (ModerationSanctionEnum::isReport($moderationAction)) {
+            $this->isReport = true;
+        } else {
+            $this->isReport = false;
+        }
 
         return $this;
     }
@@ -181,7 +190,7 @@ class ModerationSanction
 
     public function getIsReport(): bool
     {
-        return ModerationSanctionEnum::isReport($this->getModerationAction());
+        return $this->isReport;
     }
 
     public function setAuthor(User $author): self

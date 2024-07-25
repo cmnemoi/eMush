@@ -712,7 +712,6 @@ final class ModerationController extends AbstractFOSRestController
      *
      *     @OA\Schema(type="boolean")
      * )
-     * @OA\Schema(type="string", nullable=true)
      *
      * @OA\Tag(name="Moderation")
      *

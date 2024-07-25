@@ -10,6 +10,7 @@ use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Enum\SkillPointsEnum;
 
 #[ORM\Entity]
 class Skill
@@ -68,7 +69,9 @@ class Skill
 
     public function getSkillPoints(): int
     {
-        return $this->player->getChargeStatusByName($this->getNameAsString() . '_points')?->getCharge() ?? 0;
+        return $this->player->getChargeStatusByName(
+            SkillPointsEnum::fromSkill($this)->toString()
+        )?->getCharge() ?? 0;
     }
 
     public function isNull(): bool

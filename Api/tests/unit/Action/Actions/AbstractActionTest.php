@@ -93,8 +93,7 @@ abstract class AbstractActionTest extends TestCase
         $player
             ->setPlayerVariables($characterConfig)
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-            ->setSkills($skills);
+            ->setPlace($room);
 
         $playerInfo = new PlayerInfo(
             $player,

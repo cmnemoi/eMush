@@ -39,6 +39,11 @@ class Skill
         return new self(new SkillConfig(), $player);
     }
 
+    public static function createByNameForPlayer(SkillName $skillName, Player $player): self
+    {
+        return new self(new SkillConfig($skillName), $player);
+    }
+
     public function getName(): SkillName
     {
         return $this->skillConfig->getName();

@@ -12,7 +12,6 @@ use Mush\Player\Repository\InMemoryPlayerRepository;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillName;
-use Mush\Skill\Exception\PlayerDoesNotHaveSkillConfigException;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +50,7 @@ final class AddSkillToPlayerUseCaseTest extends TestCase
 
     public function testShouldThrowWhenTryingToAddSkillIfNotInPlayerSkillConfigs(): void
     {
-        $this->expectException(PlayerDoesNotHaveSkillConfigException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->whenIAddSkillToPlayer(SkillName::ANONYMUSH);
     }

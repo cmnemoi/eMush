@@ -20,6 +20,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Skill\DataFixtures\SkillConfigFixtures;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillName;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
@@ -66,9 +67,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $andie
             ->setName(CharacterEnum::ANDIE)
             ->setCharacterName(CharacterEnum::ANDIE)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $pilotSkillConfig,
-            ]))
+            ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($andie);
 
@@ -76,9 +77,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $chao
             ->setName(CharacterEnum::CHAO)
             ->setCharacterName(CharacterEnum::CHAO)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $shooterSkillConfig,
-            ]))
+            ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($chao);
 
@@ -89,9 +90,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $chun
             ->setName(CharacterEnum::CHUN)
             ->setCharacterName(CharacterEnum::CHUN)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $mankindOnlyHopeSkillConfig,
-            ]))
+            ])
             ->setInitStatuses([$immunizedStatus])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($chun);
@@ -103,9 +104,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $derek
             ->setName(CharacterEnum::DEREK)
             ->setCharacterName(CharacterEnum::DEREK)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $shooterSkillConfig,
-            ]))
+            ])
             ->setInitStatuses([$firstTimeStatus])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($derek);
@@ -117,9 +118,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $eleesha
             ->setName(CharacterEnum::ELEESHA)
             ->setCharacterName(CharacterEnum::ELEESHA)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $technicianSkillConfig,
-            ]))
+            ])
             ->setStartingItems($trackerTalkieCollection)
             ->setInitDiseases(new ArrayCollection([$chronicVertigo]));
         $manager->persist($eleesha);
@@ -137,9 +138,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $frieda
             ->setName(CharacterEnum::FRIEDA)
             ->setCharacterName(CharacterEnum::FRIEDA)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $pilotSkillConfig,
-            ]))
+            ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($frieda);
 
@@ -154,10 +155,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $hua
             ->setName(CharacterEnum::HUA)
             ->setCharacterName(CharacterEnum::HUA)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $pilotSkillConfig,
                 $technicianSkillConfig,
-            ]))
+            ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($hua);
 
@@ -176,9 +177,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $janice
             ->setName(CharacterEnum::JANICE)
             ->setCharacterName(CharacterEnum::JANICE)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $shrinkSkillConfig,
-            ]))
+            ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($janice);
 
@@ -186,10 +187,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $jinSu
             ->setName(CharacterEnum::JIN_SU)
             ->setCharacterName(CharacterEnum::JIN_SU)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $pilotSkillConfig,
                 $shooterSkillConfig,
-            ]))
+            ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($jinSu);
 
@@ -197,10 +198,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $kuanTi
             ->setName(CharacterEnum::KUAN_TI)
             ->setCharacterName(CharacterEnum::KUAN_TI)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $conceptorSkillConfig,
                 $technicianSkillConfig,
-            ]))
+            ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($kuanTi);
 
@@ -208,9 +209,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $paola
             ->setName(CharacterEnum::PAOLA)
             ->setCharacterName(CharacterEnum::PAOLA)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $shooterSkillConfig,
-            ]))
+            ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($paola);
 
@@ -220,10 +221,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $raluca
             ->setName(CharacterEnum::RALUCA)
             ->setCharacterName(CharacterEnum::RALUCA)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $technicianSkillConfig,
                 $conceptorSkillConfig,
-            ]))
+            ])
             ->setInitStatuses([$antisocialStatus])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($raluca);
@@ -232,10 +233,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $roland
             ->setName(CharacterEnum::ROLAND)
             ->setCharacterName(CharacterEnum::ROLAND)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $pilotSkillConfig,
                 $shooterSkillConfig,
-            ]))
+            ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($roland);
 
@@ -243,9 +244,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $stephen
             ->setName(CharacterEnum::STEPHEN)
             ->setCharacterName(CharacterEnum::STEPHEN)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $shooterSkillConfig,
-            ]))
+            ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($stephen);
 
@@ -256,11 +257,11 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $terrence
             ->setName(CharacterEnum::TERRENCE)
             ->setCharacterName(CharacterEnum::TERRENCE)
-            ->setSkillConfigs(new ArrayCollection([
+            ->setSkillConfigs([
                 $technicianSkillConfig,
                 $pilotSkillConfig,
                 $shooterSkillConfig,
-            ]))
+            ])
             ->setInitStatuses([$disabledStatus])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($terrence);

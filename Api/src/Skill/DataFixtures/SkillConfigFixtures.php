@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Modifier\DataFixtures\SkillModifierConfigFixtures;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Skill\ConfigData\SkillConfigData;
 use Mush\Skill\Dto\SkillConfigDto;
 use Mush\Skill\Entity\SkillConfig;
@@ -18,6 +19,9 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 /** @codeCoverageIgnore */
 final class SkillConfigFixtures extends Fixture implements DependentFixtureInterface
 {
+    /**
+     * @psalm-suppress InvalidArgument
+     */
     public function load(ObjectManager $manager): void
     {
         foreach (SkillConfigData::getAll() as $skillConfigDto) {
@@ -42,15 +46,17 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
     }
 
     /**
-     * @return ArrayCollection<int, ModifierConfig>
+     * @return ArrayCollection<int, AbstractModifierConfig>
      */
     private function getModifierConfigsFromDto(SkillConfigDto $skillConfigDto): ArrayCollection
     {
+        /** @var ArrayCollection<int, AbstractModifierConfig> $modifierConfigs */
         $modifierConfigs = new ArrayCollection();
         foreach ($skillConfigDto->modifierConfigs as $modifierConfigName) {
+            /** @var AbstractModifierConfig $modifierConfig */
             $modifierConfig = $this->getReference($modifierConfigName);
             if (!$modifierConfig) {
-                throw new \RuntimeException("ModifierConfig {$modifierConfigName} not found for SkillConfig {$skillConfigDto->name}");
+                throw new \RuntimeException("ModifierConfig {$modifierConfigName} not found for SkillConfig {$skillConfigDto->name->toString()}");
             }
             $modifierConfigs->add($modifierConfig);
         }
@@ -58,6 +64,10 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
         return $modifierConfigs;
     }
 
+    /**
+     * @psalm-suppress LessSpecificReturnStatement
+     * @psalm-suppress MoreSpecificReturnType
+     */
     private function getSkillPointsConfigFromDto(SkillConfigDto $skillConfigDto): ?ChargeStatusConfig
     {
         $configName = $skillConfigDto->skillPointsConfig?->value;
@@ -65,11 +75,6 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
             return null;
         }
 
-        $skillPointsConfig = $this->getReference($configName);
-        if (!$skillPointsConfig) {
-            throw new \RuntimeException("SkillPointsConfig {$configName} not found for SkillConfig {$skillConfigDto->name}");
-        }
-
-        return $skillPointsConfig;
+        return $this->getReference($configName);
     }
 }

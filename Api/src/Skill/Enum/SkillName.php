@@ -2,8 +2,6 @@
 
 namespace Mush\Skill\Enum;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 enum SkillName: string
 {
     case ANONYMUSH = 'anonymush';
@@ -98,78 +96,8 @@ enum SkillName: string
     case VICTIMIZER = 'victimizer';
     case WRESTLER = 'wrestler';
 
-    public static function getAll(): ArrayCollection
+    public function toString(): string
     {
-        return new ArrayCollection([
-            self::ANTIQUE_PERFUME,
-            self::APPRENTICE,
-            self::ASTROPHYSICIST,
-            self::BIOLOGIST,
-            self::BOTANIST,
-            self::CAFFEINE_JUNKIE,
-            self::CHEF,
-            self::COLD_BLOODED,
-            self::CONFIDENT,
-            self::CRAZY_EYE,
-            self::CREATIVE,
-            self::CONCEPTOR,
-            self::DETACHED_CREWMEMBER,
-            self::DEVOTION,
-            self::DETERMINED,
-            self::DIPLOMAT,
-            self::EXPERT,
-            self::FIREFIGHTER,
-            self::FRUGIVORE,
-            self::GENIUS,
-            self::GREEN_THUMB,
-            self::GUNNER,
-            self::INTIMIDATING,
-            self::IT_EXPERT,
-            self::LEADER,
-            self::LETHARGY,
-            self::LOGISTICS_EXPERT,
-            self::MANKIND_ONLY_HOPE,
-            self::MEDIC,
-            self::METALWORKER,
-            self::MOTIVATOR,
-            self::MYCOLOGIST,
-            self::NERON_ONLY_FRIEND,
-            self::NURSE,
-            self::OBSERVANT,
-            self::OCD,
-            self::OPPORTUNIST,
-            self::PANIC,
-            self::PARANOID,
-            self::PHYSICIST,
-            self::PILOT,
-            self::POLITICIAN,
-            self::POLYMATH,
-            self::POLYVALENT,
-            self::PREMONITION,
-            self::RADIO_EXPERT,
-            self::REBEL,
-            self::ROBOTICS_EXPERT,
-            self::SELF_SACRIFICE,
-            self::SHOOTER,
-            self::SHRINK,
-            self::SNEAK,
-            self::SOLID,
-            self::SPRINTER,
-            self::STRATEGURU,
-            self::SURVIVALIST,
-            self::TECHNICIAN,
-            self::OPTIMIST,
-            self::TORTURER,
-            self::TRACKER,
-            self::U_TURN,
-            self::VICTIMIZER,
-            self::WRESTLER,
-            self::HYGIENIST,
-        ]);
-    }
-
-    public static function isSkill(string $skill): bool
-    {
-        return self::getAll()->contains($skill);
+        return $this->value;
     }
 }

@@ -28,6 +28,9 @@ final class SkillConfigDataLoader extends ConfigDataLoader
         $this->skillPointsRepository = $entityManager->getRepository(ChargeStatusConfig::class);
     }
 
+    /**
+     * @psalm-suppress InvalidArgument
+     */
     public function loadConfigsData(): void
     {
         foreach (SkillConfigData::getAll() as $skillConfigDto) {
@@ -52,15 +55,17 @@ final class SkillConfigDataLoader extends ConfigDataLoader
     }
 
     /**
-     * @return ArrayCollection<int, ModifierConfig>
+     * @return ArrayCollection<int, AbstractModifierConfig>
      */
     private function getModifierConfigsFromDto(SkillConfigDto $skillConfigDto): ArrayCollection
     {
+        /** @var ArrayCollection<int, AbstractModifierConfig> $modifierConfigs */
         $modifierConfigs = new ArrayCollection();
         foreach ($skillConfigDto->modifierConfigs as $modifierConfigName) {
+            /** @var AbstractModifierConfig $modifierConfig */
             $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigName]);
             if (!$modifierConfig) {
-                throw new \RuntimeException("ModifierConfig {$modifierConfigName} not found for SkillConfig {$skillConfigDto->name}");
+                throw new \RuntimeException("ModifierConfig {$modifierConfigName} not found for SkillConfig {$skillConfigDto->name->toString()}");
             }
             $modifierConfigs->add($modifierConfig);
         }
@@ -75,11 +80,12 @@ final class SkillConfigDataLoader extends ConfigDataLoader
             return null;
         }
 
+        /** @var ?ChargeStatusConfig $skillPointsConfig */
         $skillPointsConfig = $this->skillPointsRepository->findOneBy([
             'name' => $configName,
         ]);
         if (!$skillPointsConfig) {
-            throw new \RuntimeException("SkillPointsConfig {$configName} not found for SkillConfig {$skillConfigDto->name}");
+            throw new \RuntimeException("SkillPointsConfig {$configName} not found for SkillConfig {$skillConfigDto->name->toString()}");
         }
 
         return $skillPointsConfig;

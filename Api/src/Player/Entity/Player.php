@@ -919,7 +919,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function getEfficiencyWithBonusSkills(int $efficiency, Project $project): int
     {
-        $playerSkills = $this->getSkills()->map(static fn (Status $status) => $status->getName())->toArray();
+        $playerSkills = $this->getSkills()->map(static fn (Skill $skill) => $skill->getName())->toArray();
         $numberOfSkillsMatching = \count(array_intersect($playerSkills, $project->getBonusSkills()));
 
         return $efficiency + $numberOfSkillsMatching * Project::SKILL_BONUS;

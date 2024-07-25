@@ -38,8 +38,8 @@ class SkillConfig
 
     public function __construct(
         SkillName $name = SkillName::NULL,
-        Collection $modifierConfigs = new ArrayCollection(),
-        Collection $actionConfigs = new ArrayCollection(),
+        ArrayCollection $modifierConfigs = new ArrayCollection(),
+        ArrayCollection $actionConfigs = new ArrayCollection(),
         ?SpawnEquipmentConfig $spawnEquipmentConfig = null,
         ?ChargeStatusConfig $skillPointsConfig = null
     ) {

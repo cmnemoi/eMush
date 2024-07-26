@@ -303,6 +303,8 @@ class PlayerController extends AbstractGameController
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
         }
+        $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
+        $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
 
         if (!$player->isExploring()) {
             return $this->view(['message' => 'You have to be in an exploration to do that!'], Response::HTTP_UNPROCESSABLE_ENTITY);

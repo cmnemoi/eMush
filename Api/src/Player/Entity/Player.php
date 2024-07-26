@@ -450,21 +450,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $skill;
     }
 
-    public function cannotTakeSkill(SkillEnum $skill): bool
-    {
-        $skillIsNotAvailableForThisCharacter = $this->getCharacterConfig()->getSkillConfigs()->exists(static fn ($_, SkillConfig $skillConfig) => $skillConfig->getName() === $skill) === false;
-
-        return $skillIsNotAvailableForThisCharacter || $this->hasSkill($skill);
-    }
-
     public function hasSkill(SkillEnum $skillName): bool
     {
         return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
-    }
-
-    public function doesNotHaveSkill(SkillEnum $skill): bool
-    {
-        return $this->hasSkill($skill) === false;
     }
 
     /**

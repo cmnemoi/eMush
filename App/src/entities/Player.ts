@@ -38,9 +38,11 @@ export class Player {
     public terminal: Terminal|null;
     public titles: Array<NameDescObject>;
     public exploration: Exploration|null;
-    public skills: Array<Skill>;
+    public humanSkills: Array<Skill>;
+    public mushSkills: Array<Skill>;
     public skillPoints: Array<SkillPoint>;
     public isSeated: boolean;
+    public language: string;
 
     public constructor() {
         this.gameStatus = null;
@@ -60,15 +62,18 @@ export class Player {
         this.terminal = null;
         this.titles = [];
         this.exploration = null;
-        this.skills = [];
+        this.humanSkills = [];
+        this.mushSkills = [];
         this.skillPoints = [];
         this.isSeated = false;
+        this.language = '';
     }
 
     public load(object: any): Player {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.gameStatus = object.gameStatus;
+            this.language = object.language;
 
             this.character = (new Character()).load(object.character);
 
@@ -133,9 +138,14 @@ export class Player {
             if (object.exploration) {
                 this.exploration = (new Exploration()).load(object.exploration);
             }
-            if (object.skills) {
-                object.skills.forEach((skillObject: any) => {
-                    this.skills.push(skillObject);
+            if (object.humanSkills) {
+                object.humanSkills.forEach((skillObject: any) => {
+                    this.humanSkills.push(skillObject);
+                });
+            }
+            if (object.mushSkills) {
+                object.mushSkills.forEach((skillObject: any) => {
+                    this.mushSkills.push(skillObject);
                 });
             }
             if (object.skillPoints) {

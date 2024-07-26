@@ -3,7 +3,6 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { Player } from "@/entities/Player";
 import { Item } from "@/entities/Item";
 import { ConfirmPopup } from "@/entities/ConfirmPopup";
-import store from ".";
 
 const state =  {
     loading: false,

@@ -470,7 +470,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return Collection<int, SkillConfig>
      */
-    public function getSelectableSkills(): Collection
+    public function getSelectableHumanSkills(): Collection
     {
         return $this->getCharacterConfig()->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
     }

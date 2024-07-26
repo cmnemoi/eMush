@@ -87,7 +87,7 @@
                 <ul>
                     <Tippy
                         tag="li"
-                        v-for="skill, index in player.skills"
+                        v-for="skill, index in skillsToDisplay"
                         :key="skill.key"
                         :class="skillSlotClass(index + 1)"
                     >
@@ -101,24 +101,33 @@
                 <ul>
                     <Tippy
                         tag="li"
-                        v-for="index in player.character.selectableSkills.length"
+                        v-for="index in selectableSkillsToDisplay.length"
                         :key="index"
-                        :class="skillSlotClass(index + player.skills.length)"
+                        :class="skillSlotClass(index + skillsToDisplay.length)"
                     >
                         <button class="flashing" @click="openSkillSelectionPopUp">
-                            <img :src="skillSlotImage(index + player.skills.length)" alt="More">
+                            <img :src="skillSlotImage(index + skillsToDisplay.length)" alt="Plus">
                         </button>
                         <template #content>
-                            <h1 v-html="formatText('Emplacement disponible')" />
-                            <p v-html="formatText(`Cliquez ici pour choisir une **nouvelle compétence** pour ${player.character.name} !`)" />
+                            <h1 v-html="formatText($t('charPanel.availableSlot'))" />
+                            <p v-html="formatText($t('charPanel.chooseNewSkill', { character: player.character.name }))" />
                         </template>
                     </Tippy>
                 </ul>
-                <li class="genome" v-if="player.isMush()">
+                <Tippy
+                    tag="li"
+                    class="genome"
+                    v-if="player.isMush()"
+                    @click="toggleMushSkillsDisplay">
                     <button>
-                        <img :src="getImgUrl('comms/mush.png')" alt="Mush Genome">
+                        <img :src="getImgUrl('mush_module.png')" alt="Mush Genome">
                     </button>
-                </li>
+                    <template #content>
+                        <h1 v-html="formatText($t('charPanel.mushGenome'))" />
+                        <p v-html="formatText($t('charPanel.displayYourHumanSkills'))" v-if="displayMushSkills" />
+                        <p v-html="formatText($t('charPanel.displayYourMushSkills'))" v-else />
+                    </template>
+                </Tippy>
             </div>
 
             <div class="actions-sheet">
@@ -179,10 +188,6 @@ import { SkillPoint } from "@/entities/SkillPoint";
 import { skillPointEnum } from "@/enums/skill.point.enum";
 import { SkillIconRecord } from "@/enums/skill.enum";
 
-interface CharPanelState {
-    selectedItem: Item | Player | null
-}
-
 type Skill = {
     key: string;
     name: string;
@@ -203,20 +208,24 @@ export default defineComponent ({
         }
     },
     computed: {
+        ...mapState('player', ['loading', 'selectedItem']),
         characterPortrait(): string {
             return characterEnum[this.player.character.key].portrait ?? '';
-        },
-        ...mapState('player', [
-            'loading', 'selectedItem'
-        ]),
-        target(): Item | Player | null {
-            return this.selectedItem || this.player;
         },
         getTargetItem(): Item | null {
             return this.selectedItem;
         },
         getRelevantSkillPoints(): Array<SkillPoint> {
-            return this.player.skillPoints.filter(p => p.charge.quantity > 0);
+            return this.player.skillPoints.filter(player => player.charge.quantity > 0);
+        },
+        skillsToDisplay(): Array<Skill> {
+            return this.displayMushSkills ? this.player.mushSkills : this.player.humanSkills;
+        },
+        selectableSkillsToDisplay(): Array<Skill> {
+            return this.displayMushSkills ? this.player.character.selectableMushSkills : this.player.character.selectableHumanSkills;
+        },
+        target(): Item | Player | null {
+            return this.selectedItem || this.player;
         }
     },
     methods: {
@@ -225,6 +234,14 @@ export default defineComponent ({
             'selectTarget': 'player/selectTarget',
             'openSkillSelectionPopUp': 'popup/openSkillSelectionPopUp'
         }),
+        getImgUrl,
+        formatText,
+        isFull (value: number, threshold: number): Record<string, boolean> {
+            return {
+                "full": value <= threshold,
+                'empty': value > threshold
+            };
+        },
         skillSlotClass(index: number): string {
             switch (index) {
             case 1:
@@ -245,14 +262,6 @@ export default defineComponent ({
                 return getImgUrl('skills/goldplus.png');
             }
         },
-        isFull (value: number, threshold: number): Record<string, boolean> {
-            return {
-                "full": value <= threshold,
-                'empty': value > threshold
-            };
-        },
-        getImgUrl,
-        formatText,
         skillImage(skill: Skill): string {
             return SkillIconRecord[skill.key].icon ?? '';
         },
@@ -266,6 +275,9 @@ export default defineComponent ({
                 this.selectTarget({ target: item });
             }
         },
+        toggleMushSkillsDisplay(): void {
+            this.displayMushSkills = !this.displayMushSkills;
+        },
         async executeTargetAction(target: Door | Item | Equipment | Player | null, action: Action): Promise<void> {
             if(action.canExecute) {
                 await this.executeAction({ target, action });
@@ -277,7 +289,8 @@ export default defineComponent ({
     },
     data() {
         return {
-            StatusPlayerNameEnum
+            StatusPlayerNameEnum,
+            displayMushSkills: this.player.isMush()
         };
     }
 });

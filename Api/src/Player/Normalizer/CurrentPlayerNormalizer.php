@@ -111,7 +111,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
                 'key' => $character,
                 'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
                 'description' => $this->translationService->translate($character . '.description', [], 'characters', $language),
-                'selectableSkills' => $this->getNormalizedSelectableSkills($player, $language),
+                'selectableHumanSkills' => $this->getNormalizedSelectableHumanSkills($player, $language),
+                'selectableMushSkills' => [],
                 'level' => $player->getLevel(),
             ],
             'gameStatus' => $player->getPlayerInfo()->getGameStatus(),
@@ -148,7 +149,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $playerData = array_merge($playerData, [
             'room' => $this->normalizer->normalize($player->getPlace(), $format, $context),
-            'skills' => $this->getNormalizedPlayerSkills($player),
+            'humanSkills' => $this->getNormalizedHumanSkills($player),
+            'mushSkills' => [],
             'titles' => $titles,
             'actions' => $this->getNormalizedActions($player, ActionHolderEnum::PLAYER, $player, $format, $context),
             'items' => $items,
@@ -159,6 +161,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
             'skillPoints' => $this->getSkillPointsForPlayer($player, $language),
+            'language' => $language,
         ]);
 
         return $playerData;
@@ -257,7 +260,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         return $statuses;
     }
 
-    private function getNormalizedPlayerSkills(Player $player): array
+    private function getNormalizedHumanSkills(Player $player): array
     {
         $skills = [];
         foreach ($player->getSkills() as $skill) {
@@ -272,18 +275,18 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         return $skills;
     }
 
-    private function getNormalizedSelectableSkills(Player $player, string $language): array
+    private function getNormalizedSelectableHumanSkills(Player $player, string $language): array
     {
-        $normalizedSelectableSkills = [];
-        foreach ($player->getSelectableSkills() as $selectableSkill) {
-            $normalizedSelectableSkills[] = [
+        $normalizedSelectableHumanSkills = [];
+        foreach ($player->getSelectableHumanSkills() as $selectableSkill) {
+            $normalizedSelectableHumanSkills[] = [
                 'key' => $selectableSkill->getNameAsString(),
                 'name' => $this->translationService->translate($selectableSkill->getNameAsString() . '.name', [], 'skill', $language),
                 'description' => $this->translationService->translate($selectableSkill->getNameAsString() . '.description', [], 'skill', $language),
             ];
         }
 
-        return $normalizedSelectableSkills;
+        return $normalizedSelectableHumanSkills;
     }
 
     private function getSkillPointsForPlayer(Player $player, string $language): array

@@ -11,7 +11,8 @@ export class Character {
     public name!: string;
     public abstract!: string;
     public description: string|null;
-    public selectableSkills!: SelectableSkill[];
+    public selectableHumanSkills!: SelectableSkill[];
+    public selectableMushSkills!: SelectableSkill[];
     public level!: number;
 
     constructor() {
@@ -24,7 +25,8 @@ export class Character {
             this.name = object.value;
             this.abstract = object.abstract;
             this.description = object.description;
-            this.selectableSkills = object.selectableSkills;
+            this.selectableHumanSkills = object.selectableHumanSkills;
+            this.selectableMushSkills = object.selectableMushSkills;
             this.level = object.level;
         }
 
@@ -36,11 +38,7 @@ export class Character {
     decode(jsonString: string): Character {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.key = object.key;
-            this.name = object.value;
-            this.abstract = object.abstract;
-            this.description = object.description;
-            this.selectableSkills = object.selectableSkills;
+            this.load(object);
         }
 
         return this;

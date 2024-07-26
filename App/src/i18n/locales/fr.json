@@ -862,5 +862,12 @@
 		"iHaveReadRules": "Je confirme avoir pris connaissance du règlement",
 		"accept": "Accepter le règlement",
 		"thanks": "Merci d'avoir accepté le règlement de eMush !"
+	},
+	"charPanel": {
+		"availableSlot": "Emplacement disponible",
+		"chooseNewSkill": "Cliquez ici pour choisir une **nouvelle compétence** pour {character} !",
+		"mushGenome": "Génome Mush",
+		"displayYourHumanSkills": "Cliquez ici pour afficher vos **compétences humaines**.",
+		"displayYourMushSkills": "Cliquez ici pour afficher vos **compétences Mush**."
 	}
 }

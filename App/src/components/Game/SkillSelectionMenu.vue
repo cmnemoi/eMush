@@ -8,7 +8,7 @@
         <div class="skill-selection">
             <Tippy
                 tag="button"
-                v-for="skill in player.character.selectableSkills"
+                v-for="skill in skillsToDisplay"
                 :key="skill.key"
                 @click="chooseSkill({player, skill})"
             >
@@ -40,22 +40,33 @@ export default defineComponent ({
     name: "SkillSelectionMenu",
     components: { GamePopUp },
     props: {
-        player: Player
+        player: {
+            type: Player,
+            required: true
+        }
     },
     computed: {
         ...mapGetters({
-            popUp: 'popup/skillSelectionPopUp'
-        })
+            popUp: 'popup/skillSelectionPopUp',
+            displayMushSkills: 'player/displayMushSkills'
+        }),
+        skillsToDisplay(): SelectableSkill[] {
+            return this.displayMushSkills ? this.player?.character.selectableMushSkills : this.player?.character.selectableHumanSkills;
+        }
     },
     methods: {
         ...mapActions({
             chooseSkill: 'player/chooseSkill',
-            close: 'popup/closeSkillSelectionPopUp'
+            close: 'popup/closeSkillSelectionPopUp',
+            initMushSkillsDisplay: 'player/initMushSkillsDisplay'
         }),
         formatText,
         skillImage(skill: SelectableSkill): string {
             return SkillIconRecord[skill.key].icon ?? '';
         }
+    },
+    beforeMount() {
+        this.initMushSkillsDisplay({player: this.player});
     }
 });
 </script>

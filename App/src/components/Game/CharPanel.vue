@@ -208,7 +208,7 @@ export default defineComponent ({
         }
     },
     computed: {
-        ...mapState('player', ['loading', 'selectedItem']),
+        ...mapState('player', ['loading', 'selectedItem', 'displayMushSkills']),
         characterPortrait(): string {
             return characterEnum[this.player.character.key].portrait ?? '';
         },
@@ -232,7 +232,9 @@ export default defineComponent ({
         ...mapActions({
             'executeAction': 'action/executeAction',
             'selectTarget': 'player/selectTarget',
-            'openSkillSelectionPopUp': 'popup/openSkillSelectionPopUp'
+            'openSkillSelectionPopUp': 'popup/openSkillSelectionPopUp',
+            'initMushSkillsDisplay': 'player/initMushSkillsDisplay',
+            'toggleMushSkillsDisplay': 'player/toggleMushSkillsDisplay'
         }),
         getImgUrl,
         formatText,
@@ -275,9 +277,6 @@ export default defineComponent ({
                 this.selectTarget({ target: item });
             }
         },
-        toggleMushSkillsDisplay(): void {
-            this.displayMushSkills = !this.displayMushSkills;
-        },
         async executeTargetAction(target: Door | Item | Equipment | Player | null, action: Action): Promise<void> {
             if(action.canExecute) {
                 await this.executeAction({ target, action });
@@ -290,8 +289,10 @@ export default defineComponent ({
     data() {
         return {
             StatusPlayerNameEnum,
-            displayMushSkills: this.player.isMush()
         };
+    },
+    beforeMount() {
+        this.initMushSkillsDisplay({ player: this.player });
     }
 });
 </script>

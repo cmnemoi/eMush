@@ -20,7 +20,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -47,7 +47,7 @@ final class Disassemble extends AttemptAction
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(
             new HasSkill([
-                'skill' => SkillName::TECHNICIAN,
+                'skill' => SkillEnum::TECHNICIAN,
                 'groups' => ['visibility'],
             ])
         );

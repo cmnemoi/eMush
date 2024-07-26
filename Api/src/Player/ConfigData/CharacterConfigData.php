@@ -3,7 +3,7 @@
 namespace Mush\Player\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 
 class CharacterConfigData
 {
@@ -12,7 +12,7 @@ class CharacterConfigData
             'name' => 'andie',
             'characterName' => 'andie',
             'skillConfigs' => [
-                SkillName::PILOT,
+                SkillEnum::PILOT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -50,7 +50,7 @@ class CharacterConfigData
             'name' => 'chao',
             'characterName' => 'chao',
             'skillConfigs' => [
-                SkillName::SHOOTER,
+                SkillEnum::SHOOTER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -88,7 +88,7 @@ class CharacterConfigData
             'name' => 'chun',
             'characterName' => 'chun',
             'skillConfigs' => [
-                SkillName::MANKIND_ONLY_HOPE,
+                SkillEnum::MANKIND_ONLY_HOPE,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -128,7 +128,7 @@ class CharacterConfigData
             'name' => 'derek',
             'characterName' => 'derek',
             'skillConfigs' => [
-                SkillName::SHOOTER,
+                SkillEnum::SHOOTER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -170,7 +170,7 @@ class CharacterConfigData
             'name' => 'eleesha',
             'characterName' => 'eleesha',
             'skillConfigs' => [
-                SkillName::TECHNICIAN,
+                SkillEnum::TECHNICIAN,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -247,7 +247,7 @@ class CharacterConfigData
             'name' => 'frieda',
             'characterName' => 'frieda',
             'skillConfigs' => [
-                SkillName::PILOT,
+                SkillEnum::PILOT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -321,8 +321,8 @@ class CharacterConfigData
             'name' => 'hua',
             'characterName' => 'hua',
             'skillConfigs' => [
-                SkillName::PILOT,
-                SkillName::TECHNICIAN,
+                SkillEnum::PILOT,
+                SkillEnum::TECHNICIAN,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -399,7 +399,7 @@ class CharacterConfigData
             'name' => 'janice',
             'characterName' => 'janice',
             'skillConfigs' => [
-                SkillName::SHRINK,
+                SkillEnum::SHRINK,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -438,8 +438,8 @@ class CharacterConfigData
             'name' => 'jin_su',
             'characterName' => 'jin_su',
             'skillConfigs' => [
-                SkillName::PILOT,
-                SkillName::SHOOTER,
+                SkillEnum::PILOT,
+                SkillEnum::SHOOTER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -478,8 +478,8 @@ class CharacterConfigData
             'name' => 'kuan_ti',
             'characterName' => 'kuan_ti',
             'skillConfigs' => [
-                SkillName::CONCEPTOR,
-                SkillName::TECHNICIAN,
+                SkillEnum::CONCEPTOR,
+                SkillEnum::TECHNICIAN,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -518,7 +518,7 @@ class CharacterConfigData
             'name' => 'paola',
             'characterName' => 'paola',
             'skillConfigs' => [
-                SkillName::SHOOTER,
+                SkillEnum::SHOOTER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -556,8 +556,8 @@ class CharacterConfigData
             'name' => 'raluca',
             'characterName' => 'raluca',
             'skillConfigs' => [
-                SkillName::TECHNICIAN,
-                SkillName::CONCEPTOR,
+                SkillEnum::TECHNICIAN,
+                SkillEnum::CONCEPTOR,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -597,8 +597,8 @@ class CharacterConfigData
             'name' => 'roland',
             'characterName' => 'roland',
             'skillConfigs' => [
-                SkillName::PILOT,
-                SkillName::SHOOTER,
+                SkillEnum::PILOT,
+                SkillEnum::SHOOTER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -637,7 +637,7 @@ class CharacterConfigData
             'name' => 'stephen',
             'characterName' => 'stephen',
             'skillConfigs' => [
-                SkillName::SHOOTER,
+                SkillEnum::SHOOTER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -675,9 +675,9 @@ class CharacterConfigData
             'name' => 'terrence',
             'characterName' => 'terrence',
             'skillConfigs' => [
-                SkillName::TECHNICIAN,
-                SkillName::PILOT,
-                SkillName::SHOOTER,
+                SkillEnum::TECHNICIAN,
+                SkillEnum::PILOT,
+                SkillEnum::SHOOTER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

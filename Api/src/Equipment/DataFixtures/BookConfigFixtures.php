@@ -15,7 +15,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 
 class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -45,34 +45,34 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $actions = [$takeAction, $dropAction, $hideAction, $examineAction];
 
         // First Mage Books
-        $skillsArray = [SkillName::ASTROPHYSICIST,
-            SkillName::BIOLOGIST,
-            SkillName::BOTANIST,
-            SkillName::DIPLOMAT,
-            SkillName::FIREFIGHTER,
-            SkillName::CHEF,
-            SkillName::IT_EXPERT,
-            SkillName::LOGISTICS_EXPERT,
-            SkillName::MEDIC,
-            SkillName::PILOT,
-            SkillName::RADIO_EXPERT,
-            SkillName::ROBOTICS_EXPERT,
-            SkillName::SHOOTER,
-            SkillName::SHRINK,
-            SkillName::SPRINTER,
-            SkillName::TECHNICIAN,
+        $skillsArray = [SkillEnum::ASTROPHYSICIST,
+            SkillEnum::BIOLOGIST,
+            SkillEnum::BOTANIST,
+            SkillEnum::DIPLOMAT,
+            SkillEnum::FIREFIGHTER,
+            SkillEnum::CHEF,
+            SkillEnum::IT_EXPERT,
+            SkillEnum::LOGISTICS_EXPERT,
+            SkillEnum::MEDIC,
+            SkillEnum::PILOT,
+            SkillEnum::RADIO_EXPERT,
+            SkillEnum::ROBOTICS_EXPERT,
+            SkillEnum::SHOOTER,
+            SkillEnum::SHRINK,
+            SkillEnum::SPRINTER,
+            SkillEnum::TECHNICIAN,
         ];
 
-        foreach ($skillsArray as $skillName) {
+        foreach ($skillsArray as $skill) {
             $apprentonMechanic = new Book();
             $apprentonMechanic
-                ->setSkill($skillName)
+                ->setSkill($skill)
                 ->addAction($readBook)
-                ->buildName(ItemEnum::APPRENTON . '_' . $skillName->value, GameConfigEnum::DEFAULT);
+                ->buildName(ItemEnum::APPRENTON . '_' . $skill->value, GameConfigEnum::DEFAULT);
 
             $apprenton = new ItemConfig();
             $apprenton
-                ->setEquipmentName(ItemEnum::APPRENTON . '_' . $skillName->value)
+                ->setEquipmentName(ItemEnum::APPRENTON . '_' . $skill->value)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)

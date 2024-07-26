@@ -22,7 +22,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -86,7 +86,7 @@ class AttemptActionChangeCest
         $I->refreshEntities($this->player);
 
         $this->addSkillToPlayerUseCase->execute(
-            skillName: SkillName::TECHNICIAN,
+            skill: SkillEnum::TECHNICIAN,
             player: $this->player,
         );
 

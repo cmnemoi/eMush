@@ -15,7 +15,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -166,7 +166,7 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         $reflection->getProperty('crewLock')->setValue($neron, NeronCrewLockEnum::PROJECTS);
 
         // given player2 is not a conceptor
-        $I->assertFalse($this->player2->hasSkill(SkillName::CONCEPTOR));
+        $I->assertFalse($this->player2->hasSkill(SkillEnum::CONCEPTOR));
 
         // when player2 access NERON's core
         $this->accessTerminal->loadParameters(
@@ -199,7 +199,7 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         $reflection->getProperty('crewLock')->setValue($neron, NeronCrewLockEnum::PROJECTS);
 
         // given player2 is a conceptor
-        $this->addSkillToPlayerUseCase->execute(SkillName::CONCEPTOR, $this->player2);
+        $this->addSkillToPlayerUseCase->execute(SkillEnum::CONCEPTOR, $this->player2);
 
         // when player2 access NERON's core
         $this->accessTerminal->loadParameters(
@@ -253,7 +253,7 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         $reflection->getProperty('crewLock')->setValue($neron, NeronCrewLockEnum::PROJECTS);
 
         // given Chun is not a conceptor
-        $I->assertFalse($this->chun->hasSkill(SkillName::CONCEPTOR));
+        $I->assertFalse($this->chun->hasSkill(SkillEnum::CONCEPTOR));
 
         // when Chun access Pilgred's terminal
         $this->accessTerminal->loadParameters(

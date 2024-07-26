@@ -4,7 +4,7 @@ namespace Mush\Player\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Player\Entity\Player;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 
 /**
  * @template-extends ArrayCollection<int, Player>
@@ -41,7 +41,7 @@ class PlayerCollection extends ArrayCollection
         return $player;
     }
 
-    public function getPlayersWithSkill(SkillName $skill): self
+    public function getPlayersWithSkill(SkillEnum $skill): self
     {
         return $this->filter(static fn (Player $player) => $player->hasSkill($skill));
     }

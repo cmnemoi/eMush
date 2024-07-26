@@ -51,7 +51,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -432,14 +432,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return new ArrayCollection($this->skills->toArray());
     }
 
-    public function getSkillByNameOrNull(SkillName $name): ?Skill
+    public function getSkillByNameOrNull(SkillEnum $name): ?Skill
     {
         $skill = $this->getSkills()->filter(static fn (Skill $skill) => $skill->getName() === $name)->first();
 
         return $skill ?: null;
     }
 
-    public function getSkillByNameOrThrow(SkillName $name): Skill
+    public function getSkillByNameOrThrow(SkillEnum $name): Skill
     {
         $skill = $this->getSkillByNameOrNull($name);
 
@@ -450,21 +450,21 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $skill;
     }
 
-    public function cannotTakeSkill(SkillName $skillName): bool
+    public function cannotTakeSkill(SkillEnum $skill): bool
     {
-        $skillIsNotAvailableForThisCharacter = $this->getCharacterConfig()->getSkillConfigs()->exists(static fn ($_, SkillConfig $skillConfig) => $skillConfig->getName() === $skillName) === false;
+        $skillIsNotAvailableForThisCharacter = $this->getCharacterConfig()->getSkillConfigs()->exists(static fn ($_, SkillConfig $skillConfig) => $skillConfig->getName() === $skill) === false;
 
-        return $skillIsNotAvailableForThisCharacter || $this->hasSkill($skillName);
+        return $skillIsNotAvailableForThisCharacter || $this->hasSkill($skill);
     }
 
-    public function hasSkill(SkillName $skillName): bool
+    public function hasSkill(SkillEnum $skillName): bool
     {
         return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
     }
 
-    public function doesNotHaveSkill(SkillName $skillName): bool
+    public function doesNotHaveSkill(SkillEnum $skill): bool
     {
-        return $this->hasSkill($skillName) === false;
+        return $this->hasSkill($skill) === false;
     }
 
     /**
@@ -475,9 +475,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getCharacterConfig()->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
     }
 
-    public function getSkillConfigByNameOrThrow(SkillName $skillName): SkillConfig
+    public function getSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
     {
-        return $this->getCharacterConfig()->getSkillConfigByNameOrThrow($skillName);
+        return $this->getCharacterConfig()->getSkillConfigByNameOrThrow($skill);
     }
 
     public function getGameVariables(): PlayerVariables
@@ -931,7 +931,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     private function getEfficiencyWithBonusSkills(int $efficiency, Project $project): int
     {
         $playerSkills = $this->getSkills()->map(static fn (Skill $skill) => $skill->getName()->toString())->toArray();
-        $bonusSkills = array_map(static fn (SkillName $skill) => $skill->toString(), $project->getBonusSkills());
+        $bonusSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $project->getBonusSkills());
         $numberOfSkillsMatching = \count(array_intersect($playerSkills, $bonusSkills));
 
         return $efficiency + $numberOfSkillsMatching * Project::SKILL_BONUS;

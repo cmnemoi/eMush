@@ -361,7 +361,7 @@ class PlayerController extends AbstractGameController
 
         $chooseSkillDto = new ChooseSkillDto($request);
 
-        $this->addSkillToPlayerUseCase->execute(skillName: $chooseSkillDto->skill, player: $player);
+        $this->addSkillToPlayerUseCase->execute(skill: $chooseSkillDto->skill, player: $player);
 
         return $this->view(['detail' => 'Skill selected successfully'], Response::HTTP_CREATED);
     }

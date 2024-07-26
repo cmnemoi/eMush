@@ -22,7 +22,7 @@ use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -361,7 +361,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         // given KT is a technician
         $this->addSkillToPlayerUseCase->execute(
-            skillName: SkillName::TECHNICIAN,
+            skill: SkillEnum::TECHNICIAN,
             player: $this->kuanTi
         );
 
@@ -405,12 +405,12 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         // given KT is a technician
         $this->addSkillToPlayerUseCase->execute(
-            skillName: SkillName::TECHNICIAN,
+            skill: SkillEnum::TECHNICIAN,
             player: $this->kuanTi
         );
 
         // given KT has two Technician points
-        $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillName::TECHNICIAN);
+        $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::TECHNICIAN);
         $I->assertEquals(
             expected: 2,
             actual: $technicianSkill->getSkillPoints(),

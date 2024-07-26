@@ -32,7 +32,7 @@ use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -332,13 +332,13 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $shrinkInRoomActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::SKILL_IN_ROOM);
         $shrinkInRoomActivationRequirement
-            ->setActivationRequirement(SkillName::SHRINK->value)
+            ->setActivationRequirement(SkillEnum::SHRINK->value)
             ->buildName();
         $manager->persist($shrinkInRoomActivationRequirement);
 
         $holderIsNotAShrinkActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL);
         $holderIsNotAShrinkActivationRequirement
-            ->setActivationRequirement(SkillName::SHRINK->value)
+            ->setActivationRequirement(SkillEnum::SHRINK->value)
             ->buildName();
         $manager->persist($holderIsNotAShrinkActivationRequirement);
 

@@ -28,7 +28,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 
 final class Fight extends AbstractPlanetSectorEventHandler
 {
@@ -124,7 +124,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
             // If fighter is also a Shooter, add 1 point to the expedition strength if they have a loaded gun
             if (
-                $fighter->hasSkill(SkillName::SHOOTER)
+                $fighter->hasSkill(SkillEnum::SHOOTER)
                 && $fighterWeapons->filter(static fn (GameItem $weapon) => ItemEnum::getGuns()->contains($weapon->getName()))->count() > 0
             ) {
                 ++$expeditionStrength;

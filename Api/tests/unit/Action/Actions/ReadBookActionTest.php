@@ -12,7 +12,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 
 /**
  * @internal
@@ -53,7 +53,7 @@ final class ReadBookActionTest extends AbstractActionTest
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $book = new Book();
-        $book->setSkill(SkillName::PILOT);
+        $book->setSkill(SkillEnum::PILOT);
         $item->setMechanics(new ArrayCollection([$book]));
         $gameItem
             ->setEquipment($item)

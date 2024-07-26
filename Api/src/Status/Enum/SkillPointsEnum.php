@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Status\Enum;
 
 use Mush\Skill\Entity\Skill;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 
 enum SkillPointsEnum: string
 {
@@ -17,9 +17,9 @@ enum SkillPointsEnum: string
     public static function fromSkill(Skill $skill): self
     {
         return match ($skill->getName()) {
-            SkillName::CONCEPTOR => self::CONCEPTOR_POINTS,
-            SkillName::SHOOTER => self::SHOOTER_POINTS,
-            SkillName::TECHNICIAN => self::TECHNICIAN_POINTS,
+            SkillEnum::CONCEPTOR => self::CONCEPTOR_POINTS,
+            SkillEnum::SHOOTER => self::SHOOTER_POINTS,
+            SkillEnum::TECHNICIAN => self::TECHNICIAN_POINTS,
             default => self::NULL,
         };
     }

@@ -16,7 +16,7 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Normalizer\ExplorationLogNormalizer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -46,9 +46,9 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     {
         // given explorator is a pilot
         $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillName::PILOT]),
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
         ]);
-        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::PILOT, player: $this->player);
+        $this->addSkillToPlayerUseCase->execute(skill: SkillEnum::PILOT, player: $this->player);
 
         // given exploration is created
         $this->exploration = $this->createExploration(

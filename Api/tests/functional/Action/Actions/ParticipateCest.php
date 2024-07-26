@@ -22,7 +22,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -370,10 +370,10 @@ final class ParticipateCest extends AbstractFunctionalTest
         // given KT is a Conceptor
         $this->addSkillToPlayerUseCase->execute(
             player: $this->kuanTi,
-            skillName: SkillName::CONCEPTOR,
+            skill: SkillEnum::CONCEPTOR,
         );
 
-        $conceptorSkill = $this->kuanTi->getSkillByNameOrThrow(SkillName::CONCEPTOR);
+        $conceptorSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::CONCEPTOR);
 
         // given KT has 4 Core points
         $I->assertEquals(

@@ -20,7 +20,7 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -57,12 +57,12 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         // given Chun and KT have pilot and shooter skills available
         $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillName::PILOT]),
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillName::SHOOTER]),
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHOOTER]),
         ]);
         $this->kuanTi->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillName::PILOT]),
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillName::SHOOTER]),
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHOOTER]),
         ]);
 
         // given Chun, Kuan-Ti, and Janice have a spacesuit
@@ -153,7 +153,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         foreach ([$this->chun, $this->kuanTi] as $player) {
             $this->addSkillToPlayerUseCase->execute(
                 player: $player,
-                skillName: SkillName::SHOOTER,
+                skill: SkillEnum::SHOOTER,
             );
         }
 
@@ -266,7 +266,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given Chun is a pilot to avoid damage at landing
         $this->addSkillToPlayerUseCase->execute(
             player: $this->chun,
-            skillName: SkillName::PILOT,
+            skill: SkillEnum::PILOT,
         );
 
         // given Chun has 14 health points
@@ -315,7 +315,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given Chun is a pilot to avoid damage at landing
         $this->addSkillToPlayerUseCase->execute(
             player: $this->chun,
-            skillName: SkillName::PILOT,
+            skill: SkillEnum::PILOT,
         );
 
         // given Chun has 14 health points
@@ -360,7 +360,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given Chun is a pilot to avoid damage at landing
         $this->addSkillToPlayerUseCase->execute(
             player: $this->chun,
-            skillName: SkillName::PILOT,
+            skill: SkillEnum::PILOT,
         );
 
         // given Chun has 14 health points

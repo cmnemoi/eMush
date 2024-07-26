@@ -11,7 +11,7 @@ use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\InMemoryPlayerRepository;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use PHPUnit\Framework\TestCase;
 
@@ -43,25 +43,25 @@ final class AddSkillToPlayerUseCaseTest extends TestCase
 
     public function testShouldAddSkillToPlayer(): void
     {
-        $this->whenIAddSkillToPlayer(SkillName::PILOT);
+        $this->whenIAddSkillToPlayer(SkillEnum::PILOT);
 
-        $this->thenPlayerShouldHaveSkill(SkillName::PILOT);
+        $this->thenPlayerShouldHaveSkill(SkillEnum::PILOT);
     }
 
     public function testShouldThrowWhenTryingToAddSkillIfNotInPlayerSkillConfigs(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $this->whenIAddSkillToPlayer(SkillName::ANONYMUSH);
+        $this->whenIAddSkillToPlayer(SkillEnum::ANONYMUSH);
     }
 
     public function testShouldNotAddSkillIfPlayerAlreadyHasIt(): void
     {
-        $this->givenPlayerHasSkill(SkillName::PILOT);
+        $this->givenPlayerHasSkill(SkillEnum::PILOT);
 
-        $this->whenIAddSkillToPlayer(SkillName::PILOT);
+        $this->whenIAddSkillToPlayer(SkillEnum::PILOT);
 
-        $this->thenPlayerShouldOnlyHaveOneSkill(SkillName::PILOT);
+        $this->thenPlayerShouldOnlyHaveOneSkill(SkillEnum::PILOT);
     }
 
     private function givenAPlayer(): Player
@@ -69,28 +69,28 @@ final class AddSkillToPlayerUseCaseTest extends TestCase
         return PlayerFactory::createPlayerByName(CharacterEnum::ANDIE);
     }
 
-    private function givenPlayerHasSkill(SkillName $skillName): void
+    private function givenPlayerHasSkill(SkillEnum $skill): void
     {
-        new Skill(new SkillConfig($skillName), $this->player);
+        new Skill(new SkillConfig($skill), $this->player);
     }
 
-    private function whenIAddSkillToPlayer(SkillName $skillName): void
+    private function whenIAddSkillToPlayer(SkillEnum $skill): void
     {
         $useCase = new AddSkillToPlayerUseCase(
             $this->createStub(EventServiceInterface::class),
             $this->playerRepository,
         );
-        $useCase->execute($skillName, $this->player);
+        $useCase->execute($skill, $this->player);
     }
 
-    private function thenPlayerShouldHaveSkill(SkillName $skillName): void
+    private function thenPlayerShouldHaveSkill(SkillEnum $skill): void
     {
         $player = $this->playerRepository->findOneByName($this->player->getName());
-        $addedSkill = $player->getSkillByNameOrThrow($skillName);
-        self::assertEquals($skillName, $addedSkill->getName());
+        $addedSkill = $player->getSkillByNameOrThrow($skill);
+        self::assertEquals($skill, $addedSkill->getName());
     }
 
-    private function thenPlayerShouldOnlyHaveOneSkill(SkillName $skillName): void
+    private function thenPlayerShouldOnlyHaveOneSkill(SkillEnum $skillName): void
     {
         $player = $this->playerRepository->findOneByName($this->player->getName());
         $skills = $player->getSkills();

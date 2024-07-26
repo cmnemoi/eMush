@@ -24,7 +24,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -290,14 +290,14 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     {
         // TODO Move that in the skill config data
         $skillsList = [
-            SkillName::BOTANIST->value => 'garden',
-            SkillName::CHEF->value => 'cook',
-            SkillName::CONCEPTOR->value => 'core',
-            SkillName::PHYSICIST->value => 'pilgred',
-            SkillName::IT_EXPERT->value => 'computer',
-            SkillName::NURSE->value => 'heal',
-            SkillName::TECHNICIAN->value => 'engineer',
-            SkillName::SHOOTER->value => 'shoot',
+            SkillEnum::BOTANIST->value => 'garden',
+            SkillEnum::CHEF->value => 'cook',
+            SkillEnum::CONCEPTOR->value => 'core',
+            SkillEnum::PHYSICIST->value => 'pilgred',
+            SkillEnum::IT_EXPERT->value => 'computer',
+            SkillEnum::NURSE->value => 'heal',
+            SkillEnum::TECHNICIAN->value => 'engineer',
+            SkillEnum::SHOOTER->value => 'shoot',
         ];
 
         $skillPoints = [];
@@ -312,9 +312,9 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     }
 
     /** @TODO: Move to a SkillNormalizer? */
-    private function getNormalizedSkillPoint(Player $player, string $language, string $skillName, string $skillId): ?array
+    private function getNormalizedSkillPoint(Player $player, string $language, string $skill, string $skillId): ?array
     {
-        $skill = $player->getSkillByNameOrNull(SkillName::from($skillName));
+        $skill = $player->getSkillByNameOrNull(SkillEnum::from($skill));
         if ($skill === null) {
             return null;
         }

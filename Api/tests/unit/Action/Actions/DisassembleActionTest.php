@@ -16,7 +16,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 
 /**
  * @internal
@@ -71,7 +71,7 @@ final class DisassembleActionTest extends AbstractActionTest
             ->setActionConfigs(new ArrayCollection([$this->actionConfig]))
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1]);
 
-        $player = $this->createPlayer($daedalus, $room, [SkillName::TECHNICIAN]);
+        $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
         $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
@@ -108,7 +108,7 @@ final class DisassembleActionTest extends AbstractActionTest
             ->setActionConfigs(new ArrayCollection([$this->actionConfig]))
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1]);
 
-        $player = $this->createPlayer($daedalus, $room, [SkillName::TECHNICIAN]);
+        $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
         $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);

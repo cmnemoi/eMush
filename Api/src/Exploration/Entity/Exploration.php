@@ -14,7 +14,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 #[ORM\Entity]
@@ -215,7 +215,7 @@ class Exploration
 
     public function hasAPilotAlive(): bool
     {
-        return $this->getAliveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillName::PILOT))->count() > 0;
+        return $this->getAliveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::PILOT))->count() > 0;
     }
 
     public function getEstimatedDuration(): int

@@ -13,7 +13,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -106,7 +106,7 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // given Kuan Ti is a technician
         $this->addSkillToPlayerUseCase->execute(
-            skillName: SkillName::TECHNICIAN,
+            skill: SkillEnum::TECHNICIAN,
             player: $this->kuanTi,
         );
 
@@ -132,12 +132,12 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // given Kuan Ti is a technician
         $this->addSkillToPlayerUseCase->execute(
-            skillName: SkillName::TECHNICIAN,
+            skill: SkillEnum::TECHNICIAN,
             player: $this->kuanTi,
         );
 
         // given Kuan Ti has two Technician points
-        $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillName::TECHNICIAN);
+        $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::TECHNICIAN);
         $I->assertEquals(2, $technicianSkill->getSkillPoints());
 
         // when Kuan Ti repairs the Mycoscan
@@ -160,12 +160,12 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // given Kuan Ti is a technician
         $this->addSkillToPlayerUseCase->execute(
-            skillName: SkillName::TECHNICIAN,
+            skill: SkillEnum::TECHNICIAN,
             player: $this->kuanTi,
         );
 
         // given Kuan Ti has two Technician points
-        $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillName::TECHNICIAN);
+        $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::TECHNICIAN);
         $I->assertEquals(2, $technicianSkill->getSkillPoints());
 
         // when Kuan Ti examines the Mycoscan

@@ -28,7 +28,7 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -510,7 +510,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     {
         return $this
             ->getPlayers()
-            ->getPlayersWithSkill(SkillName::SHRINK)
+            ->getPlayersWithSkill(SkillEnum::SHRINK)
             ->getPlayerAlive()
             ->getAllExcept($player);
     }

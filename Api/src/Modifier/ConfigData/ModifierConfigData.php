@@ -34,7 +34,7 @@ use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerService;
 use Mush\Project\Enum\ProjectName;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -2587,7 +2587,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_daedalus_+1moral_on_day_change',
-            'modifierName' => SkillName::MANKIND_ONLY_HOPE->value,
+            'modifierName' => SkillEnum::MANKIND_ONLY_HOPE->value,
             'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
@@ -2602,7 +2602,7 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 PlayerService::BASE_PLAYER_DAY_CHANGE => ModifierRequirementEnum::ALL_TAGS,
-                SkillName::MANKIND_ONLY_HOPE->value => ModifierRequirementEnum::NONE_TAGS,
+                SkillEnum::MANKIND_ONLY_HOPE->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [

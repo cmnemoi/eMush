@@ -10,7 +10,7 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -72,7 +72,7 @@ final class DisassembleCest extends AbstractFunctionalTest
         // given KT has the technician skill
         $this->addSkillToPlayerUseCase->execute(
             player: $this->kuanTi,
-            skillName: SkillName::TECHNICIAN,
+            skill: SkillEnum::TECHNICIAN,
         );
 
         // when KT tries to disassemble the shower

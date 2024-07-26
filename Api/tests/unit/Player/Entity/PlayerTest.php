@@ -13,7 +13,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\Skill\Entity\Skill;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -83,7 +83,7 @@ final class PlayerTest extends TestCase
         $this->setPlayerId($player, 1);
 
         // Given player has the Pilot skill
-        Skill::createByNameForPlayer(SkillName::PILOT, $player);
+        Skill::createByNameForPlayer(SkillEnum::PILOT, $player);
 
         // when I ask for the player's efficiency in Trail Reducer project
         $actualEfficiency = $player->getEfficiencyForProject(ProjectFactory::createTrailReducerProject());
@@ -103,8 +103,8 @@ final class PlayerTest extends TestCase
         $this->setPlayerId($player, 1);
 
         // Given player has the Pilot and Technician skills
-        Skill::createByNameForPlayer(SkillName::PILOT, $player);
-        Skill::createByNameForPlayer(SkillName::TECHNICIAN, $player);
+        Skill::createByNameForPlayer(SkillEnum::PILOT, $player);
+        Skill::createByNameForPlayer(SkillEnum::TECHNICIAN, $player);
 
         // when I ask for the player's efficiency in Trail Reducer project
         $actualEfficiency = $player->getEfficiencyForProject(ProjectFactory::createTrailReducerProject());

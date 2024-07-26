@@ -13,7 +13,7 @@ use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -41,10 +41,10 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given Chun and KT has the shrink skill available
         $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillName::SHRINK]),
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHRINK]),
         ]);
         $this->kuanTi->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillName::SHRINK]),
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHRINK]),
         ]);
     }
 
@@ -62,7 +62,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a shrink
         $this->addSkillToPlayerUseCase->execute(
-            SkillName::SHRINK,
+            SkillEnum::SHRINK,
             $this->kuanTi,
         );
 
@@ -100,7 +100,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a shrink
         $this->addSkillToPlayerUseCase->execute(
-            SkillName::SHRINK,
+            SkillEnum::SHRINK,
             $this->kuanTi,
         );
 
@@ -135,7 +135,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a shrink
         $this->addSkillToPlayerUseCase->execute(
-            SkillName::SHRINK,
+            SkillEnum::SHRINK,
             $this->kuanTi,
         );
 
@@ -178,7 +178,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a shrink
         $this->addSkillToPlayerUseCase->execute(
-            SkillName::SHRINK,
+            SkillEnum::SHRINK,
             $this->kuanTi,
         );
 
@@ -234,7 +234,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a shrink
         $this->addSkillToPlayerUseCase->execute(
-            SkillName::SHRINK,
+            SkillEnum::SHRINK,
             $this->kuanTi,
         );
 
@@ -280,7 +280,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a shrink
         $this->addSkillToPlayerUseCase->execute(
-            SkillName::SHRINK,
+            SkillEnum::SHRINK,
             $this->kuanTi,
         );
 
@@ -336,7 +336,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a shrink
         $this->addSkillToPlayerUseCase->execute(
-            SkillName::SHRINK,
+            SkillEnum::SHRINK,
             $this->kuanTi,
         );
 
@@ -382,7 +382,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given Chun is a shrink
         $this->addSkillToPlayerUseCase->execute(
-            SkillName::SHRINK,
+            SkillEnum::SHRINK,
             $this->chun,
         );
 
@@ -430,7 +430,7 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // given KT is a shrink
         $this->addSkillToPlayerUseCase->execute(
-            SkillName::SHRINK,
+            SkillEnum::SHRINK,
             $this->kuanTi,
         );
 

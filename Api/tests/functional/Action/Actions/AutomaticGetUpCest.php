@@ -27,7 +27,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -117,7 +117,7 @@ class AutomaticGetUpCest
         $I->haveInRepository($lyingDownStatus);
 
         $this->addSkillToPlayerUseCase->execute(
-            skillName: SkillName::TECHNICIAN,
+            skill: SkillEnum::TECHNICIAN,
             player: $player,
         );
 

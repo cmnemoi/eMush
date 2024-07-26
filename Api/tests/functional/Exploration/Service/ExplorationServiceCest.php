@@ -28,7 +28,7 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -377,7 +377,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
     {
         // given terrence is a pilot
         $terrence = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::TERRENCE);
-        $this->addSkillToPlayerUseCase->execute(SkillName::PILOT, $terrence);
+        $this->addSkillToPlayerUseCase->execute(SkillEnum::PILOT, $terrence);
 
         // given an exploration is created
         $exploration = $this->explorationService->createExploration(

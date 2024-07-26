@@ -32,7 +32,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -87,7 +87,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
         // given Terrence is a pilot so they can take off
         $this->addSkillToPlayerUseCase->execute(
-            skillName: SkillName::PILOT,
+            skill: SkillEnum::PILOT,
             player: $this->terrence,
         );
 

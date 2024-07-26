@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Modifier\Event;
 
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -25,38 +25,38 @@ final class AddSkillToPlayerUseCaseCest extends AbstractFunctionalTest
 
     public function shouldAddSkillToPlayer(FunctionalTester $I): void
     {
-        $this->whenIAddSkillToChun(SkillName::MANKIND_ONLY_HOPE);
+        $this->whenIAddSkillToChun(SkillEnum::MANKIND_ONLY_HOPE);
 
-        $this->thenChunHasSkill(SkillName::MANKIND_ONLY_HOPE, $I);
+        $this->thenChunHasSkill(SkillEnum::MANKIND_ONLY_HOPE, $I);
     }
 
     public function shouldCreateSkillModifierForDaedalus(FunctionalTester $I): void
     {
-        $this->whenIAddSkillToChun(SkillName::MANKIND_ONLY_HOPE);
+        $this->whenIAddSkillToChun(SkillEnum::MANKIND_ONLY_HOPE);
 
         $this->thenDaedalusShouldHaveOnlyHopeModifier($I);
     }
 
     public function shouldCreateSkillModifierForPlayer(FunctionalTester $I): void
     {
-        $this->whenIAddSkillToKuanTi(SkillName::TECHNICIAN);
+        $this->whenIAddSkillToKuanTi(SkillEnum::TECHNICIAN);
 
         $this->thenKuanTiShouldHaveTechnicianModifier($I);
     }
 
     public function shouldCreateSkillPointsForPlayer(FunctionalTester $I): void
     {
-        $this->whenIAddSkillToKuanTi(SkillName::TECHNICIAN);
+        $this->whenIAddSkillToKuanTi(SkillEnum::TECHNICIAN);
 
         $I->assertTrue($this->kuanTi->hasStatus(SkillPointsEnum::TECHNICIAN_POINTS->value));
     }
 
-    private function whenIAddSkillToChun(SkillName $skill): void
+    private function whenIAddSkillToChun(SkillEnum $skill): void
     {
-        $this->addSkillToPlayerUseCase->execute(skillName: $skill, player: $this->chun);
+        $this->addSkillToPlayerUseCase->execute($skill, player: $this->chun);
     }
 
-    private function thenChunHasSkill(SkillName $skill, FunctionalTester $I): void
+    private function thenChunHasSkill(SkillEnum $skill, FunctionalTester $I): void
     {
         $I->assertTrue($this->chun->hasSkill($skill));
     }
@@ -71,9 +71,9 @@ final class AddSkillToPlayerUseCaseCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenIAddSkillToKuanTi(SkillName $skill): void
+    private function whenIAddSkillToKuanTi(SkillEnum $skill): void
     {
-        $this->addSkillToPlayerUseCase->execute(skillName: $skill, player: $this->kuanTi);
+        $this->addSkillToPlayerUseCase->execute($skill, player: $this->kuanTi);
     }
 
     private function thenKuanTiShouldHaveTechnicianModifier(FunctionalTester $I): void

@@ -20,7 +20,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ActionNormalizer implements NormalizerInterface
@@ -246,9 +246,9 @@ class ActionNormalizer implements NormalizerInterface
     {
         /** @var ActionSkillPointRule[] $skillPointCostRules */
         $skillPointCostRules = [
-            new ActionSkillPointRule('shoot', SkillName::SHOOTER, [ActionTypeEnum::ACTION_SHOOT->value, ActionTypeEnum::ACTION_SHOOT_HUNTER->value]),
-            new ActionSkillPointRule('engineer', SkillName::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN->value]),
-            new ActionSkillPointRule('core', SkillName::CONCEPTOR, [ActionTypeEnum::ACTION_CONCEPTOR->value]),
+            new ActionSkillPointRule('shoot', SkillEnum::SHOOTER, [ActionTypeEnum::ACTION_SHOOT->value, ActionTypeEnum::ACTION_SHOOT_HUNTER->value]),
+            new ActionSkillPointRule('engineer', SkillEnum::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN->value]),
+            new ActionSkillPointRule('core', SkillEnum::CONCEPTOR, [ActionTypeEnum::ACTION_CONCEPTOR->value]),
         ];
 
         $skillPointCosts = [];

@@ -2,7 +2,7 @@
 
 namespace Mush\Skill\Enum;
 
-enum SkillName: string
+enum SkillEnum: string
 {
     case ANONYMUSH = 'anonymush';
     case ANTIQUE_PERFUME = 'antique_perfume';

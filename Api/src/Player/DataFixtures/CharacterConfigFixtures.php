@@ -21,7 +21,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Skill\DataFixtures\SkillConfigFixtures;
 use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -46,22 +46,22 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $trackerTalkieCollection = new ArrayCollection([$trackerConfig, $talkieConfig]);
 
         /** @var SkillConfig $pilotSkillConfig */
-        $pilotSkillConfig = $this->getReference(SkillName::PILOT->value);
+        $pilotSkillConfig = $this->getReference(SkillEnum::PILOT->value);
 
         /** @var SkillConfig $technicianSkillConfig */
-        $technicianSkillConfig = $this->getReference(SkillName::TECHNICIAN->value);
+        $technicianSkillConfig = $this->getReference(SkillEnum::TECHNICIAN->value);
 
         /** @var SkillConfig $mankindOnlyHopeSkillConfig */
-        $mankindOnlyHopeSkillConfig = $this->getReference(SkillName::MANKIND_ONLY_HOPE->value);
+        $mankindOnlyHopeSkillConfig = $this->getReference(SkillEnum::MANKIND_ONLY_HOPE->value);
 
         /** @var SkillConfig $shrinkSkillConfig */
-        $shrinkSkillConfig = $this->getReference(SkillName::SHRINK->value);
+        $shrinkSkillConfig = $this->getReference(SkillEnum::SHRINK->value);
 
         /** @var SkillConfig $conceptorSkillConfig */
-        $conceptorSkillConfig = $this->getReference(SkillName::CONCEPTOR->value);
+        $conceptorSkillConfig = $this->getReference(SkillEnum::CONCEPTOR->value);
 
         /** @var SkillConfig $shooterSkillConfig */
-        $shooterSkillConfig = $this->getReference(SkillName::SHOOTER->value);
+        $shooterSkillConfig = $this->getReference(SkillEnum::SHOOTER->value);
 
         $andie = $this->buildDefaultCharacterConfig();
         $andie

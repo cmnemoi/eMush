@@ -8,7 +8,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Skill\Entity\Skill;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Event\SkillAddedToPlayerEvent;
 
 final class AddSkillToPlayerUseCase
@@ -18,9 +18,9 @@ final class AddSkillToPlayerUseCase
         private PlayerRepositoryInterface $playerRepository
     ) {}
 
-    public function execute(SkillName $skillName, Player $player): void
+    public function execute(SkillEnum $skill, Player $player): void
     {
-        $skillConfig = $player->getSkillConfigByNameOrThrow($skillName);
+        $skillConfig = $player->getSkillConfigByNameOrThrow($skill);
         $skill = new Skill($skillConfig, $player);
 
         $this->playerRepository->save($player);

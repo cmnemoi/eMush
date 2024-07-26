@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Player\Entity\Player;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\SkillPointsEnum;
 
@@ -39,12 +39,12 @@ class Skill
         return new self(new SkillConfig(), $player);
     }
 
-    public static function createByNameForPlayer(SkillName $skillName, Player $player): self
+    public static function createByNameForPlayer(SkillEnum $skill, Player $player): self
     {
-        return new self(new SkillConfig($skillName), $player);
+        return new self(new SkillConfig($skill), $player);
     }
 
-    public function getName(): SkillName
+    public function getName(): SkillEnum
     {
         return $this->skillConfig->getName();
     }

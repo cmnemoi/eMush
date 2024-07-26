@@ -10,7 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
@@ -210,12 +210,12 @@ class CharacterConfig
         return $this;
     }
 
-    public function getSkillConfigByNameOrThrow(SkillName $skillName): SkillConfig
+    public function getSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
     {
-        $skillConfig = $this->skillConfigs->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $skillName)->first();
+        $skillConfig = $this->skillConfigs->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $skill)->first();
 
         if (!$skillConfig) {
-            throw new \InvalidArgumentException("{$skillName->value} skill is not available for {$this->name}.");
+            throw new \InvalidArgumentException("{$skill->value} skill is not available for {$this->name}.");
         }
 
         return $skillConfig;

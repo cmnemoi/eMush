@@ -17,7 +17,7 @@ use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -307,8 +307,8 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
     {
         // given I have a Shooter player
         $chao = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::CHAO);
-        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::SHOOTER, player: $chao);
-        $shooterSkill = $chao->getSkillByNameOrThrow(SkillName::SHOOTER);
+        $this->addSkillToPlayerUseCase->execute(skill: SkillEnum::SHOOTER, player: $chao);
+        $shooterSkill = $chao->getSkillByNameOrThrow(SkillEnum::SHOOTER);
 
         // given the player has 2 shoot points
         $shooterPointsStatus = $chao->getChargeStatusByNameOrThrow(SkillPointsEnum::SHOOTER_POINTS->toString());
@@ -423,7 +423,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
 
         // given Janice is a shrink
         $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
-        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::SHRINK, player: $janice);
+        $this->addSkillToPlayerUseCase->execute(skill: SkillEnum::SHRINK, player: $janice);
 
         // given Chun has 10 morale points
         $this->chun->setMoralPoint(10);
@@ -448,7 +448,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         );
 
         // given Janice is a shrink
-        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::SHRINK, player: $janice);
+        $this->addSkillToPlayerUseCase->execute(skill: SkillEnum::SHRINK, player: $janice);
 
         // given Janice has 10 morale points
         $janice->setMoralPoint(10);
@@ -464,7 +464,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
     public function mankindOnlyHopeShouldReduceDailyMoralePointLossByOne(FunctionalTester $I): void
     {
         // given Chun is the mankind only hope
-        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::MANKIND_ONLY_HOPE, player: $this->chun);
+        $this->addSkillToPlayerUseCase->execute(skill: SkillEnum::MANKIND_ONLY_HOPE, player: $this->chun);
 
         // given the daedalus is D1C8 so next cycle is a new day
         $this->daedalus->setDay(1);
@@ -492,12 +492,12 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
     public function twoMankindOnlyHopeShouldStillReduceDailyMoralePointLossByOne(FunctionalTester $I): void
     {
         // given Chun and Kuan Ti are the mankind only hopes
-        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::MANKIND_ONLY_HOPE, player: $this->chun);
+        $this->addSkillToPlayerUseCase->execute(skill: SkillEnum::MANKIND_ONLY_HOPE, player: $this->chun);
 
         $this->kuanTi->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(entity: SkillConfig::class, params: ['name' => SkillName::MANKIND_ONLY_HOPE->value]),
+            $I->grabEntityFromRepository(entity: SkillConfig::class, params: ['name' => SkillEnum::MANKIND_ONLY_HOPE->value]),
         ]);
-        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::MANKIND_ONLY_HOPE, player: $this->kuanTi);
+        $this->addSkillToPlayerUseCase->execute(skill: SkillEnum::MANKIND_ONLY_HOPE, player: $this->kuanTi);
 
         // given the daedalus is D1C8 so next cycle is a new day
         $this->daedalus->setDay(1);

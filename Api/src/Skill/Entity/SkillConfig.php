@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 #[ORM\Entity]
@@ -21,8 +21,8 @@ class SkillConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false, enumType: SkillName::class, options: ['default' => SkillName::NULL])]
-    private SkillName $name;
+    #[ORM\Column(type: 'string', length: 255, nullable: false, enumType: SkillEnum::class, options: ['default' => SkillEnum::NULL])]
+    private SkillEnum $name;
 
     #[ORM\ManyToOne(targetEntity: SpawnEquipmentConfig::class, cascade: ['persist'])]
     private ?SpawnEquipmentConfig $spawnEquipmentConfig;
@@ -37,7 +37,7 @@ class SkillConfig
     private Collection $actionConfigs;
 
     public function __construct(
-        SkillName $name = SkillName::NULL,
+        SkillEnum $name = SkillEnum::NULL,
         ArrayCollection $modifierConfigs = new ArrayCollection(),
         ArrayCollection $actionConfigs = new ArrayCollection(),
         ?SpawnEquipmentConfig $spawnEquipmentConfig = null,
@@ -58,7 +58,7 @@ class SkillConfig
         ]);
     }
 
-    public function getName(): SkillName
+    public function getName(): SkillEnum
     {
         return $this->name;
     }

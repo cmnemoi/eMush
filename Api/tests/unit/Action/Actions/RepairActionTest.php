@@ -13,7 +13,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Skill\Enum\SkillName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 /**
@@ -68,7 +68,7 @@ final class RepairActionTest extends AbstractActionTest
             ->setEquipment($item)
             ->setName('item');
 
-        $player = $this->createPlayer($daedalus, $room, [SkillName::TECHNICIAN]);
+        $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
         $room->setDaedalus($player->getDaedalus());
 
@@ -100,7 +100,7 @@ final class RepairActionTest extends AbstractActionTest
             ->setEquipment($item)
             ->setName('item');
 
-        $player = $this->createPlayer($daedalus, $room, [SkillName::TECHNICIAN]);
+        $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
         $room->setDaedalus($player->getDaedalus());
 

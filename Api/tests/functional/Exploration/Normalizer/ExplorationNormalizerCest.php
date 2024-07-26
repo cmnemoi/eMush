@@ -11,7 +11,9 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Normalizer\ExplorationNormalizer;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillName;
+use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
@@ -20,6 +22,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class ExplorationNormalizerCest extends AbstractExplorationTester
 {
+    private AddSkillToPlayerUseCase $addSkillToPlayerUseCase;
     private ExplorationNormalizer $explorationNormalizer;
     private NormalizerInterface $normalizer;
     private StatusServiceInterface $statusService;
@@ -31,6 +34,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
     {
         parent::_before($I);
 
+        $this->addSkillToPlayerUseCase = $I->grabService(AddSkillToPlayerUseCase::class);
         $this->explorationNormalizer = $I->grabService(ExplorationNormalizer::class);
         $this->normalizer = $I->grabService(NormalizerInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -38,12 +42,10 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
         $this->explorationNormalizer->setNormalizer($this->normalizer);
 
         // given Chun is a pilot so landing is always successful
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::PILOT,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
-        );
+        $this->chun->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillName::PILOT]),
+        ]);
+        $this->addSkillToPlayerUseCase->execute(SkillName::PILOT, $this->chun);
 
         // given a planet
         $this->planet = $this->createPlanet(

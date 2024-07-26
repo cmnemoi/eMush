@@ -29,6 +29,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Enum\SkillName;
+use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -38,6 +39,7 @@ use Mush\Tests\FunctionalTester;
 
 final class ExplorationServiceCest extends AbstractExplorationTester
 {
+    private AddSkillToPlayerUseCase $addSkillToPlayerUseCase;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
@@ -48,6 +50,8 @@ final class ExplorationServiceCest extends AbstractExplorationTester
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
+
+        $this->addSkillToPlayerUseCase = $I->grabService(AddSkillToPlayerUseCase::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -371,20 +375,16 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 
     public function testDispatchLandingEventAlwaysReturnsNothingToReportIfAPilotIsInTheExplorationTeam(FunctionalTester $I): void
     {
+        // given terrence is a pilot
+        $terrence = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::TERRENCE);
+        $this->addSkillToPlayerUseCase->execute(SkillName::PILOT, $terrence);
+
         // given an exploration is created
         $exploration = $this->explorationService->createExploration(
-            players: new PlayerCollection([$this->player1]),
+            players: new PlayerCollection([$terrence]),
             explorationShip: $this->icarus,
             numberOfSectorsToVisit: $this->planet->getSize(),
             reasons: ['test'],
-        );
-
-        // given the player is a pilot
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::PILOT,
-            holder: $this->player1,
-            tags: [],
-            time: new \DateTime(),
         );
 
         // when dispatchEvent is called

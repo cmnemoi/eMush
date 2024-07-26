@@ -31,7 +31,6 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
-use Mush\Skill\Enum\SkillName;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -526,27 +525,5 @@ final class StatusServiceCest extends AbstractFunctionalTest
         foreach ($this->players as $player) {
             $I->assertFalse($player->hasStatus(PlayerStatusEnum::STARVING));
         }
-    }
-
-    public function shouldNotCreateSkillIfPlayerAlreadyHasIt(FunctionalTester $I): void
-    {
-        // given player is a technician
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::TECHNICIAN,
-            holder: $this->player,
-            tags: [],
-            time: new \DateTime(),
-        );
-
-        // when we try to create technician skill again
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::TECHNICIAN,
-            holder: $this->player,
-            tags: [],
-            time: new \DateTime(),
-        );
-
-        // then player should have only one technician skill
-        $I->assertCount(1, $this->player->getSkills());
     }
 }

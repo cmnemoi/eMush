@@ -86,7 +86,7 @@ final class AddSkillToPlayerUseCaseTest extends TestCase
     private function thenPlayerShouldHaveSkill(SkillName $skillName): void
     {
         $player = $this->playerRepository->findOneByName($this->player->getName());
-        $addedSkill = $player->getSkillByName($skillName);
+        $addedSkill = $player->getSkillByNameOrThrow($skillName);
         self::assertEquals($skillName, $addedSkill->getName());
     }
 

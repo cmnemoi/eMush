@@ -9,6 +9,7 @@ use Mush\Action\Actions\TakeoffToPlanet;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Daedalus\Enum\NeronCrewLockEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -35,7 +36,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
-use Mush\Skill\Enum\SkillName;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -86,18 +86,16 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
         $this->createPlanetForTest($I);
 
-        // given player1 is a pilot so they can takeoff to planet
-        $this->statusService->createStatusFromName(
-            SkillName::PILOT,
-            $this->player1,
-            [],
-            new \DateTime()
-        );
+        // given neron crew lock is not on piloting so non-pilots can take off
+        $this->setNeronCrewLock(NeronCrewLockEnum::NULL);
     }
 
     public function shouldNotBeExecutableIfPlayerIsNotAPilot(FunctionalTester $I): void
     {
-        // given KT is not a pilot (default)
+        // given Neron crew lock is on piloting
+        $this->setNeronCrewLock(NeronCrewLockEnum::PILOTING);
+
+        // given KT is not a pilot (nothing to do)
 
         // when KT tries to take off
         $this->takeoffToPlanetAction->loadParameters(
@@ -598,5 +596,11 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime(),
         );
+    }
+
+    private function setNeronCrewLock(NeronCrewLockEnum $crewLock): void
+    {
+        $neron = $this->daedalus->getNeron();
+        (new \ReflectionProperty($neron, 'crewLock'))->setValue($neron, $crewLock);
     }
 }

@@ -5,6 +5,7 @@ namespace Mush\Tests\functional\Player\Event;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -15,10 +16,12 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillName;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -28,6 +31,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class PlayerCycleEventCest extends AbstractFunctionalTest
 {
+    private AddSkillToPlayerUseCase $addSkillToPlayerUseCase;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
@@ -37,6 +41,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
+        $this->addSkillToPlayerUseCase = $I->grabService(AddSkillToPlayerUseCase::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -301,36 +306,33 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
     public function testShooterGetsShootPointsAtDayChange(FunctionalTester $I): void
     {
         // given I have a Shooter player
-        /** @var ChargeStatus $shooterSkill * */
-        $shooterSkill = $this->statusService->createStatusFromName(
-            statusName: SkillName::SHOOTER,
-            holder: $this->player,
-            tags: [],
-            time: new \DateTime()
-        );
+        $chao = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::CHAO);
+        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::SHOOTER, player: $chao);
+        $shooterSkill = $chao->getSkillByNameOrThrow(SkillName::SHOOTER);
 
-        // given the player has 1 shoot points
-        $this->statusService->updateCharge($shooterSkill, -1, tags: [], time: new \DateTime());
-        $I->assertEquals(expected: $shooterSkill->getCharge(), actual: 1);
+        // given the player has 2 shoot points
+        $shooterPointsStatus = $chao->getChargeStatusByNameOrThrow(SkillPointsEnum::SHOOTER_POINTS->toString());
+        $this->statusService->updateCharge($shooterPointsStatus, -2, tags: [], time: new \DateTime());
+        $I->assertEquals(expected: $shooterSkill->getSkillPoints(), actual: 2);
 
         // when a new day event is triggered
         $event = new PlayerCycleEvent(
-            $this->player,
+            $chao,
             [EventEnum::NEW_CYCLE, EventEnum::NEW_DAY],
             new \DateTime()
         );
         $this->eventService->callEvent($event, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
-        // then player should have 3 shoot points
-        $I->assertEquals(expected: 3, actual: $shooterSkill->getCharge());
+        // then player should have 4 shoot points
+        $I->assertEquals(expected: $shooterSkill->getSkillPoints(), actual: 4);
 
         // then I should see a private log informing for the gain
         /** @var RoomLog $roomlog * */
         $roomLog = $I->grabEntityFromRepository(
             entity: RoomLog::class,
             params: [
-                'place' => $this->player->getPlace()->getLogName(),
-                'playerInfo' => $this->player->getPlayerInfo(),
+                'place' => $chao->getPlace()->getLogName(),
+                'playerInfo' => $chao->getPlayerInfo(),
                 'log' => StatusEventLogEnum::GAIN_SHOOT_POINT,
                 'visibility' => VisibilityEnum::PRIVATE,
             ]
@@ -419,13 +421,9 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
             time: new \DateTime()
         );
 
-        // given KT is a shrink
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::SHRINK,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime()
-        );
+        // given Janice is a shrink
+        $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
+        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::SHRINK, player: $janice);
 
         // given Chun has 10 morale points
         $this->chun->setMoralPoint(10);
@@ -440,42 +438,33 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
 
     public function shouldNotGiveOneMoralePointToLaidDownShrinkPlayersWithShrinkInTheRoom(FunctionalTester $I): void
     {
-        // given Chun is lying down
+        // given Janice is lying down
+        $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::LYING_DOWN,
-            holder: $this->chun,
+            holder: $janice,
             tags: [],
             time: new \DateTime()
         );
 
-        // given Chun is a shrink
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::SHRINK,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
-        );
+        // given Janice is a shrink
+        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::SHRINK, player: $janice);
 
-        // given Chun has 10 morale points
-        $this->chun->setMoralPoint(10);
+        // given Janice has 10 morale points
+        $janice->setMoralPoint(10);
 
         // when cycle change is triggered
-        $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
+        $cycleEvent = new PlayerCycleEvent($janice, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
-        // then Chun should have 10 morale points
-        $I->assertEquals(10, $this->chun->getMoralPoint());
+        // then Janice should have 10 morale points
+        $I->assertEquals(10, $janice->getMoralPoint());
     }
 
     public function mankindOnlyHopeShouldReduceDailyMoralePointLossByOne(FunctionalTester $I): void
     {
         // given Chun is the mankind only hope
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::MANKIND_ONLY_HOPE,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
-        );
+        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::MANKIND_ONLY_HOPE, player: $this->chun);
 
         // given the daedalus is D1C8 so next cycle is a new day
         $this->daedalus->setDay(1);
@@ -503,18 +492,12 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
     public function twoMankindOnlyHopeShouldStillReduceDailyMoralePointLossByOne(FunctionalTester $I): void
     {
         // given Chun and Kuan Ti are the mankind only hopes
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::MANKIND_ONLY_HOPE,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::MANKIND_ONLY_HOPE,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime()
-        );
+        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::MANKIND_ONLY_HOPE, player: $this->chun);
+
+        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(entity: SkillConfig::class, params: ['name' => SkillName::MANKIND_ONLY_HOPE->value]),
+        ]);
+        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::MANKIND_ONLY_HOPE, player: $this->kuanTi);
 
         // given the daedalus is D1C8 so next cycle is a new day
         $this->daedalus->setDay(1);

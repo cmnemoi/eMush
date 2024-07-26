@@ -432,11 +432,22 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return new ArrayCollection($this->skills->toArray());
     }
 
-    public function getSkillByName(SkillName $name): Skill
+    public function getSkillByNameOrNull(SkillName $name): ?Skill
     {
         $skill = $this->getSkills()->filter(static fn (Skill $skill) => $skill->getName() === $name)->first();
 
-        return $skill ?: Skill::createNullForPlayer($this);
+        return $skill ?: null;
+    }
+
+    public function getSkillByNameOrThrow(SkillName $name): Skill
+    {
+        $skill = $this->getSkillByNameOrNull($name);
+
+        if ($skill === null) {
+            throw new \Exception('The player does not have the skill ' . $name->value);
+        }
+
+        return $skill;
     }
 
     public function cannotTakeSkill(SkillName $skillName): bool

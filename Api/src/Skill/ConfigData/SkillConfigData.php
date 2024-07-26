@@ -46,7 +46,6 @@ abstract class SkillConfigData
             new SkillConfigDto(
                 name: SkillName::TECHNICIAN,
                 modifierConfigs: [
-                    'modifier_for_player_x1.5percentage_on_action_technician',
                     'modifier_technician_double_repair_and_renovate_chance',
                 ],
                 skillPointsConfig: SkillPointsEnum::TECHNICIAN_POINTS,

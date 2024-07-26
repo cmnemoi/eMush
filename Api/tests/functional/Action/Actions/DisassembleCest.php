@@ -11,7 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Skill\Enum\SkillName;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -23,8 +23,8 @@ final class DisassembleCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private Disassemble $disassembleAction;
 
+    private AddSkillToPlayerUseCase $addSkillToPlayerUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -33,8 +33,8 @@ final class DisassembleCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::DISASSEMBLE->value . '_percent_25_cost_3']);
         $this->disassembleAction = $I->grabService(Disassemble::class);
 
+        $this->addSkillToPlayerUseCase = $I->grabService(AddSkillToPlayerUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldNotBeVisibleIfPlayerIsNotATechnician(FunctionalTester $I): void
@@ -61,27 +61,25 @@ final class DisassembleCest extends AbstractFunctionalTest
 
     public function shouldBeVisibleIfPlayerIsATechnician(FunctionalTester $I): void
     {
-        // given a shower in Chun's room
+        // given a shower in KT's room
         $shower = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::SHOWER,
-            equipmentHolder: $this->chun->getPlace(),
+            equipmentHolder: $this->kuanTi->getPlace(),
             reasons: [],
             time: new \DateTime(),
         );
 
-        // given Chun has the technician skill
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::TECHNICIAN,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime(),
+        // given KT has the technician skill
+        $this->addSkillToPlayerUseCase->execute(
+            player: $this->kuanTi,
+            skillName: SkillName::TECHNICIAN,
         );
 
-        // when Chun tries to disassemble the PILGRED terminal
+        // when KT tries to disassemble the shower
         $this->disassembleAction->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $shower,
-            player: $this->chun,
+            player: $this->kuanTi,
             target: $shower
         );
 

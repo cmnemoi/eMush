@@ -63,7 +63,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
                     $player->getDaedalus()->getLanguage()
                 ),
             ],
-            'skills' => $this->getNormalizedPlayerSkills($player, $format, $context),
+            'skills' => $this->getNormalizedPlayerSkills($player),
         ];
 
         if (isset($context['currentPlayer'])) {
@@ -99,7 +99,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
             }
 
             $playerData['statuses'] = $statuses;
-            $playerData['skills'] = $this->getNormalizedPlayerSkills($player, $format, $context);
+            $playerData['skills'] = $this->getNormalizedPlayerSkills($player);
             $playerData['titles'] = $titles;
             $playerData['actions'] = $this->getNormalizedActions($player, ActionHolderEnum::OTHER_PLAYER, $currentPlayer, $format, $context);
         }
@@ -107,14 +107,15 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         return $playerData;
     }
 
-    private function getNormalizedPlayerSkills(Player $player, ?string $format = null, array $context = []): array
+    private function getNormalizedPlayerSkills(Player $player): array
     {
         $skills = [];
         foreach ($player->getSkills() as $skill) {
-            $normedSkill = $this->normalizer->normalize($skill, $format, array_merge($context, ['currentPlayer' => $player]));
-            if (\is_array($normedSkill) && \count($normedSkill) > 0) {
-                $skills[] = $normedSkill;
-            }
+            $skills[] = [
+                'key' => $skill->getNameAsString(),
+                'name' => $this->translationService->translate($skill->getNameAsString() . '.name', [], 'skill', $player->getDaedalus()->getLanguage()),
+                'description' => $this->translationService->translate($skill->getNameAsString() . '.description', [], 'skill', $player->getDaedalus()->getLanguage()),
+            ];
         }
 
         return $skills;

@@ -314,8 +314,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     /** @TODO: Move to a SkillNormalizer? */
     private function getNormalizedSkillPoint(Player $player, string $language, string $skillName, string $skillId): ?array
     {
-        $skill = $player->getSkillByName(SkillName::from($skillName));
-        if ($skill->isNull()) {
+        $skill = $player->getSkillByNameOrNull(SkillName::from($skillName));
+        if ($skill === null) {
             return null;
         }
 

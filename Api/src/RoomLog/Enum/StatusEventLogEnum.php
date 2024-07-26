@@ -5,9 +5,9 @@ namespace Mush\RoomLog\Enum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Event\HunterEvent;
-use Mush\Skill\Enum\SkillName;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Event\StatusEvent;
 
 abstract class StatusEventLogEnum
@@ -17,7 +17,9 @@ abstract class StatusEventLogEnum
     public const EQUIPMENT_BROKEN = 'equipment_broken';
     public const STUCK_IN_THE_SHIP = 'stuck_in_the_ship';
     public const GET_UP_BED_BROKEN = 'get_up_bed_broken';
+    public const GAIN_CONCEPTOR_POINT = 'gain_conceptor_point';
     public const GAIN_SHOOT_POINT = 'gain_shoot_point';
+    public const GAIN_TECHNICIAN_POINT = 'gain_technician_point';
     public const LOST_IN_EXPLORATION = 'lost_in_exploration';
     public const PLAYER_FALL_ASLEEP = 'player_fall_asleep';
     public const PLAYER_WAKE_UP = 'player_wake_up';
@@ -55,8 +57,20 @@ abstract class StatusEventLogEnum
 
     public const CHARGE_STATUS_UPDATED_LOGS = [
         self::GAIN => [
-            SkillName::SHOOTER->value => self::GAIN_SHOOT_POINT,
+            self::VALUE => [
+                SkillPointsEnum::CONCEPTOR_POINTS->value => self::GAIN_CONCEPTOR_POINT,
+                SkillPointsEnum::SHOOTER_POINTS->value => self::GAIN_SHOOT_POINT,
+                SkillPointsEnum::TECHNICIAN_POINTS->value => self::GAIN_TECHNICIAN_POINT,
+            ],
+            self::VISIBILITY => [
+                SkillPointsEnum::CONCEPTOR_POINTS->value => VisibilityEnum::PRIVATE,
+                SkillPointsEnum::SHOOTER_POINTS->value => VisibilityEnum::PRIVATE,
+                SkillPointsEnum::TECHNICIAN_POINTS->value => VisibilityEnum::PRIVATE,
+            ],
         ],
-        self::LOSS => [],
+        self::LOSS => [
+            self::VALUE => [],
+            self::VISIBILITY => [],
+        ],
     ];
 }

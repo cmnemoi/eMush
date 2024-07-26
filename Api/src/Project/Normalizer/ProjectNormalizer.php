@@ -10,6 +10,7 @@ use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
+use Mush\Skill\Enum\SkillName;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -135,16 +136,16 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
     private function getTranslatedSkills(array $skills, string $language): array
     {
         return array_map(
-            fn ($skill) => [
-                'key' => $skill,
+            fn (SkillName $skill) => [
+                'key' => $skill->toString(),
                 'name' => $this->translationService->translate(
-                    key: "{$skill}.name",
+                    key: "{$skill->toString()}.name",
                     parameters: [],
                     domain: 'skill',
                     language: $language
                 ),
                 'description' => $this->translationService->translate(
-                    key: "{$skill}.description",
+                    key: "{$skill->toString()}.description",
                     parameters: [],
                     domain: 'skill',
                     language: $language

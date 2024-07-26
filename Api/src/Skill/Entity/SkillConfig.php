@@ -50,6 +50,14 @@ class SkillConfig
         $this->skillPointsConfig = $skillPointsConfig;
     }
 
+    public function __toString()
+    {
+        return json_encode([
+            // 'id' => $this->id,
+            'name' => $this->name,
+        ]);
+    }
+
     public function getName(): SkillName
     {
         return $this->name;

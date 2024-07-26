@@ -78,9 +78,4 @@ class Skill
             SkillPointsEnum::fromSkill($this)->toString()
         )?->getCharge() ?? 0;
     }
-
-    public function isNull(): bool
-    {
-        return $this->getName() === SkillName::NULL;
-    }
 }

@@ -271,9 +271,9 @@ class ActionNormalizer implements NormalizerInterface
             return null;
         }
 
-        $skill = $currentPlayer->getSkillByName($skillPointCostRule->skill);
+        $skill = $currentPlayer->getSkillByNameOrNull($skillPointCostRule->skill);
 
-        if ($skill->getSkillPoints() > 0 && $currentPlayer->hasSkill($skillPointCostRule->skill)) {
+        if ($skill?->getSkillPoints() > 0 && $currentPlayer->hasSkill($skillPointCostRule->skill)) {
             return 1;
         }
 

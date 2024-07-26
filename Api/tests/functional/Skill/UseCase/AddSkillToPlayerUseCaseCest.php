@@ -41,7 +41,7 @@ final class AddSkillToPlayerUseCaseCest extends AbstractFunctionalTest
     {
         $this->whenIAddSkillToKuanTi(SkillName::TECHNICIAN);
 
-        $this->thenKuanTiShouldHaveTechnicianModifiers($I);
+        $this->thenKuanTiShouldHaveTechnicianModifier($I);
     }
 
     public function shouldCreateSkillPointsForPlayer(FunctionalTester $I): void
@@ -76,15 +76,8 @@ final class AddSkillToPlayerUseCaseCest extends AbstractFunctionalTest
         $this->addSkillToPlayerUseCase->execute(skillName: $skill, player: $this->kuanTi);
     }
 
-    private function thenKuanTiShouldHaveTechnicianModifiers(FunctionalTester $I): void
+    private function thenKuanTiShouldHaveTechnicianModifier(FunctionalTester $I): void
     {
-        $I->assertCount(
-            expectedCount: 1,
-            haystack: $this->kuanTi->getModifiers()->filter(
-                static fn ($modifier) => $modifier->getModifierConfig()->getName() === 'modifier_for_player_x1.5percentage_on_action_technician'
-            )
-        );
-
         $I->assertCount(
             expectedCount: 1,
             haystack: $this->kuanTi->getModifiers()->filter(

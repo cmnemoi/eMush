@@ -11,6 +11,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Enum\NeronCrewLockEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -20,16 +21,19 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillName;
+use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -49,16 +53,22 @@ final class TakeoffActionCest extends AbstractFunctionalTest
     private GameEquipment $pasiphae;
     private ChargeStatus $pasiphaeArmor;
 
+    private AddSkillToPlayerUseCase $addSkillToPlayerUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+
+    private Player $terrence;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $this->createExtraRooms($I, $this->daedalus);
 
+        $this->addSkillToPlayerUseCase = $I->grabService(AddSkillToPlayerUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        $this->terrence = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::TERRENCE);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
         $this->pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
@@ -75,12 +85,10 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         );
         $I->haveInRepository($this->pasiphae);
 
-        // given player1 is a pilot so they can take off
-        $this->statusService->createStatusFromName(
-            SkillName::PILOT,
-            $this->player1,
-            [],
-            new \DateTime()
+        // given Terrence is a pilot so they can take off
+        $this->addSkillToPlayerUseCase->execute(
+            skillName: SkillName::PILOT,
+            player: $this->terrence,
         );
 
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKEOFF]);
@@ -126,7 +134,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $pasiphae,
-            player: $this->player1,
+            player: $this->terrence,
             target: $pasiphae
         );
         $I->assertTrue($this->takeoffAction->isVisible());
@@ -135,25 +143,25 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $result = $this->takeoffAction->execute();
 
         $I->assertEquals(
-            $this->player1->getActionPoint(),
-            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
+            $this->terrence->getActionPoint(),
+            $this->terrence->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
         );
 
         $I->assertInstanceOf(CriticalSuccess::class, $result);
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::LABORATORY,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
+            'playerInfo' => $this->terrence->getPlayerInfo(),
             'log' => ActionLogEnum::TAKEOFF_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
         $I->assertEquals(
-            $this->player1->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getInitHull(),
-            $this->player1->getDaedalus()->getHull()
+            $this->terrence->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getInitHull(),
+            $this->terrence->getDaedalus()->getHull()
         );
         $I->assertEquals(
-            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
-            $this->player1->getHealthPoint()
+            $this->terrence->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
+            $this->terrence->getHealthPoint()
         );
         $I->assertEquals(
             $pasiphaeArmor->getThreshold(),
@@ -162,7 +170,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(RoomLog::class, [
             'place' => RoomEnum::PASIPHAE,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
+            'playerInfo' => $this->terrence->getPlayerInfo(),
             'log' => ActionLogEnum::TAKEOFF_NO_PILOT,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -173,7 +181,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
     public function testTakeoffSuccess(FunctionalTester $I): void
     {
         $this->action->setCriticalRate(0);
-        $I->haveInRepository($this->action);
+        $this->setNeronCrewLock(NeronCrewLockEnum::NULL);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
@@ -193,7 +201,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $pasiphae,
-            player: $this->player1,
+            player: $this->chun,
             target: $pasiphae
         );
         $I->assertTrue($this->takeoffAction->isVisible());
@@ -202,12 +210,12 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $result = $this->takeoffAction->execute();
 
         $I->assertEquals(
-            $this->player1->getActionPoint(),
-            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
+            $this->chun->getActionPoint(),
+            $this->chun->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
         );
         $I->assertNotEquals(
-            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
-            $this->player1->getHealthPoint()
+            $this->chun->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
+            $this->chun->getHealthPoint()
         );
         $I->assertNotEquals(
             $pasiphaeArmor->getThreshold(),
@@ -218,20 +226,20 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::LABORATORY,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
+            'playerInfo' => $this->chun->getPlayerInfo(),
             'log' => ActionLogEnum::TAKEOFF_NO_PILOT,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::PASIPHAE,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
+            'playerInfo' => $this->chun->getPlayerInfo(),
             'log' => LogEnum::PATROL_DAMAGE,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
         $I->assertNotEquals(
-            $this->player1->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getInitHull(),
-            $this->player1->getDaedalus()->getHull()
+            $this->chun->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getInitHull(),
+            $this->chun->getDaedalus()->getHull()
         );
     }
 
@@ -265,7 +273,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $pasiphae,
-            player: $this->player1,
+            player: $this->terrence,
             target: $pasiphae
         );
         $this->takeoffAction->execute();
@@ -305,13 +313,13 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $pasiphae,
-            player: $this->player1,
+            player: $this->terrence,
             target: $pasiphae
         );
         $this->takeoffAction->execute();
 
         // then the extinguisher is dropped in the take off room
-        $I->assertFalse($this->player1->hasEquipmentByName(ToolItemEnum::EXTINGUISHER));
+        $I->assertFalse($this->terrence->hasEquipmentByName(ToolItemEnum::EXTINGUISHER));
     }
 
     public function testTakeOffActionDropCriticalItemsIfPlayerIsMush(FunctionalTester $I): void
@@ -333,16 +341,15 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->haveInRepository($pasiphaeArmor);
 
         // given player has the extinguisher and the hacker kit in their inventory
-        $takeOffRoom = $this->player->getPlace();
         $extinguisherConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => ToolItemEnum::EXTINGUISHER]);
-        $extinguisher = new GameItem($this->player);
+        $extinguisher = new GameItem($this->terrence);
         $extinguisher
             ->setName(ToolItemEnum::EXTINGUISHER)
             ->setEquipment($extinguisherConfig);
         $I->haveInRepository($extinguisher);
 
         $hackerKitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => ToolItemEnum::HACKER_KIT]);
-        $hackerKit = new GameItem($this->player);
+        $hackerKit = new GameItem($this->terrence);
         $hackerKit
             ->setName(ToolItemEnum::HACKER_KIT)
             ->setEquipment($hackerKitConfig);
@@ -351,7 +358,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         // given player is Mush
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::MUSH,
-            $this->player,
+            $this->terrence,
             [],
             new \DateTime()
         );
@@ -360,18 +367,21 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $pasiphae,
-            player: $this->player1,
+            player: $this->terrence,
             target: $pasiphae
         );
         $this->takeoffAction->execute();
 
         // then the hacker kit is dropped in the take off room but not the extinguisher
-        $I->assertFalse($this->player1->hasEquipmentByName(ToolItemEnum::HACKER_KIT));
-        $I->assertTrue($this->player1->hasEquipmentByName(ToolItemEnum::EXTINGUISHER));
+        $I->assertFalse($this->terrence->hasEquipmentByName(ToolItemEnum::HACKER_KIT));
+        $I->assertTrue($this->terrence->hasEquipmentByName(ToolItemEnum::EXTINGUISHER));
     }
 
     public function shouldDestroyPatrolShipIfNoEnoughArmor(FunctionalTester $I): void
     {
+        // given NERON crew lock is not on piloting so non-pilots can take off
+        $this->setNeronCrewLock(NeronCrewLockEnum::NULL);
+
         // given takeoff action has a 0% critical rate so it will fail
         $this->action->setCriticalRate(0);
 
@@ -382,7 +392,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
-            player: $this->player1,
+            player: $this->player,
             target: $this->pasiphae
         );
         $this->takeoffAction->execute();
@@ -393,6 +403,9 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
     public function shouldKillPlayerWithoutSpacesuitIfPatrolShipExplodes(FunctionalTester $I): void
     {
+        // given NERON crew lock is not on piloting so non-pilots can take off
+        $this->setNeronCrewLock(NeronCrewLockEnum::NULL);
+
         // given takeoff action has a 0% critical rate so it will fail
         $this->action->setCriticalRate(0);
 
@@ -403,7 +416,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
-            player: $this->player1,
+            player: $this->player,
             target: $this->pasiphae
         );
         $this->takeoffAction->execute();
@@ -417,6 +430,9 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
     public function shouldNotKillPlayerWithSpacesuitIfPatrolShipExplodes(FunctionalTester $I): void
     {
+        // given NERON crew lock is not on piloting so non-pilots can take off
+        $this->setNeronCrewLock(NeronCrewLockEnum::NULL);
+
         // given takeoff action has a 0% critical rate so it will fail
         $this->action->setCriticalRate(0);
 
@@ -435,7 +451,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
-            player: $this->player1,
+            player: $this->player,
             target: $this->pasiphae
         );
         $this->takeoffAction->execute();
@@ -446,6 +462,9 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
     public function shouldMovePatrolShipContentInSpaceIfPatrolShipExplodes(FunctionalTester $I): void
     {
+        // given NERON crew lock is not on piloting so non-pilots can take off
+        $this->setNeronCrewLock(NeronCrewLockEnum::NULL);
+
         // given takeoff action has a 0% critical rate so it will fail
         $this->action->setCriticalRate(0);
 
@@ -464,7 +483,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
-            player: $this->player1,
+            player: $this->player,
             target: $this->pasiphae
         );
         $this->takeoffAction->execute();
@@ -478,17 +497,20 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
     public function shouldKillPlayerByInjuryIfTheyDontHaveHealthPoints(FunctionalTester $I): void
     {
+        // given NERON crew lock is not on piloting so non-pilots can take off
+        $this->setNeronCrewLock(NeronCrewLockEnum::NULL);
+
         // given takeoff action has a 0% critical rate so it will fail
         $this->action->setCriticalRate(0);
 
         // given player has only one health point
-        $this->player1->setHealthPoint(1);
+        $this->player->setHealthPoint(1);
 
         // when player takeoffs
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
-            player: $this->player1,
+            player: $this->player,
             target: $this->pasiphae
         );
         $this->takeoffAction->execute();
@@ -496,12 +518,15 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         // then player is dead from injury
         $I->assertEquals(
             expected: EndCauseEnum::INJURY,
-            actual: $this->player1->getPlayerInfo()->getClosedPlayer()->getEndCause(),
+            actual: $this->player->getPlayerInfo()->getClosedPlayer()->getEndCause(),
         );
     }
 
     public function shouldHaveIncreasedChanceOfCriticalSuccessWithBayDoorXXLProject(FunctionalTester $I): void
     {
+        // given NERON crew lock is not on piloting so non-pilots can take off
+        $this->setNeronCrewLock(NeronCrewLockEnum::NULL);
+
         // given takeoff action has a 75% critical rate
         $this->action->setCriticalRate(75);
 
@@ -516,7 +541,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
-            player: $this->player1,
+            player: $this->player,
             target: $this->pasiphae
         );
         $result = $this->takeoffAction->execute();
@@ -530,27 +555,27 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         // given takeoff action cost is 2 action points
         $I->assertEquals(2, $this->action->getActionCost());
 
-        // given player has 2 action points
-        $this->player->setActionPoint(2);
+        // given terrence has 2 action points
+        $this->terrence->setActionPoint(2);
 
         // given Patrol ship launcher project is finished
         $this->finishProject(
             project: $this->daedalus->getProjectByName(ProjectName::PATROL_SHIP_LAUNCHER),
-            author: $this->player,
+            author: $this->terrence,
             I: $I
         );
 
-        // when player takeoffs
+        // when terrence takeoffs
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->pasiphae,
-            player: $this->player,
+            player: $this->terrence,
             target: $this->pasiphae
         );
         $this->takeoffAction->execute();
 
-        // then player should have 1 action point left
-        $I->assertEquals(1, $this->player->getActionPoint());
+        // then terrence should have 1 action point left
+        $I->assertEquals(1, $this->terrence->getActionPoint());
     }
 
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void
@@ -565,5 +590,11 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->haveInRepository($pasiphaeRoom);
 
         $I->haveInRepository($daedalus);
+    }
+
+    private function setNeronCrewLock(NeronCrewLockEnum $crewLock): void
+    {
+        $neron = $this->daedalus->getNeron();
+        (new \ReflectionProperty($neron, 'crewLock'))->setValue($neron, $crewLock);
     }
 }

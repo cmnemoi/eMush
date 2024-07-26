@@ -12,7 +12,9 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillName;
+use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -23,6 +25,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class DisorderCest extends AbstractFunctionalTest
 {
+    private AddSkillToPlayerUseCase $addSkillToPlayerUseCase;
     private EventServiceInterface $eventService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private StatusServiceInterface $statusService;
@@ -31,9 +34,18 @@ final class DisorderCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
+        $this->addSkillToPlayerUseCase = $I->grabService(AddSkillToPlayerUseCase::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        // given Chun and KT has the shrink skill available
+        $this->chun->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillName::SHRINK]),
+        ]);
+        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillName::SHRINK]),
+        ]);
     }
 
     public function shouldHaveDiseasePointDecreasedWhenPlayerSleepsInAShrinkRoom(FunctionalTester $I): void
@@ -48,12 +60,10 @@ final class DisorderCest extends AbstractFunctionalTest
         // given disorder has 5 disease points
         $disorder->setDiseasePoint(5);
 
-        // given KT is a psy
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::SHRINK,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime(),
+        // given KT is a shrink
+        $this->addSkillToPlayerUseCase->execute(
+            SkillName::SHRINK,
+            $this->kuanTi,
         );
 
         // given Chun is lying down
@@ -88,12 +98,10 @@ final class DisorderCest extends AbstractFunctionalTest
         // given disorder has 1 disease point
         $disorder->setDiseasePoint(1);
 
-        // given KT is a psy
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::SHRINK,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime(),
+        // given KT is a shrink
+        $this->addSkillToPlayerUseCase->execute(
+            SkillName::SHRINK,
+            $this->kuanTi,
         );
 
         // given Chun is lying down
@@ -125,12 +133,10 @@ final class DisorderCest extends AbstractFunctionalTest
             reasons: [],
         );
 
-        // given KT is a psy
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::SHRINK,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime(),
+        // given KT is a shrink
+        $this->addSkillToPlayerUseCase->execute(
+            SkillName::SHRINK,
+            $this->kuanTi,
         );
 
         // given Chun is lying down
@@ -170,12 +176,10 @@ final class DisorderCest extends AbstractFunctionalTest
             reasons: [],
         );
 
-        // given KT is a psy
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::SHRINK,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime(),
+        // given KT is a shrink
+        $this->addSkillToPlayerUseCase->execute(
+            SkillName::SHRINK,
+            $this->kuanTi,
         );
 
         // given Chun is lying down
@@ -228,12 +232,10 @@ final class DisorderCest extends AbstractFunctionalTest
         // given disorder has 1 disease point
         $disorder->setDiseasePoint(1);
 
-        // given KT is a psy
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::SHRINK,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime(),
+        // given KT is a shrink
+        $this->addSkillToPlayerUseCase->execute(
+            SkillName::SHRINK,
+            $this->kuanTi,
         );
 
         // given Chun is lying down
@@ -276,12 +278,10 @@ final class DisorderCest extends AbstractFunctionalTest
         // given disorder has 1 disease point
         $disorder->setDiseasePoint(1);
 
-        // given KT is a psy
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::SHRINK,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime(),
+        // given KT is a shrink
+        $this->addSkillToPlayerUseCase->execute(
+            SkillName::SHRINK,
+            $this->kuanTi,
         );
 
         // given Chun is lying down
@@ -334,12 +334,10 @@ final class DisorderCest extends AbstractFunctionalTest
         // given disorder has 1 disease point
         $disorder->setDiseasePoint(1);
 
-        // given KT is a psy
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::SHRINK,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime(),
+        // given KT is a shrink
+        $this->addSkillToPlayerUseCase->execute(
+            SkillName::SHRINK,
+            $this->kuanTi,
         );
 
         // given Chun is lying down
@@ -383,11 +381,9 @@ final class DisorderCest extends AbstractFunctionalTest
         $disorder->setDiseasePoint(1);
 
         // given Chun is a shrink
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::SHRINK,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime(),
+        $this->addSkillToPlayerUseCase->execute(
+            SkillName::SHRINK,
+            $this->chun,
         );
 
         // given Chun is lying down
@@ -432,12 +428,10 @@ final class DisorderCest extends AbstractFunctionalTest
         // given disorder has 1 disease points
         $paranoia->setDiseasePoint(1);
 
-        // given KT is a psy
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::SHRINK,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime(),
+        // given KT is a shrink
+        $this->addSkillToPlayerUseCase->execute(
+            SkillName::SHRINK,
+            $this->kuanTi,
         );
 
         // given Chun is lying down

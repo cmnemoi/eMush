@@ -38,17 +38,6 @@ final class PlayerCycleSubscriber implements EventSubscriberInterface
             $this->eventService->callEvent($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
         }
 
-        /** @var Status $skill */
-        foreach ($player->getSkills() as $skill) {
-            $statusNewCycle = new StatusCycleEvent(
-                $skill,
-                $player,
-                $event->getTags(),
-                $event->getTime()
-            );
-            $this->eventService->callEvent($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
-        }
-
         $this->makePlayerInactiveService->execute($player);
     }
 }

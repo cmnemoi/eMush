@@ -23,7 +23,7 @@ use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillName;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -37,8 +37,10 @@ final class ParticipateCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private Participate $participateAction;
     private Project $project;
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private GameEquipment $terminal;
+
+    private AddSkillToPlayerUseCase $addSkillToPlayerUseCase;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private NeronServiceInterface $neronService;
     private StatusServiceInterface $statusService;
 
@@ -52,6 +54,7 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->project = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
         $this->project->propose();
 
+        $this->addSkillToPlayerUseCase = $I->grabService(AddSkillToPlayerUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -364,30 +367,34 @@ final class ParticipateCest extends AbstractFunctionalTest
         $project = $this->daedalus->getProjectByName(ProjectName::AUXILIARY_TERMINAL);
         $project->propose();
 
-        // given Chun is a Conceptor
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::CONCEPTOR,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
+        // given KT is a Conceptor
+        $this->addSkillToPlayerUseCase->execute(
+            player: $this->kuanTi,
+            skillName: SkillName::CONCEPTOR,
         );
 
-        // given Chun has one Core point
-        /** @var ChargeStatus $skill */
-        $skill = $this->chun->getSkillByName(SkillName::CONCEPTOR);
-        $skill->setCharge(1);
+        $conceptorSkill = $this->kuanTi->getSkillByNameOrThrow(SkillName::CONCEPTOR);
 
-        // when Chun participates in the project
+        // given KT has 4 Core points
+        $I->assertEquals(
+            expected: 4,
+            actual: $conceptorSkill->getSkillPoints(),
+        );
+
+        // when KT participates in the project
         $this->participateAction->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
-            player: $this->chun,
+            player: $this->kuanTi,
             target: $this->project
         );
         $this->participateAction->execute();
 
-        // then one of Chun's Core points is consumed
-        $I->assertEquals(0, $skill->getCharge());
+        // then KT should have 3 Core points
+        $I->assertEquals(
+            expected: 3,
+            actual: $conceptorSkill->getSkillPoints(),
+        );
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

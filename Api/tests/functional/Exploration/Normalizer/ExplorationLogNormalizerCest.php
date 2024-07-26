@@ -15,7 +15,9 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Normalizer\ExplorationLogNormalizer;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillName;
+use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
@@ -23,6 +25,7 @@ use Mush\Tests\FunctionalTester;
 
 final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 {
+    private AddSkillToPlayerUseCase $addSkillToPlayerUseCase;
     private ExplorationLogNormalizer $explorationLogNormalizer;
     private Exploration $exploration;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -32,6 +35,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     {
         parent::_before($I);
 
+        $this->addSkillToPlayerUseCase = $I->grabService(AddSkillToPlayerUseCase::class);
         $this->explorationLogNormalizer = $I->grabService(ExplorationLogNormalizer::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -41,12 +45,10 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     public function testNormalizeLandingNothingToReportEventWithPilot(FunctionalTester $I): void
     {
         // given explorator is a pilot
-        $this->statusService->createStatusFromName(
-            statusName: SkillName::PILOT,
-            holder: $this->player,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->player->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillName::PILOT]),
+        ]);
+        $this->addSkillToPlayerUseCase->execute(skillName: SkillName::PILOT, player: $this->player);
 
         // given exploration is created
         $this->exploration = $this->createExploration(

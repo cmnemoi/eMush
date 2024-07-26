@@ -89,7 +89,7 @@
                         tag="li"
                         v-for="skill, index in player.skills"
                         :key="skill.key"
-                        :class="skillSlotClass(index)"
+                        :class="skillSlotClass(index + 1)"
                     >
                         <img class="skill-image" :src="skillImage(skill)" :alt="skill.name">
                         <template #content>
@@ -103,10 +103,10 @@
                         tag="li"
                         v-for="index in player.character.selectableSkills.length"
                         :key="index"
-                        :class="skillSlotClass(index)"
+                        :class="skillSlotClass(index + player.skills.length)"
                     >
                         <button class="flashing" @click="openSkillSelectionPopUp">
-                            <img :src="skillSlotImage(index)" alt="plus">
+                            <img :src="skillSlotImage(index + player.skills.length)" alt="More">
                         </button>
                         <template #content>
                             <h1 v-html="formatText('Emplacement disponible')" />
@@ -116,7 +116,7 @@
                 </ul>
                 <li class="genome" v-if="player.isMush()">
                     <button>
-                        <img :src="getImgUrl('comms/mush.png')" alt="Access the Mush Genome">
+                        <img :src="getImgUrl('comms/mush.png')" alt="Mush Genome">
                     </button>
                 </li>
             </div>
@@ -227,9 +227,9 @@ export default defineComponent ({
         }),
         skillSlotClass(index: number): string {
             switch (index) {
-            case 0:
-                return 'skill-slot-basic';
             case 1:
+                return 'skill-slot-basic';
+            case 2:
                 return 'skill-slot-once';
             default:
                 return 'skill-slot-gold';
@@ -506,8 +506,6 @@ div.inventory {
         &:nth-child(2).locked:before { content:"2"; }
         &:nth-child(3).locked:before { content:"3"; }
         &:nth-child(4).locked:before { content:"4"; }
-
-        &.genome { background-image: url('/src/assets/images/skills/skillblock_once.png'); }
     }
 }
 

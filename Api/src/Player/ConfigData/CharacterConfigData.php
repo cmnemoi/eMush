@@ -436,6 +436,7 @@ class CharacterConfigData
             'name' => 'jin_su',
             'characterName' => 'jin_su',
             'skillConfigs' => [
+                SkillEnum::LEADER,
                 SkillEnum::PILOT,
                 SkillEnum::SHOOTER,
             ],
@@ -455,7 +456,6 @@ class CharacterConfigData
                 'hit',
                 'hide',
                 'search',
-                'motivational_speech',
                 'heal',
                 'self_heal',
                 'flirt',
@@ -478,6 +478,7 @@ class CharacterConfigData
             'skillConfigs' => [
                 SkillEnum::CONCEPTOR,
                 SkillEnum::TECHNICIAN,
+                SkillEnum::LEADER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -504,7 +505,6 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
-                'motivational_speech',
             ],
             'initDiseases' => [],
             'startingItems' => [

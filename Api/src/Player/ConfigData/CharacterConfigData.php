@@ -130,6 +130,7 @@ class CharacterConfigData
             'skillConfigs' => [
                 SkillEnum::SHOOTER,
                 SkillEnum::FIREFIGHTER,
+                SkillEnum::MOTIVATOR,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -147,7 +148,6 @@ class CharacterConfigData
                 'hit',
                 'hide',
                 'search',
-                'boring_speech',
                 'heal',
                 'self_heal',
                 'flirt',

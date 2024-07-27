@@ -20,6 +20,9 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\FunctionalTester;
@@ -27,11 +30,13 @@ use Mush\User\Entity\User;
 
 class BoringSpeechActionCest
 {
-    private BoringSpeech $BoringSpeechAction;
+    private BoringSpeech $boringSpeechAction;
+    private ChooseSkillUseCase $chooseSkillUseCase;
 
     public function _before(FunctionalTester $I)
     {
-        $this->BoringSpeechAction = $I->grabService(BoringSpeech::class);
+        $this->boringSpeechAction = $I->grabService(BoringSpeech::class);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
     }
 
     public function testBoringSpeech(FunctionalTester $I)
@@ -54,10 +59,10 @@ class BoringSpeechActionCest
         $action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::BORING_SPEECH]);
 
         /** @var CharacterConfig $speakerConfig */
-        $speakerConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
+        $speakerConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
 
         /** @var CharacterConfig $listenerConfig */
-        $listenerConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
+        $listenerConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
 
         /** @var Player $speaker */
         $speaker = $I->have(Player::class, ['daedalus' => $daedalus,
@@ -72,7 +77,9 @@ class BoringSpeechActionCest
         $speakerInfo = new PlayerInfo($speaker, $user, $speakerConfig);
         $I->haveInRepository($speakerInfo);
         $speaker->setPlayerInfo($speakerInfo);
-        $I->refreshEntities($speaker);
+        $I->haveInRepository($speaker);
+
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(skill: SkillEnum::MOTIVATOR, player: $speaker));
 
         /** @var Player $listener */
         $listener = $I->have(Player::class, ['daedalus' => $daedalus,
@@ -84,14 +91,14 @@ class BoringSpeechActionCest
         $listenerInfo = new PlayerInfo($listener, $user, $listenerConfig);
         $I->haveInRepository($listenerInfo);
         $listener->setPlayerInfo($listenerInfo);
-        $I->refreshEntities($listener);
+        $I->haveInRepository($listener);
 
-        $this->BoringSpeechAction->loadParameters($action, $speaker, $speaker);
+        $this->boringSpeechAction->loadParameters($action, $speaker, $speaker);
 
-        $I->assertTrue($this->BoringSpeechAction->isVisible());
-        $I->assertNull($this->BoringSpeechAction->cannotExecuteReason());
+        $I->assertTrue($this->boringSpeechAction->isVisible());
+        $I->assertNull($this->boringSpeechAction->cannotExecuteReason());
 
-        $this->BoringSpeechAction->execute();
+        $this->boringSpeechAction->execute();
 
         $I->assertEquals(8, $speaker->getActionPoint());
         $I->assertEquals(6, $speaker->getMovementPoint());
@@ -107,6 +114,6 @@ class BoringSpeechActionCest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        $I->assertEquals($this->BoringSpeechAction->cannotExecuteReason(), ActionImpossibleCauseEnum::ALREADY_DID_BORING_SPEECH);
+        $I->assertEquals($this->boringSpeechAction->cannotExecuteReason(), ActionImpossibleCauseEnum::ALREADY_DID_BORING_SPEECH);
     }
 }

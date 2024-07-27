@@ -234,5 +234,15 @@
         <target>Un leader charismatique sait diriger efficacement l'équipage et monter le moral grâce à de furieux discours enflammés.//:point: Accorde l'action **Discours enflammé** qui permet d'augmenter le Moral (:pmo:) des équipiers.</target>
       </segment>
     </unit>
+    <unit id="motivator">
+      <segment id="motivator.name" state="translated">
+        <source>motivator.name</source>
+        <target>Motivateur</target>
+      </segment>
+      <segment id="motivator.description" state="translated">
+        <source>motivator.description</source>
+        <target>Bla bla bla... Pitiéééééé//:point: Pour **2** :pa:, vous pouvez faire un **discours barbant** qui donne 3 :pm: à chaque personne dans la pièce.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

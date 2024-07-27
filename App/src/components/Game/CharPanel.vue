@@ -288,7 +288,7 @@ export default defineComponent ({
     },
     data() {
         return {
-            StatusPlayerNameEnum,
+            StatusPlayerNameEnum
         };
     },
     beforeMount() {

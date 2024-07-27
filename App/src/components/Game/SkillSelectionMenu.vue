@@ -66,7 +66,7 @@ export default defineComponent ({
         }
     },
     beforeMount() {
-        this.initMushSkillsDisplay({player: this.player});
+        this.initMushSkillsDisplay({ player: this.player });
     }
 });
 </script>

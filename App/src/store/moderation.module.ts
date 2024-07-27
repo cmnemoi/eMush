@@ -70,7 +70,7 @@ const actions: ActionTree<any, any> = {
             await dispatch('error/setError', error, { root: true });
             await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
         }
-    },
+    }
 };
 
 const mutations: MutationTree<any> = {

@@ -81,7 +81,7 @@ export default defineComponent ({
             this.reportPopupVisible = false;
         },
         async submitComplaint(params: URLSearchParams) {
-            await this.reportRoomLog({roomLogId: this.roomLog.id, params});
+            await this.reportRoomLog({ roomLogId: this.roomLog.id, params });
             this.reportPopupVisible = false;
         }
     }

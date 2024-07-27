@@ -520,7 +520,7 @@ export default defineComponent ({
             if (this.currentPlayer === null) {
                 return;
             }
-            this.reportClosedPlayer({closedPlayerId: this.currentPlayer.id, params});
+            this.reportClosedPlayer({ closedPlayerId: this.currentPlayer.id, params });
             this.reportPopupVisible = false;
         },
         getAmountOfMushPlayers() {
@@ -572,7 +572,7 @@ export default defineComponent ({
         },
         scrollToTop() {
             window.scrollTo({
-                top: 0,
+                top: 0
             });
         }
     },

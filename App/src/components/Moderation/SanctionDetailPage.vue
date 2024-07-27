@@ -52,12 +52,12 @@
             </div>
             <div class="row" :class="{ active: moderationSanction.isActive, inactive: !moderationSanction.isActive }">
                 <div class="cell double">
-                    <strong>{{ isReport() ? $t('moderation.sanctionDetail.reportDate') : $t('moderation.sanctionDetail.startDate') }}</strong> 
+                    <strong>{{ isReport() ? $t('moderation.sanctionDetail.reportDate') : $t('moderation.sanctionDetail.startDate') }}</strong>
                     {{ moderationSanction.startDate }}
                 </div>
                 <div class="cell double" v-if="!isReport()">
                     <div class="cell double">
-                        <strong>{{ $t('moderation.sanctionDetail.endDate') }}</strong> 
+                        <strong>{{ $t('moderation.sanctionDetail.endDate') }}</strong>
                         {{ moderationSanction.endDate }}
                     </div>
                 </div>

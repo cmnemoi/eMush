@@ -785,6 +785,7 @@
       "player": "Personage joué : ",
       "endDate": "Fin de la sanction : ",
       "startDate": "Début de la sanction : ",
+	  "reportDate": "Date de la plainte : ",
       "date": "Date : ",
       "author": "Modérateur : ",
       "message": "Message :",

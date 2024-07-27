@@ -48,7 +48,6 @@ import ModerationService from "@/services/moderation.service";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
 import { ModerationSanction } from "@/entities/ModerationSanction";
-import { useRouter } from "vue-router";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import router from "@/router";
 

@@ -51,9 +51,15 @@
                 <div class="cell triple"><strong>{{ $t('moderation.sanctionDetail.evidence') }}</strong> {{ moderationSanction.sanctionEvidence.message }}</div>
             </div>
             <div class="row" :class="{ active: moderationSanction.isActive, inactive: !moderationSanction.isActive }">
-                <div class="cell double"><strong>{{ $t('moderation.sanctionDetail.startDate') }}</strong> {{ moderationSanction.startDate }}</div>
+                <div class="cell double">
+                    <strong>{{ isReport() ? $t('moderation.sanctionDetail.reportDate') : $t('moderation.sanctionDetail.startDate') }}</strong> 
+                    {{ moderationSanction.startDate }}
+                </div>
                 <div class="cell double" v-if="!isReport()">
-                    <div class="cell double"><strong>{{ $t('moderation.sanctionDetail.endDate') }}</strong> {{ moderationSanction.endDate }}</div>
+                    <div class="cell double">
+                        <strong>{{ $t('moderation.sanctionDetail.endDate') }}</strong> 
+                        {{ moderationSanction.endDate }}
+                    </div>
                 </div>
             </div>
             <div class="row actions">
@@ -71,13 +77,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { defineComponent } from "vue";
 import popUp from "@/components/Utils/PopUp.vue";
-import { ModerationSanction, SanctionEvidence } from "@/entities/ModerationSanction";
+import { ModerationSanction } from "@/entities/ModerationSanction";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
 import { characterEnum } from "@/enums/character";
 import ModerationService from "@/services/moderation.service";
-import { useRouter } from "vue-router";
 
 export default defineComponent({
     components: {

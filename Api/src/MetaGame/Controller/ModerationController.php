@@ -115,12 +115,12 @@ final class ModerationController extends AbstractFOSRestController
         $sanctionAuthor = $this->getUser();
 
         $this->moderationService->banUser(
-            $user,
-            $sanctionAuthor,
-            $duration,
-            $request->get('reason'),
-            $request->get('adminMessage', null),
-            $startDate
+            user: $user,
+            author: $sanctionAuthor,
+            reason: $request->get('reason'),
+            message: $request->get('adminMessage', null),
+            startingDate: $startDate,
+            duration: $duration,
         );
 
         return $this->view(['detail' => 'User banned successfully'], Response::HTTP_OK);
@@ -199,12 +199,12 @@ final class ModerationController extends AbstractFOSRestController
         $sanctionAuthor = $this->getUser();
 
         $this->moderationService->warnUser(
-            $user,
-            $sanctionAuthor,
-            $duration,
-            $request->get('reason'),
-            $request->get('adminMessage', ''),
-            $startDate
+            user: $user,
+            author: $sanctionAuthor,
+            reason: $request->get('reason'),
+            message: $request->get('adminMessage', ''),
+            startingDate: $startDate,
+            duration: $duration,
         );
 
         return $this->view(['detail' => 'User warn successfully'], Response::HTTP_OK);
@@ -290,10 +290,10 @@ final class ModerationController extends AbstractFOSRestController
         $sanctionAuthor = $this->getUser();
 
         $this->moderationService->quarantinePlayer(
-            $player,
-            $sanctionAuthor,
-            $request->get('reason'),
-            $request->get(
+            player: $player,
+            author: $sanctionAuthor,
+            reason: $request->get('reason'),
+            message: $request->get(
                 'adminMessage'
             )
         );
@@ -556,11 +556,11 @@ final class ModerationController extends AbstractFOSRestController
         $reportAuthor = $this->getUser();
 
         $this->moderationService->reportPlayer(
-            $closedPlayer->getPlayerInfo(),
-            $reportAuthor,
-            $request->get('reason'),
-            $request->get('adminMessage'),
-            $closedPlayer
+            player: $closedPlayer->getPlayerInfo(),
+            author: $reportAuthor,
+            reason: $request->get('reason'),
+            sanctionEvidence: $closedPlayer,
+            message: $request->get('adminMessage'),
         );
 
         return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
@@ -620,11 +620,11 @@ final class ModerationController extends AbstractFOSRestController
         $player = $this->playerRepository->find($request->get('player'));
 
         $this->moderationService->reportPlayer(
-            $player->getPlayerInfo(),
-            $reportAuthor,
-            $request->get('reason'),
-            $request->get('adminMessage'),
-            $message
+            player: $player->getPlayerInfo(),
+            author: $reportAuthor,
+            reason: $request->get('reason'),
+            sanctionEvidence: $message,
+            message: $request->get('adminMessage'),
         );
 
         return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
@@ -684,11 +684,11 @@ final class ModerationController extends AbstractFOSRestController
         $player = $this->playerRepository->find($request->get('player'));
 
         $this->moderationService->reportPlayer(
-            $player->getPlayerInfo(),
-            $reportAuthor,
-            $request->get('reason'),
-            $request->get('adminMessage'),
-            $roomLog
+            player: $player->getPlayerInfo(),
+            author: $reportAuthor,
+            reason: $request->get('reason'),
+            sanctionEvidence: $roomLog,
+            message: $request->get('adminMessage'),
         );
 
         return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);

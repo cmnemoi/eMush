@@ -107,10 +107,10 @@ final class ModerationService implements ModerationServiceInterface
     public function banUser(
         User $user,
         User $author,
-        ?\DateInterval $duration = null,
         string $reason,
         ?string $message = null,
-        ?\DateTime $startingDate = null
+        ?\DateTime $startingDate = null,
+        ?\DateInterval $duration = null,
     ): User {
         return $this->addSanctionEntity(
             user: $user,
@@ -230,10 +230,10 @@ final class ModerationService implements ModerationServiceInterface
     public function warnUser(
         User $user,
         User $author,
-        ?\DateInterval $duration = null,
         string $reason,
         string $message,
-        ?\DateTime $startingDate = null
+        ?\DateTime $startingDate = null,
+        ?\DateInterval $duration = null,
     ): User {
         return $this->addSanctionEntity(
             user: $user,
@@ -252,8 +252,8 @@ final class ModerationService implements ModerationServiceInterface
         PlayerInfo $player,
         User $author,
         string $reason,
-        ?string $message,
-        SanctionEvidenceInterface $sanctionEvidence
+        SanctionEvidenceInterface $sanctionEvidence,
+        ?string $message = null,
     ): PlayerInfo {
         $this->addSanctionEntity(
             user: $player->getUser(),

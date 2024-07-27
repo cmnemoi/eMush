@@ -61,11 +61,10 @@ final class ModerationServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->banUser(
-            $user,
-            new User(),
-            new \DateInterval('P1D'),
-            'reason',
-            'adminMessage'
+            user: $user,
+            author: new User(),
+            reason: 'reason',
+            message: 'adminMessage',
         );
 
         self::assertCount(1, $user->getModerationSanctions());

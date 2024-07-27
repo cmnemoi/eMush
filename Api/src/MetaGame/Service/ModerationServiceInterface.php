@@ -17,10 +17,10 @@ interface ModerationServiceInterface
     public function banUser(
         User $user,
         User $author,
-        ?\DateInterval $duration = null,
         string $reason,
         ?string $message = null,
-        ?\DateTime $startingDate = null
+        ?\DateTime $startingDate = null,
+        ?\DateInterval $duration = null,
     ): User;
 
     public function editClosedPlayerMessage(
@@ -54,18 +54,18 @@ interface ModerationServiceInterface
     public function warnUser(
         User $user,
         User $author,
-        ?\DateInterval $duration,
         string $reason,
         string $message,
-        ?\DateTime $startingDate = null
+        ?\DateTime $startingDate = null,
+        ?\DateInterval $duration = null,
     ): User;
 
     public function reportPlayer(
         PlayerInfo $player,
         User $author,
         string $reason,
-        ?string $message,
-        SanctionEvidenceInterface $sanctionEvidence
+        SanctionEvidenceInterface $sanctionEvidence,
+        ?string $message = null
     ): PlayerInfo;
 
     public function archiveReport(

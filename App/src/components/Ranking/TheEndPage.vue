@@ -174,7 +174,7 @@
                                     <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
                                 </template>
                             </Tippy>
-                            <Tippy tag="span" v-if="!goldNovaPlayer.messageHasBeenModerated" @click="openReportDialog(player)">
+                            <Tippy tag="span" v-if="!player.messageHasBeenModerated" @click="openReportDialog(player)">
                                 <img :src="getImgUrl('comms/alert.png')" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.report.name')}}</h1>
@@ -260,7 +260,7 @@
                                     <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
                                 </template>
                             </Tippy>
-                            <Tippy tag="span" v-if="!goldNovaPlayer?.messageHasBeenModerated" @click="openReportDialog(player)">
+                            <Tippy tag="span" v-if="!player?.messageHasBeenModerated" @click="openReportDialog(player)">
                                 <img :src="getImgUrl('comms/alert.png')" alt="Report message">
                                 <template #content>
                                     <h1>{{ $t('moderation.report.name')}}</h1>
@@ -406,7 +406,7 @@ import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import ApiService from "@/services/api.service";
 import DaedalusService from "@/services/daedalus.service";
 import ModerationService from "@/services/moderation.service";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { formatText } from "@/utils/formatText";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 import { getImgUrl } from "@/utils/getImgUrl";
@@ -446,6 +446,9 @@ export default defineComponent ({
         };
     },
     methods: {
+        ...mapActions({
+            reportClosedPlayer: 'moderation/reportClosedPlayer'
+        }),
         getImgUrl,
         async loadData() {
             const closedDaedalusId = String(this.$route.params.closedDaedalusId);
@@ -497,6 +500,7 @@ export default defineComponent ({
         openReportDialog(player: ClosedPlayer) {
             this.currentPlayer = player;
             this.reportPopupVisible = true;
+            this.scrollToTop();
         },
         closeReportDialog() {
             this.reportPopupVisible = false;
@@ -516,13 +520,7 @@ export default defineComponent ({
             if (this.currentPlayer === null) {
                 return;
             }
-            ModerationService.reportClosedPlayer(this.currentPlayer.id, params)
-                .then(() => {
-                    this.loadData();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+            this.reportClosedPlayer({closedPlayerId: this.currentPlayer.id, params});
             this.reportPopupVisible = false;
         },
         getAmountOfMushPlayers() {
@@ -570,6 +568,11 @@ export default defineComponent ({
                     return b.cyclesSurvived - a.cyclesSurvived;
                 }
                 return a.cyclesSurvived - b.cyclesSurvived;
+            });
+        },
+        scrollToTop() {
+            window.scrollTo({
+                top: 0,
             });
         }
     },

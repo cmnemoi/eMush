@@ -41,6 +41,16 @@ const actions: ActionTree<any, any> = {
             return false;
         }
     },
+    async reportClosedPlayer({ dispatch }, { closedPlayerId, params }) {
+        try {
+            const response: SuccessReponse = await ModerationService.reportClosedPlayer(closedPlayerId, params);
+            await dispatch('toast/openInfoToast', response.data.detail, { root: true });
+        } catch (error) {
+            console.error(error);
+            await dispatch('error/setError', error, { root: true });
+            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+        }
+    },
     async reportMessage({ dispatch }, { messageId, params }) {
         try {
             const response: SuccessReponse = await ModerationService.reportMessage(messageId, params);

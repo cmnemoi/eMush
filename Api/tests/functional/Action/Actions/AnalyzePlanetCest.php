@@ -19,7 +19,12 @@ use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -41,6 +46,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private GameEquipment $astroTerminal;
     private Place $bridge;
+    private ChooseSkillUseCase $chooseSkillUseCase;
     private Planet $planet;
 
     public function _before(FunctionalTester $I): void
@@ -53,6 +59,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->planetService = $I->grabService(PlanetServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => DaedalusStatusEnum::TRAVELING]);
 
@@ -241,9 +248,35 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->givenPlanetHasZeroRevealedSectors($I);
         $this->givenQuantumSensorsProjectIsFinished($I);
 
-        $this->whenPlayerAnalyzesThePlanet($I);
+        $this->whenPlayerAnalyzesThePlanet($this->player);
 
         $this->thenPlanetHasTwoRevealedSectors($I);
+    }
+
+    public function itExpertShouldNotUseActionPoints(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsAnITExpert($I);
+
+        $this->givenPlayerHasTenActionPoints();
+
+        $this->givenAPlanetScannerInEngineRoom($I);
+
+        $this->whenPlayerAnalyzesThePlanet();
+
+        $this->thenPlayerShouldHaveTenActionPoints($I);
+    }
+
+    public function itExpertShouldUseOneITPoint(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsAnITExpert($I);
+
+        $this->givenPlayerHasFourSkillPoints($I);
+
+        $this->givenAPlanetScannerInEngineRoom($I);
+
+        $this->whenPlayerAnalyzesThePlanet();
+
+        $this->thenPlayerShouldHaveThreeITPoints($I);
     }
 
     private function givenAPlanetScannerInEngineRoom(FunctionalTester $I): void
@@ -271,7 +304,25 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenPlayerAnalyzesThePlanet(FunctionalTester $I): void
+    private function givenPlayerIsAnITExpert(FunctionalTester $I): void
+    {
+        $this->player->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::IT_EXPERT]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::IT_EXPERT, $this->player));
+    }
+
+    private function givenPlayerHasFourSkillPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(4, $this->player->getSkillByNameOrThrow(SkillEnum::IT_EXPERT)->getSkillPoints());
+    }
+
+    private function givenPlayerHasTenActionPoints(): void
+    {
+        $this->player->setActionPoint(10);
+    }
+
+    private function whenPlayerAnalyzesThePlanet(): void
     {
         $this->analyzePlanetAction->loadParameters(
             actionConfig: $this->analyzePlanetConfig,
@@ -285,5 +336,16 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
     private function thenPlanetHasTwoRevealedSectors(FunctionalTester $I): void
     {
         $I->assertEquals(2, $this->planet->getRevealedSectors()->count());
+    }
+
+    private function thenPlayerShouldHaveTenActionPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(10, $this->player->getActionPoint());
+    }
+
+    private function thenPlayerShouldHaveThreeITPoints(FunctionalTester $I): void
+    {
+        $itExpertSkill = $this->player->getSkillByNameOrThrow(SkillEnum::IT_EXPERT);
+        $I->assertEquals(3, $itExpertSkill->getSkillPoints());
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Skill\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Skill\Dto\SkillConfigDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\SkillPointsEnum;
@@ -29,6 +30,13 @@ abstract class SkillConfigData
                 actionConfigs: [
                     ActionEnum::MOTIVATIONAL_SPEECH,
                 ]
+            ),
+            new SkillConfigDto(
+                name: SkillEnum::IT_EXPERT,
+                modifierConfigs: [
+                    ModifierNameEnum::DOUBLE_HACK_CHANCE,
+                ],
+                skillPointsConfig: SkillPointsEnum::IT_EXPERT_POINTS,
             ),
             new SkillConfigDto(
                 name: SkillEnum::MANKIND_ONLY_HOPE,

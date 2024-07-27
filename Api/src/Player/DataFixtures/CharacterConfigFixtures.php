@@ -69,6 +69,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $motivatorSkillConfig */
         $motivatorSkillConfig = $this->getReference(SkillEnum::MOTIVATOR->value);
 
+        /** @var SkillConfig $itExpertSkillConfig */
+        $itExpertSkillConfig = $this->getReference(SkillEnum::IT_EXPERT->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -127,6 +130,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setCharacterName(CharacterEnum::ELEESHA)
             ->setSkillConfigs([
                 $technicianSkillConfig,
+                $itExpertSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection)
             ->setInitDiseases(new ArrayCollection([$chronicVertigo]));
@@ -147,6 +151,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setCharacterName(CharacterEnum::FRIEDA)
             ->setSkillConfigs([
                 $pilotSkillConfig,
+                $itExpertSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($frieda);
@@ -186,6 +191,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setCharacterName(CharacterEnum::JANICE)
             ->setSkillConfigs([
                 $shrinkSkillConfig,
+                $itExpertSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($janice);
@@ -270,6 +276,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $technicianSkillConfig,
                 $pilotSkillConfig,
                 $shooterSkillConfig,
+                $itExpertSkillConfig,
             ])
             ->setInitStatuses([$disabledStatus])
             ->setStartingItems($iTrackieCollection);

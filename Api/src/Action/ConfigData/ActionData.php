@@ -1755,7 +1755,7 @@ class ActionData
         [
             'name' => ActionEnum::ANALYZE_PLANET->value,
             'action_name' => ActionEnum::ANALYZE_PLANET,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_IT],
             'target' => ActionHolderEnum::PLANET,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => VisibilityEnum::HIDDEN],
@@ -1906,7 +1906,7 @@ class ActionData
         [
             'name' => ActionEnum::PARTICIPATE->value,
             'action_name' => ActionEnum::PARTICIPATE,
-            'types' => [ActionTypeEnum::ACTION_CONCEPTOR],
+            'types' => [ActionTypeEnum::ACTION_CONCEPTOR, ActionTypeEnum::ACTION_IT],
             'target' => ActionHolderEnum::PROJECT,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],

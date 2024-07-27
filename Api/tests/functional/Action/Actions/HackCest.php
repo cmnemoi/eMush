@@ -19,6 +19,10 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -33,11 +37,13 @@ final class HackCest extends AbstractFunctionalTest
 {
     private ActionConfig $hackActionConfig;
     private Hack $hackAction;
+    private ChooseSkillUseCase $chooseSkillUseCase;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         $this->player->changePlace($bridge);
 
@@ -229,6 +235,32 @@ final class HackCest extends AbstractFunctionalTest
         $I->assertFalse($this->hackAction->isVisible());
     }
 
+    public function successRateShouldBeDoubledForItExpert(FunctionalTester $I): void
+    {
+        $commandTerminal = $this->givenACommandTerminalOnTheBridge($I);
+        $this->givenAHackerKitInPlayerInventory($I);
+
+        // given player has a 25% chance to hack the command terminal
+        $this->hackActionConfig->setSuccessRate(25);
+
+        // given player is an IT expert
+        $this->givenPlayerIsAnItExpert($I);
+
+        // when loading the hack action
+        $this->hackAction->loadParameters(
+            actionConfig: $this->hackActionConfig,
+            actionProvider: $commandTerminal,
+            player: $this->player,
+            target: $commandTerminal
+        );
+
+        // then success rate is doubled
+        $I->assertEquals(
+            expected: 50,
+            actual: $this->hackAction->getSuccessRate()
+        );
+    }
+
     private function givenACommandTerminalOnTheBridge(FunctionalTester $I): GameEquipment
     {
         $commandTerminalConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::COMMAND_TERMINAL]);
@@ -251,5 +283,13 @@ final class HackCest extends AbstractFunctionalTest
         $I->haveInRepository($hackerKit);
 
         return $hackerKit;
+    }
+
+    private function givenPlayerIsAnItExpert(FunctionalTester $I): void
+    {
+        $this->player->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::IT_EXPERT]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::IT_EXPERT, $this->player));
     }
 }

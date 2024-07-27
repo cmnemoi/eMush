@@ -23,6 +23,7 @@ use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -392,6 +393,124 @@ final class ParticipateCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: 3,
             actual: $conceptorSkill->getSkillPoints(),
+        );
+    }
+
+    public function itExpertShouldNotConsumeActionPoints(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsAnITExpert($I);
+
+        $this->givenKuanTiHasTenActionPoints();
+
+        $this->whenKuanToParticipatesInProject($I);
+
+        $this->thenKuanTiShouldHaveTenActionPoints($I);
+    }
+
+    public function itExpertShouldUseOneITPoint(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsAnITExpert($I);
+
+        $this->givenPlayerHasFourITPoints($I);
+
+        $this->whenKuanToParticipatesInProject($I);
+
+        $this->thenKuanTiShouldHaveITPoints(3, $I);
+    }
+
+    public function itExpertConceptorShouldUseOneCorePoint(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsAnITExpertConceptor($I);
+
+        $this->givenPlayerHasFourCorePoints($I);
+
+        $this->whenKuanToParticipatesInProject($I);
+
+        $this->thenKuanTiShouldHaveCorePoints(3, $I);
+    }
+
+    public function itExpertConceptorShouldNotUseITPoint(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsAnITExpertConceptor($I);
+
+        $this->givenPlayerHasFourITPoints($I);
+
+        $this->whenKuanToParticipatesInProject($I);
+
+        $this->thenKuanTiShouldHaveITPoints(4, $I);
+    }
+
+    private function givenKuanTiIsAnITExpert(FunctionalTester $I): void
+    {
+        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::IT_EXPERT]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::IT_EXPERT, $this->kuanTi));
+    }
+
+    private function givenKuanTiIsAnITExpertConceptor(FunctionalTester $I): void
+    {
+        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::IT_EXPERT]),
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::CONCEPTOR]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::IT_EXPERT, $this->kuanTi));
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::CONCEPTOR, $this->kuanTi));
+    }
+
+    private function givenKuanTiHasTenActionPoints(): void
+    {
+        $this->kuanTi->setActionPoint(10);
+    }
+
+    private function givenPlayerHasFourITPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: 4,
+            actual: $this->kuanTi->getSkillByNameOrThrow(SkillEnum::IT_EXPERT)->getSkillPoints(),
+        );
+    }
+
+    private function givenPlayerHasFourCorePoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: 4,
+            actual: $this->kuanTi->getSkillByNameOrThrow(SkillEnum::CONCEPTOR)->getSkillPoints(),
+        );
+    }
+
+    private function whenKuanToParticipatesInProject(): void
+    {
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->kuanTi,
+            target: $this->project
+        );
+        $this->participateAction->execute();
+    }
+
+    private function thenKuanTiShouldHaveTenActionPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: 10,
+            actual: $this->kuanTi->getActionPoint(),
+        );
+    }
+
+    private function thenKuanTiShouldHaveITPoints(int $itPoints, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $itPoints,
+            actual: $this->kuanTi->getSkillByNameOrThrow(SkillEnum::IT_EXPERT)->getSkillPoints(),
+        );
+    }
+
+    private function thenKuanTiShouldHaveCorePoints(int $corePoints, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $corePoints,
+            actual: $this->kuanTi->getSkillByNameOrThrow(SkillEnum::CONCEPTOR)->getSkillPoints(),
         );
     }
 

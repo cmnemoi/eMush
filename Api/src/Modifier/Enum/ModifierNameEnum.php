@@ -22,6 +22,7 @@ abstract class ModifierNameEnum
     public const string THALASSO_MORALE_POINTS_MODIFIER = 'thalasso_morale_points_modifier';
     public const string THALASSO_MOVEMENT_POINTS_MODIFIER = 'thalasso_movement_points_modifier';
     public const string ICARUS_LARGER_BAY_MODIFIER = 'icarus_larger_bay_modifier';
+    public const string DOUBLE_HACK_CHANCE = 'double_hack_chance';
 
     /** @TODO Rename that SKILL_POINT_SHOOTER */
     public const string SHOOTER_SKILL_POINT = 'shooter_skill_point';
@@ -29,4 +30,5 @@ abstract class ModifierNameEnum
     public const string ROPE_MODIFIER = 'rope_modifier';
     public const string SKILL_POINT_ENGINEER = 'skill_point_engineer';
     public const string SKILL_POINT_CORE = 'skill_point_core';
+    public const string SKILL_POINT_IT_EXPERT = 'skill_point_it_expert';
 }

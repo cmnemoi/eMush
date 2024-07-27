@@ -98,6 +98,8 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function testCycleSubscriberDoNotAssignTitleToDeadPlayer(FunctionalTester $I): void
     {
+        $this->setupNoIncidents();
+
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -127,6 +129,8 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldNotAssignTitleToInactivePlayer(FunctionalTester $I): void
     {
+        $this->setupNoIncidents();
+
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -160,6 +164,8 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldGiveBackTitleToExInactivePlayers(FunctionalTester $I): void
     {
+        $this->setupNoIncidents();
+
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -188,6 +194,8 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldNotGiveTitlesToHighlyInactivePlayers(FunctionalTester $I): void
     {
+        $this->setupNoIncidents();
+
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -488,6 +496,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $this->daedalus->setDay(0);
         $daedalusConfig = $this->daedalus->getDaedalusConfig();
         $ref = new \ReflectionClass($daedalusConfig);
-        $ref->getProperty('cyclePerGameDay')->setValue($daedalusConfig, 1_000_000);
+        $ref->getProperty('cyclePerGameDay')->setValue($daedalusConfig, 9_999_999);
     }
 }

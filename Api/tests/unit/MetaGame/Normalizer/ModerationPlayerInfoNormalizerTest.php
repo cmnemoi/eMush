@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\MetaGame\Normalizer;
 
-use Mockery;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -20,34 +19,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class DummyNormalizer implements NormalizerInterface
-{
-    public function normalize($object, $format = null, array $context = [])
-    {
-        return [];
-    }
-
-    public function supportsNormalization($data, $format = null)
-    {
-        return true;
-    }
-}
-
-final class InMemoryTokenStorage implements TokenStorageInterface
-{
-    private UsernamePasswordToken $token;
-
-    public function getToken(): ?TokenInterface
-    {
-        return $this->token;
-    }
-
-    public function setToken($token)
-    {
-        $this->token = $token;
-    }
-}
-
 /**
  * @internal
  */
@@ -55,7 +26,6 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
 {
     private InMemoryPlayerInfoRepository $playerInfoRepository;
 
-    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     /**
@@ -64,7 +34,7 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
     protected function setUp(): void
     {
         $this->playerInfoRepository = new InMemoryPlayerInfoRepository();
-        $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
+        $this->translationService = $this->createStub(TranslationServiceInterface::class);
     }
 
     /**
@@ -131,7 +101,6 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
         );
         $normalizer->setNormalizer(new DummyNormalizer());
 
-        $this->translationService->shouldReceive('translate')->once();
         $result = $normalizer->normalize($anotherPlayer->getPlayerInfo());
 
         // then the moderator should be able to see the other player
@@ -155,7 +124,6 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
             $this->translationService
         );
         $normalizer->setNormalizer(new DummyNormalizer());
-        $this->translationService->shouldReceive('translate')->once();
         $result = $normalizer->normalize($player->getPlayerInfo());
 
         // then the moderator should be able to see the player
@@ -168,5 +136,33 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
         $tokenStorage->setToken(new UsernamePasswordToken($user, 'password', $user->getRoles()));
 
         return $tokenStorage;
+    }
+}
+
+final class DummyNormalizer implements NormalizerInterface
+{
+    public function normalize($object, $format = null, array $context = [])
+    {
+        return [];
+    }
+
+    public function supportsNormalization($data, $format = null)
+    {
+        return true;
+    }
+}
+
+final class InMemoryTokenStorage implements TokenStorageInterface
+{
+    private UsernamePasswordToken $token;
+
+    public function getToken(): ?TokenInterface
+    {
+        return $this->token;
+    }
+
+    public function setToken($token)
+    {
+        $this->token = $token;
     }
 }

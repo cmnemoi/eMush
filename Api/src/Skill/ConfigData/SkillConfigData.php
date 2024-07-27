@@ -25,6 +25,12 @@ abstract class SkillConfigData
                 skillPointsConfig: SkillPointsEnum::CONCEPTOR_POINTS,
             ),
             new SkillConfigDto(
+                name: SkillEnum::LEADER,
+                actionConfigs: [
+                    ActionEnum::MOTIVATIONAL_SPEECH,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::MANKIND_ONLY_HOPE,
                 modifierConfigs: [
                     'modifier_for_daedalus_+1moral_on_day_change',

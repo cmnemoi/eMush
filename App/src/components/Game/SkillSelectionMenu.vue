@@ -12,7 +12,7 @@
                 :key="skill.key"
                 @click="chooseSkill({player, skill})"
             >
-                <img :src="skillImage(skill)">
+                <img :src="skillImage(skill)" :alt="skill.name" />
                 <template #content>
                     <h1 v-html="formatText(skill.name)" />
                     <p v-html="formatText(skill.description)" />

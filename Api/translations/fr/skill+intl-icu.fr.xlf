@@ -224,5 +224,15 @@
         <target>Son système immunitaire hors-norme fait d'elle le seul espoir de l'humanité. Tant qu'elle restera en vie, nous aurons une petite chance de combattre l'invasion Mush.//:point: La perte de moral journalière est réduite de 1 point.</target>
       </segment>
     </unit>
+    <unit id="leader">
+      <segment id="leader.name" state="translated">
+        <source>leader.name</source>
+        <target>Leader</target>
+      </segment>
+      <segment id="leader.description" state="translated">
+        <source>leader.description</source>
+        <target>Un leader charismatique sait diriger efficacement l'équipage et monter le moral grâce à de furieux discours enflammés.//:point: Accorde l'action **Discours enflammé** qui permet d'augmenter le Moral (:pmo:) des équipiers.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

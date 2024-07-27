@@ -39,7 +39,7 @@ final class ModerationService implements ModerationServiceInterface
         ClosedPlayer $closedPlayer,
         User $author,
         string $reason,
-        ?string $adminMessage
+        ?string $adminMessage = null
     ): void {
         $message = $this->translationService->translate(
             key: 'edited_by_neron',
@@ -67,7 +67,7 @@ final class ModerationService implements ModerationServiceInterface
         ClosedPlayer $closedPlayer,
         User $author,
         string $reason,
-        ?string $adminMessage
+        ?string $adminMessage = null
     ): void {
         $closedPlayer->hideMessage();
         $this->entityManager->persist($closedPlayer);
@@ -107,9 +107,9 @@ final class ModerationService implements ModerationServiceInterface
     public function banUser(
         User $user,
         User $author,
-        ?\DateInterval $duration,
+        ?\DateInterval $duration = null,
         string $reason,
-        ?string $message,
+        ?string $message = null,
         ?\DateTime $startingDate = null
     ): User {
         return $this->addSanctionEntity(
@@ -130,7 +130,7 @@ final class ModerationService implements ModerationServiceInterface
         User $author,
         string $sanctionType,
         string $reason,
-        ?\DateTime $startingDate,
+        ?\DateTime $startingDate = null,
         ?string $message = null,
         ?\DateInterval $duration = null,
         bool $isVisibleByUser = false,
@@ -201,7 +201,7 @@ final class ModerationService implements ModerationServiceInterface
         Message $message,
         User $author,
         string $reason,
-        ?string $adminMessage
+        ?string $adminMessage = null
     ): void {
         $messageAuthor = $message->getAuthor();
         if ($messageAuthor === null) {
@@ -230,7 +230,7 @@ final class ModerationService implements ModerationServiceInterface
     public function warnUser(
         User $user,
         User $author,
-        ?\DateInterval $duration,
+        ?\DateInterval $duration = null,
         string $reason,
         string $message,
         ?\DateTime $startingDate = null

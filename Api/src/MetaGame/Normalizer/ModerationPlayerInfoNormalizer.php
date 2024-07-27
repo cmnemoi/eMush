@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Normalizer;
 
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\User\Entity\User;

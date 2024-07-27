@@ -3,7 +3,7 @@
         :report-dialog-visible="reportPopupVisible"
         :select-player="true"
         @close=closeReportDialog
-        @submit-report=submitReport
+        @submit-report=submitComplaint
     />
     <section
         v-if="roomLog"
@@ -16,7 +16,7 @@
             <span class="timestamp">{{ roomLog?.date }}</span>
         </p>
         <div class="actions" @click.stop>
-            <Tippy tag="span" v-if="!goldNovaPlayer?.messageHasBeenModerated" @click="openReportDialog">
+            <Tippy tag="span" @click="openReportDialog">
                 <img :src="getImgUrl('comms/alert.png')" alt="Report message">
                 <template #content>
                     <h1>{{ $t('moderation.report.name')}}</h1>
@@ -34,7 +34,6 @@ import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
 import { getImgUrl } from "@/utils/getImgUrl";
 import ReportPopup from "@/components/Moderation/ReportPopup.vue";
-import ModerationService from "@/services/moderation.service";
 import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
@@ -52,7 +51,10 @@ export default defineComponent ({
         })
     },
     props: {
-        roomLog: RoomLog
+        roomLog: {
+            type: RoomLog,
+            required: true
+        }
     },
     methods: {
         ...mapActions({
@@ -60,7 +62,7 @@ export default defineComponent ({
             releaseReadLogMutex: "communication/releaseReadMessageMutex",
             readRoomLog: "communication/readRoomLog",
             loadReportablePlayers: 'moderation/loadReportablePlayers',
-            submitReport: 'moderation/submitReport'
+            reportRoomLog: 'moderation/reportRoomLog'
         }),
         formatText,
         getImgUrl,
@@ -79,7 +81,7 @@ export default defineComponent ({
             this.reportPopupVisible = false;
         },
         async submitComplaint(params: URLSearchParams) {
-            await this.submitComplaint({ params: params });
+            await this.reportRoomLog({roomLogId: this.roomLog.id, params});
             this.reportPopupVisible = false;
         }
     }

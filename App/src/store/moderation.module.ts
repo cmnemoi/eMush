@@ -41,7 +41,7 @@ const actions: ActionTree<any, any> = {
             return false;
         }
     },
-    async submitReport({ dispatch }, { messageId, params }) {
+    async reportMessage({ dispatch }, { messageId, params }) {
         try {
             const response: SuccessReponse = await ModerationService.reportMessage(messageId, params);
             await dispatch('toast/openInfoToast', response.data.detail, { root: true });
@@ -50,7 +50,17 @@ const actions: ActionTree<any, any> = {
             await dispatch('error/setError', error, { root: true });
             await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
         }
-    }
+    },
+    async reportRoomLog({ dispatch }, { roomLogId, params }) {
+        try {
+            const response: SuccessReponse = await ModerationService.reportLog(roomLogId, params);
+            await dispatch('toast/openInfoToast', response.data.detail, { root: true });
+        } catch (error) {
+            console.error(error);
+            await dispatch('error/setError', error, { root: true });
+            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+        }
+    },
 };
 
 const mutations: MutationTree<any> = {

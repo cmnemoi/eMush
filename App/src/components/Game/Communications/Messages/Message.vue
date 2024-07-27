@@ -179,7 +179,7 @@ export default defineComponent ({
             releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
             unfavoriteMessage: 'communication/unfavoriteMessage',
             loadReportablePlayers: 'moderation/loadReportablePlayers',
-            submitReport: 'moderation/submitReport'
+            reportMessage: 'moderation/reportMessage'
         }),
         formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
@@ -208,7 +208,7 @@ export default defineComponent ({
             this.reportPopupVisible = false;
         },
         async submitComplaint(params: URLSearchParams) {
-            await this.submitReport({ messageId: this.message.id, params: params });
+            await this.reportMessage({ messageId: this.message.id, params: params });
             this.reportPopupVisible = false;
         },
         async read(message: Message) {

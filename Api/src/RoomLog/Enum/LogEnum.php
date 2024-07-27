@@ -71,6 +71,7 @@ abstract class LogEnum
     public const string FRUIT_TRANSPORTED = 'fruit_transported';
     public const string JUKEBOX_PLAYED = 'jukebox_played';
     public const string CREATIVE_WORKED = 'creative_worked';
+    public const string CONFIDENT_ACTIONS = 'confident_actions';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

@@ -132,6 +132,7 @@ enum ActionEnum: string
     case GEN_METAL = 'gen_metal';
     case MOTIVATIONAL_SPEECH = 'motivational_speech';
     case BORING_SPEECH = 'boring_speech';
+    case CHITCHAT = 'chitchat';
 
     // Skill-related actions (Mush)
     case PHAGOCYTE = 'eat_spore';

@@ -129,6 +129,7 @@ abstract class ActionLogEnum
     public const string REPAIR_PILGRED_SUCCESS = 'repair_pilgred_success';
     public const string PARTICIPATE_SUCCESS = 'participate_success';
     public const string TRAP_CLOSET_SUCCESS = 'trap_closet_success';
+    public const string CHITCHAT_SUCCESS = 'chitchat_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -447,6 +448,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::TOGGLE_MAGNETIC_NET->value => [
             ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
+        ],
+        ActionEnum::CHITCHAT->value => [
+            ActionOutputEnum::SUCCESS => self::CHITCHAT_SUCCESS,
         ],
     ];
 

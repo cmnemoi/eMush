@@ -1,6 +1,6 @@
 import { CharacterEnum } from "@/enums/character";
 
-type SelectableSkill = {
+export type SelectableSkill = {
     key: string;
     name: string;
     description: string;

@@ -157,10 +157,10 @@
                         :key="point.key"
                         class="skillPoint"
                     >
-                        <img :src="skillPointImg(point)" :alt="point.key">x{{ point.charge.quantity }}
+                        <img :src="skillPointImg(point)" :alt="point.key">x{{ point.charge?.quantity }}
                         <template #content>
-                            <h1 v-html="formatContent(point.charge.name)" />
-                            <p v-html="formatContent(point.charge.description)" />
+                            <h1 v-html="formatContent(point.charge?.name)" />
+                            <p v-html="formatContent(point.charge?.description)" />
                         </template>
                     </Tippy>
                 </ul>
@@ -170,7 +170,8 @@
 </template>
 
 <script lang="ts">
-import { Player } from "@/entities/Player";
+import { Player, Skill } from "@/entities/Player";
+import { SelectableSkill } from "@/entities/Character";
 import { characterEnum } from '@/enums/character';
 import Inventory from "@/components/Game/Inventory.vue";
 import ActionButton from "@/components/Utils/ActionButton.vue";
@@ -187,12 +188,6 @@ import { getImgUrl } from "@/utils/getImgUrl";
 import { SkillPoint } from "@/entities/SkillPoint";
 import { skillPointEnum } from "@/enums/skill.point.enum";
 import { SkillIconRecord } from "@/enums/skill.enum";
-
-type Skill = {
-    key: string;
-    name: string;
-    description: string;
-}
 
 export default defineComponent ({
     name: "CharPanel",
@@ -221,7 +216,7 @@ export default defineComponent ({
         skillsToDisplay(): Array<Skill> {
             return this.displayMushSkills ? this.player.mushSkills : this.player.humanSkills;
         },
-        selectableSkillsToDisplay(): Array<Skill> {
+        selectableSkillsToDisplay(): Array<SelectableSkill> {
             return this.displayMushSkills ? this.player.character.selectableMushSkills : this.player.character.selectableHumanSkills;
         },
         target(): Item | Player | null {

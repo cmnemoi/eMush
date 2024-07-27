@@ -2,17 +2,14 @@
 
 namespace Mush\Tests\unit\Player\Normalizer;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Normalizer\OtherPlayerNormalizer;
 use PHPUnit\Framework\TestCase;
 
@@ -50,21 +47,9 @@ final class OtherPlayerNormalizerTest extends TestCase
 
     public function testNormalizer()
     {
-        $gameConfig = new GameConfig();
-        $localizationConfig = new LocalizationConfig();
-        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $daedalus = new Daedalus();
-        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-
-        $player = $this->createMock(Player::class);
-
-        $player->method('getName')->willReturn(CharacterEnum::ELEESHA);
-        $player->method('getId')->willReturn(2);
-        $player->method('getStatuses')->willReturn(new ArrayCollection());
-        $player->method('getSkills')->willReturn(new ArrayCollection());
-        $player->method('getActions')->willReturn(new ArrayCollection());
-        $player->method('getDaedalus')->willReturn($daedalus);
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ELEESHA, $daedalus);
 
         $this->translationService
             ->shouldReceive('translate')
@@ -77,17 +62,17 @@ final class OtherPlayerNormalizerTest extends TestCase
             ->andReturn('translated eleesha description')
             ->once();
 
-        $data = $this->normalizer->normalize($player, null, ['currentPlayer' => new Player()]);
+        $data = $this->normalizer->normalize($player, null, ['currentPlayer' => Player::createNull()]);
 
         $expected = [
-            'id' => 2,
+            'id' => $player->getId(),
             'character' => [
                 'key' => CharacterEnum::ELEESHA,
                 'value' => 'translated eleesha',
                 'description' => 'translated eleesha description',
             ],
-            'skills' => [],
             'statuses' => [],
+            'skills' => [],
             'titles' => [],
             'actions' => [],
         ];

@@ -17,6 +17,7 @@ export type Skill = {
     key: string;
     name: string;
     description: string;
+    isMushSkill: boolean;
 };
 
 export class Player {
@@ -38,6 +39,7 @@ export class Player {
     public terminal: Terminal|null;
     public titles: Array<NameDescObject>;
     public exploration: Exploration|null;
+    public skills: Array<Skill>;
     public humanSkills: Array<Skill>;
     public mushSkills: Array<Skill>;
     public skillPoints: Array<SkillPoint>;
@@ -64,6 +66,7 @@ export class Player {
         this.exploration = null;
         this.humanSkills = [];
         this.mushSkills = [];
+        this.skills = [];
         this.skillPoints = [];
         this.isSeated = false;
         this.language = '';
@@ -138,16 +141,17 @@ export class Player {
             if (object.exploration) {
                 this.exploration = (new Exploration()).load(object.exploration);
             }
-            if (object.humanSkills) {
-                object.humanSkills.forEach((skillObject: any) => {
-                    this.humanSkills.push(skillObject);
+            if (object.skills) {
+                object.skills.forEach((skillObject: any) => {
+                    this.skills.push(skillObject);
                 });
             }
-            if (object.mushSkills) {
-                object.mushSkills.forEach((skillObject: any) => {
-                    this.mushSkills.push(skillObject);
-                });
-            }
+            this.humanSkills = this.skills.filter((skill: Skill) => {
+                return skill.isMushSkill === false;
+            });
+            this.mushSkills = this.skills.filter((skill: Skill) => {
+                return skill.isMushSkill;
+            });
             if (object.skillPoints) {
                 object.skillPoints.forEach((skillPointObject: any) => {
                     const point = (new SkillPoint()).load(skillPointObject);

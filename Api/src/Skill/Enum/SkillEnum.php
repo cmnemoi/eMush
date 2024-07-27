@@ -2,6 +2,8 @@
 
 namespace Mush\Skill\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 enum SkillEnum: string
 {
     case ANONYMUSH = 'anonymush';
@@ -99,5 +101,37 @@ enum SkillEnum: string
     public function toString(): string
     {
         return $this->value;
+    }
+
+    public function isMushSkill(): bool
+    {
+        return (new ArrayCollection([
+            self::ANONYMUSH,
+            self::BACTEROPHILIAC,
+            self::BYPASS,
+            self::DEFACER,
+            self::DEMORALIZE,
+            self::DOORMAN,
+            self::FERTILE,
+            self::FUNGAL_KITCHEN,
+            self::GREEN_JELLY,
+            self::HARD_BOILED,
+            self::INFECTOR,
+            self::MASSIVE_MUSHIFICATION,
+            self::MYCELIUM_SPIRIT,
+            self::NERON_DEPRESSION,
+            self::NIGHTMARISH,
+            self::NIMBLE_FINGERS,
+            self::NINJA,
+            self::PHAGOCYTE,
+            self::PYROMANIAC,
+            self::RADIO_PIRACY,
+            self::SABOTEUR,
+            self::SLIMETRAP,
+            self::SPLASHPROOF,
+            self::TRAITOR,
+            self::TRANSFER,
+            self::TRAPPER,
+        ]))->contains($this);
     }
 }

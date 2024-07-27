@@ -24,6 +24,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
+use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -149,8 +150,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $playerData = array_merge($playerData, [
             'room' => $this->normalizer->normalize($player->getPlace(), $format, $context),
-            'humanSkills' => $this->getNormalizedHumanSkills($player),
-            'mushSkills' => [],
+            'skills' => $player->getSkills()->map(fn (Skill $skill) => $this->normalizer->normalize($skill, $format, $context))->toArray(),
             'titles' => $titles,
             'actions' => $this->getNormalizedActions($player, ActionHolderEnum::PLAYER, $player, $format, $context),
             'items' => $items,
@@ -258,21 +258,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         }
 
         return $statuses;
-    }
-
-    private function getNormalizedHumanSkills(Player $player): array
-    {
-        $skills = [];
-        foreach ($player->getSkills() as $skill) {
-            $normalizedSkill = [
-                'key' => $skill->getNameAsString(),
-                'name' => $this->translationService->translate($skill->getNameAsString() . '.name', [], 'skill', $player->getDaedalus()->getLanguage()),
-                'description' => $this->translationService->translate($skill->getNameAsString() . '.description', [], 'skill', $player->getDaedalus()->getLanguage()),
-            ];
-            $skills[] = $normalizedSkill;
-        }
-
-        return $skills;
     }
 
     private function getNormalizedSelectableHumanSkills(Player $player, string $language): array

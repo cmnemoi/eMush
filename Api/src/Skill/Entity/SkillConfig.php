@@ -50,14 +50,6 @@ class SkillConfig
         $this->skillPointsConfig = $skillPointsConfig;
     }
 
-    public function __toString()
-    {
-        return json_encode([
-            // 'id' => $this->id,
-            'name' => $this->name,
-        ]);
-    }
-
     public function getName(): SkillEnum
     {
         return $this->name;
@@ -71,6 +63,14 @@ class SkillConfig
     public function getModifierConfigs(): ArrayCollection
     {
         return new ArrayCollection($this->modifierConfigs->toArray());
+    }
+
+    /**
+     * @return ArrayCollection<int, ActionConfig>
+     */
+    public function getActionConfigs(): ArrayCollection
+    {
+        return new ArrayCollection($this->actionConfigs->toArray());
     }
 
     public function getSkillPointsConfig(): ?ChargeStatusConfig

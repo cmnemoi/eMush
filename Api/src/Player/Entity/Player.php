@@ -50,6 +50,7 @@ use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\Entity\Skill;
+use Mush\Skill\Entity\SkillCollection;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -424,12 +425,19 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    /**
-     * @return ArrayCollection<int, Skill>
-     */
-    public function getSkills(): ArrayCollection
+    public function getSkills(): SkillCollection
     {
-        return new ArrayCollection($this->skills->toArray());
+        return new SkillCollection($this->skills->toArray());
+    }
+
+    public function getHumanSkills(): SkillCollection
+    {
+        return $this->getSkills()->getHumanSkills();
+    }
+
+    public function getMushSkills(): SkillCollection
+    {
+        return $this->getSkills()->getMushSkills();
     }
 
     public function getSkillByNameOrNull(SkillEnum $name): ?Skill
@@ -817,6 +825,12 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         /** @var GameItem $equipment */
         foreach ($this->getEquipments() as $equipment) {
             $actions = array_merge($actions, $equipment->getProvidedActions($actionTarget, $actionRanges)->toArray());
+        }
+
+        // then actions provided by skills
+        /** @var Skill $skill */
+        foreach ($this->getSkills() as $skill) {
+            $actions = array_merge($actions, $skill->getProvidedActions($actionTarget, $actionRanges)->toArray());
         }
 
         return new ArrayCollection($actions);

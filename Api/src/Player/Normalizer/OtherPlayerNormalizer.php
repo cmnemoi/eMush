@@ -63,7 +63,6 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
                     $player->getDaedalus()->getLanguage()
                 ),
             ],
-            'skills' => $this->getNormalizedPlayerSkills($player),
         ];
 
         if (isset($context['currentPlayer'])) {
@@ -99,7 +98,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
             }
 
             $playerData['statuses'] = $statuses;
-            $playerData['skills'] = $this->getNormalizedPlayerSkills($player);
+            $playerData['skills'] = $this->getNormalizedPlayerSkills($player, $format, $context);
             $playerData['titles'] = $titles;
             $playerData['actions'] = $this->getNormalizedActions($player, ActionHolderEnum::OTHER_PLAYER, $currentPlayer, $format, $context);
         }
@@ -107,15 +106,18 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         return $playerData;
     }
 
-    private function getNormalizedPlayerSkills(Player $player): array
+    private function getNormalizedPlayerSkills(Player $player, ?string $format = null, array $context = []): array
     {
+        $currentPlayer = $context['currentPlayer'];
         $skills = [];
-        foreach ($player->getSkills() as $skill) {
-            $skills[] = [
-                'key' => $skill->getNameAsString(),
-                'name' => $this->translationService->translate($skill->getNameAsString() . '.name', [], 'skill', $player->getDaedalus()->getLanguage()),
-                'description' => $this->translationService->translate($skill->getNameAsString() . '.description', [], 'skill', $player->getDaedalus()->getLanguage()),
-            ];
+        if ($currentPlayer->isMush()) {
+            foreach ($player->getMushSkills() as $skill) {
+                $skills[] = $this->normalizer->normalize($skill, $format, $context);
+            }
+        }
+
+        foreach ($player->getHumanSkills() as $skill) {
+            $skills[] = $this->normalizer->normalize($skill, $format, $context);
         }
 
         return $skills;

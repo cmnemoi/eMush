@@ -2662,6 +2662,38 @@ abstract class ModifierConfigData
                 ActionEnum::HACK->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_1_MORE_SECTION_REVEALED_ON_ANALYZE_PLANET,
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 1,
+            'targetVariable' => ActionVariableEnum::OUTPUT_QUANTITY,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [ActionEnum::ANALYZE_PLANET->value => ModifierRequirementEnum::ANY_TAGS],
+        ],
+        [
+            'name' => ModifierNameEnum::PLAYER_MINUS_1_ACTION_POINT_ON_SCAN,
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => -1,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::SCAN->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

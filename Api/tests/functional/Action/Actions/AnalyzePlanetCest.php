@@ -279,6 +279,16 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveThreeITPoints($I);
     }
 
+    public function astrophysicistShouldRevealOneMoreSection(FunctionalTester $I): void
+    {
+        $this->givenPlanetHasZeroRevealedSectors($I);
+        $this->givenPlayerIsAnAstrophysicist($I);
+
+        $this->whenPlayerAnalyzesThePlanet();
+
+        $this->thenPlanetHasTwoRevealedSectors($I);
+    }
+
     private function givenAPlanetScannerInEngineRoom(FunctionalTester $I): void
     {
         $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
@@ -310,6 +320,14 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::IT_EXPERT]),
         ]);
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::IT_EXPERT, $this->player));
+    }
+
+    private function givenPlayerIsAnAstrophysicist(FunctionalTester $I): void
+    {
+        $this->player->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::ASTROPHYSICIST]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::ASTROPHYSICIST, $this->player));
     }
 
     private function givenPlayerHasFourSkillPoints(FunctionalTester $I): void

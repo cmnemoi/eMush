@@ -45,6 +45,18 @@ final class SkillModifierConfigFixtures extends Fixture
         $this->addReference($modifierDoubleHackChance->getName(), $modifierDoubleHackChance);
         $manager->persist($modifierDoubleHackChance);
 
+        $modifierOneMoreSectionRevealedOnAnalyzePlanet = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_1_MORE_SECTION_REVEALED_ON_ANALYZE_PLANET)
+        );
+        $this->addReference($modifierOneMoreSectionRevealedOnAnalyzePlanet->getName(), $modifierOneMoreSectionRevealedOnAnalyzePlanet);
+        $manager->persist($modifierOneMoreSectionRevealedOnAnalyzePlanet);
+
+        $modifierMinusOneActionPointOnScan = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_MINUS_1_ACTION_POINT_ON_SCAN)
+        );
+        $this->addReference($modifierMinusOneActionPointOnScan->getName(), $modifierMinusOneActionPointOnScan);
+        $manager->persist($modifierMinusOneActionPointOnScan);
+
         $manager->flush();
     }
 }

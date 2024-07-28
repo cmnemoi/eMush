@@ -75,6 +75,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $itExpertSkillConfig */
         $itExpertSkillConfig = $this->getReference(SkillEnum::IT_EXPERT->value);
 
+        /** @var SkillConfig $astrophysicistSkillConfig */
+        $astrophysicistSkillConfig = $this->getReference(SkillEnum::ASTROPHYSICIST->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -154,6 +157,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(CharacterEnum::FRIEDA)
             ->setCharacterName(CharacterEnum::FRIEDA)
             ->setSkillConfigs([
+                $astrophysicistSkillConfig,
                 $pilotSkillConfig,
                 $itExpertSkillConfig,
             ])
@@ -164,6 +168,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $gioele
             ->setName(CharacterEnum::GIOELE)
             ->setCharacterName(CharacterEnum::GIOELE)
+            ->setSkillConfigs([
+                $astrophysicistSkillConfig,
+            ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($gioele);
 
@@ -220,6 +227,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(CharacterEnum::KUAN_TI)
             ->setCharacterName(CharacterEnum::KUAN_TI)
             ->setSkillConfigs([
+                $astrophysicistSkillConfig,
                 $conceptorSkillConfig,
                 $technicianSkillConfig,
                 $leaderSkillConfig,

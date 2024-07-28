@@ -123,7 +123,7 @@
         <target>{quantity, plural,
         one {Tous les équipiers subissent # point de dégâts.}
         other {Tous les équipiers subissent # points de dégâts.}
-        }{fight_prevented_by_item}</target>
+        }{fight_prevented_by_item}{skill_reduced_damage_for_player}</target>
       </segment>
       <segment id="landing_description" state="final">
         <source>tired.landing_description</source>
@@ -161,7 +161,7 @@
       </segment>
       <segment id="description" state="final">
         <source>accident.description</source>
-        <target>Un équipier subit entre {min_quantity} et {max_quantity} points de dégâts.{rope_worked, select, true {////Esquivé Corde} other {}}{fight_prevented_by_item}</target>
+        <target>Un équipier subit entre {min_quantity} et {max_quantity} points de dégâts.{rope_worked, select, true {////Esquivé Corde} other {}}{fight_prevented_by_item}{skill_reduced_damage_for_player}</target>
       </segment>
       <segment id="predator_description" state="final">
         <source>accident.predator_description</source>
@@ -326,6 +326,18 @@
         <target>Probabilité de combat annulée {equipment}</target>
       </segment>
     </unit>
+    <unit id="skill_reduced_damage_for_player">
+      <segment id="description" state="translated">
+        <source>skill_reduced_damage_for_player</source>
+        <target>{character} subit {quantity, plural, one {# dégât} other {# dégâts}} de moins grâce à sa compétence : {skill}</target>
+      </segment>
+    </unit>
+    <unit id="bonus_loot_thanks_to_skill">
+      <segment id="description" state="translated">
+        <source>bonus_loot_thanks_to_skill</source>
+        <target>+ {quantity} car l'expédition dispose de la compétence : {skill}</target>
+      </segment>
+    </unit>
     <unit id="kill_random">
       <segment id="name" state="final">
         <source>kill_random.name</source>
@@ -407,7 +419,7 @@
       </segment>
       <segment id="description" state="final">
         <source>provision.description</source>
-        <target>Vous gagnez {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.{fight_prevented_by_item}</target>
+        <target>Vous gagnez {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}</target>
       </segment>
       <segment id="ruminant_description" state="final">
         <source>provision.ruminant_description</source>

@@ -52,6 +52,7 @@ class CharacterConfigData
             'characterName' => 'chao',
             'skillConfigs' => [
                 SkillEnum::SHOOTER,
+                SkillEnum::SURVIVALIST,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -250,6 +251,7 @@ class CharacterConfigData
             'skillConfigs' => [
                 SkillEnum::ASTROPHYSICIST,
                 SkillEnum::PILOT,
+                SkillEnum::SURVIVALIST,
                 SkillEnum::IT_EXPERT,
             ],
             'maxNumberPrivateChannel' => 3,
@@ -327,6 +329,7 @@ class CharacterConfigData
             'characterName' => 'hua',
             'skillConfigs' => [
                 SkillEnum::PILOT,
+                SkillEnum::SURVIVALIST,
                 SkillEnum::TECHNICIAN,
             ],
             'maxNumberPrivateChannel' => 3,

@@ -12,6 +12,10 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Player\Entity\Player;
+use Mush\Skill\Enum\SkillEnum;
 
 abstract class AbstractPlanetSectorEventHandler
 {
@@ -81,5 +85,43 @@ abstract class AbstractPlanetSectorEventHandler
         }
 
         return $logParameters;
+    }
+
+    protected function getSkillReducedDamageForPlayer(Player $player, SkillEnum $skill): string
+    {
+        return $this->translationService->translate(
+            key: 'skill_reduced_damage_for_player',
+            parameters: [
+                $player->getLogKey() => $player->getLogName(),
+                'skill' => $this->translationService->translate(
+                    key: sprintf('%s.name', $skill->toString()),
+                    parameters: [],
+                    domain: 'skill',
+                    language: $player->getLanguage()
+                ),
+                'quantity' => $this->getSkillReduction($player, $skill),
+            ],
+            domain: 'planet_sector_event',
+        );
+    }
+
+    private function getSkillReduction(Player $player, SkillEnum $skill): int
+    {
+        return match ($skill) {
+            SkillEnum::SURVIVALIST => $this->getSurvivalistReduction($player),
+            default => 0,
+        };
+    }
+
+    /**
+     * @psalm-suppress PossiblyFalseReference
+     * @psalm-suppress UndefinedMethod
+     */
+    private function getSurvivalistReduction(Player $player): int
+    {
+        $survivalistSkill = $player->getSkillByNameOrThrow(SkillEnum::SURVIVALIST);
+        $survivalistModifierConfig = $survivalistSkill->getModifierConfigs()->filter(static fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getModifierName() === ModifierNameEnum::PLAYER_PLUS_1_HEALTH_POINT_ON_CHANGE_VARIABLE_IF_FROM_PLANET_SECTOR_EVENT)->first();
+
+        return (int) $survivalistModifierConfig->getDelta();
     }
 }

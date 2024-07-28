@@ -297,7 +297,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.SURVIVALIST]: {
-        'icon': getImgUrl('skills/human/survivalist.png')
+        'icon': getImgUrl('skills/human/survival.png')
     },
 
     [SkillEnum.TECHNICIAN]: {

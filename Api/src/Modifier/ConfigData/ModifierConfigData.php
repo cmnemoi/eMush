@@ -2749,6 +2749,24 @@ abstract class ModifierConfigData
                 ActionTypeEnum::ACTION_SPOKEN->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_PLUS_1_HEALTH_POINT_ON_CHANGE_VARIABLE_IF_FROM_PLANET_SECTOR_EVENT,
+            'modifierName' => ModifierNameEnum::PLAYER_PLUS_1_HEALTH_POINT_ON_CHANGE_VARIABLE_IF_FROM_PLANET_SECTOR_EVENT,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 1,
+            'targetVariable' => PlayerVariableEnum::HEALTH_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                PlanetSectorEvent::PLANET_SECTOR_EVENT => ModifierRequirementEnum::ALL_TAGS,
+                VariableEventInterface::LOSS => ModifierRequirementEnum::ALL_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

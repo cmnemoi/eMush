@@ -12,6 +12,7 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Skill\Enum\SkillEnum;
 
 abstract class AbstractRemoveHealthToARandomExplorator extends AbstractPlanetSectorEventHandler
 {
@@ -36,11 +37,16 @@ abstract class AbstractRemoveHealthToARandomExplorator extends AbstractPlanetSec
         );
         $dispatchedEvents = $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
         $ropeWorked = $dispatchedEvents->filter(static fn (AbstractGameEvent $event) => $event->hasTag(ModifierNameEnum::ROPE_MODIFIER))->count() > 0;
+        $survivalistWorked = $dispatchedEvents->filter(static fn (AbstractGameEvent $event) => $event->hasTag(ModifierNameEnum::PLAYER_PLUS_1_HEALTH_POINT_ON_CHANGE_VARIABLE_IF_FROM_PLANET_SECTOR_EVENT))->count() > 0;
 
         $logParameters = $this->getLogParameters($event);
         $logParameters['quantity'] = $healthLost;
         $logParameters[$exploratorToInjure->getLogKey()] = $exploratorToInjure->getLogName();
         $logParameters['rope_worked'] = $ropeWorked ? 'true' : 'false';
+        $logParameters['skill_reduced_damage_for_player'] = $survivalistWorked ? sprintf(
+            '////%s',
+            $this->getSkillReducedDamageForPlayer($exploratorToInjure, SkillEnum::SURVIVALIST)
+        ) : '';
 
         return $this->createExplorationLog($event, $logParameters);
     }

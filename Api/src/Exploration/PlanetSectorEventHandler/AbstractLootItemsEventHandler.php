@@ -14,6 +14,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Skill\Enum\SkillEnum;
 
 abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHandler
 {
@@ -37,7 +38,7 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
      */
     protected function createRandomItemsFromEvent(PlanetSectorEvent $event): ArrayCollection
     {
-        $numberOfItemsToCreate = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputQuantity());
+        $numberOfItemsToCreate = $this->getNumberOfItemsToCreate($event);
         $createdItems = new ArrayCollection();
 
         for ($i = 0; $i < $numberOfItemsToCreate; ++$i) {
@@ -57,5 +58,63 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
         }
 
         return $createdItems;
+    }
+
+    protected function getLogParameters(PlanetSectorEvent $event): array
+    {
+        $logParameters = parent::getLogParameters($event);
+        $logParameters['bonus_loot_thanks_to_skill'] = $this->getBonusLootLog($event);
+
+        return $logParameters;
+    }
+
+    protected function getBonusLootLog(PlanetSectorEvent $event): ?string
+    {
+        $bonusLoot = $this->getBonusLootFromEvent($event);
+        $language = $event->getExploration()->getDaedalus()->getLanguage();
+        $skill = $this->getBonusSkillFromEvent($event);
+
+        return $bonusLoot > 0 ? sprintf(
+            '////%s',
+            $this->translationService->translate(
+                key: 'bonus_loot_thanks_to_skill',
+                parameters: [
+                    'skill' => $this->translationService->translate(
+                        key: sprintf('%s.name', $skill->toString()),
+                        parameters: [],
+                        domain: 'skill',
+                        language: $language
+                    ),
+                    'quantity' => $bonusLoot,
+                ],
+                domain: 'planet_sector_event',
+                language: $language
+            )
+        ) : '';
+    }
+
+    private function getNumberOfItemsToCreate(PlanetSectorEvent $event): int
+    {
+        $numberOfItemsToCreate = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputQuantity());
+
+        return $numberOfItemsToCreate + $this->getBonusLootFromEvent($event);
+    }
+
+    private function getBonusLootFromEvent(PlanetSectorEvent $event): int
+    {
+        $exploration = $event->getExploration();
+
+        return match ($event->getName()) {
+            PlanetSectorEvent::PROVISION => $exploration->getNumberOfActiveSurvivalists(),
+            default => 0,
+        };
+    }
+
+    private function getBonusSkillFromEvent(PlanetSectorEvent $event): SkillEnum
+    {
+        return match ($event->getName()) {
+            PlanetSectorEvent::PROVISION => SkillEnum::SURVIVALIST,
+            default => SkillEnum::NULL,
+        };
     }
 }

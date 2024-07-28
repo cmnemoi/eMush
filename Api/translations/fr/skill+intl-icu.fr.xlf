@@ -254,5 +254,15 @@
         <target>Discret et fidèle, vous attirez la sympathie et portez un peu la misère du monde quand même...//:point: Une fois par jour, les autres joueurs peuvent se confier à vous, en faisant cela, ils vous révèlent leurs X dernières actions où X est votre quantité de :pmo: et gagnent ainsi 2 :pmo:.</target>
       </segment>
     </unit>
+    <unit id="survivalist">
+      <segment id="survivalist.name" state="translated">
+        <source>survivalist.name</source>
+        <target>Survie</target>
+      </segment>
+      <segment id="survivalist.description" state="translated">
+        <source>survivalist.description</source>
+        <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.//:point: Expédition : Chaque dégât est **réduit d'un point**.//:point: Expédition : L'évènement **Provision** donne un steak de plus.//:point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

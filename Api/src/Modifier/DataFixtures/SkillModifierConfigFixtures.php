@@ -78,6 +78,12 @@ final class SkillModifierConfigFixtures extends Fixture
         $this->addReference($modifierForPlayerPlus1ActionPointOnPostActionIfSuccessful->getName(), $modifierForPlayerPlus1ActionPointOnPostActionIfSuccessful);
         $manager->persist($modifierForPlayerPlus1ActionPointOnPostActionIfSuccessful);
 
+        $modifierPlusOneHealthPointOnChangeVariableIfFromPlanetSectorEvent = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_1_HEALTH_POINT_ON_CHANGE_VARIABLE_IF_FROM_PLANET_SECTOR_EVENT)
+        );
+        $this->addReference($modifierPlusOneHealthPointOnChangeVariableIfFromPlanetSectorEvent->getName(), $modifierPlusOneHealthPointOnChangeVariableIfFromPlanetSectorEvent);
+        $manager->persist($modifierPlusOneHealthPointOnChangeVariableIfFromPlanetSectorEvent);
+
         $manager->flush();
     }
 }

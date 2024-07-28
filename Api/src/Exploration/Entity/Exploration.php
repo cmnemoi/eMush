@@ -252,4 +252,14 @@ class Exploration
     {
         return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::THERMOSENSOR))->count() > 0;
     }
+
+    public function getNumberOfActiveSurvivalists(): int
+    {
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::SURVIVALIST))->count();
+    }
+
+    public function getActiveNonSurvivalistExplorators(): PlayerCollection
+    {
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::SURVIVALIST) === false);
+    }
 }

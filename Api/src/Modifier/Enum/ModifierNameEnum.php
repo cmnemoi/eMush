@@ -27,6 +27,7 @@ abstract class ModifierNameEnum
     public const string PLAYER_MINUS_1_ACTION_POINT_ON_SCAN = 'player_-1_action_point_on_scan';
     public const string CREATIVE_MODIFIER = 'creative_modifier';
     public const string PLAYER_PLUS_1_ACTION_POINT_ON_POST_ACTION_IF_FAILED = 'player_+1_action_point_on_post_action_if_failed';
+    public const string PLAYER_PLUS_1_HEALTH_POINT_ON_CHANGE_VARIABLE_IF_FROM_PLANET_SECTOR_EVENT = 'player_+1_health_point_on_change_variable_if_from_planet_sector_event';
 
     /** @TODO Rename that SKILL_POINT_SHOOTER */
     public const string SHOOTER_SKILL_POINT = 'shooter_skill_point';

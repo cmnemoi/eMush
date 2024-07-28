@@ -19,8 +19,10 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Entity\PlanetSector;
+use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\CharacterEnum;
@@ -33,6 +35,10 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -42,6 +48,7 @@ use Mush\Tests\FunctionalTester;
 
 final class PlanetSectorEventCest extends AbstractExplorationTester
 {
+    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private StatusServiceInterface $statusService;
@@ -51,6 +58,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -1235,5 +1243,202 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             entity: Alert::class,
             params: ['name' => AlertEnum::LOST_CREWMATE],
         );
+    }
+
+    public function accidentShouldDealOneLessDamageToASurvivalist(FunctionalTester $I): void
+    {
+        $this->givenChunIsASurvivalist($I);
+
+        $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            players: [$this->chun],
+            I: $I
+        );
+
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::ACCIDENT_3_5,
+            sector: PlanetSectorEnum::SISMIC_ACTIVITY,
+        );
+
+        $this->givenAccidentDealsOneDamage($I);
+
+        $this->givenChunHasTenHealthPoints();
+
+        $this->whenExplorationEventIsDispatched($exploration);
+
+        $this->thenChunShouldHaveHealthPoints(10, $I);
+    }
+
+    public function tiredShouldDealOneLessDamageToASurvivalist(FunctionalTester $I): void
+    {
+        $this->givenChunIsASurvivalist($I);
+
+        $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
+            sectorName: PlanetSectorEnum::DESERT,
+            players: [$this->chun],
+            I: $I
+        );
+
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::TIRED_2,
+            sector: PlanetSectorEnum::DESERT,
+        );
+
+        $this->givenChunHasTenHealthPoints();
+
+        $this->whenExplorationEventIsDispatched($exploration);
+
+        $this->thenChunShouldHaveHealthPoints(9, $I);
+    }
+
+    public function fightShouldDealOneLessDamageToASurvivalist(FunctionalTester $I): void
+    {
+        $this->givenChunIsASurvivalist($I);
+
+        $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            players: [$this->chun],
+            I: $I
+        );
+
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: 'fight_1',
+            sector: PlanetSectorEnum::INTELLIGENT,
+        );
+
+        $this->givenChunHasTenHealthPoints();
+
+        $this->whenExplorationEventIsDispatched($exploration);
+
+        $this->thenChunShouldHaveHealthPoints(10, $I);
+    }
+
+    public function provisionShouldGiveOneExtraAlienSteakToASurvivalist(FunctionalTester $I): void
+    {
+        $this->givenChunIsASurvivalist($I);
+
+        $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
+            sectorName: PlanetSectorEnum::RUMINANT,
+            players: [$this->chun],
+            I: $I
+        );
+
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::PROVISION_4,
+            sector: PlanetSectorEnum::RUMINANT,
+        );
+
+        $this->whenExplorationEventIsDispatched($exploration);
+
+        $this->thenIShouldSeeFiveAlienSteaksOnPlanet($I);
+    }
+
+    public function killRandomShouldNotKillSurvivalistPlayerIfThereIsSomeoneElseToKill(FunctionalTester $I): void
+    {
+        $this->givenChunIsASurvivalist($I);
+
+        $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            players: [$this->chun, $this->kuanTi],
+            I: $I
+        );
+
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::KILL_RANDOM,
+            sector: PlanetSectorEnum::SISMIC_ACTIVITY,
+        );
+
+        $this->whenExplorationEventIsDispatched($exploration);
+
+        $this->thenPlayerShouldBeAlive($this->chun, $I);
+        $this->thenPlayerShouldBeDead($this->kuanTi, $I);
+    }
+
+    public function killRandomShouldKillSurvivalistPlayerIfThereIsNoOneElseToKill(FunctionalTester $I): void
+    {
+        $this->givenChunIsASurvivalist($I);
+
+        $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            players: [$this->chun],
+            I: $I
+        );
+
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::KILL_RANDOM,
+            sector: PlanetSectorEnum::SISMIC_ACTIVITY,
+        );
+
+        $this->whenExplorationEventIsDispatched($exploration);
+
+        $this->thenPlayerShouldBeDead($this->chun, $I);
+    }
+
+    private function givenChunIsASurvivalist(FunctionalTester $I): void
+    {
+        $this->chun->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SURVIVALIST]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SURVIVALIST, $this->chun));
+    }
+
+    private function givenAnExplorationIsCreatedOnSectorForPlayers(string $sectorName, array $players, FunctionalTester $I): Exploration
+    {
+        return $this->createExploration(
+            planet: $this->createPlanet([$sectorName], $I),
+            explorators: new ArrayCollection($players)
+        );
+    }
+
+    private function givenOnlyThisEventCanHappenInSector(string $event, string $sector): void
+    {
+        $this->setupPlanetSectorEvents(
+            sectorName: $sector,
+            events: [$event => 1]
+        );
+    }
+
+    private function givenAccidentDealsOneDamage(FunctionalTester $I): void
+    {
+        $accidentEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ACCIDENT_3_5]);
+        $accidentEventConfig->setOutputTable([1 => 1]);
+    }
+
+    private function givenChunHasTenHealthPoints(): void
+    {
+        $this->chun->setHealthPoint(10);
+    }
+
+    private function whenExplorationEventIsDispatched(Exploration $exploration): void
+    {
+        $this->explorationService->dispatchExplorationEvent($exploration);
+    }
+
+    private function thenChunShouldHaveHealthPoints(int $healthPoints, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $healthPoints,
+            actual: $this->chun->getHealthPoint(),
+        );
+    }
+
+    private function thenIShouldSeeFiveAlienSteaksOnPlanet(FunctionalTester $I): void
+    {
+        $I->assertCount(5, $this->daedalus->getPlanetPlace()->getAllEquipmentsByName(GameRationEnum::ALIEN_STEAK));
+    }
+
+    private function thenIShouldSeeFourAlienFruitsOnPlanet(FunctionalTester $I): void
+    {
+        $I->assertCount(4, $this->daedalus->getPlanetPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => GameFruitEnum::getAlienFruits()->contains($gameEquipment->getName())));
+    }
+
+    private function thenPlayerShouldBeAlive(Player $player, FunctionalTester $I): void
+    {
+        $I->assertTrue($player->isAlive());
+    }
+
+    private function thenPlayerShouldBeDead(Player $player, FunctionalTester $I): void
+    {
+        $I->assertFalse($player->isAlive());
     }
 }

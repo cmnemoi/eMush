@@ -145,6 +145,71 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
     }
 
+    public function testNormalizeTiredEventWithASurvivalist(FunctionalTester $I): void
+    {
+        // given desert sector has only tired event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::DESERT,
+            events: [PlanetSectorEvent::TIRED_2 => 1]
+        );
+
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Kuan Ti has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->kuanTi,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun is a survivalist
+        $this->player->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SURVIVALIST]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SURVIVALIST, $this->player));
+
+        // given Kuan Ti is a survivalist
+        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SURVIVALIST]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SURVIVALIST, $this->kuanTi));
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::DESERT], $I),
+            explorators: $this->players,
+        );
+
+        // given two extra steps are made to trigger the tired event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when tired event exploration log is normalized
+        $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::DESERT,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::DESERT,
+                'planetSectorName' => 'Désert',
+                'eventName' => 'Fatigue',
+                'eventDescription' => 'La marche dans cette étendue désertique est pénible et très douloureuse.',
+                'eventOutcome' => 'Tous les équipiers subissent 2 points de dégâts.////Chun subit 1 dégât de moins grâce à sa compétence : Survie//Kuan Ti subit 1 dégât de moins grâce à sa compétence : Survie',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
     public function testNormalizeArtefactEvent(FunctionalTester $I): void
     {
         // given intelligent life sector has only artefact event
@@ -732,6 +797,68 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
     }
 
+    public function testNormalizeProvisionEventWithTwoSurvivalists(FunctionalTester $I): void
+    {
+        // given ruminant sector has only provision event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::RUMINANT,
+            events: [PlanetSectorEvent::PROVISION_4 => 1]
+        );
+
+        // given Chun and KT have a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->kuanTi,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun and Kuan Ti are survivalists
+        $this->chun->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SURVIVALIST]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SURVIVALIST, $this->chun));
+        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SURVIVALIST]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SURVIVALIST, $this->kuanTi));
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::RUMINANT], $I),
+            explorators: new ArrayCollection([$this->chun, $this->kuanTi]),
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given one extra step are made to trigger the provision event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when kill all event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::PROVISION
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::RUMINANT,
+                'planetSectorName' => 'Ruminants',
+                'eventName' => 'Provision',
+                'eventDescription' => 'Vous chassez avec succès un Chab Chab... Vous récupérez de la viande alien.',
+                'eventOutcome' => 'Vous gagnez 6 Steaks aliens.////+ 2 car l\'expédition dispose de la compétence : Survie',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
     public function testNormalizeStarmapEvent(FunctionalTester $I): void
     {
         // given cristal field sector has only provision event
@@ -1179,6 +1306,57 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'eventName' => 'Accident',
                 'eventDescription' => 'Chun chute dans une crevasse… Aïe !',
                 'eventOutcome' => 'Un équipier subit entre 3 et 5 points de dégâts.////Esquivé Corde',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
+    public function testNormalizeAccidentEventWithASurvivalist(FunctionalTester $I): void
+    {
+        // given sismic activity sector has only accident event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            events: [PlanetSectorEvent::ACCIDENT_3_5 => 1]
+        );
+
+        // given player has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given player is a survivalist
+        $this->player->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SURVIVALIST]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SURVIVALIST, $this->player));
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            explorators: new ArrayCollection([$this->player]),
+        );
+
+        // given accident is triggered
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when accident exploration log is normalized
+        $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SISMIC_ACTIVITY,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::SISMIC_ACTIVITY,
+                'planetSectorName' => 'Sismique',
+                'eventName' => 'Accident',
+                'eventDescription' => 'Chun chute dans une crevasse… Aïe !',
+                'eventOutcome' => 'Un équipier subit entre 3 et 5 points de dégâts.////Chun subit 1 dégât de moins grâce à sa compétence : Survie',
             ],
             actual: $normalizedExplorationLog,
         );

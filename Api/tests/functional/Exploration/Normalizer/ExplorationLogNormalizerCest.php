@@ -758,6 +758,58 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
     }
 
+    public function testNormalizeHarvestWithABotanist(FunctionalTester $I): void
+    {
+        // given fruit trees sector has only harvest event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::FRUIT_TREES,
+            events: [PlanetSectorEvent::HARVEST_1 => 1]
+        );
+
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun is a botanist
+        $this->chun->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::BOTANIST]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::BOTANIST, $this->chun));
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::FRUIT_TREES], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given one extra step are made to trigger the harvest event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when harvest event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::HARVEST
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::FRUIT_TREES,
+                'planetSectorName' => 'Vergers',
+                'eventName' => 'Récolte',
+                'eventDescription' => 'Plusieurs arbustes touffus attirent votre attention, dans l\'un d\'entre eux se trouve de curieux fruits…',
+                'eventOutcome' => 'Vous gagnez 2 Fruits aliens.////+ 1 car l\'expédition dispose de la compétence : Botaniste',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
     public function testNormalizeDiseaseEvent(FunctionalTester $I): void
     {
         // given forest sector has only disease event

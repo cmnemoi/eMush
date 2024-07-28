@@ -329,6 +329,7 @@ class CharacterConfigData
             'characterName' => 'hua',
             'skillConfigs' => [
                 SkillEnum::PILOT,
+                SkillEnum::BOTANIST,
                 SkillEnum::SURVIVALIST,
                 SkillEnum::TECHNICIAN,
             ],
@@ -368,6 +369,7 @@ class CharacterConfigData
             'name' => 'ian',
             'characterName' => 'ian',
             'skillConfigs' => [
+                SkillEnum::BOTANIST,
                 SkillEnum::FIREFIGHTER,
             ],
             'maxNumberPrivateChannel' => 3,

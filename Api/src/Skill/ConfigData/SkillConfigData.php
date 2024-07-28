@@ -29,6 +29,10 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::BOTANIST,
+                skillPointsConfig: SkillPointsEnum::BOTANIST_POINTS,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::CONCEPTOR,
                 skillPointsConfig: SkillPointsEnum::CONCEPTOR_POINTS,
             ),

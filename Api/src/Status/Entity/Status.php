@@ -17,6 +17,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
@@ -226,6 +227,16 @@ class Status implements ActionProviderInterface
         }
 
         return new ArrayCollection($actions);
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::STATUS;
+    }
+
+    public function getLogName(): string
+    {
+        return $this->getName();
     }
 
     public function canPlayerReach(Player $player): bool

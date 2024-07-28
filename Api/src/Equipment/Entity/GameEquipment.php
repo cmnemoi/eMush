@@ -17,6 +17,8 @@ use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Tool;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -495,6 +497,66 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         $names[] = $this->getName();
 
         return new ArrayCollection($names);
+    }
+
+    public function isAFruit(): bool
+    {
+        return $this->hasMechanicByName(EquipmentMechanicEnum::FRUIT);
+    }
+
+    public function isAPlant(): bool
+    {
+        return $this->hasMechanicByName(EquipmentMechanicEnum::PLANT);
+    }
+
+    public function getFruitProduction(): int
+    {
+        return $this->canProduceFruit() ? 1 : 0;
+    }
+
+    public function getOxygenProduction(): int
+    {
+        return $this->canProduceOxygen() ? 1 : 0;
+    }
+
+    public function isYoungPlant(): bool
+    {
+        return $this->hasStatus(EquipmentStatusEnum::PLANT_YOUNG);
+    }
+
+    public function getMaturationTimeLeftOrThrow(): int
+    {
+        $maturationTime = $this->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG)->getMaturationTimeOrThrow();
+        $plantAge = $this->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG)->getCharge();
+
+        $maturationTimeLeft = $maturationTime - $plantAge;
+        if ($this->getPlace()->hasOperationalEquipmentByName(EquipmentEnum::HYDROPONIC_INCUBATOR)) {
+            $maturationTimeLeft = (int) ceil($maturationTimeLeft / 2);
+        }
+
+        return max(0, $maturationTimeLeft);
+    }
+
+    private function canProduceFruit(): bool
+    {
+        foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED, EquipmentStatusEnum::PLANT_THIRSTY] as $status) {
+            if ($this->hasStatus($status)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function canProduceOxygen(): bool
+    {
+        foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED] as $status) {
+            if ($this->hasStatus($status)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool

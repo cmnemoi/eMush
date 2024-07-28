@@ -16,6 +16,7 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\ConfigData\SkillConfigData;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -172,5 +173,15 @@ class Skill implements ActionProviderInterface
     public function canPlayerReach(Player $player): bool
     {
         return $player->canPlayerReach($this->player);
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::SKILL;
+    }
+
+    public function getLogName(): string
+    {
+        return $this->getNameAsString();
     }
 }

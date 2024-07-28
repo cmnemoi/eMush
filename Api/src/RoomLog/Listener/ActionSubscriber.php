@@ -54,7 +54,7 @@ final class ActionSubscriber implements EventSubscriberInterface
 
         $actionName = $event->getActionConfig()->getActionName();
 
-        $this->roomLogService->createLogFromActionResult($actionName, $actionResult, $player, $actionTarget, $event->getTime());
+        $this->roomLogService->createLogFromActionEvent($event);
     }
 
     public function onPostAction(ActionEvent $event): void

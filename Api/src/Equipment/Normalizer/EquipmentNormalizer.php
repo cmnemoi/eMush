@@ -20,6 +20,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -83,7 +84,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             'description' => $definition,
             'statuses' => $statuses,
             'actions' => $this->getNormalizedActions($equipment, ActionHolderEnum::EQUIPMENT, $currentPlayer, $format, $context),
-            'effects' => $this->getRationsEffect($equipment, $currentPlayer->getDaedalus()),
+            'effects' => $this->getEquipmentEffects($equipment, $currentPlayer),
         ];
 
         if (EquipmentEnum::equipmentToNormalizeAsItems()->contains($equipment->getName()) || $equipment instanceof GameItem) {
@@ -116,10 +117,22 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             $nameParameters['age'] = $equipment->hasStatus(EquipmentStatusEnum::PLANT_YOUNG) ? 'young' : '';
         }
         if (($book = $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK)) instanceof Book) {
-            $nameParameters['skill'] = $book->getSkill();
+            $nameParameters['skill'] = $book->getSkill()->toString();
         }
 
         return $nameParameters;
+    }
+
+    private function getEquipmentEffects(GameEquipment $equipment, Player $currentPlayer): array
+    {
+        if ($equipment->isAFruit() && $currentPlayer->hasSkill(SkillEnum::BOTANIST)) {
+            return $this->getRationsEffect($equipment, $currentPlayer->getDaedalus());
+        }
+        if ($equipment->isAPlant() && $currentPlayer->hasSkill(SkillEnum::BOTANIST)) {
+            return $this->getPlantEffects($equipment, $currentPlayer->getDaedalus());
+        }
+
+        return [];
     }
 
     private function getRationsEffect(GameEquipment $gameEquipment, Daedalus $daedalus): array
@@ -150,6 +163,22 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         return [
             'title' => $this->translationService->translate('ration_data', [], 'misc', $language),
             'effects' => array_merge($effects, $this->createConsumableLines($this->equipmentEffectService->getConsumableEffect($ration, $daedalus), $language)),
+        ];
+    }
+
+    private function getPlantEffects(GameEquipment $plant, Daedalus $daedalus): array
+    {
+        $language = $daedalus->getLanguage();
+
+        $effects = [
+            $this->translationService->translate('fruit_productivity', ['quantity' => $plant->getFruitProduction()], 'misc', $language),
+            $this->translationService->translate('o2_productivity', ['quantity' => $plant->getOxygenProduction()], 'misc', $language),
+            $plant->isYoungPlant() ? $this->translationService->translate('maturity_info', ['quantity' => $plant->getMaturationTimeLeftOrThrow()], 'misc', $language) : '',
+        ];
+
+        return [
+            'title' => $this->translationService->translate('plant_data', [], 'misc', $language),
+            'effects' => array_filter($effects),
         ];
     }
 

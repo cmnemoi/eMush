@@ -25,6 +25,4 @@ abstract class VisibilityEnum
     public const string MUSH = 'mush'; // logs in mush channel
     public const string HUMAN = 'human'; // not visible by mush
     public const string HIDDEN = 'hidden'; // internal status
-
-    public const string COOK_RESTRICTED = 'cook_restricted'; // perishable status only visible to cooks
 }

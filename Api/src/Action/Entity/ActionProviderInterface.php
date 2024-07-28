@@ -34,4 +34,8 @@ interface ActionProviderInterface
     public function getProvidedActions(ActionHolderEnum $actionTarget, array $actionRanges): Collection;
 
     public function canPlayerReach(Player $player): bool;
+
+    public function getLogKey(): string;
+
+    public function getLogName(): string;
 }

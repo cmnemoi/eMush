@@ -1142,6 +1142,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1174,6 +1175,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1206,6 +1208,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1238,6 +1241,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1270,6 +1274,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1302,6 +1307,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1334,6 +1340,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1366,6 +1373,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1398,6 +1406,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1430,6 +1439,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1462,6 +1472,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1494,6 +1505,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1526,6 +1538,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1558,6 +1571,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 'transplant',
+                ActionEnum::GRAFT->value,
             ],
             'modifierConfigs' => [],
         ],

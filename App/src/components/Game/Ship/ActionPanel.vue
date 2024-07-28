@@ -42,7 +42,7 @@ export default defineComponent ({
             if (this.selectedTarget !== null) {
                 for (let i = 0; i < this.selectedTarget.actions.length; i++) {
                     const actionWithTargetToAdd = { action: this.selectedTarget.actions[i], target: this.selectedTarget } as ActionWithTarget;
-                    if (!actionsWithTarget.some((actionWithTarget: ActionWithTarget) => actionWithTarget.action.id === actionWithTargetToAdd.action.id)) {
+                    if (!actionsWithTarget.some((actionWithTarget: ActionWithTarget) => actionWithTarget.action.name === actionWithTargetToAdd.action.name)) {
                         actionsWithTarget.push(actionWithTargetToAdd);
                     }
                 }

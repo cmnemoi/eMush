@@ -21,6 +21,10 @@ use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -37,6 +41,7 @@ final class ScanCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private Place $bridge;
     private GameEquipment $astroTerminal;
+    private ChooseSkillUseCase $chooseSkillUseCase;
 
     public function _before(FunctionalTester $I): void
     {
@@ -47,6 +52,7 @@ final class ScanCest extends AbstractFunctionalTest
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         $this->scanActionConfig->setSuccessRate(100);
 
@@ -285,5 +291,52 @@ final class ScanCest extends AbstractFunctionalTest
         $this->scanAction->execute();
 
         $I->assertEquals(8 - 2, $this->player->getActionPoint());
+    }
+
+    public function shouldCostOneLessActionPointForAnAstrophysicist(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasEightActionPoints($I);
+
+        $this->givenScanActionCostsThreeActionPoints($I);
+
+        $this->givenPlayerIsAnAstrophysicist($I);
+
+        $this->whenPlayerScans();
+
+        $this->thenPlayerShouldHaveSixActionPoints($I);
+    }
+
+    private function givenPlayerHasEightActionPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(8, $this->player->getActionPoint());
+    }
+
+    private function givenScanActionCostsThreeActionPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(3, $this->scanActionConfig->getActionCost());
+    }
+
+    private function givenPlayerIsAnAstrophysicist(FunctionalTester $I): void
+    {
+        $this->player->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::ASTROPHYSICIST]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::ASTROPHYSICIST, $this->player));
+    }
+
+    private function whenPlayerScans(): void
+    {
+        $this->scanAction->loadParameters(
+            actionConfig: $this->scanActionConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->astroTerminal
+        );
+        $this->scanAction->execute();
+    }
+
+    private function thenPlayerShouldHaveSixActionPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(6, $this->player->getActionPoint());
     }
 }

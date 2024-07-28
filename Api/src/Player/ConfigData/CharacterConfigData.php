@@ -247,6 +247,7 @@ class CharacterConfigData
             'name' => 'frieda',
             'characterName' => 'frieda',
             'skillConfigs' => [
+                SkillEnum::ASTROPHYSICIST,
                 SkillEnum::PILOT,
                 SkillEnum::IT_EXPERT,
             ],
@@ -285,7 +286,9 @@ class CharacterConfigData
         [
             'name' => 'gioele',
             'characterName' => 'gioele',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillEnum::ASTROPHYSICIST,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -480,6 +483,7 @@ class CharacterConfigData
             'characterName' => 'kuan_ti',
             'skillConfigs' => [
                 SkillEnum::CONCEPTOR,
+                SkillEnum::ASTROPHYSICIST,
                 SkillEnum::TECHNICIAN,
                 SkillEnum::LEADER,
             ],

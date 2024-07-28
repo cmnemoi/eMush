@@ -44,9 +44,9 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
     private NeronServiceInterface $neronService;
     private PlanetServiceInterface $planetService;
     private StatusServiceInterface $statusService;
+    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipment $astroTerminal;
     private Place $bridge;
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private Planet $planet;
 
     public function _before(FunctionalTester $I): void
@@ -58,6 +58,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->planetService = $I->grabService(PlanetServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
@@ -279,6 +280,16 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveThreeITPoints($I);
     }
 
+    public function astrophysicistShouldRevealOneMoreSection(FunctionalTester $I): void
+    {
+        $this->givenPlanetHasZeroRevealedSectors($I);
+        $this->givenPlayerIsAnAstrophysicist($I);
+
+        $this->whenPlayerAnalyzesThePlanet();
+
+        $this->thenPlanetHasTwoRevealedSectors($I);
+    }
+
     private function givenAPlanetScannerInEngineRoom(FunctionalTester $I): void
     {
         $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
@@ -320,6 +331,14 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
     private function givenPlayerHasTenActionPoints(): void
     {
         $this->player->setActionPoint(10);
+    }
+
+    private function givenPlayerIsAnAstrophysicist(FunctionalTester $I): void
+    {
+        $this->player->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::ASTROPHYSICIST]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::ASTROPHYSICIST, $this->player));
     }
 
     private function whenPlayerAnalyzesThePlanet(): void

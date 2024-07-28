@@ -22,6 +22,13 @@ abstract class SkillConfigData
     {
         return [
             new SkillConfigDto(
+                name: SkillEnum::ASTROPHYSICIST,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_1_MORE_SECTION_REVEALED_ON_ANALYZE_PLANET,
+                    ModifierNameEnum::PLAYER_MINUS_1_ACTION_POINT_ON_SCAN,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::CONCEPTOR,
                 skillPointsConfig: SkillPointsEnum::CONCEPTOR_POINTS,
             ),

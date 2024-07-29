@@ -2,7 +2,7 @@
 
 set -eux
 
-PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --dry-run --diff
+PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --dry-run --diff -vvv
 if [ $? -ne 0 ];
 then
   echo -e "\e[01;31m Please run: vendor/bin/php-cs-fixer fix \e[0m"

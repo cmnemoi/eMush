@@ -51,11 +51,9 @@ export default defineComponent ({
         }),
         async clearErrorAndReloadData() {
             this.clearError();
-            if (this.player.isAlive()) {
-                await this.reloadPlayer();
-                await this.loadChannels();
-                await this.loadRoomLogs();
-            }
+            if (this.player.isDead()) return;
+
+            await Promise.all([this.loadChannels(), this.loadRoomLogs(), this.reloadPlayer()]);
         },
         getImgUrl,
         getTranslatedErrorDetails(): string | null {

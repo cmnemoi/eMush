@@ -88,9 +88,9 @@ export default defineComponent ({
         'executeAction'
     ],
     computed: {
-        ...mapGetters('room', [
-            'selectedTarget'
-        ]),
+        ...mapGetters({
+            'selectedTarget': 'room/selectedTarget'
+        }),
         getSelectedPlayer(): Player | null
         {
             if (this.selectedTarget instanceof Player) { return this.selectedTarget;}

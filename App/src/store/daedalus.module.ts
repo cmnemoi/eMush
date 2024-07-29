@@ -3,7 +3,7 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { Daedalus } from "@/entities/Daedalus";
 import { Alert } from "@/entities/Alerts";
 import { Minimap } from "@/entities/Minimap";
-import disable = Phaser.Display.Canvas.Smoothing.disable;
+import store from ".";
 
 const state =  {
     daedalus: null,
@@ -36,7 +36,8 @@ const getters: GetterTree<any, any> = {
 };
 
 const actions: ActionTree<any, any> = {
-    async loadAlerts({ commit, state }, { player }) {
+    async loadAlerts({ commit, state }) {
+        const player = store.getters['player/player'];
         commit('updateDaedalus', player.daedalus);
         commit('setLoadingAlerts', true);
         try {
@@ -49,7 +50,8 @@ const actions: ActionTree<any, any> = {
             return false;
         }
     },
-    async loadMinimap({ commit, state }, { player }) {
+    async loadMinimap({ commit, state }) {
+        const player = store.getters['player/player'];
         if (!player.isInARoom()) {
             return false;
         }

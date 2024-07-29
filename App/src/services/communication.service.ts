@@ -15,6 +15,7 @@ const PIRATED_CHANNELS_ENDPOINT = urlJoin(API_URL, "channel/pirated");
 const ROOM_LOGS_ENDPOINT = urlJoin(API_URL, "room-log");
 const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(API_URL, "room-log/channel");
 const TIPS_CHANNEL_ENDPOINT = urlJoin(API_URL, "channel/tips");
+const FAVORITES_CHANNEL_ENDPOINT = urlJoin(API_URL, "channel/favorites");
 
 // If there is only one element found, the API returns an object instead of an array.
 // We need to handle this case to avoid not being able to load the channels / messages.
@@ -24,60 +25,70 @@ function toArray(data: any): any[] {
 
 const CommunicationService = {
     loadAlivePlayerChannels: async(): Promise<Channel[]> => {
-        const channels = await CommunicationService.loadDeadPlayerChannels().then((channels: Channel[]) => {
+        const channelsPromise = CommunicationService.loadDeadPlayerChannels();
+        const favoritesChannelPromise = ApiService.get(FAVORITES_CHANNEL_ENDPOINT);
+        const piratedChannelsPromise = ApiService.get(PIRATED_CHANNELS_ENDPOINT);
+        const newChannelPromise = ApiService.get(CAN_CREATE_CHANNEL_ENDPOINT);
+        const tipsChannelPromise = ApiService.get(TIPS_CHANNEL_ENDPOINT);
+
+        const channels = await channelsPromise.then((channels: Channel[]) => {
             return channels;
         });
-
-        const favoritesChannelData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, 'favorites'));
-        if (favoritesChannelData.data) {
-            channels.push((new Channel()).load(favoritesChannelData.data));
-        }
-
-        const piratedChannelsData = await ApiService.get(PIRATED_CHANNELS_ENDPOINT);
-        if (piratedChannelsData.data) {
-            toArray(piratedChannelsData.data).forEach((data: any) => {
-                channels.push((new Channel()).load(data));
-            });
-        }
-
-        const newChannelData = await ApiService.get(CAN_CREATE_CHANNEL_ENDPOINT);
-        if (newChannelData.data && newChannelData.data['canCreate']) {
-            channels.push((new Channel()).load({
-                scope: ChannelType.NEW_CHANNEL,
-                id: ChannelType.NEW_CHANNEL,
-                name: newChannelData.data['name'],
-                description: newChannelData.data['description']
-            }));
-        }
-
-        const tipsChannelData = await ApiService.get(TIPS_CHANNEL_ENDPOINT);
-        if (tipsChannelData.data) {
-            channels.push((new Channel()).load({
-                scope: ChannelType.TIPS,
-                id: ChannelType.TIPS,
-                name: tipsChannelData.data.name,
-                description: tipsChannelData.data.description,
-                tips: tipsChannelData.data.tips
-            }));
-        }
+        await favoritesChannelPromise.then((favoritesChannelData: any) => {
+            if (favoritesChannelData.data) {
+                channels.push((new Channel()).load(favoritesChannelData.data));
+            }
+        });
+        await piratedChannelsPromise.then((piratedChannelsData: any) => {
+            if (piratedChannelsData.data) {
+                toArray(piratedChannelsData.data).forEach((data: any) => {
+                    channels.push((new Channel()).load(data));
+                });
+            }
+        });
+        await newChannelPromise.then((newChannelData: any) => {
+            if (newChannelData.data && newChannelData.data['canCreate']) {
+                channels.push((new Channel()).load({
+                    scope: ChannelType.NEW_CHANNEL,
+                    id: ChannelType.NEW_CHANNEL,
+                    name: newChannelData.data['name'],
+                    description: newChannelData.data['description']
+                }));
+            }
+        });
+        await tipsChannelPromise.then((tipsChannelData: any) => {
+            if (tipsChannelData.data) {
+                channels.push((new Channel()).load({
+                    scope: ChannelType.TIPS,
+                    id: ChannelType.TIPS,
+                    name: tipsChannelData.data.name,
+                    description: tipsChannelData.data.description,
+                    tips: tipsChannelData.data.tips
+                }));
+            }
+        });
 
         return channels;
     },
 
     loadDeadPlayerChannels: async (): Promise<Channel[]> => {
-        const channels = [];
+        const channels: Channel[] = [];
 
-        const roomLogChannelData = await ApiService.get(ROOM_LOGS_CHANNEL_ENDPOINT);
-        if (roomLogChannelData.data) {
-            channels.push((new Channel()).load(roomLogChannelData.data));
-        }
+        const roomLogChannelPromise = ApiService.get(ROOM_LOGS_CHANNEL_ENDPOINT);
+        const channelsPromise = ApiService.get(CHANNELS_ENDPOINT);
 
-        const channelsData = await ApiService.get(CHANNELS_ENDPOINT);
-        if (channelsData.data) {
-            toArray(channelsData.data).forEach((data: any) => {
-                channels.push((new Channel()).load(data));
-            });
-        }
+        await roomLogChannelPromise.then((roomLogChannelData: any) => {
+            if (roomLogChannelData.data) {
+                channels.push((new Channel()).load(roomLogChannelData.data));
+            }
+        });
+        await channelsPromise.then((channelsData: any) => {
+            if (channelsData.data) {
+                toArray(channelsData.data).forEach((data: any) => {
+                    channels.push((new Channel()).load(data));
+                });
+            }
+        });
 
         return channels;
     },

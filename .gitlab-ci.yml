@@ -4,17 +4,17 @@ stages:
   - release
 
 .php_template: &php_template
-  image: registry.gitlab.com/eternaltwin/mush/mush/api:8.3.0
+  image: registry.gitlab.com/eternaltwin/mush/mush/api:8.3.0-no-jit
   cache:
     paths:
-      # - "Api/vendor/"
+      - "Api/vendor/"
       - "Api/.php-cs-fixer.cache"
       - "Api/.psalm/"
   before_script:
     - php -v
     - cd Api
     # Install all project dependencies
-    - composer install --no-cache
+    - composer install
     - cp .env.gitlab .env
 
 .php_with_db_template: &php_with_db_template
@@ -29,7 +29,7 @@ stages:
     - php -v
     - cd Api
     # Install all project dependencies
-    - composer install --no-cache
+    - composer install
     - cp .env.gitlab .env.test
     - cp .env.gitlab .env
     - bin/console doctrine:schema:update -f

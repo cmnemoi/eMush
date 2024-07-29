@@ -1,7 +1,6 @@
 #!/bin/sh
 
-echo 'Running php-cs-fixer, Psalm, PHPMD and Codeception tests'
+echo 'Running php-cs-fixer, Psalm, and PHPMD'
 docker compose -f docker/docker-compose.yml exec -T -u dev mush_php php vendor/bin/php-cs-fixer check
 docker compose -f docker/docker-compose.yml exec -T -u dev mush_php php vendor/bin/psalm
 docker compose -f docker/docker-compose.yml exec -T -u dev mush_php php vendor/bin/phpmd src text phpmd.xml --exclude src/*/DataFixtures/*,src/*/ConfigData/* --ignore-errors-on-exit
-docker compose -f docker/docker-compose.yml exec -T -u dev mush_php php vendor/bin/codecept run

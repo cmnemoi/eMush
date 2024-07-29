@@ -1,4 +1,4 @@
-FROM php:8.3-alpine
+FROM --platform=linux/amd64 php:8.3-alpine 
 
 ARG HOST_IP=172.19.0.1
 

@@ -7,7 +7,7 @@ stages:
   image: registry.gitlab.com/eternaltwin/mush/mush/api:8.3.0
   cache:
     paths:
-      - "Api/vendor/"
+      # - "Api/vendor/"
       - "Api/.php-cs-fixer.cache"
       - "Api/.psalm/"
   before_script:
@@ -29,7 +29,7 @@ stages:
     - php -v
     - cd Api
     # Install all project dependencies
-    - composer install
+    - composer install --no-cache
     - cp .env.gitlab .env.test
     - cp .env.gitlab .env
     - bin/console doctrine:schema:update -f

@@ -1,4 +1,4 @@
-FROM php:8.3.0-alpine
+FROM --platform=linux/amd64 php:8.3-alpine 
 
 ARG HOST_IP=172.19.0.1
 
@@ -12,6 +12,8 @@ RUN apk --no-cache --update add --virtual .build-deps gcc make g++ \
     docker-php-ext-install intl && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
     docker-php-ext-install pdo pdo_pgsql pgsql && \
+    docker-php-ext-install opcache && \
+    docker-php-ext-configure opcache --enable-opcache && \
     # Composer
     curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
     mv composer.phar /usr/local/bin/composer && \

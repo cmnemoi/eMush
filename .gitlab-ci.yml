@@ -4,7 +4,7 @@ stages:
   - release
 
 .php_template: &php_template
-  image: registry.gitlab.com/eternaltwin/mush/mush/api:8.3.0-no-jit
+  image: registry.gitlab.com/eternaltwin/mush/mush/api:latest
   cache:
     paths:
       - "Api/vendor/"

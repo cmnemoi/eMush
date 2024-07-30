@@ -20,6 +20,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogTestDto;
 
 /**
  * @internal
@@ -241,14 +242,16 @@ final class DisorderCest extends AbstractFunctionalTest
         $this->eventService->callEvent($playerCycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // then I should see a public room log reporting the disorder cure
-        $I->seeInRepository(
-            RoomLog::class,
-            [
-                'place' => $this->chun->getPlace()->getLogName(),
-                'playerInfo' => $this->chun->getPlayerInfo(),
-                'log' => LogEnum::DISORDER_CURED_PLAYER,
-                'visibility' => VisibilityEnum::PUBLIC,
-            ]
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'La séance est une réussite, **Chun** est guérie de sa maladie (Dépression). **Kuan Ti** est très satisfait.',
+            roomLogTestDto: new RoomLogTestDto(
+                place: $this->chun->getPlace()->getName(),
+                daedalusInfo: $this->chun->getDaedalusInfo(),
+                playerInfo: $this->chun->getPlayerInfo(),
+                log: LogEnum::DISORDER_CURED_PLAYER,
+                visibility: VisibilityEnum::PUBLIC,
+            ),
+            I: $I,
         );
     }
 

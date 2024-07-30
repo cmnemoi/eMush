@@ -15,6 +15,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
@@ -26,6 +27,7 @@ use Mush\Project\ConfigData\ProjectConfigData;
 use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Event\ProjectEvent;
+use Mush\RoomLog\Entity\RoomLog;
 use Mush\User\Entity\User;
 use Symfony\Component\Uid\Uuid;
 
@@ -224,6 +226,27 @@ class AbstractFunctionalTest
         $eventService->callEvent($projectEvent, ProjectEvent::PROJECT_FINISHED);
     }
 
+    protected function ISeeTranslatedRoomLogInRepository(string $expectedRoomLog, RoomLogTestDto $roomLogTestDto, FunctionalTester $I): void
+    {
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: $roomLogTestDto->toArray(),
+        );
+
+        /** @var TranslationServiceInterface $translationService */
+        $translationService = $I->grabService(TranslationServiceInterface::class);
+
+        $I->assertEquals(
+            expected: $expectedRoomLog,
+            actual: $translationService->translate(
+                key: $roomLog->getLog(),
+                parameters: $roomLog->getParameters(),
+                domain: $roomLog->getType(),
+                language: $roomLogTestDto->daedalusInfo->getLanguage()
+            )
+        );
+    }
+
     private function createAllProjects(FunctionalTester $I): void
     {
         foreach (ProjectConfigData::getAll() as $projectConfigData) {
@@ -233,5 +256,27 @@ class AbstractFunctionalTest
 
             $this->daedalus->addProject($project);
         }
+    }
+}
+
+final readonly class RoomLogTestDto
+{
+    public function __construct(
+        public string $place,
+        public DaedalusInfo $daedalusInfo,
+        public PlayerInfo $playerInfo,
+        public string $log,
+        public string $visibility,
+    ) {}
+
+    public function toArray(): array
+    {
+        return [
+            'place' => $this->place,
+            'daedalusInfo' => $this->daedalusInfo,
+            'playerInfo' => $this->playerInfo,
+            'log' => $this->log,
+            'visibility' => $this->visibility,
+        ];
     }
 }

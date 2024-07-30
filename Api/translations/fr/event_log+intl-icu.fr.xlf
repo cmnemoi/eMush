@@ -342,8 +342,8 @@
       <segment state="final">
         <source>disorder_cured_player</source>
         <target>{target_character_gender, select,
-                    male {La séance est une réussite, **{target_character_gender}** est guéri de sa maladie ({disease}).}
-                    female {La séance est une réussite, **{target_character_gender}** est guérie de sa maladie ({disease}).}
+                    male {La séance est une réussite, **{target_character}** est guéri de sa maladie ({disease}).}
+                    female {La séance est une réussite, **{target_character}** est guérie de sa maladie ({disease}).}
                     other {invalid gender input}
                 } {character_gender, select,
                      male {**{character}** est très satisfait.}

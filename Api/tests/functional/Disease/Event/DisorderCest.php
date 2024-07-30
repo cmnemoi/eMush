@@ -20,7 +20,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\Tests\RoomLogTestDto;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -244,67 +244,12 @@ final class DisorderCest extends AbstractFunctionalTest
         // then I should see a public room log reporting the disorder cure
         $this->ISeeTranslatedRoomLogInRepository(
             expectedRoomLog: 'La séance est une réussite, **Chun** est guérie de sa maladie (Dépression). **Kuan Ti** est très satisfait.',
-            roomLogTestDto: new RoomLogTestDto(
-                place: $this->chun->getPlace()->getName(),
-                daedalusInfo: $this->chun->getDaedalusInfo(),
-                playerInfo: $this->chun->getPlayerInfo(),
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
                 log: LogEnum::DISORDER_CURED_PLAYER,
                 visibility: VisibilityEnum::PUBLIC,
             ),
             I: $I,
-        );
-    }
-
-    public function shouldPrintCuredLogWithShrinkAndPatient(FunctionalTester $I): void
-    {
-        // given Chun has a depression (a disorder)
-        $disorder = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::DEPRESSION,
-            player: $this->chun,
-            reasons: [],
-        );
-
-        // given disorder has 1 disease point
-        $disorder->setDiseasePoint(1);
-
-        // given KT is a shrink
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHRINK, $this->kuanTi));
-
-        // given Chun is lying down
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::LYING_DOWN,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime(),
-        );
-
-        // when a new cycle is triggered
-        $playerCycleEvent = new PlayerCycleEvent(
-            player: $this->chun,
-            tags: [EventEnum::NEW_CYCLE],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($playerCycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
-
-        // then I should see a public room log reporting the disorder cure
-        $log = $I->grabEntityFromRepository(
-            RoomLog::class,
-            [
-                'place' => $this->chun->getPlace()->getLogName(),
-                'playerInfo' => $this->chun->getPlayerInfo(),
-                'log' => LogEnum::DISORDER_CURED_PLAYER,
-                'visibility' => VisibilityEnum::PUBLIC,
-            ]
-        );
-
-        // then the log should contain the shrink and the patient
-        $I->assertEquals(
-            expected: 'kuan_ti',
-            actual: $log->getParameters()['character']
-        );
-        $I->assertEquals(
-            expected: 'chun',
-            actual: $log->getParameters()['target_character']
         );
     }
 

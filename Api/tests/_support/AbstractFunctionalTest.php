@@ -226,11 +226,11 @@ class AbstractFunctionalTest
         $eventService->callEvent($projectEvent, ProjectEvent::PROJECT_FINISHED);
     }
 
-    protected function ISeeTranslatedRoomLogInRepository(string $expectedRoomLog, RoomLogTestDto $roomLogTestDto, FunctionalTester $I): void
+    protected function ISeeTranslatedRoomLogInRepository(string $expectedRoomLog, RoomLogDto $actualRoomLogDto, FunctionalTester $I): void
     {
         $roomLog = $I->grabEntityFromRepository(
             entity: RoomLog::class,
-            params: $roomLogTestDto->toArray(),
+            params: $actualRoomLogDto->toArray(),
         );
 
         /** @var TranslationServiceInterface $translationService */
@@ -242,7 +242,7 @@ class AbstractFunctionalTest
                 key: $roomLog->getLog(),
                 parameters: $roomLog->getParameters(),
                 domain: $roomLog->getType(),
-                language: $roomLogTestDto->daedalusInfo->getLanguage()
+                language: $actualRoomLogDto->player->getLanguage(),
             )
         );
     }
@@ -259,12 +259,10 @@ class AbstractFunctionalTest
     }
 }
 
-final readonly class RoomLogTestDto
+final readonly class RoomLogDto
 {
     public function __construct(
-        public string $place,
-        public DaedalusInfo $daedalusInfo,
-        public PlayerInfo $playerInfo,
+        public Player $player,
         public string $log,
         public string $visibility,
     ) {}
@@ -272,9 +270,9 @@ final readonly class RoomLogTestDto
     public function toArray(): array
     {
         return [
-            'place' => $this->place,
-            'daedalusInfo' => $this->daedalusInfo,
-            'playerInfo' => $this->playerInfo,
+            'place' => $this->player->getPlace()->getName(),
+            'daedalusInfo' => $this->player->getDaedalusInfo(),
+            'playerInfo' => $this->player->getPlayerInfo(),
             'log' => $this->log,
             'visibility' => $this->visibility,
         ];

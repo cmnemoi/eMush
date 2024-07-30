@@ -1,4 +1,13 @@
 #!/bin/sh
 
-echo 'Running php-cs-fixer'
-docker compose -f docker/docker-compose.yml exec -T -u dev mush_php php vendor/bin/php-cs-fixer fix
+# Run php-cs-fixer if .php files are modified
+if git diff --name-only --cached | grep -E '\.php$'; then
+    echo 'Running php-cs-fixer'
+    docker compose -f docker/docker-compose.yml exec -T -u dev mush_php php vendor/bin/php-cs-fixer fix
+fi
+
+# Run eslint if .vue, .js, .ts, .scss, or .css files are modified
+if git diff --name-only --cached | grep -E '\.(vue|js|ts|scss|css)$'; then
+    echo 'Running eslint'
+    docker compose -f docker/docker-compose.yml exec -T -u node mush_front yarn lint
+fi

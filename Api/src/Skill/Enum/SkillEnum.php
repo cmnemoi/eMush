@@ -134,4 +134,19 @@ enum SkillEnum: string
             self::TRAPPER,
         ]))->contains($this);
     }
+
+    public function getSkillPointsName(): string
+    {
+        return match ($this) {
+            self::BOTANIST => 'garden',
+            self::CHEF => 'cook',
+            self::CONCEPTOR => 'core',
+            self::PHYSICIST => 'pilgred',
+            self::IT_EXPERT => 'computer',
+            self::NURSE => 'heal',
+            self::TECHNICIAN => 'engineer',
+            self::SHOOTER => 'shoot',
+            default => '',
+        };
+    }
 }

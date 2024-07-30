@@ -90,6 +90,11 @@ class Skill implements ActionProviderInterface
         )?->getCharge() ?? 0;
     }
 
+    public function getSkillPointsName(): string
+    {
+        return $this->getName()->getSkillPointsName();
+    }
+
     public function isMushSkill(): bool
     {
         return $this->getName()->isMushSkill();

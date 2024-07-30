@@ -34,19 +34,22 @@ const actions: ActionTree<any, any> = {
     async loadPlayer({ commit }, { playerId }) {
         commit('setLoading', true);
         try {
-            const player = await PlayerService.loadPlayer(playerId);
-
-            commit('updatePlayer', player);
-            if (player?.gameStatus === 'in_game') {
-                if (player?.spaceBattle !== null) {
-                    this.dispatch("room/loadSpaceBattle", { spaceBattle: player?.spaceBattle });
-                }
-                commit('updateSelectedItem');
-                this.dispatch("room/loadRoom", { room: player?.room });
-                this.dispatch("daedalus/loadAlerts", { player: player });
-                this.dispatch("room/updateSelectedItemPile");
-                this.dispatch("daedalus/loadMinimap", { player: player });
-            }
+            await Promise.all([
+                this.dispatch("daedalus/loadAlerts"),
+                this.dispatch("daedalus/loadMinimap"),
+                PlayerService.loadPlayer(playerId).then(async (player: Player | null) => {
+                    commit('updatePlayer', player);
+                    if (player?.gameStatus !== 'in_game') {
+                        return true;
+                    }
+                    await Promise.all([
+                        this.dispatch("room/loadRoom", { room: player?.room }),
+                        this.dispatch("room/updateSelectedItemPile"),
+                        player?.spaceBattle !== null ? this.dispatch("room/loadSpaceBattle", { spaceBattle: player?.spaceBattle }) : null
+                    ]);
+                    commit('updateSelectedItem');
+                })
+            ]);
             return true;
         } catch (e) {
             console.error(e);

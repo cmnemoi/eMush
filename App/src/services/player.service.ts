@@ -82,15 +82,12 @@ const PlayerService = {
         await store.dispatch('player/setLoading', { loading: true });
         return ApiService.get(PLAYER_ENDPOINT + '/' + player.id + '/cycle-change')
             .then(async () => {
-                await store.dispatch("communication/clearRoomLogs", null, { root: true });
-                await store.dispatch('player/reloadPlayer', { playerId: player.id });
-                await store.dispatch("communication/loadRoomLogs", null, { root: true });
-                if (store.getters['player/player'].isAlive()) {
-                    await store.dispatch("communication/loadAlivePlayerChannels", null, { root: true });
-                } else {
-                    await store.dispatch("communication/loadDeadPlayerChannels", null, { root: true });
-                }
-
+                await Promise.all([
+                    store.dispatch("communication/clearRoomLogs", null, { root: true }),
+                    store.dispatch('player/reloadPlayer', { playerId: player.id }),
+                    store.dispatch("communication/loadRoomLogs", null, { root: true }),
+                    store.getters['player/player'].isAlive() ? store.dispatch("communication/loadAlivePlayerChannels", null, { root: true }) : store.dispatch("communication/loadDeadPlayerChannels", null, { root: true })
+                ]);
             });
     },
 
@@ -98,14 +95,12 @@ const PlayerService = {
         await store.dispatch('player/setLoading', { loading: true });
         return ApiService.get(PLAYER_ENDPOINT + '/' + player.id + '/exploration-cycle-change')
             .then(async () => {
-                await store.dispatch("communication/clearRoomLogs", null, { root: true });
-                await store.dispatch('player/reloadPlayer', { playerId: player.id });
-                await store.dispatch("communication/loadRoomLogs", null, { root: true });
-                if (store.getters['player/player'].isAlive()) {
-                    await store.dispatch("communication/loadAlivePlayerChannels", null, { root: true });
-                } else {
-                    await store.dispatch("communication/loadDeadPlayerChannels", null, { root: true });
-                }
+                await Promise.all([
+                    store.dispatch("communication/clearRoomLogs", null, { root: true }),
+                    store.dispatch('player/reloadPlayer', { playerId: player.id }),
+                    store.dispatch("communication/loadRoomLogs", null, { root: true }),
+                    store.getters['player/player'].isAlive() ? store.dispatch("communication/loadAlivePlayerChannels", null, { root: true }) : store.dispatch("communication/loadDeadPlayerChannels", null, { root: true })
+                ]);
             });
     }
 };

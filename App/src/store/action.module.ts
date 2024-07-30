@@ -81,20 +81,17 @@ async function handleActionExecution(actionExecution: ActionExecution): Promise<
     await dispatch("player/setLoading", { loading: true }, { root: true });
     await dispatch("communication/clearRoomLogs", null, { root: true });
 
-    const response = await ActionService.executeTargetAction(target, action, params);
-
-    if (isShootAction(action)) {
-        handleShootHunterAction(response, commit);
-    }
-
-    await dispatch("communication/changeChannel", { channel: store.getters["communication/roomChannel"] }, { root: true });
-    await dispatch("communication/loadRoomLogs", null, { root: true });
-    if (store.getters["player/player"].isDead()) {
-        await dispatch("communication/loadDeadPlayerChannels", null, { root: true });
-    } else {
-        await dispatch("communication/loadAlivePlayerChannels", null, { root: true });
-    }
-    await dispatch("player/reloadPlayer", null, { root: true });
+    ActionService.executeTargetAction(target, action, params).then(async (response: AxiosResponse<any, any>) => {
+        if (isShootAction(action)) {
+            handleShootHunterAction(response, commit);
+        }
+        await Promise.all([
+            dispatch("player/reloadPlayer", null, { root: true }),
+            dispatch("communication/loadRoomLogs", null, { root: true }),
+            store.getters["player/player"].isDead() ? dispatch("communication/loadDeadPlayerChannels", null, { root: true }) : dispatch("communication/loadAlivePlayerChannels", null, { root: true })
+        ]);
+        await dispatch("communication/changeChannel", { channel: store.getters["communication/roomChannel"] }, { root: true });
+    });
 }
 
 function handleShootHunterAction(axiosResponse: AxiosResponse<any, any>, commit: Commit): void {

@@ -9,7 +9,9 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerCycleEvent;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -521,6 +523,39 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $I->assertTrue($this->player->getMoralPoint() === 9 || $this->player->getMoralPoint() === 9 - $this->getPanicCrisisPlayerDamage());
         $I->assertTrue($this->chun->getMoralPoint() === 9 || $this->chun->getMoralPoint() === 9 - $this->getPanicCrisisPlayerDamage());
         $I->assertTrue($this->kuanTi->getMoralPoint() === 9 || $this->kuanTi->getMoralPoint() === 9 - $this->getPanicCrisisPlayerDamage());
+    }
+
+    public function mankindOnlyHopeDoesNotWorkIfHolderIsDead(FunctionalTester $I): void
+    {
+        // given Chun is the mankind only hope
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::MANKIND_ONLY_HOPE,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Chun is dead
+        $deathEvent = new PlayerEvent($this->chun, [EndCauseEnum::QUARANTINE], new \DateTime());
+        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
+
+        // given the daedalus is D1C8 so next cycle is a new day
+        $this->daedalus->setDay(1);
+        $this->daedalus->setCycle(8);
+
+        // given KT has 10 morale points
+        $this->kuanTi->setMoralPoint(10);
+
+        // when the new cycle event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then player should have 8 morale points
+        $I->assertTrue($this->kuanTi->getMoralPoint() === 8 || $this->kuanTi->getMoralPoint() === 8 - $this->getPanicCrisisPlayerDamage());
     }
 
     private function getPanicCrisisPlayerDamage(): int

@@ -269,6 +269,11 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
      */
     private function getNumberOfIncident(Daedalus $daedalus): int
     {
+        // Avoid false positives in tests. No Daedalus stats at Day 0 anyway and this service will be reworked in the future.
+        if ($daedalus->getDay() === 0) {
+            return 0;
+        }
+
         /**
          * The idea of `earlyStart` is to have more incidents at the beginning of the game,
          * to compensate the lack of researches and communications terminal.

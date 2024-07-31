@@ -14,6 +14,8 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\MetaGame\Entity\Skin\SkinableConfigInterface;
+use Mush\MetaGame\Entity\Skin\SkinSlotConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -28,7 +30,7 @@ use Mush\Status\Entity\Config\StatusConfig;
     'drone_config' => DroneConfig::class,
     'space_ship_config' => SpaceShipConfig::class,
 ])]
-class EquipmentConfig
+class EquipmentConfig implements SkinableConfigInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -59,11 +61,15 @@ class EquipmentConfig
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isPersonal = false;
 
+    #[ORM\ManyToMany(targetEntity: SkinSlotConfig::class, cascade: ['REMOVE'], orphanRemoval: true)]
+    private Collection $skinSlotsConfig;
+
     public function __construct()
     {
         $this->mechanics = new ArrayCollection();
         $this->actionConfigs = new ArrayCollection();
         $this->initStatuses = new ArrayCollection();
+        $this->skinSlotsConfig = new ArrayCollection();
     }
 
     public static function fromConfigData(array $configData): self
@@ -91,7 +97,8 @@ class EquipmentConfig
         $gameEquipment = new GameEquipment($holder);
         $gameEquipment
             ->setName($this->getEquipmentShortName())
-            ->setEquipment($this);
+            ->setEquipment($this)
+            ->initializeSkinSlots();
 
         return $gameEquipment;
     }
@@ -288,6 +295,25 @@ class EquipmentConfig
     public function setIsPersonal(bool $isPersonal): static
     {
         $this->isPersonal = $isPersonal;
+
+        return $this;
+    }
+
+    public function getSkinSlotsConfig(): ArrayCollection
+    {
+        return new ArrayCollection($this->skinSlotsConfig->toArray());
+    }
+
+    public function addSkinSlot(SkinSlotConfig $skinSlotConfig): static
+    {
+        $this->skinSlotsConfig->add($skinSlotConfig);
+
+        return $this;
+    }
+
+    public function setSkinSlotsConfig(ArrayCollection $skinSlotsConfig): static
+    {
+        $this->skinSlotsConfig = $skinSlotsConfig;
 
         return $this;
     }

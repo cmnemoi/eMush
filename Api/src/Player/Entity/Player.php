@@ -40,6 +40,7 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
+use Mush\MetaGame\Entity\Skin\SkinSlot;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
@@ -155,6 +156,9 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     #[OrderBy(['createdAt' => Order::Descending->value])]
     private Collection $receivedMissions;
 
+    #[ORM\ManyToMany(targetEntity: SkinSlot::class, cascade: ['REMOVE'], orphanRemoval: true)]
+    private Collection $skinSlots;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -168,6 +172,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         $this->lastActionDate = new \DateTime();
         $this->notifications = new ArrayCollection();
         $this->receivedMissions = new ArrayCollection();
+        $this->skinSlots = new ArrayCollection();
     }
 
     public static function createNull(): self
@@ -1238,6 +1243,23 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function isInactive(): bool
     {
         return $this->hasAnyStatuses([PlayerStatusEnum::INACTIVE, PlayerStatusEnum::HIGHLY_INACTIVE]);
+    }
+
+    public function getSkinSlots(): ArrayCollection
+    {
+        return new ArrayCollection($this->skinSlots->toArray());
+    }
+
+    public function initializeSkinSlots(CharacterConfig $characterConfig): static
+    {
+        foreach ($characterConfig->getSkinSlotsConfig() as $skinSlotConfig) {
+            $skinSlot = new SkinSlot();
+            $skinSlot->setNameFromConfig($skinSlotConfig);
+
+            $this->skinSlots->add($skinSlot);
+        }
+
+        return $this;
     }
 
     public function getHumanLevel(): int

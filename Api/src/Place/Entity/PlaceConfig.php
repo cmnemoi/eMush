@@ -2,14 +2,18 @@
 
 namespace Mush\Place\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\MetaGame\Entity\Skin\SkinableConfigInterface;
+use Mush\MetaGame\Entity\Skin\SkinSlotConfig;
 use Mush\Place\Enum\PlaceTypeEnum;
 
 /**
  * @ORM\Entity()
  */
 #[ORM\Entity]
-class PlaceConfig
+class PlaceConfig implements SkinableConfigInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,6 +40,14 @@ class PlaceConfig
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $patrolShipNames = [];
+
+    #[ORM\ManyToMany(targetEntity: SkinSlotConfig::class, cascade: ['REMOVE'], orphanRemoval: true)]
+    private Collection $skinSlotsConfig;
+
+    public function __construct()
+    {
+        $this->skinSlotsConfig = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -129,6 +141,25 @@ class PlaceConfig
     public function setPatrolShipNames(array $patrolShipNames): static
     {
         $this->patrolShipNames = $patrolShipNames;
+
+        return $this;
+    }
+
+    public function getSkinSlotsConfig(): ArrayCollection
+    {
+        return new ArrayCollection($this->skinSlotsConfig->toArray());
+    }
+
+    public function addSkinSlot(SkinSlotConfig $skinSlotConfig): static
+    {
+        $this->skinSlotsConfig->add($skinSlotConfig);
+
+        return $this;
+    }
+
+    public function setSkinSlotsConfig(ArrayCollection $skinSlotsConfig): static
+    {
+        $this->skinSlotsConfig = $skinSlotsConfig;
 
         return $this;
     }

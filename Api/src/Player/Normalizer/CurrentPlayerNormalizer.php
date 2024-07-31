@@ -19,6 +19,7 @@ use Mush\Exploration\Service\ClosedExplorationServiceInterface;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Service\HunterNormalizerHelperInterface;
+use Mush\MetaGame\Entity\Skin\SkinSlot;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -164,6 +165,9 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
             'skillPoints' => $this->getNormalizedSkillPoints($player, $language),
+            'language' => $language,
+            'specialistPoints' => $this->getSpecialistPointsForPlayer($player, $language),
+            'skins' => $this->normalizeSkins($player)
         ]);
         if ($player->hasNotification()) {
             $playerData['notification'] = $this->normalizer->normalize($player->getNotificationOrThrow(), $format, $context);
@@ -306,5 +310,19 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         }
 
         return $player->getDaedalus()->getExploration();
+    }
+
+    private function normalizeSkins(Player $player): array
+    {
+        $skins = [];
+        /** @var SkinSlot $slot */
+        foreach ($player->getSkinSlots() as $slot) {
+            $skins[] = [
+                'emplacement' => $slot->getName(),
+                'skinName' => $slot->getSkin()->getName(),
+            ];
+        }
+
+        return $skins;
     }
 }

@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\MetaGame\Entity\Skin\SkinSlot;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -63,6 +64,8 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
                     $player->getDaedalus()->getLanguage()
                 ),
             ],
+            'skills' => $this->getNormalizedPlayerSkills($player, $format, $context),
+            'skins' => $this->normalizeSkins($player)
         ];
 
         if (isset($context['currentPlayer'])) {
@@ -121,5 +124,19 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         }
 
         return $skills;
+    }
+
+    private function normalizeSkins(Player $player): array
+    {
+        $skins = [];
+        /** @var SkinSlot $slot */
+        foreach ($player->getSkinSlots() as $slot) {
+            $skins[] = [
+                'emplacement' => $slot->getName(),
+                'skinName' => $slot->getSkin()->getName(),
+            ];
+        }
+
+        return $skins;
     }
 }

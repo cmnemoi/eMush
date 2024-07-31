@@ -18,6 +18,7 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\MetaGame\Entity\Skin\SkinSlot;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -83,6 +84,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             'description' => $definition,
             'statuses' => $statuses,
             'actions' => $this->getNormalizedActions($equipment, ActionHolderEnum::EQUIPMENT, $currentPlayer, $format, $context),
+            'skins' => $this->normalizeSkins($equipment),
             'effects' => $this->getEquipmentEffects($equipment, $currentPlayer),
         ];
 
@@ -289,6 +291,20 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         }
 
         return $description;
+    }
+
+    private function normalizeSkins(GameEquipment $equipment): array
+    {
+        $skins = [];
+        /** @var SkinSlot $slot */
+        foreach ($equipment->getSkinSlots() as $slot) {
+            $skins[] = [
+              'emplacement' => $slot->getName(),
+              'skinName' => $slot->getSkin()->getName(),
+            ];
+        }
+
+        return $skins;
     }
 
     private function getFrugivoreBonus(GameEquipment $food, Player $player): int

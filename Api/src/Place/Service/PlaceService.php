@@ -66,9 +66,7 @@ class PlaceService implements PlaceServiceInterface
         array $reasons,
         \DateTime $time
     ): Place {
-        $room = new Place();
-        $room->setName($roomConfig->getPlaceName());
-        $room->setType($roomConfig->getType());
+        $room = Place::createPlaceFromConfig($roomConfig);
 
         $room->setDaedalus($daedalus);
 

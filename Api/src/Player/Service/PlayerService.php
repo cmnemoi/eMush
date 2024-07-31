@@ -165,7 +165,8 @@ class PlayerService implements PlayerServiceInterface
                     ->first()
             )
             ->setSkills([])
-            ->setPlayerVariables($characterConfig);
+            ->setPlayerVariables($characterConfig)
+            ->initializeSkinSlots($characterConfig);
 
         $playerInfo = new PlayerInfo(
             $player,

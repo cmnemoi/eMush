@@ -34,6 +34,7 @@ use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
+use Mush\MetaGame\Entity\Skin\SkinSlot;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
@@ -120,6 +121,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\Column(type: 'datetime', nullable: false, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private \DateTime $lastActionDate;
 
+    #[ORM\ManyToMany(targetEntity: SkinSlot::class, cascade: ['REMOVE'], orphanRemoval: true)]
+    private Collection $skinSlots;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -130,6 +134,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->planets = new ArrayCollection();
         $this->favoriteMessages = new ArrayCollection();
         $this->lastActionDate = new \DateTime();
+        $this->skinSlots = new ArrayCollection();
     }
 
     public static function createNull(): self
@@ -851,6 +856,23 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function isActive(): bool
     {
         return $this->hasStatus(PlayerStatusEnum::INACTIVE) === false && $this->hasStatus(PlayerStatusEnum::HIGHLY_INACTIVE) === false;
+    }
+
+    public function getSkinSlots(): ArrayCollection
+    {
+        return new ArrayCollection($this->skinSlots->toArray());
+    }
+
+    public function initializeSkinSlots(CharacterConfig $characterConfig): static
+    {
+        foreach ($characterConfig->getSkinSlotsConfig() as $skinSlotConfig) {
+            $skinSlot = new SkinSlot();
+            $skinSlot->setNameFromConfig($skinSlotConfig);
+
+            $this->skinSlots->add($skinSlot);
+        }
+
+        return $this;
     }
 
     private function getMinEfficiencyForProject(Project $project): int

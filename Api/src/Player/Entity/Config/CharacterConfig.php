@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\MetaGame\Entity\Skin\SkinSlotConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
@@ -77,6 +78,9 @@ class CharacterConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $initMovementPoint = 0;
 
+    #[ORM\ManyToMany(targetEntity: SkinSlotConfig::class, cascade: ['REMOVE'], orphanRemoval: true)]
+    private Collection $skinSlotsConfig;
+
     public function __construct()
     {
         $this->initStatuses = new ArrayCollection();
@@ -84,6 +88,7 @@ class CharacterConfig
         $this->startingItems = new ArrayCollection();
         $this->initDiseases = new ArrayCollection();
         $this->skills = [];
+        $this->skinSlotsConfig = new ArrayCollection();
     }
 
     public static function fromConfigData(array $data): self
@@ -372,6 +377,25 @@ class CharacterConfig
     public function setMaxDiscoverablePlanets(int $maxDiscoverablePlanets): static
     {
         $this->maxDiscoverablePlanets = $maxDiscoverablePlanets;
+
+        return $this;
+    }
+
+    public function getSkinSlotsConfig(): ArrayCollection
+    {
+        return new ArrayCollection($this->skinSlotsConfig->toArray());
+    }
+
+    public function addSkinSlot(SkinSlotConfig $skinSlotConfig): static
+    {
+        $this->skinSlotsConfig->add($skinSlotConfig);
+
+        return $this;
+    }
+
+    public function setSkinSlotsConfig(ArrayCollection $skinSlotsConfig): static
+    {
+        $this->skinSlotsConfig = $skinSlotsConfig;
 
         return $this;
     }

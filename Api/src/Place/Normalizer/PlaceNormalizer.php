@@ -14,6 +14,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\MetaGame\Entity\Skin\SkinSlot;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ContentStatus;
@@ -101,6 +102,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             'items' => !$currentPlayerIsFocused ? $normalizedItems : [],
             'equipments' => !$currentPlayerIsFocused ? $normalizedEquipments : [],
             'type' => $room->getType(),
+            'skins' => $this->normalizeSkins($room),
         ];
     }
 
@@ -348,5 +350,19 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         }
 
         return $pileName ?? 'no_status';
+    }
+
+    private function normalizeSkins(Place $place): array
+    {
+        $skins = [];
+        /** @var SkinSlot $slot */
+        foreach ($place->getSkinSlots() as $slot) {
+            $skins[] = [
+                'emplacement' => $slot->getName(),
+                'skinName' => $slot->getSkin()->getName(),
+            ];
+        }
+
+        return $skins;
     }
 }

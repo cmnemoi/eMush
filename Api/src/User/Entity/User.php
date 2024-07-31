@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\MetaGame\Entity\Collection\ModerationSanctionCollection;
 use Mush\MetaGame\Entity\ModerationSanction;
+use Mush\MetaGame\Entity\Skin\Skin;
 use Mush\User\Enum\RoleEnum;
 use Mush\User\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -50,9 +51,14 @@ class User implements UserInterface
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $hasReadLatestNews = false;
 
+    #[ORM\ManyToMany(targetEntity: Skin::class)]
+    #[ORM\JoinTable(name: 'unlocked_skins')]
+    private Collection $unlockedSkins;
+
     public function __construct()
     {
         $this->moderationSanctions = new ArrayCollection();
+        $this->unlockedSkins = new ArrayCollection();
     }
 
     public function getId(): int
@@ -226,5 +232,16 @@ class User implements UserInterface
     public function hasNotReadLatestNews(): bool
     {
         return $this->hasReadLatestNews === false;
+    }
+    public function getUnlockedSkins(): Collection
+    {
+        return $this->unlockedSkins;
+    }
+
+    public function addUnlockedSkin(Skin $skin): self
+    {
+        $this->unlockedSkins->add($skin);
+
+        return $this;
     }
 }

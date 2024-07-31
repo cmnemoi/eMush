@@ -25,6 +25,7 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
+use Mush\MetaGame\Entity\Skin\SkinSlot;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
@@ -81,11 +82,15 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     #[ORM\ManyToOne(targetEntity: Player::class)]
     private ?Player $owner = null;
 
+    #[ORM\ManyToMany(targetEntity: SkinSlot::class, cascade: ['REMOVE'], orphanRemoval: true)]
+    private Collection $skinSlots;
+
     public function __construct(
         EquipmentHolderInterface $equipmentHolder,
     ) {
         $this->statuses = new ArrayCollection();
         $this->modifiers = new ModifierCollection();
+        $this->skinSlots = new ArrayCollection();
 
         if ($equipmentHolder instanceof Place) {
             $this->place = $equipmentHolder;
@@ -640,5 +645,22 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
 
         return null;
+    }
+
+    public function getSkinSlots(): ArrayCollection
+    {
+        return new ArrayCollection($this->skinSlots->toArray());
+    }
+
+    public function initializeSkinSlots(): static
+    {
+        foreach ($this->equipment->getSkinSlotsConfig() as $skinSlotConfig) {
+            $skinSlot = new SkinSlot();
+            $skinSlot->setNameFromConfig($skinSlotConfig);
+
+            $this->skinSlots->add($skinSlot);
+        }
+
+        return $this;
     }
 }

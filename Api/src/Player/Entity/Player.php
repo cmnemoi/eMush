@@ -49,6 +49,10 @@ use Mush\Project\Entity\Project;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Mush\Skill\Entity\Skill;
+use Mush\Skill\Entity\SkillCollection;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -95,8 +99,8 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
-    #[ORM\Column(type: 'array', nullable: true)]
-    private array $skills = [];
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: Skill::class, cascade: ['ALL'], orphanRemoval: true)]
+    private Collection $skills;
 
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private PlayerVariables $playerVariables;
@@ -127,6 +131,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->medicalConditions = new PlayerDiseaseCollection();
         $this->flirts = new PlayerCollection();
         $this->modifiers = new ModifierCollection();
+        $this->skills = new ArrayCollection();
         $this->planets = new ArrayCollection();
         $this->favoriteMessages = new ArrayCollection();
         $this->lastActionDate = new \DateTime();
@@ -409,18 +414,60 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getFlirts()->exists(static fn (int $id, Player $player) => $player === $playerTarget);
     }
 
-    public function addSkill(string $skill): static
+    public function addSkill(Skill $skill): static
     {
-        $this->skills[] = $skill;
+        $this->skills->add($skill);
 
         return $this;
     }
 
-    public function setSkills(array $skills): static
+    public function getSkills(): SkillCollection
     {
-        $this->skills = $skills;
+        return new SkillCollection($this->skills->toArray());
+    }
 
-        return $this;
+    public function getHumanSkills(): SkillCollection
+    {
+        return $this->getSkills()->getHumanSkills();
+    }
+
+    public function getMushSkills(): SkillCollection
+    {
+        return $this->getSkills()->getMushSkills();
+    }
+
+    public function getSkillsWithPoints(): SkillCollection
+    {
+        return $this->getSkills()->getSkillsWithPoints();
+    }
+
+    public function getSkillByNameOrThrow(SkillEnum $name): Skill
+    {
+        $skill = $this->getSkillByNameOrNull($name);
+
+        if ($skill === null) {
+            throw new \Exception('The player does not have the skill ' . $name->value);
+        }
+
+        return $skill;
+    }
+
+    public function hasSkill(SkillEnum $skillName): bool
+    {
+        return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
+    }
+
+    /**
+     * @return Collection<int, SkillConfig>
+     */
+    public function getSelectableHumanSkills(): Collection
+    {
+        return $this->getCharacterConfig()->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
+    }
+
+    public function getSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
+    {
+        return $this->getCharacterConfig()->getSkillConfigByNameOrThrow($skill);
     }
 
     public function getGameVariables(): PlayerVariables
@@ -774,6 +821,12 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
             $actions = array_merge($actions, $equipment->getProvidedActions($actionTarget, $actionRanges)->toArray());
         }
 
+        // then actions provided by skills
+        /** @var Skill $skill */
+        foreach ($this->getSkills() as $skill) {
+            $actions = array_merge($actions, $skill->getProvidedActions($actionTarget, $actionRanges)->toArray());
+        }
+
         return new ArrayCollection($actions);
     }
 
@@ -853,6 +906,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->hasStatus(PlayerStatusEnum::INACTIVE) === false && $this->hasStatus(PlayerStatusEnum::HIGHLY_INACTIVE) === false;
     }
 
+    public function getLevel(): int
+    {
+        return $this->getCharacterConfig()->getSkillConfigs()->count();
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);
@@ -868,8 +926,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function getEfficiencyWithBonusSkills(int $efficiency, Project $project): int
     {
-        $playerSkills = $this->getSkills()->map(static fn (Status $status) => $status->getName())->toArray();
-        $numberOfSkillsMatching = \count(array_intersect($playerSkills, $project->getBonusSkills()));
+        $playerSkills = $this->getSkills()->map(static fn (Skill $skill) => $skill->getName()->toString())->toArray();
+        $bonusSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $project->getBonusSkills());
+        $numberOfSkillsMatching = \count(array_intersect($playerSkills, $bonusSkills));
 
         return $efficiency + $numberOfSkillsMatching * Project::SKILL_BONUS;
     }
@@ -888,5 +947,12 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
 
         return $efficiency;
+    }
+
+    private function getSkillByNameOrNull(SkillEnum $name): ?Skill
+    {
+        $skill = $this->getSkills()->filter(static fn (Skill $skill) => $skill->getName() === $name)->first();
+
+        return $skill ?: null;
     }
 }

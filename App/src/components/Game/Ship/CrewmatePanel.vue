@@ -36,7 +36,7 @@
                 <Tippy
                     tag="div"
                     v-for="(skill) in target.skills"
-                    :key="skill.id"
+                    :key="skill.key"
                     class="skill">
                     <img class="skill-image" :src="skillImage(skill)" :alt="skill.name">
                     <template #content>
@@ -61,15 +61,13 @@
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import Statuses from "@/components/Utils/Statuses.vue";
 import TitleImage from "@/components/Utils/TitleImage.vue";
-import { Player } from "@/entities/Player";
+import { Player, Skill } from "@/entities/Player";
 import { characterEnum } from '@/enums/character';
 import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
 import { Action } from "@/entities/Action";
-import { Status } from "@/entities/Status";
 import { SkillIconRecord } from "@/enums/skill.enum";
 import { formatText } from "@/utils/formatText";
-
 
 export default defineComponent ({
     name: "CrewmatePanel",
@@ -122,7 +120,7 @@ export default defineComponent ({
             }
         },
         formatText,
-        skillImage(skill: Status): string {
+        skillImage(skill: Skill): string {
             return SkillIconRecord[skill.key].icon ?? '';
         }
     }

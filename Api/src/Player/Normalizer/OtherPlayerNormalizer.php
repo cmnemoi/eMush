@@ -63,7 +63,6 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
                     $player->getDaedalus()->getLanguage()
                 ),
             ],
-            'skills' => $this->getNormalizedPlayerSkills($player, $format, $context),
         ];
 
         if (isset($context['currentPlayer'])) {
@@ -109,12 +108,16 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
 
     private function getNormalizedPlayerSkills(Player $player, ?string $format = null, array $context = []): array
     {
+        $currentPlayer = $context['currentPlayer'];
         $skills = [];
-        foreach ($player->getSkills() as $skill) {
-            $normedSkill = $this->normalizer->normalize($skill, $format, array_merge($context, ['currentPlayer' => $player]));
-            if (\is_array($normedSkill) && \count($normedSkill) > 0) {
-                $skills[] = $normedSkill;
+        if ($currentPlayer->isMush()) {
+            foreach ($player->getMushSkills() as $skill) {
+                $skills[] = $this->normalizer->normalize($skill, $format, $context);
             }
+        }
+
+        foreach ($player->getHumanSkills() as $skill) {
+            $skills[] = $this->normalizer->normalize($skill, $format, $context);
         }
 
         return $skills;

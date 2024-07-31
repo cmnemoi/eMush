@@ -9,11 +9,9 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
@@ -47,6 +45,10 @@ class StatusService implements StatusServiceInterface
 
     public function persist(Status $status): Status
     {
+        if ($status->isNull()) {
+            return $status;
+        }
+
         $this->entityManager->persist($status);
         $this->entityManager->flush();
 
@@ -115,19 +117,15 @@ class StatusService implements StatusServiceInterface
     public function createStatusFromConfig(
         StatusConfig $statusConfig,
         StatusHolderInterface $holder,
-        array $tags,
-        \DateTime $time,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
         ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status {
         if ($target !== null) {
             $status = $holder->getStatusByNameAndTarget($statusConfig->getStatusName(), $target);
         } else {
-            if ($holder instanceof Player && SkillEnum::isSkill($statusConfig->getStatusName())) {
-                $status = $holder->getSkillByName($statusConfig->getStatusName());
-            } else {
-                $status = $holder->getStatusByName($statusConfig->getStatusName());
-            }
+            $status = $holder->getStatusByName($statusConfig->getStatusName());
         }
 
         if ($status !== null) {
@@ -135,7 +133,9 @@ class StatusService implements StatusServiceInterface
         }
 
         // Create the entity
-        if ($statusConfig instanceof ChargeStatusConfig) {
+        if ($statusConfig->isNull()) {
+            $status = Status::createNull();
+        } elseif ($statusConfig instanceof ChargeStatusConfig) {
             $status = new ChargeStatus($holder, $statusConfig);
         } elseif ($statusConfig instanceof ContentStatusConfig) {
             $status = new ContentStatus($holder, $statusConfig);
@@ -177,11 +177,7 @@ class StatusService implements StatusServiceInterface
         if ($target !== null) {
             $status = $holder->getStatusByNameAndTarget($statusName, $target);
         } else {
-            if ($holder instanceof Player && SkillEnum::isSkill($statusName)) {
-                $status = $holder->getSkillByName($statusName);
-            } else {
-                $status = $holder->getStatusByName($statusName);
-            }
+            $status = $holder->getStatusByName($statusName);
         }
 
         if ($status !== null) {

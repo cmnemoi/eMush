@@ -14,8 +14,11 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Normalizer\ExplorationLogNormalizer;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
@@ -23,6 +26,7 @@ use Mush\Tests\FunctionalTester;
 
 final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 {
+    private ChooseSkillUseCase $chooseSkillUseCase;
     private ExplorationLogNormalizer $explorationLogNormalizer;
     private Exploration $exploration;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -32,6 +36,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     {
         parent::_before($I);
 
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->explorationLogNormalizer = $I->grabService(ExplorationLogNormalizer::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -41,12 +46,10 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     public function testNormalizeLandingNothingToReportEventWithPilot(FunctionalTester $I): void
     {
         // given explorator is a pilot
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::PILOT,
-            holder: $this->player,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->player->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $this->player));
 
         // given exploration is created
         $this->exploration = $this->createExploration(

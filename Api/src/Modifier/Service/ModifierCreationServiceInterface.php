@@ -17,8 +17,8 @@ interface ModifierCreationServiceInterface
     public function createModifier(
         AbstractModifierConfig $modifierConfig,
         ModifierHolderInterface $holder,
-        array $tags,
-        \DateTime $time,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
         ?ChargeStatus $chargeStatus = null
     ): void;
 

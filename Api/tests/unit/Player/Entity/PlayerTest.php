@@ -6,14 +6,14 @@ namespace Mush\Tests\unit\Player\Entity;
 
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
 use Mush\Project\ValueObject\PlayerEfficiency;
-use Mush\Status\Factory\StatusFactory;
+use Mush\Skill\Entity\Skill;
+use Mush\Skill\Enum\SkillEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -83,7 +83,7 @@ final class PlayerTest extends TestCase
         $this->setPlayerId($player, 1);
 
         // Given player has the Pilot skill
-        StatusFactory::createStatusByNameForHolder(SkillEnum::PILOT, holder: $player);
+        Skill::createByNameForPlayer(SkillEnum::PILOT, $player);
 
         // when I ask for the player's efficiency in Trail Reducer project
         $actualEfficiency = $player->getEfficiencyForProject(ProjectFactory::createTrailReducerProject());
@@ -103,8 +103,8 @@ final class PlayerTest extends TestCase
         $this->setPlayerId($player, 1);
 
         // Given player has the Pilot and Technician skills
-        StatusFactory::createStatusByNameForHolder(SkillEnum::PILOT, holder: $player);
-        StatusFactory::createStatusByNameForHolder(SkillEnum::TECHNICIAN, holder: $player);
+        Skill::createByNameForPlayer(SkillEnum::PILOT, $player);
+        Skill::createByNameForPlayer(SkillEnum::TECHNICIAN, $player);
 
         // when I ask for the player's efficiency in Trail Reducer project
         $actualEfficiency = $player->getEfficiencyForProject(ProjectFactory::createTrailReducerProject());

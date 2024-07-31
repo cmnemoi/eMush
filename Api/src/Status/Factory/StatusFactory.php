@@ -25,6 +25,8 @@ final class StatusFactory
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->buildName(GameConfigEnum::DEFAULT);
 
+        self::setupStatusConfigId($statusConfig);
+
         return new Status($holder, $statusConfig);
     }
 
@@ -36,6 +38,8 @@ final class StatusFactory
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->buildName(GameConfigEnum::DEFAULT);
+
+        self::setupStatusConfigId($statusConfig);
 
         return new ChargeStatus($holder, $statusConfig);
     }
@@ -50,6 +54,8 @@ final class StatusFactory
             ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
             ->setStartCharge(0)
             ->buildName(GameConfigEnum::DEFAULT);
+
+        self::setupStatusConfigId($attemptConfig);
 
         $attempt = new Attempt($holder, $attemptConfig);
         $attempt->setAction($action);
@@ -69,5 +75,10 @@ final class StatusFactory
         $status->setTarget($target);
 
         return $status;
+    }
+
+    private static function setupStatusConfigId(StatusConfig $statusConfig): void
+    {
+        (new \ReflectionProperty($statusConfig, 'id'))->setValue($statusConfig, $statusConfig->toHash());
     }
 }

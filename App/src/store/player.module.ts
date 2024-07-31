@@ -4,12 +4,12 @@ import { Player } from "@/entities/Player";
 import { Item } from "@/entities/Item";
 import { ConfirmPopup } from "@/entities/ConfirmPopup";
 
-
 const state =  {
     loading: false,
     player: null,
     selectedItem: null,
-    confirmPopup: new ConfirmPopup()
+    confirmPopup: new ConfirmPopup(),
+    displayMushSkills: false
 };
 
 const getters: GetterTree<any, any> = {
@@ -24,6 +24,9 @@ const getters: GetterTree<any, any> = {
     },
     confirmPopup: (state: any): ConfirmPopup => {
         return state.confirmPopup;
+    },
+    displayMushSkills: (state: any): boolean => {
+        return state.displayMushSkills;
     }
 };
 
@@ -84,6 +87,23 @@ const actions: ActionTree<any, any> = {
     },
     refuseConfirmPopup({ commit }) {
         commit('refuseConfirmPopup');
+    },
+    async chooseSkill({ commit }, { player, skill }) {
+        commit('setLoading', true);
+        try {
+            await PlayerService.chooseSkill(player, skill);
+            await this.dispatch('popup/closeSkillSelectionPopUp');
+            await this.dispatch('player/reloadPlayer');
+        } catch (error) {
+            console.error(error);
+        }
+        commit('setLoading', false);
+    },
+    initMushSkillsDisplay({ commit }, { player }) {
+        commit('setDisplayMushSkills', player.isMush());
+    },
+    toggleMushSkillsDisplay({ commit }) {
+        commit('toggleMushSkillsDisplay');
     }
 };
 
@@ -139,6 +159,12 @@ const mutations : MutationTree<any> = {
     },
     closeConfirmPopup(state) {
         state.confirmPopup = new ConfirmPopup();
+    },
+    setDisplayMushSkills(state, display: boolean) {
+        state.displayMushSkills = display;
+    },
+    toggleMushSkillsDisplay(state) {
+        state.displayMushSkills = !state.displayMushSkills;
     }
 };
 

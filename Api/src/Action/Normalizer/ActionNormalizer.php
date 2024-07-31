@@ -4,7 +4,6 @@ namespace Mush\Action\Normalizer;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\AttemptAction;
-use Mush\Action\DTO\ActionSpecialistPointRule;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
@@ -15,13 +14,12 @@ use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Action\Service\GetActionTargetFromContextService;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Service\PlanetServiceInterface;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Skill\Entity\Skill;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ActionNormalizer implements NormalizerInterface
@@ -146,7 +144,7 @@ class ActionNormalizer implements NormalizerInterface
             );
         }
 
-        $normalizedAction['specialistPointCosts'] = $this->getNormalizedSpecialistPointCosts($currentPlayer, $actionConfig);
+        $normalizedAction['skillPointCosts'] = $this->getNormalizedSkillPointCosts($currentPlayer, $actionConfig);
 
         return $normalizedAction;
     }
@@ -243,56 +241,17 @@ class ActionNormalizer implements NormalizerInterface
         return $translationParameters;
     }
 
-    private function getNormalizedSpecialistPointCosts(Player $currentPlayer, ActionConfig $action): array
+    private function getNormalizedSkillPointCosts(Player $currentPlayer, ActionConfig $action): array
     {
-        /** @var ActionSpecialistPointRule[] $specialistPointCostRules */
-        $specialistPointCostRules = [
-            new ActionSpecialistPointRule('shoot', SkillEnum::SHOOTER, [ActionTypeEnum::ACTION_SHOOT->value, ActionTypeEnum::ACTION_SHOOT_HUNTER->value]),
-            new ActionSpecialistPointRule('engineer', SkillEnum::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN->value]),
-            new ActionSpecialistPointRule('core', SkillEnum::CONCEPTOR, [ActionTypeEnum::ACTION_CONCEPTOR->value]),
-        ];
+        $skillPointCosts = [];
 
-        $specialistPointCosts = [];
-        foreach ($specialistPointCostRules as $specialistPointCostRule) {
-            $specialistPointCost = $this->getSpecialistPointCost($currentPlayer, $action, $specialistPointCostRule);
-            if ($specialistPointCost) {
-                $specialistPointCosts[] = $specialistPointCostRule->name;
+        /** @var Skill $skill */
+        foreach ($currentPlayer->getSkillsWithPoints() as $skill) {
+            if ($skill->hasAnyActionTypes($action->getTypes())) {
+                $skillPointCosts[] = $skill->getSkillPointsName();
             }
         }
 
-        return $specialistPointCosts;
-    }
-
-    /**
-     * Check how many specialist points the user will be charged for.
-     */
-    private function getSpecialistPointCost(Player $currentPlayer, ActionConfig $action, ActionSpecialistPointRule $specialistPointCostRule): ?int
-    {
-        if (!$this->doesActionTypeMatchArray($action, $specialistPointCostRule->actionTypes)) {
-            return null;
-        }
-
-        /** @var ?ChargeStatus $skill */
-        $skill = $currentPlayer->getSkillByName($specialistPointCostRule->skill);
-
-        if ($skill?->getCharge() > 0 && $currentPlayer->hasSkill($specialistPointCostRule->skill)) {
-            return 1;
-        }
-
-        return null;
-    }
-
-    /**
-     * @param array<string> $types
-     */
-    private function doesActionTypeMatchArray(ActionConfig $action, array $types): bool
-    {
-        foreach ($types as $type) {
-            if (\in_array($type, $action->getTypes(), true)) {
-                return true;
-            }
-        }
-
-        return false;
+        return $skillPointCosts;
     }
 }

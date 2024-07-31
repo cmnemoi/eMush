@@ -20,7 +20,6 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -28,10 +27,12 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
@@ -39,13 +40,13 @@ class AutomaticGetUpCest
 {
     private Disassemble $disassembleAction;
 
-    private StatusServiceInterface $statusService;
+    private ChooseSkillUseCase $chooseSkillUseCase;
 
     public function _before(FunctionalTester $I)
     {
         $this->disassembleAction = $I->grabService(Disassemble::class);
 
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
     }
 
     public function testAutomaticGetUp(FunctionalTester $I)
@@ -66,14 +67,12 @@ class AutomaticGetUpCest
             ->setActionConfigs([$getUpAction]);
         $I->haveInRepository($statusConfig);
 
-        $technicianStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => SkillEnum::TECHNICIAN]);
-
         $dirtyConfig = new StatusConfig();
         $dirtyConfig->setStatusName(PlayerStatusEnum::DIRTY)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dirtyConfig);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig->setStatusConfigs(new ArrayCollection([$statusConfig, $dirtyConfig, $technicianStatusConfig]));
+        $gameConfig->setStatusConfigs(new ArrayCollection([$statusConfig, $dirtyConfig]));
         $I->flushToDatabase();
 
         $neron = new Neron();
@@ -99,7 +98,7 @@ class AutomaticGetUpCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => 'kuan_ti']);
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
@@ -118,12 +117,7 @@ class AutomaticGetUpCest
         $lyingDownStatus = new Status($player, $statusConfig);
         $I->haveInRepository($lyingDownStatus);
 
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
-            holder: $player,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $player));
 
         $action = new ActionConfig();
         $action
@@ -156,7 +150,7 @@ class AutomaticGetUpCest
 
         $this->disassembleAction->execute();
 
-        $I->assertCount(0, $player->getStatuses());
+        $I->assertFalse($player->hasStatus(PlayerStatusEnum::LYING_DOWN));
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getName(),

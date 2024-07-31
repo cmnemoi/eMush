@@ -52,6 +52,11 @@ class Status implements ActionProviderInterface
         $this->statusConfig = $statusConfig;
     }
 
+    public static function createNull(): self
+    {
+        return new self(statusHolder: Player::createNull(), statusConfig: StatusConfig::createNull());
+    }
+
     public function getStatusConfig(): StatusConfig
     {
         return $this->statusConfig;
@@ -235,6 +240,11 @@ class Status implements ActionProviderInterface
         }
 
         return false;
+    }
+
+    public function isNull(): bool
+    {
+        return $this->id === 0 || $this->statusConfig->isNull();
     }
 
     private function setOwner(StatusHolderInterface $owner): self

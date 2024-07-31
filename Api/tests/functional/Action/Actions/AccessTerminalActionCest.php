@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\AccessTerminal;
-use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
@@ -14,9 +13,11 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -32,6 +33,7 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
     private GameEquipment $astroTerminal;
     private GameEquipment $commandTerminal;
 
+    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -62,6 +64,7 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         // given player is on the bridge
         $this->player->changePlace($bridge);
 
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
@@ -197,12 +200,7 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         $reflection->getProperty('crewLock')->setValue($neron, NeronCrewLockEnum::PROJECTS);
 
         // given player2 is a conceptor
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::CONCEPTOR,
-            holder: $this->player2,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::CONCEPTOR, $this->player2));
 
         // when player2 access NERON's core
         $this->accessTerminal->loadParameters(

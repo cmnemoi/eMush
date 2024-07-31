@@ -34,8 +34,8 @@ interface StatusServiceInterface
     public function createStatusFromConfig(
         StatusConfig $statusConfig,
         StatusHolderInterface $holder,
-        array $tags,
-        \DateTime $time,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
         ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status;

@@ -17,7 +17,6 @@ use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Service\ClosedExplorationServiceInterface;
 use Mush\Exploration\Service\ExplorationServiceInterface;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Service\HunterNormalizerHelperInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -25,7 +24,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Skill\Entity\Skill;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -112,7 +111,9 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
                 'key' => $character,
                 'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
                 'description' => $this->translationService->translate($character . '.description', [], 'characters', $language),
-                'skills' => $player->getPlayerInfo()->getCharacterConfig()->getSkills(),
+                'selectableHumanSkills' => $this->getNormalizedSelectableHumanSkills($player, $language),
+                'selectableMushSkills' => [],
+                'level' => $player->getLevel(),
             ],
             'gameStatus' => $player->getPlayerInfo()->getGameStatus(),
             'triumph' => [
@@ -148,7 +149,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $playerData = array_merge($playerData, [
             'room' => $this->normalizer->normalize($player->getPlace(), $format, $context),
-            'skills' => $this->getNormalizedPlayerSkills($player, $format, $context),
+            'skills' => $player->getSkills()->map(fn (Skill $skill) => $this->normalizer->normalize($skill, $format, $context))->toArray(),
             'titles' => $titles,
             'actions' => $this->getNormalizedActions($player, ActionHolderEnum::PLAYER, $player, $format, $context),
             'items' => $items,
@@ -158,7 +159,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'movementPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MOVEMENT_POINT, $language),
             'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
-            'specialistPoints' => $this->getSpecialistPointsForPlayer($player, $language),
+            'skillPoints' => $this->getNormalizedSkillPoints($player, $language),
+            'language' => $language,
         ]);
 
         return $playerData;
@@ -257,61 +259,38 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         return $statuses;
     }
 
-    private function getNormalizedPlayerSkills(Player $player, ?string $format = null, array $context = []): array
+    private function getNormalizedSelectableHumanSkills(Player $player, string $language): array
     {
-        $skills = [];
-        foreach ($player->getSkills() as $skill) {
-            $normedSkill = $this->normalizer->normalize($skill, $format, array_merge($context, ['player' => $player]));
-            if (\is_array($normedSkill) && \count($normedSkill) > 0) {
-                $skills[] = $normedSkill;
-            }
+        $normalizedSelectableHumanSkills = [];
+        foreach ($player->getSelectableHumanSkills() as $selectableSkill) {
+            $normalizedSelectableHumanSkills[] = [
+                'key' => $selectableSkill->getNameAsString(),
+                'name' => $this->translationService->translate($selectableSkill->getNameAsString() . '.name', [], 'skill', $language),
+                'description' => $this->translationService->translate($selectableSkill->getNameAsString() . '.description', [], 'skill', $language),
+            ];
         }
 
-        return $skills;
+        return $normalizedSelectableHumanSkills;
     }
 
-    private function getSpecialistPointsForPlayer(Player $player, string $language): array
+    private function getNormalizedSkillPoints(Player $player, string $language): array
     {
-        // TODO Move that in the skill config data
-        $skillsList = [
-            SkillEnum::BOTANIST => 'garden',
-            SkillEnum::CHEF => 'cook',
-            SkillEnum::CONCEPTOR => 'core',
-            SkillEnum::PHYSICIST => 'pilgred',
-            SkillEnum::IT_EXPERT => 'computer',
-            SkillEnum::NURSE => 'heal',
-            SkillEnum::TECHNICIAN => 'engineer',
-            SkillEnum::SHOOTER => 'shoot',
-        ];
+        $normalizedSkillPoints = [];
 
-        $specialistPoints = [];
-        foreach ($skillsList as $key => $value) {
-            $specialistPoint = $this->getNormalizedSpecialistPoint($player, $language, $key, $value);
-            if ($specialistPoint) {
-                $specialistPoints[] = $specialistPoint;
-            }
+        /** @var Skill $skill */
+        foreach ($player->getSkillsWithPoints() as $skill) {
+            $skillPoints = $skill->getSkillPointsName();
+            $normalizedSkillPoints[] = [
+                'key' => $skillPoints,
+                'quantityPoint' => [
+                    'name' => $this->translationService->translate($skillPoints . '.name', [], 'player', $language),
+                    'description' => $this->translationService->translate($skillPoints . '.description', [], 'player', $language),
+                    'quantity' => $skill->getSkillPoints(),
+                ],
+            ];
         }
 
-        return $specialistPoints;
-    }
-
-    /** @TODO: Move to a SkillNormalizer? */
-    private function getNormalizedSpecialistPoint(Player $player, string $language, string $skill, string $skillId): ?array
-    {
-        /** @var ?ChargeStatus $skill */
-        $skill = $player->getSkillByName($skill);
-        if ($skill === null) {
-            return null;
-        }
-
-        return [
-            'key' => $skillId,
-            'quantityPoint' => [
-                'name' => $this->translationService->translate($skillId . '.name', [], 'player', $language),
-                'description' => $this->translationService->translate($skillId . '.description', [], 'player', $language),
-                'quantity' => $skill->getCharge(),
-            ],
-        ];
+        return $normalizedSkillPoints;
     }
 
     private function getExplorationForPlayer(Player $player): ?Exploration

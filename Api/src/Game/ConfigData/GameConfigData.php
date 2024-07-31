@@ -5,7 +5,6 @@ namespace Mush\Game\ConfigData;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Project\Enum\ProjectName;
@@ -14,6 +13,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 
 /** @codeCoverageIgnore */
 class GameConfigData
@@ -171,12 +171,12 @@ class GameConfigData
                 'apprenton_botanist_default',
                 'apprenton_diplomat_default',
                 'apprenton_firefighter_default',
-                'apprenton_ chef_default',
+                'apprenton_chef_default',
                 'apprenton_it_expert_default',
                 'apprenton_logistics_expert_default',
                 'apprenton_medic_default',
                 'apprenton_pilot_default',
-                'apprenton_ radio_expert_default',
+                'apprenton_radio_expert_default',
                 'apprenton_robotics_expert_default',
                 'apprenton_shooter_default',
                 'apprenton_shrink_default',
@@ -429,19 +429,16 @@ class GameConfigData
                 'exploration_oxygen_default',
                 'exploration_fuel_default',
                 'following_hunters_default',
-                SkillEnum::PILOT . '_alpha',
-                SkillEnum::SHOOTER . '_alpha',
-                SkillEnum::TECHNICIAN,
-                SkillEnum::CONCEPTOR,
                 'astronavigation_neron_cpu_priority_default',
                 'defence_neron_cpu_priority_default',
                 'changed_cpu_priority_default',
                 'electric_charges_support_drone_default',
                 DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
-                SkillEnum::SHRINK . '_default',
                 PlaceStatusEnum::MUSH_TRAPPED->value . '_default',
-                SkillEnum::MANKIND_ONLY_HOPE,
                 EquipmentStatusEnum::JUKEBOX_SONG . '_default',
+                SkillPointsEnum::CONCEPTOR_POINTS->value,
+                SkillPointsEnum::SHOOTER_POINTS->value,
+                SkillPointsEnum::TECHNICIAN_POINTS->value,
             ],
             'triumphConfigs' => [
                 'alien_science',

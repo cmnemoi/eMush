@@ -22,13 +22,15 @@ use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -38,6 +40,7 @@ use Mush\Tests\FunctionalTester;
 
 final class ExplorationServiceCest extends AbstractExplorationTester
 {
+    private ChooseSkillUseCase $chooseSkillUseCase;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
@@ -48,6 +51,8 @@ final class ExplorationServiceCest extends AbstractExplorationTester
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
+
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -371,20 +376,16 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 
     public function testDispatchLandingEventAlwaysReturnsNothingToReportIfAPilotIsInTheExplorationTeam(FunctionalTester $I): void
     {
+        // given terrence is a pilot
+        $terrence = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::TERRENCE);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $terrence));
+
         // given an exploration is created
         $exploration = $this->explorationService->createExploration(
-            players: new PlayerCollection([$this->player1]),
+            players: new PlayerCollection([$terrence]),
             explorationShip: $this->icarus,
             numberOfSectorsToVisit: $this->planet->getSize(),
             reasons: ['test'],
-        );
-
-        // given the player is a pilot
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::PILOT,
-            holder: $this->player1,
-            tags: [],
-            time: new \DateTime(),
         );
 
         // when dispatchEvent is called

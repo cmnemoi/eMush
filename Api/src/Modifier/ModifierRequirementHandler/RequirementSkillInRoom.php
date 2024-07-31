@@ -10,6 +10,7 @@ use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Skill\Enum\SkillEnum;
 
 final class RequirementSkillInRoom extends AbstractModifierRequirementHandler
 {
@@ -34,6 +35,6 @@ final class RequirementSkillInRoom extends AbstractModifierRequirementHandler
 
         $alivePlayers = $room->getPlayers()->getPlayerAlive();
 
-        return $alivePlayers->filter(static fn (Player $player) => $player->hasSkill($skillToFind))->count() > 0;
+        return $alivePlayers->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::from($skillToFind)))->count() > 0;
     }
 }

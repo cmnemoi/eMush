@@ -25,10 +25,10 @@ class StatusConfig
     protected int $id;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
-    protected string $name;
+    protected string $name = '';
 
     #[ORM\Column(type: 'string', nullable: false)]
-    protected string $statusName;
+    protected string $statusName = '';
 
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $visibility = VisibilityEnum::PUBLIC;
@@ -43,6 +43,11 @@ class StatusConfig
     {
         $this->modifierConfigs = new ArrayCollection();
         $this->actionConfigs = new ArrayCollection();
+    }
+
+    public static function createNull(): self
+    {
+        return (new self())->setId(0);
     }
 
     public function getId(): int
@@ -131,6 +136,34 @@ class StatusConfig
         }
 
         $this->actionConfigs = $actionConfigs;
+
+        return $this;
+    }
+
+    public function isNull(): bool
+    {
+        return $this->id === 0;
+    }
+
+    public function toHash(): int
+    {
+        return crc32(serialize($this->toSnapshot()));
+    }
+
+    private function toSnapshot(): array
+    {
+        return [
+            'name' => $this->name,
+            'statusName' => $this->statusName,
+            'visibility' => $this->visibility,
+            'modifierConfigs' => $this->modifierConfigs->map(static fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getName()),
+            'actionConfigs' => $this->actionConfigs->map(static fn (ActionConfig $actionConfig) => $actionConfig->getName()),
+        ];
+    }
+
+    private function setId(int $id): self
+    {
+        $this->id = $id;
 
         return $this;
     }

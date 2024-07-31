@@ -15,7 +15,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\SkillEnum;
+use Mush\Skill\Enum\SkillEnum;
 
 class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -63,16 +63,16 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             SkillEnum::TECHNICIAN,
         ];
 
-        foreach ($skillsArray as $skillName) {
+        foreach ($skillsArray as $skill) {
             $apprentonMechanic = new Book();
             $apprentonMechanic
-                ->setSkill($skillName)
+                ->setSkill($skill)
                 ->addAction($readBook)
-                ->buildName(ItemEnum::APPRENTON . '_' . $skillName, GameConfigEnum::DEFAULT);
+                ->buildName(ItemEnum::APPRENTON . '_' . $skill->value, GameConfigEnum::DEFAULT);
 
             $apprenton = new ItemConfig();
             $apprenton
-                ->setEquipmentName(ItemEnum::APPRENTON . '_' . $skillName)
+                ->setEquipmentName(ItemEnum::APPRENTON . '_' . $skill->value)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)

@@ -27,6 +27,24 @@ class ChargeStatusConfig extends StatusConfig
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $autoRemove = false;
 
+    public static function createNull(): self
+    {
+        return (new self())->setId(0);
+    }
+
+    public static function fromConfigData(array $configData): self
+    {
+        return (new self())
+            ->setChargeVisibility($configData['chargeVisibility'])
+            ->setChargeStrategy($configData['chargeStrategy'])
+            ->setMaxCharge($configData['maxCharge'])
+            ->setStartCharge($configData['startCharge'])
+            ->setDischargeStrategies($configData['dischargeStrategies'])
+            ->setAutoRemove($configData['autoRemove'])
+            ->setName($configData['name'])
+            ->setStatusName($configData['statusName']);
+    }
+
     public function getChargeVisibility(): string
     {
         return $this->chargeVisibility;
@@ -115,5 +133,27 @@ class ChargeStatusConfig extends StatusConfig
     public function getDischargeStrategies(): array
     {
         return $this->dischargeStrategies;
+    }
+
+    private function toSnapshot(): array
+    {
+        return [
+            'name' => $this->name,
+            'statusName' => $this->statusName,
+            'visibility' => $this->visibility,
+            'autoRemove' => $this->autoRemove,
+            'startCharge' => $this->startCharge,
+            'maxCharge' => $this->maxCharge,
+            'chargeVisibility' => $this->chargeVisibility,
+            'chargeStrategy' => $this->chargeStrategy,
+            'dischargeStrategies' => $this->dischargeStrategies,
+        ];
+    }
+
+    private function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 }

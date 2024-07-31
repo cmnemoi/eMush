@@ -13,6 +13,8 @@ use Mush\Player\ConfigData\CharacterConfigData;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Skill\ConfigData\SkillConfigData;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\User\Entity\User;
 use Symfony\Component\Uid\Uuid;
 
@@ -46,6 +48,7 @@ final class PlayerFactory
             ->setUsername(Uuid::v4()->toRfc4122());
 
         $characterConfig = CharacterConfig::fromConfigData(CharacterConfigData::getByName($name));
+        self::addCharacterConfigSkillConfigs($characterConfig);
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -99,5 +102,13 @@ final class PlayerFactory
     private static function setPlayerId(Player $player, int $id): void
     {
         (new \ReflectionClass($player))->getProperty('id')->setValue($player, $id);
+    }
+
+    private static function addCharacterConfigSkillConfigs(CharacterConfig $characterConfig): void
+    {
+        $skillConfigNames = CharacterConfigData::getByName($characterConfig->getCharacterName())['skillConfigs'];
+        foreach ($skillConfigNames as $skillConfigName) {
+            $characterConfig->addSkillConfig(SkillConfig::createFromDto(SkillConfigData::getByName($skillConfigName)));
+        }
     }
 }

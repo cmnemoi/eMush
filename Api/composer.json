@@ -214,6 +214,10 @@
             "php vendor/bin/codecept run tests/unit/RoomLog",
             "php vendor/bin/codecept run tests/functional/RoomLog"
         ],
+        "test:skill": [
+            "php vendor/bin/codecept run tests/unit/Skill",
+            "php vendor/bin/codecept run tests/functional/Skill"
+        ],
         "test:status": [
             "php vendor/bin/codecept run tests/unit/Status",
             "php vendor/bin/codecept run tests/functional/Status"

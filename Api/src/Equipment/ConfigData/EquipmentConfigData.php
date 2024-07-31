@@ -255,8 +255,8 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
-            'name' => 'apprenton_ chef_default',
-            'equipmentName' => 'apprenton_ chef',
+            'name' => 'apprenton_chef_default',
+            'equipmentName' => 'apprenton_chef',
             'isBreakable' => false,
             'isFireDestroyable' => true,
             'isFireBreakable' => false,
@@ -271,7 +271,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprenton_ chef_default',
+                'apprenton_chef_default',
             ],
             'initStatuses' => [],
         ],
@@ -360,8 +360,8 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
-            'name' => 'apprenton_ radio_expert_default',
-            'equipmentName' => 'apprenton_ radio_expert',
+            'name' => 'apprenton_radio_expert_default',
+            'equipmentName' => 'apprenton_radio_expert',
             'isBreakable' => false,
             'isFireDestroyable' => true,
             'isFireBreakable' => false,
@@ -376,7 +376,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprenton_ radio_expert_default',
+                'apprenton_radio_expert_default',
             ],
             'initStatuses' => [],
         ],

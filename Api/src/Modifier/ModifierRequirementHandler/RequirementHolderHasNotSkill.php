@@ -8,6 +8,7 @@ use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Entity\Player;
+use Mush\Skill\Enum\SkillEnum;
 
 final class RequirementHolderHasNotSkill extends AbstractModifierRequirementHandler
 {
@@ -24,6 +25,6 @@ final class RequirementHolderHasNotSkill extends AbstractModifierRequirementHand
             throw new \InvalidArgumentException("{$this->name} activation requirement value is missing.");
         }
 
-        return $holder->hasSkill($skillToCheck) === false;
+        return $holder->hasSkill(SkillEnum::from($skillToCheck)) === false;
     }
 }

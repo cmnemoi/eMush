@@ -16,13 +16,15 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -39,6 +41,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
     private ActionConfig $action;
     private Place $alphaBay2;
 
+    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -50,10 +53,12 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $this->alphaBay2 = $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2);
 
         $this->player1->changePlace($this->alphaBay2);
+        $this->kuanTi->changePlace($this->alphaBay2);
 
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::RENOVATE]);
         $this->renovateAction = $I->grabService(Renovate::class);
 
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
@@ -355,22 +360,17 @@ final class RenovateActionCest extends AbstractFunctionalTest
             time: new \DateTime()
         );
 
-        // given Chun is a technician
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
-        );
+        // given KT is a technician
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
 
         // given renovate action has a 25% success rate
         $this->action->setSuccessRate(25);
 
-        // when Chun tries to renovate the Pasiphae
+        // when KT tries to renovate the Pasiphae
         $this->renovateAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $pasiphae,
-            player: $this->chun,
+            player: $this->kuanTi,
             target: $pasiphae
         );
 
@@ -401,30 +401,30 @@ final class RenovateActionCest extends AbstractFunctionalTest
             time: new \DateTime()
         );
 
-        // given Chun is a technician
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
+        // given KT is a technician
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
+
+        // given KT has two Technician points
+        $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::TECHNICIAN);
+        $I->assertEquals(
+            expected: 2,
+            actual: $technicianSkill->getSkillPoints(),
         );
 
-        // given Chun has one Technician point
-        /** @var ChargeStatus $skill */
-        $skill = $this->chun->getSkillByName(SkillEnum::TECHNICIAN);
-        $skill->setCharge(1);
-
-        // when Chun renovates the Pasiphae
+        // when KT renovates the Pasiphae
         $this->renovateAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $pasiphae,
-            player: $this->chun,
+            player: $this->kuanTi,
             target: $pasiphae
         );
-        $result = $this->renovateAction->execute();
+        $this->renovateAction->execute();
 
-        // then one of Chun's Technician points is consumed
-        $I->assertEquals(0, $skill->getCharge());
+        // then KT should have one Technician point left
+        $I->assertEquals(
+            expected: 1,
+            actual: $technicianSkill->getSkillPoints(),
+        );
     }
 
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void

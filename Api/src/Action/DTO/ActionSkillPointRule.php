@@ -2,6 +2,8 @@
 
 namespace Mush\Action\DTO;
 
+use Mush\Skill\Enum\SkillEnum;
+
 /**
  * This class permits to pass object instead of arbitrary array named.
  * Use this as an example of usage we can take for further possibility where
@@ -11,11 +13,11 @@ namespace Mush\Action\DTO;
  *
  * @version 1.0.0
  */
-final readonly class ActionSpecialistPointRule
+final readonly class ActionSkillPointRule
 {
     public function __construct(
         public string $name,
-        public string $skill,
+        public SkillEnum $skill,
         public array $actionTypes
     ) {}
 }

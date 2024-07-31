@@ -15,9 +15,9 @@ use Mush\User\Enum\RoleEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ResetSpecialistPoints extends AbstractAction
+class ResetSkillPoints extends AbstractAction
 {
-    protected ActionEnum $name = ActionEnum::RESET_SPECIALIST_POINTS;
+    protected ActionEnum $name = ActionEnum::RESET_SKILL_POINTS;
     protected StatusServiceInterface $statusService;
 
     public function __construct(

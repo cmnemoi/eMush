@@ -10,8 +10,11 @@ use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Normalizer\ExplorationNormalizer;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
@@ -20,6 +23,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class ExplorationNormalizerCest extends AbstractExplorationTester
 {
+    private ChooseSkillUseCase $chooseSkillUseCase;
     private ExplorationNormalizer $explorationNormalizer;
     private NormalizerInterface $normalizer;
     private StatusServiceInterface $statusService;
@@ -31,6 +35,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
     {
         parent::_before($I);
 
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->explorationNormalizer = $I->grabService(ExplorationNormalizer::class);
         $this->normalizer = $I->grabService(NormalizerInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -38,12 +43,10 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
         $this->explorationNormalizer->setNormalizer($this->normalizer);
 
         // given Chun is a pilot so landing is always successful
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::PILOT,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
-        );
+        $this->chun->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $this->chun));
 
         // given a planet
         $this->planet = $this->createPlanet(

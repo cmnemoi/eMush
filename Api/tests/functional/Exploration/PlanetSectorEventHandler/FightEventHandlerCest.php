@@ -12,7 +12,6 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\PlanetSectorEventHandler\Fight;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -20,6 +19,10 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -29,6 +32,7 @@ use Mush\Tests\FunctionalTester;
 final class FightEventHandlerCest extends AbstractExplorationTester
 {
     private Fight $fightEventHandler;
+    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private Player $derek;
@@ -40,6 +44,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $this->fightEventHandler = $I->grabService(Fight::class);
 
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -50,6 +55,16 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $this->janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
         $this->players->add($this->derek);
         $this->players->add($this->janice);
+
+        // given Chun and KT have pilot and shooter skills available
+        $this->chun->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHOOTER]),
+        ]);
+        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHOOTER]),
+        ]);
 
         // given Chun, Kuan-Ti, and Janice have a spacesuit
         foreach ([$this->chun, $this->kuanTi, $this->janice] as $player) {
@@ -137,12 +152,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         // given Chun and kuan-ti have the shooter skill
         foreach ([$this->chun, $this->kuanTi] as $player) {
-            $this->statusService->createStatusFromName(
-                statusName: SkillEnum::SHOOTER,
-                holder: $player,
-                tags: [],
-                time: new \DateTime(),
-            );
+            $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHOOTER, $player));
         }
 
         // given an exploration is created
@@ -252,12 +262,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     public function testFightEventNotUsingGrenadesIfWeHaveEnoughPointsToKillWithoutThem(FunctionalTester $I): void
     {
         // given Chun is a pilot to avoid damage at landing
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::PILOT,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $this->chun));
 
         // given Chun has 14 health points
         $this->chun->setHealthPoint(14);
@@ -303,12 +308,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     public function testFightEventInflictsTheRightAmountOfDamage(FunctionalTester $I): void
     {
         // given Chun is a pilot to avoid damage at landing
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::PILOT,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $this->chun));
 
         // given Chun has 14 health points
         $this->chun->setHealthPoint(14);
@@ -350,12 +350,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     public function testFightEventInflictsTheRightAmountOfDamageWithPlasteniteArmor(FunctionalTester $I): void
     {
         // given Chun is a pilot to avoid damage at landing
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::PILOT,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $this->chun));
 
         // given Chun has 14 health points
         $this->chun->setHealthPoint(14);

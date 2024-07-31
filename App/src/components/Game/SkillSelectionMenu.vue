@@ -1,15 +1,16 @@
 <template>
-    <GamePopUp 
-        title="Choix de Compétence" 
-        :is-open=popUp.isOpen 
+    <GamePopUp
+        title="Choix de Compétence"
+        :is-open=popUp.isOpen
         @exit="close"
         v-if="player"
     >
         <div class="skill-selection">
             <Tippy
                 tag="button"
-                v-for="skill in player.character.availableSkills"
+                v-for="skill in skillsToDisplay"
                 :key="skill.key"
+                @click="chooseSkill({player, skill})"
             >
                 <img :src="skillImage(skill)">
                 <template #content>
@@ -29,7 +30,7 @@ import { formatText } from "@/utils/formatText";
 import { mapActions, mapGetters } from "vuex";
 import { SkillIconRecord } from "@/enums/skill.enum";
 
-type AvailableSkill = {
+type SelectableSkill = {
     key: string;
     name: string;
     description: string;
@@ -39,21 +40,33 @@ export default defineComponent ({
     name: "SkillSelectionMenu",
     components: { GamePopUp },
     props: {
-        player: Player
+        player: {
+            type: Player,
+            required: true
+        }
     },
     computed: {
         ...mapGetters({
             popUp: 'popup/skillSelectionPopUp',
-        })
+            displayMushSkills: 'player/displayMushSkills'
+        }),
+        skillsToDisplay(): SelectableSkill[] {
+            return this.displayMushSkills ? this.player?.character.selectableMushSkills : this.player?.character.selectableHumanSkills;
+        }
     },
     methods: {
         ...mapActions({
-            close: 'popup/closeSkillSelectionPopUp'
+            chooseSkill: 'player/chooseSkill',
+            close: 'popup/closeSkillSelectionPopUp',
+            initMushSkillsDisplay: 'player/initMushSkillsDisplay'
         }),
         formatText,
-        skillImage(skill: AvailableSkill): string {
+        skillImage(skill: SelectableSkill): string {
             return SkillIconRecord[skill.key].icon ?? '';
-        },
+        }
+    },
+    beforeMount() {
+        this.initMushSkillsDisplay({ player: this.player });
     }
 });
 </script>

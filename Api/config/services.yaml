@@ -25,6 +25,7 @@ imports:
     - { resource: ../src/Hunter/config/services.yaml }
     - { resource: ../src/Exploration/config/services.yaml }
     - { resource: ../src/Project/config/services.yaml }
+    - { resource: ../src/Skill/config/services.yaml }
 
 
 services:

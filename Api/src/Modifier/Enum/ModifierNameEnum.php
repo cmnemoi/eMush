@@ -23,10 +23,10 @@ abstract class ModifierNameEnum
     public const string THALASSO_MOVEMENT_POINTS_MODIFIER = 'thalasso_movement_points_modifier';
     public const string ICARUS_LARGER_BAY_MODIFIER = 'icarus_larger_bay_modifier';
 
-    /** @TODO Rename that SPECIALIST_POINT_SHOOTER */
-    public const string SHOOTER_SPECIALIST_POINT = 'shooter_specialist_point';
+    /** @TODO Rename that SKILL_POINT_SHOOTER */
+    public const string SHOOTER_SKILL_POINT = 'shooter_skill_point';
     public const string LOST_MODIFIER = 'lost_modifier';
     public const string ROPE_MODIFIER = 'rope_modifier';
-    public const string SPECIALIST_POINT_ENGINEER = 'specialist_point_engineer';
-    public const string SPECIALIST_POINT_CORE = 'specialist_point_core';
+    public const string SKILL_POINT_ENGINEER = 'skill_point_engineer';
+    public const string SKILL_POINT_CORE = 'skill_point_core';
 }

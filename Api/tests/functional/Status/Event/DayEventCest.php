@@ -9,7 +9,6 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -20,6 +19,7 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
 use Mush\Status\Service\StatusServiceInterface;
@@ -150,7 +150,7 @@ class DayEventCest
 
         // Specialist point increment
         /** @var ChargeStatusConfig $statusConfig */
-        $statusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => SkillEnum::SHOOTER]);
+        $statusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => SkillPointsEnum::SHOOTER_POINTS]);
 
         /** @var ChargeStatus $status */
         $status = $this->statusService->createStatusFromConfig(
@@ -159,6 +159,7 @@ class DayEventCest
             [],
             new \DateTime()
         );
+        $this->statusService->updateCharge($status, -2, [], new \DateTime());
         $I->assertEquals(2, $status->getCharge());
 
         $dayEvent = new StatusCycleEvent($status, $player, [EventEnum::NEW_DAY], $time);

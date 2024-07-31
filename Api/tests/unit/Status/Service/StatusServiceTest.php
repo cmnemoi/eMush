@@ -91,6 +91,8 @@ final class StatusServiceTest extends TestCase
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::HIDDEN);
 
+        $this->setupStatusConfigId($statusConfig);
+
         $hidden1 = new Status($item1, $statusConfig);
         $hidden1
             ->setCreatedAt(new \DateTime());
@@ -120,6 +122,9 @@ final class StatusServiceTest extends TestCase
         $chargeStatusConfig
             ->setMaxCharge(6)
             ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+
+        $this->setupStatusConfigId($chargeStatusConfig);
+
         $chargeStatus = new ChargeStatus($gameEquipment, $chargeStatusConfig);
 
         $chargeStatus
@@ -160,6 +165,8 @@ final class StatusServiceTest extends TestCase
             ->setStatusName(PlayerStatusEnum::EUREKA_MOMENT)
             ->setVisibility(VisibilityEnum::MUSH);
 
+        $this->setupStatusConfigId($statusConfig);
+
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
@@ -188,6 +195,8 @@ final class StatusServiceTest extends TestCase
             ->setStartCharge(3)
             ->setMaxCharge(4);
 
+        $this->setupStatusConfigId($statusConfig);
+
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
@@ -214,6 +223,8 @@ final class StatusServiceTest extends TestCase
         $statusConfig
             ->setStatusName(PlayerStatusEnum::EUREKA_MOMENT)
             ->setVisibility(VisibilityEnum::MUSH);
+
+        $this->setupStatusConfigId($statusConfig);
 
         $status = new Status($gameEquipment, $statusConfig);
         $gameEquipment->addStatus($status);
@@ -265,6 +276,8 @@ final class StatusServiceTest extends TestCase
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
 
+        $this->setupStatusConfigId($attemptConfig);
+
         $gameConfig = new GameConfig();
         $gameConfig->addStatusConfig($attemptConfig);
 
@@ -304,6 +317,8 @@ final class StatusServiceTest extends TestCase
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
 
+        $this->setupStatusConfigId($attemptConfig);
+
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
             ->setAction(ActionEnum::DISASSEMBLE->value)
@@ -332,6 +347,8 @@ final class StatusServiceTest extends TestCase
         $actionResult = new Fail();
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
+
+        $this->setupStatusConfigId($attemptConfig);
 
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
@@ -362,6 +379,8 @@ final class StatusServiceTest extends TestCase
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
 
+        $this->setupStatusConfigId($attemptConfig);
+
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
             ->setAction(ActionEnum::DISASSEMBLE->value)
@@ -386,6 +405,8 @@ final class StatusServiceTest extends TestCase
             ->setStatusName(PlayerStatusEnum::GUARDIAN)
             ->setVisibility(VisibilityEnum::MUSH);
 
+        $this->setupStatusConfigId($statusConfig);
+
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
@@ -399,5 +420,10 @@ final class StatusServiceTest extends TestCase
         self::assertSame($result->getName(), PlayerStatusEnum::GUARDIAN);
         self::assertSame($result->getVisibility(), VisibilityEnum::MUSH);
         self::assertSame($result->getContent(), 'test content');
+    }
+
+    private function setupStatusConfigId(StatusConfig $statusConfig): void
+    {
+        (new \ReflectionProperty($statusConfig, 'id'))->setValue($statusConfig, $statusConfig->toHash());
     }
 }

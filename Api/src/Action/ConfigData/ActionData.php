@@ -80,8 +80,8 @@ class ActionData
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
         [
-            'name' => ActionEnum::RESET_SPECIALIST_POINTS->value,
-            'action_name' => ActionEnum::RESET_SPECIALIST_POINTS,
+            'name' => ActionEnum::RESET_SKILL_POINTS->value,
+            'action_name' => ActionEnum::RESET_SKILL_POINTS,
             'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,

@@ -15,7 +15,6 @@ use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Entity\VariableEventConfig;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\ConfigData\ModifierConfigData;
@@ -33,7 +32,7 @@ use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Service\PlayerService;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -55,18 +54,12 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string MUSH_CONSUME_MODIFIER = 'mush_consume_modifier';
     public const string MUSH_MORALE_MODIFIER = 'mush_morale_modifier';
 
-    public const string SHOOTER_SPECIALIST_POINT = 'shooter_specialist_point';
     public const string ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION = 'astronavigation_neron_cpu_priority_modifier_plus_1_section';
     public const string ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT = 'astronavigation_neron_cpu_priority_modifier_minus_1_action_point';
 
     public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE = 'defence_neron_cpu_priority_modifier_increased_turret_max_charge';
     public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE = 'defence_neron_cpu_priority_modifier_increased_recharge_rate';
     public const string IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE = 'immunized_modifier_set_0_spores_on_change_variable';
-    public const string TECHNICIAN_SPECIALIST_POINT = 'technician_specialist_point';
-    public const string TECHNICIAN_DOUBLE_REPAIR_CHANCE = 'technician_double_repair_chance';
-    public const string CONCEPTOR_SPECIALIST_POINT = 'conceptor_specialist_point';
-
-    public const string MANKIND_ONLY_HOPE_MODIFIER = 'modifier_for_daedalus_+1moral_on_day_change';
 
     public function load(ObjectManager $manager): void
     {
@@ -252,22 +245,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($mushConsumeModifier);
 
-        $shooterSpecialist = new VariableEventModifierConfig('modifier_shooter_specialist_point');
-        $shooterSpecialist
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(0)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
-            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setApplyWhenTargeted(false)
-            ->setTagConstraints([
-                ActionTypeEnum::ACTION_SHOOT_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
-                ActionTypeEnum::ACTION_SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
-            ])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::SHOOTER_SPECIALIST_POINT);
-        $manager->persist($shooterSpecialist);
-
         $mushMoraleModifier = new VariableEventModifierConfig('mushMoraleModifier');
         $mushMoraleModifier
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
@@ -353,59 +330,15 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($immunizedModifierSet0SporesOnChangeVariable);
 
-        $technicianSpecialist = new VariableEventModifierConfig('modifier_specialist_point_engineer');
-        $technicianSpecialist
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(0)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
-            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setApplyWhenTargeted(false)
-            ->setTagConstraints([
-                ActionTypeEnum::ACTION_TECHNICIAN->value => ModifierRequirementEnum::ANY_TAGS,
-            ])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::SPECIALIST_POINT_ENGINEER);
-        $manager->persist($technicianSpecialist);
-
-        $technicianDoubleRepairChance = new VariableEventModifierConfig('modifier_technician_double_repair_and_renovate_chance');
-        $technicianDoubleRepairChance
-            ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
-            ->setDelta(2)
-            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
-            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
-            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
-            ->setTagConstraints([
-                ActionEnum::REPAIR->value => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::RENOVATE->value => ModifierRequirementEnum::ANY_TAGS,
-            ])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
-        $manager->persist($technicianDoubleRepairChance);
-
-        $coreSpecialistPoint = new VariableEventModifierConfig('modifier_specialist_point_core');
-        $coreSpecialistPoint
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(0)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
-            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setApplyWhenTargeted(false)
-            ->setTagConstraints([
-                ActionTypeEnum::ACTION_CONCEPTOR->value => ModifierRequirementEnum::ANY_TAGS,
-            ])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::SPECIALIST_POINT_CORE);
-        $manager->persist($coreSpecialistPoint);
-
         $shrinkInRoomActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::SKILL_IN_ROOM);
         $shrinkInRoomActivationRequirement
-            ->setActivationRequirement(SkillEnum::SHRINK)
+            ->setActivationRequirement(SkillEnum::SHRINK->value)
             ->buildName();
         $manager->persist($shrinkInRoomActivationRequirement);
 
         $holderIsNotAShrinkActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL);
         $holderIsNotAShrinkActivationRequirement
-            ->setActivationRequirement(SkillEnum::SHRINK)
+            ->setActivationRequirement(SkillEnum::SHRINK->value)
             ->buildName();
         $manager->persist($holderIsNotAShrinkActivationRequirement);
 
@@ -423,22 +356,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::ADD_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($lyingDownShrinkModifier);
-
-        $mankindOnlyHopeModifier = new VariableEventModifierConfig('modifier_for_daedalus_+1moral_on_day_change');
-        $mankindOnlyHopeModifier
-            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
-            ->setDelta(1.0)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-            ->setApplyWhenTargeted(true)
-            ->setTagConstraints([
-                PlayerService::BASE_PLAYER_DAY_CHANGE => ModifierRequirementEnum::ALL_TAGS,
-                SkillEnum::MANKIND_ONLY_HOPE => ModifierRequirementEnum::NONE_TAGS,
-            ])
-            ->setModifierName(SkillEnum::MANKIND_ONLY_HOPE)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
-        $manager->persist($mankindOnlyHopeModifier);
 
         $inactiveModifier = VariableEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName('modifier_for_player_x1.5percentage_on_action_attack_hit_shoot')
@@ -463,18 +380,13 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::MUSH_CONSUME_SATIETY_MODIFIER, $mushConsumeSatietyModifier);
         $this->addReference(self::MUSH_MORALE_MODIFIER, $mushMoraleModifier);
 
-        $this->addReference(self::SHOOTER_SPECIALIST_POINT, $shooterSpecialist);
         $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION, $astronavigationNeronCpuPriorityModifierPlus1Section);
         $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT, $astronavigationNeronCpuPriorityModifierMinus1ActionPoint);
         $this->addReference(self::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE, $defenceCpuPriorityIncreaseTurretMaxCharge);
         $this->addReference(self::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE, $defenceCpuPriorityIncreaseTurretRecharge);
 
         $this->addReference(self::IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE, $immunizedModifierSet0SporesOnChangeVariable);
-        $this->addReference(self::TECHNICIAN_SPECIALIST_POINT, $technicianSpecialist);
-        $this->addReference(self::TECHNICIAN_DOUBLE_REPAIR_CHANCE, $technicianDoubleRepairChance);
-        $this->addReference(self::CONCEPTOR_SPECIALIST_POINT, $coreSpecialistPoint);
         $this->addReference('modifier_for_player_+1morale_point_on_new_cycle_if_shrink_in_room', $lyingDownShrinkModifier);
-        $this->addReference(self::MANKIND_ONLY_HOPE_MODIFIER, $mankindOnlyHopeModifier);
         $this->addReference($inactiveModifier->getName(), $inactiveModifier);
     }
 

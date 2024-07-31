@@ -283,13 +283,13 @@ Available only during the alpha.
 Thanks for your help!</target>
       </segment>
     </unit>
-    <unit id="reset_specialist_points">
-      <segment id="reset_specialist_points" state="translated">
-        <source>reset_specialist_points.name</source>
+    <unit id="reset_skill_points">
+      <segment id="reset_skill_points" state="translated">
+        <source>reset_skill_points.name</source>
         <target>Reset specialist points</target>
       </segment>
       <segment id="description" state="translated">
-        <source>reset_specialist_points.description</source>
+        <source>reset_skill_points.description</source>
         <target>Recover specialist points :pa_eng:, :pa_shoot:
         //
         Only valid during the alpha.

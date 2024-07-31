@@ -65,7 +65,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'actionPointCost' => 1,
                 'moralPointCost' => 0,
                 'movementPointCost' => 0,
-                'specialistPointCosts' => [],
+                'skillPointCosts' => [],
                 'successRate' => 100,
                 'name' => 'Piéger pièce',
                 'description' => 'Permet de piéger la pièce, toutes les interactions avec les objets et équipements de la pièce déclencheront le piège.//Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.',

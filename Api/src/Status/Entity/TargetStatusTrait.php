@@ -3,7 +3,6 @@
 namespace Mush\Status\Entity;
 
 use Doctrine\Common\Collections\Collection;
-use Mush\Game\Enum\SkillEnum;
 
 trait TargetStatusTrait
 {
@@ -12,14 +11,6 @@ trait TargetStatusTrait
         $statuses = $this->statuses
             ->filter(fn (StatusTarget $statusTarget) => ($statusOwner = $statusTarget->getOwner()) && $statusOwner->getOwner() === $this)
             ->map(static fn (StatusTarget $statusTarget) => $statusTarget->getOwner());
-
-        // temporary filter to exclude PoC skills
-        /** @var Status $status */
-        foreach ($statuses as $status) {
-            if (SkillEnum::getAll()->contains($status->getName())) {
-                $statuses->removeElement($status);
-            }
-        }
 
         return $statuses;
     }
@@ -121,44 +112,6 @@ trait TargetStatusTrait
         }
 
         return $this;
-    }
-
-    /**
-     * Temporary method for PoC skills.
-     */
-    public function getSkills(): Collection
-    {
-        $statuses = $this->statuses
-            ->filter(fn (StatusTarget $statusTarget) => ($statusOwner = $statusTarget->getOwner()) && $statusOwner->getOwner() === $this)
-            ->map(static fn (StatusTarget $statusTarget) => $statusTarget->getOwner());
-
-        // temporary filter to get only PoC skills
-        /** @var Status $status */
-        foreach ($statuses as $status) {
-            if (!SkillEnum::getAll()->contains($status->getName())) {
-                $statuses->removeElement($status);
-            }
-        }
-
-        return $statuses;
-    }
-
-    /**
-     * Temporary method for PoC skills.
-     */
-    public function getSkillByName(string $name): ?Status
-    {
-        $status = $this->getSkills()->filter(static fn (Status $status) => ($status->getName() === $name))->first();
-
-        return $status ?: null;
-    }
-
-    /**
-     * Temporary method for PoC skills.
-     */
-    public function hasSkill(string $statusName): bool
-    {
-        return $this->getSkills()->exists(static fn ($key, Status $status) => ($status->getName() === $statusName));
     }
 
     public function equals(StatusHolderInterface $statusHolder): bool

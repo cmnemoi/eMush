@@ -3,7 +3,7 @@
 namespace Mush\Player\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Game\Enum\SkillEnum;
+use Mush\Skill\Enum\SkillEnum;
 
 class CharacterConfigData
 {
@@ -11,7 +11,9 @@ class CharacterConfigData
         [
             'name' => 'andie',
             'characterName' => 'andie',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::PILOT,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -36,20 +38,20 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::PILOT . '_alpha',
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'chao',
             'characterName' => 'chao',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -74,7 +76,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -85,7 +87,9 @@ class CharacterConfigData
         [
             'name' => 'chun',
             'characterName' => 'chun',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::MANKIND_ONLY_HOPE,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -110,7 +114,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -118,13 +122,14 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'immunized_default',
-                SkillEnum::MANKIND_ONLY_HOPE,
             ],
         ],
         [
             'name' => 'derek',
             'characterName' => 'derek',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -150,7 +155,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
                 ActionEnum::EXTINGUISH_MANUALLY->value,
             ],
             'initDiseases' => [],
@@ -159,13 +164,14 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'first_time_default',
-                SkillEnum::SHOOTER . '_alpha',
             ],
         ],
         [
             'name' => 'eleesha',
             'characterName' => 'eleesha',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::TECHNICIAN,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -185,13 +191,12 @@ class CharacterConfigData
                 'heal',
                 'self_heal',
                 'flirt',
-                'extract_spore',
                 'do_the_thing',
                 'auto_destroy',
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [
                 'chronic_vertigo_default',
@@ -199,14 +204,12 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::TECHNICIAN,
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'finola',
             'characterName' => 'finola',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -231,7 +234,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [],
@@ -242,7 +245,9 @@ class CharacterConfigData
         [
             'name' => 'frieda',
             'characterName' => 'frieda',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::PILOT,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -267,18 +272,18 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [SkillEnum::PILOT . '_alpha'],
+            'initStatuses' => [],
         ],
         [
             'name' => 'gioele',
             'characterName' => 'gioele',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -303,7 +308,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -314,7 +319,10 @@ class CharacterConfigData
         [
             'name' => 'hua',
             'characterName' => 'hua',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::PILOT,
+                SkillEnum::TECHNICIAN,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -339,21 +347,18 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::PILOT . '_alpha',
-                SkillEnum::TECHNICIAN,
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'ian',
             'characterName' => 'ian',
-            'skills' => [],
+            'skillConfigs' => [],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -378,7 +383,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
                 'extinguish_manually',
             ],
             'initDiseases' => [],
@@ -392,7 +397,9 @@ class CharacterConfigData
         [
             'name' => 'janice',
             'characterName' => 'janice',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::SHRINK,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -418,20 +425,21 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::SHRINK . '_default',
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'jin_su',
             'characterName' => 'jin_su',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::PILOT,
+                SkillEnum::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -457,21 +465,21 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::PILOT . '_alpha',
-                SkillEnum::SHOOTER . '_alpha',
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'kuan_ti',
             'characterName' => 'kuan_ti',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::CONCEPTOR,
+                SkillEnum::TECHNICIAN,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -496,22 +504,21 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
                 'motivational_speech',
             ],
             'initDiseases' => [],
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::CONCEPTOR,
-                SkillEnum::TECHNICIAN,
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'paola',
             'characterName' => 'paola',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -536,18 +543,21 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [SkillEnum::SHOOTER . '_alpha'],
+            'initStatuses' => [],
         ],
         [
             'name' => 'raluca',
             'characterName' => 'raluca',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::TECHNICIAN,
+                SkillEnum::CONCEPTOR,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -572,7 +582,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -580,14 +590,15 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'antisocial_default',
-                SkillEnum::TECHNICIAN,
-                SkillEnum::CONCEPTOR,
             ],
         ],
         [
             'name' => 'roland',
             'characterName' => 'roland',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::PILOT,
+                SkillEnum::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -613,21 +624,20 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [
-                SkillEnum::PILOT . '_alpha',
-                SkillEnum::SHOOTER . '_alpha',
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'stephen',
             'characterName' => 'stephen',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -652,18 +662,22 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [SkillEnum::SHOOTER . '_alpha'],
+            'initStatuses' => [],
         ],
         [
             'name' => 'terrence',
             'characterName' => 'terrence',
-            'skills' => [],
+            'skillConfigs' => [
+                SkillEnum::TECHNICIAN,
+                SkillEnum::PILOT,
+                SkillEnum::SHOOTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -688,7 +702,7 @@ class CharacterConfigData
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',
-                ActionEnum::RESET_SPECIALIST_POINTS->value,
+                ActionEnum::RESET_SKILL_POINTS->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -696,9 +710,6 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'disabled_default',
-                SkillEnum::PILOT . '_alpha',
-                SkillEnum::SHOOTER . '_alpha',
-                SkillEnum::TECHNICIAN,
             ],
         ],
     ];

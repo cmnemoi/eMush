@@ -3,9 +3,9 @@
 namespace Mush\Modifier\ConfigData;
 
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Project\Enum\ProjectName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -171,13 +171,13 @@ class ModifierActivationRequirementData
         [
             'name' => ModifierRequirementEnum::SKILL_IN_ROOM . '_shrink',
             'activationRequirementName' => ModifierRequirementEnum::SKILL_IN_ROOM,
-            'activationRequirement' => SkillEnum::SHRINK,
+            'activationRequirement' => SkillEnum::SHRINK->value,
             'value' => 100,
         ],
         [
             'name' => ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL_SHRINK,
             'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL,
-            'activationRequirement' => SkillEnum::SHRINK,
+            'activationRequirement' => SkillEnum::SHRINK->value,
             'value' => 100,
         ],
         [

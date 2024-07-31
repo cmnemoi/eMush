@@ -18,6 +18,15 @@ enum ActionTypeEnum: string
     case ACTION_SHOOT_HUNTER = 'action_shoot_hunter';
     case ACTION_CONFIRM = 'action_confirm';
     case ACTION_ADMIN = 'action_admin';
+    case ACTION_BOTANIST = 'action_botanist';
+    case ACTION_IT = 'action_it';
+    case ACTION_COOK = 'action_cook';
+    case ACTION_PILGRED = 'action_pilgred';
+
+    public function toString(): string
+    {
+        return $this->value;
+    }
 
     public static function getAll(): ArrayCollection
     {

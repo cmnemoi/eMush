@@ -18,7 +18,6 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
@@ -35,6 +34,7 @@ use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerService;
 use Mush\Project\Enum\ProjectName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -1848,8 +1848,8 @@ abstract class ModifierConfigData
             ],
         ],
         [
-            'name' => 'modifier_shooter_specialist_point',
-            'modifierName' => ModifierNameEnum::SHOOTER_SPECIALIST_POINT,
+            'name' => 'modifier_shooter_skill_point',
+            'modifierName' => ModifierNameEnum::SHOOTER_SKILL_POINT,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
@@ -2038,8 +2038,8 @@ abstract class ModifierConfigData
             'tagConstraints' => [],
         ],
         [
-            'name' => 'modifier_specialist_point_engineer',
-            'modifierName' => ModifierNameEnum::SPECIALIST_POINT_ENGINEER,
+            'name' => 'modifier_skill_point_engineer',
+            'modifierName' => ModifierNameEnum::SKILL_POINT_ENGINEER,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
@@ -2076,8 +2076,8 @@ abstract class ModifierConfigData
             ],
         ],
         [
-            'name' => 'modifier_specialist_point_core',
-            'modifierName' => ModifierNameEnum::SPECIALIST_POINT_CORE,
+            'name' => 'modifier_skill_point_core',
+            'modifierName' => ModifierNameEnum::SKILL_POINT_CORE,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
@@ -2587,7 +2587,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_daedalus_+1moral_on_day_change',
-            'modifierName' => SkillEnum::MANKIND_ONLY_HOPE,
+            'modifierName' => SkillEnum::MANKIND_ONLY_HOPE->value,
             'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
@@ -2602,7 +2602,7 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 PlayerService::BASE_PLAYER_DAY_CHANGE => ModifierRequirementEnum::ALL_TAGS,
-                SkillEnum::MANKIND_ONLY_HOPE => ModifierRequirementEnum::NONE_TAGS,
+                SkillEnum::MANKIND_ONLY_HOPE->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [

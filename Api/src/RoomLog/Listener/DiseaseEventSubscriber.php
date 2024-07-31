@@ -8,11 +8,11 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Skill\Enum\SkillEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DiseaseEventSubscriber implements EventSubscriberInterface
@@ -28,7 +28,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         LogEnum::SELF_SURGERY_SUCCESS => LogEnum::SELF_SURGERY_SUCCESS,
         DiseaseCauseEnum::OVERRODE => LogEnum::DISEASE_OVERRIDDEN,
         DiseaseStatusEnum::DRUG_HEALED => LogEnum::DISEASE_CURED_DRUG,
-        SkillEnum::SHRINK => LogEnum::DISORDER_CURED_PLAYER,
+        SkillEnum::SHRINK->value => LogEnum::DISORDER_CURED_PLAYER,
     ];
 
     private const array TREAT_LOG_MAP = [
@@ -37,7 +37,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         ActionTypeEnum::ACTION_HEAL->value => LogEnum::DISEASE_TREATED_PLAYER,
         ActionEnum::CONSUME->value => LogEnum::DISEASE_TREATED_DRUG,
         ActionEnum::CONSUME_DRUG->value => LogEnum::DISEASE_TREATED_DRUG,
-        SkillEnum::SHRINK => LogEnum::DISORDER_TREATED_PLAYER,
+        SkillEnum::SHRINK->value => LogEnum::DISORDER_TREATED_PLAYER,
     ];
     private RoomLogServiceInterface $roomLogService;
 

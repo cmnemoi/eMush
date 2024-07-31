@@ -13,11 +13,17 @@ use Mush\Player\Entity\PlayerInfo;
 /**
  * @template-extends ServiceEntityRepository<Player>
  */
-class PlayerRepository extends ServiceEntityRepository
+class PlayerRepository extends ServiceEntityRepository implements PlayerRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Player::class);
+    }
+
+    public function save(Player $player): void
+    {
+        $this->_em->persist($player);
+        $this->_em->flush();
     }
 
     public function findOneByName(string $name, Daedalus $daedalus): ?Player

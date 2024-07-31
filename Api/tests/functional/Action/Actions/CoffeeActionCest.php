@@ -376,6 +376,6 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->daedalus->setDay(0);
         $daedalusConfig = $this->daedalus->getDaedalusConfig();
         $ref = new \ReflectionClass($daedalusConfig);
-        $ref->getProperty('cyclePerGameDay')->setValue($daedalusConfig, 1_000_000);
+        $ref->getProperty('cyclePerGameDay')->setValue($daedalusConfig, 1_000_000_000);
     }
 }

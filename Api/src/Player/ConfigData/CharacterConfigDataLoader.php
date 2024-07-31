@@ -11,6 +11,7 @@ use Mush\Equipment\Repository\EquipmentConfigRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Repository\CharacterConfigRepository;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Status\Repository\StatusConfigRepository;
 
 class CharacterConfigDataLoader extends ConfigDataLoader
@@ -51,6 +52,7 @@ class CharacterConfigDataLoader extends ConfigDataLoader
             $this->setCharacterConfigInitDiseases($characterConfig, $characterConfigData);
             $this->setCharacterConfigStartingItems($characterConfig, $characterConfigData);
             $this->setCharacterConfigInitStatuses($characterConfig, $characterConfigData);
+            $this->setCharacterConfigSkillConfigs($characterConfig, $characterConfigData);
 
             $this->entityManager->persist($characterConfig);
         }
@@ -62,7 +64,6 @@ class CharacterConfigDataLoader extends ConfigDataLoader
         $characterConfig
             ->setName($characterConfigData['name'])
             ->setCharacterName($characterConfigData['characterName'])
-            ->setSkills($characterConfigData['skills'])
             ->setMaxActionPoint($characterConfigData['maxActionPoint'])
             ->setMaxMoralPoint($characterConfigData['maxMoralPoint'])
             ->setMaxHealthPoint($characterConfigData['maxHealthPoint'])
@@ -129,5 +130,18 @@ class CharacterConfigDataLoader extends ConfigDataLoader
             $statusConfigs[] = $statusConfig;
         }
         $characterConfig->setInitStatuses($statusConfigs);
+    }
+
+    private function setCharacterConfigSkillConfigs(CharacterConfig $characterConfig, array $characterConfigData): void
+    {
+        $skillConfigs = [];
+        foreach ($characterConfigData['skillConfigs'] as $skillConfigName) {
+            $skillConfig = $this->entityManager->getRepository(SkillConfig::class)->findOneBy(['name' => $skillConfigName]);
+            if ($skillConfig === null) {
+                throw new \Exception('Skill config not found: ' . $skillConfigName->value);
+            }
+            $skillConfigs[] = $skillConfig;
+        }
+        $characterConfig->setSkillConfigs($skillConfigs);
     }
 }

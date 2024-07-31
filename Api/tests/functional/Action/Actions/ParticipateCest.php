@@ -15,7 +15,6 @@ use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
@@ -23,7 +22,9 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -37,8 +38,10 @@ final class ParticipateCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private Participate $participateAction;
     private Project $project;
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private GameEquipment $terminal;
+
+    private ChooseSkillUseCase $chooseSkillUseCase;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private NeronServiceInterface $neronService;
     private StatusServiceInterface $statusService;
 
@@ -52,6 +55,7 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->project = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
         $this->project->propose();
 
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -358,36 +362,37 @@ final class ParticipateCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldConsumeCoreSpecialistPointWithProject(FunctionalTester $I): void
+    public function shouldConsumeCoreSkillPointWithProject(FunctionalTester $I): void
     {
         // given I have another proposed project
         $project = $this->daedalus->getProjectByName(ProjectName::AUXILIARY_TERMINAL);
         $project->propose();
 
-        // given Chun is a Conceptor
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::CONCEPTOR,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
+        // given KT is a Conceptor
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::CONCEPTOR, $this->kuanTi));
+
+        $conceptorSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::CONCEPTOR);
+
+        // given KT has 4 Core points
+        $I->assertEquals(
+            expected: 4,
+            actual: $conceptorSkill->getSkillPoints(),
         );
 
-        // given Chun has one Core point
-        /** @var ChargeStatus $skill */
-        $skill = $this->chun->getSkillByName(SkillEnum::CONCEPTOR);
-        $skill->setCharge(1);
-
-        // when Chun participates in the project
+        // when KT participates in the project
         $this->participateAction->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
-            player: $this->chun,
+            player: $this->kuanTi,
             target: $this->project
         );
         $this->participateAction->execute();
 
-        // then one of Chun's Core points is consumed
-        $I->assertEquals(0, $skill->getCharge());
+        // then KT should have 3 Core points
+        $I->assertEquals(
+            expected: 3,
+            actual: $conceptorSkill->getSkillPoints(),
+        );
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

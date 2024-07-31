@@ -12,9 +12,10 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -31,6 +32,7 @@ final class RepairActionCest extends AbstractFunctionalTest
     private ActionConfig $examineActionConfig;
     private Examine $examineAction;
 
+    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -44,6 +46,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         $this->examineActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::EXAMINE]);
         $this->examineAction = $I->grabService(Examine::class);
 
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -55,11 +58,11 @@ final class RepairActionCest extends AbstractFunctionalTest
         // given I have a broken Mycoscan in the room
         $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
-        // when Chun repairs the Mycoscan
+        // when Kuan Ti repairs the Mycoscan
         $this->repairAction->loadParameters(
             actionConfig: $this->repairActionConfig,
             actionProvider: $mycoscan,
-            player: $this->chun,
+            player: $this->kuanTi,
             target: $mycoscan
         );
         $result = $this->repairAction->execute();
@@ -74,10 +77,10 @@ final class RepairActionCest extends AbstractFunctionalTest
         // given I have a broken Mycoscan in the room
         $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
-        // given Chun has a wrench
+        // given Kuan Ti has a wrench
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: GearItemEnum::ADJUSTABLE_WRENCH,
-            equipmentHolder: $this->chun,
+            equipmentHolder: $this->kuanTi,
             reasons: [],
             time: new \DateTime()
         );
@@ -85,11 +88,11 @@ final class RepairActionCest extends AbstractFunctionalTest
         // given repair action has a 25% success rate
         $this->repairActionConfig->setSuccessRate(25);
 
-        // when Chun tries to repair the Mycoscan
+        // when Kuan Ti tries to repair the Mycoscan
         $this->repairAction->loadParameters(
             actionConfig: $this->repairActionConfig,
             actionProvider: $mycoscan,
-            player: $this->chun,
+            player: $this->kuanTi,
             target: $mycoscan
         );
 
@@ -102,22 +105,17 @@ final class RepairActionCest extends AbstractFunctionalTest
         // given I have a broken Mycoscan in the room
         $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
-        // given Chun is a technician
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
-        );
+        // given Kuan Ti is a technician
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
 
         // given repair action has a 25% success rate
         $this->repairActionConfig->setSuccessRate(25);
 
-        // when Chun tries to repair the Mycoscan
+        // when Kuan Ti tries to repair the Mycoscan
         $this->repairAction->loadParameters(
             actionConfig: $this->repairActionConfig,
             actionProvider: $mycoscan,
-            player: $this->chun,
+            player: $this->kuanTi,
             target: $mycoscan
         );
 
@@ -130,30 +128,24 @@ final class RepairActionCest extends AbstractFunctionalTest
         // given I have a broken Mycoscan in the room
         $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
-        // given Chun is a technician
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
-        );
+        // given Kuan Ti is a technician
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
 
-        // given Chun has one Technician point
-        /** @var ChargeStatus $skill */
-        $skill = $this->chun->getSkillByName(SkillEnum::TECHNICIAN);
-        $skill->setCharge(1);
+        // given Kuan Ti has two Technician points
+        $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::TECHNICIAN);
+        $I->assertEquals(2, $technicianSkill->getSkillPoints());
 
-        // when Chun repairs the Mycoscan
+        // when Kuan Ti repairs the Mycoscan
         $this->repairAction->loadParameters(
             actionConfig: $this->repairActionConfig,
             actionProvider: $mycoscan,
-            player: $this->chun,
+            player: $this->kuanTi,
             target: $mycoscan
         );
         $this->repairAction->execute();
 
-        // then one of Chun's Technician points is consumed
-        $I->assertEquals(0, $skill->getCharge());
+        // then Kuan Ti should have one Technician point left
+        $I->assertEquals(1, $technicianSkill->getSkillPoints());
     }
 
     public function shouldNotConsumeEngineerPointWhenRelevant(FunctionalTester $I): void
@@ -161,30 +153,24 @@ final class RepairActionCest extends AbstractFunctionalTest
         // given I have a broken Mycoscan in the room
         $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
-        // given Chun is a technician
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::TECHNICIAN,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
-        );
+        // given Kuan Ti is a technician
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
 
-        // given Chun has one Technician point
-        /** @var ChargeStatus $skill */
-        $skill = $this->chun->getSkillByName(SkillEnum::TECHNICIAN);
-        $skill->setCharge(1);
+        // given Kuan Ti has two Technician points
+        $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::TECHNICIAN);
+        $I->assertEquals(2, $technicianSkill->getSkillPoints());
 
-        // when Chun examines the Mycoscan
+        // when Kuan Ti examines the Mycoscan
         $this->examineAction->loadParameters(
             actionConfig: $this->examineActionConfig,
             actionProvider: $mycoscan,
-            player: $this->chun,
+            player: $this->kuanTi,
             target: $mycoscan
         );
         $this->examineAction->execute();
 
-        // then Chun's Technician should not change.
-        $I->assertEquals(1, $skill->getCharge());
+        // then Kuan Ti should still have two technician points
+        $I->assertEquals(2, $technicianSkill->getSkillPoints());
     }
 
     private function prepareBrokenEquipmentInRoom(): GameEquipment

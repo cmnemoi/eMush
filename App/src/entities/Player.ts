@@ -11,7 +11,14 @@ import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { Terminal } from "@/entities/Terminal";
 import { Exploration } from "@/entities/Exploration";
 import { TerminalEnum } from "@/enums/terminal.enum";
-import { SpecialistPoint } from "@/entities/SpecialistPoint";
+import { SkillPoint } from "@/entities/SkillPoint";
+
+export type Skill = {
+    key: string;
+    name: string;
+    description: string;
+    isMushSkill: boolean;
+};
 
 export class Player {
     public id!: number;
@@ -32,11 +39,12 @@ export class Player {
     public terminal: Terminal|null;
     public titles: Array<NameDescObject>;
     public exploration: Exploration|null;
-    public skills: Array<Status>;
-    public specialistPoints: Array<SpecialistPoint>;
+    public skills: Array<Skill>;
+    public humanSkills: Array<Skill>;
+    public mushSkills: Array<Skill>;
+    public skillPoints: Array<SkillPoint>;
     public isSeated: boolean;
-    public numberOfSkillSlots: number = 3;
-    public level: number = 5;
+    public language: string;
 
     public constructor() {
         this.gameStatus = null;
@@ -56,15 +64,19 @@ export class Player {
         this.terminal = null;
         this.titles = [];
         this.exploration = null;
+        this.humanSkills = [];
+        this.mushSkills = [];
         this.skills = [];
-        this.specialistPoints = [];
+        this.skillPoints = [];
         this.isSeated = false;
+        this.language = '';
     }
 
     public load(object: any): Player {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.gameStatus = object.gameStatus;
+            this.language = object.language;
 
             this.character = (new Character()).load(object.character);
 
@@ -131,14 +143,19 @@ export class Player {
             }
             if (object.skills) {
                 object.skills.forEach((skillObject: any) => {
-                    const skill = (new Status()).load(skillObject);
-                    this.skills.push(skill);
+                    this.skills.push(skillObject);
+                });
+                this.humanSkills = this.skills.filter((skill: Skill) => {
+                    return skill.isMushSkill === false;
+                });
+                this.mushSkills = this.skills.filter((skill: Skill) => {
+                    return skill.isMushSkill;
                 });
             }
-            if (object.specialistPoints) {
-                object.specialistPoints.forEach((specialistPointObject: any) => {
-                    const point = (new SpecialistPoint()).load(specialistPointObject);
-                    this.specialistPoints.push(point);
+            if (object.skillPoints) {
+                object.skillPoints.forEach((skillPointObject: any) => {
+                    const point = (new SkillPoint()).load(skillPointObject);
+                    this.skillPoints.push(point);
                 });
             }
         }
@@ -216,48 +233,6 @@ export class Player {
         return this.statuses.filter((status: Status) => {
             return !status.isPrivate;
         });
-    }
-
-    public getSkillByKey(key: string): Status|null {
-        const skill = this.skills.filter((skill: Status) => {
-            return skill.key === key;
-        });
-
-        if (skill.length === 0) {
-            return null;
-        }
-
-        return skill[0];
-    }
-
-    public getSkillPointsByKey(key: string): number | null {
-        const skill = this.getSkillByKey(key);
-        if (!skill) {
-            return null;
-        }
-
-        return skill.charge;
-    }
-
-    public getSpecialistPointByKey(key: string): SpecialistPoint|null {
-        const points = this.specialistPoints.filter((point: SpecialistPoint) => {
-            return point.name === key;
-        });
-
-        if (points.length === 0) {
-            return null;
-        }
-
-        return points[0];
-    }
-
-    public getSpecialistPointChargeByKey(key: string): number | null {
-        const specialistPoint = this.getSpecialistPointByKey(key);
-        if (!specialistPoint || !specialistPoint.charge) {
-            return null;
-        }
-
-        return specialistPoint.charge.quantity;
     }
 
     public isDead(): boolean {

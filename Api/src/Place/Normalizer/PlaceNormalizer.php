@@ -366,6 +366,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     private function normalizeSkins(Place $place): array
     {
         $skins = [];
+
         /** @var SkinSlot $slot */
         foreach ($place->getSkinSlots() as $slot) {
             $skins[] = [

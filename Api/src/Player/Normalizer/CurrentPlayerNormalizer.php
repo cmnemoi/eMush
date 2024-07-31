@@ -174,7 +174,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'skillPoints' => $this->getNormalizedSkillPoints($player, $language),
             'language' => $language,
             'specialistPoints' => $this->getSpecialistPointsForPlayer($player, $language),
-            'skins' => $this->normalizeSkins($player)
+            'skins' => $this->normalizeSkins($player),
         ]);
         if ($player->hasNotification()) {
             $playerData['notification'] = $this->normalizer->normalize($player->getNotificationOrThrow(), $format, $context);
@@ -334,6 +334,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private function normalizeSkins(Player $player): array
     {
         $skins = [];
+
         /** @var SkinSlot $slot */
         foreach ($player->getSkinSlots() as $slot) {
             $skins[] = [

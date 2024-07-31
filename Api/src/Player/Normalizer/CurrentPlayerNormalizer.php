@@ -160,7 +160,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
             'specialistPoints' => $this->getSpecialistPointsForPlayer($player, $language),
-            'skins' => $this->normalizeSkins($player)
+            'skins' => $this->normalizeSkins($player),
         ]);
 
         return $playerData;
@@ -332,6 +332,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private function normalizeSkins(Player $player): array
     {
         $skins = [];
+
         /** @var SkinSlot $slot */
         foreach ($player->getSkinSlots() as $slot) {
             $skins[] = [

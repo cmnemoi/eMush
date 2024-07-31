@@ -65,7 +65,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
                 ),
             ],
             'skills' => $this->getNormalizedPlayerSkills($player, $format, $context),
-            'skins' => $this->normalizeSkins($player)
+            'skins' => $this->normalizeSkins($player),
         ];
 
         if (isset($context['currentPlayer'])) {
@@ -125,6 +125,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
     private function normalizeSkins(Player $player): array
     {
         $skins = [];
+
         /** @var SkinSlot $slot */
         foreach ($player->getSkinSlots() as $slot) {
             $skins[] = [

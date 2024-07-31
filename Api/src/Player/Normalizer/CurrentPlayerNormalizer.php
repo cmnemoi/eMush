@@ -366,6 +366,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private function normalizeSkins(Player $player): array
     {
         $skins = [];
+
         /** @var SkinSlot $slot */
         foreach ($player->getSkinSlots() as $slot) {
             $skins[] = [

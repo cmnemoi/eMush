@@ -324,11 +324,12 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
     private function normalizeSkins(GameEquipment $equipment): array
     {
         $skins = [];
+
         /** @var SkinSlot $slot */
         foreach ($equipment->getSkinSlots() as $slot) {
             $skins[] = [
-              'emplacement' => $slot->getName(),
-              'skinName' => $slot->getSkin()->getName(),
+                'emplacement' => $slot->getName(),
+                'skinName' => $slot->getSkin()->getName(),
             ];
         }
 

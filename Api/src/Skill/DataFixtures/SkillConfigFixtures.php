@@ -8,6 +8,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Modifier\DataFixtures\SkillModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Skill\ConfigData\SkillConfigData;
@@ -28,6 +30,7 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
             $skillConfig = new SkillConfig(
                 name: $skillConfigDto->name,
                 modifierConfigs: $this->getModifierConfigsFromDto($skillConfigDto),
+                actionConfigs: $this->getActionConfigsFromDto($skillConfigDto),
                 skillPointsConfig: $this->getSkillPointsConfigFromDto($skillConfigDto),
             );
             $manager->persist($skillConfig);
@@ -40,9 +43,29 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
     public function getDependencies(): array
     {
         return [
-            SkillModifierConfigFixtures::class,
+            ActionsFixtures::class,
             ChargeStatusFixtures::class,
+            SkillModifierConfigFixtures::class,
         ];
+    }
+
+    /**
+     * @return ArrayCollection<int, ActionConfig>
+     */
+    private function getActionConfigsFromDto(SkillConfigDto $skillConfigDto): ArrayCollection
+    {
+        /** @var ArrayCollection<int, ActionConfig> $actionConfigs */
+        $actionConfigs = new ArrayCollection();
+        foreach ($skillConfigDto->actionConfigs as $actionConfigName) {
+            /** @var ActionConfig $actionConfig */
+            $actionConfig = $this->getReference($actionConfigName->value);
+            if (!$actionConfig) {
+                throw new \RuntimeException("ActionConfig {$actionConfigName} not found for SkillConfig {$skillConfigDto->name->toString()}");
+            }
+            $actionConfigs->add($actionConfig);
+        }
+
+        return $actionConfigs;
     }
 
     /**

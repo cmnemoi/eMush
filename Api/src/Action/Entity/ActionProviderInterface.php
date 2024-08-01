@@ -16,7 +16,7 @@ use Mush\Status\Entity\ChargeStatus;
  * It allows to easily find what equipment/status/player/skill granted the action
  * It allows to easily find if the action is relying on a charge status.
  *
- * Base action providers are : Status, Player, GameEquipment
+ * Base action providers are : Status, Player, GameEquipment, Skill
  *
  * This interface also applies to secondary action provider such as Place
  * those include their own actions but also actions of their status/skills...

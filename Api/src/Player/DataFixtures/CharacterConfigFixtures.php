@@ -350,9 +350,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         // Skills actions
         // @TODO: after skill implementation, action will be given by skills
-        /** @var ActionConfig $comfortAction */
-        $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
-
         /** @var ActionConfig $motivationalSpeechAction */
         $motivationalSpeechAction = $this->getReference(ActionsFixtures::MOTIVATIONAL_SPEECH);
 
@@ -383,7 +380,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $infectAction,
             $extractSporeAction,
             $getUpAction,
-            $comfortAction,
             $extinguishManuallyAction,
             $motivationalSpeechAction,
             $boringSpeechAction,

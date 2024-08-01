@@ -46,7 +46,7 @@ class ActionsFixtures extends Fixture
     public const string HEAL = 'heal';
     public const string SELF_HEAL = 'self.heal';
     public const string HEAL_ULTRA = 'heal.ultra';
-    public const string COMFORT_DEFAULT = 'comfort.default';
+    public const string COMFORT = 'comfort';
     public const string WRITE = 'write';
     public const string SHRED = 'shred';
     public const string GAG_DEFAULT = 'gag.default';
@@ -399,16 +399,7 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($healAction);
 
-        $comfortAction = new ActionConfig();
-        $comfortAction
-            ->setName(ActionEnum::COMFORT->value)
-            ->setActionName(ActionEnum::COMFORT)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
-            ->setTypes([ActionTypeEnum::ACTION_SPOKEN])
-            ->setActionCost(1)
-            ->setOutputQuantity(2);
-
+        $comfortAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::COMFORT));
         $manager->persist($comfortAction);
 
         $ultraHealAction = new ActionConfig();
@@ -1207,7 +1198,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::HEAL, $healAction);
         $this->addReference(self::SELF_HEAL, $selfHealAction);
         $this->addReference(self::HEAL_ULTRA, $ultraHealAction);
-        $this->addReference(self::COMFORT_DEFAULT, $comfortAction);
+        $this->addReference($comfortAction->getName(), $comfortAction);
         $this->addReference(self::WRITE, $writeAction);
         $this->addReference(self::SHRED, $shredAction);
         $this->addReference(self::HYPERFREEZE_DEFAULT, $hyperfreezeAction);

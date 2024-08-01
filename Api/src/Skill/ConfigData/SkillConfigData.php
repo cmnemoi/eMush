@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Skill\ConfigData;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Skill\Dto\SkillConfigDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\SkillPointsEnum;
@@ -42,6 +43,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::SHRINK,
+                actionConfigs: [
+                    ActionEnum::COMFORT,
+                ]
             ),
             new SkillConfigDto(
                 name: SkillEnum::TECHNICIAN,

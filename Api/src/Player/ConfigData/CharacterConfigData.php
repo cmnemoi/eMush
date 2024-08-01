@@ -419,7 +419,6 @@ class CharacterConfigData
                 'heal',
                 'self_heal',
                 'flirt',
-                'comfort',
                 'do_the_thing',
                 'auto_destroy',
                 'suicide',

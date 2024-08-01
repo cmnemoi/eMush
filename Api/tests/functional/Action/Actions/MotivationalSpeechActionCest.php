@@ -19,8 +19,9 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\AddSkillToPlayerUseCase;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
@@ -29,13 +30,13 @@ class MotivationalSpeechActionCest
     private MotivationalSpeech $motivationalSpeechAction;
     private ActionConfig $action;
 
-    private AddSkillToPlayerUseCase $addSkillToPlayerUseCase;
+    private ChooseSkillUseCase $chooseSkillUseCase;
 
     public function _before(FunctionalTester $I)
     {
         $this->motivationalSpeechAction = $I->grabService(MotivationalSpeech::class);
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOTIVATIONAL_SPEECH]);
-        $this->addSkillToPlayerUseCase = $I->grabService(AddSkillToPlayerUseCase::class);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
     }
 
     public function testMotivationalSpeech(FunctionalTester $I)
@@ -73,7 +74,7 @@ class MotivationalSpeechActionCest
         $speaker->setPlayerInfo($speakerInfo);
         $I->haveInRepository($speaker);
 
-        $this->addSkillToPlayerUseCase->execute(skill: SkillEnum::LEADER, player: $speaker);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(skill: SkillEnum::LEADER, player: $speaker));
 
         /** @var Player $listener */
         $listener = $I->have(Player::class, ['daedalus' => $daedalus,

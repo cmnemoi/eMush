@@ -106,6 +106,7 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
 
         return match ($event->getName()) {
             PlanetSectorEvent::PROVISION => $exploration->getNumberOfActiveSurvivalists(),
+            PlanetSectorEvent::HARVEST => $exploration->getNumberOfActiveBotanists(),
             default => 0,
         };
     }
@@ -114,6 +115,7 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
     {
         return match ($event->getName()) {
             PlanetSectorEvent::PROVISION => SkillEnum::SURVIVALIST,
+            PlanetSectorEvent::HARVEST => SkillEnum::BOTANIST,
             default => SkillEnum::NULL,
         };
     }

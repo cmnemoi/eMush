@@ -45,14 +45,9 @@ final class ActionSubscriber implements EventSubscriberInterface
     public function onResultAction(ActionEvent $event): void
     {
         $actionResult = $event->getActionResult();
-        $player = $event->getAuthor();
-        $actionTarget = $event->getActionTarget();
-
         if ($actionResult === null) {
             throw new \LogicException('$actionResult should not be null');
         }
-
-        $actionName = $event->getActionConfig()->getActionName();
 
         $this->roomLogService->createLogFromActionEvent($event);
     }

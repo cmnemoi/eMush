@@ -25,6 +25,12 @@ abstract class SkillConfigData
                 skillPointsConfig: SkillPointsEnum::CONCEPTOR_POINTS,
             ),
             new SkillConfigDto(
+                name: SkillEnum::FIREFIGHTER,
+                actionConfigs: [
+                    ActionEnum::EXTINGUISH_MANUALLY,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::LEADER,
                 actionConfigs: [
                     ActionEnum::MOTIVATIONAL_SPEECH,

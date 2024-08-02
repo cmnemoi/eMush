@@ -11,7 +11,6 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Place\Entity\Place;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -28,7 +27,6 @@ final class WriteCest extends AbstractFunctionalTest
 
     private StatusServiceInterface $statusService;
 
-    private Place $room;
     private GameItem $blockOfPostIt;
 
     public function _before(FunctionalTester $I): void
@@ -41,12 +39,9 @@ final class WriteCest extends AbstractFunctionalTest
         ]);
         $this->writeAction = $I->grabService(Write::class);
 
-        $this->room = $this->daedalus->getPlaces()->first();
-        $this->player->changePlace($this->room);
-
         // given a block of post it in the room
         $blockOfPostItConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => ToolItemEnum::BLOCK_OF_POST_IT]);
-        $this->blockOfPostIt = new GameItem($this->room);
+        $this->blockOfPostIt = new GameItem($this->player);
         $this->blockOfPostIt
             ->setName(ToolItemEnum::BLOCK_OF_POST_IT)
             ->setEquipment($blockOfPostItConfig);

@@ -8,6 +8,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Enum\ModifierNameEnum;
 
 /** @codeCoverageIgnore */
 final class SkillModifierConfigFixtures extends Fixture
@@ -37,6 +38,12 @@ final class SkillModifierConfigFixtures extends Fixture
         );
         $this->addReference($modifierForDaedalusPlus1MoralOnDayChange->getName(), $modifierForDaedalusPlus1MoralOnDayChange);
         $manager->persist($modifierForDaedalusPlus1MoralOnDayChange);
+
+        $modifierDoubleHackChance = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::DOUBLE_HACK_CHANCE)
+        );
+        $this->addReference($modifierDoubleHackChance->getName(), $modifierDoubleHackChance);
+        $manager->persist($modifierDoubleHackChance);
 
         $manager->flush();
     }

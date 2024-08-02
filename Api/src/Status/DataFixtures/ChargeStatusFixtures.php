@@ -525,6 +525,17 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $technicianPoints->setModifierConfigs([$technicianPointsModifier]);
         $manager->persist($technicianPoints);
 
+        $itExpertPointsModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_IT_EXPERT)
+        );
+        $manager->persist($itExpertPointsModifier);
+
+        $itExpertPoints = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(SkillPointsEnum::IT_EXPERT_POINTS->value)
+        );
+        $itExpertPoints->setModifierConfigs([$itExpertPointsModifier]);
+        $manager->persist($itExpertPoints);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -563,7 +574,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($droneCharges)
             ->addStatusConfig($conceptorPoints)
             ->addStatusConfig($shooterPoints)
-            ->addStatusConfig($technicianPoints);
+            ->addStatusConfig($technicianPoints)
+            ->addStatusConfig($itExpertPoints);
 
         $manager->persist($gameConfig);
 
@@ -606,6 +618,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference($conceptorPoints->getName(), $conceptorPoints);
         $this->addReference($shooterPoints->getName(), $shooterPoints);
         $this->addReference($technicianPoints->getName(), $technicianPoints);
+        $this->addReference($itExpertPoints->getName(), $itExpertPoints);
     }
 
     public function getDependencies(): array

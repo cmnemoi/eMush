@@ -712,6 +712,12 @@
         <target>Vous avez gagné {quantity} :pa_core:.</target>
       </segment>
     </unit>
+    <unit id="gain_it_expert_point">
+      <segment state="translated">
+        <source>gain_it_expert_point</source>
+        <target>Vous avez gagné {quantity} :pa_comp:.</target>
+      </segment>
+    </unit>
     <unit id="gain_technician_point">
       <segment state="translated">
         <source>gain_technician_point</source>

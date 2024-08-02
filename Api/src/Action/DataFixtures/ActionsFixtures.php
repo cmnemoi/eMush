@@ -1019,17 +1019,7 @@ class ActionsFixtures extends Fixture
             ->setSuccessRate(50);
         $manager->persist($scan);
 
-        $analyzePlanet = new ActionConfig();
-        $analyzePlanet
-            ->setName(ActionEnum::ANALYZE_PLANET->value)
-            ->setActionName(ActionEnum::ANALYZE_PLANET)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::PLANET)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
-            ->setActionCost(2)
-            ->setSuccessRate(100)
-            ->setOutputQuantity(1); // number of sectors revealed
+        $analyzePlanet = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::ANALYZE_PLANET));
         $manager->persist($analyzePlanet);
 
         $turnDaedalusLeft = new ActionConfig();
@@ -1131,16 +1121,7 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($returnToSol);
 
-        $participate = new ActionConfig();
-        $participate
-            ->setName(ActionEnum::PARTICIPATE->value)
-            ->setActionName(ActionEnum::PARTICIPATE)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setTypes([ActionTypeEnum::ACTION_CONCEPTOR])
-            ->setDisplayHolder(ActionHolderEnum::PROJECT)
-            ->setActionCost(2)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $participate = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PARTICIPATE));
         $manager->persist($participate);
 
         $changeNeronCrewLock = new ActionConfig();

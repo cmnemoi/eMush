@@ -131,5 +131,15 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
         <target>Les Points de PILGRED vous donnent des **actions gratuites** pour *réparer PILGRED*.</target>
       </segment>
     </unit>
+    <unit id="computer">
+      <segment id="name" state="translated">
+        <source>computer.name</source>
+        <target>Points d'Informatique</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>computer.description</source>
+        <target>Les points d'Informatique vous donnent des **actions gratuites** pour *manipuler les terminaux*.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

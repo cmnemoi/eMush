@@ -171,6 +171,7 @@ class CharacterConfigData
             'characterName' => 'eleesha',
             'skillConfigs' => [
                 SkillEnum::TECHNICIAN,
+                SkillEnum::IT_EXPERT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -247,6 +248,7 @@ class CharacterConfigData
             'characterName' => 'frieda',
             'skillConfigs' => [
                 SkillEnum::PILOT,
+                SkillEnum::IT_EXPERT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -399,6 +401,7 @@ class CharacterConfigData
             'characterName' => 'janice',
             'skillConfigs' => [
                 SkillEnum::SHRINK,
+                SkillEnum::IT_EXPERT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -676,6 +679,7 @@ class CharacterConfigData
                 SkillEnum::TECHNICIAN,
                 SkillEnum::PILOT,
                 SkillEnum::SHOOTER,
+                SkillEnum::IT_EXPERT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

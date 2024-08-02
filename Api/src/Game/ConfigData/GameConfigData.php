@@ -439,6 +439,7 @@ class GameConfigData
                 SkillPointsEnum::CONCEPTOR_POINTS->value,
                 SkillPointsEnum::SHOOTER_POINTS->value,
                 SkillPointsEnum::TECHNICIAN_POINTS->value,
+                SkillPointsEnum::IT_EXPERT_POINTS->value,
             ],
             'triumphConfigs' => [
                 'alien_science',

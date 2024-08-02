@@ -370,7 +370,6 @@ class CharacterConfigData
             'characterName' => 'ian',
             'skillConfigs' => [
                 SkillEnum::BOTANIST,
-                SkillEnum::FIREFIGHTER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

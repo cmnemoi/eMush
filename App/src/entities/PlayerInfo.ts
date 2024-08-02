@@ -25,8 +25,6 @@ export class PlayerInfo {
             }
             if (typeof object.character !== "undefined") {
                 this.characterConfig = (new CharacterConfig()).load(object.character);
-                console.log(object.character);
-                console.log(this.characterConfig);
             }
             this.daedalusId = object.daedalusId;
         }

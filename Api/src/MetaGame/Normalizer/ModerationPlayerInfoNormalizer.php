@@ -35,7 +35,7 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
         return $data instanceof PlayerInfo;
     }
 
-    public function normalize(mixed $object, ?string $format = null, array $context = [])
+    public function normalize(mixed $object, ?string $format = null, array $context = []): ?array
     {
         /** @var PlayerInfo $playerInfo */
         $playerInfo = $object;
@@ -50,10 +50,13 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
 
         // If user is in the same Daedalus as the player they are trying to access, refuse access
         $requestUserPlayerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($requestUser);
-        if (
-            $requestUserPlayerInfo !== null
-            && $requestUserPlayerInfo->getDaedalusName() === $playerInfo->getDaedalusName()
-        ) {
+        if ($requestUserPlayerInfo?->getDaedalusId() === $playerInfo->getDaedalusId()) {
+            return null;
+        }
+
+        // If user is in the same daedalus as the player they are trying to access and the game is not finished, refuse access
+        $requestUserPlayerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($requestUser);
+        if ($requestUserPlayerInfo?->getDaedalusId() === $playerInfo->getDaedalusId()) {
             return null;
         }
 
@@ -64,6 +67,7 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
             $language = $daedalus->getLanguage();
 
             $normalisedPlayerInfo = [
+                'gameStatus' => $playerInfo->getGameStatus(),
                 'isMush' => $player->isMush(),
                 'isAlive' => $player->isAlive(),
                 'cycleStartedAt' => $daedalus->getCycleStartedAt()?->format('Y-m-d H:i:s'),
@@ -76,6 +80,7 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
             $closedDaedalus = $closedPlayer->getClosedDaedalus();
             $language = $closedDaedalus->getDaedalusInfo()->getLanguage();
             $normalisedPlayerInfo = [
+                'gameStatus' => $playerInfo->getGameStatus(),
                 'isMush' => $playerInfo->getClosedPlayer()->isMush(),
                 'isAlive' => false,
                 'cycleStartedAt' => null,

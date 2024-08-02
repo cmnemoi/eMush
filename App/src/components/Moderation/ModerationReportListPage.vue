@@ -56,7 +56,7 @@ interface SanctionListData {
     username: string,
     fields: Array<{ key: string; name: string; sortable?: boolean; slot?: boolean }>,
     pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number },
-    rowData: never[],
+    rowData: ModerationSanction[],
     filter: string,
     sortField: string,
     sortDirection: string,
@@ -192,9 +192,11 @@ export default defineComponent({
                     return result.data;
                 })
                 .then((remoteRowData: any) => {
-                    this.rowData = remoteRowData['hydra:member'].map((reportData: object) => {
-                        return (new ModerationSanction()).load(reportData);
-                    });
+                    for (const reportData of remoteRowData['hydra:member']) {
+                        if (reportData) {
+                            this.rowData.push((new ModerationSanction()).load(reportData));
+                        }
+                    }
                     this.pagination.totalItem = remoteRowData['hydra:totalItems'];
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
                     this.loading = false;

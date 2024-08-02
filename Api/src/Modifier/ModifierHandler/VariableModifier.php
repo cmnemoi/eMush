@@ -41,17 +41,22 @@ class VariableModifier extends AbstractModifierHandler
         switch ($mode) {
             case VariableModifierModeEnum::SET_VALUE:
                 $initialEvent->setQuantity($modifierConfig->getDelta());
-
                 break;
 
             case VariableModifierModeEnum::ADDITIVE:
                 $initialEvent->setQuantity($modifierQuantity + $eventQuantity);
-
                 break;
 
             case VariableModifierModeEnum::MULTIPLICATIVE:
                 $initialEvent->setQuantity($modifierQuantity * $eventQuantity);
+                break;
 
+            case VariableModifierModeEnum::MIN:
+                $initialEvent->getVariable()->setMinValue($modifierQuantity);
+                break;
+
+            case VariableModifierModeEnum::MAX:
+                $initialEvent->getVariable()->setMaxValue($modifierQuantity);
                 break;
 
             default:

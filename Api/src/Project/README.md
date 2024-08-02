@@ -4,7 +4,7 @@ This module handles PILGRED, NERON projects and researches gameplay.
 
 A project is an improvement which affect the whole Daedalus. They are divided in three categories :
 
-- NERON projects add new equipment, improve events cost and output through modifiers or have special effects directly in the services / use cases.
+- NERON projects add new equipment, improve events cost and output through modifiers or have special effects directly in the services.
 - PILGRED improves the coffee machine and unlocks the two good endings of the game.
 - Researches are focused on Mush vs Human gameplay : maluses for mush players though modifiers, or new equipment helping Mush hunt.
 
@@ -26,8 +26,14 @@ For an exhaustive list of features introduced by this module, please refer to th
     |-- Repository
     |-- UseCase
 
-## ConfigData and DataFixtures
-[ProjectConfigData](./ConfigData/ProjectConfigData.php) contains the list of all projects. If you want to add a new project, you need to do it here.
+## How to add a new project?
+- Add the project to the [ProjectConfigData](./ConfigData/ProjectConfigData.php).
+- Configure project modifiers in [ModifierConfigData](../Modifier/ConfigData/ModifierConfigData.php) and [ProjectModifierConfigFixtures](../Modifier/DataFixtures/ProjectModifierConfigFixtures.php). Please read the Modifier module [documentation](../Modifier/README.md) to see what can be implemented with modifiers, and how.
+- Configure equipment spawned by the project in [SpawnEquipmentConfigData](../Equipment/ConfigData/SpawnEquipmentConfigData.php)
+- Configure equipment replaced by the project in [ReplaceEquipmentConfigData](../Equipment/ConfigData/ReplaceEquipmentConfigData.php)
 
-DataFixtures for tests will be created automatically when you add a new project.
+If you want custom behavior which is not covered by the options above, you will need to check for project activation and implement the logic directly in the services.
+- Add the project to [GameConfigData](../Game/ConfigData/GameConfigData.php).
+- Add french translations in [project+intl-icu.fr.xlf](../../translations/fr/project+intl-icu.fr.xlf).
+
 

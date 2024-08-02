@@ -60,10 +60,13 @@ Obvious example:
     A player make the action eat, that trigger the event 'become Dirty'
 
 # Create a new Action:
-- The list of actions that need to be added can be found on [git](https://gitlab.com/eternaltwin/mush/mush/-/issues/396). 
+- The list of actions that need to be added can be found on [GitLab](https://gitlab.com/eternaltwin/mush/mush/-/issues/396). 
 - Create a class that extends [AbstractAction](./Actions/AbstractAction.php) in [Actions directory](./Actions).
 - Register the action name in the [ActionEnum](./Enum/ActionEnum.php)
 - Add the [action data](./ConfigData/ActionData.php) (cost, name, injury rate...) and fixtures in  [ActionsFixtures](./DataFixtures/ActionsFixtures.php).
-- Add the action to the associated equipment or player respectively in [equipment data](../Equipment/ConfigData/EquipmentConfigData.php) or [character config data](../Player/ConfigData/CharacterConfigData.php).
+- Add the action to the associated equipment, skill or status respectively in :
+  - [equipment data](../Equipment/ConfigData/EquipmentConfigData.php) and [equipment fixtures](../Equipment/DataFixtures/EquipmentConfigFixtures.php)
+  - [skill data](../Skill/ConfigData/SkillConfigData.php)
+  - [status data](../Status/ConfigData/StatusConfigData.php) and [status fixtures](../Status/DataFixtures/ChargeStatusConfigFixtures.php)
 - Setup action log visibility in [ActionLogEnum](../RoomLog/Enum/ActionLogEnum.php)
 - Add French translations in [actions+intl-icu.fr.xlf](../../translations/fr/actions+intl-icu.fr.xlf), [actions_log+intl-icu.fr.xlf](../../translations/fr/actions_log+intl-icu.fr.xlf) (and [action_fail+intl-icu.fr.xlf](../../translations/fr/action_fail+intl-icu.fr.xlf) if needed).

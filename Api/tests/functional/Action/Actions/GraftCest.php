@@ -56,10 +56,10 @@ final class GraftCest extends AbstractFunctionalTest
 
     public function shouldNotBeVisibleIfPlayerIsNotBotanist(FunctionalTester $I): void
     {
-        $bananaTree = $this->givenKuanTiHasABananaTree();
-        $anemole = $this->givenKuanTiHasAnAnemole();
+        $this->givenKuanTiHasABananaTree();
+        $this->givenKuanTiHasAnAnemole();
 
-        $this->thenKuanTiShouldNotSeeAction($bananaTree, $anemole, $I);
+        $this->thenKuanTiShouldNotSeeAction($I);
     }
 
     public function shouldNotBeVisibleIfFruitToGraftWouldGiveTheSamePlant(FunctionalTester $I): void
@@ -69,16 +69,27 @@ final class GraftCest extends AbstractFunctionalTest
         $this->thenChunShouldNotSeeAction($banana, $I);
     }
 
+    public function shouldNotBeVisibleIfFruitIsNotInPlayerInventory(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasABananaTree();
+
+        $this->givenAnAnemoleInKuanTiRoom();
+
+        $this->givenKuanTiIsABotanist($I);
+
+        $this->thenKuanTiShouldNotSeeAction($I);
+    }
+
     public function shouldDestroyPlant(FunctionalTester $I): void
     {
-        $this->whenChunGraftsBananaTree();
+        $this->whenChunGraftsOnBananaTree();
 
         $this->thenChunShouldNotHaveBananaTree($I);
     }
 
     public function shouldDestroyGraftedFruit(FunctionalTester $I): void
     {
-        $this->whenChunGraftsBananaTree();
+        $this->whenChunGraftsOnBananaTree();
 
         $this->thenChunShouldNotHavenAnemole($I);
     }
@@ -87,7 +98,7 @@ final class GraftCest extends AbstractFunctionalTest
     {
         $this->givenChunIsDirty();
 
-        $result = $this->whenChunGraftsBananaTree();
+        $result = $this->whenChunGraftsOnBananaTree();
 
         $this->thenActionIsAFail($result, $I);
     }
@@ -96,7 +107,7 @@ final class GraftCest extends AbstractFunctionalTest
     {
         $this->givenBananaTreeIsThirsty();
 
-        $result = $this->whenChunGraftsBananaTree();
+        $result = $this->whenChunGraftsOnBananaTree();
 
         $this->thenActionIsAFail($result, $I);
     }
@@ -105,7 +116,7 @@ final class GraftCest extends AbstractFunctionalTest
     {
         $this->givenBananaTreeIsDriedOut();
 
-        $result = $this->whenChunGraftsBananaTree();
+        $result = $this->whenChunGraftsOnBananaTree();
 
         $this->thenActionIsAFail($result, $I);
     }
@@ -114,30 +125,30 @@ final class GraftCest extends AbstractFunctionalTest
     {
         $this->givenBananaTreeIsDiseased();
 
-        $result = $this->whenChunGraftsBananaTree();
+        $result = $this->whenChunGraftsOnBananaTree();
 
         $this->thenActionIsAFail($result, $I);
     }
 
     public function shouldCreateGraftedFruitPlantWhenSuccessful(FunctionalTester $I): void
     {
-        $this->whenChunGraftsBananaTree();
+        $this->whenChunGraftsOnBananaTree();
 
-        $this->thenChunHasnAnemolePlant($I);
+        $this->thenChunHasAnAnemolePlant($I);
     }
 
     public function shouldNotCreateGraftedFruitPlantWhenFailed(FunctionalTester $I): void
     {
         $this->givenBananaTreeIsDiseased();
 
-        $this->whenChunGraftsBananaTree();
+        $this->whenChunGraftsOnBananaTree();
 
         $this->thenChunShouldNotHavenAnemolePlant($I);
     }
 
     public function shouldPrintAPublicLogWithPlayerAndNewPlantWhenSuccessful(FunctionalTester $I): void
     {
-        $this->whenChunGraftsBananaTree();
+        $this->whenChunGraftsOnBananaTree();
 
         $this->thenIShouldSeeAPublicSuccessLog($I);
     }
@@ -146,26 +157,26 @@ final class GraftCest extends AbstractFunctionalTest
     {
         $this->givenBananaTreeIsDiseased();
 
-        $this->whenChunGraftsBananaTree();
+        $this->whenChunGraftsOnBananaTree();
 
         $this->thenIShouldSeeAPublicFailLog($I);
     }
 
-    private function givenKuanTiHasABananaTree(): GameItem
+    private function givenKuanTiHasABananaTree(): void
     {
-        return $this->gameEquipmentService->createGameEquipmentFromName(
+        $this->bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: GamePlantEnum::BANANA_TREE,
-            equipmentHolder: $this->chun,
+            equipmentHolder: $this->kuanTi,
             reasons: [],
             time: new \DateTime(),
         );
     }
 
-    private function givenKuanTiHasAnAnemole(): GameItem
+    private function givenKuanTiHasAnAnemole(): void
     {
-        return $this->gameEquipmentService->createGameEquipmentFromName(
+        $this->anemole = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: GameFruitEnum::ANEMOLE,
-            equipmentHolder: $this->chun,
+            equipmentHolder: $this->kuanTi,
             reasons: [],
             time: new \DateTime(),
         );
@@ -209,6 +220,24 @@ final class GraftCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::BOTANIST, $this->chun));
     }
 
+    private function givenKuanTiIsABotanist(FunctionalTester $I): void
+    {
+        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::BOTANIST]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::BOTANIST, $this->kuanTi));
+    }
+
+    private function givenAnAnemoleInKuanTiRoom(): void
+    {
+        $this->anemole = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameFruitEnum::ANEMOLE,
+            equipmentHolder: $this->kuanTi->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function givenChunIsDirty(): void
     {
         $this->statusService->createStatusFromName(
@@ -249,7 +278,7 @@ final class GraftCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenChunGraftsBananaTree(): ActionResult
+    private function whenChunGraftsOnBananaTree(): ActionResult
     {
         $this->graft->loadParameters(
             actionConfig: $this->actionConfig,
@@ -261,29 +290,41 @@ final class GraftCest extends AbstractFunctionalTest
         return $this->graft->execute();
     }
 
-    private function thenKuanTiShouldNotSeeAction(GameItem $bananaTree, GameItem $anemole, FunctionalTester $I): void
+    private function whenKuanTiGraftsOnBananaTree(): ActionResult
     {
         $this->graft->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $anemole,
+            actionProvider: $this->anemole,
             player: $this->kuanTi,
-            target: $bananaTree,
+            target: $this->bananaTree,
+        );
+
+        return $this->graft->execute();
+    }
+
+    private function thenKuanTiShouldNotSeeAction(FunctionalTester $I): void
+    {
+        $this->graft->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->anemole,
+            player: $this->kuanTi,
+            target: $this->bananaTree,
         );
         $I->assertFalse($this->graft->isVisible());
     }
 
-    private function thenChunShouldNotSeeAction(GameItem $banana, FunctionalTester $I): void
+    private function thenChunShouldNotSeeAction(GameItem $fruit, FunctionalTester $I): void
     {
         $this->graft->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $banana,
+            actionProvider: $fruit,
             player: $this->chun,
             target: $this->bananaTree,
         );
         $I->assertFalse($this->graft->isVisible());
     }
 
-    private function thenChunHasnAnemolePlant(FunctionalTester $I): void
+    private function thenChunHasAnAnemolePlant(FunctionalTester $I): void
     {
         $I->assertTrue($this->chun->hasEquipmentByName($this->anemole->getPlantNameOrThrow()));
     }

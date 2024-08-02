@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ActionProviderIsInPlayerInventory;
 use Mush\Action\Validator\FruitToGraftGivesDifferentPlant;
 use Mush\Action\Validator\HasSkill;
 use Mush\Equipment\Entity\GameItem;
@@ -47,6 +48,9 @@ final class Graft extends AbstractAction
                 'groups' => ['visibility'],
             ]),
             new FruitToGraftGivesDifferentPlant([
+                'groups' => ['visibility'],
+            ]),
+            new ActionProviderIsInPlayerInventory([
                 'groups' => ['visibility'],
             ]),
         ]);

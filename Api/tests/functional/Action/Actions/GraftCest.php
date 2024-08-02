@@ -13,7 +13,6 @@ use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
@@ -24,6 +23,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -33,7 +33,7 @@ final class GraftCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private Graft $graft;
     private GameItem $bananaTree;
-    private GameItem $kubinus;
+    private GameItem $anemole;
 
     private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -50,16 +50,16 @@ final class GraftCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenChunHasABananaTree();
-        $this->givenChunHasAKubinus();
+        $this->givenChunHasAnAnemole();
         $this->givenChunIsABotanist($I);
     }
 
     public function shouldNotBeVisibleIfPlayerIsNotBotanist(FunctionalTester $I): void
     {
         $bananaTree = $this->givenKuanTiHasABananaTree();
-        $kubinus = $this->givenKuanTiHasAKubinus();
+        $anemole = $this->givenKuanTiHasAnAnemole();
 
-        $this->thenKuanTiShouldNotSeeAction($bananaTree, $kubinus, $I);
+        $this->thenKuanTiShouldNotSeeAction($bananaTree, $anemole, $I);
     }
 
     public function shouldNotBeVisibleIfFruitToGraftWouldGiveTheSamePlant(FunctionalTester $I): void
@@ -80,7 +80,7 @@ final class GraftCest extends AbstractFunctionalTest
     {
         $this->whenChunGraftsBananaTree();
 
-        $this->thenChunShouldNotHaveKubinus($I);
+        $this->thenChunShouldNotHavenAnemole($I);
     }
 
     public function shouldFailIfPlayerIsDirty(FunctionalTester $I): void
@@ -123,7 +123,7 @@ final class GraftCest extends AbstractFunctionalTest
     {
         $this->whenChunGraftsBananaTree();
 
-        $this->thenChunHasKubinusPlant($I);
+        $this->thenChunHasnAnemolePlant($I);
     }
 
     public function shouldNotCreateGraftedFruitPlantWhenFailed(FunctionalTester $I): void
@@ -132,7 +132,7 @@ final class GraftCest extends AbstractFunctionalTest
 
         $this->whenChunGraftsBananaTree();
 
-        $this->thenChunShouldNotHaveKubinusPlant($I);
+        $this->thenChunShouldNotHavenAnemolePlant($I);
     }
 
     public function shouldPrintAPublicLogWithPlayerAndNewPlantWhenSuccessful(FunctionalTester $I): void
@@ -161,10 +161,10 @@ final class GraftCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenKuanTiHasAKubinus(): GameItem
+    private function givenKuanTiHasAnAnemole(): GameItem
     {
         return $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GameFruitEnum::KUBINUS,
+            equipmentName: GameFruitEnum::ANEMOLE,
             equipmentHolder: $this->chun,
             reasons: [],
             time: new \DateTime(),
@@ -181,10 +181,10 @@ final class GraftCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenChunHasAKubinus(): void
+    private function givenChunHasAnAnemole(): void
     {
-        $this->kubinus = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GameFruitEnum::KUBINUS,
+        $this->anemole = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameFruitEnum::ANEMOLE,
             equipmentHolder: $this->chun,
             reasons: [],
             time: new \DateTime(),
@@ -253,7 +253,7 @@ final class GraftCest extends AbstractFunctionalTest
     {
         $this->graft->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $this->kubinus,
+            actionProvider: $this->anemole,
             player: $this->chun,
             target: $this->bananaTree,
         );
@@ -261,11 +261,11 @@ final class GraftCest extends AbstractFunctionalTest
         return $this->graft->execute();
     }
 
-    private function thenKuanTiShouldNotSeeAction(GameItem $bananaTree, GameItem $kubinus, FunctionalTester $I): void
+    private function thenKuanTiShouldNotSeeAction(GameItem $bananaTree, GameItem $anemole, FunctionalTester $I): void
     {
         $this->graft->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $kubinus,
+            actionProvider: $anemole,
             player: $this->kuanTi,
             target: $bananaTree,
         );
@@ -283,9 +283,9 @@ final class GraftCest extends AbstractFunctionalTest
         $I->assertFalse($this->graft->isVisible());
     }
 
-    private function thenChunHasKubinusPlant(FunctionalTester $I): void
+    private function thenChunHasnAnemolePlant(FunctionalTester $I): void
     {
-        $I->assertTrue($this->chun->hasEquipmentByName($this->kubinus->getPlantNameOrThrow()));
+        $I->assertTrue($this->chun->hasEquipmentByName($this->anemole->getPlantNameOrThrow()));
     }
 
     private function thenChunShouldNotHaveBananaTree(FunctionalTester $I): void
@@ -293,14 +293,14 @@ final class GraftCest extends AbstractFunctionalTest
         $I->assertFalse($this->chun->hasEquipmentByName(GamePlantEnum::BANANA_TREE));
     }
 
-    private function thenChunShouldNotHaveKubinus(FunctionalTester $I): void
+    private function thenChunShouldNotHavenAnemole(FunctionalTester $I): void
     {
-        $I->assertFalse($this->chun->hasEquipmentByName(GameFruitEnum::KUBINUS));
+        $I->assertFalse($this->chun->hasEquipmentByName(GameFruitEnum::ANEMOLE));
     }
 
-    private function thenChunShouldNotHaveKubinusPlant(FunctionalTester $I): void
+    private function thenChunShouldNotHavenAnemolePlant(FunctionalTester $I): void
     {
-        $I->assertFalse($this->chun->hasEquipmentByName($this->kubinus->getPlantNameOrThrow()));
+        $I->assertFalse($this->chun->hasEquipmentByName($this->anemole->getPlantNameOrThrow()));
     }
 
     private function thenActionIsAFail(ActionResult $result, FunctionalTester $I): void
@@ -310,35 +310,27 @@ final class GraftCest extends AbstractFunctionalTest
 
     private function thenIShouldSeeAPublicSuccessLog(FunctionalTester $I): void
     {
-        $roomLog = $I->grabEntityFromRepository(
-            entity: RoomLog::class,
-            params: [
-                'place' => $this->chun->getPlace()->getName(),
-                'playerInfo' => $this->chun->getPlayerInfo(),
-                'visibility' => VisibilityEnum::PUBLIC,
-                'log' => ActionLogEnum::GRAFT_SUCCESS,
-            ]
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: "Quel soulagement, **Chun** a réussi sa greffe d'**Anémole**. La petite plante se porte bien !",
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: ActionLogEnum::GRAFT_SUCCESS,
+                visibility: VisibilityEnum::PUBLIC,
+            ),
+            I: $I,
         );
-
-        $roomLogParameters = $roomLog->getParameters();
-        $I->assertEquals($this->chun->getLogName(), $roomLogParameters['character']);
-        $I->assertEquals($this->kubinus, $roomLogParameters['item']);
     }
 
     private function thenIShouldSeeAPublicFailLog(FunctionalTester $I): void
     {
-        $roomLog = $I->grabEntityFromRepository(
-            entity: RoomLog::class,
-            params: [
-                'place' => $this->chun->getPlace()->getName(),
-                'playerInfo' => $this->chun->getPlayerInfo(),
-                'visibility' => VisibilityEnum::PUBLIC,
-                'log' => ActionLogEnum::GRAFT_FAIL,
-            ]
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: "Quel soulagement... Oh mais... **Chun** n'a pas réussi sa greffe d'**Anémole**. La petite plante reste chétive et meurt... Quelque chose a dû contaminer l'opération.",
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: ActionLogEnum::GRAFT_FAIL,
+                visibility: VisibilityEnum::PUBLIC,
+            ),
+            I: $I,
         );
-
-        $roomLogParameters = $roomLog->getParameters();
-        $I->assertEquals($this->chun->getLogName(), $roomLogParameters['character']);
-        $I->assertEquals($this->kubinus, $roomLogParameters['item']);
     }
 }

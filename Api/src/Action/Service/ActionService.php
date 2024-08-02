@@ -13,7 +13,6 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Skill\Enum\SkillEnum;
 
 class ActionService implements ActionServiceInterface
 {

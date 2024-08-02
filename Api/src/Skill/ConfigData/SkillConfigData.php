@@ -35,7 +35,7 @@ abstract class SkillConfigData
             new SkillConfigDto(
                 name: SkillEnum::FIREFIGHTER,
                 modifierConfigs: [
-                    'modifier_for_player_always_success_extinguish'
+                    'modifier_for_player_always_success_extinguish',
                 ],
                 actionConfigs: [
                     ActionEnum::EXTINGUISH_MANUALLY,

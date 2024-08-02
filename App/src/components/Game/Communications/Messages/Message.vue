@@ -26,25 +26,24 @@
         </p>
         <div class="actions" @click.stop>
             <ActionButtons
-                v-if="isPlayerAlive && !channel.isFavorite()"
-                :actions="['favorite']"
+                v-if="isPlayerAlive"
+                :actions="['reply']"
+                @reply="$emit('reply')"
+            />
+            <ActionButtons
+                v-if="isPlayerAlive"
+                :actions="channel.isFavorite() ? ['unfavorite'] : ['favorite']"
                 @favorite="favorite(message)"
             />
             <ActionButtons
-                v-if="isPlayerAlive && channel.isFavorite()"
-                :actions="['unfavorite']"
-                @unfavorite="unfavorite(message)"
+                v-if="isPlayerAlive"
+                :actions="['report']"
+                @report=openReportDialog
             />
             <ActionButtons
                 v-if="adminMode"
                 :actions="['delete', 'report']"
                 @delete="openModerationDialog('delete_message')"
-            />
-            <ActionButtons
-                v-if="isPlayerAlive"
-                :actions="['report', 'reply']"
-                @report=openReportDialog
-                @reply="$emit('reply')"
             />
         </div>
     </div>

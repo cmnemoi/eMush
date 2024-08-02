@@ -322,7 +322,7 @@ final class GraftCest extends AbstractFunctionalTest
 
         $roomLogParameters = $roomLog->getParameters();
         $I->assertEquals($this->chun->getLogName(), $roomLogParameters['character']);
-        $I->assertEquals($this->kubinus->getPlantNameOrThrow(), $roomLogParameters['item']);
+        $I->assertEquals($this->kubinus, $roomLogParameters['item']);
     }
 
     private function thenIShouldSeeAPublicFailLog(FunctionalTester $I): void
@@ -339,6 +339,6 @@ final class GraftCest extends AbstractFunctionalTest
 
         $roomLogParameters = $roomLog->getParameters();
         $I->assertEquals($this->chun->getLogName(), $roomLogParameters['character']);
-        $I->assertEquals($this->kubinus->getPlantNameOrThrow(), $roomLogParameters['item']);
+        $I->assertEquals($this->kubinus, $roomLogParameters['item']);
     }
 }

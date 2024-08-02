@@ -252,7 +252,7 @@ class RoomLogService implements RoomLogServiceInterface
         if ($actionName === ActionEnum::GRAFT) {
             /** @var GameItem $fruit */
             $fruit = $actionProvider;
-            $parameters['item'] = $fruit->getPlantNameOrThrow();
+            $parameters['item'] = $fruit->getLogName();
         }
 
         return $parameters;

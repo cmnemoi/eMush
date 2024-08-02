@@ -227,12 +227,13 @@ export default defineComponent({
             this.pagination.currentPage = page;
             this.loadData();
         },
-        getClosedDaedalusId(closedPlayerId: number): Promise<number>
+        async getClosedDaedalusId(closedPlayerId: number): Promise<number>
         {
-            const closedPlayer = new ClosedPlayer();
             try {
-                const result = ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'closed_players', String(closedPlayerId)));
+                const result = await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'closed_players', String(closedPlayerId)));
+                const closedPlayer = new ClosedPlayer();
                 closedPlayer.load(result.data);
+
                 return closedPlayer.closedDaedalusId;
             } catch (error) {
                 throw error;

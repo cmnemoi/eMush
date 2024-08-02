@@ -10,6 +10,7 @@
             :is-open="showDetailPopup"
             :moderation-sanction="selectedSanction"
             @close="showDetailPopup = false"
+            @update="closeDetailAndUpdate"
         />
 
         <h2 class="sanction_heading">{{ $t('moderation.reportToAddress') }}</h2>
@@ -478,7 +479,7 @@ export default defineComponent({
                     console.error(error);
                 });
             this.$emit('close');
-            this.loadPlayerReports();
+            this.loadData();
         },
         closeReport(sanctionId) {
             const params = new URLSearchParams();
@@ -489,7 +490,11 @@ export default defineComponent({
                     console.error(error);
                 });
             this.$emit('close');
-            this.loadPlayerReports();
+            this.loadData();
+        },
+        closeDetailAndUpdate() {
+            this.showDetailPopup = false;
+            this.loadData();
         },
         async loadLogs(player: ModerationViewPlayer) {
             if (this.filters.logs.day === null) {
@@ -559,7 +564,6 @@ export default defineComponent({
             }
         },
         async loadPlayerReports() {
-            this.loading = true;
             const params: any = {
                 header: {
                     'accept': 'application/ld+json'
@@ -587,7 +591,6 @@ export default defineComponent({
                     });
                     this.reportPagination.totalItem = remoteRowData['hydra:totalItems'];
                     this.reportPagination.totalPage = this.reportPagination.totalItem / this.reportPagination.pageSize;
-                    this.loading = false;
                 });
         },
         goBack() {

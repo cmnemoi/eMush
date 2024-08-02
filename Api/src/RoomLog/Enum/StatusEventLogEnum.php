@@ -18,6 +18,7 @@ abstract class StatusEventLogEnum
     public const STUCK_IN_THE_SHIP = 'stuck_in_the_ship';
     public const GET_UP_BED_BROKEN = 'get_up_bed_broken';
     public const GAIN_CONCEPTOR_POINT = 'gain_conceptor_point';
+    public const GAIN_IT_EXPERT_POINT = 'gain_it_expert_point';
     public const GAIN_SHOOT_POINT = 'gain_shoot_point';
     public const GAIN_TECHNICIAN_POINT = 'gain_technician_point';
     public const LOST_IN_EXPLORATION = 'lost_in_exploration';
@@ -59,11 +60,13 @@ abstract class StatusEventLogEnum
         self::GAIN => [
             self::VALUE => [
                 SkillPointsEnum::CONCEPTOR_POINTS->value => self::GAIN_CONCEPTOR_POINT,
+                SkillPointsEnum::IT_EXPERT_POINTS->value => self::GAIN_IT_EXPERT_POINT,
                 SkillPointsEnum::SHOOTER_POINTS->value => self::GAIN_SHOOT_POINT,
                 SkillPointsEnum::TECHNICIAN_POINTS->value => self::GAIN_TECHNICIAN_POINT,
             ],
             self::VISIBILITY => [
                 SkillPointsEnum::CONCEPTOR_POINTS->value => VisibilityEnum::PRIVATE,
+                SkillPointsEnum::IT_EXPERT_POINTS->value => VisibilityEnum::PRIVATE,
                 SkillPointsEnum::SHOOTER_POINTS->value => VisibilityEnum::PRIVATE,
                 SkillPointsEnum::TECHNICIAN_POINTS->value => VisibilityEnum::PRIVATE,
             ],

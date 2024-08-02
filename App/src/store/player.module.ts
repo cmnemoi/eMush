@@ -3,6 +3,7 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { Player } from "@/entities/Player";
 import { Item } from "@/entities/Item";
 import { ConfirmPopup } from "@/entities/ConfirmPopup";
+import store from ".";
 
 const state =  {
     loading: false,
@@ -37,15 +38,19 @@ const actions: ActionTree<any, any> = {
     async loadPlayer({ commit }, { playerId }) {
         commit('setLoading', true);
         try {
+            const isNewGame = store.getters['player/player'] === null;
+            const player = store.getters['player/player'];
             await Promise.all([
-                this.dispatch("daedalus/loadAlerts"),
-                this.dispatch("daedalus/loadMinimap"),
+                isNewGame ? Promise.resolve() : this.dispatch("daedalus/loadAlerts", { daedalus: player.daedalus }),
+                isNewGame ? Promise.resolve() : this.dispatch("daedalus/loadMinimap", { player }),
                 PlayerService.loadPlayer(playerId).then(async (player: Player | null) => {
                     commit('updatePlayer', player);
                     if (player?.gameStatus !== 'in_game') {
                         return true;
                     }
                     await Promise.all([
+                        isNewGame ? this.dispatch("daedalus/loadAlerts", { daedalus: player.daedalus }) : Promise.resolve(),
+                        isNewGame ? this.dispatch("daedalus/loadMinimap", { player }) : Promise.resolve(),
                         this.dispatch("room/loadRoom", { room: player?.room }),
                         this.dispatch("room/updateSelectedItemPile"),
                         player?.spaceBattle !== null ? this.dispatch("room/loadSpaceBattle", { spaceBattle: player?.spaceBattle }) : null

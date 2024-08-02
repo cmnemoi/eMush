@@ -36,9 +36,8 @@ const getters: GetterTree<any, any> = {
 };
 
 const actions: ActionTree<any, any> = {
-    async loadAlerts({ commit, state }) {
-        const player = store.getters['player/player'];
-        commit('updateDaedalus', player.daedalus);
+    async loadAlerts({ commit, state }, { daedalus }) {
+        commit('updateDaedalus', daedalus);
         commit('setLoadingAlerts', true);
         try {
             const alerts = await DaedalusService.loadAlerts(state.daedalus);

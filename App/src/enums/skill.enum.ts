@@ -169,7 +169,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.LEADER]: {
-        'icon': getImgUrl('skills/human/leader.png')
+        'icon': getImgUrl('skills/human/leadership.png')
     },
 
     [SkillEnum.LETHARGY]: {

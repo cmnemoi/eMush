@@ -54,12 +54,6 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
             return null;
         }
 
-        // If user is in the same daedalus as the player they are trying to access and the game is not finished, refuse access
-        $requestUserPlayerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($requestUser);
-        if ($requestUserPlayerInfo?->getDaedalusId() === $playerInfo->getDaedalusId()) {
-            return null;
-        }
-
         // If the player is still alive return normalized player
         $player = $playerInfo->getPlayer();
         if ($player !== null) {

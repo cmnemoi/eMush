@@ -129,6 +129,7 @@ class CharacterConfigData
             'characterName' => 'derek',
             'skillConfigs' => [
                 SkillEnum::SHOOTER,
+                SkillEnum::MOTIVATOR,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -146,7 +147,6 @@ class CharacterConfigData
                 'hit',
                 'hide',
                 'search',
-                'boring_speech',
                 'heal',
                 'self_heal',
                 'flirt',

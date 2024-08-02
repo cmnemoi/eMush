@@ -66,6 +66,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $leaderSkillConfig */
         $leaderSkillConfig = $this->getReference(SkillEnum::LEADER->value);
 
+        /** @var SkillConfig $motivatorSkillConfig */
+        $motivatorSkillConfig = $this->getReference(SkillEnum::MOTIVATOR->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -109,6 +112,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setCharacterName(CharacterEnum::DEREK)
             ->setSkillConfigs([
                 $shooterSkillConfig,
+                $motivatorSkillConfig,
             ])
             ->setInitStatuses([$firstTimeStatus])
             ->setStartingItems($trackerTalkieCollection);
@@ -355,8 +359,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         // Skills actions
         // @TODO: after skill implementation, action will be given by skills
-        /** @var ActionConfig $boringSpeechAction */
-        $boringSpeechAction = $this->getReference(ActionsFixtures::BORING_SPEECH);
 
         /** @var ActionConfig $extinguishManuallyAction */
         $extinguishManuallyAction = $this->getReference(ActionsFixtures::EXTINGUISH_MANUALLY);
@@ -383,7 +385,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $extractSporeAction,
             $getUpAction,
             $extinguishManuallyAction,
-            $boringSpeechAction,
             $healAction,
             $selfHealAction,
             $rejuvenateAlphaAction,

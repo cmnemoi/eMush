@@ -37,6 +37,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::MOTIVATOR,
+                actionConfigs: [
+                    ActionEnum::BORING_SPEECH,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::PILOT,
                 modifierConfigs: [
                     'modifier_pilot_always_critical_success_piloting',

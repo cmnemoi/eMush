@@ -643,7 +643,7 @@ export default defineComponent({
                 throw error;
             }
         },
-        goToSanctionEvidence(sanction: any)
+        async goToSanctionEvidence(sanction: any)
         {
             const sanctionEvidence = sanction.sanctionEvidence;
             const evidenceClass = sanctionEvidence.className;
@@ -664,10 +664,12 @@ export default defineComponent({
                 this.filters.generalChannel.startDate = startDate;
                 this.filters.generalChannel.endDate = endDate;
 
-                this.loadLogs(this.player);
-                this.loadPublicChannelMessages(this.player);
-                this.loadMushChannelMessages(this.player);
-                this.loadPrivateChannelsMessages(this.player);
+                await Promise.all([
+                    this.loadLogs(this.player),
+                    this.loadPublicChannelMessages(this.player),
+                    this.loadMushChannelMessages(this.player),
+                    this.loadPrivateChannelsMessages(this.player)
+                ]);
 
                 this.$nextTick(() => {
                     const logsContainer = this.$refs.logsContainer as HTMLElement;

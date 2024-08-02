@@ -25,9 +25,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -40,8 +37,6 @@ class ExtinguishManuallyActionCest
     private StatusServiceInterface $statusService;
     private ActionConfig $action;
 
-    private ChooseSkillUseCase $chooseSkillUseCase;
-
     public function _before(FunctionalTester $I)
     {
         $this->extinguishManually = $I->grabService(ExtinguishManually::class);
@@ -49,8 +44,6 @@ class ExtinguishManuallyActionCest
 
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::EXTINGUISH_MANUALLY]);
         $this->action->setSuccessRate(101);
-
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
     }
 
     public function testExtinguishManually(FunctionalTester $I)
@@ -101,9 +94,7 @@ class ExtinguishManuallyActionCest
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->haveInRepository($player);
-
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::FIREFIGHTER, $player));
+        $I->refreshEntities($player);
 
         $this->extinguishManually->loadParameters(
             $this->action,

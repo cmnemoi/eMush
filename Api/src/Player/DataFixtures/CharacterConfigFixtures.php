@@ -66,9 +66,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $leaderSkillConfig */
         $leaderSkillConfig = $this->getReference(SkillEnum::LEADER->value);
 
-        /** @var SkillConfig $firefighterSkillConfig */
-        $firefighterSkillConfig = $this->getReference(SkillEnum::FIREFIGHTER->value);
-
         /** @var SkillConfig $motivatorSkillConfig */
         $motivatorSkillConfig = $this->getReference(SkillEnum::MOTIVATOR->value);
 
@@ -115,7 +112,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setCharacterName(CharacterEnum::DEREK)
             ->setSkillConfigs([
                 $shooterSkillConfig,
-                $firefighterSkillConfig,
                 $motivatorSkillConfig,
             ])
             ->setInitStatuses([$firstTimeStatus])
@@ -180,9 +176,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $ian
             ->setName(CharacterEnum::IAN)
             ->setCharacterName(CharacterEnum::IAN)
-            ->setSkillConfigs([
-                $firefighterSkillConfig,
-            ])
             ->setInitStatuses([$pacifistStatus])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($ian);
@@ -252,7 +245,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setSkillConfigs([
                 $pilotSkillConfig,
                 $shooterSkillConfig,
-                $firefighterSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($roland);
@@ -367,6 +359,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         // Skills actions
         // @TODO: after skill implementation, action will be given by skills
+
+        /** @var ActionConfig $extinguishManuallyAction */
+        $extinguishManuallyAction = $this->getReference(ActionsFixtures::EXTINGUISH_MANUALLY);
+
         /** @var ActionConfig $surgeryAction */
         $surgeryAction = $this->getReference(ActionsFixtures::SURGERY);
 
@@ -388,6 +384,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $infectAction,
             $extractSporeAction,
             $getUpAction,
+            $extinguishManuallyAction,
             $healAction,
             $selfHealAction,
             $rejuvenateAlphaAction,

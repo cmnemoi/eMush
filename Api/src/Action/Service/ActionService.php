@@ -13,7 +13,6 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Skill\Enum\SkillEnum;
 
 class ActionService implements ActionServiceInterface
 {
@@ -115,11 +114,6 @@ class ActionService implements ActionServiceInterface
         $actionVariableEvent = $this->eventService->computeEventModifications($actionVariableEvent, $eventName);
 
         $value = $actionVariableEvent->getRoundedQuantity();
-
-        // Doing this because the modifier approach caps the value at 99%...
-        if ($variableName === ActionVariableEnum::PERCENTAGE_SUCCESS && $this->isActionAlwaysSuccessfulForPlayer($actionConfig, $player)) {
-            return 100;
-        }
 
         return $variable->getValueInRange($value);
     }
@@ -247,10 +241,5 @@ class ActionService implements ActionServiceInterface
         }
 
         return $event;
-    }
-
-    private function isActionAlwaysSuccessfulForPlayer(ActionConfig $actionConfig, Player $player): bool
-    {
-        return $actionConfig->getActionName() === ActionEnum::EXTINGUISH && $player->hasSkill(SkillEnum::FIREFIGHTER);
     }
 }

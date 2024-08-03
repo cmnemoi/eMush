@@ -33,6 +33,7 @@ class ChargeStatusConfigDataLoader extends StatusConfigDataLoader
                 ->setAutoRemove($statusConfigData['autoRemove']);
             $this->setStatusConfigModifierConfigs($statusConfig, $statusConfigData['modifierConfigs']);
             $this->setStatusConfigActionConfigs($statusConfig, $statusConfigData['actionConfigs']);
+            $this->setStatusConfigSkillConfigs($statusConfig, $statusConfigData['skillConfigs']);
 
             $this->entityManager->persist($statusConfig);
         }

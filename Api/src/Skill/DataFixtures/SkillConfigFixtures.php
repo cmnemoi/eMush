@@ -15,7 +15,7 @@ use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Skill\ConfigData\SkillConfigData;
 use Mush\Skill\Dto\SkillConfigDto;
 use Mush\Skill\Entity\SkillConfig;
-use Mush\Status\DataFixtures\ChargeStatusFixtures;
+use Mush\Status\DataFixtures\SkillPointsFixtures;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 /** @codeCoverageIgnore */
@@ -44,8 +44,8 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
     {
         return [
             ActionsFixtures::class,
-            ChargeStatusFixtures::class,
             SkillModifierConfigFixtures::class,
+            SkillPointsFixtures::class,
         ];
     }
 

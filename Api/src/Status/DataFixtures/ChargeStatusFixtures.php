@@ -17,11 +17,12 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Enum\HunterEnum;
-use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\ConfigData\StatusConfigData;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -29,7 +30,6 @@ use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Enum\StatusEnum;
 
 class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
@@ -260,6 +260,9 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         /** @var ActionConfig $trapClosetAction */
         $trapClosetAction = $this->getReference(ActionEnum::TRAP_CLOSET->value);
 
+        /** @var SkillConfig $anonymushSkillConfig */
+        $anonymushSkillConfig = $this->getReference(SkillEnum::ANONYMUSH->value);
+
         $mushStatus = new ChargeStatusConfig();
         $mushStatus
             ->setStatusName(PlayerStatusEnum::MUSH)
@@ -275,6 +278,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
                 $moraleModifier,
             ])
             ->setActionConfigs([$trapClosetAction])
+            ->setSkillConfigs([$anonymushSkillConfig])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mushStatus);
 
@@ -492,76 +496,10 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($droneCharges);
 
-        $conceptorPointsModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('modifier_skill_point_core')
-        );
-        $manager->persist($conceptorPointsModifier);
-
-        $conceptorPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::CONCEPTOR_POINTS->value)
-        );
-        $conceptorPoints->setModifierConfigs([$conceptorPointsModifier]);
-        $manager->persist($conceptorPoints);
-
-        $shooterPointsModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('modifier_shooter_skill_point')
-        );
-        $manager->persist($shooterPointsModifier);
-
-        $shooterPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::SHOOTER_POINTS->value)
-        );
-        $shooterPoints->setModifierConfigs([$shooterPointsModifier]);
-        $manager->persist($shooterPoints);
-
-        $technicianPointsModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('modifier_skill_point_engineer')
-        );
-        $manager->persist($technicianPointsModifier);
-
-        $technicianPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::TECHNICIAN_POINTS->value)
-        );
-        $technicianPoints->setModifierConfigs([$technicianPointsModifier]);
-        $manager->persist($technicianPoints);
-
-        $itExpertPointsModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_IT_EXPERT)
-        );
-        $manager->persist($itExpertPointsModifier);
-
-        $itExpertPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::IT_EXPERT_POINTS->value)
-        );
-        $itExpertPoints->setModifierConfigs([$itExpertPointsModifier]);
-        $manager->persist($itExpertPoints);
-
         $hasChitchattedStatus = ChargeStatusConfig::fromConfigData(
             StatusConfigData::getByName(PlayerStatusEnum::HAS_CHITCHATTED . '_default')
         );
         $manager->persist($hasChitchattedStatus);
-
-        $botanistModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_BOTANIST)
-        );
-        $manager->persist($botanistModifier);
-
-        $botanistPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::BOTANIST_POINTS->value)
-        );
-        $botanistPoints->setModifierConfigs([$botanistModifier]);
-        $manager->persist($botanistPoints);
-
-        $pilgredPointsModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_PILGRED)
-        );
-        $manager->persist($pilgredPointsModifier);
-
-        $pilgredPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::PILGRED_POINTS->value)
-        );
-        $pilgredPoints->setModifierConfigs([$pilgredPointsModifier]);
-        $manager->persist($pilgredPoints);
 
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
@@ -598,15 +536,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($followingHuntersStatus)
             ->addStatusConfig($changedCpuPriority)
             ->addStatusConfig($autoWateringFiresKilled)
-            ->addStatusConfig($droneCharges)
-            ->addStatusConfig($conceptorPoints)
-            ->addStatusConfig($shooterPoints)
-            ->addStatusConfig($technicianPoints)
-            ->addStatusConfig($itExpertPoints)
-            ->addStatusConfig($hasChitchattedStatus)
-            ->addStatusConfig($botanistPoints)
-            ->addStatusConfig($pilgredPoints);
-
+            ->addStatusConfig($droneCharges);
+            
         $manager->persist($gameConfig);
 
         $manager->flush();
@@ -645,13 +576,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::CHANGED_CPU_PRIORITY, $changedCpuPriority);
         $this->addReference(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES, $autoWateringFiresKilled);
         $this->addReference(EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE, $droneCharges);
-        $this->addReference($conceptorPoints->getName(), $conceptorPoints);
-        $this->addReference($shooterPoints->getName(), $shooterPoints);
-        $this->addReference($technicianPoints->getName(), $technicianPoints);
-        $this->addReference($itExpertPoints->getName(), $itExpertPoints);
-        $this->addReference($hasChitchattedStatus->getName(), $hasChitchattedStatus);
-        $this->addReference($botanistPoints->getName(), $botanistPoints);
-        $this->addReference($pilgredPoints->getName(), $pilgredPoints);
+        $this->addReference(PlayerStatusEnum::HAS_CHITCHATTED, $hasChitchattedStatus);
     }
 
     public function getDependencies(): array
@@ -661,6 +586,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             StatusModifierConfigFixtures::class,
             GearModifierConfigFixtures::class,
             ActionsFixtures::class,
+            SkillPointsFixtures::class,
         ];
     }
 }

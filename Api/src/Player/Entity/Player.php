@@ -495,6 +495,15 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getCharacterConfig()->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
     }
 
+    /**
+     * @psalm-suppress RedundantCondition
+     * @psalm-suppress TypeDoesNotContainNull
+     */
+    public function getSelectableMushSkills(): Collection
+    {
+        return $this->getStatusByName(PlayerStatusEnum::MUSH)?->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false) ?? new ArrayCollection();
+    }
+
     public function getHumanSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
     {
         return $this->getCharacterConfig()->getSkillConfigByNameOrThrow($skill);
@@ -965,9 +974,16 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->hasStatus(PlayerStatusEnum::INACTIVE) === false && $this->hasStatus(PlayerStatusEnum::HIGHLY_INACTIVE) === false;
     }
 
+    /**
+     * @psalm-suppress RedundantCondition
+     * @psalm-suppress TypeDoesNotContainNull
+     */
     public function getLevel(): int
     {
-        return $this->getCharacterConfig()->getSkillConfigs()->count();
+        $numberOfHumanSkills = $this->getCharacterConfig()->getSkillConfigs()->count();
+        $numberOfMushSkills = $this->getStatusByName(PlayerStatusEnum::MUSH)?->getSkillConfigs()->count() ?? 0;
+
+        return max($numberOfHumanSkills, $numberOfMushSkills);
     }
 
     private function getMinEfficiencyForProject(Project $project): int

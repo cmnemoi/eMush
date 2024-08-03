@@ -112,7 +112,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
                 'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
                 'description' => $this->translationService->translate($character . '.description', [], 'characters', $language),
                 'selectableHumanSkills' => $this->getNormalizedSelectableHumanSkills($player, $language),
-                'selectableMushSkills' => [],
+                'selectableMushSkills' => $this->getNormalizedSelectableMushSkills($player, $language),
                 'level' => $player->getLevel(),
             ],
             'gameStatus' => $player->getPlayerInfo()->getGameStatus(),
@@ -271,6 +271,20 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         }
 
         return $normalizedSelectableHumanSkills;
+    }
+
+    private function getNormalizedSelectableMushSkills(Player $player, string $language): array
+    {
+        $normalizedSelectableMushSkills = [];
+        foreach ($player->getSelectableMushSkills() as $selectableSkill) {
+            $normalizedSelectableMushSkills[] = [
+                'key' => $selectableSkill->getNameAsString(),
+                'name' => $this->translationService->translate($selectableSkill->getNameAsString() . '.name', [], 'skill', $language),
+                'description' => $this->translationService->translate($selectableSkill->getNameAsString() . '.description', [], 'skill', $language),
+            ];
+        }
+
+        return $normalizedSelectableMushSkills;
     }
 
     private function getNormalizedSkillPoints(Player $player, string $language): array

@@ -196,6 +196,11 @@ class Status implements ActionProviderInterface
         return $this;
     }
 
+    public function getSkillConfigs(): Collection
+    {
+        return $this->statusConfig->getSkillConfigs();
+    }
+
     public function getSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
     {
         return $this->statusConfig->getSkillConfigByNameOrThrow($skill);

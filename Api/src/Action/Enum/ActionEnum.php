@@ -340,6 +340,19 @@ enum ActionEnum: string
         ]);
     }
 
+    public static function getActionsNotRecordedInHistory(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::CHANGE_NERON_CPU_PRIORITY->value,
+            self::CHANGE_NERON_CREW_LOCK->value,
+            self::DROP->value,
+            self::EXAMINE->value,
+            self::TAKE->value,
+            self::TOGGLE_MAGNETIC_NET->value,
+            self::TOGGLE_PLASMA_SHIELD->value,
+        ]);
+    }
+
     public static function getAllAsStrings(): ArrayCollection
     {
         $actions = new ArrayCollection();

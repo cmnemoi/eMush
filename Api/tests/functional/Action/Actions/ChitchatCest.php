@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Chitchat;
+use Mush\Action\Actions\Examine;
 use Mush\Action\Actions\Search;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Disease\Enum\InjuryEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -25,6 +28,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -86,6 +90,15 @@ final class ChitchatCest extends AbstractFunctionalTest
         $this->whenISetupChitchat();
 
         $this->thenActionShouldNotBeExecutableWithCause(ActionImpossibleCauseEnum::SYMPTOMS_ARE_PREVENTING_ACTION, $I);
+    }
+
+    public function shouldNotRevealSpecificActions(FunctionalTester $I): void
+    {
+        $this->givenChunExecutedExamineAction($I);
+
+        $this->whenChunChitchatsWithAndie();
+
+        $this->thenIShouldNotSeeAnActionRevealed($I);
     }
 
     public function shouldGiveTwoMoralePointsToPlayer(FunctionalTester $I): void
@@ -178,6 +191,31 @@ final class ChitchatCest extends AbstractFunctionalTest
         }
     }
 
+    private function givenChunExecutedExamineAction(FunctionalTester $I): void
+    {
+        /** @var GameEquipmentServiceInterface $gameEquipmentService */
+        $gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $talkie = $gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::WALKIE_TALKIE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        $actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::EXAMINE->value]);
+
+        /** @var Examine $examine */
+        $examine = $I->grabService(Examine::class);
+
+        $examine->loadParameters(
+            actionConfig: $actionConfig,
+            actionProvider: $talkie,
+            player: $this->chun,
+            target: $talkie
+        );
+        $examine->execute();
+    }
+
     private function givenAndieHasMoralePoints(int $moralePoints): void
     {
         $this->andie->setMoralPoint($moralePoints);
@@ -236,38 +274,40 @@ final class ChitchatCest extends AbstractFunctionalTest
 
     private function thenIShouldSeeAPrivateLogForConfidentWithPlayerActions(FunctionalTester $I): void
     {
-        $roomLog = $I->grabEntityFromRepository(
-            entity: RoomLog::class,
-            params: [
-                'place' => $this->andie->getPlace()->getName(),
-                'playerInfo' => $this->andie->getPlayerInfo(),
-                'visibility' => VisibilityEnum::PRIVATE,
-                'log' => LogEnum::CONFIDENT_ACTIONS,
-            ]
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: "**Chun** vous raconte des dernières aventures et même si ça n'a pas l'air, on peut toujours apprendre quelque chose... Ses dernières actions sont Fouiller et Fouiller.",
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->andie,
+                log: LogEnum::CONFIDENT_ACTIONS,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I
         );
-
-        $roomLogParameters = $roomLog->getParameters();
-        $I->assertEquals($this->chun->getLogName(), $roomLogParameters['character']);
-        $I->assertEquals(expected: 'Fouiller', actual: $roomLogParameters['actions']);
-        $I->assertEquals(expected: 2, actual: $roomLogParameters['quantity']);
-        $I->assertEquals(expected: 'Fouiller', actual: $roomLogParameters['lastAction']);
     }
 
     private function thenIShouldSeeOneActionRevealed(FunctionalTester $I): void
     {
-        $roomLog = $I->grabEntityFromRepository(
-            entity: RoomLog::class,
-            params: [
-                'place' => $this->andie->getPlace()->getName(),
-                'playerInfo' => $this->andie->getPlayerInfo(),
-                'visibility' => VisibilityEnum::PRIVATE,
-                'log' => LogEnum::CONFIDENT_ACTIONS,
-            ]
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: "**Chun** vous raconte des dernières aventures et même si ça n'a pas l'air, on peut toujours apprendre quelque chose... Sa dernière action est Fouiller.",
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->andie,
+                log: LogEnum::CONFIDENT_ACTIONS,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I
         );
+    }
 
-        $roomLogParameters = $roomLog->getParameters();
-        $I->assertEquals($this->chun->getLogName(), $roomLogParameters['character']);
-        $I->assertEquals(expected: 1, actual: $roomLogParameters['quantity']);
-        $I->assertEquals(expected: 'Fouiller', actual: $roomLogParameters['lastAction']);
+    private function thenIShouldNotSeeAnActionRevealed(FunctionalTester $I): void
+    {
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: "**Chun** vous raconte ses derniers cycles avec ferveur et passion. Pas grand chose à en tirer mais elle a l'air de se sentir mieux...",
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->andie,
+                log: LogEnum::CONFIDENT_ACTIONS,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I
+        );
     }
 }

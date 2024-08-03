@@ -941,6 +941,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function addActionToHistory(string $action): static
     {
+        // should not add specific actions
+        if (ActionEnum::getActionsNotRecordedInHistory()->contains($action)) {
+            return $this;
+        }
+
         // Add the action to the beginning of the array
         array_unshift($this->actionHistory, $action);
 

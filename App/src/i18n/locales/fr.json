@@ -902,6 +902,8 @@
 	"charPanel": {
 		"availableSlot": "Emplacement disponible",
 		"chooseNewSkill": "Cliquez ici pour choisir une **nouvelle compétence** pour {character} !",
+		"skillChoiceTitle": "Choix de Compétences",
+		"skillChoiceDescription": "Choisissez **une compétence** à acquérir :",
 		"mushGenome": "Génome Mush",
 		"displayYourHumanSkills": "Cliquez ici pour afficher vos **compétences humaines**.",
 		"displayYourMushSkills": "Cliquez ici pour afficher vos **compétences Mush**."

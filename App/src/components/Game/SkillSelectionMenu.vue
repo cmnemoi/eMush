@@ -1,10 +1,11 @@
 <template>
     <GamePopUp
-        title="Choix de Compétence"
+        :title="$t('charPanel.skillChoiceTitle')"
         :is-open=popUp.isOpen
         @exit="close"
         v-if="player"
     >
+        <span v-html="formatText($t('charPanel.skillChoiceDescription'))" />
         <div class="skill-selection">
             <Tippy
                 tag="button"

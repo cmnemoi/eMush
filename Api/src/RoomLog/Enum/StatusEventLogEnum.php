@@ -20,6 +20,7 @@ abstract class StatusEventLogEnum
     public const GAIN_BOTANIST_POINT = 'gain_botanist_point';
     public const GAIN_CONCEPTOR_POINT = 'gain_conceptor_point';
     public const GAIN_IT_EXPERT_POINT = 'gain_it_expert_point';
+    public const GAIN_PILGRED_POINT = 'gain_pilgred_point';
     public const GAIN_SHOOT_POINT = 'gain_shoot_point';
     public const GAIN_TECHNICIAN_POINT = 'gain_technician_point';
     public const LOST_IN_EXPLORATION = 'lost_in_exploration';
@@ -63,6 +64,7 @@ abstract class StatusEventLogEnum
                 SkillPointsEnum::BOTANIST_POINTS->value => self::GAIN_BOTANIST_POINT,
                 SkillPointsEnum::CONCEPTOR_POINTS->value => self::GAIN_CONCEPTOR_POINT,
                 SkillPointsEnum::IT_EXPERT_POINTS->value => self::GAIN_IT_EXPERT_POINT,
+                SkillPointsEnum::PILGRED_POINTS->value => self::GAIN_PILGRED_POINT,
                 SkillPointsEnum::SHOOTER_POINTS->value => self::GAIN_SHOOT_POINT,
                 SkillPointsEnum::TECHNICIAN_POINTS->value => self::GAIN_TECHNICIAN_POINT,
             ],
@@ -70,6 +72,7 @@ abstract class StatusEventLogEnum
                 SkillPointsEnum::BOTANIST_POINTS->value => VisibilityEnum::PRIVATE,
                 SkillPointsEnum::CONCEPTOR_POINTS->value => VisibilityEnum::PRIVATE,
                 SkillPointsEnum::IT_EXPERT_POINTS->value => VisibilityEnum::PRIVATE,
+                SkillPointsEnum::PILGRED_POINTS->value => VisibilityEnum::PRIVATE,
                 SkillPointsEnum::SHOOTER_POINTS->value => VisibilityEnum::PRIVATE,
                 SkillPointsEnum::TECHNICIAN_POINTS->value => VisibilityEnum::PRIVATE,
             ],

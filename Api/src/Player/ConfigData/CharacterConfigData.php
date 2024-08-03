@@ -567,6 +567,7 @@ class CharacterConfigData
             'name' => 'raluca',
             'characterName' => 'raluca',
             'skillConfigs' => [
+                SkillEnum::PHYSICIST,
                 SkillEnum::TECHNICIAN,
                 SkillEnum::CONCEPTOR,
             ],

@@ -1294,6 +1294,22 @@ abstract class StatusConfigData
             ],
             'actionConfigs' => [],
         ],
+        [
+            'name' => SkillPointsEnum::PILGRED_POINTS->value,
+            'statusName' => SkillPointsEnum::PILGRED_POINTS->value,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SKILL_POINTS_INCREMENT,
+            'maxCharge' => 2,
+            'startCharge' => 2,
+            'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_PILGRED],
+            'autoRemove' => true,
+            'modifierConfigs' => [
+                ModifierNameEnum::SKILL_POINT_PILGRED,
+            ],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

@@ -1072,15 +1072,7 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($changeNeronCpuPriority);
 
-        $repairPilgred = new ActionConfig();
-        $repairPilgred
-            ->setName(ActionEnum::REPAIR_PILGRED->value)
-            ->setActionName(ActionEnum::REPAIR_PILGRED)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::PROJECT)
-            ->setActionCost(2)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $repairPilgred = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REPAIR_PILGRED));
         $manager->persist($repairPilgred);
 
         $returnToSol = new ActionConfig();

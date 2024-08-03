@@ -7,6 +7,7 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\Extinguish;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
@@ -79,5 +80,13 @@ final class ExtinguishCest extends AbstractFunctionalTest
     private function thenExtinguishSuccessRateShouldBe100Percents(FunctionalTester $I): void
     {
         $I->assertEquals(100, $this->extinguish->getSuccessRate());
+    }
+
+    private function thenExtinguishActionConfigRateShouldRemainUnchanged(FunctionalTester $I): void
+    {
+        $I->refreshEntities($this->actionConfig);
+        $I->assertEquals(50, $this->actionConfig->getVariableByName(ActionVariableEnum::PERCENTAGE_SUCCESS)->getValue());
+        $I->assertEquals(1, $this->actionConfig->getVariableByName(ActionVariableEnum::PERCENTAGE_SUCCESS)->getMinValue());
+        $I->assertEquals(99, $this->actionConfig->getVariableByName(ActionVariableEnum::PERCENTAGE_SUCCESS)->getMaxValue());
     }
 }

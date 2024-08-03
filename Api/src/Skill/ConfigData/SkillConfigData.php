@@ -133,6 +133,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::SOLID,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::SURVIVALIST,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_1_HEALTH_POINT_ON_CHANGE_VARIABLE_IF_FROM_PLANET_SECTOR_EVENT,

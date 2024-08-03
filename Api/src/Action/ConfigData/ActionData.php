@@ -157,7 +157,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 60, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 40, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => 'hide',

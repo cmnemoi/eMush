@@ -102,6 +102,12 @@ final class SkillModifierConfigFixtures extends Fixture
         $this->addReference($modifierPlayerDoubleDamageOnShootHunter->getName(), $modifierPlayerDoubleDamageOnShootHunter);
         $manager->persist($modifierPlayerDoubleDamageOnShootHunter);
 
+        $playerPlusOneDamageOnHit = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT)
+        );
+        $this->addReference($playerPlusOneDamageOnHit->getName(), $playerPlusOneDamageOnHit);
+        $manager->persist($playerPlusOneDamageOnHit);
+
         $manager->flush();
     }
 }

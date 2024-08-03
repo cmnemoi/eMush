@@ -2874,6 +2874,24 @@ abstract class ModifierConfigData
                 ActionEnum::SHOOT_RANDOM_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT,
+            'modifierName' => ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 1,
+            'targetVariable' => ActionVariableEnum::OUTPUT_QUANTITY,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::HIT->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

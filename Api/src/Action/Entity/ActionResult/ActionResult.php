@@ -81,14 +81,24 @@ abstract class ActionResult
         return $this;
     }
 
-    public function isNotACriticalSuccess(): bool
-    {
-        return $this instanceof CriticalSuccess === false;
-    }
-
     public function isASuccess(): bool
     {
         return $this instanceof Success;
+    }
+
+    public function isAFail(): bool
+    {
+        return $this instanceof Fail;
+    }
+
+    public function isACriticalSuccess(): bool
+    {
+        return $this instanceof CriticalSuccess;
+    }
+
+    public function isNotACriticalSuccess(): bool
+    {
+        return $this instanceof CriticalSuccess === false;
     }
 
     public function getResultTag(): string

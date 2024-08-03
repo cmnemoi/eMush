@@ -108,6 +108,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $apprenticeSkillConfig */
         $apprenticeSkillConfig = $this->getReference(SkillEnum::APPRENTICE->value);
 
+        /** @var SkillConfig $solidSkillConfig */
+        $solidSkillConfig = $this->getReference(SkillEnum::SOLID->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -207,6 +210,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(CharacterEnum::GIOELE)
             ->setCharacterName(CharacterEnum::GIOELE)
             ->setSkillConfigs([
+                $solidSkillConfig,
                 $astrophysicistSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
@@ -323,6 +327,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(CharacterEnum::STEPHEN)
             ->setCharacterName(CharacterEnum::STEPHEN)
             ->setSkillConfigs([
+                $solidSkillConfig,
                 $shooterSkillConfig,
                 $apprenticeSkillConfig,
                 $creativeSkillConfig,

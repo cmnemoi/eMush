@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mush\MetaGame\Normalizer;
+namespace Mush\Tests\unit\MetaGame\Normalizer;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Service\TranslationServiceInterface;
+use Mush\MetaGame\Normalizer\ModerationPlayerInfoNormalizer;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\InMemoryPlayerInfoRepository;
 use Mush\User\Entity\User;
@@ -16,34 +19,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class DummyNormalizer implements NormalizerInterface
-{
-    public function normalize($object, $format = null, array $context = [])
-    {
-        return [];
-    }
-
-    public function supportsNormalization($data, $format = null)
-    {
-        return true;
-    }
-}
-
-final class InMemoryTokenStorage implements TokenStorageInterface
-{
-    private UsernamePasswordToken $token;
-
-    public function getToken(): ?TokenInterface
-    {
-        return $this->token;
-    }
-
-    public function setToken($token)
-    {
-        $this->token = $token;
-    }
-}
-
 /**
  * @internal
  */
@@ -51,12 +26,15 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
 {
     private InMemoryPlayerInfoRepository $playerInfoRepository;
 
+    private TranslationServiceInterface $translationService;
+
     /**
      * @before
      */
     protected function setUp(): void
     {
         $this->playerInfoRepository = new InMemoryPlayerInfoRepository();
+        $this->translationService = $this->createStub(TranslationServiceInterface::class);
     }
 
     /**
@@ -87,7 +65,11 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
         $this->playerInfoRepository->save($anotherPlayer->getPlayerInfo());
 
         // when we normalize the player info for the moderator
-        $normalizer = new ModerationPlayerInfoNormalizer($this->playerInfoRepository, $this->getTokenStorageForUser($moderator));
+        $normalizer = new ModerationPlayerInfoNormalizer(
+            $this->playerInfoRepository,
+            $this->getTokenStorageForUser($moderator),
+            $this->translationService
+        );
         $normalizer->setNormalizer(new DummyNormalizer());
         $result = $normalizer->normalize($anotherPlayer->getPlayerInfo());
 
@@ -95,10 +77,10 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
         self::assertNull($result);
     }
 
-    public function testModeratorShouldAPlayerInAnotherDaedalus(): void
+    public function testModeratorShouldSeeAPlayerInAnotherDaedalus(): void
     {
         // given a player in the Daedalus
-        $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHAO, DaedalusFactory::createDaedalus());
 
         $this->playerInfoRepository->save($player->getPlayerInfo());
 
@@ -107,13 +89,18 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
         $moderator->setRoles([RoleEnum::MODERATOR]);
 
         // given another player in another Daedalus
-        $anotherPlayer = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
+        $anotherPlayer = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHAO, DaedalusFactory::createDaedalus());
 
         $this->playerInfoRepository->save($anotherPlayer->getPlayerInfo());
 
         // when we normalize the player info for the moderator
-        $normalizer = new ModerationPlayerInfoNormalizer($this->playerInfoRepository, $this->getTokenStorageForUser($moderator));
+        $normalizer = new ModerationPlayerInfoNormalizer(
+            $this->playerInfoRepository,
+            $this->getTokenStorageForUser($moderator),
+            $this->translationService
+        );
         $normalizer->setNormalizer(new DummyNormalizer());
+
         $result = $normalizer->normalize($anotherPlayer->getPlayerInfo());
 
         // then the moderator should be able to see the other player
@@ -123,7 +110,7 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
     public function testModeratorShouldSeeAPlayerIfNotPlaying(): void
     {
         // given a player in the Daedalus
-        $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHAO, DaedalusFactory::createDaedalus());
 
         $this->playerInfoRepository->save($player->getPlayerInfo());
 
@@ -131,7 +118,11 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
         $moderator = UserFactory::createModerator();
 
         // when we normalize the player info for the moderator
-        $normalizer = new ModerationPlayerInfoNormalizer($this->playerInfoRepository, $this->getTokenStorageForUser($moderator));
+        $normalizer = new ModerationPlayerInfoNormalizer(
+            $this->playerInfoRepository,
+            $this->getTokenStorageForUser($moderator),
+            $this->translationService
+        );
         $normalizer->setNormalizer(new DummyNormalizer());
         $result = $normalizer->normalize($player->getPlayerInfo());
 
@@ -145,5 +136,33 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
         $tokenStorage->setToken(new UsernamePasswordToken($user, 'password', $user->getRoles()));
 
         return $tokenStorage;
+    }
+}
+
+final class DummyNormalizer implements NormalizerInterface
+{
+    public function normalize($object, $format = null, array $context = [])
+    {
+        return [];
+    }
+
+    public function supportsNormalization($data, $format = null)
+    {
+        return true;
+    }
+}
+
+final class InMemoryTokenStorage implements TokenStorageInterface
+{
+    private UsernamePasswordToken $token;
+
+    public function getToken(): ?TokenInterface
+    {
+        return $this->token;
+    }
+
+    public function setToken($token)
+    {
+        $this->token = $token;
     }
 }

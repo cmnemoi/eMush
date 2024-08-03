@@ -1,4 +1,10 @@
 <template>
+    <ReportPopup
+        :report-dialog-visible="reportPopupVisible"
+        :select-player="true"
+        @close=closeReportDialog
+        @submit-report=submitComplaint
+    />
     <section
         v-if="roomLog"
         :class="[`log ${roomLog.visibility}`, { unread: roomLog.isUnread, read: !roomLog.isUnread }]"
@@ -9,6 +15,15 @@
             <span class="room" v-if="roomLog?.place"> - {{ roomLog.place }}</span>
             <span class="timestamp">{{ roomLog?.date }}</span>
         </p>
+        <div class="actions" @click.stop>
+            <Tippy tag="span" @click="openReportDialog">
+                <img :src="getImgUrl('comms/alert.png')" alt="Report message">
+                <template #content>
+                    <h1>{{ $t('moderation.report.name')}}</h1>
+                    <p>{{ $t('moderation.report.description') }}</p>
+                </template>
+            </Tippy>
+        </div>
     </section>
 </template>
 
@@ -17,9 +32,18 @@ import { formatText } from "@/utils/formatText";
 import { RoomLog } from "@/entities/RoomLog";
 import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
+import { getImgUrl } from "@/utils/getImgUrl";
+import ReportPopup from "@/components/Moderation/ReportPopup.vue";
+import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
     name: "Log",
+    components: { Tippy, ReportPopup },
+    data() {
+        return {
+            reportPopupVisible: false
+        };
+    },
     computed: {
         ...mapGetters({
             isReadingLog: "communication/readMessageMutex",
@@ -27,21 +51,38 @@ export default defineComponent ({
         })
     },
     props: {
-        roomLog: RoomLog
+        roomLog: {
+            type: RoomLog,
+            required: true
+        }
     },
     methods: {
         ...mapActions({
             acquireReadLogMutex: "communication/acquireReadMessageMutex",
             releaseReadLogMutex: "communication/releaseReadMessageMutex",
-            readRoomLog: "communication/readRoomLog"
+            readRoomLog: "communication/readRoomLog",
+            loadReportablePlayers: 'moderation/loadReportablePlayers',
+            reportRoomLog: 'moderation/reportRoomLog'
         }),
         formatText,
+        getImgUrl,
         async read(roomLog: RoomLog) {
             if (!this.isReadingLog && roomLog.isUnread) {
                 await this.acquireReadLogMutex();
                 await this.readRoomLog(roomLog);
                 await this.releaseReadLogMutex();
             }
+        },
+        openReportDialog() {
+            this.reportPopupVisible = true;
+            this.loadReportablePlayers();
+        },
+        closeReportDialog() {
+            this.reportPopupVisible = false;
+        },
+        async submitComplaint(params: URLSearchParams) {
+            await this.reportRoomLog({ roomLogId: this.roomLog.id, params });
+            this.reportPopupVisible = false;
         }
     }
 });
@@ -133,6 +174,30 @@ export default defineComponent ({
     &.read {
         border-left: 0 solid transparent;
         transition: 0.1s ease-in-out border-left;
+    }
+}
+
+.actions { //buttons styling
+    $delay-hide: 0.15s;
+
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 5;
+    right: 3px;
+    bottom: -2px;
+    height: 18px;
+    transition: visibility 0s $delay-hide, opacity $delay-hide 0s, bottom $delay-hide 0s;
+}
+
+.log:hover {
+    .actions {
+        $delay-show: 0.3s;
+
+        visibility: visible;
+        opacity: 1;
+        bottom: 7px;
+        transition: visibility 0s $delay-show, opacity 0.15s $delay-show, bottom 0.15s $delay-show;
     }
 }
 

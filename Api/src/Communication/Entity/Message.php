@@ -8,11 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\TimestampableCancelInterface;
+use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 
 #[ORM\Entity]
-class Message implements TimestampableCancelInterface
+class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
 {
     use TimestampableEntity;
 
@@ -53,6 +54,12 @@ class Message implements TimestampableCancelInterface
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $timestampableCanceled = false;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $day = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $cycle = 0;
 
     public function __construct()
     {
@@ -203,5 +210,34 @@ class Message implements TimestampableCancelInterface
     public function cancelTimestampable(): void
     {
         $this->timestampableCanceled = true;
+    }
+
+    public function getClassName(): string
+    {
+        return static::class;
+    }
+
+    public function getDay(): int
+    {
+        return $this->day;
+    }
+
+    public function setDay(int $day): static
+    {
+        $this->day = $day;
+
+        return $this;
+    }
+
+    public function getCycle(): int
+    {
+        return $this->cycle;
+    }
+
+    public function setCycle(int $cycle): static
+    {
+        $this->cycle = $cycle;
+
+        return $this;
     }
 }

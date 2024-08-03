@@ -4,6 +4,8 @@ namespace Mush\MetaGame\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\MetaGame\Enum\ModerationSanctionEnum;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 
 #[ORM\Entity]
@@ -20,6 +22,9 @@ class ModerationSanction
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'moderationSanctions')]
     private User $user;
 
+    #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]
+    private ?PlayerInfo $player;
+
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $moderationAction;
 
@@ -32,11 +37,20 @@ class ModerationSanction
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $isVisibleByUser = false;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $isReport = false;
+
     #[ORM\Column(type: 'datetime', nullable: false)]
     private \DateTime $startDate;
 
     #[ORM\Column(type: 'datetime', nullable: false)]
     private \DateTime $endDate;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private User $author;
+
+    #[ORM\OneToOne(mappedBy: 'moderationSanction', targetEntity: SanctionEvidence::class, cascade: ['ALL'])]
+    private ?SanctionEvidence $sanctionEvidence;
 
     public function __construct(User $user, \DateTime $startDate)
     {
@@ -58,12 +72,50 @@ class ModerationSanction
     {
         $this->moderationAction = $moderationAction;
 
+        if (ModerationSanctionEnum::isReport($moderationAction)) {
+            $this->isReport = true;
+        } else {
+            $this->isReport = false;
+        }
+
         return $this;
     }
 
     public function getUser(): User
     {
         return $this->user;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->user->getUsername();
+    }
+
+    public function getUserId(): string
+    {
+        return $this->user->getUserId();
+    }
+
+    public function setPlayer(?PlayerInfo $player): self
+    {
+        $this->player = $player;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?PlayerInfo
+    {
+        return $this->player;
+    }
+
+    public function getPlayerId(): ?int
+    {
+        return $this->player?->getId();
+    }
+
+    public function getPlayerName(): ?string
+    {
+        return $this->player?->getName();
     }
 
     public function getReason(): string
@@ -134,5 +186,48 @@ class ModerationSanction
         }
 
         return false;
+    }
+
+    public function getIsReport(): bool
+    {
+        return $this->isReport;
+    }
+
+    public function setAuthor(User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    public function getAuthorName(): string
+    {
+        return $this->author->getUsername();
+    }
+
+    public function setEvidence(?SanctionEvidence $sanctionEvidence): static
+    {
+        $this->sanctionEvidence = $sanctionEvidence;
+
+        if ($sanctionEvidence !== null) {
+            $sanctionEvidence->setModerationSanction($this);
+        }
+
+        return $this;
+    }
+
+    public function getEvidence(): ?SanctionEvidence
+    {
+        return $this->sanctionEvidence;
+    }
+
+    public function getSanctionEvidenceArray(): ?array
+    {
+        return $this->sanctionEvidence?->getEvidenceAsArray();
     }
 }

@@ -9,9 +9,12 @@ use Mush\Communication\Entity\Message;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\MetaGame\Entity\ModerationSanction;
+use Mush\MetaGame\Entity\SanctionEvidence;
+use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\User\Entity\User;
@@ -34,8 +37,9 @@ final class ModerationService implements ModerationServiceInterface
 
     public function editClosedPlayerMessage(
         ClosedPlayer $closedPlayer,
+        User $author,
         string $reason,
-        ?string $adminMessage
+        ?string $adminMessage = null
     ): void {
         $message = $this->translationService->translate(
             key: 'edited_by_neron',
@@ -49,29 +53,34 @@ final class ModerationService implements ModerationServiceInterface
         $this->entityManager->flush();
 
         $this->addSanctionEntity(
-            $closedPlayer->getUser(),
-            ModerationSanctionEnum::DELETE_END_MESSAGE,
-            $reason,
-            new \DateTime(),
-            $adminMessage
+            user: $closedPlayer->getUser(),
+            player: $closedPlayer->getPlayerInfo(),
+            author: $author,
+            sanctionType: ModerationSanctionEnum::DELETE_END_MESSAGE,
+            reason: $reason,
+            startingDate: new \DateTime(),
+            message: $adminMessage
         );
     }
 
     public function hideClosedPlayerEndMessage(
         ClosedPlayer $closedPlayer,
+        User $author,
         string $reason,
-        ?string $adminMessage
+        ?string $adminMessage = null
     ): void {
         $closedPlayer->hideMessage();
         $this->entityManager->persist($closedPlayer);
         $this->entityManager->flush();
 
         $this->addSanctionEntity(
-            $closedPlayer->getUser(),
-            ModerationSanctionEnum::HIDE_END_MESSAGE,
-            $reason,
-            new \DateTime(),
-            $adminMessage
+            user: $closedPlayer->getUser(),
+            player: $closedPlayer->getPlayerInfo(),
+            author: $author,
+            sanctionType: ModerationSanctionEnum::HIDE_END_MESSAGE,
+            reason: $reason,
+            startingDate: new \DateTime(),
+            message: $adminMessage
         );
     }
 
@@ -97,29 +106,35 @@ final class ModerationService implements ModerationServiceInterface
 
     public function banUser(
         User $user,
-        ?\DateInterval $duration,
+        User $author,
         string $reason,
-        ?string $message,
-        ?\DateTime $startingDate = null
+        ?string $message = null,
+        ?\DateTime $startingDate = null,
+        ?\DateInterval $duration = null,
     ): User {
         return $this->addSanctionEntity(
-            $user,
-            ModerationSanctionEnum::BAN_USER,
-            $reason,
-            $startingDate,
-            $message,
-            $duration,
+            user: $user,
+            player: null,
+            author: $author,
+            sanctionType: ModerationSanctionEnum::BAN_USER,
+            reason: $reason,
+            startingDate: $startingDate,
+            message: $message,
+            duration: $duration,
         );
     }
 
     public function addSanctionEntity(
         User $user,
+        ?PlayerInfo $player,
+        User $author,
         string $sanctionType,
         string $reason,
-        ?\DateTime $startingDate,
+        ?\DateTime $startingDate = null,
         ?string $message = null,
         ?\DateInterval $duration = null,
-        bool $isVisibleByUser = false
+        bool $isVisibleByUser = false,
+        ?SanctionEvidenceInterface $sanctionEvidence = null
     ): User {
         if ($startingDate === null) {
             $startingDate = new \DateTime();
@@ -133,13 +148,23 @@ final class ModerationService implements ModerationServiceInterface
             $endDate = new \DateTime('99999/12/31');
         }
 
+        if ($sanctionEvidence !== null) {
+            $sanctionEvidenceEntity = new SanctionEvidence();
+            $sanctionEvidenceEntity->setSanctionEvidence($sanctionEvidence);
+        } else {
+            $sanctionEvidenceEntity = null;
+        }
+
         $sanction = new ModerationSanction($user, $startingDate);
         $sanction
             ->setModerationAction($sanctionType)
+            ->setPlayer($player)
+            ->setAuthor($author)
             ->setReason($reason)
             ->setMessage($message)
             ->setEndDate($endDate)
-            ->setIsVisibleByUser($isVisibleByUser);
+            ->setIsVisibleByUser($isVisibleByUser)
+            ->setEvidence($sanctionEvidenceEntity);
 
         $user->addModerationSanction($sanction);
 
@@ -152,6 +177,7 @@ final class ModerationService implements ModerationServiceInterface
 
     public function quarantinePlayer(
         Player $player,
+        User $author,
         string $reason,
         ?string $message = null
     ): Player {
@@ -159,11 +185,13 @@ final class ModerationService implements ModerationServiceInterface
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
         $this->addSanctionEntity(
-            $player->getUser(),
-            ModerationSanctionEnum::QUARANTINE_PLAYER,
-            $reason,
-            new \DateTime(),
-            $message
+            user: $player->getUser(),
+            player: $player->getPlayerInfo(),
+            author: $author,
+            sanctionType: ModerationSanctionEnum::QUARANTINE_PLAYER,
+            reason: $reason,
+            startingDate: new \DateTime(),
+            message: $message
         );
 
         return $player;
@@ -171,20 +199,23 @@ final class ModerationService implements ModerationServiceInterface
 
     public function deleteMessage(
         Message $message,
+        User $author,
         string $reason,
-        ?string $adminMessage
+        ?string $adminMessage = null
     ): void {
-        $author = $message->getAuthor();
-        if ($author === null) {
+        $messageAuthor = $message->getAuthor();
+        if ($messageAuthor === null) {
             return;
         }
 
         $this->addSanctionEntity(
-            $author->getUser(),
-            ModerationSanctionEnum::DELETE_MESSAGE,
-            $reason,
-            new \DateTime(),
-            $adminMessage
+            user: $messageAuthor->getUser(),
+            player: $messageAuthor,
+            author: $author,
+            sanctionType: ModerationSanctionEnum::DELETE_MESSAGE,
+            reason: $reason,
+            startingDate: new \DateTime(),
+            message: $adminMessage
         );
 
         $message
@@ -198,19 +229,61 @@ final class ModerationService implements ModerationServiceInterface
 
     public function warnUser(
         User $user,
-        ?\DateInterval $duration,
+        User $author,
         string $reason,
         string $message,
-        ?\DateTime $startingDate = null
+        ?\DateTime $startingDate = null,
+        ?\DateInterval $duration = null,
     ): User {
         return $this->addSanctionEntity(
-            $user,
-            ModerationSanctionEnum::WARNING,
-            $reason,
-            $startingDate,
-            $message,
-            $duration,
-            true
+            user: $user,
+            player: null,
+            author: $author,
+            sanctionType: ModerationSanctionEnum::WARNING,
+            reason: $reason,
+            startingDate: $startingDate,
+            message: $message,
+            duration: $duration,
+            isVisibleByUser: true
         );
+    }
+
+    public function reportPlayer(
+        PlayerInfo $player,
+        User $author,
+        string $reason,
+        SanctionEvidenceInterface $sanctionEvidence,
+        ?string $message = null,
+    ): PlayerInfo {
+        $this->addSanctionEntity(
+            user: $player->getUser(),
+            player: $player,
+            author: $author,
+            sanctionType: ModerationSanctionEnum::REPORT,
+            reason: $reason,
+            startingDate: new \DateTime(),
+            message: $message,
+            sanctionEvidence: $sanctionEvidence
+        );
+
+        return $player;
+    }
+
+    public function archiveReport(
+        ModerationSanction $moderationAction,
+        bool $isAbusive
+    ): ModerationSanction {
+        if ($isAbusive) {
+            $decision = ModerationSanctionEnum::REPORT_ABUSIVE;
+        } else {
+            $decision = ModerationSanctionEnum::REPORT_PROCESSED;
+        }
+
+        $moderationAction->setModerationAction($decision);
+
+        $this->entityManager->persist($moderationAction);
+        $this->entityManager->flush();
+
+        return $moderationAction;
     }
 }

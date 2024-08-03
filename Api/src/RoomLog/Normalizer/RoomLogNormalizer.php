@@ -42,7 +42,7 @@ class RoomLogNormalizer implements NormalizerInterface
                     $language
                 ),
                 'visibility' => $roomLog->getVisibility(),
-                'date' => $this->getLogDate($roomLog->getDate(), $language),
+                'date' => $this->getLogDate($roomLog->getCreatedAt() ?: new \DateTime('now'), $language),
                 'isUnread' => $roomLog->isUnreadBy($currentPlayer),
             ];
 

@@ -29,6 +29,7 @@ import SanctionListPage from "@/components/Moderation/SanctionListPage.vue";
 import ClosedExpeditionPanel from "@/components/Game/ClosedExpeditionPanel.vue";
 import Rules from "@/components/Rules.vue";
 import AdminActionsPage from "@/components/Admin/Actions/AdminActionsPage.vue";
+import ModerationReportListPage from "@/components/Moderation/ModerationReportListPage.vue";
 
 const routes = [
     {
@@ -224,6 +225,11 @@ const routes = [
                         redirect: { name: 'SanctionListPage' }
                     }
                 ]
+            },
+            {
+                name: "ModerationReportList",
+                path: 'reports',
+                component: ModerationReportListPage
             },
             {
                 name: "ModerationViewPlayerDetail",

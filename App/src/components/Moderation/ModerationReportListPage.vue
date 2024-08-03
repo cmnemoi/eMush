@@ -1,63 +1,37 @@
 <template>
     <div class="sanction_list_container">
-        <h2 class="sanction_heading">{{ $t('moderation.sanctionsFor', { username: username }) }}</h2>
-        <div class="sanction_filter_options">
-            <label>{{ $t('admin.show') }}
-                <select v-model="pagination.pageSize" @change="updateFilter">
-                    <option
-                        v-for="option in pageSizeOptions"
-                        :value="option.value"
-                        :key=option.value
-                    >
-                        {{ option.text }}
-                    </option>
-                </select>
-            </label>
-            <label>{{ $t('moderation.sanctionType') }}
-                <select v-model="typeFilter" @change="updateFilter">
-                    <option value="">{{ $t('moderation.sanction.allTypes') }}</option>
-                    <option v-for="type in moderationSanctionTypes()" :value="type.value" :key="type.key">{{ $t(type.key) }}</option>
-                </select>
-            </label>
-            <label>{{ $t('moderation.sanctionReason') }}
-                <select v-model="reasonFilter" @change="updateFilter">
-                    <option value="">{{ $t('moderation.reason.allReasons') }}</option>
-                    <option v-for="reason in moderationReasons()" :value="reason.value" :key="reason.key">{{ $t(reason.key) }}</option>
-                </select>
-            </label>
-            <label>{{ $t('moderation.isSanctionActive') }}
-                <input
-                    type="checkbox"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    v-model="isActiveFilter"
-                    @change="updateFilter"
-                >
-            </label>
-        </div>
+        <h2 class="sanction_heading">{{ $t('moderation.reportToAddress') }}</h2>
         <Datatable
             :headers='fields'
             :uri="uri"
             :loading="loading"
             :row-data="rowData"
             :pagination="pagination"
-            :filter="filter"
             @pagination-click="paginationClick"
             @sort-table="sortTable"
-            @row-click="showSanctionDetails"
         >
+            <template #header-evidence>
+                {{ $t('moderation.sanctionDetail.evidence') }}
+            </template>
+            <template #row-evidence="report">
+                {{ report.sanctionEvidence.message }}
+                <button
+                    class="action-button"
+                    @click="goToSanctionEvidence(report)">
+                    {{ $t('moderation.report.seeContext') }}
+                </button>
+            </template>
             <template #header-actions>
                 Actions
             </template>
-            <template #row-actions="sanction">
-                <button class="action-button" @click="showSanctionDetails(sanction)">Voir Détails</button>
+            <template #row-actions="report">
+                <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.report') }}</button>
             </template>
         </Datatable>
         <SanctionDetailPage
             :is-open="showDetailPopup"
             :moderation-sanction="selectedSanction"
-            @close="showDetailPopup = false"
+            @close="closeDetailPopUp"
             @update="closeDetailAndUpdate"
         />
     </div>
@@ -70,16 +44,19 @@ import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
 import ApiService from "@/services/api.service";
 import { mapGetters } from "vuex";
+import ModerationService from "@/services/moderation.service";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
 import { ModerationSanction } from "@/entities/ModerationSanction";
+import { ClosedPlayer } from "@/entities/ClosedPlayer";
+import router from "@/router";
 
 interface SanctionListData {
     userId: string,
     username: string,
     fields: Array<{ key: string; name: string; sortable?: boolean; slot?: boolean }>,
     pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number },
-    rowData: never[],
+    rowData: ModerationSanction[],
     filter: string,
     sortField: string,
     sortDirection: string,
@@ -110,16 +87,27 @@ export default defineComponent({
             username: '',
             fields: [
                 {
-                    key: 'moderationAction',
-                    name: 'moderation.sanctionType'
+                    key: 'username',
+                    name: 'admin.user.username'
                 },
                 {
                     key: 'reason',
                     name: 'moderation.sanctionReason'
                 },
                 {
-                    key: 'endDate',
-                    name: 'moderation.endDate'
+                    key: 'evidence',
+                    name: 'moderation.sanctionDetail.evidence',
+                    slot: true
+                },
+                {
+                    key: 'startDate',
+                    name: 'moderation.sanctionDetail.date'
+                },
+                {
+                    key: 'actions',
+                    name: 'Actions',
+                    sortable: false,
+                    slot: true
                 }
             ],
             pagination: {
@@ -146,13 +134,35 @@ export default defineComponent({
         };
     },
     methods: {
+        closeDetailAndUpdate() {
+            this.showDetailPopup = false;
+            this.loadData();
+        },
         moderationReasons() {
             return moderationReasons;
         },
         moderationSanctionTypes() {
             return moderationSanctionTypes;
         },
-        closeDetailAndUpdate() {
+        removeSanction(sanctionId: number) {
+            ModerationService.removeSanction(sanctionId)
+                .then(() => {
+                    this.loadData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+        suspendSanction(sanctionId: number) {
+            ModerationService.suspendSanction(sanctionId)
+                .then(() => {
+                    this.loadData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+        closeDetailPopUp() {
             this.showDetailPopup = false;
             this.loadData();
         },
@@ -171,34 +181,22 @@ export default defineComponent({
             if (this.pagination.pageSize) {
                 params.params['itemsPerPage'] = this.pagination.pageSize;
             }
-            if (this.filter) {
-                params.params['username'] = this.filter;
-            }
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            if (this.typeFilter) {
-                params.params['moderationAction'] = this.typeFilter;
-            }
-            if (this.reasonFilter) {
-                params.params['reason'] = this.reasonFilter;
-            }
-            if (this.isActiveFilter) {
-                params.params['startDate[before]'] = 'now';
-                params.params['endDate[after]'] = 'now';
-            }
 
-            params.params['user.userId'] = this.userId;
-            params.params['isReport'] = false;
+            params.params['moderationAction'] = 'report';
 
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params)
                 .then((result) => {
                     return result.data;
                 })
                 .then((remoteRowData: any) => {
-                    this.rowData = remoteRowData['hydra:member'].map((reportData: object) => {
-                        return (new ModerationSanction()).load(reportData);
-                    });
+                    for (const reportData of remoteRowData['hydra:member']) {
+                        if (reportData) {
+                            this.rowData.push((new ModerationSanction()).load(reportData));
+                        }
+                    }
                     this.pagination.totalItem = remoteRowData['hydra:totalItems'];
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
                     this.loading = false;
@@ -227,42 +225,50 @@ export default defineComponent({
             this.selectedSanction = sanction;
             this.showDetailPopup = true;
         },
-        updateFilter() {
-            this.pagination.currentPage = 1;
-            this.loadData();
-        },
         paginationClick(page: number) {
             this.pagination.currentPage = page;
             this.loadData();
+        },
+        async getClosedDaedalusId(closedPlayerId: number): Promise<number>
+        {
+            try {
+                const result = await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'closed_players', String(closedPlayerId)));
+                const closedPlayer = new ClosedPlayer();
+                closedPlayer.load(result.data);
+
+                return closedPlayer.closedDaedalusId;
+            } catch (error) {
+                throw error;
+            }
+        },
+        goToSanctionEvidence(sanction: any)
+        {
+            const sanctionEvidence = sanction.sanctionEvidence;
+            const evidenceClass = sanctionEvidence.className;
+
+            if (
+                evidenceClass === 'message' ||
+                evidenceClass === 'roomLog'
+            ) {
+                router.push({ name: 'ModerationViewPlayerDetail', params: { playerId: sanction.playerId } });
+            } else if (evidenceClass === 'closedPlayer') {
+                const closedDaedalusId = this.getClosedDaedalusId(sanctionEvidence.id);
+                router.push({ name: 'TheEnd', params: { closedDaedalusId } });
+            }
         }
     },
     beforeMount() {
-        const userId = this.$route.params.userId;
-        const username = this.$route.params.username;
-
-        if (typeof userId === 'string') {
-            this.userId = userId;
-        } else {
-            console.error('userId is not a string');
-        }
-
-        if (typeof username === 'string') {
-            this.username = username;
-        } else {
-            console.error('username is not a string');
-        }
-
         this.loadData();
     }
 });
 </script>
 
 <style lang="scss" scoped>
-.sanction_filter_options {
+  .sanction_filter_options {
     display: flex;
     flex-grow: 1;
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
-}
+  }
 </style>

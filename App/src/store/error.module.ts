@@ -42,7 +42,7 @@ const mutations: MutationTree<any> = {
         if (isHydraError) {
             errorDetails = error.response?.data['hydra:description'];
         } else {
-            errorDetails = error.response?.data?.error ?? error.response?.data?.detail;
+            errorDetails = error.response?.data?.error ?? error.response?.data?.detail ?? error;
         }
 
         state.error = {

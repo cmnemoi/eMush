@@ -10,12 +10,19 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Entity\Message;
 use Mush\MetaGame\Entity\ModerationSanction;
+use Mush\MetaGame\Enum\ModerationSanctionEnum;
+use Mush\MetaGame\Repository\ModerationSanctionRepository;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Repository\PlayerRepository;
+use Mush\Player\UseCase\GetUserCurrentPlayerUseCase;
+use Mush\RoomLog\Entity\RoomLog;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -28,12 +35,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 final class ModerationController extends AbstractFOSRestController
 {
-    private ModerationServiceInterface $moderationService;
-
-    public function __construct(ModerationServiceInterface $moderationService)
-    {
-        $this->moderationService = $moderationService;
-    }
+    public function __construct(
+        private GetUserCurrentPlayerUseCase $getUserCurrentPlayerUseCase,
+        private ModerationSanctionRepository $moderationSanctionRepository,
+        private ModerationServiceInterface $moderationService,
+        private PlayerRepository $playerRepository,
+    ) {}
 
     /**
      * Ban an user.
@@ -104,12 +111,16 @@ final class ModerationController extends AbstractFOSRestController
             $startDate = null;
         }
 
+        /** @var User $sanctionAuthor */
+        $sanctionAuthor = $this->getUser();
+
         $this->moderationService->banUser(
-            $user,
-            $duration,
-            $request->get('reason'),
-            $request->get('adminMessage', null),
-            $startDate
+            user: $user,
+            author: $sanctionAuthor,
+            reason: $request->get('reason'),
+            message: $request->get('adminMessage', null),
+            startingDate: $startDate,
+            duration: $duration,
         );
 
         return $this->view(['detail' => 'User banned successfully'], Response::HTTP_OK);
@@ -184,12 +195,16 @@ final class ModerationController extends AbstractFOSRestController
             $startDate = null;
         }
 
+        /** @var User $sanctionAuthor */
+        $sanctionAuthor = $this->getUser();
+
         $this->moderationService->warnUser(
-            $user,
-            $duration,
-            $request->get('reason'),
-            $request->get('adminMessage', ''),
-            $startDate
+            user: $user,
+            author: $sanctionAuthor,
+            reason: $request->get('reason'),
+            message: $request->get('adminMessage', ''),
+            startingDate: $startDate,
+            duration: $duration,
         );
 
         return $this->view(['detail' => 'User warn successfully'], Response::HTTP_OK);
@@ -214,7 +229,7 @@ final class ModerationController extends AbstractFOSRestController
      *
      * @Rest\View()
      */
-    public function getModerationViewPlayer(Player $player): View
+    public function getModerationViewPlayer(PlayerInfo $playerInfo): View
     {
         $this->denyAccessIfNotModerator();
 
@@ -222,7 +237,7 @@ final class ModerationController extends AbstractFOSRestController
         $context->setAttribute('groups', ['moderation_view']);
         $context->setAttribute('user', $this->getUser());
 
-        $view = $this->view($player, Response::HTTP_OK);
+        $view = $this->view($playerInfo, Response::HTTP_OK);
         $view->setContext($context);
 
         return $view;
@@ -271,7 +286,17 @@ final class ModerationController extends AbstractFOSRestController
             return $this->view(['error' => 'Player is already dead'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $this->moderationService->quarantinePlayer($player, $request->get('reason'), $request->get('adminMessage', null));
+        /** @var User $sanctionAuthor */
+        $sanctionAuthor = $this->getUser();
+
+        $this->moderationService->quarantinePlayer(
+            player: $player,
+            author: $sanctionAuthor,
+            reason: $request->get('reason'),
+            message: $request->get(
+                'adminMessage'
+            )
+        );
 
         return $this->view(['detail' => 'Player quarantined successfully'], Response::HTTP_OK);
     }
@@ -315,8 +340,12 @@ final class ModerationController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotModerator();
 
+        /** @var User $sanctionAuthor */
+        $sanctionAuthor = $this->getUser();
+
         $this->moderationService->editClosedPlayerMessage(
             $closedPlayer,
+            $sanctionAuthor,
             $request->get('reason'),
             $request->get('adminMessage', null),
         );
@@ -363,8 +392,12 @@ final class ModerationController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotModerator();
 
+        /** @var User $sanctionAuthor */
+        $sanctionAuthor = $this->getUser();
+
         $this->moderationService->hideClosedPlayerEndMessage(
             $closedPlayer,
+            $sanctionAuthor,
             $request->get('reason'),
             $request->get('message', null),
         );
@@ -411,8 +444,12 @@ final class ModerationController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotModerator();
 
+        /** @var User $sanctionAuthor */
+        $sanctionAuthor = $this->getUser();
+
         $this->moderationService->deleteMessage(
             $message,
+            $sanctionAuthor,
             $request->get('reason'),
             $request->get('adminMessage', null),
         );
@@ -476,6 +513,278 @@ final class ModerationController extends AbstractFOSRestController
         return $this->view(['detail' => 'sanction deleted successfully'], Response::HTTP_OK);
     }
 
+    /**
+     * Report an end message that needs moderation action.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The closed player id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="reason",
+     *     in="query",
+     *     description="Reason for the report",
+     *
+     *     @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="adminMessage",
+     *     in="query",
+     *     description="Message of the user",
+     *
+     *     @OA\Schema(type="string", nullable=true)
+     * )
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post(path="/report-closed-player/{id}")
+     *
+     * @Rest\View()
+     */
+    public function reportClosedPlayer(
+        ClosedPlayer $closedPlayer,
+        Request $request
+    ): View {
+        /** @var User $reportAuthor */
+        $reportAuthor = $this->getUser();
+
+        $this->moderationService->reportPlayer(
+            player: $closedPlayer->getPlayerInfo(),
+            author: $reportAuthor,
+            reason: $request->get('reason'),
+            sanctionEvidence: $closedPlayer,
+            message: $request->get('adminMessage'),
+        );
+
+        return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Report a message that needs moderation action.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The message id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="reason",
+     *     in="query",
+     *     description="Reason for the report",
+     *
+     *     @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="player",
+     *     in="query",
+     *     description="the player id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="adminMessage",
+     *     in="query",
+     *     description="Message of the user",
+     *
+     *     @OA\Schema(type="string", nullable=true)
+     * )
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post(path="/report-message/{id}")
+     *
+     * @Rest\View()
+     */
+    public function reportMessage(
+        Message $message,
+        Request $request
+    ): View {
+        /** @var User $reportAuthor */
+        $reportAuthor = $this->getUser();
+
+        /** @var Player $player */
+        $player = $this->playerRepository->find($request->get('player'));
+
+        $this->moderationService->reportPlayer(
+            player: $player->getPlayerInfo(),
+            author: $reportAuthor,
+            reason: $request->get('reason'),
+            sanctionEvidence: $message,
+            message: $request->get('adminMessage'),
+        );
+
+        return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Report a log that needs moderation action.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The message id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="reason",
+     *     in="query",
+     *     description="Reason for the report",
+     *
+     *     @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="player",
+     *     in="query",
+     *     description="the player id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="adminMessage",
+     *     in="query",
+     *     description="Message of the user",
+     *
+     *     @OA\Schema(type="string", nullable=true)
+     * )
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post(path="/report-log/{id}")
+     *
+     * @Rest\View()
+     */
+    public function reportLog(
+        RoomLog $roomLog,
+        Request $request
+    ): View {
+        /** @var User $reportAuthor */
+        $reportAuthor = $this->getUser();
+
+        /** @var Player $player */
+        $player = $this->playerRepository->find($request->get('player'));
+
+        $this->moderationService->reportPlayer(
+            player: $player->getPlayerInfo(),
+            author: $reportAuthor,
+            reason: $request->get('reason'),
+            sanctionEvidence: $roomLog,
+            message: $request->get('adminMessage'),
+        );
+
+        return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * archive a report.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The sanction id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="isAbusive",
+     *     in="query",
+     *     description="Is the report abusive",
+     *
+     *     @OA\Schema(type="boolean")
+     * )
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Patch(path="/archive-report/{id}")
+     *
+     * @Rest\View()
+     */
+    public function archiveReport(ModerationSanction $moderationSanction, Request $request): View
+    {
+        $this->denyAccessIfNotModerator();
+
+        if ($moderationSanction->getModerationAction() !== ModerationSanctionEnum::REPORT) {
+            throw new HttpException(Response::HTTP_FORBIDDEN, 'Only sanction with report action can be archived');
+        }
+
+        $isAbusive = $request->get('isAbusive') === 'true';
+
+        $this->moderationService->archiveReport($moderationSanction, $isAbusive);
+
+        return $this->view(['detail' => 'report archived'], Response::HTTP_OK);
+    }
+
+    /**
+     * Get reportable players for a Daedalus.
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Get(path="/reportable")
+     */
+    public function getReportablePlayerAction(): View
+    {
+        $userPlayer = $this->getUserCurrentPlayerUseCase->execute($this->getRequestUser());
+
+        $daedalus = $userPlayer->getDaedalus();
+
+        return $this->view(
+            $daedalus->getPlayers()->getAllExcept($userPlayer),
+            Response::HTTP_OK
+        );
+    }
+
+    /**
+     * Get user active sanctions.
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The user id",
+     *
+     *       @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Tag(name="moderationSanction")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Get(path="/{id}/active-bans-and-warnings")
+     *
+     * @Rest\View()
+     *
+     * @IsGranted("IS_REQUEST_USER", subject="user", message="You cannot access other player's sanctions!")
+     */
+    public function getUserActiveBansAndWarnings(User $user): View
+    {
+        $warnings = $this->moderationSanctionRepository->findAllUserActiveBansAndWarnings($user);
+
+        return $this->view($warnings, Response::HTTP_OK);
+    }
+
     private function denyAccessIfNotModerator(): void
     {
         $moderator = $this->getUser();
@@ -485,5 +794,15 @@ final class ModerationController extends AbstractFOSRestController
         if (!$moderator->isModerator()) {
             throw new HttpException(Response::HTTP_FORBIDDEN, 'Only moderators can use this endpoint!');
         }
+    }
+
+    private function getRequestUser(): User
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
+        }
+
+        return $user;
     }
 }

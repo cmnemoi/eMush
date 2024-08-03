@@ -5,6 +5,44 @@
             :action="currentAction"
             @close="closeModerationDialog"
             @submit-sanction="applySanction" />
+
+        <SanctionDetailPage
+            :is-open="showDetailPopup"
+            :moderation-sanction="selectedSanction"
+            @close="showDetailPopup = false"
+            @update="closeDetailAndUpdate"
+        />
+
+        <h2 class="sanction_heading">{{ $t('moderation.reportToAddress') }}</h2>
+        <Datatable
+            :headers='reportFields'
+            :row-data="playerReports"
+            :pagination="reportPagination"
+            @pagination-click="paginationClick"
+        >
+            <template #header-evidence>
+                {{ $t('moderation.sanctionDetail.evidence') }}
+            </template>
+            <template #row-evidence="report">
+                {{ report.sanctionEvidence.message }}
+                <button
+                    class="action-button"
+                    @click="goToSanctionEvidence(report)">
+                    {{ $t('moderation.report.seeContext') }}
+                </button>
+            </template>
+            <template #header-actions>
+                Actions
+            </template>
+            <template #row-actions="report">
+                <DropList class="align-right">
+                    <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.report') }}</button>
+                    <button class="action-button" @click="archiveReport(report.id)">{{ $t('moderation.actions.archive') }}</button>
+                    <button class="action-button" @click="closeReport(report.id)">{{ $t('moderation.actions.close') }}</button>
+                </DropList>
+            </template>
+        </Datatable>
+
         <div class="flex-row">
             <Tippy
                 tag="button"
@@ -53,33 +91,33 @@
             </button>
             <Tippy tag="button" class="action-button" @click="loadData()">
                 {{ $t('moderation.reloadData') }}
-
                 <template #content>
                     <h1>{{ $t("moderation.reloadData") }}</h1>
                     <p>{{ $t("moderation.reloadDataDescription") }}</p>
                 </template>
             </Tippy>
         </div>
+
         <span>{{ player.character.name }} - {{ $t('moderation.player.playedBy') }} {{ player.user.username }}  - {{ player.isMush ? $t('moderation.player.mush') : $t('moderation.player.human') }} - {{ player.isAlive ? $t('moderation.player.alive') : $t('moderation.player.dead') }} - {{ player.user.isBanned ? $t('moderation.player.banned') : $t('moderation.player.notBanned') }}</span>
         <div class="flex-row">
             <label>{{ $t('moderation.filters.day') }} :
                 <input
                     type="search"
-                    v-model="logsDay"
+                    v-model="filters.logs.day"
                     @change="loadLogs(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.cycle') }} :
                 <input
                     type="search"
-                    v-model="logsCycle"
+                    v-model="filters.logs.cycle"
                     @change="loadLogs(player)"
                 >
             </label>
             <Tippy tag="label">{{ $t('moderation.filters.logContent') }} :
                 <input
                     type="search"
-                    v-model="logsContent"
+                    v-model="filters.logs.content"
                     @change="loadLogs(player)"
                 >
                 <template #content>
@@ -90,7 +128,7 @@
             <Tippy tag="label">{{ $t('moderation.filters.room') }} :
                 <input
                     type="search"
-                    v-model="logsRoom"
+                    v-model="filters.logs.room"
                     @change="loadLogs(player)"
                 >
                 <template #content>
@@ -99,7 +137,7 @@
                 </template>
             </Tippy>
         </div>
-        <div class="logs-container">
+        <div class="logs-container" ref="logsContainer">
             <h2>{{ $t('moderation.logs') }}</h2>
             <div class="logs" v-if="playerLogs">
                 <section v-for="(cycleRoomLog, id) in playerLogs.slice().reverse()" :key="id">
@@ -117,28 +155,28 @@
             <label>{{ $t('moderation.filters.startDate') }} :
                 <input
                     type="search"
-                    v-model="generalChannelStartDateFilter"
+                    v-model="filters.generalChannel.startDate"
                     @change="loadPublicChannelMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.endDate') }} :
                 <input
                     type="search"
-                    v-model="generalChannelEndDateFilter"
+                    v-model="filters.generalChannel.endDate"
                     @change="loadPublicChannelMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.messageAuthor') }} :
                 <input
                     type="search"
-                    v-model="generalChannelAuthorFilter"
+                    v-model="filters.generalChannel.author"
                     @change="loadPublicChannelMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.messageContent') }} :
                 <input
                     type="search"
-                    v-model="generalChannelMessageFilter"
+                    v-model="filters.generalChannel.messageContent"
                     @change="loadPublicChannelMessages(player)"
                 >
             </label>
@@ -175,28 +213,28 @@
             <label>{{ $t('moderation.filters.startDate') }} :
                 <input
                     type="search"
-                    v-model="mushChannelStartDateFilter"
+                    v-model="filters.mushChannel.startDate"
                     @change="loadMushChannelMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.endDate') }} :
                 <input
                     type="search"
-                    v-model="mushChannelEndDateFilter"
+                    v-model="filters.mushChannel.endDate"
                     @change="loadMushChannelMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.messageAuthor') }} :
                 <input
                     type="search"
-                    v-model="mushChannelAuthorFilter"
+                    v-model="filters.mushChannel.author"
                     @change="loadMushChannelMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.messageContent') }} :
                 <input
                     type="search"
-                    v-model="mushChannelMessageFilter"
+                    v-model="filters.mushChannel.messageContent"
                     @change="loadMushChannelMessages(player)"
                 >
             </label>
@@ -219,28 +257,28 @@
             <label>{{ $t('moderation.filters.startDate') }} :
                 <input
                     type="search"
-                    v-model="privateChannelStartDateFilter"
+                    v-model="filters.privateChannel.startDate"
                     @change="loadPrivateChannelsMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.endDate') }} :
                 <input
                     type="search"
-                    v-model="privateChannelEndDateFilter"
+                    v-model="filters.privateChannel.endDate"
                     @change="loadPrivateChannelsMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.messageAuthor') }} :
                 <input
                     type="search"
-                    v-model="privateChannelAuthorFilter"
+                    v-model="filters.privateChannel.author"
                     @change="loadPrivateChannelsMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.messageContent') }} :
                 <input
                     type="search"
-                    v-model="privateChannelMessageFilter"
+                    v-model="filters.privateChannel.messageContent"
                     @change="loadPrivateChannelsMessages(player)"
                 >
             </label>
@@ -272,6 +310,16 @@ import ModerationService from "@/services/moderation.service";
 import { Message as MessageEntity } from "@/entities/Message";
 import { Channel } from "@/entities/Channel";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
+import Datatable from "@/components/Utils/Datatable/Datatable.vue";
+import qs from "qs";
+import ApiService from "@/services/api.service";
+import urlJoin from "url-join";
+import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
+import DropList from "@/components/Utils/DropList.vue";
+import { ModerationSanction } from "@/entities/ModerationSanction";
+import { useRouter } from "vue-router";
+import { ClosedPlayer } from "@/entities/ClosedPlayer";
+import router from "@/router";
 
 interface PrivateChannel {
     id: number,
@@ -279,22 +327,32 @@ interface PrivateChannel {
 }
 
 interface ModerationViewPlayerData {
-    logsContent: string,
-    logsDay: integer | null,
-    logsCycle: integer | null,
-    logsRoom: string,
-    generalChannelAuthorFilter: string,
-    generalChannelMessageFilter: string,
-    generalChannelStartDateFilter: string,
-    generalChannelEndDateFilter: string,
-    mushChannelAuthorFilter: string,
-    mushChannelMessageFilter: string,
-    mushChannelStartDateFilter: string,
-    mushChannelEndDateFilter: string,
-    privateChannelAuthorFilter: string,
-    privateChannelMessageFilter: string,
-    privateChannelStartDateFilter: string,
-    privateChannelEndDateFilter: string,
+    filters: {
+        logs: {
+            content: string,
+            day: integer | null,
+            cycle: integer | null,
+            room: string,
+        },
+        generalChannel: {
+            author: string,
+            messageContent: string,
+            startDate: string,
+            endDate: string,
+        },
+        mushChannel: {
+            author: string,
+            messageContent: string,
+            startDate: string,
+            endDate: string,
+        },
+        privateChannel: {
+            author: string,
+            messageContent: string,
+            startDate: string,
+            endDate: string,
+        }
+    },
     mushChannelMessages: MessageEntity[],
     publicChannelMessages: MessageEntity[],
     player: ModerationViewPlayer | null,
@@ -302,34 +360,49 @@ interface ModerationViewPlayerData {
     privateChannels: PrivateChannel[],
     errors: any,
     moderationDialogVisible: boolean,
-    currentAction: { key: string, value: string }
+    currentAction: { key: string, value: string },
+    showDetailPopup: boolean,
+    selectedSanction: any
 }
 
 export default defineComponent({
     name: "ModerationViewPlayerDetail",
     components: {
+        DropList,
+        SanctionDetailPage,
+        Datatable,
         Log,
         Message,
         ModerationActionPopup
     },
     data() : ModerationViewPlayerData {
         return {
-            logsContent: "",
-            logsDay: null,
-            logsCycle: null,
-            logsRoom: "",
-            generalChannelAuthorFilter: "",
-            generalChannelMessageFilter: "",
-            generalChannelStartDateFilter: "",
-            generalChannelEndDateFilter: new Date().toISOString(),
-            mushChannelAuthorFilter: "",
-            mushChannelMessageFilter: "",
-            mushChannelStartDateFilter: "",
-            mushChannelEndDateFilter: new Date().toISOString(),
-            privateChannelAuthorFilter: "",
-            privateChannelMessageFilter: "",
-            privateChannelStartDateFilter: "",
-            privateChannelEndDateFilter: new Date().toISOString(),
+            filters: {
+                logs: {
+                    content: "",
+                    day: null,
+                    cycle: null,
+                    room: ""
+                },
+                generalChannel: {
+                    author: "",
+                    messageContent: "",
+                    startDate: "",
+                    endDate: new Date().toISOString()
+                },
+                mushChannel: {
+                    author: "",
+                    messageContent: "",
+                    startDate: "",
+                    endDate: new Date().toISOString()
+                },
+                privateChannel: {
+                    author: "",
+                    messageContent: "",
+                    startDate: "",
+                    endDate: new Date().toISOString()
+                }
+            },
             mushChannelMessages: [],
             publicChannelMessages: [],
             player: null,
@@ -337,7 +410,37 @@ export default defineComponent({
             privateChannels: [],
             errors: {},
             moderationDialogVisible: false,
-            currentAction: { key: "", value: "" }
+            currentAction: { key: "", value: "" },
+            playerReports: [],
+            reportPagination: {
+                currentPage: 1,
+                pageSize: 5,
+                totalItem: 1,
+                totalPage: 1
+            },
+            reportFields: [
+                {
+                    key: 'reason',
+                    name: 'moderation.sanctionReason'
+                },
+                {
+                    key: 'message',
+                    name: 'moderation.report.playerMessage'
+                },
+                {
+                    key: 'evidence',
+                    name: 'moderation.sanctionDetail.evidence',
+                    slot: true
+                },
+                {
+                    key: 'actions',
+                    name: 'Actions',
+                    sortable: false,
+                    slot: true
+                }
+            ],
+            showDetailPopup: false,
+            selectedSanction: {}
         };
     },
     methods: {
@@ -348,48 +451,59 @@ export default defineComponent({
         closeModerationDialog() {
             this.moderationDialogVisible = false;
         },
+        showSanctionDetails(sanction: any) {
+            this.selectedSanction = sanction;
+            this.showDetailPopup = true;
+        },
         applySanction(params: URLSearchParams) {
             if (this.player === null) {
                 return;
             }
 
-            if (this.currentAction.value === 'quarantine_player' || this.currentAction.value === 'quarantine_ban') {
-                ModerationService.quarantinePlayer(this.player.id, params)
-                    .then(() => {
-                        this.loadData();
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            }
-            if (this.currentAction.value === 'ban_user' || this.currentAction.value === 'quarantine_ban') {
-                ModerationService.banUser(this.player.user.id, params)
-                    .then(() => {
-                        this.loadData();
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            }
-            if (this.currentAction.value === 'warning') {
-                ModerationService.warnUser(this.player.user.id, params)
-                    .then(() => {
-                        this.loadData();
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            }
+            ModerationService.applySanctionToPlayer(this.player, this.currentAction.value, params)
+                .then(() => {
+                    this.loadData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+
             this.moderationDialogVisible = false;
         },
+        archiveReport(sanctionId) {
+            const params = new URLSearchParams();
+            params.append('isAbusive', false);
+
+            ModerationService.archiveReport(sanctionId, params)
+                .catch((error) => {
+                    console.error(error);
+                });
+            this.$emit('close');
+            this.loadData();
+        },
+        closeReport(sanctionId) {
+            const params = new URLSearchParams();
+            params.append('isAbusive', true);
+
+            ModerationService.archiveReport(sanctionId, params)
+                .catch((error) => {
+                    console.error(error);
+                });
+            this.$emit('close');
+            this.loadData();
+        },
+        closeDetailAndUpdate() {
+            this.showDetailPopup = false;
+            this.loadData();
+        },
         async loadLogs(player: ModerationViewPlayer) {
-            if (this.logsDay === null) {
-                this.logsDay = player.daedalusDay;
+            if (this.filters.logs.day === null) {
+                this.filters.logs.day = player.daedalusDay;
             }
-            if (this.logsCycle === null) {
-                this.logsCycle = player.daedalusCycle;
+            if (this.filters.logs.cycle === null) {
+                this.filters.logs.cycle = player.daedalusCycle;
             }
-            await ModerationService.getPlayerLogs(player.id, this.logsDay, this.logsCycle, this.logsContent, this.logsRoom)
+            await ModerationService.getPlayerLogs(player.id, this.filters.logs.day, this.filters.logs.cycle, this.filters.logs.content, this.filters.logs.room)
                 .then((response) => {
                     this.playerLogs = response.data;
                 })
@@ -406,7 +520,7 @@ export default defineComponent({
             });
 
             if (mushChannel) {
-                await ModerationService.getChannelMessages(mushChannel, this.mushChannelStartDateFilter, this.mushChannelEndDateFilter, this.mushChannelMessageFilter, this.mushChannelAuthorFilter)
+                await ModerationService.getChannelMessages(mushChannel, this.filters.mushChannel)
                     .then((response) => {
                         this.mushChannelMessages = response;
                     })
@@ -419,7 +533,7 @@ export default defineComponent({
             this.privateChannels = [];
             await ModerationService.getPlayerPrivateChannels(player).then((channels: Channel[]) => {
                 channels.forEach((channel) => {
-                    ModerationService.getChannelMessages(channel, this.privateChannelStartDateFilter, this.privateChannelEndDateFilter, this.privateChannelMessageFilter, this.privateChannelAuthorFilter)
+                    ModerationService.getChannelMessages(channel, this.filters.privateChannel)
                         .then((response) => {
                             this.privateChannels.push({ id: channel.id, messages: response });
                         })
@@ -440,7 +554,7 @@ export default defineComponent({
             });
 
             if (publicChannel) {
-                await ModerationService.getChannelMessages(publicChannel, this.generalChannelStartDateFilter, this.generalChannelEndDateFilter, this.generalChannelMessageFilter, this.generalChannelAuthorFilter)
+                await ModerationService.getChannelMessages(publicChannel, this.filters.generalChannel)
                     .then((response) => {
                         this.publicChannelMessages = response;
                     })
@@ -448,6 +562,36 @@ export default defineComponent({
                         console.error(error);
                     });
             }
+        },
+        async loadPlayerReports() {
+            const params: any = {
+                header: {
+                    'accept': 'application/ld+json'
+                },
+                params: {},
+                paramsSerializer: qs.stringify
+            };
+            params.params['moderationAction'] = 'report';
+            params.params['user.userId'] = this.player.user.userId;
+
+            if (this.reportPagination.currentPage) {
+                params.params['page'] = this.reportPagination.currentPage;
+            }
+            if (this.reportPagination.pageSize) {
+                params.params['itemsPerPage'] = this.reportPagination.pageSize;
+            }
+
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params)
+                .then((result) => {
+                    return result.data;
+                })
+                .then((remoteRowData: any) => {
+                    this.playerReports = remoteRowData['hydra:member'].map((reportData: object) => {
+                        return (new ModerationSanction()).load(reportData);
+                    });
+                    this.reportPagination.totalItem = remoteRowData['hydra:totalItems'];
+                    this.reportPagination.totalPage = this.reportPagination.totalItem / this.reportPagination.pageSize;
+                });
         },
         goBack() {
             this.$router.go(-1);
@@ -467,6 +611,7 @@ export default defineComponent({
                 await this.loadPublicChannelMessages(this.player);
                 await this.loadMushChannelMessages(this.player);
                 await this.loadPrivateChannelsMessages(this.player);
+                await this.loadPlayerReports();
             }
         },
         getDateMinusOneDay(date: Date) {
@@ -484,6 +629,61 @@ export default defineComponent({
                 this.mushChannelStartDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
                 this.generalChannelStartDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
                 this.privateChannelStartDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
+            }
+        },
+        paginationClick(page: number) {
+            this.pagination.currentPage = page;
+            this.loadData();
+        },
+        getClosedDaedalusId(closedPlayerId: number): Promise<number>
+        {
+            const closedPlayer = new ClosedPlayer();
+            try {
+                const result = ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'closed_players', String(closedPlayerId)));
+                closedPlayer.load(result.data);
+                return closedPlayer.closedDaedalusId;
+            } catch (error) {
+                throw error;
+            }
+        },
+        async goToSanctionEvidence(sanction: any)
+        {
+            const sanctionEvidence = sanction.sanctionEvidence;
+            const evidenceClass = sanctionEvidence.className;
+
+            if (
+                evidenceClass === 'message'
+                || evidenceClass === 'roomLog'
+            ) {
+                const startDate = new Date(sanctionEvidence.date.getTime() - 30*60000).toISOString();
+                const endDate = new Date(sanctionEvidence.date.getTime() + 30*60000).toISOString();
+
+                this.filters.logs.cycle = sanctionEvidence.cycle;
+                this.filters.logs.day = sanctionEvidence.day;
+                this.filters.privateChannel.startDate = startDate;
+                this.filters.privateChannel.endDate = endDate;
+                this.filters.mushChannel.startDate = startDate;
+                this.filters.mushChannel.endDate = endDate;
+                this.filters.generalChannel.startDate = startDate;
+                this.filters.generalChannel.endDate = endDate;
+
+                await Promise.all([
+                    this.loadLogs(this.player),
+                    this.loadPublicChannelMessages(this.player),
+                    this.loadMushChannelMessages(this.player),
+                    this.loadPrivateChannelsMessages(this.player)
+                ]);
+
+                this.$nextTick(() => {
+                    const logsContainer = this.$refs.logsContainer as HTMLElement;
+                    if (logsContainer) {
+                        logsContainer.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+
+            } else if (evidenceClass === 'closedPlayer') {
+                const closedDaedalusId = this.getClosedDaedalusId(sanctionEvidence.id);
+                router.push({ name: 'TheEnd', params: { closedDaedalusId } });
             }
         }
     },

@@ -45,6 +45,14 @@ final class ModerationServiceTest extends TestCase
         );
     }
 
+    /**
+     * @after
+     */
+    public function after()
+    {
+        \Mockery::close();
+    }
+
     public function testBan()
     {
         $user = new User();
@@ -52,7 +60,12 @@ final class ModerationServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->twice();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->banUser($user, new \DateInterval('P1D'), 'reason', 'adminMessage');
+        $this->service->banUser(
+            user: $user,
+            author: new User(),
+            reason: 'reason',
+            message: 'adminMessage',
+        );
 
         self::assertCount(1, $user->getModerationSanctions());
         self::assertTrue($user->isBanned());
@@ -65,7 +78,13 @@ final class ModerationServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->twice();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->banUser($user, null, 'reason', 'adminMessage');
+        $this->service->banUser(
+            user: $user,
+            author: new User(),
+            duration: null,
+            reason: 'reason',
+            message: 'adminMessage'
+        );
 
         self::assertCount(1, $user->getModerationSanctions());
         self::assertTrue($user->isBanned());

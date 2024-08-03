@@ -36,7 +36,7 @@ final class DaedalusFactory
         self::createSpacePlace($daedalus);
         self::createLaboratoryPlace($daedalus);
         self::createMycoscanEquipment($daedalus);
-        self::setId($daedalus);
+        self::setupId($daedalus);
 
         $gameConfig->setDifficultyConfig(self::getDifficultyConfig());
 
@@ -51,7 +51,7 @@ final class DaedalusFactory
             ->setType(PlaceTypeEnum::SPACE)
             ->setDaedalus($daedalus);
 
-        (new \ReflectionProperty($space, 'id'))->setValue($space, random_int(1, PHP_INT_MAX));
+        (new \ReflectionProperty($space, 'id'))->setValue($space, (int) hash('crc32b', serialize($space)));
     }
 
     private static function createLaboratoryPlace(Daedalus $daedalus): void
@@ -62,7 +62,7 @@ final class DaedalusFactory
             ->setType(PlaceTypeEnum::ROOM)
             ->setDaedalus($daedalus);
 
-        (new \ReflectionProperty($laboratory, 'id'))->setValue($laboratory, random_int(1, PHP_INT_MAX));
+        (new \ReflectionProperty($laboratory, 'id'))->setValue($laboratory, (int) hash('crc32b', serialize($laboratory)));
     }
 
     private static function createMycoscanEquipment(Daedalus $daedalus): void
@@ -92,9 +92,8 @@ final class DaedalusFactory
         return $difficultyConfig;
     }
 
-    private static function setId(Daedalus $daedalus, int $id = 1): void
+    private static function setupId(Daedalus $daedalus): void
     {
-        $daedalusReflection = new \ReflectionClass($daedalus);
-        $daedalusReflection->getProperty('id')->setValue($daedalus, $id);
+        (new \ReflectionProperty($daedalus, 'id'))->setValue($daedalus, random_int(1, PHP_INT_MAX));
     }
 }

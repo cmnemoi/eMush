@@ -36,7 +36,7 @@ class ModerationRoomLogNormalizer implements NormalizerInterface
                 $language
             )} ({$roomLog->getLog()})",
             'visibility' => $roomLog->getVisibility(),
-            'date' => $roomLog->getDate()->format('d/m/Y H:i'),
+            'date' => $roomLog->getCreatedAt()?->format('d/m/Y H:i'),
             'place' => "{$this->translationService->translate(
                 $roomLog->getPlace() . '.name',
                 [],

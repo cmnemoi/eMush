@@ -2,6 +2,10 @@ Mush\MetaGame\Entity\ModerationSanction:
   attributes:                          # optional
     id:
       groups: [ 'moderation_sanction_read' ]
+    username:
+      groups: [ 'moderation_sanction_read' ]
+    userId:
+      groups: [ 'moderation_sanction_read' ]
     moderationAction:
       groups: [ 'moderation_sanction_read' ]
     reason:
@@ -10,7 +14,17 @@ Mush\MetaGame\Entity\ModerationSanction:
       groups: [ 'moderation_sanction_read' ]
     isActive:
       groups: [ 'moderation_sanction_read' ]
+    isReport:
+      groups: [ 'moderation_sanction_read' ]
     startDate:
       groups: [ 'moderation_sanction_read' ]
     endDate:
+      groups: [ 'moderation_sanction_read' ]
+    authorName:
+      groups: [ 'moderation_sanction_read' ]
+    playerId:
+      groups: [ 'moderation_sanction_read' ]
+    playerName:
+      groups: [ 'moderation_sanction_read' ]
+    sanctionEvidenceArray:
       groups: [ 'moderation_sanction_read' ]

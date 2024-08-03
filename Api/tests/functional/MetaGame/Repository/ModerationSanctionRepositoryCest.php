@@ -36,6 +36,7 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         // given Chun's user is warned
         $this->moderationService->warnUser(
             user: $this->chun->getUser(),
+            author: $this->kuanTi->getUser(),
             duration: new \DateInterval('P1D'),
             reason: 'flood',
             message: 'hello, world!',
@@ -45,6 +46,7 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         // given Chun's user is banned
         $this->moderationService->banUser(
             user: $this->chun->getUser(),
+            author: $this->kuanTi->getUser(),
             duration: new \DateInterval('P1D'),
             reason: 'flood',
             message: 'hello, world!',
@@ -54,6 +56,7 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         // given Chun is put in quarantine
         $this->moderationService->quarantinePlayer(
             player: $this->chun,
+            author: $this->kuanTi->getUser(),
             reason: 'flood',
             message: 'hello, world!',
         );
@@ -77,6 +80,7 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         // given KT's user is warned
         $this->moderationService->warnUser(
             user: $this->kuanTi->getUser(),
+            author: $this->kuanTi->getUser(),
             duration: new \DateInterval('P1D'),
             reason: 'flood',
             message: 'hello, world!',
@@ -97,6 +101,7 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         // given Chun's user is warned
         $this->moderationService->warnUser(
             user: $this->chun->getUser(),
+            author: $this->kuanTi->getUser(),
             duration: new \DateInterval('PT1S'),
             reason: 'flood',
             message: 'hello, world!',

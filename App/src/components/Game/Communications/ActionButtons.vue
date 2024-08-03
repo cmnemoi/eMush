@@ -28,7 +28,7 @@ const availableActions: {[index: string]: any} = {
     leave: { icon: getImgUrl('comms/close.png'), wording: 'game.communications.leave', description: 'game.communications.leaveDescription' },
     refresh: { icon: getImgUrl('comms/refresh.gif'), wording: 'game.communications.refresh', description: 'game.communications.refreshDescription' },
     reply: { icon: getImgUrl('comms/reply.png'), wording: 'game.communications.reply', description: 'game.communications.replyDescription' },
-    report: { icon: getImgUrl('comms/alert.png'), wording: 'moderation.report', description: 'moderation.reportDescription' },
+    report: { icon: getImgUrl('comms/alert.png'), wording: 'moderation.report.name', description: 'moderation.report.description' },
     delete: { icon: getImgUrl('bin.png'), wording: 'moderation.sanction.delete_message', description: 'moderation.sanction.deleteDescription' }
 };
 

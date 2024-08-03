@@ -191,7 +191,7 @@ services:
         public: false
     moderationSanction.boolean_filter:
         parent: 'api_platform.doctrine.orm.boolean_filter'
-        arguments: [ { isActive: ~ } ]
+        arguments: [ { isActive: ~, isReport:  ~ } ]
         tags: [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false

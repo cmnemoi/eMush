@@ -9,7 +9,7 @@
             </div>
             <div class="content">
                 <h1 v-if="title">
-                    {{ title }}
+                    {{ content }}
                 </h1>
                 <button class="modal-close" @click="close">
                     {{ $t('game.popUp.close') }}
@@ -32,7 +32,10 @@ export default defineComponent ({
             isOpen: 'toast/isOpen',
             title: 'toast/title',
             type: 'toast/type'
-        })
+        }),
+        content() {
+            return this.$t(`apiResponse.${this.title}`) !== `apiResponse.${this.title}` ? this.$t(`apiResponse.${this.title}`) : this.title;
+        }
     },
     methods: {
         ...mapActions({

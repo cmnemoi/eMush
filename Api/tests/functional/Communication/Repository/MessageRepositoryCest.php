@@ -87,7 +87,8 @@ class MessageRepositoryCest
         $message1
             ->setCreatedAt($time1)
             ->setChannel($channel1)
-            ->setMessage('message');
+            ->setMessage('message')
+            ->setDay(1)->setCycle(1);
         $I->haveInRepository($message1);
 
         $time2 = new \DateTime();
@@ -96,14 +97,16 @@ class MessageRepositoryCest
         $message2
             ->setCreatedAt($time2)
             ->setChannel($channel1)
-            ->setMessage('message');
+            ->setMessage('message')
+            ->setDay(1)->setCycle(1);
         $I->haveInRepository($message2);
 
         $message3 = new Message();
         $message3
             ->setCreatedAt($time2)
             ->setChannel($channel2)
-            ->setMessage('message');
+            ->setMessage('message')
+            ->setDay(1)->setCycle(1);
         $I->haveInRepository($message3);
 
         // No time constraint
@@ -170,7 +173,8 @@ class MessageRepositoryCest
         $message1
             ->setCreatedAt($currentTime)
             ->setChannel($channel1)
-            ->setMessage('message1');
+            ->setMessage('message1')
+            ->setDay(1)->setCycle(1);
         $I->haveInRepository($message1);
 
         $message2 = new Message();
@@ -178,7 +182,8 @@ class MessageRepositoryCest
             ->setCreatedAt($currentTime)
             ->setChannel($channel1)
             ->setMessage('message2')
-            ->setParent($message1);
+            ->setParent($message1)
+            ->setDay(1)->setCycle(1);
         $I->haveInRepository($message2);
 
         $result = $this->messageRepository->findByChannel($channel1);

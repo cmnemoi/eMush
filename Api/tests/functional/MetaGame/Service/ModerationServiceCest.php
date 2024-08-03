@@ -22,9 +22,14 @@ final class ModerationServiceCest extends AbstractFunctionalTest
     public function testBan(FunctionalTester $I): void
     {
         $user = $this->player1->getUser();
-        $this->moderationService->banUser($user, new \DateInterval('P1D'), 'because', 'adminMessage');
+        $this->moderationService->banUser(
+            user: $user,
+            author: $this->player2->getUser(),
+            reason: 'because',
+            message: 'adminMessage',
+            duration: new \DateInterval('P1D'),
+        );
 
-        $I->refreshEntities($user);
         $I->assertTrue($user->isBanned());
     }
 }

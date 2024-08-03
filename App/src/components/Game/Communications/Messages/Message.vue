@@ -3,7 +3,14 @@
         :moderation-dialog-visible="moderationDialogVisible"
         :action="{ key: 'moderation.sanction.delete_message', value: 'delete_message' }"
         @close="closeModerationDialog"
-        @submit-sanction="deleteMessage" />
+        @submit-sanction="deleteMessage"
+    />
+    <ReportPopup
+        :report-dialog-visible="reportPopupVisible"
+        :select-player="true"
+        @close=closeReportDialog
+        @submit-report=submitComplaint
+    />
     <div
         v-if="isRoot && !isSystemMessage"
         :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
@@ -11,7 +18,7 @@
         @mouseover="read(message)"
     >
         <div class="character-body">
-            <img :src="characterPortrait">
+            <img :src="characterPortrait" alt="Character image">
         </div>
         <p :class="['text', { unread: message.isUnread, read: !message.isUnread }]">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
@@ -19,22 +26,23 @@
         </p>
         <div class="actions" @click.stop>
             <ActionButtons
-                v-if="isPlayerAlive && isReplyable && !channel.isFavorite()"
-                :actions="['reply', 'favorite', 'report']"
+                v-if="isPlayerAlive"
+                :actions="['reply']"
                 @reply="$emit('reply')"
-                @favorite="favorite(message)"
-                @report="openReportPopup()"
             />
             <ActionButtons
-                v-if="isPlayerAlive && isReplyable && channel.isFavorite()"
-                :actions="['reply', 'unfavorite', 'report']"
-                @reply="$emit('reply')"
-                @unfavorite="unfavorite(message)"
-                @report="openReportPopup()"
+                v-if="isPlayerAlive"
+                :actions="channel.isFavorite() ? ['unfavorite'] : ['favorite']"
+                @favorite="favorite(message)"
+            />
+            <ActionButtons
+                v-if="isPlayerAlive"
+                :actions="['report']"
+                @report=openReportDialog
             />
             <ActionButtons
                 v-if="adminMode"
-                :actions="['delete']"
+                :actions="['delete', 'report']"
                 @delete="openModerationDialog('delete_message')"
             />
         </div>
@@ -57,7 +65,7 @@
         @mouseover="read(message)"
     >
         <p :class="['text', { unread: message.isUnread }]">
-            <img class="character-head" :src="characterPortrait">
+            <img class="character-head" :src="characterPortrait" alt="Character portrait">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
@@ -67,14 +75,13 @@
                 :actions="['reply', 'favorite', 'report']"
                 @reply="$emit('reply')"
                 @favorite="favorite(message)"
-                @report="openReportPopup()"
             />
             <ActionButtons
                 v-if="isPlayerAlive && isReplyable && channel.isFavorite()"
                 :actions="['reply', 'unfavorite', 'report']"
                 @reply="$emit('reply')"
                 @unfavorite="unfavorite(message)"
-                @report="openReportPopup()"
+                @report=openReportDialog
             />
             <ActionButtons
                 v-if="adminMode"
@@ -96,16 +103,19 @@ import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
+import ReportPopup from "@/components/Moderation/ReportPopup.vue";
 
 export default defineComponent ({
     name: "Message",
     components: {
         ActionButtons,
-        ModerationActionPopup
+        ModerationActionPopup,
+        ReportPopup
     },
     data() {
         return {
-            moderationDialogVisible: false
+            moderationDialogVisible: false,
+            reportPopupVisible: false
         };
     },
     props: {
@@ -167,13 +177,13 @@ export default defineComponent ({
             readMessage: 'communication/readMessage',
             releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
             unfavoriteMessage: 'communication/unfavoriteMessage',
-            openReportPopup: 'popup/openReportPopup'
+            loadReportablePlayers: 'moderation/loadReportablePlayers',
+            reportMessage: 'moderation/reportMessage'
         }),
         formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
         },
         formatMessage(value: string): string {
-            if (! value) return '';
             return formatText(value.toString());
         },
         deleteMessage(params: any) {
@@ -188,6 +198,17 @@ export default defineComponent ({
         },
         closeModerationDialog() {
             this.moderationDialogVisible = false;
+        },
+        openReportDialog() {
+            this.reportPopupVisible = true;
+            this.loadReportablePlayers();
+        },
+        closeReportDialog() {
+            this.reportPopupVisible = false;
+        },
+        async submitComplaint(params: URLSearchParams) {
+            await this.reportMessage({ messageId: this.message.id, params: params });
+            this.reportPopupVisible = false;
         },
         async read(message: Message) {
             if (message.isUnread && !this.readMessageMutex) {

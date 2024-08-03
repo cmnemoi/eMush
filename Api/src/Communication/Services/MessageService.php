@@ -39,7 +39,9 @@ class MessageService implements MessageServiceInterface
             ->setChannel($createMessage->getChannel())
             ->setMessage($messageContent)
             ->setParent($createMessage->getParent())
-            ->addReader($player);
+            ->addReader($player)
+            ->setCycle($player->getDaedalus()->getCycle())
+            ->setDay($player->getDaedalus()->getDay());
 
         $rootMessage = $createMessage->getParent();
         if ($rootMessage) {
@@ -76,13 +78,25 @@ class MessageService implements MessageServiceInterface
         array $parameters,
         \DateTime $dateTime,
     ): Message {
+        $daedalusInfo = $channel->getDaedalusInfo();
+        $daedalus = $daedalusInfo->getDaedalus();
+        if ($daedalus) {
+            $day = $daedalus->getDay();
+            $cycle = $daedalus->getCycle();
+        } else {
+            $day = $daedalusInfo->getClosedDaedalus()->getEndDay();
+            $cycle = $daedalusInfo->getClosedDaedalus()->getEndCycle();
+        }
+
         $message = new Message();
         $message
             ->setChannel($channel)
             ->setMessage($messageKey)
             ->setTranslationParameters($parameters)
             ->setCreatedAt($dateTime)
-            ->setUpdatedAt($dateTime);
+            ->setUpdatedAt($dateTime)
+            ->setCycle($cycle)
+            ->setDay($day);
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();

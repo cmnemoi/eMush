@@ -23,8 +23,8 @@ export class PlayerInfo {
             if (typeof object.user !== "undefined") {
                 this.user = (new User()).load(object.user);
             }
-            if (typeof object.characterConfig !== "undefined") {
-                this.characterConfig = (new CharacterConfig()).load(object.characterConfig);
+            if (typeof object.character !== "undefined") {
+                this.characterConfig = (new CharacterConfig()).load(object.character);
             }
             this.daedalusId = object.daedalusId;
         }

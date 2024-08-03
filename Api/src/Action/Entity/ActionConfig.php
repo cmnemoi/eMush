@@ -79,10 +79,6 @@ class ActionConfig implements GameVariableHolderInterface
 
         $actionConfig->setVisibilities($configData['visibilities']);
 
-        if ($configData['actionPoint'] === 0) {
-            $actionConfig->setTypes(array_merge($actionConfig->getTypes(), [ActionTypeEnum::ACTION_ZERO_ACTION_COST]));
-        }
-
         return $actionConfig;
     }
 
@@ -374,10 +370,6 @@ class ActionConfig implements GameVariableHolderInterface
         }
 
         $this->setVisibilities($configData['visibilities']);
-
-        if ($configData['actionPoint'] === 0) {
-            $this->setTypes(array_merge($this->getTypes(), [ActionTypeEnum::ACTION_ZERO_ACTION_COST]));
-        }
 
         return $this;
     }

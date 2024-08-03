@@ -54,6 +54,7 @@ abstract class AbstractActionTest extends TestCase
 
         $this->actionService = \Mockery::mock(ActionServiceInterface::class);
         $this->actionService->shouldReceive('canPlayerDoAction')->andReturn(true);
+        $this->actionService->shouldIgnoreMissing();
 
         $this->validator = \Mockery::mock(ValidatorInterface::class);
         $this->validator->shouldReceive('validate')->andReturn(new ConstraintViolationList());

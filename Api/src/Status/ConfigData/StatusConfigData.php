@@ -364,6 +364,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [
                 'mute_modifier',
+                'prevent_spoken_actions',
             ],
             'actionConfigs' => ['ungag'],
         ],

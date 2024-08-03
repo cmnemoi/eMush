@@ -54,6 +54,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const PREVENT_PILOTING = 'prevent_piloting';
     public const PREVENT_SHOOT_ACTION = 'prevent_shoot_action';
     public const MUTE_MODIFIER = 'mute_modifier';
+    public const PREVENT_SPOKEN = 'prevent_spoken';
     public const SEPTICEMIA_ON_CYCLE_CHANGE = 'septicemia_on_cycle_change';
     public const SEPTICEMIA_ON_DIRTY_EVENT = 'septicemia_on_dirty_event';
     public const SEPTICEMIA_ON_POST_ACTION = 'septicemia_on_post_action';
@@ -304,6 +305,18 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($muteModifier);
+
+        $cannotSpeakModifier = new EventModifierConfig('prevent_spoken');
+        $cannotSpeakModifier
+            ->setTargetEvent(ActionEvent::PRE_ACTION)
+            ->setApplyWhenTargeted(false)
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
+            ->setTagConstraints([
+                ActionTypeEnum::ACTION_SPOKEN->value => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $manager->persist($cannotSpeakModifier);
 
         $dirtyRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
         $dirtyRequirement
@@ -558,6 +571,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::PREVENT_PILOTING, $preventPiloting);
         $this->addReference(self::PREVENT_SHOOT_ACTION, $preventShoot);
         $this->addReference(self::MUTE_MODIFIER, $muteModifier);
+        $this->addReference(self::PREVENT_SPOKEN, $cannotSpeakModifier);
         $this->addReference(self::SEPTICEMIA_ON_CYCLE_CHANGE, $septicemiaCycleChange);
         $this->addReference(self::SEPTICEMIA_ON_DIRTY_EVENT, $septicemiaOnDirty);
         $this->addReference(self::SEPTICEMIA_ON_POST_ACTION, $septicemiaPostAction);

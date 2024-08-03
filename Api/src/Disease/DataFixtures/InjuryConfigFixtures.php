@@ -105,6 +105,9 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var EventModifierConfig $mute */
         $mute = $this->getReference(InjuryModifierConfigFixtures::MUTE_MODIFIER);
 
+        /** @var EventModifierConfig $mutePreventSpokenAction */
+        $mutePreventSpokenAction = $this->getReference(InjuryModifierConfigFixtures::PREVENT_SPOKEN);
+
         /** @var EventModifierConfig $noPilotingActions */
         $noPilotingActions = $this->getReference(InjuryModifierConfigFixtures::PREVENT_PILOTING);
 
@@ -264,6 +267,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $mute,
+                $mutePreventSpokenAction,
             ])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($tornTongue);
@@ -337,6 +341,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $cycle2HealthLost,
                 $notMoveAction2Increase,
                 $mute,
+                $mutePreventSpokenAction,
             ])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($puncturedLung);

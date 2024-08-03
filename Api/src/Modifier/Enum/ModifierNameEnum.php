@@ -25,6 +25,8 @@ abstract class ModifierNameEnum
     public const string DOUBLE_HACK_CHANCE = 'double_hack_chance';
     public const string PLAYER_1_MORE_SECTION_REVEALED_ON_ANALYZE_PLANET = 'player_+1_sector_revealed_on_action_analyze_planet';
     public const string PLAYER_MINUS_1_ACTION_POINT_ON_SCAN = 'player_-1_action_point_on_scan';
+    public const string CREATIVE_MODIFIER = 'creative_modifier';
+    public const string PLAYER_PLUS_1_ACTION_POINT_ON_POST_ACTION_IF_FAILED = 'player_+1_action_point_on_post_action_if_failed';
 
     /** @TODO Rename that SKILL_POINT_SHOOTER */
     public const string SHOOTER_SKILL_POINT = 'shooter_skill_point';

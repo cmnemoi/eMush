@@ -6,7 +6,10 @@ namespace Mush\Modifier\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Game\ConfigData\EventConfigData;
+use Mush\Game\Entity\VariableEventConfig;
 use Mush\Modifier\ConfigData\ModifierConfigData;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
 
@@ -62,6 +65,18 @@ final class SkillModifierConfigFixtures extends Fixture
         );
         $this->addReference($modifierMinusOneActionPointOnScan->getName(), $modifierMinusOneActionPointOnScan);
         $manager->persist($modifierMinusOneActionPointOnScan);
+
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_1_ACTION_POINT);
+        $modifierForPlayerPlus1ActionPointOnPostActionIfSuccessful = TriggerEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINT_ON_POST_ACTION_IF_FAILED)
+        );
+        $modifierForPlayerPlus1ActionPointOnPostActionIfSuccessful
+            ->setTriggeredEvent($eventConfig)
+            ->setModifierActivationRequirements([]);
+
+        $this->addReference($modifierForPlayerPlus1ActionPointOnPostActionIfSuccessful->getName(), $modifierForPlayerPlus1ActionPointOnPostActionIfSuccessful);
+        $manager->persist($modifierForPlayerPlus1ActionPointOnPostActionIfSuccessful);
 
         $manager->flush();
     }

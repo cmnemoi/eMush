@@ -33,6 +33,12 @@ abstract class SkillConfigData
                 skillPointsConfig: SkillPointsEnum::CONCEPTOR_POINTS,
             ),
             new SkillConfigDto(
+                name: SkillEnum::CREATIVE,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINT_ON_POST_ACTION_IF_FAILED,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::FIREFIGHTER,
                 modifierConfigs: [
                     'modifier_for_player_always_success_extinguish',

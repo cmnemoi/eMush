@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Error;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
@@ -135,6 +136,10 @@ abstract class AbstractAction
         $this->applyEffect($result);
 
         $postActionEvent = new ActionEvent($this->actionConfig, $this->actionProvider, $this->player, $this->target);
+        if ($this->getActionPointCost() === 0) {
+            $postActionEvent->addTag(ActionTypeEnum::ACTION_ZERO_ACTION_COST->value);
+        }
+
         $postActionEvent->setActionResult($result);
 
         $this->eventService->callEvent($postActionEvent, ActionEvent::POST_ACTION);

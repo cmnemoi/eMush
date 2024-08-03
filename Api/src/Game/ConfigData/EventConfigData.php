@@ -12,6 +12,8 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 /** @codeCoverageIgnore */
 class EventConfigData
 {
+    public const string CHANGE_VARIABLE_PLAYER_PLUS_1_ACTION_POINT = 'change.variable_player_+1_actionPoint';
+
     public static array $variableEventConfigData = [
         [
             'type' => 'variable_event_config',
@@ -292,6 +294,14 @@ class EventConfigData
             'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
             'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
             'name' => 'change.value.max_player_+2_actionPoint',
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 1,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => self::CHANGE_VARIABLE_PLAYER_PLUS_1_ACTION_POINT,
         ],
     ];
 

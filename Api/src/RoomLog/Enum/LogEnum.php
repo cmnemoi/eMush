@@ -70,6 +70,7 @@ abstract class LogEnum
     public const string DRONE_REPAIRED_EQUIPMENT = 'drone_repaired_equipment';
     public const string FRUIT_TRANSPORTED = 'fruit_transported';
     public const string JUKEBOX_PLAYED = 'jukebox_played';
+    public const string CREATIVE_WORKED = 'creative_worked';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [
@@ -95,6 +96,7 @@ abstract class LogEnum
             ModifierNameEnum::RUN_IN_CIRCLES => VisibilityEnum::PUBLIC,
             ModifierNameEnum::LOST_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
+            ModifierNameEnum::CREATIVE_MODIFIER => VisibilityEnum::PRIVATE,
         ],
         self::VALUE => [
             ModifierNameEnum::MUSH_CONSUME => self::CONSUME_MUSH,
@@ -117,6 +119,7 @@ abstract class LogEnum
             ModifierNameEnum::RUN_IN_CIRCLES => self::RUN_IN_CIRCLES,
             ModifierNameEnum::LOST_MODIFIER => self::LOST_ON_PLANET,
             ModifierNameEnum::ANTISOCIAL_MODIFIER => self::ANTISOCIAL_MORALE_LOSS,
+            ModifierNameEnum::CREATIVE_MODIFIER => self::CREATIVE_WORKED,
         ],
     ];
 

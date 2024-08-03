@@ -22,6 +22,7 @@ enum ActionTypeEnum: string
     case ACTION_IT = 'action_it';
     case ACTION_COOK = 'action_cook';
     case ACTION_PILGRED = 'action_pilgred';
+    case ACTION_ZERO_ACTION_COST = 'action_zero_action_cost';
 
     public function toString(): string
     {

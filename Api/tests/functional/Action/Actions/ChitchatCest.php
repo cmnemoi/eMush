@@ -275,7 +275,7 @@ final class ChitchatCest extends AbstractFunctionalTest
     private function thenIShouldSeeAPrivateLogForConfidentWithPlayerActions(FunctionalTester $I): void
     {
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: "**Chun** vous raconte des dernières aventures et même si ça n'a pas l'air, on peut toujours apprendre quelque chose... Ses dernières actions sont Fouiller et Fouiller.",
+            expectedRoomLog: "**Chun** vous raconte des dernières aventures et même si ça n'a pas l'air, on peut toujours apprendre quelque chose... Ses dernières actions sont **Fouiller** et **Fouiller**.",
             actualRoomLogDto: new RoomLogDto(
                 player: $this->andie,
                 log: LogEnum::CONFIDENT_ACTIONS,
@@ -288,7 +288,7 @@ final class ChitchatCest extends AbstractFunctionalTest
     private function thenIShouldSeeOneActionRevealed(FunctionalTester $I): void
     {
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: "**Chun** vous raconte des dernières aventures et même si ça n'a pas l'air, on peut toujours apprendre quelque chose... Sa dernière action est Fouiller.",
+            expectedRoomLog: "**Chun** vous raconte des dernières aventures et même si ça n'a pas l'air, on peut toujours apprendre quelque chose... Sa dernière action est **Fouiller**.",
             actualRoomLogDto: new RoomLogDto(
                 player: $this->andie,
                 log: LogEnum::CONFIDENT_ACTIONS,

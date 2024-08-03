@@ -125,12 +125,13 @@ final class Chitchat extends AbstractAction
     {
         $actions = [];
         foreach ($this->player->getActionHistory(limit: $limit) as $action) {
-            $actions[] = $this->translationService->translate(
+            $translatedAction = $this->translationService->translate(
                 key: sprintf('%s.name', $action),
                 parameters: [],
                 domain: 'actions',
                 language: $this->player->getLanguage(),
             );
+            $actions[] = sprintf('**%s**', $translatedAction);
         }
 
         return $actions;

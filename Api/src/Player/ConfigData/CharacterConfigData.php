@@ -91,6 +91,7 @@ class CharacterConfigData
             'characterName' => 'chun',
             'skillConfigs' => [
                 SkillEnum::MANKIND_ONLY_HOPE,
+                SkillEnum::NURSE,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -212,7 +213,9 @@ class CharacterConfigData
         [
             'name' => 'finola',
             'characterName' => 'finola',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillEnum::NURSE,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,

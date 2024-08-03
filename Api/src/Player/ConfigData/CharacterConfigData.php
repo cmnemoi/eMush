@@ -290,6 +290,7 @@ class CharacterConfigData
             'name' => 'gioele',
             'characterName' => 'gioele',
             'skillConfigs' => [
+                SkillEnum::SOLID,
                 SkillEnum::ASTROPHYSICIST,
             ],
             'maxNumberPrivateChannel' => 3,
@@ -651,6 +652,7 @@ class CharacterConfigData
             'name' => 'stephen',
             'characterName' => 'stephen',
             'skillConfigs' => [
+                SkillEnum::SOLID,
                 SkillEnum::SHOOTER,
                 SkillEnum::CREATIVE,
             ],

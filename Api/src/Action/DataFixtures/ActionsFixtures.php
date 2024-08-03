@@ -183,18 +183,7 @@ class ActionsFixtures extends Fixture
             ->setActionCost(1);
         $manager->persist($searchAction);
 
-        $hitAction = new ActionConfig();
-        $hitAction
-            ->setName(ActionEnum::HIT->value)
-            ->setActionName(ActionEnum::HIT)
-            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
-            ->setActionCost(1)
-            ->setSuccessRate(60)
-            ->setDirtyRate(15)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC);
+        $hitAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::HIT));
         $manager->persist($hitAction);
 
         $hideAction = new ActionConfig();

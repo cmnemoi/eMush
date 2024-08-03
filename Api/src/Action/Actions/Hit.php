@@ -3,8 +3,6 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
-use Mush\Action\Entity\ActionResult\CriticalSuccess;
-use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\PlaceType;
@@ -19,10 +17,10 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class Hit extends AttemptAction
+final class Hit extends AttemptAction
 {
-    private const MIN_DAMAGE = 1;
-    private const MAX_DAMAGE = 3;
+    private const int DAMAGE_SPREAD = 2;
+
     protected ActionEnum $name = ActionEnum::HIT;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -39,25 +37,30 @@ class Hit extends AttemptAction
 
     protected function applyEffect(ActionResult $result): void
     {
+        if ($result->isAFail()) {
+            return;
+        }
+
         /** @var Player $target */
         $target = $this->target;
 
-        $damage = $this->randomService->random(self::MIN_DAMAGE, self::MAX_DAMAGE);
+        $damage = $this->randomService->random(
+            min: $this->getOutputQuantity(),
+            max: $this->getOutputQuantity() + self::DAMAGE_SPREAD
+        );
 
         $damageEvent = new PlayerVariableEvent(
             $target,
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
-            $this->getActionConfig()->getActionTags(),
+            $this->getTags(),
             new \DateTime()
         );
 
-        if ($result instanceof CriticalSuccess) {
+        if ($result->isACriticalSuccess()) {
             $damageEvent->addTag(ActionOutputEnum::CRITICAL_SUCCESS);
-
-            $this->eventService->callEvent($damageEvent, VariableEventInterface::CHANGE_VARIABLE);
-        } elseif ($result instanceof Success) {
-            $this->eventService->callEvent($damageEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
+
+        $this->eventService->callEvent($damageEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

@@ -93,6 +93,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $physicistSkillConfig */
         $physicistSkillConfig = $this->getReference(SkillEnum::PHYSICIST->value);
 
+        /** @var SkillConfig $nurseSkillConfig */
+        $nurseSkillConfig = $this->getReference(SkillEnum::NURSE->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -124,6 +127,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setCharacterName(CharacterEnum::CHUN)
             ->setSkillConfigs([
                 $mankindOnlyHopeSkillConfig,
+                $nurseSkillConfig,
             ])
             ->setInitStatuses([$immunizedStatus])
             ->setStartingItems($trackerTalkieCollection);
@@ -166,6 +170,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $finola
             ->setName(CharacterEnum::FINOLA)
             ->setCharacterName(CharacterEnum::FINOLA)
+            ->setSkillConfigs([
+                $nurseSkillConfig,
+            ])
             ->setInitStatuses([$ocdStatus]);
         $manager->persist($finola);
 

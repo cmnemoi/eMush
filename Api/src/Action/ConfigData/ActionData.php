@@ -418,7 +418,7 @@ class ActionData
         [
             'name' => 'self_heal',
             'action_name' => ActionEnum::SELF_HEAL,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_HEAL],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'private', 'fail' => 'private'],
@@ -434,7 +434,7 @@ class ActionData
         [
             'name' => 'heal',
             'action_name' => ActionEnum::HEAL,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_HEAL],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -994,7 +994,7 @@ class ActionData
         [
             'name' => 'surgery',
             'action_name' => ActionEnum::SURGERY,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_HEAL],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => 'public', 'fail' => 'public'],
@@ -1010,7 +1010,7 @@ class ActionData
         [
             'name' => 'self_surgery',
             'action_name' => ActionEnum::SELF_SURGERY,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_HEAL],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => 'public', 'fail' => 'public'],

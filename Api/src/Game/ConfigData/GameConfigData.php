@@ -444,6 +444,7 @@ class GameConfigData
                 PlayerStatusEnum::HAS_CHITCHATTED . '_default',
                 SkillPointsEnum::BOTANIST_POINTS->value,
                 SkillPointsEnum::PILGRED_POINTS->value,
+                SkillPointsEnum::NURSE_POINTS->value,
             ],
             'triumphConfigs' => [
                 'alien_science',

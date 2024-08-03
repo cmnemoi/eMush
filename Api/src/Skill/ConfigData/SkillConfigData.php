@@ -86,6 +86,10 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::NURSE,
+                skillPointsConfig: SkillPointsEnum::NURSE_POINTS,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::PHYSICIST,
                 skillPointsConfig: SkillPointsEnum::PILGRED_POINTS,
             ),

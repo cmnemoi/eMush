@@ -374,29 +374,10 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($cookAction);
 
-        $selfHealAction = new ActionConfig();
-        $selfHealAction
-            ->setName(ActionEnum::SELF_HEAL->value)
-            ->setActionName(ActionEnum::SELF_HEAL)
-            ->setTypes([ActionTypeEnum::ACTION_HEAL])
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setActionCost(3)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setOutputQuantity(3);
-
+        $selfHealAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SELF_HEAL));
         $manager->persist($selfHealAction);
 
-        $healAction = new ActionConfig();
-        $healAction
-            ->setName(ActionEnum::HEAL->value)
-            ->setActionName(ActionEnum::HEAL)
-            ->setTypes([ActionTypeEnum::ACTION_HEAL])
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
-            ->setActionCost(2)
-            ->setOutputQuantity(3);
-
+        $healAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::HEAL));
         $manager->persist($healAction);
 
         $comfortAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::COMFORT));
@@ -733,28 +714,10 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($boringSpeechAction);
 
-        $surgeryAction = new ActionConfig();
-        $surgeryAction
-            ->setName(ActionEnum::SURGERY->value)
-            ->setActionName(ActionEnum::SURGERY)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
-            ->setActionCost(2)
-            ->setDirtyRate(80)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC);
-
+        $surgeryAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SURGERY));
         $manager->persist($surgeryAction);
 
-        $selfSurgeryAction = new ActionConfig();
-        $selfSurgeryAction
-            ->setName(ActionEnum::SELF_SURGERY->value)
-            ->setActionName(ActionEnum::SELF_SURGERY)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setActionCost(4)
-            ->setDirtyRate(100)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC);
-
+        $selfSurgeryAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SELF_SURGERY));
         $manager->persist($selfSurgeryAction);
 
         $shootAction = new ActionConfig();

@@ -33,9 +33,12 @@ abstract class SkillConfigData
                 skillPointsConfig: SkillPointsEnum::CONCEPTOR_POINTS,
             ),
             new SkillConfigDto(
-                name: SkillEnum::LEADER,
+                name: SkillEnum::FIREFIGHTER,
+                modifierConfigs: [
+                    'modifier_for_player_always_success_extinguish',
+                ],
                 actionConfigs: [
-                    ActionEnum::MOTIVATIONAL_SPEECH,
+                    ActionEnum::EXTINGUISH_MANUALLY,
                 ]
             ),
             new SkillConfigDto(
@@ -44,6 +47,12 @@ abstract class SkillConfigData
                     ModifierNameEnum::DOUBLE_HACK_CHANCE,
                 ],
                 skillPointsConfig: SkillPointsEnum::IT_EXPERT_POINTS,
+            ),
+            new SkillConfigDto(
+                name: SkillEnum::LEADER,
+                actionConfigs: [
+                    ActionEnum::MOTIVATIONAL_SPEECH,
+                ]
             ),
             new SkillConfigDto(
                 name: SkillEnum::MANKIND_ONLY_HOPE,

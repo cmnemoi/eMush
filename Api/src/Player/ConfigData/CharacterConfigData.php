@@ -129,6 +129,7 @@ class CharacterConfigData
             'characterName' => 'derek',
             'skillConfigs' => [
                 SkillEnum::SHOOTER,
+                SkillEnum::FIREFIGHTER,
                 SkillEnum::MOTIVATOR,
             ],
             'maxNumberPrivateChannel' => 3,
@@ -156,7 +157,6 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
-                ActionEnum::EXTINGUISH_MANUALLY->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -363,7 +363,9 @@ class CharacterConfigData
         [
             'name' => 'ian',
             'characterName' => 'ian',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillEnum::FIREFIGHTER,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,
@@ -389,7 +391,6 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
-                'extinguish_manually',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -604,6 +605,7 @@ class CharacterConfigData
             'skillConfigs' => [
                 SkillEnum::PILOT,
                 SkillEnum::SHOOTER,
+                SkillEnum::FIREFIGHTER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -626,7 +628,6 @@ class CharacterConfigData
                 'flirt',
                 'do_the_thing',
                 'auto_destroy',
-                'extinguish_manually',
                 'suicide',
                 'kill_player',
                 'rejuvenate_alpha',

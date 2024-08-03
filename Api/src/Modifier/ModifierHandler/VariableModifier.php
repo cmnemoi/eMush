@@ -54,6 +54,16 @@ class VariableModifier extends AbstractModifierHandler
 
                 break;
 
+            case VariableModifierModeEnum::MIN:
+                $initialEvent->getVariable()->setMinValue((int) $modifierQuantity);
+
+                break;
+
+            case VariableModifierModeEnum::MAX:
+                $initialEvent->getVariable()->setMaxValue((int) $modifierQuantity);
+
+                break;
+
             default:
                 throw new \LogicException("This variableModifierMode is not handled {$mode}");
         }

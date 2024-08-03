@@ -57,6 +57,12 @@ final class SkillModifierConfigFixtures extends Fixture
         $this->addReference($modifierMinusOneActionPointOnScan->getName(), $modifierMinusOneActionPointOnScan);
         $manager->persist($modifierMinusOneActionPointOnScan);
 
+        $modifierMinusOneActionPointOnScan = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_for_player_always_success_extinguish')
+        );
+        $this->addReference($modifierMinusOneActionPointOnScan->getName(), $modifierMinusOneActionPointOnScan);
+        $manager->persist($modifierMinusOneActionPointOnScan);
+
         $manager->flush();
     }
 }

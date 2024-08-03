@@ -161,6 +161,10 @@ class GameVariable
     {
         $this->maxValue = $value;
 
+        if ($value < $this->minValue) {
+            $this->minValue = $value;
+        }
+
         return $this;
     }
 
@@ -172,6 +176,10 @@ class GameVariable
     public function setMinValue(?int $value): static
     {
         $this->minValue = $value;
+
+        if ($value > $this->maxValue) {
+            $this->maxValue = $value;
+        }
 
         return $this;
     }

@@ -17,7 +17,6 @@ use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Modifier\ConfigData\ModifierActivationRequirementData;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
@@ -357,17 +356,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::ADD_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($lyingDownShrinkModifier);
-
-        $skillHolderIsAliveRequirement = ModifierActivationRequirement::fromConfigData(
-            ModifierActivationRequirementData::getByName(ModifierRequirementEnum::MANKIND_ONLY_HOPE_HOLDER_IS_ALIVE)
-        );
-        $manager->persist($skillHolderIsAliveRequirement);
-
-        $mankindOnlyHopeModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('modifier_for_daedalus_+1moral_on_day_change')
-        );
-        $mankindOnlyHopeModifier->addModifierRequirement($skillHolderIsAliveRequirement);
-        $manager->persist($mankindOnlyHopeModifier);
 
         $inactiveModifier = VariableEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName('modifier_for_player_x1.5percentage_on_action_attack_hit_shoot')

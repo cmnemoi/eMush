@@ -40,10 +40,11 @@ abstract class AbstractModifierConfig
 
     #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
     protected Collection $modifierActivationRequirements;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    private int $id;
+    protected int $id;
 
     public function __construct(string $name)
     {
@@ -150,5 +151,10 @@ abstract class AbstractModifierConfig
     public function doModifierApplies(AbstractGameEvent $event): bool
     {
         return false;
+    }
+
+    public function isNull(): bool
+    {
+        return $this->getId() === 0;
     }
 }

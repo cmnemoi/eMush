@@ -196,6 +196,13 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this;
     }
 
+    public function removeModifier(GameModifier $modifier): static
+    {
+        $this->modifiers->removeElement($modifier);
+
+        return $this;
+    }
+
     public function getOwner(): ?Player
     {
         return $this->owner;

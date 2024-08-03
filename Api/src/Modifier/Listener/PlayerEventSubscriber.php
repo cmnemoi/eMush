@@ -4,33 +4,26 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Service\ModifierCreationService;
-use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
+use Mush\Modifier\Service\ModifierListenerService\DeletePlayerRelatedModifiersService;
 use Mush\Modifier\Service\ModifierListenerService\PlayerModifierServiceInterface;
 use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PlayerEventSubscriber implements EventSubscriberInterface
+final class PlayerEventSubscriber implements EventSubscriberInterface
 {
-    private EquipmentModifierServiceInterface $equipmentModifierService;
-    private PlayerModifierServiceInterface $playerModifierService;
-    private ModifierCreationService $modifierCreationService;
-
     public function __construct(
-        EquipmentModifierServiceInterface $equipmentModifierService,
-        PlayerModifierServiceInterface $playerModifierService,
-        ModifierCreationService $modifierCreationService
-    ) {
-        $this->equipmentModifierService = $equipmentModifierService;
-        $this->playerModifierService = $playerModifierService;
-        $this->modifierCreationService = $modifierCreationService;
-    }
+        private DeletePlayerRelatedModifiersService $deletePlayerRelatedModifiersService,
+        private ModifierCreationService $modifierCreationService,
+        private PlayerModifierServiceInterface $playerModifierService,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
         return [
             PlayerChangedPlaceEvent::class => 'onChangedPlace',
             PlayerEvent::NEW_PLAYER => 'appliesDirectModifiers',
+            PlayerEvent::DEATH_PLAYER => ['deletePlayerRelatedModifiers'],
         ];
     }
 
@@ -64,5 +57,14 @@ class PlayerEventSubscriber implements EventSubscriberInterface
                 false
             );
         }
+    }
+
+    public function deletePlayerRelatedModifiers(PlayerEvent $event): void
+    {
+        $this->deletePlayerRelatedModifiersService->execute(
+            player: $event->getPlayer(),
+            tags: $event->getTags(),
+            time: $event->getTime()
+        );
     }
 }

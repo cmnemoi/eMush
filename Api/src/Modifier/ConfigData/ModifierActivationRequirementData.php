@@ -186,12 +186,6 @@ class ModifierActivationRequirementData
             'activationRequirement' => ProjectName::PLASMA_SHIELD->value,
             'value' => 100,
         ],
-        [
-            'name' => ModifierRequirementEnum::MANKIND_ONLY_HOPE_HOLDER_IS_ALIVE,
-            'activationRequirementName' => ModifierRequirementEnum::SKILL_HOLDER_IS_ALIVE,
-            'activationRequirement' => SkillEnum::MANKIND_ONLY_HOPE->value,
-            'value' => 100,
-        ],
     ];
 
     public static function getByName(string $name): array

@@ -386,6 +386,31 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
+    public function removeModifier(GameModifier $modifier): static
+    {
+        $this->modifiers->removeElement($modifier);
+
+        return $this;
+    }
+
+    public function getAllModifierConfigs(): ArrayCollection
+    {
+        // first modifier configs hold by player themselves
+        $modifierConfigs = $this->getModifiers()->map(static fn (GameModifier $modifier) => $modifier->getModifierConfig())->toArray();
+
+        // then modifiers provided by player statuses
+        $modifierConfigs = $this->getStatuses()
+            ->map(static fn (Status $status) => $status->getStatusConfig()->getModifierConfigs())
+            ->reduce(static fn (array $modifierConfigs, $statusModifierConfigs) => array_merge($modifierConfigs, $statusModifierConfigs->toArray()), $modifierConfigs);
+
+        // then modifiers provided by player skills
+        $modifierConfigs = $this->getSkills()
+            ->map(static fn (Skill $skill) => $skill->getConfig()->getModifierConfigs())
+            ->reduce(static fn (array $modifierConfigs, $skillModifierConfigs) => array_merge($modifierConfigs, $skillModifierConfigs->toArray()), $modifierConfigs);
+
+        return new ArrayCollection($modifierConfigs);
+    }
+
     public function getFlirts(): PlayerCollection
     {
         if (!$this->flirts instanceof PlayerCollection) {

@@ -54,7 +54,6 @@ abstract class ModifierRequirementEnum
     public const string PROJECT_IS_ACTIVE = 'project_is_active';
     public const string PROJECT_IS_ACTIVE_PLASMA_SHIELD = 'project_is_active_plasma_shield';
     public const string SKILL_HOLDER_IS_ALIVE = 'skill_holder_is_alive';
-    public const string MANKIND_ONLY_HOPE_HOLDER_IS_ALIVE = 'mankind_only_hope_holder_is_alive';
     public const string ANY_TAGS = 'any_tags';
     public const string NONE_TAGS = 'none_tags';
     public const string ALL_TAGS = 'all_tags';

@@ -66,8 +66,8 @@ class ModifierCreationService implements ModifierCreationServiceInterface
     public function deleteModifier(
         AbstractModifierConfig $modifierConfig,
         ModifierHolderInterface $holder,
-        array $tags,
-        \DateTime $time,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
     ): void {
         if (!$modifierConfig instanceof DirectModifierConfig) {
             $this->deleteGameEventModifier($modifierConfig, $holder);

@@ -528,28 +528,19 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
     public function mankindOnlyHopeDoesNotWorkIfHolderIsDead(FunctionalTester $I): void
     {
         // given Chun is the mankind only hope
-        $this->statusService->createStatusFromName(
-            statusName: SkillEnum::MANKIND_ONLY_HOPE,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
-        );
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::MANKIND_ONLY_HOPE, $this->chun));
 
         // given Chun is dead
-        $deathEvent = new PlayerEvent($this->chun, [EndCauseEnum::QUARANTINE], new \DateTime());
+        $deathEvent = new PlayerEvent($this->chun, [EndCauseEnum::DEPRESSION], new \DateTime());
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
-
-        // given the daedalus is D1C8 so next cycle is a new day
-        $this->daedalus->setDay(1);
-        $this->daedalus->setCycle(8);
 
         // given KT has 10 morale points
         $this->kuanTi->setMoralPoint(10);
 
-        // when the new cycle event is triggered
+        // when the new day event is triggered
         $event = new DaedalusCycleEvent(
             $this->daedalus,
-            [EventEnum::NEW_CYCLE],
+            [EventEnum::NEW_CYCLE, EventEnum::NEW_DAY],
             new \DateTime()
         );
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);

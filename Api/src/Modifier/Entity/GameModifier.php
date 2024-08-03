@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
@@ -59,6 +60,14 @@ class GameModifier
         $holder->addModifier($this);
     }
 
+    public static function createNullEventModifier(): self
+    {
+        $modifier = new self(holder: Player::createNull(), modifierConfig: EventModifierConfig::createNull());
+        $modifier->setId(0);
+
+        return $modifier;
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -95,6 +104,18 @@ class GameModifier
     public function setCharge(ChargeStatus $charge): self
     {
         $this->charge = $charge;
+
+        return $this;
+    }
+
+    public function isNull(): bool
+    {
+        return $this->getId() === 0 || $this->getModifierConfig()->isNull();
+    }
+
+    private function setId(int $id): self
+    {
+        $this->id = $id;
 
         return $this;
     }

@@ -2601,9 +2601,7 @@ abstract class ModifierConfigData
             'delta' => 1.0,
             'targetVariable' => PlayerVariableEnum::MORAL_POINT,
             'mode' => VariableModifierModeEnum::ADDITIVE,
-            'modifierActivationRequirements' => [
-                ModifierRequirementEnum::MANKIND_ONLY_HOPE_HOLDER_IS_ALIVE,
-            ],
+            'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 PlayerService::BASE_PLAYER_DAY_CHANGE => ModifierRequirementEnum::ALL_TAGS,
                 SkillEnum::MANKIND_ONLY_HOPE->value => ModifierRequirementEnum::NONE_TAGS,

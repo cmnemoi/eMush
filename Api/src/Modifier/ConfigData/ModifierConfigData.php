@@ -16,8 +16,10 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
@@ -2713,10 +2715,34 @@ abstract class ModifierConfigData
                 ActionEnum::EXTINGUISH->value => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINT_ON_POST_ACTION_IF_FAILED,
+            'modifierName' => ModifierNameEnum::CREATIVE_MODIFIER,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'trigger_event_modifier',
+            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_1_ACTION_POINT,
+            'modifierActivationRequirements' => [
+                'random_50',
+            ],
+            'visibility' => VisibilityEnum::PUBLIC,
+            'tagConstraints' => [
+                ActionOutputEnum::SUCCESS => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_ZERO_ACTION_COST->value => ModifierRequirementEnum::NONE_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array
     {
-        return current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
+        return current(
+            array_filter(
+                self::$dataArray,
+                static fn (array $data) => $data['name'] === $name
+            )
+        );
     }
 }

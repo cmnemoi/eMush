@@ -33,6 +33,22 @@ class TriggerEventModifierConfig extends EventModifierConfig
         $this->addNoneTagName();
     }
 
+    public static function fromConfigData(array $configData): self
+    {
+        $modifierConfig = new self($configData['name']);
+        $modifierConfig
+            ->setVisibility($configData['visibility'])
+            ->setTargetEvent($configData['targetEvent'])
+            ->setPriority($configData['priority'])
+            ->setApplyWhenTargeted($configData['applyOnTarget'])
+            ->setTagConstraints($configData['tagConstraints'])
+            ->setModifierName($configData['modifierName'])
+            ->setModifierStrategy($configData['strategy'])
+            ->setModifierRange($configData['modifierRange']);
+
+        return $modifierConfig;
+    }
+
     public function buildName(string $configName): self
     {
         $baseName = $this->modifierName;

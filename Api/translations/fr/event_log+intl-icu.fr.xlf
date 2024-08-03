@@ -968,5 +968,11 @@
         <target>**{character}** semble émerger péniblement de son sommeil...</target>
       </segment>
     </unit>
+    <unit id="creative_worked">
+      <segment id="creative_worked" state="final">
+        <source>creative_worked</source>
+        <target>Votre compétence **Créatif** a porté ses fruits...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

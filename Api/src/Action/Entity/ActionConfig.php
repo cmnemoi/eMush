@@ -77,8 +77,10 @@ class ActionConfig implements GameVariableHolderInterface
             $actionConfig->makeSuperDirty();
         }
 
-        foreach ($configData['visibilities'] as $visibilityType => $visibility) {
-            $actionConfig->setVisibility($visibilityType, $visibility);
+        $actionConfig->setVisibilities($configData['visibilities']);
+
+        if ($configData['actionPoint'] === 0) {
+            $actionConfig->setTypes(array_merge($actionConfig->getTypes(), [ActionTypeEnum::ACTION_ZERO_ACTION_COST]));
         }
 
         return $actionConfig;
@@ -207,6 +209,10 @@ class ActionConfig implements GameVariableHolderInterface
 
     public function setActionCost(int $actionCost): self
     {
+        if ($actionCost === 0) {
+            $this->types[] = ActionTypeEnum::ACTION_ZERO_ACTION_COST;
+        }
+
         $this->actionVariables->setValueByName($actionCost, PlayerVariableEnum::ACTION_POINT);
 
         return $this;
@@ -342,5 +348,46 @@ class ActionConfig implements GameVariableHolderInterface
     public function shouldTriggerRoomTrap(): bool
     {
         return ActionEnum::getActionsWhichTriggerRoomTraps()->contains($this->actionName);
+    }
+
+    public function updateFromConfigData(array $configData): self
+    {
+        $this->setName($configData['name'])
+            ->setActionName($configData['action_name'])
+            ->setTypes($configData['types'])
+            ->setDisplayHolder($configData['target'])
+            ->setRange($configData['scope']);
+
+        $gameVariables = $this->getGameVariables();
+        $gameVariables->setValuesByName($configData['percentageInjury'], ActionVariableEnum::PERCENTAGE_INJURY);
+        $gameVariables->setValuesByName($configData['percentageSuccess'], ActionVariableEnum::PERCENTAGE_SUCCESS);
+        $gameVariables->setValuesByName($configData['percentageCritical'], ActionVariableEnum::PERCENTAGE_CRITICAL);
+        $gameVariables->setValuesByName($configData['outputQuantity'], ActionVariableEnum::OUTPUT_QUANTITY);
+
+        $gameVariables->setValuesByName($configData['actionPoint'], PlayerVariableEnum::ACTION_POINT);
+        $gameVariables->setValuesByName($configData['moralPoint'], PlayerVariableEnum::MORAL_POINT);
+        $gameVariables->setValuesByName($configData['movementPoint'], PlayerVariableEnum::MOVEMENT_POINT);
+
+        $gameVariables->setValuesByName($configData['percentageDirtiness'], ActionVariableEnum::PERCENTAGE_DIRTINESS);
+        if ($configData['percentageDirtiness']['min_value'] >= 100) {
+            $this->makeSuperDirty();
+        }
+
+        $this->setVisibilities($configData['visibilities']);
+
+        if ($configData['actionPoint'] === 0) {
+            $this->setTypes(array_merge($this->getTypes(), [ActionTypeEnum::ACTION_ZERO_ACTION_COST]));
+        }
+
+        return $this;
+    }
+
+    private function setVisibilities(array $visibilities): self
+    {
+        foreach ($visibilities as $visibilityType => $visibility) {
+            $this->setVisibility($visibilityType, $visibility);
+        }
+
+        return $this;
     }
 }

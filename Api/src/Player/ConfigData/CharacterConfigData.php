@@ -606,6 +606,7 @@ class CharacterConfigData
                 SkillEnum::PILOT,
                 SkillEnum::SHOOTER,
                 SkillEnum::FIREFIGHTER,
+                SkillEnum::CREATIVE,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -644,6 +645,7 @@ class CharacterConfigData
             'characterName' => 'stephen',
             'skillConfigs' => [
                 SkillEnum::SHOOTER,
+                SkillEnum::CREATIVE,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

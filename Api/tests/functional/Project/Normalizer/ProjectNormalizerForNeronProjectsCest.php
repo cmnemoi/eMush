@@ -252,7 +252,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     [
                         'key' => 'creative',
                         'name' => 'Créatif',
-                        'description' => 'Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre *1* :pa:.//:point: Bonus pour développer certains **Projets NERON**.',
+                        'description' => 'Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre **1** :pa:.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
             ],
@@ -865,7 +865,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     [
                         'key' => 'creative',
                         'name' => 'Créatif',
-                        'description' => 'Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre *1* :pa:.//:point: Bonus pour développer certains **Projets NERON**.',
+                        'description' => 'Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre **1** :pa:.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
             ],
@@ -963,7 +963,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     [
                         'key' => 'creative',
                         'name' => 'Créatif',
-                        'description' => 'Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre *1* :pa:.//:point: Bonus pour développer certains **Projets NERON**.',
+                        'description' => 'Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre **1** :pa:.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
             ],

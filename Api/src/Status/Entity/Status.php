@@ -18,6 +18,8 @@ use Mush\Hunter\Entity\Hunter;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
@@ -192,6 +194,11 @@ class Status implements ActionProviderInterface
         }
 
         return $this;
+    }
+
+    public function getSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
+    {
+        return $this->statusConfig->getSkillConfigByNameOrThrow($skill);
     }
 
     public function getClassName(): string

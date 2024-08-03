@@ -495,9 +495,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getCharacterConfig()->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
     }
 
-    public function getSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
+    public function getHumanSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
     {
         return $this->getCharacterConfig()->getSkillConfigByNameOrThrow($skill);
+    }
+
+    public function getMushSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
+    {
+        return $this->getStatusByNameOrThrow(PlayerStatusEnum::MUSH)->getSkillConfigByNameOrThrow($skill);
     }
 
     public function getGameVariables(): PlayerVariables

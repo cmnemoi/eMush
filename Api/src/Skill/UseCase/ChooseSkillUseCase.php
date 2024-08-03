@@ -35,7 +35,12 @@ final class ChooseSkillUseCase
 
     private function createSkillForPlayer(SkillEnum $skillName, Player $player): Skill
     {
-        $skill = new Skill(skillConfig: $player->getSkillConfigByNameOrThrow($skillName), player: $player);
+        $skillConfig = match ($skillName->isMushSkill()) {
+            true => $player->getMushSkillConfigByNameOrThrow($skillName),
+            false => $player->getHumanSkillConfigByNameOrThrow($skillName),
+        };
+
+        $skill = new Skill(skillConfig: $skillConfig, player: $player);
         $this->playerRepository->save($player);
 
         return $skill;

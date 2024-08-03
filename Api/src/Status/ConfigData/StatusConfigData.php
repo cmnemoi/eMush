@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -31,6 +32,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'heavy_default',
@@ -45,6 +47,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'module_access_default',
@@ -59,6 +62,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'hidden_default',
@@ -73,6 +77,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'broken_default',
@@ -87,6 +92,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'unstable_default',
@@ -101,6 +107,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'hazardous_default',
@@ -115,6 +122,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'decomposing_default',
@@ -129,6 +137,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'frozen_default',
@@ -145,6 +154,7 @@ abstract class StatusConfigData
                 'modifier_for_equipment_+1actionPoint_on_consume',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'plant_thirsty_default',
@@ -159,6 +169,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'plant_dry_default',
@@ -173,6 +184,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'plant_diseased_default',
@@ -187,6 +199,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'document_content_default',
@@ -201,6 +214,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'reinforced_default',
@@ -215,6 +229,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'antisocial_default',
@@ -231,6 +246,7 @@ abstract class StatusConfigData
                 'antisocial_modifier_for_player_-1moralPoint_on_new_cycle_if_player_in_room_not_alone',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'berzerk_default',
@@ -245,6 +261,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'brainsync_default',
@@ -259,6 +276,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'burdened_default',
@@ -275,6 +293,7 @@ abstract class StatusConfigData
                 'modifier_for_player_+2movementPoint_on_move',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'demoralized_default',
@@ -291,6 +310,7 @@ abstract class StatusConfigData
                 'modifier_for_player_+30percentage_on_cycle_disease',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'dirty_default',
@@ -305,6 +325,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'disabled_default',
@@ -322,6 +343,7 @@ abstract class StatusConfigData
                 'modifier_for_player_-2movementPoint_on_event_action_movement_conversion',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'focused_default',
@@ -336,6 +358,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'full_stomach_default',
@@ -350,6 +373,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'gagged_default',
@@ -367,6 +391,7 @@ abstract class StatusConfigData
                 'prevent_spoken_actions',
             ],
             'actionConfigs' => ['ungag'],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'germaphobe_default',
@@ -381,6 +406,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'guardian_default',
@@ -395,6 +421,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'highly_inactive_default',
@@ -411,6 +438,7 @@ abstract class StatusConfigData
                 'modifier_for_player_x1.5percentage_on_action_attack_hit_shoot',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'hyperactive_default',
@@ -425,6 +453,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'immunized_default',
@@ -441,6 +470,7 @@ abstract class StatusConfigData
                 'modifier_for_player_set_0spore_on_change.variable',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'inactive_default',
@@ -457,6 +487,7 @@ abstract class StatusConfigData
                 'modifier_for_player_x1.5percentage_on_action_attack_hit_shoot',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'lost_default',
@@ -473,6 +504,7 @@ abstract class StatusConfigData
                 'lost_modifier_for_player_-2moralPoint_on_new_cycle',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'lying_down_default',
@@ -490,6 +522,7 @@ abstract class StatusConfigData
                 'modifier_for_player_+1morale_point_on_new_cycle_if_shrink_in_room',
             ],
             'actionConfigs' => ['get_up'],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'multi_teamster_default',
@@ -504,6 +537,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'outcast_default',
@@ -518,6 +552,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'pacifist_default',
@@ -534,6 +569,7 @@ abstract class StatusConfigData
                 'modifier_for_place_+2actionPoint_on_action_aggressive',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'pregnant_default',
@@ -548,6 +584,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'starving_default',
@@ -564,6 +601,7 @@ abstract class StatusConfigData
                 'starving_for_player_-1healthPoint_on_new_cycle',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'starving_warning_default',
@@ -578,6 +616,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'stuck_in_the_ship_default',
@@ -592,6 +631,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'suicidal_default',
@@ -608,6 +648,7 @@ abstract class StatusConfigData
                 'modifier_for_player_+30percentage_on_cycle_disease',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'WATCHED_PUBLIC_BROADCAST_default',
@@ -622,6 +663,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'talkie_screwed_default',
@@ -636,6 +678,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'attempt_default',
@@ -650,6 +693,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'electric_charges_microwave_default',
@@ -664,6 +708,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'electric_charges_antigrav_scooter_default',
@@ -678,6 +723,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'electric_charges_blaster_default',
@@ -692,6 +738,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'electric_charges_old_faithful_default',
@@ -706,6 +753,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'electric_charges_rocket_launcher_default',
@@ -720,6 +768,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'electric_charges_narcotic_distiller_default',
@@ -734,6 +783,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'electric_charges_coffee_machine_default',
@@ -748,6 +798,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'electric_charges_turret_command_default',
@@ -762,6 +813,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'electric_charges_patrol_ship_default',
@@ -776,6 +828,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'sink_charge_default',
@@ -790,6 +843,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'fire_default',
@@ -804,6 +858,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => ['report_fire'],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'plant_young_default',
@@ -818,6 +873,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'eureka_moment_default',
@@ -832,6 +888,7 @@ abstract class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'first_time_default',
@@ -846,6 +903,7 @@ abstract class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'mush_default',
@@ -872,6 +930,9 @@ abstract class StatusConfigData
                 'screw_talkie',
                 ActionEnum::TRAP_CLOSET->value,
             ],
+            'skillConfigs' => [
+                SkillEnum::ANONYMUSH,
+            ],
         ],
         [
             'name' => 'contaminated_default',
@@ -886,6 +947,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'drug_eaten_default',
@@ -900,6 +962,7 @@ abstract class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'did_the_thing_default',
@@ -914,6 +977,7 @@ abstract class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'did_boring_speech_default',
@@ -928,6 +992,7 @@ abstract class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'already_washed_in_the_sink_default',
@@ -942,6 +1007,7 @@ abstract class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'updating_default',
@@ -956,6 +1022,7 @@ abstract class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => HunterStatusEnum::ASTEROID_TRUCE_CYCLES . '_default',
@@ -970,6 +1037,7 @@ abstract class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => PlayerStatusEnum::HAS_REJUVENATED . '_default',
@@ -984,6 +1052,7 @@ abstract class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default',
@@ -998,6 +1067,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default',
@@ -1012,6 +1082,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'traveling_default',
@@ -1026,6 +1097,7 @@ abstract class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'no_gravity_repaired_default',
@@ -1042,6 +1114,7 @@ abstract class StatusConfigData
                 'modifier_for_daedalus_-1movementPoint_on_event_action_movement_conversion',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'no_gravity_default',
@@ -1053,6 +1126,7 @@ abstract class StatusConfigData
                 'modifier_for_daedalus_-1movementPoint_on_event_action_movement_conversion',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'in_orbit_default',
@@ -1064,6 +1138,7 @@ abstract class StatusConfigData
                 'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'exploration_oxygen_default',
@@ -1078,6 +1153,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'exploration_fuel_default',
@@ -1092,6 +1168,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => HunterStatusEnum::TRUCE_CYCLES . '_default',
@@ -1106,6 +1183,7 @@ abstract class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'following_hunters_default',
@@ -1120,6 +1198,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'astronavigation_neron_cpu_priority_default',
@@ -1130,6 +1209,7 @@ abstract class StatusConfigData
                 'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'defence_neron_cpu_priority_default',
@@ -1141,6 +1221,7 @@ abstract class StatusConfigData
                 'modifier_for_daedalus_increase_turret_max_charges',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => 'changed_cpu_priority_default',
@@ -1155,6 +1236,7 @@ abstract class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
@@ -1169,6 +1251,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE . '_default',
@@ -1183,6 +1266,7 @@ abstract class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => PlaceStatusEnum::MUSH_TRAPPED->value . '_default',
@@ -1191,6 +1275,7 @@ abstract class StatusConfigData
             'type' => 'status_config',
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => EquipmentStatusEnum::JUKEBOX_SONG . '_default',
@@ -1199,6 +1284,7 @@ abstract class StatusConfigData
             'type' => 'status_config',
             'modifierConfigs' => [],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => SkillPointsEnum::CONCEPTOR_POINTS->value,
@@ -1215,6 +1301,7 @@ abstract class StatusConfigData
                 'modifier_skill_point_core',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => SkillPointsEnum::SHOOTER_POINTS->value,
@@ -1231,6 +1318,7 @@ abstract class StatusConfigData
                 'modifier_shooter_skill_point',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => SkillPointsEnum::TECHNICIAN_POINTS->value,
@@ -1247,6 +1335,7 @@ abstract class StatusConfigData
                 'modifier_skill_point_engineer',
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => SkillPointsEnum::IT_EXPERT_POINTS->value,
@@ -1263,6 +1352,7 @@ abstract class StatusConfigData
                 ModifierNameEnum::SKILL_POINT_IT_EXPERT,
             ],
             'actionConfigs' => [],
+            'skillConfigs' => [],
         ],
         [
             'name' => PlayerStatusEnum::HAS_CHITCHATTED . '_default',
@@ -1315,5 +1405,10 @@ abstract class StatusConfigData
     public static function getByName(string $name): array
     {
         return current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
+    }
+
+    public static function getByStatusName(string $name): array
+    {
+        return current(array_filter(self::$dataArray, static fn (array $data) => $data['statusName'] === $name));
     }
 }

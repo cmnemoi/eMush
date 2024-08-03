@@ -46,7 +46,7 @@ final class PlayerFactory
         $user
             ->setUserId(Uuid::v4()->toRfc4122())
             ->setUsername(Uuid::v4()->toRfc4122());
-        (new \ReflectionClass($user))->getProperty('id')->setValue($user, 5);
+        (new \ReflectionClass($user))->getProperty('id')->setValue($user, random_int(1, PHP_INT_MAX));
 
         $characterConfig = CharacterConfig::fromConfigData(CharacterConfigData::getByName($name));
         self::addCharacterConfigSkillConfigs($characterConfig);
@@ -55,7 +55,7 @@ final class PlayerFactory
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
 
-        (new \ReflectionClass($playerInfo))->getProperty('id')->setValue($playerInfo, 5);
+        (new \ReflectionClass($playerInfo))->getProperty('id')->setValue($playerInfo, random_int(1, PHP_INT_MAX));
 
         $player->setPlayerVariables($characterConfig);
         self::setPlayerId($player, random_int(1, PHP_INT_MAX));

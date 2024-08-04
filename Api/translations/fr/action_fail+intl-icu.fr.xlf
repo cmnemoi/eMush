@@ -685,5 +685,11 @@
         <target>Votre moral est déjà tout pourri, vous n'avez pas besoin de ça maintenant...</target>
       </segment>
     </unit>
+    <unit id="already_a_ceasefire_in_room">
+      <segment id="description" state="final">
+        <source>already_a_ceasefire_in_room.description</source>
+        <target>Un cessez-le-feu est déjà en cours dans cette pièce.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

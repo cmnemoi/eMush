@@ -39,6 +39,7 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->hit = $I->grabService(Hit::class);
 
         $this->givenChunIsADiplomat($I);
+        $this->givenKuanTiIsADiplomat($I);
     }
 
     public function shouldNotBeVisibleIfPlayerNotInARoom(FunctionalTester $I): void
@@ -48,6 +49,18 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->whenChunTriesToCeasefire();
 
         $this->thenCeasefireActionIsNotVisible(I: $I);
+    }
+
+    public function shouldNotBeExecutableIfThereIsAlreadyACeasefireInRoom(FunctionalTester $I): void
+    {
+        $this->givenChunCeasefires();
+
+        $this->whenKuanTiTriesToCeasefire();
+
+        $this->thenCeasefireActionShouldNotBeExecutableWithMessage(
+            message: ActionImpossibleCauseEnum::ALREADY_A_CEASEFIRE_IN_ROOM,
+            I: $I
+        );
     }
 
     public function shouldPrintAPublicLog(FunctionalTester $I): void
@@ -87,6 +100,14 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::DIPLOMAT, $this->player));
     }
 
+    private function givenKuanTiIsADiplomat(FunctionalTester $I): void
+    {
+        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::DIPLOMAT]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::DIPLOMAT, $this->kuanTi));
+    }
+
     private function givenChunCeasefires(): void
     {
         $this->whenChunCeasefires();
@@ -96,8 +117,18 @@ final class CeasefireCest extends AbstractFunctionalTest
     {
         $this->ceasefire->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $this->player,
-            player: $this->player,
+            actionProvider: $this->chun,
+            player: $this->chun,
+            target: null,
+        );
+    }
+
+    private function whenKuanTiTriesToCeasefire(): void
+    {
+        $this->ceasefire->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi,
             target: null,
         );
     }
@@ -112,8 +143,8 @@ final class CeasefireCest extends AbstractFunctionalTest
     {
         $this->hit->loadParameters(
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HIT]),
-            actionProvider: $this->player,
-            player: $this->player,
+            actionProvider: $this->chun,
+            player: $this->chun,
             target: $this->kuanTi,
         );
     }
@@ -128,6 +159,14 @@ final class CeasefireCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: $message,
             actual: $this->hit->cannotExecuteReason(),
+        );
+    }
+
+    private function thenCeasefireActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $message,
+            actual: $this->ceasefire->cannotExecuteReason(),
         );
     }
 }

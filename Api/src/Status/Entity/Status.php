@@ -152,6 +152,25 @@ class Status implements ActionProviderInterface
         return $this;
     }
 
+    public function getTargetOrThrow(): StatusHolderInterface
+    {
+        if ($this->target === null) {
+            throw new \RuntimeException("Status {$this->getName()} has no target.");
+        }
+
+        if ($player = $this->target->getPlayer()) {
+            return $player;
+        }
+        if ($equipment = $this->target->getGameEquipment()) {
+            return $equipment;
+        }
+        if ($place = $this->target->getPlace()) {
+            return $place;
+        }
+
+        throw new \LogicException("Status {$this->getName()} has unhandled target type.");
+    }
+
     public function setStatusTargetOwner(StatusTarget $statusTarget): self
     {
         $this->owner = $statusTarget;

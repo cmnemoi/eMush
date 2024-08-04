@@ -217,6 +217,7 @@ class CharacterConfigData
             'characterName' => 'finola',
             'skillConfigs' => [
                 SkillEnum::NURSE,
+                SkillEnum::DIPLOMAT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

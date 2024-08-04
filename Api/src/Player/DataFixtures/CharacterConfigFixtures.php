@@ -201,6 +201,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setCharacterName(CharacterEnum::FINOLA)
             ->setSkillConfigs([
                 $nurseSkillConfig,
+                $diplomatSkillConfig,
             ])
             ->setInitStatuses([$ocdStatus]);
         $manager->persist($finola);

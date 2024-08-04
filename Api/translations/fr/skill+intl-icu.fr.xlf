@@ -264,5 +264,15 @@
         <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.//:point: Expédition : Chaque dégât est **réduit d'un point**.//:point: Expédition : L'évènement **Provision** donne un steak de plus.//:point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
       </segment>
     </unit>
+    <unit id="solid">
+      <segment id="solid.name" state="translated">
+        <source>solid.name</source>
+        <target>Robuste</target>
+      </segment>
+      <segment id="solid.description" state="translated">
+        <source>solid.description</source>
+        <target>Vous n'avez aucune pénalité lorsque vous transportez un objet lourd. Pratique aussi pour les combats au corps-à-corps.//:point: Vos attaques de corps-à-corps infligent **un point de dégât supplémentaire**.//:point: **Pas de pénalités** pour les objets lourds.//:point: Dispose de la possibilité de **Mettre à la porte**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

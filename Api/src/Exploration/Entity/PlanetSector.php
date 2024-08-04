@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Exploration\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
 
 #[ORM\Entity]
@@ -94,5 +95,10 @@ class PlanetSector
     public function getExplorationEvents(): ProbaCollection
     {
         return $this->planetSectorConfig->getExplorationEvents();
+    }
+
+    public function isIntelligentSector(): bool
+    {
+        return $this->getName() === PlanetSectorEnum::INTELLIGENT;
     }
 }

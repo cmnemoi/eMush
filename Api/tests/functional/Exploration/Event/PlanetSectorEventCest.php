@@ -52,6 +52,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private StatusServiceInterface $statusService;
+    private ChooseSkillUseCase $chooseSkillUseCase;
     private Player $derek;
     private Player $janice;
 
@@ -62,6 +63,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         // given our explorators are Chun, Kuan-Ti, Derek, and Janice
         $this->chun = $this->player;
@@ -620,6 +622,35 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             reasons: [],
             time: new \DateTime(),
         );
+
+        // when I try to dispatch fight event
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then the fight event is not dispatched
+        $I->dontSeeInRepository(
+            entity: ExplorationLog::class,
+            params: [
+                'eventName' => PlanetSectorEvent::FIGHT,
+            ]
+        );
+    }
+
+    public function testFightEventIsPreventedByDiplomat(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given only fight and nothing to report events can happen in intelligent sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: ['fight_1' => PHP_INT_MAX - 1, 'nothing_to_report' => 1]
+        );
+
+        // given Chun is a diplomat
+        $this->givenPlayerHasSkill($this->chun, SkillEnum::DIPLOMAT, $I);
 
         // when I try to dispatch fight event
         $this->explorationService->dispatchExplorationEvent($exploration);
@@ -1440,5 +1471,14 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     private function thenPlayerShouldBeDead(Player $player, FunctionalTester $I): void
     {
         $I->assertFalse($player->isAlive());
+    }
+
+    private function givenPlayerHasSkill(Player $player, SkillEnum $skill, FunctionalTester $I): void
+    {
+        $player->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]),
+        ]);
+
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto($skill, $player));
     }
 }

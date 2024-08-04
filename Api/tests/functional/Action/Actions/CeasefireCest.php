@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Ceasefire;
+use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
@@ -23,6 +25,7 @@ final class CeasefireCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private Ceasefire $ceasefire;
     private ChooseSkillUseCase $chooseSkillUseCase;
+    private Hit $hit;
 
     public function _before(FunctionalTester $I): void
     {
@@ -31,6 +34,7 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::CEASEFIRE]);
         $this->ceasefire = $I->grabService(Ceasefire::class);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
+        $this->hit = $I->grabService(Hit::class);
 
         $this->givenChunIsADiplomat($I);
     }
@@ -42,12 +46,26 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->thenCeasefireStatusIsCreatedInTheRoom($I);
     }
 
+    public function shouldPreventAggressiveActionsInRoom(FunctionalTester $I): void
+    {
+        $this->givenChunCeasefires();
+
+        $this->whenChunWantsToHitKuanTi($I);
+
+        $this->thenHitActionShouldNotBeExecutableWithMessage(message: ActionImpossibleCauseEnum::CEASEFIRE, I: $I);
+    }
+
     private function givenChunIsADiplomat(FunctionalTester $I): void
     {
         $this->player->getCharacterConfig()->setSkillConfigs([
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::DIPLOMAT]),
         ]);
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::DIPLOMAT, $this->player));
+    }
+
+    private function givenChunCeasefires(): void
+    {
+        $this->whenChunCeasefires();
     }
 
     private function whenChunCeasefires(): void
@@ -61,8 +79,26 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->ceasefire->execute();
     }
 
+    private function whenChunWantsToHitKuanTi(FunctionalTester $I): void
+    {
+        $this->hit->loadParameters(
+            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HIT]),
+            actionProvider: $this->player,
+            player: $this->player,
+            target: $this->kuanTi,
+        );
+    }
+
     private function thenCeasefireStatusIsCreatedInTheRoom(FunctionalTester $I): void
     {
         $I->assertTrue($this->chun->getPlace()->hasStatus(PlaceStatusEnum::CEASEFIRE->toString()));
+    }
+
+    private function thenHitActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $message,
+            actual: $this->hit->cannotExecuteReason(),
+        );
     }
 }

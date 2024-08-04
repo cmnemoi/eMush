@@ -6,6 +6,7 @@ namespace Mush\Exploration\PlanetSectorEventHandler;
 
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Skill\Enum\SkillEnum;
 
 final class NothingToReport extends AbstractPlanetSectorEventHandler
 {
@@ -29,16 +30,9 @@ final class NothingToReport extends AbstractPlanetSectorEventHandler
     {
         $language = $event->getExploration()->getDaedalus()->getLanguage();
         if ($event->hasTag('always_successful_thanks_to_pilot')) {
-            $skill = $this->translationService->translate(
-                key: 'pilot.name',
-                parameters: [],
-                domain: 'skill',
-                language: $language,
-            );
-
             $alwaysSuccessfulThanksToSkill = $this->translationService->translate(
                 key: 'always_successful_thanks_to_skill',
-                parameters: ['skill' => $skill],
+                parameters: ['skill' => SkillEnum::PILOT->toString()],
                 domain: 'planet_sector_event',
                 language: $language,
             );

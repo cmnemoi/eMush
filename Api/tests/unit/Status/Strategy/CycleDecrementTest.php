@@ -4,6 +4,8 @@ namespace Mush\Tests\unit\Status\Strategy;
 
 use Mockery;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
 use Mush\Status\ChargeStrategies\CycleDecrement;
@@ -45,7 +47,7 @@ final class CycleDecrementTest extends TestCase
         $status = $this->createStatus();
         $time = new \DateTime();
 
-        $this->statusService->shouldReceive('updateCharge')->with($status, -1, [EventEnum::NEW_CYCLE], $time)->once();
+        $this->statusService->shouldReceive('updateCharge')->with($status, -1, [EventEnum::NEW_CYCLE], $time, VariableEventInterface::CHANGE_VARIABLE, VisibilityEnum::HIDDEN)->once();
 
         $this->strategy->execute($status, [EventEnum::NEW_CYCLE], $time);
     }

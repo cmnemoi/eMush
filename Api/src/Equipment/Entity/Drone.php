@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
@@ -49,9 +48,9 @@ class Drone extends GameItem
     }
 
     /**
-     * @return ArrayCollection<int, Place>
+     * @return Collection<int, Place>
      */
-    public function getAdjacentRooms(): ArrayCollection
+    public function getAdjacentRooms(): Collection
     {
         return $this->getPlace()->getAdjacentRooms();
     }

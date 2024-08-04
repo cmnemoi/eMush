@@ -1146,6 +1146,7 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ALL_TAGS,
                 DaedalusStatusEnum::NO_GRAVITY => ModifierRequirementEnum::NONE_TAGS,
+                SkillEnum::SOLID->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [

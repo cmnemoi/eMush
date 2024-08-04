@@ -18,6 +18,7 @@ use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -86,6 +87,15 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldCostOneLessActionPointOnInactivePlayer(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsInactive();
+
+        $this->whenChunTriesToPutThroughKuanTiThroughDoor();
+
+        $this->thenActionShouldCost(1, $I);
+    }
+
     private function givenPlayersAreOnPlanet(): void
     {
         $this->chun->changePlace($this->daedalus->getPlanetPlace());
@@ -114,6 +124,16 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
         $this->statusService->createStatusFromName(
             statusName: EquipmentStatusEnum::BROKEN,
             holder: $door,
+            tags: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenKuanTiIsInactive(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::INACTIVE,
+            holder: $this->kuanTi,
             tags: [],
             time: new \DateTime()
         );
@@ -158,6 +178,14 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: ActionImpossibleCauseEnum::NO_WORKING_DOOR,
             actual: $this->putThroughDoor->cannotExecuteReason(),
+        );
+    }
+
+    private function thenActionShouldCost(int $expected, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $expected,
+            actual: $this->putThroughDoor->getActionPointCost(),
         );
     }
 }

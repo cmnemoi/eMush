@@ -9,12 +9,14 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\InjuryModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Status\ConfigData\StatusConfigData;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\Entity\Config\ContentStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -284,11 +286,16 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         /** @var VariableEventModifierConfig $inactiveModifier */
         $inactiveModifier = $this->getReference('modifier_for_player_x1.5percentage_on_action_attack_hit_shoot');
 
+        $putThroughDoorModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_MINUS_1_ACTION_POINT_ON_PUT_THROUGH_DOOR)
+        );
+        $manager->persist($putThroughDoorModifier);
+
         $highlyInactive = new StatusConfig();
         $highlyInactive
             ->setStatusName(PlayerStatusEnum::HIGHLY_INACTIVE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs([$inactiveModifier])
+            ->setModifierConfigs([$inactiveModifier, $putThroughDoorModifier])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($highlyInactive);
 
@@ -314,7 +321,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $inactive
             ->setStatusName(PlayerStatusEnum::INACTIVE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs([$inactiveModifier])
+            ->setModifierConfigs([$inactiveModifier, $putThroughDoorModifier])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($inactive);
 

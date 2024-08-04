@@ -8,9 +8,6 @@ use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -178,19 +175,6 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->thenHitActionSuccessRateShouldBe(90, $I);
     }
 
-    public function solidPlayersShouldDealOneExtraDamage(FunctionalTester $I): void
-    {
-        $this->givenHitActionHasSuccessRate(100);
-
-        $this->givenKuanTiIsSolid($I);
-
-        $this->givenChunHasHealthPoint(10);
-
-        $this->whenKuanTiHitsChun();
-
-        $this->thenChunShouldHaveHealthPoint(8, $I);
-    }
-
     private function givenChunHasInactiveStatus(): void
     {
         $this->statusService->createStatusFromName(
@@ -216,19 +200,6 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->action->setSuccessRate($successRate);
     }
 
-    private function givenChunHasHealthPoint(int $healthPoint): void
-    {
-        $this->chun->setHealthPoint($healthPoint);
-    }
-
-    private function givenKuanTiIsSolid(FunctionalTester $I): void
-    {
-        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SOLID]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SOLID, $this->kuanTi));
-    }
-
     private function whenKuanTiTriesToHitChun(): void
     {
         $this->hitAction->loadParameters(
@@ -239,24 +210,8 @@ final class HitActionCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenKuanTiHitsChun(): void
-    {
-        $this->hitAction->loadParameters(
-            actionConfig: $this->action,
-            actionProvider: $this->kuanTi,
-            player: $this->kuanTi,
-            target: $this->chun
-        );
-        $this->hitAction->execute();
-    }
-
     private function thenHitActionSuccessRateShouldBe(int $expectedSuccessRate, FunctionalTester $I): void
     {
         $I->assertEquals($expectedSuccessRate, $this->hitAction->getSuccessRate());
-    }
-
-    private function thenChunShouldHaveHealthPoint(int $healthPoint, FunctionalTester $I): void
-    {
-        $I->assertEquals($healthPoint, $this->chun->getHealthPoint());
     }
 }

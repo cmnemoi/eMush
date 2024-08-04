@@ -60,13 +60,13 @@ final class Fight extends AbstractPlanetSectorEventHandler
         $exploration = $event->getExploration();
         $planetSector = $event->getPlanetSector();
 
-        if ($planetSector->isIntelligentSector() && $exploration->hasAWhiteFlag()) {
-            $event->addTag(ItemEnum::WHITE_FLAG);
+        if ($exploration->hasAnActiveDiplomat()) {
+            $event->addTag(SkillEnum::DIPLOMAT->toString());
 
             return $this->dispatchNonFightEvent($event);
         }
-        if ($planetSector->isIntelligentSector() && $exploration->hasAnActiveDiplomat()) {
-            $event->addTag(SkillEnum::DIPLOMAT->toString());
+        if ($planetSector->isIntelligentSector() && $exploration->hasAWhiteFlag()) {
+            $event->addTag(ItemEnum::WHITE_FLAG);
 
             return $this->dispatchNonFightEvent($event);
         }
@@ -220,6 +220,17 @@ final class Fight extends AbstractPlanetSectorEventHandler
         }
     }
 
+    private function dispatchNonFightEvent(PlanetSectorEvent $event): ExplorationLog
+    {
+        $exploration = $event->getExploration();
+        $newPlanetSectorEvents = $this->getPlanetSectorEventsWithoutFightOne($event);
+        $eventConfigToDispatch = $this->drawPlanetSectorEventConfigToDispatch($newPlanetSectorEvents);
+
+        $this->dispatchPlanetSectorEvent($eventConfigToDispatch, $event);
+
+        return new ExplorationLog($exploration->getClosedExploration());
+    }
+
     private function getPlanetSectorEventsWithoutFightOne(PlanetSectorEvent $event): ProbaCollection
     {
         $sectorEvents = clone $event->getPlanetSector()->getExplorationEvents();
@@ -244,17 +255,6 @@ final class Fight extends AbstractPlanetSectorEventHandler
         }
 
         return $eventConfig;
-    }
-
-    private function dispatchNonFightEvent(PlanetSectorEvent $event): ExplorationLog
-    {
-        $exploration = $event->getExploration();
-        $newPlanetSectorEvents = $this->getPlanetSectorEventsWithoutFightOne($event);
-        $eventConfigToDispatch = $this->drawPlanetSectorEventConfigToDispatch($newPlanetSectorEvents);
-
-        $this->dispatchPlanetSectorEvent($eventConfigToDispatch, $event);
-
-        return new ExplorationLog($exploration->getClosedExploration());
     }
 
     private function dispatchPlanetSectorEvent(PlanetSectorEventConfig $eventConfig, PlanetSectorEvent $event): void

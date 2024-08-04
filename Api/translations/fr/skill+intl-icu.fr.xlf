@@ -264,6 +264,16 @@
         <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.//:point: Expédition : Chaque dégât est **réduit d'un point**.//:point: Expédition : L'évènement **Provision** donne un steak de plus.//:point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
       </segment>
     </unit>
+    <unit id="diplomat">
+      <segment id="diplomat.name" state="translated">
+        <source>diplomat.name</source>
+        <target>Diplomatie</target>
+      </segment>
+      <segment id="diplomat.description" state="translated">
+        <source>diplomat.description</source>
+        <target>Un bon diplomate sait comment entrer en contact avec les races extra-terrestres.//:point: Empêche l'évènement **Combat** lors des rencontres extra-terrestres.//:point: Peut déclarer un cessez-le-feu une fois par partie. Le cessez-le-feu dure **3** cycles.//:point: Ouvre de nouvelles possibilités d'échanges commerciaux.</target>
+      </segment>
+    </unit>
     <unit id="anonymush">
       <segment id="anonymush.name" state="translated">
         <source>anonymush.name</source>
@@ -347,7 +357,7 @@
     <unit id="neron_only_friend">
       <segment id="neron_only_friend.name" state="translated">
         <source>neron_only_friend.name</source>
-        <target>{character_gender, select, 
+        <target>{character_gender, select,
         female {Seule amie de NERON}
         other {Seul ami de NERON}}</target>
       </segment>

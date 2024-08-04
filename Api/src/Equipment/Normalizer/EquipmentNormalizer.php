@@ -131,6 +131,9 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         if ($equipment->isAPlant() && $currentPlayer->hasSkill(SkillEnum::BOTANIST)) {
             return $this->getPlantEffects($equipment, $currentPlayer->getDaedalus());
         }
+        if ($equipment->isADrug() && $currentPlayer->hasSkill(SkillEnum::NURSE)) {
+            return $this->getRationsEffect($equipment, $currentPlayer->getDaedalus());
+        }
 
         return [];
     }

@@ -15,7 +15,6 @@ use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
-use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -42,11 +41,13 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->givenChunIsADiplomat($I);
     }
 
-    public function shouldCreateCeasefireStatusInTheRoom(FunctionalTester $I): void
+    public function shouldNotBeVisibleIfPlayerNotInARoom(FunctionalTester $I): void
     {
-        $this->whenChunCeasefires($I);
+        $this->givenChunIsInSpace();
 
-        $this->thenCeasefireStatusIsCreatedInTheRoom($I);
+        $this->whenChunTriesToCeasefire();
+
+        $this->thenCeasefireActionIsNotVisible(I: $I);
     }
 
     public function shouldPrintAPublicLog(FunctionalTester $I): void
@@ -54,7 +55,7 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->whenChunCeasefires();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: "**Chun** impose un cessez-le-feu dans la pièce. Quelle autorité !",
+            expectedRoomLog: '**Chun** impose un cessez-le-feu dans la pièce. Quelle autorité !',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->chun,
                 log: ActionLogEnum::CEASEFIRE_SUCCESS,
@@ -73,6 +74,11 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->thenHitActionShouldNotBeExecutableWithMessage(message: ActionImpossibleCauseEnum::CEASEFIRE, I: $I);
     }
 
+    private function givenChunIsInSpace(): void
+    {
+        $this->player->changePlace($this->daedalus->getSpace());
+    }
+
     private function givenChunIsADiplomat(FunctionalTester $I): void
     {
         $this->player->getCharacterConfig()->setSkillConfigs([
@@ -86,7 +92,7 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->whenChunCeasefires();
     }
 
-    private function whenChunCeasefires(): void
+    private function whenChunTriesToCeasefire(): void
     {
         $this->ceasefire->loadParameters(
             actionConfig: $this->actionConfig,
@@ -94,6 +100,11 @@ final class CeasefireCest extends AbstractFunctionalTest
             player: $this->player,
             target: null,
         );
+    }
+
+    private function whenChunCeasefires(): void
+    {
+        $this->whenChunTriesToCeasefire();
         $this->ceasefire->execute();
     }
 
@@ -107,9 +118,9 @@ final class CeasefireCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenCeasefireStatusIsCreatedInTheRoom(FunctionalTester $I): void
+    private function thenCeasefireActionIsNotVisible(FunctionalTester $I): void
     {
-        $I->assertTrue($this->chun->getPlace()->hasStatus(PlaceStatusEnum::CEASEFIRE->toString()));
+        $I->assertFalse($this->ceasefire->isVisible());
     }
 
     private function thenHitActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void

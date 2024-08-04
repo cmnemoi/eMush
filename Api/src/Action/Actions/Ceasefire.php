@@ -8,10 +8,13 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\PlaceType;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Ceasefire extends AbstractAction
@@ -25,6 +28,16 @@ final class Ceasefire extends AbstractAction
         private StatusServiceInterface $statusService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(
+            new PlaceType([
+                'type' => PlaceTypeEnum::ROOM,
+                'groups' => ['visibility'],
+            ])
+        );
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

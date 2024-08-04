@@ -52,7 +52,6 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private StatusServiceInterface $statusService;
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private Player $derek;
     private Player $janice;
 

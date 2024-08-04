@@ -420,6 +420,7 @@ class CharacterConfigData
                 SkillEnum::SHRINK,
                 SkillEnum::IT_EXPERT,
                 SkillEnum::NERON_ONLY_FRIEND,
+                SkillEnum::DIPLOMAT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

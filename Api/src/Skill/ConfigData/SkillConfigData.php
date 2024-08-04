@@ -61,6 +61,9 @@ abstract class SkillConfigData
                 name: SkillEnum::DETERMINED
             ),
             new SkillConfigDto(
+                name: SkillEnum::DIPLOMAT
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::FERTILE,
                 skillPointsConfig: SkillPointsEnum::SPORE_POINTS,
             ),

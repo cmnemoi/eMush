@@ -10,7 +10,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
@@ -19,6 +21,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -66,6 +69,21 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
         $this->whenChunPutsThroughKuanTiThroughDoor();
 
         $this->thenKuanTiShouldBeInFrontCorridor($I);
+    }
+
+    public function shouldPrintAPublicLog(FunctionalTester $I): void
+    {
+        $this->whenChunPutsThroughKuanTiThroughDoor();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: ':guard: **Chun** a fichu **Kuan Ti** à la porte. Du balai !',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: ActionLogEnum::PUT_THROUGH_DOOR_SUCCESS,
+                visibility: VisibilityEnum::PUBLIC,
+            ),
+            I: $I,
+        );
     }
 
     private function givenPlayersAreOnPlanet(): void

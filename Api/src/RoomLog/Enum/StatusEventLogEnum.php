@@ -6,6 +6,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Event\StatusEvent;
@@ -27,6 +28,7 @@ abstract class StatusEventLogEnum
     public const LOST_IN_EXPLORATION = 'lost_in_exploration';
     public const PLAYER_FALL_ASLEEP = 'player_fall_asleep';
     public const PLAYER_WAKE_UP = 'player_wake_up';
+    public const CEASEFIRE_END = 'ceasefire_end';
 
     public const VALUE = 'value';
     public const VISIBILITY = 'visibility';
@@ -48,6 +50,7 @@ abstract class StatusEventLogEnum
             PlayerStatusEnum::LYING_DOWN => self::GET_UP_BED_BROKEN,
             PlayerStatusEnum::INACTIVE => self::PLAYER_WAKE_UP,
             PlayerStatusEnum::HIGHLY_INACTIVE => self::PLAYER_WAKE_UP,
+            PlaceStatusEnum::CEASEFIRE->value => self::CEASEFIRE_END,
         ],
         VariableEventInterface::CHANGE_VARIABLE => [
             self::VALUE => [

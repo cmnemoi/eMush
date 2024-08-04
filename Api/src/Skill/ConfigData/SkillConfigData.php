@@ -136,7 +136,10 @@ abstract class SkillConfigData
                 name: SkillEnum::SOLID,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT,
-                ]
+                ],
+                actionConfigs: [
+                    ActionEnum::PUT_THROUGH_DOOR,
+                ],
             ),
             new SkillConfigDto(
                 name: SkillEnum::SURVIVALIST,

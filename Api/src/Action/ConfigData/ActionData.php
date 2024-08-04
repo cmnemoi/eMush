@@ -2047,6 +2047,22 @@ class ActionData
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'outputQuantity' => ['value' => 0, 'min_value' => 1, 'max_value' => null],
         ],
+        [
+            'name' => ActionEnum::PUT_THROUGH_DOOR->value,
+            'action_name' => ActionEnum::PUT_THROUGH_DOOR,
+            'types' => [],
+            'target' => ActionHolderEnum::OTHER_PLAYER,
+            'scope' => ActionRangeEnum::PLAYER,
+            'visibilities' => ['success' => 'public', 'fail' => 'private'],
+            'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+        ],
     ];
 
     public static function getByName(ActionEnum $name): array

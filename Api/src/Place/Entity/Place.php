@@ -334,6 +334,14 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     }
 
     /**
+     * @return Collection<array-key, Door>
+     */
+    public function getOperationalDoors(): Collection
+    {
+        return $this->getDoors()->filter(static fn (Door $door) => $door->isOperational());
+    }
+
+    /**
      * @return Collection<array-key, GameEquipment>
      */
     public function getBrokenDoorsAndEquipments(): Collection
@@ -345,17 +353,24 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     }
 
     /**
+     * This method returns all rooms connected to this one by a door.
+     * /!\ Do NOT use this method if you want rooms with a working door ! Use `$place->getAccessibleRooms()` instead. /!\.
+     *
      * @return ArrayCollection<int, Place>
      */
     public function getAdjacentRooms(): ArrayCollection
     {
-        /** @var ArrayCollection<int, Place> $adjacentRooms */
-        $adjacentRooms = new ArrayCollection();
-        foreach ($this->getDoors() as $door) {
-            $adjacentRooms->add($door->getOtherRoom($this));
-        }
+        return $this->getDoors()->map(fn (Door $door) => $door->getOtherRoom($this));
+    }
 
-        return $adjacentRooms;
+    /**
+     * This method returns all rooms connected to this one by a working door.
+     *
+     * @return ArrayCollection<int, Place>
+     */
+    public function getAccessibleRooms(): ArrayCollection
+    {
+        return $this->getOperationalDoors()->map(fn (Door $door) => $door->getOtherRoom($this));
     }
 
     public function addStatus(Status $status): static

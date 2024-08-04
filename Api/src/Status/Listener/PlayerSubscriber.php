@@ -3,6 +3,7 @@
 namespace Mush\Status\Listener;
 
 use Mush\Communication\Services\ChannelService;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\PlaceStatusEnum;
@@ -90,6 +91,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             holder: $ceasefireStatus->getOwner(),
             tags: $event->getTags(),
             time: $event->getTime(),
+            visibility: VisibilityEnum::PUBLIC,
         );
     }
 }

@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
@@ -115,6 +116,24 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->whenChunGoesToFrontCorridor($I);
 
         $this->thenRoomShouldNotBeUnderCeasefire($I);
+    }
+
+    public function shouldPrintAPublicLogWhenDiplomatMoves(FunctionalTester $I): void
+    {
+        $this->givenChunCeasefires();
+
+        $this->whenChunGoesToFrontCorridor($I);
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: '**Chun** a quitté la pièce. Fin du cessez-le-feu.',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: StatusEventLogEnum::CEASEFIRE_END,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
     }
 
     private function givenChunIsInSpace(): void

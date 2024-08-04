@@ -444,6 +444,7 @@ class GameConfigData
                 SkillPointsEnum::BOTANIST_POINTS->value,
                 SkillPointsEnum::PILGRED_POINTS->value,
                 PlaceStatusEnum::CEASEFIRE->value . '_default',
+                PlayerStatusEnum::HAS_CEASEFIRED . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

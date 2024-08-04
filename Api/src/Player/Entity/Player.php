@@ -229,6 +229,16 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     }
 
     /**
+     * This method returns all rooms connected to player's one by a working door.
+     *
+     * @return ArrayCollection<int, Place>
+     */
+    public function getAccessibleRooms(): ArrayCollection
+    {
+        return $this->getPlace()->getAccessibleRooms();
+    }
+
+    /**
      * Return true if the item is reachable for the player i.e. in the inventory or the room.
      */
     public function canReachEquipment(GameEquipment $gameEquipment): bool

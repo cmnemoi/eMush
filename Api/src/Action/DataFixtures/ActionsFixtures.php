@@ -1107,6 +1107,9 @@ class ActionsFixtures extends Fixture
         $graft = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GRAFT));
         $manager->persist($graft);
 
+        $putThroughDoor = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PUT_THROUGH_DOOR));
+        $manager->persist($putThroughDoor);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1210,5 +1213,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::TOGGLE_MAGNETIC_NET->value, $toggleMagneticNet);
         $this->addReference(ActionEnum::CHITCHAT->value, $chitchat);
         $this->addReference(ActionEnum::GRAFT->value, $graft);
+        $this->addReference(ActionEnum::PUT_THROUGH_DOOR->value, $putThroughDoor);
     }
 }

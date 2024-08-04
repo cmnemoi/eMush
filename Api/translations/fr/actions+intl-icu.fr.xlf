@@ -1230,5 +1230,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action vous fera perdre un point de moral, êtes-vous sûr de vouloir continuer ?</target>
       </segment>
     </unit>
+    <unit id="ceasefire">
+      <segment id="ceasefire" state="final">
+        <source>ceasefire.name</source>
+        <target>Cessez-le-feu</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>ceasefire.description</source>
+        <target>Aucune personne ne peut effectuer d'action agressive dans cette pièce jusqu'à ce que vous la quittiez.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

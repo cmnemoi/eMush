@@ -212,7 +212,9 @@ class CharacterConfigData
         [
             'name' => 'finola',
             'characterName' => 'finola',
-            'skillConfigs' => [],
+            'skillConfigs' => [
+                SkillEnum::DIPLOMAT,
+            ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
             'maxMoralPoint' => 14,

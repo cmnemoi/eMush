@@ -91,7 +91,7 @@ class ActionEvent extends AbstractGameEvent
     public function setActionResult(ActionResult $actionResult): self
     {
         $this->actionResult = $actionResult;
-        $this->addTag($actionResult->getName());
+        $this->addTag($actionResult->getResultTag());
 
         return $this;
     }

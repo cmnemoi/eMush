@@ -39,6 +39,19 @@ final class CreativeCest extends AbstractFunctionalTest
     public function shouldNotGiveOneActionPointAfterSuccessfulAction(FunctionalTester $I): void
     {
         $this->givenActionSuccessRateIs(100);
+        $this->givenActionCriticalSuccessRateIs(0);
+
+        $this->givenChunHasActionPoints(1);
+
+        $this->whenChunMakesAction();
+
+        $this->thenChunShouldHaveActionPoints(0, $I);
+    }
+
+    public function shouldNotGiveOneActionPointAfterCriticalSuccessfulAction(FunctionalTester $I): void
+    {
+        $this->givenActionSuccessRateIs(100);
+        $this->givenActionCriticalSuccessRateIs(100);
 
         $this->givenChunHasActionPoints(1);
 
@@ -93,6 +106,11 @@ final class CreativeCest extends AbstractFunctionalTest
     private function givenActionSuccessRateIs(int $rate): void
     {
         $this->actionConfig->setSuccessRate($rate);
+    }
+
+    private function givenActionCriticalSuccessRateIs(int $rate): void
+    {
+        $this->actionConfig->setCriticalRate($rate);
     }
 
     private function givenChunHasActionPoints(int $actionPoints): void

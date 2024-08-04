@@ -3,6 +3,7 @@
 namespace Mush\Action\Entity\ActionResult;
 
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 
 abstract class ActionResult
@@ -83,5 +84,15 @@ abstract class ActionResult
     public function isNotACriticalSuccess(): bool
     {
         return $this instanceof CriticalSuccess === false;
+    }
+
+    public function isASuccess(): bool
+    {
+        return $this instanceof Success;
+    }
+
+    public function getResultTag(): string
+    {
+        return $this->isASuccess() ? ActionOutputEnum::SUCCESS : ActionOutputEnum::FAIL;
     }
 }

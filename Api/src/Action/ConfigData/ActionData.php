@@ -2018,7 +2018,7 @@ class ActionData
         [
             'name' => ActionEnum::GRAFT->value,
             'action_name' => ActionEnum::GRAFT,
-            'types' => [ActionTypeEnum::ACTION_BOTANIST],
+            'types' => [ActionTypeEnum::ACTION_BOTANIST, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, ActionOutputEnum::FAIL => VisibilityEnum::PUBLIC],

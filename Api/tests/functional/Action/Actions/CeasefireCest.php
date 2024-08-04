@@ -6,9 +6,12 @@ namespace Mush\tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Ceasefire;
 use Mush\Action\Actions\Hit;
+use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Door;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -16,6 +19,7 @@ use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -29,6 +33,7 @@ final class CeasefireCest extends AbstractFunctionalTest
     private Ceasefire $ceasefire;
     private ChooseSkillUseCase $chooseSkillUseCase;
     private Hit $hit;
+    private Move $move;
 
     public function _before(FunctionalTester $I): void
     {
@@ -38,6 +43,7 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->ceasefire = $I->grabService(Ceasefire::class);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->hit = $I->grabService(Hit::class);
+        $this->move = $I->grabService(Move::class);
 
         $this->givenChunIsADiplomat($I);
         $this->givenKuanTiIsADiplomat($I);
@@ -100,6 +106,15 @@ final class CeasefireCest extends AbstractFunctionalTest
             message: ActionImpossibleCauseEnum::UNIQUE_ACTION,
             I: $I,
         );
+    }
+
+    public function shouldDisappearWhenDiplomatMoves(FunctionalTester $I): void
+    {
+        $this->givenChunCeasefires();
+
+        $this->whenChunGoesToFrontCorridor($I);
+
+        $this->thenRoomShouldNotBeUnderCeasefire($I);
     }
 
     private function givenChunIsInSpace(): void
@@ -169,6 +184,23 @@ final class CeasefireCest extends AbstractFunctionalTest
         );
     }
 
+    private function whenChunGoesToFrontCorridor(FunctionalTester $I): void
+    {
+        $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
+        $icarusBay = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
+        $door = Door::createFromRooms($frontCorridor, $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+        $door->setEquipment($I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']));
+        $I->haveInRepository($door);
+
+        $this->move->loadParameters(
+            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::MOVE]),
+            actionProvider: $door,
+            player: $this->chun,
+            target: $door,
+        );
+        $this->move->execute();
+    }
+
     private function thenCeasefireActionIsNotVisible(FunctionalTester $I): void
     {
         $I->assertFalse($this->ceasefire->isVisible());
@@ -188,5 +220,10 @@ final class CeasefireCest extends AbstractFunctionalTest
             expected: $message,
             actual: $this->ceasefire->cannotExecuteReason(),
         );
+    }
+
+    private function thenRoomShouldNotBeUnderCeasefire(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::CEASEFIRE->toString()));
     }
 }

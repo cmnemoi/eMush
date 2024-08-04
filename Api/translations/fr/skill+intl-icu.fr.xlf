@@ -314,5 +314,15 @@
         <target>En observant attentivement les activités de ses professeurs, l'apprenti peut à terme reproduire leurs moindres faits et gestes.//:point: Vous accorde l'action Apprentissage qui permet de copier la compétence d'un joueur présent dans la pièce, une fois par partie.</target>
       </segment>
     </unit>
+    <unit id="solid">
+      <segment id="solid.name" state="translated">
+        <source>solid.name</source>
+        <target>Robuste</target>
+      </segment>
+      <segment id="solid.description" state="translated">
+        <source>solid.description</source>
+        <target>Vous n'avez aucune pénalité lorsque vous transportez un objet lourd. Pratique aussi pour les combats au corps-à-corps.//:point: Vos attaques de corps-à-corps infligent **un point de dégât supplémentaire**.//:point: **Pas de pénalités** pour les objets lourds.//:point: Dispose de la possibilité de **Mettre à la porte**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

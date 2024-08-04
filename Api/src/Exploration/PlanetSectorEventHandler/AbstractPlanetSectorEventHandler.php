@@ -16,7 +16,6 @@ use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\Enum\SkillEnum;
 
 abstract class AbstractPlanetSectorEventHandler
 {
@@ -103,12 +102,7 @@ abstract class AbstractPlanetSectorEventHandler
             key: 'skill_reduced_damage_for_player',
             parameters: [
                 $player->getLogKey() => $player->getLogName(),
-                'skill' => $this->translationService->translate(
-                    key: sprintf('%s.name', $skill->toString()),
-                    parameters: [],
-                    domain: 'skill',
-                    language: $player->getLanguage()
-                ),
+                'skill' => $skill->toString(),
                 'quantity' => $this->getSkillReduction($player, $skill),
             ],
             domain: 'planet_sector_event',

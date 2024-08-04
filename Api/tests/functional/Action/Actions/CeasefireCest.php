@@ -9,6 +9,8 @@ use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
@@ -16,6 +18,7 @@ use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -41,9 +44,24 @@ final class CeasefireCest extends AbstractFunctionalTest
 
     public function shouldCreateCeasefireStatusInTheRoom(FunctionalTester $I): void
     {
-        $this->whenChunCeasefires();
+        $this->whenChunCeasefires($I);
 
         $this->thenCeasefireStatusIsCreatedInTheRoom($I);
+    }
+
+    public function shouldPrintAPublicLog(FunctionalTester $I): void
+    {
+        $this->whenChunCeasefires();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: "**Chun** impose un cessez-le-feu dans la pièce. Quelle autorité !",
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: ActionLogEnum::CEASEFIRE_SUCCESS,
+                visibility: VisibilityEnum::PUBLIC,
+            ),
+            I: $I,
+        );
     }
 
     public function shouldPreventAggressiveActionsInRoom(FunctionalTester $I): void

@@ -132,6 +132,7 @@ abstract class ActionLogEnum
     public const string CHITCHAT_SUCCESS = 'chitchat_success';
     public const string GRAFT_SUCCESS = 'graft_success';
     public const string GRAFT_FAIL = 'graft_fail';
+    public const string CEASEFIRE_SUCCESS = 'ceasefire_success';
     public const string PUT_THROUGH_DOOR_SUCCESS = 'put_through_door_success';
 
     public const array ACTION_LOGS = [
@@ -461,6 +462,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::PUT_THROUGH_DOOR->value => [
             ActionOutputEnum::SUCCESS => self::PUT_THROUGH_DOOR_SUCCESS,
+        ],
+        ActionEnum::CEASEFIRE->value => [
+            ActionOutputEnum::SUCCESS => self::CEASEFIRE_SUCCESS,
         ],
     ];
 

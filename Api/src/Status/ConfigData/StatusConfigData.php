@@ -409,6 +409,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [
                 'modifier_for_player_x1.5percentage_on_action_attack_hit_shoot',
+                ModifierNameEnum::PLAYER_MINUS_1_ACTION_POINT_ON_PUT_THROUGH_DOOR,
             ],
             'actionConfigs' => [],
         ],
@@ -455,6 +456,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [
                 'modifier_for_player_x1.5percentage_on_action_attack_hit_shoot',
+                ModifierNameEnum::PLAYER_MINUS_1_ACTION_POINT_ON_PUT_THROUGH_DOOR,
             ],
             'actionConfigs' => [],
         ],

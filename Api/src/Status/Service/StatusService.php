@@ -254,7 +254,8 @@ class StatusService implements StatusServiceInterface
         int $delta,
         array $tags,
         \DateTime $time,
-        string $mode = VariableEventInterface::CHANGE_VARIABLE
+        string $mode = VariableEventInterface::CHANGE_VARIABLE,
+        string $visibility = VisibilityEnum::HIDDEN,
     ): ?ChargeStatus {
         $chargeVariable = $chargeStatus->getVariableByName($chargeStatus->getName());
 
@@ -268,7 +269,7 @@ class StatusService implements StatusServiceInterface
         $this->eventService->callEvent($statusEvent, $mode);
 
         if ($chargeStatus->isAutoRemove() && $chargeVariable->isMin()) {
-            $this->removeStatus($chargeStatus->getName(), $chargeStatus->getOwner(), $tags, $time);
+            $this->removeStatus($chargeStatus->getName(), $chargeStatus->getOwner(), $tags, $time, $visibility);
 
             return null;
         }

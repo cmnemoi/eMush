@@ -3,27 +3,24 @@
 namespace Mush\RoomLog\Listener;
 
 use Mush\Equipment\Entity\Door;
-use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Event\ChargeStatusEvent;
 use Mush\Status\Event\StatusEvent;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class StatusSubscriber implements EventSubscriberInterface
 {
-    private LoggerInterface $logger;
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
-        LoggerInterface $logger,
         RoomLogServiceInterface $roomLogService
     ) {
-        $this->logger = $logger;
         $this->roomLogService = $roomLogService;
     }
 
@@ -100,7 +97,7 @@ class StatusSubscriber implements EventSubscriberInterface
         if ($specialLogKey !== null) {
             $logVisibility = $event->mapLog($specialLogMap[StatusEventLogEnum::VISIBILITY]);
 
-            $this->createEventLog($specialLogKey, $event, $logVisibility ?: VisibilityEnum::HIDDEN);
+            $this->createEventLog($specialLogKey, $event, $logVisibility);
         }
 
         $gainOrLoss = $delta > 0 ? StatusEventLogEnum::GAIN : StatusEventLogEnum::LOSS;
@@ -108,7 +105,7 @@ class StatusSubscriber implements EventSubscriberInterface
 
         if (\array_key_exists($event->getStatusName(), $logMap[StatusEventLogEnum::VALUE])) {
             $logKey = $logMap[StatusEventLogEnum::VALUE][$event->getStatusName()];
-            $visibility = $logMap[StatusEventLogEnum::VISIBILITY][$event->getStatusName()] ?? VisibilityEnum::HIDDEN;
+            $visibility = $logMap[StatusEventLogEnum::VISIBILITY][$event->getStatusName()] ?? null;
             $this->createEventLog($logKey, $event, $visibility);
         }
     }
@@ -126,13 +123,18 @@ class StatusSubscriber implements EventSubscriberInterface
             $player = null;
         }
 
+        $logParameters = $event->getLogParameters();
+        if ($event->hasTag(PlaceStatusEnum::CEASEFIRE->toString())) {
+            $logParameters['new_cycle'] = $event->hasTag(EventEnum::NEW_CYCLE) ? 'true' : 'false';
+        }
+
         $this->roomLogService->createLog(
             $logKey,
             $place,
-            $visibility ?: $event->getVisibility(),
+            $visibility ?? $event->getVisibility(),
             'event_log',
             $player,
-            $event->getLogParameters(),
+            $logParameters,
             $event->getTime()
         );
     }

@@ -13,11 +13,16 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -36,6 +41,7 @@ final class MoveCest extends AbstractFunctionalTest
     private ChannelServiceInterface $channelService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private ChooseSkillUseCase $chooseSkillUseCase;
 
     public function _before(FunctionalTester $I)
     {
@@ -57,6 +63,7 @@ final class MoveCest extends AbstractFunctionalTest
         $this->channelService = $I->grabService(ChannelServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
     }
 
     public function testMoveActionNotExecutableIfIcarusBayHasTooMuchPeopleInside(FunctionalTester $I): void
@@ -277,6 +284,64 @@ final class MoveCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: $this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY)->getName(),
             actual: $this->derek->getPlace()->getName(),
+        );
+    }
+
+    public function solidPlayerShouldNotHaveMalusWhenHoldingHeavyItem(FunctionalTester $I): void
+    {
+        // given there is a door leading to Icarus Bay
+        $door = $this->createDoorFromTo($I, RoomEnum::LABORATORY, RoomEnum::ICARUS_BAY);
+
+        $this->givenChunIsSolidPlayer($I);
+
+        $this->givenChunHasAMicrowave();
+
+        $this->givenChunHasMovementPoint(12);
+
+        $this->whenChunMovesToIcarusBay($door);
+
+        $this->thenChunShouldHaveMovementPoint(11, $I);
+    }
+
+    private function givenChunIsSolidPlayer(FunctionalTester $I): void
+    {
+        $this->chun->getCharacterConfig()->addSkillConfig(
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SOLID])
+        );
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SOLID, $this->chun));
+    }
+
+    private function givenChunHasAMicrowave(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ToolItemEnum::MICROWAVE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenChunHasMovementPoint(int $movementPoint): void
+    {
+        $this->chun->setMovementPoint($movementPoint);
+    }
+
+    private function whenChunMovesToIcarusBay(Door $door): void
+    {
+        $this->moveAction->loadParameters(
+            actionConfig: $this->moveConfig,
+            actionProvider: $door,
+            player: $this->chun,
+            target: $door
+        );
+        $this->moveAction->execute();
+    }
+
+    private function thenChunShouldHaveMovementPoint(int $expected, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $expected,
+            actual: $this->chun->getMovementPoint(),
         );
     }
 

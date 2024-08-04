@@ -12,6 +12,7 @@ use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Skill\Entity\Skill;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 
@@ -51,6 +52,8 @@ class ActionEvent extends AbstractGameEvent
         if ($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY) || $daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY_REPAIRED)) {
             $this->addTag(DaedalusStatusEnum::NO_GRAVITY);
         }
+
+        $player->getSkills()->map(fn (Skill $skill) => $this->addTag($skill->getNameAsString()));
     }
 
     public function getAuthor(): Player

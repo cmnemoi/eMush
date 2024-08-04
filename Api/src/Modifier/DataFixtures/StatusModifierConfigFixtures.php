@@ -116,16 +116,9 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierRange(ModifierHolderClassEnum::PLACE);
         $manager->persist($pacifistModifier);
 
-        $burdenedModifier = new VariableEventModifierConfig('burdenedIncreaseMoveCost1Action');
-        $burdenedModifier
-            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(2)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ALL_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
-        $burdenedModifier->buildName();
+        $burdenedModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_for_player_+2movementPoint_on_move')
+        );
         $manager->persist($burdenedModifier);
 
         /** @var AbstractEventConfig $eventConfigIncreaseMaxCharge */

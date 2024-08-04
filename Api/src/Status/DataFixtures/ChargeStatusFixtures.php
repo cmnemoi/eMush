@@ -28,6 +28,7 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
@@ -508,6 +509,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $geniusIdea->setModifierConfigs([$modifierPlayerAlwaysSucceedsRepairAction]);
         $manager->persist($geniusIdea);
 
+        $ceasefireStatus = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlaceStatusEnum::CEASEFIRE->value . '_default')
+        );
+        $manager->persist($ceasefireStatus);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -544,6 +550,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($changedCpuPriority)
             ->addStatusConfig($autoWateringFiresKilled)
             ->addStatusConfig($droneCharges)
+            ->addStatusConfig($conceptorPoints)
+            ->addStatusConfig($shooterPoints)
+            ->addStatusConfig($technicianPoints)
+            ->addStatusConfig($itExpertPoints)
+            ->addStatusConfig($ceasefireStatus)
             ->addStatusConfig($hasChitchattedStatus)
             ->addStatusConfig($geniusIdea);
 
@@ -587,6 +598,14 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE, $droneCharges);
         $this->addReference(PlayerStatusEnum::HAS_CHITCHATTED, $hasChitchattedStatus);
         $this->addReference($geniusIdea->getName(), $geniusIdea);
+        $this->addReference($conceptorPoints->getName(), $conceptorPoints);
+        $this->addReference($shooterPoints->getName(), $shooterPoints);
+        $this->addReference($technicianPoints->getName(), $technicianPoints);
+        $this->addReference($itExpertPoints->getName(), $itExpertPoints);
+        $this->addReference($hasChitchattedStatus->getName(), $hasChitchattedStatus);
+        $this->addReference($botanistPoints->getName(), $botanistPoints);
+        $this->addReference($pilgredPoints->getName(), $pilgredPoints);
+        $this->addReference($ceasefireStatus->getName(), $ceasefireStatus);
     }
 
     public function getDependencies(): array

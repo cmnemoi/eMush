@@ -1379,6 +1379,20 @@ abstract class StatusConfigData
             ],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlaceStatusEnum::CEASEFIRE->value . '_default',
+            'statusName' => PlaceStatusEnum::CEASEFIRE->value,
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => 'hidden',
+            'chargeStrategy' => ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+            'maxCharge' => 3,
+            'startCharge' => 3,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => true,
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

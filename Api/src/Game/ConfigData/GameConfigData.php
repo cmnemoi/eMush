@@ -449,6 +449,7 @@ class GameConfigData
                 PlayerStatusEnum::GENIUS_IDEA . '_default',
                 PlayerStatusEnum::HAS_USED_GENIUS . '_default',
                 SkillPointsEnum::SPORE_POINTS->value,
+                PlaceStatusEnum::CEASEFIRE->value . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

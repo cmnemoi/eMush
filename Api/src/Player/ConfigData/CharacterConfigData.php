@@ -412,6 +412,7 @@ class CharacterConfigData
             'skillConfigs' => [
                 SkillEnum::SHRINK,
                 SkillEnum::IT_EXPERT,
+                SkillEnum::DIPLOMAT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

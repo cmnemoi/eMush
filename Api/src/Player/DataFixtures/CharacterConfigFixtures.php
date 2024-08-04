@@ -93,6 +93,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $physicistSkillConfig */
         $physicistSkillConfig = $this->getReference(SkillEnum::PHYSICIST->value);
 
+        /** @var SkillConfig $diplomatSkillConfig */
+        $diplomatSkillConfig = $this->getReference(SkillEnum::DIPLOMAT->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -227,6 +230,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setSkillConfigs([
                 $shrinkSkillConfig,
                 $itExpertSkillConfig,
+                $diplomatSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($janice);

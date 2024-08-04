@@ -57,15 +57,18 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
-        if ($event->getExploration()->hasAWhiteFlag() && $event->getPlanetSector()->getName() === PlanetSectorEnum::INTELLIGENT) {
+        $exploration = $event->getExploration();
+        $planetSector = $event->getPlanetSector();
+
+        if ($planetSector->isIntelligentSector() && $exploration->hasAWhiteFlag()) {
             $event->addTag(ItemEnum::WHITE_FLAG);
 
-            $newPlanetSectorEvents = $this->getPlanetSectorEventsWithoutFightOne($event);
-            $eventConfigToDispatch = $this->drawPlanetSectorEventConfigToDispatch($newPlanetSectorEvents);
+            return $this->dispatchNonFightEvent($event);
+        }
+        if ($planetSector->isIntelligentSector() && $exploration->hasAnActiveDiplomat()) {
+            $event->addTag(SkillEnum::DIPLOMAT->toString());
 
-            $this->dispatchPlanetSectorEvent($eventConfigToDispatch, $event);
-
-            return new ExplorationLog($event->getExploration()->getClosedExploration());
+            return $this->dispatchNonFightEvent($event);
         }
 
         $creatureStrength = $this->drawEventOutputQuantity($event->getOutputTable());
@@ -88,7 +91,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
         // if we are fighting a Mankarog, add an event tag to shame the dead players with a special death cause
         if (
-            $event->getPlanetSector()->getName() === PlanetSectorEnum::MANKAROG
+            $planetSector->getName() === PlanetSectorEnum::MANKAROG
             || $creatureStrength >= self::MANKAROG_STRENGTH
         ) {
             $event->addTag(EndCauseEnum::MANKAROG);
@@ -241,6 +244,17 @@ final class Fight extends AbstractPlanetSectorEventHandler
         }
 
         return $eventConfig;
+    }
+
+    private function dispatchNonFightEvent(PlanetSectorEvent $event): ExplorationLog
+    {
+        $exploration = $event->getExploration();
+        $newPlanetSectorEvents = $this->getPlanetSectorEventsWithoutFightOne($event);
+        $eventConfigToDispatch = $this->drawPlanetSectorEventConfigToDispatch($newPlanetSectorEvents);
+
+        $this->dispatchPlanetSectorEvent($eventConfigToDispatch, $event);
+
+        return new ExplorationLog($exploration->getClosedExploration());
     }
 
     private function dispatchPlanetSectorEvent(PlanetSectorEventConfig $eventConfig, PlanetSectorEvent $event): void

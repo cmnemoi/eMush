@@ -15,6 +15,7 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Normalizer\ExplorationLogNormalizer;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Entity\Player;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
@@ -597,6 +598,58 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'eventName' => 'Combat',
                 'eventDescription' => 'Un être étrange s\'approche de vous et lance de grands cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.',
                 'eventOutcome' => 'Vous affrontez une créature.////Force Créature : 1////Force Équipe : 2////Créature décède.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
+    public function testNormalizeFightEventWithADiplomat(FunctionalTester $I): void
+    {
+        // given intelligent life has only fight and provision events
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [
+                PlanetSectorEvent::FIGHT_12 => PHP_INT_MAX - 1,
+                PlanetSectorEvent::PROVISION_2 => 1,
+            ]
+        );
+
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun is a diplomat
+        $this->givenPlayerHasSkill($this->chun, SkillEnum::DIPLOMAT, $I);
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun]),
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given fight event is triggered
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when intelligent sector event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::INTELLIGENT,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected : provision event as Chun is a diplomat who prevented the fight event
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
+                'planetSectorName' => 'Vie intelligente',
+                'eventName' => 'Provision',
+                'eventDescription' => 'Alors que l\'expédition progresse tranquillement vous tombez nez à nez avec un être étrange. Impossible de communiquer avec lui mais avant de partir, il vous donne un sac qui contient du gibier alien.',
+                'eventOutcome' => 'Vous gagnez 2 Steaks aliens.////Probabilité de combat annulée Diplomatie',
             ],
             actual: $normalizedExplorationLog,
         );
@@ -1465,5 +1518,13 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             ],
             actual: $normalizedExplorationLog,
         );
+    }
+
+    private function givenPlayerHasSkill(Player $player, SkillEnum $skill, FunctionalTester $I): void
+    {
+        $skillConfig = $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]);
+        $player->getCharacterConfig()->addSkillConfig($skillConfig);
+
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto($skill, $player));
     }
 }

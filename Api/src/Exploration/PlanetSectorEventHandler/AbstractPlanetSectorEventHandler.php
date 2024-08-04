@@ -16,6 +16,7 @@ use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Enum\SkillEnum;
 
 abstract class AbstractPlanetSectorEventHandler
 {
@@ -74,7 +75,16 @@ abstract class AbstractPlanetSectorEventHandler
     {
         $logParameters = [];
         $logParameters['fight_prevented_by_item'] = null;
+        $logParameters['fight_prevented_by_skill'] = null;
 
+        if ($event->hasTag(SkillEnum::DIPLOMAT->toString())) {
+            $logParameters['fight_prevented_by_skill'] = '////' . $this->translationService->translate(
+                key: 'fight_prevented_by_skill',
+                parameters: ['skill' => SkillEnum::DIPLOMAT->toString()],
+                domain: 'planet_sector_event',
+                language: $event->getExploration()->getDaedalus()->getLanguage()
+            );
+        }
         if ($event->hasTag(ItemEnum::WHITE_FLAG)) {
             $logParameters['fight_prevented_by_item'] = '////' . $this->translationService->translate(
                 key: 'fight_prevented_by_item',

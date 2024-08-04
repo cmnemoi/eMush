@@ -34,6 +34,7 @@ abstract class LanguageEnum
     public const string TARGET_PROJECT = 'target_project';
     public const string DRONE = 'drone';
     public const string TARGET_DRONE = 'target_drone';
+    public const string SKILL = 'skill';
 
     // translation domains
     public const string CHARACTERS = 'characters';
@@ -66,6 +67,7 @@ abstract class LanguageEnum
         self::TARGET_PROJECT => self::PROJECT,
         self::DRONE => self::ITEMS,
         self::TARGET_DRONE => self::ITEMS,
+        self::SKILL => self::SKILL,
         LogDeclinationEnum::BALLS_COPROLALIA => self::DISEASE_MESSAGE,
         LogDeclinationEnum::PREFIX_COPROLALIA => self::DISEASE_MESSAGE,
         LogDeclinationEnum::ADJECTIVE_COPROLALIA => self::DISEASE_MESSAGE,
@@ -86,6 +88,7 @@ abstract class LanguageEnum
             self::HUNTER => ['name'],
             self::ACTION => ['name'],
             self::PROJECT => ['name'],
+            self::SKILL => ['name'],
             LogDeclinationEnum::BALLS_COPROLALIA => ['balls_coprolalia'],
             LogDeclinationEnum::PREFIX_COPROLALIA => ['prefix_coprolalia'],
             LogDeclinationEnum::ADJECTIVE_COPROLALIA => [
@@ -116,6 +119,7 @@ abstract class LanguageEnum
             self::HUNTER => ['name'],
             self::ACTION => ['name'],
             self::PROJECT => ['name'],
+            self::SKILL => ['name'],
             LogDeclinationEnum::BALLS_COPROLALIA => ['balls_coprolalia'],
             LogDeclinationEnum::PREFIX_COPROLALIA => ['prefix_coprolalia'],
             LogDeclinationEnum::ADJECTIVE_COPROLALIA => ['adjective_coprolalia'],

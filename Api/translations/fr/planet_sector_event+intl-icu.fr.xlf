@@ -8,7 +8,7 @@
       </segment>
       <segment id="description" state="final">
         <source>nothing_to_report.description</source>
-        <target>La zone est explorée, rien à signaler.{always_successful_thanks_to_skill}{fight_prevented_by_item}</target>
+        <target>La zone est explorée, rien à signaler.{always_successful_thanks_to_skill}{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="landing_description" state="final">
         <source>nothing_to_report.landing_description</source>
@@ -123,7 +123,7 @@
         <target>{quantity, plural,
         one {Tous les équipiers subissent # point de dégâts.}
         other {Tous les équipiers subissent # points de dégâts.}
-        }{fight_prevented_by_item}{skill_reduced_damage_for_player}</target>
+        }{fight_prevented_by_item}{skill_reduced_damage_for_player}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="landing_description" state="final">
         <source>tired.landing_description</source>
@@ -161,7 +161,7 @@
       </segment>
       <segment id="description" state="final">
         <source>accident.description</source>
-        <target>Un équipier subit entre {min_quantity} et {max_quantity} points de dégâts.{rope_worked, select, true {////Esquivé Corde} other {}}{fight_prevented_by_item}{skill_reduced_damage_for_player}</target>
+        <target>Un équipier subit entre {min_quantity} et {max_quantity} points de dégâts.{rope_worked, select, true {////Esquivé Corde} other {}}{fight_prevented_by_item}{skill_reduced_damage_for_player}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="predator_description" state="final">
         <source>accident.predator_description</source>
@@ -215,7 +215,7 @@
       </segment>
       <segment id="description" state="final">
         <source>disaster.description</source>
-        <target>Tous les équipiers subissent entre {min_quantity} et {max_quantity} points de dégâts.{fight_prevented_by_item}</target>
+        <target>Tous les équipiers subissent entre {min_quantity} et {max_quantity} points de dégâts.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="landing_description" state="final">
         <source>disaster.landing_description</source>
@@ -229,7 +229,7 @@
       </segment>
       <segment id="description" state="final">
         <source>oxygen.description</source>
-        <target>Vous gagnez {quantity} unités d'O².{fight_prevented_by_item}</target>
+        <target>Vous gagnez {quantity} unités d'O².{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="oxygen_description" state="final">
         <source>oxygen.oxygen_description</source>
@@ -248,7 +248,7 @@
       </segment>
       <segment id="description" state="final">
         <source>fuel.description</source>
-        <target>Vous gagnez {quantity} unités de Fuel.{has_drill, select, true {////x2 car l'expédition dispose de l'objet : Foreuse} other {}}{fight_prevented_by_item}</target>
+        <target>Vous gagnez {quantity} unités de Fuel.{has_drill, select, true {////x2 car l'expédition dispose de l'objet : Foreuse} other {}}{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="hydrocarbon_description" state="final">
         <source>fuel.hydrocarbon_description</source>
@@ -287,7 +287,7 @@
       </segment>
       <segment id="description" state="final">
         <source>artefact.description</source>
-        <target>Vous trouvez un artefact.{used_babel_module, select, true {////+100% Module Babel} other {}}{fight_prevented_by_item}</target>
+        <target>Vous trouvez un artefact.{used_babel_module, select, true {////+100% Module Babel} other {}}{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="intelligent_description" state="final">
         <source>artefact.intelligent_description</source>
@@ -338,6 +338,12 @@
         <target>+ {quantity} car l'expédition dispose de la compétence : {skill}</target>
       </segment>
     </unit>
+    <unit id="fight_prevented_by_skill">
+      <segment id="description" state="translated">
+        <source>fight_prevented_by_skill</source>
+        <target>Probabilité de combat annulée {skill}</target>
+      </segment>
+    </unit>
     <unit id="kill_random">
       <segment id="name" state="final">
         <source>kill_random.name</source>
@@ -345,7 +351,7 @@
       </segment>
       <segment id="description" state="final">
         <source>kill_random.description</source>
-        <target>Un équipier meurt.{fight_prevented_by_item}</target>
+        <target>Un équipier meurt.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="sismic_activity_description" state="final">
         <source>kill_random.sismic_activity_description</source>
@@ -363,7 +369,7 @@
       </segment>
       <segment id="description" state="final">
         <source>kill_all.description</source>
-        <target>Tous les équipiers meurent.{fight_prevented_by_item}</target>
+        <target>Tous les équipiers meurent.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="volcanic_activity_description" state="final">
         <source>kill_all.volcanic_activity_description</source>
@@ -419,7 +425,7 @@
       </segment>
       <segment id="description" state="final">
         <source>provision.description</source>
-        <target>Vous gagnez {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}</target>
+        <target>Vous gagnez {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="ruminant_description" state="final">
         <source>provision.ruminant_description</source>
@@ -453,7 +459,7 @@
       </segment>
       <segment id="description" state="final">
         <source>harvest.description</source>
-        <target>Vous gagnez {quantity, plural, one {# Fruit alien} other {# Fruits aliens}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}</target>
+        <target>Vous gagnez {quantity, plural, one {# Fruit alien} other {# Fruits aliens}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="forest_description" state="final">
         <source>harvest.forest_description</source>
@@ -487,7 +493,7 @@
       </segment>
       <segment id="description" state="final">
         <source>disease.description</source>
-        <target>Un équipier tombe malade.{fight_prevented_by_item}</target>
+        <target>Un équipier tombe malade.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="forest_description" state="final">
         <source>disease.forest_description</source>
@@ -509,7 +515,7 @@
       </segment>
       <segment id="description" state="final">
         <source>starmap.description</source>
-        <target>Vous trouvez 1 éclat de carte stellaire en cristalite.{fight_prevented_by_item}</target>
+        <target>Vous trouvez 1 éclat de carte stellaire en cristalite.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="cristal_field_description" state="final">
         <source>starmap.cristal_field_description</source>
@@ -523,7 +529,7 @@
       </segment>
       <segment id="description" state="final">
         <source>mush_trap.description</source>
-        <target>Tous les équipiers risquent une infection Mush.{fight_prevented_by_item}</target>
+        <target>Tous les équipiers risquent une infection Mush.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="cristal_field_description" state="final">
         <source>mush_trap.cristal_field_description</source>
@@ -537,7 +543,7 @@
       </segment>
       <segment id="description" state="final">
         <source>again.description</source>
-        <target>Échec de l'exploration de la zone. Il reste quand même des choses à découvrir…{fight_prevented_by_item}</target>
+        <target>Échec de l'exploration de la zone. Il reste quand même des choses à découvrir…{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="desert_description" state="final">
         <source>again.desert_description</source>
@@ -566,7 +572,7 @@
       </segment>
       <segment id="description" state="final">
         <source>item_lost.description</source>
-        <target>Un objet possédé par un des équipiers est perdu.{fight_prevented_by_item}</target>
+        <target>Un objet possédé par un des équipiers est perdu.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="intelligent_description" state="final">
         <source>item_lost.intelligent_description</source>
@@ -590,7 +596,7 @@
       </segment>
       <segment id="description" state="final">
         <source>back.description</source>
-        <target>Vous abandonnez l'expédition en cours.{fight_prevented_by_item}</target>
+        <target>Vous abandonnez l'expédition en cours.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="sismic_activity_description" state="final">
         <source>back.sismic_activity_description</source>
@@ -612,7 +618,7 @@
       </segment>
       <segment id="description" state="final">
         <source>player_lost.description</source>
-        <target>Un équipier se perd.{fight_prevented_by_item}</target>
+        <target>Un équipier se perd.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="cristal_field_description" state="final">
         <source>player_lost.cristal_field_description</source>
@@ -642,7 +648,7 @@
       </segment>
       <segment id="description" state="final">
         <source>find_lost.description</source>
-        <target>Un équipier perdu est retrouvé !{fight_prevented_by_item}</target>
+        <target>Un équipier perdu est retrouvé !{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="lost_description" state="final">
         <source>find_lost.lost_description</source>
@@ -659,7 +665,7 @@
       </segment>
       <segment id="description" state="final">
         <source>kill_lost.description</source>
-        <target>L'équipier perdu meurt.{fight_prevented_by_item}</target>
+        <target>L'équipier perdu meurt.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="lost_description" state="final">
         <source>kill_lost.lost_description</source>

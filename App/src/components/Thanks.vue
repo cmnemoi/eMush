@@ -117,7 +117,6 @@
                     <a href="https://eternal-twin.net/legal" target="_blank">{{
                         $t('footer.legal')
                     }}</a>
-                    <a href="#" v-if="player" @click="openReportPopup">{{ $t('footer.report')}}</a>
                 </div>
             </div>
             <div class="box small contributors">

@@ -1,5 +1,5 @@
 <template>
-    <GamePopUp v-if="invitablePlayerMenuOpen" title="Inviter" @exit="closeInvitation">
+    <GamePopUp title="Inviter" @exit="closeInvitation" :is-open="invitablePlayerMenuOpen">
         <div class="invite-selection">
             <button v-for="(player, key) in invitablePlayers" :key="key" @click="invitePlayer({player: player, channel: invitationChannel})">
                 <img :src="characterBody(player.character.key)">

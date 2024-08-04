@@ -231,9 +231,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * This method returns all rooms connected to player's one by a working door.
      *
-     * @return ArrayCollection<int, Place>
+     * @return Collection<array-key, Place>
      */
-    public function getAccessibleRooms(): ArrayCollection
+    public function getAccessibleRooms(): Collection
     {
         return $this->getPlace()->getAccessibleRooms();
     }

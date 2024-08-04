@@ -356,9 +356,9 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
      * This method returns all rooms connected to this one by a door.
      * /!\ Do NOT use this method if you want rooms with a working door ! Use `$place->getAccessibleRooms()` instead. /!\.
      *
-     * @return ArrayCollection<int, Place>
+     * @return Collection<array-key, Place>
      */
-    public function getAdjacentRooms(): ArrayCollection
+    public function getAdjacentRooms(): Collection
     {
         return $this->getDoors()->map(fn (Door $door) => $door->getOtherRoom($this));
     }
@@ -366,9 +366,9 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     /**
      * This method returns all rooms connected to this one by a working door.
      *
-     * @return ArrayCollection<int, Place>
+     * @return Collection<array-key, Place>
      */
-    public function getAccessibleRooms(): ArrayCollection
+    public function getAccessibleRooms(): Collection
     {
         return $this->getOperationalDoors()->map(fn (Door $door) => $door->getOtherRoom($this));
     }

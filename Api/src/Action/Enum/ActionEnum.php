@@ -132,6 +132,7 @@ enum ActionEnum: string
     case GEN_METAL = 'gen_metal';
     case MOTIVATIONAL_SPEECH = 'motivational_speech';
     case BORING_SPEECH = 'boring_speech';
+    case CHITCHAT = 'chitchat';
 
     // Skill-related actions (Mush)
     case PHAGOCYTE = 'eat_spore';
@@ -336,6 +337,19 @@ enum ActionEnum: string
             self::HYBRIDIZE,
             self::ULTRAHEAL,
             self::PUBLIC_BROADCAST,
+        ]);
+    }
+
+    public static function getActionsNotRecordedInHistory(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::CHANGE_NERON_CPU_PRIORITY->value,
+            self::CHANGE_NERON_CREW_LOCK->value,
+            self::DROP->value,
+            self::EXAMINE->value,
+            self::TAKE->value,
+            self::TOGGLE_MAGNETIC_NET->value,
+            self::TOGGLE_PLASMA_SHIELD->value,
         ]);
     }
 

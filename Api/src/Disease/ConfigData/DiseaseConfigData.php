@@ -570,7 +570,10 @@ class DiseaseConfigData
             'diseasePointMin' => 4,
             'diseasePointLength' => 4,
             'override' => [],
-            'modifierConfigs' => ['mute_modifier'],
+            'modifierConfigs' => [
+                'mute_modifier',
+                'prevent_spoken_actions',
+            ],
         ],
         [
             'diseaseName' => 'broken_foot',
@@ -663,6 +666,7 @@ class DiseaseConfigData
                 'modifier_for_player_set_-2healthPoint_on_new_cycle',
                 'modifier_for_player_+2actionPoint',
                 'mute_modifier',
+                'prevent_spoken_actions',
             ],
         ],
         [

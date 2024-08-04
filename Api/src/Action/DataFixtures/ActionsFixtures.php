@@ -1147,6 +1147,9 @@ class ActionsFixtures extends Fixture
         $toggleMagneticNet = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TOGGLE_MAGNETIC_NET));
         $manager->persist($toggleMagneticNet);
 
+        $chitchat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CHITCHAT));
+        $manager->persist($chitchat);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1248,5 +1251,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::CHANGE_NERON_CREW_LOCK->value, $changeNeronCrewLock);
         $this->addReference(ActionEnum::TOGGLE_PLASMA_SHIELD->value, $togglePlasmaShield);
         $this->addReference(ActionEnum::TOGGLE_MAGNETIC_NET->value, $toggleMagneticNet);
+        $this->addReference(ActionEnum::CHITCHAT->value, $chitchat);
     }
 }

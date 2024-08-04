@@ -69,6 +69,8 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     use TargetStatusTrait;
     use TimestampableEntity;
 
+    private const MAX_ACTION_HISTORY = 20;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
@@ -123,6 +125,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     #[ORM\Column(type: 'datetime', nullable: false, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private \DateTime $lastActionDate;
+
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $actionHistory = [];
 
     public function __construct()
     {
@@ -922,6 +927,30 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function updateLastActionDate(): static
     {
         $this->lastActionDate = new \DateTime();
+
+        return $this;
+    }
+
+    /**
+     * @return array<non-empty-string>
+     */
+    public function getActionHistory(int $limit = PHP_INT_MAX): array
+    {
+        return \array_slice($this->actionHistory, offset: 0, length: $limit);
+    }
+
+    public function addActionToHistory(string $action): static
+    {
+        // should not add specific actions
+        if (ActionEnum::getActionsNotRecordedInHistory()->contains($action)) {
+            return $this;
+        }
+
+        // Add the action to the beginning of the array
+        array_unshift($this->actionHistory, $action);
+
+        // Keep only a decent amount of actions in the history
+        $this->actionHistory = \array_slice($this->actionHistory, offset: 0, length: self::MAX_ACTION_HISTORY);
 
         return $this;
     }

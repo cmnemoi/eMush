@@ -10,17 +10,22 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ActionEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private EventServiceInterface $eventService) {}
+    public function __construct(
+        private EventServiceInterface $eventService,
+        private PlayerRepositoryInterface $playerRepository,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
         return [
             ActionEvent::PRE_ACTION => 'onPreAction',
+            ActionEvent::POST_ACTION => 'onPostAction',
         ];
     }
 
@@ -50,5 +55,15 @@ final class ActionEventSubscriber implements EventSubscriberInterface
 
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
+    }
+
+    public function onPostAction(ActionEvent $event): void
+    {
+        $author = $event->getAuthor();
+        $actionName = $event->getActionName();
+
+        $author->addActionToHistory($actionName);
+
+        $this->playerRepository->save($author);
     }
 }

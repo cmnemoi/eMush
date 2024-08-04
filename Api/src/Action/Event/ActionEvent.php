@@ -115,6 +115,11 @@ class ActionEvent extends AbstractGameEvent
         return $this->getAuthor()->getPlace();
     }
 
+    public function getActionName(): string
+    {
+        return $this->actionConfig->getName();
+    }
+
     public function shouldTriggerRoomTrap(): bool
     {
         $authorInteractsWithRoomEquipment = $this->actionProvider instanceof GameEquipment && $this->actionProvider->shouldTriggerRoomTrap();

@@ -244,5 +244,15 @@
         <target>Bla bla bla... Pitiéééééé//:point: Pour **2** :pa:, vous pouvez faire un **discours barbant** qui donne 3 :pm: à chaque personne dans la pièce.</target>
       </segment>
     </unit>
+    <unit id="confident">
+      <segment id="confident.name" state="translated">
+        <source>confident.name</source>
+        <target>Confident</target>
+      </segment>
+      <segment id="confident.description" state="translated">
+        <source>confident.description</source>
+        <target>Discret et fidèle, vous attirez la sympathie et portez un peu la misère du monde quand même...//:point: Une fois par jour, les autres joueurs peuvent se confier à vous, en faisant cela, ils vous révèlent leurs X dernières actions où X est votre quantité de :pmo: et gagnent ainsi 2 :pmo:.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

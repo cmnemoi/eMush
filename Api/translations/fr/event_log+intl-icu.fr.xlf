@@ -974,5 +974,17 @@
         <target>Votre compétence **Créatif** a porté ses fruits...</target>
       </segment>
     </unit>
+    <unit id="confident_actions">
+      <segment id="confident_actions" state="final">
+        <source>confident_actions</source>
+        <target>{quantity, select,
+          0 {{character_gender, select, 
+            female {**{character}** vous raconte ses derniers cycles avec ferveur et passion. Pas grand chose à en tirer mais elle a l'air de se sentir mieux...}
+            other {**{character}** vous raconte ses derniers cycles avec ferveur et passion. Pas grand chose à en tirer mais il a l'air de se sentir mieux...}}}
+          1 {**{character}** vous raconte des dernières aventures et même si ça n'a pas l'air, on peut toujours apprendre quelque chose... Sa dernière action est {lastAction}.}
+          other {**{character}** vous raconte des dernières aventures et même si ça n'a pas l'air, on peut toujours apprendre quelque chose... Ses dernières actions sont {actions} et {lastAction}.}
+        }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

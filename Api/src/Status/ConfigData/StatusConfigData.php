@@ -364,6 +364,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [
                 'mute_modifier',
+                'prevent_spoken_actions',
             ],
             'actionConfigs' => ['ungag'],
         ],
@@ -1261,6 +1262,20 @@ abstract class StatusConfigData
             'modifierConfigs' => [
                 ModifierNameEnum::SKILL_POINT_IT_EXPERT,
             ],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlayerStatusEnum::HAS_CHITCHATTED . '_default',
+            'statusName' => PlayerStatusEnum::HAS_CHITCHATTED,
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => 'hidden',
+            'chargeStrategy' => 'daily_decrement',
+            'maxCharge' => 1,
+            'startCharge' => 1,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => true,
+            'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
     ];

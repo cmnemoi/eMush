@@ -440,6 +440,7 @@ class GameConfigData
                 SkillPointsEnum::SHOOTER_POINTS->value,
                 SkillPointsEnum::TECHNICIAN_POINTS->value,
                 SkillPointsEnum::IT_EXPERT_POINTS->value,
+                PlayerStatusEnum::HAS_CHITCHATTED . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

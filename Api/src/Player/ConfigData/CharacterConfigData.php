@@ -13,6 +13,7 @@ class CharacterConfigData
             'characterName' => 'andie',
             'skillConfigs' => [
                 SkillEnum::PILOT,
+                SkillEnum::CONFIDENT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

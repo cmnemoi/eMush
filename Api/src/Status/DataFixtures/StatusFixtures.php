@@ -10,7 +10,9 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
+use Mush\Modifier\DataFixtures\InjuryModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Status\Entity\Config\ContentStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -254,10 +256,13 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($fullStomach);
 
+        /** @var EventModifierConfig $mutePreventSpokenAction */
+        $mutePreventSpokenAction = $this->getReference(InjuryModifierConfigFixtures::PREVENT_SPOKEN);
         $gagged = new StatusConfig();
         $gagged
             ->setStatusName(PlayerStatusEnum::GAGGED)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs([$mutePreventSpokenAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($gagged);
 

@@ -1230,5 +1230,11 @@
         <target>:mush: L'air de rien et avec un air nullement coupable, **{character}** semble avoir glissé quelque chose dans l'étagère.</target>
       </segment>
     </unit>
+    <unit id="chitchat_success">
+      <segment id="chitchat_success" state="final">
+        <source>chitchat_success</source>
+        <target>**{character}** et **{target_character}** papotent innocemment...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

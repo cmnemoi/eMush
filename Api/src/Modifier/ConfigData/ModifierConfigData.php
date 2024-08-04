@@ -2734,6 +2734,21 @@ abstract class ModifierConfigData
                 ActionTypeEnum::ACTION_ZERO_ACTION_COST->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
+        [
+            'name' => 'prevent_spoken_actions',
+            'modifierName' => 'prevent_spoken',
+            'targetEvent' => ActionEvent::PRE_ACTION,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => ModifierPriorityEnum::PREVENT_EVENT,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'triggeredEvent' => null,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_SPOKEN->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

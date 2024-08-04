@@ -536,6 +536,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $itExpertPoints->setModifierConfigs([$itExpertPointsModifier]);
         $manager->persist($itExpertPoints);
 
+        $hasChitchattedStatus = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_CHITCHATTED . '_default')
+        );
+        $manager->persist($hasChitchattedStatus);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -575,7 +580,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($conceptorPoints)
             ->addStatusConfig($shooterPoints)
             ->addStatusConfig($technicianPoints)
-            ->addStatusConfig($itExpertPoints);
+            ->addStatusConfig($itExpertPoints)
+            ->addStatusConfig($hasChitchattedStatus);
 
         $manager->persist($gameConfig);
 
@@ -619,6 +625,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference($shooterPoints->getName(), $shooterPoints);
         $this->addReference($technicianPoints->getName(), $technicianPoints);
         $this->addReference($itExpertPoints->getName(), $itExpertPoints);
+        $this->addReference($hasChitchattedStatus->getName(), $hasChitchattedStatus);
     }
 
     public function getDependencies(): array

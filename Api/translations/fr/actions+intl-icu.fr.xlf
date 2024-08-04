@@ -1239,6 +1239,10 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>ceasefire.description</source>
         <target>Aucune personne ne peut effectuer d'action agressive dans cette pièce jusqu'à ce que vous la quittiez.</target>
       </segment>
+      <segment id="confirmation" state="translated">
+        <source>ceasefire.confirmation</source>
+        <target>Cette action n'est disponible qu'une fois par partie.</target>
+      </segment>
     </unit>
   </file>
 </xliff>

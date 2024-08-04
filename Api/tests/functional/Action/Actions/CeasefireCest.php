@@ -10,6 +10,7 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
@@ -63,6 +64,15 @@ final class CeasefireCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldPreventAggressiveActionsInRoom(FunctionalTester $I): void
+    {
+        $this->givenChunCeasefires();
+
+        $this->whenChunWantsToHitKuanTi($I);
+
+        $this->thenHitActionShouldNotBeExecutableWithMessage(message: ActionImpossibleCauseEnum::CEASEFIRE, I: $I);
+    }
+
     public function shouldPrintAPublicLog(FunctionalTester $I): void
     {
         $this->whenChunCeasefires();
@@ -78,13 +88,18 @@ final class CeasefireCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldPreventAggressiveActionsInRoom(FunctionalTester $I): void
+    public function shouldBeExecutableOncePerPlayer(FunctionalTester $I): void
     {
         $this->givenChunCeasefires();
 
-        $this->whenChunWantsToHitKuanTi($I);
+        $this->givenChunGoesToFrontCorridor($I);
 
-        $this->thenHitActionShouldNotBeExecutableWithMessage(message: ActionImpossibleCauseEnum::CEASEFIRE, I: $I);
+        $this->whenChunTriesToCeasefire();
+
+        $this->thenCeasefireActionShouldNotBeExecutableWithMessage(
+            message: ActionImpossibleCauseEnum::UNIQUE_ACTION,
+            I: $I,
+        );
     }
 
     private function givenChunIsInSpace(): void
@@ -111,6 +126,11 @@ final class CeasefireCest extends AbstractFunctionalTest
     private function givenChunCeasefires(): void
     {
         $this->whenChunCeasefires();
+    }
+
+    private function givenChunGoesToFrontCorridor(FunctionalTester $I): void
+    {
+        $this->chun->changePlace($this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus));
     }
 
     private function whenChunTriesToCeasefire(): void

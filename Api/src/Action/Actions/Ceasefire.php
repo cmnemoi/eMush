@@ -15,6 +15,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlaceStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -42,6 +43,15 @@ final class Ceasefire extends AbstractAction
         );
         $metadata->addConstraint(
             new HasStatus([
+                'status' => PlayerStatusEnum::HAS_CEASEFIRED,
+                'target' => HasStatus::PLAYER,
+                'contain' => false,
+                'groups' => ['execute'],
+                'message' => ActionImpossibleCauseEnum::UNIQUE_ACTION,
+            ])
+        );
+        $metadata->addConstraint(
+            new HasStatus([
                 'status' => PlaceStatusEnum::CEASEFIRE->toString(),
                 'target' => HasStatus::PLAYER_ROOM,
                 'contain' => false,
@@ -64,6 +74,7 @@ final class Ceasefire extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $this->createCeasefireStatus();
+        $this->createHasCeasefiredStatus();
     }
 
     private function createCeasefireStatus(): void
@@ -71,6 +82,16 @@ final class Ceasefire extends AbstractAction
         $this->statusService->createStatusFromName(
             statusName: PlaceStatusEnum::CEASEFIRE->toString(),
             holder: $this->player->getPlace(),
+            tags: $this->getTags(),
+            time: new \DateTime(),
+        );
+    }
+
+    private function createHasCeasefiredStatus(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::HAS_CEASEFIRED,
+            holder: $this->player,
             tags: $this->getTags(),
             time: new \DateTime(),
         );

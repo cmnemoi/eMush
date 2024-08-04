@@ -79,12 +79,7 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
             $this->translationService->translate(
                 key: 'bonus_loot_thanks_to_skill',
                 parameters: [
-                    'skill' => $this->translationService->translate(
-                        key: sprintf('%s.name', $skill->toString()),
-                        parameters: [],
-                        domain: 'skill',
-                        language: $language
-                    ),
+                    'skill' => $skill->toString(),
                     'quantity' => $bonusLoot,
                 ],
                 domain: 'planet_sector_event',

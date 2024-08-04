@@ -1022,7 +1022,9 @@
     <unit id="ceasefire_end">
       <segment id="ceasefire_end" state="final">
         <source>ceasefire_end</source>
-        <target>**{target_character}** a quitté la pièce. Fin du cessez-le-feu.</target>
+        <target>{new_cycle, select, 
+        true {Plus personne ne prend **{target_character}** au serieux finalement. Fin du cessez-le-feu.}
+        other {**{target_character}** a quitté la pièce. Fin du cessez-le-feu.}}</target>
       </segment>
     </unit>
   </file>

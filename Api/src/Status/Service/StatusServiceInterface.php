@@ -68,7 +68,8 @@ interface StatusServiceInterface
         int $delta,
         array $tags,
         \DateTime $time,
-        string $mode = VariableEventInterface::CHANGE_VARIABLE
+        string $mode = VariableEventInterface::CHANGE_VARIABLE,
+        string $visibility = VisibilityEnum::HIDDEN,
     ): ?ChargeStatus;
 
     public function createOrIncrementChargeStatus(

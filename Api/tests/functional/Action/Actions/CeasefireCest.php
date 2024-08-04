@@ -10,9 +10,12 @@ use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
@@ -35,6 +38,7 @@ final class CeasefireCest extends AbstractFunctionalTest
     private ChooseSkillUseCase $chooseSkillUseCase;
     private Hit $hit;
     private Move $move;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -45,6 +49,7 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->hit = $I->grabService(Hit::class);
         $this->move = $I->grabService(Move::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
 
         $this->givenChunIsADiplomat($I);
         $this->givenKuanTiIsADiplomat($I);
@@ -126,6 +131,24 @@ final class CeasefireCest extends AbstractFunctionalTest
 
         $this->ISeeTranslatedRoomLogInRepository(
             expectedRoomLog: '**Chun** a quitté la pièce. Fin du cessez-le-feu.',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: StatusEventLogEnum::CEASEFIRE_END,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
+    }
+
+    public function shouldPrintAPublicLogWhenItEnds(FunctionalTester $I): void
+    {
+        $this->givenChunCeasefires();
+
+        $this->whenThreeCyclesPass();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'Plus personne ne prend **Chun** au serieux finalement. Fin du cessez-le-feu.',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->chun,
                 log: StatusEventLogEnum::CEASEFIRE_END,
@@ -218,6 +241,21 @@ final class CeasefireCest extends AbstractFunctionalTest
             target: $door,
         );
         $this->move->execute();
+    }
+
+    private function whenThreeCyclesPass(): void
+    {
+        $this->daedalus->setDay(0); // prevent incidents
+
+        $daedalusCycleEvent = new DaedalusCycleEvent(
+            daedalus: $this->daedalus,
+            tags: [EventEnum::NEW_CYCLE],
+            time: new \DateTime(),
+        );
+
+        for ($i = 0; $i < 3; ++$i) {
+            $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        }
     }
 
     private function thenCeasefireActionIsNotVisible(FunctionalTester $I): void

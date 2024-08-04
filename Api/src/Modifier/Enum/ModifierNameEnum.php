@@ -29,11 +29,11 @@ abstract class ModifierNameEnum
     public const string PLAYER_PLUS_1_ACTION_POINT_ON_POST_ACTION_IF_FAILED = 'player_+1_action_point_on_post_action_if_failed';
     public const string PLAYER_PLUS_1_HEALTH_POINT_ON_CHANGE_VARIABLE_IF_FROM_PLANET_SECTOR_EVENT = 'player_+1_health_point_on_change_variable_if_from_planet_sector_event';
 
-    /** @TODO Rename that SKILL_POINT_SHOOTER */
     public const string SHOOTER_SKILL_POINT = 'shooter_skill_point';
     public const string LOST_MODIFIER = 'lost_modifier';
     public const string ROPE_MODIFIER = 'rope_modifier';
     public const string SKILL_POINT_ENGINEER = 'skill_point_engineer';
     public const string SKILL_POINT_CORE = 'skill_point_core';
     public const string SKILL_POINT_IT_EXPERT = 'skill_point_it_expert';
+    public const string SKILL_POINT_BOTANIST = 'skill_point_botanist';
 }

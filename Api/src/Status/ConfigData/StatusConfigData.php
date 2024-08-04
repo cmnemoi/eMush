@@ -1278,6 +1278,22 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => SkillPointsEnum::BOTANIST_POINTS->value,
+            'statusName' => SkillPointsEnum::BOTANIST_POINTS->value,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SKILL_POINTS_INCREMENT,
+            'maxCharge' => 4,
+            'startCharge' => 4,
+            'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_BOTANIST],
+            'autoRemove' => true,
+            'modifierConfigs' => [
+                ModifierNameEnum::SKILL_POINT_BOTANIST,
+            ],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

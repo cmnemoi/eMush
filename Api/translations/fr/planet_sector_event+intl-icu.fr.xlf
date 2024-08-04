@@ -453,7 +453,7 @@
       </segment>
       <segment id="description" state="final">
         <source>harvest.description</source>
-        <target>Vous gagnez {quantity, plural, one {# Fruit alien} other {# Fruits aliens}}.{fight_prevented_by_item}</target>
+        <target>Vous gagnez {quantity, plural, one {# Fruit alien} other {# Fruits aliens}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}</target>
       </segment>
       <segment id="forest_description" state="final">
         <source>harvest.forest_description</source>

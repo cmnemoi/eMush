@@ -3,9 +3,12 @@
 namespace Mush\Equipment\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Equipment\Entity\Mechanics\Fruit;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 
 #[ORM\Entity]
 class GameItem extends GameEquipment
@@ -91,5 +94,20 @@ class GameItem extends GameEquipment
     public function getNormalizationType(): string
     {
         return LogParameterKeyEnum::ITEM . 's';
+    }
+
+    public function getPlantNameOrThrow(): string
+    {
+        /** @var Fruit $fruitMechanic */
+        $fruitMechanic = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::FRUIT);
+
+        return $fruitMechanic->getPlantName();
+    }
+
+    public function isPlantUnhealthy(): bool
+    {
+        return $this->hasStatus(EquipmentStatusEnum::PLANT_THIRSTY)
+            || $this->hasStatus(EquipmentStatusEnum::PLANT_DRY)
+            || $this->hasStatus(EquipmentStatusEnum::PLANT_DISEASED);
     }
 }

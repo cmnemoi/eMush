@@ -2,13 +2,11 @@
 
 namespace Mush\RoomLog\Service;
 
-use Mush\Action\Entity\ActionResult\ActionResult;
-use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\ActionEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
-use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Entity\RoomLog;
 
 interface RoomLogServiceInterface
@@ -23,13 +21,7 @@ interface RoomLogServiceInterface
         ?\DateTime $dateTime = null
     ): RoomLog;
 
-    public function createLogFromActionResult(
-        ActionEnum $actionName,
-        ActionResult $actionResult,
-        Player $player,
-        ?LogParameterInterface $actionParameter,
-        \DateTime $time
-    ): ?RoomLog;
+    public function createLogFromActionEvent(ActionEvent $event): ?RoomLog;
 
     public function persist(RoomLog $roomLog): RoomLog;
 

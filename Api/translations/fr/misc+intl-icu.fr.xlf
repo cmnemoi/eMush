@@ -101,5 +101,23 @@
         <target>**Retour estimé :** {estimatedDuration} minutes</target>
       </segment>
     </unit>
+    <unit id="plant_effects">
+      <segment id="plant_data" state="final">
+        <source>plant_data</source>
+        <target>Données sur la plante :</target>
+      </segment>
+      <segment id="fruit_productivity" state="final">
+        <source>fruit_productivity</source>
+        <target>Productivité Fruit : {quantity} / jour</target>
+      </segment>
+      <segment id="o2_productivity" state="final">
+        <source>o2_productivity</source>
+        <target>Productivité O2 : {quantity} / jour</target>
+      </segment>
+      <segment id="maturity_info" state="final">
+        <source>maturity_info</source>
+        <target>Ce plant arrivera à maturité dans {quantity} cycles</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

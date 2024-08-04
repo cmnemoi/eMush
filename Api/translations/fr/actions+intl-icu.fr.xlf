@@ -1162,5 +1162,19 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Révèle une partie de vos dernières actions au joueur en échange d'une oreille attentive.</target>
       </segment>
     </unit>
+    <unit id="graft">
+      <segment id="graft" state="final">
+        <source>graft.name</source>
+        <target>Greffer : {equipment}</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>graft.description</source>
+        <target>Sacrifie un fruit et une plante pour créer un nouveau plant. Celle-ci démarre en tant que jeune pousse. Des conditions d'hygiène optimales sont requises.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>graft.confirmation</source>
+        <target>Cette action nécessite des conditions optimales d'hygiène pour être réalisée. Voulez vous continuer ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

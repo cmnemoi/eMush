@@ -8,6 +8,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ExtraEffectEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Fruit;
@@ -39,13 +40,16 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $consumeRationAction = $this->getReference(ActionsFixtures::RATION_CONSUME);
 
         /** @var ActionConfig $transplantAction */
-        $transplantAction = $this->getReference(ActionsFixtures::TRANSPLANT_DEFAULT);
+        $transplantAction = $this->getReference(ActionsFixtures::TRANSPLANT);
 
         /** @var ActionConfig $treatAction */
         $treatAction = $this->getReference(ActionsFixtures::TREAT_PLANT);
 
         /** @var ActionConfig $waterAction */
         $waterAction = $this->getReference(ActionsFixtures::WATER_PLANT);
+
+        /** @var ActionConfig $graftAction */
+        $graftAction = $this->getReference(ActionEnum::GRAFT->value);
 
         /** @var ActionConfig $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
@@ -57,7 +61,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $plantActions = new ArrayCollection([$treatAction, $waterAction]);
 
         /** @var ArrayCollection $fruitActions */
-        $fruitActions = new ArrayCollection([$consumeRationAction, $transplantAction]);
+        $fruitActions = new ArrayCollection([$consumeRationAction, $transplantAction, $graftAction]);
 
         $bananaMechanic = new Fruit();
         $bananaMechanic

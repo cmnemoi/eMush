@@ -14,4 +14,6 @@ abstract class LogParameterKeyEnum
     public const string PLANET = 'planet';
     public const string PROJECT = 'project';
     public const string DRONE = 'drone';
+    public const string STATUS = 'status';
+    public const string SKILL = 'skill';
 }

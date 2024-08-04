@@ -724,6 +724,12 @@
         <target>Vous avez gagné {quantity} :pa_eng:.</target>
       </segment>
     </unit>
+    <unit id="gain_botanist_point">
+      <segment state="translated">
+        <source>gain_botanist_point</source>
+        <target>Vous avez gagné {quantity} :pa_garden:.</target>
+      </segment>
+    </unit>
     <unit id="found_item_in_exploration">
       <segment state="translated">
         <source>found_item_in_exploration</source>

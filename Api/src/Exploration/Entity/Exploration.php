@@ -262,4 +262,9 @@ class Exploration
     {
         return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::SURVIVALIST) === false);
     }
+
+    public function getNumberOfActiveBotanists(): int
+    {
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::BOTANIST))->count();
+    }
 }

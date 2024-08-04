@@ -738,7 +738,7 @@ class ActionData
         [
             'name' => 'transplant',
             'action_name' => ActionEnum::TRANSPLANT,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_BOTANIST],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -754,7 +754,7 @@ class ActionData
         [
             'name' => 'treat_plant',
             'action_name' => ActionEnum::TREAT_PLANT,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_BOTANIST],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'private', 'fail' => 'private'],
@@ -770,7 +770,7 @@ class ActionData
         [
             'name' => 'water_plant',
             'action_name' => ActionEnum::WATER_PLANT,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_BOTANIST],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'private', 'fail' => 'private'],
@@ -2014,6 +2014,22 @@ class ActionData
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'outputQuantity' => ['value' => 2, 'min_value' => 1, 'max_value' => null],
+        ],
+        [
+            'name' => ActionEnum::GRAFT->value,
+            'action_name' => ActionEnum::GRAFT,
+            'types' => [ActionTypeEnum::ACTION_BOTANIST, ActionTypeEnum::ACTION_CONFIRM],
+            'target' => ActionHolderEnum::EQUIPMENT,
+            'scope' => ActionRangeEnum::ROOM,
+            'visibilities' => ['success' => VisibilityEnum::PUBLIC, ActionOutputEnum::FAIL => VisibilityEnum::PUBLIC],
+            'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'outputQuantity' => ['value' => 0, 'min_value' => 1, 'max_value' => null],
         ],
     ];
 

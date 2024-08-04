@@ -64,7 +64,7 @@ class ActionsFixtures extends Fixture
     public const string GET_UP = 'get_up';
     public const string COFFEE_DEFAULT = 'coffee_default';
     public const string DISPENSE_DRUG = 'dispense_drug';
-    public const string TRANSPLANT_DEFAULT = 'transplant_default';
+    public const string TRANSPLANT = 'transplant';
     public const string TREAT_PLANT = 'treat_plant';
     public const string WATER_PLANT = 'water_plant';
     public const string REPORT_EQUIPMENT = 'report_equipment';
@@ -582,40 +582,13 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($dispenseAction);
 
-        $transplantAction = new ActionConfig();
-        $transplantAction
-            ->setName(ActionEnum::TRANSPLANT->value)
-            ->setActionName(ActionEnum::TRANSPLANT)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(2)
-            ->setDirtyRate(15);
-
+        $transplantAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TRANSPLANT));
         $manager->persist($transplantAction);
 
-        $treatPlantAction = new ActionConfig();
-        $treatPlantAction
-            ->setName(ActionEnum::TREAT_PLANT->value)
-            ->setActionName(ActionEnum::TREAT_PLANT)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(2)
-            ->setDirtyRate(15)
-            ->setInjuryRate(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
-
+        $treatPlantAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TREAT_PLANT));
         $manager->persist($treatPlantAction);
 
-        $waterPlantAction = new ActionConfig();
-        $waterPlantAction
-            ->setName(ActionEnum::WATER_PLANT->value)
-            ->setActionName(ActionEnum::WATER_PLANT)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->setDirtyRate(15)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
-
+        $waterPlantAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::WATER_PLANT));
         $manager->persist($waterPlantAction);
 
         $reportEquipmentAction = new ActionConfig();
@@ -1150,6 +1123,9 @@ class ActionsFixtures extends Fixture
         $chitchat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CHITCHAT));
         $manager->persist($chitchat);
 
+        $graft = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GRAFT));
+        $manager->persist($graft);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1199,7 +1175,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::GET_UP, $getUpAction);
         $this->addReference(self::COFFEE_DEFAULT, $coffeeAction);
         $this->addReference(self::DISPENSE_DRUG, $dispenseAction);
-        $this->addReference(self::TRANSPLANT_DEFAULT, $transplantAction);
+        $this->addReference(self::TRANSPLANT, $transplantAction);
         $this->addReference(self::TREAT_PLANT, $treatPlantAction);
         $this->addReference(self::WATER_PLANT, $waterPlantAction);
         $this->addReference(self::REPORT_FIRE, $reportFireAction);
@@ -1252,5 +1228,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::TOGGLE_PLASMA_SHIELD->value, $togglePlasmaShield);
         $this->addReference(ActionEnum::TOGGLE_MAGNETIC_NET->value, $toggleMagneticNet);
         $this->addReference(ActionEnum::CHITCHAT->value, $chitchat);
+        $this->addReference(ActionEnum::GRAFT->value, $graft);
     }
 }

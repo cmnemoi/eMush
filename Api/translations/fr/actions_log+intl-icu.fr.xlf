@@ -1236,5 +1236,17 @@
         <target>**{character}** et **{target_character}** papotent innocemment...</target>
       </segment>
     </unit>
+    <unit id="graft_success">
+      <segment id="graft_success" state="final">
+        <source>graft_success</source>
+        <target>Quel soulagement, **{character}** a réussi sa greffe {equipment_first_letter, select, vowel {d'**{equipment}**} other {de **{equipment}**}}. La petite plante se porte bien !</target>
+      </segment>
+    </unit>
+    <unit id="graft_fail">
+      <segment id="graft_fail" state="final">
+        <source>graft_fail</source>
+        <target>Quel soulagement... Oh mais... **{character}** n'a pas réussi sa greffe {equipment_first_letter, select, vowel {d'**{equipment}**} other {de **{equipment}**}}. La petite plante reste chétive et meurt... Quelque chose a dû contaminer l'opération.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

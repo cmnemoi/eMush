@@ -3,8 +3,8 @@
 namespace Mush\RoomLog\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\ActionEvent;
 use Mush\Communication\Enum\NeronPersonalitiesEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
@@ -60,13 +60,14 @@ class RoomLogService implements RoomLogServiceInterface
         return $roomLog instanceof RoomLog ? $roomLog : null;
     }
 
-    public function createLogFromActionResult(
-        ActionEnum $actionName,
-        ActionResult $actionResult,
-        Player $player,
-        ?LogParameterInterface $actionParameter,
-        \DateTime $time
-    ): ?RoomLog {
+    public function createLogFromActionEvent(ActionEvent $event): ?RoomLog
+    {
+        $actionResult = $event->getActionResult();
+        $actionName = $event->getActionConfig()->getActionName();
+        $actionParameter = $event->getActionTarget();
+        $player = $event->getAuthor();
+        $time = $event->getTime();
+
         // first lets handle the special case of examine action
         if ($actionName === ActionEnum::EXAMINE) {
             return $this->createExamineLog($player, $actionParameter);
@@ -78,16 +79,16 @@ class RoomLogService implements RoomLogServiceInterface
             return null;
         }
 
-        $actionResultString = $actionResult->getName();
+        $actionResultString = $actionResult?->getName() ?? '';
         if (isset($logMapping[$actionResultString])) {
             $logData = $logMapping[$actionResultString];
         } else {
             return null;
         }
 
-        $parameters = $this->getActionLogParameters($actionResult, $player, $actionParameter);
+        $parameters = $this->getActionLogParameters($event);
 
-        $visibility = $actionResult->getVisibility();
+        $visibility = $actionResult?->getVisibility() ?? VisibilityEnum::HIDDEN;
         if ($actionParameter instanceof GameEquipment && $actionParameter->getEquipment()->isPersonal()) {
             $visibility = VisibilityEnum::PRIVATE;
         }
@@ -214,15 +215,18 @@ class RoomLogService implements RoomLogServiceInterface
         return $visibility;
     }
 
-    private function getActionLogParameters(
-        ActionResult $actionResult,
-        Player $player,
-        ?LogParameterInterface $actionParameter
-    ): array {
+    private function getActionLogParameters(ActionEvent $event): array
+    {
+        $actionName = $event->getActionConfig()->getActionName();
+        $actionResult = $event->getActionResult();
+        $actionParameter = $event->getActionTarget();
+        $actionProvider = $event->getActionProvider();
+        $player = $event->getAuthor();
+
         $parameters = [];
         $parameters[$player->getLogKey()] = $player->getLogName();
 
-        if (($quantity = $actionResult->getQuantity()) !== null) {
+        if (($quantity = $actionResult?->getQuantity()) !== null) {
             $parameters['quantity'] = $quantity;
         }
         if ($actionParameter !== null) {
@@ -242,8 +246,13 @@ class RoomLogService implements RoomLogServiceInterface
                 );
             }
         }
-        if (($equipment = $actionResult->getEquipment()) !== null) {
+        if (($equipment = $actionResult?->getEquipment()) !== null) {
             $parameters[$equipment->getLogKey()] = $equipment->getLogName();
+        }
+        if ($actionName === ActionEnum::GRAFT) {
+            /** @var GameItem $fruit */
+            $fruit = $actionProvider;
+            $parameters['item'] = $fruit->getLogName();
         }
 
         return $parameters;

@@ -541,6 +541,17 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasChitchattedStatus);
 
+        $botanistModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_BOTANIST)
+        );
+        $manager->persist($botanistModifier);
+
+        $botanistPoints = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(SkillPointsEnum::BOTANIST_POINTS->value)
+        );
+        $botanistPoints->setModifierConfigs([$botanistModifier]);
+        $manager->persist($botanistPoints);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -581,7 +592,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($shooterPoints)
             ->addStatusConfig($technicianPoints)
             ->addStatusConfig($itExpertPoints)
-            ->addStatusConfig($hasChitchattedStatus);
+            ->addStatusConfig($hasChitchattedStatus)
+            ->addStatusConfig($botanistPoints);
 
         $manager->persist($gameConfig);
 
@@ -626,6 +638,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference($technicianPoints->getName(), $technicianPoints);
         $this->addReference($itExpertPoints->getName(), $itExpertPoints);
         $this->addReference($hasChitchattedStatus->getName(), $hasChitchattedStatus);
+        $this->addReference($botanistPoints->getName(), $botanistPoints);
     }
 
     public function getDependencies(): array

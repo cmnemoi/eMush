@@ -308,6 +308,18 @@
         <target>Combat avoided because the expedition team has the White flag</target>
       </segment>
     </unit>
+    <unit id="skill_reduced_damage_for_player">
+      <segment id="description" state="translated">
+        <source>skill_reduced_damage_for_player</source>
+        <target>{character} suffers {quantity, plural, one {# damage} other {# damage}} less thanks to their skill: {skill}</target>
+      </segment>
+    </unit>
+    <unit id="bonus_loot_thanks_to_skill">
+      <segment id="description" state="translated">
+        <source>bonus_loot_thanks_to_skill</source>
+        <target>This was increased by + {quantity} because the expedition team has the skill: {skill}</target>
+      </segment>
+    </unit>
     <unit id="kill_random">
       <segment id="name" state="translated">
         <source>kill_random.name</source>

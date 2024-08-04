@@ -127,5 +127,15 @@
         <target>pilgred.description</target>
       </segment>
     </unit>
+    <unit id="computer">
+      <segment id="name" state="initial">
+        <source>computer.name</source>
+        <target>computer.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>computer.description</source>
+        <target>computer.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

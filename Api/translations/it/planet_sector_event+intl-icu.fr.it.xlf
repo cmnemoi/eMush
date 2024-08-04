@@ -283,6 +283,18 @@
         <target>fight_prevented_by_item</target>
       </segment>
     </unit>
+    <unit id="skill_reduced_damage_for_player">
+      <segment id="description" state="initial">
+        <source>skill_reduced_damage_for_player</source>
+        <target>skill_reduced_damage_for_player</target>
+      </segment>
+    </unit>
+    <unit id="bonus_loot_thanks_to_skill">
+      <segment id="description" state="initial">
+        <source>bonus_loot_thanks_to_skill</source>
+        <target>bonus_loot_thanks_to_skill</target>
+      </segment>
+    </unit>
     <unit id="kill_random">
       <segment id="name" state="initial">
         <source>kill_random.name</source>

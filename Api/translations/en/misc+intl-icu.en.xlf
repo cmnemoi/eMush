@@ -99,5 +99,23 @@
         <target>**Estimated return:** {estimatedDuration} minutes</target>
       </segment>
     </unit>
+    <unit id="plant_effects">
+      <segment id="plant_data" state="translated">
+        <source>plant_data</source>
+        <target>Plant data:</target>
+      </segment>
+      <segment id="fruit_productivity" state="translated">
+        <source>fruit_productivity</source>
+        <target>Fruit productivity: {quantity} / day</target>
+      </segment>
+      <segment id="o2_productivity" state="translated">
+        <source>o2_productivity</source>
+        <target>O2 productivity: {quantity} / day</target>
+      </segment>
+      <segment id="maturity_info" state="translated">
+        <source>maturity_info</source>
+        <target>This plant will reach maturity in {quantity} cycles</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

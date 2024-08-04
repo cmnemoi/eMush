@@ -679,11 +679,6 @@
 		"og:title": "eMush - Cooperative multiplayer game: betrayal and survival in space!",
 		"og:description": "eMush is a remake of Mush, the award-winning survival and investigation game from Motion Twin (Twinoid). Dive into a thrilling space opera that blends survival, social deduction and role-playing in a unique multiplayer experience!"
 	},
-	"reportPopup": {
-		"message": "You can report inappropriate behavior on the <a href= https://discord.gg/Jb8Nwjck6r' target='_blank'>Eternaltwin Discord server</a>.//// When you arrive at the server, ask to open a ticket to report inappropriate behavior on eMush.// You will then be put in contact with our moderators. Don't forget to provide them with the following information:////- Your eMush username (you are **{username}**)// - Your ship ID (you are in the ship **number {daedalusId}**)// - The character to report// - The reason for your report",
-		"ok": "I understand",
-		"title": "Reporting inappropriate behavior"
-	},
 	"moderation": {
 		"banner": {
 			"players": "Players",
@@ -693,6 +688,7 @@
 			"cycle": "Cycle",
 			"day": "Day",
 			"endDate": "End date",
+			"date": "Date",
 			"logContent": "Log",
 			"logContentDescription": "Name of the log to search for. For the moment, you need to enter the log code (given in brackets). In the future, pre-selected filters (aggressive actions, mush actions...) will be available.",
 			"messageAuthor": "Author of the message",
@@ -751,7 +747,10 @@
 			"hide_end_message": "Hide end message",
 			"allTypes": "All sanctions",
 			"until": "until",
-			"banned": "Banned"
+			"banned": "Banned",
+			"report": "Complaint",
+			"report_abusive": "Abusive complaint",
+			"report_processed": "Complaint processed"
 		},
 		"reason": {
 			"multi_account": "Multiaccount",
@@ -779,6 +778,42 @@
 			"2_month": "2 months",
 			"3_month": "3 months"
 		},
+		"sanctionDetail": {
+			"sanction": "Sanction details",
+			"report": "Complaint details",
+			"user": "Username:",
+			"player": "Played character:",
+			"endDate": "Sanction end:",
+			"startDate": "Sanction start:",
+			"reportDate": "Complaint date:",
+			"date": "Date : ",
+			"author": "Moderator:",
+			"message": "Message :",
+			"sanctionType": "Sanction type:",
+			"reason": "Reason:",
+			"evidence": "Reported message:"
+		},
+		"report": {
+			"name": "Report",
+			"popUpTitle": "Reporting form",
+			"description": "Report problematic behavior to moderation.",
+			"submit": "Filing a complaint",
+			"choosePlayer": "Select teammate",
+			"playerMessage": "Description of the situation:",
+			"player": "Player concerned by the complaint",
+			"seeContext": "See in context",
+			"message": "If you feel that a teammate is violating eMush's rules, please make sure you have selected a message illustrating the problem and explain in detail the reason for your complaint."
+		},
+		"actions": {
+			"name": "Actions",
+			"suspend": "Suspend the sanction",
+			"delete": "Delete the sanction",
+			"archive": "Archive complaint",
+			"archiveDescription": "Archive the complaint and mark it as processed",
+			"close": "Abusive complaint",
+			"closeDescription": "Close complaint and mark as abusive"
+		},
+		"reportToAddress": "Complaints to be handled",
 		"reduce": "Reduce",
 		"showAll": "Show all sanctions",
 		"sanctionsFor": "{username}'s sanctions list",
@@ -814,9 +849,7 @@
 		"suspendSanction": "Suspend sanction",
 		"suspendSanctionDescription": "Suspend sanction. The end date is set to the current date. The sanction remains in the user's history.",
 		"removeSanction": "Delete sanction",
-		"removeSanctionDescription": "Delete sanction. The sanction is completely removed from the user's history.",
-		"report": "Report",
-		"reportDescription": "Report problematic messages to moderation."
+		"removeSanctionDescription": "Delete sanction. The sanction is completely removed from the user's history."
 	},
 	"rules": {
 		"title": "Rules of eMush",
@@ -862,5 +895,17 @@
 		"iHaveReadRules": "I confirm that I have read the rules",
 		"accept": "Accept the rules",
 		"thanks": "Thank you for accepting the eMush rules!"
+	},
+	"apiResponse": {
+		"Complaint sent successfully": "Your complaint has been sent successfully."
+	},
+	"charPanel": {
+		"availableSlot": "Available slot",
+		"chooseNewSkill": "Click here to choose a **new skill** for {character} !",
+		"skillChoiceTitle": "Skill selection",
+		"skillChoiceDescription": "Choose **a skill** to acquire:",
+		"mushGenome": "Mush genome",
+		"displayYourHumanSkills": "Click here to view your **human skills**.",
+		"displayYourMushSkills": "Click here to view your **Mush skills**."
 	}
 }

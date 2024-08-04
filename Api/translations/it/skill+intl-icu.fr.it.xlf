@@ -191,5 +191,45 @@
         <target>mankind_only_hope.description</target>
       </segment>
     </unit>
+    <unit id="leader">
+      <segment id="leader.name" state="initial">
+        <source>leader.name</source>
+        <target>leader.name</target>
+      </segment>
+      <segment id="leader.description" state="initial">
+        <source>leader.description</source>
+        <target>leader.description</target>
+      </segment>
+    </unit>
+    <unit id="motivator">
+      <segment id="motivator.name" state="initial">
+        <source>motivator.name</source>
+        <target>motivator.name</target>
+      </segment>
+      <segment id="motivator.description" state="initial">
+        <source>motivator.description</source>
+        <target>motivator.description</target>
+      </segment>
+    </unit>
+    <unit id="confident">
+      <segment id="confident.name" state="initial">
+        <source>confident.name</source>
+        <target>confident.name</target>
+      </segment>
+      <segment id="confident.description" state="initial">
+        <source>confident.description</source>
+        <target>confident.description</target>
+      </segment>
+    </unit>
+    <unit id="survivalist">
+      <segment id="survivalist.name" state="initial">
+        <source>survivalist.name</source>
+        <target>survivalist.name</target>
+      </segment>
+      <segment id="survivalist.description" state="initial">
+        <source>survivalist.description</source>
+        <target>survivalist.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

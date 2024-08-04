@@ -292,15 +292,11 @@ Merci de nous aider !</target>
     <unit id="reset_skill_points">
       <segment id="reset_skill_points" state="translated">
         <source>reset_skill_points.name</source>
-        <target>Reset Points Spé.</target>
+        <target>Reset comp. points</target>
       </segment>
       <segment id="description" state="translated">
         <source>reset_skill_points.description</source>
-        <target>Permet de récupérer ses points spécialistes :pa_eng:, :pa_shoot:
-        //
-        Uniquement valable pendant l'alpha.
-        //
-        Merci de nous aider !</target>
+        <target>Permet de récupérer ses points de compétences.</target>
       </segment>
     </unit>
     <unit id="shred">
@@ -1173,7 +1169,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="confirmation" state="translated">
         <source>graft.confirmation</source>
-        <target>Cette action nécessite des conditions optimales d'hygiène pour être réalisée. Voulez vous continuer ?</target>
+        <target>Cette action nécessite des conditions optimales d'hygiène pour être réalisée. Voulez-vous continuer ?</target>
       </segment>
     </unit>
   </file>

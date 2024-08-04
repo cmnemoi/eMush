@@ -130,5 +130,15 @@ Currently, you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
         <target>PILGRED Points give you **free actions** with which to *repair PILGRED*.</target>
       </segment>
     </unit>
+    <unit id="computer">
+      <segment id="name" state="translated">
+        <source>computer.name</source>
+        <target>IT Points</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>computer.description</source>
+        <target>IT Points give **free actions** to *manipulate terminals*.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

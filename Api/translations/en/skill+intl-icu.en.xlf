@@ -219,5 +219,45 @@
         <target>Her unique immune system makes her the last hope for humanity. As long as she stays alive, we'll have a shot at combatting the Mush invasion.//:point: Daily morale loss is reduced by 1 point.</target>
       </segment>
     </unit>
+    <unit id="leader">
+      <segment id="leader.name" state="translated">
+        <source>leader.name</source>
+        <target>leader.name</target>
+      </segment>
+      <segment id="leader.description" state="translated">
+        <source>leader.description</source>
+        <target>A charismatic leader knows how to effectively lead a team and increase morale using powerful, passionate speeches.//:point: Grants the action **Motivational speech** which increases the Morale (:pmo:) of present crewmates.</target>
+      </segment>
+    </unit>
+    <unit id="motivator">
+      <segment id="motivator.name" state="translated">
+        <source>motivator.name</source>
+        <target>Motivator</target>
+      </segment>
+      <segment id="motivator.description" state="translated">
+        <source>motivator.description</source>
+        <target>Bla bla bla... whatever!//:point: For **2** :pa: you can give an **Boring speech** which grants 3 :pm: to everyone in the room.</target>
+      </segment>
+    </unit>
+    <unit id="confident">
+      <segment id="confident.name" state="translated">
+        <source>confident.name</source>
+        <target>Confidant</target>
+      </segment>
+      <segment id="confident.description" state="translated">
+        <source>confident.description</source>
+        <target>Discreet and loyal, you share everyone's pain and as such have the sympathy of the whole crew...//Once per day, the other players can confide in you to gain 2 :pmo:. In doing so, they will reveal their last X actions where X is your amount of :pmo:.</target>
+      </segment>
+    </unit>
+    <unit id="survivalist">
+      <segment id="survivalist.name" state="translated">
+        <source>survivalist.name</source>
+        <target>Survivalist</target>
+      </segment>
+      <segment id="survivalist.description" state="translated">
+        <source>survivalist.description</source>
+        <target>The Survivalist is great to have on exploration missions. They can defend themselves more effectively against extra-terrestrial life forms and generally deal with these encounters better than anyone else.//:point: Expedition: All damage is **reduced by 1**.//:point: Expedition: The **Provision** event yields an additional steak.//:point: Expedition: Last to die in case a fatality occurs.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

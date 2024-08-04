@@ -748,9 +748,9 @@
 			"allTypes": "Toutes les sanctions",
 			"until": "jusqu'au",
 			"banned": "Banni",
-      "report": "Plainte",
-      "report_abusive": "Plainte abusive",
-      "report_processed": "Plainte traitée"
+			"report": "Plainte",
+			"report_abusive": "Plainte abusive",
+			"report_processed": "Plainte traitée"
 		},
 		"reason": {
 			"multi_account": "Multicompte",

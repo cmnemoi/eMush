@@ -709,5 +709,23 @@
         <target>trap_closet_success</target>
       </segment>
     </unit>
+    <unit id="chitchat_success">
+      <segment id="chitchat_success" state="initial">
+        <source>chitchat_success</source>
+        <target>chitchat_success</target>
+      </segment>
+    </unit>
+    <unit id="graft_success">
+      <segment id="graft_success" state="initial">
+        <source>graft_success</source>
+        <target>graft_success</target>
+      </segment>
+    </unit>
+    <unit id="graft_fail">
+      <segment id="graft_fail" state="initial">
+        <source>graft_fail</source>
+        <target>graft_fail</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -939,5 +939,23 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>:mush: Looking like the most normal thing in the world, **{character}** seemed to slip something into the shelving unit.</target>
       </segment>
     </unit>
+    <unit id="chitchat_success">
+      <segment id="chitchat_success" state="translated">
+        <source>chitchat_success</source>
+        <target>**{character}** and **{target_character}** are chatting innocently...</target>
+      </segment>
+    </unit>
+    <unit id="graft_success">
+      <segment id="graft_success" state="translated">
+        <source>graft_success</source>
+        <target>What a relief, **{character}** has successfully created a crossbreed of **{equipment}**. The little plant is doing great!</target>
+      </segment>
+    </unit>
+    <unit id="graft_fail">
+      <segment id="graft_fail" state="translated">
+        <source>graft_fail</source>
+        <target>What a relief... oh wait... **{character}** has not succeeded in their attempt to crossbreed {equipment_first_letter, select, vowel {an **{equipment}**} other {a **{equipment}**}}. The little plant didn't grow and eventually died... Something must have contaminated the procedure.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

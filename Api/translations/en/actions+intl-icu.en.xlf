@@ -286,15 +286,11 @@ Thanks for your help!</target>
     <unit id="reset_skill_points">
       <segment id="reset_skill_points" state="translated">
         <source>reset_skill_points.name</source>
-        <target>Reset specialist points</target>
+        <target>Reset skill points</target>
       </segment>
       <segment id="description" state="translated">
         <source>reset_skill_points.description</source>
-        <target>Recover specialist points :pa_eng:, :pa_shoot:
-        //
-        Only valid during the alpha.
-        //
-        Thanks for your help!</target>
+        <target>Recover your skill points.</target>
       </segment>
     </unit>
     <unit id="shred">
@@ -1124,6 +1120,30 @@ Or you simply need some fresh air.... or not.</target>
       <segment id="description" state="translated">
         <source>trap_closet.description</source>
         <target>Allows you to booby-trap a unit in order to ultimately infect a teammate.</target>
+      </segment>
+    </unit>
+    <unit id="chitchat">
+      <segment id="chitchat" state="translated">
+        <source>chitchat.name</source>
+        <target>Chitchat</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>chitchat.description</source>
+        <target>Reveals some of your recent actions in exchange for a sympathetic ear.</target>
+      </segment>
+    </unit>
+    <unit id="graft">
+      <segment id="graft" state="translated">
+        <source>graft.name</source>
+        <target>Hybridize: {equipment}</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>graft.description</source>
+        <target>Sacrifice a fruit and a plant to create a new plant. It will start off as a young shoot. Optimal conditions of hygiene are required.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>graft.confirmation</source>
+        <target>This action requires optimal hygiene conditions to be carried out. Would you like to continue?</target>
       </segment>
     </unit>
   </file>

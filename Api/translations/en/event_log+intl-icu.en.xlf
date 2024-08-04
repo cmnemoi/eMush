@@ -651,6 +651,36 @@
         <target>You have earned {quantity} :pa_shoot:.</target>
       </segment>
     </unit>
+    <unit id="gain_conceptor_point">
+      <segment state="translated">
+        <source>gain_conceptor_point</source>
+        <target>You have earned {quantity} :pa_core:.</target>
+      </segment>
+    </unit>
+    <unit id="gain_it_expert_point">
+      <segment state="translated">
+        <source>gain_it_expert_point</source>
+        <target>You have earned {quantity} :pa_comp:.</target>
+      </segment>
+    </unit>
+    <unit id="gain_pilgred_point">
+      <segment state="translated">
+        <source>gain_pilgred_point</source>
+        <target>You have earned {quantity} :pa_pilgred:.</target>
+      </segment>
+    </unit>
+    <unit id="gain_technician_point">
+      <segment state="translated">
+        <source>gain_technician_point</source>
+        <target>You have earned {quantity} :pa_eng:.</target>
+      </segment>
+    </unit>
+    <unit id="gain_botanist_point">
+      <segment state="translated">
+        <source>gain_botanist_point</source>
+        <target>You have earned {quantity} :pa_garden:.</target>
+      </segment>
+    </unit>
     <unit id="found_item_in_exploration">
       <segment state="translated">
         <source>found_item_in_exploration</source>
@@ -824,6 +854,24 @@
       <segment id="player_wake_up" state="translated">
         <source>player_wake_up</source>
         <target>**{character}** was sleeping but seems to have been rudely awakened...</target>
+      </segment>
+    </unit>
+    <unit id="creative_worked">
+      <segment id="creative_worked" state="translated">
+        <source>creative_worked</source>
+        <target>Your **Creative** skill of has borne fruit... </target>
+      </segment>
+    </unit>
+    <unit id="confident_actions">
+      <segment id="confident_actions" state="translated">
+        <source>confident_actions</source>
+        <target>{quantity, select,
+          0 {{character_gender, select, 
+            female {**{character}** tells you about her latest cycles with fervor and passion. Not much to report, but she seems to be feeling better...}
+            other {**{character}** tells you all about his latest cycles with fervor and passion. Not much to take from it, but he seems to be feeling better...}}}
+          1 {**{character}** tells you about their latest adventures, and even if it doesn't sound like it, you can still learn something... Their last action is {lastAction}.}
+          other {**{character}** tells you about the latest adventures and even if it doesn't look like it, you can always learn something... Their last actions are {actions} and {lastAction}.}
+        }</target>
       </segment>
     </unit>
   </file>

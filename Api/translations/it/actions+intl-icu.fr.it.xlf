@@ -1095,5 +1095,29 @@
         <target>trap_closet.description</target>
       </segment>
     </unit>
+    <unit id="chitchat">
+      <segment id="chitchat" state="initial">
+        <source>chitchat.name</source>
+        <target>chitchat.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>chitchat.description</source>
+        <target>chitchat.description</target>
+      </segment>
+    </unit>
+    <unit id="graft">
+      <segment id="graft" state="initial">
+        <source>graft.name</source>
+        <target>graft.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>graft.description</source>
+        <target>graft.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>graft.confirmation</source>
+        <target>graft.confirmation</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

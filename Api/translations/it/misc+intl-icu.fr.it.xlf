@@ -99,5 +99,23 @@
         <target>exploration_pop_up.estimated_duration</target>
       </segment>
     </unit>
+    <unit id="plant_effects">
+      <segment id="plant_data" state="initial">
+        <source>plant_data</source>
+        <target>plant_data</target>
+      </segment>
+      <segment id="fruit_productivity" state="initial">
+        <source>fruit_productivity</source>
+        <target>fruit_productivity</target>
+      </segment>
+      <segment id="o2_productivity" state="initial">
+        <source>o2_productivity</source>
+        <target>o2_productivity</target>
+      </segment>
+      <segment id="maturity_info" state="initial">
+        <source>maturity_info</source>
+        <target>maturity_info</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

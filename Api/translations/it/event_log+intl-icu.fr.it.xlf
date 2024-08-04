@@ -559,6 +559,36 @@
         <target>gain_shoot_point</target>
       </segment>
     </unit>
+    <unit id="gain_conceptor_point">
+      <segment state="initial">
+        <source>gain_conceptor_point</source>
+        <target>gain_conceptor_point</target>
+      </segment>
+    </unit>
+    <unit id="gain_it_expert_point">
+      <segment state="initial">
+        <source>gain_it_expert_point</source>
+        <target>gain_it_expert_point</target>
+      </segment>
+    </unit>
+    <unit id="gain_pilgred_point">
+      <segment state="initial">
+        <source>gain_pilgred_point</source>
+        <target>gain_pilgred_point</target>
+      </segment>
+    </unit>
+    <unit id="gain_technician_point">
+      <segment state="initial">
+        <source>gain_technician_point</source>
+        <target>gain_technician_point</target>
+      </segment>
+    </unit>
+    <unit id="gain_botanist_point">
+      <segment state="initial">
+        <source>gain_botanist_point</source>
+        <target>gain_botanist_point</target>
+      </segment>
+    </unit>
     <unit id="found_item_in_exploration">
       <segment state="initial">
         <source>found_item_in_exploration</source>
@@ -647,6 +677,18 @@
       <segment id="player_wake_up" state="initial">
         <source>player_wake_up</source>
         <target>player_wake_up</target>
+      </segment>
+    </unit>
+    <unit id="creative_worked">
+      <segment id="creative_worked" state="initial">
+        <source>creative_worked</source>
+        <target>creative_worked</target>
+      </segment>
+    </unit>
+    <unit id="confident_actions">
+      <segment id="confident_actions" state="initial">
+        <source>confident_actions</source>
+        <target>confident_actions</target>
       </segment>
     </unit>
   </file>

@@ -83,6 +83,10 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::PHYSICIST,
+                skillPointsConfig: SkillPointsEnum::PILGRED_POINTS,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::PILOT,
                 modifierConfigs: [
                     'modifier_pilot_always_critical_success_piloting',

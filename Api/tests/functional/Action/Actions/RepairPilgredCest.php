@@ -20,6 +20,10 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -35,6 +39,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private GameEquipment $terminal;
+    private ChooseSkillUseCase $chooseSkillUseCase;
 
     public function _before(FunctionalTester $I): void
     {
@@ -45,6 +50,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         // given Chun is focused on PILGRED terminal
         $this->terminal = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -234,12 +240,74 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
             player: $this->chun,
-            target: $pilgredProject
+            target: $this->daedalus->getPilgred()
         );
         $this->repairPilgredAction->execute();
 
         // then the action should not be visible
         $I->assertFalse($this->repairPilgredAction->isVisible());
+    }
+
+    public function physicistShouldNotUseActionPoints(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsAPhysicist($I);
+
+        $this->givenPlayerHasTenActionPoints();
+
+        $this->whenPlayerRepairsPILGRED();
+
+        $this->thenPlayerShouldHaveTenActionPoints($I);
+    }
+
+    public function physicistShouldUseOnePilgredPoint(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsAPhysicist($I);
+
+        $this->givenPlayerHasTwoPilgredPoints($I);
+
+        $this->whenPlayerRepairsPILGRED();
+
+        $this->thenPlayerShouldHaveOnePilgredPoint($I);
+    }
+
+    private function givenPlayerIsAPhysicist(FunctionalTester $I): void
+    {
+        $this->player->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PHYSICIST]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PHYSICIST, $this->player));
+    }
+
+    private function givenPlayerHasTenActionPoints(): void
+    {
+        $this->player->setActionPoint(10);
+    }
+
+    private function givenPlayerHasTwoPilgredPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(2, $this->player->getSkillByNameOrThrow(SkillEnum::PHYSICIST)->getSkillPoints());
+    }
+
+    private function whenPlayerRepairsPILGRED(): void
+    {
+        $this->repairPilgredAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->player,
+            target: $this->daedalus->getPilgred()
+        );
+        $this->repairPilgredAction->execute();
+    }
+
+    private function thenPlayerShouldHaveOnePilgredPoint(FunctionalTester $I): void
+    {
+        $pilgredSkill = $this->player->getSkillByNameOrThrow(SkillEnum::PHYSICIST);
+        $I->assertEquals(1, $pilgredSkill->getSkillPoints());
+    }
+
+    private function thenPlayerShouldHaveTenActionPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(10, $this->player->getActionPoint());
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

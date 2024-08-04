@@ -552,6 +552,17 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $botanistPoints->setModifierConfigs([$botanistModifier]);
         $manager->persist($botanistPoints);
 
+        $pilgredPointsModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_PILGRED)
+        );
+        $manager->persist($pilgredPointsModifier);
+
+        $pilgredPoints = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(SkillPointsEnum::PILGRED_POINTS->value)
+        );
+        $pilgredPoints->setModifierConfigs([$pilgredPointsModifier]);
+        $manager->persist($pilgredPoints);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -593,7 +604,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($technicianPoints)
             ->addStatusConfig($itExpertPoints)
             ->addStatusConfig($hasChitchattedStatus)
-            ->addStatusConfig($botanistPoints);
+            ->addStatusConfig($botanistPoints)
+            ->addStatusConfig($pilgredPoints);
 
         $manager->persist($gameConfig);
 
@@ -639,6 +651,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference($itExpertPoints->getName(), $itExpertPoints);
         $this->addReference($hasChitchattedStatus->getName(), $hasChitchattedStatus);
         $this->addReference($botanistPoints->getName(), $botanistPoints);
+        $this->addReference($pilgredPoints->getName(), $pilgredPoints);
     }
 
     public function getDependencies(): array

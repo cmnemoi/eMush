@@ -1890,7 +1890,7 @@ class ActionData
         [
             'name' => ActionEnum::REPAIR_PILGRED->value,
             'action_name' => ActionEnum::REPAIR_PILGRED,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_PILGRED],
             'target' => ActionHolderEnum::PROJECT,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],

@@ -7,7 +7,9 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
@@ -36,6 +38,15 @@ final class Ceasefire extends AbstractAction
             new PlaceType([
                 'type' => PlaceTypeEnum::ROOM,
                 'groups' => ['visibility'],
+            ])
+        );
+        $metadata->addConstraint(
+            new HasStatus([
+                'status' => PlaceStatusEnum::CEASEFIRE->toString(),
+                'target' => HasStatus::PLAYER_ROOM,
+                'contain' => false,
+                'groups' => ['execute'],
+                'message' => ActionImpossibleCauseEnum::ALREADY_A_CEASEFIRE_IN_ROOM,
             ])
         );
     }

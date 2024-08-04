@@ -76,13 +76,16 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->deleteCeasefireStatus($event);
     }
 
+    /**
+     * @psalm-suppress PossiblyNullReference
+     */
     private function deleteCeasefireStatus(PlayerChangedPlaceEvent $event): void
     {
         $oldPlace = $event->getOldPlace();
         $player = $event->getPlayer();
 
         $ceasefireStatus = $oldPlace->getStatusByName(PlaceStatusEnum::CEASEFIRE->toString());
-        if ($ceasefireStatus?->getTarget()->notEquals($player)) {
+        if ($ceasefireStatus?->getTarget()?->notEquals($player)) {
             return;
         }
 

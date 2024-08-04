@@ -86,7 +86,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
 
         $ceasefireStatus = $oldPlace->getStatusByNameOrThrow(PlaceStatusEnum::CEASEFIRE->toString());
-        if ($ceasefireStatus->getTarget()?->notEquals($player)) {
+        if ($ceasefireStatus->getTargetOrThrow()->notEquals($player)) {
             return;
         }
 

@@ -71,6 +71,11 @@ class Skill implements ActionProviderInterface
         return $this->getName()->value;
     }
 
+    public function getConfig(): SkillConfig
+    {
+        return $this->skillConfig;
+    }
+
     public function getPlayer(): Player
     {
         return $this->player;

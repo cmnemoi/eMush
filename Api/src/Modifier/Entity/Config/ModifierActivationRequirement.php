@@ -31,6 +31,16 @@ class ModifierActivationRequirement
         $this->activationRequirementName = $activationRequirementName;
     }
 
+    public static function fromConfigData(array $data): self
+    {
+        $modifierActivationRequirement = new self($data['activationRequirementName']);
+        $modifierActivationRequirement->setName($data['name']);
+        $modifierActivationRequirement->setActivationRequirement($data['activationRequirement']);
+        $modifierActivationRequirement->setValue($data['value']);
+
+        return $modifierActivationRequirement;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,6 +94,15 @@ class ModifierActivationRequirement
 
     public function getActivationRequirement(): ?string
     {
+        return $this->activationRequirement;
+    }
+
+    public function getActivationRequirementOrThrow(): string
+    {
+        if ($this->activationRequirement === null) {
+            throw new \InvalidArgumentException("Activation requirement is not set for {$this->name}");
+        }
+
         return $this->activationRequirement;
     }
 

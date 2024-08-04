@@ -35,6 +35,11 @@ class EventModifierConfig extends AbstractModifierConfig
     #[ORM\Column(type: 'array', nullable: false)]
     protected array $tagConstraints = [];
 
+    public static function createNull(): self
+    {
+        return (new self(''))->setId(0);
+    }
+
     public function getTargetEvent(): string
     {
         return $this->targetEvent;
@@ -163,5 +168,12 @@ class EventModifierConfig extends AbstractModifierConfig
         }
 
         return $anyConstraint;
+    }
+
+    private function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 }

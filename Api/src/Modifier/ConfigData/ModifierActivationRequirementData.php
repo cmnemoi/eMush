@@ -187,4 +187,14 @@ class ModifierActivationRequirementData
             'value' => 100,
         ],
     ];
+
+    public static function getByName(string $name): array
+    {
+        return current(
+            array_filter(
+                self::$dataArray,
+                static fn ($data) => $data['name'] === $name
+            )
+        );
+    }
 }

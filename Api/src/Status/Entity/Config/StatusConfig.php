@@ -102,6 +102,9 @@ class StatusConfig
         return $this;
     }
 
+    /**
+     * @return Collection<int, AbstractModifierConfig>
+     */
     public function getModifierConfigs(): Collection
     {
         return $this->modifierConfigs;

@@ -28,6 +28,7 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Enum\StatusEnum;
@@ -563,6 +564,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $pilgredPoints->setModifierConfigs([$pilgredPointsModifier]);
         $manager->persist($pilgredPoints);
 
+        $ceasefireStatus = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlaceStatusEnum::CEASEFIRE->value . '_default')
+        );
+        $manager->persist($ceasefireStatus);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -603,6 +609,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($shooterPoints)
             ->addStatusConfig($technicianPoints)
             ->addStatusConfig($itExpertPoints)
+            ->addStatusConfig($ceasefireStatus)
             ->addStatusConfig($hasChitchattedStatus)
             ->addStatusConfig($botanistPoints)
             ->addStatusConfig($pilgredPoints);
@@ -652,6 +659,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference($hasChitchattedStatus->getName(), $hasChitchattedStatus);
         $this->addReference($botanistPoints->getName(), $botanistPoints);
         $this->addReference($pilgredPoints->getName(), $pilgredPoints);
+        $this->addReference($ceasefireStatus->getName(), $ceasefireStatus);
     }
 
     public function getDependencies(): array

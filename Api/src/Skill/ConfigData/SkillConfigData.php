@@ -49,7 +49,10 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
-                name: SkillEnum::DIPLOMAT
+                name: SkillEnum::DIPLOMAT,
+                actionConfigs: [
+                    ActionEnum::CEASEFIRE,
+                ],
             ),
             new SkillConfigDto(
                 name: SkillEnum::FIREFIGHTER,

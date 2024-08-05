@@ -264,5 +264,15 @@
         <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.//:point: Expédition : Chaque dégât est **réduit d'un point**.//:point: Expédition : L'évènement **Provision** donne un steak de plus.//:point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
       </segment>
     </unit>
+    <unit id="genius">
+      <segment id="genius.name" state="translated">
+        <source>genius.name</source>
+        <target>Génie</target>
+      </segment>
+      <segment id="genius.description" state="translated">
+        <source>genius.description</source>
+        <target>Lorsqu'il est divinement éclairé par la flamme de la connaissance le Génie peut trouver la solution à n'importe quel problème du Daedalus.//:point: Peut **achever une fois par partie une recherche, un projet, ou une réparation**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

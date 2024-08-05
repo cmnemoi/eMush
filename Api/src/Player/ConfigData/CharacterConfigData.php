@@ -172,6 +172,7 @@ class CharacterConfigData
             'name' => 'eleesha',
             'characterName' => 'eleesha',
             'skillConfigs' => [
+                SkillEnum::DETERMINED,
                 SkillEnum::TECHNICIAN,
                 SkillEnum::IT_EXPERT,
             ],
@@ -332,6 +333,7 @@ class CharacterConfigData
                 SkillEnum::BOTANIST,
                 SkillEnum::SURVIVALIST,
                 SkillEnum::TECHNICIAN,
+                SkillEnum::DETERMINED,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

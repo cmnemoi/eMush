@@ -1324,7 +1324,9 @@ abstract class StatusConfigData
                 ActionEnum::PARTICIPATE->value,
             ],
             'autoRemove' => true,
-            'modifierConfigs' => [],
+            'modifierConfigs' => [
+                ModifierNameEnum::PLAYER_ALWAYS_SUCCEDS_REPAIR_ACTION,
+            ],
             'actionConfigs' => [],
         ],
     ];

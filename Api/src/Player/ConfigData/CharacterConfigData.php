@@ -490,6 +490,7 @@ class CharacterConfigData
             'characterName' => 'kuan_ti',
             'skillConfigs' => [
                 SkillEnum::CONCEPTOR,
+                SkillEnum::OPTIMIST,
                 SkillEnum::ASTROPHYSICIST,
                 SkillEnum::TECHNICIAN,
                 SkillEnum::LEADER,
@@ -614,6 +615,7 @@ class CharacterConfigData
                 SkillEnum::SHOOTER,
                 SkillEnum::FIREFIGHTER,
                 SkillEnum::CREATIVE,
+                SkillEnum::OPTIMIST,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

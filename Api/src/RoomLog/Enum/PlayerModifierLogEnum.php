@@ -10,6 +10,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerService;
+use Mush\Skill\Enum\SkillEnum;
 
 abstract class PlayerModifierLogEnum
 {
@@ -27,6 +28,7 @@ abstract class PlayerModifierLogEnum
     public const string CLUMSINESS = 'clumsiness';
     public const string HUNGER = 'hunger';
     public const string DAILY_MORALE_LOSS = 'daily_morale_loss';
+    public const string OPTIMIST_WORKED = 'optimist_worked';
     public const string GAIN = 'gain';
     public const string LOSS = 'loss';
     public const string VISIBILITY = 'visibility';
@@ -55,6 +57,7 @@ abstract class PlayerModifierLogEnum
             SymptomEnum::BITING => SymptomEnum::BITING,
             PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
             EndCauseEnum::CLUMSINESS => self::CLUMSINESS,
+            SkillEnum::OPTIMIST->value => self::OPTIMIST_WORKED,
             PlayerService::DAY_MORAL_CHANGE => self::DAILY_MORALE_LOSS,
             HunterEvent::HUNTER_SHOT => LogEnum::ATTACKED_BY_HUNTER,
         ],
@@ -66,6 +69,7 @@ abstract class PlayerModifierLogEnum
             PlayerService::DAY_MORAL_CHANGE => VisibilityEnum::PRIVATE,
             HunterEvent::HUNTER_SHOT => VisibilityEnum::PUBLIC,
             ModifierNameEnum::LOST_MODIFIER => VisibilityEnum::PRIVATE,
+            SkillEnum::OPTIMIST->value => VisibilityEnum::PRIVATE,
         ],
     ];
 }

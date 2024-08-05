@@ -41,12 +41,14 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
 
         // add special logs
         $specialLogMap = PlayerModifierLogEnum::PLAYER_VARIABLE_SPECIAL_LOGS;
-        $specialLogKey = $playerEvent->mapLog($specialLogMap[PlayerModifierLogEnum::VALUE]);
+        $specialLogKeys = $playerEvent->mapMultipleLogs($specialLogMap[PlayerModifierLogEnum::VALUE]);
 
-        if ($specialLogKey !== null) {
-            $logVisibility = $playerEvent->mapLog($specialLogMap[PlayerModifierLogEnum::VISIBILITY]);
+        foreach ($specialLogKeys as $specialLogKey) {
+            if ($specialLogKey !== null) {
+                $logVisibility = $playerEvent->mapLog($specialLogMap[PlayerModifierLogEnum::VISIBILITY]);
 
-            $this->createEventLog($specialLogKey, $playerEvent, $logVisibility ?: VisibilityEnum::HIDDEN);
+                $this->createEventLog($specialLogKey, $playerEvent, $logVisibility ?: VisibilityEnum::HIDDEN);
+            }
         }
 
         $gainOrLoss = $delta > 0 ? PlayerModifierLogEnum::GAIN : PlayerModifierLogEnum::LOSS;

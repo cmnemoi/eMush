@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Player\Event;
 
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
+use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -39,6 +42,21 @@ final class OptimistCest extends AbstractFunctionalTest
         $this->whenADayPasses($I);
 
         $this->thenPlayerShouldHaveMoralePoints(9, $I);
+    }
+
+    public function shouldPrintAPrivateLog(FunctionalTester $I): void
+    {
+        $this->whenADayPasses($I);
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'Votre compétence **Optimiste** a porté ses fruits...',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player,
+                log: PlayerModifierLogEnum::OPTIMIST_WORKED,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I
+        );
     }
 
     private function givenPlayerIsOptimist(FunctionalTester $I): void

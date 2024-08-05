@@ -14,7 +14,6 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -201,6 +200,32 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // then repair action should have a 100% success rate
         $I->assertEquals(100, $this->repairAction->getSuccessRate());
+    }
+
+    public function playerWithGeniusIdeaShouldLoseStatusAfterRepair(FunctionalTester $I): void
+    {
+        // given I have a broken Mycoscan in the room
+        $mycoscan = $this->prepareBrokenEquipmentInRoom();
+
+        // given Kuan Ti has a genius idea
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::GENIUS_IDEA,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when Kuan Ti repairs the Mycoscan
+        $this->repairAction->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $mycoscan,
+            player: $this->kuanTi,
+            target: $mycoscan
+        );
+        $this->repairAction->execute();
+
+        // then Kuan Ti should not have a genius idea anymore
+        $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::GENIUS_IDEA));
     }
 
     private function prepareBrokenEquipmentInRoom(): GameEquipment

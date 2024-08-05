@@ -49,6 +49,9 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::DETERMINED
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::FIREFIGHTER,
                 modifierConfigs: [
                     'modifier_for_player_always_success_extinguish',

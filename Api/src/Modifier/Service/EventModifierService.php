@@ -10,12 +10,14 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 
 class EventModifierService implements EventModifierServiceInterface
 {
     private const ATTEMPT_INCREASE = 1.25;
+    private const ATTEMPT_INCREASE_FOR_DETERMINED = 1.3;
 
     private ModifierHandlerServiceInterface $modifierHandlerService;
     private ModifierRequirementServiceInterface $modifierRequirementService;
@@ -101,8 +103,10 @@ class EventModifierService implements EventModifierServiceInterface
         if ($event instanceof ActionVariableEvent
             && $variableName === ActionVariableEnum::PERCENTAGE_SUCCESS
         ) {
+            $player = $event->getAuthor();
+
             /** @var ?Attempt $attemptStatus */
-            $attemptStatus = $event->getAuthor()->getStatusByName(StatusEnum::ATTEMPT);
+            $attemptStatus = $player->getStatusByName(StatusEnum::ATTEMPT);
 
             if ($attemptStatus === null || $attemptStatus->getAction() !== $event->getActionConfig()->getActionName()->value) {
                 $attemptNumber = 0;
@@ -110,7 +114,9 @@ class EventModifierService implements EventModifierServiceInterface
                 $attemptNumber = $attemptStatus->getCharge();
             }
 
-            return $initialValue * self::ATTEMPT_INCREASE ** $attemptNumber;
+            $attemptIncrease = $player->hasSkill(SkillEnum::DETERMINED) ? self::ATTEMPT_INCREASE_FOR_DETERMINED : self::ATTEMPT_INCREASE;
+
+            return $initialValue * $attemptIncrease ** $attemptNumber;
         }
 
         return $initialValue;

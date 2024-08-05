@@ -578,6 +578,7 @@ class CharacterConfigData
             'skillConfigs' => [
                 SkillEnum::PHYSICIST,
                 SkillEnum::TECHNICIAN,
+                SkillEnum::GENIUS,
                 SkillEnum::CONCEPTOR,
             ],
             'maxNumberPrivateChannel' => 3,

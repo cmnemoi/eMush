@@ -96,6 +96,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $nurseSkillConfig */
         $nurseSkillConfig = $this->getReference(SkillEnum::NURSE->value);
 
+        /** @var SkillConfig $determinedSkillConfig */
+        $determinedSkillConfig = $this->getReference(SkillEnum::DETERMINED->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -157,6 +160,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(CharacterEnum::ELEESHA)
             ->setCharacterName(CharacterEnum::ELEESHA)
             ->setSkillConfigs([
+                $determinedSkillConfig,
                 $technicianSkillConfig,
                 $itExpertSkillConfig,
             ])
@@ -208,6 +212,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $pilotSkillConfig,
                 $survivalistSkillConfig,
                 $technicianSkillConfig,
+                $determinedSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($hua);

@@ -1251,7 +1251,7 @@
     <unit id="put_through_door_success">
       <segment id="put_through_door_success" state="final">
         <source>put_through_door_success</source>
-        <target>:guard: **{character}** a fichu **{target_character}** à la porte. Du balai !</target>
+        <target>:guardian: **{character}** a fichu **{target_character}** à la porte. Du balai !</target>
       </segment>
     </unit>
   </file>

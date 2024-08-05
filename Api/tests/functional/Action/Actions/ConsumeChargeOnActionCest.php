@@ -28,6 +28,7 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
@@ -192,7 +193,8 @@ class ConsumeChargeOnActionCest
             ->setDelta(-1)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setModifierRange(ReachEnum::INVENTORY)
-            ->setMode(VariableModifierModeEnum::ADDITIVE);
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setModifierName(ModifierNameEnum::APRON_MODIFIER);
         $gearMechanic = new Gear();
         $gearMechanic
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
@@ -263,7 +265,7 @@ class ConsumeChargeOnActionCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategies([ActionEnum::COFFEE->value])
+            ->setDischargeStrategies([ModifierNameEnum::APRON_MODIFIER])
             ->buildName(GameConfigEnum::TEST)
             ->setStartCharge(1);
         $I->haveInRepository($statusConfig);
@@ -277,7 +279,7 @@ class ConsumeChargeOnActionCest
         );
 
         $modifier = new GameModifier($player, $modifierConfig);
-        $modifier->setCharge($chargeStatus);
+        $modifier->setModifierProvider($gameEquipment);
         $I->haveInRepository($modifier);
 
         $this->coffeeAction->loadParameters(
@@ -337,7 +339,8 @@ class ConsumeChargeOnActionCest
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ReachEnum::INVENTORY)
-            ->setMode(VariableModifierModeEnum::ADDITIVE);
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setModifierName(ModifierNameEnum::ANTIGRAV_SCOOTER_CONVERSION_MODIFIER);
 
         $gearMechanic = new Gear();
         $gearMechanic
@@ -356,7 +359,7 @@ class ConsumeChargeOnActionCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategies([ActionEnum::COFFEE])
+            ->setDischargeStrategies([ModifierNameEnum::ANTIGRAV_SCOOTER_CONVERSION_MODIFIER])
             ->buildName(GameConfigEnum::TEST)
             ->setStartCharge(1);
         $I->haveInRepository($statusConfig);
@@ -426,7 +429,7 @@ class ConsumeChargeOnActionCest
         );
 
         $modifier = new GameModifier($player, $modifierConfig);
-        $modifier->setCharge($chargeStatus);
+        $modifier->setModifierProvider($gameEquipment);
         $I->haveInRepository($modifier);
 
         $this->coffeeAction->loadParameters(

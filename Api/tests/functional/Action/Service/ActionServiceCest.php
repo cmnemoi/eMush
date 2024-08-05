@@ -267,6 +267,7 @@ class ActionServiceCest
         $I->haveInRepository($modifierConfig);
 
         $disabledModifier = new GameModifier($player, $modifierConfig);
+        $disabledModifier->setModifierProvider($player);
 
         $I->haveInRepository($disabledModifier);
 

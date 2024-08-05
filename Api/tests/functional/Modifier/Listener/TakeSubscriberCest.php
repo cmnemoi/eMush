@@ -195,7 +195,7 @@ class TakeSubscriberCest
         $I->assertEquals($player->getModifiers()->count(), 1);
         $I->assertEquals($room->getModifiers()->count(), 0);
         $I->assertEquals($player->getModifiers()->first()->getModifierConfig(), $modifierConfig);
-        $I->assertEquals($player->getModifiers()->first()->getCharge(), $status);
+        $I->assertEquals($player->getModifiers()->first()->getUsedCharge(), $status);
     }
 
     public function testTakeGearIrrelevantCharged(FunctionalTester $I)
@@ -279,7 +279,7 @@ class TakeSubscriberCest
         $I->assertEquals($player->getModifiers()->count(), 1);
         $I->assertEquals($room->getModifiers()->count(), 0);
         $I->assertEquals($player->getModifiers()->first()->getModifierConfig(), $modifierConfig);
-        $I->assertEquals($player->getModifiers()->first()->getCharge(), null);
+        $I->assertEquals($player->getModifiers()->first()->getUsedCharge(), null);
     }
 
     public function testTakeGearBroken(FunctionalTester $I)

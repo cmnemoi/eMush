@@ -3,7 +3,6 @@
 namespace Mush\Modifier\Service\ModifierListenerService;
 
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Event\PlayerChangedPlaceEvent;
@@ -28,14 +27,15 @@ final class PlayerModifierService implements PlayerModifierServiceInterface
         $tags = $event->getTags();
         $time = $event->getTime();
 
-        foreach ($player->getStatuses() as $status) {
-            $statusConfig = $status->getStatusConfig();
-
-            /** @var AbstractModifierConfig $modifierConfig */
-            foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
-                if ($modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLACE) {
-                    $this->modifierCreationService->createModifier($modifierConfig, $place, $tags, $time);
-                }
+        foreach ($player->getAllModifierConfigs() as $modifierConfig) {
+            if ($modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLACE) {
+                $this->modifierCreationService->createModifier(
+                    modifierConfig: $modifierConfig,
+                    holder: $place,
+                    modifierProvider: $player,
+                    tags: $tags,
+                    time: $time
+                );
             }
         }
 
@@ -52,14 +52,9 @@ final class PlayerModifierService implements PlayerModifierServiceInterface
         $tags = $event->getTags();
         $time = $event->getTime();
 
-        foreach ($player->getStatuses() as $status) {
-            $statusConfig = $status->getStatusConfig();
-
-            /** @var AbstractModifierConfig $modifierConfig */
-            foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
-                if ($modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLACE) {
-                    $this->modifierCreationService->deleteModifier($modifierConfig, $oldPlace, $tags, $time);
-                }
+        foreach ($player->getAllModifierConfigs() as $modifierConfig) {
+            if ($modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLACE) {
+                $this->modifierCreationService->deleteModifier($modifierConfig, $oldPlace, $tags, $time);
             }
         }
 

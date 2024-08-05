@@ -304,6 +304,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         ]);
 
         $modifier = new GameModifier($player, $modifierConfig);
+        $modifier->setModifierProvider($player);
         $I->refreshEntities($player);
         $I->haveInRepository($modifier);
 

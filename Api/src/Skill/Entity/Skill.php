@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionProviderInterface;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionTypeEnum;
@@ -136,12 +135,12 @@ class Skill implements ActionProviderInterface
         return $this->player->getDaedalus();
     }
 
-    public function getUsedCharge(ActionEnum $actionName): null
+    public function getUsedCharge(string $actionName): null
     {
         return null;
     }
 
-    public function getOperationalStatus(ActionEnum $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
     {
         return ActionProviderOperationalStateEnum::OPERATIONAL;
     }

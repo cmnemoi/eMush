@@ -7,7 +7,7 @@ use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Modifier\Entity\ModifierHolderInterface;
-use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\EventTargetNameEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -23,15 +23,15 @@ final class EventCreationService implements EventCreationServiceInterface
         ModifierHolderInterface $holder,
     ): array {
         switch ($eventTarget) {
-            case ModifierHolderClassEnum::DAEDALUS:
+            case EventTargetNameEnum::DAEDALUS:
                 $daedalus = $holder->getDaedalus();
 
                 return [$daedalus];
 
-            case ModifierHolderClassEnum::PLAYER:
+            case EventTargetNameEnum::PLAYER:
                 return $this->getPlayersFromModifierHolder($holder)->toArray();
 
-            case ModifierHolderClassEnum::EQUIPMENT:
+            case EventTargetNameEnum::EQUIPMENT:
                 return $this->getEquipmentsFromModifierHolder($holder);
 
             default:

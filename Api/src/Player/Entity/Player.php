@@ -12,7 +12,6 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionHolderInterface;
 use Mush\Action\Entity\ActionProviderInterface;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
@@ -35,8 +34,10 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Modifier\Entity\ModifierHolderTrait;
+use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -67,8 +68,9 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  * @SuppressWarnings(PHPMD.ExcessiveClassLength)
  */
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface
+class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface
 {
+    use ModifierHolderTrait;
     use TargetStatusTrait;
     use TimestampableEntity;
 
@@ -101,7 +103,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\JoinTable(name: 'player_player_flirts')]
     private Collection $flirts;
 
-    #[ORM\OneToMany(mappedBy: 'player', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: ModifierHolder::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: Skill::class, cascade: ['ALL'], orphanRemoval: true)]
@@ -384,37 +386,17 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function getModifiers(): ModifierCollection
-    {
-        return new ModifierCollection($this->modifiers->toArray());
-    }
-
     public function getAllModifiers(): ModifierCollection
     {
-        $allModifiers = new ModifierCollection($this->modifiers->toArray());
+        $allModifiers = $this->getModifiers();
         $allModifiers = $allModifiers->addModifiers($this->place->getModifiers());
 
         return $allModifiers->addModifiers($this->daedalus->getModifiers());
     }
 
-    public function addModifier(GameModifier $modifier): static
-    {
-        $this->modifiers->add($modifier);
-
-        return $this;
-    }
-
-    public function removeModifier(GameModifier $modifier): static
-    {
-        $this->modifiers->removeElement($modifier);
-
-        return $this;
-    }
-
     public function getAllModifierConfigs(): ArrayCollection
     {
-        // first modifier configs hold by player themselves
-        $modifierConfigs = $this->getModifiers()->map(static fn (GameModifier $modifier) => $modifier->getModifierConfig())->toArray();
+        $modifierConfigs = [];
 
         // then modifiers provided by player statuses
         $modifierConfigs = $this->getStatuses()
@@ -424,6 +406,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         // then modifiers provided by player skills
         $modifierConfigs = $this->getSkills()
             ->map(static fn (Skill $skill) => $skill->getConfig()->getModifierConfigs())
+            ->reduce(static fn (array $modifierConfigs, $skillModifierConfigs) => array_merge($modifierConfigs, $skillModifierConfigs->toArray()), $modifierConfigs);
+
+        // then modifiers provided by disease
+        $modifierConfigs = $this->getMedicalConditions()
+            ->map(static fn (PlayerDisease $playerDisease) => $playerDisease->getDiseaseConfig()->getModifierConfigs())
             ->reduce(static fn (array $modifierConfigs, $skillModifierConfigs) => array_merge($modifierConfigs, $skillModifierConfigs->toArray()), $modifierConfigs);
 
         return new ArrayCollection($modifierConfigs);
@@ -803,7 +790,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getEfficiencyForProject($project)->max === 0;
     }
 
-    public function getOperationalStatus(ActionEnum $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
     {
         $charge = $this->getUsedCharge($actionName);
         if ($charge !== null && !$charge->isCharged()) {
@@ -813,9 +800,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return ActionProviderOperationalStateEnum::OPERATIONAL;
     }
 
-    public function getUsedCharge(ActionEnum $actionName): ?ChargeStatus
+    public function getUsedCharge(string $actionName): ?ChargeStatus
     {
-        $charges = $this->getStatuses()->filter(static fn (Status $status) => $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName->value));
+        $charges = $this->getStatuses()->filter(static fn (Status $status) => $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName));
 
         $charge = $charges->first();
         if (!$charge instanceof ChargeStatus) {

@@ -23,11 +23,8 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
 
         foreach ($modifiers as $modifier) {
             $holder = $modifier->getModifierHolder();
-            $chargeStatus = $modifier->getCharge();
-            if (
-                $chargeStatus === null
-                || $chargeStatus->isCharged()
-            ) {
+
+            if ($modifier->isProviderActive()) {
                 if ($this->checkModifier($modifier->getModifierConfig(), $holder)) {
                     $validatedModifiers->add($modifier);
                 }

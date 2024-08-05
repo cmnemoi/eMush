@@ -13,10 +13,6 @@ use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Status;
-use Mush\Status\Entity\StatusHolderInterface;
-use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class EquipmentModifierService implements EquipmentModifierServiceInterface
@@ -31,163 +27,95 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
     public function gearCreated(GameEquipment $gameEquipment, array $tags, \DateTime $time): void
     {
-        $player = $gameEquipment->getHolder();
-        if (!$player instanceof Player) {
-            $player = null;
-        }
+        $gearModifierConfig = $this->getGearModifierConfigs($gameEquipment);
+        foreach ($gearModifierConfig as $modifierConfig) {
+            $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig);
 
-        $this->createGearModifiers(
-            $gameEquipment,
-            ModifierHolderClassEnum::getAllReaches(),
-            $tags,
-            $time,
-            $player
-        );
+            if ($holder === null) {
+                return;
+            }
+
+            $this->modifierCreationService->createModifier(
+                modifierConfig: $modifierConfig,
+                holder: $holder,
+                modifierProvider: $gameEquipment,
+                tags: $tags,
+                time: $time,
+            );
+        }
     }
 
     public function gearDestroyed(GameEquipment $gameEquipment, array $tags, \DateTime $time): void
     {
-        $player = $gameEquipment->getHolder();
-        if (!$player instanceof Player) {
-            $player = null;
-        }
+        $gearModifierConfig = $this->getGearModifierConfigs($gameEquipment);
+        foreach ($gearModifierConfig as $modifierConfig) {
+            $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig);
 
-        $this->deleteAllGearModifiers(
-            $gameEquipment,
-            ModifierHolderClassEnum::getAllReaches(),
-            $tags,
-            $time,
-            $player
-        );
+            if ($holder === null) {
+                return;
+            }
+            $this->modifierCreationService->deleteModifier($modifierConfig, $holder, $tags, $time);
+        }
     }
 
     public function takeEquipment(GameEquipment $gameEquipment, Player $player, array $tags, \DateTime $time): void
     {
-        if ($gameEquipment->isBroken()) {
-            return;
-        }
-
-        $this->createGearModifiers(
-            $gameEquipment,
-            [ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER],
-            $tags,
-            $time,
-            $player
-        );
-        $this->createEquipmentStatusModifiers(
-            $gameEquipment,
-            [ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER],
-            $tags,
-            $time,
-            $player
-        );
-    }
-
-    public function dropEquipment(GameEquipment $gameEquipment, Player $player, array $tags, \DateTime $time): void
-    {
-        if ($gameEquipment->isBroken()) {
-            return;
-        }
-
-        $this->deleteModifiersForHolder(
-            $gameEquipment,
-            $player,
-            $tags,
-            $time,
-        );
-    }
-
-    public function equipmentLeaveRoom(GameEquipment $gameEquipment, Place $place, array $tags, \DateTime $time): void
-    {
-        if ($gameEquipment->isBroken()) {
-            return;
-        }
-
-        $this->deleteModifiersForHolder($gameEquipment, $place, $tags, $time);
-    }
-
-    public function equipmentEnterRoom(GameEquipment $gameEquipment, Place $place, array $tags, \DateTime $time): void
-    {
-        if ($gameEquipment->isBroken()) {
-            return;
-        }
-
-        $this->createGearModifiers($gameEquipment, [ModifierHolderClassEnum::PLACE], $tags, $time, null);
-        $this->createEquipmentStatusModifiers($gameEquipment, [ModifierHolderClassEnum::PLACE], $tags, $time, null);
-    }
-
-    private function getChargeStatus(?string $modifierName, StatusHolderInterface $statusHolder): ?ChargeStatus
-    {
-        if ($modifierName === null) {
-            return null;
-        }
-
-        $charges = $statusHolder->getStatuses()->filter(static function (Status $status) use ($modifierName) {
-            return $status instanceof ChargeStatus
-                && $status->hasDischargeStrategy($modifierName);
-        });
-
-        if ($charges->count() > 0) {
-            return $charges->first();
-        }
-        if ($charges->count() === 0) {
-            return null;
-        }
-
-        throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
-    }
-
-    private function createGearModifiers(
-        GameEquipment $gameEquipment,
-        array $reaches,
-        array $tags,
-        \DateTime $time,
-        ?Player $player
-    ): void {
-        $this->createModifiersWithName(
-            $this->getGearModifierConfigs($gameEquipment),
-            $reaches,
-            $gameEquipment,
-            $tags,
-            $time,
-            $player,
-        );
-    }
-
-    private function deleteAllGearModifiers(
-        GameEquipment $gameEquipment,
-        array $reaches,
-        array $tags,
-        \DateTime $time,
-        ?Player $player
-    ): void {
-        foreach ($this->getGearModifierConfigs($gameEquipment) as $modifierConfig) {
-            if (\in_array($modifierConfig->getModifierRange(), $reaches, true)) {
-                $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
-                if ($holder === null) {
-                    return;
-                }
-                $this->modifierCreationService->deleteModifier($modifierConfig, $holder, $tags, $time);
+        foreach ($gameEquipment->getAllModifierConfigs() as $modifierConfig) {
+            if (
+                $modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLAYER
+                || $modifierConfig->getModifierRange() === ModifierHolderClassEnum::TARGET_PLAYER
+            ) {
+                $this->modifierCreationService->createModifier(
+                    modifierConfig: $modifierConfig,
+                    holder: $player,
+                    modifierProvider: $gameEquipment,
+                    tags: $tags,
+                    time: $time,
+                );
             }
         }
     }
 
-    private function deleteModifiersForHolder(
-        GameEquipment $gameEquipment,
-        ModifierHolderInterface $modifierHolder,
-        array $tags,
-        \DateTime $time,
-    ): void {
-        // delete gear modifierConfigs
-        foreach ($this->getGearModifierConfigs($gameEquipment) as $modifierConfig) {
-            $this->modifierCreationService->deleteModifier($modifierConfig, $modifierHolder, $tags, $time);
+    public function dropEquipment(GameEquipment $gameEquipment, Player $player, array $tags, \DateTime $time): void
+    {
+        foreach ($gameEquipment->getAllModifierConfigs() as $modifierConfig) {
+            if (
+                $modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLAYER
+                || $modifierConfig->getModifierRange() === ModifierHolderClassEnum::TARGET_PLAYER
+            ) {
+                $this->modifierCreationService->deleteModifier($modifierConfig, $player, $tags, $time);
+            }
         }
+    }
 
-        // delete status modifierConfigs
-        foreach ($gameEquipment->getStatuses() as $status) {
-            $statusConfig = $status->getStatusConfig();
-            foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
-                $this->modifierCreationService->deleteModifier($modifierConfig, $modifierHolder, $tags, $time);
+    public function equipmentLeaveRoom(GameEquipment $gameEquipment, Place $place, array $tags, \DateTime $time): void
+    {
+        $place = $gameEquipment->getPlace();
+
+        foreach ($gameEquipment->getAllModifierConfigs() as $modifierConfig) {
+            if (
+                $modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLACE
+            ) {
+                $this->modifierCreationService->deleteModifier($modifierConfig, $place, $tags, $time);
+            }
+        }
+    }
+
+    public function equipmentEnterRoom(GameEquipment $gameEquipment, Place $place, array $tags, \DateTime $time): void
+    {
+        $place = $gameEquipment->getPlace();
+
+        foreach ($gameEquipment->getAllModifierConfigs() as $modifierConfig) {
+            if (
+                $modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLACE
+            ) {
+                $this->modifierCreationService->createModifier(
+                    modifierConfig: $modifierConfig,
+                    holder: $place,
+                    modifierProvider: $gameEquipment,
+                    tags: $tags,
+                    time: $time,
+                );
             }
         }
     }
@@ -205,79 +133,10 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         return new ArrayCollection();
     }
 
-    private function createEquipmentStatusModifiers(
+    private function getModifierHolderFromConfig(
         GameEquipment $gameEquipment,
-        array $reaches,
-        array $tags,
-        \DateTime $time,
-        ?Player $player
-    ): void {
-        foreach ($gameEquipment->getStatuses() as $status) {
-            $statusConfig = $status->getStatusConfig();
-            $this->createModifiersWithName(
-                $statusConfig->getModifierConfigs(),
-                $reaches,
-                $gameEquipment,
-                $tags,
-                $time,
-                $player
-            );
-        }
-    }
-
-    private function deleteEquipmentStatusModifiers(
-        GameEquipment $gameEquipment,
-        array $reaches,
-        array $tags,
-        \DateTime $time,
-        ?Player $player
-    ): void {
-        foreach ($gameEquipment->getStatuses() as $status) {
-            $statusConfig = $status->getStatusConfig();
-
-            foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
-                if (\in_array($modifierConfig->getModifierRange(), $reaches, true)) {
-                    $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
-                    if ($holder === null) {
-                        return;
-                    }
-
-                    $this->modifierCreationService->deleteModifier($modifierConfig, $holder, $tags, $time);
-                }
-            }
-        }
-    }
-
-    private function createModifiersWithName(
-        Collection $modifiers,
-        array $reaches,
-        GameEquipment $gameEquipment,
-        array $tags,
-        \DateTime $time,
-        ?Player $player
-    ): void {
-        foreach ($modifiers as $modifierConfig) {
-            if (\in_array($modifierConfig->getModifierRange(), $reaches, true)) {
-                $charge = $this->getChargeStatus($modifierConfig->getModifierName(), $gameEquipment);
-
-                $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
-                if ($holder === null) {
-                    return;
-                }
-
-                $this->modifierCreationService->createModifier(
-                    $modifierConfig,
-                    $holder,
-                    $tags,
-                    $time,
-                    $charge
-                );
-            }
-        }
-    }
-
-    private function getModifierHolderFromConfig(GameEquipment $gameEquipment, AbstractModifierConfig $modifierConfig, ?Player $player): ?ModifierHolderInterface
-    {
+        AbstractModifierConfig $modifierConfig,
+    ): ?ModifierHolderInterface {
         switch ($modifierConfig->getModifierRange()) {
             case ModifierHolderClassEnum::DAEDALUS:
                 return $gameEquipment->getDaedalus();
@@ -290,7 +149,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
             case ModifierHolderClassEnum::PLAYER:
             case ModifierHolderClassEnum::TARGET_PLAYER:
-                $player = $player ?: $gameEquipment->getHolder();
+                $player = $gameEquipment->getHolder();
                 if ($player instanceof Player) {
                     return $player;
                 }

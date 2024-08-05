@@ -25,12 +25,13 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
         $project = $event->getProject();
 
         /** @var AbstractModifierConfig $modifierConfig */
-        foreach ($project->getModifierConfigs() as $modifierConfig) {
+        foreach ($project->getAllModifierConfigs() as $modifierConfig) {
             $this->modifierCreationService->createModifier(
-                $modifierConfig,
-                $project->getDaedalus(),
-                $event->getTags(),
-                $event->getTime()
+                modifierConfig: $modifierConfig,
+                holder: $project->getDaedalus(),
+                modifierProvider: $project,
+                tags: $event->getTags(),
+                time: $event->getTime()
             );
         }
     }

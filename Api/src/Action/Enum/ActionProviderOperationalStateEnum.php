@@ -9,4 +9,6 @@ enum ActionProviderOperationalStateEnum: string
     case OPERATIONAL = 'operational';
     case DISCHARGED = 'discharged';
     case BROKEN = 'broken';
+    case DEACTIVATED = 'deactivated';
+    case UNFINISHED = 'unfinished';
 }

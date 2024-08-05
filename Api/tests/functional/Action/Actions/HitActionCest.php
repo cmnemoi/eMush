@@ -100,6 +100,7 @@ final class HitActionCest extends AbstractFunctionalTest
         );
         $armorModifierConfig->setDelta(5);
         $modifier = new GameModifier($this->player2, $armorModifierConfig);
+        $modifier->setModifierProvider($this->player2);
 
         $I->haveInRepository($modifier);
         $I->refreshEntities($this->player2);

@@ -118,6 +118,7 @@ final class ShowerActionCest extends AbstractFunctionalTest
                 'name' => ModifierNameEnum::MUSH_SHOWER_MALUS, ]
         ));
         $mushShowerModifier = new GameModifier($this->player1, $mushShowerModifierConfig);
+        $mushShowerModifier->setModifierProvider($this->player1);
         $I->haveInRepository($mushShowerModifier);
 
         $I->refreshEntities($this->player1);
@@ -180,6 +181,7 @@ final class ShowerActionCest extends AbstractFunctionalTest
             )
         );
         $soapModifier = new GameModifier($this->player2, $soapModifierConfig);
+        $soapModifier->setModifierProvider($this->player2);
         $I->haveInRepository($soapModifier);
 
         $this->showerAction->loadParameters(

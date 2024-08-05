@@ -2036,7 +2036,6 @@ abstract class ModifierConfigData
             'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_daedalus_shield_+5',
             'modifierActivationRequirements' => [
-                ModifierRequirementEnum::PROJECT_IS_ACTIVE_PLASMA_SHIELD,
             ],
             'tagConstraints' => [],
         ],
@@ -3011,6 +3010,23 @@ abstract class ModifierConfigData
                 ActionEnum::HIT->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
             ],
+        ],
+        [
+            'name' => 'logistic_modifier',
+            'modifierName' => 'logistic_modifier',
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 1.0,
+            'targetVariable' => 'actionPoint',
+            'mode' => 'additive',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => ['base_player_cycle_change' => ModifierRequirementEnum::ALL_TAGS],
         ],
     ];
 

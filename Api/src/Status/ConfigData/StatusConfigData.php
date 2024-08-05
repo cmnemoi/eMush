@@ -1210,7 +1210,7 @@ abstract class StatusConfigData
             'maxCharge' => 4,
             'startCharge' => 4,
             'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_CORE],
-            'autoRemove' => true,
+            'autoRemove' => false,
             'modifierConfigs' => [
                 'modifier_skill_point_core',
             ],
@@ -1226,7 +1226,7 @@ abstract class StatusConfigData
             'maxCharge' => 4,
             'startCharge' => 4,
             'dischargeStrategies' => [ModifierNameEnum::SHOOTER_SKILL_POINT],
-            'autoRemove' => true,
+            'autoRemove' => false,
             'modifierConfigs' => [
                 'modifier_shooter_skill_point',
             ],
@@ -1242,7 +1242,7 @@ abstract class StatusConfigData
             'maxCharge' => 2,
             'startCharge' => 2,
             'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_ENGINEER],
-            'autoRemove' => true,
+            'autoRemove' => false,
             'modifierConfigs' => [
                 'modifier_skill_point_engineer',
             ],
@@ -1258,7 +1258,7 @@ abstract class StatusConfigData
             'maxCharge' => 4,
             'startCharge' => 4,
             'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_IT_EXPERT],
-            'autoRemove' => true,
+            'autoRemove' => false,
             'modifierConfigs' => [
                 ModifierNameEnum::SKILL_POINT_IT_EXPERT,
             ],
@@ -1288,7 +1288,7 @@ abstract class StatusConfigData
             'maxCharge' => 4,
             'startCharge' => 4,
             'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_BOTANIST],
-            'autoRemove' => true,
+            'autoRemove' => false,
             'modifierConfigs' => [
                 ModifierNameEnum::SKILL_POINT_BOTANIST,
             ],
@@ -1304,7 +1304,7 @@ abstract class StatusConfigData
             'maxCharge' => 2,
             'startCharge' => 2,
             'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_PILGRED],
-            'autoRemove' => true,
+            'autoRemove' => false,
             'modifierConfigs' => [
                 ModifierNameEnum::SKILL_POINT_PILGRED,
             ],

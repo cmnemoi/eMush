@@ -83,6 +83,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::OPTIMIST,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_PLUS_1_MORALE_POINT_ON_DAY_CHANGE,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::PHYSICIST,
                 skillPointsConfig: SkillPointsEnum::PILGRED_POINTS,
             ),

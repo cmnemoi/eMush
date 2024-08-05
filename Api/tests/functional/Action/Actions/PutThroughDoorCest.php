@@ -77,7 +77,7 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
         $this->whenChunPutsThroughKuanTiThroughDoor();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: ':guard: **Chun** a fichu **Kuan Ti** à la porte. Du balai !',
+            expectedRoomLog: ':guardian: **Chun** a fichu **Kuan Ti** à la porte. Du balai !',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->chun,
                 log: ActionLogEnum::PUT_THROUGH_DOOR_SUCCESS,

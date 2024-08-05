@@ -444,6 +444,7 @@ class GameConfigData
                 SkillPointsEnum::BOTANIST_POINTS->value,
                 SkillPointsEnum::PILGRED_POINTS->value,
                 PlayerStatusEnum::GENIUS_IDEA . '_default',
+                PlayerStatusEnum::HAS_USED_GENIUS . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

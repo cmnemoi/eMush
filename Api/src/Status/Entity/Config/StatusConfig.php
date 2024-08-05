@@ -50,6 +50,17 @@ class StatusConfig
         return (new self())->setId(0);
     }
 
+    public static function fromConfigData(array $configData): self
+    {
+        $statusConfig = new self();
+        $statusConfig
+            ->setName($configData['name'])
+            ->setStatusName($configData['statusName'])
+            ->setVisibility($configData['visibility']);
+
+        return $statusConfig;
+    }
+
     public function getId(): int
     {
         return $this->id;

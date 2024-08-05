@@ -7,6 +7,7 @@ namespace Mush\Functional\Action\Actions;
 use Mush\Action\Actions\BecomeGenius;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
@@ -42,12 +43,29 @@ final class BecomeGeniusCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveGeniusIdeaStatus($I);
     }
 
+    public function shouldBeAvailableOncePerPlayer(FunctionalTester $I): void
+    {
+        $this->givenPlayerExecutesBecomeGeniusAction();
+
+        $this->whenPlayerExecutesBecomeGeniusAction();
+
+        $this->thenActionShouldNotBeExecutableWithMessage(
+            message: ActionImpossibleCauseEnum::UNIQUE_ACTION,
+            I: $I
+        );
+    }
+
     private function givenPlayerIsGenius(FunctionalTester $I): void
     {
         $this->player->getCharacterConfig()->addSkillConfig(
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::GENIUS])
         );
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::GENIUS, $this->player));
+    }
+
+    private function givenPlayerExecutesBecomeGeniusAction(): void
+    {
+        $this->whenPlayerExecutesBecomeGeniusAction();
     }
 
     private function whenPlayerExecutesBecomeGeniusAction(): void
@@ -64,5 +82,13 @@ final class BecomeGeniusCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveGeniusIdeaStatus(FunctionalTester $I): void
     {
         $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::GENIUS_IDEA));
+    }
+
+    private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $message,
+            actual: $this->becomeGenius->cannotExecuteReason(),
+        );
     }
 }

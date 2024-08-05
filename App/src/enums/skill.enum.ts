@@ -251,7 +251,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.OPTIMIST]: {
-        'icon': getImgUrl('skills/human/optimist.png')
+        'icon': getImgUrl('skills/human/optimistic.png')
     },
 
     [SkillEnum.PANIC]: {

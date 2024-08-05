@@ -284,5 +284,15 @@
         <target>Une fois qu'il a commencé sa tâche rien ne peut perturber le joueur persévérant.//:point: En cas d'**échec** sur une action, les chances de réussite **augmentent plus vite**.</target>
       </segment>
     </unit>
+    <unit id="optimist">
+      <segment id="optimist.name" state="translated">
+        <source>optimist.name</source>
+        <target>Optimiste</target>
+      </segment>
+      <segment id="optimist.description" state="translated">
+        <source>optimist.description</source>
+        <target>La fin de l'Humanité... Il y a pire non ?//:point: L'Optimiste perd **un :pmo: de moins par jour**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

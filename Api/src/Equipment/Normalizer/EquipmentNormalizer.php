@@ -20,7 +20,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -123,16 +122,13 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         return $nameParameters;
     }
 
-    private function getEquipmentEffects(GameEquipment $equipment, Player $currentPlayer): array
+    private function getEquipmentEffects(GameEquipment $equipment, Player $player): array
     {
-        if ($equipment->isAFruit() && $currentPlayer->hasSkill(SkillEnum::BOTANIST)) {
-            return $this->getRationsEffect($equipment, $currentPlayer->getDaedalus());
+        if ($player->canReadFoodProperties($equipment)) {
+            return $this->getRationsEffect($equipment, $player->getDaedalus());
         }
-        if ($equipment->isAPlant() && $currentPlayer->hasSkill(SkillEnum::BOTANIST)) {
-            return $this->getPlantEffects($equipment, $currentPlayer->getDaedalus());
-        }
-        if ($equipment->isADrug() && $currentPlayer->hasSkill(SkillEnum::NURSE)) {
-            return $this->getRationsEffect($equipment, $currentPlayer->getDaedalus());
+        if ($player->canReadPlantProperties($equipment)) {
+            return $this->getPlantEffects($equipment, $player->getDaedalus());
         }
 
         return [];

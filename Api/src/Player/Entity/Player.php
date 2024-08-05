@@ -965,6 +965,26 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getCharacterConfig()->getSkillConfigs()->count();
     }
 
+    public function canReadFoodProperties(GameEquipment $food): bool
+    {
+        if ($food->isAFruit()) {
+            return $this->hasSkill(SkillEnum::BOTANIST);
+        }
+        if ($food->isADrug()) {
+            return $this->hasSkill(SkillEnum::NURSE);
+        }
+
+        return false;
+    }
+
+    public function canReadPlantProperties(GameEquipment $plant): bool
+    {
+        return match ($plant->isAPlant()) {
+            true => $this->hasSkill(SkillEnum::BOTANIST),
+            default => false,
+        };
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);

@@ -563,9 +563,16 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $pilgredPoints->setModifierConfigs([$pilgredPointsModifier]);
         $manager->persist($pilgredPoints);
 
+        $modifierPlayerAlwaysSucceedsRepairAction = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_ALWAYS_SUCCEDS_REPAIR_ACTION)
+        );
+        $this->addReference($modifierPlayerAlwaysSucceedsRepairAction->getName(), $modifierPlayerAlwaysSucceedsRepairAction);
+        $manager->persist($modifierPlayerAlwaysSucceedsRepairAction);
+
         $geniusIdea = ChargeStatusConfig::fromConfigData(
             StatusConfigData::getByName(PlayerStatusEnum::GENIUS_IDEA . '_default')
         );
+        $geniusIdea->setModifierConfigs([$modifierPlayerAlwaysSucceedsRepairAction]);
         $manager->persist($geniusIdea);
 
         $gameConfig

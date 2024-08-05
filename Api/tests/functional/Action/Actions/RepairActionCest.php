@@ -14,9 +14,11 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -171,6 +173,34 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // then Kuan Ti should still have two technician points
         $I->assertEquals(2, $technicianSkill->getSkillPoints());
+    }
+
+    public function playerWithGeniusIdeaShouldAlwaysSucceed(FunctionalTester $I): void
+    {
+        // given I have a broken Mycoscan in the room
+        $mycoscan = $this->prepareBrokenEquipmentInRoom();
+
+        // given repair action has a 0% success rate
+        $this->repairActionConfig->setSuccessRate(0);
+
+        // given Kuan Ti has a genius idea
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::GENIUS_IDEA,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when Kuan Ti tries to repair the Mycoscan
+        $this->repairAction->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $mycoscan,
+            player: $this->kuanTi,
+            target: $mycoscan
+        );
+
+        // then repair action should have a 100% success rate
+        $I->assertEquals(100, $this->repairAction->getSuccessRate());
     }
 
     private function prepareBrokenEquipmentInRoom(): GameEquipment

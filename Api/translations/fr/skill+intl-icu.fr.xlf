@@ -264,5 +264,15 @@
         <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.//:point: Expédition : Chaque dégât est **réduit d'un point**.//:point: Expédition : L'évènement **Provision** donne un steak de plus.//:point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
       </segment>
     </unit>
+    <unit id="determined">
+      <segment id="determined.name" state="translated">
+        <source>determined.name</source>
+        <target>Persévérant</target>
+      </segment>
+      <segment id="determined.description" state="translated">
+        <source>determined.description</source>
+        <target>Une fois qu'il a commencé sa tâche rien ne peut perturber le joueur persévérant.//:point: En cas d'**échec** sur une action, les chances de réussite **augmentent plus vite**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -563,6 +563,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $pilgredPoints->setModifierConfigs([$pilgredPointsModifier]);
         $manager->persist($pilgredPoints);
 
+        $geniusIdea = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::GENIUS_IDEA . '_default')
+        );
+        $manager->persist($geniusIdea);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -605,7 +610,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($itExpertPoints)
             ->addStatusConfig($hasChitchattedStatus)
             ->addStatusConfig($botanistPoints)
-            ->addStatusConfig($pilgredPoints);
+            ->addStatusConfig($pilgredPoints)
+            ->addStatusConfig($geniusIdea);
 
         $manager->persist($gameConfig);
 
@@ -652,6 +658,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference($hasChitchattedStatus->getName(), $hasChitchattedStatus);
         $this->addReference($botanistPoints->getName(), $botanistPoints);
         $this->addReference($pilgredPoints->getName(), $pilgredPoints);
+        $this->addReference($geniusIdea->getName(), $geniusIdea);
     }
 
     public function getDependencies(): array

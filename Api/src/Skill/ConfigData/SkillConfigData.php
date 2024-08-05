@@ -58,6 +58,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::GENIUS,
+                actionConfigs: [
+                    ActionEnum::BECOME_GENIUS,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::IT_EXPERT,
                 modifierConfigs: [
                     ModifierNameEnum::DOUBLE_HACK_CHANCE,

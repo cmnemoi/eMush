@@ -10,11 +10,6 @@ final class InMemoryPlayerRepository implements PlayerRepositoryInterface
 {
     private array $players = [];
 
-    public function findOneByIdOrThrow(int $playerId): Player
-    {
-        return $this->players[$playerId] ?? throw new \RuntimeException('Player not found');
-    }
-
     public function save(Player $player): void
     {
         $this->players[$player->getName()] = $player;

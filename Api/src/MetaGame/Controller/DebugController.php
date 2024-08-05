@@ -9,12 +9,9 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\CycleServiceInterface;
-use Mush\Skill\UseCase\DeletePlayerSkillUseCase;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,10 +23,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 final class DebugController extends AbstractFOSRestController
 {
-    public function __construct(
-        private CycleServiceInterface $cycleService,
-        private DeletePlayerSkillUseCase $deletePlayerSkillUseCase
-    ) {}
+    private CycleServiceInterface $cycleService;
+
+    public function __construct(CycleServiceInterface $cycleService)
+    {
+        $this->cycleService = $cycleService;
+    }
 
     /**
      * Force cycle change for a locked-up Daedalus.
@@ -59,51 +58,6 @@ final class DebugController extends AbstractFOSRestController
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         return $this->view(['detail' => 'Daedalus cycle change triggered successfully'], Response::HTTP_OK);
-    }
-
-    /**
-     * Delete a player skill.
-     *
-     * @OA\RequestBody (
-     *      description="Input data format",
-     *
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *
-     *      @OA\Schema(
-     *              type="object",
-     *
-     *                  @OA\Property(
-     *                     property="playerId",
-     *                     description="The player id",
-     *                     type="integer",
-     *                 ),
-     *                 @OA\Property(
-     *                     property="skill",
-     *                     description="The skill to delete",
-     *                     type="string",
-     *                 ),
-     *             )
-     *             )
-     *         )
-     *     )
-     *
-     * @OA\Tag (name="Admin")
-     *
-     * @Security (name="Bearer")
-     *
-     * @IsGranted("ROLE_ADMIN")
-     *
-     * @Rest\Post(path="/delete-player-skill", requirements={"playerId"="\d+", "skill"="\w+"})
-     */
-    public function deletePlayerSkill(Request $request): View
-    {
-        $playerId = (int) $request->request->get('playerId');
-        $skill = $request->request->get('skill');
-
-        $this->deletePlayerSkillUseCase->execute($playerId, $skill);
-
-        return $this->view(['detail' => "Skill {$skill} deleted successfully for player {$playerId}"], Response::HTTP_OK);
     }
 
     private function denyAccessIfNotAdmin(): void

@@ -36,13 +36,6 @@
             {{ $t('admin.actions.rules.resetAcceptance') }}
         </button>
     </div>
-    <div class="flex-row">
-        <Input :label="$t('nom de la compétence à supprimer')" type="text" v-model="deleteSkillForPlayerDto.skill" />
-        <Input :label="$t('id du player')" type="number" v-model="deleteSkillForPlayerDto.playerId" />
-        <button class="action-button" @click="deletePlayerSkill(deleteSkillForPlayerDto)">
-            {{ $t('supprimer la compétence du joueur') }}
-        </button>
-    </div>
 </template>
 
 <script lang="ts">
@@ -60,11 +53,6 @@ interface DeleteAllStatusesDto {
     statusName: string;
 }
 
-interface DeleteSkillForPlayerDto {
-    playerId: integer;
-    skill: string;
-}
-
 export default defineComponent ({
     name: 'AdminActionsPage',
     components: {
@@ -79,10 +67,6 @@ export default defineComponent ({
             },
             deleteAllStatusesDto: {
                 statusName: 'mush'
-            },
-            deleteSkillForPlayerDto: {
-                playerId: 0,
-                skill: ''
             }
         };
     },
@@ -92,7 +76,6 @@ export default defineComponent ({
             createProjects: 'adminActions/createProjectsForOnGoingDaedaluses',
             createStatuses: 'adminActions/createPlayersAllInitStatusesForOnGoingDaedaluses',
             deleteAllStatusesByName: 'adminActions/deleteAllStatusesByName',
-            deleteSkillForPlayer: 'adminActions/deleteSkillForPlayer',
             proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses',
             resetRulesAcceptance: 'adminActions/resetRulesAcceptanceForAllUsers'
         }),
@@ -101,9 +84,6 @@ export default defineComponent ({
         },
         deleteAllStatuses(deleteAllStatusesDto: DeleteAllStatusesDto) {
             this.deleteAllStatusesByName(deleteAllStatusesDto);
-        },
-        deletePlayerSkill(deleteSkillForPlayerDto: DeleteSkillForPlayerDto) {
-            this.deleteSkillForPlayer(deleteSkillForPlayerDto);
         }
     }
 });

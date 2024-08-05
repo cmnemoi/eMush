@@ -20,6 +20,11 @@ class PlayerRepository extends ServiceEntityRepository implements PlayerReposito
         parent::__construct($registry, Player::class);
     }
 
+    public function findOneByIdOrThrow(int $playerId): Player
+    {
+        return $this->find($playerId) ?? throw new \RuntimeException('Player not found');
+    }
+
     public function save(Player $player): void
     {
         $this->_em->persist($player);

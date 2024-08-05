@@ -451,6 +451,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
+    public function removeSkill(Skill $skill): static
+    {
+        $this->skills->removeElement($skill);
+
+        return $this;
+    }
+
     public function getSkills(): SkillCollection
     {
         return new SkillCollection($this->skills->toArray());

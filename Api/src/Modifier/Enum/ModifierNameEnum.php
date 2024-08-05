@@ -34,6 +34,7 @@ abstract class ModifierNameEnum
     public const string PLAYER_DOUBLE_DAMAGE_ON_SHOOT_HUNTER = 'player_double_damage_on_shoot_hunter';
     public const string PLAYER_PLUS_1_DAMAGE_ON_HIT = 'player_+1_damage_on_hit';
     public const string PLAYER_MINUS_1_ACTION_POINT_ON_PUT_THROUGH_DOOR = 'player_-1_action_point_on_put_through_door';
+    public const string PLAYER_ALWAYS_SUCCEDS_REPAIR_ACTION = 'player_always_succeeds_repair_action';
 
     public const string SHOOTER_SKILL_POINT = 'shooter_skill_point';
     public const string LOST_MODIFIER = 'lost_modifier';

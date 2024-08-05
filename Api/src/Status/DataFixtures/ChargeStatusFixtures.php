@@ -500,9 +500,38 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasChitchattedStatus);
 
+        $botanistModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_BOTANIST)
+        );
+        $manager->persist($botanistModifier);
+
+        $botanistPoints = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(SkillPointsEnum::BOTANIST_POINTS->value)
+        );
+        $botanistPoints->setModifierConfigs([$botanistModifier]);
+        $manager->persist($botanistPoints);
+
+        $pilgredPointsModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_PILGRED)
+        );
+        $manager->persist($pilgredPointsModifier);
+
+        $pilgredPoints = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(SkillPointsEnum::PILGRED_POINTS->value)
+        );
+        $pilgredPoints->setModifierConfigs([$pilgredPointsModifier]);
+        $manager->persist($pilgredPoints);
+
+        $modifierPlayerAlwaysSucceedsRepairAction = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_ALWAYS_SUCCEDS_REPAIR_ACTION)
+        );
+        $this->addReference($modifierPlayerAlwaysSucceedsRepairAction->getName(), $modifierPlayerAlwaysSucceedsRepairAction);
+        $manager->persist($modifierPlayerAlwaysSucceedsRepairAction);
+
         $geniusIdea = ChargeStatusConfig::fromConfigData(
             StatusConfigData::getByName(PlayerStatusEnum::GENIUS_IDEA . '_default')
         );
+        $geniusIdea->setModifierConfigs([$modifierPlayerAlwaysSucceedsRepairAction]);
         $manager->persist($geniusIdea);
 
         $gameConfig

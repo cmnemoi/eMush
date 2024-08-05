@@ -2910,6 +2910,23 @@ abstract class ModifierConfigData
                 ActionEnum::PUT_THROUGH_DOOR->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_ALWAYS_SUCCEDS_REPAIR_ACTION,
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 100,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
+            'mode' => VariableModifierModeEnum::MIN,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::REPAIR->value => ModifierRequirementEnum::ALL_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

@@ -40,6 +40,9 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
         $daedalus = $jukebox->getDaedalus();
         $jukeboxPlayer = $jukebox->getCurrentJukeboxPlayer();
 
+        if (!$jukeboxPlayer) {
+            return;
+        }
         if ($jukebox->isNotOperational()) {
             return;
         }
@@ -56,6 +59,9 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
 
     public function handleNewDay(GameEquipment $gameEquipment, \DateTime $dateTime): void {}
 
+    /**
+     * @psalm-suppress PossiblyNullArgument
+     */
     private function applyJukeboxMoraleGainToPlayer(Player $player, \DateTime $dateTime): void
     {
         $moraleGain = $player->getDaedalus()->getProjectByName(ProjectName::BEAT_BOX)->getActivationRate();
@@ -69,6 +75,9 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
+    /**
+     * @psalm-suppress PossiblyNullReference
+     */
     private function createJukeboxPlayedLog(GameEquipment $jukebox, \DateTime $dateTime): void
     {
         $player = $jukebox->getCurrentJukeboxPlayer();
@@ -83,6 +92,9 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
         );
     }
 
+    /**
+     * @psalm-suppress PossiblyNullArgument
+     */
     private function changeJukeboxSong(GameEquipment $jukebox): void
     {
         $daedalus = $jukebox->getDaedalus();

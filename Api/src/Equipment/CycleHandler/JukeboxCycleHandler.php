@@ -40,9 +40,6 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
         $daedalus = $jukebox->getDaedalus();
         $jukeboxPlayer = $jukebox->getCurrentJukeboxPlayer();
 
-        if (!$jukeboxPlayer) {
-            return;
-        }
         if ($jukebox->isNotOperational()) {
             return;
         }
@@ -50,7 +47,7 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
             return;
         }
 
-        if ($jukeboxPlayer->canReachEquipment($jukebox)) {
+        if ($jukeboxPlayer?->canReachEquipment($jukebox)) {
             $this->applyJukeboxMoraleGainToPlayer($jukeboxPlayer, $dateTime);
         }
         $this->createJukeboxPlayedLog($jukebox, $dateTime);
@@ -59,9 +56,6 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
 
     public function handleNewDay(GameEquipment $gameEquipment, \DateTime $dateTime): void {}
 
-    /**
-     * @psalm-suppress PossiblyNullArgument
-     */
     private function applyJukeboxMoraleGainToPlayer(Player $player, \DateTime $dateTime): void
     {
         $moraleGain = $player->getDaedalus()->getProjectByName(ProjectName::BEAT_BOX)->getActivationRate();
@@ -75,9 +69,6 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    /**
-     * @psalm-suppress PossiblyNullReference
-     */
     private function createJukeboxPlayedLog(GameEquipment $jukebox, \DateTime $dateTime): void
     {
         $player = $jukebox->getCurrentJukeboxPlayer();
@@ -87,14 +78,11 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
             visibility: VisibilityEnum::PUBLIC,
             type: 'event_log',
             player: $player,
-            parameters: ['player' => $player->getLogName()],
+            parameters: ['player' => $player?->getLogName()],
             dateTime: $dateTime,
         );
     }
 
-    /**
-     * @psalm-suppress PossiblyNullArgument
-     */
     private function changeJukeboxSong(GameEquipment $jukebox): void
     {
         $daedalus = $jukebox->getDaedalus();
@@ -104,7 +92,9 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
             return;
         }
 
-        $candidatePlayers = $players->getAllExcept($jukebox->getCurrentJukeboxPlayer())->toArray();
+        $jukeboxPlayer = $jukebox->getCurrentJukeboxPlayer();
+        $candidatePlayers = $jukeboxPlayer ? $players->getAllExcept($jukeboxPlayer)->toArray() : $players->toArray();
+
         $selectedPlayer = $this->getRandomElementsFromArray->execute($candidatePlayers, 1)->first();
 
         $jukebox->updateSongWithPlayerFavorite($selectedPlayer);

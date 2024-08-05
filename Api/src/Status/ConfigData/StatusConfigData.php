@@ -1349,7 +1349,7 @@ abstract class StatusConfigData
             'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
             'maxCharge' => 1,
             'startCharge' => 1,
-            'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
+            'dischargeStrategies' => [ActionEnum::PARTICIPATE->value],
             'autoRemove' => true,
             'modifierConfigs' => [],
             'actionConfigs' => [],

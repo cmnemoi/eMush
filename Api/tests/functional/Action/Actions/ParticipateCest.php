@@ -451,6 +451,15 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->thenProjectShouldBeFinished($I);
     }
 
+    public function playerWithGeniusIdeaStatusShouldLoseStatusAfterParticipating(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasGeniusIdeaStatus();
+
+        $this->whenPlayerParticipatesInProject();
+
+        $this->thenPlayerDoesNotHaveGeniusIdeaStatus($I);
+    }
+
     private function givenKuanTiIsAnITExpert(FunctionalTester $I): void
     {
         $this->kuanTi->getCharacterConfig()->setSkillConfigs([
@@ -554,6 +563,11 @@ final class ParticipateCest extends AbstractFunctionalTest
     private function thenProjectShouldBeFinished(FunctionalTester $I): void
     {
         $I->assertTrue($this->project->isFinished());
+    }
+
+    private function thenPlayerDoesNotHaveGeniusIdeaStatus(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::GENIUS_IDEA));
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

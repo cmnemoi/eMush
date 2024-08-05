@@ -463,10 +463,13 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->getPlace() === $this->getDaedalus()->getPlaceByName($place);
     }
 
-    public function getCurrentJukeboxPlayer(): Player
+    public function getCurrentJukeboxPlayer(): ?Player
     {
         $song = $this->getStatusByName(EquipmentStatusEnum::JUKEBOX_SONG);
-        $target = $song?->getTarget() ?? Player::createNull();
+        $target = $song?->getTarget();
+        if (!$target) {
+            return null;
+        }
 
         return $this->getDaedalus()->getPlayerByName($target->getName());
     }

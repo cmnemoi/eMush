@@ -47,7 +47,7 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
             return;
         }
 
-        if ($jukeboxPlayer->canReachEquipment($jukebox)) {
+        if ($jukeboxPlayer?->canReachEquipment($jukebox)) {
             $this->applyJukeboxMoraleGainToPlayer($jukeboxPlayer, $dateTime);
         }
         $this->createJukeboxPlayedLog($jukebox, $dateTime);
@@ -78,7 +78,7 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
             visibility: VisibilityEnum::PUBLIC,
             type: 'event_log',
             player: $player,
-            parameters: ['player' => $player->getLogName()],
+            parameters: ['player' => $player?->getLogName()],
             dateTime: $dateTime,
         );
     }
@@ -92,7 +92,9 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
             return;
         }
 
-        $candidatePlayers = $players->getAllExcept($jukebox->getCurrentJukeboxPlayer())->toArray();
+        $jukeboxPlayer = $jukebox->getCurrentJukeboxPlayer();
+        $candidatePlayers = $jukeboxPlayer ? $players->getAllExcept($jukeboxPlayer)->toArray() : $players->toArray();
+
         $selectedPlayer = $this->getRandomElementsFromArray->execute($candidatePlayers, 1)->first();
 
         $jukebox->updateSongWithPlayerFavorite($selectedPlayer);

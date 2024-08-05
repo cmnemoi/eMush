@@ -383,6 +383,21 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $this->thenActionSuccessRateShouldBe(60, $I);
     }
 
+    public function gunnerShouldDoubleDamageDealtToHunter(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsAGunner($I);
+
+        $this->givenActionSuccessRateIs(100);
+
+        $this->givenHunterHasHealth(6);
+
+        $this->givenTurretDamageIs(2);
+
+        $this->whenPlayerShootsAtHunter();
+
+        $this->thenHunterHealthShouldBe(2, $I);
+    }
+
     private function givenPlayerIsAGunner(FunctionalTester $I): void
     {
         $this->player->getCharacterConfig()->addSkillConfig(
@@ -405,6 +420,20 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenHunterHasHealth(int $health): void
+    {
+        /** @var Hunter $hunter */
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter->setHealth($health);
+    }
+
+    private function givenTurretDamageIs(int $damage): void
+    {
+        /** @var Weapon $turretWeapon */
+        $turretWeapon = $this->turret->getMechanicByNameOrThrow(EquipmentMechanicEnum::WEAPON);
+        $turretWeapon->setBaseDamageRange([$damage => 1]);
+    }
+
     private function whenPlayerWantsToShootHunter(): void
     {
         $hunter = $this->daedalus->getAttackingHunters()->first();
@@ -416,8 +445,25 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         );
     }
 
+    private function whenPlayerShootsAtHunter(): void
+    {
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $this->shootHunterAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->turret,
+            player: $this->player1,
+            target: $hunter
+        );
+        $this->shootHunterAction->execute();
+    }
+
     private function thenActionSuccessRateShouldBe(int $successRate, FunctionalTester $I): void
     {
         $I->assertEquals($successRate, $this->shootHunterAction->getSuccessRate());
+    }
+
+    private function thenHunterHealthShouldBe(int $health, FunctionalTester $I): void
+    {
+        $I->assertEquals($health, $this->daedalus->getAttackingHunters()->first()->getHealth());
     }
 }

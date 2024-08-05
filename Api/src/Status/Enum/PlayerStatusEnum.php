@@ -45,4 +45,5 @@ abstract class PlayerStatusEnum
     public const string HAS_CHITCHATTED = 'has_chitchatted';
     public const string HAS_LEARNED_SKILL = 'has_learned_skill';
     public const string GENIUS_IDEA = 'genius_idea';
+    public const string HAS_USED_GENIUS = 'has_used_genius';
 }

@@ -74,6 +74,20 @@ final class JukeboxTest extends TestCase
         $this->thenJukeboxShouldBePlayingPlayerSong($jukebox, $chun);
     }
 
+    public function testShouldChangeSongEvenWithoutCurrentJukeboxPlayer(): void
+    {
+        $daedalus = $this->givenADaedalusWithFinishedBeatBoxProject();
+        $chun = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
+        $raluca = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::RALUCA, $daedalus);
+
+        $laboratory = $this->givenALaboratoryInDaedalus($daedalus);
+        $jukebox = $this->givenAJukeboxInLaboratory($laboratory);
+
+        $this->whenJukeboxWorksAtCycleChange($jukebox);
+
+        $this->thenJukeboxShouldBePlayingPlayerSong($jukebox, $chun);
+    }
+
     private function givenADaedalusWithBeatBoxProject(): Daedalus
     {
         $daedalus = DaedalusFactory::createDaedalus();
@@ -103,6 +117,17 @@ final class JukeboxTest extends TestCase
             name: EquipmentStatusEnum::JUKEBOX_SONG,
             holder: $jukebox,
             target: $player,
+        );
+
+        return $jukebox;
+    }
+
+    private function givenAJukeboxInLaboratory(Place $laboratory): GameEquipment
+    {
+        $jukebox = GameEquipmentFactory::createEquipmentByNameForHolder(EquipmentEnum::JUKEBOX, $laboratory);
+        StatusFactory::createStatusByNameForHolder(
+            name: EquipmentStatusEnum::JUKEBOX_SONG,
+            holder: $jukebox,
         );
 
         return $jukebox;

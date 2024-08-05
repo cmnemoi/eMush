@@ -230,6 +230,11 @@ class Project implements LogParameterInterface, ActionHolderInterface
         return $this->getType() === ProjectType::PILGRED;
     }
 
+    public function isNotPilgred(): bool
+    {
+        return $this->getType() !== ProjectType::PILGRED;
+    }
+
     public function isAvailableNeronProject(): bool
     {
         return $this->isNeronProject() && $this->isAvailable();

@@ -446,6 +446,7 @@ class GameConfigData
                 SkillPointsEnum::PILGRED_POINTS->value,
                 SkillPointsEnum::NURSE_POINTS->value,
                 PlayerStatusEnum::HAS_LEARNED_SKILL . '_default',
+                PlayerStatusEnum::GENIUS_IDEA . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

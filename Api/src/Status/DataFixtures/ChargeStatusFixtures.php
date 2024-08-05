@@ -500,6 +500,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasChitchattedStatus);
 
+        $geniusIdea = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::GENIUS_IDEA . '_default')
+        );
+        $manager->persist($geniusIdea);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -536,7 +541,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($changedCpuPriority)
             ->addStatusConfig($autoWateringFiresKilled)
             ->addStatusConfig($droneCharges)
-            ->addStatusConfig($hasChitchattedStatus);
+            ->addStatusConfig($hasChitchattedStatus)
+            ->addStatusConfig($geniusIdea);
 
         $manager->persist($gameConfig);
 
@@ -577,6 +583,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES, $autoWateringFiresKilled);
         $this->addReference(EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE, $droneCharges);
         $this->addReference(PlayerStatusEnum::HAS_CHITCHATTED, $hasChitchattedStatus);
+        $this->addReference($geniusIdea->getName(), $geniusIdea);
     }
 
     public function getDependencies(): array

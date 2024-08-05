@@ -70,6 +70,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::GENIUS,
+                actionConfigs: [
+                    ActionEnum::BECOME_GENIUS,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::GUNNER,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_DOUBLE_SUCCESS_RATE_ON_SHOOT_HUNTER,

@@ -264,5 +264,15 @@
         <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.//:point: Expédition : Chaque dégât est **réduit d'un point**.//:point: Expédition : L'évènement **Provision** donne un steak de plus.//:point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
       </segment>
     </unit>
+    <unit id="optimist">
+      <segment id="optimist.name" state="translated">
+        <source>optimist.name</source>
+        <target>Optimiste</target>
+      </segment>
+      <segment id="optimist.description" state="translated">
+        <source>optimist.description</source>
+        <target>La fin de l'Humanité... Il y a pire non ?//:point: L'Optimiste perd **un :pmo: de moins par jour**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

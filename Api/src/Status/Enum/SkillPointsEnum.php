@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Status\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 
@@ -28,6 +29,11 @@ enum SkillPointsEnum: string
             SkillEnum::TECHNICIAN => self::TECHNICIAN_POINTS,
             default => self::NULL,
         };
+    }
+
+    public static function getAll(): ArrayCollection
+    {
+        return (new ArrayCollection(self::cases()))->filter(static fn (self $skillPoints) => $skillPoints !== self::NULL);
     }
 
     public function toString(): string

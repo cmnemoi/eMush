@@ -1196,5 +1196,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Faites lui bouffer les gonds !//:point: Coûte 1 :pa: de moins sur les inactifs.</target>
       </segment>
     </unit>
+    <unit id="become_genius">
+      <segment id="name" state="final">
+        <source>become_genius.name</source>
+        <target>Coup de génie</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>become_genius.description</source>
+        <target>Votre prochaine réparation, projet ou recherche est automatiquement réussie. Cette action est **unique**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

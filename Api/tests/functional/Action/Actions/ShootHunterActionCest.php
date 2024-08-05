@@ -24,6 +24,10 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -43,6 +47,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
     private GameEquipment $turret;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private ChooseSkillUseCase $chooseSkillUseCase;
 
     public function _before(FunctionalTester $I)
     {
@@ -50,6 +55,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SHOOT_HUNTER]);
         $this->action->setDirtyRate(0)->setSuccessRate(100);
@@ -365,6 +371,24 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $this->whenPlayerWantsToShootHunter();
 
         $this->thenActionSuccessRateShouldBe(37, $I);
+    }
+
+    public function gunnerShouldHaveDoubledSuccessRate(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsAGunner($I);
+        $this->givenActionSuccessRateIs(30);
+
+        $this->whenPlayerWantsToShootHunter();
+
+        $this->thenActionSuccessRateShouldBe(60, $I);
+    }
+
+    private function givenPlayerIsAGunner(FunctionalTester $I): void
+    {
+        $this->player->getCharacterConfig()->addSkillConfig(
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::GUNNER])
+        );
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::GUNNER, $this->player));
     }
 
     private function givenActionSuccessRateIs(int $successRate): void

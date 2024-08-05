@@ -84,6 +84,12 @@ final class SkillModifierConfigFixtures extends Fixture
         $this->addReference($modifierPlusOneHealthPointOnChangeVariableIfFromPlanetSectorEvent->getName(), $modifierPlusOneHealthPointOnChangeVariableIfFromPlanetSectorEvent);
         $manager->persist($modifierPlusOneHealthPointOnChangeVariableIfFromPlanetSectorEvent);
 
+        $modifierPlayerDoubleSuccessRateOnShootHunter = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_DOUBLE_SUCCESS_RATE_ON_SHOOT_HUNTER)
+        );
+        $this->addReference($modifierPlayerDoubleSuccessRateOnShootHunter->getName(), $modifierPlayerDoubleSuccessRateOnShootHunter);
+        $manager->persist($modifierPlayerDoubleSuccessRateOnShootHunter);
+
         $manager->flush();
     }
 }

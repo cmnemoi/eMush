@@ -58,6 +58,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::GUNNER,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_DOUBLE_SUCCESS_RATE_ON_SHOOT_HUNTER,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::IT_EXPERT,
                 modifierConfigs: [
                     ModifierNameEnum::DOUBLE_HACK_CHANCE,

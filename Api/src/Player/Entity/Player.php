@@ -500,7 +500,12 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
      */
     public function getSelectableHumanSkills(): Collection
     {
-        return $this->getCharacterConfig()->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
+        $selectableSkills = $this->getCharacterConfig()->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
+        if ($this->hasStatus(PlayerStatusEnum::HAS_LEARNED_SKILL)) {
+            $selectableSkills = $selectableSkills->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() !== SkillEnum::APPRENTICE);
+        }
+
+        return $selectableSkills;
     }
 
     public function getSelectableMushSkills(): Collection

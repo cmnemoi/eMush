@@ -49,24 +49,6 @@ final class LearnCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldAddLearnedSkillToPlayer(FunctionalTester $I): void
-    {
-        $this->givenKuanTiHasTechnicianSkill($I);
-
-        $this->whenChunLearnsSkill(SkillEnum::TECHNICIAN);
-
-        $this->thenChunShouldHaveTechnicianSkill($I);
-    }
-
-    public function shouldDeleteApprenticeshipSkillAfterLearning(FunctionalTester $I): void
-    {
-        $this->givenKuanTiHasTechnicianSkill($I);
-
-        $this->whenChunLearnsSkill(SkillEnum::TECHNICIAN);
-
-        $this->thenChunShouldNotHaveApprenticeSkill($I);
-    }
-
     public function shouldThrowIfTryingToLearnASkillAlreadyPossessed(FunctionalTester $I): void
     {
         $this->givenChunHasSkill(SkillEnum::TECHNICIAN, $I);
@@ -96,19 +78,46 @@ final class LearnCest extends AbstractFunctionalTest
         });
     }
 
+    public function shouldAddLearnedSkillToPlayer(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasTechnicianSkill($I);
+
+        $this->whenChunLearnsSkill(SkillEnum::TECHNICIAN);
+
+        $this->thenChunShouldHaveTechnicianSkill($I);
+    }
+
+    public function shouldDeleteApprenticeshipSkillAfterLearning(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasTechnicianSkill($I);
+
+        $this->whenChunLearnsSkill(SkillEnum::TECHNICIAN);
+
+        $this->thenChunShouldNotHaveApprenticeSkill($I);
+    }
+
+    public function shouldMakeApprenticeSkillUnavailbleAfterLearning(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasTechnicianSkill($I);
+
+        $this->whenChunLearnsSkill(SkillEnum::TECHNICIAN);
+
+        $this->thenApprenticeSkillIsUnavailableForChun($I);
+    }
+
     private function givenChunHasSkill(SkillEnum $skill, FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([
+        $this->player->getCharacterConfig()->addSkillConfig(
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]),
-        ]);
+        );
         $this->chooseSkillUseCase->execute(new ChooseSkillDto($skill, $this->chun));
     }
 
     private function givenKuanTiHasTechnicianSkill(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([
+        $this->player->getCharacterConfig()->addSkillConfig(
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::TECHNICIAN]),
-        ]);
+        );
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
     }
 
@@ -158,5 +167,10 @@ final class LearnCest extends AbstractFunctionalTest
     private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
     {
         $I->assertEquals($message, $this->learn->cannotExecuteReason());
+    }
+
+    private function thenApprenticeSkillIsUnavailableForChun(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->chun->cannotTakeSkill(SkillEnum::APPRENTICE));
     }
 }

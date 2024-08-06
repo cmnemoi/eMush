@@ -1330,6 +1330,14 @@ abstract class StatusConfigData
             ],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::HAS_LEARNED_SKILL . '_default',
+            'statusName' => PlayerStatusEnum::HAS_LEARNED_SKILL,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

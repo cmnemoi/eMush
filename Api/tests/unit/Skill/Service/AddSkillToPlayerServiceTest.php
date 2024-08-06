@@ -44,7 +44,7 @@ final class AddSkillToPlayerServiceTest extends TestCase
      */
     protected function tearDown(): void
     {
-        $this->player = null;
+        $this->player = PlayerFactory::createNullPlayer();
         $this->playerRepository->clear();
         $this->skillConfigRepository->clear();
     }

@@ -4,17 +4,21 @@ declare(strict_types=1);
 
 namespace Mush\tests\unit\Skill\Service;
 
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Exception\GameException;
+use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\InMemoryPlayerRepository;
 use Mush\Skill\ConfigData\SkillConfigData;
+use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\Repository\SkillConfigRepositoryInterface;
+use Mush\Skill\Repository\InMemorySkillConfigRepository;
 use Mush\Skill\Service\AddSkillToPlayerService;
+use Mush\Status\Enum\SkillPointsEnum;
+use Mush\Status\Service\FakeStatusService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -34,6 +38,7 @@ final class AddSkillToPlayerServiceTest extends TestCase
         $this->playerRepository = new InMemoryPlayerRepository();
         $this->skillConfigRepository = new InMemorySkillConfigRepository();
         $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::TECHNICIAN)));
+        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::SHOOTER)));
 
         $this->player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, DaedalusFactory::createDaedalus());
         $this->playerRepository->save($this->player);
@@ -63,9 +68,35 @@ final class AddSkillToPlayerServiceTest extends TestCase
         $this->whenIAddSkillToPlayer(SkillEnum::NULL);
     }
 
+    public function testShouldThrowIfPlayerAlreadyHasSkill(): void
+    {
+        $this->givenPlayerHasSkill(SkillEnum::PILOT);
+
+        $this->expectException(GameException::class);
+
+        $this->whenIAddSkillToPlayer(SkillEnum::PILOT);
+    }
+
+    public function testShouldCreateSkillPoints(): void
+    {
+        $this->whenIAddSkillToPlayer(SkillEnum::SHOOTER);
+
+        $this->thenPlayerShouldHaveSkillPoints(SkillPointsEnum::SHOOTER_POINTS);
+    }
+
+    private function givenPlayerHasSkill(SkillEnum $skill): void
+    {
+        Skill::createByNameForPlayer($skill, $this->player);
+    }
+
     private function whenIAddSkillToPlayer(SkillEnum $skill): void
     {
-        $service = new AddSkillToPlayerService($this->playerRepository, $this->skillConfigRepository);
+        $service = new AddSkillToPlayerService(
+            $this->createStub(ModifierCreationServiceInterface::class),
+            $this->playerRepository,
+            $this->skillConfigRepository,
+            new FakeStatusService(),
+        );
         $service->execute(skill: $skill, player: $this->player);
     }
 
@@ -75,24 +106,12 @@ final class AddSkillToPlayerServiceTest extends TestCase
 
         self::assertTrue($player->hasSkill($skill));
     }
-}
 
-final class InMemorySkillConfigRepository implements SkillConfigRepositoryInterface
-{
-    private array $skillConfigs = [];
-
-    public function findOneByNameAndDaedalusOrThrow(SkillEnum $skill, Daedalus $daedalus): SkillConfig
+    private function thenPlayerShouldHaveSkillPoints(SkillPointsEnum $skillPoints): void
     {
-        return $this->skillConfigs[$skill->toString()] ?? throw new \InvalidArgumentException("Skill {$skill->toString()} not found for daedalus {$daedalus->getName()}");
-    }
+        $player = $this->playerRepository->findOneByName(CharacterEnum::ANDIE);
+        $skillPointsStatus = $player->getStatusByName($skillPoints->toString());
 
-    public function clear(): void
-    {
-        $this->skillConfigs = [];
-    }
-
-    public function save(SkillConfig $skillConfig): void
-    {
-        $this->skillConfigs[$skillConfig->getName()->toString()] = $skillConfig;
+        self::assertNotNull($skillPointsStatus);
     }
 }

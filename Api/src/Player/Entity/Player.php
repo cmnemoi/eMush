@@ -512,21 +512,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->daedalus->getMushSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
     }
 
-    public function getHumanSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
-    {
-        return $this->getCharacterConfig()->getSkillConfigByNameOrThrow($skill);
-    }
-
-    public function getMushSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
-    {
-        if ($this->isHuman()) {
-            throw new GameException('You cannot pick a Mush skill as human!');
+    public function cannotTakeSkill(SkillEnum $skill): bool
+    {   
+        if ($skill->isMushSkill()) {
+            return $this->getSelectableMushSkills()->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $skill)->isEmpty();
         }
 
-        return $this->daedalus
-            ->getMushSkillConfigs()
-            ->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $skill)
-            ->first() ?: throw new \RuntimeException('This skill does not exist!');
+        return $this->getSelectableHumanSkills()->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $skill)->isEmpty();
     }
 
     public function getGameVariables(): PlayerVariables

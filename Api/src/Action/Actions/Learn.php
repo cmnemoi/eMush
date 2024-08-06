@@ -16,6 +16,8 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Skill\Service\DeletePlayerSkillService;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -29,6 +31,7 @@ final class Learn extends AbstractAction
         protected ValidatorInterface $validator,
         private AddSkillToPlayerService $addSkillToPlayer,
         private DeletePlayerSkillService $deletePlayerSkill,
+        private StatusServiceInterface $statusService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -57,13 +60,52 @@ final class Learn extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $skillToLearn = $this->skillToLearn();
+        $this->checkSkillToLearnIsInTheRoom();
+        $this->checkSkillToLearnIsNotAMushSkill();
 
-        $this->checkSkillToLearnIsInTheRoom($skillToLearn);
-        $this->checkSkillToLearnIsNotAMushSkill($skillToLearn);
+        $this->addLearnedSkillToPlayer();
+        $this->deleteApprenticeSkillFromPlayer();
+        $this->createHasLearnedSkillStatus();
+    }
 
-        $this->addSkillToPlayer->execute($skillToLearn, $this->player);
-        $this->deletePlayerSkill->execute(SkillEnum::APPRENTICE, $this->player);
+    private function checkSkillToLearnIsInTheRoom(): void
+    {
+        $playersInRoom = $this->player->getPlace()->getAlivePlayersExcept($this->player);
+
+        foreach ($playersInRoom as $player) {
+            if ($player->hasSkill($this->skillToLearn())) {
+                return;
+            }
+        }
+
+        throw new GameException('There is no player with this skill in the room!');
+    }
+
+    private function checkSkillToLearnIsNotAMushSkill(): void
+    {
+        if ($this->skillToLearn()->isMushSkill()) {
+            throw new GameException('You cannot learn a Mush skill!');
+        }
+    }
+
+    private function addLearnedSkillToPlayer(): void
+    {
+        $this->addSkillToPlayer->execute(skill: $this->skillToLearn(), player: $this->player);
+    }
+
+    private function deleteApprenticeSkillFromPlayer(): void
+    {
+        $this->deletePlayerSkill->execute(skill: SkillEnum::APPRENTICE, player: $this->player);
+    }
+
+    private function createHasLearnedSkillStatus(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::HAS_LEARNED_SKILL,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
     }
 
     private function skillToLearn(): SkillEnum
@@ -74,25 +116,5 @@ final class Learn extends AbstractAction
         }
 
         return SkillEnum::from($params['skill']);
-    }
-
-    private function checkSkillToLearnIsInTheRoom(SkillEnum $skillToLearn): void
-    {
-        $playersInRoom = $this->player->getPlace()->getAlivePlayersExcept($this->player);
-
-        foreach ($playersInRoom as $player) {
-            if ($player->hasSkill($skillToLearn)) {
-                return;
-            }
-        }
-
-        throw new GameException('There is no player with this skill in the room!');
-    }
-
-    private function checkSkillToLearnIsNotAMushSkill(SkillEnum $skillToLearn): void
-    {
-        if ($skillToLearn->isMushSkill()) {
-            throw new GameException('You cannot learn a Mush skill!');
-        }
     }
 }

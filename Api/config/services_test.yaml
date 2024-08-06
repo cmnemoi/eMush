@@ -1,13 +1,3 @@
 services:
     Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager:
         public: true
-
-    Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase:
-        public: true
-        autowire: true     
-        autoconfigure: true
-
-    Mush\Skill\UseCase\ChooseSkillUseCase:
-        public: true
-        autowire: true     
-        autoconfigure: true

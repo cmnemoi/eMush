@@ -188,6 +188,7 @@ import { getImgUrl } from "@/utils/getImgUrl";
 import { SkillPoint } from "@/entities/SkillPoint";
 import { skillPointEnum } from "@/enums/skill.point.enum";
 import { SkillIconRecord } from "@/enums/skill.enum";
+import { ActionEnum } from "@/enums/action.enum";
 
 export default defineComponent ({
     name: "CharPanel",
@@ -225,6 +226,7 @@ export default defineComponent ({
             'executeAction': 'action/executeAction',
             'selectTarget': 'player/selectTarget',
             'openSkillSelectionPopUp': 'popup/openSkillSelectionPopUp',
+            'openLearnSkillPopUp': 'popup/openLearnSkillPopUp',
             'initMushSkillsDisplay': 'player/initMushSkillsDisplay',
             'toggleMushSkillsDisplay': 'player/toggleMushSkillsDisplay'
         }),
@@ -270,7 +272,12 @@ export default defineComponent ({
             }
         },
         async executeTargetAction(target: Door | Item | Equipment | Player | null, action: Action): Promise<void> {
-            if(action.canExecute) {
+            if (action.key === ActionEnum.LEARN) {
+                this.openLearnSkillPopUp();
+                return;
+            }
+
+            if (action.canExecute) {
                 await this.executeAction({ target, action });
                 if (this.selectedItem instanceof Item && ! this.player.items.includes(this.selectedItem)) {
                     this.selectedItem = null;
@@ -280,6 +287,7 @@ export default defineComponent ({
     },
     data() {
         return {
+            ActionEnum,
             StatusPlayerNameEnum
         };
     },

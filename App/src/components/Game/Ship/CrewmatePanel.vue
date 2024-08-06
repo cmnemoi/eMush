@@ -68,6 +68,7 @@ import { mapActions, mapGetters } from "vuex";
 import { Action } from "@/entities/Action";
 import { SkillIconRecord } from "@/enums/skill.enum";
 import { formatText } from "@/utils/formatText";
+import { ActionEnum } from "@/enums/action.enum";
 
 export default defineComponent ({
     name: "CrewmatePanel",
@@ -108,9 +109,15 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions({
-            'executeAction': 'action/executeAction'
+            'executeAction': 'action/executeAction',
+            'openLearnSkillPopUp': 'popup/openLearnSkillPopUp'
         }),
         async executeTargetAction(action: Action) {
+            if (action.key === ActionEnum.LEARN) {
+                this.openLearnSkillPopUp();
+                return;
+            }
+
             if(action.canExecute) {
                 if (this.selectedTarget === this.player) {
                     await this.executeAction({ target: null, action });
@@ -123,6 +130,11 @@ export default defineComponent ({
         skillImage(skill: Skill): string {
             return SkillIconRecord[skill.key].icon ?? '';
         }
+    },
+    data() {
+        return {
+            ActionEnum
+        };
     }
 });
 </script>

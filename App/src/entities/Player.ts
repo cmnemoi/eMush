@@ -246,4 +246,13 @@ export class Player {
     public isMush(): boolean {
         return this.hasStatusByKey(StatusPlayerNameEnum.MUSH);
     }
+
+    public getActionByKeyOrThrow(key: string): Action {
+        const action = this.actions.find(action => action.key === key);
+        if (action) {
+            return action;
+        }
+
+        throw new Error(`No action found with key ${key} for player ${this.id}`);
+    }
 }

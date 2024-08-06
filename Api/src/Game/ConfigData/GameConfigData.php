@@ -8,6 +8,7 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Project\Enum\ProjectName;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
@@ -570,6 +571,9 @@ class GameConfigData
                 ProjectName::PARASITE_ELIM,
                 ProjectName::OXY_MORE,
                 ProjectName::BEAT_BOX,
+            ],
+            'mushSkillConfigs' => [
+                SkillEnum::ANONYMUSH,
             ],
         ],
     ];

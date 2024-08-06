@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Daedalus\Factory;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -17,6 +18,8 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Skill\ConfigData\SkillConfigData;
+use Mush\Skill\Entity\SkillConfig;
 use Symfony\Component\Uid\Uuid;
 
 final class DaedalusFactory
@@ -39,6 +42,7 @@ final class DaedalusFactory
         self::setupId($daedalus);
 
         $gameConfig->setDifficultyConfig(self::getDifficultyConfig());
+        $gameConfig->setMushSkillConfigs(self::getMushSkillConfigs());
 
         return $daedalus;
     }
@@ -95,5 +99,15 @@ final class DaedalusFactory
     private static function setupId(Daedalus $daedalus): void
     {
         (new \ReflectionProperty($daedalus, 'id'))->setValue($daedalus, random_int(1, PHP_INT_MAX));
+    }
+
+    private static function getMushSkillConfigs(): ArrayCollection
+    {
+        $mushSkillConfigs = new ArrayCollection();
+        foreach (SkillConfigData::getAll() as $skillConfigDto) {
+            $mushSkillConfigs->add(SkillConfig::createFromDto($skillConfigDto));
+        }
+
+        return $mushSkillConfigs;
     }
 }

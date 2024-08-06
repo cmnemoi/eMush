@@ -8,8 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
-use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Enum\SkillEnum;
 
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
@@ -35,9 +33,6 @@ class StatusConfig
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $visibility = VisibilityEnum::PUBLIC;
 
-    #[ORM\ManyToMany(targetEntity: SkillConfig::class)]
-    protected Collection $skillConfigs;
-
     #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;
 
@@ -46,7 +41,6 @@ class StatusConfig
 
     public function __construct()
     {
-        $this->skillConfigs = new ArrayCollection();
         $this->modifierConfigs = new ArrayCollection();
         $this->actionConfigs = new ArrayCollection();
     }
@@ -154,36 +148,6 @@ class StatusConfig
         $this->actionConfigs->add($actionConfig);
 
         return $this;
-    }
-
-    public function getSkillConfigs(): Collection
-    {
-        return $this->skillConfigs;
-    }
-
-    public function setSkillConfigs(array|Collection $skillConfigs): static
-    {
-        if (\is_array($skillConfigs)) {
-            $skillConfigs = new ArrayCollection($skillConfigs);
-        }
-
-        $this->skillConfigs = $skillConfigs;
-
-        return $this;
-    }
-
-    public function addSkillConfig(SkillConfig $skillConfig): static
-    {
-        $this->skillConfigs->add($skillConfig);
-
-        return $this;
-    }
-
-    public function getSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
-    {
-        $skillConfig = $this->getSkillConfigs()->filter(static fn (SkillConfig $skillConfig) => ($skillConfig->getName() === $skill))->first() ?: null;
-
-        return $skillConfig ?? throw new \RuntimeException("Skill config {$skill->value} not found for {$this->getStatusName()} status");
     }
 
     public function isNull(): bool

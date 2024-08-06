@@ -33,6 +33,7 @@ use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Exception\GameException;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -495,13 +496,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getCharacterConfig()->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
     }
 
-    /**
-     * @psalm-suppress RedundantCondition
-     * @psalm-suppress TypeDoesNotContainNull
-     */
     public function getSelectableMushSkills(): Collection
     {
-        return $this->getStatusByName(PlayerStatusEnum::MUSH)?->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false) ?? new ArrayCollection();
+        if ($this->isHuman()) {
+            throw new GameException('You cannot pick a Mush skill as a human!');
+        }
+
+        return $this->daedalus->getMushSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
     }
 
     public function getHumanSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
@@ -511,7 +512,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getMushSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
     {
-        return $this->getStatusByNameOrThrow(PlayerStatusEnum::MUSH)->getSkillConfigByNameOrThrow($skill);
+        if ($this->isHuman()) {
+            throw new GameException('Humans cannot pick a Mush skill!');
+        }
+
+        return $this->daedalus
+            ->getMushSkillConfigs()
+            ->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $skill)
+            ->first() ?: throw new \RuntimeException('This skill does not exist!');
     }
 
     public function getGameVariables(): PlayerVariables
@@ -974,14 +982,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->hasStatus(PlayerStatusEnum::INACTIVE) === false && $this->hasStatus(PlayerStatusEnum::HIGHLY_INACTIVE) === false;
     }
 
-    /**
-     * @psalm-suppress RedundantCondition
-     * @psalm-suppress TypeDoesNotContainNull
-     */
     public function getLevel(): int
     {
         $numberOfHumanSkills = $this->getCharacterConfig()->getSkillConfigs()->count();
-        $numberOfMushSkills = $this->getStatusByName(PlayerStatusEnum::MUSH)?->getSkillConfigs()->count() ?? 0;
+        $numberOfMushSkills = $this->isMush() ? $this->daedalus->getMushSkillConfigs()->count() : 0;
 
         return max($numberOfHumanSkills, $numberOfMushSkills);
     }

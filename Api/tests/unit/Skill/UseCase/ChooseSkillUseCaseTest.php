@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\tests\unit\Skill\UseCase;
 
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Entity\Player;
@@ -86,7 +87,7 @@ final class ChooseSkillUseCaseTest extends TestCase
 
     private function givenAPlayer(): Player
     {
-        return PlayerFactory::createPlayerByName(CharacterEnum::TERRENCE);
+        return PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::TERRENCE, DaedalusFactory::createDaedalus());
     }
 
     private function givenPlayerHasSkill(SkillEnum $skill): void

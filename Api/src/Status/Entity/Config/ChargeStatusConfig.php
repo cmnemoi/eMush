@@ -7,8 +7,6 @@ use Mush\Action\ConfigData\ActionData;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Skill\ConfigData\SkillConfigData;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 #[ORM\Entity]
@@ -51,9 +49,6 @@ class ChargeStatusConfig extends StatusConfig
 
         foreach ($configData['actionConfigs'] as $actionConfig) {
             $statusConfig->addActionConfig(ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::from($actionConfig))));
-        }
-        foreach ($configData['skillConfigs'] as $skillConfig) {
-            $statusConfig->addSkillConfig(SkillConfig::createFromDto(SkillConfigData::getByName($skillConfig)));
         }
 
         return $statusConfig;

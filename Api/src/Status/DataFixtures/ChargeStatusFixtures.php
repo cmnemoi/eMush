@@ -278,7 +278,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
                 $moraleModifier,
             ])
             ->setActionConfigs([$trapClosetAction])
-            ->setSkillConfigs([$anonymushSkillConfig])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mushStatus);
 
@@ -537,7 +536,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($changedCpuPriority)
             ->addStatusConfig($autoWateringFiresKilled)
             ->addStatusConfig($droneCharges);
-            
+
         $manager->persist($gameConfig);
 
         $manager->flush();

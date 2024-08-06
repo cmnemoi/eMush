@@ -51,7 +51,6 @@ class StatusConfigDataLoader extends ConfigDataLoader
                 ->setVisibility($statusConfigData['visibility']);
             $this->setStatusConfigModifierConfigs($statusConfig, $statusConfigData['modifierConfigs']);
             $this->setStatusConfigActionConfigs($statusConfig, $statusConfigData['actionConfigs']);
-            $this->setStatusConfigSkillConfigs($statusConfig, $statusConfigData['skillConfigs']);
 
             $this->entityManager->persist($statusConfig);
         }
@@ -84,19 +83,5 @@ class StatusConfigDataLoader extends ConfigDataLoader
             $actionConfigs[] = $actionConfig;
         }
         $statusConfig->setActionConfigs($actionConfigs);
-    }
-
-    protected function setStatusConfigSkillConfigs(StatusConfig $statusConfig, array $skillConfigsArray): void
-    {
-        $skillConfigs = [];
-        foreach ($skillConfigsArray as $skillConfigName) {
-            /** @var SkillConfig $skillConfig */
-            $skillConfig = $this->skillConfigRepository->findOneBy(['name' => $skillConfigName]);
-            if ($skillConfig === null) {
-                throw new \Exception("Skill config {$skillConfigName} not found");
-            }
-            $skillConfigs[] = $skillConfig;
-        }
-        $statusConfig->setSkillConfigs($skillConfigs);
     }
 }

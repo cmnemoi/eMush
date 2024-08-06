@@ -827,4 +827,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     {
         return $this->getDaedalusConfig()->getCyclePerGameDay();
     }
+
+    public function getMushSkillConfigs(): Collection
+    {
+        return $this->getGameConfig()->getMushSkillConfigs();
+    }
 }

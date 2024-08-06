@@ -10,6 +10,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Modifier\DataFixtures\SkillModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Skill\ConfigData\SkillConfigData;
@@ -26,6 +27,8 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
      */
     public function load(ObjectManager $manager): void
     {
+        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+
         foreach (SkillConfigData::getAll() as $skillConfigDto) {
             $skillConfig = new SkillConfig(
                 name: $skillConfigDto->name,
@@ -35,6 +38,11 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
             );
             $manager->persist($skillConfig);
             $this->addReference($skillConfigDto->name->value, $skillConfig);
+
+            if ($skillConfig->getName()->isMushSkill()) {
+                $gameConfig->addMushSkillConfig($skillConfig);
+                $manager->persist($gameConfig);
+            }
         }
 
         $manager->flush();
@@ -44,6 +52,7 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
     {
         return [
             ActionsFixtures::class,
+            GameConfigFixtures::class,
             SkillModifierConfigFixtures::class,
             SkillPointsFixtures::class,
         ];

@@ -12,7 +12,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\NumberPlayersAliveInRoom;
 use Mush\Game\Exception\GameException;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
@@ -48,7 +47,7 @@ final class Learn extends AbstractAction
 
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $target instanceof Player;
+        return $target === null;
     }
 
     protected function checkResult(): ActionResult

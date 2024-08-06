@@ -8,7 +8,10 @@ use Mush\Action\Actions\Learn;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Exception\GameException;
 use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
@@ -31,14 +34,14 @@ final class LearnCest extends AbstractFunctionalTest
         $this->learn = $I->grabService(Learn::class);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
-        $this->givenChunHasApprenticeSkill($I);
+        $this->givenChunHasSkill(SkillEnum::APPRENTICE, $I);
     }
 
     public function shouldNotBeExecutableIfThereIsNoOneInTheRoom(FunctionalTester $I): void
     {
         $this->givenKuanTiOnPlanet($I);
 
-        $this->whenChunTriesToLearnTechnicianSkill();
+        $this->whenChunTriesToLearnSkill(SkillEnum::TECHNICIAN);
 
         $this->thenActionShouldNotBeExecutableWithMessage(
             message: ActionImpossibleCauseEnum::LONELY_APPRENTICESHIP,
@@ -50,26 +53,55 @@ final class LearnCest extends AbstractFunctionalTest
     {
         $this->givenKuanTiHasTechnicianSkill($I);
 
-        $this->whenChunLearnsTechnicianSkill();
+        $this->whenChunLearnsSkill(SkillEnum::TECHNICIAN);
 
         $this->thenChunShouldHaveTechnicianSkill($I);
     }
 
     public function shouldDeleteApprenticeshipSkillAfterLearning(FunctionalTester $I): void
     {
-        $this->givenChunHasApprenticeSkill($I);
+        $this->givenKuanTiHasTechnicianSkill($I);
 
-        $this->whenChunLearnsTechnicianSkill();
+        $this->whenChunLearnsSkill(SkillEnum::TECHNICIAN);
 
         $this->thenChunShouldNotHaveApprenticeSkill($I);
     }
 
-    private function givenChunHasApprenticeSkill(FunctionalTester $I): void
+    public function shouldThrowIfTryingToLearnASkillAlreadyPossessed(FunctionalTester $I): void
+    {
+        $this->givenChunHasSkill(SkillEnum::TECHNICIAN, $I);
+
+        $I->expectThrowable(GameException::class, function () {
+            $this->whenChunLearnsSkill(SkillEnum::TECHNICIAN);
+        });
+    }
+
+    public function shouldThrowIfTryingToLearnSkillNotInTheRoom(FunctionalTester $I): void
+    {
+        $this->givenDerekIsInTheRoom($I);
+
+        $this->givenKuanTiOnPlanet();
+
+        $I->expectThrowable(GameException::class, function () {
+            $this->whenChunLearnsSkill(SkillEnum::TECHNICIAN);
+        });
+    }
+
+    public function shouldThrowIfTryingToLearnMushSkill(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasAnonymousSkill($I);
+
+        $I->expectThrowable(GameException::class, function () {
+            $this->whenChunLearnsSkill(SkillEnum::ANONYMUSH);
+        });
+    }
+
+    private function givenChunHasSkill(SkillEnum $skill, FunctionalTester $I): void
     {
         $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::APPRENTICE]),
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]),
         ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::APPRENTICE, $this->chun));
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto($skill, $this->chun));
     }
 
     private function givenKuanTiHasTechnicianSkill(FunctionalTester $I): void
@@ -85,20 +117,32 @@ final class LearnCest extends AbstractFunctionalTest
         $this->kuanTi->changePlace($this->daedalus->getPlanetPlace());
     }
 
-    private function whenChunTriesToLearnTechnicianSkill(): void
+    private function givenDerekIsInTheRoom(FunctionalTester $I): void
+    {
+        $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
+    }
+
+    private function givenKuanTiHasAnonymousSkill(FunctionalTester $I): void
+    {
+        $skillConfig = new SkillConfig(SkillEnum::ANONYMUSH);
+        $I->haveInRepository($skillConfig);
+        new Skill($skillConfig, $this->kuanTi);
+    }
+
+    private function whenChunTriesToLearnSkill(SkillEnum $skill): void
     {
         $this->learn->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $this->chun,
             player: $this->player,
             target: $this->kuanTi,
-            parameters: ['skill' => SkillEnum::TECHNICIAN->toString()]
+            parameters: ['skill' => $skill->toString()]
         );
     }
 
-    private function whenChunLearnsTechnicianSkill(): void
+    private function whenChunLearnsSkill(SkillEnum $skill): void
     {
-        $this->whenChunTriesToLearnTechnicianSkill();
+        $this->whenChunTriesToLearnSkill($skill);
         $this->learn->execute();
     }
 

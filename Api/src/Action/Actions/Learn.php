@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\NumberPlayersAliveInRoom;
+use Mush\Game\Exception\GameException;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -57,7 +58,13 @@ final class Learn extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $this->addSkillToPlayer->execute($this->skillToLearn(), $this->player);
+        $skillToLearn = $this->skillToLearn();
+
+        $this->checkPlayerDoesNotHaveSkillToLearn($skillToLearn);
+        $this->checkSkillToLearnIsInTheRoom($skillToLearn);
+        $this->checkSkillToLearnIsNotAMushSkill($skillToLearn);
+
+        $this->addSkillToPlayer->execute($skillToLearn, $this->player);
         $this->deletePlayerSkill->execute(SkillEnum::APPRENTICE, $this->player);
     }
 
@@ -65,9 +72,36 @@ final class Learn extends AbstractAction
     {
         $params = $this->getParameters();
         if (!$params || !\array_key_exists('skill', $params)) {
-            throw new \InvalidArgumentException('You need to select a skill to learn it!');
+            throw new GameException('You need to select a skill to learn it!');
         }
 
         return SkillEnum::from($params['skill']);
+    }
+
+    private function checkPlayerDoesNotHaveSkillToLearn(SkillEnum $skillToLearn): void
+    {
+        if ($this->player->hasSkill($skillToLearn)) {
+            throw new GameException('You already have this skill!');
+        }
+    }
+
+    private function checkSkillToLearnIsInTheRoom(SkillEnum $skillToLearn): void
+    {
+        $playersInRoom = $this->player->getPlace()->getAlivePlayersExcept($this->player);
+
+        foreach ($playersInRoom as $player) {
+            if ($player->hasSkill($skillToLearn)) {
+                return;
+            }
+        }
+
+        throw new GameException('No player with this skill is in the room!');
+    }
+
+    private function checkSkillToLearnIsNotAMushSkill(SkillEnum $skillToLearn): void
+    {
+        if ($skillToLearn->isMushSkill()) {
+            throw new GameException('You cannot learn a Mush skill!');
+        }
     }
 }

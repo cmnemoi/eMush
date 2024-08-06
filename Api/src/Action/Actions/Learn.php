@@ -7,13 +7,16 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\NumberPlayersAliveInRoom;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Skill\Service\DeletePlayerSkillService;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Learn extends AbstractAction
@@ -28,6 +31,18 @@ final class Learn extends AbstractAction
         private DeletePlayerSkillService $deletePlayerSkill,
     ) {
         parent::__construct($eventService, $actionService, $validator);
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(
+            new NumberPlayersAliveInRoom([
+                'mode' => NumberPlayersAliveInRoom::LESS_THAN,
+                'number' => 2,
+                'groups' => ['execute'],
+                'message' => ActionImpossibleCauseEnum::LONELY_APPRENTICESHIP,
+            ])
+        );
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

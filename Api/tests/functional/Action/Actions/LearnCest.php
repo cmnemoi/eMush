@@ -135,7 +135,6 @@ final class LearnCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->chun,
             player: $this->player,
-            target: $this->kuanTi,
             parameters: ['skill' => $skill->toString()]
         );
     }

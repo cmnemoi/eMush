@@ -10,6 +10,9 @@ const state = {
     },
     skillSelectionPopUp: {
         isOpen: false
+    },
+    learnSkillPopUp: {
+        isOpen: false
     }
 };
 
@@ -19,6 +22,9 @@ const getters: GetterTree<any, any> = {
     },
     skillSelectionPopUp: (state: any): BasicPopUp => {
         return state.skillSelectionPopUp;
+    },
+    learnSkillPopUp: (state: any): BasicPopUp => {
+        return state.learnSkillPopUp;
     }
 };
 
@@ -34,6 +40,12 @@ const mutations: MutationTree<any> = {
     },
     closeSkillSelectionPopUp(state) {
         state.skillSelectionPopUp.isOpen = false;
+    },
+    openLearnSkillPopUp(state) {
+        state.learnSkillPopUp.isOpen = true;
+    },
+    closeLearnSkillPopUp(state) {
+        state.learnSkillPopUp.isOpen = false;
     }
 };
 
@@ -49,6 +61,12 @@ const actions: ActionTree<any, any> = {
     },
     closeSkillSelectionPopUp({ commit }) {
         commit('closeSkillSelectionPopUp');
+    },
+    openLearnSkillPopUp({ commit }) {
+        commit('openLearnSkillPopUp');
+    },
+    closeLearnSkillPopUp({ commit }) {
+        commit('closeLearnSkillPopUp');
     }
 };
 

@@ -59,7 +59,6 @@ final class Learn extends AbstractAction
     {
         $skillToLearn = $this->skillToLearn();
 
-        $this->checkPlayerDoesNotHaveSkillToLearn($skillToLearn);
         $this->checkSkillToLearnIsInTheRoom($skillToLearn);
         $this->checkSkillToLearnIsNotAMushSkill($skillToLearn);
 
@@ -77,13 +76,6 @@ final class Learn extends AbstractAction
         return SkillEnum::from($params['skill']);
     }
 
-    private function checkPlayerDoesNotHaveSkillToLearn(SkillEnum $skillToLearn): void
-    {
-        if ($this->player->hasSkill($skillToLearn)) {
-            throw new GameException('You already have this skill!');
-        }
-    }
-
     private function checkSkillToLearnIsInTheRoom(SkillEnum $skillToLearn): void
     {
         $playersInRoom = $this->player->getPlace()->getAlivePlayersExcept($this->player);
@@ -94,7 +86,7 @@ final class Learn extends AbstractAction
             }
         }
 
-        throw new GameException('No player with this skill is in the room!');
+        throw new GameException('There is no player with this skill in the room!');
     }
 
     private function checkSkillToLearnIsNotAMushSkill(SkillEnum $skillToLearn): void

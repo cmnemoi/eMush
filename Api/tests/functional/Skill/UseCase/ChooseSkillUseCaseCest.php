@@ -23,28 +23,14 @@ final class ChooseSkillUseCaseCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
     }
 
-    public function shouldChooseSkill(FunctionalTester $I): void
+    public function shouldAddSkillToPlayer(FunctionalTester $I): void
     {
-        $this->whenIAddSkillToChun(SkillEnum::MANKIND_ONLY_HOPE);
+        $this->whenChunChoosesSkill(SkillEnum::MANKIND_ONLY_HOPE);
 
         $this->thenChunHasSkill(SkillEnum::MANKIND_ONLY_HOPE, $I);
     }
 
-    public function shouldCreateSkillModifierForDaedalus(FunctionalTester $I): void
-    {
-        $this->whenIAddSkillToChun(SkillEnum::MANKIND_ONLY_HOPE);
-
-        $this->thenDaedalusShouldHaveOnlyHopeModifier($I);
-    }
-
-    public function shouldCreateSkillModifierForPlayer(FunctionalTester $I): void
-    {
-        $this->whenIAddSkillToKuanTi(SkillEnum::TECHNICIAN);
-
-        $this->thenKuanTiShouldHaveTechnicianModifier($I);
-    }
-
-    private function whenIAddSkillToChun(SkillEnum $skill): void
+    private function whenChunChoosesSkill(SkillEnum $skill): void
     {
         $this->chooseSkillUseCase->execute(new ChooseSkillDto($skill, $this->chun));
     }
@@ -52,30 +38,5 @@ final class ChooseSkillUseCaseCest extends AbstractFunctionalTest
     private function thenChunHasSkill(SkillEnum $skill, FunctionalTester $I): void
     {
         $I->assertTrue($this->chun->hasSkill($skill));
-    }
-
-    private function thenDaedalusShouldHaveOnlyHopeModifier(FunctionalTester $I): void
-    {
-        $I->assertCount(
-            expectedCount: 1,
-            haystack: $this->daedalus->getModifiers()->filter(
-                static fn ($modifier) => $modifier->getModifierConfig()->getName() === 'modifier_for_daedalus_+1moral_on_day_change'
-            )
-        );
-    }
-
-    private function whenIAddSkillToKuanTi(SkillEnum $skill): void
-    {
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto($skill, $this->kuanTi));
-    }
-
-    private function thenKuanTiShouldHaveTechnicianModifier(FunctionalTester $I): void
-    {
-        $I->assertCount(
-            expectedCount: 1,
-            haystack: $this->kuanTi->getModifiers()->filter(
-                static fn ($modifier) => $modifier->getModifierConfig()->getName() === 'modifier_technician_double_repair_and_renovate_chance'
-            )
-        );
     }
 }

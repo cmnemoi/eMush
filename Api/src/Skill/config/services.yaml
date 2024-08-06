@@ -13,3 +13,5 @@ services:
       - '../Entity/'
       - '../Kernel.php'
       - '../Tests/'
+
+  Mush\Skill\Repository\SkillConfigRepositoryInterface: '@Mush\Skill\Repository\SkillConfigRepository'

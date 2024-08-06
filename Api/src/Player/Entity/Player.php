@@ -502,9 +502,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getCharacterConfig()->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
     }
 
-    public function getSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
+    public function cannotTakeSkill(SkillEnum $skill): bool
     {
-        return $this->getCharacterConfig()->getSkillConfigByNameOrThrow($skill);
+        return $this->getSelectableHumanSkills()->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $skill)->isEmpty();
     }
 
     public function getGameVariables(): PlayerVariables

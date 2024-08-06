@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace Mush\tests\unit\Skill\UseCase;
 
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Exception\GameException;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\InMemoryPlayerRepository;
+use Mush\Skill\ConfigData\SkillConfigData;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\Skill;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Repository\InMemorySkillConfigRepository;
+use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\FakeStatusService;
@@ -24,14 +30,21 @@ final class ChooseSkillUseCaseTest extends TestCase
 {
     private Player $player;
     private InMemoryPlayerRepository $playerRepository;
+    private InMemorySkillConfigRepository $skillConfigRepository;
 
     /**
      * @before
      */
     protected function setUp(): void
     {
-        $this->player = $this->givenAPlayer();
         $this->playerRepository = new InMemoryPlayerRepository();
+        $this->skillConfigRepository = new InMemorySkillConfigRepository();
+        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::PILOT)));
+        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::TECHNICIAN)));
+        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::SHOOTER)));
+        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::MANKIND_ONLY_HOPE)));
+
+        $this->player = $this->givenAPlayer();
         $this->playerRepository->save($this->player);
     }
 
@@ -50,20 +63,20 @@ final class ChooseSkillUseCaseTest extends TestCase
         $this->thenPlayerShouldHaveSkill(SkillEnum::PILOT);
     }
 
-    public function testShouldThrowWhenTryingToAddSkillIfNotInPlayerSkillConfigs(): void
+    public function testShouldThrowWhenTryingToChooseSkillIfNotInPlayerSkillConfigs(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(GameException::class);
 
-        $this->whenIChooseSkill(SkillEnum::ANONYMUSH);
+        $this->whenIChooseSkill(SkillEnum::MANKIND_ONLY_HOPE);
     }
 
-    public function testShouldNotAddSkillIfPlayerAlreadyHasIt(): void
+    public function testShouldThrowWhenTryingToChooseSkillAlreadyTaken(): void
     {
         $this->givenPlayerHasSkill(SkillEnum::PILOT);
 
-        $this->whenIChooseSkill(SkillEnum::PILOT);
+        $this->expectException(GameException::class);
 
-        $this->thenPlayerShouldOnlyHaveOneSkill(SkillEnum::PILOT);
+        $this->whenIChooseSkill(SkillEnum::PILOT);
     }
 
     public function testShouldCreateSkillPoints(): void
@@ -75,7 +88,9 @@ final class ChooseSkillUseCaseTest extends TestCase
 
     private function givenAPlayer(): Player
     {
-        return PlayerFactory::createPlayerByName(CharacterEnum::TERRENCE);
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        return PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::TERRENCE, $daedalus);
     }
 
     private function givenPlayerHasSkill(SkillEnum $skill): void
@@ -86,9 +101,12 @@ final class ChooseSkillUseCaseTest extends TestCase
     private function whenIChooseSkill(SkillEnum $skill): void
     {
         $useCase = new ChooseSkillUseCase(
-            $this->createStub(ModifierCreationServiceInterface::class),
-            $this->playerRepository,
-            new FakeStatusService(),
+            new AddSkillToPlayerService(
+                $this->createStub(ModifierCreationServiceInterface::class),
+                $this->playerRepository,
+                $this->skillConfigRepository,
+                new FakeStatusService(),
+            ),
         );
         $useCase->execute(new ChooseSkillDto($skill, $this->player));
     }

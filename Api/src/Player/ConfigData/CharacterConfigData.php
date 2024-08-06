@@ -652,6 +652,7 @@ class CharacterConfigData
             'characterName' => 'stephen',
             'skillConfigs' => [
                 SkillEnum::SHOOTER,
+                SkillEnum::APPRENTICE,
                 SkillEnum::CREATIVE,
             ],
             'maxNumberPrivateChannel' => 3,

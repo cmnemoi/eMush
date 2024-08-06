@@ -13,6 +13,7 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
+use Mush\Skill\Service\DeletePlayerSkillService;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Learn extends AbstractAction
@@ -24,6 +25,7 @@ final class Learn extends AbstractAction
         protected ActionServiceInterface $actionService,
         protected ValidatorInterface $validator,
         private AddSkillToPlayerService $addSkillToPlayer,
+        private DeletePlayerSkillService $deletePlayerSkill,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -41,6 +43,7 @@ final class Learn extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $this->addSkillToPlayer->execute($this->skillToLearn(), $this->player);
+        $this->deletePlayerSkill->execute(SkillEnum::APPRENTICE, $this->player);
     }
 
     private function skillToLearn(): SkillEnum

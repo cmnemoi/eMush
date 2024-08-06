@@ -42,6 +42,15 @@ final class LearnCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveTechnicianSkill($I);
     }
 
+    public function shouldDeleteApprenticeshipSkillAfterLearning(FunctionalTester $I): void
+    {
+        $this->givenChunHasApprenticeSkill($I);
+
+        $this->whenChunLearnsTechnicianSkill();
+
+        $this->thenChunShouldNotHaveApprenticeSkill($I);
+    }
+
     private function givenChunHasApprenticeSkill(FunctionalTester $I): void
     {
         $this->player->getCharacterConfig()->setSkillConfigs([
@@ -73,5 +82,10 @@ final class LearnCest extends AbstractFunctionalTest
     private function thenChunShouldHaveTechnicianSkill(FunctionalTester $I): void
     {
         $I->assertTrue($this->chun->hasSkill(SkillEnum::TECHNICIAN));
+    }
+
+    private function thenChunShouldNotHaveApprenticeSkill(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->chun->hasSkill(SkillEnum::APPRENTICE));
     }
 }

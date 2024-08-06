@@ -7,6 +7,7 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\Learn;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
@@ -31,6 +32,18 @@ final class LearnCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         $this->givenChunHasApprenticeSkill($I);
+    }
+
+    public function shouldNotBeExecutableIfThereIsNoOneInTheRoom(FunctionalTester $I): void
+    {
+        $this->givenKuanTiOnPlanet($I);
+
+        $this->whenChunTriesToLearnTechnicianSkill();
+
+        $this->thenActionShouldNotBeExecutableWithMessage(
+            message: ActionImpossibleCauseEnum::LONELY_APPRENTICESHIP,
+            I: $I
+        );
     }
 
     public function shouldAddLearnedSkillToPlayer(FunctionalTester $I): void
@@ -67,7 +80,12 @@ final class LearnCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
     }
 
-    private function whenChunLearnsTechnicianSkill(): void
+    private function givenKuanTiOnPlanet(): void
+    {
+        $this->kuanTi->changePlace($this->daedalus->getPlanetPlace());
+    }
+
+    private function whenChunTriesToLearnTechnicianSkill(): void
     {
         $this->learn->loadParameters(
             actionConfig: $this->actionConfig,
@@ -76,6 +94,11 @@ final class LearnCest extends AbstractFunctionalTest
             target: $this->kuanTi,
             parameters: ['skill' => SkillEnum::TECHNICIAN->toString()]
         );
+    }
+
+    private function whenChunLearnsTechnicianSkill(): void
+    {
+        $this->whenChunTriesToLearnTechnicianSkill();
         $this->learn->execute();
     }
 
@@ -87,5 +110,10 @@ final class LearnCest extends AbstractFunctionalTest
     private function thenChunShouldNotHaveApprenticeSkill(FunctionalTester $I): void
     {
         $I->assertFalse($this->chun->hasSkill(SkillEnum::APPRENTICE));
+    }
+
+    private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
+    {
+        $I->assertEquals($message, $this->learn->cannotExecuteReason());
     }
 }

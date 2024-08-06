@@ -1172,5 +1172,19 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action nécessite des conditions optimales d'hygiène pour être réalisée. Voulez-vous continuer ?</target>
       </segment>
     </unit>
+    <unit id="learn">
+      <segment id="learn" state="final">
+        <source>learn.name</source>
+        <target>Apprentissage</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>learn.description</source>
+        <target>Permet d'apprendre une compétence parmi celles qui sont présentes dans la pièce.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>learn.confirmation</source>
+        <target>Cette action n'est disponible qu'une fois par partie, êtes-vous sûr de vouloir continuer ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

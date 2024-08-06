@@ -103,6 +103,7 @@ final class DaedalusFactory
 
     private static function getMushSkillConfigs(): ArrayCollection
     {
+        /** @var ArrayCollection<array-key, SkillConfig> $mushSkillConfigs */
         $mushSkillConfigs = new ArrayCollection();
         foreach (SkillConfigData::getAll() as $skillConfigDto) {
             $mushSkillConfigs->add(SkillConfig::createFromDto($skillConfigDto));

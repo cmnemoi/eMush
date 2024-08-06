@@ -264,5 +264,15 @@
         <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.//:point: Expédition : Chaque dégât est **réduit d'un point**.//:point: Expédition : L'évènement **Provision** donne un steak de plus.//:point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
       </segment>
     </unit>
+    <unit id="apprentice">
+      <segment id="apprentice.name" state="translated">
+        <source>apprentice.name</source>
+        <target>Apprentissage</target>
+      </segment>
+      <segment id="apprentice.description" state="translated">
+        <source>apprentice.description</source>
+        <target>En observant attentivement les activités de ses professeurs, l'apprenti peut à terme reproduire leurs moindres faits et gestes.//:point: Vous accorde l'action Apprentissage qui permet de copier la compétence d'un joueur présent dans la pièce, une fois par partie.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

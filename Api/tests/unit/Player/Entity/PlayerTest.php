@@ -116,6 +116,51 @@ final class PlayerTest extends TestCase
         );
     }
 
+    public function testShouldReturnPlayerEfficiencyWithNeronOnlyFriend(): void
+    {
+        // Given I have a player
+        $daedalus = DaedalusFactory::createDaedalus();
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        $this->setPlayerId($player, 1);
+
+        // given I have another player, which has NERON's only friend skill
+        $player2 = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        $this->setPlayerId($player2, 2);
+        Skill::createByNameForPlayer(SkillEnum::NERON_ONLY_FRIEND, $player2);
+
+        // when I ask for the player's efficiency in Trail Reducer project
+        $actualEfficiency = $player->getEfficiencyForProject(ProjectFactory::createTrailReducerProject());
+
+        // Then I should get the expected efficiency
+        self::assertEquals(
+            expected: new PlayerEfficiency(9, 9),
+            actual: $actualEfficiency
+        );
+    }
+
+    public function testShouldReturnPlayerEfficiencyWithNeronOnlyFriendOnPilgred(): void
+    {
+        // Given I have a technician player
+        $daedalus = DaedalusFactory::createDaedalus();
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        $this->setPlayerId($player, 1);
+        Skill::createByNameForPlayer(SkillEnum::TECHNICIAN, $player);
+
+        // given I have another player, which has NERON's only friend skill
+        $player2 = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        $this->setPlayerId($player2, 2);
+        Skill::createByNameForPlayer(SkillEnum::NERON_ONLY_FRIEND, $player2);
+
+        // when I ask for the player's efficiency in Pilgred project
+        $actualEfficiency = $player->getEfficiencyForProject(ProjectFactory::createPilgredProject());
+
+        // Then I should get the expected efficiency
+        self::assertEquals(
+            expected: new PlayerEfficiency(5, 7),
+            actual: $actualEfficiency
+        );
+    }
+
     /**
      * Test cases for the getEfficiencyForProject method from Twinpedia: http://twin.tithom.fr/mush/stats/efficacite/.
      *

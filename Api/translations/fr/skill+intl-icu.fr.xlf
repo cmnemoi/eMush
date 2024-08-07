@@ -264,5 +264,17 @@
         <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.//:point: Expédition : Chaque dégât est **réduit d'un point**.//:point: Expédition : L'évènement **Provision** donne un steak de plus.//:point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
       </segment>
     </unit>
+    <unit id="neron_only_friend">
+      <segment id="neron_only_friend.name" state="translated">
+        <source>neron_only_friend.name</source>
+        <target>{character_gender, select, 
+        female {Seule amie de NERON}
+        other {Seul ami de NERON}}</target>
+      </segment>
+      <segment id="neron_only_friend.description" state="translated">
+        <source>neron_only_friend.description</source>
+        <target>Lorsque vous êtes {character_gender, select, female {présente} other {présent}} dans le vaisseau, NERON est apaisé, ses routines tournent sans erreurs et ses performances s'en trouvent grandement améliorées.//:point: Les gains de **chaque projet NERON** sont **maximisés** pour tous.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

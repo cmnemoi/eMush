@@ -31,6 +31,7 @@ use Mush\Project\Collection\ProjectCollection;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Exception\DaedalusShouldHaveProjectException;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -826,5 +827,10 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getNumberOfCyclesPerDay(): int
     {
         return $this->getDaedalusConfig()->getCyclePerGameDay();
+    }
+
+    public function hasAliveNeronOnlyFriend(): bool
+    {
+        return $this->getAlivePlayers()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::NERON_ONLY_FRIEND))->count() > 0;
     }
 }

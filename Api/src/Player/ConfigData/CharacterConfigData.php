@@ -91,6 +91,7 @@ class CharacterConfigData
             'characterName' => 'chun',
             'skillConfigs' => [
                 SkillEnum::MANKIND_ONLY_HOPE,
+                SkillEnum::PRESENTIMENT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

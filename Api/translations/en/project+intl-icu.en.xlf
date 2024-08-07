@@ -22,7 +22,7 @@
     <unit id="auto_watering">
       <segment id="auto_watering.type" state="translated">
         <source>auto_watering.type</source>
-        <target>Project</target>
+        <target>Projet</target>
       </segment>
       <segment id="auto_watering.name" state="translated">
         <source>auto_watering.name</source>
@@ -40,11 +40,11 @@
     <unit id="dismantling">
       <segment id="dismantling.type" state="translated">
         <source>dismantling.type</source>
-        <target>Projet</target>
+        <target>Project</target>
       </segment>
       <segment id="dismantling.name" state="translated">
         <source>dismantling.name</source>
-        <target>Dismantler</target>
+        <target>Dismantling</target>
       </segment>
       <segment id="dismantling.description" state="translated">
         <source>dismantling.description</source>
@@ -52,7 +52,7 @@
       </segment>
       <segment id="dismantling.lore" state="translated">
         <source>dismantling.lore</source>
-        <target>By dismantling all of Raluca's failed PILGRED experiments, you are able to recover a stack of used metal which can then be used to patch up the hull or repair patrol ships!</target>
+        <target>By dismantling all of Raluca's failed PILGRED experiments, you are able to upcycle a stack of used metal which can then be used to patch up the hull or repair patrol ships!</target>
       </segment>
     </unit>
     <unit id="door_sensor">
@@ -106,7 +106,7 @@
       </segment>
       <segment id="fire_sensor.lore" state="translated">
         <source>fire_sensor.lore</source>
-        <target>After spending several hours convincing NERON that fire could be detrimental to its own well-being, it gave in and allocates more CPU power to the task... it still seems pretty annoyed though.</target>
+        <target>After spending several hours convincing NERON that fire could be detrimental to its own well-being, it gave in and allocated more CPU power to the task... it still seems pretty annoyed though.</target>
       </segment>
     </unit>
     <unit id="heat_lamp">
@@ -120,7 +120,7 @@
       </segment>
       <segment id="heat_lamp.description" state="translated">
         <source>heat_lamp.description</source>
-        <target>In the garden, you have a 50% chance of growing an additional fruit.</target>
+        <target>In the garden, each mature plant has a 50% chance of growing an additional fruit.</target>
       </segment>
       <segment id="heat_lamp.lore" state="translated">
         <source>heat_lamp.lore</source>
@@ -138,11 +138,11 @@
       </segment>
       <segment id="parasite_elim.description" state="translated">
         <source>parasite_elim.description</source>
-        <target>Growth duration of young plants in the garden will be reduced by 2.</target>
+        <target>Growth duration of young plants in the garden will be reduced by 4.</target>
       </segment>
       <segment id="parasite_elim.lore" state="translated">
         <source>parasite_elim.lore</source>
-        <target>Vaporized nano-ladybugs. Why on earth did nobody think of this before!</target>
+        <target>Steam-fueled nano-ladybugs. Why on earth did nobody think of this before!</target>
       </segment>
     </unit>
     <unit id="pilgred">

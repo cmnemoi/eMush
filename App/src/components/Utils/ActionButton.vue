@@ -3,9 +3,14 @@
         <a
             :class="['action-button', cssClass, isDisabled].join(' ')"
             href="#">
-            <span v-if="action.movementPointCost > 0 && !action.actionPointCost" class="cost">{{ action.movementPointCost }}<img :src="getImgUrl('pm.png')" alt="mp"></span>
-            <span v-else-if="action.actionPointCost > 0 && !action.movementPointCost" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('pa.png')" alt="ap"></span>
-            <span v-else-if="action.actionPointCost > 0 && action.movementPointCost > 0" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('pa.png')" alt="ap">{{ action.movementPointCost }}<img :src="getImgUrl('pm.png')" alt="mp"></span>
+            <span v-if="action.actionPointCost && !action.movementPointCost && !action.moralePointCost" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('pa.png')" alt="ap"></span>
+            <span v-else-if="action.movementPointCost && !action.actionPointCost && !action.moralePointCost" class="cost">{{ action.movementPointCost }}<img :src="getImgUrl('pm.png')" alt="mp"></span>
+            <span v-else-if="action.moralePointCost && !action.actionPointCost && !action.movementPointCost" class="cost">{{ action.moralePointCost }}<img :src="getImgUrl('moral.png')" alt="pmo" /></span>
+
+            <span v-else-if="action.actionPointCost && action.movementPointCost && !action.moralePointCost" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('pa.png')" alt="ap">{{ action.movementPointCost }}<img :src="getImgUrl('pm.png')" alt="mp"></span>
+            <span v-else-if="action.actionPointCost && action.moralePointCost && !action.movementPointCost" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('pa.png')" alt="ap">{{ action.moralePointCost }}<img :src="getImgUrl('moral.png')" alt="pmo"></span>
+            <span v-else-if="action.movementPointCost && action.moralePointCost && !action.actionPointCost" class="cost">{{ action.movementPointCost }}<img :src="getImgUrl('pm.png')" alt="mp">{{ action.moralePointCost }}<img :src="getImgUrl('moral.png')" alt="pmo"></span>
+
             <!-- @TODO -> Handle multiple specialist cost action, if that's the case display the most prioritized point -->
             <span v-if="action.skillPointCosts.length > 0" class="cost">
                 1<img :src="skillPointImage(action)" :alt="action.skillPointCosts[0]">

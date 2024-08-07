@@ -33,12 +33,7 @@ class PlayerCollection extends ArrayCollection
 
     public function getPlayerByName(string $name): ?Player
     {
-        $player = $this->filter(static fn (Player $player) => $player->getName() === $name)->first();
-        if (!$player) {
-            return null;
-        }
-
-        return $player;
+        return $this->filter(static fn (Player $player) => $player->getName() === $name)->first() ?: null;
     }
 
     public function getPlayersWithSkill(SkillEnum $skill): self
@@ -48,7 +43,7 @@ class PlayerCollection extends ArrayCollection
 
     public function getAllExcept(Player $playerToExclude): self
     {
-        return $this->filter(static fn (Player $player) => $player->getId() !== $playerToExclude->getId());
+        return $this->filter(static fn (Player $player) => $player->notEquals($playerToExclude));
     }
 
     public function getActivePlayers(): self
@@ -67,5 +62,10 @@ class PlayerCollection extends ArrayCollection
     public function getNumberOfVisibleMushPlayers(): int
     {
         return $this->getMushPlayer()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::ANONYMUSH) === false)->count();
+    }
+
+    public function hasPlayerWithSkill(SkillEnum $skill): bool
+    {
+        return $this->getPlayersWithSkill($skill)->count() > 0;
     }
 }

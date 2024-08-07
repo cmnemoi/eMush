@@ -117,6 +117,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $presentimentSkillConfig */
         $presentimentSkillConfig = $this->getReference(SkillEnum::PRESENTIMENT->value);
 
+        /** @var SkillConfig $neronOnlyFriendSkillConfig */
+        $neronOnlyFriendSkillConfig = $this->getReference(SkillEnum::NERON_ONLY_FRIEND->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -259,6 +262,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setSkillConfigs([
                 $shrinkSkillConfig,
                 $itExpertSkillConfig,
+                $neronOnlyFriendSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($janice);

@@ -25,6 +25,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\Skill\Entity\Skill;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -111,8 +112,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
                 'key' => $character,
                 'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
                 'description' => $this->translationService->translate($character . '.description', [], 'characters', $language),
-                'selectableHumanSkills' => $this->getNormalizedSelectableHumanSkills($player, $language),
-                'selectableMushSkills' => $this->getNormalizedSelectableMushSkills($player, $language),
+                'selectableHumanSkills' => $player->getSelectableHumanSkills()->map(fn (SkillConfig $skillConfig) => $this->normalizer->normalize($skillConfig, $format, $context))->toArray(),
+                'selectableMushSkills' => $player->getSelectableMushSkills()->map(fn (SkillConfig $skillConfig) => $this->normalizer->normalize($skillConfig, $format, $context))->toArray(),
                 'level' => $player->getLevel(),
             ],
             'gameStatus' => $player->getPlayerInfo()->getGameStatus(),
@@ -257,34 +258,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         }
 
         return $statuses;
-    }
-
-    private function getNormalizedSelectableHumanSkills(Player $player, string $language): array
-    {
-        $normalizedSelectableHumanSkills = [];
-        foreach ($player->getSelectableHumanSkills() as $selectableSkill) {
-            $normalizedSelectableHumanSkills[] = [
-                'key' => $selectableSkill->getNameAsString(),
-                'name' => $this->translationService->translate($selectableSkill->getNameAsString() . '.name', [], 'skill', $language),
-                'description' => $this->translationService->translate($selectableSkill->getNameAsString() . '.description', [], 'skill', $language),
-            ];
-        }
-
-        return $normalizedSelectableHumanSkills;
-    }
-
-    private function getNormalizedSelectableMushSkills(Player $player, string $language): array
-    {
-        $normalizedSelectableMushSkills = [];
-        foreach ($player->getSelectableMushSkills() as $selectableSkill) {
-            $normalizedSelectableMushSkills[] = [
-                'key' => $selectableSkill->getNameAsString(),
-                'name' => $this->translationService->translate($selectableSkill->getNameAsString() . '.name', [], 'skill', $language),
-                'description' => $this->translationService->translate($selectableSkill->getNameAsString() . '.description', [], 'skill', $language),
-            ];
-        }
-
-        return $normalizedSelectableMushSkills;
     }
 
     private function getNormalizedSkillPoints(Player $player, string $language): array

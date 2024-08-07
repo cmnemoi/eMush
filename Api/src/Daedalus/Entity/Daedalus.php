@@ -32,6 +32,7 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Exception\DaedalusShouldHaveProjectException;
 use Mush\Skill\Entity\SkillConfigCollection;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -832,5 +833,10 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getMushSkillConfigs(): SkillConfigCollection
     {
         return new SkillConfigCollection($this->getGameConfig()->getMushSkillConfigs()->toArray());
+    }
+
+    public function hasAliveNeronOnlyFriend(): bool
+    {
+        return $this->getAlivePlayers()->hasPlayerWithSkill(SkillEnum::NERON_ONLY_FRIEND);
     }
 }

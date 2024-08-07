@@ -460,6 +460,15 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->thenPlayerDoesNotHaveGeniusIdeaStatus($I);
     }
 
+    public function neronOnlyFriendShouldMaximizeEfficiency(FunctionalTester $I): void
+    {
+        $this->givenChunIsNeronOnlyFriend($I);
+
+        $this->whenKuanTriesToParticipateInProject();
+
+        $this->thenKuanTiShouldHaveEfficiency(new PlayerEfficiency(9, 9), $I);
+    }
+
     private function givenKuanTiIsAnITExpert(FunctionalTester $I): void
     {
         $this->kuanTi->getCharacterConfig()->setSkillConfigs([
@@ -514,7 +523,15 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->project->makeProgress($progress);
     }
 
-    private function whenKuanToParticipatesInProject(): void
+    private function givenChunIsNeronOnlyFriend(FunctionalTester $I): void
+    {
+        $this->chun->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::NERON_ONLY_FRIEND]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::NERON_ONLY_FRIEND, $this->chun));
+    }
+
+    private function whenKuanTriesToParticipateInProject(): void
     {
         $this->participateAction->loadParameters(
             actionConfig: $this->actionConfig,
@@ -522,6 +539,11 @@ final class ParticipateCest extends AbstractFunctionalTest
             player: $this->kuanTi,
             target: $this->project
         );
+    }
+
+    private function whenKuanToParticipatesInProject(): void
+    {
+        $this->whenKuanTriesToParticipateInProject();
         $this->participateAction->execute();
     }
 
@@ -568,6 +590,14 @@ final class ParticipateCest extends AbstractFunctionalTest
     private function thenPlayerDoesNotHaveGeniusIdeaStatus(FunctionalTester $I): void
     {
         $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::GENIUS_IDEA));
+    }
+
+    private function thenKuanTiShouldHaveEfficiency(PlayerEfficiency $efficiency, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $efficiency,
+            actual: $this->kuanTi->getEfficiencyForProject($this->project),
+        );
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

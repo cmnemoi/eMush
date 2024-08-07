@@ -25,8 +25,18 @@ final class SkillNormalizer implements NormalizerInterface
 
         return [
             'key' => $skill->getNameAsString(),
-            'name' => $this->translationService->translate($skill->getNameAsString() . '.name', [], 'skill', $player->getDaedalus()->getLanguage()),
-            'description' => $this->translationService->translate($skill->getNameAsString() . '.description', [], 'skill', $player->getDaedalus()->getLanguage()),
+            'name' => $this->translationService->translate(
+                key: $skill->getNameAsString() . '.name',
+                parameters: [$player->getLogKey() => $player->getLogName()],
+                domain: 'skill',
+                language: $player->getDaedalus()->getLanguage()
+            ),
+            'description' => $this->translationService->translate(
+                key: $skill->getNameAsString() . '.description',
+                parameters: [$player->getLogKey() => $player->getLogName()],
+                domain: 'skill',
+                language: $player->getDaedalus()->getLanguage()
+            ),
             'isMushSkill' => $skill->isMushSkill(),
         ];
     }

@@ -789,10 +789,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getEfficiencyForProject(Project $project): PlayerEfficiency
     {
-        return new PlayerEfficiency(
-            $this->getMinEfficiencyForProject($project),
-            $this->getMaxEfficiencyForProject($project)
-        );
+        $max = $this->getMaxEfficiencyForProject($project);
+        $min = $this->daedalus->hasAliveNeronOnlyFriend() && $project->isNeronProject() ? $max : $this->getMinEfficiencyForProject($project);
+
+        return new PlayerEfficiency($min, $max);
     }
 
     public function efficiencyIsZeroForProject(Project $project): bool

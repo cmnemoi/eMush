@@ -344,5 +344,17 @@
         <target>Votre intuition ne vous trompe jamais, vous pouvez revoir les dernières activités d'un équipier sous forme de flashback lumineux. C'est pratique mais ça fait mal à la tête.//:point: Vous pouvez **voir la dernière action** d'un équipier. Cette action vous fait perdre un :pmo:.</target>
       </segment>
     </unit>
+    <unit id="neron_only_friend">
+      <segment id="neron_only_friend.name" state="translated">
+        <source>neron_only_friend.name</source>
+        <target>{character_gender, select, 
+        female {Seule amie de NERON}
+        other {Seul ami de NERON}}</target>
+      </segment>
+      <segment id="neron_only_friend.description" state="translated">
+        <source>neron_only_friend.description</source>
+        <target>Lorsque vous êtes {character_gender, select, female {présente} other {présent}} dans le vaisseau, NERON est apaisé, ses routines tournent sans erreurs et ses performances s'en trouvent grandement améliorées.//:point: Les gains de **chaque projet NERON** sont **maximisés** pour tous.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

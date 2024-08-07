@@ -108,6 +108,9 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::NERON_ONLY_FRIEND,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::NURSE,
                 skillPointsConfig: SkillPointsEnum::NURSE_POINTS,
             ),

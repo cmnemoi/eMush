@@ -182,7 +182,7 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
       </segment>
       <segment id="crew_lock.name" state="translated">
         <source>bios_terminal.crew_lock_name</source>
-        <target>Verrou équipage</target>
+        <target>Verrou Équipage</target>
       </segment>
       <segment id="crew_lock.description" state="translated">
         <source>bios_terminal.crew_lock_description</source>
@@ -206,11 +206,11 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
       </segment>
       <segment id="plasma_shield.toggle_activate" state="translated">
         <source>bios_terminal.plasma_shield_toggle_activate</source>
-        <target>Activer</target>
+        <target>Activé</target>
       </segment>
       <segment id="plasma_shield.toggle_deactivate" state="translated">
         <source>bios_terminal.plasma_shield_toggle_deactivate</source>
-        <target>Désactiver</target>
+        <target>Désactivé</target>
       </segment>
       <segment id="magnetic_net.name" state="translated">
         <source>bios_terminal.magnetic_net_name</source>
@@ -218,7 +218,7 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
       </segment>
       <segment id="magnetic_net.description" state="translated">
         <source>bios_terminal.magnetic_net_description</source>
-        <target>Active le filet magnétique qui permet d'abandonner les Patrouilleurs à leur triste sort. Ou pas...</target>
+        <target>Contrôle le filet magnétique qui permet d'empêcher aux Patrouilleurs hors des baies de subir un triste sort si le Daedalus se déplace. Ou pas...</target>
       </segment>
       <segment id="magnetic_net.toggle_active" state="translated">
         <source>bios_terminal.magnetic_net_toggle_active</source>

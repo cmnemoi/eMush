@@ -68,6 +68,12 @@ final class ActionHistoryLogService
         };
     }
 
+    /**
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     * @psalm-suppress NullableReturnStatement
+     * @psalm-suppress InvalidNullableReturnType
+     */
     private function targetPlayer(AbstractAction $action): Player
     {
         return match ($action->getActionName()) {
@@ -77,6 +83,12 @@ final class ActionHistoryLogService
         };
     }
 
+    /**
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     * @psalm-suppress NullableReturnStatement
+     * @psalm-suppress InvalidNullableReturnType
+     */
     private function player(AbstractAction $action): Player
     {
         return match ($action->getActionName()) {

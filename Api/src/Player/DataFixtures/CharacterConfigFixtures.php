@@ -114,6 +114,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $geniusSkillConfig */
         $geniusSkillConfig = $this->getReference(SkillEnum::GENIUS->value);
 
+        /** @var SkillConfig $presentimentSkillConfig */
+        $presentimentSkillConfig = $this->getReference(SkillEnum::PRESENTIMENT->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -146,6 +149,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setSkillConfigs([
                 $mankindOnlyHopeSkillConfig,
                 $nurseSkillConfig,
+                $presentimentSkillConfig,
             ])
             ->setInitStatuses([$immunizedStatus])
             ->setStartingItems($trackerTalkieCollection);

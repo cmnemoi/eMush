@@ -1015,7 +1015,7 @@
         <source>premonition_action</source>
         <target>{quantity, select,
           0 {Vous vous concentrez mais rien ne vient... Cette personne n'a sans doute rien fait depuis son réveil.}
-          other {Vous vous concentrez... Votre tête tourne... Vous revoyez **{target_character}** faire quelque chose... Sa dernière action est {lastAction}.}
+          other {Vous vous concentrez... Votre tête tourne... Vous revoyez **{character}** faire quelque chose... Sa dernière action est {lastAction}.}
         }</target>
       </segment>
     </unit>

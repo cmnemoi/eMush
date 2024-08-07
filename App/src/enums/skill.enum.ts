@@ -65,7 +65,7 @@ export enum SkillEnum {
     POLITICIAN = 'politician',
     POLYMATH = 'polymath',
     POLYVALENT = 'polyvalent',
-    PREMONITION = 'premonition',
+    PRESENTIMENT = 'presentiment',
     PYROMANIAC = 'pyromaniac',
     RADIO_EXPERT = 'radio_expert',
     RADIO_PIRACY = 'radio_piracy',
@@ -282,7 +282,7 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/human/polyvalent.png')
     },
 
-    [SkillEnum.PREMONITION]: {
+    [SkillEnum.PRESENTIMENT]: {
         'icon': getImgUrl('skills/human/premonition.png')
     },
 

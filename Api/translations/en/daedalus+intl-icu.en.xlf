@@ -28,7 +28,9 @@
       </segment>
       <segment id="description" state="translated">
         <source>shield.description</source>
-        <target>The plasma shield absorbs enemy fire instead of the Daedalus hull. At 0, the hull takes the damage.</target>
+        <target>{isPlasmaShieldDeactivated, select,
+        true {The plasma shield has been deactivated by the NERON admin.}
+        other {the plasma shield is currently absorbing enemy fire instead of the Daedalus hull. At 0, the hull takes the damage.}}</target>
       </segment>
     </unit>
     <unit id="hull">

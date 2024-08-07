@@ -1206,5 +1206,19 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Votre prochaine réparation, projet ou recherche est automatiquement réussie. Cette action est **unique**.</target>
       </segment>
     </unit>
+    <unit id="premonition">
+      <segment id="premonition" state="final">
+        <source>premonition.name</source>
+        <target>Prémonition</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>premonition.description</source>
+        <target>Permet de voir la dernière action effectuée par la cible.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>premonition.confirmation</source>
+        <target>Cette action vous fera perdre un point de moral, êtes-vous sûr de vouloir continuer ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

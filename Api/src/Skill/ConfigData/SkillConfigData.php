@@ -104,6 +104,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::SNEAK,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_MINUS_25_PERCENTAGE_ON_ACTION_HIT_AND_ATTACK,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::SURVIVALIST,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_1_HEALTH_POINT_ON_CHANGE_VARIABLE_IF_FROM_PLANET_SECTOR_EVENT,

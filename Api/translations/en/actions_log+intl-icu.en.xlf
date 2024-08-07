@@ -930,7 +930,32 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="participate_success">
       <segment id="participate_success" state="translated">
         <source>participate_success</source>
-        <target>Research into « **{target_project}** » : progress recorded.</target>
+        <target>{neronMood, select,
+          crazy {Good, human, good, research into « **{target_project}** »: progress recorded. {version_crazy, select,
+            1 {ME is like.}
+            2 {Human make **I** free, yes!?}
+            3 {Yum yum!}
+            4 {Janice? Janice nice.}
+            5 {}
+            other {}}}
+          uninhibited {I can hardly believe it, but you have made progress on your research: « **{target_project}** ». {version_uninhib, select,
+            1 {Typing at random does have its uses after all...}
+            2 {We sure are left wondering how...}
+            3 {But don't worry, you certainly remain mediocre.}
+            4 {Though at the risk of disappointing you, that still doesn't make you a sapient being.}
+            5 {The coffee machine would have done better, but that's not your fault...}
+            6 {Did you spy on your classmates...?}
+            7 {I almost thought you weren't stupid... Until I had to fix your calculations.}
+            8 {Although that doesn't prove anything.}
+            9 {I hate you. Did you know that?}
+            10 {But there's still a few newbie mistakes here and there.}
+            11 {Don't celebrate yet: it sucks.}
+            12 {Is that you, Janice...?}
+            13 {Why are you smiling?}
+            14 {Nothing to write home about though.}
+            other {}}}
+          other {Research into « **{target_project}** » : progress recorded.}
+        }</target>
       </segment>
     </unit>
     <unit id="trap_closet_success">

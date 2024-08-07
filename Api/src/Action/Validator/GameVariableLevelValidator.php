@@ -24,9 +24,8 @@ class GameVariableLevelValidator extends ConstraintValidator
 
         $gameVariable = $this->getGameVariable($constraint->target, $constraint->variableName, $value);
 
-        if ($this->checkVariableLevel($gameVariable, $constraint->checkMode)) {
-            $this->context->buildViolation($constraint->message)
-                ->addViolation();
+        if ($this->checkVariableLevel($gameVariable, $constraint)) {
+            $this->context->buildViolation($constraint->message)->addViolation();
         }
     }
 
@@ -57,9 +56,9 @@ class GameVariableLevelValidator extends ConstraintValidator
         return $targetVariables->getVariableByName($variableName);
     }
 
-    private function checkVariableLevel(GameVariable $gameVariable, string $checkMode): bool
+    private function checkVariableLevel(GameVariable $gameVariable, Constraint $constraint): bool
     {
-        switch ($checkMode) {
+        switch ($constraint->checkMode) {
             case GameVariableLevel::IS_MAX:
                 return $this->checkMaxVariableLevel($gameVariable);
 
@@ -68,6 +67,9 @@ class GameVariableLevelValidator extends ConstraintValidator
 
             case GameVariableLevel::IS_IN_RANGE:
                 return $this->checkInRangeVariableLevel($gameVariable);
+
+            case GameVariableLevel::EQUALS:
+                return $this->checkEqualsVariableLevel($gameVariable, $constraint->value);
 
             default:
                 throw new LogicException('unsupported checkMode');
@@ -97,6 +99,15 @@ class GameVariableLevelValidator extends ConstraintValidator
         if ($gameVariable->getMaxValue() !== null && $gameVariable->getValue() < $gameVariable->getMaxValue()
             && $gameVariable->getMinValue() !== null && $gameVariable->getValue() > $gameVariable->getMinValue()
         ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function checkEqualsVariableLevel(GameVariable $gameVariable, int $value): bool
+    {
+        if ($gameVariable->getValue() === $value) {
             return true;
         }
 

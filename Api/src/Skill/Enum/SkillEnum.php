@@ -72,7 +72,7 @@ enum SkillEnum: string
     case POLITICIAN = 'politician';
     case POLYMATH = 'polymath';
     case POLYVALENT = 'polyvalent';
-    case PREMONITION = 'premonition';
+    case PRESENTIMENT = 'presentiment';
     case PYROMANIAC = 'pyromaniac';
     case RADIO_EXPERT = 'radio_expert';
     case RADIO_PIRACY = 'radio_piracy';

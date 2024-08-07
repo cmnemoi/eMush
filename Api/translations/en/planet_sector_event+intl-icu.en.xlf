@@ -96,7 +96,7 @@
       </segment>
       <segment id="mountain_description" state="translated">
         <source>nothing_to_report.mountain_description</source>
-        <target>A loud scream. A moment of panic. Then nothing...</target>
+        <target>A loud scream resonates. Panic rises. Then nothing...</target>
       </segment>
     </unit>
     <unit id="tired">
@@ -305,13 +305,13 @@
     <unit id="fight_prevented_by_item">
       <segment id="description" state="translated">
         <source>fight_prevented_by_item</source>
-        <target>Combat avoided because the expedition team has the White flag</target>
+        <target>Combat avoided because the expedition team has {equipment}</target>
       </segment>
     </unit>
     <unit id="skill_reduced_damage_for_player">
       <segment id="description" state="translated">
         <source>skill_reduced_damage_for_player</source>
-        <target>{character} suffers {quantity, plural, one {# damage} other {# damage}} less thanks to their skill: {skill}</target>
+        <target>{character} suffers {quantity} less damage thanks to their skill: {skill}</target>
       </segment>
     </unit>
     <unit id="bonus_loot_thanks_to_skill">

@@ -281,7 +281,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.SNEAK]: {
-        'icon': getImgUrl('skills/human/sneak.png')
+        'icon': getImgUrl('skills/human/escape.png')
     },
 
     [SkillEnum.SOLID]: {

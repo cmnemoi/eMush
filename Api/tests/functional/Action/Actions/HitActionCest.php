@@ -9,6 +9,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -175,6 +178,17 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->thenHitActionSuccessRateShouldBe(90, $I);
     }
 
+    public function sneakPlayerShouldBeLessHarderToHit(FunctionalTester $I): void
+    {
+        $this->givenHitActionHasSuccessRate(60);
+
+        $this->givenChunHasSneakSkill();
+
+        $this->whenKuanTiTriesToHitChun();
+
+        $this->thenHitActionSuccessRateShouldBe(45, $I);
+    }
+
     private function givenChunHasInactiveStatus(): void
     {
         $this->statusService->createStatusFromName(
@@ -193,6 +207,11 @@ final class HitActionCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime()
         );
+    }
+
+    private function givenChunHasSneakSkill(): void
+    {
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SNEAK, $this->chun));
     }
 
     private function givenHitActionHasSuccessRate(int $successRate): void

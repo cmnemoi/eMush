@@ -170,6 +170,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::SNEAK,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_MINUS_25_PERCENTAGE_ON_ACTION_HIT_AND_ATTACK,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::SOLID,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT,

@@ -136,6 +136,12 @@ final class SkillModifierConfigFixtures extends Fixture
         $this->addReference($modifierPlayerPlus1Infection->getName(), $modifierPlayerPlus1Infection);
         $manager->persist($modifierPlayerPlus1Infection);
 
+        $modifierMinus25PercentageOnActionHitAndAttack = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_MINUS_25_PERCENTAGE_ON_ACTION_HIT_AND_ATTACK)
+        );
+        $this->addReference($modifierMinus25PercentageOnActionHitAndAttack->getName(), $modifierMinus25PercentageOnActionHitAndAttack);
+        $manager->persist($modifierMinus25PercentageOnActionHitAndAttack);
+
         $manager->flush();
     }
 }

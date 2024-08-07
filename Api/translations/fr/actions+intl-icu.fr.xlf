@@ -292,7 +292,7 @@ Merci de nous aider !</target>
     <unit id="reset_skill_points">
       <segment id="reset_skill_points" state="translated">
         <source>reset_skill_points.name</source>
-        <target>Reset comp. points</target>
+        <target>Reset points comp.</target>
       </segment>
       <segment id="description" state="translated">
         <source>reset_skill_points.description</source>

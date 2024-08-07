@@ -129,6 +129,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::PRESENTIMENT,
+                actionConfigs: [
+                    ActionEnum::PREMONITION,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::SHOOTER,
                 skillPointsConfig: SkillPointsEnum::SHOOTER_POINTS,
             ),

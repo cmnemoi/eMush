@@ -499,7 +499,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getSelectableMushSkills(): Collection
     {
         if ($this->isHuman()) {
-            throw new GameException('You cannot pick a Mush skill as a human!');
+            return new ArrayCollection();
         }
 
         return $this->daedalus->getMushSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
@@ -513,7 +513,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getMushSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
     {
         if ($this->isHuman()) {
-            throw new GameException('Humans cannot pick a Mush skill!');
+            throw new GameException('You cannot pick a Mush skill as human!');
         }
 
         return $this->daedalus

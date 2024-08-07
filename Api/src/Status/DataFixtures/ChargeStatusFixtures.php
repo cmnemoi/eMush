@@ -535,7 +535,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($followingHuntersStatus)
             ->addStatusConfig($changedCpuPriority)
             ->addStatusConfig($autoWateringFiresKilled)
-            ->addStatusConfig($droneCharges);
+            ->addStatusConfig($droneCharges)
+            ->addStatusConfig($hasChitchattedStatus);
 
         $manager->persist($gameConfig);
 

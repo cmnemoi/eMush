@@ -93,6 +93,7 @@ class CharacterConfigData
                 SkillEnum::MANKIND_ONLY_HOPE,
                 SkillEnum::NURSE,
                 SkillEnum::PRESENTIMENT,
+                SkillEnum::SNEAK,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

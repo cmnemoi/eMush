@@ -123,6 +123,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $neronOnlyFriendSkillConfig */
         $neronOnlyFriendSkillConfig = $this->getReference(SkillEnum::NERON_ONLY_FRIEND->value);
 
+        /** @var SkillConfig $sneakSkillConfig */
+        $sneakSkillConfig = $this->getReference(SkillEnum::SNEAK->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -156,6 +159,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $mankindOnlyHopeSkillConfig,
                 $nurseSkillConfig,
                 $presentimentSkillConfig,
+                $sneakSkillConfig,
             ])
             ->setInitStatuses([$immunizedStatus])
             ->setStartingItems($trackerTalkieCollection);

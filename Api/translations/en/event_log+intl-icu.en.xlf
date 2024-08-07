@@ -642,7 +642,7 @@
     <unit id="all_explorators_dead">
       <segment id="all_explorators_dead" state="translated">
         <source>all_explorators_dead</source>
-        <target>The expedition came back sooner than expected: all the explorators are dead! You can find out how it went {exploration_link}.</target>
+        <target>The expedition ended sooner than expected: all the explorers are dead! You can find out how it went {exploration_link}.</target>
       </segment>
     </unit>
     <unit id="gain_shoot_point">
@@ -733,7 +733,7 @@
     <unit id="lost_on_planet">
       <segment state="translated">
         <source>lost_on_planet</source>
-        <target>You feel lonely and abandoned... Does no one think of you up there?</target>
+        <target>You feel lonely and abandoned... Is no one thinking of you up there?</target>
       </segment>
     </unit>
     <unit id="drone">
@@ -766,7 +766,7 @@
         24 {Troll}
         25 {Vortex}
         26 {Weathley}
-        other {Wealthley}} #{drone_serial_number}**</target>
+        other {Weathley}} #{drone_serial_number}**</target>
       </segment>
     </unit>
     <unit id="drone_entered_room">

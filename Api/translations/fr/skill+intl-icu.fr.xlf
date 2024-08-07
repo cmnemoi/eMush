@@ -264,5 +264,15 @@
         <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.//:point: Expédition : Chaque dégât est **réduit d'un point**.//:point: Expédition : L'évènement **Provision** donne un steak de plus.//:point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
       </segment>
     </unit>
+    <unit id="presentiment">
+      <segment id="presentiment.name" state="translated">
+        <source>presentiment.name</source>
+        <target>Pressentiment</target>
+      </segment>
+      <segment id="presentiment.description" state="translated">
+        <source>presentiment.description</source>
+        <target>Votre intuition ne vous trompe jamais, vous pouvez revoir les dernières activités d'un équipier sous forme de flashback lumineux. C'est pratique mais ça fait mal à la tête.//:point: Vous pouvez **voir la dernière action** d'un équipier. Cette action vous fait perdre un :pmo:.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

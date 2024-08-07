@@ -195,6 +195,7 @@ class CycleService implements CycleServiceInterface
                     'trace' => $error->getTraceAsString(),
                 ]);
                 $this->entityManager->rollback();
+                $this->entityManager->close();
 
                 throw $error;
             }

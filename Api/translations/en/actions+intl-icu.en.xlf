@@ -807,7 +807,7 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>play_arcade.confirmation</source>
-        <target>Because of its deadly jacks and unbearable void balls, the Dynarcade is reserved for the real ones. Continue?</target>
+        <target>Because of its deadly jacks and unbearable void balls, the Dynarcade is for real ones only. Continue?</target>
       </segment>
     </unit>
     <unit id="shoot_hunter">

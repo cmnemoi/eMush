@@ -16,7 +16,7 @@
     <unit id="efficiencyTooltipText">
       <segment id="efficiencyTooltipText" state="translated">
         <source>efficiency.tooltip.text</source>
-        <target>Pour garder une efficacité optimale, alternez le travail avec un autre collègue.</target>
+        <target>Pour garder une efficacité optimale, alternez le travail avec un collègue.</target>
       </segment>
     </unit>
     <unit id="auto_watering">
@@ -120,7 +120,7 @@
       </segment>
       <segment id="heat_lamp.description" state="translated">
         <source>heat_lamp.description</source>
-        <target>Dans le jardin, 50% de chances de produire un fruit supplémentaire.</target>
+        <target>Dans le jardin, chaque plante a 50% de chance de produire un fruit supplémentaire.</target>
       </segment>
       <segment id="heat_lamp.lore" state="translated">
         <source>heat_lamp.lore</source>
@@ -192,7 +192,7 @@
       </segment>
       <segment id="trail_reducer.description" state="translated">
         <source>trail_reducer.description</source>
-        <target>Le nombre d'assaillants qui vous rejoint après un voyage est réduit de 50%.</target>
+        <target>Le nombre d'assaillants qui vous retrouve après un voyage est réduit à 25% (au lieu de 50%).</target>
       </segment>
       <segment id="trail_reducer.lore" state="translated">
         <source>trail_reducer.lore</source>

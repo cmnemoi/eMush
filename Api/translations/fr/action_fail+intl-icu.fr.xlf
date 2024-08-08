@@ -691,5 +691,11 @@
         <target>Un cessez-le-feu est déjà en cours dans cette pièce.</target>
       </segment>
     </unit>
+    <unit id="cannot_go_to_this_room_because_guardian">
+      <segment id="description" state="final">
+        <source>cannot_go_to_this_room_because_guardian.description</source>
+        <target>Vous ne pouvez pas aller dans cette pièce à cause d'un gardien dans la pièce.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

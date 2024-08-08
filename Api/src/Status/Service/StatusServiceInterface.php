@@ -90,4 +90,6 @@ interface StatusServiceInterface
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ): ContentStatus;
+
+    public function updateStatusTarget(Status $status, StatusHolderInterface $target): void;
 }

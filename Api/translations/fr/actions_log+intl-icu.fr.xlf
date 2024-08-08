@@ -1260,5 +1260,11 @@
         <target>:guardian: **{character}** a fichu **{target_character}** à la porte. Du balai !</target>
       </segment>
     </unit>
+    <unit id="guard_success">
+      <segment id="guard_success" state="final">
+        <source>guard_success</source>
+        <target>**{character}** prend un air ennuyeux et se met à garder la pièce...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

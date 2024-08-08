@@ -512,6 +512,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasUsedGeniusStatus);
 
+        $previousRoom = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(sprintf('%s_default', PlayerStatusEnum::PREVIOUS_ROOM))
+        );
+        $manager->persist($previousRoom);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -563,6 +568,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($jukeboxSongStatus)
             ->addStatusConfig($hasLearnedSkill)
             ->addStatusConfig($hasUsedGeniusStatus)
+            ->addStatusConfig($previousRoom)
             ->addStatusConfig($jukeboxSongStatus)
             ->addStatusConfig($hasCeasefiredStatus);
 
@@ -617,6 +623,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_LEARNED_SKILL, $hasLearnedSkill);
         $this->addReference(PlayerStatusEnum::HAS_USED_GENIUS, $hasUsedGeniusStatus);
         $this->addReference(PlayerStatusEnum::HAS_CEASEFIRED, $hasCeasefiredStatus);
+        $this->addReference(PlayerStatusEnum::PREVIOUS_ROOM, $previousRoom);
 
         $manager->flush();
     }

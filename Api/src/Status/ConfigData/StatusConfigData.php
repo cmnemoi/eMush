@@ -1310,6 +1310,14 @@ abstract class StatusConfigData
             ],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::PREVIOUS_ROOM . '_default',
+            'statusName' => PlayerStatusEnum::PREVIOUS_ROOM,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

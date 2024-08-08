@@ -55,4 +55,9 @@ class PlayerCollection extends ArrayCollection
     {
         return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isActive());
     }
+
+    public function hasOneWithStatus(string $status): bool
+    {
+        return $this->filter(static fn (Player $player) => $player->hasStatus($status))->count() > 0;
+    }
 }

@@ -108,4 +108,6 @@ abstract class ActionImpossibleCauseEnum
     public const string UPDATE_TALKIE_REQUIRE_TRACKER = 'update_talkie_require_tracker';
     public const string NO_EFFICIENCY = 'no_efficiency';
     public const string CYCLE_LIMIT = 'cycle_limit';
+
+    public const string CANNOT_GO_TO_THIS_ROOM_BECAUSE_GUARDIAN = 'cannot_go_to_this_room_because_guardian';
 }

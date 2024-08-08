@@ -14,6 +14,7 @@ use Mush\Modifier\DataFixtures\InjuryModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Status\ConfigData\StatusConfigData;
 use Mush\Status\Entity\Config\ContentStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -491,6 +492,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($jukeboxSongStatus);
 
+        $previousRoom = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(sprintf('%s_default', PlayerStatusEnum::PREVIOUS_ROOM))
+        );
+        $manager->persist($previousRoom);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -539,7 +545,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($astronavigationNeronCpuPriority)
             ->addStatusConfig($defenceCpuPriority)
             ->addStatusConfig($mushTrapped)
-            ->addStatusConfig($jukeboxSongStatus);
+            ->addStatusConfig($jukeboxSongStatus)
+            ->addStatusConfig($previousRoom);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -588,6 +595,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_STATUS, $astronavigationNeronCpuPriority);
         $this->addReference(PlaceStatusEnum::MUSH_TRAPPED->value, $mushTrapped);
         $this->addReference(EquipmentStatusEnum::JUKEBOX_SONG, $jukeboxSongStatus);
+        $this->addReference(PlayerStatusEnum::PREVIOUS_ROOM, $previousRoom);
 
         $manager->flush();
     }

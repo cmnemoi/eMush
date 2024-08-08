@@ -132,7 +132,6 @@ abstract class ActionLogEnum
     public const string CHITCHAT_SUCCESS = 'chitchat_success';
     public const string GRAFT_SUCCESS = 'graft_success';
     public const string GRAFT_FAIL = 'graft_fail';
-
     public const string GUARD_SUCCESS = 'guard_success';
 
     public const array ACTION_LOGS = [

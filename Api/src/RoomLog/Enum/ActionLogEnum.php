@@ -134,7 +134,6 @@ abstract class ActionLogEnum
     public const string GRAFT_FAIL = 'graft_fail';
     public const string CEASEFIRE_SUCCESS = 'ceasefire_success';
     public const string PUT_THROUGH_DOOR_SUCCESS = 'put_through_door_success';
-
     public const string GUARD_SUCCESS = 'guard_success';
 
     public const array ACTION_LOGS = [

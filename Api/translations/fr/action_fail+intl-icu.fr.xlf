@@ -673,5 +673,11 @@
         <target>Cette action ne peut être effectuée qu'une fois par cycle. Elle sera de nouveau disponible au prochain cycle.</target>
       </segment>
     </unit>
+    <unit id="no_working_door">
+      <segment id="description" state="final">
+        <source>no_working_door.description</source>
+        <target>Aucune porte n'est fonctionnelle dans cette pièce.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

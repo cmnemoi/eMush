@@ -315,7 +315,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.SOLID]: {
-        'icon': getImgUrl('skills/human/solid.png')
+        'icon': getImgUrl('skills/human/sturdy.png')
     },
 
     [SkillEnum.SPRINTER]: {

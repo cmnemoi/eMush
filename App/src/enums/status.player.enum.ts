@@ -28,6 +28,7 @@ export enum StatusPlayerNameEnum {
     BERZERK = "berzerk",
     INACTIVE = "inactive",
     HIGHLY_INACTIVE = "highly_inactive",
+    GUARDIAN = "guardian",
 };
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -111,5 +112,8 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [StatusPlayerNameEnum.HIGHLY_INACTIVE]: {
         'icon': getImgUrl('status/noob.png')
+    },
+    [StatusPlayerNameEnum.GUARDIAN]: {
+        'icon': getImgUrl('status/guardian.png')
     }
 };

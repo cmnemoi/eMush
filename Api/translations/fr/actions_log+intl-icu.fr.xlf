@@ -1248,5 +1248,11 @@
         <target>Quel soulagement... Oh mais... **{character}** n'a pas réussi sa greffe {equipment_first_letter, select, vowel {d'**{equipment}**} other {de **{equipment}**}}. La petite plante reste chétive et meurt... Quelque chose a dû contaminer l'opération.</target>
       </segment>
     </unit>
+    <unit id="put_through_door_success">
+      <segment id="put_through_door_success" state="final">
+        <source>put_through_door_success</source>
+        <target>:guardian: **{character}** a fichu **{target_character}** à la porte. Du balai !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -183,18 +183,7 @@ class ActionsFixtures extends Fixture
             ->setActionCost(1);
         $manager->persist($searchAction);
 
-        $hitAction = new ActionConfig();
-        $hitAction
-            ->setName(ActionEnum::HIT->value)
-            ->setActionName(ActionEnum::HIT)
-            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
-            ->setActionCost(1)
-            ->setSuccessRate(60)
-            ->setDirtyRate(15)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC);
+        $hitAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::HIT));
         $manager->persist($hitAction);
 
         $hideAction = new ActionConfig();
@@ -1084,6 +1073,9 @@ class ActionsFixtures extends Fixture
         $learn = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::LEARN));
         $manager->persist($learn);
 
+        $putThroughDoor = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PUT_THROUGH_DOOR));
+        $manager->persist($putThroughDoor);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1188,5 +1180,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::CHITCHAT->value, $chitchat);
         $this->addReference(ActionEnum::GRAFT->value, $graft);
         $this->addReference(ActionEnum::LEARN->value, $learn);
+        $this->addReference(ActionEnum::PUT_THROUGH_DOOR->value, $putThroughDoor);
     }
 }

@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -21,6 +22,7 @@ final class HitActionCest extends AbstractFunctionalTest
     private Hit $hitAction;
     private ActionConfig $action;
     private StatusServiceInterface $statusService;
+    private ChooseSkillUseCase $chooseSkillUseCase;
 
     public function _before(FunctionalTester $I)
     {
@@ -31,6 +33,7 @@ final class HitActionCest extends AbstractFunctionalTest
 
         $this->hitAction = $I->grabService(Hit::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
     }
 
     public function testHitSuccess(FunctionalTester $I)
@@ -203,7 +206,7 @@ final class HitActionCest extends AbstractFunctionalTest
             actionConfig: $this->action,
             actionProvider: $this->kuanTi,
             player: $this->kuanTi,
-            target: $this->chun
+            target: $this->chun,
         );
     }
 

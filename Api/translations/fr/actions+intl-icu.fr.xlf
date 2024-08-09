@@ -1186,5 +1186,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action n'est disponible qu'une fois par partie, êtes-vous sûr de vouloir continuer ?</target>
       </segment>
     </unit>
+    <unit id="put_through_door">
+      <segment id="put_through_door" state="final">
+        <source>put_through_door.name</source>
+        <target>Mettre à la porte</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>put_through_door.description</source>
+        <target>Faites lui bouffer les gonds !//:point: Coûte 1 :pa: de moins sur les inactifs.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

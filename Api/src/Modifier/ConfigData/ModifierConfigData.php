@@ -1146,6 +1146,7 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ALL_TAGS,
                 DaedalusStatusEnum::NO_GRAVITY => ModifierRequirementEnum::NONE_TAGS,
+                SkillEnum::SOLID->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -2872,6 +2873,41 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::SHOOT_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::SHOOT_RANDOM_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT,
+            'modifierName' => ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 1,
+            'targetVariable' => ActionVariableEnum::OUTPUT_QUANTITY,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::HIT->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+            ],
+        ],
+        [
+            'name' => ModifierNameEnum::PLAYER_MINUS_1_ACTION_POINT_ON_PUT_THROUGH_DOOR,
+            'modifierName' => ModifierNameEnum::PLAYER_MINUS_1_ACTION_POINT_ON_PUT_THROUGH_DOOR,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => -1,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::PUT_THROUGH_DOOR->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
     ];

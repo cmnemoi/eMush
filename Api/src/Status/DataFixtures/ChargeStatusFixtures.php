@@ -17,6 +17,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -499,28 +500,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             StatusConfigData::getByName(PlayerStatusEnum::HAS_CHITCHATTED . '_default')
         );
         $manager->persist($hasChitchattedStatus);
-
-        $botanistModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_BOTANIST)
-        );
-        $manager->persist($botanistModifier);
-
-        $botanistPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::BOTANIST_POINTS->value)
-        );
-        $botanistPoints->setModifierConfigs([$botanistModifier]);
-        $manager->persist($botanistPoints);
-
-        $pilgredPointsModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_PILGRED)
-        );
-        $manager->persist($pilgredPointsModifier);
-
-        $pilgredPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::PILGRED_POINTS->value)
-        );
-        $pilgredPoints->setModifierConfigs([$pilgredPointsModifier]);
-        $manager->persist($pilgredPoints);
 
         $modifierPlayerAlwaysSucceedsRepairAction = VariableEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::PLAYER_ALWAYS_SUCCEDS_REPAIR_ACTION)

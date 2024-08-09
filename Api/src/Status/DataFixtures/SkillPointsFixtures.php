@@ -85,6 +85,17 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $pilgredPoints->setModifierConfigs([$pilgredPointsModifier]);
         $manager->persist($pilgredPoints);
 
+        $nursePointsModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_NURSE)
+        );
+        $manager->persist($nursePointsModifier);
+
+        $nursePoints = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(SkillPointsEnum::NURSE_POINTS->value)
+        );
+        $nursePoints->setModifierConfigs([$nursePointsModifier]);
+        $manager->persist($nursePoints);
+
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
         $gameConfig
@@ -93,7 +104,8 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
             ->addStatusConfig($technicianPoints)
             ->addStatusConfig($itExpertPoints)
             ->addStatusConfig($botanistPoints)
-            ->addStatusConfig($pilgredPoints);
+            ->addStatusConfig($pilgredPoints)
+            ->addStatusConfig($nursePoints);
 
         $manager->persist($gameConfig);
 
@@ -105,6 +117,7 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $this->addReference($itExpertPoints->getName(), $itExpertPoints);
         $this->addReference($botanistPoints->getName(), $botanistPoints);
         $this->addReference($pilgredPoints->getName(), $pilgredPoints);
+        $this->addReference($nursePoints->getName(), $nursePoints);
     }
 
     public function getDependencies(): array

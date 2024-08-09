@@ -141,5 +141,15 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
         <target>Les points d'Informatique vous donnent des **actions gratuites** pour *manipuler les terminaux*.</target>
       </segment>
     </unit>
+    <unit id="heal">
+      <segment id="name" state="translated">
+        <source>heal.name</source>
+        <target>Points de Soin</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>heal.description</source>
+        <target>Les Points de Soin vous donnent des **actions gratuites** pour toutes les *actions de soins*.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

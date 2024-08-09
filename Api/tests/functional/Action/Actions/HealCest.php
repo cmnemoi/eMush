@@ -28,6 +28,10 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -41,6 +45,7 @@ final class HealCest extends AbstractFunctionalTest
     private Heal $healAction;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
+    private ChooseSkillUseCase $chooseSkillUseCase;
 
     public function _before(FunctionalTester $I)
     {
@@ -49,6 +54,11 @@ final class HealCest extends AbstractFunctionalTest
         $this->healAction = $I->grabService(Heal::class);
 
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
+        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
+
+        // given players are in medlab
+        $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
+        $this->players->map(static fn (Player $player) => $player->changePlace($medlab));
     }
 
     public function testHeal(FunctionalTester $I)
@@ -214,12 +224,6 @@ final class HealCest extends AbstractFunctionalTest
 
     public function testHealAtFullLifePrintsCorrectLog(FunctionalTester $I): void
     {
-        // given players are in medlab
-        $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
-        $this->players->map(static function (Player $player) use ($medlab) {
-            $player->changePlace($medlab);
-        });
-
         // given player 2 has a flu
         $this->playerDiseaseService->createDiseaseFromName(
             diseaseName: DiseaseEnum::FLU,
@@ -244,16 +248,77 @@ final class HealCest extends AbstractFunctionalTest
 
         // then I don't see a log about health gained
         $I->dontSeeInRepository(RoomLog::class, [
-            'place' => $medlab->getName(),
+            'place' => $this->player->getPlace()->getName(),
             'log' => ActionLogEnum::HEAL_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
         // then I see a log about disease being cured
         $I->seeInRepository(RoomLog::class, [
-            'place' => $medlab->getName(),
+            'place' => $this->player->getPlace()->getName(),
             'log' => LogEnum::DISEASE_CURED_PLAYER,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+    }
+
+    public function nurseShouldNotUseActionPoints(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsANurse($I);
+
+        $this->givenPlayerHasTenActionPoints();
+
+        $this->whenPlayerHeal();
+
+        $this->thenPlayerShouldHaveTenActionPoints($I);
+    }
+
+    public function nurseShouldUseOneITPoint(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsANurse($I);
+
+        $this->givenPlayerHasTwoNursePoints($I);
+
+        $this->whenPlayerHeal();
+
+        $this->thenPlayerShouldHaveOneNursePoint($I);
+    }
+
+    private function givenPlayerIsANurse(FunctionalTester $I): void
+    {
+        $this->player->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::NURSE]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::NURSE, $this->player));
+    }
+
+    private function givenPlayerHasTwoNursePoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(2, $this->player->getSkillByNameOrThrow(SkillEnum::NURSE)->getSkillPoints());
+    }
+
+    private function givenPlayerHasTenActionPoints(): void
+    {
+        $this->player->setActionPoint(10);
+    }
+
+    private function whenPlayerHeal(): void
+    {
+        $this->healAction->loadParameters(
+            actionConfig: $this->healConfig,
+            actionProvider: $this->player,
+            player: $this->player,
+            target: $this->player2
+        );
+        $this->healAction->execute();
+    }
+
+    private function thenPlayerShouldHaveTenActionPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(10, $this->player->getActionPoint());
+    }
+
+    private function thenPlayerShouldHaveOneNursePoint(FunctionalTester $I): void
+    {
+        $I->assertEquals(1, $this->player->getSkillByNameOrThrow(SkillEnum::NURSE)->getSkillPoints());
     }
 }

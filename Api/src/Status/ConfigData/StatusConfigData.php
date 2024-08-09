@@ -1314,6 +1314,22 @@ abstract class StatusConfigData
             ],
             'actionConfigs' => [],
         ],
+        [
+            'name' => SkillPointsEnum::NURSE_POINTS->value,
+            'statusName' => SkillPointsEnum::NURSE_POINTS->value,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SKILL_POINTS_INCREMENT,
+            'maxCharge' => 2,
+            'startCharge' => 2,
+            'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_NURSE],
+            'autoRemove' => false,
+            'modifierConfigs' => [
+                ModifierNameEnum::SKILL_POINT_NURSE,
+            ],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

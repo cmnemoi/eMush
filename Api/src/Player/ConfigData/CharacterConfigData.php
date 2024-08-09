@@ -537,6 +537,7 @@ class CharacterConfigData
             'characterName' => 'paola',
             'skillConfigs' => [
                 SkillEnum::SHOOTER,
+                SkillEnum::GUNNER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

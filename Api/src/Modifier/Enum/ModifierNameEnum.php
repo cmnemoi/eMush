@@ -30,6 +30,8 @@ abstract class ModifierNameEnum
     public const string PLAYER_PLUS_1_HEALTH_POINT_ON_CHANGE_VARIABLE_IF_FROM_PLANET_SECTOR_EVENT = 'player_+1_health_point_on_change_variable_if_from_planet_sector_event';
     public const string SKILL_POINT_NURSE = 'skill_point_nurse';
     public const string PLAYER_PLUS_1_MORALE_POINT_ON_DAY_CHANGE = 'player_+1_morale_point_on_day_change';
+    public const string PLAYER_DOUBLE_SUCCESS_RATE_ON_SHOOT_HUNTER = 'player_double_success_rate_on_shoot_hunter';
+    public const string PLAYER_DOUBLE_DAMAGE_ON_SHOOT_HUNTER = 'player_double_damage_on_shoot_hunter';
 
     public const string SHOOTER_SKILL_POINT = 'shooter_skill_point';
     public const string LOST_MODIFIER = 'lost_modifier';

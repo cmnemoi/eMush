@@ -294,5 +294,15 @@
         <target>La fin de l'Humanité... Il y a pire non ?//:point: L'Optimiste perd **un :pmo: de moins par jour**.</target>
       </segment>
     </unit>
+    <unit id="gunner">
+      <segment id="gunner.name" state="translated">
+        <source>gunner.name</source>
+        <target>Cannonier</target>
+      </segment>
+      <segment id="gunner.description" state="translated">
+        <source>gunner.description</source>
+        <target>Quelqu'un va enfin leur montrer à quoi ça sert.//:point: **Double les dégâts** de vos tirs aux tourelles.//:point: **Double vos chances de toucher** aux tourelles.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

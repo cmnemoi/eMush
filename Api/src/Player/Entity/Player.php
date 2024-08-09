@@ -492,11 +492,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     {
         $skill = $this->getSkillByNameOrNull($name);
 
-        if ($skill === null) {
-            throw new \Exception('The player does not have the skill ' . $name->value);
-        }
-
-        return $skill;
+        return $skill ?? throw new \Exception('The player does not have the skill ' . $name->value);
     }
 
     public function hasSkill(SkillEnum $skillName): bool

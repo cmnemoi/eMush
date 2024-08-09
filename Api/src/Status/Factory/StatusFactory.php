@@ -6,6 +6,7 @@ namespace Mush\Status\Factory;
 
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Status\ConfigData\StatusConfigData;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -38,6 +39,16 @@ final class StatusFactory
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->buildName(GameConfigEnum::DEFAULT);
+
+        self::setupStatusConfigId($statusConfig);
+
+        return new ChargeStatus($holder, $statusConfig);
+    }
+
+    public static function createChargeStatusFromStatusName(string $name, StatusHolderInterface $holder): ChargeStatus
+    {
+        $statusData = StatusConfigData::getByStatusName($name);
+        $statusConfig = ChargeStatusConfig::fromConfigData($statusData);
 
         self::setupStatusConfigId($statusConfig);
 

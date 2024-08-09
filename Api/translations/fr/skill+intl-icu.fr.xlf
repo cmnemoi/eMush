@@ -264,5 +264,15 @@
         <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.//:point: Expédition : Chaque dégât est **réduit d'un point**.//:point: Expédition : L'évènement **Provision** donne un steak de plus.//:point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
       </segment>
     </unit>
+    <unit id="anonymush">
+      <segment id="anonymush.name" state="translated">
+        <source>anonymush.name</source>
+        <target>Anonyme</target>
+      </segment>
+      <segment id="anonymush.description" state="translated">
+        <source>anonymush.description</source>
+        <target>Vos mycotoxines sont indétectables dans l'atmosphère. Vous êtes le prédateur après tout !//:point: Vous apparaissez comme un Humain dans la barre d'équipage sauf à votre mort.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

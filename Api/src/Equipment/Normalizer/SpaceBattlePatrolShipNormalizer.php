@@ -12,7 +12,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
+class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
 {
     private TranslationServiceInterface $translationService;
 

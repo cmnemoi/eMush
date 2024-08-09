@@ -21,6 +21,7 @@ use Mush\Hunter\Entity\HunterConfigCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Project\Entity\ProjectConfig;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity(repositoryClass: GameConfigRepository::class)]
@@ -73,6 +74,9 @@ class GameConfig
     #[ORM\ManyToMany(targetEntity: ProjectConfig::class)]
     private Collection $projectConfigs;
 
+    #[ORM\ManyToMany(targetEntity: SkillConfig::class)]
+    private Collection $mushSkillConfigs;
+
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
 
@@ -89,6 +93,7 @@ class GameConfig
         $this->planetSectorConfigs = new ArrayCollection();
         $this->titleConfigs = new ArrayCollection();
         $this->projectConfigs = new ArrayCollection();
+        $this->mushSkillConfigs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -419,6 +424,34 @@ class GameConfig
     public function addProjectConfig(ProjectConfig $projectConfig): static
     {
         $this->projectConfigs->add($projectConfig);
+
+        return $this;
+    }
+
+    public function getMushSkillConfigs(): Collection
+    {
+        return $this->mushSkillConfigs;
+    }
+
+    /**
+     * @psalm-param ArrayCollection<int<0, max>, SkillConfig> $mushSkillConfigs
+     *
+     * @psalm-suppress NoValue
+     */
+    public function setMushSkillConfigs(array|ArrayCollection $mushSkillConfigs): static
+    {
+        if (\is_array($mushSkillConfigs)) {
+            $mushSkillConfigs = new ArrayCollection($mushSkillConfigs);
+        }
+
+        $this->mushSkillConfigs = $mushSkillConfigs;
+
+        return $this;
+    }
+
+    public function addMushSkillConfig(SkillConfig $mushSkillConfig): static
+    {
+        $this->mushSkillConfigs->add($mushSkillConfig);
 
         return $this;
     }

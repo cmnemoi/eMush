@@ -17,6 +17,7 @@ use Mush\Game\Entity\TriumphConfig;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Project\Entity\ProjectConfig;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 
 class GameConfigDataLoader extends ConfigDataLoader
@@ -50,6 +51,7 @@ class GameConfigDataLoader extends ConfigDataLoader
             $this->setGameConfigPlanetSectorConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigTitleConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigProjectConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigMushSkillConfigs($gameConfig, $gameConfigData);
 
             $this->entityManager->persist($gameConfig);
         }
@@ -254,5 +256,21 @@ class GameConfigDataLoader extends ConfigDataLoader
         }
 
         $gameConfig->setProjectConfigs(new ArrayCollection($projectConfigs));
+    }
+
+    private function setGameConfigMushSkillConfigs(GameConfig $gameConfig, array $gameConfigData): void
+    {
+        $mushSkillConfigs = [];
+        foreach ($gameConfigData['mushSkillConfigs'] as $mushSkillConfigName) {
+            $mushSkillConfig = $this->entityManager->getRepository(SkillConfig::class)->findOneBy(['name' => $mushSkillConfigName]);
+
+            if ($mushSkillConfig === null) {
+                throw new \Exception("Mush skill config {$mushSkillConfigName} not found");
+            }
+
+            $mushSkillConfigs[] = $mushSkillConfig;
+        }
+
+        $gameConfig->setMushSkillConfigs(new ArrayCollection($mushSkillConfigs));
     }
 }

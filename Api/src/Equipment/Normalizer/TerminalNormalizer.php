@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterface
+class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     use ActionHolderNormalizerTrait;
     use NormalizerAwareTrait;

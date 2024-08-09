@@ -22,6 +22,9 @@ abstract class SkillConfigData
     {
         return [
             new SkillConfigDto(
+                name: SkillEnum::ANONYMUSH
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::ASTROPHYSICIST,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_1_MORE_SECTION_REVEALED_ON_ANALYZE_PLANET,

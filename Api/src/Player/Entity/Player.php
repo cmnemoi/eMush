@@ -33,6 +33,7 @@ use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Exception\GameException;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -495,9 +496,30 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getCharacterConfig()->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
     }
 
-    public function getSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
+    public function getSelectableMushSkills(): Collection
+    {
+        if ($this->isHuman()) {
+            return new ArrayCollection();
+        }
+
+        return $this->daedalus->getMushSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
+    }
+
+    public function getHumanSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
     {
         return $this->getCharacterConfig()->getSkillConfigByNameOrThrow($skill);
+    }
+
+    public function getMushSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
+    {
+        if ($this->isHuman()) {
+            throw new GameException('You cannot pick a Mush skill as human!');
+        }
+
+        return $this->daedalus
+            ->getMushSkillConfigs()
+            ->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $skill)
+            ->first() ?: throw new \RuntimeException('This skill does not exist!');
     }
 
     public function getGameVariables(): PlayerVariables
@@ -962,7 +984,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getLevel(): int
     {
-        return $this->getCharacterConfig()->getSkillConfigs()->count();
+        $numberOfHumanSkills = $this->getCharacterConfig()->getSkillConfigs()->count();
+        $numberOfMushSkills = $this->isMush() ? $this->daedalus->getMushSkillConfigs()->count() : 0;
+
+        return max($numberOfHumanSkills, $numberOfMushSkills);
     }
 
     private function getMinEfficiencyForProject(Project $project): int

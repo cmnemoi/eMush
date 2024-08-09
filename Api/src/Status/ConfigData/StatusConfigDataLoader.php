@@ -3,11 +3,13 @@
 namespace Mush\Status\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Repository\ActionConfigRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Repository\ModifierConfigRepository;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Repository\StatusConfigRepository;
 
@@ -16,17 +18,19 @@ class StatusConfigDataLoader extends ConfigDataLoader
     protected StatusConfigRepository $statusConfigRepository;
     protected ModifierConfigRepository $modifierConfigRepository;
     protected ActionConfigRepository $actionConfigRepository;
+    protected EntityRepository $skillConfigRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         StatusConfigRepository $statusConfigRepository,
         ModifierConfigRepository $modifierConfigRepository,
-        ActionConfigRepository $actionConfigRepository
+        ActionConfigRepository $actionConfigRepository,
     ) {
         parent::__construct($entityManager);
         $this->statusConfigRepository = $statusConfigRepository;
         $this->modifierConfigRepository = $modifierConfigRepository;
         $this->actionConfigRepository = $actionConfigRepository;
+        $this->skillConfigRepository = $this->entityManager->getRepository(SkillConfig::class);
     }
 
     public function loadConfigsData(): void

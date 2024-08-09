@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\tests\unit\Skill\UseCase;
 
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Entity\Player;
@@ -13,7 +14,9 @@ use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
+use Mush\Status\Factory\StatusFactory;
 use Mush\Status\Service\FakeStatusService;
 use PHPUnit\Framework\TestCase;
 
@@ -50,11 +53,20 @@ final class ChooseSkillUseCaseTest extends TestCase
         $this->thenPlayerShouldHaveSkill(SkillEnum::PILOT);
     }
 
+    public function testShouldAddMushSkillToMushPlayer(): void
+    {
+        $this->givenPlayerIsMush();
+
+        $this->whenIChooseSkill(SkillEnum::ANONYMUSH);
+
+        $this->thenPlayerShouldHaveSkill(SkillEnum::ANONYMUSH);
+    }
+
     public function testShouldThrowWhenTryingToAddSkillIfNotInPlayerSkillConfigs(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $this->whenIChooseSkill(SkillEnum::ANONYMUSH);
+        $this->whenIChooseSkill(SkillEnum::CREATIVE);
     }
 
     public function testShouldNotAddSkillIfPlayerAlreadyHasIt(): void
@@ -75,12 +87,20 @@ final class ChooseSkillUseCaseTest extends TestCase
 
     private function givenAPlayer(): Player
     {
-        return PlayerFactory::createPlayerByName(CharacterEnum::TERRENCE);
+        return PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::TERRENCE, DaedalusFactory::createDaedalus());
     }
 
     private function givenPlayerHasSkill(SkillEnum $skill): void
     {
         Skill::createByNameForPlayer($skill, $this->player);
+    }
+
+    private function givenPlayerIsMush(): void
+    {
+        StatusFactory::createChargeStatusFromStatusName(
+            name: PlayerStatusEnum::MUSH,
+            holder: $this->player,
+        );
     }
 
     private function whenIChooseSkill(SkillEnum $skill): void

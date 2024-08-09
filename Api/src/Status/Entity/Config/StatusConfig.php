@@ -143,6 +143,13 @@ class StatusConfig
         return $this;
     }
 
+    public function addActionConfig(ActionConfig $actionConfig): static
+    {
+        $this->actionConfigs->add($actionConfig);
+
+        return $this;
+    }
+
     public function isNull(): bool
     {
         return $this->id === 0;

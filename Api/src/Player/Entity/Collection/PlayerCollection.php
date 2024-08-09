@@ -55,4 +55,17 @@ class PlayerCollection extends ArrayCollection
     {
         return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isActive());
     }
+
+    public function getNumberOfHumanAndAnonymushPlayers(): int
+    {
+        $anoymushPlayers = $this->getPlayersWithSkill(SkillEnum::ANONYMUSH)->toArray();
+        $humanPlayers = $this->getHumanPlayer()->toArray();
+
+        return \count(array_merge($humanPlayers, $anoymushPlayers));
+    }
+
+    public function getNumberOfVisibleMushPlayers(): int
+    {
+        return $this->getMushPlayer()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::ANONYMUSH) === false)->count();
+    }
 }

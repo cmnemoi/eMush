@@ -14,7 +14,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class SpaceBattleTurretNormalizer implements NormalizerInterface
+class SpaceBattleTurretNormalizer implements NormalizerInterface
 {
     private TranslationServiceInterface $translationService;
 

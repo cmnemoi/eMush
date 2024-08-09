@@ -3,6 +3,9 @@
 namespace Mush\Status\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\ConfigData\ActionData;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
@@ -34,7 +37,7 @@ class ChargeStatusConfig extends StatusConfig
 
     public static function fromConfigData(array $configData): self
     {
-        return (new self())
+        $statusConfig = (new self())
             ->setChargeVisibility($configData['chargeVisibility'])
             ->setChargeStrategy($configData['chargeStrategy'])
             ->setMaxCharge($configData['maxCharge'])
@@ -43,6 +46,12 @@ class ChargeStatusConfig extends StatusConfig
             ->setAutoRemove($configData['autoRemove'])
             ->setName($configData['name'])
             ->setStatusName($configData['statusName']);
+
+        foreach ($configData['actionConfigs'] as $actionConfig) {
+            $statusConfig->addActionConfig(ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::from($actionConfig))));
+        }
+
+        return $statusConfig;
     }
 
     public function getChargeVisibility(): string

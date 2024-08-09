@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -872,6 +873,9 @@ abstract class StatusConfigData
                 'screw_talkie',
                 ActionEnum::TRAP_CLOSET->value,
             ],
+            'skillConfigs' => [
+                SkillEnum::ANONYMUSH,
+            ],
         ],
         [
             'name' => 'contaminated_default',
@@ -1315,5 +1319,10 @@ abstract class StatusConfigData
     public static function getByName(string $name): array
     {
         return current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
+    }
+
+    public static function getByStatusName(string $name): array
+    {
+        return current(array_filter(self::$dataArray, static fn (array $data) => $data['statusName'] === $name));
     }
 }

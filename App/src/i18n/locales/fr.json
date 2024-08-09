@@ -900,6 +900,7 @@
 		"Complaint sent successfully": "Votre plainte a été envoyée avec succès."
 	},
 	"charPanel": {
+		"apprenticeship": "Apprentissage",
 		"availableSlot": "Emplacement disponible",
 		"chooseNewSkill": "Cliquez ici pour choisir une **nouvelle compétence** pour {character} !",
 		"skillChoiceTitle": "Choix de Compétences",

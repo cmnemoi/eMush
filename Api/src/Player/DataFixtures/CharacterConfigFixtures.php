@@ -105,6 +105,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $gunnerSkillConfig */
         $gunnerSkillConfig = $this->getReference(SkillEnum::GUNNER->value);
 
+        /** @var SkillConfig $apprenticeSkillConfig */
+        $apprenticeSkillConfig = $this->getReference(SkillEnum::APPRENTICE->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -321,6 +324,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setCharacterName(CharacterEnum::STEPHEN)
             ->setSkillConfigs([
                 $shooterSkillConfig,
+                $apprenticeSkillConfig,
                 $creativeSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);

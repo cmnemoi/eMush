@@ -1,5 +1,6 @@
 <template>
     <SkillSelectionMenu :player="player" />
+    <LearnSkillMenu :player="player" />
     <div class="game-banner" v-if="player">
         <div class="character-banner">
             <a class="in-game-level">{{ player.character.level }}</a>
@@ -127,6 +128,7 @@ import { Player } from "@/entities/Player";
 import CountdownTimer from "@/components/Utils/CountdownTimer.vue";
 import TitleImage from "@/components/Utils/TitleImage.vue";
 import Alerts from "@/components/Game/Ship/Alerts.vue";
+import LearnSkillMenu from "@/components/Game/LearnSkillMenu.vue";
 import SkillSelectionMenu from "@/components/Game/SkillSelectionMenu.vue";
 import { defineComponent } from "vue";
 import PlayerService from "@/services/player.service";
@@ -135,7 +137,7 @@ import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent({
     name: "BannerPanel",
-    components: { Alerts, CountdownTimer, SkillSelectionMenu, TitleImage },
+    components: { Alerts, CountdownTimer, LearnSkillMenu, SkillSelectionMenu, TitleImage },
     props: {
         player: Player,
         daedalus: Daedalus

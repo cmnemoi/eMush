@@ -22,6 +22,12 @@ abstract class SkillConfigData
     {
         return [
             new SkillConfigDto(
+                name: SkillEnum::APPRENTICE,
+                actionConfigs: [
+                    ActionEnum::LEARN,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::ANONYMUSH
             ),
             new SkillConfigDto(

@@ -304,5 +304,15 @@
         <target>Quelqu'un va enfin leur montrer à quoi ça sert.//:point: **Double les dégâts** de vos tirs aux tourelles.//:point: **Double vos chances de toucher** aux tourelles.</target>
       </segment>
     </unit>
+    <unit id="apprentice">
+      <segment id="apprentice.name" state="translated">
+        <source>apprentice.name</source>
+        <target>Apprentissage</target>
+      </segment>
+      <segment id="apprentice.description" state="translated">
+        <source>apprentice.description</source>
+        <target>En observant attentivement les activités de ses professeurs, l'apprenti peut à terme reproduire leurs moindres faits et gestes.//:point: Vous accorde l'action Apprentissage qui permet de copier la compétence d'un joueur présent dans la pièce, une fois par partie.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

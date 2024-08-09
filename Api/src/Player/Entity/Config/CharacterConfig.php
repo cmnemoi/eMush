@@ -10,7 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
@@ -184,9 +184,9 @@ class CharacterConfig
         return $this;
     }
 
-    public function getSkillConfigs(): Collection
+    public function getSkillConfigs(): SkillConfigCollection
     {
-        return $this->skillConfigs;
+        return new SkillConfigCollection($this->skillConfigs->toArray());
     }
 
     /**
@@ -208,17 +208,6 @@ class CharacterConfig
         $this->skillConfigs->add($skillConfig);
 
         return $this;
-    }
-
-    public function getSkillConfigByNameOrThrow(SkillEnum $skill): SkillConfig
-    {
-        $skillConfig = $this->skillConfigs->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $skill)->first();
-
-        if (!$skillConfig) {
-            throw new \InvalidArgumentException("{$skill->value} skill is not available for {$this->name}.");
-        }
-
-        return $skillConfig;
     }
 
     public function getStartingItems(): Collection

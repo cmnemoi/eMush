@@ -492,11 +492,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     {
         $skill = $this->getSkillByNameOrNull($name);
 
-        if ($skill === null) {
-            throw new \Exception('The player does not have the skill ' . $name->value);
-        }
-
-        return $skill;
+        return $skill ?? throw new \Exception('The player does not have the skill ' . $name->value);
     }
 
     public function hasSkill(SkillEnum $skillName): bool
@@ -1013,6 +1009,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function getMinEfficiencyForProject(Project $project): int
     {
+        if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {
+            return 100;
+        }
+
         $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);
         $efficiency = $this->getEfficiencyWithParticipationMalus($efficiency, $project);
 
@@ -1021,7 +1021,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function getMaxEfficiencyForProject(Project $project): int
     {
-        return (int) ($this->getMinEfficiencyForProject($project) + $this->getMinEfficiencyForProject($project) / 2);
+        $efficiency = (int) ($this->getMinEfficiencyForProject($project) + $this->getMinEfficiencyForProject($project) / 2);
+
+        return min($efficiency, 100);
     }
 
     private function getEfficiencyWithBonusSkills(int $efficiency, Project $project): int

@@ -502,6 +502,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $hasLearnedSkill = StatusConfig::fromConfigData(StatusConfigData::getByName(PlayerStatusEnum::HAS_LEARNED_SKILL . '_default'));
         $manager->persist($hasLearnedSkill);
 
+        $hasUsedGeniusStatus = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_USED_GENIUS . '_default')
+        );
+        $manager->persist($hasUsedGeniusStatus);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -551,7 +556,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($defenceCpuPriority)
             ->addStatusConfig($mushTrapped)
             ->addStatusConfig($jukeboxSongStatus)
-            ->addStatusConfig($hasLearnedSkill);
+            ->addStatusConfig($hasLearnedSkill)
+            ->addStatusConfig($hasUsedGeniusStatus);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -601,6 +607,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlaceStatusEnum::MUSH_TRAPPED->value, $mushTrapped);
         $this->addReference(EquipmentStatusEnum::JUKEBOX_SONG, $jukeboxSongStatus);
         $this->addReference(PlayerStatusEnum::HAS_LEARNED_SKILL, $hasLearnedSkill);
+        $this->addReference(PlayerStatusEnum::HAS_USED_GENIUS, $hasUsedGeniusStatus);
 
         $manager->flush();
     }

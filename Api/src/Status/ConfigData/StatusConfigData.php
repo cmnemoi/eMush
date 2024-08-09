@@ -1340,6 +1340,33 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::GENIUS_IDEA . '_default',
+            'statusName' => PlayerStatusEnum::GENIUS_IDEA,
+            'visibility' => VisibilityEnum::PRIVATE,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
+            'maxCharge' => 1,
+            'startCharge' => 1,
+            'dischargeStrategies' => [
+                ActionEnum::REPAIR->value,
+                ActionEnum::PARTICIPATE->value,
+            ],
+            'autoRemove' => true,
+            'modifierConfigs' => [
+                ModifierNameEnum::PLAYER_ALWAYS_SUCCEDS_REPAIR_ACTION,
+            ],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlayerStatusEnum::HAS_USED_GENIUS . '_default',
+            'statusName' => PlayerStatusEnum::HAS_USED_GENIUS,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

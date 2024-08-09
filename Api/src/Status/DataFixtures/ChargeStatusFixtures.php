@@ -17,6 +17,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -500,6 +501,18 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasChitchattedStatus);
 
+        $modifierPlayerAlwaysSucceedsRepairAction = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_ALWAYS_SUCCEDS_REPAIR_ACTION)
+        );
+        $this->addReference($modifierPlayerAlwaysSucceedsRepairAction->getName(), $modifierPlayerAlwaysSucceedsRepairAction);
+        $manager->persist($modifierPlayerAlwaysSucceedsRepairAction);
+
+        $geniusIdea = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::GENIUS_IDEA . '_default')
+        );
+        $geniusIdea->setModifierConfigs([$modifierPlayerAlwaysSucceedsRepairAction]);
+        $manager->persist($geniusIdea);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -536,7 +549,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($changedCpuPriority)
             ->addStatusConfig($autoWateringFiresKilled)
             ->addStatusConfig($droneCharges)
-            ->addStatusConfig($hasChitchattedStatus);
+            ->addStatusConfig($hasChitchattedStatus)
+            ->addStatusConfig($geniusIdea);
 
         $manager->persist($gameConfig);
 
@@ -577,6 +591,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES, $autoWateringFiresKilled);
         $this->addReference(EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE, $droneCharges);
         $this->addReference(PlayerStatusEnum::HAS_CHITCHATTED, $hasChitchattedStatus);
+        $this->addReference($geniusIdea->getName(), $geniusIdea);
     }
 
     public function getDependencies(): array

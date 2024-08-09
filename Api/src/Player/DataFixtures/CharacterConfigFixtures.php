@@ -111,6 +111,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $solidSkillConfig */
         $solidSkillConfig = $this->getReference(SkillEnum::SOLID->value);
 
+        /** @var SkillConfig $geniusSkillConfig */
+        $geniusSkillConfig = $this->getReference(SkillEnum::GENIUS->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -302,6 +305,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setSkillConfigs([
                 $physicistSkillConfig,
                 $technicianSkillConfig,
+                $geniusSkillConfig,
                 $conceptorSkillConfig,
             ])
             ->setInitStatuses([$antisocialStatus])

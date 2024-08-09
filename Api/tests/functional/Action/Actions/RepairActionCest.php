@@ -17,6 +17,7 @@ use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -171,6 +172,60 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // then Kuan Ti should still have two technician points
         $I->assertEquals(2, $technicianSkill->getSkillPoints());
+    }
+
+    public function playerWithGeniusIdeaShouldAlwaysSucceed(FunctionalTester $I): void
+    {
+        // given I have a broken Mycoscan in the room
+        $mycoscan = $this->prepareBrokenEquipmentInRoom();
+
+        // given repair action has a 0% success rate
+        $this->repairActionConfig->setSuccessRate(0);
+
+        // given Kuan Ti has a genius idea
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::GENIUS_IDEA,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when Kuan Ti tries to repair the Mycoscan
+        $this->repairAction->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $mycoscan,
+            player: $this->kuanTi,
+            target: $mycoscan
+        );
+
+        // then repair action should have a 100% success rate
+        $I->assertEquals(100, $this->repairAction->getSuccessRate());
+    }
+
+    public function playerWithGeniusIdeaShouldLoseStatusAfterRepair(FunctionalTester $I): void
+    {
+        // given I have a broken Mycoscan in the room
+        $mycoscan = $this->prepareBrokenEquipmentInRoom();
+
+        // given Kuan Ti has a genius idea
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::GENIUS_IDEA,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when Kuan Ti repairs the Mycoscan
+        $this->repairAction->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $mycoscan,
+            player: $this->kuanTi,
+            target: $mycoscan
+        );
+        $this->repairAction->execute();
+
+        // then Kuan Ti should not have a genius idea anymore
+        $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::GENIUS_IDEA));
     }
 
     private function prepareBrokenEquipmentInRoom(): GameEquipment

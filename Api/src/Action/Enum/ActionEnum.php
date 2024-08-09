@@ -124,7 +124,7 @@ enum ActionEnum: string
     case EXTINGUISH_MANUALLY = 'extinguish_manually';
     case CEASEFIRE = 'ceasefire';
     case TORTURE = 'torture';
-    case GENIUS = 'become_genius';
+    case BECOME_GENIUS = 'become_genius';
     case PUTSCH = 'putsch';
     case RUN_HOME = 'run_home';
     case DAUNT = 'daunt';

@@ -1076,6 +1076,9 @@ class ActionsFixtures extends Fixture
         $putThroughDoor = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PUT_THROUGH_DOOR));
         $manager->persist($putThroughDoor);
 
+        $becomeGenius = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::BECOME_GENIUS));
+        $manager->persist($becomeGenius);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1181,5 +1184,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::GRAFT->value, $graft);
         $this->addReference(ActionEnum::LEARN->value, $learn);
         $this->addReference(ActionEnum::PUT_THROUGH_DOOR->value, $putThroughDoor);
+        $this->addReference(ActionEnum::BECOME_GENIUS->value, $becomeGenius);
     }
 }

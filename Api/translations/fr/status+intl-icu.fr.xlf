@@ -1627,5 +1627,15 @@
         <target>Son système immunitaire hors-norme fait d'elle le seul espoir de l'humanité. Tant qu'elle restera en vie, nous aurons une petite chance de combattre l'invasion Mush.//:point: La perte de moral journalière est réduite de 1 point.</target>
       </segment>
     </unit>
+    <unit id="genius_idea">
+      <segment id="name" state="translated">
+        <source>genius_idea.name</source>
+        <target>Coup de génie</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>genius_idea.description</source>
+        <target>Votre prochaine réparation, projet ou recherche est réussie.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

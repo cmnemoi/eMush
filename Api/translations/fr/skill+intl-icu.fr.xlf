@@ -324,5 +324,15 @@
         <target>Vous n'avez aucune pénalité lorsque vous transportez un objet lourd. Pratique aussi pour les combats au corps-à-corps.//:point: Vos attaques de corps-à-corps infligent **un point de dégât supplémentaire**.//:point: **Pas de pénalités** pour les objets lourds.//:point: Dispose de la possibilité de **Mettre à la porte**.</target>
       </segment>
     </unit>
+    <unit id="genius">
+      <segment id="genius.name" state="translated">
+        <source>genius.name</source>
+        <target>Génie</target>
+      </segment>
+      <segment id="genius.description" state="translated">
+        <source>genius.description</source>
+        <target>Lorsqu'il est divinement éclairé par la flamme de la connaissance le Génie peut trouver la solution à n'importe quel problème du Daedalus.//:point: Peut **achever une fois par partie une recherche, un projet, ou une réparation**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

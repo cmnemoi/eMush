@@ -107,11 +107,31 @@ final class ActionSubscriber implements EventSubscriberInterface
             $actionTarget
         );
 
-        $charge = $event->getActionProvider()->getUsedCharge($actionConfig->getActionName());
+        $this->dischargeActionProviderStatus($event);
+        $this->dischargeActionAuthorStatus($event);
+
+        $player->getDaedalus()->addDailyActionPointsSpent($actionConfig->getActionCost());
+    }
+
+    private function dischargeActionProviderStatus(ActionEvent $event): void
+    {
+        $actionConfig = $event->getActionConfig();
+        $actionProvider = $event->getActionProvider();
+
+        $charge = $actionProvider->getUsedCharge($actionConfig->getActionName());
         if ($charge !== null) {
             $this->statusService->updateCharge($charge, -1, $event->getTags(), $event->getTime());
         }
+    }
 
-        $player->getDaedalus()->addDailyActionPointsSpent($actionConfig->getActionCost());
+    private function dischargeActionAuthorStatus(ActionEvent $event): void
+    {
+        $actionConfig = $event->getActionConfig();
+        $player = $event->getAuthor();
+
+        $charge = $player->getUsedCharge($actionConfig->getActionName());
+        if ($charge !== null) {
+            $this->statusService->updateCharge($charge, -1, $event->getTags(), $event->getTime());
+        }
     }
 }

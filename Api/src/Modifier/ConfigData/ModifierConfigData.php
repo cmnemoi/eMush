@@ -2821,6 +2821,23 @@ abstract class ModifierConfigData
                 ActionTypeEnum::ACTION_HEAL->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_PLUS_1_MORALE_POINT_ON_DAY_CHANGE,
+            'modifierName' => SkillEnum::OPTIMIST->value,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 1.0,
+            'targetVariable' => PlayerVariableEnum::MORAL_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                PlayerService::BASE_PLAYER_DAY_CHANGE => ModifierRequirementEnum::ALL_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

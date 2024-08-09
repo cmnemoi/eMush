@@ -1004,5 +1004,11 @@
         }</target>
       </segment>
     </unit>
+    <unit id="optimist_worked">
+      <segment id="optimist_worked" state="final">
+        <source>optimist_worked</source>
+        <target>Votre compétence **Optimiste** a porté ses fruits...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

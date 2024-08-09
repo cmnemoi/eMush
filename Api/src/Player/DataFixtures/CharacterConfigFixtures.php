@@ -99,6 +99,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $determinedSkillConfig */
         $determinedSkillConfig = $this->getReference(SkillEnum::DETERMINED->value);
 
+        /** @var SkillConfig $optimistSkillConfig */
+        $optimistSkillConfig = $this->getReference(SkillEnum::OPTIMIST->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -260,8 +263,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(CharacterEnum::KUAN_TI)
             ->setCharacterName(CharacterEnum::KUAN_TI)
             ->setSkillConfigs([
-                $astrophysicistSkillConfig,
                 $conceptorSkillConfig,
+                $optimistSkillConfig,
+                $astrophysicistSkillConfig,
                 $technicianSkillConfig,
                 $leaderSkillConfig,
             ])
@@ -301,6 +305,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $pilotSkillConfig,
                 $shooterSkillConfig,
                 $firefighterSkillConfig,
+                $optimistSkillConfig,
                 $creativeSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);

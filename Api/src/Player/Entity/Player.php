@@ -33,7 +33,6 @@ use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Exception\GameException;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -52,7 +51,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillCollection;
-use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
@@ -495,35 +494,23 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
     }
 
-    /**
-     * @return Collection<int, SkillConfig>
-     */
-    public function getSelectableHumanSkills(): Collection
+    public function getSelectableHumanSkills(): SkillConfigCollection
     {
-        $selectableSkills = $this->getCharacterConfig()->getSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
-        if ($this->hasStatus(PlayerStatusEnum::HAS_LEARNED_SKILL)) {
-            $selectableSkills = $selectableSkills->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() !== SkillEnum::APPRENTICE);
-        }
+        $selectableSkills = $this->getHumanSkillConfigs()->getAllExceptThoseLearnedByPlayer($this);
 
-        return $selectableSkills;
+        return $this->hasStatus(PlayerStatusEnum::HAS_LEARNED_SKILL) ? $selectableSkills->getAllExcept(SkillEnum::APPRENTICE) : $selectableSkills;
     }
 
-    public function getSelectableMushSkills(): Collection
+    public function getSelectableMushSkills(): SkillConfigCollection
     {
-        if ($this->isHuman()) {
-            return new ArrayCollection();
-        }
-
-        return $this->daedalus->getMushSkillConfigs()->filter(fn (SkillConfig $skillConfig) => $this->hasSkill($skillConfig->getName()) === false);
+        return $this->isMush() ? $this->daedalus->getMushSkillConfigs()->getAllExceptThoseLearnedByPlayer($this) : new SkillConfigCollection();
     }
 
     public function cannotTakeSkill(SkillEnum $skill): bool
-    {   
-        if ($skill->isMushSkill()) {
-            return $this->getSelectableMushSkills()->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $skill)->isEmpty();
-        }
+    {
+        $selectableSkills = $skill->isMushSkill() ? $this->getSelectableMushSkills() : $this->getSelectableHumanSkills();
 
-        return $this->getSelectableHumanSkills()->filter(static fn (SkillConfig $skillConfig) => $skillConfig->getName() === $skill)->isEmpty();
+        return $selectableSkills->doesNotContain($skill);
     }
 
     public function getGameVariables(): PlayerVariables
@@ -1050,6 +1037,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
 
         return $efficiency;
+    }
+
+    private function getHumanSkillConfigs(): SkillConfigCollection
+    {
+        return $this->getCharacterConfig()->getSkillConfigs();
     }
 
     private function getSkillByNameOrNull(SkillEnum $name): ?Skill

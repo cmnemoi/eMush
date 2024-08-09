@@ -31,6 +31,7 @@ use Mush\Project\Collection\ProjectCollection;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Exception\DaedalusShouldHaveProjectException;
+use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -828,8 +829,8 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getDaedalusConfig()->getCyclePerGameDay();
     }
 
-    public function getMushSkillConfigs(): Collection
+    public function getMushSkillConfigs(): SkillConfigCollection
     {
-        return $this->getGameConfig()->getMushSkillConfigs();
+        return new SkillConfigCollection($this->getGameConfig()->getMushSkillConfigs()->toArray());
     }
 }

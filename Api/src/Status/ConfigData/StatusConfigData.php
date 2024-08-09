@@ -1324,7 +1324,7 @@ abstract class StatusConfigData
             'maxCharge' => 2,
             'startCharge' => 2,
             'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_NURSE],
-            'autoRemove' => true,
+            'autoRemove' => false,
             'modifierConfigs' => [
                 ModifierNameEnum::SKILL_POINT_NURSE,
             ],

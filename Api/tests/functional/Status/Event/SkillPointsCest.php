@@ -87,6 +87,7 @@ final class SkillPointsCest extends AbstractFunctionalTest
             SkillPointsEnum::PILGRED_POINTS => 1,
             SkillPointsEnum::SHOOTER_POINTS => 2,
             SkillPointsEnum::TECHNICIAN_POINTS => 1,
+            SkillPointsEnum::NURSE_POINTS => 1,
             default => 0,
         };
     }

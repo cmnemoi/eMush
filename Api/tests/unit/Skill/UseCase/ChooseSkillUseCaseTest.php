@@ -41,10 +41,7 @@ final class ChooseSkillUseCaseTest extends TestCase
     {
         $this->playerRepository = new InMemoryPlayerRepository();
         $this->skillConfigRepository = new InMemorySkillConfigRepository();
-        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::PILOT)));
-        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::TECHNICIAN)));
-        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::SHOOTER)));
-        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::MANKIND_ONLY_HOPE)));
+        $this->initSkillConfigs();
 
         $this->player = $this->givenAPlayer();
         $this->playerRepository->save($this->player);
@@ -150,5 +147,14 @@ final class ChooseSkillUseCaseTest extends TestCase
         $skillPointsStatus = $player->getStatusByName($skillPoints->toString());
 
         self::assertNotNull($skillPointsStatus);
+    }
+
+    private function initSkillConfigs(): void
+    {
+        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::PILOT)));
+        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::TECHNICIAN)));
+        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::SHOOTER)));
+        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::MANKIND_ONLY_HOPE)));
+        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::ANONYMUSH)));
     }
 }

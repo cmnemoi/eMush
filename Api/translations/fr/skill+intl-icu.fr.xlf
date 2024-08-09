@@ -274,5 +274,15 @@
         <target>Vos mycotoxines sont indétectables dans l'atmosphère. Vous êtes le prédateur après tout !//:point: Vous apparaissez comme un Humain dans la barre d'équipage sauf à votre mort.</target>
       </segment>
     </unit>
+    <unit id="determined">
+      <segment id="determined.name" state="translated">
+        <source>determined.name</source>
+        <target>Persévérant</target>
+      </segment>
+      <segment id="determined.description" state="translated">
+        <source>determined.description</source>
+        <target>Une fois qu'il a commencé sa tâche rien ne peut perturber le joueur persévérant.//:point: En cas d'**échec** sur une action, les chances de réussite **augmentent plus vite**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

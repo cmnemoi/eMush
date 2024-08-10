@@ -30,6 +30,18 @@ class DirectModifierConfig extends AbstractModifierConfig
         parent::__construct($name);
     }
 
+    public static function fromConfigData(array $configData): self
+    {
+        $directModifierConfig = new self($configData['name']);
+        $directModifierConfig
+            ->setRevertOnRemove($configData['revertOnRemove'])
+            ->setModifierActivationRequirements($configData['modifierActivationRequirements'])
+            ->setModifierRange($configData['modifierRange'])
+            ->setModifierStrategy($configData['strategy']);
+
+        return $directModifierConfig;
+    }
+
     public function getTriggeredEvent(): AbstractEventConfig
     {
         return $this->triggeredEvent;

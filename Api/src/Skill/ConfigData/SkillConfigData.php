@@ -108,6 +108,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::MYCELIUM_SPIRIT,
+                modifierConfigs: [
+                    ModifierNameEnum::DAEDALUS_PLUS_1_MAX_SPORES,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::NERON_ONLY_FRIEND,
             ),
             new SkillConfigDto(

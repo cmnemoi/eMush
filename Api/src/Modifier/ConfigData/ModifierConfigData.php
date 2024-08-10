@@ -2927,6 +2927,16 @@ abstract class ModifierConfigData
                 ActionEnum::REPAIR->value => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::DAEDALUS_PLUS_1_MAX_SPORES,
+            'modifierName' => null,
+            'revertOnRemove' => true,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'direct_modifier',
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'triggeredEvent' => EventConfigData::CHANGE_VALUE_PLUS_1_MAX_DAEDALUS_SPORE,
+            'modifierActivationRequirements' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

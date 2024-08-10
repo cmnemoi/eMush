@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Modifier\ConfigData\ModifierConfigData;
+use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -107,6 +108,16 @@ final class SkillModifierConfigFixtures extends Fixture
         );
         $this->addReference($playerPlusOneDamageOnHit->getName(), $playerPlusOneDamageOnHit);
         $manager->persist($playerPlusOneDamageOnHit);
+
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VALUE_PLUS_1_MAX_DAEDALUS_SPORE);
+
+        $modifierDaedalusPlus1MaxSpores = DirectModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::DAEDALUS_PLUS_1_MAX_SPORES)
+        );
+        $modifierDaedalusPlus1MaxSpores->setTriggeredEvent($eventConfig);
+        $this->addReference($modifierDaedalusPlus1MaxSpores->getName(), $modifierDaedalusPlus1MaxSpores);
+        $manager->persist($modifierDaedalusPlus1MaxSpores);
 
         $manager->flush();
     }

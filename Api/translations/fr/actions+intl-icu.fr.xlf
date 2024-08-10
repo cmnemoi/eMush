@@ -826,6 +826,16 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Tire une charge de Telsatron sur un vaisseau ennemi.</target>
       </segment>
     </unit>
+    <unit id="shoot_hunter_turret">
+      <segment id="name" state="final">
+        <source>shoot_hunter_turret.name</source>
+        <target>Tirer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>shoot_hunter_turret.description</source>
+        <target>Tire une charge de Telsatron sur un vaisseau ennemi.</target>
+      </segment>
+    </unit>
     <unit id="shoot_random_hunter">
       <segment id="name" state="final">
         <source>shoot_random_hunter.name</source>
@@ -1204,6 +1214,20 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="final">
         <source>become_genius.description</source>
         <target>Votre prochaine réparation, projet ou recherche est automatiquement réussie. Cette action est **unique**.</target>
+      </segment>
+    </unit>
+    <unit id="premonition">
+      <segment id="premonition" state="final">
+        <source>premonition.name</source>
+        <target>Prémonition</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>premonition.description</source>
+        <target>Permet de voir la dernière action effectuée par la cible.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>premonition.confirmation</source>
+        <target>Cette action vous fera perdre un point de moral, êtes-vous sûr de vouloir continuer ?</target>
       </segment>
     </unit>
   </file>

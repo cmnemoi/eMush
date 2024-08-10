@@ -1010,5 +1010,14 @@
         <target>Votre compétence **Optimiste** a porté ses fruits...</target>
       </segment>
     </unit>
+    <unit id="premonition_action">
+      <segment id="premonition_action" state="final">
+        <source>premonition_action</source>
+        <target>{quantity, select,
+          0 {Vous vous concentrez mais rien ne vient... Cette personne n'a sans doute rien fait depuis son réveil.}
+          other {Vous vous concentrez... Votre tête tourne... Vous revoyez **{character}** faire quelque chose... Sa dernière action est {lastAction}.}
+        }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -334,5 +334,15 @@
         <target>Lorsqu'il est divinement éclairé par la flamme de la connaissance le Génie peut trouver la solution à n'importe quel problème du Daedalus.//:point: Peut **achever une fois par partie une recherche, un projet, ou une réparation**.</target>
       </segment>
     </unit>
+    <unit id="presentiment">
+      <segment id="presentiment.name" state="translated">
+        <source>presentiment.name</source>
+        <target>Pressentiment</target>
+      </segment>
+      <segment id="presentiment.description" state="translated">
+        <source>presentiment.description</source>
+        <target>Votre intuition ne vous trompe jamais, vous pouvez revoir les dernières activités d'un équipier sous forme de flashback lumineux. C'est pratique mais ça fait mal à la tête.//:point: Vous pouvez **voir la dernière action** d'un équipier. Cette action vous fait perdre un :pmo:.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

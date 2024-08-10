@@ -12,6 +12,7 @@ export class Action {
     public description: string|null;
     public actionPointCost: number|null;
     public movementPointCost: number|null;
+    public moralePointCost: number|null;
     public successRate: number|null;
     public confirmation: string|null;
     public actionProvider!: ActionProvider;
@@ -26,6 +27,7 @@ export class Action {
         this.description = null;
         this.actionPointCost = null;
         this.movementPointCost = null;
+        this.moralePointCost = null;
         this.successRate = null;
         this.confirmation = null;
         this.skillPointCosts = [];
@@ -40,6 +42,7 @@ export class Action {
             this.description = object.description;
             this.actionPointCost = object.actionPointCost;
             this.movementPointCost = object.movementPointCost;
+            this.moralePointCost = object.moralPointCost;
             this.successRate = object.successRate;
             this.confirmation = object.confirmation;
             this.skillPointCosts = object.skillPointCosts;
@@ -52,18 +55,8 @@ export class Action {
     }
     decode(jsonString : string): Action {
         if (jsonString) {
-            const object = JSON.parse(jsonString);
-            this.id = object.id;
-            this.key = object.key;
-            this.canExecute = object.canExecute;
-            this.name = object.name;
-            this.description = object.description;
-            this.actionPointCost = object.actionPointCost;
-            this.movementPointCost = object.movementPointCost;
-            this.successRate = object.successRate;
-            this.confirmation = object.confirmation;
-            this.skillPointCosts = object.skillPointCosts;
-            this.actionProvider = object.actionProvider;
+            const actionData = JSON.parse(jsonString);
+            this.load(actionData);
         }
 
         return this;

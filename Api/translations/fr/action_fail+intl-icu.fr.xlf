@@ -679,5 +679,11 @@
         <target>Aucune porte n'est fonctionnelle dans cette pièce.</target>
       </segment>
     </unit>
+    <unit id="premonition_insufficient_morale">
+      <segment id="description" state="final">
+        <source>premonition_insufficient_morale.description</source>
+        <target>Votre moral est déjà tout pourri, vous n'avez pas besoin de ça maintenant...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

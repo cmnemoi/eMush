@@ -31,6 +31,14 @@
                 <label for="modifierConfig_reverseOnRemove">{{ $t('admin.modifierConfig.reverseOnRemove') }}</label>
             </div>
         </div>
+        <h3>{{ $t('admin.modifierConfig.targetFilters') }}</h3>
+        <MapManager
+            :map="modifierConfig.targetFilters"
+            id="modifierConfig.targetFilters"
+            map-indexes-type="string"
+            map-values-type="string"
+        >
+        </MapManager>
         <h3>{{ $t("admin.modifierConfig.triggeredEvent") }}</h3>
         <ChildManager
             :child="modifierConfig.triggeredEvent"
@@ -45,6 +53,22 @@
         <ChildCollectionManager
             :children="modifierConfig.modifierActivationRequirements"
             id="modifierConfig_modifierActivationRequirements"
+            @add-id="selectNewChild"
+            @remove="removeChild"
+        >
+            <template #header="child">
+                <span><strong>{{ child.id }}</strong> - {{ child.modifierName }}</span>
+            </template>
+            <template #body="child">
+                <span>name: {{ child.modifierName }}</span>
+                <span>activationRequirement: {{ child.activationRequirement }}</span>
+                <span>value: {{ child.value }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3>{{ $t("admin.modifierConfig.targetEventRequirements") }}</h3>
+        <ChildCollectionManager
+            :children="modifierConfig.targetEventRequirements"
+            id="modifierConfig_targetEventRequirements"
             @add-id="selectNewChild"
             @remove="removeChild"
         >
@@ -75,6 +99,7 @@ import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vu
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 import { EventConfig } from "@/entities/Config/EventConfig";
 import ChildManager from "@/components/Utils/ChildManager.vue";
+import MapManager from "@/components/Utils/MapManager.vue";
 
 interface ModifierConfigState {
     modifierConfig: null|ModifierConfig
@@ -84,6 +109,7 @@ interface ModifierConfigState {
 export default defineComponent({
     name: "TriggerEventModifierConfigState",
     components: {
+        MapManager,
         ChildManager,
         ChildCollectionManager,
         Input,
@@ -191,6 +217,18 @@ export default defineComponent({
                         });
                         if (this.modifierConfig instanceof ModifierConfig) {
                             this.modifierConfig.modifierActivationRequirements = modifierActivationRequirements;
+                        }
+                    });
+
+                ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'direct_modifier_configs', modifierConfigId, 'event_target_requirements'))
+                    .then((result) => {
+                        const targetEventRequirements : ModifierActivationRequirement[] = [];
+                        result.data['hydra:member'].forEach((datum: any) => {
+                            const currentRequirement = (new ModifierActivationRequirement()).load(datum);
+                            targetEventRequirements.push(currentRequirement);
+                        });
+                        if (this.modifierConfig instanceof ModifierConfig) {
+                            this.modifierConfig.targetEventRequirements = targetEventRequirements;
                         }
                     });
 

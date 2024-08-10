@@ -28,10 +28,8 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Event\ProjectEvent;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
+use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\User\Entity\User;
 use Symfony\Component\Uid\Uuid;
 
@@ -254,12 +252,9 @@ class AbstractFunctionalTest
     protected function addSkillToPlayer(SkillEnum $skill, FunctionalTester $I, ?Player $player = null): void
     {
         $player ??= $this->player;
-        $skillConfig = $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]);
 
-        $player->getCharacterConfig()->addSkillConfig($skillConfig);
-
-        $chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
-        $chooseSkillUseCase->execute(new ChooseSkillDto($skill, $player));
+        $addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
+        $addSkillToPlayer->execute($skill, $player);
     }
 
     private function createAllProjects(FunctionalTester $I): void

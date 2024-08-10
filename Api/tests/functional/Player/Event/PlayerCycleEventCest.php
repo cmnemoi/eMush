@@ -464,7 +464,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(10, $janice->getMoralPoint());
     }
 
-    public function shrinkShouldNotGiveMoraleToOtherShrink(FunctionalTester $I): void
+    public function shrinkShouldGiveMoraleToOtherShrink(FunctionalTester $I): void
     {
         // given Janice is lying down
         $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
@@ -489,7 +489,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $cycleEvent = new PlayerCycleEvent($janice, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
-        // then Janice should have 10 morale points
+        // then Janice should have 11 morale points
         $I->assertEquals(11, $janice->getMoralPoint());
     }
 

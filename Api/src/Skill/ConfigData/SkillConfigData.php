@@ -61,6 +61,10 @@ abstract class SkillConfigData
                 name: SkillEnum::DETERMINED
             ),
             new SkillConfigDto(
+                name: SkillEnum::FERTILE,
+                skillPointsConfig: SkillPointsEnum::SPORE_POINTS,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::FIREFIGHTER,
                 modifierConfigs: [
                     'modifier_for_player_always_success_extinguish',

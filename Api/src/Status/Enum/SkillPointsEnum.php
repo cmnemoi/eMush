@@ -16,6 +16,7 @@ enum SkillPointsEnum: string
     case IT_EXPERT_POINTS = 'it_expert_points';
     case PILGRED_POINTS = 'pilgred_points';
     case SHOOTER_POINTS = 'shooter_points';
+    case SPORE_POINTS = 'spore_points';
     case TECHNICIAN_POINTS = 'technician_points';
     case NULL = '';
 

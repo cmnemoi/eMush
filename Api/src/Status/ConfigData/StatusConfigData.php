@@ -1363,6 +1363,22 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => SkillPointsEnum::SPORE_POINTS->value,
+            'statusName' => SkillPointsEnum::SPORE_POINTS->value,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::DAILY_INCREMENT,
+            'maxCharge' => 1,
+            'startCharge' => 1,
+            'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_SPORE],
+            'autoRemove' => false,
+            'modifierConfigs' => [
+                ModifierNameEnum::SKILL_POINT_SPORE,
+            ],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

@@ -448,6 +448,7 @@ class GameConfigData
                 PlayerStatusEnum::HAS_LEARNED_SKILL . '_default',
                 PlayerStatusEnum::GENIUS_IDEA . '_default',
                 PlayerStatusEnum::HAS_USED_GENIUS . '_default',
+                SkillPointsEnum::SPORE_POINTS->value,
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -578,6 +579,7 @@ class GameConfigData
             ],
             'mushSkillConfigs' => [
                 SkillEnum::ANONYMUSH,
+                SkillEnum::FERTILE,
                 SkillEnum::MYCELIUM_SPIRIT,
             ],
         ],

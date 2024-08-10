@@ -366,5 +366,15 @@
         <target>Votre mission est sacrée. Le Mush vous a choisi comme relais majeur fongique trans dimensionnel.//:point: Tant que vous êtes en vie, les Mush peuvent **produire 1 spore de plus par jour**.</target>
       </segment>
     </unit>
+    <unit id="fertile">
+      <segment id="fertile.name" state="translated">
+        <source>fertile.name</source>
+        <target>Fertile</target>
+      </segment>
+      <segment id="fertile.description" state="translated">
+        <source>fertile.description</source>
+        <target>Votre production de spore est remarquable pour le genre. Spore un jour, spore toujours.//:point: Chaque jour, vous pouvez générer un spore **gratuitement**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

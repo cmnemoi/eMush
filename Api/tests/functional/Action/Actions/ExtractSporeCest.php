@@ -8,6 +8,7 @@ use Mush\Action\Actions\ExtractSpore;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -63,5 +64,21 @@ final class ExtractSporeCest extends AbstractFunctionalTest
 
         // then Kuan Ti should have the dirty status
         $I->assertTrue($this->kuanTi->hasStatus(PlayerStatusEnum::DIRTY));
+    }
+
+    public function fertileShouldMakeTheActionFree(FunctionalTester $I): void
+    {
+        // given Kuan Ti has Fertile skill
+        $this->addSkillToPlayer(SkillEnum::FERTILE, $I, $this->kuanTi);
+
+        // when Kuan Ti tries to extract spore
+        $this->extractSporeAction->loadParameters(
+            actionConfig: $this->extractSporeActionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi
+        );
+
+        // then action should cost 0 action points
+        $I->assertEquals(0, $this->extractSporeAction->getActionPointCost());
     }
 }

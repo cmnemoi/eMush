@@ -2937,6 +2937,23 @@ abstract class ModifierConfigData
             'triggeredEvent' => EventConfigData::CHANGE_VALUE_PLUS_1_MAX_DAEDALUS_SPORE,
             'modifierActivationRequirements' => [],
         ],
+        [
+            'name' => ModifierNameEnum::SKILL_POINT_SPORE,
+            'modifierName' => ModifierNameEnum::SKILL_POINT_SPORE,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 0,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::EXTRACT_SPORE->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

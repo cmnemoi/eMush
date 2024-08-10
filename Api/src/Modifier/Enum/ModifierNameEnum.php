@@ -45,4 +45,5 @@ abstract class ModifierNameEnum
     public const string SKILL_POINT_IT_EXPERT = 'skill_point_it_expert';
     public const string SKILL_POINT_BOTANIST = 'skill_point_botanist';
     public const string SKILL_POINT_PILGRED = 'skill_point_pilgred';
+    public const string SKILL_POINT_SPORE = 'skill_point_spore';
 }

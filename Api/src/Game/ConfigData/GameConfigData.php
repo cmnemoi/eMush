@@ -581,6 +581,7 @@ class GameConfigData
                 SkillEnum::ANONYMUSH,
                 SkillEnum::FERTILE,
                 SkillEnum::MYCELIUM_SPIRIT,
+                SkillEnum::SPLASHPROOF,
             ],
         ],
     ];

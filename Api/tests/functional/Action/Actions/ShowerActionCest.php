@@ -18,6 +18,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -26,6 +27,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -360,5 +362,83 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $I->assertEquals($expectedKTHealthPoint, $this->kuanTi->getHealthPoint());
         $I->assertEquals($expectedKTMoralePoint, $this->kuanTi->getMoralPoint());
         $I->assertEquals($expectedKTMovementPoint, $this->kuanTi->getMovementPoint());
+    }
+
+    public function splashproofMushPlayerShouldNotLoseHealthPoints(FunctionalTester $I): void
+    {
+        // given a shower in KT's room
+        $shower = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::SHOWER,
+            equipmentHolder: $this->kuanTi->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given KT is Mush
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given KT has splashproof skill
+        $this->addSkillToPlayer(SkillEnum::SPLASHPROOF, $I, $this->kuanTi);
+
+        // when KT takes a shower
+        $this->showerAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $shower,
+            player: $this->kuanTi,
+            target: $shower
+        );
+        $this->showerAction->execute();
+
+        // then KT should not have lost any health point
+        $expectedKTHealthPoint = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint();
+
+        $I->assertEquals($expectedKTHealthPoint, $this->kuanTi->getHealthPoint());
+    }
+
+    public function splashproofMushPlayerShouldHaveNormalShowerLog(FunctionalTester $I): void
+    {
+        // given a shower in KT's room
+        $shower = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::SHOWER,
+            equipmentHolder: $this->kuanTi->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given KT is Mush
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given KT has splashproof skill
+        $this->addSkillToPlayer(SkillEnum::SPLASHPROOF, $I, $this->kuanTi);
+
+        // when KT takes a shower
+        $this->showerAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $shower,
+            player: $this->kuanTi,
+            target: $shower
+        );
+        $this->showerAction->execute();
+
+        // then KT should not have lost any health point
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'Vous vous lavez longuement sous la douche, savourant ce moment rare et paisible...',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->kuanTi,
+                log: ActionLogEnum::SHOWER_HUMAN,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I,
+        );
     }
 }

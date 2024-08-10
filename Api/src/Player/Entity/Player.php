@@ -63,6 +63,9 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+/**
+ * @SuppressWarnings(PHPMD.ExcessiveClassLength)
+ */
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
 class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface
 {
@@ -1007,6 +1010,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         };
     }
 
+    public function shouldBeHurtByShower(): bool
+    {
+        return $this->isMush() && $this->doesNotHaveSkill(SkillEnum::SPLASHPROOF);
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {
@@ -1049,6 +1057,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
 
         return $efficiency;
+    }
+
+    private function doesNotHaveSkill(SkillEnum $skillName): bool
+    {
+        return $this->hasSkill($skillName) === false;
     }
 
     private function getHumanSkillConfigs(): SkillConfigCollection

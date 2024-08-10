@@ -326,6 +326,10 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/human/sturdy.png')
     },
 
+    [SkillEnum.SPLASHPROOF]: {
+        'icon': getImgUrl('skills/mush/water_resistant.png')
+    },
+
     [SkillEnum.SPRINTER]: {
         'icon': getImgUrl('skills/human/sprinter.png')
     },

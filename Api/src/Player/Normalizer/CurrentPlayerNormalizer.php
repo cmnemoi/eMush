@@ -25,7 +25,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\Skill\Entity\Skill;
-use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -112,8 +112,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
                 'key' => $character,
                 'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
                 'description' => $this->translationService->translate($character . '.description', [], 'characters', $language),
-                'selectableHumanSkills' => $player->getSelectableHumanSkills()->map(fn (SkillConfig $skillConfig) => $this->normalizer->normalize($skillConfig, $format, $context))->toArray(),
-                'selectableMushSkills' => $player->getSelectableMushSkills()->map(fn (SkillConfig $skillConfig) => $this->normalizer->normalize($skillConfig, $format, $context))->toArray(),
+                'selectableHumanSkills' => $this->normalizeSelectableSkills($player->getSelectableHumanSkills(), $format, $context),
+                'selectableMushSkills' => $this->normalizeSelectableSkills($player->getSelectableMushSkills(), $format, $context),
                 'level' => $player->getLevel(),
             ],
             'gameStatus' => $player->getPlayerInfo()->getGameStatus(),
@@ -165,6 +165,16 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         ]);
 
         return $playerData;
+    }
+
+    private function normalizeSelectableSkills(SkillConfigCollection $skillConfigs, ?string $format, array $context): array
+    {
+        $selectableSkills = [];
+        foreach ($skillConfigs as $skillConfig) {
+            $selectableSkills[] = $this->normalizer->normalize($skillConfig, $format, $context);
+        }
+
+        return $selectableSkills;
     }
 
     private function normalizeMushPlayerSpores(Player $player, array $normalizedStatuses): array

@@ -46,11 +46,7 @@ class Shower extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        if ($this->player->hasStatus(PlayerStatusEnum::MUSH)) {
-            return new Fail();
-        }
-
-        return new Success();
+        return $this->player->shouldBeHurtByShower() ? new Fail() : new Success();
     }
 
     protected function applyEffect(ActionResult $result): void

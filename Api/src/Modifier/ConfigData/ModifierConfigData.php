@@ -2954,6 +2954,21 @@ abstract class ModifierConfigData
                 ActionEnum::EXTRACT_SPORE->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PREVENT_MUSH_SHOWER_MALUS,
+            'modifierName' => null,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => ModifierPriorityEnum::PREVENT_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ModifierNameEnum::MUSH_SHOWER_MALUS => ModifierRequirementEnum::ALL_TAGS,
+                PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ALL_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

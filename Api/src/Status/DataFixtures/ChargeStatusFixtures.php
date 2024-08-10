@@ -268,7 +268,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_RESET)
             ->setMaxCharge(1)
-            ->setStartCharge(1)
+            ->setStartCharge(0)
             ->setModifierConfigs([
                 $showerModifier,
                 $consumeModifier,

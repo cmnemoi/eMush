@@ -93,6 +93,12 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::INFECTOR,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_PLUS_1_INFECTION,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::IT_EXPERT,
                 modifierConfigs: [
                     ModifierNameEnum::DOUBLE_HACK_CHANCE,

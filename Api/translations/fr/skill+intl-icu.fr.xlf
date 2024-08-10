@@ -396,5 +396,15 @@
         <target>La recherche fongique a mis au point un nouveau mucus parfait pour donner le change.//:point: **Se doucher** ne vous fait perdre **aucun** :hp:.</target>
       </segment>
     </unit>
+    <unit id="infector">
+      <segment id="infector.name" state="translated">
+        <source>infector.name</source>
+        <target>Infecteur</target>
+      </segment>
+      <segment id="infector.description" state="translated">
+        <source>infector.description</source>
+        <target>Vous faites des trous. Des petits trous. Beaucoup de petits trous.//:point: Vous permet de **poinçonner** une de fois de plus chaque jour.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

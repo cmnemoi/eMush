@@ -857,7 +857,7 @@ abstract class StatusConfigData
             'chargeVisibility' => 'hidden',
             'chargeStrategy' => 'daily_reset',
             'maxCharge' => 1,
-            'startCharge' => 1,
+            'startCharge' => 0,
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [

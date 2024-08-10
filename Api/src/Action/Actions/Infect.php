@@ -93,7 +93,7 @@ class Infect extends AbstractAction
             $target,
             PlayerVariableEnum::SPORE,
             1,
-            $this->getActionConfig()->getActionTags(),
+            $this->getTags(),
             new \DateTime(),
         );
         $playerModifierEvent->setAuthor($this->player);
@@ -103,7 +103,7 @@ class Infect extends AbstractAction
             $this->player,
             PlayerVariableEnum::SPORE,
             -1,
-            $this->getActionConfig()->getActionTags(),
+            $this->getTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -112,8 +112,8 @@ class Infect extends AbstractAction
         $mushStatus = $this->player->getStatusByName(PlayerStatusEnum::MUSH);
         $this->statusService->updateCharge(
             $mushStatus,
-            -1,
-            $this->actionConfig->getActionTags(),
+            1,
+            $this->getTags(),
             new \DateTime()
         );
     }

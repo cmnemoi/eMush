@@ -37,6 +37,7 @@ abstract class ModifierNameEnum
     public const string PLAYER_ALWAYS_SUCCEDS_REPAIR_ACTION = 'player_always_succeeds_repair_action';
     public const string DAEDALUS_PLUS_1_MAX_SPORES = 'daedalus_+1_max_spores';
     public const string PREVENT_MUSH_SHOWER_MALUS = 'prevent_mush_shower_malus';
+    public const string PLAYER_PLUS_1_INFECTION = 'player_+1_infection';
 
     public const string SHOOTER_SKILL_POINT = 'shooter_skill_point';
     public const string LOST_MODIFIER = 'lost_modifier';

@@ -126,6 +126,16 @@ final class SkillModifierConfigFixtures extends Fixture
         $this->addReference($modifierPreventMushShowerMalus->getName(), $modifierPreventMushShowerMalus);
         $manager->persist($modifierPreventMushShowerMalus);
 
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VALUE_PLUS_1_CHARGE_MUSH_STATUS);
+
+        $modifierPlayerPlus1Infection = DirectModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_1_INFECTION)
+        );
+        $modifierPlayerPlus1Infection->setTriggeredEvent($eventConfig);
+        $this->addReference($modifierPlayerPlus1Infection->getName(), $modifierPlayerPlus1Infection);
+        $manager->persist($modifierPlayerPlus1Infection);
+
         $manager->flush();
     }
 }

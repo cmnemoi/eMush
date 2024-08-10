@@ -65,13 +65,6 @@ final class ProjectModifierConfigFixtures extends Fixture
 
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference('change.variable_daedalus_shield_+5');
-
-        $plasmaShieldIsActiveModifierRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PROJECT_IS_ACTIVE);
-        $plasmaShieldIsActiveModifierRequirement
-            ->setActivationRequirement(ProjectName::PLASMA_SHIELD->value)
-            ->buildName();
-        $manager->persist($plasmaShieldIsActiveModifierRequirement);
-
         $plasmaShieldNewCycleModifier = new TriggerEventModifierConfig('modifier_for_daedalus_+5shield_on_new_cycle');
         $plasmaShieldNewCycleModifier
             ->setTriggeredEvent($eventConfig)
@@ -79,7 +72,7 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyWhenTargeted(true)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([$plasmaShieldIsActiveModifierRequirement]);
+            ->setModifierActivationRequirements([]);
 
         $this->manager->persist($plasmaShieldNewCycleModifier);
         $this->addReference($plasmaShieldNewCycleModifier->getName(), $plasmaShieldNewCycleModifier);
@@ -280,44 +273,42 @@ final class ProjectModifierConfigFixtures extends Fixture
         $maxChargesPatrolshipExtraAmmoModifierForAlphaTamarin = new DirectModifierConfig('modifier_for_daedalus_+6_patrol_ship_alpha_tamarin_max_charges');
         $maxChargesPatrolshipExtraAmmoModifierForAlphaTamarin
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN],
-            ]);
+            ])
+            ->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+
         $this->manager->persist($maxChargesPatrolshipExtraAmmoModifierForAlphaTamarin);
         $this->addReference($maxChargesPatrolshipExtraAmmoModifierForAlphaTamarin->getName(), $maxChargesPatrolshipExtraAmmoModifierForAlphaTamarin);
 
         $maxChargesPatrolshipExtraAmmoModifierForAlphaLongane = new DirectModifierConfig('modifier_for_daedalus_+6_patrol_ship_alpha_longane_max_charges');
         $maxChargesPatrolshipExtraAmmoModifierForAlphaLongane
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_ALPHA_LONGANE],
-            ]);
+            ])->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($maxChargesPatrolshipExtraAmmoModifierForAlphaLongane);
         $this->addReference($maxChargesPatrolshipExtraAmmoModifierForAlphaLongane->getName(), $maxChargesPatrolshipExtraAmmoModifierForAlphaLongane);
 
         $maxChargesPatrolshipExtraAmmoModifierForAlphaJujube = new DirectModifierConfig('modifier_for_daedalus_+6_patrol_ship_alpha_jujube_max_charges');
         $maxChargesPatrolshipExtraAmmoModifierForAlphaJujube
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE],
-            ]);
+            ])->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($maxChargesPatrolshipExtraAmmoModifierForAlphaJujube);
         $this->addReference($maxChargesPatrolshipExtraAmmoModifierForAlphaJujube->getName(), $maxChargesPatrolshipExtraAmmoModifierForAlphaJujube);
 
         $maxChargesPatrolshipExtraAmmoModifierForBravoPlanton = new DirectModifierConfig('modifier_for_daedalus_+6_patrol_ship_bravo_planton_max_charges');
         $maxChargesPatrolshipExtraAmmoModifierForBravoPlanton
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_BRAVO_PLANTON],
-            ]);
+            ])->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($maxChargesPatrolshipExtraAmmoModifierForBravoPlanton);
         $this->addReference($maxChargesPatrolshipExtraAmmoModifierForBravoPlanton->getName(), $maxChargesPatrolshipExtraAmmoModifierForBravoPlanton);
 
@@ -327,110 +318,100 @@ final class ProjectModifierConfigFixtures extends Fixture
         $maxChargesPatrolshipExtraAmmoModifierForBravoSocrate = new DirectModifierConfig('modifier_for_daedalus_+6_patrol_ship_bravo_socrate_max_charges');
         $maxChargesPatrolshipExtraAmmoModifierForBravoSocrate
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_BRAVO_SOCRATE],
-            ]);
+            ])->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($maxChargesPatrolshipExtraAmmoModifierForBravoSocrate);
         $this->addReference($maxChargesPatrolshipExtraAmmoModifierForBravoSocrate->getName(), $maxChargesPatrolshipExtraAmmoModifierForBravoSocrate);
 
         $maxChargesPatrolshipExtraAmmoModifierForBravoEpicure = new DirectModifierConfig('modifier_for_daedalus_+6_patrol_ship_bravo_epicure_max_charges');
         $maxChargesPatrolshipExtraAmmoModifierForBravoEpicure
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_BRAVO_EPICURE],
-            ]);
+            ])->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($maxChargesPatrolshipExtraAmmoModifierForBravoEpicure);
         $this->addReference($maxChargesPatrolshipExtraAmmoModifierForBravoEpicure->getName(), $maxChargesPatrolshipExtraAmmoModifierForBravoEpicure);
 
         $maxChargesPatrolshipExtraAmmoModifierForAlpha2Wallis = new DirectModifierConfig('modifier_for_daedalus_+6_patrol_ship_alpha_2_wallis_max_charges');
         $maxChargesPatrolshipExtraAmmoModifierForAlpha2Wallis
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS],
-            ]);
+            ])->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($maxChargesPatrolshipExtraAmmoModifierForAlpha2Wallis);
         $this->addReference($maxChargesPatrolshipExtraAmmoModifierForAlpha2Wallis->getName(), $maxChargesPatrolshipExtraAmmoModifierForAlpha2Wallis);
 
         $maxChargesPatrolshipExtraAmmoModifierForAlphaTamarin = new DirectModifierConfig('modifier_for_daedalus_patrol_ship_alpha_tamarin_set_charges_to_maximum');
         $maxChargesPatrolshipExtraAmmoModifierForAlphaTamarin
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN],
-            ]);
+            ])->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($maxChargesPatrolshipExtraAmmoModifierForAlphaTamarin);
         $this->addReference($maxChargesPatrolshipExtraAmmoModifierForAlphaTamarin->getName(), $maxChargesPatrolshipExtraAmmoModifierForAlphaTamarin);
 
         $setChargesToMaximumPatrolshipExtraAmmoModifierForAlphaLongane = new DirectModifierConfig('modifier_for_daedalus_patrol_ship_alpha_longane_set_charges_to_maximum');
         $setChargesToMaximumPatrolshipExtraAmmoModifierForAlphaLongane
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_ALPHA_LONGANE],
-            ]);
+            ])->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($setChargesToMaximumPatrolshipExtraAmmoModifierForAlphaLongane);
         $this->addReference($setChargesToMaximumPatrolshipExtraAmmoModifierForAlphaLongane->getName(), $setChargesToMaximumPatrolshipExtraAmmoModifierForAlphaLongane);
 
         $setChargesToMaximumPatrolshipExtraAmmoModifierForAlphaJujube = new DirectModifierConfig('modifier_for_daedalus_patrol_ship_alpha_jujube_set_charges_to_maximum');
         $setChargesToMaximumPatrolshipExtraAmmoModifierForAlphaJujube
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE],
-            ]);
+            ])->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($setChargesToMaximumPatrolshipExtraAmmoModifierForAlphaJujube);
         $this->addReference($setChargesToMaximumPatrolshipExtraAmmoModifierForAlphaJujube->getName(), $setChargesToMaximumPatrolshipExtraAmmoModifierForAlphaJujube);
 
         $setChargesToMaximumPatrolshipExtraAmmoModifierForBravoPlanton = new DirectModifierConfig('modifier_for_daedalus_patrol_ship_bravo_planton_set_charges_to_maximum');
         $setChargesToMaximumPatrolshipExtraAmmoModifierForBravoPlanton
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_BRAVO_PLANTON],
-            ]);
+            ])->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($setChargesToMaximumPatrolshipExtraAmmoModifierForBravoPlanton);
         $this->addReference($setChargesToMaximumPatrolshipExtraAmmoModifierForBravoPlanton->getName(), $setChargesToMaximumPatrolshipExtraAmmoModifierForBravoPlanton);
 
         $setChargesToMaximumPatrolshipExtraAmmoModifierForBravoSocrate = new DirectModifierConfig('modifier_for_daedalus_patrol_ship_bravo_socrate_set_charges_to_maximum');
         $setChargesToMaximumPatrolshipExtraAmmoModifierForBravoSocrate
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_BRAVO_SOCRATE],
-            ]);
+            ])->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($setChargesToMaximumPatrolshipExtraAmmoModifierForBravoSocrate);
         $this->addReference($setChargesToMaximumPatrolshipExtraAmmoModifierForBravoSocrate->getName(), $setChargesToMaximumPatrolshipExtraAmmoModifierForBravoSocrate);
 
         $setChargesToMaximumPatrolshipExtraAmmoModifierForBravoEpicure = new DirectModifierConfig('modifier_for_daedalus_patrol_ship_bravo_epicure_set_charges_to_maximum');
         $setChargesToMaximumPatrolshipExtraAmmoModifierForBravoEpicure
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_BRAVO_EPICURE],
-            ]);
+            ])->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($setChargesToMaximumPatrolshipExtraAmmoModifierForBravoEpicure);
         $this->addReference($setChargesToMaximumPatrolshipExtraAmmoModifierForBravoEpicure->getName(), $setChargesToMaximumPatrolshipExtraAmmoModifierForBravoEpicure);
 
         $setChargesToMaximumPatrolshipExtraAmmoModifierForAlpha2Wallis = new DirectModifierConfig('modifier_for_daedalus_patrol_ship_alpha_2_wallis_set_charges_to_maximum');
         $setChargesToMaximumPatrolshipExtraAmmoModifierForAlpha2Wallis
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([
+            ->setEventActivationRequirements([
                 $this->patrolShipExtraAmmoModifierActivationRequirements[EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS],
-            ]);
+            ])->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($setChargesToMaximumPatrolshipExtraAmmoModifierForAlpha2Wallis);
         $this->addReference($setChargesToMaximumPatrolshipExtraAmmoModifierForAlpha2Wallis->getName(), $setChargesToMaximumPatrolshipExtraAmmoModifierForAlpha2Wallis);
 

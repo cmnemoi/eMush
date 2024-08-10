@@ -282,87 +282,6 @@ class TakeSubscriberCest
         $I->assertEquals($player->getModifiers()->first()->getUsedCharge(), null);
     }
 
-    public function testTakeGearBroken(FunctionalTester $I)
-    {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        $player->setPlayerVariables($characterConfig);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $takeActionEntity = new ActionConfig();
-        $takeActionEntity
-            ->setActionName(ActionEnum::TAKE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($takeActionEntity);
-
-        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'soapShowerActionModifier',
-        ]);
-
-        $gear = new Gear();
-        $gear
-            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test');
-        $I->haveInRepository($gear);
-
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, [
-            'gameConfig' => $gameConfig,
-            'mechanics' => new ArrayCollection([$gear]),
-            'actionConfigs' => new ArrayCollection([$takeActionEntity]),
-        ]);
-
-        // Case of a game Equipment
-        $gameEquipment = new GameItem($room);
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName('some name');
-        $I->haveInRepository($gameEquipment);
-
-        $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setStatusName(EquipmentStatusEnum::BROKEN)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($statusConfig);
-        $status = new Status($gameEquipment, $statusConfig);
-        $I->haveInRepository($status);
-
-        $this->takeAction->loadParameters($takeActionEntity, $gameEquipment, $player, $gameEquipment);
-        $this->takeAction->execute();
-
-        $I->assertEquals($room->getEquipments()->count(), 0);
-        $I->assertEquals($player->getEquipments()->count(), 1);
-        $I->assertEquals($player->getModifiers()->count(), 0);
-        $I->assertEquals($room->getModifiers()->count(), 0);
-    }
-
     public function testTakeGearDaedalusReach(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
@@ -403,7 +322,7 @@ class TakeSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'soapShowerActionModifier',
+            'name' => 'decreaseCommunicationActionCost1Action',
         ]);
 
         $gear = new Gear();

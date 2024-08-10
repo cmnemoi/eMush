@@ -54,7 +54,13 @@ final class PlayerModifierService implements PlayerModifierServiceInterface
 
         foreach ($player->getAllModifierConfigs() as $modifierConfig) {
             if ($modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLACE) {
-                $this->modifierCreationService->deleteModifier($modifierConfig, $oldPlace, $tags, $time);
+                $this->modifierCreationService->deleteModifier(
+                    modifierConfig: $modifierConfig,
+                    holder: $oldPlace,
+                    modifierProvider: $player,
+                    tags: $tags,
+                    time: $time
+                );
             }
         }
 

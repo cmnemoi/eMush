@@ -25,6 +25,7 @@ interface ModifierCreationServiceInterface
     public function deleteModifier(
         AbstractModifierConfig $modifierConfig,
         ModifierHolderInterface $holder,
+        ModifierProviderInterface $modifierProvider,
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ): void;
@@ -32,6 +33,7 @@ interface ModifierCreationServiceInterface
     public function createDirectModifier(
         DirectModifierConfig $modifierConfig,
         ModifierHolderInterface $modifierRange,
+        ModifierProviderInterface $modifierProvider,
         array $tags,
         \DateTime $time,
         bool $reverse

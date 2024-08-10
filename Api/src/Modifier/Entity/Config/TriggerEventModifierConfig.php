@@ -2,6 +2,8 @@
 
 namespace Mush\Modifier\Entity\Config;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Enum\VisibilityEnum;
@@ -25,10 +27,17 @@ class TriggerEventModifierConfig extends EventModifierConfig
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $visibility = VisibilityEnum::PUBLIC;
 
+    #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
+    protected Collection $eventActivationRequirements;
+
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $targetFilters = [];
+
     public function __construct(string $name)
     {
         parent::__construct($name);
 
+        $this->modifierActivationRequirements = new ArrayCollection([]);
         $this->modifierStrategy = ModifierStrategyEnum::ADD_EVENT;
         $this->addNoneTagName();
     }
@@ -38,6 +47,7 @@ class TriggerEventModifierConfig extends EventModifierConfig
         $modifierConfig = new self($configData['name']);
         $modifierConfig
             ->setVisibility($configData['visibility'])
+            ->setTargetFilters($configData['targetFilters'])
             ->setTargetEvent($configData['targetEvent'])
             ->setPriority($configData['priority'])
             ->setApplyWhenTargeted($configData['applyOnTarget'])
@@ -129,6 +139,41 @@ class TriggerEventModifierConfig extends EventModifierConfig
         $parameters = parent::getTranslationParameters();
 
         return array_merge($parameters, $this->triggeredEvent->getTranslationParameters());
+    }
+
+    public function getEventActivationRequirements(): Collection
+    {
+        return $this->eventActivationRequirements;
+    }
+
+    public function addEventActivationRequirement(ModifierActivationRequirement $requirement): self
+    {
+        $this->eventActivationRequirements->add($requirement);
+
+        return $this;
+    }
+
+    public function setEventActivationRequirements(array|Collection $eventActivationRequirements): self
+    {
+        if (\is_array($eventActivationRequirements)) {
+            $eventActivationRequirements = new ArrayCollection($eventActivationRequirements);
+        }
+
+        $this->eventActivationRequirements = $eventActivationRequirements;
+
+        return $this;
+    }
+
+    public function setTargetFilters(array $targetFilters): self
+    {
+        $this->targetFilters = $targetFilters;
+
+        return $this;
+    }
+
+    public function getTargetFilters(): array
+    {
+        return $this->targetFilters;
     }
 
     // this prevents infinite loop where triggeredEvent can trigger itself

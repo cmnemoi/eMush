@@ -57,11 +57,16 @@ final class AddSkillToPlayerService
         foreach ($skill->getModifierConfigs() as $modifierConfig) {
             $modifierHolder = match ($modifierConfig->getModifierRange()) {
                 ModifierHolderClassEnum::PLAYER => $skill->getPlayer(),
+                ModifierHolderClassEnum::PLACE => $skill->getPlayer()->getPlace(),
                 ModifierHolderClassEnum::DAEDALUS => $skill->getDaedalus(),
                 default => throw new \InvalidArgumentException("You can't create skill modifier {$modifierConfig->getName()} on a {$modifierConfig->getModifierRange()} holder !"),
             };
 
-            $this->modifierCreationService->createModifier($modifierConfig, $modifierHolder);
+            $this->modifierCreationService->createModifier(
+                modifierConfig: $modifierConfig,
+                holder: $modifierHolder,
+                modifierProvider: $skill->getPlayer()
+            );
         }
     }
 

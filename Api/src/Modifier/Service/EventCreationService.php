@@ -2,11 +2,15 @@
 
 namespace Mush\Modifier\Service;
 
+use Doctrine\Common\Collections\Collection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
+use Mush\Game\Entity\VariableEventConfig;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Modifier\Enum\EventTargetNameEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -14,29 +18,61 @@ use Mush\Player\Entity\Player;
 
 final class EventCreationService implements EventCreationServiceInterface
 {
+    private GameEquipmentRepositoryInterface $gameEquipmentRepository;
+    private RandomServiceInterface $randomService;
+
+    private ModifierRequirementServiceInterface $modifierRequirementService;
+
     public function __construct(
-        private GameEquipmentRepositoryInterface $gameEquipmentRepository
-    ) {}
+        GameEquipmentRepositoryInterface $gameEquipmentRepository,
+        RandomServiceInterface $randomService,
+        ModifierRequirementServiceInterface $modifierRequirementService
+    ) {
+        $this->gameEquipmentRepository = $gameEquipmentRepository;
+        $this->randomService = $randomService;
+        $this->modifierRequirementService = $modifierRequirementService;
+    }
 
     public function getEventTargetsFromModifierHolder(
-        string $eventTarget,
-        ModifierHolderInterface $holder,
+        VariableEventConfig $eventConfig,
+        Collection $eventTargetRequirements,
+        array $targetFilters,
+        ModifierHolderInterface $range,
+        ModifierProviderInterface $author
     ): array {
+        $eventTarget = $eventConfig->getVariableHolderClass();
+
         switch ($eventTarget) {
             case EventTargetNameEnum::DAEDALUS:
-                $daedalus = $holder->getDaedalus();
+                $daedalus = $range->getDaedalus();
 
-                return [$daedalus];
+                $eventTargets = [$daedalus];
+
+                break;
 
             case EventTargetNameEnum::PLAYER:
-                return $this->getPlayersFromModifierHolder($holder)->toArray();
+                $eventTargets = $this->getPlayersFromModifierHolder($range)->toArray();
+
+                break;
 
             case EventTargetNameEnum::EQUIPMENT:
-                return $this->getEquipmentsFromModifierHolder($holder);
+                $eventTargets = $this->getEquipmentsFromModifierHolder($range);
+
+                break;
 
             default:
                 throw new \Exception("This variableHolderClass {$eventTarget} is not supported");
         }
+
+        if (\in_array(EventTargetNameEnum::EXCLUDE_PROVIDER, $targetFilters, true)) {
+            $eventTargets = $this->excludeAuthorFromTargets($eventTargets, $author);
+        }
+
+        if (\in_array(EventTargetNameEnum::SINGLE_RANDOM, $targetFilters, true)) {
+            $eventTargets = $this->randomService->getRandomElements($eventTargets, 1);
+        }
+
+        return $this->checkRequirements($eventTargets, $eventTargetRequirements);
     }
 
     private function getPlayersFromModifierHolder(
@@ -83,5 +119,19 @@ final class EventCreationService implements EventCreationServiceInterface
         $className = $modifierHolder::class;
 
         throw new \Exception("This eventConfig ({$className}) class is not supported");
+    }
+
+    private function excludeAuthorFromTargets(array $targets, ModifierProviderInterface $author): array
+    {
+        return array_filter($targets, static function ($target) use ($author) {
+            return !($target === $author);
+        });
+    }
+
+    private function checkRequirements(array $targets, Collection $targetRequirements): array
+    {
+        return array_filter($targets, function ($target) use ($targetRequirements) {
+            return $this->modifierRequirementService->checkRequirements($targetRequirements, $target);
+        });
     }
 }

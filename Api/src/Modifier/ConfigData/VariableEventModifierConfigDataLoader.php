@@ -29,7 +29,7 @@ class VariableEventModifierConfigDataLoader extends EventModifierConfigDataLoade
                 ->setDelta($modifierConfigData['delta'])
                 ->setTargetVariable($modifierConfigData['targetVariable']);
             $this->loadEventModifierData($modifierConfig, $modifierConfigData);
-            $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);
+            $modifierConfig->setModifierActivationRequirements($this->getModifierConfigActivationRequirements($modifierConfigData, 'modifierActivationRequirements'));
 
             $this->entityManager->persist($modifierConfig);
         }

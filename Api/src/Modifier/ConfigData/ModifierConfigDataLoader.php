@@ -5,7 +5,6 @@ namespace Mush\Modifier\ConfigData;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Game\Repository\EventConfigRepository;
-use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Repository\ModifierActivationRequirementRepository;
 use Mush\Modifier\Repository\ModifierConfigRepository;
 
@@ -27,10 +26,10 @@ abstract class ModifierConfigDataLoader extends ConfigDataLoader
         $this->eventConfigRepository = $eventConfigRepository;
     }
 
-    protected function setModifierConfigActivationRequirements(AbstractModifierConfig $modifierConfig, array $modifierConfigData): void
+    protected function getModifierConfigActivationRequirements(array $modifierConfigData, string $parameterName): array
     {
         $modifierActivationRequirements = [];
-        foreach ($modifierConfigData['modifierActivationRequirements'] as $activationRequirementName) {
+        foreach ($modifierConfigData[$parameterName] as $activationRequirementName) {
             $modifierActivationRequirement = $this->modifierActivationRequirementRepository->findOneBy(['name' => $activationRequirementName]);
 
             if ($modifierActivationRequirement === null) {
@@ -38,6 +37,7 @@ abstract class ModifierConfigDataLoader extends ConfigDataLoader
             }
             $modifierActivationRequirements[] = $modifierActivationRequirement;
         }
-        $modifierConfig->setModifierActivationRequirements($modifierActivationRequirements);
+
+        return $modifierActivationRequirements;
     }
 }

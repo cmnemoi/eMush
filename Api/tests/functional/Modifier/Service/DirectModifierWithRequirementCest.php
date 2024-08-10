@@ -52,7 +52,13 @@ final class DirectModifierWithRequirementCest extends AbstractFunctionalTest
         $I->haveInRepository($modifier);
 
         // When applying the modifier
-        $this->modifierCreationService->createModifier($modifier, $this->player1, [], new \DateTime());
+        $this->modifierCreationService->createModifier(
+            modifierConfig: $modifier,
+            holder: $this->player1,
+            modifierProvider: $this->player1,
+            tags: [],
+            time: new \DateTime()
+        );
 
         // then the amount of moral point should not have changed (requirement not met)
         $I->assertEquals($initMoralPoint, $this->player1->getMoralPoint());
@@ -62,7 +68,13 @@ final class DirectModifierWithRequirementCest extends AbstractFunctionalTest
         $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::FINOLA);
 
         // When applying the modifier
-        $this->modifierCreationService->createModifier($modifier, $this->player1, [], new \DateTime());
+        $this->modifierCreationService->createModifier(
+            modifierConfig: $modifier,
+            holder: $this->player1,
+            modifierProvider: $this->player1,
+            tags: [],
+            time: new \DateTime()
+        );
 
         // then the amount of moral point should have diminished (requirement is met)
         $I->assertEquals($initMoralPoint - 3, $this->player1->getMoralPoint());

@@ -2,6 +2,8 @@
 
 namespace Mush\Modifier\Entity\Config;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
@@ -23,9 +25,16 @@ class DirectModifierConfig extends AbstractModifierConfig
     #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $revertOnRemove = false;
 
+    #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
+    protected Collection $eventActivationRequirements;
+
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $targetFilters = [];
+
     public function __construct($name)
     {
         $this->modifierStrategy = ModifierStrategyEnum::DIRECT_MODIFIER;
+        $this->eventActivationRequirements = new ArrayCollection([]);
 
         parent::__construct($name);
     }
@@ -74,5 +83,40 @@ class DirectModifierConfig extends AbstractModifierConfig
     public function getTranslationParameters(): array
     {
         return $this->triggeredEvent->getTranslationParameters();
+    }
+
+    public function getEventActivationRequirements(): Collection
+    {
+        return $this->eventActivationRequirements;
+    }
+
+    public function addEventActivationRequirement(ModifierActivationRequirement $requirement): self
+    {
+        $this->eventActivationRequirements->add($requirement);
+
+        return $this;
+    }
+
+    public function setEventActivationRequirements(array|Collection $eventActivationRequirements): self
+    {
+        if (\is_array($eventActivationRequirements)) {
+            $eventActivationRequirements = new ArrayCollection($eventActivationRequirements);
+        }
+
+        $this->eventActivationRequirements = $eventActivationRequirements;
+
+        return $this;
+    }
+
+    public function setTargetFilters(array $targetFilters): self
+    {
+        $this->targetFilters = $targetFilters;
+
+        return $this;
+    }
+
+    public function getTargetFilters(): array
+    {
+        return $this->targetFilters;
     }
 }

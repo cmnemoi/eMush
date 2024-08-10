@@ -26,4 +26,6 @@ interface ModifierProviderInterface
     public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum;
 
     public function getAllModifierConfigs(): ArrayCollection;
+
+    public function getId(): ?int;
 }

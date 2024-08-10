@@ -54,7 +54,13 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
             if ($holder === null) {
                 return;
             }
-            $this->modifierCreationService->deleteModifier($modifierConfig, $holder, $tags, $time);
+            $this->modifierCreationService->deleteModifier(
+                modifierConfig: $modifierConfig,
+                holder: $holder,
+                modifierProvider: $gameEquipment,
+                tags: $tags,
+                time: $time
+            );
         }
     }
 
@@ -83,20 +89,31 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
                 $modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLAYER
                 || $modifierConfig->getModifierRange() === ModifierHolderClassEnum::TARGET_PLAYER
             ) {
-                $this->modifierCreationService->deleteModifier($modifierConfig, $player, $tags, $time);
+                $this->modifierCreationService->deleteModifier(
+                    modifierConfig: $modifierConfig,
+                    holder: $player,
+                    modifierProvider: $gameEquipment,
+                    tags: $tags,
+                    time: $time
+                );
             }
         }
     }
 
     public function equipmentLeaveRoom(GameEquipment $gameEquipment, Place $place, array $tags, \DateTime $time): void
     {
-        $place = $gameEquipment->getPlace();
-
+        /** @var AbstractModifierConfig $modifierConfig */
         foreach ($gameEquipment->getAllModifierConfigs() as $modifierConfig) {
             if (
                 $modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLACE
             ) {
-                $this->modifierCreationService->deleteModifier($modifierConfig, $place, $tags, $time);
+                $this->modifierCreationService->deleteModifier(
+                    modifierConfig: $modifierConfig,
+                    holder: $place,
+                    modifierProvider: $gameEquipment,
+                    tags: $tags,
+                    time: $time
+                );
             }
         }
     }

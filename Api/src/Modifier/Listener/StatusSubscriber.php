@@ -13,6 +13,7 @@ use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -50,18 +51,10 @@ class StatusSubscriber implements EventSubscriberInterface
                 return;
             }
 
-            if (
-                $statusHolder instanceof ModifierProviderInterface
-            ) {
-                $modifierProvider = $statusHolder;
-            } else {
-                $modifierProvider = $event->getStatus();
-            }
-
             $this->modifierCreationService->createModifier(
                 modifierConfig: $modifierConfig,
                 holder: $modifierHolder,
-                modifierProvider: $modifierProvider,
+                modifierProvider: $this->getModifierProvider($event),
                 tags: $event->getTags(),
                 time: $event->getTime(),
             );
@@ -84,7 +77,13 @@ class StatusSubscriber implements EventSubscriberInterface
                 return;
             }
 
-            $this->modifierCreationService->deleteModifier($modifierConfig, $modifierHolder, $event->getTags(), $event->getTime());
+            $this->modifierCreationService->deleteModifier(
+                modifierConfig: $modifierConfig,
+                holder: $modifierHolder,
+                modifierProvider: $this->getModifierProvider($event),
+                tags: $event->getTags(),
+                time: $event->getTime()
+            );
         }
     }
 
@@ -110,11 +109,24 @@ class StatusSubscriber implements EventSubscriberInterface
             $this->modifierCreationService->createDirectModifier(
                 modifierConfig: $modifierConfig,
                 modifierRange: $statusHolder,
+                modifierProvider: $this->getModifierProvider($event),
                 tags: $event->getTags(),
                 time: $event->getTime(),
                 reverse: false
             );
         }
+    }
+
+    private function getModifierProvider(StatusEvent $event): ModifierProviderInterface
+    {
+        $statusHolder = $event->getStatusHolder();
+        if (
+            $statusHolder instanceof ModifierProviderInterface
+        ) {
+            return $statusHolder;
+        }
+
+        return $event->getStatus();
     }
 
     private function getModifierHolderFromConfig(StatusHolderInterface $statusHolder, AbstractModifierConfig $modifierConfig): ?ModifierHolderInterface

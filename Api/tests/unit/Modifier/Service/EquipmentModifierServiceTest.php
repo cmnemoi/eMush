@@ -204,7 +204,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $date = new \DateTime();
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig1, $daedalus, [], $date)
+            ->with($modifierConfig1, $daedalus, $gameEquipment, [], $date)
             ->once();
         $this->service->gearDestroyed($gameEquipment, [], $date);
 
@@ -215,7 +215,7 @@ final class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig1, $daedalus, [], $date)
+            ->with($modifierConfig1, $daedalus, $gameEquipment, [], $date)
             ->once();
         $this->service->gearDestroyed($gameEquipment, [], $date);
     }
@@ -326,7 +326,7 @@ final class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig1, $player, [], $date)
+            ->with($modifierConfig1, $player, $gameEquipment, [], $date)
             ->never();
         $this->service->dropEquipment($gameEquipment, $player, [], $date);
     }
@@ -363,7 +363,7 @@ final class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig2, $player, [], $date)
+            ->with($modifierConfig2, $player, $gameEquipment, [], $date)
             ->once();
         $this->service->dropEquipment($gameEquipment, $player, [], $date);
     }

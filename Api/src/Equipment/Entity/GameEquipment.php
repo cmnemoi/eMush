@@ -531,6 +531,26 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return max(0, $maturationTimeLeft);
     }
 
+    public function getAllModifierConfigs(): ArrayCollection
+    {
+        $modifierConfigs = [];
+
+        // then modifiers provided by equipment statuses
+        $modifierConfigs = $this->getStatuses()
+            ->map(static fn (Status $status) => $status->getStatusConfig()->getModifierConfigs())
+            ->reduce(static fn (array $modifierConfigs, $statusModifierConfigs) => array_merge($modifierConfigs, $statusModifierConfigs->toArray()), $modifierConfigs);
+
+        // then modifiers provided by gear
+        if ($this->hasMechanicByName(EquipmentMechanicEnum::GEAR)) {
+            /** @var Gear $gear */
+            $gear = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::GEAR);
+
+            $modifierConfigs = array_merge($gear->getModifierConfigs()->toArray(), $modifierConfigs);
+        }
+
+        return new ArrayCollection($modifierConfigs);
+    }
+
     private function canProduceFruit(): bool
     {
         foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED, EquipmentStatusEnum::PLANT_THIRSTY] as $status) {
@@ -551,26 +571,6 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
 
         return true;
-    }
-
-    public function getAllModifierConfigs(): ArrayCollection
-    {
-        $modifierConfigs = [];
-
-        // then modifiers provided by equipment statuses
-        $modifierConfigs = $this->getStatuses()
-            ->map(static fn (Status $status) => $status->getStatusConfig()->getModifierConfigs())
-            ->reduce(static fn (array $modifierConfigs, $statusModifierConfigs) => array_merge($modifierConfigs, $statusModifierConfigs->toArray()), $modifierConfigs);
-
-        // then modifiers provided by gear
-        if ($this->hasMechanicByName(EquipmentMechanicEnum::GEAR)) {
-            /** @var Gear $gear */
-            $gear = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::GEAR);
-
-            $modifierConfigs = array_merge($gear->getModifierConfigs()->toArray(), $modifierConfigs);
-        }
-
-        return new ArrayCollection($modifierConfigs);
     }
 
     private function isActionProvidedByMechanic(string $actionName): bool

@@ -18,7 +18,7 @@ final class DeletePlayerRelatedModifiersService
         /** @var AbstractModifierConfig $modifierConfig */
         foreach ($player->getAllModifierConfigs() as $modifierConfig) {
             $modifierHolder = match ($modifierConfig->getModifierRange()) {
-                ModifierHolderClassEnum::PLAYER => $player,
+                ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER => $player,
                 ModifierHolderClassEnum::DAEDALUS => $player->getDaedalus(),
                 ModifierHolderClassEnum::PLACE => $player->getPlace(),
                 default => throw new \LogicException("Modifier holded by {$modifierConfig->getModifierRange()} is not related to player : cannot delete it"),
@@ -27,6 +27,7 @@ final class DeletePlayerRelatedModifiersService
             $this->modifierCreationService->deleteModifier(
                 modifierConfig: $modifierConfig,
                 holder: $modifierHolder,
+                modifierProvider: $player,
                 tags: $tags,
                 time: $time,
             );

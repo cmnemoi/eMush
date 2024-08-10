@@ -142,6 +142,16 @@ final class SkillModifierConfigFixtures extends Fixture
         $this->addReference($modifierMinus25PercentageOnActionHitAndAttack->getName(), $modifierMinus25PercentageOnActionHitAndAttack);
         $manager->persist($modifierMinus25PercentageOnActionHitAndAttack);
 
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference('change.variable_player_+1moralePoint');
+        $shrinkMoraleIncrease = TriggerEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_for_player_+1morale_point_on_new_cycle_if_lying_down')
+        );
+        $shrinkMoraleIncrease->setTriggeredEvent($eventConfig);
+
+        $this->addReference($shrinkMoraleIncrease->getName(), $shrinkMoraleIncrease);
+        $manager->persist($shrinkMoraleIncrease);
+
         $manager->flush();
     }
 }

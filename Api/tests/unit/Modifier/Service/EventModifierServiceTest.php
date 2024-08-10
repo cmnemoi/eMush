@@ -162,8 +162,8 @@ final class EventModifierServiceTest extends TestCase
         $modifier->setModifierProvider($player);
 
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
             ->andReturn(true)
             ->once();
 
@@ -205,8 +205,8 @@ final class EventModifierServiceTest extends TestCase
         $modifier = new GameModifier($daedalus, $modifierConfig);
 
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
             ->never();
         $this->modifierHandlerService
             ->shouldReceive('getModifierHandler')
@@ -239,8 +239,8 @@ final class EventModifierServiceTest extends TestCase
         $modifier = new GameModifier($daedalus, $modifierConfig);
 
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
             ->never();
         $this->modifierHandlerService
             ->shouldReceive('getModifierHandler')
@@ -273,8 +273,8 @@ final class EventModifierServiceTest extends TestCase
         $modifier->setModifierProvider($player);
 
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
             ->andReturn(false)
             ->once();
         $this->modifierHandlerService
@@ -316,8 +316,8 @@ final class EventModifierServiceTest extends TestCase
 
         // Modifier1 should be applied first
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig1, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig1->getModifierActivationRequirements(), $daedalus)
             ->andReturn(true)
             ->once();
         $modifierHandler1 = $this->createMock(AbstractModifierHandler::class);
@@ -333,8 +333,8 @@ final class EventModifierServiceTest extends TestCase
 
         // Now applies modifier2
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig2, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig2->getModifierActivationRequirements(), $daedalus)
             ->andReturn(true)
             ->once();
         $modifierHandler2 = $this->createMock(AbstractModifierHandler::class);

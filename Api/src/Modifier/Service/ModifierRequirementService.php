@@ -2,8 +2,8 @@
 
 namespace Mush\Modifier\Service;
 
+use Doctrine\Common\Collections\Collection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 
@@ -25,7 +25,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
             $holder = $modifier->getModifierHolder();
 
             if ($modifier->isProviderActive()) {
-                if ($this->checkModifier($modifier->getModifierConfig(), $holder)) {
+                if ($this->checkRequirements($modifier->getModifierConfig()->getModifierActivationRequirements(), $holder)) {
                     $validatedModifiers->add($modifier);
                 }
             }
@@ -34,11 +34,12 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         return $validatedModifiers;
     }
 
-    public function checkModifier(
-        AbstractModifierConfig $modifierConfig,
+    public function checkRequirements(
+        Collection $modifierRequirements,
         ModifierHolderInterface $holder
     ): bool {
-        foreach ($modifierConfig->getModifierActivationRequirements() as $activationRequirement) {
+        /** @var ModifierActivationRequirement $activationRequirement */
+        foreach ($modifierRequirements as $activationRequirement) {
             if (!$this->checkActivationRequirement($activationRequirement, $holder)) {
                 return false;
             }

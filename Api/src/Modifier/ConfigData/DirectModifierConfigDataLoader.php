@@ -32,7 +32,9 @@ class DirectModifierConfigDataLoader extends ModifierConfigDataLoader
                 ->setModifierStrategy($modifierConfigData['strategy']);
 
             $modifierConfig = $this->setEventConfig($modifierConfig, $modifierConfigData['triggeredEvent']);
-            $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);
+            $modifierConfig->setModifierActivationRequirements($this->getModifierConfigActivationRequirements($modifierConfigData, 'modifierActivationRequirements'));
+            $modifierConfig->setEventActivationRequirements($this->getModifierConfigActivationRequirements($modifierConfigData, 'eventActivationRequirements'));
+            $modifierConfig->setTargetFilters($modifierConfigData['targetFilters']);
 
             $this->entityManager->persist($modifierConfig);
         }

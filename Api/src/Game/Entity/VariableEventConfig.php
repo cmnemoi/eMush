@@ -22,7 +22,6 @@ use Mush\Status\Event\ChargeStatusEvent;
  * name: a unique name needed for the DB
  * targetVariable: the name of the game Variable modified by the event
  * variableHolderClass: the name of the class on which the event will be applied (should be a variableHolderInterface)
- * mode: what pat of the game variable is modified (value, max or min)
  * quantity: the amount of point modified
  */
 #[ORM\Entity]

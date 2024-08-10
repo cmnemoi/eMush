@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Action\Service;
+namespace Mush\RoomLog\Service;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Enum\ActionEnum;
@@ -10,9 +10,8 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 
-final class ActionHistoryLogService
+final class ActionHistoryRevealLogService
 {
     public function __construct(
         private RoomLogServiceInterface $roomLogService,

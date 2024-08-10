@@ -8,7 +8,6 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Service\ActionHistoryLogService;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Game\Event\VariableEventInterface;
@@ -17,6 +16,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Service\ActionHistoryRevealLogService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -30,7 +30,7 @@ final class Chitchat extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        private ActionHistoryLogService $actionHistoryLog,
+        private ActionHistoryRevealLogService $actionHistoryRevealLog,
         private StatusServiceInterface $statusService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
@@ -74,7 +74,7 @@ final class Chitchat extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $this->addMoralePointsToPlayer();
-        $this->actionHistoryLog->generate(numberOfActions: $this->confidentMorale(), action: $this);
+        $this->actionHistoryRevealLog->generate(numberOfActions: $this->confidentMorale(), action: $this);
         $this->createHasChichattedStatus();
     }
 

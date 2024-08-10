@@ -8,13 +8,13 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Service\ActionHistoryLogService;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Service\ActionHistoryRevealLogService;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -26,7 +26,7 @@ final class Premonition extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        private ActionHistoryLogService $actionHistoryLog,
+        private ActionHistoryRevealLogService $actionHistoryRevealLog,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -57,7 +57,7 @@ final class Premonition extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $this->actionHistoryLog->generate($this->numberOfActionsToReveal(), $this);
+        $this->actionHistoryRevealLog->generate($this->numberOfActionsToReveal(), $this);
     }
 
     private function numberOfActionsToReveal(): int

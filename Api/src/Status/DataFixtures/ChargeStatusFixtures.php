@@ -22,8 +22,6 @@ use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
-use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\ConfigData\StatusConfigData;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -260,9 +258,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var ActionConfig $trapClosetAction */
         $trapClosetAction = $this->getReference(ActionEnum::TRAP_CLOSET->value);
-
-        /** @var SkillConfig $anonymushSkillConfig */
-        $anonymushSkillConfig = $this->getReference(SkillEnum::ANONYMUSH->value);
 
         $mushStatus = new ChargeStatusConfig();
         $mushStatus

@@ -356,5 +356,15 @@
         <target>Lorsque vous êtes {character_gender, select, female {présente} other {présent}} dans le vaisseau, NERON est apaisé, ses routines tournent sans erreurs et ses performances s'en trouvent grandement améliorées.//:point: Les gains de **chaque projet NERON** sont **maximisés** pour tous.</target>
       </segment>
     </unit>
+    <unit id="mycelium_spirit">
+      <segment id="mycelium_spirit.name" state="translated">
+        <source>mycelium_spirit.name</source>
+        <target>Esprit du Mycélium</target>
+      </segment>
+      <segment id="mycelium_spirit.description" state="translated">
+        <source>mycelium_spirit.description</source>
+        <target>Votre mission est sacrée. Le Mush vous a choisi comme relais majeur fongique trans dimensionnel.//:point: Tant que vous êtes en vie, les Mush peuvent **produire 1 spore de plus par jour**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -13,6 +13,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 class EventConfigData
 {
     public const string CHANGE_VARIABLE_PLAYER_PLUS_1_ACTION_POINT = 'change.variable_player_+1_actionPoint';
+    public const string CHANGE_VALUE_PLUS_1_MAX_DAEDALUS_SPORE = 'change.value.max_daedalus_+1_spore';
 
     public static array $variableEventConfigData = [
         [
@@ -302,6 +303,14 @@ class EventConfigData
             'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
             'eventName' => VariableEventInterface::CHANGE_VARIABLE,
             'name' => self::CHANGE_VARIABLE_PLAYER_PLUS_1_ACTION_POINT,
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 1,
+            'targetVariable' => DaedalusVariableEnum::SPORE,
+            'variableHolderClass' => ModifierHolderClassEnum::DAEDALUS,
+            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
+            'name' => self::CHANGE_VALUE_PLUS_1_MAX_DAEDALUS_SPORE,
         ],
     ];
 

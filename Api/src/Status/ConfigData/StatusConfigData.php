@@ -6,7 +6,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -874,9 +873,6 @@ abstract class StatusConfigData
                 'make_sick',
                 'screw_talkie',
                 ActionEnum::TRAP_CLOSET->value,
-            ],
-            'skillConfigs' => [
-                SkillEnum::ANONYMUSH,
             ],
         ],
         [

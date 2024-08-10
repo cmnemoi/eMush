@@ -578,6 +578,7 @@ class GameConfigData
             ],
             'mushSkillConfigs' => [
                 SkillEnum::ANONYMUSH,
+                SkillEnum::MYCELIUM_SPIRIT,
             ],
         ],
     ];

@@ -47,9 +47,8 @@ class DaedalusVariables extends GameVariableCollection
         $sporeVariable = new GameVariable(
             $this,
             DaedalusVariableEnum::SPORE,
-            $daedalusConfig->getDailySporeNb(),
-            $daedalusConfig->getDailySporeNb(),
-            0
+            initValue: 0,
+            maxValue: $daedalusConfig->getDailySporeNb(),
         );
 
         $hunterPointsVariable = new GameVariable(

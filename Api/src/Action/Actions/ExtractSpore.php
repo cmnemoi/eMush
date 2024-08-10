@@ -27,7 +27,7 @@ class ExtractSpore extends AbstractAction
         $metadata->addConstraint(new HasStatus(['status' => PlayerStatusEnum::MUSH, 'target' => HasStatus::PLAYER, 'groups' => ['visibility']]));
         $metadata->addConstraint(new GameVariableLevel([
             'target' => GameVariableLevel::DAEDALUS,
-            'checkMode' => GameVariableLevel::IS_MIN,
+            'checkMode' => GameVariableLevel::IS_MAX,
             'variableName' => DaedalusVariableEnum::SPORE,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT,
@@ -54,22 +54,29 @@ class ExtractSpore extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $player = $this->player;
+        $this->incrementPlayerSpores();
+        $this->incrementDaedalusSpores();
+    }
 
+    private function incrementPlayerSpores(): void
+    {
         $playerModifierEvent = new PlayerVariableEvent(
-            $player,
+            $this->player,
             PlayerVariableEnum::SPORE,
             1,
-            $this->getActionConfig()->getActionTags(),
+            $this->getTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
 
+    private function incrementDaedalusSpores(): void
+    {
         $daedalusModifierEvent = new DaedalusVariableEvent(
-            $player->getDaedalus(),
+            $this->player->getDaedalus(),
             DaedalusVariableEnum::SPORE,
-            -1,
-            $this->getActionConfig()->getActionTags(),
+            1,
+            $this->getTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($daedalusModifierEvent, VariableEventInterface::CHANGE_VARIABLE);

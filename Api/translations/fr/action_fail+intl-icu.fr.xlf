@@ -226,7 +226,7 @@
     <unit id="daily_spore_limit">
       <segment id="description" state="final">
         <source>daily_spore_limit.description</source>
-        <target>L'ensemble des *Mush* ne peuvent produire plus de *{quantity} spores* par jour.</target>
+        <target>L'ensemble des **Mush** ne peuvent produire plus de **{quantity} spores** par jour.</target>
       </segment>
     </unit>
     <unit id="personal_spore_limit">

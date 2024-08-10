@@ -206,6 +206,12 @@ abstract class SkillConfigData
                 ],
                 skillPointsConfig: SkillPointsEnum::TECHNICIAN_POINTS,
             ),
+            new SkillConfigDto(
+                name: SkillEnum::LOGISTICS_EXPERT,
+                modifierConfigs: [
+                    'logistic_modifier',
+                ],
+            ),
         ];
     }
 

@@ -66,7 +66,7 @@ class PrivateChannelAuthorizationCest
         $I->haveInRepository($dropActionEntity);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -187,7 +187,7 @@ class PrivateChannelAuthorizationCest
         $I->haveInRepository($moveActionEntity);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -340,7 +340,7 @@ class PrivateChannelAuthorizationCest
         $I->haveInRepository($moveActionEntity);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -486,7 +486,7 @@ class PrivateChannelAuthorizationCest
         $I->haveInRepository($dropActionEntity);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
         $neron = new Neron();
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);

@@ -2,7 +2,6 @@
 
 namespace Mush\Status\Listener;
 
-use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;

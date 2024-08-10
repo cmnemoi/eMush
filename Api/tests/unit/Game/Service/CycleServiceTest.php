@@ -46,8 +46,10 @@ final class CycleServiceTest extends TestCase
         $this->lockFactory = \Mockery::mock(LockFactory::class);
         $this->logger = \Mockery::mock(LoggerInterface::class);
 
+        $this->entityManager->shouldReceive('beginTransaction');
         $this->entityManager->shouldReceive('persist');
         $this->entityManager->shouldReceive('flush');
+        $this->entityManager->shouldReceive('commit');
 
         $lockInterface = \Mockery::mock(LockInterface::class);
         $lockInterface->shouldReceive('acquire')->andReturn(true);

@@ -163,11 +163,10 @@ class CycleService implements CycleServiceInterface
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalusInfo);
 
         if ($cycleElapsed > 0) {
-            $daedalus->setIsCycleChange(true);
-            $this->entityManager->persist($daedalus);
-            $this->entityManager->flush();
-
             try {
+                $this->entityManager->beginTransaction();
+                $daedalus->setIsCycleChange(true);
+
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
                     $dateDaedalusLastCycle->add(new \DateInterval('PT' . $daedalusConfig->getCycleLength() . 'M'));
                     $cycleEvent = new DaedalusCycleEvent(
@@ -182,17 +181,23 @@ class CycleService implements CycleServiceInterface
                         break;
                     }
                 }
-            } catch (\Throwable $e) {
-                $this->logger->error('Error during cycle change', [
-                    'daedalus' => $daedalus->getId(),
-                    'error' => $e->getMessage(),
-                    'trace' => $e->getTraceAsString(),
-                ]);
-            } finally {
+
                 $daedalus->setCycleStartedAt($dateDaedalusLastCycle);
                 $daedalus->setIsCycleChange(false);
+
                 $this->entityManager->persist($daedalus);
                 $this->entityManager->flush();
+                $this->entityManager->commit();
+            } catch (\Throwable $error) {
+                $this->logger->error('Error during cycle change', [
+                    'daedalus' => $daedalus->getId(),
+                    'error' => $error->getMessage(),
+                    'trace' => $error->getTraceAsString(),
+                ]);
+                $this->entityManager->rollback();
+                $this->entityManager->close();
+
+                throw $error;
             }
         }
 

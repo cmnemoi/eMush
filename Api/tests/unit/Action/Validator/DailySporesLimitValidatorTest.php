@@ -5,12 +5,10 @@ namespace Mush\Tests\unit\Action\Validator;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\DailySporesLimit;
 use Mush\Action\Validator\DailySporesLimitValidator;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Player\Entity\Player;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Factory\StatusFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -40,79 +38,41 @@ final class DailySporesLimitValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    /** @TODO once spore status is totaly replaced by the spore variable on player, rework this test using GameVariableLevel validator */
-    /*public function testValidForDaedalus()
+    public function testNotValidForPlayer()
     {
-        $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setDailySporeNb(4);
+        // given a player
+        $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
 
-        $daedalus = new Daedalus();
-        $daedalus
-            ->setDaedalusVariables($daedalusConfig)
-            ->setSpores(1)
-        ;
-
-        $player = new Player();
-        $player->setDaedalus($daedalus);
-
-        $this->constraint->target = DailySporesLimit::DAEDALUS;
-
-        $action = \Mockery::mock(AbstractAction::class);
-        $action
-            ->shouldReceive([
-                'getPlayer' => $player,
-            ])
-        ;
-
-        $this->initValidator();
-        $this->validator->validate($action, $this->constraint);
-
-        $this->assertTrue(true);
-    }
-
-    public function testNotValidForDaedalus()
-    {
-        $daedalus = new Daedalus();
-        $daedalus->setSpores(0);
-
-        $player = new Player();
-        $player->setDaedalus($daedalus);
-
-        $this->constraint->target = DailySporesLimit::DAEDALUS;
-
-        $action = \Mockery::mock(AbstractAction::class);
-        $action
-            ->shouldReceive([
-                'getPlayer' => $player,
-            ])
-        ;
-
-        $this->initValidator($this->constraint->message);
-        $this->validator->validate($action, $this->constraint);
-
-        $this->assertTrue(true);
-    }*/
-
-    public function testValidForPlayer()
-    {
-        $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setDailySporeNb(4);
-
-        $daedalus = new Daedalus();
-        $daedalus
-            ->setDaedalusVariables($daedalusConfig)
-            ->setSpores(1);
-
-        $player = new Player();
-        $player->setDaedalus($daedalus);
-
-        $mushConfig = new ChargeStatusConfig();
-        $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
-        $mushStatus = new ChargeStatus($player, $mushConfig);
+        // given this player has infected once
+        $mushStatus = StatusFactory::createChargeStatusFromStatusName(PlayerStatusEnum::MUSH, $player);
         $mushStatus->setCharge(1);
 
         $this->constraint->target = DailySporesLimit::PLAYER;
 
+        // when I validate player spore limit
+        $action = \Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getPlayer' => $player,
+            ]);
+
+        $this->initValidator($this->constraint->message);
+        $this->validator->validate($action, $this->constraint);
+
+        // then I should have a violation : player cannot infect more than once a day
+        self::assertTrue(true);
+    }
+
+    public function testValidForPlayer()
+    {
+        $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
+
+        // given this player has not infected yet
+        $mushStatus = StatusFactory::createChargeStatusFromStatusName(PlayerStatusEnum::MUSH, $player);
+        $mushStatus->setCharge(0);
+
+        // when I validate player spore limit
+        $this->constraint->target = DailySporesLimit::PLAYER;
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
@@ -122,43 +82,8 @@ final class DailySporesLimitValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        self::assertTrue(true);
-    }
-
-    public function testNotValidForPlayer()
-    {
-        $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig
-            ->setDailySporeNb(4);
-
-        $daedalus = new Daedalus();
-        $daedalus
-            ->setDaedalusVariables($daedalusConfig)
-            ->setSpores(0);
-
-        $player = new Player();
-        $player->setDaedalus($daedalus);
-
-        $this->constraint->target = DailySporesLimit::PLAYER;
-
-        $action = \Mockery::mock(AbstractAction::class);
-        $action
-            ->shouldReceive([
-                'getPlayer' => $player,
-            ]);
-
-        $this->initValidator($this->constraint->message);
-        $this->validator->validate($action, $this->constraint);
-
-        $mushConfig = new ChargeStatusConfig();
-        $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
-        $mushStatus = new ChargeStatus($player, $mushConfig);
-        $mushStatus->setCharge(0);
-
-        $this->initValidator($this->constraint->message);
-        $this->validator->validate($action, $this->constraint);
-
-        self::assertTrue(true);
+        // then I should not have a violation : player can still infect today
+        self::assertFalse(false);
     }
 
     protected function initValidator(?string $expectedMessage = null)

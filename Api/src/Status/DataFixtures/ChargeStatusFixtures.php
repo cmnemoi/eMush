@@ -20,6 +20,7 @@ use Mush\Hunter\Enum\HunterEnum;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\ConfigData\StatusConfigData;
@@ -509,9 +510,14 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $geniusIdea->setModifierConfigs([$modifierPlayerAlwaysSucceedsRepairAction]);
         $manager->persist($geniusIdea);
 
+        $ceasefireModifier = EventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::CEASEFIRE)
+        );
+        $manager->persist($ceasefireModifier);
         $ceasefireStatus = ChargeStatusConfig::fromConfigData(
             StatusConfigData::getByName(PlaceStatusEnum::CEASEFIRE->value . '_default')
         );
+        $ceasefireStatus->setModifierConfigs([$ceasefireModifier]);
         $manager->persist($ceasefireStatus);
 
         $gameConfig
@@ -550,10 +556,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($changedCpuPriority)
             ->addStatusConfig($autoWateringFiresKilled)
             ->addStatusConfig($droneCharges)
-            ->addStatusConfig($conceptorPoints)
-            ->addStatusConfig($shooterPoints)
-            ->addStatusConfig($technicianPoints)
-            ->addStatusConfig($itExpertPoints)
             ->addStatusConfig($ceasefireStatus)
             ->addStatusConfig($hasChitchattedStatus)
             ->addStatusConfig($geniusIdea);
@@ -598,13 +600,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE, $droneCharges);
         $this->addReference(PlayerStatusEnum::HAS_CHITCHATTED, $hasChitchattedStatus);
         $this->addReference($geniusIdea->getName(), $geniusIdea);
-        $this->addReference($conceptorPoints->getName(), $conceptorPoints);
-        $this->addReference($shooterPoints->getName(), $shooterPoints);
-        $this->addReference($technicianPoints->getName(), $technicianPoints);
-        $this->addReference($itExpertPoints->getName(), $itExpertPoints);
         $this->addReference($hasChitchattedStatus->getName(), $hasChitchattedStatus);
-        $this->addReference($botanistPoints->getName(), $botanistPoints);
-        $this->addReference($pilgredPoints->getName(), $pilgredPoints);
         $this->addReference($ceasefireStatus->getName(), $ceasefireStatus);
     }
 

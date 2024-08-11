@@ -363,7 +363,7 @@ abstract class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [
-                'mute_modifier',
+                'mute_prevent_messages',
                 'prevent_spoken_actions',
             ],
             'actionConfigs' => ['ungag'],
@@ -1390,7 +1390,7 @@ abstract class StatusConfigData
             'startCharge' => 3,
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
-            'modifierConfigs' => [],
+            'modifierConfigs' => [ModifierNameEnum::CEASEFIRE],
             'actionConfigs' => [],
         ],
         [

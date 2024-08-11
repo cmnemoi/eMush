@@ -17,7 +17,6 @@ use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\ConfigData\StatusConfigData;
-use Mush\Status\ConfigData\StatusConfigData;
 use Mush\Status\Entity\Config\ContentStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;

@@ -3,8 +3,10 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -31,10 +33,31 @@ class ModifierPreventActionValidator extends ConstraintValidator
         $actionTarget = $value->getTarget();
 
         $preActionEvent = new ActionEvent($value->getActionConfig(), $value->getActionProvider(), $value->getPlayer(), $actionTarget);
-        $canTriggerAction = $this->eventService->eventCancelReason($preActionEvent, ActionEvent::PRE_ACTION);
+        $eventCancelReason = $this->eventService->eventCancelReason($preActionEvent, ActionEvent::PRE_ACTION);
 
-        if ($canTriggerAction !== null) {
-            $this->context->buildViolation($constraint->message)->addViolation();
+        if ($eventCancelReason !== null) {
+            $message = $this->getViolationMessage(
+                $eventCancelReason,
+                $constraint->message
+            );
+
+            $this->context->buildViolation($message)->addViolation();
         }
+    }
+
+    private function getViolationMessage(
+        string $preventedReason,
+        string $defaultMessage
+    ): string {
+        return match ($preventedReason) {
+            ModifierNameEnum::CEASEFIRE => ActionImpossibleCauseEnum::CEASEFIRE,
+            ModifierNameEnum::MUTE_PREVENT_ACTIONS,
+            ModifierNameEnum::PREVENT_SHOOT,
+            ModifierNameEnum::PREVENT_PILOTING,
+            ModifierNameEnum::PREVENT_PICK_HEAVY,
+            ModifierNameEnum::PREVENT_MOVE,
+            ModifierNameEnum::PREVENT_ATTACKING => ActionImpossibleCauseEnum::SYMPTOMS_ARE_PREVENTING_ACTION,
+            default => $defaultMessage,
+        };
     }
 }

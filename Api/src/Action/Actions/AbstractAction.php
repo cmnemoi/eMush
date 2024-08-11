@@ -12,7 +12,6 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\AggressiveActionOnCeasefire;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\IsActionProviderOperational;
 use Mush\Action\Validator\ModifierPreventAction;
@@ -80,7 +79,6 @@ abstract class AbstractAction
         $metadata->addConstraint(new PlayerCanAffordPoints(['groups' => ['execute']]));
         $metadata->addConstraint(new ModifierPreventAction(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::SYMPTOMS_ARE_PREVENTING_ACTION]));
         $metadata->addConstraint(new IsActionProviderOperational(['groups' => ['execute']]));
-        $metadata->addConstraint(new AggressiveActionOnCeasefire(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CEASEFIRE]));
     }
 
     public function isVisible(): bool

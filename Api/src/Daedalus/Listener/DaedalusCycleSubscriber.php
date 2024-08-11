@@ -208,12 +208,8 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
 
-        $dailySpores = $daedalus->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();
+        $dailySpores = $daedalus->getVariableByName(DaedalusVariableEnum::SPORE)->getMinValueOrThrow();
 
-        if ($dailySpores === null) {
-            throw new \Exception('daedalus spore gameVariable should have a maximum value');
-        }
-        // reset spore count
         $daedalus->setSpores($dailySpores);
 
         $this->daedalusService->persist($daedalus);

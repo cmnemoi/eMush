@@ -7,6 +7,9 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\Infect;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Game\Enum\EventEnum;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -20,6 +23,7 @@ final class InfectCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
     private Infect $infect;
+    private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
@@ -28,17 +32,28 @@ final class InfectCest extends AbstractFunctionalTest
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::INFECT->value]);
         $this->infect = $I->grabService(Infect::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenKuanTiIsMush();
-        $this->addSkillToPlayer(SkillEnum::INFECTOR, $I, $this->kuanTi);
     }
 
-    public function shouldBeAbleToInfectTwiceADay(FunctionalTester $I)
+    public function infectorShouldBeAbleToInfectTwiceADay(FunctionalTester $I)
     {
+        $this->addSkillToPlayer(SkillEnum::INFECTOR, $I, $this->kuanTi);
+
         $this->givenKuanTiInfects();
 
         $this->whenKuanTiTriesToInfect();
+
+        $this->thenActionShouldBeExecutable($I);
+    }
+
+    public function dayChangeShouldMakeAbleToInfectAgain(FunctionalTester $I): void
+    {
+        $this->givenKuanTiInfects();
+
+        $this->whenANewDayPasses();
 
         $this->thenActionShouldBeExecutable($I);
     }
@@ -72,6 +87,18 @@ final class InfectCest extends AbstractFunctionalTest
             actionProvider: $this->kuanTi,
             player: $this->kuanTi,
             target: $this->player,
+        );
+    }
+
+    private function whenANewDayPasses(): void
+    {
+        $this->eventService->callEvent(
+            event: new PlayerCycleEvent(
+                player: $this->kuanTi,
+                tags: [EventEnum::NEW_DAY],
+                time: new \DateTime()
+            ),
+            name: PlayerCycleEvent::PLAYER_NEW_CYCLE,
         );
     }
 

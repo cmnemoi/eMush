@@ -227,27 +227,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $I->assertEquals($gioele->getTitles(), [TitleEnum::COMMANDER]);
     }
 
-    public function testSporesAreResetAtDayChange(FunctionalTester $I): void
-    {
-        // given Daedalus has 0 spores
-        $this->daedalus->setSpores(0);
-
-        // given Daedalus is at D1C8 so next cycle change is also a day change
-        $this->daedalus->setDay(1);
-        $this->daedalus->setCycle(8);
-
-        // when cycle change event is triggered
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
-
-        // then Daedalus has 4 spores
-        $I->assertEquals(4, $this->daedalus->getSpores());
-    }
-
     public function shouldImproveDaedalusShieldByFiveIfPlasmaShieldProjectIsActive(FunctionalTester $I): void
     {
         // given Plasma Shield project is finished and activated

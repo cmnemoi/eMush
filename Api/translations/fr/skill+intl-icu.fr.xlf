@@ -423,7 +423,7 @@
       </segment>
       <segment id="logistic_expert.description" state="translated">
         <source>logistic_expert.description</source>
-        <target>À chaque cycle, **1 :pa: est distribué à un coéquipier** au hasard présent dans votre salle.</target>
+        <target>Vous veillez personnellement à l'organisation correcte du Daedalus afin de maximiser les possibilités de chacun de vos équipiers.//:point: À chaque cycle, **1 :pa: est distribué à un coéquipier** au hasard présent dans votre salle.</target>
       </segment>
     </unit>
   </file>

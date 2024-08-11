@@ -31,6 +31,7 @@ use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
+use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -3113,7 +3114,7 @@ abstract class ModifierConfigData
         [
             'name' => 'logistic_modifier',
             'modifierName' => ModifierNameEnum::LOGISTIC_MODIFIER,
-            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
+            'targetEvent' => PlaceCycleEvent::PLACE_NEW_CYCLE,
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,

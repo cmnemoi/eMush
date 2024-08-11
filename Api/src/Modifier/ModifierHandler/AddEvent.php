@@ -83,7 +83,7 @@ class AddEvent extends AbstractModifierHandler
 
         $eventTargets = $this->eventCreationService->getEventTargetsFromModifierHolder(
             $eventConfig,
-            $modifierConfig->getEventActivationRequirements(),
+            $modifierConfig->getEventTargetRequirements(),
             $modifierConfig->getTargetFilters(),
             $modifierHolder,
             $modifierProvider

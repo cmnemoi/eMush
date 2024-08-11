@@ -17,6 +17,8 @@ use Mush\Modifier\Enum\ModifierStrategyEnum;
  * visibility: the visibility of the triggered event
  * triggeredEventConfig: a config to create the triggered event
  * priority: priority of the new event (negative means before the initial event, 0 means replace the initial event)
+ * targetFilters: filters to apply when selecting the target of the event. Currently 2 filters EXCLUDE_PROVIDER and SINGLE_RANDOM
+ * eventTargetRequirements: allow to filter targets of the event according to various condition (name, hasStatus...)
  */
 #[ORM\Entity]
 class TriggerEventModifierConfig extends EventModifierConfig
@@ -28,7 +30,7 @@ class TriggerEventModifierConfig extends EventModifierConfig
     protected string $visibility = VisibilityEnum::PUBLIC;
 
     #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
-    protected Collection $eventActivationRequirements;
+    protected Collection $eventTargetRequirements;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $targetFilters = [];
@@ -141,25 +143,25 @@ class TriggerEventModifierConfig extends EventModifierConfig
         return array_merge($parameters, $this->triggeredEvent->getTranslationParameters());
     }
 
-    public function getEventActivationRequirements(): Collection
+    public function getEventTargetRequirements(): Collection
     {
-        return $this->eventActivationRequirements;
+        return $this->eventTargetRequirements;
     }
 
     public function addEventActivationRequirement(ModifierActivationRequirement $requirement): self
     {
-        $this->eventActivationRequirements->add($requirement);
+        $this->eventTargetRequirements->add($requirement);
 
         return $this;
     }
 
-    public function setEventActivationRequirements(array|Collection $eventActivationRequirements): self
+    public function setEventTargetRequirements(array|Collection $eventTargetRequirements): self
     {
-        if (\is_array($eventActivationRequirements)) {
-            $eventActivationRequirements = new ArrayCollection($eventActivationRequirements);
+        if (\is_array($eventTargetRequirements)) {
+            $eventTargetRequirements = new ArrayCollection($eventTargetRequirements);
         }
 
-        $this->eventActivationRequirements = $eventActivationRequirements;
+        $this->eventTargetRequirements = $eventTargetRequirements;
 
         return $this;
     }

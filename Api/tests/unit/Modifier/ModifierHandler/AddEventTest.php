@@ -122,7 +122,7 @@ final class AddEventTest extends TestCase
             ->setTriggeredEvent($eventConfigPlus2MovementPoint)
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setTargetFilters([])
-            ->setEventActivationRequirements(new ArrayCollection())
+            ->setEventTargetRequirements(new ArrayCollection())
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,

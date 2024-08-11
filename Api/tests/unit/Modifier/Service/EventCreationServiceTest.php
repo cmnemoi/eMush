@@ -5,7 +5,6 @@ namespace Mush\Tests\unit\Modifier\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Service\RandomServiceInterface;
@@ -62,35 +61,26 @@ final class EventCreationServiceTest extends TestCase
 
     public function testGetPlayersTargetPlayer()
     {
-        $characterConfig = new CharacterConfig();
-        $characterConfig
-            ->setName('character name')
-            ->setMaxHealthPoint(16)
-            ->setInitActionPoint(10)
-            ->setInitMovementPoint(10)
-            ->setInitMoralPoint(10);
-
+        // Give the range is player1
+        // Given the target of the event is player
         $player1 = new Player();
-        $player1->setPlayerVariables($characterConfig);
         $player2 = new Player();
-        $player2->setPlayerVariables($characterConfig);
         $player3 = new Player();
-        $player3->setPlayerVariables($characterConfig);
 
         $playerInfo1 = new PlayerInfo(
             $player1,
             new User(),
-            $characterConfig
+            new CharacterConfig()
         );
         $playerInfo2 = new PlayerInfo(
             $player2,
             new User(),
-            $characterConfig
+            new CharacterConfig()
         );
         $playerInfo3 = new PlayerInfo(
             $player3,
             new User(),
-            $characterConfig
+            new CharacterConfig()
         );
 
         $place1 = new Place();
@@ -102,7 +92,6 @@ final class EventCreationServiceTest extends TestCase
         $daedalus->addPlayer($player1)->addPlayer($player2)->addPlayer($player3);
         $daedalus->addPlace($place1)->addPlace($place2);
 
-        // range is a player
         $eventConfig = new VariableEventConfig();
         $eventConfig->setVariableHolderClass(EventTargetNameEnum::PLAYER);
 
@@ -115,6 +104,8 @@ final class EventCreationServiceTest extends TestCase
             ->with($eventRequirement, $player1)
             ->andReturn(true)
             ->once();
+
+        // then only player1 should be returned
         $eventTargets = $this->service->getEventTargetsFromModifierHolder(
             eventConfig: $eventConfig,
             eventTargetRequirements: $eventRequirement,
@@ -131,35 +122,27 @@ final class EventCreationServiceTest extends TestCase
 
     public function testGetPlayersTargetPlace()
     {
-        $characterConfig = new CharacterConfig();
-        $characterConfig
-            ->setName('character name')
-            ->setMaxHealthPoint(16)
-            ->setInitActionPoint(10)
-            ->setInitMovementPoint(10)
-            ->setInitMoralPoint(10);
-
+        // Given the range is place1
+        // Given player 1 and player 2 are in room
+        // Given the target of the event is player
         $player1 = new Player();
-        $player1->setPlayerVariables($characterConfig);
         $player2 = new Player();
-        $player2->setPlayerVariables($characterConfig);
         $player3 = new Player();
-        $player3->setPlayerVariables($characterConfig);
 
         $playerInfo1 = new PlayerInfo(
             $player1,
             new User(),
-            $characterConfig
+            new CharacterConfig()
         );
         $playerInfo2 = new PlayerInfo(
             $player2,
             new User(),
-            $characterConfig
+            new CharacterConfig()
         );
         $playerInfo3 = new PlayerInfo(
             $player3,
             new User(),
-            $characterConfig
+            new CharacterConfig()
         );
 
         $place1 = new Place();
@@ -171,7 +154,6 @@ final class EventCreationServiceTest extends TestCase
         $daedalus->addPlayer($player1)->addPlayer($player2)->addPlayer($player3);
         $daedalus->addPlace($place1)->addPlace($place2);
 
-        // range is a place
         $eventConfig = new VariableEventConfig();
         $eventConfig->setVariableHolderClass(EventTargetNameEnum::PLAYER);
 
@@ -191,6 +173,7 @@ final class EventCreationServiceTest extends TestCase
             author: $player1
         );
 
+        // Then player1 and player2 should be returned
         self::assertCount(2, $eventTargets);
         $player = $eventTargets[0];
         self::assertInstanceOf(Player::class, $player);
@@ -203,35 +186,27 @@ final class EventCreationServiceTest extends TestCase
 
     public function testGetPlayersTargetDaedalus()
     {
-        $characterConfig = new CharacterConfig();
-        $characterConfig
-            ->setName('character name')
-            ->setMaxHealthPoint(16)
-            ->setInitActionPoint(10)
-            ->setInitMovementPoint(10)
-            ->setInitMoralPoint(10);
-
+        // Given the range is daedalus
+        // Given player1, player2 and player 3 are in this Daedalus
+        // Given the target of the event is player
         $player1 = new Player();
-        $player1->setPlayerVariables($characterConfig);
         $player2 = new Player();
-        $player2->setPlayerVariables($characterConfig);
         $player3 = new Player();
-        $player3->setPlayerVariables($characterConfig);
 
         $playerInfo1 = new PlayerInfo(
             $player1,
             new User(),
-            $characterConfig
+            new CharacterConfig()
         );
         $playerInfo2 = new PlayerInfo(
             $player2,
             new User(),
-            $characterConfig
+            new CharacterConfig()
         );
         $playerInfo3 = new PlayerInfo(
             $player3,
             new User(),
-            $characterConfig
+            new CharacterConfig()
         );
 
         $place1 = new Place();
@@ -243,7 +218,6 @@ final class EventCreationServiceTest extends TestCase
         $daedalus->addPlayer($player1)->addPlayer($player2)->addPlayer($player3);
         $daedalus->addPlace($place1)->addPlace($place2);
 
-        // range is Daedalus
         $eventConfig = new VariableEventConfig();
         $eventConfig->setVariableHolderClass(EventTargetNameEnum::PLAYER);
 
@@ -263,6 +237,7 @@ final class EventCreationServiceTest extends TestCase
             author: $player1
         );
 
+        // then all 3 players should be returned
         self::assertCount(3, $eventTargets);
         $player = $eventTargets[0];
         self::assertInstanceOf(Player::class, $player);
@@ -277,30 +252,22 @@ final class EventCreationServiceTest extends TestCase
 
     public function testGetPlayersTargetPlaceRandom()
     {
-        $characterConfig = new CharacterConfig();
-        $characterConfig
-            ->setName('character name')
-            ->setMaxHealthPoint(16)
-            ->setInitActionPoint(10)
-            ->setInitMovementPoint(10)
-            ->setInitMoralPoint(10);
-
+        // Given the range is place
+        // Given player1 and player2 are in this Place
+        // Given the target of the event is player
+        // Given the filter is set to 'single_random'
         $player1 = new Player();
-        $player1->setPlayerVariables($characterConfig);
         $player2 = new Player();
-        $player2->setPlayerVariables($characterConfig);
-        $player3 = new Player();
-        $player3->setPlayerVariables($characterConfig);
 
         $playerInfo1 = new PlayerInfo(
             $player1,
             new User(),
-            $characterConfig
+            new CharacterConfig()
         );
         $playerInfo2 = new PlayerInfo(
             $player2,
             new User(),
-            $characterConfig
+            new CharacterConfig()
         );
 
         $place1 = new Place();
@@ -310,7 +277,6 @@ final class EventCreationServiceTest extends TestCase
         $daedalus->addPlayer($player1)->addPlayer($player2);
         $daedalus->addPlace($place1);
 
-        // range is a place
         $eventConfig = new VariableEventConfig();
         $eventConfig
             ->setVariableHolderClass(EventTargetNameEnum::PLAYER);
@@ -337,38 +303,32 @@ final class EventCreationServiceTest extends TestCase
             author: $player1
         );
 
+        // Then only ONE random player out of player1 and player2 should be returned
         self::assertCount(1, $eventTargets);
         $player = $eventTargets[0];
         self::assertInstanceOf(Player::class, $player);
         self::assertSame($player1, $player);
     }
 
-    public function testGetPlayersTargetPlaceExcludeHolder()
+    public function testGetPlayersTargetPlaceExcludeProvider()
     {
-        $characterConfig = new CharacterConfig();
-        $characterConfig
-            ->setName('character name')
-            ->setMaxHealthPoint(16)
-            ->setInitActionPoint(10)
-            ->setInitMovementPoint(10)
-            ->setInitMoralPoint(10);
-
+        // Given the range is place
+        // Given player1 and player2 are in this Place
+        // Given the target of the event is player
+        // Given the filter is set to 'exclude_provider'
+        // Given player1 is the provider of the modifier
         $player1 = new Player();
-        $player1->setPlayerVariables($characterConfig);
         $player2 = new Player();
-        $player2->setPlayerVariables($characterConfig);
-        $player3 = new Player();
-        $player3->setPlayerVariables($characterConfig);
 
         $playerInfo1 = new PlayerInfo(
             $player1,
             new User(),
-            $characterConfig
+            new CharacterConfig()
         );
         $playerInfo2 = new PlayerInfo(
             $player2,
             new User(),
-            $characterConfig
+            new CharacterConfig()
         );
 
         $place1 = new Place();
@@ -378,10 +338,8 @@ final class EventCreationServiceTest extends TestCase
         $daedalus->addPlayer($player1)->addPlayer($player2);
         $daedalus->addPlace($place1);
 
-        // range is a place
         $eventConfig = new VariableEventConfig();
-        $eventConfig
-            ->setVariableHolderClass(EventTargetNameEnum::PLAYER);
+        $eventConfig->setVariableHolderClass(EventTargetNameEnum::PLAYER);
 
         $eventRequirement = new ArrayCollection();
         $variableModifierConfig = new TriggerEventModifierConfig('test_trigger_event');
@@ -400,6 +358,7 @@ final class EventCreationServiceTest extends TestCase
             author: $player1
         );
 
+        // Then only player2 should be returned
         self::assertCount(1, $eventTargets);
         $player = current($eventTargets);
         self::assertInstanceOf(Player::class, $player);
@@ -408,24 +367,17 @@ final class EventCreationServiceTest extends TestCase
 
     public function testGetDaedalusTargetFromPlayer()
     {
-        $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig
-            ->setName('character name')
-            ->setDailySporeNb(2)
-            ->setInitHull(1)
-            ->setInitShield(1)
-            ->setInitOxygen(1)
-            ->setInitFuel(2);
-
+        // Given the range is player
+        // Given the holder of tha modifier (player1) is in a daedalus
+        // Given the target of the event is daedalus
         $player1 = new Player();
 
         $place1 = new Place();
         $place1->addPlayer($player1);
 
         $daedalus = new Daedalus();
-        $daedalus->addPlayer($player1)->addPlace($place1)->setDaedalusVariables($daedalusConfig);
+        $daedalus->addPlayer($player1)->addPlace($place1);
 
-        // range is a player
         $eventConfig = new VariableEventConfig();
         $eventConfig->setVariableHolderClass(EventTargetNameEnum::DAEDALUS);
 
@@ -447,6 +399,7 @@ final class EventCreationServiceTest extends TestCase
             author: $player1
         );
 
+        // then the function should return the daedalus of the player
         self::assertCount(1, $eventTargets);
         $result = $eventTargets[0];
         self::assertInstanceOf(Daedalus::class, $result);
@@ -455,24 +408,14 @@ final class EventCreationServiceTest extends TestCase
 
     public function testGetDaedalusTargetFromPlace()
     {
-        $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig
-            ->setName('character name')
-            ->setDailySporeNb(2)
-            ->setInitHull(1)
-            ->setInitShield(1)
-            ->setInitOxygen(1)
-            ->setInitFuel(2);
-
-        $player1 = new Player();
-
+        // Given the range is place
+        // Given the holder of that modifier (place1) is in a daedalus
+        // Given the target of the event is daedalus
         $place1 = new Place();
-        $place1->addPlayer($player1);
 
         $daedalus = new Daedalus();
-        $daedalus->addPlayer($player1)->addPlace($place1)->setDaedalusVariables($daedalusConfig);
+        $daedalus->addPlace($place1);
 
-        // range is a place
         $eventConfig = new VariableEventConfig();
         $eventConfig->setVariableHolderClass(EventTargetNameEnum::DAEDALUS);
 
@@ -491,8 +434,10 @@ final class EventCreationServiceTest extends TestCase
             eventTargetRequirements: $eventRequirement,
             targetFilters: [],
             range: $place1,
-            author: $player1
+            author: new Player()
         );
+
+        // then the function should return the daedalus of the place
         self::assertCount(1, $eventTargets);
         $result = $eventTargets[0];
         self::assertInstanceOf(Daedalus::class, $result);
@@ -501,25 +446,9 @@ final class EventCreationServiceTest extends TestCase
 
     public function testGetDaedalusTargetFromDaedalus()
     {
-        $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig
-            ->setName('character name')
-            ->setDailySporeNb(2)
-            ->setInitHull(1)
-            ->setInitShield(1)
-            ->setInitOxygen(1)
-            ->setInitFuel(2);
-
-        $player1 = new Player();
-
-        $place1 = new Place();
-        $place1->addPlayer($player1);
-
+        // Given the range is daedalus
+        // Given the target of the event is daedalus
         $daedalus = new Daedalus();
-        $daedalus
-            ->addPlayer($player1)
-            ->addPlace($place1)
-            ->setDaedalusVariables($daedalusConfig);
 
         // range is Daedalus
         $eventConfig = new VariableEventConfig();
@@ -540,8 +469,10 @@ final class EventCreationServiceTest extends TestCase
             eventTargetRequirements: $eventRequirement,
             targetFilters: [],
             range: $daedalus,
-            author: $player1
+            author: new Player()
         );
+
+        // then the function should return the daedalus
         self::assertCount(1, $eventTargets);
         $result = $eventTargets[0];
         self::assertInstanceOf(Daedalus::class, $result);

@@ -1373,7 +1373,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'prevent_attack_actions',
-            'modifierName' => 'prevent_attack_actions',
+            'modifierName' => ModifierNameEnum::PREVENT_ATTACKING,
             'targetEvent' => ActionEvent::PRE_ACTION,
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,
@@ -1389,7 +1389,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'prevent_piloting_actions',
-            'modifierName' => 'prevent_piloting_actions',
+            'modifierName' => ModifierNameEnum::PREVENT_PILOTING,
             'targetEvent' => ActionEvent::PRE_ACTION,
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,
@@ -1404,7 +1404,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'prevent_shoot_actions',
-            'modifierName' => 'prevent_shoot_actions',
+            'modifierName' => ModifierNameEnum::PREVENT_SHOOT,
             'targetEvent' => ActionEvent::PRE_ACTION,
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,
@@ -1418,8 +1418,8 @@ abstract class ModifierConfigData
             ],
         ],
         [
-            'name' => 'mute_modifier',
-            'modifierName' => 'mute_modifier',
+            'name' => 'mute_prevent_messages',
+            'modifierName' => 'mute_prevent_messages',
             'targetEvent' => MessageEvent::NEW_MESSAGE,
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,
@@ -2737,7 +2737,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'prevent_spoken_actions',
-            'modifierName' => 'prevent_spoken',
+            'modifierName' => ModifierNameEnum::MUTE_PREVENT_ACTIONS,
             'targetEvent' => ActionEvent::PRE_ACTION,
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,
@@ -2967,6 +2967,21 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ModifierNameEnum::MUSH_SHOWER_MALUS => ModifierRequirementEnum::ALL_TAGS,
                 PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ALL_TAGS,
+            ],
+        ],
+        [
+            'name' => ModifierNameEnum::CEASEFIRE,
+            'modifierName' => ModifierNameEnum::CEASEFIRE,
+            'targetEvent' => ActionEvent::PRE_ACTION,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => ModifierPriorityEnum::PREVENT_EVENT,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLACE,
+            'type' => 'event_modifier',
+            'triggeredEvent' => null,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_AGGRESSIVE->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
     ];

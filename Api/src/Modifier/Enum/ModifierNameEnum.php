@@ -47,4 +47,11 @@ abstract class ModifierNameEnum
     public const string SKILL_POINT_BOTANIST = 'skill_point_botanist';
     public const string SKILL_POINT_PILGRED = 'skill_point_pilgred';
     public const string SKILL_POINT_SPORE = 'skill_point_spore';
+    public const string CEASEFIRE = 'ceasefire';
+    public const string MUTE_PREVENT_ACTIONS = 'mute_prevent_actions';
+    public const string PREVENT_SHOOT = 'prevent_shoot';
+    public const string PREVENT_PILOTING = 'prevent_piloting';
+    public const string PREVENT_ATTACKING = 'prevent_attacking';
+    public const string PREVENT_PICK_HEAVY = 'prevent_pick_heavy';
+    public const string PREVENT_MOVE = 'prevent_move';
 }

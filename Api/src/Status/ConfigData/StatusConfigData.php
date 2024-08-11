@@ -363,7 +363,7 @@ abstract class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [
-                'mute_modifier',
+                'mute_prevent_messages',
                 'prevent_spoken_actions',
             ],
             'actionConfigs' => ['ungag'],
@@ -1377,6 +1377,28 @@ abstract class StatusConfigData
             'modifierConfigs' => [
                 ModifierNameEnum::SKILL_POINT_SPORE,
             ],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlaceStatusEnum::CEASEFIRE->value . '_default',
+            'statusName' => PlaceStatusEnum::CEASEFIRE->value,
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => 'hidden',
+            'chargeStrategy' => ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+            'maxCharge' => 3,
+            'startCharge' => 3,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => true,
+            'modifierConfigs' => [ModifierNameEnum::CEASEFIRE],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlayerStatusEnum::HAS_CEASEFIRED . '_default',
+            'statusName' => PlayerStatusEnum::HAS_CEASEFIRED,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
     ];

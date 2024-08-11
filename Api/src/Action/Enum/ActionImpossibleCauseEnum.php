@@ -110,4 +110,5 @@ abstract class ActionImpossibleCauseEnum
     public const string CYCLE_LIMIT = 'cycle_limit';
     public const string NO_WORKING_DOOR = 'no_working_door';
     public const string PREMONITION_INSUFFICIENT_MORALE = 'premonition_insufficient_morale';
+    public const string ALREADY_A_CEASEFIRE_IN_ROOM = 'already_a_ceasefire_in_room';
 }

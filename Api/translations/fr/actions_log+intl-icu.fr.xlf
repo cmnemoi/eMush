@@ -1248,6 +1248,12 @@
         <target>Quel soulagement... Oh mais... **{character}** n'a pas réussi sa greffe {equipment_first_letter, select, vowel {d'**{equipment}**} other {de **{equipment}**}}. La petite plante reste chétive et meurt... Quelque chose a dû contaminer l'opération.</target>
       </segment>
     </unit>
+    <unit id="ceasefire_success">
+      <segment id="ceasefire_success" state="final">
+        <source>ceasefire_success</source>
+        <target>**{character}** impose un cessez-le-feu dans la pièce. Quelle autorité !</target>
+      </segment>
+    </unit>
     <unit id="put_through_door_success">
       <segment id="put_through_door_success" state="final">
         <source>put_through_door_success</source>

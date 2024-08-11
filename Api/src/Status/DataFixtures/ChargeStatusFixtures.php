@@ -20,6 +20,7 @@ use Mush\Hunter\Enum\HunterEnum;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\ConfigData\StatusConfigData;
@@ -28,6 +29,7 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
@@ -508,6 +510,16 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $geniusIdea->setModifierConfigs([$modifierPlayerAlwaysSucceedsRepairAction]);
         $manager->persist($geniusIdea);
 
+        $ceasefireModifier = EventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::CEASEFIRE)
+        );
+        $manager->persist($ceasefireModifier);
+        $ceasefireStatus = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlaceStatusEnum::CEASEFIRE->value . '_default')
+        );
+        $ceasefireStatus->setModifierConfigs([$ceasefireModifier]);
+        $manager->persist($ceasefireStatus);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -544,6 +556,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($changedCpuPriority)
             ->addStatusConfig($autoWateringFiresKilled)
             ->addStatusConfig($droneCharges)
+            ->addStatusConfig($ceasefireStatus)
             ->addStatusConfig($hasChitchattedStatus)
             ->addStatusConfig($geniusIdea);
 
@@ -587,6 +600,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE, $droneCharges);
         $this->addReference(PlayerStatusEnum::HAS_CHITCHATTED, $hasChitchattedStatus);
         $this->addReference($geniusIdea->getName(), $geniusIdea);
+        $this->addReference($hasChitchattedStatus->getName(), $hasChitchattedStatus);
+        $this->addReference($ceasefireStatus->getName(), $ceasefireStatus);
     }
 
     public function getDependencies(): array

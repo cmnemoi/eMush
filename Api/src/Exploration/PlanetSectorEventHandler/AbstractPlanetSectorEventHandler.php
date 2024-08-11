@@ -74,7 +74,16 @@ abstract class AbstractPlanetSectorEventHandler
     {
         $logParameters = [];
         $logParameters['fight_prevented_by_item'] = null;
+        $logParameters['fight_prevented_by_skill'] = null;
 
+        if ($event->hasTag(SkillEnum::DIPLOMAT->toString())) {
+            $logParameters['fight_prevented_by_skill'] = '////' . $this->translationService->translate(
+                key: 'fight_prevented_by_skill',
+                parameters: ['skill' => SkillEnum::DIPLOMAT->toString()],
+                domain: 'planet_sector_event',
+                language: $event->getExploration()->getDaedalus()->getLanguage()
+            );
+        }
         if ($event->hasTag(ItemEnum::WHITE_FLAG)) {
             $logParameters['fight_prevented_by_item'] = '////' . $this->translationService->translate(
                 key: 'fight_prevented_by_item',
@@ -93,12 +102,7 @@ abstract class AbstractPlanetSectorEventHandler
             key: 'skill_reduced_damage_for_player',
             parameters: [
                 $player->getLogKey() => $player->getLogName(),
-                'skill' => $this->translationService->translate(
-                    key: sprintf('%s.name', $skill->toString()),
-                    parameters: [],
-                    domain: 'skill',
-                    language: $player->getLanguage()
-                ),
+                'skill' => $skill->toString(),
                 'quantity' => $this->getSkillReduction($player, $skill),
             ],
             domain: 'planet_sector_event',

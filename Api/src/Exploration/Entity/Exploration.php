@@ -267,4 +267,9 @@ class Exploration
     {
         return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::BOTANIST))->count();
     }
+
+    public function hasAnActiveDiplomat(): bool
+    {
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::DIPLOMAT))->count() > 0;
+    }
 }

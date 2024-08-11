@@ -571,7 +571,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'mute_modifier',
+                'mute_prevent_messages',
                 'prevent_spoken_actions',
             ],
         ],
@@ -665,7 +665,7 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_set_-2healthPoint_on_new_cycle',
                 'modifier_for_player_+2actionPoint',
-                'mute_modifier',
+                'mute_prevent_messages',
                 'prevent_spoken_actions',
             ],
         ],

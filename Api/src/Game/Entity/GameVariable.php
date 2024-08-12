@@ -184,6 +184,15 @@ class GameVariable
         return $this;
     }
 
+    public function getMinValueOrThrow(): int
+    {
+        if ($this->minValue === null) {
+            throw new \RuntimeException('minValue should have been set');
+        }
+
+        return $this->minValue;
+    }
+
     public function setValueByName(?int $value, string $name): static
     {
         switch ($name) {

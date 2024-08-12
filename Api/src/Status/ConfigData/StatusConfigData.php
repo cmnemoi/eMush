@@ -855,9 +855,9 @@ abstract class StatusConfigData
             'visibility' => 'mush',
             'type' => 'charge_status_config',
             'chargeVisibility' => 'hidden',
-            'chargeStrategy' => 'daily_reset',
+            'chargeStrategy' => ChargeStrategyTypeEnum::DAILY_DECREMENT_RESET,
             'maxCharge' => 1,
-            'startCharge' => 1,
+            'startCharge' => 0,
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [

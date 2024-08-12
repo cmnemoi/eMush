@@ -8,12 +8,14 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 /** @codeCoverageIgnore */
 class EventConfigData
 {
     public const string CHANGE_VARIABLE_PLAYER_PLUS_1_ACTION_POINT = 'change.variable_player_+1_actionPoint';
     public const string CHANGE_VALUE_PLUS_1_MAX_DAEDALUS_SPORE = 'change.value.max_daedalus_+1_spore';
+    public const string CHANGE_VALUE_PLUS_1_CHARGE_MUSH_STATUS = 'change.value.max_mush_status_+1_charge';
 
     public static array $variableEventConfigData = [
         [
@@ -311,6 +313,14 @@ class EventConfigData
             'variableHolderClass' => ModifierHolderClassEnum::DAEDALUS,
             'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
             'name' => self::CHANGE_VALUE_PLUS_1_MAX_DAEDALUS_SPORE,
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 1,
+            'targetVariable' => PlayerStatusEnum::MUSH,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
+            'name' => self::CHANGE_VALUE_PLUS_1_CHARGE_MUSH_STATUS,
         ],
     ];
 

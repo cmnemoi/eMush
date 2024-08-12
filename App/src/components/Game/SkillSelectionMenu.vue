@@ -63,7 +63,7 @@ export default defineComponent ({
         }),
         formatText,
         skillImage(skill: SelectableSkill): string {
-            return SkillIconRecord[skill.key].icon ?? '';
+            return SkillIconRecord[skill.key]?.icon ?? '';
         }
     },
     beforeMount() {

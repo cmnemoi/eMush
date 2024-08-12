@@ -2984,6 +2984,16 @@ abstract class ModifierConfigData
                 ActionTypeEnum::ACTION_AGGRESSIVE->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_PLUS_1_INFECTION,
+            'modifierName' => null,
+            'revertOnRemove' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'direct_modifier',
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'triggeredEvent' => EventConfigData::CHANGE_VALUE_PLUS_1_CHARGE_MUSH_STATUS,
+            'modifierActivationRequirements' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

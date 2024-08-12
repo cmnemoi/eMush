@@ -194,6 +194,10 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/human/hygienist.png')
     },
 
+    [SkillEnum.INFECTOR]: {
+        'icon': getImgUrl('skills/mush/infectious_agent.png')
+    },
+
     [SkillEnum.INTIMIDATING]: {
         'icon': getImgUrl('skills/human/intimidating.png')
     },

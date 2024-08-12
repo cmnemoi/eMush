@@ -259,10 +259,10 @@ export default defineComponent ({
             }
         },
         skillImage(skill: Skill): string {
-            return SkillIconRecord[skill.key].icon ?? '';
+            return SkillIconRecord[skill.key]?.icon ?? '';
         },
         skillPointImg(point: SkillPoint): string {
-            return skillPointEnum[point.key].icon ?? '';
+            return skillPointEnum[point.key]?.icon ?? '';
         },
         toggleItemSelection(item: Item | null): void {
             if (this.selectedItem === item) {

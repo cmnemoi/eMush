@@ -584,6 +584,7 @@ class GameConfigData
                 SkillEnum::FERTILE,
                 SkillEnum::MYCELIUM_SPIRIT,
                 SkillEnum::SPLASHPROOF,
+                SkillEnum::INFECTOR,
             ],
         ],
     ];

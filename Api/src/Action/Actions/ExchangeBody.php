@@ -131,7 +131,7 @@ final class ExchangeBody extends AbstractAction
         $this->statusService->removeStatus(
             statusName: PlayerStatusEnum::MUSH,
             holder: $this->player,
-            tags: [],
+            tags: $this->getTags(),
             time: new \DateTime(),
         );
     }

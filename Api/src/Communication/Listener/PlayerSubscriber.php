@@ -2,6 +2,7 @@
 
 namespace Mush\Communication\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\MushMessageEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
@@ -86,6 +87,12 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onConversionPlayer(PlayerEvent $event): void
     {
+        $this->channelService->addPlayerToMushChannel($event->getPlayer());
+
+        if ($event->hasTag(ActionEnum::EXCHANGE_BODY->value)) {
+            return;
+        }
+
         $daedalusInfo = $event->getPlayer()->getDaedalus()->getDaedalusInfo();
 
         /** @var Channel $mushChannel */
@@ -94,7 +101,6 @@ class PlayerSubscriber implements EventSubscriberInterface
         $params = $event->getLogParameters();
 
         $this->messageService->createSystemMessage(MushMessageEnum::MUSH_CONVERT_EVENT, $mushChannel, $params, $time);
-        $this->channelService->addPlayerToMushChannel($event->getPlayer());
     }
 
     public function onPlayerTitleAttributed(PlayerEvent $event): void

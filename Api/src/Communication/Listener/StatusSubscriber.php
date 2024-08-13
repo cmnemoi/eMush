@@ -101,6 +101,13 @@ class StatusSubscriber implements EventSubscriberInterface
                 );
 
                 return;
+
+            case PlayerStatusEnum::MUSH:
+                /** @var Player $player */
+                $player = $holder;
+                $this->channelService->removePlayerFromMushChannel($player);
+
+                return;
         }
     }
 }

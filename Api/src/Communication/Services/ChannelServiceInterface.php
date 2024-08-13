@@ -27,6 +27,8 @@ interface ChannelServiceInterface
 
     public function addPlayerToMushChannel(Player $player);
 
+    public function removePlayerFromMushChannel(Player $player);
+
     public function getInvitablePlayersToPrivateChannel(Channel $channel, Player $player): PlayerCollection;
 
     public function exitChannel(

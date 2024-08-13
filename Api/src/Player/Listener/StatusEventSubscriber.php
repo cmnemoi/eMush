@@ -9,6 +9,8 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Player\Repository\PlayerRepositoryInterface;
+use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -17,13 +19,11 @@ final class StatusEventSubscriber implements EventSubscriberInterface
 {
     public const FOUND_MORALE_BOOST = 3;
 
-    private EventServiceInterface $eventService;
-
     public function __construct(
-        EventServiceInterface $eventService
-    ) {
-        $this->eventService = $eventService;
-    }
+        private DeletePlayerSkillService $deletePlayerSkill,
+        private EventServiceInterface $eventService,
+        private PlayerRepositoryInterface $playerRepository
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -34,13 +34,25 @@ final class StatusEventSubscriber implements EventSubscriberInterface
 
     public function onStatusRemoved(StatusEvent $event): void
     {
-        if ($event->getStatusName() !== PlayerStatusEnum::LOST) {
-            return;
-        }
+        $statusName = $event->getStatusName();
 
+        switch ($statusName) {
+            case PlayerStatusEnum::LOST:
+                $this->giveMoraleToReturnedPlayer($event);
+
+                break;
+
+            case PlayerStatusEnum::MUSH:
+                $this->handleMushStatusRemoved($event);
+
+                break;
+        }
+    }
+
+    private function giveMoraleToReturnedPlayer(StatusEvent $event): void
+    {
         /** @var Player $player */
         $player = $event->getStatusHolder();
-
         $playerVariableEvent = new PlayerVariableEvent(
             player: $player,
             variableName: PlayerVariableEnum::MORAL_POINT,
@@ -50,5 +62,25 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         );
 
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function handleMushStatusRemoved(StatusEvent $event): void
+    {
+        /** @var Player $player */
+        $player = $event->getStatusHolder();
+        $this->removePlayerSpores($player);
+        $this->markPlayerAsHuman($player);
+        $this->playerRepository->save($player);
+    }
+
+    private function removePlayerSpores(Player $player): void
+    {
+        $sporeVariable = $player->getVariableByName(PlayerVariableEnum::SPORE);
+        $sporeVariable->setValue(0)->setMaxValue(3);
+    }
+
+    private function markPlayerAsHuman(Player $player): void
+    {
+        $player->getPlayerInfo()->getClosedPlayer()->setIsMush(false);
     }
 }

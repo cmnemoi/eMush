@@ -162,11 +162,11 @@ class CycleService implements CycleServiceInterface
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalusInfo);
 
-        if ($cycleElapsed > 0) {
+        if ($cycleElapsed > 0 && !$daedalus->isCycleChange()) {
+            $this->toggleCycleChange($daedalus);
+
             try {
                 $this->entityManager->beginTransaction();
-                $daedalus->setIsCycleChange(true);
-
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
                     $dateDaedalusLastCycle->add(new \DateInterval('PT' . $daedalusConfig->getCycleLength() . 'M'));
                     $cycleEvent = new DaedalusCycleEvent(
@@ -183,10 +183,7 @@ class CycleService implements CycleServiceInterface
                 }
 
                 $daedalus->setCycleStartedAt($dateDaedalusLastCycle);
-                $daedalus->setIsCycleChange(false);
-
-                $this->entityManager->persist($daedalus);
-                $this->entityManager->flush();
+                $this->toggleCycleChange($daedalus);
                 $this->entityManager->commit();
             } catch (\Throwable $error) {
                 $this->logger->error('Error during cycle change', [
@@ -195,6 +192,7 @@ class CycleService implements CycleServiceInterface
                     'trace' => $error->getTraceAsString(),
                 ]);
                 $this->entityManager->rollback();
+                $this->toggleCycleChange($daedalus);
                 $this->entityManager->close();
 
                 throw $error;
@@ -284,6 +282,13 @@ class CycleService implements CycleServiceInterface
         $daedalusInfo = $exploration->getDaedalusInfo();
 
         return $daedalusInfo->isDaedalusFinished() || $exploration->isExplorationFinished();
+    }
+
+    private function toggleCycleChange(Daedalus $daedalus): void
+    {
+        $daedalus->setIsCycleChange(!$daedalus->isCycleChange());
+        $this->entityManager->persist($daedalus);
+        $this->entityManager->flush();
     }
 }
 

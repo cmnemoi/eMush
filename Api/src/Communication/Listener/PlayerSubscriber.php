@@ -89,6 +89,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $this->channelService->addPlayerToMushChannel($event->getPlayer());
 
+        // if player exchanged body, we want to add them to the channel without any message
         if ($event->hasTag(ActionEnum::EXCHANGE_BODY->value)) {
             return;
         }

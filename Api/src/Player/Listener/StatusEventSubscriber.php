@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Player\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -68,8 +69,14 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     {
         /** @var Player $player */
         $player = $event->getStatusHolder();
+
+        // only mark player as human if player has exchanged body
+        // otherwise this means that player is dead and we don't want to mark him as human
+        if ($event->hasTag(ActionEnum::EXCHANGE_BODY->value)) {
+            $this->markPlayerAsHuman($player);
+        }
+
         $this->removePlayerSpores($player);
-        $this->markPlayerAsHuman($player);
         $this->playerRepository->save($player);
     }
 

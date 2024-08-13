@@ -15,6 +15,7 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -169,11 +170,17 @@ class PlayerEventCest
             ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => CharacterEnum::CHAO]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
@@ -181,6 +188,7 @@ class PlayerEventCest
             'place' => $room,
         ]);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $player->setPlayerVariables($characterConfig);
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);

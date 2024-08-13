@@ -35,7 +35,7 @@ final class ExchangeBody extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         private AddSkillToPlayerService $addSkillToPlayer,
-        private UpdatePlayerNotificationService $UpdatePlayerNotification,
+        private UpdatePlayerNotificationService $updatePlayerNotification,
         private PlayerRepositoryInterface $playerRepository,
         private StatusServiceInterface $statusService,
         private TranslationServiceInterface $translationService
@@ -148,12 +148,12 @@ final class ExchangeBody extends AbstractAction
 
     private function createTargetNotification(): void
     {
-        $this->UpdatePlayerNotification->execute($this->target(), sprintf('%s_mush', ActionEnum::EXCHANGE_BODY->value));
+        $this->updatePlayerNotification->execute($this->target(), sprintf('%s_mush', ActionEnum::EXCHANGE_BODY->value));
     }
 
     private function createPlayerNotification(): void
     {
-        $this->UpdatePlayerNotification->execute($this->player, sprintf('%s_human', ActionEnum::EXCHANGE_BODY->value));
+        $this->updatePlayerNotification->execute($this->player, sprintf('%s_human', ActionEnum::EXCHANGE_BODY->value));
     }
 
     private function target(): Player

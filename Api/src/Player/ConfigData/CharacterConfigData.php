@@ -40,6 +40,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -79,6 +80,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -119,6 +121,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -161,6 +164,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -203,6 +207,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [
                 'chronic_vertigo_default',
@@ -244,6 +249,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [],
@@ -285,6 +291,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -324,6 +331,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -366,6 +374,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -405,6 +414,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -448,6 +458,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -488,6 +499,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -530,6 +542,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -569,6 +582,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -610,6 +624,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -654,6 +669,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -695,6 +711,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -736,6 +753,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SKILL_POINTS->value,
+                ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
             'startingItems' => [

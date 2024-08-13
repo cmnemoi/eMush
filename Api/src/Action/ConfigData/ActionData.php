@@ -2130,7 +2130,7 @@ class ActionData
         [
             'name' => ActionEnum::EXCHANGE_BODY->value,
             'action_name' => ActionEnum::EXCHANGE_BODY,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => VisibilityEnum::HIDDEN, 'fail' => VisibilityEnum::HIDDEN],

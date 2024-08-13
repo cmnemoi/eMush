@@ -34,8 +34,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
     private function deletePlayerHumanSkills(Player $player): void
     {
         $player
-            ->getSkills()
-            ->filter(static fn (Skill $skill) => $skill->isHumanSkill())
+            ->getHumanSkills()
             ->map(fn (Skill $skill) => $this->deletePlayerSkill->execute($skill->getName(), $player));
     }
 }

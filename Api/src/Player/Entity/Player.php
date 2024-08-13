@@ -135,6 +135,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $actionHistory = [];
 
+    #[ORM\OneToOne(mappedBy: 'player', targetEntity: PlayerNotification::class)]
+    private ?PlayerNotification $notification = null;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -961,6 +964,30 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
         // Keep only a decent amount of actions in the history
         $this->actionHistory = \array_slice($this->actionHistory, offset: 0, length: self::MAX_ACTION_HISTORY);
+
+        return $this;
+    }
+
+    public function hasNotification(): bool
+    {
+        return $this->notification !== null;
+    }
+
+    public function getNotificationOrThrow(): PlayerNotification
+    {
+        return $this->notification ?? throw new \RuntimeException('The player does not have a notification');
+    }
+
+    public function updateNotification(PlayerNotification $notification): self
+    {
+        $this->notification = $notification;
+
+        return $this;
+    }
+
+    public function deleteNotification(): self
+    {
+        $this->notification = null;
 
         return $this;
     }

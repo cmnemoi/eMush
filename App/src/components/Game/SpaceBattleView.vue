@@ -124,7 +124,6 @@ export default defineComponent({
     methods: {
         ...mapActions({
             'executeAction': 'action/executeAction',
-            'reloadPlayer': 'player/reloadPlayer',
             'selectTarget': 'room/selectTarget'
         }),
         ...mapMutations({

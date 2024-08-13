@@ -408,7 +408,6 @@ export default class DaedalusScene extends Phaser.Scene
         this.updateStatuses();
         this.updateEquipments();
 
-        //const loadPlayer = mapActions('player', ['loadPlayer']);
         store.subscribeAction({
             after: (action) => {
                 if (action.type === 'player/reloadPlayer' && this.player.isAlive()) {

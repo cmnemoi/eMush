@@ -27,3 +27,4 @@ services:
 
   Mush\Player\Repository\PlayerInfoRepositoryInterface: '@Mush\Player\Repository\PlayerInfoRepository'
   Mush\Player\Repository\PlayerRepositoryInterface: '@Mush\Player\Repository\PlayerRepository'
+  Mush\Player\Repository\PlayerNotificationRepositoryInterface: '@Mush\Player\Repository\PlayerNotificationRepository'

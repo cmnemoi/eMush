@@ -120,4 +120,11 @@ class PlayerInfo
 
         return $this->closedPlayer->getClosedDaedalus()->getDaedalusInfo()->getName();
     }
+
+    public function updateUser(User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
 }

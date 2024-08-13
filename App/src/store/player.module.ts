@@ -4,13 +4,15 @@ import { Player } from "@/entities/Player";
 import { Item } from "@/entities/Item";
 import { ConfirmPopup } from "@/entities/ConfirmPopup";
 import store from ".";
+import { User } from "@/entities/User";
 
 const state =  {
     loading: false,
     player: null,
     selectedItem: null,
     confirmPopup: new ConfirmPopup(),
-    displayMushSkills: false
+    displayMushSkills: false,
+    playerChanged: false
 };
 
 const getters: GetterTree<any, any> = {
@@ -28,6 +30,9 @@ const getters: GetterTree<any, any> = {
     },
     displayMushSkills: (state: any): boolean => {
         return state.displayMushSkills;
+    },
+    playerChanged: (state: any): boolean => {
+        return state.playerChanged;
     }
 };
 
@@ -35,7 +40,28 @@ const actions: ActionTree<any, any> = {
     storePlayer({ commit }, { player }) {
         commit('updatePlayer', player);
     },
-    async loadPlayer({ commit }, { playerId }) {
+    async chooseSkill({ commit }, { player, skill }) {
+        commit('setLoading', true);
+        try {
+            await PlayerService.chooseSkill(player, skill);
+            await this.dispatch('popup/closeSkillSelectionPopUp');
+            await this.dispatch('player/reloadPlayer');
+        } catch (error) {
+            console.error(error);
+        }
+        commit('setLoading', false);
+    },
+    async deleteNotification({ commit }) {
+        commit('setLoading', true);
+        try {
+            const player = store.getters['player/player'];
+            await PlayerService.deleteNotification(player);
+        } catch (error) {
+            console.error(error);
+        }
+        commit('setLoading', false);
+    },
+    async loadPlayer({ commit, dispatch }, { playerId }) {
         commit('setLoading', true);
         try {
             const isNewGame = store.getters['player/player'] === null;
@@ -109,22 +135,15 @@ const actions: ActionTree<any, any> = {
     refuseConfirmPopup({ commit }) {
         commit('refuseConfirmPopup');
     },
-    async chooseSkill({ commit }, { player, skill }) {
-        commit('setLoading', true);
-        try {
-            await PlayerService.chooseSkill(player, skill);
-            await this.dispatch('popup/closeSkillSelectionPopUp');
-            await this.dispatch('player/reloadPlayer');
-        } catch (error) {
-            console.error(error);
-        }
-        commit('setLoading', false);
-    },
+
     initMushSkillsDisplay({ commit }, { player }) {
         commit('setDisplayMushSkills', player.isMush());
     },
     toggleMushSkillsDisplay({ commit }) {
         commit('toggleMushSkillsDisplay');
+    },
+    togglePlayerChanged({ commit }) {
+        commit('setPlayerChanged', !state.playerChanged);
     }
 };
 
@@ -186,6 +205,9 @@ const mutations : MutationTree<any> = {
     },
     toggleMushSkillsDisplay(state) {
         state.displayMushSkills = !state.displayMushSkills;
+    },
+    setPlayerChanged(state, playerChanged: boolean) {
+        state.playerChanged = playerChanged;
     }
 };
 

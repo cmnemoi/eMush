@@ -91,9 +91,9 @@ const PlayerService = {
         await store.dispatch('player/setLoading', { loading: true });
         return ApiService.get(PLAYER_ENDPOINT + '/' + player.id + '/cycle-change')
             .then(async () => {
+                await store.dispatch('player/reloadPlayer');
                 await Promise.all([
                     store.dispatch("communication/clearRoomLogs", null, { root: true }),
-                    store.dispatch('player/reloadPlayer', { playerId: player.id }),
                     store.dispatch("communication/loadRoomLogs", null, { root: true }),
                     store.getters['player/player'].isAlive() ? store.dispatch("communication/loadAlivePlayerChannels", null, { root: true }) : store.dispatch("communication/loadDeadPlayerChannels", null, { root: true })
                 ]);
@@ -104,13 +104,19 @@ const PlayerService = {
         await store.dispatch('player/setLoading', { loading: true });
         return ApiService.get(PLAYER_ENDPOINT + '/' + player.id + '/exploration-cycle-change')
             .then(async () => {
+                await store.dispatch('player/reloadPlayer');
                 await Promise.all([
                     store.dispatch("communication/clearRoomLogs", null, { root: true }),
-                    store.dispatch('player/reloadPlayer', { playerId: player.id }),
                     store.dispatch("communication/loadRoomLogs", null, { root: true }),
                     store.getters['player/player'].isAlive() ? store.dispatch("communication/loadAlivePlayerChannels", null, { root: true }) : store.dispatch("communication/loadDeadPlayerChannels", null, { root: true })
                 ]);
             });
+    },
+
+    deleteNotification: async (player: Player): Promise<void> => {
+        await store.dispatch('player/setLoading', { loading: true });
+        await ApiService.delete(urlJoin(PLAYER_ENDPOINT, String(player.id), 'notification'));
+        await store.dispatch('player/setLoading', { loading: false });
     }
 };
 export default PlayerService;

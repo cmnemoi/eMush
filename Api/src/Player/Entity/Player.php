@@ -1007,14 +1007,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function canReadFoodProperties(GameEquipment $food): bool
     {
-        if ($food->isAFruit()) {
-            return $this->hasSkill(SkillEnum::BOTANIST);
-        }
-        if ($food->isADrug()) {
-            return $this->hasSkill(SkillEnum::NURSE);
-        }
-
-        return false;
+        return $this->canReadRationProperties($food) || $this->canReadFruitProperties($food) || $this->canReadDrugProperties($food);
     }
 
     public function canReadPlantProperties(GameEquipment $plant): bool
@@ -1089,5 +1082,20 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $skill = $this->getSkills()->filter(static fn (Skill $skill) => $skill->getName() === $name)->first();
 
         return $skill ?: null;
+    }
+
+    private function canReadRationProperties(GameEquipment $food): bool
+    {
+        return $food->isARation() && $this->hasStatus(PlayerStatusEnum::MUSH);
+    }
+
+    private function canReadFruitProperties(GameEquipment $food): bool
+    {
+        return $food->isAFruit() && $this->hasSkill(SkillEnum::BOTANIST);
+    }
+
+    private function canReadDrugProperties(GameEquipment $food): bool
+    {
+        return $food->isADrug() && $this->hasSkill(SkillEnum::NURSE);
     }
 }

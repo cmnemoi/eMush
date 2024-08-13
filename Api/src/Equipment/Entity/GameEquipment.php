@@ -488,6 +488,11 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return new ArrayCollection($names);
     }
 
+    public function isARation(): bool
+    {
+        return $this->hasMechanicByName(EquipmentMechanicEnum::RATION);
+    }
+
     public function isAFruit(): bool
     {
         return $this->hasMechanicByName(EquipmentMechanicEnum::FRUIT);

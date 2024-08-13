@@ -212,6 +212,12 @@ abstract class SkillConfigData
                     'logistic_modifier',
                 ],
             ),
+            new SkillConfigDto(
+                name: SkillEnum::TRANSFER,
+                actionConfigs: [
+                    ActionEnum::EXCHANGE_BODY,
+                ],
+            ),
         ];
     }
 

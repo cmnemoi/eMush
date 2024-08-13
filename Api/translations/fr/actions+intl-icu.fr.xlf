@@ -1254,5 +1254,23 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet d'obliger les équipiers entrant à repartir d'où ils viennent. L'action prend fin dès que vous vous déplacez.</target>
       </segment>
     </unit>
+    <unit id="exchange_body">
+      <segment id="name" state="final">
+        <source>exchange_body.name</source>
+        <target>Se transférer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>exchange_body.description</source>
+        <target>Permet d'échanger votre corps avec la cible. Cette action est irrémédiable. Vos compétences seront remises à zéro. **Les scores de :triumph: seront échangés**.</target>
+      </segment>
+      <segment id="popup_title" state="final">
+        <source>exchange_body.popup_title</source>
+        <target>Échange de corps !</target>
+      </segment>
+      <segment id="popup_description" state="final">
+        <source>exchange_body.popup_description</source>
+        <target>Vous avez échangé de corps avec cet humain. Vous allez maintenant vivre une nouvelle vie...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

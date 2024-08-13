@@ -4,6 +4,7 @@ namespace Mush\Action\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\ConfigData\ActionData;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
@@ -116,6 +117,11 @@ class MushActionFixtures extends Fixture
 
         $manager->persist($trapClosetAction);
 
+        $exchangeBoodyAction = ActionConfig::fromConfigData(
+            ActionData::getByName(ActionEnum::EXCHANGE_BODY)
+        );
+        $manager->persist($exchangeBoodyAction);
+
         $manager->flush();
 
         $this->addReference(self::EXTRACT_SPORE, $extractSporeAction);
@@ -126,5 +132,6 @@ class MushActionFixtures extends Fixture
         $this->addReference(self::SCREW_TALKIE, $screwTalkieAction);
         $this->addReference(self::PHAGOCYTE, $phagocyteAction);
         $this->addReference(ActionEnum::TRAP_CLOSET->value, $trapClosetAction);
+        $this->addReference(ActionEnum::EXCHANGE_BODY->value, $exchangeBoodyAction);
     }
 }

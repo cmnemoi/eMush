@@ -185,8 +185,8 @@ class AbstractFunctionalTest
 
         $user = new User();
         $user
-            ->setUserId('user' . Uuid::v4()->toRfc4122())
-            ->setUserName('user' . Uuid::v4()->toRfc4122());
+            ->setUserId(Uuid::v4()->toRfc4122())
+            ->setUserName(Uuid::v4()->toRfc4122());
         $I->haveInRepository($user);
 
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

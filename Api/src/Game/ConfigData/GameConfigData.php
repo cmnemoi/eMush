@@ -452,6 +452,7 @@ class GameConfigData
                 PlaceStatusEnum::CEASEFIRE->value . '_default',
                 PlayerStatusEnum::HAS_CEASEFIRED . '_default',
                 PlayerStatusEnum::PREVIOUS_ROOM . '_default',
+                PlayerStatusEnum::HAS_EXCHANGED_BODY . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -585,6 +586,7 @@ class GameConfigData
                 SkillEnum::FERTILE,
                 SkillEnum::MYCELIUM_SPIRIT,
                 SkillEnum::SPLASHPROOF,
+                SkillEnum::TRANSFER,
                 SkillEnum::INFECTOR,
             ],
         ],

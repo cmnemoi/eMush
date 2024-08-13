@@ -5,6 +5,7 @@ namespace Mush\Action\Event;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -118,9 +119,9 @@ class ActionEvent extends AbstractGameEvent
         return $this->getAuthor()->getPlace();
     }
 
-    public function getActionName(): string
+    public function getActionName(): ActionEnum
     {
-        return $this->actionConfig->getName();
+        return $this->actionConfig->getActionName();
     }
 
     public function shouldTriggerRoomTrap(): bool

@@ -171,6 +171,25 @@ enum ActionEnum: string
     case TOGGLE_PLASMA_SHIELD = 'toggle_plasma_shield';
     case TOGGLE_MAGNETIC_NET = 'toggle_magnetic_net';
 
+    public function toString(): string
+    {
+        return $this->value;
+    }
+
+    public function shouldNotBeRecordedInHistory(): bool
+    {
+        return (new ArrayCollection([
+            self::CHANGE_NERON_CPU_PRIORITY,
+            self::CHANGE_NERON_CREW_LOCK,
+            self::DROP,
+            self::EXAMINE,
+            self::MOVE,
+            self::TAKE,
+            self::TOGGLE_MAGNETIC_NET,
+            self::TOGGLE_PLASMA_SHIELD,
+        ]))->contains($this);
+    }
+
     public static function getPermanentItemActions(): array
     {
         return [
@@ -339,21 +358,6 @@ enum ActionEnum: string
             self::HYBRIDIZE,
             self::ULTRAHEAL,
             self::PUBLIC_BROADCAST,
-        ]);
-    }
-
-    public static function getActionsNotRecordedInHistory(): ArrayCollection
-    {
-        return new ArrayCollection([
-            self::CHANGE_NERON_CPU_PRIORITY->value,
-            self::CHANGE_NERON_CREW_LOCK->value,
-            self::DROP->value,
-            self::EXAMINE->value,
-            self::EXIT_TERMINAL->value,
-            self::MOVE->value,
-            self::TAKE->value,
-            self::TOGGLE_MAGNETIC_NET->value,
-            self::TOGGLE_PLASMA_SHIELD->value,
         ]);
     }
 

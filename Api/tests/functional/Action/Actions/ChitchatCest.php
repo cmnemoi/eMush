@@ -176,8 +176,8 @@ final class ChitchatCest extends AbstractFunctionalTest
     private function givenChunExecutedSearchActionTwice(FunctionalTester $I): void
     {
         $actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SEARCH->value]);
+        $actionConfig->setName(sprintf('%s_percent_100', ActionEnum::SEARCH->value));
 
-        /** @var Search $search */
         $search = $I->grabService(Search::class);
 
         for ($i = 0; $i < 2; ++$i) {

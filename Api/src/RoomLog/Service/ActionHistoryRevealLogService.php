@@ -37,7 +37,7 @@ final class ActionHistoryRevealLogService
         $translatedActions = [];
         foreach ($player->getActionHistory(limit: $numberOfActions) as $action) {
             $translatedAction = $this->translationService->translate(
-                key: sprintf('%s.name', $action),
+                key: sprintf('%s.name', $action->toString()),
                 parameters: [],
                 domain: 'actions',
                 language: $player->getLanguage(),

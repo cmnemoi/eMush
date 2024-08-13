@@ -954,17 +954,17 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     }
 
     /**
-     * @return array<non-empty-string>
+     * @return array<ActionEnum>
      */
     public function getActionHistory(int $limit = PHP_INT_MAX): array
     {
         return \array_slice($this->actionHistory, offset: 0, length: $limit);
     }
 
-    public function addActionToHistory(string $action): static
+    public function addActionToHistory(ActionEnum $action): static
     {
         // should not add specific actions
-        if (ActionEnum::getActionsNotRecordedInHistory()->contains($action)) {
+        if ($action->shouldNotBeRecordedInHistory()) {
             return $this;
         }
 

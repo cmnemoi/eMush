@@ -85,6 +85,7 @@ final class ExchangeBody extends AbstractAction
         $this->createTargetNotification();
         $this->createPlayerNotification();
 
+        // Add some details to allow player swap in front-end
         $result->addDetail('playerId', $this->target()->getId());
     }
 

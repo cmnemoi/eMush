@@ -51,7 +51,7 @@ final class DebugController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotAdmin();
 
-        if (!$daedalus->isCycleChange()) {
+        if (!$daedalus->isCycleChange() && !$daedalus->isExplorationChangingCycle()) {
             return $this->view(['error' => 'Daedalus is not on cycle change'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

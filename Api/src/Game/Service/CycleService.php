@@ -162,7 +162,7 @@ class CycleService implements CycleServiceInterface
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalusInfo);
 
-        if ($cycleElapsed > 0 && !$daedalus->isCycleChange()) {
+        if ($cycleElapsed > 0) {
             $this->toggleCycleChange($daedalus);
 
             try {
@@ -217,12 +217,11 @@ class CycleService implements CycleServiceInterface
 
         $cycleElapsed = $this->getNumberOfExplorationCycleElapsed($dateExplorationLastCycle, $dateTime, $exploration);
 
-        if ($cycleElapsed > 0 && !$exploration->isChangingCycle()) {
-            $exploration->setIsChangingCycle(true);
-            $this->entityManager->persist($exploration);
-            $this->entityManager->flush();
+        $this->toggleExplorationCycleChange($exploration);
 
+        if ($cycleElapsed > 0) {
             try {
+                $this->entityManager->beginTransaction();
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
                     $dateExplorationLastCycle->add(new \DateInterval('PT' . $exploration->getCycleLength() . 'M'));
                     $cycleEvent = new ExplorationEvent(
@@ -237,16 +236,17 @@ class CycleService implements CycleServiceInterface
                         break;
                     }
                 }
+                $this->toggleExplorationCycleChange($exploration);
+                $this->entityManager->commit();
             } catch (\Throwable $e) {
                 $this->logger->error('Error during exploration cycle change', [
                     'exploration' => $exploration->getId(),
                     'error' => $e->getMessage(),
                     'trace' => $e->getTraceAsString(),
                 ]);
-            } finally {
-                $exploration->setIsChangingCycle(false);
-                $this->entityManager->persist($exploration);
-                $this->entityManager->flush();
+                $this->entityManager->rollback();
+                $this->toggleExplorationCycleChange($exploration);
+                $this->entityManager->close();
             }
         }
 
@@ -288,6 +288,13 @@ class CycleService implements CycleServiceInterface
     {
         $daedalus->setIsCycleChange(!$daedalus->isCycleChange());
         $this->entityManager->persist($daedalus);
+        $this->entityManager->flush();
+    }
+
+    private function toggleExplorationCycleChange(Exploration $exploration): void
+    {
+        $exploration->setIsChangingCycle(!$exploration->isChangingCycle());
+        $this->entityManager->persist($exploration);
         $this->entityManager->flush();
     }
 }

@@ -46,21 +46,8 @@ export class News {
 
         return this;
     }
-    jsonEncode(): object {
-        const data : any = {
-            'id': this.id,
-            'frenchTitle': this.frenchTitle,
-            'englishTitle': this.englishTitle,
-            'spanishTitle': this.spanishTitle,
-            'frenchContent': this.frenchContent,
-            'englishContent': this.englishContent,
-            'spanishContent': this.spanishContent,
-            'publicationDate': this.publicationDate,
-            'isPinned': this.isPinned,
-            'isPublished': this.isPublished
-        };
-
-        return data;
+    jsonEncode(): string {
+        return JSON.stringify(this);
     }
     decode(jsonString : string): News {
         if (jsonString) {
@@ -70,6 +57,18 @@ export class News {
 
         return this;
     }
-
-
+    toRecord(): Record<string, any> {
+        return {
+            id: this.id,
+            frenchTitle: this.frenchTitle,
+            englishTitle: this.englishTitle,
+            spanishTitle: this.spanishTitle,
+            frenchContent: this.frenchContent,
+            englishContent: this.englishContent,
+            spanishContent: this.spanishContent,
+            publicationDate: this.publicationDate,
+            isPinned: this.isPinned,
+            isPublished: this.isPublished
+        };
+    }
 }

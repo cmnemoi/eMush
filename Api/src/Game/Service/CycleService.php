@@ -214,7 +214,7 @@ class CycleService implements CycleServiceInterface
 
         $cycleElapsed = $this->getNumberOfExplorationCycleElapsed($dateExplorationLastCycle, $dateTime, $exploration);
 
-        if ($cycleElapsed > 0 && !$exploration->isChangingCycle()) {
+        if ($cycleElapsed > 0) {
             $exploration->setIsChangingCycle(true);
             $this->entityManager->persist($exploration);
             $this->entityManager->flush();

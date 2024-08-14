@@ -148,7 +148,7 @@ class PlayerController extends AbstractGameController
             throw new HttpException(Response::HTTP_UNPROCESSABLE_ENTITY, 'No Daedalus found.');
         }
 
-        if ($daedalus->isCycleChange()) {
+        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);

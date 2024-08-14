@@ -141,7 +141,7 @@ class ActionController extends AbstractGameController
             throw new AccessDeniedException('player must be the same as user');
         }
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isCycleChange()) {
+        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);

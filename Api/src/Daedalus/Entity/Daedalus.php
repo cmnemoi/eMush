@@ -535,6 +535,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->isCycleChange;
     }
 
+    public function isDaedalusOrExplorationChangingCycle(): bool
+    {
+        return $this->isCycleChange() || $this->isExplorationChangingCycle();
+    }
+
     public function setIsCycleChange(bool $isCycleChange): static
     {
         $this->isCycleChange = $isCycleChange;
@@ -826,5 +831,10 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getNumberOfCyclesPerDay(): int
     {
         return $this->getDaedalusConfig()->getCyclePerGameDay();
+    }
+
+    private function isExplorationChangingCycle(): bool
+    {
+        return $this->getExploration()?->isChangingCycle() ?? false;
     }
 }

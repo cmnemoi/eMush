@@ -80,9 +80,6 @@ export default defineComponent({
         };
     },
     methods: {
-        ...mapActions({
-            markLatestNewsAsUnread: 'adminActions/markLatestNewsAsUnreadForAllUsers'
-        }),
         async create(): Promise<void> {
             if(!this.news) {
                 console.error("News is null");
@@ -96,7 +93,6 @@ export default defineComponent({
                 .catch((error: any) => {
                     this.errors = handleErrors(error);
                 });
-            await this.markLatestNewsAsUnread();
         },
         update(): void {
             if(!this.news) {

@@ -24,9 +24,6 @@ const AdminActionsService = {
     deleteAllStatusesByName: async(statusName: string): Promise<any> => {
         return await ApiService.delete(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'delete-all-statuses-by-name', statusName));
     },
-    markLatestNewsAsUnreadForAllUsers: async(): Promise<any> => {
-        return await ApiService.patch(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'mark-latest-news-as-unread'));
-    },
     proposeNewNeronProjectsForOnGoingDaedaluses: async(): Promise<any> => {
         return await ApiService.put(ADMIN_ACTIONS_ENDPOINT + '/propose-new-neron-projects-for-on-going-daedaluses');
     },

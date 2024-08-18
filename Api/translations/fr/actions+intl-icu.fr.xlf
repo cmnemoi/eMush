@@ -1244,5 +1244,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action n'est disponible qu'une fois par partie.</target>
       </segment>
     </unit>
+    <unit id="guard">
+      <segment id="guard" state="final">
+        <source>guard.name</source>
+        <target>Garder</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>guard.description</source>
+        <target>Permet d'obliger les équipiers entrant à repartir d'où ils viennent. L'action prend fin dès que vous vous déplacez.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

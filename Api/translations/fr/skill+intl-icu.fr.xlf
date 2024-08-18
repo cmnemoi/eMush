@@ -406,5 +406,15 @@
         <target>Vous faites des trous. Des petits trous. Beaucoup de petits trous.//:point: Vous permet de **poinçonner** une de fois de plus chaque jour.</target>
       </segment>
     </unit>
+    <unit id="sneak">
+      <segment id="sneak.name" state="translated">
+        <source>sneak.name</source>
+        <target>Fuyant</target>
+      </segment>
+      <segment id="sneak.description" state="translated">
+        <source>sneak.description</source>
+        <target>Vous êtes d'un naturel craintif et savez naturellement vous dérober afin d'échapper à toutes les tentatives de contact physique.//:point: Les attaques de corps-à-corps reçoivent une **pénalité de 25%**.//:point: Vous pouvez vous déplacer quels que soient les **Gardiens** présents dans la pièce.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -208,6 +208,12 @@ final class FakeStatusService implements StatusServiceInterface
         return $this->persist($status);
     }
 
+    public function updateStatusTarget(Status $status, StatusHolderInterface $target): void
+    {
+        $status->setTarget($target);
+        $this->persist($status);
+    }
+
     public function getByNameOrNull(string $name): ?Status
     {
         return $this->statuses->get($name) ?: null;

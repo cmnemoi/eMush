@@ -451,6 +451,7 @@ class GameConfigData
                 SkillPointsEnum::SPORE_POINTS->value,
                 PlaceStatusEnum::CEASEFIRE->value . '_default',
                 PlayerStatusEnum::HAS_CEASEFIRED . '_default',
+                PlayerStatusEnum::PREVIOUS_ROOM . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

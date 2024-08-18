@@ -20,7 +20,6 @@ use Mush\Daedalus\Entity\Neron;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
-use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\SymptomEnum;
@@ -52,7 +51,6 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
@@ -75,9 +73,7 @@ class ActionSubscriberCest
         $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => 'test']);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'daedalusConfig' => $daedalusConfig,
-        ]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -307,7 +303,7 @@ class ActionSubscriberCest
     public function testOnPostActionDroolingSymptom(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -422,7 +418,7 @@ class ActionSubscriberCest
     public function testOnPostActionFoamingMouthSymptom(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -538,7 +534,7 @@ class ActionSubscriberCest
     public function testOnPostActionSneezingSymptom(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -652,14 +648,8 @@ class ActionSubscriberCest
 
     public function testOnPostActionVomitingSymptom(FunctionalTester $I)
     {
-        $dirtyStatusConfig = new StatusConfig();
-        $dirtyStatusConfig
-            ->setStatusName('dirty')
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($dirtyStatusConfig);
-
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$dirtyStatusConfig])]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -840,7 +830,7 @@ class ActionSubscriberCest
     public function testOnPostActionFearOfCatsSymptom(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -988,27 +978,12 @@ class ActionSubscriberCest
             ->setModifierConfigs([$symptomConfig])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
-        $diseaseCauseConfig = new DiseaseCauseConfig();
-        $diseaseCauseConfig
-            ->setDiseases(['Name' => 1])
-            ->setCauseName(DiseaseCauseEnum::TRAUMA)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($diseaseCauseConfig);
-        $diseaseCauseContactConfig = new DiseaseCauseConfig();
-        $diseaseCauseContactConfig
-            ->setDiseases([])
-            ->setCauseName(DiseaseCauseEnum::CONTACT)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($diseaseCauseContactConfig);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'diseaseCauseConfig' => new ArrayCollection([$diseaseCauseConfig, $diseaseCauseContactConfig]),
-            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
-        ]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
 
         /** @var User $user */
         $user = $I->have(User::class);

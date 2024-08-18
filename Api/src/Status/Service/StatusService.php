@@ -338,6 +338,12 @@ class StatusService implements StatusServiceInterface
         return $this->persist($status);
     }
 
+    public function updateStatusTarget(Status $status, StatusHolderInterface $target): void
+    {
+        $status->setTarget($target);
+        $this->persist($status);
+    }
+
     private function handleAttemptOnFailure(
         ?Attempt $attempt,
         StatusHolderInterface $holder,

@@ -52,7 +52,7 @@ class MoveSubscriberCest
         $this->moveAction = $I->grabService(Move::class);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -146,7 +146,7 @@ class MoveSubscriberCest
         // let's check that every player and item is placed in the right place
         $I->assertCount(0, $this->currentRoom->getPlayers());
         $I->assertCount(1, $this->destinationRoom->getPlayers());
-        $I->assertCount(1, $this->player->getStatuses());
+        $I->assertTrue($this->player->getStatuses()->contains($statusPlayer));
 
         // now check the modifiers
         $I->assertCount(0, $this->currentRoom->getModifiers());
@@ -287,7 +287,6 @@ class MoveSubscriberCest
         $I->assertCount(0, $this->currentRoom->getPlayers());
         $I->assertCount(1, $this->destinationRoom->getPlayers());
         $I->assertCount(1, $this->player->getEquipments());
-        $I->assertCount(0, $this->player->getStatuses());
         $I->assertCount(1, $gameEquipment->getStatuses());
 
         // now check the modifiers

@@ -1085,6 +1085,9 @@ class ActionsFixtures extends Fixture
         $ceasefire = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CEASEFIRE));
         $manager->persist($ceasefire);
 
+        $guard = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GUARD));
+        $manager->persist($guard);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1193,5 +1196,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::BECOME_GENIUS->value, $becomeGenius);
         $this->addReference(ActionEnum::PREMONITION->value, $premonition);
         $this->addReference(ActionEnum::CEASEFIRE->value, $ceasefire);
+        $this->addReference(ActionEnum::GUARD->value, $guard);
     }
 }

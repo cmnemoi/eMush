@@ -2,7 +2,6 @@
 
 namespace Mush\Status\Listener;
 
-use Mush\Communication\Services\ChannelService;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
@@ -14,14 +13,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private StatusServiceInterface $statusService;
-    private ChannelService $channelService;
 
     public function __construct(
         StatusServiceInterface $statusService,
-        ChannelService $channelService
     ) {
         $this->statusService = $statusService;
-        $this->channelService = $channelService;
     }
 
     public static function getSubscribedEvents()
@@ -74,10 +70,18 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onPlayerChangedPlace(PlayerChangedPlaceEvent $event): void
     {
         $oldPlace = $event->getOldPlace();
-
         if ($oldPlace->hasStatus(PlaceStatusEnum::CEASEFIRE->toString())) {
             $this->deleteCeasefireStatus($event);
         }
+
+        $player = $event->getPlayer();
+        if ($player->hasStatus(PlayerStatusEnum::PREVIOUS_ROOM)) {
+            $this->updatePreviousRoomStatus($event);
+        } else {
+            $this->createPreviousRoomStatus($event);
+        }
+
+        $this->removeGuardianStatus($event);
     }
 
     private function deleteCeasefireStatus(PlayerChangedPlaceEvent $event): void
@@ -96,6 +100,35 @@ class PlayerSubscriber implements EventSubscriberInterface
             tags: $event->getTags(),
             time: $event->getTime(),
             visibility: VisibilityEnum::PUBLIC,
+        );
+    }
+
+    private function createPreviousRoomStatus(PlayerChangedPlaceEvent $event): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::PREVIOUS_ROOM,
+            holder: $event->getPlayer(),
+            tags: $event->getTags(),
+            time: $event->getTime(),
+            target: $event->getOldPlace(),
+        );
+    }
+
+    private function updatePreviousRoomStatus(PlayerChangedPlaceEvent $event): void
+    {
+        $this->statusService->updateStatusTarget(
+            status: $event->getPlayer()->getStatusByNameOrThrow(PlayerStatusEnum::PREVIOUS_ROOM),
+            target: $event->getOldPlace(),
+        );
+    }
+
+    private function removeGuardianStatus(PlayerChangedPlaceEvent $event): void
+    {
+        $this->statusService->removeStatus(
+            statusName: PlayerStatusEnum::GUARDIAN,
+            holder: $event->getPlayer(),
+            tags: $event->getTags(),
+            time: $event->getTime(),
         );
     }
 }

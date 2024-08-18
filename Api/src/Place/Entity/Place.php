@@ -34,6 +34,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
 #[ORM\Table(name: 'room')]
@@ -545,5 +546,10 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     public function hasAnAliveShrinkExceptPlayer(Player $player): bool
     {
         return $this->getAliveShrinksExceptPlayer($player)->count() > 0;
+    }
+
+    public function hasAGuardian(): bool
+    {
+        return $this->getPlayers()->getPlayerAlive()->hasOneWithStatus(PlayerStatusEnum::GUARDIAN);
     }
 }

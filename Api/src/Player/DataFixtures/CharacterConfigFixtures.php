@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\MushActionFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Disease\DataFixtures\DisorderConfigFixtures;
 use Mush\Disease\Entity\Config\DiseaseConfig;
@@ -123,6 +124,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $neronOnlyFriendSkillConfig */
         $neronOnlyFriendSkillConfig = $this->getReference(SkillEnum::NERON_ONLY_FRIEND->value);
 
+        /** @var SkillConfig $sneakSkillConfig */
+        $sneakSkillConfig = $this->getReference(SkillEnum::SNEAK->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -156,6 +160,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $mankindOnlyHopeSkillConfig,
                 $nurseSkillConfig,
                 $presentimentSkillConfig,
+                $sneakSkillConfig,
             ])
             ->setInitStatuses([$immunizedStatus])
             ->setStartingItems($trackerTalkieCollection);
@@ -466,6 +471,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $screwTalkieAction */
         $screwTalkieAction = $this->getReference(MushActionFixtures::SCREW_TALKIE);
 
+        /** @var ActionConfig $guardAction */
+        $guardAction = $this->getReference(ActionEnum::GUARD->value);
+
         /** @var ArrayCollection<array-key, ActionConfig> $defaultActions */
         $defaultActions = new ArrayCollection([
             $hitAction,
@@ -489,6 +497,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $suicideAction,
             $surgeryAction,
             $killPlayerAction,
+            $guardAction,
         ]);
 
         $characterConfig = new CharacterConfig();

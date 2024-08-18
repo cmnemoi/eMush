@@ -47,4 +47,5 @@ abstract class PlayerStatusEnum
     public const string GENIUS_IDEA = 'genius_idea';
     public const string HAS_USED_GENIUS = 'has_used_genius';
     public const string HAS_CEASEFIRED = 'has_ceasefired';
+    public const string PREVIOUS_ROOM = 'previous_room';
 }

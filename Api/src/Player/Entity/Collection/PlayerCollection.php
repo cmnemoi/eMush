@@ -68,4 +68,9 @@ class PlayerCollection extends ArrayCollection
     {
         return $this->getPlayersWithSkill($skill)->count() > 0;
     }
+
+    public function hasOneWithStatus(string $status): bool
+    {
+        return $this->filter(static fn (Player $player) => $player->hasStatus($status))->count() > 0;
+    }
 }

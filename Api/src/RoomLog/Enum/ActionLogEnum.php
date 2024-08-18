@@ -134,6 +134,7 @@ abstract class ActionLogEnum
     public const string GRAFT_FAIL = 'graft_fail';
     public const string CEASEFIRE_SUCCESS = 'ceasefire_success';
     public const string PUT_THROUGH_DOOR_SUCCESS = 'put_through_door_success';
+    public const string GUARD_SUCCESS = 'guard_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -465,6 +466,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::CEASEFIRE->value => [
             ActionOutputEnum::SUCCESS => self::CEASEFIRE_SUCCESS,
+        ],
+        ActionEnum::GUARD->value => [
+            ActionOutputEnum::SUCCESS => self::GUARD_SUCCESS,
         ],
     ];
 

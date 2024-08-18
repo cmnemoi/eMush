@@ -133,7 +133,7 @@ To participate you must have a :talkie: walkie-talkie.</target>
       </segment>
       <segment id="description" state="translated">
         <source>favorites.description</source>
-        <target>Your chosen favorites topics.</target>
+        <target>Your chosen favorites threads.</target>
       </segment>
     </unit>
     <unit id="message_date">

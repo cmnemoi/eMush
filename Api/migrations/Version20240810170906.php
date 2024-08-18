@@ -50,7 +50,7 @@ final class Version20240810170906 extends AbstractMigration
         $this->addSql('ALTER TABLE modifier_provider ADD CONSTRAINT FK_6709A162BFAFDD90 FOREIGN KEY (game_equipment_id) REFERENCES game_equipment (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE modifier_provider ADD CONSTRAINT FK_6709A162166D1F9C FOREIGN KEY (project_id) REFERENCES project (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE modifier_provider ADD CONSTRAINT FK_6709A1626BF700BD FOREIGN KEY (status_id) REFERENCES status (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE abstract_modifier_config ADD target_filters TEXT DEFAULT NULL');
+        $this->addSql('ALTER TABLE abstract_modifier_config ADD target_filters TEXT DEFAULT \'a:0:{}\'');
         $this->addSql('COMMENT ON COLUMN abstract_modifier_config.target_filters IS \'(DC2Type:array)\'');
         $this->addSql('ALTER TABLE game_modifier DROP CONSTRAINT fk_fb26db99e6f5df');
         $this->addSql('ALTER TABLE game_modifier DROP CONSTRAINT fk_fb26dbda6a219');

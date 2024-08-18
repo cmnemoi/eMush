@@ -694,7 +694,11 @@ Lets you communicate on the General Channel.</target>
       </segment>
       <segment id="description" state="translated">
         <source>itrackie.description</source>
-        <target>The iTrackie®© represents arguably the finest in digital gadgetry. It looks good, it's elegant, subtle, it vibrates, and almost never breaks down.</target>
+        <target>The iTrackie®© represents arguably the finest in digital gadgetry. It looks good, it's elegant, subtle, it vibrates, and almost never breaks down.
+//
+Allows you to communicate remotely with other crew members.
+//
+Allows you to access the upgraded mini-map of the Daedalus.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie.examine</source>
@@ -1267,7 +1271,7 @@ The Echolocator is a powerful tool for expedition troops in hostile areas. Unfor
       </segment>
       <segment id="examine" state="translated">
         <source>rope.examine</source>
-        <target>On expeditions, the rope allows you to get out of an dead-end.//Expedition : Removes possibility of personal damage which could happen in "Seismic", "Caverns" and "Mountains" areas, but does not prevent sudden deaths.//Looking at the probability statistics of what one would conceivably find aboard the Daedalus, the rope got zero. However...</target>
+        <target>On expeditions, the rope allows you to get out of a dead-end.//Expedition: Prevents personal damage which could happen in "Seismic", "Caverns" and "Mountains" sectors, but does not prevent sudden deaths.//Looking at the probability statistics of what one would conceivably find aboard the Daedalus, the rope got zero. However...</target>
       </segment>
     </unit>
     <unit id="thermosensor">
@@ -2231,11 +2235,11 @@ Expedition: +2 added to the strength of your team during combats.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>old_faithful.examine</source>
-        <target>The machine gun is an extremely heavy weapon. Certain international laws prohibit its use against humans. When you see it, you'll know why. Some call it 'Old painless' but that depends which end you're at...
+        <target>The machine gun is an extremely heavy weapon. Certain international laws prohibit its use against humans. When you see it, you'll know why. Some call it 'Old Painless' but that depends which end you're at...
 //
 Expedition: + 2 added to the strength of your team during combats.
 //
-The F.R.A.K.U. automatic assault rifle, is better known as the "lead spitter". It's rate of fire, range, weight, modified payload... in short it's an impressive piece of kit. Heavy? Yeah. Dangerous? Hell yeah. It kicks ass.</target>
+The F.R.A.K.U. automatic assault rifle, is better known as the "lead spitter". Its rate of fire, range, weight, modified payload... in short it's an impressive piece of kit. Heavy? Yeah. Dangerous? Hell yeah. It kicks ass.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle">

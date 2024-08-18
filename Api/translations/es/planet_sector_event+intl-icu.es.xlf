@@ -295,6 +295,12 @@
         <target>bonus_loot_thanks_to_skill</target>
       </segment>
     </unit>
+    <unit id="fight_prevented_by_skill">
+      <segment id="description" state="initial">
+        <source>fight_prevented_by_skill</source>
+        <target>fight_prevented_by_skill</target>
+      </segment>
+    </unit>
     <unit id="kill_random">
       <segment id="name" state="initial">
         <source>kill_random.name</source>

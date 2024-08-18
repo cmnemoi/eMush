@@ -323,7 +323,7 @@
     <unit id="fight_prevented_by_item">
       <segment id="description" state="translated">
         <source>fight_prevented_by_item</source>
-        <target>Probabilité de combat annulée {equipment}</target>
+        <target>Probabilité de combat annulée par {equipment}</target>
       </segment>
     </unit>
     <unit id="skill_reduced_damage_for_player">
@@ -335,7 +335,7 @@
     <unit id="bonus_loot_thanks_to_skill">
       <segment id="description" state="translated">
         <source>bonus_loot_thanks_to_skill</source>
-        <target>+ {quantity} car l'expédition dispose de la compétence : {skill}</target>
+        <target>+ {quantity, plural, one {# obtenu} other {# obtenus}} car l'expédition dispose de la compétence : {skill}</target>
       </segment>
     </unit>
     <unit id="fight_prevented_by_skill">

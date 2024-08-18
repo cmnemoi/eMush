@@ -1143,7 +1143,7 @@ L'avenir de l'Humanité sera propre ou ne sera pas.</target>
       </segment>
       <segment id="description" state="translated">
         <source>babel_module.description</source>
-        <target>Un module de traduction universel.//Expédition : Chance de gains d'artefacts dans un secteur "Vie Intelligente" x2.</target>
+        <target>Un module de traduction universel.//Expédition : Chance de gains d'artéfacts dans un secteur "Vie Intelligente" doublée.</target>
       </segment>
       <segment id="examine" state="final">
         <source>babel_module.examine</source>

@@ -625,5 +625,29 @@
         <target>This action can only be carried out once per cycle. It will be available again next cycle.</target>
       </segment>
     </unit>
+    <unit id="no_working_door">
+      <segment id="description" state="translated">
+        <source>no_working_door.description</source>
+        <target>There are no functional doors in this room.</target>
+      </segment>
+    </unit>
+    <unit id="premonition_insufficient_morale">
+      <segment id="description" state="initial">
+        <source>premonition_insufficient_morale.description</source>
+        <target>premonition_insufficient_morale.description</target>
+      </segment>
+    </unit>
+    <unit id="already_a_ceasefire_in_room">
+      <segment id="description" state="initial">
+        <source>already_a_ceasefire_in_room.description</source>
+        <target>already_a_ceasefire_in_room.description</target>
+      </segment>
+    </unit>
+    <unit id="cannot_go_to_this_room_because_guardian">
+      <segment id="description" state="initial">
+        <source>cannot_go_to_this_room_because_guardian.description</source>
+        <target>cannot_go_to_this_room_because_guardian.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

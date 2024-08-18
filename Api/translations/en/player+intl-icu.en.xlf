@@ -140,5 +140,15 @@ Currently, you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
         <target>IT Points give **free actions** to *manipulate terminals*.</target>
       </segment>
     </unit>
+    <unit id="heal">
+      <segment id="name" state="initial">
+        <source>heal.name</source>
+        <target>heal.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>heal.description</source>
+        <target>heal.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

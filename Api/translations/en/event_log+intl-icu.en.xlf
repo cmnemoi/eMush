@@ -642,7 +642,7 @@
     <unit id="all_explorators_dead">
       <segment id="all_explorators_dead" state="translated">
         <source>all_explorators_dead</source>
-        <target>The expedition came back sooner than expected: all the explorators are dead! You can find out how it went {exploration_link}.</target>
+        <target>The expedition ended sooner than expected: all the explorers are dead! You can find out how it went {exploration_link}.</target>
       </segment>
     </unit>
     <unit id="gain_shoot_point">
@@ -655,6 +655,12 @@
       <segment state="translated">
         <source>gain_conceptor_point</source>
         <target>You have earned {quantity} :pa_core:.</target>
+      </segment>
+    </unit>
+    <unit id="gain_nurse_point">
+      <segment state="initial">
+        <source>gain_nurse_point</source>
+        <target>gain_nurse_point</target>
       </segment>
     </unit>
     <unit id="gain_it_expert_point">
@@ -733,7 +739,13 @@
     <unit id="lost_on_planet">
       <segment state="translated">
         <source>lost_on_planet</source>
-        <target>You feel lonely and abandoned... Does no one think of you up there?</target>
+        <target>You feel lonely and abandoned... Is no one thinking of you up there?</target>
+      </segment>
+    </unit>
+    <unit id="logistic_log">
+      <segment state="initial">
+        <source>logistic_log</source>
+        <target>logistic_log</target>
       </segment>
     </unit>
     <unit id="drone">
@@ -766,7 +778,7 @@
         24 {Troll}
         25 {Vortex}
         26 {Weathley}
-        other {Wealthley}} #{drone_serial_number}**</target>
+        other {Weathley}} #{drone_serial_number}**</target>
       </segment>
     </unit>
     <unit id="drone_entered_room">
@@ -859,7 +871,7 @@
     <unit id="creative_worked">
       <segment id="creative_worked" state="translated">
         <source>creative_worked</source>
-        <target>Your **Creative** skill of has borne fruit... </target>
+        <target>Your **Creative** skill of has borne fruit...</target>
       </segment>
     </unit>
     <unit id="confident_actions">
@@ -872,6 +884,24 @@
           1 {**{character}** tells you about their latest adventures, and even if it doesn't sound like it, you can still learn something... Their last action is {lastAction}.}
           other {**{character}** tells you about the latest adventures and even if it doesn't look like it, you can always learn something... Their last actions are {actions} and {lastAction}.}
         }</target>
+      </segment>
+    </unit>
+    <unit id="optimist_worked">
+      <segment id="optimist_worked" state="initial">
+        <source>optimist_worked</source>
+        <target>optimist_worked</target>
+      </segment>
+    </unit>
+    <unit id="premonition_action">
+      <segment id="premonition_action" state="initial">
+        <source>premonition_action</source>
+        <target>premonition_action</target>
+      </segment>
+    </unit>
+    <unit id="ceasefire_end">
+      <segment id="ceasefire_end" state="initial">
+        <source>ceasefire_end</source>
+        <target>ceasefire_end</target>
       </segment>
     </unit>
   </file>

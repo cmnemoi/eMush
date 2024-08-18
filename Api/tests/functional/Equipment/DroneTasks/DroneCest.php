@@ -218,7 +218,7 @@ final class DroneCest extends AbstractFunctionalTest
 
         $I->assertEquals(
             expected: [
-                'drone' => '**Robo Wealthley #0**',
+                'drone' => '**Robo Wheatley #0**',
                 'drone_nickname' => 0,
                 'drone_serial_number' => 0,
             ],
@@ -292,7 +292,7 @@ final class DroneCest extends AbstractFunctionalTest
         );
 
         $I->assertEquals(
-            expected: '**Robo Wealthley #0**',
+            expected: '**Robo Wheatley #0**',
             actual: $roomLog->getParameters()['drone']
         );
 

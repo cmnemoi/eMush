@@ -148,7 +148,7 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->whenThreeCyclesPass();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: 'Plus personne ne prend **Chun** au serieux finalement. Fin du cessez-le-feu.',
+            expectedRoomLog: 'Plus personne ne prend **Chun** au sérieux finalement. Fin du cessez-le-feu.',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->chun,
                 log: StatusEventLogEnum::CEASEFIRE_END,

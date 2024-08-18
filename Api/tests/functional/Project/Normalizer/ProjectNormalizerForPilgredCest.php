@@ -77,7 +77,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
                 'progress' => '0%',
                 'efficiency' => 'Efficacité : 1-1%',
                 'efficiencyTooltipHeader' => 'Efficacité',
-                'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
+                'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un collègue.',
                 'bonusSkills' => [
                     [
                         'key' => 'physicist',

@@ -32,7 +32,7 @@ class TriggerEventModifierConfig extends EventModifierConfig
     #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
     protected Collection $eventTargetRequirements;
 
-    #[ORM\Column(type: 'array', nullable: false)]
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $targetFilters = [];
 
     public function __construct(string $name)

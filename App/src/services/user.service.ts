@@ -131,6 +131,24 @@ const UserService = {
             });
 
         await store.dispatch('gameConfig/setLoading', { loading: false });
+    },
+
+    hasNotReadLatestNews: async function(): Promise<boolean> {
+        try {
+            const response = await ApiService.get(urlJoin(userEndPoint, 'has-not-read-latest-news'));
+            return response.data.detail;
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    },
+
+    readLatestNews: async function(): Promise<void> {
+        try {
+            await ApiService.patch(urlJoin(userEndPoint, 'read-latest-news'));
+        } catch (error) {
+            console.error(error);
+        }
     }
 };
 

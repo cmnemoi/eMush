@@ -61,6 +61,7 @@ import Input from "@/components/Utils/Input.vue";
 import NewsService from "@/services/news.service";
 import { News } from "@/entities/News";
 import { handleErrors } from "@/utils/apiValidationErrors";
+import { mapActions } from "vuex";
 
 interface NewsData {
     news: News | null,
@@ -79,12 +80,12 @@ export default defineComponent({
         };
     },
     methods: {
-        create(): void {
+        async create(): Promise<void> {
             if(!this.news) {
                 console.error("News is null");
                 return;
             }
-            NewsService.createNews(this.news)
+            await NewsService.createNews(this.news)
                 .then((result: News | null) => {
                     this.news = result;
                     this.errors = {};

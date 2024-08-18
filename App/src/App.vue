@@ -28,6 +28,7 @@ import ModerationWarningBanner from "@/components/Moderation/ModerationWarningBa
 import { defineComponent } from "vue";
 import ToastContainer from "./components/ToastContainer.vue";
 import PlayerNotificationPopUp from "@/components/Game/PlayerNotificationPopUp.vue";
+import UserService from "@/services/user.service";
 
 export default defineComponent({
     name: 'App',
@@ -72,13 +73,23 @@ export default defineComponent({
     methods: {
         ...mapActions({
             loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus',
-            loadUserSanctions: 'moderation/loadUserSanctions'
+            loadUserSanctions: 'moderation/loadUserSanctions',
+            openNewsToast: 'toast/openNewsToast'
         })
     },
-    beforeMount() {
-        this.loadGameMaintenanceStatus();
+    async beforeMount() {
+        await this.loadGameMaintenanceStatus();
         if (this.user) {
-            this.loadUserSanctions(this.user.id);
+            await this.loadUserSanctions(this.user.id);
+        }
+    },
+    async updated() {
+        if (!this.user) {
+            return;
+        }
+        const userHasNotReadLatestNews = await UserService.hasNotReadLatestNews();
+        if (userHasNotReadLatestNews) {
+            this.openNewsToast(this.$t('game.popUp.newNews'));
         }
     }
 });

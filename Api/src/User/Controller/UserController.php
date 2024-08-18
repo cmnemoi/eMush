@@ -38,14 +38,51 @@ final class UserController extends AbstractFOSRestController
      *
      * @Rest\Patch(path="/accept-rules")
      */
-    public function acceptRulesAction(): View
+    public function acceptRulesEndpoint(): View
     {
         $this->denyAccessUnlessGranted(UserVoter::IS_CONNECTED, message: 'You must be connected to accept the rules.');
 
-        /** @var User $user */
-        $user = $this->getUser();
-        $this->userService->acceptRules($user);
+        $this->userService->acceptRules($this->getUserOrThrow());
 
         return $this->view(['detail' => 'Rules accepted successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Check if user has not read latest news.
+     *
+     * @OA\Tag(name="User")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Get(path="/has-not-read-latest-news")
+     */
+    public function hasNotReadLatestNewsEndpoint(): View
+    {
+        $this->denyAccessUnlessGranted(UserVoter::IS_CONNECTED, message: 'You must be connected to read the latest news.');
+
+        return $this->view(['detail' => $this->getUserOrThrow()->hasNotReadLatestNews()], Response::HTTP_OK);
+    }
+
+    /**
+     * Read latest news.
+     *
+     * @OA\Tag(name="User")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Patch(path="/read-latest-news")
+     */
+    public function readLatestNewsEndpoint(): View
+    {
+        $this->denyAccessUnlessGranted(UserVoter::IS_CONNECTED, message: 'You must be connected to read the latest news.');
+
+        $this->userService->readLatestNews($this->getUserOrThrow());
+
+        return $this->view(['detail' => 'News read successfully'], Response::HTTP_OK);
+    }
+
+    private function getUserOrThrow(): User
+    {
+        return $this->getUser() instanceof User ? $this->getUser() : throw new \RuntimeException('User not found');
     }
 }

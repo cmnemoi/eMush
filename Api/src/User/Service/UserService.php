@@ -74,4 +74,11 @@ class UserService implements UserServiceInterface
 
         $this->persist($user);
     }
+
+    public function readLatestNews(User $user): void
+    {
+        $user->readLatestNews();
+
+        $this->persist($user);
+    }
 }

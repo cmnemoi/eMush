@@ -629,7 +629,9 @@
 		},
 		"popUp": {
 			"close": "Fermer",
-			"ok": "D'accord"
+			"ok": "D'accord",
+			"goThere": "Y aller",
+			"newNews": "Une nouvelle news a été publiée !"
 		}
 	},
 	"newsPage": {

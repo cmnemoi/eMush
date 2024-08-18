@@ -11,9 +11,7 @@ const NewsService = {
     createNews: async(news: News): Promise<News | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
 
-        const newsRecord: Record<string, any> = news.jsonEncode();
-
-        const newsData = await ApiService.post(NEWS_ENDPOINT, newsRecord)
+        const newsData = await ApiService.post(NEWS_ENDPOINT, news.toRecord())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         let createdNews = null;

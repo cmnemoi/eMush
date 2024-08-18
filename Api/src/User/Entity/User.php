@@ -47,6 +47,9 @@ class User implements UserInterface
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $hasAcceptedRules = false;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $hasReadLatestNews = false;
+
     public function __construct()
     {
         $this->moderationSanctions = new ArrayCollection();
@@ -199,5 +202,24 @@ class User implements UserInterface
         $this->hasAcceptedRules = false;
 
         return $this;
+    }
+
+    public function readLatestNews(): self
+    {
+        $this->hasReadLatestNews = true;
+
+        return $this;
+    }
+
+    public function markLatestNewsAsUnread(): self
+    {
+        $this->hasReadLatestNews = false;
+
+        return $this;
+    }
+
+    public function hasNotReadLatestNews(): bool
+    {
+        return $this->hasReadLatestNews === false;
     }
 }

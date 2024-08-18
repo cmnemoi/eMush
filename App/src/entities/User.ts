@@ -31,13 +31,7 @@ export class User {
     }
     decode(jsonString: string): User {
         if (jsonString) {
-            const object = JSON.parse(jsonString);
-            this.id = object.id;
-            this.userId = object.userId;
-            this.username = object.username;
-            this.playerInfo = object.playerInfo ?? null;
-            this.roles = object.roles;
-            this.hasAcceptedRules = object.hasAcceptedRules;
+            return (new User()).load(JSON.parse(jsonString));
         }
 
         return this;

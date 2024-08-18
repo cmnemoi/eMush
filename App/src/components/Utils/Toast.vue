@@ -4,14 +4,15 @@
             <div class="icon">
                 <img v-if="type === 'warning'" :src="getImgUrl('att.png')" alt="warning" />
                 <img v-else-if="type === 'error'" :src="getImgUrl('neron_eye.gif')" alt="error" />
-                <img v-else-if="type === 'success'" :src="getImgUrl('ready.png')" alt="success" />
+                <img v-else-if="type === 'success' || type === 'news'" :src="getImgUrl('ready.png')" alt="success" />
                 <img v-else :src="getImgUrl('info.png')" alt="info" />
             </div>
             <div class="content">
-                <h1 v-if="title">
-                    {{ content }}
-                </h1>
-                <button class="modal-close" @click="close">
+                <h1 v-if="title" v-html="content" />
+                <button class="modal-close" @click="goToNewsPage" v-if="type === 'news'">
+                    {{ $t('game.popUp.goThere') }}
+                </button>
+                <button class="modal-close" @click="close" v-else>
                     {{ $t('game.popUp.close') }}
                 </button>
                 <slot />
@@ -24,6 +25,7 @@
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { mapActions, mapGetters } from "vuex";
+import UserService from "@/services/user.service";
 
 export default defineComponent ({
     name: 'Toast',
@@ -41,7 +43,12 @@ export default defineComponent ({
         ...mapActions({
             close: 'toast/closeToast'
         }),
-        getImgUrl
+        getImgUrl,
+        async goToNewsPage() {
+            await this.close();
+            await this.$router.push({ name: 'NewsPage' });
+            await UserService.readLatestNews();
+        }
     }
 });
 </script>
@@ -79,7 +86,7 @@ $error-color: #e72719;
         img { max-width: 36px; }
     }
 
-    &.success {
+    &.success, &.news {
         border-color: $success-color;
 
         .icon { background: transparentize($success-color, 0.4); }

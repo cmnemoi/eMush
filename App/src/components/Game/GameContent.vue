@@ -62,12 +62,13 @@ export default defineComponent ({
     },
     computed: {
         ...mapState('player', [
-            'player'
+            'player',
+            'playerChanged'
         ])
     },
-    beforeMount(): void {
-        if (this.playerId) {
-            this.loadPlayer({ playerId: this.playerId });
+    async beforeMount(): Promise<void> {
+        if (!this.playerChanged && this.playerId) {
+            await this.loadPlayer({ playerId: this.playerId });
         }
     },
     methods: {

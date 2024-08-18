@@ -53,7 +53,8 @@ export default defineComponent ({
             this.clearError();
             if (this.player.isDead()) return;
 
-            await Promise.all([this.loadChannels(), this.loadRoomLogs(), this.reloadPlayer()]);
+            await this.reloadPlayer();
+            await Promise.all([this.loadChannels(), this.loadRoomLogs()]);
         },
         getImgUrl,
         getTranslatedErrorDetails(): string | null {

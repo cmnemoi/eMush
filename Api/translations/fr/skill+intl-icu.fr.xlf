@@ -426,5 +426,15 @@
         <target>Vous veillez personnellement à l'organisation correcte du Daedalus afin de maximiser les possibilités de chacun de vos équipiers.//:point: À chaque cycle, **1 :pa: est distribué à un coéquipier** au hasard présent dans votre salle.</target>
       </segment>
     </unit>
+    <unit id="transfer">
+      <segment id="transfer.name" state="translated">
+        <source>transfer.name</source>
+        <target>Transfert</target>
+      </segment>
+      <segment id="transfer.description" state="translated">
+        <source>transfer.description</source>
+        <target>Le Mush vous a transmis le génotype d'une de nos armes de transmission massive. Servez vous en sans parcimonie.//:point: **Unique** : Vous pouvez vous **glisser dans la peau d'un autre joueur humain**. Celui-ci doit être **infecté au moins une fois**. Il se retrouvera alors dans votre corps... et risque d'alerter ses congénères.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

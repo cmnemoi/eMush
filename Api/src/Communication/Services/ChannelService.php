@@ -149,6 +149,12 @@ class ChannelService implements ChannelServiceInterface
         $this->addPlayer($player->getPlayerInfo(), $mushChannel);
     }
 
+    public function removePlayerFromMushChannel(Player $player): void
+    {
+        $mushChannel = $this->channelRepository->findMushChannelByDaedalus($player->getDaedalus());
+        $this->removePlayer($player->getPlayerInfo(), $mushChannel);
+    }
+
     public function exitChannel(
         Player $player,
         Channel $channel,

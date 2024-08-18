@@ -1,6 +1,8 @@
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
 type BasicPopUp = {
+    title?: string;
+    description?: string;
     isOpen: boolean;
 }
 
@@ -12,6 +14,11 @@ const state = {
         isOpen: false
     },
     learnSkillPopUp: {
+        isOpen: false
+    },
+    playerNotificationPopUp: {
+        title: '',
+        description: '',
         isOpen: false
     }
 };
@@ -25,6 +32,9 @@ const getters: GetterTree<any, any> = {
     },
     learnSkillPopUp: (state: any): BasicPopUp => {
         return state.learnSkillPopUp;
+    },
+    playerNotificationPopUp: (state: any): BasicPopUp => {
+        return state.playerNotificationPopUp;
     }
 };
 
@@ -46,6 +56,19 @@ const mutations: MutationTree<any> = {
     },
     closeLearnSkillPopUp(state) {
         state.learnSkillPopUp.isOpen = false;
+    },
+    openPlayerNotificationPopUp(state, player) {
+        const notification = player?.notification;
+        if (!notification) {
+            return;
+        }
+
+        state.playerNotificationPopUp.title = notification.title;
+        state.playerNotificationPopUp.description = notification.description;
+        state.playerNotificationPopUp.isOpen = true;
+    },
+    closePlayerNotificationPopUp(state) {
+        state.playerNotificationPopUp.isOpen = false;
     }
 };
 
@@ -67,6 +90,12 @@ const actions: ActionTree<any, any> = {
     },
     closeLearnSkillPopUp({ commit }) {
         commit('closeLearnSkillPopUp');
+    },
+    openPlayerNotificationPopUp({ commit }, { player }) {
+        commit('openPlayerNotificationPopUp', player);
+    },
+    closePlayerNotificationPopUp({ commit }) {
+        commit('closePlayerNotificationPopUp');
     }
 };
 

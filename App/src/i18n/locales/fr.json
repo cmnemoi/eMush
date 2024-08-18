@@ -628,7 +628,8 @@
 			"newStep": "Nouvelle étape"
 		},
 		"popUp": {
-			"close": "Fermer"
+			"close": "Fermer",
+			"ok": "D'accord"
 		}
 	},
 	"newsPage": {

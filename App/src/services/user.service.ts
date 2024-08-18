@@ -48,36 +48,6 @@ const UserService = {
         }
     },
 
-
-    /**
-     * Refresh the access token.
-     **/
-    // refreshToken: async function() {
-    //     const username = TokenService.getUserInfo().username;
-    //     let loginData = new FormData();
-    //     loginData.append("grant_type", 'password');
-    //     loginData.append('username', username);
-    //
-    //     const requestData = {
-    //         method: 'post',
-    //         url: loginUrl,
-    //         data: loginData,
-    //     };
-    //
-    //     try {
-    //         const response = await ApiService.customRequest(requestData);
-    //
-    //         TokenService.saveToken(response.data.token);
-    //         // Update the header in ApiService
-    //         ApiService.setHeader();
-    //
-    //         return response.data.token
-    //     } catch (error) {
-    //         throw new AuthenticationError(error.response.status, error.response.data.detail)
-    //     }
-    //
-    // },
-
     userInfo: async function(): Promise<User> {
         try {
             const currentUserId = store.getters["auth/userId"];

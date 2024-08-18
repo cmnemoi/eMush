@@ -41,6 +41,8 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusTarget;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -309,6 +311,12 @@ class LastPlayerCloseGameCest
             ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -338,9 +346,9 @@ class LastPlayerCloseGameCest
 
         $status = new Status($player, $mushConfig);
         $I->haveInRepository($status);
-        $placeStatus = new Status($room, $mushConfig);
+        $placeStatus = new Status($room, $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlaceStatusEnum::MUSH_TRAPPED->value]));
         $I->haveInRepository($placeStatus);
-        $equipmentStatus = new Status($gameEquipment, $mushConfig);
+        $equipmentStatus = new Status($gameEquipment, $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]));
         $I->haveInRepository($equipmentStatus);
 
         $event = new PlayerEvent($player, [ActionEnum::HIT->value], new \DateTime());

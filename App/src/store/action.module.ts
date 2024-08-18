@@ -1,7 +1,7 @@
 import ActionService from "@/services/action.service";
 import { ActionTree, Commit, Dispatch, GetterTree, MutationTree } from "vuex";
 import store from "@/store/index";
-import { ShootHunterActionsEnum } from "@/enums/action.enum";
+import { ActionEnum, ShootHunterActionsEnum } from "@/enums/action.enum";
 import { AxiosResponse } from "axios";
 import { Action } from "@/entities/Action";
 import { Hunter } from "@/entities/Hunter";
@@ -73,25 +73,38 @@ export const action = {
 async function handleActionExecution(actionExecution: ActionExecution): Promise<void> {
     const { commit, dispatch, target, action, params } = actionExecution;
 
-    const isLoading: boolean = store.getters["player/isLoading"];
-    if (isLoading) {
+    if (store.getters["player/isLoading"]) {
         return;
     }
 
     await dispatch("player/setLoading", { loading: true }, { root: true });
     await dispatch("communication/clearRoomLogs", null, { root: true });
 
-    ActionService.executeTargetAction(target, action, params).then(async (response: AxiosResponse<any, any>) => {
+    await ActionService.executeTargetAction(target, action, params).then(async (response: AxiosResponse<any, any>) => {
         if (isShootAction(action)) {
             handleShootHunterAction(response, commit);
         }
+        if (isExchangeBodyAction(action)) {
+            await handleExchangeBodyAction(response, dispatch);
+        }
+
         await Promise.all([
-            dispatch("player/reloadPlayer", null, { root: true }),
+            isExchangeBodyAction(action) === false ? dispatch("player/reloadPlayer", null, { root: true }) : Promise.resolve(),
             dispatch("communication/loadRoomLogs", null, { root: true }),
-            store.getters["player/player"].isDead() ? dispatch("communication/loadDeadPlayerChannels", null, { root: true }) : dispatch("communication/loadAlivePlayerChannels", null, { root: true })
+            store.getters["player/player"].isDead() ? await dispatch("communication/loadDeadPlayerChannels", null, { root: true }) : await dispatch("communication/loadAlivePlayerChannels", null, { root: true })
         ]);
         await dispatch("communication/changeChannel", { channel: store.getters["communication/roomChannel"] }, { root: true });
     });
+
+    await dispatch("player/setLoading", { loading: false }, { root: true });
+}
+
+async function handleExchangeBodyAction(axiosResponse: AxiosResponse<any, any>, dispatch: Dispatch): Promise<void> {
+    await dispatch("player/togglePlayerChanged", null, { root: true }); // avoid to load player twice
+    await dispatch("player/clearPlayer", null, { root: true });
+    await dispatch("auth/userInfo", null, { root: true }); // refresh user info so we get up to date player associated to the user
+    await dispatch("player/loadPlayer", { playerId: axiosResponse.data.actionDetails.playerId }, { root: true }); // load the player sent by the back-end
+    await dispatch("player/togglePlayerChanged", null, { root: true });
 }
 
 function handleShootHunterAction(axiosResponse: AxiosResponse<any, any>, commit: Commit): void {
@@ -107,4 +120,8 @@ function handleShootHunterAction(axiosResponse: AxiosResponse<any, any>, commit:
 
 function isShootAction(action: Action): boolean {
     return Object.values(ShootHunterActionsEnum).includes(action.key as ShootHunterActionsEnum);
+}
+
+function isExchangeBodyAction(action: Action): boolean {
+    return action.key === ActionEnum.EXCHANGE_BODY;
 }

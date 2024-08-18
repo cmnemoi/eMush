@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+  <file id="player.ext">
+    <unit id="exchange_body_mush">
+      <segment>
+        <source>exchange_body_mush.title</source>
+        <target>Échange de corps !</target>
+      </segment>
+      <segment>
+        <source>exchange_body_mush.description</source>
+        <target>Vous avez échangé de corps avec cet humain. Vous allez maintenant vivre une nouvelle vie...</target>
+      </segment>
+    </unit>
+    <unit id="exchange_body_human">
+      <segment>
+        <source>exchange_body_human.title</source>
+        <target>Échange de corps !</target>
+      </segment>
+      <segment>
+        <source>exchange_body_human.description</source>
+        <target>Un Mush a échangé de corps avec le vôtre. Vous allez maintenant vivre une nouvelle vie...</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

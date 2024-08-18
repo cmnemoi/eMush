@@ -159,6 +159,11 @@ class ClosedPlayer implements SanctionEvidenceInterface
         return $this->isMush;
     }
 
+    public function isHuman(): bool
+    {
+        return $this->isMush() === false;
+    }
+
     // getter for API Platform serialization
     public function getIsMush(): bool
     {

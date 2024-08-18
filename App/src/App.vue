@@ -7,6 +7,7 @@
         <router-view v-else/>
         <ErrorPopup />
         <ConfirmPopup />
+        <PlayerNotificationPopUp />
         <Thanks />
         <ModerationWarningBanner :user-sanctions="userSanctions" />
         <LocaleChange />
@@ -26,6 +27,7 @@ import MaintenancePage from "@/components/MaintenancePage.vue";
 import ModerationWarningBanner from "@/components/Moderation/ModerationWarningBanner.vue";
 import { defineComponent } from "vue";
 import ToastContainer from "./components/ToastContainer.vue";
+import PlayerNotificationPopUp from "@/components/Game/PlayerNotificationPopUp.vue";
 
 export default defineComponent({
     name: 'App',
@@ -49,7 +51,8 @@ export default defineComponent({
         LocaleChange,
         Thanks,
         MaintenancePage,
-        ToastContainer
+        ToastContainer,
+        PlayerNotificationPopUp
     },
     computed: {
         ...mapGetters({

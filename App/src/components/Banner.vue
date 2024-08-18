@@ -56,8 +56,8 @@ export default defineComponent ({
         getImgUrl,
         async reloadData() {
             if (this.route !== 'GamePage' || this.player === null) return;
+            await this.reloadPlayer();
             await Promise.all([
-                this.reloadPlayer(),
                 this.loadRoomLogs(),
                 this.player.isDead() ? this.loadDeadPlayerChannels() : this.loadAlivePlayerChannels()
             ]);

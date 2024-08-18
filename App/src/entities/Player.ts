@@ -20,6 +20,11 @@ export type Skill = {
     isMushSkill: boolean;
 };
 
+export type PlayerNotification = {
+    title: string;
+    description: string;
+};
+
 export class Player {
     public id!: number;
     public gameStatus: string|null;
@@ -43,8 +48,8 @@ export class Player {
     public humanSkills: Array<Skill>;
     public mushSkills: Array<Skill>;
     public skillPoints: Array<SkillPoint>;
+    public notification: PlayerNotification|null;
     public isSeated: boolean;
-    public language: string;
 
     public constructor() {
         this.gameStatus = null;
@@ -69,14 +74,13 @@ export class Player {
         this.skills = [];
         this.skillPoints = [];
         this.isSeated = false;
-        this.language = '';
+        this.notification = null;
     }
 
     public load(object: any): Player {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.gameStatus = object.gameStatus;
-            this.language = object.language;
 
             this.character = (new Character()).load(object.character);
 
@@ -157,6 +161,9 @@ export class Player {
                     const point = (new SkillPoint()).load(skillPointObject);
                     this.skillPoints.push(point);
                 });
+            }
+            if (object.notification) {
+                this.notification = object.notification;
             }
         }
 

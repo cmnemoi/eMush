@@ -91,6 +91,12 @@ class DaedalusDestroyedOnEndDayCest
             ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         $space = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::SPACE]);

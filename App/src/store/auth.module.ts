@@ -87,26 +87,6 @@ const actions: ActionTree<any, any> = {
         }
     },
 
-    // refreshToken({ commit, state }) {
-    //     // If this is the first time the refreshToken has been called, make a request
-    //     // otherwise return the same promise to the caller
-    //     if(! state.refreshTokenPromise) {
-    //         const promise = UserService.refreshToken();
-    //         commit('setRefreshTokenPromise', promise);
-    //         // Wait for the UserService.refreshToken() to resolve. On success set the token and clear promise
-    //         // Clear the promise on error as well.
-    //         promise.then(
-    //             response => {
-    //                 commit('setRefreshTokenPromise', null);
-    //                 commit('setToken', response);
-    //             },
-    //             () => {
-    //                 commit('setRefreshTokenPromise', null);
-    //             }
-    //         );
-    //     }
-    // },
-
     async userInfo({ commit, state }): Promise<User|null> {
         if (state.accessToken) {
             commit('resetUserInfo');

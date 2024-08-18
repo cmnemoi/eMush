@@ -14,6 +14,7 @@ use Mush\Player\Entity\Dto\PlayerCreateRequest;
 use Mush\Player\Entity\Dto\PlayerEndRequest;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\UseCase\DeletePlayerNotificationUseCase;
 use Mush\Player\Voter\PlayerVoter;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
@@ -39,19 +40,22 @@ class PlayerController extends AbstractGameController
     private CycleServiceInterface $cycleService;
     private ValidatorInterface $validator;
     private ChooseSkillUseCase $chooseSkillUseCase;
+    private DeletePlayerNotificationUseCase $deletePlayerNotification;
 
     public function __construct(
         AdminServiceInterface $adminService,
         PlayerServiceInterface $playerService,
         CycleServiceInterface $cycleStrategyService,
         ValidatorInterface $validator,
-        ChooseSkillUseCase $chooseSkillUseCase
+        ChooseSkillUseCase $chooseSkillUseCase,
+        DeletePlayerNotificationUseCase $deletePlayerNotification
     ) {
         parent::__construct($adminService);
         $this->playerService = $playerService;
         $this->cycleService = $cycleStrategyService;
         $this->validator = $validator;
         $this->chooseSkillUseCase = $chooseSkillUseCase;
+        $this->deletePlayerNotification = $deletePlayerNotification;
     }
 
     /**
@@ -364,5 +368,37 @@ class PlayerController extends AbstractGameController
         $this->chooseSkillUseCase->execute(ChooseSkillDto::createFromRequest($request));
 
         return $this->view(['detail' => 'Skill selected successfully'], Response::HTTP_CREATED);
+    }
+
+    /**
+     * Delete current player notification.
+     *
+     * @OA\Tag(name="Player")
+     *
+     *  * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The player id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Delete(path="/{id}/notification")
+     *
+     * @Rest\View()
+     */
+    public function deleteNotificationEndpoint(Player $player): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+        $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
+        $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
+
+        $this->deletePlayerNotification->execute($player->getNotificationOrThrow());
+
+        return $this->view(['detail' => 'Notification deleted successfully'], Response::HTTP_OK);
     }
 }

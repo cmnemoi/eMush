@@ -514,6 +514,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($previousRoom);
 
+        $hasExchangedBodyStatus = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_EXCHANGED_BODY . '_default')
+        );
+        $manager->persist($hasExchangedBodyStatus);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -567,7 +572,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasUsedGeniusStatus)
             ->addStatusConfig($previousRoom)
             ->addStatusConfig($jukeboxSongStatus)
-            ->addStatusConfig($hasCeasefiredStatus);
+            ->addStatusConfig($hasCeasefiredStatus)
+            ->addStatusConfig($hasExchangedBodyStatus);
 
         $manager->persist($gameConfig);
 
@@ -621,6 +627,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_USED_GENIUS, $hasUsedGeniusStatus);
         $this->addReference(PlayerStatusEnum::HAS_CEASEFIRED, $hasCeasefiredStatus);
         $this->addReference(PlayerStatusEnum::PREVIOUS_ROOM, $previousRoom);
+        $this->addReference(PlayerStatusEnum::HAS_EXCHANGED_BODY, $hasExchangedBodyStatus);
 
         $manager->flush();
     }

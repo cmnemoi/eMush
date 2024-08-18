@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="player.ext">
+    <unit id="exchange_body_mush">
+      <segment state="initial">
+        <source>exchange_body_mush.title</source>
+        <target>exchange_body_mush.title</target>
+      </segment>
+      <segment state="initial">
+        <source>exchange_body_mush.description</source>
+        <target>exchange_body_mush.description</target>
+      </segment>
+    </unit>
+    <unit id="exchange_body_human">
+      <segment state="initial">
+        <source>exchange_body_human.title</source>
+        <target>exchange_body_human.title</target>
+      </segment>
+      <segment state="initial">
+        <source>exchange_body_human.description</source>
+        <target>exchange_body_human.description</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

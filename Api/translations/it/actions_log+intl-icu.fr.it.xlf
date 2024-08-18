@@ -727,5 +727,23 @@
         <target>graft_fail</target>
       </segment>
     </unit>
+    <unit id="ceasefire_success">
+      <segment id="ceasefire_success" state="initial">
+        <source>ceasefire_success</source>
+        <target>ceasefire_success</target>
+      </segment>
+    </unit>
+    <unit id="put_through_door_success">
+      <segment id="put_through_door_success" state="initial">
+        <source>put_through_door_success</source>
+        <target>put_through_door_success</target>
+      </segment>
+    </unit>
+    <unit id="guard_success">
+      <segment id="guard_success" state="initial">
+        <source>guard_success</source>
+        <target>guard_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -192,7 +192,7 @@
         <source>change.variable.increase_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Every cycle, gain **{quantity}** {emote}.}
-                    other {Every cycle, a **{chance}%** chance, gain **{quantity}** {emote}.}
+                    other {Every cycle, **{chance}%** chance to gain **{quantity}** {emote}.}
                 }</target>
       </segment>
     </unit>

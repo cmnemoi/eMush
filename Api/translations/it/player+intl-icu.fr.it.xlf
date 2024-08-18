@@ -137,5 +137,15 @@
         <target>computer.description</target>
       </segment>
     </unit>
+    <unit id="heal">
+      <segment id="name" state="initial">
+        <source>heal.name</source>
+        <target>heal.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>heal.description</source>
+        <target>heal.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

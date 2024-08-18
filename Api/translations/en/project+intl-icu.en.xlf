@@ -20,7 +20,7 @@
       </segment>
     </unit>
     <unit id="auto_watering">
-      <segment id="auto_watering.type" state="translated">
+      <segment id="auto_watering.type" state="final">
         <source>auto_watering.type</source>
         <target>Project</target>
       </segment>
@@ -38,19 +38,19 @@
       </segment>
     </unit>
     <unit id="dismantling">
-      <segment id="dismantling.type" state="translated">
+      <segment id="dismantling.type" state="final">
         <source>dismantling.type</source>
-        <target>Projet</target>
+        <target>Project</target>
       </segment>
       <segment id="dismantling.name" state="translated">
         <source>dismantling.name</source>
-        <target>Dismantler</target>
+        <target>Dismantling</target>
       </segment>
       <segment id="dismantling.description" state="translated">
         <source>dismantling.description</source>
         <target>Generates 5 pieces of scrap metal in the Engine Room.</target>
       </segment>
-      <segment id="dismantling.lore" state="translated">
+      <segment id="dismantling.lore" state="final">
         <source>dismantling.lore</source>
         <target>By dismantling all of Raluca's failed PILGRED experiments, you are able to recover a stack of used metal which can then be used to patch up the hull or repair patrol ships!</target>
       </segment>
@@ -104,7 +104,7 @@
         <source>fire_sensor.description</source>
         <target>Fires are reported on your PDA.</target>
       </segment>
-      <segment id="fire_sensor.lore" state="translated">
+      <segment id="fire_sensor.lore" state="final">
         <source>fire_sensor.lore</source>
         <target>After spending several hours convincing NERON that fire could be detrimental to its own well-being, it gave in and allocates more CPU power to the task... it still seems pretty annoyed though.</target>
       </segment>
@@ -120,7 +120,7 @@
       </segment>
       <segment id="heat_lamp.description" state="translated">
         <source>heat_lamp.description</source>
-        <target>In the garden, you have a 50% chance of growing an additional fruit.</target>
+        <target>In the garden, each mature plant has a 50% chance of growing an additional fruit.</target>
       </segment>
       <segment id="heat_lamp.lore" state="translated">
         <source>heat_lamp.lore</source>
@@ -136,13 +136,13 @@
         <source>parasite_elim.name</source>
         <target>Nano-Ladybugs</target>
       </segment>
-      <segment id="parasite_elim.description" state="translated">
+      <segment id="parasite_elim.description" state="final">
         <source>parasite_elim.description</source>
-        <target>Growth duration of young plants in the garden will be reduced by 2.</target>
+        <target>Growth duration of young plants in the garden will be reduced by 4.</target>
       </segment>
       <segment id="parasite_elim.lore" state="translated">
         <source>parasite_elim.lore</source>
-        <target>Vaporized nano-ladybugs. Why on earth did nobody think of this before!</target>
+        <target>Steam-fueled nano-ladybugs. Why on earth did nobody think of this before!</target>
       </segment>
     </unit>
     <unit id="pilgred">
@@ -160,7 +160,7 @@
       </segment>
       <segment id="pilgred.lore" state="final">
         <source>pilgred.lore</source>
-        <target/>
+        <target>&lt;target/&gt;</target>
       </segment>
     </unit>
     <unit id="plasma_shield">
@@ -192,7 +192,7 @@
       </segment>
       <segment id="trail_reducer.description" state="translated">
         <source>trail_reducer.description</source>
-        <target>The number of assailants joining you after a trip is reduced by 25%.</target>
+        <target>The number of enemy ships tracking you down after a trip is reduced to 25% (down from 50%).</target>
       </segment>
       <segment id="trail_reducer.lore" state="translated">
         <source>trail_reducer.lore</source>
@@ -214,7 +214,7 @@
       </segment>
       <segment id="chipset_acceleration.lore" state="translated">
         <source>chipset_acceleration.lore</source>
-        <target>NERON is a little bit OCD when it comes to scalability optimization, but this time it's done a half-assed job, you simply unhook the bool Array DB to bit Arrays. What a halfwit you are NERON...</target>
+        <target>NERON is a little bit OCD when it comes to scalability optimization, but this time it's done a half-assed job, you simply unhook the bool Array DB to bit Arrays. What a halfwit you are, NERON...</target>
       </segment>
     </unit>
     <unit id="extra_hydroponpots">
@@ -228,7 +228,7 @@
       </segment>
       <segment id="extra_hydroponpots.description" state="translated">
         <source>extra_hydroponpots.description</source>
-        <target>Adds another three pots for plant-growing purposes.</target>
+        <target>Adds another three pots in the garden for plant-growing purposes.</target>
       </segment>
       <segment id="extra_hydroponpots.lore" state="translated">
         <source>extra_hydroponpots.lore</source>
@@ -246,11 +246,11 @@
       </segment>
       <segment id="auxiliary_terminal.description" state="translated">
         <source>auxiliary_terminal.description</source>
-        <target>NERON's core can now be accessed from medlab as well as from the engine room.</target>
+        <target>NERON's core can now be accessed from the medlab as well as from the engine room.</target>
       </segment>
       <segment id="auxiliary_terminal.lore" state="translated">
         <source>auxiliary_terminal.lore</source>
-        <target>It would be practical to be able to get here without having to walk so far... by re-routing the 100V electric razor socket, you make an SCSS bridge to NERON.</target>
+        <target>It would be practical to be able to get here without having to walk so far... by re-routing a 100V electric razor socket, you make an SCSS bridge to NERON.</target>
       </segment>
     </unit>
     <unit id="thalasso">
@@ -280,13 +280,13 @@
         <source>bric_broc.name</source>
         <target>General Patching Up</target>
       </segment>
-      <segment id="bric_broc.description" state="translated">
+      <segment id="bric_broc.description" state="final">
         <source>bric_broc.description</source>
         <target>Every cycle, the Daedalus has a 15% chance of not falling apart...</target>
       </segment>
       <segment id="bric_broc.lore" state="translated">
         <source>bric_broc.lore</source>
-        <target>Did someone think to SCREW the steel plating back down?</target>
+        <target>Did anybody remember to SCREW the steel plating back on?</target>
       </segment>
     </unit>
     <unit id="magnetic_net">
@@ -322,7 +322,7 @@
       </segment>
       <segment id="icarus_antigrav_propeller.lore" state="translated">
         <source>icarus_antigrav_propeller.lore</source>
-        <target>Thanks to these antigravity thrusters, taking off and landing in the Icarus become child's play. Entering the atmosphere becomes easier than falling off a log. In short, the Icarus, is a hell of a machine to go flying in!</target>
+        <target>Thanks to these antigravity thrusters, taking off and landing in the Icarus become child's play. Entering the atmosphere becomes easier than falling off a log. In short, the Icarus is a hell of a machine to go flying in!</target>
       </segment>
     </unit>
     <unit id="fission_coffee_roaster">
@@ -336,11 +336,11 @@
       </segment>
       <segment id="fission_coffee_roaster.description" state="translated">
         <source>fission_coffee_roaster.description</source>
-        <target>The coffee machine regenerates automatically on Cycle 4.</target>
+        <target>The coffee machine also regenerates automatically on Cycle 4.</target>
       </segment>
       <segment id="fission_coffee_roaster.lore" state="translated">
         <source>fission_coffee_roaster.lore</source>
-        <target>Yeehaa!! By plugging in a basic portable particle accelerator to the exhaust of the roaster pump, it is now possible to obtain a coffee in less than 12h!!</target>
+        <target>Yeehaw!! By plugging a basic portable particle accelerator into the exhaust of the roaster pump, it is now possible to obtain a coffee in less than 12 hours!!</target>
       </segment>
     </unit>
     <unit id="armour_corridor">
@@ -352,7 +352,7 @@
         <source>armour_corridor.name</source>
         <target>Armored Corridors</target>
       </segment>
-      <segment id="armour_corridor.description" state="translated">
+      <segment id="armour_corridor.description" state="final">
         <source>armour_corridor.description</source>
         <target>All attack damage sustained by the Daedalus is reduced by one point.</target>
       </segment>
@@ -370,9 +370,9 @@
         <source>call_of_dirty.name</source>
         <target>Call of Dirty</target>
       </segment>
-      <segment id="call_of_dirty.description" state="translated">
+      <segment id="call_of_dirty.description" state="final">
         <source>call_of_dirty.description</source>
-        <target>Now available in Alpha Bay 2. Lets you unwind a little at the expense of a few contusions.</target>
+        <target>Now available in Alpha Bay 2. Lets you unwind a little at the expense of a few contusions. Winning restores your morale.</target>
       </segment>
       <segment id="call_of_dirty.lore" state="translated">
         <source>call_of_dirty.lore</source>
@@ -390,7 +390,7 @@
       </segment>
       <segment id="extra_drone.description" state="translated">
         <source>extra_drone.description</source>
-        <target>Adds another drone to protect the Daedalus in the Nexus.</target>
+        <target>Adds another drone to take care of the Daedalus in the Nexus.</target>
       </segment>
       <segment id="extra_drone.lore" state="translated">
         <source>extra_drone.lore</source>
@@ -412,7 +412,7 @@
       </segment>
       <segment id="patrolship_blaster_gun.lore" state="translated">
         <source>patrolship_blaster_gun.lore</source>
-        <target>A 40mm cannon is good. A Blaster at 80mm is better.</target>
+        <target>A 40mm cannon is good. A 80mm Blaster is better.</target>
       </segment>
     </unit>
     <unit id="bay_door_xxl">
@@ -422,7 +422,7 @@
       </segment>
       <segment id="bay_door_xxl.name" state="translated">
         <source>bay_door_xxl.name</source>
-        <target>Bay Door XXL</target>
+        <target>XXL Bay Door</target>
       </segment>
       <segment id="bay_door_xxl.description" state="translated">
         <source>bay_door_xxl.description</source>
@@ -498,11 +498,11 @@
       </segment>
       <segment id="radar_trans_void.description" state="translated">
         <source>radar_trans_void.description</source>
-        <target>Using the stellar antenna will double your progress from now on.</target>
+        <target>Thanks to the stellar antenna, attempts to contact Sol will make twice as much progress.</target>
       </segment>
       <segment id="radar_trans_void.lore" state="translated">
         <source>radar_trans_void.lore</source>
-        <target>What wouldn't you give to please the Comm... By increasing the CPU priority of the harbinger thread, you make life a lot easier...</target>
+        <target>What wouldn't you give to please the Comm... By increasing the CPU priority of the harbinger thread, you make their life a lot easier...</target>
       </segment>
     </unit>
     <unit id="neron_targeting_assist">
@@ -552,11 +552,11 @@
       </segment>
       <segment id="hydroponic_incubator.description" state="translated">
         <source>hydroponic_incubator.description</source>
-        <target>In the garden, young shoots crossbreed twice as quickly.</target>
+        <target>In the garden, young shoots grow twice as quickly.</target>
       </segment>
       <segment id="hydroponic_incubator.lore" state="translated">
         <source>hydroponic_incubator.lore</source>
-        <target>This piece of equipment, which was specially designed for seedlings and young hybrids, is able to saturate a plant's environment with nitrogen in order to accelerate their development without harming the adult plants.</target>
+        <target>This piece of equipment, which was specially designed for seedlings, is able to saturate a plant's environment with nitrogen in order to accelerate their development without harming the adult plants.</target>
       </segment>
     </unit>
     <unit id="icarus_lavatory">
@@ -570,7 +570,7 @@
       </segment>
       <segment id="icarus_lavatory.description" state="translated">
         <source>icarus_lavatory.description</source>
-        <target>Allows to not come dirty from an expedition.</target>
+        <target>Prevents coming back dirty from an expedition.</target>
       </segment>
       <segment id="icarus_lavatory.lore" state="translated">
         <source>icarus_lavatory.lore</source>
@@ -606,11 +606,11 @@
       </segment>
       <segment id="patrol_ship_launcher.description" state="translated">
         <source>patrol_ship_launcher.description</source>
-        <target>Takeoff maneuvers cost less :pa:.</target>
+        <target>Takeoff maneuvers for Patrol Ships and Pasiphae cost 1 less :pa:.</target>
       </segment>
       <segment id="patrol_ship_launcher.lore" state="translated">
         <source>patrol_ship_launcher.lore</source>
-        <target>While finalizing the implementation of new door servos, NERON realized what it had under the hood! That speeded things up no end...</target>
+        <target>While finalizing the implementation of new door servos, NERON realized what it had under the hood! That sped things up no end...</target>
       </segment>
     </unit>
     <unit id="neron_project_thread">
@@ -624,7 +624,7 @@
       </segment>
       <segment id="neron_project_thread.description" state="translated">
         <source>neron_project_thread.description</source>
-        <target>If a project is over 0% complete, it automatically improves by 5% every cycle.</target>
+        <target>If a NERON project is over 0% complete, it automatically improves by 5% every cycle.</target>
       </segment>
       <segment id="neron_project_thread.lore" state="translated">
         <source>neron_project_thread.lore</source>
@@ -646,7 +646,7 @@
       </segment>
       <segment id="turret_extra_fire_rate.lore" state="translated">
         <source>turret_extra_fire_rate.lore</source>
-        <target>By reversing the polarity of the Tesla turret modulator, it is possible to double their firing rate!</target>
+        <target>By reversing the polarity of the Tesla turret modulator, it is possible to double their recharge rate!</target>
       </segment>
     </unit>
     <unit id="quantum_sensors">
@@ -660,7 +660,7 @@
       </segment>
       <segment id="quantum_sensors.description" state="translated">
         <source>quantum_sensors.description</source>
-        <target>The planet scanner reveals an additional section every time it is used.</target>
+        <target>The planet scanner reveals an additional section per Analysis.</target>
       </segment>
       <segment id="quantum_sensors.lore" state="translated">
         <source>quantum_sensors.lore</source>
@@ -750,7 +750,7 @@
       </segment>
       <segment id="oxy_more.description" state="translated">
         <source>oxy_more.description</source>
-        <target>Every cycle, the Daedalus has a 20% chance of saving oxygen from the crew.</target>
+        <target>Every cycle, the Daedalus has a 20% chance of saving oxygen.</target>
       </segment>
       <segment id="oxy_more.lore" state="translated">
         <source>oxy_more.lore</source>
@@ -768,11 +768,11 @@
       </segment>
       <segment id="beat_box.description" state="translated">
         <source>beat_box.description</source>
-        <target>Makes a Jukebox Blueprint available in Alpha Bay 2. Lets you relax while listening to some good tunes...</target>
+        <target>Makes a Jukebox Blueprint available in the Nexus. Lets you relax while listening to some good tunes...</target>
       </segment>
       <segment id="beat_box.lore" state="translated">
         <source>beat_box.lore</source>
-        <target>Each cycle, the Jukebox plays a different song. Each character can gain 2 :pmo: when their song plays.</target>
+        <target>Each cycle, the Jukebox plays a different song. Each character can gain 2 :pmo: when their favorite song plays.</target>
       </segment>
     </unit>
   </file>

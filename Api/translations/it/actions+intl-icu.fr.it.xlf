@@ -801,6 +801,16 @@
         <target>shoot_hunter.description</target>
       </segment>
     </unit>
+    <unit id="shoot_hunter_turret">
+      <segment id="name" state="initial">
+        <source>shoot_hunter_turret.name</source>
+        <target>shoot_hunter_turret.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shoot_hunter_turret.description</source>
+        <target>shoot_hunter_turret.description</target>
+      </segment>
+    </unit>
     <unit id="shoot_random_hunter">
       <segment id="name" state="initial">
         <source>shoot_random_hunter.name</source>
@@ -1117,6 +1127,88 @@
       <segment id="confirmation" state="initial">
         <source>graft.confirmation</source>
         <target>graft.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="learn">
+      <segment id="learn" state="initial">
+        <source>learn.name</source>
+        <target>learn.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>learn.description</source>
+        <target>learn.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>learn.confirmation</source>
+        <target>learn.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="put_through_door">
+      <segment id="put_through_door" state="initial">
+        <source>put_through_door.name</source>
+        <target>put_through_door.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>put_through_door.description</source>
+        <target>put_through_door.description</target>
+      </segment>
+    </unit>
+    <unit id="become_genius">
+      <segment id="name" state="initial">
+        <source>become_genius.name</source>
+        <target>become_genius.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>become_genius.description</source>
+        <target>become_genius.description</target>
+      </segment>
+    </unit>
+    <unit id="premonition">
+      <segment id="premonition" state="initial">
+        <source>premonition.name</source>
+        <target>premonition.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>premonition.description</source>
+        <target>premonition.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>premonition.confirmation</source>
+        <target>premonition.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="ceasefire">
+      <segment id="ceasefire" state="initial">
+        <source>ceasefire.name</source>
+        <target>ceasefire.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>ceasefire.description</source>
+        <target>ceasefire.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>ceasefire.confirmation</source>
+        <target>ceasefire.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="guard">
+      <segment id="guard" state="initial">
+        <source>guard.name</source>
+        <target>guard.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>guard.description</source>
+        <target>guard.description</target>
+      </segment>
+    </unit>
+    <unit id="exchange_body">
+      <segment id="name" state="initial">
+        <source>exchange_body.name</source>
+        <target>exchange_body.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>exchange_body.description</source>
+        <target>exchange_body.description</target>
       </segment>
     </unit>
   </file>

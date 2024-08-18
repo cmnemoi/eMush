@@ -22,7 +22,7 @@
         <source>firefighter.name</source>
         <target>Firefighter</target>
       </segment>
-      <segment id="firefighter.description" state="translated">
+      <segment id="firefighter.description" state="final">
         <source>firefighter.description</source>
         <target>The Firefighter has great experience which means they will always succeed when using the extinguisher... and they can also make it without an extinguisher!//
 :point: The **Extinguish Fire** action is always successful.//
@@ -35,7 +35,7 @@
         <source>pilot.name</source>
         <target>Pilot</target>
       </segment>
-      <segment id="pilot.description" state="translated">
+      <segment id="pilot.description" state="final">
         <source>pilot.description</source>
         <target>An expert in manoeuvring the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.
 //
@@ -77,7 +77,7 @@
         <source>physicist.name</source>
         <target>Physicist</target>
       </segment>
-      <segment id="physicist.description" state="translated">
+      <segment id="physicist.description" state="final">
         <source>physicist.description</source>
         <target>The physicist is a high flier in the field of physics research. Their understanding of quantum mechanics and even the essence of the strings that make up our universe is their major talent. They also have the advantage when repairing PILGRED.//
 :point: +1 :pa_pilgred: per day (**PILGRED repair** Action Point).//
@@ -89,7 +89,7 @@
         <source>technician.name</source>
         <target>Technician</target>
       </segment>
-      <segment id="technician.description" state="translated">
+      <segment id="technician.description" state="final">
         <source>technician.description</source>
         <target>Qualified to repair materials, equipment and the hull of the Daedalus.//
 :point: +1 :pa_eng: per day (**Repair** Action Point).//
@@ -104,7 +104,7 @@
         <source>astrophysicist.name</source>
         <target>Astrophysicist</target>
       </segment>
-      <segment id="astrophysicist.description" state="translated">
+      <segment id="astrophysicist.description" state="final">
         <source>astrophysicist.description</source>
         <target>Skilled in scanning for planets in range or to determine their composition.//:point: The **Scan** action costs 1 less :pa:.//:point:The **Analyze** action discovers one additional planet property.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -114,7 +114,7 @@
         <source>it_expert.name</source>
         <target>IT Expert</target>
       </segment>
-      <segment id="it_expert.description" state="translated">
+      <segment id="it_expert.description" state="final">
         <source>it_expert.description</source>
         <target>The IT Expert is at home as soon as they are in front of a screen. They manipulate the nexus, navigation and communications terminals with ease.//:point: +2 :pa_comp: per day (**IT** Action Points).//:point: Chances of success are doubled when using the **Hacker Kit**.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -124,7 +124,7 @@
         <source>conceptor.name</source>
         <target>Designer</target>
       </segment>
-      <segment id="conceptor.description" state="translated">
+      <segment id="conceptor.description" state="final">
         <source>conceptor.description</source>
         <target>Has access to NERON's core twice per day (Free Actions).//:point: +2 :pa_core: per day (**NERON projects** Action Points)//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -134,7 +134,7 @@
         <source>creative.name</source>
         <target>Creative</target>
       </segment>
-      <segment id="creative.description" state="translated">
+      <segment id="creative.description" state="final">
         <source>creative.description</source>
         <target>Sometimes you need to think outside the box.//:point: Every time you fail in an attempt to do something, there is a 50% chance of regaining **1** :pa:.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -144,7 +144,7 @@
         <source>shrink.name</source>
         <target>Shrink</target>
       </segment>
-      <segment id="shrink.description" state="translated">
+      <segment id="shrink.description" state="final">
         <source>shrink.description</source>
         <target>The Shrink is in charge of psychological support. They are able to keep morale high and treat psychological illnesses.//:point: Each cycle, **1 Morale Point (:pmo:) is regained** by all crewmates lying down in the same room.//:point: **Treats psychological illnesses**.//:point: Grants the **Comfort** Action for raising morale.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -154,7 +154,7 @@
         <source>caffeine_junkie.name</source>
         <target>Caffeine Junkie</target>
       </segment>
-      <segment id="caffeine_junkie.description" state="translated">
+      <segment id="caffeine_junkie.description" state="final">
         <source>caffeine_junkie.description</source>
         <target>The Caffeine Junkie is twice as effective as their colleagues when they have access to the coffee machine.//:point: +2 :pa: when they drink a **Coffee**.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -164,7 +164,7 @@
         <source>shooter.name</source>
         <target>Shooter</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>shooter.description</source>
         <target>At ease handling all kinds of weapons.//:point: +2 :pa_shoot: per day (**Shoot** Action Points).//:point: Expedition: +1 to combat strength, if you have a gun.//:point: Bonus for developing certain ** NERON projects **.</target>
       </segment>
@@ -174,7 +174,7 @@
         <source>chef.name</source>
         <target>Chef</target>
       </segment>
-      <segment id="chef.description" state="translated">
+      <segment id="chef.description" state="final">
         <source>chef.description</source>
         <target>Formidable when it comes to knocking meals together. They also have an impressive awareness of what you should eat.//:point: Can read **food nutrition information**.//:point: Can read **fruit nutrition information**.//:point: +4 :pa_cook: per day (**Cooking** Action Points).//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -184,7 +184,7 @@
         <source>nurse.name</source>
         <target>Nurse</target>
       </segment>
-      <segment id="nurse.description" state="translated">
+      <segment id="nurse.description" state="final">
         <source>nurse.description</source>
         <target>Always ready to help.//:point: +1 :pa_heal: every day (**Heal** Action Point).//:point: Can read **properties of medicines**.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -204,7 +204,7 @@
         <source>biologist.name</source>
         <target>Biologist</target>
       </segment>
-      <segment id="biologist.description" state="translated">
+      <segment id="biologist.description" state="final">
         <source>biologist.description</source>
         <target>Highly skilled in laboratory research.//:point: Can read **properties of medicines**.//:point: **+4% bonus** of all **Research** in the laboratory.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -214,17 +214,17 @@
         <source>mankind_only_hope.name</source>
         <target>Mankind's only hope</target>
       </segment>
-      <segment id="mankind_only_hope.description" state="translated">
+      <segment id="mankind_only_hope.description" state="final">
         <source>mankind_only_hope.description</source>
         <target>Her unique immune system makes her the last hope for humanity. As long as she stays alive, we'll have a shot at combatting the Mush invasion.//:point: Daily morale loss is reduced by 1 point.</target>
       </segment>
     </unit>
     <unit id="leader">
-      <segment id="leader.name" state="translated">
+      <segment id="leader.name" state="final">
         <source>leader.name</source>
-        <target>leader.name</target>
+        <target>Leader</target>
       </segment>
-      <segment id="leader.description" state="translated">
+      <segment id="leader.description" state="final">
         <source>leader.description</source>
         <target>A charismatic leader knows how to effectively lead a team and increase morale using powerful, passionate speeches.//:point: Grants the action **Motivational speech** which increases the Morale (:pmo:) of present crewmates.</target>
       </segment>
@@ -236,7 +236,8 @@
       </segment>
       <segment id="motivator.description" state="translated">
         <source>motivator.description</source>
-        <target>Bla bla bla... whatever!//:point: For **2** :pa: you can give an **Boring speech** which grants 3 :pm: to everyone in the room.</target>
+        <target>Blah blah blah... Make it stop!//
+:point: For **2** :pa:, you can give a **Boring speech** which grants 3 :pm: to all crewmates in your current room (once per day).</target>
       </segment>
     </unit>
     <unit id="confident">
@@ -244,7 +245,7 @@
         <source>confident.name</source>
         <target>Confidant</target>
       </segment>
-      <segment id="confident.description" state="translated">
+      <segment id="confident.description" state="final">
         <source>confident.description</source>
         <target>Discreet and loyal, you share everyone's pain and as such have the sympathy of the whole crew...//Once per day, the other players can confide in you to gain 2 :pmo:. In doing so, they will reveal their last X actions where X is your amount of :pmo:.</target>
       </segment>
@@ -254,9 +255,179 @@
         <source>survivalist.name</source>
         <target>Survivalist</target>
       </segment>
-      <segment id="survivalist.description" state="translated">
+      <segment id="survivalist.description" state="final">
         <source>survivalist.description</source>
         <target>The Survivalist is great to have on exploration missions. They can defend themselves more effectively against extra-terrestrial life forms and generally deal with these encounters better than anyone else.//:point: Expedition: All damage is **reduced by 1**.//:point: Expedition: The **Provision** event yields an additional steak.//:point: Expedition: Last to die in case a fatality occurs.</target>
+      </segment>
+    </unit>
+    <unit id="diplomat">
+      <segment id="diplomat.name" state="translated">
+        <source>diplomat.name</source>
+        <target>Diplomat</target>
+      </segment>
+      <segment id="diplomat.description" state="translated">
+        <source>diplomat.description</source>
+        <target>A good diplomat knows how to communicate effectively with extra-terrestrials.//:point: Prevents the **Fight** event when encountering extra-terrestrials.//:point: Can declare a ceasefire once per game. The ceasefire lasts **3** cycles.//:point: Opens up new trade opportunities.</target>
+      </segment>
+    </unit>
+    <unit id="anonymush">
+      <segment id="anonymush.name" state="translated">
+        <source>anonymush.name</source>
+        <target>Anonymush</target>
+      </segment>
+      <segment id="anonymush.description" state="translated">
+        <source>anonymush.description</source>
+        <target>Your mycotoxins are undetectable in the atmosphere. You are a predator after all!//:point: You'll appear as human on the crew bar except once you are dead.</target>
+      </segment>
+    </unit>
+    <unit id="determined">
+      <segment id="determined.name" state="translated">
+        <source>determined.name</source>
+        <target>Determined</target>
+      </segment>
+      <segment id="determined.description" state="translated">
+        <source>determined.description</source>
+        <target>Once they begin their task, nothing can distract the determined player.//:point: If an action **fails**, the chances of subsequent success **increases more rapidly**.</target>
+      </segment>
+    </unit>
+    <unit id="optimist">
+      <segment id="optimist.name" state="translated">
+        <source>optimist.name</source>
+        <target>The Optimist</target>
+      </segment>
+      <segment id="optimist.description" state="translated">
+        <source>optimist.description</source>
+        <target>The end of humanity... worse things happen at sea, right?//:point: The optimist loses **one less :pmo: per day**.</target>
+      </segment>
+    </unit>
+    <unit id="gunner">
+      <segment id="gunner.name" state="translated">
+        <source>gunner.name</source>
+        <target>Gunner</target>
+      </segment>
+      <segment id="gunner.description" state="translated">
+        <source>gunner.description</source>
+        <target>At least someone will show them how it's done.//:point: **Doubles the damage** to your turret shots.//:point: **Doubles the odds of successful hits** when using turrets.</target>
+      </segment>
+    </unit>
+    <unit id="apprentice">
+      <segment id="apprentice.name" state="translated">
+        <source>apprentice.name</source>
+        <target>Apprentice</target>
+      </segment>
+      <segment id="apprentice.description" state="translated">
+        <source>apprentice.description</source>
+        <target>By attentively watching what their mentor does, the apprentice can quicky pick up the same knowledge and actions.//:point: Enables the action Apprenticeship which allows you to copy a skill possessed by a player present in the room, once per game.</target>
+      </segment>
+    </unit>
+    <unit id="solid">
+      <segment id="solid.name" state="translated">
+        <source>solid.name</source>
+        <target>Solid</target>
+      </segment>
+      <segment id="solid.description" state="translated">
+        <source>solid.description</source>
+        <target>You'll incur no penalties for carrying heavy objects. Also useful for hand-to-hand combat.//:point: Your hand-to-hand attacks **deal 1 additional damage**.//:point: **No penalties** for carrying heavy objects.//:point: Grants the **Kick them out** action.</target>
+      </segment>
+    </unit>
+    <unit id="genius">
+      <segment id="genius.name" state="translated">
+        <source>genius.name</source>
+        <target>Genius</target>
+      </segment>
+      <segment id="genius.description" state="translated">
+        <source>genius.description</source>
+        <target>When divinely unlighted by the flame of consciousness, the genius can find a solution to any problem encountered aboard the Daedalus.//:point: Is capable of **achieving one research, one project, or one repair once per game**.</target>
+      </segment>
+    </unit>
+    <unit id="presentiment">
+      <segment id="presentiment.name" state="translated">
+        <source>presentiment.name</source>
+        <target>Premonition</target>
+      </segment>
+      <segment id="presentiment.description" state="translated">
+        <source>presentiment.description</source>
+        <target>Your intuition never fails, you can see the most recent activities of a teammate in the form of a vivid flashback. It's practical, but gives you a monster headache!//:point: You can **see the last action** of a teammate. This action causes you to lose 1 :pmo:.</target>
+      </segment>
+    </unit>
+    <unit id="neron_only_friend">
+      <segment id="neron_only_friend.name" state="translated">
+        <source>neron_only_friend.name</source>
+        <target>NERON's only friend</target>
+      </segment>
+      <segment id="neron_only_friend.description" state="translated">
+        <source>neron_only_friend.description</source>
+        <target>As soon as you are aboard the ship, NERON is content, its programs run without a hitch and its performance is noticeably improved.//:point: The rewards from **all NERON projects** are **maximized** for everyone.</target>
+      </segment>
+    </unit>
+    <unit id="mycelium_spirit">
+      <segment id="mycelium_spirit.name" state="translated">
+        <source>mycelium_spirit.name</source>
+        <target>Mycelium Spirit</target>
+      </segment>
+      <segment id="mycelium_spirit.description" state="translated">
+        <source>mycelium_spirit.description</source>
+        <target>Your mission is sacred. The Mush has selected you as a major transdimensional fungic transporter.//:point: While you are alive, the Mush can **produce 1 additional spore per day**.</target>
+      </segment>
+    </unit>
+    <unit id="fertile">
+      <segment id="fertile.name" state="translated">
+        <source>fertile.name</source>
+        <target>Fertile</target>
+      </segment>
+      <segment id="fertile.description" state="translated">
+        <source>fertile.description</source>
+        <target>Your spore production capacity is incredibly high. A spore today is here to stay.//:point: Every day, you can generate one **free** spore.</target>
+      </segment>
+    </unit>
+    <unit id="splashproof">
+      <segment id="splashproof.name" state="translated">
+        <source>splashproof.name</source>
+        <target>Splashproof</target>
+      </segment>
+      <segment id="splashproof.description" state="translated">
+        <source>splashproof.description</source>
+        <target>You are of a fearful nature and you instinctively know how to make yourself scarce in order to avoid any and all attempts at physical contact.//:point: **Taking a shower** doesn't cause you to lose **any** :hp:.</target>
+      </segment>
+    </unit>
+    <unit id="infector">
+      <segment id="infector.name" state="translated">
+        <source>infector.name</source>
+        <target>Infector</target>
+      </segment>
+      <segment id="infector.description" state="translated">
+        <source>infector.description</source>
+        <target>You make holes. Little holes. Lots of little holes. In people.//:point: Allows you to **spike** one additional time every day.</target>
+      </segment>
+    </unit>
+    <unit id="sneak">
+      <segment id="sneak.name" state="translated">
+        <source>sneak.name</source>
+        <target>Sneak</target>
+      </segment>
+      <segment id="sneak.description" state="translated">
+        <source>sneak.description</source>
+        <target>You are of a fearful nature and you instinctively know how to make yourself scarce in order to avoid any and all attempts at physical contact.//:point: Hand-to-hand attacks against you are subject to a **25% penalty**.//:point: You can move around freely regardless of any **Guardian** present.</target>
+      </segment>
+    </unit>
+    <unit id="logistic_expert">
+      <segment id="logistic_expert.name" state="translated">
+        <source>logistic_expert.name</source>
+        <target>Logistics Expert</target>
+      </segment>
+      <segment id="logistic_expert.description" state="translated">
+        <source>logistic_expert.description</source>
+        <target>You personally oversee the organisation of every task aboard the Daedalus in order to maximize the efficiency of every one of your teammates.//:point: Every cycle, **1 :pa: is given randomly to a crewmate** in the same room as you.</target>
+      </segment>
+    </unit>
+    <unit id="transfer">
+      <segment id="transfer.name" state="translated">
+        <source>transfer.name</source>
+        <target>Transfer</target>
+      </segment>
+      <segment id="transfer.description" state="translated">
+        <source>transfer.description</source>
+        <target>The Mush has passed to you one of the genotypes from our weapons of mass transmission. Help yourself!//:point: **Unique**: Allows you to **inhabit the body of another human**. They must have been **infected at least once**. Thereafter, they will find themselves in your former body... and may warn other crewmembers. Your :triumph: points will be switched.</target>
       </segment>
     </unit>
   </file>

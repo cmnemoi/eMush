@@ -807,7 +807,7 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>play_arcade.confirmation</source>
-        <target>Because of its deadly jacks and unbearable void balls, the Dynarcade is reserved for the real ones. Continue?</target>
+        <target>Because of its deadly jacks and unbearable void balls, the Dynarcade is for real ones only. Continue?</target>
       </segment>
     </unit>
     <unit id="shoot_hunter">
@@ -818,6 +818,16 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       <segment id="description" state="final">
         <source>shoot_hunter.description</source>
         <target>Fire a Teslatron charge at an enemy ship.</target>
+      </segment>
+    </unit>
+    <unit id="shoot_hunter_turret">
+      <segment id="name" state="translated">
+        <source>shoot_hunter_turret.name</source>
+        <target>Shoot</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shoot_hunter_turret.description</source>
+        <target>Fire a Teslatron charge at an enemy ship. Upgradeable with Missiles.</target>
       </segment>
     </unit>
     <unit id="shoot_random_hunter">
@@ -1144,6 +1154,88 @@ Or you simply need some fresh air.... or not.</target>
       <segment id="confirmation" state="translated">
         <source>graft.confirmation</source>
         <target>This action requires optimal hygiene conditions to be carried out. Would you like to continue?</target>
+      </segment>
+    </unit>
+    <unit id="learn">
+      <segment id="learn" state="translated">
+        <source>learn.name</source>
+        <target>Apprenticeship</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>learn.description</source>
+        <target>Allows you to learn a skill from those present in the room.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>learn.confirmation</source>
+        <target>This action is only available once per game, so are you sure you want to continue?</target>
+      </segment>
+    </unit>
+    <unit id="put_through_door">
+      <segment id="put_through_door" state="translated">
+        <source>put_through_door.name</source>
+        <target>Kick them out!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>put_through_door.description</source>
+        <target>Show them the door!//:point: Cost 1 :pa: less on inactives.</target>
+      </segment>
+    </unit>
+    <unit id="become_genius">
+      <segment id="name" state="translated">
+        <source>become_genius.name</source>
+        <target>Eureka moment</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>become_genius.description</source>
+        <target>Allow you to automatically succeed at your next repair, project or research. This action can only be done **once**.</target>
+      </segment>
+    </unit>
+    <unit id="premonition">
+      <segment id="premonition" state="translated">
+        <source>premonition.name</source>
+        <target>Premonition</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>premonition.description</source>
+        <target>Allows you to see the last action carried out by your target.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>premonition.confirmation</source>
+        <target>This action will cost you one morale point, are you sure you want to continue?</target>
+      </segment>
+    </unit>
+    <unit id="ceasefire">
+      <segment id="ceasefire" state="translated">
+        <source>ceasefire.name</source>
+        <target>Ceasefire</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>ceasefire.description</source>
+        <target>Nobody can perform any aggressive actions in the room until you leave.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>ceasefire.confirmation</source>
+        <target>This action is only available once per game.</target>
+      </segment>
+    </unit>
+    <unit id="guard">
+      <segment id="guard" state="translated">
+        <source>guard.name</source>
+        <target>Guard</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>guard.description</source>
+        <target>Allows you to send any entering crew members back from whence they came. The action is over as soon as you move.</target>
+      </segment>
+    </unit>
+    <unit id="exchange_body">
+      <segment id="name" state="translated">
+        <source>exchange_body.name</source>
+        <target>Transpossession</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>exchange_body.description</source>
+        <target>Allows you to take over the body of your target. This action is irreversible. All your skills are reset.</target>
       </segment>
     </unit>
   </file>

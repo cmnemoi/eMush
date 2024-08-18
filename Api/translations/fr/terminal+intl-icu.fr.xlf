@@ -180,7 +180,7 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <source>bios_terminal.cpu_priority_none</source>
         <target>Aucune</target>
       </segment>
-      <segment id="crew_lock.name" state="translated">
+      <segment id="crew_lock.name" state="final">
         <source>bios_terminal.crew_lock_name</source>
         <target>Verrou équipage</target>
       </segment>
@@ -204,11 +204,11 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <source>bios_terminal.plasma_shield_description</source>
         <target>Active le bouclier plasma.</target>
       </segment>
-      <segment id="plasma_shield.toggle_activate" state="translated">
+      <segment id="plasma_shield.toggle_activate" state="final">
         <source>bios_terminal.plasma_shield_toggle_activate</source>
         <target>Activer</target>
       </segment>
-      <segment id="plasma_shield.toggle_deactivate" state="translated">
+      <segment id="plasma_shield.toggle_deactivate" state="final">
         <source>bios_terminal.plasma_shield_toggle_deactivate</source>
         <target>Désactiver</target>
       </segment>
@@ -216,7 +216,7 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <source>bios_terminal.magnetic_net_name</source>
         <target>Filet magnétique</target>
       </segment>
-      <segment id="magnetic_net.description" state="translated">
+      <segment id="magnetic_net.description" state="final">
         <source>bios_terminal.magnetic_net_description</source>
         <target>Active le filet magnétique qui permet d'abandonner les Patrouilleurs à leur triste sort. Ou pas...</target>
       </segment>

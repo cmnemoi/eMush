@@ -1504,9 +1504,9 @@
         <source>starving_warning.name</source>
         <target>Starving</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>starving_warning.description</source>
-        <target>The crew is seriously **hungry**. You must find something to eat.</target>
+        <target>You are seriously **hungry**. You must find something to eat. Each cycle spent without eating will cost you 1 :hp:.</target>
       </segment>
     </unit>
     <unit id="stuck_in_the_ship">
@@ -1564,7 +1564,7 @@
         <source>pilot.name</source>
         <target>Pilot</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>pilot.description</source>
         <target>An expert in manoeuvring the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.
 //
@@ -1593,7 +1593,7 @@
         <source>technician.name</source>
         <target>Technician</target>
       </segment>
-      <segment id="technician.description" state="translated">
+      <segment id="technician.description" state="final">
         <source>technician.description</source>
         <target>Qualified to repair materials, equipment and the hull of the Daedalus.//
 :point: +1 :pa_eng: per day (**Repair** Action Point).//
@@ -1632,7 +1632,17 @@
       </segment>
       <segment id="mankind_only_hope.description" state="translated">
         <source>mankind_only_hope.description</source>
-        <target>Her unique immune system makes her the last hope for humanity. As long as she stays alive, we'll have a shot at combatting the Mush invasion.//:point: Daily morale loss is reduced by 1 point.</target>
+        <target>Her unique immune system makes her the last hope for humanity. As long as she stays alive, we'll have a shot at combatting the Mush invasion.//:point: Global daily morale loss is reduced by 1 point.</target>
+      </segment>
+    </unit>
+    <unit id="genius_idea">
+      <segment id="name" state="translated">
+        <source>genius_idea.name</source>
+        <target>Eureka moment</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>genius_idea.description</source>
+        <target>Your next research, project or repair is successful.</target>
       </segment>
     </unit>
   </file>

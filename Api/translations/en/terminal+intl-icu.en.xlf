@@ -115,9 +115,9 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         other {Exploration takes place automatically. Every # minutes, a new step takes place. Once you've left, there is no turning back.}
         }</target>
       </segment>
-      <segment id="recolted_infos" state="translated">
+      <segment id="recolted_infos" state="final">
         <source>exploration.recolted_infos</source>
-        <target>Recolted infos...</target>
+        <target>Obtained info...</target>
       </segment>
       <segment id="new_step" state="translated">
         <source>exploration.new_step</source>
@@ -143,17 +143,17 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         <source>bios_terminal.name</source>
         <target>BIOS Terminal</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>bios_terminal.tips</source>
-        <target>You are accessing NERON's BIOS. Only the administrator can modify the configuration.</target>
+        <target>You are accessing NERON's BIOS. Only the administrator can modify its settings.</target>
       </segment>
       <segment id="cpu_priority.name" state="translated">
         <source>bios_terminal.cpu_priority_name</source>
         <target>CPU Priority</target>
       </segment>
-      <segment id="cpu_priority.description" state="translated">
+      <segment id="cpu_priority.description" state="final">
         <source>bios_terminal.cpu_priority_description</source>
-        <target>Controls the allocation of CPU timeslots. This either increases the amount of GeoData provided by planetary analysis, or puts the CPU in CBA Mode (lazy) when it doesn't do much at all. This attribute can only be changed **once per day and per person** to ensure no cognitive overload is sustained by NERON.</target>
+        <target>Controls the allocation of CPU timeslots. This either makes research or NERON projects easier to progress, increases the amount of GeoData provided by planetary analysis, or puts the CPU in 'CBA' Mode (lazy) where it doesn't do much at all. This attribute can only be changed **once per day per person** to ensure no cognitive overload is sustained by NERON.</target>
       </segment>
       <segment id="cpu_priority.astronavigation" state="translated">
         <source>bios_terminal.cpu_priority_astronavigation</source>
@@ -179,9 +179,9 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         <source>bios_terminal.crew_lock_name</source>
         <target>Crew lock</target>
       </segment>
-      <segment id="crew_lock.description" state="translated">
+      <segment id="crew_lock.description" state="final">
         <source>bios_terminal.crew_lock_description</source>
-        <target>:point: Piloting lock: Non pilots are not authorized to pilot a Patrol Craft/Icarus.//:point: Projects lock: Non-designers are not authorized to participate in project development.</target>
+        <target>:point: Piloting lock: Non-pilots are not authorized to pilot a Patrol Craft/Icarus.//:point: Projects lock: Non-designers are not authorized to participate in project development.</target>
       </segment>
       <segment id="crew_lock.projects" state="translated">
         <source>bios_terminal.crew_lock_projects</source>
@@ -199,11 +199,11 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         <source>bios_terminal.plasma_shield_description</source>
         <target>Activates the plasma shield.</target>
       </segment>
-      <segment id="plasma_shield.toggle_activate" state="translated">
+      <segment id="plasma_shield.toggle_activate" state="final">
         <source>bios_terminal.plasma_shield_toggle_activate</source>
         <target>Active</target>
       </segment>
-      <segment id="plasma_shield.toggle_deactivate" state="translated">
+      <segment id="plasma_shield.toggle_deactivate" state="final">
         <source>bios_terminal.plasma_shield_toggle_deactivate</source>
         <target>Inactive</target>
       </segment>
@@ -211,15 +211,15 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         <source>bios_terminal.magnetic_net_name</source>
         <target>Magnetic Net</target>
       </segment>
-      <segment id="magnetic_net.description" state="translated">
+      <segment id="magnetic_net.description" state="final">
         <source>bios_terminal.magnetic_net_description</source>
         <target>Activates the magnetic net which allows the crew to leave the Patrol Craft to their doom. Or otherwise...</target>
       </segment>
-      <segment id="magnetic_net.toggle_active" state="translated">
+      <segment id="magnetic_net.toggle_active" state="final">
         <source>bios_terminal.magnetic_net_toggle_active</source>
         <target>Yes</target>
       </segment>
-      <segment id="magnetic_net.toggle_inactive" state="translated">
+      <segment id="magnetic_net.toggle_inactive" state="final">
         <source>bios_terminal.magnetic_net_toggle_inactive</source>
         <target>No</target>
       </segment>

@@ -1612,7 +1612,7 @@
         <source>shrink.name</source>
         <target>Psy</target>
       </segment>
-      <segment id="shrink.description" state="translated">
+      <segment id="shrink.description" state="final">
         <source>shrink.description</source>
         <target>Le psy occupe un poste de soutien psychologique. Il permet de garder le moral et soigne les maladies psychologiques.//:point: A chaque cycle, **1 Point de Moral (:pmo:) est régénéré** à chaque personnage allongé dans sa pièce.//:point: **Soigne les maladies Psy**.//:point: Accorde l'action **Réconforter**, laquelle améliore le moral.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
@@ -1622,7 +1622,7 @@
         <source>mankind_only_hope.name</source>
         <target>Seul espoir de l'Humanité</target>
       </segment>
-      <segment id="mankind_only_hope.description" state="translated">
+      <segment id="mankind_only_hope.description" state="final">
         <source>mankind_only_hope.description</source>
         <target>Son système immunitaire hors-norme fait d'elle le seul espoir de l'humanité. Tant qu'elle restera en vie, nous aurons une petite chance de combattre l'invasion Mush.//:point: La perte de moral journalière est réduite de 1 point.</target>
       </segment>

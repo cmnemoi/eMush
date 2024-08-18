@@ -806,12 +806,12 @@
         }</target>
       </segment>
     </unit>
-      <unit id="logistic_log">
-          <segment state="translated">
-              <source>logistic_log</source>
-              <target>La compétence *Logistique* de **{character}** a porté ses fruits...</target>
-          </segment>
-      </unit>
+    <unit id="logistic_log">
+      <segment state="translated">
+        <source>logistic_log</source>
+        <target>La compétence *Logistique* de **{character}** a porté ses fruits...</target>
+      </segment>
+    </unit>
     <unit id="drone">
       <segment state="translated">
         <source>drone</source>
@@ -841,8 +841,8 @@
         23 {Terminus}
         24 {Troll}
         25 {Vortex}
-        26 {Weathley}
-        other {Wealthley}} #{drone_serial_number}**</target>
+        26 {Wheatley}
+        other {Wheatley}} #{drone_serial_number}**</target>
       </segment>
     </unit>
     <unit id="drone_entered_room">
@@ -1029,7 +1029,7 @@
       <segment id="ceasefire_end" state="final">
         <source>ceasefire_end</source>
         <target>{new_cycle, select, 
-        true {Plus personne ne prend **{target_character}** au serieux finalement. Fin du cessez-le-feu.}
+        true {Plus personne ne prend **{target_character}** au sérieux finalement. Fin du cessez-le-feu.}
         other {**{target_character}** a quitté la pièce. Fin du cessez-le-feu.}}</target>
       </segment>
     </unit>

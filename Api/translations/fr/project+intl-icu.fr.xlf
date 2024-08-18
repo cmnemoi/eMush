@@ -16,7 +16,7 @@
     <unit id="efficiencyTooltipText">
       <segment id="efficiencyTooltipText" state="translated">
         <source>efficiency.tooltip.text</source>
-        <target>Pour garder une efficacité optimale, alternez le travail avec un autre collègue.</target>
+        <target>Pour garder une efficacité optimale, alternez le travail avec un collègue.</target>
       </segment>
     </unit>
     <unit id="auto_watering">
@@ -120,7 +120,7 @@
       </segment>
       <segment id="heat_lamp.description" state="translated">
         <source>heat_lamp.description</source>
-        <target>Dans le jardin, 50% de chances de produire un fruit supplémentaire.</target>
+        <target>Dans le jardin, chaque plante a 50% de chance de produire un fruit supplémentaire.</target>
       </segment>
       <segment id="heat_lamp.lore" state="translated">
         <source>heat_lamp.lore</source>
@@ -192,7 +192,7 @@
       </segment>
       <segment id="trail_reducer.description" state="translated">
         <source>trail_reducer.description</source>
-        <target>Le nombre d'assaillants qui vous rejoint après un voyage est réduit de 50%.</target>
+        <target>Le nombre d'assaillants qui vous retrouve après un voyage est réduit à 25% (au lieu de 50%).</target>
       </segment>
       <segment id="trail_reducer.lore" state="translated">
         <source>trail_reducer.lore</source>
@@ -210,7 +210,7 @@
       </segment>
       <segment id="chipset_acceleration.description" state="translated">
         <source>chipset_acceleration.description</source>
-        <target>L'action recherche d'une planète coûte 1 :pa: de moins.</target>
+        <target>Scanner pour trouver une nouvelle planète coûte 1 :pa: de moins.</target>
       </segment>
       <segment id="chipset_acceleration.lore" state="translated">
         <source>chipset_acceleration.lore</source>
@@ -228,7 +228,7 @@
       </segment>
       <segment id="extra_hydroponpots.description" state="translated">
         <source>extra_hydroponpots.description</source>
-        <target>Ajoute 3 pots pour faire pousser de nouvelles plantes.</target>
+        <target>Ajoute 3 pots au jardin pour faire pousser de nouvelles plantes.</target>
       </segment>
       <segment id="extra_hydroponpots.lore" state="translated">
         <source>extra_hydroponpots.lore</source>
@@ -280,7 +280,7 @@
         <source>bric_broc.name</source>
         <target>Rafistolage Général</target>
       </segment>
-      <segment id="bric_broc.description" state="translated">
+      <segment id="bric_broc.description" state="final">
         <source>bric_broc.description</source>
         <target>À chaque cycle, le Daedalus a 15% de chances de ne pas partir en miette...</target>
       </segment>
@@ -300,7 +300,7 @@
       </segment>
       <segment id="magnetic_net.description" state="translated">
         <source>magnetic_net.description</source>
-        <target>Lorsque le Daedalus se déplace les Patrouilleurs sont automatiquement ramenés à bord.</target>
+        <target>Lorsque le Daedalus se déplace, les Patrouilleurs sont automatiquement ramenés à bord.</target>
       </segment>
       <segment id="magnetic_net.lore" state="translated">
         <source>magnetic_net.lore</source>
@@ -318,7 +318,7 @@
       </segment>
       <segment id="icarus_antigrav_propeller.description" state="translated">
         <source>icarus_antigrav_propeller.description</source>
-        <target>Augmente vos chances de réussites pour atterrir sur des planètes.</target>
+        <target>Augmente vos chances de réussite pour atterrir sur des planètes.</target>
       </segment>
       <segment id="icarus_antigrav_propeller.lore" state="translated">
         <source>icarus_antigrav_propeller.lore</source>
@@ -340,7 +340,7 @@
       </segment>
       <segment id="fission_coffee_roaster.lore" state="translated">
         <source>fission_coffee_roaster.lore</source>
-        <target>Yeehaa !! En branchant un bête accélérateur de particules portatif sur l'évacuation de la pompe du torréfacteur, il est désormais possible d'obtenir un café goûtu en moins de 12h !!</target>
+        <target>Yeehaw !! En branchant un bête accélérateur de particules portatif sur l'évacuation de la pompe du torréfacteur, il est désormais possible d'obtenir un café goûtu en moins de 12h !!</target>
       </segment>
     </unit>
     <unit id="armour_corridor">
@@ -352,7 +352,7 @@
         <source>armour_corridor.name</source>
         <target>Coursives blindées</target>
       </segment>
-      <segment id="armour_corridor.description" state="translated">
+      <segment id="armour_corridor.description" state="final">
         <source>armour_corridor.description</source>
         <target>Chaque attaque subie par le Daedalus est diminuée d'un point.</target>
       </segment>
@@ -530,7 +530,7 @@
       </segment>
       <segment id="whos_who.name" state="translated">
         <source>whos_who.name</source>
-        <target>Protocle ACTOPI</target>
+        <target>Protocole ACTOPI</target>
       </segment>
       <segment id="whos_who.description" state="translated">
         <source>whos_who.description</source>
@@ -606,7 +606,7 @@
       </segment>
       <segment id="patrol_ship_launcher.description" state="translated">
         <source>patrol_ship_launcher.description</source>
-        <target>Les manœuvres de décollage vous coûtent moins de :pa:.</target>
+        <target>Les manœuvres de décollage en Patrouilleur et Pasiphae vous coûtent 1 :pa: de moins.</target>
       </segment>
       <segment id="patrol_ship_launcher.lore" state="translated">
         <source>patrol_ship_launcher.lore</source>
@@ -624,7 +624,7 @@
       </segment>
       <segment id="neron_project_thread.description" state="translated">
         <source>neron_project_thread.description</source>
-        <target>Si un projet est au-dessus de 0%, il est automatiquement amélioré de 5% à chaque cycle.</target>
+        <target>Si un projet NERON est au-dessus de 0%, il est automatiquement amélioré de 5% à chaque cycle.</target>
       </segment>
       <segment id="neron_project_thread.lore" state="translated">
         <source>neron_project_thread.lore</source>
@@ -660,7 +660,7 @@
       </segment>
       <segment id="quantum_sensors.description" state="translated">
         <source>quantum_sensors.description</source>
-        <target>Le scanner de planète révèle une section de plus par essai.</target>
+        <target>Le scanner de planète révèle une section de plus par Analyse.</target>
       </segment>
       <segment id="quantum_sensors.lore" state="translated">
         <source>quantum_sensors.lore</source>
@@ -754,7 +754,7 @@
       </segment>
       <segment id="oxy_more.lore" state="translated">
         <source>oxy_more.lore</source>
-        <target>Des algues qui poussent dans les conduites de climatisation. On pourrait peut-être faire pousser des bananiers rampants aussi non ?</target>
+        <target>Des algues qui poussent dans les conduites de climatisation. On pourrait peut-être faire pousser des bananiers rampants aussi, non ?</target>
       </segment>
     </unit>
     <unit id="beat_box">
@@ -772,7 +772,7 @@
       </segment>
       <segment id="beat_box.lore" state="translated">
         <source>beat_box.lore</source>
-        <target>À chaque cycle, le Jukebox diffuse une chanson différente. Chaque personnage peut gagner 2 :pmo: quand sa chanson passe.</target>
+        <target>À chaque cycle, le Jukebox diffuse une chanson différente. Chaque personnage peut gagner 2 :pmo: quand sa chanson préférée passe.</target>
       </segment>
     </unit>
   </file>

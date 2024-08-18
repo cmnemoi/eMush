@@ -292,7 +292,7 @@ Merci de nous aider !</target>
     <unit id="reset_skill_points">
       <segment id="reset_skill_points" state="translated">
         <source>reset_skill_points.name</source>
-        <target>Reset comp. points</target>
+        <target>Reset points comp.</target>
       </segment>
       <segment id="description" state="translated">
         <source>reset_skill_points.description</source>
@@ -833,7 +833,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="final">
         <source>shoot_hunter_turret.description</source>
-        <target>Tire une charge de Telsatron sur un vaisseau ennemi.</target>
+        <target>Tire une charge de Teslatron sur un vaisseau ennemi.</target>
       </segment>
     </unit>
     <unit id="shoot_random_hunter">

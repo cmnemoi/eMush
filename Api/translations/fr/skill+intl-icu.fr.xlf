@@ -23,7 +23,7 @@
         <source>firefighter.name</source>
         <target>Pompier</target>
       </segment>
-      <segment id="firefighter.description" state="translated">
+      <segment id="firefighter.description" state="final">
         <source>firefighter.description</source>
         <target>Le Pompier a une grande carrière qui lui permet de toujours réussir les actions avec
                     l'extincteur... et il peut aussi s'en sortir sans extincteur !//:point: L'action **Éteindre le feu**
@@ -36,16 +36,15 @@
         <source>pilot.name</source>
         <target>Pilote</target>
       </segment>
-      <segment id="pilot.description" state="translated">
+      <segment id="pilot.description" state="final">
         <source>pilot.description</source>
-        <target>Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa
-                    maîtrise aérienne est impressionnante.
-                    //
-                    :point: **Chances doublées** de toucher en Patrouilleur.
-                    //
-                    :point: **Ne rate jamais** les atterrissages et décollages.
-                    //
-                    :point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa maîtrise aérienne est impressionnante.
+//
+:point: **Chances doublées** de toucher en Patrouilleur.
+//
+:point: **Ne rate jamais** les atterrissages et décollages.
+//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="radio_expert">
@@ -53,7 +52,7 @@
         <source>radio_expert.name</source>
         <target>Expert radio</target>
       </segment>
-      <segment id="radio_expert.description" state="translated">
+      <segment id="radio_expert.description" state="final">
         <source>radio_expert.description</source>
         <target>L'Expert radio peut décoder les enchevêtrements les plus complexes d'ondes spatiales afin de
                     reconstituer ou envoyer des messages à l'autre bout de l'Univers.//:point: **Double efficacité**
@@ -66,7 +65,7 @@
         <source>robotics_expert.name</source>
         <target>Robotique</target>
       </segment>
-      <segment id="robotics_expert.description" state="translated">
+      <segment id="robotics_expert.description" state="final">
         <source>robotics_expert.description</source>
         <target>L'expert en robotique peut créer et manipuler les drones comme bon lui semble.//:point: Commence
                     avec le **plan d'un drone**.//:point: Peut **améliorer les drones**.//:point: Bonus pour développer
@@ -78,7 +77,7 @@
         <source>physicist.name</source>
         <target>Physicien</target>
       </segment>
-      <segment id="physicist.description" state="translated">
+      <segment id="physicist.description" state="final">
         <source>physicist.description</source>
         <target>Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
                     quantiques et de l'essence même des cordes qui composent notre Univers est son atout. Il possède des
@@ -91,7 +90,7 @@
         <source>technician.name</source>
         <target>Technicien</target>
       </segment>
-      <segment id="technician.description" state="translated">
+      <segment id="technician.description" state="final">
         <source>technician.description</source>
         <target>Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
         :point: +1 :pa_eng: (point d'action **Réparation**) par jour.//
@@ -106,7 +105,7 @@
         <source>astrophysicist.name</source>
         <target>Astrophysicien</target>
       </segment>
-      <segment id="astrophysicist.description" state="translated">
+      <segment id="astrophysicist.description" state="final">
         <source>astrophysicist.description</source>
         <target>L'Astrophysicien est habilité à lancer des scans pour trouver des planètes à portée ou
                     déterminer leur composition.//:point: L'action **Scanner** coûte 1 :pa: de moins.//:point: L'action **Analyse** révèle une section de planète supplémentaire.//:point: Bonus pour développer certains **Projets NERON**.</target>
@@ -117,7 +116,7 @@
         <source>it_expert.name</source>
         <target>Informaticien</target>
       </segment>
-      <segment id="it_expert.description" state="translated">
+      <segment id="it_expert.description" state="final">
         <source>it_expert.description</source>
         <target>L'Informaticien est à l'aise dès qu'il passe derrière un écran. Il manie à la perfection les
                     interfaces des terminaux de NERON, d'astrophysique, et de communication.//:point: +2 :pa_comp: (points
@@ -139,7 +138,7 @@
         <source>creative.name</source>
         <target>Créatif</target>
       </segment>
-      <segment id="creative.description" state="translated">
+      <segment id="creative.description" state="final">
         <source>creative.description</source>
         <target>Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre **1** :pa:.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
@@ -149,7 +148,7 @@
         <source>shrink.name</source>
         <target>Psy</target>
       </segment>
-      <segment id="shrink.description" state="translated">
+      <segment id="shrink.description" state="final">
         <source>shrink.description</source>
         <target>Le Psy occupe un poste de soutien psychologique. Il permet de garder le moral et soigne les maladies psychologiques.//:point: A chaque cycle, **1 Point de Moral (:pmo:) est régénéré** à chaque personnage allongé dans sa pièce.//:point: **Soigne les maladies Psy**.//:point: Accorde l'action **Réconforter**, laquelle améliore le moral.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
@@ -159,7 +158,7 @@
         <source>caffeine_junkie.name</source>
         <target>Caféinomane</target>
       </segment>
-      <segment id="caffeine_junkie.description" state="translated">
+      <segment id="caffeine_junkie.description" state="final">
         <source>caffeine_junkie.description</source>
         <target>Le Caféinomane travaille deux fois mieux que ses collègues tant qu'il a accès à la machine à café.//:point: +2:pa: lorsqu'il consomme un **Café**.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
@@ -169,7 +168,7 @@
         <source>shooter.name</source>
         <target>Tireur</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>shooter.description</source>
         <target>Le Tireur manipule les armes de tout type avec beaucoup d'aisance.//:point: +2 **Tirs gratuits** :pa_shoot: par jour.//:point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
@@ -179,7 +178,7 @@
         <source>chef.name</source>
         <target>Cuistot</target>
       </segment>
-      <segment id="chef.description" state="translated">
+      <segment id="chef.description" state="final">
         <source>chef.description</source>
         <target>Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.//:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4 :pa_cook: par jour (points d'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
@@ -189,7 +188,7 @@
         <source>nurse.name</source>
         <target>Infirmier</target>
       </segment>
-      <segment id="nurse.description" state="translated">
+      <segment id="nurse.description" state="final">
         <source>nurse.description</source>
         <target>L'Infirmier est toujours prêt à rendre service.//:point: +1 :pa_heal: chaque jour (point d'action **Soin**).//:point: Peut lire les **propriétés des médicaments.**//:point: Bonus pour participer à certains **Projets NERON**.</target>
       </segment>
@@ -199,7 +198,7 @@
         <source>paranoid.name</source>
         <target>Paranoïaque</target>
       </segment>
-      <segment id="paranoid.description" state="translated">
+      <segment id="paranoid.description" state="final">
         <source>paranoid.description</source>
         <target>Le Paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce à ses caméras supplémentaires.//:point: Commence avec 2 **Caméras** supplémentaires.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
@@ -209,9 +208,12 @@
         <source>biologist.name</source>
         <target>Biologiste</target>
       </segment>
-      <segment id="biologist.description" state="translated">
+      <segment id="biologist.description" state="final">
         <source>biologist.description</source>
-        <target>Le Biologiste est plus efficace dans les recherches du laboratoire.//:point: Peut lire les **propriétés des médicaments**.//:point: **+4% de bonus** sur chacune des **Recherches** du Laboratoire.//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le Biologiste est plus efficace dans les recherches du laboratoire.//
+:point: Peut lire les **propriétés des médicaments**.//
+:point: **+4% de bonus** sur chacune des **Recherches** du Laboratoire.//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="mankind_only_hope">
@@ -219,7 +221,7 @@
         <source>mankind_only_hope.name</source>
         <target>Seul espoir de l'Humanité</target>
       </segment>
-      <segment id="mankind_only_hope.description" state="translated">
+      <segment id="mankind_only_hope.description" state="final">
         <source>mankind_only_hope.description</source>
         <target>Son système immunitaire hors-norme fait d'elle le seul espoir de l'humanité. Tant qu'elle restera en vie, nous aurons une petite chance de combattre l'invasion Mush.//:point: La perte de moral journalière est réduite de 1 point.</target>
       </segment>
@@ -229,7 +231,7 @@
         <source>leader.name</source>
         <target>Leader</target>
       </segment>
-      <segment id="leader.description" state="translated">
+      <segment id="leader.description" state="final">
         <source>leader.description</source>
         <target>Un leader charismatique sait diriger efficacement l'équipage et monter le moral grâce à de furieux discours enflammés.//:point: Accorde l'action **Discours enflammé** qui permet d'augmenter le Moral (:pmo:) des équipiers.</target>
       </segment>
@@ -241,7 +243,8 @@
       </segment>
       <segment id="motivator.description" state="translated">
         <source>motivator.description</source>
-        <target>Bla bla bla... Pitiéééééé//:point: Pour **2** :pa:, vous pouvez faire un **discours barbant** qui donne 3 :pm: à chaque personne dans la pièce.</target>
+        <target>Bla bla bla... Pitiéééééé!//
+:point: Pour **2** :pa:, vous pouvez faire un **Discours Barbant** qui donne 3 :pm: à chaque personne dans la pièce (une fois par jour).</target>
       </segment>
     </unit>
     <unit id="confident">
@@ -249,7 +252,7 @@
         <source>confident.name</source>
         <target>Confident</target>
       </segment>
-      <segment id="confident.description" state="translated">
+      <segment id="confident.description" state="final">
         <source>confident.description</source>
         <target>Discret et fidèle, vous attirez la sympathie et portez un peu la misère du monde quand même...//:point: Une fois par jour, les autres joueurs peuvent se confier à vous, en faisant cela, ils vous révèlent leurs X dernières actions où X est votre quantité de :pmo: et gagnent ainsi 2 :pmo:.</target>
       </segment>
@@ -259,7 +262,7 @@
         <source>survivalist.name</source>
         <target>Survie</target>
       </segment>
-      <segment id="survivalist.description" state="translated">
+      <segment id="survivalist.description" state="final">
         <source>survivalist.description</source>
         <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.//:point: Expédition : Chaque dégât est **réduit d'un point**.//:point: Expédition : L'évènement **Provision** donne un steak de plus.//:point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
       </segment>
@@ -307,7 +310,7 @@
     <unit id="gunner">
       <segment id="gunner.name" state="translated">
         <source>gunner.name</source>
-        <target>Cannonier</target>
+        <target>Canonnier</target>
       </segment>
       <segment id="gunner.description" state="translated">
         <source>gunner.description</source>
@@ -341,7 +344,7 @@
       </segment>
       <segment id="genius.description" state="translated">
         <source>genius.description</source>
-        <target>Lorsqu'il est divinement éclairé par la flamme de la connaissance le Génie peut trouver la solution à n'importe quel problème du Daedalus.//:point: Peut **achever une fois par partie une recherche, un projet, ou une réparation**.</target>
+        <target>Lorsqu'il est divinement éclairé par la flamme de la connaissance le Génie peut trouver la solution à n'importe quel problème du Daedalus.//:point: Peut **achever une fois par partie une recherche, un projet ou une réparation**.</target>
       </segment>
     </unit>
     <unit id="presentiment">
@@ -403,13 +406,15 @@
       </segment>
       <segment id="infector.description" state="translated">
         <source>infector.description</source>
-        <target>Vous faites des trous. Des petits trous. Beaucoup de petits trous.//:point: Vous permet de **poinçonner** une de fois de plus chaque jour.</target>
+        <target>Vous faites des trous. Des petits trous. Beaucoup de petits trous.//:point: Vous permet de **poinçonner** une fois de plus chaque jour.</target>
       </segment>
     </unit>
     <unit id="sneak">
       <segment id="sneak.name" state="translated">
         <source>sneak.name</source>
-        <target>Fuyant</target>
+        <target>{character_gender, select,
+    female {Fuyante}
+    other {Fuyant}}</target>
       </segment>
       <segment id="sneak.description" state="translated">
         <source>sneak.description</source>

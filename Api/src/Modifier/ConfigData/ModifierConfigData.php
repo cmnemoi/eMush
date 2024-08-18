@@ -3092,6 +3092,7 @@ abstract class ModifierConfigData
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'triggeredEvent' => EventConfigData::CHANGE_VALUE_PLUS_1_CHARGE_MUSH_STATUS,
             'modifierActivationRequirements' => [],
+            'targetFilters' => [],
         ],
         [
             'name' => ModifierNameEnum::PLAYER_MINUS_25_PERCENTAGE_ON_ACTION_HIT_AND_ATTACK,

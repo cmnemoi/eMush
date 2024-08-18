@@ -1506,7 +1506,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>starving_warning.description</source>
-        <target>The crew is seriously **hungry**. You must find something to eat.</target>
+        <target>You are seriously **hungry**. You must find something to eat. Each cycle spent without eating will cost you 1 :hp:.</target>
       </segment>
     </unit>
     <unit id="stuck_in_the_ship">
@@ -1566,11 +1566,11 @@
       </segment>
       <segment id="description" state="translated">
         <source>pilot.description</source>
-        <target>An expert in manoeuvring the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.
+        <target>An expert in maneuvering the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.
 //
-:point: **Doubled** chance of Patroller hit.
+:point: **Doubled** hit chance of Patroller shots.
 //
-:point: **Never misses** landings and take-offs.
+:point: **Never fails** landings and take-offs.
 //
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -1598,8 +1598,8 @@
         <target>Qualified to repair materials, equipment and the hull of the Daedalus.//
 :point: +1 :pa_eng: per day (**Repair** Action Point).//
 :point: Can **Dismantle** objects.//
-:point: Chances to perform successful **Repairs** doubled.//
-:point: Chances to perform successful **Renovations** doubled.//
+:point: Odds of performing successful **Repairs** doubled.//
+:point: Odds of performing successful **Renovations** doubled.//
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
@@ -1632,7 +1632,17 @@
       </segment>
       <segment id="mankind_only_hope.description" state="translated">
         <source>mankind_only_hope.description</source>
-        <target>Her unique immune system makes her the last hope for humanity. As long as she stays alive, we'll have a shot at combatting the Mush invasion.//:point: Daily morale loss is reduced by 1 point.</target>
+        <target>Her unique immune system makes her the last hope for humanity. As long as she stays alive, we'll have a shot at combatting the Mush invasion.//:point: Global daily morale loss is reduced by 1 point.</target>
+      </segment>
+    </unit>
+    <unit id="genius_idea">
+      <segment id="name" state="initial">
+        <source>genius_idea.name</source>
+        <target>genius_idea.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>genius_idea.description</source>
+        <target>genius_idea.description</target>
       </segment>
     </unit>
   </file>

@@ -7,6 +7,7 @@ use Mush\Game\Entity\VariableEventConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Service\EventCreationServiceInterface;
 
@@ -52,6 +53,8 @@ class AddEvent extends AbstractModifierHandler
             $newEvents = $this->createVariableEvents(
                 $modifierTarget,
                 $eventConfig,
+                $modifierConfig,
+                $modifier->getModifierProvider(),
                 $priority,
                 $tags,
                 $time
@@ -70,6 +73,8 @@ class AddEvent extends AbstractModifierHandler
     private function createVariableEvents(
         ModifierHolderInterface $modifierHolder,
         VariableEventConfig $eventConfig,
+        TriggerEventModifierConfig $modifierConfig,
+        ModifierProviderInterface $modifierProvider,
         int $priority,
         array $tags,
         \DateTime $time
@@ -77,8 +82,11 @@ class AddEvent extends AbstractModifierHandler
         $events = [];
 
         $eventTargets = $this->eventCreationService->getEventTargetsFromModifierHolder(
-            $eventConfig->getVariableHolderClass(),
+            $eventConfig,
+            $modifierConfig->getEventTargetRequirements(),
+            $modifierConfig->getTargetFilters(),
             $modifierHolder,
+            $modifierProvider
         );
 
         foreach ($eventTargets as $target) {

@@ -50,7 +50,7 @@ The choice of [priority](./Enum/PriorityEnum) depends on the type of eventModifi
 ### Entity
 - [GameModifier](./Entity/GameModifier.php):
   - holder: a ModifierHolderInterface (player, equipment, room or daedalus)
-  - optional: a charge status, modifier is only active if charge is above 0
+  - provider: the entity that provide the effect it can be a player, a project a gameEquipment
   - modifierConfig
   
 - [AbstractModifierConfig](./Entity/Config/AbstractModifierConfig.php): 3 child classes

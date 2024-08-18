@@ -11,7 +11,6 @@ use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
-use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -20,19 +19,16 @@ final class ActionSubscriber implements EventSubscriberInterface
 {
     private ActionSideEffectsServiceInterface $actionSideEffectsService;
     private ActionStrategyServiceInterface $actionStrategyService;
-    private PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         ActionSideEffectsServiceInterface $actionSideEffectsService,
         ActionStrategyServiceInterface $actionStrategyService,
         StatusServiceInterface $statusService,
-        PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService
     ) {
         $this->actionSideEffectsService = $actionSideEffectsService;
         $this->actionStrategyService = $actionStrategyService;
         $this->statusService = $statusService;
-        $this->patrolShipManoeuvreService = $patrolShipManoeuvreService;
     }
 
     public static function getSubscribedEvents(): array
@@ -118,7 +114,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $actionConfig = $event->getActionConfig();
         $actionProvider = $event->getActionProvider();
 
-        $charge = $actionProvider->getUsedCharge($actionConfig->getActionName());
+        $charge = $actionProvider->getUsedCharge($actionConfig->getActionName()->value);
         if ($charge !== null) {
             $this->statusService->updateCharge($charge, -1, $event->getTags(), $event->getTime());
         }
@@ -129,7 +125,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $actionConfig = $event->getActionConfig();
         $player = $event->getAuthor();
 
-        $charge = $player->getUsedCharge($actionConfig->getActionName());
+        $charge = $player->getUsedCharge($actionConfig->getActionName()->value);
         if ($charge !== null) {
             $this->statusService->updateCharge($charge, -1, $event->getTags(), $event->getTime());
         }

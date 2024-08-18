@@ -30,7 +30,7 @@ class EventModifierConfigDataLoader extends ModifierConfigDataLoader
             $modifierConfig->setModifierStrategy($modifierConfigData['strategy']);
 
             $this->loadEventModifierData($modifierConfig, $modifierConfigData);
-            $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);
+            $modifierConfig->setModifierActivationRequirements($this->getModifierConfigActivationRequirements($modifierConfigData, 'modifierActivationRequirements'));
 
             $this->entityManager->persist($modifierConfig);
         }

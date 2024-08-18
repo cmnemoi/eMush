@@ -27,7 +27,9 @@ class TriggerEventModifierConfigDataLoader extends EventModifierConfigDataLoader
 
             $modifierConfig = $this->setEventConfig($modifierConfig, $modifierConfigData['triggeredEvent']);
             $this->loadEventModifierData($modifierConfig, $modifierConfigData);
-            $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);
+            $modifierConfig->setModifierActivationRequirements($this->getModifierConfigActivationRequirements($modifierConfigData, 'modifierActivationRequirements'));
+            $modifierConfig->setEventTargetRequirements($this->getModifierConfigActivationRequirements($modifierConfigData, 'eventActivationRequirements'));
+            $modifierConfig->setTargetFilters($modifierConfigData['targetFilters']);
 
             $this->entityManager->persist($modifierConfig);
         }

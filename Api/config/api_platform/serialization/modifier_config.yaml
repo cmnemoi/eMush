@@ -10,6 +10,8 @@ Mush\Modifier\Entity\Config\AbstractModifierConfig:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     modifierActivationRequirements:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    targetEventRequirements:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
     delta:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     targetVariable:
@@ -29,4 +31,6 @@ Mush\Modifier\Entity\Config\AbstractModifierConfig:
     priority:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     modifierStrategy:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    targetFilters:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]

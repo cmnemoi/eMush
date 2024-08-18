@@ -32,7 +32,6 @@ use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -293,9 +292,9 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $defenceCpuPriorityIncreaseTurretMaxCharge = new DirectModifierConfig('defenceCpuPriorityIncreaseTurretMaxCharge');
         $defenceCpuPriorityIncreaseTurretMaxCharge
             ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
+            ->setEventActivationRequirements([$modifierRequirementNameTurret])
             ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([$modifierRequirementNameTurret]);
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($defenceCpuPriorityIncreaseTurretMaxCharge);
 
         $defenceCpuPriorityIncreaseTurretRecharge = new VariableEventModifierConfig('defenceCpuPriorityIncreaseTurretRecharge');
@@ -322,33 +321,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyWhenTargeted(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($immunizedModifierSet0SporesOnChangeVariable);
-
-        $shrinkInRoomActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::SKILL_IN_ROOM);
-        $shrinkInRoomActivationRequirement
-            ->setActivationRequirement(SkillEnum::SHRINK->value)
-            ->buildName();
-        $manager->persist($shrinkInRoomActivationRequirement);
-
-        $holderIsNotAShrinkActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL);
-        $holderIsNotAShrinkActivationRequirement
-            ->setActivationRequirement(SkillEnum::SHRINK->value)
-            ->buildName();
-        $manager->persist($holderIsNotAShrinkActivationRequirement);
-
-        /** @var AbstractEventConfig $eventConfigIncreaseOneMoralePoint */
-        $eventConfigIncreaseOneMoralePoint = $this->getReference('change.variable_player_+1moralePoint');
-
-        $lyingDownShrinkModifier = new TriggerEventModifierConfig('modifier_for_player_+1morale_point_on_new_cycle_if_shrink_in_room');
-        $lyingDownShrinkModifier
-            ->setTriggeredEvent($eventConfigIncreaseOneMoralePoint)
-            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
-            ->setApplyWhenTargeted(true)
-            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-            ->addModifierRequirement($shrinkInRoomActivationRequirement)
-            ->addModifierRequirement($holderIsNotAShrinkActivationRequirement)
-            ->setModifierStrategy(ModifierStrategyEnum::ADD_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
-        $manager->persist($lyingDownShrinkModifier);
 
         $inactiveModifier = VariableEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName('modifier_for_player_x1.5percentage_on_action_attack_hit_shoot')
@@ -379,7 +351,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE, $defenceCpuPriorityIncreaseTurretRecharge);
 
         $this->addReference(self::IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE, $immunizedModifierSet0SporesOnChangeVariable);
-        $this->addReference('modifier_for_player_+1morale_point_on_new_cycle_if_shrink_in_room', $lyingDownShrinkModifier);
         $this->addReference($inactiveModifier->getName(), $inactiveModifier);
     }
 

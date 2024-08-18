@@ -19,6 +19,8 @@ export class ModifierConfig {
     public tagConstraints: Map<string, string>|null;
     public priority: number|null;
     public modifierStrategy: string|null;
+    public targetFilters: Map<string, string>|null;
+    public targetEventRequirements:ModifierActivationRequirement[]|null;
 
     constructor() {
         this.iri = null;
@@ -35,7 +37,9 @@ export class ModifierConfig {
         this.triggeredEvent = null;
         this.applyOnTarget = null;
         this.modifierActivationRequirements = null;
+        this.targetEventRequirements = null;
         this.tagConstraints = null;
+        this.targetFilters = null;
         this.modifierStrategy = null;
         this.priority = null;
     }
@@ -66,6 +70,13 @@ export class ModifierConfig {
                     }
                 }
             }
+            if (typeof object.targetFilters !== 'undefined') {
+                for (const [key, value] of Object.entries(object.targetFilters)) {
+                    if (typeof value === 'string') {
+                        this.targetFilters?.set(key, value);
+                    }
+                }
+            }
         }
         return this;
     }
@@ -73,10 +84,19 @@ export class ModifierConfig {
         const modifierActivationRequirements : string[] = [];
         this.modifierActivationRequirements?.forEach(modifierActivationRequirement => (typeof modifierActivationRequirement.iri === 'string' ? modifierActivationRequirements.push(modifierActivationRequirement.iri) : null));
 
+        const targetEventRequirements : string[] = [];
+        this.targetEventRequirements?.forEach(targetEventRequirement => (typeof targetEventRequirement.iri === 'string' ? targetEventRequirements.push(targetEventRequirement.iri) : null));
+
         const tagsConstraints : object = {};
         this.tagConstraints?.forEach((value, key) => {
             // @ts-ignore
             tagsConstraints[key] = value;
+        });
+
+        const targetFilters : object = {};
+        this.targetFilters?.forEach((value, key) => {
+            // @ts-ignore
+            targetFilters[key] = value;
         });
 
         return {
@@ -91,8 +111,10 @@ export class ModifierConfig {
             'reverseOnRemove': this.reverseOnRemove,
             'applyOnTarget': this.applyOnTarget,
             'modifierActivationRequirements': modifierActivationRequirements,
+            'targetEventRequirements': targetEventRequirements,
             'triggeredEvent': this.triggeredEvent?.iri,
             'tagConstraints': tagsConstraints,
+            'targetFilters': targetFilters,
             'modifierStrategy': this.modifierStrategy,
             'priority': this.priority
         };

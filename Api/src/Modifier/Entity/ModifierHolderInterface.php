@@ -11,9 +11,9 @@ interface ModifierHolderInterface
 
     public function getAllModifiers(): ModifierCollection;
 
-    public function addModifier(GameModifier $modifier): self;
+    public function addModifier(GameModifier $modifier): static;
 
-    public function removeModifier(GameModifier $modifier): self;
+    public function removeModifier(GameModifier $modifier): static;
 
     public function getClassName(): string;
 

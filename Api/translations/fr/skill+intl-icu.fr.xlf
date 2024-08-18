@@ -416,5 +416,15 @@
         <target>Vous êtes d'un naturel craintif et savez naturellement vous dérober afin d'échapper à toutes les tentatives de contact physique.//:point: Les attaques de corps-à-corps reçoivent une **pénalité de 25%**.//:point: Vous pouvez vous déplacer quels que soient les **Gardiens** présents dans la pièce.</target>
       </segment>
     </unit>
+    <unit id="logistic_expert">
+      <segment id="logistic_expert.name" state="translated">
+        <source>logistic_expert.name</source>
+        <target>Logistique</target>
+      </segment>
+      <segment id="logistic_expert.description" state="translated">
+        <source>logistic_expert.description</source>
+        <target>Vous veillez personnellement à l'organisation correcte du Daedalus afin de maximiser les possibilités de chacun de vos équipiers.//:point: À chaque cycle, **1 :pa: est distribué à un coéquipier** au hasard présent dans votre salle.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

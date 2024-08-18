@@ -18,9 +18,6 @@ use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -53,7 +50,7 @@ final class EquipmentModifierServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testGearCreated()
+    public function testGearCreatedDaedalusRange()
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -84,9 +81,40 @@ final class EquipmentModifierServiceTest extends TestCase
         $date = new \DateTime();
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, [], $date, null)
+            ->with($modifierConfig1, $daedalus, $gameEquipment, [], $date)
             ->once();
         $this->service->gearCreated($gameEquipment, [], $date);
+    }
+
+    public function testGearCreatedDaedalusRangePlayerInventory()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $room->setDaedalus($daedalus);
+
+        // create a gear with daedalus modifier
+        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
+        $modifierConfig1
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('action')
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setModifierName('modifierName');
+
+        $gear = new Gear();
+        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
+
+        $equipmentConfig = new ItemConfig();
+        $equipmentConfig
+            ->setEquipmentName('gear')
+            ->setMechanics(new ArrayCollection([$gear]));
+        $gameEquipment = new GameItem($room);
+        $gameEquipment
+            ->setEquipment($equipmentConfig)
+            ->setName($equipmentConfig->getEquipmentName());
+
+        $date = new \DateTime();
 
         // with a player holding the gear
         $player = new Player();
@@ -95,21 +123,27 @@ final class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, [], $date, null)
+            ->with($modifierConfig1, $daedalus, $gameEquipment, [], $date)
             ->once();
         $this->service->gearCreated($gameEquipment, [], $date);
+    }
 
-        // with a charge
-        $chargeConfig = new ChargeStatusConfig();
-        $chargeConfig->setStatusName('status');
-        $chargeConfig->setDischargeStrategies(['modifierName']);
-        $charge = new ChargeStatus($gameEquipment, $chargeConfig);
+    public function testGearCreatedTwoModifiers()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $room->setDaedalus($daedalus);
+        $date = new \DateTime();
 
-        $this->modifierService
-            ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, [], $date, $charge)
-            ->once();
-        $this->service->gearCreated($gameEquipment, [], $date);
+        // create a gear with daedalus modifier
+        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
+        $modifierConfig1
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('action')
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setModifierName('modifierName');
 
         // gear with 2 modifiers
         $modifierConfig2 = new VariableEventModifierConfig('unitTestVariableEventModifier');
@@ -133,11 +167,11 @@ final class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, [], $date, null)
+            ->with($modifierConfig1, $daedalus, $gameEquipment, [], $date)
             ->once();
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig2, $daedalus, [], $date, null)
+            ->with($modifierConfig2, $daedalus, $gameEquipment, [], $date)
             ->once();
         $this->service->gearCreated($gameEquipment, [], $date);
     }
@@ -170,7 +204,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $date = new \DateTime();
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig1, $daedalus, [], $date)
+            ->with($modifierConfig1, $daedalus, $gameEquipment, [], $date)
             ->once();
         $this->service->gearDestroyed($gameEquipment, [], $date);
 
@@ -181,12 +215,12 @@ final class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig1, $daedalus, [], $date)
+            ->with($modifierConfig1, $daedalus, $gameEquipment, [], $date)
             ->once();
         $this->service->gearDestroyed($gameEquipment, [], $date);
     }
 
-    public function testTakeGear()
+    public function testTakeGearWithDaedalusRange()
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -216,7 +250,22 @@ final class EquipmentModifierServiceTest extends TestCase
             ->setName($equipmentConfig->getEquipmentName());
 
         $date = new \DateTime();
+
+        $this->modifierService
+            ->shouldReceive('createModifier')
+            ->never();
+
         $this->service->takeEquipment($gameEquipment, $player, [], $date);
+    }
+
+    public function testTakeGearWithPlayerRange()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $room->setDaedalus($daedalus);
+        $player = new Player();
+        $player->setPlace($room)->setDaedalus($daedalus);
+        $date = new \DateTime();
 
         // gear with player GameModifier
         $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
@@ -242,20 +291,7 @@ final class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $player, [], $date, null)
-            ->once();
-        $this->service->takeEquipment($gameEquipment, $player, [], $date);
-
-        // GameModifier with a charge
-        $chargeConfig = new ChargeStatusConfig();
-        $chargeConfig
-            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
-            ->setDischargeStrategies([ModifierNameEnum::APRON_MODIFIER]);
-        $charge = new ChargeStatus($gameEquipment, $chargeConfig);
-
-        $this->modifierService
-            ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $player, [], $date, $charge)
+            ->with($modifierConfig1, $player, $gameEquipment, [], $date)
             ->once();
         $this->service->takeEquipment($gameEquipment, $player, [], $date);
     }
@@ -290,8 +326,8 @@ final class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig1, $player, [], $date)
-            ->once();
+            ->with($modifierConfig1, $player, $gameEquipment, [], $date)
+            ->never();
         $this->service->dropEquipment($gameEquipment, $player, [], $date);
     }
 
@@ -327,7 +363,7 @@ final class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig2, $player, [], $date)
+            ->with($modifierConfig2, $player, $gameEquipment, [], $date)
             ->once();
         $this->service->dropEquipment($gameEquipment, $player, [], $date);
     }

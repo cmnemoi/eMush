@@ -43,7 +43,6 @@ abstract class AbstractModifierHandler
         $modifierEvent = new ModifierEvent($modifier, $tags, $time);
         $modifierEvent->setEventName(ModifierEvent::APPLY_MODIFIER);
         $modifierEvent->setPriority($priority);
-        $modifierEvent->setAuthor($eventCollection->getInitialEvent()?->getAuthor()); // pass the author of the initial event to the modifier event for logging purposes
 
         return $eventCollection->addEvent($modifierEvent);
     }

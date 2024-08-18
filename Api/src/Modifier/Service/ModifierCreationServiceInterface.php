@@ -6,7 +6,7 @@ use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Modifier\Entity\ModifierProviderInterface;
 
 interface ModifierCreationServiceInterface
 {
@@ -17,14 +17,15 @@ interface ModifierCreationServiceInterface
     public function createModifier(
         AbstractModifierConfig $modifierConfig,
         ModifierHolderInterface $holder,
+        ModifierProviderInterface $modifierProvider,
         array $tags = [],
-        \DateTime $time = new \DateTime(),
-        ?ChargeStatus $chargeStatus = null
+        \DateTime $time = new \DateTime()
     ): void;
 
     public function deleteModifier(
         AbstractModifierConfig $modifierConfig,
         ModifierHolderInterface $holder,
+        ModifierProviderInterface $modifierProvider,
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ): void;
@@ -32,6 +33,7 @@ interface ModifierCreationServiceInterface
     public function createDirectModifier(
         DirectModifierConfig $modifierConfig,
         ModifierHolderInterface $modifierRange,
+        ModifierProviderInterface $modifierProvider,
         array $tags,
         \DateTime $time,
         bool $reverse

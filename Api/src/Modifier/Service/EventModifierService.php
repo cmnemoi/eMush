@@ -72,7 +72,8 @@ class EventModifierService implements EventModifierServiceInterface
         if (
             $modifierConfig instanceof EventModifierConfig
             && $modifierConfig->doModifierApplies($initialEvent)
-            && $this->modifierRequirementService->checkModifier($modifierConfig, $modifier->getModifierHolder())
+            && $modifier->isProviderActive()
+            && $this->modifierRequirementService->checkRequirements($modifierConfig->getModifierActivationRequirements(), $modifier->getModifierHolder())
         ) {
             $handler = $this->modifierHandlerService->getModifierHandler($modifier);
             if ($handler === null) {

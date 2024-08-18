@@ -7,29 +7,24 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
-use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class StatusSubscriber implements EventSubscriberInterface
 {
-    private EquipmentModifierServiceInterface $gearModifierService;
     private ModifierCreationServiceInterface $modifierCreationService;
 
     public function __construct(
-        EquipmentModifierServiceInterface $gearModifierService,
         ModifierCreationServiceInterface $modifierCreationService,
     ) {
-        $this->gearModifierService = $gearModifierService;
         $this->modifierCreationService = $modifierCreationService;
     }
 
@@ -56,30 +51,13 @@ class StatusSubscriber implements EventSubscriberInterface
                 return;
             }
 
-            $charge = null;
-            if (
-                $statusConfig instanceof ChargeStatusConfig
-                && \in_array($modifierConfig->getModifierName(), $statusConfig->getDischargeStrategies(), true)
-            ) {
-                /** @var ChargeStatus $charge */
-                $charge = $event->getStatus();
-            }
-
             $this->modifierCreationService->createModifier(
-                $modifierConfig,
-                $modifierHolder,
-                $event->getTags(),
-                $event->getTime(),
-                $charge
+                modifierConfig: $modifierConfig,
+                holder: $modifierHolder,
+                modifierProvider: $this->getModifierProvider($event),
+                tags: $event->getTags(),
+                time: $event->getTime(),
             );
-        }
-
-        // handle broken gears
-        if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
-            if (!$statusHolder instanceof GameEquipment) {
-                throw new UnexpectedTypeException($statusHolder, GameEquipment::class);
-            }
-            $this->gearModifierService->gearDestroyed($statusHolder, $event->getTags(), $event->getTime());
         }
     }
 
@@ -92,14 +70,6 @@ class StatusSubscriber implements EventSubscriberInterface
             throw new \LogicException('statusConfig should be provided');
         }
 
-        // handle broken gears
-        if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
-            if (!$statusHolder instanceof GameEquipment) {
-                throw new UnexpectedTypeException($statusHolder, GameEquipment::class);
-            }
-            $this->gearModifierService->gearCreated($statusHolder, $event->getTags(), $event->getTime());
-        }
-
         /** @var AbstractModifierConfig $modifierConfig */
         foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
             $modifierHolder = $this->getModifierHolderFromConfig($statusHolder, $modifierConfig);
@@ -107,7 +77,13 @@ class StatusSubscriber implements EventSubscriberInterface
                 return;
             }
 
-            $this->modifierCreationService->deleteModifier($modifierConfig, $modifierHolder, $event->getTags(), $event->getTime());
+            $this->modifierCreationService->deleteModifier(
+                modifierConfig: $modifierConfig,
+                holder: $modifierHolder,
+                modifierProvider: $this->getModifierProvider($event),
+                tags: $event->getTags(),
+                time: $event->getTime()
+            );
         }
     }
 
@@ -131,13 +107,26 @@ class StatusSubscriber implements EventSubscriberInterface
             $modifierConfig = $modifier->getModifierConfig();
 
             $this->modifierCreationService->createDirectModifier(
-                $modifierConfig,
-                $statusHolder,
-                $event->getTags(),
-                $event->getTime(),
-                false
+                modifierConfig: $modifierConfig,
+                modifierRange: $statusHolder,
+                modifierProvider: $this->getModifierProvider($event),
+                tags: $event->getTags(),
+                time: $event->getTime(),
+                reverse: false
             );
         }
+    }
+
+    private function getModifierProvider(StatusEvent $event): ModifierProviderInterface
+    {
+        $statusHolder = $event->getStatusHolder();
+        if (
+            $statusHolder instanceof ModifierProviderInterface
+        ) {
+            return $statusHolder;
+        }
+
+        return $event->getStatus();
     }
 
     private function getModifierHolderFromConfig(StatusHolderInterface $statusHolder, AbstractModifierConfig $modifierConfig): ?ModifierHolderInterface

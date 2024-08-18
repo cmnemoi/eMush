@@ -2,6 +2,8 @@
 
 namespace Mush\Modifier\Entity\Config;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Enum\VisibilityEnum;
@@ -15,6 +17,8 @@ use Mush\Modifier\Enum\ModifierStrategyEnum;
  * visibility: the visibility of the triggered event
  * triggeredEventConfig: a config to create the triggered event
  * priority: priority of the new event (negative means before the initial event, 0 means replace the initial event)
+ * targetFilters: filters to apply when selecting the target of the event. Currently 2 filters EXCLUDE_PROVIDER and SINGLE_RANDOM
+ * eventTargetRequirements: allow to filter targets of the event according to various condition (name, hasStatus...)
  */
 #[ORM\Entity]
 class TriggerEventModifierConfig extends EventModifierConfig
@@ -25,10 +29,17 @@ class TriggerEventModifierConfig extends EventModifierConfig
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $visibility = VisibilityEnum::PUBLIC;
 
+    #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
+    protected Collection $eventTargetRequirements;
+
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $targetFilters = [];
+
     public function __construct(string $name)
     {
         parent::__construct($name);
 
+        $this->modifierActivationRequirements = new ArrayCollection([]);
         $this->modifierStrategy = ModifierStrategyEnum::ADD_EVENT;
         $this->addNoneTagName();
     }
@@ -38,6 +49,7 @@ class TriggerEventModifierConfig extends EventModifierConfig
         $modifierConfig = new self($configData['name']);
         $modifierConfig
             ->setVisibility($configData['visibility'])
+            ->setTargetFilters($configData['targetFilters'])
             ->setTargetEvent($configData['targetEvent'])
             ->setPriority($configData['priority'])
             ->setApplyWhenTargeted($configData['applyOnTarget'])
@@ -129,6 +141,41 @@ class TriggerEventModifierConfig extends EventModifierConfig
         $parameters = parent::getTranslationParameters();
 
         return array_merge($parameters, $this->triggeredEvent->getTranslationParameters());
+    }
+
+    public function getEventTargetRequirements(): Collection
+    {
+        return $this->eventTargetRequirements;
+    }
+
+    public function addEventActivationRequirement(ModifierActivationRequirement $requirement): self
+    {
+        $this->eventTargetRequirements->add($requirement);
+
+        return $this;
+    }
+
+    public function setEventTargetRequirements(array|Collection $eventTargetRequirements): self
+    {
+        if (\is_array($eventTargetRequirements)) {
+            $eventTargetRequirements = new ArrayCollection($eventTargetRequirements);
+        }
+
+        $this->eventTargetRequirements = $eventTargetRequirements;
+
+        return $this;
+    }
+
+    public function setTargetFilters(array $targetFilters): self
+    {
+        $this->targetFilters = $targetFilters;
+
+        return $this;
+    }
+
+    public function getTargetFilters(): array
+    {
+        return $this->targetFilters;
     }
 
     // this prevents infinite loop where triggeredEvent can trigger itself

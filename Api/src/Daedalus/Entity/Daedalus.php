@@ -20,8 +20,9 @@ use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Modifier\Entity\ModifierHolderTrait;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -45,6 +46,7 @@ use Mush\Status\Enum\StatusEnum;
 #[ORM\Table(name: 'daedalus')]
 class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, StatusHolderInterface
 {
+    use ModifierHolderTrait;
     use TargetStatusTrait;
     use TimestampableEntity;
 
@@ -62,7 +64,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Place::class)]
     private Collection $places;
 
-    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
+    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: ModifierHolder::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
@@ -263,28 +265,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
-    public function getModifiers(): ModifierCollection
-    {
-        return new ModifierCollection($this->modifiers->toArray());
-    }
-
     public function getAllModifiers(): ModifierCollection
     {
-        return new ModifierCollection($this->modifiers->toArray());
-    }
-
-    public function addModifier(GameModifier $modifier): static
-    {
-        $this->modifiers->add($modifier);
-
-        return $this;
-    }
-
-    public function removeModifier(GameModifier $modifier): static
-    {
-        $this->modifiers->removeElement($modifier);
-
-        return $this;
+        return $this->getModifiers();
     }
 
     public function getAttackingHunters(): HunterCollection

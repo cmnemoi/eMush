@@ -249,7 +249,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->givenPlanetHasZeroRevealedSectors($I);
         $this->givenQuantumSensorsProjectIsFinished($I);
 
-        $this->whenPlayerAnalyzesThePlanet($this->player);
+        $this->whenPlayerAnalyzesThePlanet();
 
         $this->thenPlanetHasTwoRevealedSectors($I);
     }

@@ -9,7 +9,7 @@ use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Modifier\Entity\ModifierProviderInterface;
 
 class ModifierCreationService implements ModifierCreationServiceInterface
 {
@@ -47,32 +47,40 @@ class ModifierCreationService implements ModifierCreationServiceInterface
     public function createModifier(
         AbstractModifierConfig $modifierConfig,
         ModifierHolderInterface $holder,
+        ModifierProviderInterface $modifierProvider,
         array $tags = [],
         \DateTime $time = new \DateTime(),
-        ?ChargeStatus $chargeStatus = null
     ): void {
         if ($modifierConfig instanceof DirectModifierConfig) {
-            $this->createDirectModifier($modifierConfig, $holder, $tags, $time, false);
+            $this->createDirectModifier(
+                modifierConfig: $modifierConfig,
+                modifierRange: $holder,
+                modifierProvider: $modifierProvider,
+                tags: $tags,
+                time: $time,
+                reverse: false
+            );
 
             // if the direct modifier is reverted on remove we create a gameModifier to keep a trace of its presence
             if ($modifierConfig->getRevertOnRemove()) {
-                $this->createGameEventModifier($modifierConfig, $holder, $chargeStatus);
+                $this->createGameEventModifier($modifierConfig, $holder, $modifierProvider);
             }
         } else {
-            $this->createGameEventModifier($modifierConfig, $holder, $chargeStatus);
+            $this->createGameEventModifier($modifierConfig, $holder, $modifierProvider);
         }
     }
 
     public function deleteModifier(
         AbstractModifierConfig $modifierConfig,
         ModifierHolderInterface $holder,
+        ModifierProviderInterface $modifierProvider,
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ): void {
         if (!$modifierConfig instanceof DirectModifierConfig) {
             $this->deleteGameEventModifier($modifierConfig, $holder);
         } elseif ($modifierConfig->getRevertOnRemove()) {
-            $this->createDirectModifier($modifierConfig, $holder, $tags, $time, true);
+            $this->createDirectModifier($modifierConfig, $holder, $modifierProvider, $tags, $time, true);
             $this->deleteGameEventModifier($modifierConfig, $holder);
         }
     }
@@ -80,6 +88,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
     public function createDirectModifier(
         DirectModifierConfig $modifierConfig,
         ModifierHolderInterface $modifierRange,
+        ModifierProviderInterface $modifierProvider,
         array $tags,
         \DateTime $time,
         bool $reverse
@@ -93,8 +102,9 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         if ($triggeredEventConfig instanceof VariableEventConfig) {
             $this->appliesVariableDirectModifier(
                 $triggeredEventConfig,
-                $modifierRange,
                 $modifierConfig,
+                $modifierRange,
+                $modifierProvider,
                 $tags,
                 $time,
             );
@@ -103,24 +113,29 @@ class ModifierCreationService implements ModifierCreationServiceInterface
 
     public function appliesVariableDirectModifier(
         VariableEventConfig $eventConfig,
-        ModifierHolderInterface $modifierRange,
         DirectModifierConfig $modifierConfig,
+        ModifierHolderInterface $modifierRange,
+        ModifierProviderInterface $modifierProvider,
         array $tags,
         \DateTime $time,
     ): void {
+        if (!$this->modifierRequirementService->checkRequirements($modifierConfig->getModifierActivationRequirements(), $modifierRange)) {
+            return;
+        }
         $eventTargets = $this->eventCreationService->getEventTargetsFromModifierHolder(
-            $eventConfig->getVariableHolderClass(),
-            $modifierRange
+            eventConfig: $eventConfig,
+            eventTargetRequirements: $modifierConfig->getEventActivationRequirements(),
+            targetFilters: $modifierConfig->getTargetFilters(),
+            range: $modifierRange,
+            author: $modifierProvider
         );
 
         /** @var ModifierHolderInterface $eventTarget */
         foreach ($eventTargets as $eventTarget) {
-            if ($this->modifierRequirementService->checkModifier($modifierConfig, $eventTarget)) {
-                $event = $eventConfig->createEvent(0, $tags, $time, $eventTarget);
+            $event = $eventConfig->createEvent(0, $tags, $time, $eventTarget);
 
-                if ($event !== null) {
-                    $this->eventService->callEvent($event, $event->getEventName());
-                }
+            if ($event !== null) {
+                $this->eventService->callEvent($event, $event->getEventName());
             }
         }
     }
@@ -128,13 +143,10 @@ class ModifierCreationService implements ModifierCreationServiceInterface
     private function createGameEventModifier(
         AbstractModifierConfig $modifierConfig,
         ModifierHolderInterface $holder,
-        ?ChargeStatus $chargeStatus = null
+        ModifierProviderInterface $modifierProvider
     ): void {
         $modifier = new GameModifier($holder, $modifierConfig);
-
-        if ($chargeStatus) {
-            $modifier->setCharge($chargeStatus);
-        }
+        $modifier->setModifierProvider($modifierProvider);
 
         $this->persist($modifier);
     }

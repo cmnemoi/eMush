@@ -34,7 +34,7 @@ class IsActionProviderOperationalValidator extends ConstraintValidator
         /** @var ActionConfig $actionConfig */
         $actionConfig = $value->getActionConfig();
 
-        $operationalStatus = $actionProvider->getOperationalStatus($actionConfig->getActionName());
+        $operationalStatus = $actionProvider->getOperationalStatus($actionConfig->getActionName()->value);
 
         if ($operationalStatus !== ActionProviderOperationalStateEnum::OPERATIONAL) {
             $message = $this->getViolationMessage(
@@ -66,7 +66,7 @@ class IsActionProviderOperationalValidator extends ConstraintValidator
         string $defaultMessage,
     ): string {
         /** @var ChargeStatus $chargeStatus */
-        $chargeStatus = $actionProvider->getUsedCharge($actionName);
+        $chargeStatus = $actionProvider->getUsedCharge($actionName->value);
 
         if ($actionProvider instanceof GameEquipment && $actionProvider->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON)) {
             return ActionImpossibleCauseEnum::UNLOADED_WEAPON;

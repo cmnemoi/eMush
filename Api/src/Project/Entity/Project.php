@@ -4,23 +4,27 @@ declare(strict_types=1);
 
 namespace Mush\Project\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionHolderInterface;
 use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
+use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Exception\ProgressShouldBePositive;
 use Mush\Project\Factory\ProjectFactory;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Mush\Status\Entity\ChargeStatus;
 
 #[ORM\Entity]
-class Project implements LogParameterInterface, ActionHolderInterface
+class Project implements LogParameterInterface, ActionHolderInterface, ModifierProviderInterface
 {
     public const int CPU_PRIORITY_BONUS = 1;
     public const int PARTICIPATION_MALUS = 2;
@@ -123,11 +127,6 @@ class Project implements LogParameterInterface, ActionHolderInterface
     public function getReplaceEquipmentConfigs(): Collection
     {
         return $this->config->getReplaceEquipmentConfigs();
-    }
-
-    public function getModifierConfigs(): Collection
-    {
-        return $this->config->getModifierConfigs();
     }
 
     public function getProgress(): int
@@ -302,6 +301,29 @@ class Project implements LogParameterInterface, ActionHolderInterface
     public function isNull(): bool
     {
         return $this->equals(self::createNull());
+    }
+
+    public function getUsedCharge(string $actionName): ?ChargeStatus
+    {
+        return null;
+    }
+
+    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
+    {
+        if ($this->progress !== 100) {
+            return ActionProviderOperationalStateEnum::UNFINISHED;
+        }
+
+        if ($this->daedalus->hasActiveProject($this->getConfig()->getName())) {
+            return ActionProviderOperationalStateEnum::OPERATIONAL;
+        }
+
+        return ActionProviderOperationalStateEnum::DEACTIVATED;
+    }
+
+    public function getAllModifierConfigs(): ArrayCollection
+    {
+        return new ArrayCollection($this->config->getModifierConfigs()->toArray());
     }
 
     private function equals(self $project): bool

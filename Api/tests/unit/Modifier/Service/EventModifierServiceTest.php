@@ -159,10 +159,11 @@ final class EventModifierServiceTest extends TestCase
             ->setTargetEvent('eventName')
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY);
         $modifier = new GameModifier($daedalus, $modifierConfig);
+        $modifier->setModifierProvider($player);
 
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
             ->andReturn(true)
             ->once();
 
@@ -204,8 +205,8 @@ final class EventModifierServiceTest extends TestCase
         $modifier = new GameModifier($daedalus, $modifierConfig);
 
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
             ->never();
         $this->modifierHandlerService
             ->shouldReceive('getModifierHandler')
@@ -238,8 +239,8 @@ final class EventModifierServiceTest extends TestCase
         $modifier = new GameModifier($daedalus, $modifierConfig);
 
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
             ->never();
         $this->modifierHandlerService
             ->shouldReceive('getModifierHandler')
@@ -269,10 +270,11 @@ final class EventModifierServiceTest extends TestCase
             ->setTargetEvent('eventName')
             ->setTagConstraints(['tag1' => ModifierRequirementEnum::ANY_TAGS]);
         $modifier = new GameModifier($daedalus, $modifierConfig);
+        $modifier->setModifierProvider($player);
 
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
             ->andReturn(false)
             ->once();
         $this->modifierHandlerService
@@ -303,17 +305,19 @@ final class EventModifierServiceTest extends TestCase
             ->setTargetEvent('eventName')
             ->setPriority(ModifierPriorityEnum::INITIAL_SET_VALUE);
         $modifier1 = new GameModifier($daedalus, $modifierConfig1);
+        $modifier1->setModifierProvider($player);
 
         $modifierConfig2 = new EventModifierConfig('testEventModifierConfig2');
         $modifierConfig2
             ->setTargetEvent('eventName')
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY);
         $modifier2 = new GameModifier($daedalus, $modifierConfig2);
+        $modifier2->setModifierProvider($player);
 
         // Modifier1 should be applied first
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig1, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig1->getModifierActivationRequirements(), $daedalus)
             ->andReturn(true)
             ->once();
         $modifierHandler1 = $this->createMock(AbstractModifierHandler::class);
@@ -329,8 +333,8 @@ final class EventModifierServiceTest extends TestCase
 
         // Now applies modifier2
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig2, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig2->getModifierActivationRequirements(), $daedalus)
             ->andReturn(true)
             ->once();
         $modifierHandler2 = $this->createMock(AbstractModifierHandler::class);

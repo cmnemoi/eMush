@@ -109,6 +109,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $gunnerSkillConfig */
         $gunnerSkillConfig = $this->getReference(SkillEnum::GUNNER->value);
 
+        /** @var SkillConfig $logisticExpert */
+        $logisticExpert = $this->getReference(SkillEnum::LOGISTICS_EXPERT->value);
+
         /** @var SkillConfig $apprenticeSkillConfig */
         $apprenticeSkillConfig = $this->getReference(SkillEnum::APPRENTICE->value);
 
@@ -310,6 +313,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setSkillConfigs([
                 $shooterSkillConfig,
                 $gunnerSkillConfig,
+                $logisticExpert,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($paola);

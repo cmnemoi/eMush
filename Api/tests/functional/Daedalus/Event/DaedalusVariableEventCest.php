@@ -7,6 +7,8 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
@@ -62,7 +64,13 @@ class DaedalusVariableEventCest
             'name' => 'oxygenLossReduction_oxygenTank',
         ]);
 
+        $tankConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::OXYGEN_TANK]);
+
+        $tankEquipment = $tankConfig->createGameEquipment($room);
+        $I->haveInRepository($tankEquipment);
+
         $modifier = new GameModifier($daedalus, $modifierConfig);
+        $modifier->setModifierProvider($tankEquipment);
         $I->haveInRepository($modifier);
 
         $event = new DaedalusVariableEvent(

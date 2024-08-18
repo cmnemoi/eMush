@@ -2,6 +2,7 @@
 
 namespace Mush\Tests\unit\Modifier\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
@@ -104,7 +105,13 @@ final class ModifierCreationServiceTest extends TestCase
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->createModifier($modifierConfig, $daedalus, [], new \DateTime(), null);
+        $this->service->createModifier(
+            modifierConfig: $modifierConfig,
+            holder: $daedalus,
+            modifierProvider: new Player(),
+            tags: [],
+            time : new \DateTime()
+        );
     }
 
     public function testCreatePlaceEventModifier()
@@ -120,7 +127,13 @@ final class ModifierCreationServiceTest extends TestCase
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->createModifier($modifierConfig, $room, [], new \DateTime(), null);
+        $this->service->createModifier(
+            modifierConfig: $modifierConfig,
+            holder: $room,
+            modifierProvider: new Player(),
+            tags: [],
+            time : new \DateTime()
+        );
     }
 
     public function testCreatePlayerEventModifier()
@@ -136,7 +149,13 @@ final class ModifierCreationServiceTest extends TestCase
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->createModifier($modifierConfig, $player, [], new \DateTime(), null);
+        $this->service->createModifier(
+            modifierConfig: $modifierConfig,
+            holder: $player,
+            modifierProvider: $player,
+            tags: [],
+            time : new \DateTime()
+        );
     }
 
     public function testCreatePlayerEventModifierWithCharge()
@@ -155,12 +174,18 @@ final class ModifierCreationServiceTest extends TestCase
             ->withArgs(static fn (GameModifier $modifier) => (
                 $modifier->getModifierHolder() === $player
                 && $modifier->getModifierConfig() === $modifierConfig
-                && $modifier->getCharge() === $charge
+                && $modifier->getModifierProvider() === $player
             ))
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->createModifier($modifierConfig, $player, [], new \DateTime(), $charge);
+        $this->service->createModifier(
+            modifierConfig: $modifierConfig,
+            holder: $player,
+            modifierProvider: $player,
+            tags: [],
+            time : new \DateTime()
+        );
     }
 
     public function testCreateEquipmentEventModifier()
@@ -176,7 +201,13 @@ final class ModifierCreationServiceTest extends TestCase
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->createModifier($modifierConfig, $equipment, [], new \DateTime(), null);
+        $this->service->createModifier(
+            modifierConfig: $modifierConfig,
+            holder: $equipment,
+            modifierProvider: $equipment,
+            tags: [],
+            time : new \DateTime()
+        );
     }
 
     public function testDeleteEventModifier()
@@ -192,7 +223,13 @@ final class ModifierCreationServiceTest extends TestCase
         $this->entityManager->shouldReceive('remove')->with($gameModifier)->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->deleteModifier($modifierConfig, $daedalus, [], new \DateTime(), null);
+        $this->service->deleteModifier(
+            modifierConfig: $modifierConfig,
+            holder: $daedalus,
+            modifierProvider: new Player(),
+            tags: [],
+            time: new \DateTime(),
+        );
     }
 
     public function testCreateDirectModifier()
@@ -207,22 +244,24 @@ final class ModifierCreationServiceTest extends TestCase
             ->setTargetVariable(DaedalusVariableEnum::COMBUSTION_CHAMBER_FUEL)
             ->setEventName(VariableEventInterface::SET_VALUE);
 
+        $eventTargetRequirement = new ArrayCollection();
         $modifierConfig = new DirectModifierConfig('unitTestDirectModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTriggeredEvent($eventConfig)
+            ->setEventActivationRequirements($eventTargetRequirement)
             ->setRevertOnRemove(true);
-        $time = new \DateTime();
-        $tags = [];
+
+        $modifierProvider = new Player();
 
         $this->eventCreationService
             ->shouldReceive('getEventTargetsFromModifierHolder')
-            ->with($eventConfig->getVariableHolderClass(), $daedalus)
+            ->with($eventConfig, $eventTargetRequirement, [], $daedalus, $modifierProvider)
             ->andReturn([$daedalus])
             ->once();
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
             ->andReturn(true)
             ->once();
 
@@ -233,7 +272,13 @@ final class ModifierCreationServiceTest extends TestCase
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->createModifier($modifierConfig, $daedalus, $tags, $time, null);
+        $this->service->createModifier(
+            modifierConfig: $modifierConfig,
+            holder: $daedalus,
+            modifierProvider: $modifierProvider,
+            tags: [],
+            time : new \DateTime()
+        );
     }
 
     public function testDeleteDirectModifierReverse()
@@ -256,23 +301,30 @@ final class ModifierCreationServiceTest extends TestCase
         $time = new \DateTime();
         $tags = [];
 
+        $modifierProvider = new Player();
+
         $event = new AbstractGameEvent($tags, $time);
         $event->setEventName('eventName');
 
         $this->eventCreationService
             ->shouldReceive('getEventTargetsFromModifierHolder')
-            ->with($eventConfig->getVariableHolderClass(), $daedalus)
             ->andReturn([$daedalus])
             ->once();
         $this->modifierRequirementService
-            ->shouldReceive('checkModifier')
-            ->with($modifierConfig, $daedalus)
+            ->shouldReceive('checkRequirements')
+            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
             ->andReturn(true)
             ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->service->deleteModifier($modifierConfig, $daedalus, $tags, $time);
+        $this->service->deleteModifier(
+            modifierConfig: $modifierConfig,
+            holder: $daedalus,
+            modifierProvider: $modifierProvider,
+            tags: $tags,
+            time: $time
+        );
     }
 
     public function testDeleteDirectModifierNoReverse()
@@ -301,6 +353,6 @@ final class ModifierCreationServiceTest extends TestCase
 
         $this->eventService->shouldReceive('callEvent')->never();
 
-        $this->service->deleteModifier($modifierConfig, $daedalus, $tags, $time, null);
+        $this->service->deleteModifier($modifierConfig, $daedalus, new Player(), $tags, $time, null);
     }
 }

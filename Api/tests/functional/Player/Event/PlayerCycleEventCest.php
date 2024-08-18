@@ -439,7 +439,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(11, $this->chun->getMoralPoint());
     }
 
-    public function shouldNotGiveOneMoralePointToLaidDownShrinkPlayersWithShrinkInTheRoom(FunctionalTester $I): void
+    public function shrinkShouldNotGiveMoraleToHimself(FunctionalTester $I): void
     {
         // given Janice is lying down
         $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
@@ -462,6 +462,35 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
 
         // then Janice should have 10 morale points
         $I->assertEquals(10, $janice->getMoralPoint());
+    }
+
+    public function shrinkShouldGiveMoraleToOtherShrink(FunctionalTester $I): void
+    {
+        // given Janice is lying down
+        $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $janice,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Janice is a shrink
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHRINK, $janice));
+
+        // given Janice has 10 morale points
+        $janice->setMoralPoint(10);
+
+        // given there is another shrink in the room
+        $janice2 = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHRINK, $janice2));
+
+        // when cycle change is triggered
+        $cycleEvent = new PlayerCycleEvent($janice, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+
+        // then Janice should have 11 morale points
+        $I->assertEquals(11, $janice->getMoralPoint());
     }
 
     public function mankindOnlyHopeShouldReduceDailyMoralePointLossByOne(FunctionalTester $I): void

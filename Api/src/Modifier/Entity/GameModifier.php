@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace Mush\Modifier\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
-use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
-use Symfony\Component\Validator\Exception\LogicException;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'game_modifier')]
@@ -26,36 +23,21 @@ class GameModifier
     #[ORM\ManyToOne(targetEntity: AbstractModifierConfig::class)]
     private AbstractModifierConfig $modifierConfig;
 
-    #[ORM\ManyToOne(targetEntity: Player::class)]
-    private ?Player $player = null;
+    #[ORM\OneToOne(inversedBy: 'gameModifier', targetEntity: ModifierHolder::class, cascade: ['All'])]
+    private ModifierHolder $modifierHolder;
 
-    #[ORM\ManyToOne(targetEntity: Place::class)]
-    private ?Place $place = null;
-
-    #[ORM\ManyToOne(targetEntity: GameEquipment::class)]
-    private ?GameEquipment $gameEquipment = null;
-
-    #[ORM\ManyToOne(targetEntity: Daedalus::class)]
-    private ?Daedalus $daedalus = null;
-
-    #[ORM\ManyToOne(targetEntity: ChargeStatus::class)]
-    private ?ChargeStatus $charge = null;
+    #[ORM\OneToOne(targetEntity: ModifierProvider::class, cascade: ['All'])]
+    private ModifierProvider $modifierProvider;
 
     public function __construct(ModifierHolderInterface $holder, AbstractModifierConfig $modifierConfig)
     {
         $this->modifierConfig = $modifierConfig;
 
-        if ($holder instanceof Player) {
-            $this->player = $holder;
-        } elseif ($holder instanceof Place) {
-            $this->place = $holder;
-        } elseif ($holder instanceof Daedalus) {
-            $this->daedalus = $holder;
-        } elseif ($holder instanceof GameEquipment) {
-            $this->gameEquipment = $holder;
-        } else {
-            throw new LogicException("this modifier don't have any valid holder");
-        }
+        $modifierHolder = new ModifierHolder();
+        $modifierHolder
+            ->setModifierHolder($holder)
+            ->setGameModifier($this);
+        $this->modifierHolder = $modifierHolder;
 
         $holder->addModifier($this);
     }
@@ -80,30 +62,20 @@ class GameModifier
 
     public function getModifierHolder(): ModifierHolderInterface
     {
-        if ($this->player) {
-            return $this->player;
-        }
-        if ($this->place) {
-            return $this->place;
-        }
-        if ($this->daedalus) {
-            return $this->daedalus;
-        }
-        if ($this->gameEquipment) {
-            return $this->gameEquipment;
-        }
-
-        throw new LogicException("this modifier don't have any valid holder");
+        return $this->modifierHolder->getModifierHolder();
     }
 
-    public function getCharge(): ?ChargeStatus
+    public function getModifierHolderJoinTable(): ModifierHolder
     {
-        return $this->charge;
+        return $this->modifierHolder;
     }
 
-    public function setCharge(ChargeStatus $charge): self
+    public function setModifierProvider(ModifierProviderInterface $modifierProvider): static
     {
-        $this->charge = $charge;
+        $modifierProviderEntity = new ModifierProvider();
+        $modifierProviderEntity->setModifierProvider($modifierProvider);
+
+        $this->modifierProvider = $modifierProviderEntity;
 
         return $this;
     }
@@ -111,6 +83,36 @@ class GameModifier
     public function isNull(): bool
     {
         return $this->getId() === 0 || $this->getModifierConfig()->isNull();
+    }
+
+    public function getModifierProvider(): ModifierProviderInterface
+    {
+        return $this->modifierProvider->getModifierProvider();
+    }
+
+    public function isProviderActive(): bool
+    {
+        $modifierName = $this->modifierConfig->getModifierName();
+
+        if ($modifierName === null) {
+            return true;
+        }
+
+        $operationalStatus = $this->modifierProvider->getModifierProvider()->getOperationalStatus($modifierName);
+
+        return $operationalStatus === ActionProviderOperationalStateEnum::OPERATIONAL;
+    }
+
+    public function getUsedCharge(): ?ChargeStatus
+    {
+        $modifierProvider = $this->modifierProvider->getModifierProvider();
+        $modifierName = $this->modifierConfig->getModifierName();
+
+        if ($modifierName === null) {
+            return null;
+        }
+
+        return $modifierProvider->getUsedCharge($modifierName);
     }
 
     private function setId(int $id): self

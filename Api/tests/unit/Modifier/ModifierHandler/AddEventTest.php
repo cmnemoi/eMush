@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mush\tests\unit\Modifier\ModifierHandler;
+namespace Mush\Tests\unit\Modifier\ModifierHandler;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Mockery;
 use Mush\Action\ConfigData\ActionData;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -16,6 +18,7 @@ use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -24,6 +27,7 @@ use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\ModifierHandler\AddEvent;
 use Mush\Modifier\Service\EventCreationService;
+use Mush\Modifier\Service\ModifierRequirementServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -38,13 +42,19 @@ final class AddEventTest extends TestCase
 {
     private AddEvent $addEvent;
 
+    /** @var Mockery\Mock|ModifierRequirementServiceInterface */
+    private ModifierRequirementServiceInterface $modifierRequirementService;
+
     /**
      * @before
      */
     protected function setUp(): void
     {
+        $this->modifierRequirementService = \Mockery::mock(ModifierRequirementServiceInterface::class);
         $eventCreationService = new EventCreationService(
-            new InMemoryGameEquipmentRepository()
+            new InMemoryGameEquipmentRepository(),
+            \Mockery::mock(RandomServiceInterface::class),
+            $this->modifierRequirementService
         );
 
         $this->addEvent = new AddEvent($eventCreationService);
@@ -77,6 +87,12 @@ final class AddEventTest extends TestCase
             holder: $thalasso,
             modifierConfig: $this->getThalassoModifierConfig()
         );
+        $modifier->setModifierProvider($thalasso);
+
+        $this->modifierRequirementService
+            ->shouldReceive('checkRequirements')
+            ->andReturn(true)
+            ->once();
 
         // when I handle add event modifier for thalasso
         $eventChain = $this->addEvent->handleEventModifier(
@@ -105,6 +121,8 @@ final class AddEventTest extends TestCase
         $thalassoMovementPointModifierConfig
             ->setTriggeredEvent($eventConfigPlus2MovementPoint)
             ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setTargetFilters([])
+            ->setEventTargetRequirements(new ArrayCollection())
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,

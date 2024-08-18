@@ -27,7 +27,13 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
                 return;
             }
 
-            $this->modifierCreationService->createModifier($modifierConfig, $holder, $tags, $time);
+            $this->modifierCreationService->createModifier(
+                modifierConfig: $modifierConfig,
+                holder: $holder,
+                modifierProvider: $player,
+                tags: $tags,
+                time: $time,
+            );
         }
     }
 
@@ -39,7 +45,13 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
                 return;
             }
 
-            $this->modifierCreationService->deleteModifier($modifierConfig, $holder, $tags, $time);
+            $this->modifierCreationService->deleteModifier(
+                modifierConfig: $modifierConfig,
+                holder: $holder,
+                modifierProvider: $player,
+                tags: $tags,
+                time: $time
+            );
         }
     }
 

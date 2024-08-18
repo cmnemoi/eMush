@@ -95,7 +95,7 @@
             map-values-type="string"
         >
         </MapManager>
-        <h3>Modifier Requirement</h3>
+        <h3>{{ $t("admin.modifierConfig.modifierRequirement") }}</h3>
         <ChildCollectionManager
             :children="modifierConfig.modifierActivationRequirements"
             id="modifierConfig_modifierActivationRequirements"
@@ -111,6 +111,32 @@
                 <span>value: {{ child.value }}</span>
             </template>
         </ChildCollectionManager>
+        <template v-if="modifierConfig.type === 'TriggerEventModifierConfig'">
+            <h3>{{ $t("admin.modifierConfig.targetEventRequirements") }}</h3>
+            <ChildCollectionManager
+                :children="modifierConfig.targetEventRequirements"
+                id="modifierConfig_targetEventRequirements"
+                @add-id="selectNewChild"
+                @remove="removeChild"
+            >
+                <template #header="child">
+                    <span><strong>{{ child.id }}</strong> - {{ child.modifierName }}</span>
+                </template>
+                <template #body="child">
+                    <span>name: {{ child.modifierName }}</span>
+                    <span>activationRequirement: {{ child.activationRequirement }}</span>
+                    <span>value: {{ child.value }}</span>
+                </template>
+            </ChildCollectionManager>
+            <h3>{{ $t('admin.modifierConfig.targetFilters') }}</h3>
+            <MapManager
+                :map="modifierConfig.targetFilters"
+                id="modifierConfig.targetFilters"
+                map-indexes-type="string"
+                map-values-type="string"
+            >
+            </MapManager>
+        </template>
         <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
@@ -192,6 +218,17 @@ export default defineComponent({
                                 });
                                 if (this.modifierConfig instanceof ModifierConfig) {
                                     this.modifierConfig.modifierActivationRequirements = modifierActivationRequirements;
+                                }
+                            });
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'direct_modifier_configs', modifierConfigId, 'event_target_requirements'))
+                            .then((result) => {
+                                const targetEventRequirements : ModifierActivationRequirement[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    const currentRequirement = (new ModifierActivationRequirement()).load(datum);
+                                    targetEventRequirements.push(currentRequirement);
+                                });
+                                if (this.modifierConfig instanceof ModifierConfig) {
+                                    this.modifierConfig.targetEventRequirements = targetEventRequirements;
                                 }
                             });
                     }

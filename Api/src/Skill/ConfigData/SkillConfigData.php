@@ -165,9 +165,12 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::SHRINK,
+                modifierConfigs: [
+                    'modifier_for_player_+1morale_point_on_new_cycle_if_lying_down',
+                ],
                 actionConfigs: [
                     ActionEnum::COMFORT,
-                ]
+                ],
             ),
             new SkillConfigDto(
                 name: SkillEnum::SNEAK,
@@ -202,6 +205,12 @@ abstract class SkillConfigData
                     'modifier_technician_double_repair_and_renovate_chance',
                 ],
                 skillPointsConfig: SkillPointsEnum::TECHNICIAN_POINTS,
+            ),
+            new SkillConfigDto(
+                name: SkillEnum::LOGISTICS_EXPERT,
+                modifierConfigs: [
+                    'logistic_modifier',
+                ],
             ),
         ];
     }

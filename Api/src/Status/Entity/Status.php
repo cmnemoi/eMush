@@ -9,12 +9,12 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Hunter\Entity\Hunter;
+use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -29,7 +29,7 @@ use Mush\Status\Entity\Config\StatusConfig;
     'attempt' => Attempt::class,
     'content_status' => ContentStatus::class,
 ])]
-class Status implements ActionProviderInterface
+class Status implements ActionProviderInterface, ModifierProviderInterface
 {
     use TimestampableEntity;
 
@@ -218,14 +218,19 @@ class Status implements ActionProviderInterface
         return static::class;
     }
 
-    public function getUsedCharge(ActionEnum $actionName): ?ChargeStatus
+    public function getUsedCharge(string $actionName): ?ChargeStatus
     {
         return null;
     }
 
-    public function getOperationalStatus(ActionEnum $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
     {
         return ActionProviderOperationalStateEnum::OPERATIONAL;
+    }
+
+    public function getAllModifierConfigs(): ArrayCollection
+    {
+        return new ArrayCollection($this->statusConfig->getModifierConfigs()->toArray());
     }
 
     public function getProvidedActions(ActionHolderEnum $actionTarget, array $actionRanges): Collection

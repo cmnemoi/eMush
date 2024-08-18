@@ -16,14 +16,18 @@ use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Modifier\Entity\ModifierHolderTrait;
+use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
@@ -46,8 +50,9 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'game_item' => GameItem::class,
     'drone' => Drone::class,
 ])]
-class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface
+class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface
 {
+    use ModifierHolderTrait;
     use TargetStatusTrait;
     use TimestampableEntity;
 
@@ -68,7 +73,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
+    #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: ModifierHolder::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
     #[ORM\ManyToOne(targetEntity: Player::class)]
@@ -174,14 +179,9 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this;
     }
 
-    public function getModifiers(): ModifierCollection
-    {
-        return new ModifierCollection($this->modifiers->toArray());
-    }
-
     public function getAllModifiers(): ModifierCollection
     {
-        $allModifiers = new ModifierCollection($this->modifiers->toArray());
+        $allModifiers = $this->getModifiers();
 
         if (($player = $this->getHolder()) instanceof Player) {
             $allModifiers = $allModifiers->addModifiers($player->getModifiers());
@@ -189,20 +189,6 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         $allModifiers = $allModifiers->addModifiers($this->getPlace()->getModifiers());
 
         return $allModifiers->addModifiers($this->getDaedalus()->getModifiers());
-    }
-
-    public function addModifier(GameModifier $modifier): static
-    {
-        $this->modifiers->add($modifier);
-
-        return $this;
-    }
-
-    public function removeModifier(GameModifier $modifier): static
-    {
-        $this->modifiers->removeElement($modifier);
-
-        return $this;
     }
 
     public function getOwner(): ?Player
@@ -303,11 +289,11 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->isInAPatrolShip() || $this->isInSpace();
     }
 
-    public function getOperationalStatus(ActionEnum $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
     {
         if (
             $this->isBroken()
-            && $this->isActionProvidedByToolMechanic($actionName)
+            && $this->isActionProvidedByMechanic($actionName)
         ) {
             return ActionProviderOperationalStateEnum::BROKEN;
         }
@@ -320,9 +306,9 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return ActionProviderOperationalStateEnum::OPERATIONAL;
     }
 
-    public function getUsedCharge(ActionEnum $actionName): ?ChargeStatus
+    public function getUsedCharge(string $actionName): ?ChargeStatus
     {
-        $charges = $this->getStatuses()->filter(static fn (Status $status) => $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName->value));
+        $charges = $this->getStatuses()->filter(static fn (Status $status) => $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName));
 
         $charge = $charges->first();
         if (!$charge instanceof ChargeStatus) {
@@ -545,6 +531,26 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return max(0, $maturationTimeLeft);
     }
 
+    public function getAllModifierConfigs(): ArrayCollection
+    {
+        $modifierConfigs = [];
+
+        // then modifiers provided by equipment statuses
+        $modifierConfigs = $this->getStatuses()
+            ->map(static fn (Status $status) => $status->getStatusConfig()->getModifierConfigs())
+            ->reduce(static fn (array $modifierConfigs, $statusModifierConfigs) => array_merge($modifierConfigs, $statusModifierConfigs->toArray()), $modifierConfigs);
+
+        // then modifiers provided by gear
+        if ($this->hasMechanicByName(EquipmentMechanicEnum::GEAR)) {
+            /** @var Gear $gear */
+            $gear = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::GEAR);
+
+            $modifierConfigs = array_merge($gear->getModifierConfigs()->toArray(), $modifierConfigs);
+        }
+
+        return new ArrayCollection($modifierConfigs);
+    }
+
     private function canProduceFruit(): bool
     {
         foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED, EquipmentStatusEnum::PLANT_THIRSTY] as $status) {
@@ -567,11 +573,16 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return true;
     }
 
-    private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool
+    private function isActionProvidedByMechanic(string $actionName): bool
     {
         foreach ($this->equipment->getMechanics() as $mechanic) {
-            if ($mechanic instanceof Tool && $mechanic->hasAction($actionName)) {
-                return true;
+            if ($mechanic instanceof Tool) {
+                return $mechanic->hasAction(ActionEnum::from($actionName));
+            }
+            if ($mechanic instanceof Gear) {
+                return !$mechanic->getModifierConfigs()->filter(
+                    static fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getModifierName() === $actionName
+                )->isEmpty();
             }
         }
 

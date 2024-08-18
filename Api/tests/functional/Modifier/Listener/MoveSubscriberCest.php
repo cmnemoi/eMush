@@ -185,7 +185,7 @@ class MoveSubscriberCest
         $I->haveInRepository($gameEquipment);
         $this->player->addEquipment($gameEquipment);
 
-        // Given the player has a gear with ROOM reach
+        // Given the player has another gear with ROOM reach
         $modifierConfigPlaceReach = new VariableEventModifierConfig('testModifierShower2');
         $modifierConfigPlaceReach
             ->setTargetEvent(ActionVariableEnum::OUTPUT_QUANTITY)
@@ -218,6 +218,7 @@ class MoveSubscriberCest
         $I->assertCount(1, $this->currentRoom->getModifiers());
         $I->assertCount(0, $this->destinationRoom->getModifiers());
         $I->assertCount(1, $this->player->getModifiers());
+        $I->assertCount(2, $this->player->getEquipments());
 
         $this->moveAction->loadParameters($this->moveActionConfig, $this->door, $this->player, $this->door);
         $I->assertNull($this->moveAction->cannotExecuteReason());

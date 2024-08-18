@@ -9,6 +9,7 @@ use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameterInterface;
 
 class ModifierEvent extends AbstractGameEvent
 {
@@ -54,8 +55,9 @@ class ModifierEvent extends AbstractGameEvent
         $modifierHolder = $this->modifier->getModifierHolder();
         $logParameters = [];
 
-        if ($author = $this->getAuthor()) {
-            $logParameters = array_merge($logParameters, [$author->getLogKey() => $author->getLogName()]);
+        $provider = $this->modifier->getModifierProvider();
+        if ($provider instanceof LogParameterInterface) {
+            $logParameters = array_merge($logParameters, [$provider->getLogKey() => $provider->getLogName()]);
         }
 
         switch (true) {

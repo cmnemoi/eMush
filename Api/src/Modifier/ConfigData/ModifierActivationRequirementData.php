@@ -4,8 +4,6 @@ namespace Mush\Modifier\ConfigData;
 
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
-use Mush\Project\Enum\ProjectName;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -166,24 +164,6 @@ class ModifierActivationRequirementData
             'name' => 'holder_name_patrol_ship_alpha_2_wallis',
             'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
             'activationRequirement' => EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
-            'value' => 100,
-        ],
-        [
-            'name' => ModifierRequirementEnum::SKILL_IN_ROOM . '_shrink',
-            'activationRequirementName' => ModifierRequirementEnum::SKILL_IN_ROOM,
-            'activationRequirement' => SkillEnum::SHRINK->value,
-            'value' => 100,
-        ],
-        [
-            'name' => ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL_SHRINK,
-            'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL,
-            'activationRequirement' => SkillEnum::SHRINK->value,
-            'value' => 100,
-        ],
-        [
-            'name' => ModifierRequirementEnum::PROJECT_IS_ACTIVE_PLASMA_SHIELD,
-            'activationRequirementName' => ModifierRequirementEnum::PROJECT_IS_ACTIVE,
-            'activationRequirement' => ProjectName::PLASMA_SHIELD->value,
             'value' => 100,
         ],
     ];

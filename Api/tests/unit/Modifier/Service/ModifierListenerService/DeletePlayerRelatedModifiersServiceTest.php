@@ -10,6 +10,7 @@ use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Modifier\Factory\GameModifierFactory;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Modifier\Service\ModifierListenerService\DeletePlayerRelatedModifiersService;
@@ -18,7 +19,6 @@ use Mush\Player\Factory\PlayerFactory;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Factory\StatusFactory;
@@ -47,15 +47,6 @@ final class DeletePlayerRelatedModifiersServiceTest extends TestCase
     protected function tearDown(): void
     {
         $this->modifierCreationService->clearRepository();
-    }
-
-    public function testShouldDeletePlayerModifiers(): void
-    {
-        $modifier = $this->givenPlayerHasAModifier();
-
-        $this->whenIDeletePlayerRelatedModifiers();
-
-        $this->IShouldNotSeeModifierInRepository($modifier);
     }
 
     public function testShouldDeleteModifiersCreatedFromPlayerStatuses(): void
@@ -167,14 +158,15 @@ final class FakeModifierCreationService implements ModifierCreationServiceInterf
     public function createModifier(
         AbstractModifierConfig $modifierConfig,
         ModifierHolderInterface $holder,
+        ModifierProviderInterface $modifierProvider,
         array $tags = [],
         \DateTime $time = new \DateTime(),
-        ?ChargeStatus $chargeStatus = null
     ): void {}
 
     public function deleteModifier(
         AbstractModifierConfig $modifierConfig,
         ModifierHolderInterface $holder,
+        ModifierProviderInterface $modifierProvider,
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ): void {
@@ -189,6 +181,7 @@ final class FakeModifierCreationService implements ModifierCreationServiceInterf
     public function createDirectModifier(
         DirectModifierConfig $modifierConfig,
         ModifierHolderInterface $modifierRange,
+        ModifierProviderInterface $modifierProvider,
         array $tags,
         \DateTime $time,
         bool $reverse

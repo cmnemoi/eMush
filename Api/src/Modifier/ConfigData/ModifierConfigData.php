@@ -24,12 +24,14 @@ use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
+use Mush\Modifier\Enum\EventTargetNameEnum;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
+use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -68,6 +70,8 @@ abstract class ModifierConfigData
             'revertOnRemove' => true,
             'modifierRange' => 'player',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'triggeredEvent' => 'change.value.max_player_-1_healthPoint',
             'modifierActivationRequirements' => [],
@@ -78,6 +82,8 @@ abstract class ModifierConfigData
             'revertOnRemove' => true,
             'modifierRange' => 'player',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'triggeredEvent' => 'change.value.max_player_-2_healthPoint',
             'modifierActivationRequirements' => [],
@@ -88,6 +94,8 @@ abstract class ModifierConfigData
             'revertOnRemove' => true,
             'modifierRange' => 'player',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'triggeredEvent' => 'change.value.max_player_-4_healthPoint',
             'modifierActivationRequirements' => [],
@@ -98,6 +106,8 @@ abstract class ModifierConfigData
             'revertOnRemove' => true,
             'modifierRange' => 'player',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'triggeredEvent' => 'change.value.max_player_-1_moralPoint',
             'modifierActivationRequirements' => [],
@@ -108,6 +118,8 @@ abstract class ModifierConfigData
             'revertOnRemove' => true,
             'modifierRange' => 'player',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'triggeredEvent' => 'change.value.max_player_-2_moralPoint',
             'modifierActivationRequirements' => [],
@@ -125,6 +137,8 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-1_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-2healthPoint_on_new_cycle',
@@ -139,6 +153,8 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-2_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-4healthPoint_on_new_cycle',
@@ -153,6 +169,8 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-4_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-1movementPoint_on_new_cycle',
@@ -167,6 +185,8 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-1_movementPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-1satiety_on_new_cycle',
@@ -181,6 +201,8 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-1_satiety',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_10',
@@ -197,6 +219,8 @@ abstract class ModifierConfigData
                 'random_10',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-1healthPoint_on_new_cycle_if_random_10',
@@ -213,6 +237,8 @@ abstract class ModifierConfigData
                 'random_10',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_16',
@@ -229,6 +255,8 @@ abstract class ModifierConfigData
                 'random_16',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-1healthPoint_on_new_cycle_if_random_16',
@@ -245,6 +273,8 @@ abstract class ModifierConfigData
                 'random_16',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_20',
@@ -261,6 +291,8 @@ abstract class ModifierConfigData
                 'random_20',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_30',
@@ -277,6 +309,8 @@ abstract class ModifierConfigData
                 'random_30',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-2actionPoint_on_new_cycle_if_random_40',
@@ -293,6 +327,8 @@ abstract class ModifierConfigData
                 'random_40',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-1movementPoint_on_new_cycle_if_random_50',
@@ -309,6 +345,8 @@ abstract class ModifierConfigData
                 'random_50',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-1healthPoint_on_new_cycle_if_random_50',
@@ -325,6 +363,8 @@ abstract class ModifierConfigData
                 'random_50',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-1actionPoint_on_post.action_if_reason_consume',
@@ -341,6 +381,8 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS,
             ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-2actionPoint_on_post.action_if_reason_consume',
@@ -357,6 +399,8 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS,
             ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-4healthPoint_on_infection.player',
@@ -371,6 +415,8 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-4_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-6healthPoint_on_post.action_if_player_equipment_schrodinger',
@@ -387,6 +433,8 @@ abstract class ModifierConfigData
                 'player_equipment_schrodinger',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_+1satiety_on_new_cycle',
@@ -401,6 +449,8 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_1_satiety',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_x0.9percentage_on_action_shoot',
@@ -454,6 +504,8 @@ abstract class ModifierConfigData
                 'player_status_lying_down',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'apron_modifier_for_player_prevent_dirty',
@@ -774,6 +826,8 @@ abstract class ModifierConfigData
                 'random_16',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'wall_head_bang_for_player_set_-1healthPoint_on_new_cycle_if_random_16',
@@ -790,6 +844,8 @@ abstract class ModifierConfigData
                 'random_16',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_-1moralPoint_on_new_cycle_if_random_70',
@@ -806,6 +862,8 @@ abstract class ModifierConfigData
                 'random_70',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'run_in_circles_for_player_set_-2movementPoint_on_new_cycle_if_random_16',
@@ -822,6 +880,8 @@ abstract class ModifierConfigData
                 'random_16',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_+1actionPoint_on_actions_if_player_in_room_four_people',
@@ -874,6 +934,8 @@ abstract class ModifierConfigData
             'revertOnRemove' => true,
             'modifierRange' => 'player',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'triggeredEvent' => 'change.value.max_player_-2_actionPoint',
             'modifierActivationRequirements' => [],
@@ -884,6 +946,8 @@ abstract class ModifierConfigData
             'revertOnRemove' => true,
             'modifierRange' => 'player',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'triggeredEvent' => 'change.value.max_player_-3_moralPoint',
             'modifierActivationRequirements' => [],
@@ -894,6 +958,8 @@ abstract class ModifierConfigData
             'revertOnRemove' => true,
             'modifierRange' => 'player',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'triggeredEvent' => 'change.value.max_player_-4_moralPoint',
             'modifierActivationRequirements' => [],
@@ -973,6 +1039,8 @@ abstract class ModifierConfigData
             'revertOnRemove' => true,
             'modifierRange' => 'player',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'triggeredEvent' => 'change.value.max_player_-3_movementPoint',
             'modifierActivationRequirements' => [],
@@ -983,6 +1051,8 @@ abstract class ModifierConfigData
             'revertOnRemove' => true,
             'modifierRange' => 'player',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'triggeredEvent' => 'change.value.max_player_-5_movementPoint',
             'modifierActivationRequirements' => [],
@@ -993,6 +1063,8 @@ abstract class ModifierConfigData
             'revertOnRemove' => true,
             'modifierRange' => 'player',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'triggeredEvent' => 'change.value.max_player_-12_movementPoint',
             'modifierActivationRequirements' => [],
@@ -1164,6 +1236,8 @@ abstract class ModifierConfigData
                 'player_in_room_not_alone',
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'lost_modifier_for_player_-2moralPoint_on_new_cycle',
@@ -1178,6 +1252,8 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-2_moralPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'lying_down_modifier_for_player_+1actionPoint_on_new_cycle',
@@ -1209,6 +1285,8 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-1_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_+30percentage_on_cycle_disease',
@@ -1243,6 +1321,8 @@ abstract class ModifierConfigData
                 ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
             ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_4satiety_on_change.variable_if_reason_consume',
@@ -1966,9 +2046,11 @@ abstract class ModifierConfigData
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'modifierRange' => 'daedalus',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_turret'],
             'triggeredEvent' => 'change.variable_turret_max_charge_+2',
             'visibility' => null,
-            'modifierActivationRequirements' => ['holder_name_turret'],
+            'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
         ],
         [
@@ -2036,9 +2118,10 @@ abstract class ModifierConfigData
             'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_daedalus_shield_+5',
             'modifierActivationRequirements' => [
-                ModifierRequirementEnum::PROJECT_IS_ACTIVE_PLASMA_SHIELD,
             ],
             'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_skill_point_engineer',
@@ -2116,6 +2199,8 @@ abstract class ModifierConfigData
                 ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_+1moralePoint_on_post.action_if_reason_shower',
@@ -2137,6 +2222,8 @@ abstract class ModifierConfigData
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_+2movementPoint_on_post.action_if_reason_shower',
@@ -2158,23 +2245,25 @@ abstract class ModifierConfigData
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
-            'name' => 'modifier_for_player_+1morale_point_on_new_cycle_if_shrink_in_room',
+            'name' => 'modifier_for_player_+1morale_point_on_new_cycle_if_lying_down',
             'modifierName' => null,
             'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
-            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'modifierRange' => ModifierHolderClassEnum::PLACE,
             'type' => 'trigger_event_modifier',
             'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_+1moralePoint',
-            'modifierActivationRequirements' => [
-                ModifierRequirementEnum::SKILL_IN_ROOM . '_shrink',
-                ModifierRequirementEnum::HOLDER_HAS_NOT_SKILL_SHRINK,
-            ],
+            'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+            'targetFilters' => [EventTargetNameEnum::EXCLUDE_PROVIDER],
+            'eventActivationRequirements' => ['player_status_lying_down'],
+            'visibility' => VisibilityEnum::PRIVATE,
         ],
         [
             'name' => 'modifier_for_daedalus_+1hull_on_change.variable_if_reason_hunter_shot',
@@ -2260,6 +2349,8 @@ abstract class ModifierConfigData
             'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
             'type' => 'direct_modifier',
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
             'triggeredEvent' => 'change.value.max_player_+2_actionPoint',
             'modifierActivationRequirements' => [],
         ],
@@ -2269,11 +2360,11 @@ abstract class ModifierConfigData
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'modifierRange' => 'daedalus',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_alpha_tamarin'],
             'triggeredEvent' => 'change.variable_patrol_ship_max_charges_+6',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_alpha_tamarin',
-            ],
+            'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
         ],
         [
@@ -2282,11 +2373,11 @@ abstract class ModifierConfigData
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'modifierRange' => 'daedalus',
             'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_alpha_longane'],
             'triggeredEvent' => 'change.variable_patrol_ship_max_charges_+6',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_alpha_longane',
-            ],
+            'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
         ],
         [
@@ -2297,9 +2388,9 @@ abstract class ModifierConfigData
             'type' => 'direct_modifier',
             'triggeredEvent' => 'change.variable_patrol_ship_max_charges_+6',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_alpha_jujube',
-            ],
+            'modifierActivationRequirements' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_alpha_jujube'],
             'revertOnRemove' => true,
         ],
         [
@@ -2314,6 +2405,8 @@ abstract class ModifierConfigData
                 'holder_name_patrol_ship_bravo_planton',
             ],
             'revertOnRemove' => true,
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_bravo_planton'],
         ],
         [
             'name' => 'modifier_for_daedalus_+6_patrol_ship_bravo_socrate_max_charges',
@@ -2327,6 +2420,8 @@ abstract class ModifierConfigData
                 'holder_name_patrol_ship_bravo_socrate',
             ],
             'revertOnRemove' => true,
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_bravo_socrate'],
         ],
         [
             'name' => 'modifier_for_daedalus_+6_patrol_ship_bravo_epicure_max_charges',
@@ -2336,10 +2431,10 @@ abstract class ModifierConfigData
             'type' => 'direct_modifier',
             'triggeredEvent' => 'change.variable_patrol_ship_max_charges_+6',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_bravo_epicure',
-            ],
+            'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_bravo_epicure'],
         ],
         [
             'name' => 'modifier_for_daedalus_+6_patrol_ship_alpha_2_wallis_max_charges',
@@ -2349,10 +2444,10 @@ abstract class ModifierConfigData
             'type' => 'direct_modifier',
             'triggeredEvent' => 'change.variable_patrol_ship_max_charges_+6',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_alpha_2_wallis',
-            ],
+            'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_alpha_2_wallis'],
         ],
         [
             'name' => 'modifier_for_daedalus_patrol_ship_alpha_tamarin_set_charges_to_maximum',
@@ -2362,10 +2457,10 @@ abstract class ModifierConfigData
             'type' => 'direct_modifier',
             'triggeredEvent' => 'change.variable_patrol_ship_set_charges_to_maximum',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_alpha_tamarin',
-            ],
+            'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_alpha_tamarin'],
         ],
         [
             'name' => 'modifier_for_daedalus_patrol_ship_alpha_longane_set_charges_to_maximum',
@@ -2375,10 +2470,10 @@ abstract class ModifierConfigData
             'type' => 'direct_modifier',
             'triggeredEvent' => 'change.variable_patrol_ship_set_charges_to_maximum',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_alpha_longane',
-            ],
+            'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_alpha_longane'],
         ],
         [
             'name' => 'modifier_for_daedalus_patrol_ship_alpha_jujube_set_charges_to_maximum',
@@ -2388,10 +2483,10 @@ abstract class ModifierConfigData
             'type' => 'direct_modifier',
             'triggeredEvent' => 'change.variable_patrol_ship_set_charges_to_maximum',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_alpha_jujube',
-            ],
+            'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_alpha_jujube'],
         ],
         [
             'name' => 'modifier_for_daedalus_patrol_ship_bravo_planton_set_charges_to_maximum',
@@ -2401,10 +2496,10 @@ abstract class ModifierConfigData
             'type' => 'direct_modifier',
             'triggeredEvent' => 'change.variable_patrol_ship_set_charges_to_maximum',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_bravo_planton',
-            ],
+            'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_bravo_planton'],
         ],
         [
             'name' => 'modifier_for_daedalus_patrol_ship_bravo_socrate_set_charges_to_maximum',
@@ -2414,10 +2509,10 @@ abstract class ModifierConfigData
             'type' => 'direct_modifier',
             'triggeredEvent' => 'change.variable_patrol_ship_set_charges_to_maximum',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_bravo_socrate',
-            ],
+            'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_bravo_socrate'],
         ],
         [
             'name' => 'modifier_for_daedalus_patrol_ship_bravo_epicure_set_charges_to_maximum',
@@ -2427,10 +2522,10 @@ abstract class ModifierConfigData
             'type' => 'direct_modifier',
             'triggeredEvent' => 'change.variable_patrol_ship_set_charges_to_maximum',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_bravo_epicure',
-            ],
+            'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_bravo_epicure'],
         ],
         [
             'name' => 'modifier_for_daedalus_patrol_ship_alpha_2_wallis_set_charges_to_maximum',
@@ -2440,10 +2535,10 @@ abstract class ModifierConfigData
             'type' => 'direct_modifier',
             'triggeredEvent' => 'change.variable_patrol_ship_set_charges_to_maximum',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_alpha_2_wallis',
-            ],
+            'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_bravo_epicure'],
         ],
         [
             'name' => 'modifier_for_daedalus_x2_turret_charges_on_new_cycle',
@@ -2734,6 +2829,8 @@ abstract class ModifierConfigData
                 ActionOutputEnum::SUCCESS => ModifierRequirementEnum::NONE_TAGS,
                 ActionTypeEnum::ACTION_ZERO_ACTION_COST->value => ModifierRequirementEnum::NONE_TAGS,
             ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'prevent_spoken_actions',
@@ -2936,6 +3033,8 @@ abstract class ModifierConfigData
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'triggeredEvent' => EventConfigData::CHANGE_VALUE_PLUS_1_MAX_DAEDALUS_SPORE,
             'modifierActivationRequirements' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => ModifierNameEnum::SKILL_POINT_SPORE,
@@ -3011,6 +3110,23 @@ abstract class ModifierConfigData
                 ActionEnum::HIT->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
             ],
+        ],
+        [
+            'name' => 'logistic_modifier',
+            'modifierName' => ModifierNameEnum::LOGISTIC_MODIFIER,
+            'targetEvent' => PlaceCycleEvent::PLACE_NEW_CYCLE,
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLACE,
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
+            'triggeredEvent' => 'change.variable_player_+1_actionPoint',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+            'targetFilters' => [EventTargetNameEnum::EXCLUDE_PROVIDER, EventTargetNameEnum::SINGLE_RANDOM],
+            'eventActivationRequirements' => [],
+            'visibility' => VisibilityEnum::PUBLIC,
         ],
     ];
 

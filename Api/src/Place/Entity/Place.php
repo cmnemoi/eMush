@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionProviderInterface;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -19,8 +18,9 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Modifier\Entity\ModifierHolderTrait;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Repository\PlaceRepository;
@@ -40,6 +40,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 #[ORM\Table(name: 'room')]
 class Place implements StatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface
 {
+    use ModifierHolderTrait;
     use TargetStatusTrait;
     use TimestampableEntity;
 
@@ -69,7 +70,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     #[ORM\OneToMany(mappedBy: 'place', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
 
-    #[ORM\OneToMany(mappedBy: 'place', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: ModifierHolder::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
     #[ORM\OneToMany(mappedBy: 'space', targetEntity: Hunter::class, cascade: ['REMOVE'], orphanRemoval: true)]
@@ -388,30 +389,11 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $this;
     }
 
-    public function getModifiers(): ModifierCollection
-    {
-        return new ModifierCollection($this->modifiers->toArray());
-    }
-
     public function getAllModifiers(): ModifierCollection
     {
-        $allModifiers = new ModifierCollection($this->modifiers->toArray());
+        $allModifiers = $this->getModifiers();
 
         return $allModifiers->addModifiers($this->daedalus->getModifiers());
-    }
-
-    public function addModifier(GameModifier $modifier): static
-    {
-        $this->modifiers->add($modifier);
-
-        return $this;
-    }
-
-    public function removeModifier(GameModifier $modifier): static
-    {
-        $this->modifiers->removeElement($modifier);
-
-        return $this;
     }
 
     public function getAttackingHunters(): HunterCollection
@@ -512,7 +494,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $this === $player->getPlace();
     }
 
-    public function getOperationalStatus(ActionEnum $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
     {
         $charge = $this->getUsedCharge($actionName);
         if ($charge !== null && !$charge->isCharged()) {
@@ -522,9 +504,9 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return ActionProviderOperationalStateEnum::OPERATIONAL;
     }
 
-    public function getUsedCharge(ActionEnum $actionName): ?ChargeStatus
+    public function getUsedCharge(string $actionName): ?ChargeStatus
     {
-        $charges = $this->statuses->filter(static fn (Status $status) => $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName->value));
+        $charges = $this->statuses->filter(static fn (Status $status) => $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName));
 
         $charge = $charges->first();
         if (!$charge instanceof ChargeStatus) {

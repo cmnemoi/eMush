@@ -55,6 +55,7 @@ final class EventServiceCest extends AbstractFunctionalTest
         $I->haveInRepository($triggerModifierConfig);
 
         $gameModifier = new GameModifier($this->daedalus, $triggerModifierConfig);
+        $gameModifier->setModifierProvider($this->player);
         $I->haveInRepository($gameModifier);
 
         $event = new DaedalusVariableEvent($this->daedalus, DaedalusVariableEnum::HULL, -5, [], new \DateTime());
@@ -94,9 +95,11 @@ final class EventServiceCest extends AbstractFunctionalTest
         $I->haveInRepository($triggerModifierConfig2);
 
         $gameModifier = new GameModifier($this->daedalus, $triggerModifierConfig);
+        $gameModifier->setModifierProvider($this->player);
         $I->haveInRepository($gameModifier);
 
         $gameModifier2 = new GameModifier($this->daedalus, $triggerModifierConfig2);
+        $gameModifier2->setModifierProvider($this->player);
         $I->haveInRepository($gameModifier2);
 
         $event = new DaedalusVariableEvent($this->daedalus, DaedalusVariableEnum::HULL, -5, [], new \DateTime());

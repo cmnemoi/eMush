@@ -50,11 +50,12 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
             $modifierConfig = $modifier->getModifierConfig();
 
             $this->modifierCreationService->createDirectModifier(
-                $modifierConfig,
-                $player,
-                $event->getTags(),
-                $event->getTime(),
-                false
+                modifierConfig: $modifierConfig,
+                modifierRange: $player,
+                modifierProvider: $player,
+                tags: $event->getTags(),
+                time: $event->getTime(),
+                reverse: false
             );
         }
     }

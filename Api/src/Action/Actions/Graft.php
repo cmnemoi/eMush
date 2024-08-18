@@ -14,6 +14,7 @@ use Mush\Action\Validator\FruitToGraftGivesDifferentPlant;
 use Mush\Action\Validator\HasSkill;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -63,10 +64,7 @@ final class Graft extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        /** @var GameItem $plant */
-        $plant = $this->target;
-
-        if ($this->player->hasStatus(PlayerStatusEnum::DIRTY) || $plant->isPlantUnhealthy()) {
+        if ($this->player->hasStatus(PlayerStatusEnum::DIRTY) || $this->plant()->isPlantUnhealthy()) {
             return new Fail();
         }
 
@@ -77,6 +75,8 @@ final class Graft extends AbstractAction
     {
         if ($result->isASuccess()) {
             $this->createGraftedFruitPlant();
+        } else {
+            $this->createHydropot();
         }
 
         $this->destroyPlant();
@@ -85,44 +85,56 @@ final class Graft extends AbstractAction
 
     private function createGraftedFruitPlant(): void
     {
-        /** @var GameItem $graftedFruit */
-        $graftedFruit = $this->actionProvider;
-
         $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: $graftedFruit->getPlantNameOrThrow(),
-            equipmentHolder: $this->player,
+            equipmentName: $this->graftedFruit()->getPlantNameOrThrow(),
+            equipmentHolder: $this->player->getPlace(),
             reasons: $this->getTags(),
             time: new \DateTime(),
         );
     }
 
+    private function createHydropot(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::HYDROPOT,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: $this->getTags(),
+            time: new \DateTime(),
+            author: $this->player,
+        );
+    }
+
     private function destroyPlant(): void
     {
-        /** @var GameItem $plantToDestroy */
-        $plantToDestroy = $this->target;
-
         $equipmentEvent = new InteractWithEquipmentEvent(
-            $plantToDestroy,
-            $this->player,
-            VisibilityEnum::HIDDEN,
-            $this->getTags(),
-            new \DateTime()
+            equipment: $this->plant(),
+            author: $this->player,
+            visibility: VisibilityEnum::HIDDEN,
+            tags: $this->getTags(),
+            time: new \DateTime()
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 
     private function destroyGraftedFruit(): void
     {
-        /** @var GameItem $graftedFruit */
-        $graftedFruit = $this->actionProvider;
-
         $equipmentEvent = new InteractWithEquipmentEvent(
-            $graftedFruit,
-            $this->player,
-            VisibilityEnum::HIDDEN,
-            $this->getTags(),
-            new \DateTime()
+            equipment: $this->graftedFruit(),
+            author: $this->player,
+            visibility: VisibilityEnum::HIDDEN,
+            tags: $this->getTags(),
+            time: new \DateTime()
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+    }
+
+    private function graftedFruit(): GameItem
+    {
+        return $this->actionProvider instanceof GameItem ? $this->actionProvider : throw new \RuntimeException('Action provider must be a GameItem');
+    }
+
+    private function plant(): GameItem
+    {
+        return $this->target instanceof GameItem ? $this->target : throw new \RuntimeException('Target must be a GameItem');
     }
 }

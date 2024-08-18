@@ -11,6 +11,7 @@ use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GamePlantEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -134,7 +135,7 @@ final class GraftCest extends AbstractFunctionalTest
     {
         $this->whenChunGraftsOnBananaTree();
 
-        $this->thenChunHasAnAnemolePlant($I);
+        $this->thenPlaceHasAnAnemolePlant($I);
     }
 
     public function shouldNotCreateGraftedFruitPlantWhenFailed(FunctionalTester $I): void
@@ -143,7 +144,16 @@ final class GraftCest extends AbstractFunctionalTest
 
         $this->whenChunGraftsOnBananaTree();
 
-        $this->thenChunShouldNotHavenAnemolePlant($I);
+        $this->thenPlaceShouldNotHaveAnAnemolePlant($I);
+    }
+
+    public function shouldCreateAnHydropotWhenFailed(FunctionalTester $I): void
+    {
+        $this->givenBananaTreeIsDiseased();
+
+        $this->whenChunGraftsOnBananaTree();
+
+        $this->thenPlaceShouldHaveAnHydropot($I);
     }
 
     public function shouldPrintAPublicLogWithPlayerAndNewPlantWhenSuccessful(FunctionalTester $I): void
@@ -290,18 +300,6 @@ final class GraftCest extends AbstractFunctionalTest
         return $this->graft->execute();
     }
 
-    private function whenKuanTiGraftsOnBananaTree(): ActionResult
-    {
-        $this->graft->loadParameters(
-            actionConfig: $this->actionConfig,
-            actionProvider: $this->anemole,
-            player: $this->kuanTi,
-            target: $this->bananaTree,
-        );
-
-        return $this->graft->execute();
-    }
-
     private function thenKuanTiShouldNotSeeAction(FunctionalTester $I): void
     {
         $this->graft->loadParameters(
@@ -324,9 +322,9 @@ final class GraftCest extends AbstractFunctionalTest
         $I->assertFalse($this->graft->isVisible());
     }
 
-    private function thenChunHasAnAnemolePlant(FunctionalTester $I): void
+    private function thenPlaceHasAnAnemolePlant(FunctionalTester $I): void
     {
-        $I->assertTrue($this->chun->hasEquipmentByName($this->anemole->getPlantNameOrThrow()));
+        $I->assertTrue($this->chun->getPlace()->hasEquipmentByName($this->anemole->getPlantNameOrThrow()));
     }
 
     private function thenChunShouldNotHaveBananaTree(FunctionalTester $I): void
@@ -339,9 +337,9 @@ final class GraftCest extends AbstractFunctionalTest
         $I->assertFalse($this->chun->hasEquipmentByName(GameFruitEnum::ANEMOLE));
     }
 
-    private function thenChunShouldNotHavenAnemolePlant(FunctionalTester $I): void
+    private function thenPlaceShouldNotHaveAnAnemolePlant(FunctionalTester $I): void
     {
-        $I->assertFalse($this->chun->hasEquipmentByName($this->anemole->getPlantNameOrThrow()));
+        $I->assertFalse($this->chun->getPlace()->hasEquipmentByName($this->anemole->getPlantNameOrThrow()));
     }
 
     private function thenActionIsAFail(ActionResult $result, FunctionalTester $I): void
@@ -373,5 +371,10 @@ final class GraftCest extends AbstractFunctionalTest
             ),
             I: $I,
         );
+    }
+
+    private function thenPlaceShouldHaveAnHydropot(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(ItemEnum::HYDROPOT));
     }
 }

@@ -520,6 +520,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->isCycleChange;
     }
 
+    public function isDaedalusOrExplorationChangingCycle(): bool
+    {
+        return $this->isCycleChange() || $this->isExplorationChangingCycle();
+    }
+
     public function setIsCycleChange(bool $isCycleChange): static
     {
         $this->isCycleChange = $isCycleChange;
@@ -821,5 +826,10 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function hasAliveNeronOnlyFriend(): bool
     {
         return $this->getAlivePlayers()->hasPlayerWithSkill(SkillEnum::NERON_ONLY_FRIEND);
+    }
+
+    private function isExplorationChangingCycle(): bool
+    {
+        return $this->getExploration()?->isChangingCycle() ?? false;
     }
 }

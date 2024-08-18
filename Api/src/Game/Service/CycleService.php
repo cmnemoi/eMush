@@ -163,10 +163,10 @@ class CycleService implements CycleServiceInterface
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalusInfo);
 
         if ($cycleElapsed > 0) {
+            $this->toggleCycleChange($daedalus);
+
             try {
                 $this->entityManager->beginTransaction();
-                $daedalus->setIsCycleChange(true);
-
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
                     $dateDaedalusLastCycle->add(new \DateInterval('PT' . $daedalusConfig->getCycleLength() . 'M'));
                     $cycleEvent = new DaedalusCycleEvent(
@@ -183,10 +183,7 @@ class CycleService implements CycleServiceInterface
                 }
 
                 $daedalus->setCycleStartedAt($dateDaedalusLastCycle);
-                $daedalus->setIsCycleChange(false);
-
-                $this->entityManager->persist($daedalus);
-                $this->entityManager->flush();
+                $this->toggleCycleChange($daedalus);
                 $this->entityManager->commit();
             } catch (\Throwable $error) {
                 $this->logger->error('Error during cycle change', [
@@ -195,6 +192,7 @@ class CycleService implements CycleServiceInterface
                     'trace' => $error->getTraceAsString(),
                 ]);
                 $this->entityManager->rollback();
+                $this->toggleCycleChange($daedalus);
                 $this->entityManager->close();
 
                 throw $error;
@@ -219,12 +217,11 @@ class CycleService implements CycleServiceInterface
 
         $cycleElapsed = $this->getNumberOfExplorationCycleElapsed($dateExplorationLastCycle, $dateTime, $exploration);
 
-        if ($cycleElapsed > 0 && !$exploration->isChangingCycle()) {
-            $exploration->setIsChangingCycle(true);
-            $this->entityManager->persist($exploration);
-            $this->entityManager->flush();
+        $this->toggleExplorationCycleChange($exploration);
 
+        if ($cycleElapsed > 0) {
             try {
+                $this->entityManager->beginTransaction();
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
                     $dateExplorationLastCycle->add(new \DateInterval('PT' . $exploration->getCycleLength() . 'M'));
                     $cycleEvent = new ExplorationEvent(
@@ -239,16 +236,17 @@ class CycleService implements CycleServiceInterface
                         break;
                     }
                 }
+                $this->toggleExplorationCycleChange($exploration);
+                $this->entityManager->commit();
             } catch (\Throwable $e) {
                 $this->logger->error('Error during exploration cycle change', [
                     'exploration' => $exploration->getId(),
                     'error' => $e->getMessage(),
                     'trace' => $e->getTraceAsString(),
                 ]);
-            } finally {
-                $exploration->setIsChangingCycle(false);
-                $this->entityManager->persist($exploration);
-                $this->entityManager->flush();
+                $this->entityManager->rollback();
+                $this->toggleExplorationCycleChange($exploration);
+                $this->entityManager->close();
             }
         }
 
@@ -284,6 +282,20 @@ class CycleService implements CycleServiceInterface
         $daedalusInfo = $exploration->getDaedalusInfo();
 
         return $daedalusInfo->isDaedalusFinished() || $exploration->isExplorationFinished();
+    }
+
+    private function toggleCycleChange(Daedalus $daedalus): void
+    {
+        $daedalus->setIsCycleChange(!$daedalus->isCycleChange());
+        $this->entityManager->persist($daedalus);
+        $this->entityManager->flush();
+    }
+
+    private function toggleExplorationCycleChange(Exploration $exploration): void
+    {
+        $exploration->setIsChangingCycle(!$exploration->isChangingCycle());
+        $this->entityManager->persist($exploration);
+        $this->entityManager->flush();
     }
 }
 

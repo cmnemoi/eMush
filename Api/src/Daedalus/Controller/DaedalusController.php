@@ -248,7 +248,7 @@ class DaedalusController extends AbstractGameController
         if ($daedalus->getDaedalusInfo()->isDaedalusFinished()) {
             return $this->view(['error' => 'Daedalus is already finished'], 400);
         }
-        if ($daedalus->isCycleChange()) {
+        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);

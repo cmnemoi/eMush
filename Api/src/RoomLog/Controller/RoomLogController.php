@@ -68,7 +68,7 @@ class RoomLogController extends AbstractGameController
         $player = $this->getUserPlayer();
 
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isCycleChange()) {
+        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
@@ -104,7 +104,7 @@ class RoomLogController extends AbstractGameController
         $player = $this->getUserPlayer();
 
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isCycleChange()) {
+        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);

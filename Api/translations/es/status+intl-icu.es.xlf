@@ -1619,5 +1619,15 @@
         <target>mankind_only_hope.description</target>
       </segment>
     </unit>
+    <unit id="genius_idea">
+      <segment id="name" state="initial">
+        <source>genius_idea.name</source>
+        <target>genius_idea.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>genius_idea.description</source>
+        <target>genius_idea.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

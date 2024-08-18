@@ -96,7 +96,7 @@
       </segment>
       <segment id="mountain_description" state="translated">
         <source>nothing_to_report.mountain_description</source>
-        <target>A loud scream. A moment of panic. Then nothing...</target>
+        <target>A loud scream resonates. Panic rises. Then nothing...</target>
       </segment>
     </unit>
     <unit id="tired">
@@ -285,7 +285,7 @@
       </segment>
       <segment id="mankarog_description" state="translated">
         <source>artefact.mankarog_description</source>
-        <target>You have discovered a Mankarog's lair. During the search around its larder which is about the size of an 8 storey building, you manage to find an alien artefact! </target>
+        <target>You have discovered a Mankarog's lair. During the search around its larder which is about the size of an 8 storey building, you manage to find an alien artefact!</target>
       </segment>
       <segment id="ruins_description" state="translated">
         <source>artefact.ruins_description</source>
@@ -305,19 +305,25 @@
     <unit id="fight_prevented_by_item">
       <segment id="description" state="translated">
         <source>fight_prevented_by_item</source>
-        <target>Combat avoided because the expedition team has the White flag</target>
+        <target>Combat avoided because the expedition team has {equipment}</target>
       </segment>
     </unit>
     <unit id="skill_reduced_damage_for_player">
       <segment id="description" state="translated">
         <source>skill_reduced_damage_for_player</source>
-        <target>{character} suffers {quantity, plural, one {# damage} other {# damage}} less thanks to their skill: {skill}</target>
+        <target>{character} suffers {quantity} less damage thanks to their skill: {skill}</target>
       </segment>
     </unit>
     <unit id="bonus_loot_thanks_to_skill">
       <segment id="description" state="translated">
         <source>bonus_loot_thanks_to_skill</source>
         <target>This was increased by + {quantity} because the expedition team has the skill: {skill}</target>
+      </segment>
+    </unit>
+    <unit id="fight_prevented_by_skill">
+      <segment id="description" state="initial">
+        <source>fight_prevented_by_skill</source>
+        <target>fight_prevented_by_skill</target>
       </segment>
     </unit>
     <unit id="kill_random">
@@ -331,11 +337,11 @@
       </segment>
       <segment id="sismic_activity_description" state="translated">
         <source>kill_random.sismic_activity_description</source>
-        <target>A crack opens in the earth right below the expedition crew!!! {character} slips and disappears into the void! </target>
+        <target>A crack opens in the earth right below the expedition crew!!! {character} slips and disappears into the void!</target>
       </segment>
       <segment id="mankarog_description" state="translated">
         <source>kill_random.mankarog_description</source>
-        <target>While climbing up a small hill, you realize that in fact it's a Mankarog's left buttock... As it swings round its massive hand to scratch it, it crushes {character} in an instant. </target>
+        <target>While climbing up a small hill, you realize that in fact it's a Mankarog's left buttock... As it swings round its massive hand to scratch it, it crushes {character} in an instant.</target>
       </segment>
     </unit>
     <unit id="kill_all">
@@ -439,7 +445,7 @@
       </segment>
       <segment id="forest_description" state="translated">
         <source>harvest.forest_description</source>
-        <target>You have found {quantity, plural, one {# fruit} other {# fruits}} which look delicious. Best to take them back to the ship and analyze them before eating them though... </target>
+        <target>You have found {quantity, plural, one {# fruit} other {# fruits}} which look delicious. Best to take them back to the ship and analyze them before eating them though...</target>
       </segment>
       <segment id="swamp_description" state="translated">
         <source>harvest.swamp_description</source>

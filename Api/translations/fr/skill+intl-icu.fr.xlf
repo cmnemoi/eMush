@@ -25,10 +25,10 @@
       </segment>
       <segment id="firefighter.description" state="translated">
         <source>firefighter.description</source>
-        <target>Le Pompier a une grande carrière qui lui permet de toujours réussir les actions avec
-                    l'extincteur... et il peut aussi s'en sortir sans extincteur !//:point: L'action **Éteindre le feu**
-                    est toujours réussie.//:point: Donne l'action **Éteindre manuellement**.//:point: Bonus pour
-                    développer certains **Projets NERON**.</target>
+        <target>Le Pompier a une grande carrière qui lui permet de toujours réussir les actions avec l'extincteur... et il peut aussi s'en sortir sans extincteur !//
+:point: **Éteindre le feu** avec un extincteur réussit toujours.//
+:point: Peut **éteindre manuellement** sans extincteur.//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="pilot">
@@ -38,14 +38,13 @@
       </segment>
       <segment id="pilot.description" state="translated">
         <source>pilot.description</source>
-        <target>Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa
-                    maîtrise aérienne est impressionnante.
+        <target>Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa maîtrise aérienne est impressionnante.
                     //
-                    :point: **Chances doublées** de toucher en Patrouilleur.
+:point: **Chances doublées** de réussir ses tirs en Patrouilleur.
                     //
-                    :point: **Ne rate jamais** les atterrissages et décollages.
+:point: **Ne rate jamais** les atterrissages et décollages.
                     //
-                    :point: Bonus pour développer certains **Projets NERON**.</target>
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="radio_expert">
@@ -55,10 +54,10 @@
       </segment>
       <segment id="radio_expert.description" state="translated">
         <source>radio_expert.description</source>
-        <target>L'Expert radio peut décoder les enchevêtrements les plus complexes d'ondes spatiales afin de
-                    reconstituer ou envoyer des messages à l'autre bout de l'Univers.//:point: **Double efficacité**
-                    pour établir le **contact** vers Sol.//:point: Améliore les tentatives de **contact** de Sol des
-                    équipiers dans la même pièce de 50%.//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>L'Expert radio peut décoder les enchevêtrements les plus complexes d'ondes spatiales afin de reconstituer ou envoyer des messages à l'autre bout de l'Univers.//
+:point: **Double efficacité** pour établir le **contact** vers Sol.//
+:point: Améliore les tentatives de **contact** de Sol des équipiers dans la même pièce de 50%.//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="robotics_expert">
@@ -68,9 +67,10 @@
       </segment>
       <segment id="robotics_expert.description" state="translated">
         <source>robotics_expert.description</source>
-        <target>L'expert en robotique peut créer et manipuler les drones comme bon lui semble.//:point: Commence
-                    avec le **plan d'un drone**.//:point: Peut **améliorer les drones**.//:point: Bonus pour développer
-                    certains **Projets NERON**.</target>
+        <target>L'expert en robotique peut créer et manipuler les drones comme bon lui semble.//
+:point: Commence avec le **plan d'un drone**.//
+:point: Peut **améliorer les drones**.//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="physicist">
@@ -80,10 +80,9 @@
       </segment>
       <segment id="physicist.description" state="translated">
         <source>physicist.description</source>
-        <target>Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
-                    quantiques et de l'essence même des cordes qui composent notre Univers est son atout. Il possède des
-                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d'action de **réparation de
-                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques quantiques et de l'essence même des cordes qui composent notre Univers est son atout. Il possède des avantages pour réparer PILGRED.//
+:point: Accorde 1 :pa_pilgred: (point d'action de **réparation de PILGRED**) par jour.//
+:point: Bonus pour développer certains **Projets NERON** et **réparer PILGRED**.</target>
       </segment>
     </unit>
     <unit id="technician">
@@ -94,11 +93,11 @@
       <segment id="technician.description" state="translated">
         <source>technician.description</source>
         <target>Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
-        :point: +1 :pa_eng: (point d'action **Réparation**) par jour.//
-        :point: Peut **Démonter** des objets.//
-        :point: Chances de réussites doublées pour les **Réparations**.//
-        :point: Chances de réussites doublées pour les **Rénovations**.//
-        :point: Bonus pour développer certains **Projets NERON**.</target>
+:point: +1 :pa_eng: (point d'action **Réparation**) par jour.//
+:point: Peut **Démonter** des objets.//
+:point: Chances de réussites doublées pour les **Réparations**.//
+:point: Chances de réussites doublées pour les **Rénovations**.//
+:point: Bonus pour développer certains **Projets NERON** et **réparer PILGRED**.</target>
       </segment>
     </unit>
     <unit id="astrophysicist">
@@ -108,8 +107,10 @@
       </segment>
       <segment id="astrophysicist.description" state="translated">
         <source>astrophysicist.description</source>
-        <target>L'Astrophysicien est habilité à lancer des scans pour trouver des planètes à portée ou
-                    déterminer leur composition.//:point: L'action **Scanner** coûte 1 :pa: de moins.//:point: L'action **Analyse** révèle une section de planète supplémentaire.//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>L'Astrophysicien est habilité à lancer des scans pour trouver des planètes à portée ou déterminer leur composition.//
+:point: **Scanner** une nouvelle planète coûte 1 :pa: de moins.//
+:point: **Analyser** une planète trouvée révèle une section de planète supplémentaire.//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="computer">
@@ -119,9 +120,10 @@
       </segment>
       <segment id="it_expert.description" state="translated">
         <source>it_expert.description</source>
-        <target>L'Informaticien est à l'aise dès qu'il passe derrière un écran. Il manie à la perfection les
-                    interfaces des terminaux de NERON, d'astrophysique, et de communication.//:point: +2 :pa_comp: (points
-                    d'action **Informatique**) par jour.//:point: Chances de réussites doublées avec le **Bidouilleur**.//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>L'Informaticien est à l'aise dès qu'il passe derrière un écran. Il manie à la perfection les interfaces des terminaux de NERON, d'astrophysique, et de communication.//
+:point: +2 :pa_comp: (points d'action **Informatique**) par jour.//
+:point: Chances de réussites doublées avec le **Bidouilleur**.//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="conceptor">
@@ -141,7 +143,9 @@
       </segment>
       <segment id="creative.description" state="translated">
         <source>creative.description</source>
-        <target>Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre **1** :pa:.//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Parfois il faut savoir renverser le problème.//
+:point: Rater une action a 50% de chance de vous rendre **1** :pa:.//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="shrink">
@@ -151,7 +155,11 @@
       </segment>
       <segment id="shrink.description" state="translated">
         <source>shrink.description</source>
-        <target>Le Psy occupe un poste de soutien psychologique. Il permet de garder le moral et soigne les maladies psychologiques.//:point: A chaque cycle, **1 Point de Moral (:pmo:) est régénéré** à chaque personnage allongé dans sa pièce.//:point: **Soigne les maladies Psy**.//:point: Accorde l'action **Réconforter**, laquelle améliore le moral.//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le Psy occupe un poste de soutien psychologique. Il permet de garder le moral et soigne les maladies psychologiques.//
+:point: A chaque cycle, **1 Point de Moral (:pmo:) est régénéré** à chaque personnage allongé dans sa pièce.//
+:point: **Soigne les maladies Psy** de ces patients.//
+:point: Accorde l'action **Réconforter**, laquelle améliore le moral.//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="caffeine_junkie">
@@ -161,7 +169,9 @@
       </segment>
       <segment id="caffeine_junkie.description" state="translated">
         <source>caffeine_junkie.description</source>
-        <target>Le Caféinomane travaille deux fois mieux que ses collègues tant qu'il a accès à la machine à café.//:point: +2:pa: lorsqu'il consomme un **Café**.//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le Caféinomane travaille deux fois mieux que ses collègues tant qu'il a accès à la machine à café.//
+:point: +2:pa: lorsqu'il consomme un **Café**.//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="shooter">
@@ -171,7 +181,10 @@
       </segment>
       <segment id="description" state="translated">
         <source>shooter.description</source>
-        <target>Le Tireur manipule les armes de tout type avec beaucoup d'aisance.//:point: +2 **Tirs gratuits** :pa_shoot: par jour.//:point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le Tireur manipule les armes de tout type avec beaucoup d'aisance.//
+:point: +2 **Tirs gratuits** :pa_shoot: par jour.//
+:point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="chef">
@@ -181,7 +194,11 @@
       </segment>
       <segment id="chef.description" state="translated">
         <source>chef.description</source>
-        <target>Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.//:point: Peut lire les **propriétés des aliments**.//:point: Peut lire les **propriétés des fruits**.//:point: +4 :pa_cook: par jour (points d'action **Cuisine**).//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.//
+:point: Peut lire les **propriétés des aliments**.//
+:point: Peut lire les **propriétés des fruits**.//
+:point: +4 :pa_cook: par jour (points d'action **Cuisine**).//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="nurse">
@@ -191,7 +208,10 @@
       </segment>
       <segment id="nurse.description" state="translated">
         <source>nurse.description</source>
-        <target>L'Infirmier est toujours prêt à rendre service.//:point: +1 :pa_heal: chaque jour (point d'action **Soin**).//:point: Peut lire les **propriétés des médicaments.**//:point: Bonus pour participer à certains **Projets NERON**.</target>
+        <target>L'Infirmier est toujours prêt à rendre service.//
+:point: +1 :pa_heal: chaque jour (point d'action **Soin**).//
+:point: Peut lire les **propriétés des médicaments.**//
+:point: Bonus pour participer à certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="paranoid">
@@ -201,7 +221,9 @@
       </segment>
       <segment id="paranoid.description" state="translated">
         <source>paranoid.description</source>
-        <target>Le Paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce à ses caméras supplémentaires.//:point: Commence avec 2 **Caméras** supplémentaires.//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le Paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce à ses caméras supplémentaires.//
+:point: Commence avec 2 **Caméras** supplémentaires.//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="biologist">
@@ -211,7 +233,10 @@
       </segment>
       <segment id="biologist.description" state="translated">
         <source>biologist.description</source>
-        <target>Le Biologiste est plus efficace dans les recherches du laboratoire.//:point: Peut lire les **propriétés des médicaments**.//:point: **+4% de bonus** sur chacune des **Recherches** du Laboratoire.//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le Biologiste est plus efficace dans les recherches du laboratoire.//
+:point: Peut lire les **propriétés des médicaments**.//
+:point: **+4% de bonus** lors de vos contributions sur chacune des **Recherches** du Laboratoire.//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="mankind_only_hope">
@@ -221,7 +246,8 @@
       </segment>
       <segment id="mankind_only_hope.description" state="translated">
         <source>mankind_only_hope.description</source>
-        <target>Son système immunitaire hors-norme fait d'elle le seul espoir de l'humanité. Tant qu'elle restera en vie, nous aurons une petite chance de combattre l'invasion Mush.//:point: La perte de moral journalière est réduite de 1 point.</target>
+        <target>Son système immunitaire hors-norme fait d'elle le seul espoir de l'humanité. Tant qu'elle restera en vie, nous aurons une petite chance de combattre l'invasion Mush.//
+:point: La perte de moral journalière globale est réduite de 1 point.</target>
       </segment>
     </unit>
     <unit id="leader">
@@ -231,7 +257,8 @@
       </segment>
       <segment id="leader.description" state="translated">
         <source>leader.description</source>
-        <target>Un leader charismatique sait diriger efficacement l'équipage et monter le moral grâce à de furieux discours enflammés.//:point: Accorde l'action **Discours enflammé** qui permet d'augmenter le Moral (:pmo:) des équipiers.</target>
+        <target>Un leader charismatique sait diriger efficacement l'équipage et monter le moral grâce à de furieux discours enflammés.//
+:point: Pour **2** :pa:, vous pouvez faire un **Discours Enflammé** qui permet d'augmenter le Moral (:pmo:) des équipiers présents dans la pièce.</target>
       </segment>
     </unit>
     <unit id="motivator">
@@ -241,7 +268,8 @@
       </segment>
       <segment id="motivator.description" state="translated">
         <source>motivator.description</source>
-        <target>Bla bla bla... Pitiéééééé//:point: Pour **2** :pa:, vous pouvez faire un **discours barbant** qui donne 3 :pm: à chaque personne dans la pièce.</target>
+        <target>Bla bla bla... Pitiéééééé!//
+:point: Pour **2** :pa:, vous pouvez faire un **Discours Barbant** qui donne 3 :pm: à chaque personne dans la pièce (une fois par jour).</target>
       </segment>
     </unit>
     <unit id="confident">
@@ -251,7 +279,8 @@
       </segment>
       <segment id="confident.description" state="translated">
         <source>confident.description</source>
-        <target>Discret et fidèle, vous attirez la sympathie et portez un peu la misère du monde quand même...//:point: Une fois par jour, les autres joueurs peuvent se confier à vous, en faisant cela, ils vous révèlent leurs X dernières actions où X est votre quantité de :pmo: et gagnent ainsi 2 :pmo:.</target>
+        <target>Discret et fidèle, vous attirez la sympathie et portez un peu la misère du monde quand même...//
+:point: Une fois par jour et par personne, les autres équipiers peuvent se confier à vous pour **1** :pa:. En faisant cela, ils vous révèlent leurs X dernières actions où X est votre quantité de :pmo:, et regagnent ainsi 2 :pmo:.</target>
       </segment>
     </unit>
     <unit id="survivalist">
@@ -261,7 +290,10 @@
       </segment>
       <segment id="survivalist.description" state="translated">
         <source>survivalist.description</source>
-        <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.//:point: Expédition : Chaque dégât est **réduit d'un point**.//:point: Expédition : L'évènement **Provision** donne un steak de plus.//:point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
+        <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vie extraterrestre et s'en sortira mieux que les autres.//
+:point: Expédition : Chaque dégât **personnel** est **réduit d'un point**.//
+:point: Expédition : L'évènement **Provision** donne un steak de plus.//
+:point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
       </segment>
     </unit>
     <unit id="diplomat">

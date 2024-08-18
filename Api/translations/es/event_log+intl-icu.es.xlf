@@ -565,6 +565,12 @@
         <target>gain_conceptor_point</target>
       </segment>
     </unit>
+    <unit id="gain_nurse_point">
+      <segment state="initial">
+        <source>gain_nurse_point</source>
+        <target>gain_nurse_point</target>
+      </segment>
+    </unit>
     <unit id="gain_it_expert_point">
       <segment state="initial">
         <source>gain_it_expert_point</source>
@@ -631,6 +637,12 @@
         <target>lost_on_planet</target>
       </segment>
     </unit>
+    <unit id="logistic_log">
+      <segment state="initial">
+        <source>logistic_log</source>
+        <target>logistic_log</target>
+      </segment>
+    </unit>
     <unit id="drone">
       <segment state="initial">
         <source>drone</source>
@@ -689,6 +701,24 @@
       <segment id="confident_actions" state="initial">
         <source>confident_actions</source>
         <target>confident_actions</target>
+      </segment>
+    </unit>
+    <unit id="optimist_worked">
+      <segment id="optimist_worked" state="initial">
+        <source>optimist_worked</source>
+        <target>optimist_worked</target>
+      </segment>
+    </unit>
+    <unit id="premonition_action">
+      <segment id="premonition_action" state="initial">
+        <source>premonition_action</source>
+        <target>premonition_action</target>
+      </segment>
+    </unit>
+    <unit id="ceasefire_end">
+      <segment id="ceasefire_end" state="initial">
+        <source>ceasefire_end</source>
+        <target>ceasefire_end</target>
       </segment>
     </unit>
   </file>

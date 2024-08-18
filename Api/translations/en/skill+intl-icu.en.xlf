@@ -25,8 +25,8 @@
       <segment id="firefighter.description" state="translated">
         <source>firefighter.description</source>
         <target>The Firefighter has great experience which means they will always succeed when using the extinguisher... and they can also make it without an extinguisher!//
-:point: The **Extinguish Fire** action is always successful.//
-:point: Enables the action **Extinguish Manually**.//
+:point: **Ending a fire** with an extinguisher is always successful.//
+:point: Can **extinguish manually** without an extinguisher.//
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
@@ -39,9 +39,9 @@
         <source>pilot.description</source>
         <target>An expert in manoeuvring the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.
 //
-:point: **Doubled** chance of Patroller hit.
+:point: **Doubled** odds of successful Patrol Craft shots.
 //
-:point: **Never misses** landings and take-offs.
+:point: **Never fails** landings and take-offs.
 //
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -81,7 +81,7 @@
         <source>physicist.description</source>
         <target>The physicist is a high flier in the field of physics research. Their understanding of quantum mechanics and even the essence of the strings that make up our universe is their major talent. They also have the advantage when repairing PILGRED.//
 :point: +1 :pa_pilgred: per day (**PILGRED repair** Action Point).//
-:point: Bonus for developing certain **NERON projects**.</target>
+:point: Bonus for developing certain **NERON projects** and **repairing PILGRED**.</target>
       </segment>
     </unit>
     <unit id="technician">
@@ -96,7 +96,7 @@
 :point: Can **Dismantle** objects.//
 :point: Chances to perform successful **Repairs** doubled.//
 :point: Chances to perform successful **Renovations** doubled.//
-:point: Bonus for developing certain **NERON projects**.</target>
+:point: Bonus for developing certain **NERON projects** and **repairing PILGRED**.</target>
       </segment>
     </unit>
     <unit id="astrophysicist">
@@ -106,7 +106,10 @@
       </segment>
       <segment id="astrophysicist.description" state="translated">
         <source>astrophysicist.description</source>
-        <target>Skilled in scanning for planets in range or to determine their composition.//:point: The **Scan** action costs 1 less :pa:.//:point:The **Analyze** action discovers one additional planet property.//:point: Bonus for developing certain **NERON projects**.</target>
+        <target>Skilled in scanning for planets in range or to determine their composition.//
+:point: **Scanning** for new planets costs 1 less :pa:.//
+:point: **Analyzing** found planets uncovers one additional planet property.//
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="computer">
@@ -116,7 +119,10 @@
       </segment>
       <segment id="it_expert.description" state="translated">
         <source>it_expert.description</source>
-        <target>The IT Expert is at home as soon as they are in front of a screen. They manipulate the nexus, navigation and communications terminals with ease.//:point: +2 :pa_comp: per day (**IT** Action Points).//:point: Chances of success are doubled when using the **Hacker Kit**.//:point: Bonus for developing certain **NERON projects**.</target>
+        <target>The IT Expert is at home as soon as they are in front of a screen. They manipulate the nexus, navigation and communications terminals with ease.//
+:point: +2 :pa_comp: per day (**IT** Action Points).//
+:point: Odds of success are doubled when using the **Hacker Kit**.//
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="conceptor">
@@ -126,7 +132,9 @@
       </segment>
       <segment id="conceptor.description" state="translated">
         <source>conceptor.description</source>
-        <target>Has access to NERON's core twice per day (Free Actions).//:point: +2 :pa_core: per day (**NERON projects** Action Points)//:point: Bonus for developing certain **NERON projects**.</target>
+        <target>Can contribute for free to NERON projects twice per day.//
+:point: +2 :pa_core: per day (**NERON projects** Action Points)//
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="creative">
@@ -136,7 +144,9 @@
       </segment>
       <segment id="creative.description" state="translated">
         <source>creative.description</source>
-        <target>Sometimes you need to think outside the box.//:point: Every time you fail in an attempt to do something, there is a 50% chance of regaining **1** :pa:.//:point: Bonus for developing certain **NERON projects**.</target>
+        <target>Sometimes you need to think outside the box.//
+:point: Failed actions have a 50% chance of refunding **1** :pa:.//
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="shrink">
@@ -146,7 +156,11 @@
       </segment>
       <segment id="shrink.description" state="translated">
         <source>shrink.description</source>
-        <target>The Shrink is in charge of psychological support. They are able to keep morale high and treat psychological illnesses.//:point: Each cycle, **1 Morale Point (:pmo:) is regained** by all crewmates lying down in the same room.//:point: **Treats psychological illnesses**.//:point: Grants the **Comfort** Action for raising morale.//:point: Bonus for developing certain **NERON projects**.</target>
+        <target>The Shrink is in charge of psychological support. They are able to keep morale high and treat psychological illnesses.//
+:point: Each cycle, **1 Morale Point (:pmo:) is regained** by all crewmates lying down in the same room.//
+:point: **Treats the psychological illnesses** of those crewmates.//
+:point: Grants the **Comfort** Action for raising morale.//
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="caffeine_junkie">
@@ -156,7 +170,9 @@
       </segment>
       <segment id="caffeine_junkie.description" state="translated">
         <source>caffeine_junkie.description</source>
-        <target>The Caffeine Junkie is twice as effective as their colleagues when they have access to the coffee machine.//:point: +2 :pa: when they drink a **Coffee**.//:point: Bonus for developing certain **NERON projects**.</target>
+        <target>The Caffeine Junkie is twice as effective as their colleagues when they have access to the coffee machine.//
+:point: +2 :pa: when they drink a **Coffee**.//
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="shooter">
@@ -166,7 +182,10 @@
       </segment>
       <segment id="description" state="translated">
         <source>shooter.description</source>
-        <target>At ease handling all kinds of weapons.//:point: +2 :pa_shoot: per day (**Shoot** Action Points).//:point: Expedition: +1 to combat strength, if you have a gun.//:point: Bonus for developing certain ** NERON projects **.</target>
+        <target>At ease handling all kinds of weapons.//
+:point: +2 :pa_shoot: per day (**Shoot** Action Points).//
+:point: Expedition: +1 to combat strength, if you have a gun.//
+:point: Bonus for developing certain ** NERON projects **.</target>
       </segment>
     </unit>
     <unit id="chef">
@@ -176,7 +195,11 @@
       </segment>
       <segment id="chef.description" state="translated">
         <source>chef.description</source>
-        <target>Formidable when it comes to knocking meals together. They also have an impressive awareness of what you should eat.//:point: Can read **food nutrition information**.//:point: Can read **fruit nutrition information**.//:point: +4 :pa_cook: per day (**Cooking** Action Points).//:point: Bonus for developing certain **NERON projects**.</target>
+        <target>Formidable when it comes to knocking meals together. They also have an impressive awareness of what you should eat.//
+:point: Can read **food nutrition information**.//
+:point: Can read **fruit nutrition information**.//
+:point: +4 :pa_cook: per day (**Cooking** Action Points).//
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="nurse">
@@ -186,7 +209,10 @@
       </segment>
       <segment id="nurse.description" state="translated">
         <source>nurse.description</source>
-        <target>Always ready to help.//:point: +1 :pa_heal: every day (**Heal** Action Point).//:point: Can read **properties of medicines**.//:point: Bonus for developing certain **NERON projects**.</target>
+        <target>Always ready to help.//
+:point: +1 :pa_heal: every day (**Heal** Action Point).//
+:point: Can read **properties of medicines**.//
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="paranoid">
@@ -206,7 +232,10 @@
       </segment>
       <segment id="biologist.description" state="translated">
         <source>biologist.description</source>
-        <target>Highly skilled in laboratory research.//:point: Can read **properties of medicines**.//:point: **+4% bonus** of all **Research** in the laboratory.//:point: Bonus for developing certain **NERON projects**.</target>
+        <target>Highly skilled in laboratory research.//
+:point: Can read **properties of medicines**.//
+:point: **+4% bonus** when contributing to all **Research** in the laboratory.//
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="mankind_only_hope">
@@ -216,17 +245,19 @@
       </segment>
       <segment id="mankind_only_hope.description" state="translated">
         <source>mankind_only_hope.description</source>
-        <target>Her unique immune system makes her the last hope for humanity. As long as she stays alive, we'll have a shot at combatting the Mush invasion.//:point: Daily morale loss is reduced by 1 point.</target>
+        <target>Her unique immune system makes her the last hope for humanity. As long as she stays alive, we'll have a shot at combatting the Mush invasion.//
+:point: Global daily morale loss is reduced by 1 point.</target>
       </segment>
     </unit>
     <unit id="leader">
       <segment id="leader.name" state="translated">
         <source>leader.name</source>
-        <target>leader.name</target>
+        <target>Leader</target>
       </segment>
       <segment id="leader.description" state="translated">
         <source>leader.description</source>
-        <target>A charismatic leader knows how to effectively lead a team and increase morale using powerful, passionate speeches.//:point: Grants the action **Motivational speech** which increases the Morale (:pmo:) of present crewmates.</target>
+        <target>A charismatic leader knows how to effectively lead a team and increase morale using powerful, passionate speeches.//
+:point: For **2** :pa:, you can give a **Motivational speech** which increases the Morale (:pmo:) of crewmates in the current room.</target>
       </segment>
     </unit>
     <unit id="motivator">
@@ -236,7 +267,8 @@
       </segment>
       <segment id="motivator.description" state="translated">
         <source>motivator.description</source>
-        <target>Bla bla bla... whatever!//:point: For **2** :pa: you can give an **Boring speech** which grants 3 :pm: to everyone in the room.</target>
+        <target>Blah blah blah... Make it stop!//
+:point: For **2** :pa:, you can give a **Boring speech** which grants 3 :pm: to all crewmates in your current room (once per day).</target>
       </segment>
     </unit>
     <unit id="confident">
@@ -246,7 +278,8 @@
       </segment>
       <segment id="confident.description" state="translated">
         <source>confident.description</source>
-        <target>Discreet and loyal, you share everyone's pain and as such have the sympathy of the whole crew...//Once per day, the other players can confide in you to gain 2 :pmo:. In doing so, they will reveal their last X actions where X is your amount of :pmo:.</target>
+        <target>Discreet and loyal, you share everyone's pain and as such have the sympathy of the whole crew...//
+:point: Once per day and per person, the other crewmates can confide in you for **1** :pa: to regain 2 :pmo:. In doing so, they will reveal their last X actions where X is your amount of :pmo:.</target>
       </segment>
     </unit>
     <unit id="survivalist">
@@ -256,7 +289,180 @@
       </segment>
       <segment id="survivalist.description" state="translated">
         <source>survivalist.description</source>
-        <target>The Survivalist is great to have on exploration missions. They can defend themselves more effectively against extra-terrestrial life forms and generally deal with these encounters better than anyone else.//:point: Expedition: All damage is **reduced by 1**.//:point: Expedition: The **Provision** event yields an additional steak.//:point: Expedition: Last to die in case a fatality occurs.</target>
+        <target>The Survivalist is great to have on exploration missions. They can defend themselves more effectively against extra-terrestrial life forms and generally deal with these encounters better than anyone else.//
+:point: Expedition: All damage **you receive** is **reduced by 1**.//
+:point: Expedition: The **Provision** event yields an additional steak.//
+:point: Expedition: Last to die in case a fatality occurs.</target>
+      </segment>
+    </unit>
+    <unit id="diplomat">
+      <segment id="diplomat.name" state="initial">
+        <source>diplomat.name</source>
+        <target>diplomat.name</target>
+      </segment>
+      <segment id="diplomat.description" state="initial">
+        <source>diplomat.description</source>
+        <target>diplomat.description</target>
+      </segment>
+    </unit>
+    <unit id="anonymush">
+      <segment id="anonymush.name" state="initial">
+        <source>anonymush.name</source>
+        <target>anonymush.name</target>
+      </segment>
+      <segment id="anonymush.description" state="initial">
+        <source>anonymush.description</source>
+        <target>anonymush.description</target>
+      </segment>
+    </unit>
+    <unit id="determined">
+      <segment id="determined.name" state="initial">
+        <source>determined.name</source>
+        <target>determined.name</target>
+      </segment>
+      <segment id="determined.description" state="initial">
+        <source>determined.description</source>
+        <target>determined.description</target>
+      </segment>
+    </unit>
+    <unit id="optimist">
+      <segment id="optimist.name" state="initial">
+        <source>optimist.name</source>
+        <target>optimist.name</target>
+      </segment>
+      <segment id="optimist.description" state="initial">
+        <source>optimist.description</source>
+        <target>optimist.description</target>
+      </segment>
+    </unit>
+    <unit id="gunner">
+      <segment id="gunner.name" state="initial">
+        <source>gunner.name</source>
+        <target>gunner.name</target>
+      </segment>
+      <segment id="gunner.description" state="initial">
+        <source>gunner.description</source>
+        <target>gunner.description</target>
+      </segment>
+    </unit>
+    <unit id="apprentice">
+      <segment id="apprentice.name" state="initial">
+        <source>apprentice.name</source>
+        <target>apprentice.name</target>
+      </segment>
+      <segment id="apprentice.description" state="initial">
+        <source>apprentice.description</source>
+        <target>apprentice.description</target>
+      </segment>
+    </unit>
+    <unit id="solid">
+      <segment id="solid.name" state="initial">
+        <source>solid.name</source>
+        <target>solid.name</target>
+      </segment>
+      <segment id="solid.description" state="initial">
+        <source>solid.description</source>
+        <target>solid.description</target>
+      </segment>
+    </unit>
+    <unit id="genius">
+      <segment id="genius.name" state="initial">
+        <source>genius.name</source>
+        <target>genius.name</target>
+      </segment>
+      <segment id="genius.description" state="initial">
+        <source>genius.description</source>
+        <target>genius.description</target>
+      </segment>
+    </unit>
+    <unit id="presentiment">
+      <segment id="presentiment.name" state="initial">
+        <source>presentiment.name</source>
+        <target>presentiment.name</target>
+      </segment>
+      <segment id="presentiment.description" state="initial">
+        <source>presentiment.description</source>
+        <target>presentiment.description</target>
+      </segment>
+    </unit>
+    <unit id="neron_only_friend">
+      <segment id="neron_only_friend.name" state="initial">
+        <source>neron_only_friend.name</source>
+        <target>neron_only_friend.name</target>
+      </segment>
+      <segment id="neron_only_friend.description" state="initial">
+        <source>neron_only_friend.description</source>
+        <target>neron_only_friend.description</target>
+      </segment>
+    </unit>
+    <unit id="mycelium_spirit">
+      <segment id="mycelium_spirit.name" state="initial">
+        <source>mycelium_spirit.name</source>
+        <target>mycelium_spirit.name</target>
+      </segment>
+      <segment id="mycelium_spirit.description" state="initial">
+        <source>mycelium_spirit.description</source>
+        <target>mycelium_spirit.description</target>
+      </segment>
+    </unit>
+    <unit id="fertile">
+      <segment id="fertile.name" state="initial">
+        <source>fertile.name</source>
+        <target>fertile.name</target>
+      </segment>
+      <segment id="fertile.description" state="initial">
+        <source>fertile.description</source>
+        <target>fertile.description</target>
+      </segment>
+    </unit>
+    <unit id="splashproof">
+      <segment id="splashproof.name" state="initial">
+        <source>splashproof.name</source>
+        <target>splashproof.name</target>
+      </segment>
+      <segment id="splashproof.description" state="initial">
+        <source>splashproof.description</source>
+        <target>splashproof.description</target>
+      </segment>
+    </unit>
+    <unit id="infector">
+      <segment id="infector.name" state="initial">
+        <source>infector.name</source>
+        <target>infector.name</target>
+      </segment>
+      <segment id="infector.description" state="initial">
+        <source>infector.description</source>
+        <target>infector.description</target>
+      </segment>
+    </unit>
+    <unit id="sneak">
+      <segment id="sneak.name" state="initial">
+        <source>sneak.name</source>
+        <target>sneak.name</target>
+      </segment>
+      <segment id="sneak.description" state="initial">
+        <source>sneak.description</source>
+        <target>sneak.description</target>
+      </segment>
+    </unit>
+    <unit id="logistic_expert">
+      <segment id="logistic_expert.name" state="initial">
+        <source>logistic_expert.name</source>
+        <target>logistic_expert.name</target>
+      </segment>
+      <segment id="logistic_expert.description" state="initial">
+        <source>logistic_expert.description</source>
+        <target>logistic_expert.description</target>
+      </segment>
+    </unit>
+    <unit id="transfer">
+      <segment id="transfer.name" state="initial">
+        <source>transfer.name</source>
+        <target>transfer.name</target>
+      </segment>
+      <segment id="transfer.description" state="initial">
+        <source>transfer.description</source>
+        <target>transfer.description</target>
       </segment>
     </unit>
   </file>

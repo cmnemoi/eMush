@@ -3093,6 +3093,7 @@ abstract class ModifierConfigData
             'triggeredEvent' => EventConfigData::CHANGE_VALUE_PLUS_1_CHARGE_MUSH_STATUS,
             'modifierActivationRequirements' => [],
             'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => ModifierNameEnum::PLAYER_MINUS_25_PERCENTAGE_ON_ACTION_HIT_AND_ATTACK,

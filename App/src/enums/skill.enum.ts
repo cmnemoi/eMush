@@ -215,7 +215,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.LOGISTICS_EXPERT]: {
-        'icon': getImgUrl('skills/human/logistics_expert.png')
+        'icon': getImgUrl('skills/human/logistics.png')
     },
 
     [SkillEnum.MANKIND_ONLY_HOPE]: {

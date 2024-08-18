@@ -381,14 +381,14 @@
         <target>sneak.description</target>
       </segment>
     </unit>
-    <unit id="logistic_expert">
-      <segment id="logistic_expert.name" state="initial">
-        <source>logistic_expert.name</source>
-        <target>logistic_expert.name</target>
+    <unit id="logistics_expert">
+      <segment id="logistics_expert.name" state="initial">
+        <source>logistics_expert.name</source>
+        <target>logistics_expert.name</target>
       </segment>
-      <segment id="logistic_expert.description" state="initial">
-        <source>logistic_expert.description</source>
-        <target>logistic_expert.description</target>
+      <segment id="logistics_expert.description" state="initial">
+        <source>logistics_expert.description</source>
+        <target>logistics_expert.description</target>
       </segment>
     </unit>
     <unit id="transfer">

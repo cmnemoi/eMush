@@ -410,13 +410,13 @@
         <target>You are of a fearful nature and you instinctively know how to make yourself scarce in order to avoid any and all attempts at physical contact.//:point: Hand-to-hand attacks against you are subject to a **25% penalty**.//:point: You can move around freely regardless of any **Guardian** present.</target>
       </segment>
     </unit>
-    <unit id="logistic_expert">
-      <segment id="logistic_expert.name" state="translated">
-        <source>logistic_expert.name</source>
+    <unit id="logistics_expert">
+      <segment id="logistics_expert.name" state="translated">
+        <source>logistics_expert.name</source>
         <target>Logistics Expert</target>
       </segment>
-      <segment id="logistic_expert.description" state="translated">
-        <source>logistic_expert.description</source>
+      <segment id="logistics_expert.description" state="translated">
+        <source>logistics_expert.description</source>
         <target>You personally oversee the organisation of every task aboard the Daedalus in order to maximize the efficiency of every one of your teammates.//:point: Every cycle, **1 :pa: is given randomly to a crewmate** in the same room as you.</target>
       </segment>
     </unit>

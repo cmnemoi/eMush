@@ -14,3 +14,5 @@ Mush\Modifier\Entity\Config\DirectModifierConfig:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     modifierActivationRequirements:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    targetFilters:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]

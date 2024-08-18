@@ -231,5 +231,175 @@
         <target>survivalist.description</target>
       </segment>
     </unit>
+    <unit id="diplomat">
+      <segment id="diplomat.name" state="initial">
+        <source>diplomat.name</source>
+        <target>diplomat.name</target>
+      </segment>
+      <segment id="diplomat.description" state="initial">
+        <source>diplomat.description</source>
+        <target>diplomat.description</target>
+      </segment>
+    </unit>
+    <unit id="anonymush">
+      <segment id="anonymush.name" state="initial">
+        <source>anonymush.name</source>
+        <target>anonymush.name</target>
+      </segment>
+      <segment id="anonymush.description" state="initial">
+        <source>anonymush.description</source>
+        <target>anonymush.description</target>
+      </segment>
+    </unit>
+    <unit id="determined">
+      <segment id="determined.name" state="initial">
+        <source>determined.name</source>
+        <target>determined.name</target>
+      </segment>
+      <segment id="determined.description" state="initial">
+        <source>determined.description</source>
+        <target>determined.description</target>
+      </segment>
+    </unit>
+    <unit id="optimist">
+      <segment id="optimist.name" state="initial">
+        <source>optimist.name</source>
+        <target>optimist.name</target>
+      </segment>
+      <segment id="optimist.description" state="initial">
+        <source>optimist.description</source>
+        <target>optimist.description</target>
+      </segment>
+    </unit>
+    <unit id="gunner">
+      <segment id="gunner.name" state="initial">
+        <source>gunner.name</source>
+        <target>gunner.name</target>
+      </segment>
+      <segment id="gunner.description" state="initial">
+        <source>gunner.description</source>
+        <target>gunner.description</target>
+      </segment>
+    </unit>
+    <unit id="apprentice">
+      <segment id="apprentice.name" state="initial">
+        <source>apprentice.name</source>
+        <target>apprentice.name</target>
+      </segment>
+      <segment id="apprentice.description" state="initial">
+        <source>apprentice.description</source>
+        <target>apprentice.description</target>
+      </segment>
+    </unit>
+    <unit id="solid">
+      <segment id="solid.name" state="initial">
+        <source>solid.name</source>
+        <target>solid.name</target>
+      </segment>
+      <segment id="solid.description" state="initial">
+        <source>solid.description</source>
+        <target>solid.description</target>
+      </segment>
+    </unit>
+    <unit id="genius">
+      <segment id="genius.name" state="initial">
+        <source>genius.name</source>
+        <target>genius.name</target>
+      </segment>
+      <segment id="genius.description" state="initial">
+        <source>genius.description</source>
+        <target>genius.description</target>
+      </segment>
+    </unit>
+    <unit id="presentiment">
+      <segment id="presentiment.name" state="initial">
+        <source>presentiment.name</source>
+        <target>presentiment.name</target>
+      </segment>
+      <segment id="presentiment.description" state="initial">
+        <source>presentiment.description</source>
+        <target>presentiment.description</target>
+      </segment>
+    </unit>
+    <unit id="neron_only_friend">
+      <segment id="neron_only_friend.name" state="initial">
+        <source>neron_only_friend.name</source>
+        <target>neron_only_friend.name</target>
+      </segment>
+      <segment id="neron_only_friend.description" state="initial">
+        <source>neron_only_friend.description</source>
+        <target>neron_only_friend.description</target>
+      </segment>
+    </unit>
+    <unit id="mycelium_spirit">
+      <segment id="mycelium_spirit.name" state="initial">
+        <source>mycelium_spirit.name</source>
+        <target>mycelium_spirit.name</target>
+      </segment>
+      <segment id="mycelium_spirit.description" state="initial">
+        <source>mycelium_spirit.description</source>
+        <target>mycelium_spirit.description</target>
+      </segment>
+    </unit>
+    <unit id="fertile">
+      <segment id="fertile.name" state="initial">
+        <source>fertile.name</source>
+        <target>fertile.name</target>
+      </segment>
+      <segment id="fertile.description" state="initial">
+        <source>fertile.description</source>
+        <target>fertile.description</target>
+      </segment>
+    </unit>
+    <unit id="splashproof">
+      <segment id="splashproof.name" state="initial">
+        <source>splashproof.name</source>
+        <target>splashproof.name</target>
+      </segment>
+      <segment id="splashproof.description" state="initial">
+        <source>splashproof.description</source>
+        <target>splashproof.description</target>
+      </segment>
+    </unit>
+    <unit id="infector">
+      <segment id="infector.name" state="initial">
+        <source>infector.name</source>
+        <target>infector.name</target>
+      </segment>
+      <segment id="infector.description" state="initial">
+        <source>infector.description</source>
+        <target>infector.description</target>
+      </segment>
+    </unit>
+    <unit id="sneak">
+      <segment id="sneak.name" state="initial">
+        <source>sneak.name</source>
+        <target>sneak.name</target>
+      </segment>
+      <segment id="sneak.description" state="initial">
+        <source>sneak.description</source>
+        <target>sneak.description</target>
+      </segment>
+    </unit>
+    <unit id="logistic_expert">
+      <segment id="logistic_expert.name" state="initial">
+        <source>logistic_expert.name</source>
+        <target>logistic_expert.name</target>
+      </segment>
+      <segment id="logistic_expert.description" state="initial">
+        <source>logistic_expert.description</source>
+        <target>logistic_expert.description</target>
+      </segment>
+    </unit>
+    <unit id="transfer">
+      <segment id="transfer.name" state="initial">
+        <source>transfer.name</source>
+        <target>transfer.name</target>
+      </segment>
+      <segment id="transfer.description" state="initial">
+        <source>transfer.description</source>
+        <target>transfer.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

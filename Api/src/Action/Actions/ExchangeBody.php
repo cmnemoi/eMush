@@ -47,6 +47,14 @@ final class ExchangeBody extends AbstractAction
     {
         $metadata->addConstraint(
             new HasStatus([
+                'status' => PlayerStatusEnum::MUSH,
+                'target' => HasStatus::PARAMETER,
+                'contain' => false,
+                'groups' => ['visibility'],
+            ])
+        );
+        $metadata->addConstraint(
+            new HasStatus([
                 'status' => PlayerStatusEnum::HAS_EXCHANGED_BODY,
                 'target' => HasStatus::PLAYER,
                 'contain' => false,

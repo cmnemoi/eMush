@@ -218,7 +218,7 @@ class CycleService implements CycleServiceInterface
         $cycleElapsed = $this->getNumberOfExplorationCycleElapsed($dateExplorationLastCycle, $dateTime, $exploration);
 
         if ($cycleElapsed > 0) {
-            $this->toggleExplorationCycleChange($exploration);
+            $this->activateExplorationCycleChange($exploration);
 
             try {
                 $this->entityManager->beginTransaction();
@@ -236,7 +236,7 @@ class CycleService implements CycleServiceInterface
                         break;
                     }
                 }
-                $this->toggleExplorationCycleChange($exploration);
+                $this->deactivateExplorationCycleChange($exploration);
                 $this->entityManager->commit();
             } catch (\Throwable $e) {
                 $this->logger->error('Error during exploration cycle change', [
@@ -245,7 +245,7 @@ class CycleService implements CycleServiceInterface
                     'trace' => $e->getTraceAsString(),
                 ]);
                 $this->entityManager->rollback();
-                $this->toggleExplorationCycleChange($exploration);
+                $this->deactivateExplorationCycleChange($exploration);
                 $this->entityManager->close();
             }
         }
@@ -291,9 +291,16 @@ class CycleService implements CycleServiceInterface
         $this->entityManager->flush();
     }
 
-    private function toggleExplorationCycleChange(Exploration $exploration): void
+    private function activateExplorationCycleChange(Exploration $exploration): void
     {
-        $exploration->setIsChangingCycle(!$exploration->isChangingCycle());
+        $exploration->setIsChangingCycle(true);
+        $this->entityManager->persist($exploration);
+        $this->entityManager->flush();
+    }
+
+    private function deactivateExplorationCycleChange(Exploration $exploration): void
+    {
+        $exploration->setIsChangingCycle(false);
         $this->entityManager->persist($exploration);
         $this->entityManager->flush();
     }

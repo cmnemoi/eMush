@@ -217,9 +217,9 @@ class CycleService implements CycleServiceInterface
 
         $cycleElapsed = $this->getNumberOfExplorationCycleElapsed($dateExplorationLastCycle, $dateTime, $exploration);
 
-        $this->toggleExplorationCycleChange($exploration);
-
         if ($cycleElapsed > 0) {
+            $this->toggleExplorationCycleChange($exploration);
+
             try {
                 $this->entityManager->beginTransaction();
                 for ($i = 0; $i < $cycleElapsed; ++$i) {

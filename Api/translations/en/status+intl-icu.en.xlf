@@ -1310,7 +1310,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>guardian.description</source>
-        <target>When a guardian is in the room, the visitor can {b}only{\b} go back to where they came from.</target>
+        <target>When a guardian is in the room, the visitor can **only** go back to where they came from.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>guardian.examine</source>

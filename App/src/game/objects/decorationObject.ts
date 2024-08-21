@@ -2,10 +2,11 @@ import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import IsometricGeom from "@/game/scenes/isometricGeom";
+import mushTextureProperties from "@/game/tiled/mushTextureProperties";
 
 
 export default class DecorationObject extends Phaser.GameObjects.Sprite {
-    protected animName : string|null = null;
+    protected name: string;
     protected tiledFrame: number;
     public isoGeom: IsometricGeom;
     public isoHeight: number;
@@ -14,25 +15,21 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
 
     constructor(
         scene: DaedalusScene,
+        name: string,
+        textureProperties: mushTextureProperties,
         cart_coords: CartesianCoordinates,
         iso_geom: IsometricGeom,
-        tileset: Phaser.Tilemaps.Tileset,
-        frame: number,
-        name: string,
-        isFlipped: { x: boolean, y: boolean},
         collides: boolean,
-        isAnimationYoyo: boolean,
         group: Phaser.GameObjects.Group | null = null
     )
     {
-        super(scene, cart_coords.x, cart_coords.y, name);
+        super(scene, cart_coords.x, cart_coords.y, textureProperties.textureName);
 
         this.scene = scene;
-        this.name = name;
         this.isoGeom = iso_geom;
-        this.tiledFrame = frame;
         this.group = group;
         this.collides = collides;
+        this.name = name;
 
         this.scene.add.existing(this);
 
@@ -40,7 +37,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
             group.add(this);
         }
 
-        this.applyTexture(tileset, name, isFlipped, isAnimationYoyo);
+        this.applyTexture(textureProperties);
 
         this.isoHeight = this.height - (this.isoGeom.getIsoSize().x + this.isoGeom.getIsoSize().y)/2;
 
@@ -51,39 +48,27 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
     }
 
     applyTexture(
-        tileset: Phaser.Tilemaps.Tileset,
-        name: string,
-        isFlipped: { x: boolean, y: boolean },
-        isAnimationYoyo: boolean
+        textureProperties: mushTextureProperties
     ): void
     {
-        //@ts-ignore
-        const tiledData = tileset.tileData[this.tiledFrame];
+        if (textureProperties.isAnimated) {
+            const textureName = textureProperties.textureName;
+            const prefix = this.name;
 
-        if (tiledData)
-        {
-            this.animName = `${name}Animation`;
+            const frames = this.anims.generateFrameNames(textureName, { prefix: prefix+'-', frames: textureProperties.frames  });
 
-            const animationLength = tiledData.animation.length;
-            const endFrame = this.tiledFrame + animationLength - 1;
-            const frames = this.anims.generateFrameNames(tileset.name, { start: this.tiledFrame, end: endFrame });
-            const duration = tiledData.animation[0].duration;
-
-            this.anims.create({
-                key: this.animName,
+            const anim = this.anims.create({
+                key: this.name + '_animation',
                 frames: frames,
-                duration: duration * animationLength,
-                repeat: -1
+                frameRate: textureProperties.frameRate,
+                repeat: -1,
+                repeatDelay: textureProperties.replayDelay,
             });
 
-            this.anims.play({ key: this.animName, yoyo: isAnimationYoyo });
-
+            this.anims.play(anim);
         } else {
-            this.setTexture(tileset.name, this.tiledFrame);
+            this.setFrame(textureProperties.frameKey);
         }
-
-        this.flipX = isFlipped.x;
-        this.flipY = isFlipped.y;
     }
 
     //@ts-ignore

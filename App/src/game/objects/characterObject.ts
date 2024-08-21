@@ -7,6 +7,7 @@ import InteractObject from "@/game/objects/interactObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 import Tileset = Phaser.Tilemaps.Tileset;
+import mushTextureProperties from "@/game/tiled/mushTextureProperties";
 
 export default class CharacterObject extends InteractObject {
     public player : Player;
@@ -19,15 +20,15 @@ export default class CharacterObject extends InteractObject {
         isoGeom: IsometricGeom,
         player: Player
     ) {
+        const textureProperties = new mushTextureProperties();
+        textureProperties.setCharacterTexture(player.character.key);
+
         super(
             scene,
+            player.character.key,
+            textureProperties,
             cart_coords,
             isoGeom,
-            new Tileset('character', 0, 48, 32),
-            0,
-            player.character.key,
-            { x: false, y: false },
-            false,
             false
         );
 
@@ -39,7 +40,7 @@ export default class CharacterObject extends InteractObject {
 
         scene.physics.world.enable(this);
 
-        this.createAnimations();
+        this.applyTextures();
 
         this.applyEquipmentInteraction();
 
@@ -91,10 +92,6 @@ export default class CharacterObject extends InteractObject {
         this.navMesh = (<DaedalusScene>this.scene).navMeshGrid;
     }
 
-    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string) {
-        this.setTexture('character', this.tiledFrame);
-    }
-
     applyEquipmentInteractionInformation(equipment: InteractObject)
     {
         const interactionInformation = equipment.getInteractionInformation();
@@ -117,24 +114,24 @@ export default class CharacterObject extends InteractObject {
         }
     }
 
-    createAnimations(): void
+    applyTextures(): void
     {
         this.anims.create({
             key: 'move_right',
-            frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
-                start: 5,
-                end: 10
+            frames: this.anims.generateFrameNames('characters', {
+                prefix: this.player.character.key+'-',
+                start: 4,
+                end: 9
             }),
             frameRate: 10,
             repeat: -1
         });
         this.anims.create({
             key: 'move_left',
-            frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
-                start: 11,
-                end: 16
+            frames: this.anims.generateFrameNames('characters', {
+                prefix: this.player.character.key+'-',
+                start: 10,
+                end: 15
             }),
             frameRate: 10,
             repeat: -1
@@ -142,57 +139,57 @@ export default class CharacterObject extends InteractObject {
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
-                start: 1,
-                end: 1
+            frames: this.anims.generateFrameNames('characters', {
+                prefix: this.player.character.key+'-',
+                start: 0,
+                end: 0
             }),
             frameRate: 1
         });
         this.anims.create({
             key: 'left',
-            frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
-                start: 2,
-                end: 2
+            frames: this.anims.generateFrameNames('characters', {
+                prefix: this.player.character.key+'-',
+                start: 1,
+                end: 1
             }),
             frameRate: 1
         });
 
         this.anims.create({
             key: 'sit_front',
-            frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
+            frames: this.anims.generateFrameNames('characters', {
+                prefix: this.player.character.key+'-',
+                start: 2,
+                end: 2
+            }),
+            frameRate: 1
+        });
+        this.anims.create({
+            key: 'sit_back',
+            frames: this.anims.generateFrameNames('characters', {
+                prefix: this.player.character.key+'-',
                 start: 3,
                 end: 3
             }),
             frameRate: 1
         });
         this.anims.create({
-            key: 'sit_back',
-            frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
-                start: 4,
-                end: 4
-            }),
-            frameRate: 1
-        });
-        this.anims.create({
             key: 'lie_down',
-            frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
-                start: 18,
-                end: 18
+            frames: this.anims.generateFrameNames('characters', {
+                prefix: this.player.character.key+'-',
+                start: 17,
+                end: 17
             }),
             frameRate: 1
         });
 
         this.anims.create({
             key: 'space_giggle',
-            frames: this.anims.generateFrameNames('character', {
-                prefix: 'space_suit',
-                start: 1,
-                end: 5
+            frames: this.anims.generateFrameNames('characters', {
+                prefix: 'space_suit-',
+                start: 0,
+                end: 4
             }),
             frameRate: 7,
             repeat: -1

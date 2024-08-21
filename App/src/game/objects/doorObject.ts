@@ -5,58 +5,61 @@ import { CartesianCoordinates } from "@/game/types";
 import { Door as DoorEntity } from "@/entities/Door";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import DoorGroundObject from "@/game/objects/doorGroundObject";
+import mushTextureProperties from "@/game/tiled/mushTextureProperties";
 
 
 export default class DoorObject extends DoorGroundObject {
-    private openFrames: Phaser.Types.Animations.AnimationFrame[];
-    private closeFrames: Phaser.Types.Animations.AnimationFrame[];
+    public openedFrameId: number;
+    protected closedFrameId: number;
 
     constructor(
         scene: DaedalusScene,
+        name: string,
+        textureProperties: mushTextureProperties,
         cart_coords: CartesianCoordinates,
         iso_geom: IsometricGeom,
-        tileset: Phaser.Tilemaps.Tileset,
-        tiledFrame: number,
-        isFlipped: { x: boolean, y: boolean},
         door: DoorEntity,
         group: Phaser.GameObjects.Group | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, tiledFrame, isFlipped, door, group);
-
-        // create animations
-        this.openFrames = this.anims.generateFrameNames('door_object', { start: this.tiledFrame, end: this.tiledFrame + 10 });
-        this.closeFrames = this.anims.generateFrameNames('door_object', { start: this.tiledFrame + 10, end: this.tiledFrame + 23 });
-        this.closeFrames[this.closeFrames.length + 1] = this.openFrames[0];
-        this.createAnimations();
+        super(scene, name, textureProperties, cart_coords, iso_geom, door, group);
     }
 
-    createAnimations(): void
-    {
+
+    applyTexture(
+        textureProperties: mushTextureProperties
+    ) {
+        this.closedFrameId = textureProperties.frames[0];
+        this.openedFrameId = 10 + this.closedFrameId;
+
+        this.setTexture(textureProperties.textureName, this.name+'-' + this.closedFrameId)
+        // create animations
+        const openFrames = this.anims.generateFrameNames(textureProperties.textureName, {
+            prefix: this.name+'-',
+            start: this.closedFrameId,
+            end: this.openedFrameId
+        });
+
+        const closeFrames = this.anims.generateFrameNames(textureProperties.textureName, {
+            prefix: this.name+'-',
+            start: this.openedFrameId,
+            end: 23 + this.closedFrameId
+        });
+        closeFrames[closeFrames.length + 1] = openFrames[0];
+
         this.anims.create({
             key: 'door_open',
-            frames: this.openFrames,
+            frames: openFrames,
             frameRate: 10,
             repeat: 0
         });
 
         this.anims.create({
             key: 'door_close',
-            frames: this.closeFrames,
+            frames: closeFrames,
             frameRate: 10,
             repeat: 0
         });
-    }
-
-    applyTexture(
-        tileset: Phaser.Tilemaps.Tileset,
-        name: string,
-        isFlipped: { x: boolean, y: boolean },
-        isAnimationYoyo: boolean
-    ) {
-        this.setTexture('door_object', this.tiledFrame);
-        this.flipX = isFlipped.x;
-        this.flipY = isFlipped.y;
     }
 
     createInteractionArea():void
@@ -66,27 +69,30 @@ export default class DoorObject extends DoorGroundObject {
 
     isOpen(): boolean
     {
-        return String(this.frame.name) !==  String(this.tiledFrame);
+        if (this.anims.currentFrame instanceof  Phaser.Animations.AnimationFrame) {
+            return this.anims.currentFrame.index ===  11 && this.anims.getName() ===  'door_open';
+        }
+        return false;
     }
 
     activateDoor(): void
     {
-        if (!this.isOpen()) {
-            this.anims.play('door_open');
-        } else {
-            const currentFrame = this.anims.currentFrame;
-            let startFrame = 0;
-            if (currentFrame!== null) {
-                startFrame = 11 - currentFrame.index;
+        if (!this.anims.isPlaying) {
+            if (!this.isOpen()) {
+                this.anims.play('door_open');
+            } else {
+                this.anims.play('door_close');
             }
-            this.anims.play({ key: 'door_close', startFrame: startFrame });
+        } else {
+            this.anims.reverse();
         }
     }
 
     handleBroken(): void
     {
         if (this.door.isBroken && this.particles === null) {
-            this.particles = this.scene.add.particles(0, 0, 'smoke_particle', {
+            this.particles = this.scene.add.particles(0, 0, 'base_textures', {
+                frame: 'smoke_particle',
                 x: 0,
                 y: 0,
                 lifespan: { min: 1000, max: 1200 },

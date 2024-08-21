@@ -28,8 +28,7 @@ export default class MushTiledMap {
         this.groups = [];
         this.equipments = [];
 
-        this.tilemap.addTilesetImage('ground_tileset', 'ground_tileset');
-        this.tilemap.addTilesetImage('wall_tileset', 'wall_tileset');
+        this.tilemap.addTilesetImage('tileset', 'tileset');
     }
 
     createInitialSceneGrid(sceneGrid: SceneGrid): SceneGrid
@@ -58,7 +57,7 @@ export default class MushTiledMap {
 
             } else if (tiledLayer.name === 'ground') {
                 //ground layers needs to be rectangular
-                const groundLayer = this.tilemap.createLayer(i, 'ground_tileset', this.tilemapsShift.x, this.tilemapsShift.y);
+                const groundLayer = this.tilemap.createLayer(i, this.tilemap.tilesets, this.tilemapsShift.x, this.tilemapsShift.y);
                 if (groundLayer === null) {return;}
 
                 const depth = tiledLayer.getCustomPropertyByName('depth');
@@ -95,13 +94,8 @@ export default class MushTiledMap {
 
         //loop for each tiled object
         for (let i = 0; i < objects.length; i++) {
-            const obj = new MushTiledObject(objects[i]);
+            const obj = new MushTiledObject(objects[i], this.tilemap.tilesets);
 
-            if (obj.tiledObj.gid === undefined){
-                throw new Error(obj.tiledObj.name + "gid is not defined");
-            }
-
-            const tileset = obj.getTileset(this.tilemap.tilesets);
             const objEntity = obj.getEquipmentFromTiledObject(room, addedObjectId);
 
             //if the equipment is present according to the API
@@ -110,7 +104,7 @@ export default class MushTiledMap {
             ){
                 const group = this.getGroupOfObject(obj);
 
-                const newObject = obj.createPhaserObject(this.scene, tileset, this.objectsShift, objEntity, group);
+                const newObject = obj.createPhaserObject(this.scene, objEntity, group);
 
                 // some equipment have depth already fixed (stuff on the wall, doors, flat things on the ground)
                 const fixedDepth = obj.getCustomPropertyByName('depth');
@@ -169,6 +163,4 @@ export default class MushTiledMap {
     {
         return tiledDepth*1000000 + 5;
     }
-
-
 }

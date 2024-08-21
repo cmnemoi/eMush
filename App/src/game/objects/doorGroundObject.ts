@@ -6,6 +6,7 @@ import store from "@/store";
 import { Action } from "@/entities/Action";
 import InteractObject from "@/game/objects/interactObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
+import mushTextureProperties from "@/game/tiled/mushTextureProperties";
 
 
 export default class DoorGroundObject extends InteractObject {
@@ -14,16 +15,15 @@ export default class DoorGroundObject extends InteractObject {
 
     constructor(
         scene: DaedalusScene,
+        name: string,
+        textureProperties: mushTextureProperties,
         cart_coords: CartesianCoordinates,
         iso_geom: IsometricGeom,
-        tileset: Phaser.Tilemaps.Tileset,
-        firstFrame: number,
-        isFlipped: { x: boolean, y: boolean},
         door: DoorEntity,
         group: Phaser.GameObjects.Group | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, firstFrame, door.key, isFlipped, true, false, group);
+        super(scene, name, textureProperties, cart_coords, iso_geom, false, group);
 
         this.door = door;
 
@@ -47,7 +47,8 @@ export default class DoorGroundObject extends InteractObject {
             this.particles === null &&
             (this.tiledFrame === 0 || this.tiledFrame === 10)
         ) {
-            this.particles = this.scene.add.particles(0,0, 'smoke_particle', {
+            this.particles = this.scene.add.particles(0,0, 'base_textures', {
+                frame: 'smoke_particle',
                 x: 0,
                 y: 0,
                 lifespan: { min: 1000, max: 1200 },
@@ -131,6 +132,26 @@ export default class DoorGroundObject extends InteractObject {
         }
     }
 
+    applyTexture(
+        textureProperties: mushTextureProperties
+    ): void
+    {
+        const startId = textureProperties.frames[0];
+
+        this.setTexture(textureProperties.textureName, this.name+'-' + startId);
+        const textureName = textureProperties.textureName;
+        const prefix = this.name;
+
+        const frames = this.anims.generateFrameNames(textureName, { prefix: prefix+'-', frames: textureProperties.frames  });
+
+        this.anims.create({
+            key: this.name,
+            frames: frames,
+            frameRate: textureProperties.frameRate,
+            repeat: -1
+        });
+    }
+
     isOpen(): boolean
     {
         return this.anims.isPlaying;
@@ -139,23 +160,11 @@ export default class DoorGroundObject extends InteractObject {
     activateDoor(): void
     {
         if (!this.isOpen()) {
-            if (this.animName !== null) {
-                this.anims.play(this.animName);
-            }
+            this.anims.play(this.name);
+
         } else {
             this.anims.stopAfterRepeat();
         }
-    }
-
-    applyTexture(
-        tileset: Phaser.Tilemaps.Tileset,
-        name: string,
-        isFlipped: { x: boolean, y: boolean },
-        isAnimationYoyo: boolean
-    ) {
-        super.applyTexture(tileset, name, isFlipped, isAnimationYoyo);
-
-        this.anims.stop();
     }
 
     setHoveringOutline(): void

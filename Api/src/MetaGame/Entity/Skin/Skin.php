@@ -2,6 +2,7 @@
 
 namespace Mush\MetaGame\Entity\Skin;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\MetaGame\Entity\UnlockCondition;
 

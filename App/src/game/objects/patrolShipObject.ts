@@ -5,6 +5,7 @@ import { Equipment } from "@/entities/Equipment";
 import { InteractionInformation } from "@/game/objects/interactObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import EquipmentObject from "@/game/objects/equipmentObject";
+import mushTextureProperties from "@/game/tiled/mushTextureProperties";
 
 
 export default class PatrolShipObject extends EquipmentObject {
@@ -13,19 +14,17 @@ export default class PatrolShipObject extends EquipmentObject {
 
     constructor(
         scene: DaedalusScene,
+        name: string,
+        textureProperties: mushTextureProperties,
         cart_coords: CartesianCoordinates,
         iso_geom: IsometricGeom,
-        tileset: Phaser.Tilemaps.Tileset,
-        frame: number,
-        isFlipped: { x: boolean, y: boolean},
         equipment: Equipment,
         collides: boolean,
-        isAnimationYoyo: boolean,
         group: Phaser.GameObjects.Group | null = null,
         interactionInformation: InteractionInformation | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, frame, isFlipped, equipment, collides, isAnimationYoyo, group, interactionInformation);
+        super(scene, name, textureProperties, cart_coords, iso_geom, equipment, collides, group, interactionInformation);
 
         this.isShaking = false;
         this.initCoordinates = new CartesianCoordinates(this.x, this.y);

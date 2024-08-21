@@ -12,27 +12,38 @@ import ShelfObject from "@/game/objects/shelfObject";
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import InteractObject, { InteractionInformation } from "@/game/objects/interactObject";
 import PatrolShipObject from "@/game/objects/patrolShipObject";
-import DroneObject from "@/game/objects/droneObject";
+import mushTextureProperties from "@/game/tiled/mushTextureProperties";
 
 export default class MushTiledObject {
     public tiledObj: Phaser.Types.Tilemaps.TiledObject;
+    public tileset: Phaser.Tilemaps.Tileset;
 
-    constructor(tiledObj: Phaser.Types.Tilemaps.TiledObject) {
+    constructor(
+        tiledObj: Phaser.Types.Tilemaps.TiledObject,
+        tilesets: Phaser.Tilemaps.Tileset[]
+    ) {
+
+        if (tiledObj.gid === undefined){
+            throw new Error(obj.tiledObj.name + "gid is not defined");
+        }
+
         this.tiledObj = tiledObj;
+        this.tileset = this.getTileset(tilesets);
     }
 
     getEquipmentFromTiledObject(room: Room, createdObjectId: Array<number>): Door | Equipment | undefined
     {
+        const equipmentName = this.getCustomPropertyByName('gameEquipment');
+
         switch (this.tiledObj.type) {
         case 'door':
         case 'door_ground':
             return room.doors.find((door: Door) => {
-                return (door.key === this.tiledObj.name);
+                return (door.key === equipmentName);
             });
         case 'patrol_ship':
         case 'equipment':
-        case 'drone':
-            return room.equipments.find((equipment: Equipment) => (equipment.key === this.tiledObj.name &&
+            return room.equipments.find((equipment: Equipment) => (equipment.key === equipmentName &&
                 (!(createdObjectId.includes(equipment.id)) || this.isCustomPropertyByName('grouped')))
             );
         }
@@ -42,50 +53,66 @@ export default class MushTiledObject {
 
     createPhaserObject(
         scene: DaedalusScene,
-        tileset: Phaser.Tilemaps.Tileset,
-        shift: CartesianCoordinates,
         equipmentEntity: Door | Equipment | undefined,
         group: Phaser.GameObjects.Group | null = null
     ): DecorationObject
     {
         //object coordinates are stored in tiled in iso coords
         //to correctly place them in phaser we need the cartesian coordinates
-        const cart_coords = this.getObjectCartesianCoordinates(shift);
+        const cart_coords = this.getObjectCartesianCoordinates();
 
-        if (this.tiledObj.gid === undefined){
-            throw new Error(this.tiledObj.name + "gid is not defined");
-        }
-        const frame = this.tiledObj.gid - tileset.firstgid;
+        const textureProperties = new mushTextureProperties('');
+        textureProperties.setTexturesProperties(this.tiledObj, this.tileset);
+
+        const frame = this.tiledObj.name;
         const name = this.tiledObj.name;
 
-        const isAnimationYoyo = this.isCustomPropertyByName('animationYoyo');
         const collides = this.isCustomPropertyByName('collides');
-        const isFlipped = { x: this.isCustomPropertyByName('flipX'), y : this.isCustomPropertyByName('flipY') };
 
         const interactionInformation = this.getInteractionInformations();
 
         switch (this.tiledObj.type) {
         case 'decoration':
-            return new DecorationObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, name, isFlipped, collides, isAnimationYoyo);
+            return new DecorationObject(
+                scene,
+                name,
+                textureProperties,
+                cart_coords,
+                this.getIsometricGeom(),
+                collides
+            );
         case 'door':
             if (equipmentEntity instanceof Door) {
-                return new DoorObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, isFlipped, equipmentEntity, group);
-            } else {break;}
+                return new DoorObject(
+                    scene,
+                    name,
+                    textureProperties,
+                    cart_coords,
+                    this.getIsometricGeom(),
+                    equipmentEntity,
+                    group
+                );
+            } else {throw new Error("Couldn't find the corresponding door for this tiled object: " + this.tiledObj.name);}
         case 'door_ground':
             if (equipmentEntity instanceof Door) {
-                return new DoorGroundObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, isFlipped, equipmentEntity, group);
-            } else {break;}
+                return new DoorGroundObject(
+                    scene,
+                    name,
+                    textureProperties,
+                    cart_coords,
+                    this.getIsometricGeom(),
+                    equipmentEntity,
+                    group
+                );
+            } else {throw new Error("Couldn't find the corresponding door for this tiled object: " + this.tiledObj.name);}
         case 'interact':
             return new InteractObject(
                 scene,
+                name,
+                textureProperties,
                 cart_coords,
                 this.getIsometricGeom(),
-                tileset,
-                frame,
-                name,
-                isFlipped,
                 collides,
-                isAnimationYoyo,
                 group,
                 interactionInformation
             );
@@ -93,48 +120,36 @@ export default class MushTiledObject {
             if (equipmentEntity instanceof Equipment) {
                 return new EquipmentObject(
                     scene,
+                    name,
+                    textureProperties,
                     cart_coords,
                     this.getIsometricGeom(),
-                    tileset,
-                    frame,
-                    isFlipped,
                     equipmentEntity,
                     collides,
-                    isAnimationYoyo,
                     group,
                     interactionInformation
                 );
             } else {break;}
         case 'shelf':
-            return new ShelfObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, name, isFlipped, collides, isAnimationYoyo, group);
+            return new ShelfObject(
+                scene,
+                name,
+                textureProperties,
+                cart_coords,
+                this.getIsometricGeom(),
+                collides,
+                group
+            );
         case 'patrol_ship':
             if (equipmentEntity instanceof Equipment) {
                 return new PatrolShipObject(
                     scene,
+                    name,
+                    textureProperties,
                     cart_coords,
                     this.getIsometricGeom(),
-                    tileset,
-                    frame,
-                    isFlipped,
                     equipmentEntity,
                     collides,
-                    isAnimationYoyo,
-                    group,
-                    interactionInformation
-                );
-            } else {break;}
-        case 'drone':
-            if (equipmentEntity instanceof Equipment) {
-                return new DroneObject(
-                    scene,
-                    cart_coords,
-                    this.getIsometricGeom(),
-                    tileset,
-                    frame,
-                    isFlipped,
-                    equipmentEntity,
-                    collides,
-                    isAnimationYoyo,
                     group,
                     interactionInformation
                 );
@@ -155,7 +170,7 @@ export default class MushTiledObject {
 
     isCustomPropertyByName(property: string): boolean
     {
-        const existingKeys = ['grouped', 'collides', 'animationYoyo', 'isOnFront', 'flipX', 'flipY'];
+        const existingKeys = ['grouped', 'collides', 'isOnFront'];
         if (existingKeys.includes(property)) {
             for (let i = 0; i < this.tiledObj.properties.length; i++) {
                 if (this.tiledObj.properties[i].name === property) {
@@ -168,7 +183,7 @@ export default class MushTiledObject {
 
     getCustomPropertyByName(property: string): number
     {
-        const existingKeys = ['depth', 'isoSizeX', 'isoSizeY', 'isoShiftHitboxX', 'isoShiftHitboxY'];
+        const existingKeys = ['depth', 'isoSizeX', 'isoSizeY', 'isoShiftHitboxX', 'isoShiftHitboxY', 'gameEquipment'];
         if (existingKeys.includes(property)) {
             for (let i = 0; i < this.tiledObj.properties.length; i++) {
                 if (this.tiledObj.properties[i].name === property) {
@@ -234,7 +249,7 @@ export default class MushTiledObject {
 
     //tiled object coordinates in the isometric frame
     //This function computes cartesian coordinates for the object
-    getObjectCartesianCoordinates(shift: CartesianCoordinates): CartesianCoordinates
+    getObjectCartesianCoordinates(): CartesianCoordinates
     {
         if (this.tiledObj.x === undefined || this.tiledObj.y === undefined  || this.tiledObj.width === undefined || this.tiledObj.height === undefined){
             throw new Error('coordinates should be provided');
@@ -245,7 +260,7 @@ export default class MushTiledObject {
 
         //The tiled coordinates should be given relative to the bottom left of the object
         //hence this shift of half the size of the sprite
-        return new CartesianCoordinates(cartCoords.x + shift.x, cartCoords.y + shift.y);
+        return new CartesianCoordinates(cartCoords.x, cartCoords.y);
     }
 
 
@@ -282,8 +297,7 @@ export default class MushTiledObject {
         case 'door_ground':
         case 'equipment':
         case 'patrol_ship':
-        case 'drone':
-            return this.tiledObj.name;
+            return this.getCustomPropertyByName('gameEquipment');
         case 'shelf':
             return 'shelf';
         }
@@ -294,7 +308,7 @@ export default class MushTiledObject {
 
     // This function extract the tileset corresponding to a given gid
     // (is gid comprised between first gid of this tileset and the first gid of next tileset)
-    getTileset(tilesets: any): any
+    getTileset(tilesets: Phaser.Tilemaps.Tileset[]): Phaser.Tilemaps.Tileset
     {
         let chosenTileset = tilesets[0];
         const gid = this.tiledObj.gid;

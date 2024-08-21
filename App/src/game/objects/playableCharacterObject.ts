@@ -15,7 +15,12 @@ export default class PlayableCharacterObject extends CharacterObject {
     private moveObjective: CartesianCoordinates | null;
     private characterSpeed = 74; //TODO: Bring it down if alert = no_gravity?
 
-    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, player: Player)
+    constructor(
+        scene: DaedalusScene,
+        cart_coords: CartesianCoordinates,
+        isoGeom: IsometricGeom,
+        player: Player
+    )
     {
         super(scene, cart_coords, isoGeom, player);
 

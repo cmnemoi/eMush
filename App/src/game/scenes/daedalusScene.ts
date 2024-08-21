@@ -1,120 +1,18 @@
 import Phaser from 'phaser';
 import { Room } from "@/entities/Room";
 
-import background from '@/game/assets/tilemaps/background.png';
-import planet_0 from '@/game/assets/tilemaps/planet_0.png';
-import planet_1 from '@/game/assets/tilemaps/planet_1.png';
-import planet_2 from '@/game/assets/tilemaps/planet_2.png';
-import planet_3 from '@/game/assets/tilemaps/planet_3.png';
-import planet_4 from '@/game/assets/tilemaps/planet_4.png';
-import door_ground_tileset from "@/game/assets/tilemaps/door_ground_tileset.png";
-import ground_tileset from "@/game/assets/tilemaps/ground_tileset.png";
-import wall_tileset from "@/game/assets/tilemaps/wall_tileset.png";
-import beds_object from "@/game/assets/tilemaps/beds_object.png";
-import surgery_object from "@/game/assets/tilemaps/surgery_console_object.png";
-import chair_object from "@/game/assets/tilemaps/chair_object.png";
-import door_object from "@/game/assets/tilemaps/door_object.png";
-import neron_object from "@/game/assets/tilemaps/neron_terminal_object.png";
-import shelf_object from "@/game/assets/tilemaps/shelf_object.png";
-import tube_object from "@/game/assets/tilemaps/tube_object.png";
-import distiller_object from "@/game/assets/tilemaps/distiller_object.png";
-import camera_object from "@/game/assets/tilemaps/camera_object.png";
-import cryomodule_object from "@/game/assets/tilemaps/cryomodule_object.png";
-import gravity_object from "@/game/assets/tilemaps/gravity_object.png";
-import mycoscan_object from "@/game/assets/tilemaps/mycoscan_object.png";
-import laboratory_object from "@/game/assets/tilemaps/laboratory_object.png";
-import mural_shelf_object from "@/game/assets/tilemaps/mural_shelf.png";
-import centrifuge_object from "@/game/assets/tilemaps/centrifuge_object.png";
-import wall_box from "@/game/assets/tilemaps/wall_box.png";
-import paper_dispenser from "@/game/assets/tilemaps/paper_dispenser.png";
-import desk_object from "@/game/assets/tilemaps/desk_object.png";
-import shelf_front_storage1 from "@/game/assets/tilemaps/shelf_front_storage1.png";
-import shelf_front_storage2 from "@/game/assets/tilemaps/shelf_front_storage2.png";
-import shelf_front_storage3 from "@/game/assets/tilemaps/shelf_front_storage3.png";
-import shelf_front_storage4 from "@/game/assets/tilemaps/shelf_front_storage4.png";
-import papers from "@/game/assets/tilemaps/papers.png";
-import broom from "@/game/assets/tilemaps/broom.png";
-import transparent_wall_object from "@/game/assets/tilemaps/transparent_wall_object.png";
-import puddle from "@/game/assets/tilemaps/puddle.png";
-import shower from "@/game/assets/tilemaps/shower.png";
-import washRoom1 from "@/game/assets/tilemaps/washRoom1.png";
-import washRoom2 from "@/game/assets/tilemaps/washRoom2.png";
-import towelRack from "@/game/assets/tilemaps/towelRack.png";
-import slippers from "@/game/assets/tilemaps/slippers.png";
-import poster from "@/game/assets/tilemaps/poster.png";
-import garden_equipment from "@/game/assets/tilemaps/garden_equipment.png";
-import garden_console from "@/game/assets/tilemaps/garden_console.png";
-import garden_engine from "@/game/assets/tilemaps/garden_engine.png";
-import pneumatic_distributor from "@/game/assets/tilemaps/pneumatic_distributor.png";
-import kitchen_1 from "@/game/assets/tilemaps/kitchen_1.png";
-import kitchen_2 from "@/game/assets/tilemaps/kitchen_2.png";
-import pneumatic_distributor_2 from "@/game/assets/tilemaps/pneumatic_distributor_2.png";
-import coffee_machine from "@/game/assets/tilemaps/coffee_machine.png";
-import table from "@/game/assets/tilemaps/table.png";
-import oxygen_tank from "@/game/assets/tilemaps/oxygen_tank.png";
-import shelf_center_alpha_storage_1 from "@/game/assets/tilemaps/shelf_center_alpha_storage_1.png";
-import shelf_center_alpha_storage_2 from "@/game/assets/tilemaps/shelf_center_alpha_storage_2.png";
-import shelf_center_bravo_storage_1 from "@/game/assets/tilemaps/shelf_center_bravo_storage_1.png";
-import shelf_center_bravo_storage_2 from "@/game/assets/tilemaps/shelf_center_bravo_storage_2.png";
-import shelf_center_bravo_storage_3 from "@/game/assets/tilemaps/shelf_center_bravo_storage_3.png";
-import neron_core from "@/game/assets/tilemaps/neron_core.png";
-import nexus_lamp from "@/game/assets/tilemaps/nexus_lamp.png";
-import bios_terminal_calculator from "@/game/assets/tilemaps/bios_terminal_calculator.png";
-import fuel_tank from "@/game/assets/tilemaps/fuel_tank.png";
-import board from "@/game/assets/tilemaps/board.png";
-import shelf_rear_alpha_storage from "@/game/assets/tilemaps/shelf_rear_alpha_storage.png";
-import shelf_rear_bravo_storage from "@/game/assets/tilemaps/shelf_rear_bravo_storage.png";
-import workshop from "@/game/assets/tilemaps/workshop.png";
-import worktable from "@/game/assets/tilemaps/worktable.png";
-import garden_engine_anim from "@/game/assets/tilemaps/garden_engine_anim.png";
-import patrol_ship from "@/game/assets/tilemaps/patrol_ship.png";
-import small_takeoff_platform from "@/game/assets/tilemaps/small_takeoff_platform.png";
-import bay_door from "@/game/assets/tilemaps/bay_door.png";
-import yellow_lamp from "@/game/assets/tilemaps/yellow_lamp.png";
-import jukebox from "@/game/assets/tilemaps/jukebox.png";
-import floor_lamp from "@/game/assets/tilemaps/floor_lamp.png";
-import magnetic_net from "@/game/assets/tilemaps/magnetic_net.png";
-import pasiphae from "@/game/assets/tilemaps/pasiphae.png";
-import dynarcade from "@/game/assets/tilemaps/dynarcade.png";
-import bay from "@/game/assets/tilemaps/bay.png";
-import icarus_wall from "@/game/assets/tilemaps/icarus_wall.png";
-import icarus_access from "@/game/assets/tilemaps/icarus_access.png";
-import takeoff_platform from "@/game/assets/tilemaps/takeoff_platform.png";
-import turret_tags from "@/game/assets/tilemaps/turret_tags.png";
-import turret_back_bravo from "@/game/assets/tilemaps/turret_back_bravo.png";
-import turret_back_alpha from "@/game/assets/tilemaps/turret_back_alpha.png";
-import alpha_turret_front from "@/game/assets/tilemaps/alpha_turret_front.png";
-import bravo_turret_front from "@/game/assets/tilemaps/bravo_turret_front.png";
-import structure from "@/game/assets/tilemaps/structure.png";
-import magnetic_return from "@/game/assets/tilemaps/magnetic_return.png";
-import turret_ground from "@/game/assets/tilemaps/turret_ground.png";
-import aeration_grid from "@/game/assets/tilemaps/aeration_grid.png";
-import comms_center from "@/game/assets/tilemaps/comms_center.png";
-import astro_terminal from "@/game/assets/tilemaps/astro_terminal.png";
-import astro_terminal2 from "@/game/assets/tilemaps/astro_terminal2.png";
-import cockpit_window from "@/game/assets/tilemaps/cockpit_window.png";
-import command_board from "@/game/assets/tilemaps/command_board.png";
-import command_terminal from "@/game/assets/tilemaps/command_terminal.png";
-import comms_center2 from "@/game/assets/tilemaps/comms_center2.png";
-import floor_lamp_bridge from "@/game/assets/tilemaps/floor_lamp_bridge.png";
-import semi_circle_lamp from "@/game/assets/tilemaps/semi_circle_lamp.png";
-import semicircle_floor from "@/game/assets/tilemaps/semicircle_floor.png";
-import scanner from "@/game/assets/tilemaps/scanner.png";
-import antenna from "@/game/assets/tilemaps/antenna.png";
-import combustion_chamber from "@/game/assets/tilemaps/combustion_chamber.png";
-import engine_room1 from "@/game/assets/tilemaps/engine_room1.png";
-import engine_room2 from "@/game/assets/tilemaps/engine_room2.png";
-import paraboles from "@/game/assets/tilemaps/paraboles.png";
-import pilgred from "@/game/assets/tilemaps/pilgred.png";
-import planet_scanner from "@/game/assets/tilemaps/planet_scanner.png";
-import quantum_sensors from "@/game/assets/tilemaps/quantum_sensors.png";
-import reactor from "@/game/assets/tilemaps/reactor.png";
-import terminal_pilgred from "@/game/assets/tilemaps/terminal_pilgred.png";
-import sofa_asset from "@/game/assets/tilemaps/sofa_asset.png";
-import small_sofa from "@/game/assets/tilemaps/small_sofa.png";
+import background from '@/game/assets/tilesheets/background.png';
+import tileset from "@/game/assets/tilesheets/tileset.png";
 
-import character from "@/game/assets/images/characters.png";
-import characterFrame from "@/game/assets/images/characters.json";
+import characterSheet from "@/game/assets/tilesheets/characters.png";
+import characterAtlas from "@/game/assets/tilesheets/characters.json";
+import equipmentsAtlas from "@/game/assets/tilesheets/equipments.json";
+import baseTexturesSheet from "@/game/assets/tilesheets/baseTextures.png";
+import baseTexturesAtlas from "@/game/assets/tilesheets/baseTextures.json";
+import planetsSheet from "@/game/assets/tilesheets/planets.png";
+import planetsAtlas from "@/game/assets/tilesheets/planets.json";
+
+
 import CharacterObject from "@/game/objects/characterObject";
 import InteractObject from "@/game/objects/interactObject";
 
@@ -153,12 +51,6 @@ import patrol_ship_alpha_jujube from "@/game/assets/patrol_ship_alpha_jujube.jso
 import patrol_ship_alpha_longane from "@/game/assets/patrol_ship_alpha_longane.json";
 import patrol_ship_alpha_2_wallis from "@/game/assets/patrol_ship_alpha_2_wallis.json";
 import pasiphae_asset from "@/game/assets/pasiphae.json";
-
-import fire_particles_frame from "@/game/assets/images/fire_particles.json";
-import fire_particles from "@/game/assets/images/fire_particles.png";
-import smoke_particle from "@/game/assets/images/smoke_particle.png";
-import tile_highlight from "@/game/assets/images/tile_highlight.png";
-import hunter from "@/game/assets/images/hunter.png";
 
 import OutlinePostFx from 'phaser3-rex-plugins/plugins/outlinepipeline.js';
 
@@ -237,11 +129,13 @@ export default class DaedalusScene extends Phaser.Scene
 
     preload(): void
     {
-        this.load.tilemapTiledJSON('medlab', medlab);
-        this.load.tilemapTiledJSON('laboratory', laboratory);
-        this.load.tilemapTiledJSON('central_corridor', central_corridor);
-        this.load.tilemapTiledJSON('front_storage', front_storage);
-        this.load.tilemapTiledJSON('front_corridor', front_corridor);
+        this.load.setPath("/phaser/");
+
+        this.load.tilemapTiledJSON('medlab', 'tilemaps/mush_medlab.json');
+        this.load.tilemapTiledJSON('laboratory', 'tilemaps/mush_lab.json');
+        this.load.tilemapTiledJSON('central_corridor', 'tilemaps/center_corridor.json');
+        this.load.tilemapTiledJSON('front_storage', 'tilemaps/front_storage.json');
+        this.load.tilemapTiledJSON('front_corridor', 'tilemaps/front_corridor.json');
         this.load.tilemapTiledJSON('bravo_dorm', bravo_dorm);
         this.load.tilemapTiledJSON('alpha_dorm', alpha_dorm);
         this.load.tilemapTiledJSON('hydroponic_garden', hydroponic_garden);
@@ -256,7 +150,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.tilemapTiledJSON('alpha_bay', alpha_bay);
         this.load.tilemapTiledJSON('bravo_bay', bravo_bay);
         this.load.tilemapTiledJSON('icarus_bay', icarus_bay);
-        this.load.tilemapTiledJSON('front_bravo_turret', front_bravo_turret);
+        this.load.tilemapTiledJSON('front_bravo_turret', 'tilemaps/front_bravo_turret.json');
         this.load.tilemapTiledJSON('centre_bravo_turret', centre_bravo_turret);
         this.load.tilemapTiledJSON('rear_bravo_turret', rear_bravo_turret);
         this.load.tilemapTiledJSON('front_alpha_turret', front_alpha_turret);
@@ -273,129 +167,13 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.tilemapTiledJSON('patrol_ship_alpha_2_wallis', patrol_ship_alpha_2_wallis);
         this.load.tilemapTiledJSON('pasiphae', pasiphae_asset);
 
-        this.load.image('ground_tileset', ground_tileset);
-        this.load.image('wall_tileset', wall_tileset);
-        this.load.image('planet_0', planet_0);
-        this.load.image('planet_1', planet_1);
-        this.load.image('planet_2', planet_2);
-        this.load.image('planet_3', planet_3);
-        this.load.image('planet_4', planet_4);
-        this.load.image('background', background);
+        this.load.image('tileset', 'floor_wall_tileset.png');
+        this.load.image('background', 'background.png');
+        this.load.atlas('characters', 'characters.png', 'characters.json');
+        this.load.atlas('base_textures', 'baseTextures.png', 'baseTextures.json');
+        this.load.atlas('planets', 'planets.png', 'planets.json');
 
-        this.load.atlas('character', character, characterFrame);
-
-        this.load.spritesheet('centrifuge_object', centrifuge_object, { frameWidth: 30, frameHeight: 34 });
-        this.load.spritesheet('desk_object', desk_object, { frameWidth: 45, frameHeight: 37 });
-        this.load.spritesheet('paper_dispenser', paper_dispenser, { frameWidth: 9, frameHeight: 15 });
-        this.load.spritesheet('laboratory_object', laboratory_object, { frameWidth: 79, frameHeight: 57 });
-        this.load.spritesheet('mural_shelf', mural_shelf_object, { frameWidth: 46, frameHeight: 28 });
-        this.load.spritesheet('mycoscan_object', mycoscan_object, { frameWidth: 81, frameHeight: 57 });
-
-        this.load.spritesheet('gravity_object', gravity_object, { frameWidth: 28, frameHeight: 46 });
-        this.load.spritesheet('wall_box', wall_box, { frameWidth: 14, frameHeight: 15 });
-        this.load.spritesheet('cryomodule_object', cryomodule_object, { frameWidth: 128, frameHeight: 104 });
-        this.load.spritesheet('distiller_object', distiller_object, { frameWidth: 45, frameHeight: 58 });
-        this.load.spritesheet('camera_object', camera_object, { frameWidth: 25, frameHeight: 17 });
-        this.load.spritesheet('tube_object', tube_object, { frameWidth: 42, frameHeight: 61 });
-        this.load.spritesheet('surgery_console_object', surgery_object, { frameWidth: 41, frameHeight: 52 });
-        this.load.spritesheet('beds_object', beds_object, { frameWidth: 66, frameHeight: 58 });
-        this.load.spritesheet('door_ground_tileset', door_ground_tileset, { frameWidth: 64, frameHeight: 36 });
-        this.load.spritesheet('chair_object', chair_object, { frameWidth: 34, frameHeight: 36 });
-        this.load.spritesheet('door_object', door_object, { frameWidth: 48, frameHeight: 73 });
-        this.load.spritesheet('neron_terminal_object', neron_object, { frameWidth: 41, frameHeight: 64 });
-        this.load.spritesheet('shelf_object', shelf_object, { frameWidth: 33, frameHeight: 40 });
-        this.load.spritesheet('papers', papers, { frameWidth: 16, frameHeight: 12 });
-        this.load.spritesheet('broom', broom, { frameWidth: 17, frameHeight: 29 });
-        this.load.spritesheet('shelf_front_storage1', shelf_front_storage1, { frameWidth: 123, frameHeight: 101 });
-        this.load.spritesheet('shelf_front_storage2', shelf_front_storage2, { frameWidth: 111, frameHeight: 91 });
-        this.load.spritesheet('shelf_front_storage3', shelf_front_storage3, { frameWidth: 109, frameHeight: 74 });
-        this.load.spritesheet('shelf_front_storage4', shelf_front_storage4, { frameWidth: 109, frameHeight: 79 });
-        this.load.spritesheet('transparent_wall_object', transparent_wall_object, { frameWidth: 54, frameHeight: 69 });
-        this.load.spritesheet('puddle', puddle, { frameWidth: 12, frameHeight: 8 });
-        this.load.spritesheet('shower', shower, { frameWidth: 32, frameHeight: 60 });
-        this.load.spritesheet('washRoom1', washRoom1, { frameWidth: 88, frameHeight: 90 });
-        this.load.spritesheet('washRoom2', washRoom2, { frameWidth: 95, frameHeight: 92 });
-        this.load.spritesheet('towelRack', towelRack, { frameWidth: 16, frameHeight: 26 });
-        this.load.spritesheet('slippers', slippers, { frameWidth: 13, frameHeight: 9 });
-        this.load.spritesheet('poster', poster, { frameWidth: 18, frameHeight: 31 });
-        this.load.spritesheet('garden_equipment', garden_equipment, { frameWidth: 219, frameHeight: 156 });
-        this.load.spritesheet('garden_console', garden_console, { frameWidth: 45, frameHeight: 42 });
-        this.load.spritesheet('garden_engine', garden_engine, { frameWidth: 140, frameHeight: 112 });
-        this.load.spritesheet('pneumatic_distributor', pneumatic_distributor, { frameWidth: 35, frameHeight: 42 });
-        this.load.spritesheet('pneumatic_distributor_2', pneumatic_distributor_2, { frameWidth: 31, frameHeight: 41 });
-        this.load.spritesheet('kitchen_1', kitchen_1, { frameWidth: 159, frameHeight: 111 });
-        this.load.spritesheet('kitchen_2', kitchen_2, { frameWidth: 46, frameHeight: 62 });
-        this.load.spritesheet('table', table, { frameWidth: 125, frameHeight: 81 });
-        this.load.spritesheet('coffee_machine', coffee_machine, { frameWidth: 31, frameHeight: 52 });
-        this.load.spritesheet('oxygen_tank', oxygen_tank, { frameWidth: 45, frameHeight: 45 });
-        this.load.spritesheet('shelf_center_alpha_storage_1', shelf_center_alpha_storage_1, { frameWidth: 105, frameHeight: 80 });
-        this.load.spritesheet('shelf_center_alpha_storage_2', shelf_center_alpha_storage_2, { frameWidth: 77, frameHeight: 72 });
-        this.load.spritesheet('shelf_center_bravo_storage_1', shelf_center_bravo_storage_1, { frameWidth: 106, frameHeight: 93 });
-        this.load.spritesheet('shelf_center_bravo_storage_2', shelf_center_bravo_storage_2, { frameWidth: 65, frameHeight: 50 });
-        this.load.spritesheet('shelf_center_bravo_storage_3', shelf_center_bravo_storage_3, { frameWidth: 64, frameHeight: 64 });
-        this.load.spritesheet('nexus_lamp', nexus_lamp, { frameWidth: 107, frameHeight: 59 });
-        this.load.spritesheet('bios_terminal_calculator', bios_terminal_calculator, { frameWidth: 32, frameHeight: 60 });
-        this.load.spritesheet('neron_core', neron_core, { frameWidth: 87, frameHeight: 90 });
-        this.load.spritesheet('fuel_tank', fuel_tank, { frameWidth: 46, frameHeight: 45 });
-        this.load.spritesheet('shelf_rear_alpha_storage', shelf_rear_alpha_storage, { frameWidth: 50, frameHeight: 48 });
-        this.load.spritesheet('shelf_rear_bravo_storage', shelf_rear_bravo_storage, { frameWidth: 192, frameHeight: 134 });
-        this.load.spritesheet('workshop', workshop, { frameWidth: 87, frameHeight: 81 });
-        this.load.spritesheet('worktable', worktable, { frameWidth: 45, frameHeight: 54 });
-        this.load.spritesheet('board', board, { frameWidth: 34, frameHeight: 56 });
-        this.load.spritesheet('garden_engine_anim', garden_engine_anim, { frameWidth: 56, frameHeight: 27 });
-        this.load.spritesheet('patrol_ship', patrol_ship, { frameWidth: 103, frameHeight: 78 });
-        this.load.spritesheet('small_takeoff_platform', small_takeoff_platform, { frameWidth: 194, frameHeight: 106 });
-        this.load.spritesheet('bay_door', bay_door, { frameWidth: 334, frameHeight: 230 });
-        this.load.spritesheet('yellow_lamp', yellow_lamp, { frameWidth: 54, frameHeight: 69 });
-        this.load.spritesheet('jukebox', jukebox, { frameWidth: 20, frameHeight: 31 });
-        this.load.spritesheet('floor_lamp', floor_lamp, { frameWidth: 32, frameHeight: 24 });
-        this.load.spritesheet('magnetic_net', magnetic_net, { frameWidth: 48, frameHeight: 33 });
-        this.load.spritesheet('pasiphae', pasiphae, { frameWidth: 106, frameHeight: 93 });
-        this.load.spritesheet('dynarcade', dynarcade, { frameWidth: 77, frameHeight: 82 });
-        this.load.spritesheet('bay', bay, { frameWidth: 27, frameHeight: 27 });
-        this.load.spritesheet('icarus_wall', icarus_wall, { frameWidth: 83, frameHeight: 55 });
-        this.load.spritesheet('icarus_access', icarus_access, { frameWidth: 171, frameHeight: 140 });
-        this.load.spritesheet('takeoff_platform', takeoff_platform, { frameWidth: 328, frameHeight: 206 });
-        this.load.spritesheet('magnetic_return', magnetic_return, { frameWidth: 51, frameHeight: 35 });
-        this.load.spritesheet('turret_tags', turret_tags, { frameWidth: 18, frameHeight: 10 });
-        this.load.spritesheet('turret_back_bravo', turret_back_bravo, { frameWidth: 69, frameHeight: 26 });
-        this.load.spritesheet('turret_back_alpha', turret_back_alpha, { frameWidth: 71, frameHeight: 46 });
-        this.load.spritesheet('turret_ground', turret_ground, { frameWidth: 32, frameHeight: 11 });
-        this.load.spritesheet('alpha_turret_front', alpha_turret_front, { frameWidth: 123, frameHeight: 61 });
-        this.load.spritesheet('bravo_turret_front', bravo_turret_front, { frameWidth: 122, frameHeight: 48 });
-        this.load.spritesheet('structure', structure, { frameWidth: 175, frameHeight: 106 });
-
-        this.load.spritesheet('aeration_grid', aeration_grid, { frameWidth: 54, frameHeight: 29 });
-        this.load.spritesheet('astro_terminal', astro_terminal, { frameWidth: 77, frameHeight: 72 });
-        this.load.spritesheet('astro_terminal2', astro_terminal2, { frameWidth: 52, frameHeight: 46 });
-        this.load.spritesheet('cockpit_window', cockpit_window, { frameWidth: 205, frameHeight: 166 });
-        this.load.spritesheet('command_board', command_board, { frameWidth: 120, frameHeight: 106 });
-        this.load.spritesheet('command_terminal', command_terminal, { frameWidth: 94, frameHeight: 52 });
-        this.load.spritesheet('comms_center', comms_center, { frameWidth: 64, frameHeight: 48 });
-        this.load.spritesheet('comms_center2', comms_center2, { frameWidth: 86, frameHeight: 61 });
-        this.load.spritesheet('floor_lamp_bridge', floor_lamp_bridge, { frameWidth: 96, frameHeight: 79 });
-        this.load.spritesheet('scanner', scanner, { frameWidth: 60, frameHeight: 71 });
-        this.load.spritesheet('semi_circle_lamp', semi_circle_lamp, { frameWidth: 104, frameHeight: 51 });
-        this.load.spritesheet('semicircle_floor', semicircle_floor, { frameWidth: 72, frameHeight: 37 });
-        this.load.spritesheet('antenna', antenna, { frameWidth: 51, frameHeight: 68 });
-        this.load.spritesheet('combustion_chamber', combustion_chamber, { frameWidth: 73, frameHeight: 63 });
-        this.load.spritesheet('engine_room1', engine_room1, { frameWidth: 240, frameHeight: 186 });
-        this.load.spritesheet('engine_room2', engine_room2, { frameWidth: 350, frameHeight: 188 });
-        this.load.spritesheet('paraboles', paraboles, { frameWidth: 135, frameHeight: 133 });
-        this.load.spritesheet('pilgred', pilgred, { frameWidth: 128, frameHeight: 116 });
-        this.load.spritesheet('planet_scanner', planet_scanner, { frameWidth: 67, frameHeight: 60 });
-        this.load.spritesheet('quantum_sensors', quantum_sensors, { frameWidth: 31, frameHeight: 43 });
-        this.load.spritesheet('reactor', reactor, { frameWidth: 199, frameHeight: 181 });
-        this.load.spritesheet('terminal_pilgred', terminal_pilgred, { frameWidth: 83, frameHeight: 69 });
-        this.load.spritesheet('sofa_asset', sofa_asset, { frameWidth: 62, frameHeight: 47 });
-        this.load.spritesheet('small_sofa', small_sofa, { frameWidth: 42, frameHeight: 37 });
-
-        this.load.spritesheet('ground_object', ground_tileset, { frameWidth: 32, frameHeight: 72 });
-
-        this.load.image('smoke_particle', smoke_particle);
-        this.load.atlas('fire_particles', fire_particles, fire_particles_frame);
-        this.load.image('tile_highlight', tile_highlight);
-        this.load.image('hunter', hunter);
+        this.load.multiatlas('equipments', 'equipments.json');
     }
 
     create(): void
@@ -656,7 +434,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         // add target tile highlight
         if (this.room.type === 'room') {
-            this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
+            this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'base_textures','tile_highlight');
             this.add.existing(this.targetHighlightObject);
             this.targetHighlightObject.setDepth(500);
         } else {
@@ -790,7 +568,8 @@ export default class DaedalusScene extends Phaser.Scene
             return grpX.pop();
         };
 
-        const hunterEmitter = this.add.particles(0,0, 'hunter', {
+        const hunterEmitter = this.add.particles(0,0, 'base_textures', {
+            frame: 'hunter',
             x: getNextX,
             y: getNextY,
             lifespan: 2000,
@@ -978,8 +757,8 @@ export default class DaedalusScene extends Phaser.Scene
     {
         const tile = new IsometricGeom(isoCoords, new IsometricCoordinates(16, 16));
 
-        const yellowFlames = this.add.particles(0,0, 'fire_particles', {
-            frame: ['flame1', 'flame2'],
+        const yellowFlames = this.add.particles(0,0, 'base_textures', {
+            frame: ['flame-0', 'flame-1'],
             x: 0, y: 0,
             lifespan: 200,
             speed: { min: 30, max: 50 },
@@ -996,8 +775,8 @@ export default class DaedalusScene extends Phaser.Scene
 
 
         if (intensity > 1) {
-            const redFlames = this.add.particles(0,0, 'fire_particles', {
-                frame: ['flame2','flame3'],
+            const redFlames = this.add.particles(0,0, 'base_textures', {
+                frame: ['flame-1','flame-3'],
                 x: 0, y: 0,
                 lifespan: 600,
                 speed: { min: 40, max: 60 },
@@ -1013,8 +792,8 @@ export default class DaedalusScene extends Phaser.Scene
             this.fireParticles.push(redFlames);
         }
 
-        const smoke = this.add.particles(0,0, 'fire_particles', {
-            frame: ['flame4','flame5','flame6'],
+        const smoke = this.add.particles(0,0, 'base_textures', {
+            frame: ['flame-3','flame-4','flame-5'],
             x: 0, y: -8,
             lifespan: 800,
             speed: { min: 20, max: 40 },

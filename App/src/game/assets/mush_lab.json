@@ -4,17 +4,17 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 34, 32, 32, 32, 32, 32, 32, 32, 0, 0, 0, 0, 0,
-            0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 298, 296, 296, 296, 296, 296, 296, 296, 0, 0, 0, 0, 0,
+            0, 297, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 297, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 297, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 297, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 297, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 297, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 297, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 297, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 297, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 297, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
@@ -39,10 +39,10 @@
          "name":"doors",
          "objects":[
                 {
-                 "gid":242,
+                 "gid":198,
                  "height":36,
                  "id":4,
-                 "name":"front_corridor_laboratory",
+                 "name":"door_ground-north",
                  "properties":[
                         {
                          "name":"collides",
@@ -53,6 +53,11 @@
                          "name":"depth",
                          "type":"int",
                          "value":2
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"front_corridor_laboratory"
                         }, 
                         {
                          "name":"grouped",
@@ -77,10 +82,10 @@
                  "y":18
                 }, 
                 {
-                 "gid":117,
+                 "gid":73,
                  "height":73,
                  "id":5,
-                 "name":"front_corridor_laboratory",
+                 "name":"door-north",
                  "properties":[
                         {
                          "name":"collides",
@@ -91,6 +96,11 @@
                          "name":"depth",
                          "type":"int",
                          "value":3
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"front_corridor_laboratory"
                         }, 
                         {
                          "name":"grouped",
@@ -122,7 +132,7 @@
         }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 296, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -154,16 +164,16 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 0, 0,
-            0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 0, 0,
-            0, 0, 1, 1, 1, 1, 1, 1, 1, 6, 2, 2, 0, 0,
-            0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-            0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-            0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-            0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-            0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-            0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-            0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
+            0, 0, 309, 309, 309, 309, 309, 309, 309, 310, 310, 309, 0, 0,
+            0, 0, 309, 309, 309, 309, 309, 309, 309, 310, 310, 310, 0, 0,
+            0, 0, 309, 309, 309, 309, 309, 309, 309, 314, 310, 310, 0, 0,
+            0, 0, 309, 309, 309, 309, 309, 309, 309, 309, 309, 309, 0, 0,
+            0, 0, 309, 309, 309, 309, 309, 309, 309, 309, 309, 309, 0, 0,
+            0, 0, 309, 309, 309, 309, 309, 309, 309, 309, 309, 309, 0, 0,
+            0, 0, 309, 309, 309, 309, 309, 309, 309, 309, 309, 309, 0, 0,
+            0, 0, 309, 309, 309, 309, 309, 309, 309, 309, 309, 309, 0, 0,
+            0, 0, 309, 309, 309, 309, 309, 309, 309, 309, 309, 309, 0, 0,
+            0, 0, 309, 309, 309, 309, 309, 309, 309, 309, 309, 309, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
@@ -193,7 +203,7 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":261,
+                 "gid":217,
                  "height":104,
                  "id":7,
                  "name":"cryo_module",
@@ -202,6 +212,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"cryo_module"
                         }, 
                         {
                          "name":"isoShiftHitboxY",
@@ -226,10 +241,10 @@
                  "y":39
                 }, 
                 {
-                 "gid":290,
+                 "gid":246,
                  "height":34,
                  "id":13,
-                 "name":"centrifuge_2",
+                 "name":"centrifuge",
                  "properties":[
                         {
                          "name":"collides",
@@ -254,10 +269,10 @@
                  "y":88.5
                 }, 
                 {
-                 "gid":290,
+                 "gid":246,
                  "height":34,
                  "id":14,
-                 "name":"centrifuge_1",
+                 "name":"centrifuge",
                  "properties":[
                         {
                          "name":"collides",
@@ -282,10 +297,10 @@
                  "y":104.5
                 }, 
                 {
-                 "gid":247,
+                 "gid":203,
                  "height":36,
                  "id":3,
-                 "name":"medlab_laboratory",
+                 "name":"door_ground-east",
                  "properties":[
                         {
                          "name":"collides",
@@ -296,6 +311,11 @@
                          "name":"depth",
                          "type":"int",
                          "value":10
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"medlab_laboratory"
                         }, 
                         {
                          "name":"isoSizeX",
@@ -315,10 +335,10 @@
                  "y":60
                 }, 
                 {
-                 "gid":258,
+                 "gid":214,
                  "height":40,
                  "id":6,
-                 "name":"shelf",
+                 "name":"shelf-model_2",
                  "properties":[
                         {
                          "name":"collides",
@@ -343,7 +363,7 @@
                  "y":167.75
                 }, 
                 {
-                 "gid":309,
+                 "gid":265,
                  "height":46,
                  "id":8,
                  "name":"gravity_simulator",
@@ -352,6 +372,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"gravity_simulator"
                         }, 
                         {
                          "name":"isoSizeX",
@@ -371,7 +396,7 @@
                  "y":19
                 }, 
                 {
-                 "gid":262,
+                 "gid":218,
                  "height":57,
                  "id":9,
                  "name":"mycoscan",
@@ -380,6 +405,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"mycoscan"
                         }, 
                         {
                          "name":"isoSizeX",
@@ -399,15 +429,20 @@
                  "y":136.75
                 }, 
                 {
-                 "gid":274,
+                 "gid":230,
                  "height":57,
                  "id":10,
-                 "name":"research_laboratory",
+                 "name":"laboratory",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"research_laboratory"
                         }, 
                         {
                          "name":"grouped",
@@ -432,10 +467,10 @@
                  "y":145.75
                 }, 
                 {
-                 "gid":275,
+                 "gid":231,
                  "height":17,
                  "id":11,
-                 "name":"camera_equipment",
+                 "name":"camera",
                  "properties":[
                         {
                          "name":"animationYoyo",
@@ -451,6 +486,11 @@
                          "name":"depth",
                          "type":"int",
                          "value":6
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"camera_equipment"
                         }, 
                         {
                          "name":"isoSizeX",
@@ -470,7 +510,7 @@
                  "y":-8.25
                 }, 
                 {
-                 "gid":289,
+                 "gid":245,
                  "height":28,
                  "id":12,
                  "name":"mural_shelf",
@@ -503,15 +543,20 @@
                  "y":119
                 }, 
                 {
-                 "gid":297,
+                 "gid":253,
                  "height":36,
                  "id":15,
-                 "name":"research_laboratory",
+                 "name":"chair_office-back_left",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"research_laboratory"
                         }, 
                         {
                          "name":"grouped",
@@ -566,10 +611,10 @@
                  "y":118
                 }, 
                 {
-                 "gid":305,
+                 "gid":261,
                  "height":15,
                  "id":17,
-                 "name":"wall_box",
+                 "name":"wall_box-north",
                  "properties":[
                         {
                          "name":"collides",
@@ -599,15 +644,20 @@
                  "y":-7.5
                 }, 
                 {
-                 "gid":1714,
+                 "gid":278,
                  "height":47,
                  "id":18,
-                 "name":"swedish_sofa",
+                 "name":"sofa_part_1",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"swedish_sofa"
                         }, 
                         {
                          "name":"grouped",
@@ -667,15 +717,20 @@
                  "y":88.5
                 }, 
                 {
-                 "gid":1719,
+                 "gid":283,
                  "height":47,
                  "id":19,
-                 "name":"swedish_sofa",
+                 "name":"sofa_part_2",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"swedish_sofa"
                         }, 
                         {
                          "name":"grouped",
@@ -711,7 +766,7 @@
                 },
             
                 {
-                 "gid":2147485378,
+                 "gid":2147483942,
                  "height":31,
                  "id":20,
                  "name":"jukebox",
@@ -725,6 +780,11 @@
                          "name":"flipX",
                          "type":"int",
                          "value":5
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"jukebox"
                         }, 
                         {
                          "name":"isoSizeX",
@@ -753,52 +813,12 @@
  "nextobjectid":21,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.11.0",
  "tileheight":16,
  "tilesets":[
         {
-         "columns":30,
-         "firstgid":1,
-         "grid":
-            {
-             "height":72,
-             "orientation":"isometric",
-             "width":32
-            },
-         "image":"tilemaps\/ground_tileset.png",
-         "imageheight":72,
-         "imagewidth":960,
-         "margin":0,
-         "name":"ground_tileset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":30,
-         "tileheight":72,
-         "tilewidth":32
-        }, 
-        {
-         "columns":14,
-         "firstgid":31,
-         "grid":
-            {
-             "height":72,
-             "orientation":"isometric",
-             "width":32
-            },
-         "image":"tilemaps\/wall_tileset.png",
-         "imageheight":72,
-         "imagewidth":448,
-         "margin":0,
-         "name":"wall_tileset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":14,
-         "tileheight":72,
-         "tilewidth":32
-        }, 
-        {
          "columns":24,
-         "firstgid":45,
+         "firstgid":1,
          "grid":
             {
              "height":73,
@@ -1627,7 +1647,7 @@
         }, 
         {
          "columns":5,
-         "firstgid":237,
+         "firstgid":193,
          "grid":
             {
              "height":36,
@@ -1744,7 +1764,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":257,
+         "firstgid":213,
          "image":"tilemaps\/shelf_object.png",
          "imageheight":40,
          "imagewidth":132,
@@ -1758,7 +1778,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":261,
+         "firstgid":217,
          "image":"tilemaps\/cryomodule_object.png",
          "imageheight":104,
          "imagewidth":128,
@@ -1772,7 +1792,7 @@
         }, 
         {
          "columns":12,
-         "firstgid":262,
+         "firstgid":218,
          "image":"tilemaps\/mycoscan_object.png",
          "imageheight":57,
          "imagewidth":972,
@@ -1839,7 +1859,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":274,
+         "firstgid":230,
          "image":"tilemaps\/laboratory_object.png",
          "imageheight":57,
          "imagewidth":79,
@@ -1853,7 +1873,7 @@
         }, 
         {
          "columns":14,
-         "firstgid":275,
+         "firstgid":231,
          "image":"tilemaps\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
@@ -1981,7 +2001,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":289,
+         "firstgid":245,
          "image":"tilemaps\/mural_shelf.png",
          "imageheight":28,
          "imagewidth":46,
@@ -1995,7 +2015,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":290,
+         "firstgid":246,
          "image":"tilemaps\/centrifuge_object.png",
          "imageheight":34,
          "imagewidth":30,
@@ -2009,7 +2029,7 @@
         }, 
         {
          "columns":7,
-         "firstgid":291,
+         "firstgid":247,
          "grid":
             {
              "height":36,
@@ -2029,7 +2049,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":305,
+         "firstgid":261,
          "image":"tilemaps\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
@@ -2043,7 +2063,7 @@
         }, 
         {
          "columns":9,
-         "firstgid":309,
+         "firstgid":265,
          "image":"tilemaps\/gravity_object.png",
          "imageheight":46,
          "imagewidth":279,
@@ -2095,24 +2115,10 @@
                  "id":0
                 }],
          "tilewidth":28
-        },
-    
-        {
-         "columns":29,
-         "firstgid":318,
-         "image":"images\/characters.png",
-         "imageheight":2315,
-         "imagewidth":953,
-         "margin":0,
-         "name":"characters",
-         "spacing":0,
-         "tilecount":1392,
-         "tileheight":48,
-         "tilewidth":32
         }, 
         {
          "columns":5,
-         "firstgid":1710,
+         "firstgid":274,
          "image":"tilemaps\/sofa_asset.png",
          "imageheight":188,
          "imagewidth":310,
@@ -2126,7 +2132,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":1730,
+         "firstgid":294,
          "image":"tilemaps\/jukebox.png",
          "imageheight":31,
          "imagewidth":20,
@@ -2137,6 +2143,27 @@
          "tilecount":1,
          "tileheight":31,
          "tilewidth":20
+        },
+    
+        {
+         "columns":15,
+         "firstgid":295,
+         "grid":
+            {
+             "height":72,
+             "orientation":"isometric",
+             "width":32
+            },
+         "image":"tilesheets\/tileset.png",
+         "imageheight":216,
+         "imagewidth":480,
+         "margin":0,
+         "name":"tileset",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":45,
+         "tileheight":72,
+         "tilewidth":32
         }],
  "tilewidth":32,
  "type":"map",

@@ -5,6 +5,7 @@ import { Equipment } from "@/entities/Equipment";
 import store from "@/store";
 import InteractObject, { InteractionInformation } from "@/game/objects/interactObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
+import mushTextureProperties from "@/game/tiled/mushTextureProperties";
 
 
 export default class EquipmentObject extends InteractObject {
@@ -13,19 +14,17 @@ export default class EquipmentObject extends InteractObject {
 
     constructor(
         scene: DaedalusScene,
+        name: string,
+        textureProperties: mushTextureProperties,
         cart_coords: CartesianCoordinates,
         iso_geom: IsometricGeom,
-        tileset: Phaser.Tilemaps.Tileset,
-        frame: number,
-        isFlipped: { x: boolean, y: boolean},
         equipment: Equipment,
         collides: boolean,
-        isAnimationYoyo: boolean,
         group: Phaser.GameObjects.Group | null = null,
         interactionInformation: InteractionInformation | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, isFlipped, collides, isAnimationYoyo, group, interactionInformation);
+        super(scene, name, textureProperties, cart_coords, iso_geom, collides, group, interactionInformation);
 
         this.equipment = equipment;
 
@@ -53,7 +52,8 @@ export default class EquipmentObject extends InteractObject {
     handleBroken(): void
     {
         if (this.equipment.isBroken && this.particles === null) {
-            this.particles = this.scene.add.particles(0,0, 'smoke_particle', {
+            this.particles = this.scene.add.particles(0,0, 'base_textures', {
+                frame: 'smoke_particle',
                 lifespan: { min: 1000, max: 1200 },
                 speed: { min: 10, max: 30 },
                 angle: { min: 260, max: 280 },

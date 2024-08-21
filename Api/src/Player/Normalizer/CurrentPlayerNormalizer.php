@@ -166,7 +166,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
             'skillPoints' => $this->getNormalizedSkillPoints($player, $language),
             'language' => $language,
-            'specialistPoints' => $this->getSpecialistPointsForPlayer($player, $language),
             'skins' => $this->normalizeSkins($player),
         ]);
         if ($player->hasNotification()) {

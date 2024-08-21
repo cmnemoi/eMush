@@ -4,25 +4,23 @@ import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import DecorationObject from "@/game/objects/decorationObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
+import mushTextureProperties from "@/game/tiled/mushTextureProperties";
 
 export default class InteractObject extends DecorationObject {
     protected interactionInformation: InteractionInformation | null;
 
     constructor(
         scene: DaedalusScene,
+        name: string,
+        textureProperties: mushTextureProperties,
         cart_coords: CartesianCoordinates,
         iso_geom: IsometricGeom,
-        tileset: Phaser.Tilemaps.Tileset,
-        frame: number,
-        name: string,
-        isFlipped: { x: boolean, y: boolean},
         collides: boolean,
-        isAnimationYoyo: boolean,
         group: Phaser.GameObjects.Group | null = null,
         interactionInformation: InteractionInformation | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, frame, name, isFlipped, collides, isAnimationYoyo, group);
+        super(scene, name, textureProperties, cart_coords, iso_geom, collides, group);
 
         this.createInteractionArea();
 

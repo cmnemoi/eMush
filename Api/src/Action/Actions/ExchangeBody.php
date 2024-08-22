@@ -110,7 +110,7 @@ final class ExchangeBody extends AbstractAction
     private function transferMushSkills(): void
     {
         $this->player
-            ->getSkills()
+            ->getMushSkills()
             ->map(fn (Skill $skill) => $this->addSkillToPlayer->execute($skill->getName(), $this->target()));
     }
 

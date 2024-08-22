@@ -496,6 +496,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getSelectableHumanSkills(): SkillConfigCollection
     {
+        if ($this->hasFilledTheirHumanSkillSlots()) {
+            return new SkillConfigCollection();
+        }
+
         $selectableSkills = $this->getHumanSkillConfigs()->getAllExceptThoseLearnedByPlayer($this);
 
         return $this->hasStatus(PlayerStatusEnum::HAS_LEARNED_SKILL) ? $selectableSkills->getAllExcept(SkillEnum::APPRENTICE) : $selectableSkills;
@@ -503,6 +507,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getSelectableMushSkills(): SkillConfigCollection
     {
+        if ($this->hasFilledTheirMushSkillSlots()) {
+            return new SkillConfigCollection();
+        }
+
         return $this->isMush() ? $this->daedalus->getMushSkillConfigs()->getAllExceptThoseLearnedByPlayer($this) : new SkillConfigCollection();
     }
 

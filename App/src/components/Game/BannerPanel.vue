@@ -3,7 +3,7 @@
     <LearnSkillMenu :player="player" />
     <div class="game-banner" v-if="player">
         <div class="character-banner">
-            <a class="in-game-level">{{ displayMushSkills ? player.character.mushLevel : player.character.humanLevel }}</a>
+            <a class="in-game-level">{{ playerLevel }}</a>
             <div class="in-game-level-progress">
                 <div />
             </div>
@@ -144,7 +144,10 @@ export default defineComponent({
         daedalus: Daedalus
     },
     computed: {
-        ...mapGetters('player', ['displayMushSkills'])
+        ...mapGetters('player', ['displayMushSkills']),
+        playerLevel(): number | undefined {
+            return this.displayMushSkills ? this.player?.character.mushLevel : this.player?.character.humanLevel;
+        }
     },
     methods: {
         getImgUrl,

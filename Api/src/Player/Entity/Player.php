@@ -1023,6 +1023,16 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->isMush() && $this->doesNotHaveSkill(SkillEnum::SPLASHPROOF);
     }
 
+    public function hasFilledTheirHumanSkillSlots(): bool
+    {
+        return $this->getHumanSkills()->count() === $this->daedalus->getDaedalusConfig()->getHumanSkillSlots();
+    }
+
+    public function hasFilledTheirMushSkillSlots(): bool
+    {
+        return $this->getMushSkills()->count() === $this->daedalus->getDaedalusConfig()->getMushSkillSlots();
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {

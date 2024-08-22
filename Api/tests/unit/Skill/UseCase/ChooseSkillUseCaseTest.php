@@ -94,9 +94,37 @@ final class ChooseSkillUseCaseTest extends TestCase
         $this->thenPlayerShouldHaveSkillPoints(SkillPointsEnum::SHOOTER_POINTS);
     }
 
+    public function testShouldThrowIfPlayerDoesNotHaveEmptyHumanSkillSlot(): void
+    {
+        $this->givenHumanSkillSlotsNumberIs(1);
+
+        $this->givenPlayerHasSkill(SkillEnum::PILOT);
+
+        $this->expectException(GameException::class);
+
+        $this->whenIChooseSkill(SkillEnum::TECHNICIAN);
+    }
+
+    public function testShouldThrowIfPlayerDoesNotHaveEmptyMushSkillSlot(): void
+    {
+        $this->givenPlayerIsMush();
+
+        $this->givenPlayerHasSkill(SkillEnum::ANONYMUSH);
+
+        $this->givenMushSkillSlotsNumberIs(1);
+
+        $this->expectException(GameException::class);
+
+        $this->whenIChooseSkill(SkillEnum::SPLASHPROOF);
+    }
+
     private function givenAPlayer(): Player
     {
-        return PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::TERRENCE, DaedalusFactory::createDaedalus());
+        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus->getDaedalusConfig()->setHumanSkillSlots(4);
+        $daedalus->getDaedalusConfig()->setMushSkillSlots(4);
+
+        return PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::TERRENCE, $daedalus);
     }
 
     private function givenPlayerHasSkill(SkillEnum $skill): void
@@ -110,6 +138,16 @@ final class ChooseSkillUseCaseTest extends TestCase
             name: PlayerStatusEnum::MUSH,
             holder: $this->player,
         );
+    }
+
+    private function givenHumanSkillSlotsNumberIs(int $number): void
+    {
+        $this->player->getDaedalus()->getDaedalusConfig()->setHumanSkillSlots($number);
+    }
+
+    private function givenMushSkillSlotsNumberIs(int $number): void
+    {
+        $this->player->getDaedalus()->getDaedalusConfig()->setMushSkillSlots($number);
     }
 
     private function whenIChooseSkill(SkillEnum $skill): void
@@ -132,15 +170,6 @@ final class ChooseSkillUseCaseTest extends TestCase
         self::assertEquals($skill, $addedSkill->getName());
     }
 
-    private function thenPlayerShouldOnlyHaveOneSkill(SkillEnum $skillName): void
-    {
-        $player = $this->playerRepository->findOneByName($this->player->getName());
-        $skills = $player->getSkills();
-        $skills = $skills->filter(static fn (Skill $skill) => $skill->getName() === $skillName);
-
-        self::assertCount(1, $skills);
-    }
-
     private function thenPlayerShouldHaveSkillPoints(SkillPointsEnum $skillPoints): void
     {
         $player = $this->playerRepository->findOneByName($this->player->getName());
@@ -156,5 +185,6 @@ final class ChooseSkillUseCaseTest extends TestCase
         $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::SHOOTER)));
         $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::MANKIND_ONLY_HOPE)));
         $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::ANONYMUSH)));
+        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::SPLASHPROOF)));
     }
 }

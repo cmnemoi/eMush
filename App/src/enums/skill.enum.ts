@@ -274,6 +274,10 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/human/paranoid.png')
     },
 
+    [SkillEnum.PHAGOCYTE]: {
+        'icon': getImgUrl('skills/mush/phagocytosis.png')
+    },
+
     [SkillEnum.PHYSICIST]: {
         'icon': getImgUrl('skills/human/physicist.png')
     },

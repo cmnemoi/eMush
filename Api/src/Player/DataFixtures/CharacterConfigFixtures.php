@@ -433,9 +433,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $searchAction */
         $searchAction = $this->getReference(ActionsFixtures::SEARCH_DEFAULT);
 
-        /** @var ActionConfig $phagocyteAction */
-        $phagocyteAction = $this->getReference(MushActionFixtures::PHAGOCYTE);
-
         /** @var ActionConfig $getUpAction */
         $getUpAction = $this->getReference(ActionsFixtures::GET_UP);
 
@@ -483,7 +480,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $hitAction,
             $hideAction,
             $searchAction,
-            $phagocyteAction,
             $infectAction,
             $extractSporeAction,
             $getUpAction,

@@ -143,6 +143,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::PHAGOCYTE,
+                actionConfigs: [
+                    ActionEnum::PHAGOCYTE,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::PHYSICIST,
                 skillPointsConfig: SkillPointsEnum::PILGRED_POINTS,
             ),

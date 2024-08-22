@@ -582,6 +582,7 @@ class GameConfigData
                 ProjectName::BEAT_BOX,
             ],
             'mushSkillConfigs' => [
+                SkillEnum::PHAGOCYTE,
                 SkillEnum::ANONYMUSH,
                 SkillEnum::FERTILE,
                 SkillEnum::MYCELIUM_SPIRIT,

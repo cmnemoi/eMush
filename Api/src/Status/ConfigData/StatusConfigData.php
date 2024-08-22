@@ -867,7 +867,6 @@ abstract class StatusConfigData
             ],
             'actionConfigs' => [
                 'infect',
-                'eat_spore',
                 'extract_spore',
                 'make_sick',
                 'screw_talkie',

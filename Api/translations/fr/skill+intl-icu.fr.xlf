@@ -441,5 +441,15 @@
         <target>Le Mush vous a transmis le génotype d'une de nos armes de transmission massive. Servez vous en sans parcimonie.//:point: **Unique** : Vous pouvez vous **glisser dans la peau d'un autre joueur humain**. Celui-ci doit être **infecté au moins une fois**. Il se retrouvera alors dans votre corps... et risque d'alerter ses congénères.</target>
       </segment>
     </unit>
+    <unit id="phagocyte">
+      <segment id="phagocyte.name" state="translated">
+        <source>phagocyte.name</source>
+        <target>Phagocytose</target>
+      </segment>
+      <segment id="phagocyte.description" state="translated">
+        <source>phagocyte.description</source>
+        <target>En cas de coup dur, vous avez LA solution.//:point: Pour **0** :pa:, vous pouvez dévorer un **Spore** ce qui vous rend **4** :pa: et **4** :hp:.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

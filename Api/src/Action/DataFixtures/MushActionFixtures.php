@@ -21,7 +21,6 @@ class MushActionFixtures extends Fixture
     public const MAKE_SICK = 'make.sick';
     public const FAKE_DISEASE = 'fake.disease';
     public const SCREW_TALKIE = 'screw.talkie';
-    public const PHAGOCYTE = 'phagocyte';
 
     public function load(ObjectManager $manager): void
     {
@@ -130,7 +129,7 @@ class MushActionFixtures extends Fixture
         $this->addReference(self::MAKE_SICK, $makeSickAction);
         $this->addReference(self::FAKE_DISEASE, $fakeDiseaseAction);
         $this->addReference(self::SCREW_TALKIE, $screwTalkieAction);
-        $this->addReference(self::PHAGOCYTE, $phagocyteAction);
+        $this->addReference(ActionEnum::PHAGOCYTE->value, $phagocyteAction);
         $this->addReference(ActionEnum::TRAP_CLOSET->value, $trapClosetAction);
         $this->addReference(ActionEnum::EXCHANGE_BODY->value, $exchangeBoodyAction);
     }

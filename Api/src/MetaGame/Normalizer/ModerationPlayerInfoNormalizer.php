@@ -50,7 +50,7 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
 
         // If user is in the same Daedalus as the player they are trying to access, refuse access
         $requestUserPlayerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($requestUser);
-        if ($requestUserPlayerInfo?->getDaedalusId() === $playerInfo->getDaedalusId()) {
+        if ($requestUserPlayerInfo?->getDaedalusId() === $playerInfo->getDaedalusId() && $this->appNotInDev()) {
             return null;
         }
 
@@ -109,5 +109,14 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
             'characterName' => $character,
             'characterValue' => $this->translationService->translate($character . '.name', [], 'characters', $language),
         ];
+    }
+
+    private function appNotInDev(): bool
+    {
+        if (!isset($_ENV['APP_ENV'])) {
+            throw new \Exception('APP_ENV not set');
+        }
+
+        return $_ENV['APP_ENV'] !== 'dev';
     }
 }

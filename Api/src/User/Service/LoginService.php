@@ -76,6 +76,7 @@ class LoginService
         if ($this->appEnv === 'dev') {
             $user->setRoles([RoleEnum::SUPER_ADMIN]);
             $user->acceptRules();
+            $user->readLatestNews();
         }
 
         $this->userService->persist($user);

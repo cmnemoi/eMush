@@ -114,7 +114,10 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
                 'description' => $this->translationService->translate($character . '.description', [], 'characters', $language),
                 'selectableHumanSkills' => $this->normalizeSelectableSkills($player->getSelectableHumanSkills(), $format, $context),
                 'selectableMushSkills' => $this->normalizeSelectableSkills($player->getSelectableMushSkills(), $format, $context),
-                'level' => $player->getLevel(),
+                'humanSkillSlots' => $player->getDaedalus()->getDaedalusConfig()->getHumanSkillSlots(),
+                'mushSkillSlots' => $player->getDaedalus()->getDaedalusConfig()->getMushSkillSlots(),
+                'humanLevel' => $player->getHumanLevel(),
+                'mushLevel' => $player->getMushLevel(),
             ],
             'gameStatus' => $player->getPlayerInfo()->getGameStatus(),
             'triumph' => [

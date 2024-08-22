@@ -1005,12 +1005,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->hasStatus(PlayerStatusEnum::INACTIVE) === false && $this->hasStatus(PlayerStatusEnum::HIGHLY_INACTIVE) === false;
     }
 
-    public function getLevel(): int
+    public function getHumanLevel(): int
     {
-        $numberOfHumanSkills = $this->getCharacterConfig()->getSkillConfigs()->count();
-        $numberOfMushSkills = $this->isMush() ? $this->daedalus->getMushSkillConfigs()->count() : 0;
+        return $this->getCharacterConfig()->getSkillConfigs()->count();
+    }
 
-        return max($numberOfHumanSkills, $numberOfMushSkills);
+    public function getMushLevel(): int
+    {
+        return $this->isMush() ? $this->daedalus->getMushSkillConfigs()->count() : 0;
     }
 
     public function canReadFoodProperties(GameEquipment $food): bool

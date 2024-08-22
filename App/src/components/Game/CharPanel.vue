@@ -101,7 +101,7 @@
                 <ul>
                     <Tippy
                         tag="li"
-                        v-for="index in selectableSkillsToDisplay.length"
+                        v-for="index in (displayMushSkills ? player.character.mushSkillSlots - player.mushSkills.length : player.character.humanSkillSlots - player.humanSkills.length)"
                         :key="index"
                         :class="skillSlotClass(index + skillsToDisplay.length)"
                     >

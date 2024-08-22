@@ -3,7 +3,7 @@
     <LearnSkillMenu :player="player" />
     <div class="game-banner" v-if="player">
         <div class="character-banner">
-            <a class="in-game-level">{{ player.character.level }}</a>
+            <a class="in-game-level">{{ displayMushSkills ? player.character.mushLevel : player.character.humanLevel }}</a>
             <div class="in-game-level-progress">
                 <div />
             </div>
@@ -133,6 +133,7 @@ import SkillSelectionMenu from "@/components/Game/SkillSelectionMenu.vue";
 import { defineComponent } from "vue";
 import PlayerService from "@/services/player.service";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { mapGetters } from "vuex";
 
 
 export default defineComponent({
@@ -141,6 +142,9 @@ export default defineComponent({
     props: {
         player: Player,
         daedalus: Daedalus
+    },
+    computed: {
+        ...mapGetters('player', ['displayMushSkills'])
     },
     methods: {
         getImgUrl,

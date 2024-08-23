@@ -36,7 +36,6 @@
                 @favorite="favorite(message)"
             />
             <ActionButtons
-                v-if="isPlayerAlive"
                 :actions="['report']"
                 @report=openReportDialog
             />

@@ -27,10 +27,8 @@ class PlayerDiseaseCollection extends ArrayCollection
      * @psalm-suppress MoreSpecificReturnType
      * @psalm-suppress LessSpecificReturnStatement
      */
-    public function getSortedByDiseasePoints(Order $order = Order::Ascending): self
+    public function getSortedByCreationDate(Order $order = Order::Ascending): self
     {
-        $criteria = Criteria::create()->orderBy(['diseasePoint' => $order]);
-
-        return $this->matching($criteria);
+        return $this->matching(Criteria::create()->orderBy(['createdAt' => $order]));
     }
 }

@@ -30,7 +30,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
             $this->playerDiseaseService->handleNewCycle($disease, $event->getTime());
         }
 
-        $disorder = $player->getDisorderWithMostDiseasePoints();
+        $disorder = $player->getOldestDisorder();
         if ($disorder->isTreatedByAShrink()) {
             $this->playerDiseaseService->treatDisorder($disorder, $event->getTime());
         }

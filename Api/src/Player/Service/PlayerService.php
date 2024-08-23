@@ -243,6 +243,9 @@ class PlayerService implements PlayerServiceInterface
         return $player;
     }
 
+    /**
+     * @psalm-suppress InvalidArgument
+     */
     public function handleNewCycle(Player $player, \DateTime $date): Player
     {
         if (!$player->isAlive()) {

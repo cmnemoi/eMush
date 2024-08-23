@@ -992,6 +992,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
+    /**
+     * @psalm-suppress InvalidArgument
+     */
     public function isActive(): bool
     {
         return !$this->hasAnyStatuses(new ArrayCollection([PlayerStatusEnum::INACTIVE, PlayerStatusEnum::HIGHLY_INACTIVE]));

@@ -72,6 +72,15 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldBeInFrontCorridor($I);
     }
 
+    public function shouldRemoveTargetedPlayerLyingDownStatus(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsLyingDown();
+
+        $this->whenChunPutsThroughKuanTiThroughDoor();
+
+        $this->thenKuanTiShouldNotBeLyingDown($I);
+    }
+
     public function shouldPrintAPublicLog(FunctionalTester $I): void
     {
         $this->whenChunPutsThroughKuanTiThroughDoor();
@@ -139,6 +148,16 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenKuanTiIsLyingDown(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+    }
+
     private function whenChunTriesToPutThroughKuanTiThroughDoor(): void
     {
         $this->putThroughDoor->loadParameters(
@@ -187,5 +206,10 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
             expected: $expected,
             actual: $this->putThroughDoor->getActionPointCost(),
         );
+    }
+
+    private function thenKuanTiShouldNotBeLyingDown(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::LYING_DOWN));
     }
 }

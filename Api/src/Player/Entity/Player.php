@@ -75,7 +75,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     use TargetStatusTrait;
     use TimestampableEntity;
 
-    private const MAX_ACTION_HISTORY = 20;
+    private const int MAX_ACTION_HISTORY = 20;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -994,7 +994,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function isActive(): bool
     {
-        return $this->hasStatus(PlayerStatusEnum::INACTIVE) === false && $this->hasStatus(PlayerStatusEnum::HIGHLY_INACTIVE) === false;
+        return !$this->hasAnyStatuses(new ArrayCollection([PlayerStatusEnum::INACTIVE, PlayerStatusEnum::HIGHLY_INACTIVE]));
     }
 
     public function getLevel(): int

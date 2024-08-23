@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\GameRationEnum;
@@ -286,31 +287,9 @@ class PlayerService implements PlayerServiceInterface
         );
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
 
-        $triumphChange = 0;
-        $gameConfig = $player->getDaedalus()->getGameConfig();
-
-        if ($player->isMush() && ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))) {
-            $triumphChange = $mushTriumph->getTriumph();
+        if (!$player->hasAnyStatuses(new ArrayCollection([PlayerStatusEnum::INACTIVE, PlayerStatusEnum::HIGHLY_INACTIVE]))) {
+            $this->handleTriumphChange($player, $date);
         }
-        if (!$player->isMush() && ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))) {
-            $triumphChange = $humanTriumph->getTriumph();
-        }
-
-        $player->addTriumph($triumphChange);
-
-        if ($player->getTriumph() < 0) {
-            $player->setTriumph(0);
-        }
-
-        $this->roomLogService->createLog(
-            PlayerModifierLogEnum::GAIN_TRIUMPH,
-            $player->getPlace(),
-            VisibilityEnum::PRIVATE,
-            'event_log',
-            $player,
-            ['quantity' => $triumphChange],
-            $date
-        );
 
         return $this->persist($player);
     }
@@ -389,6 +368,35 @@ class PlayerService implements PlayerServiceInterface
         }
 
         return $player;
+    }
+
+    private function handleTriumphChange(Player $player, \DateTime $date): void
+    {
+        $triumphChange = 0;
+        $gameConfig = $player->getDaedalus()->getGameConfig();
+
+        if ($player->isMush() && ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))) {
+            $triumphChange = $mushTriumph->getTriumph();
+        }
+        if (!$player->isMush() && ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))) {
+            $triumphChange = $humanTriumph->getTriumph();
+        }
+
+        $player->addTriumph($triumphChange);
+
+        if ($player->getTriumph() < 0) {
+            $player->setTriumph(0);
+        }
+
+        $this->roomLogService->createLog(
+            PlayerModifierLogEnum::GAIN_TRIUMPH,
+            $player->getPlace(),
+            VisibilityEnum::PRIVATE,
+            'event_log',
+            $player,
+            ['quantity' => $triumphChange],
+            $date
+        );
     }
 
     /**

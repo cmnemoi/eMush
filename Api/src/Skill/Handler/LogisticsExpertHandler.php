@@ -25,7 +25,7 @@ final class LogisticsExpertHandler
     {
         $player = $event->getPlayer();
 
-        if ($player->hasSkill(SkillEnum::LOGISTICS_EXPERT) === false) {
+        if ($player->doesNotHaveSkill(SkillEnum::LOGISTICS_EXPERT)) {
             return;
         }
         if ($player->isAloneInRoom()) {

@@ -12,7 +12,7 @@ use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Skill\Enum\SkillEnum;
 
-final class LogisiticsExpertHandler
+final class LogisticsExpertHandler
 {
     public const int LOGISTICS_BONUS = 1;
 

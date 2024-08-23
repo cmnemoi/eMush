@@ -43,7 +43,7 @@ abstract class AbstractRemoveHealthToARandomExplorator extends AbstractPlanetSec
         $logParameters['quantity'] = $healthLost;
         $logParameters[$exploratorToInjure->getLogKey()] = $exploratorToInjure->getLogName();
         $logParameters['rope_worked'] = $ropeWorked ? 'true' : 'false';
-        $logParameters['skill_reduced_damage_for_player'] = $survivalistWorked ? sprintf(
+        $logParameters['skill_reduced_damage_for_player'] = $survivalistWorked ? \sprintf(
             '////%s',
             $this->getSkillReducedDamageForPlayer($exploratorToInjure, SkillEnum::SURVIVALIST)
         ) : '';

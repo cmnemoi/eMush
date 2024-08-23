@@ -307,7 +307,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private function thenSourcePlayerShouldHaveNotification(FunctionalTester $I): void
     {
         $I->assertEquals(
-            expected: sprintf('%s_human', ActionEnum::EXCHANGE_BODY->value),
+            expected: \sprintf('%s_human', ActionEnum::EXCHANGE_BODY->value),
             actual: $this->source->getNotificationOrThrow()->getMessage(),
         );
     }
@@ -315,7 +315,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private function thenTargetPlayerShouldHaveNotification(FunctionalTester $I): void
     {
         $I->assertEquals(
-            expected: sprintf('%s_mush', ActionEnum::EXCHANGE_BODY->value),
+            expected: \sprintf('%s_mush', ActionEnum::EXCHANGE_BODY->value),
             actual: $this->target->getNotificationOrThrow()->getMessage(),
         );
     }

@@ -49,12 +49,12 @@ abstract class AbstractRemoveHealthToAllExplorators extends AbstractPlanetSector
 
         $logParameters = $this->getLogParameters($event);
         $logParameters['quantity'] = $healthLost;
-        $logParameters['skill_reduced_damage_for_player'] = $survivalistReducedDamageEvents ? sprintf(
+        $logParameters['skill_reduced_damage_for_player'] = $survivalistReducedDamageEvents ? \sprintf(
             '//%s',
             $explorators
                 ->filter(static fn (Player $explorator) => $explorator->hasSkill(SkillEnum::SURVIVALIST))
                 ->map(fn (Player $explorator) => $this->getSkillReducedDamageForPlayer($explorator, SkillEnum::SURVIVALIST))
-                ->reduce(static fn ($carry, $item) => sprintf('%s//%s', $carry, $item))
+                ->reduce(static fn ($carry, $item) => \sprintf('%s//%s', $carry, $item))
         ) : '';
 
         return $this->createExplorationLog($event, $logParameters);

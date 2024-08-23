@@ -74,7 +74,7 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
         $language = $event->getExploration()->getDaedalus()->getLanguage();
         $skill = $this->getBonusSkillFromEvent($event);
 
-        return $bonusLoot > 0 ? sprintf(
+        return $bonusLoot > 0 ? \sprintf(
             '////%s',
             $this->translationService->translate(
                 key: 'bonus_loot_thanks_to_skill',

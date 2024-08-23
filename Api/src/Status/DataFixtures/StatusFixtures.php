@@ -510,7 +510,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($hasUsedGeniusStatus);
 
         $previousRoom = StatusConfig::fromConfigData(
-            StatusConfigData::getByName(sprintf('%s_default', PlayerStatusEnum::PREVIOUS_ROOM))
+            StatusConfigData::getByName(\sprintf('%s_default', PlayerStatusEnum::PREVIOUS_ROOM))
         );
         $manager->persist($previousRoom);
 

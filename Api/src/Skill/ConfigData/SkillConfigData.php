@@ -214,9 +214,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::LOGISTICS_EXPERT,
-                modifierConfigs: [
-                    'logistic_modifier',
-                ],
+                modifierConfigs: [],
             ),
             new SkillConfigDto(
                 name: SkillEnum::TRANSFER,

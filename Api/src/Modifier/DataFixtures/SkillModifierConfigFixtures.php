@@ -144,23 +144,13 @@ final class SkillModifierConfigFixtures extends Fixture
 
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference('change.variable_player_+1moralePoint');
-        $LogisticModifier = TriggerEventModifierConfig::fromConfigData(
+        $shrinkModifier = TriggerEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName('modifier_for_player_+1morale_point_on_new_cycle_if_lying_down')
         );
-        $LogisticModifier->setTriggeredEvent($eventConfig);
+        $shrinkModifier->setTriggeredEvent($eventConfig);
 
-        $this->addReference($LogisticModifier->getName(), $LogisticModifier);
-        $manager->persist($LogisticModifier);
-
-        /** @var VariableEventConfig $eventConfig */
-        $eventConfig = $this->getReference('change.variable_player_+1_actionPoint');
-        $LogisticModifier = TriggerEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('logistic_modifier')
-        );
-        $LogisticModifier->setTriggeredEvent($eventConfig);
-
-        $this->addReference($LogisticModifier->getName(), $LogisticModifier);
-        $manager->persist($LogisticModifier);
+        $this->addReference($shrinkModifier->getName(), $shrinkModifier);
+        $manager->persist($shrinkModifier);
 
         $manager->flush();
     }

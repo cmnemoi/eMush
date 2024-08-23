@@ -809,7 +809,7 @@
     <unit id="logistic_log">
       <segment state="translated">
         <source>logistic_log</source>
-        <target>La compétence *Logistique* de **{character}** a porté ses fruits...</target>
+        <target>La compétence **Logistique** de **{character}** a porté ses fruits...</target>
       </segment>
     </unit>
     <unit id="drone">

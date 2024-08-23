@@ -55,6 +55,15 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::TRANSFER, $I);
     }
 
+    public function shouldNotBeVisibleIfTargetPlayerIsMush(FunctionalTester $I): void
+    {
+        $this->givenTargetPlayerIsMush();
+
+        $this->whenSourceTriesToExchangeBodyWithTarget();
+
+        $this->thenActionShouldNotBeVisible($I);
+    }
+
     public function shouldNotBeExecutableIfTargetPlayerDoesNotHaveSpores(FunctionalTester $I): void
     {
         $this->givenTargetPlayerHasSpores(0);
@@ -185,6 +194,18 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->thenTargetPlayerShouldHaveNotification($I);
     }
 
+    private function givenTargetPlayerIsMush(): void
+    {
+        $this->eventService->callEvent(
+            event: new PlayerEvent(
+                player: $this->target,
+                tags: [],
+                time: new \DateTime(),
+            ),
+            name: PlayerEvent::CONVERSION_PLAYER,
+        );
+    }
+
     private function givenSourcePlayerIsMush(): void
     {
         $this->eventService->callEvent(
@@ -236,6 +257,11 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
             player: $this->target,
             target: $this->source,
         );
+    }
+
+    private function thenActionShouldNotBeVisible(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->exchangeBody->isVisible());
     }
 
     private function thenActionShouldNotBeExecutable(string $message, FunctionalTester $I): void

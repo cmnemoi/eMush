@@ -7,6 +7,7 @@ namespace Mush\tests\functional\Player\Normalizer;
 use Mush\Player\Normalizer\CurrentPlayerNormalizer;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -22,6 +23,7 @@ final class SelectableSkillsCest extends AbstractFunctionalTest
 
     private array $normalizedPlayer;
     private StatusServiceInterface $statusService;
+    private AddSkillToPlayerService $addSkillToPlayer;
 
     public function _before(FunctionalTester $I)
     {
@@ -29,6 +31,7 @@ final class SelectableSkillsCest extends AbstractFunctionalTest
         $this->normalizer = $I->grabService(CurrentPlayerNormalizer::class);
         $this->normalizer->setNormalizer($I->grabService(NormalizerInterface::class));
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
     }
 
     public function humanShouldSeeAvailableHumanSkill(FunctionalTester $I): void
@@ -69,6 +72,31 @@ final class SelectableSkillsCest extends AbstractFunctionalTest
         $this->whenINormalizePlayer();
 
         $this->thenPlayerShouldSeeAvailableMushSkill(SkillEnum::ANONYMUSH, $I);
+    }
+
+    public function humanShouldNotSeeAvailableSkillsIfSkillSlotsAreFilled(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer->execute(skill: SkillEnum::TECHNICIAN, player: $this->player);
+        $this->addSkillToPlayer->execute(skill: SkillEnum::DETERMINED, player: $this->player);
+        $this->addSkillToPlayer->execute(skill: SkillEnum::IT_EXPERT, player: $this->player);
+
+        $this->whenINormalizePlayer();
+
+        $this->thenPlayerShouldNotSeeAvailableHumanSkills($I);
+    }
+
+    public function mushShouldNotSeeAvailableSkillsIfSkillSlotsAreFilled(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsMush();
+
+        $this->addSkillToPlayer->execute(skill: SkillEnum::ANONYMUSH, player: $this->player);
+        $this->addSkillToPlayer->execute(skill: SkillEnum::SPLASHPROOF, player: $this->player);
+        $this->addSkillToPlayer->execute(skill: SkillEnum::TRANSFER, player: $this->player);
+        $this->addSkillToPlayer->execute(skill: SkillEnum::INFECTOR, player: $this->player);
+
+        $this->whenINormalizePlayer();
+
+        $this->thenPlayerShouldNotSeeAvailableMushSkill($I);
     }
 
     private function givenPlayerHasHumanSkillAvailable(SkillEnum $skill, FunctionalTester $I): void
@@ -123,5 +151,10 @@ final class SelectableSkillsCest extends AbstractFunctionalTest
             expected: $skill->toString(),
             actual: $normalizedSkills[0]['key'],
         );
+    }
+
+    private function thenPlayerShouldNotSeeAvailableHumanSkills(FunctionalTester $I): void
+    {
+        $I->assertEmpty($this->normalizedPlayer['character']['selectableHumanSkills']);
     }
 }

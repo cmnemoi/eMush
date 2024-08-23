@@ -496,6 +496,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getSelectableHumanSkills(): SkillConfigCollection
     {
+        if ($this->hasFilledTheirHumanSkillSlots()) {
+            return new SkillConfigCollection();
+        }
+
         $selectableSkills = $this->getHumanSkillConfigs()->getAllExceptThoseLearnedByPlayer($this);
 
         return $this->hasStatus(PlayerStatusEnum::HAS_LEARNED_SKILL) ? $selectableSkills->getAllExcept(SkillEnum::APPRENTICE) : $selectableSkills;
@@ -503,6 +507,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getSelectableMushSkills(): SkillConfigCollection
     {
+        if ($this->hasFilledTheirMushSkillSlots()) {
+            return new SkillConfigCollection();
+        }
+
         return $this->isMush() ? $this->daedalus->getMushSkillConfigs()->getAllExceptThoseLearnedByPlayer($this) : new SkillConfigCollection();
     }
 
@@ -997,12 +1005,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->hasStatus(PlayerStatusEnum::INACTIVE) === false && $this->hasStatus(PlayerStatusEnum::HIGHLY_INACTIVE) === false;
     }
 
-    public function getLevel(): int
+    public function getHumanLevel(): int
     {
-        $numberOfHumanSkills = $this->getCharacterConfig()->getSkillConfigs()->count();
-        $numberOfMushSkills = $this->isMush() ? $this->daedalus->getMushSkillConfigs()->count() : 0;
+        return $this->getCharacterConfig()->getSkillConfigs()->count();
+    }
 
-        return max($numberOfHumanSkills, $numberOfMushSkills);
+    public function getMushLevel(): int
+    {
+        return $this->isMush() ? $this->daedalus->getMushSkillConfigs()->count() : 0;
     }
 
     public function canReadFoodProperties(GameEquipment $food): bool
@@ -1021,6 +1031,16 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function shouldBeHurtByShower(): bool
     {
         return $this->isMush() && $this->doesNotHaveSkill(SkillEnum::SPLASHPROOF);
+    }
+
+    public function hasFilledTheirHumanSkillSlots(): bool
+    {
+        return $this->getHumanSkills()->count() === $this->daedalus->getDaedalusConfig()->getHumanSkillSlots();
+    }
+
+    public function hasFilledTheirMushSkillSlots(): bool
+    {
+        return $this->getMushSkills()->count() === $this->daedalus->getDaedalusConfig()->getMushSkillSlots();
     }
 
     private function getMinEfficiencyForProject(Project $project): int

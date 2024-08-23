@@ -136,6 +136,11 @@ enum SkillEnum: string
         ]))->contains($this);
     }
 
+    public function isHumanSkill(): bool
+    {
+        return $this->isMushSkill() === false;
+    }
+
     public function getSkillPointsName(): string
     {
         return match ($this) {

@@ -18,15 +18,39 @@ final class ChooseSkillUseCase
     {
         [$skillName, $player] = $chooseSkillDto->toArgs();
 
-        $this->checkSkillIsAvailableForPlayer($skillName, $player);
+        $this->checkIfPlayerHasAnEmptySkillSlot($skillName, $player);
+        $this->checkIfSkillIsAvailableForPlayer($skillName, $player);
 
         $this->addSkillToPlayer->execute($skillName, $player);
     }
 
-    private function checkSkillIsAvailableForPlayer(SkillEnum $skillName, Player $player): void
+    private function checkIfPlayerHasAnEmptySkillSlot(SkillEnum $skill, Player $player): void
     {
-        if ($player->cannotTakeSkill($skillName)) {
+        if ($skill->isHumanSkill()) {
+            $this->checkIfPlayerHasAnEmptyHumanSkillSlot($player);
+        } else {
+            $this->checkIfPlayerHasAnEmptyMushSkillSlot($player);
+        }
+    }
+
+    private function checkIfSkillIsAvailableForPlayer(SkillEnum $skill, Player $player): void
+    {
+        if ($player->cannotTakeSkill($skill)) {
             throw new GameException('This skill is not available for you!');
+        }
+    }
+
+    private function checkIfPlayerHasAnEmptyHumanSkillSlot(Player $player): void
+    {
+        if ($player->hasFilledTheirHumanSkillSlots()) {
+            throw new GameException('You don\'t have an empty human skill slot!');
+        }
+    }
+
+    private function checkIfPlayerHasAnEmptyMushSkillSlot(Player $player): void
+    {
+        if ($player->hasFilledTheirMushSkillSlots()) {
+            throw new GameException('You don\'t have an empty mush skill slot!');
         }
     }
 }

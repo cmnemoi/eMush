@@ -74,6 +74,12 @@ class DaedalusConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $numberOfProjectsByBatch = 0;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $humanSkillSlots = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $mushSkillSlots = 0;
+
     public function getId(): int
     {
         return $this->id;
@@ -323,6 +329,30 @@ class DaedalusConfig
     public function setNumberOfProjectsByBatch(int $numberOfProjectsByBatch): static
     {
         $this->numberOfProjectsByBatch = $numberOfProjectsByBatch;
+
+        return $this;
+    }
+
+    public function getHumanSkillSlots(): int
+    {
+        return $this->humanSkillSlots;
+    }
+
+    public function setHumanSkillSlots(int $humanSkillSlots): static
+    {
+        $this->humanSkillSlots = $humanSkillSlots;
+
+        return $this;
+    }
+
+    public function getMushSkillSlots(): int
+    {
+        return $this->mushSkillSlots;
+    }
+
+    public function setMushSkillSlots(int $mushSkillSlots): static
+    {
+        $this->mushSkillSlots = $mushSkillSlots;
 
         return $this;
     }

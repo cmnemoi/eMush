@@ -67,6 +67,8 @@ class DaedalusConfigData
                 RoomEnum::PLANET_DEPTHS . '_default',
             ],
             'numberOfProjectsByBatch' => 3,
+            'humanSkillSlots' => 3,
+            'mushSkillSlots' => 4,
         ],
     ];
 }

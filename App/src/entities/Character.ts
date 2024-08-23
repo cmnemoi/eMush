@@ -13,7 +13,10 @@ export class Character {
     public description: string|null;
     public selectableHumanSkills!: SelectableSkill[];
     public selectableMushSkills!: SelectableSkill[];
-    public level!: number;
+    public humanSkillSlots!: integer;
+    public mushSkillSlots!: integer;
+    public humanLevel!: integer;
+    public mushLevel!: integer;
 
     constructor() {
         this.description = null;
@@ -27,7 +30,10 @@ export class Character {
             this.description = object.description;
             this.selectableHumanSkills = object.selectableHumanSkills;
             this.selectableMushSkills = object.selectableMushSkills;
-            this.level = object.level;
+            this.humanSkillSlots = object.humanSkillSlots;
+            this.mushSkillSlots = object.mushSkillSlots;
+            this.humanLevel = object.humanLevel;
+            this.mushLevel = object.mushLevel;
         }
 
         return this;

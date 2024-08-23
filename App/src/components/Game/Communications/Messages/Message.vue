@@ -51,7 +51,7 @@
         v-if="isRoot && isSystemMessage"
         class="log"
         @click="$emit('reply')"
-        @mouseover="readMessage(message);"
+        @mouseover="read(message)"
     >
         <p :class="['text', { unread: message.isUnread }]">
             <span v-html="formatMessage(message.message)" />
@@ -211,6 +211,8 @@ export default defineComponent ({
             this.reportPopupVisible = false;
         },
         async read(message: Message) {
+            if (this.adminMode) return;
+
             if (message.isUnread && !this.readMessageMutex) {
                 await this.acquireReadMessageMutex();
                 await this.readMessage(message);

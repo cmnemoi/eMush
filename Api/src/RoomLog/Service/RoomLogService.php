@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Service;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
@@ -164,12 +165,16 @@ class RoomLogService implements RoomLogServiceInterface
 
     public function markRoomLogAsReadForPlayer(RoomLog $roomLog, Player $player): void
     {
-        $roomLog
-            ->addReader($player)
-            ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the log because this would change the order of the messages
+        try {
+            $roomLog
+                ->addReader($player)
+                ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the log because this would change the order of the messages
 
-        $this->entityManager->persist($roomLog);
-        $this->entityManager->flush();
+            $this->entityManager->persist($roomLog);
+            $this->entityManager->flush();
+        } catch (UniqueConstraintViolationException $e) {
+            // ignore as this is probably due to a race condition
+        }
     }
 
     public function markAllRoomLogsAsReadForPlayer(Player $player): void
@@ -179,14 +184,8 @@ class RoomLogService implements RoomLogServiceInterface
         );
 
         foreach ($unreadLogs as $roomLog) {
-            $roomLog
-                ->addReader($player)
-                ->cancelTimestampable();
-
-            $this->entityManager->persist($roomLog);
+            $this->markRoomLogAsReadForPlayer($roomLog, $player);
         }
-
-        $this->entityManager->flush();
     }
 
     private function getVisibility(?Player $player, string $visibility): string

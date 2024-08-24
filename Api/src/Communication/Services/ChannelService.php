@@ -3,6 +3,7 @@
 namespace Mush\Communication\Services;
 
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
@@ -338,20 +339,37 @@ class ChannelService implements ChannelServiceInterface
 
         /** @var Message $message */
         foreach ($unreadMessages as $message) {
-            $message->addReader($player);
-            $this->entityManager->persist($message);
+            try {
+                $message
+                    ->addReader($player)
+                    ->cancelTimestampable();
+                $this->entityManager->persist($message);
+            } catch (UniqueConstraintViolationException $e) {
+                continue;
+            }
 
             $unreadChildren = $message->getChild()->filter(
                 static fn (Message $child) => $child->isUnreadBy($player)
             );
 
-            foreach ($unreadChildren as $reader) {
-                $reader->addReader($player);
-                $this->entityManager->persist($reader);
+            /** @var Message $child */
+            foreach ($unreadChildren as $child) {
+                try {
+                    $child
+                        ->addReader($player)
+                        ->cancelTimestampable();
+                    $this->entityManager->persist($child);
+                } catch (UniqueConstraintViolationException $e) {
+                    continue;
+                }
             }
         }
 
-        $this->entityManager->flush();
+        try {
+            $this->entityManager->flush();
+        } catch (UniqueConstraintViolationException $e) {
+            // ignore as this is probably due to a race condition
+        }
     }
 
     private function isChannelOnSeveralRoom(Channel $channel, Place $place): bool

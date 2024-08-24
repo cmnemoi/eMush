@@ -10,7 +10,6 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerService;
-use Mush\Skill\Enum\SkillEnum;
 
 abstract class PlayerModifierLogEnum
 {
@@ -58,7 +57,7 @@ abstract class PlayerModifierLogEnum
             SymptomEnum::BITING => SymptomEnum::BITING,
             PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
             EndCauseEnum::CLUMSINESS => self::CLUMSINESS,
-            SkillEnum::OPTIMIST->value => self::OPTIMIST_WORKED,
+            ModifierNameEnum::OPTIMIST_MODIFIER => self::OPTIMIST_WORKED,
             PlayerService::DAY_MORAL_CHANGE => self::DAILY_MORALE_LOSS,
             HunterEvent::HUNTER_SHOT => LogEnum::ATTACKED_BY_HUNTER,
             ModifierNameEnum::LOGISTIC_MODIFIER => self::LOGISTIC_LOG,
@@ -71,7 +70,7 @@ abstract class PlayerModifierLogEnum
             PlayerService::DAY_MORAL_CHANGE => VisibilityEnum::PRIVATE,
             HunterEvent::HUNTER_SHOT => VisibilityEnum::PUBLIC,
             ModifierNameEnum::LOST_MODIFIER => VisibilityEnum::PRIVATE,
-            SkillEnum::OPTIMIST->value => VisibilityEnum::PRIVATE,
+            ModifierNameEnum::OPTIMIST_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::LOGISTIC_MODIFIER => VisibilityEnum::PUBLIC,
         ],
     ];

@@ -17,6 +17,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
+use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
@@ -230,16 +231,9 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setName('coprolalia_modifier_fixture');
         $manager->persist($coprolalia);
 
-        $cannotMoveModifier = new EventModifierConfig('prevent_move');
-        $cannotMoveModifier
-            ->setTargetEvent(ActionEvent::PRE_ACTION)
-            ->setApplyWhenTargeted(false)
-            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
-            ->setTagConstraints([
-                ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
-            ])
-            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $cannotMoveModifier = EventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('prevent_move')
+        );
         $manager->persist($cannotMoveModifier);
 
         $heavyRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
@@ -247,54 +241,25 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setValue(10)
             ->setName('heavy_status_requirement_fixtures')
             ->setActivationRequirement(EquipmentStatusEnum::HEAVY);
-        $preventTakeHeavy = new EventModifierConfig('prevent_pick_heavy_item');
-        $preventTakeHeavy
-            ->setTargetEvent(ActionEvent::PRE_ACTION)
-            ->setApplyWhenTargeted(false)
-            ->setTagConstraints([
-                ActionEnum::TAKE->value => ModifierRequirementEnum::ANY_TAGS,
-            ])
-            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
-            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierActivationRequirements([$heavyRequirement]);
+        $preventTakeHeavy = EventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('prevent_pick_heavy_item')
+        );
         $manager->persist($heavyRequirement);
         $manager->persist($preventTakeHeavy);
 
-        $preventAttackActions = new EventModifierConfig('prevent_attack_action');
-        $preventAttackActions
-            ->setTargetEvent(ActionEvent::PRE_ACTION)
-            ->setApplyWhenTargeted(false)
-            ->setTagConstraints([
-                ActionTypeEnum::ACTION_ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
-            ])
-            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
-            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $preventAttackActions = EventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('prevent_attack_actions')
+        );
         $manager->persist($preventAttackActions);
 
-        $preventPiloting = new EventModifierConfig('prevent_piloting_actions');
-        $preventPiloting
-            ->setTargetEvent(ActionEvent::PRE_ACTION)
-            ->setApplyWhenTargeted(false)
-            ->setTagConstraints([
-                ActionTypeEnum::ACTION_PILOT->value => ModifierRequirementEnum::ANY_TAGS,
-            ])
-            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
-            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $preventPiloting = EventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('prevent_piloting_actions')
+        );
         $manager->persist($preventPiloting);
 
-        $preventShoot = new EventModifierConfig('prevent_shooting');
-        $preventShoot
-            ->setTargetEvent(ActionEvent::PRE_ACTION)
-            ->setApplyWhenTargeted(false)
-            ->setTagConstraints([
-                ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
-            ])
-            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
-            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $preventShoot = EventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('prevent_shoot_actions')
+        );
         $manager->persist($preventShoot);
 
         $muteModifier = new EventModifierConfig('mute_modifier');
@@ -306,16 +271,9 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($muteModifier);
 
-        $cannotSpeakModifier = new EventModifierConfig('prevent_spoken');
-        $cannotSpeakModifier
-            ->setTargetEvent(ActionEvent::PRE_ACTION)
-            ->setApplyWhenTargeted(false)
-            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
-            ->setTagConstraints([
-                ActionTypeEnum::ACTION_SPOKEN->value => ModifierRequirementEnum::ANY_TAGS,
-            ])
-            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $cannotSpeakModifier = EventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('prevent_spoken_actions')
+        );
         $manager->persist($cannotSpeakModifier);
 
         $dirtyRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);

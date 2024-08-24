@@ -1423,7 +1423,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'prevent_move',
-            'modifierName' => 'prevent_move',
+            'modifierName' => ModifierNameEnum::PREVENT_MOVE,
             'targetEvent' => ActionEvent::PRE_ACTION,
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,
@@ -1438,7 +1438,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'prevent_pick_heavy_item',
-            'modifierName' => 'prevent_pick_heavy_item',
+            'modifierName' => ModifierNameEnum::PREVENT_PICK_HEAVY,
             'targetEvent' => ActionEvent::PRE_ACTION,
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,

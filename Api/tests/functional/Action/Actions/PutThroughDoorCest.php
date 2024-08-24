@@ -13,11 +13,10 @@ use Mush\Equipment\Entity\Door;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
+use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -31,7 +30,7 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
     private PutThroughDoor $putThroughDoor;
-    private ChooseSkillUseCase $chooseSkillUseCase;
+    private AddSkillToPlayerService $addSkillToPlayer;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
@@ -40,7 +39,7 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::PUT_THROUGH_DOOR]);
         $this->putThroughDoor = $I->grabService(PutThroughDoor::class);
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
+        $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenThereIsADoorToFrontCorridorInChunRoom($I);
@@ -62,7 +61,22 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
 
         $this->whenChunTriesToPutThroughKuanTiThroughDoor();
 
-        $this->thenActionShouldNotBeExecutable($I);
+        $this->thenActionShouldNotBeExecutableWithMessage(
+            ActionImpossibleCauseEnum::NO_WORKING_DOOR,
+            $I,
+        );
+    }
+
+    public function shouldNotBeExecutableIfRoomIsUnderCeasfire(FunctionalTester $I): void
+    {
+        $this->givenRoomIsUnderCeasefire($I);
+
+        $this->whenChunTriesToPutThroughKuanTiThroughDoor();
+
+        $this->thenActionShouldNotBeExecutableWithMessage(
+            ActionImpossibleCauseEnum::CEASEFIRE,
+            $I,
+        );
     }
 
     public function shouldMoveTargetedPlayerToAnotherRoom(FunctionalTester $I): void
@@ -102,12 +116,9 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
         $this->kuanTi->changePlace($this->daedalus->getPlanetPlace());
     }
 
-    private function givenChunIsSolid(FunctionalTester $I): void
+    private function givenChunIsSolid(): void
     {
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SOLID]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SOLID, $this->chun));
+        $this->addSkillToPlayer->execute(SkillEnum::SOLID, $this->chun);
     }
 
     private function givenThereIsADoorToFrontCorridorInChunRoom(FunctionalTester $I): void
@@ -126,6 +137,17 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
             holder: $door,
             tags: [],
             time: new \DateTime()
+        );
+    }
+
+    private function givenRoomIsUnderCeasefire(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlaceStatusEnum::CEASEFIRE->toString(),
+            holder: $this->chun->getPlace(),
+            tags: [],
+            time: new \DateTime(),
+            target: $this->chun,
         );
     }
 
@@ -173,10 +195,10 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenActionShouldNotBeExecutable(FunctionalTester $I): void
+    private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
     {
         $I->assertEquals(
-            expected: ActionImpossibleCauseEnum::NO_WORKING_DOOR,
+            expected: $message,
             actual: $this->putThroughDoor->cannotExecuteReason(),
         );
     }

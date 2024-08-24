@@ -73,9 +73,9 @@
         <target>Impossible de **se déplacer**.</target>
       </segment>
     </unit>
-    <unit id="prevent_pick_heavy_item_on_pre.action">
+    <unit id="prevent_pick_heavy_on_pre.action">
       <segment id="description" state="final">
-        <source>prevent_pick_heavy_item_on_pre.action.description</source>
+        <source>prevent_pick_heavy_on_pre.action.description</source>
         <target>Impossible de **porter des objets lourds**.</target>
       </segment>
     </unit>
@@ -130,21 +130,21 @@
         <target>Fait subir le symptôme **Éternuements**.</target>
       </segment>
     </unit>
-    <unit id="prevent_attack_actions_on_pre.action">
+    <unit id="prevent_attacking_on_pre.action">
       <segment id="description" state="final">
-        <source>prevent_attack_actions_on_pre.action.description</source>
+        <source>prevent_attacking_on_pre.action.description</source>
         <target>Interdit l'action **Attaquer**.</target>
       </segment>
     </unit>
-    <unit id="prevent_piloting_actions_on_pre.action">
+    <unit id="prevent_piloting_on_pre.action">
       <segment id="description" state="final">
-        <source>prevent_piloting_actions_on_pre.action.description</source>
+        <source>prevent_piloting_on_pre.action.description</source>
         <target>Impossible de **piloter**.</target>
       </segment>
     </unit>
-    <unit id="prevent_shoot_actions_on_pre.action">
+    <unit id="prevent_shoot_on_pre.action">
       <segment id="description" state="final">
-        <source>prevent_shoot_actions_on_pre.action.description</source>
+        <source>prevent_shoot_on_pre.action.description</source>
         <target>Interdit l'action **Tirer**.</target>
       </segment>
     </unit>

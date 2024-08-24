@@ -40,6 +40,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ChannelController extends AbstractGameController
 {
+    private const int TIME_LIMIT = 48;
+
     private SpecificationInterface $canCreateChannel;
     private ChannelServiceInterface $channelService;
     private MessageServiceInterface $messageService;
@@ -526,7 +528,7 @@ class ChannelController extends AbstractGameController
             return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
-        $timeLimit = new \DateInterval(sprintf('PT%dH', $request->get('timeLimit', 48)));
+        $timeLimit = new \DateInterval(sprintf('PT%dH', $request->get('timeLimit', self::TIME_LIMIT)));
 
         $messages = $this->messageService->getChannelMessages($player, $channel, $timeLimit);
 
@@ -721,7 +723,7 @@ class ChannelController extends AbstractGameController
         $context = new Context();
         $context->setAttribute('currentPlayer', $player);
 
-        $timeLimit = new \DateInterval(sprintf('PT%dH', $request->get('timeLimit', 48)));
+        $timeLimit = new \DateInterval(sprintf('PT%dH', $request->get('timeLimit', self::TIME_LIMIT)));
 
         $view = $this->view($this->messageService->getPlayerFavoritesChannelMessages($player, $timeLimit), Response::HTTP_OK);
         $view->setContext($context);

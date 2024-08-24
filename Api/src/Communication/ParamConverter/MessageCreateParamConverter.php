@@ -12,6 +12,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MessageCreateParamConverter implements ParamConverterInterface
 {
+    private const int TIME_LIMIT = 48;
+
     private MessageServiceInterface $messageService;
     private PlayerServiceInterface $playerService;
 
@@ -28,7 +30,7 @@ class MessageCreateParamConverter implements ParamConverterInterface
         $message = $request->request->get('message');
         $parent = $request->request->get('parent');
         $playerId = $request->request->get('player');
-        $timeLimit = (int) $request->request->get('timeLimit', 48);
+        $timeLimit = (int) $request->request->get('timeLimit', self::TIME_LIMIT);
 
         $messageCreate = new CreateMessage();
         $parentMessage = null;

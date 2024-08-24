@@ -34,6 +34,7 @@ class ClosedExploration
     private array $exploredSectorKeys = [];
 
     #[ORM\OneToMany(targetEntity: ExplorationLog::class, mappedBy: 'closedExploration')]
+    #[ORM\OrderBy(['createdAt' => 'DESC'])]
     private Collection $logs;
 
     #[ORM\ManyToMany(targetEntity: ClosedPlayer::class, inversedBy: 'closedExplorations')]

@@ -37,6 +37,7 @@ class Planet implements LogParameterInterface, ActionHolderInterface
     private int $distance = 0;
 
     #[ORM\OneToMany(mappedBy: 'planet', targetEntity: PlanetSector::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\OrderBy(['id' => 'ASC'])]
     private Collection $sectors;
 
     #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'planets')]

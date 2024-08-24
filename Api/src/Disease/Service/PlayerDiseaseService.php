@@ -8,7 +8,6 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
-use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Game\Enum\VisibilityEnum;
@@ -132,13 +131,13 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             return;
         }
 
-        if ($this->diseaseHealsAtCycleChange($playerDisease)) {
+        if ($playerDisease->isIncubating()) {
             $playerDisease->decrementDiseasePoints();
         }
 
         $diseasePoint = $playerDisease->getDiseasePoint();
         if ($diseasePoint <= 0) {
-            if ($playerDisease->getStatus() === DiseaseStatusEnum::INCUBATING) {
+            if ($playerDisease->isIncubating()) {
                 $diseaseConfig = $playerDisease->getDiseaseConfig();
                 $diseaseDurationMin = $diseaseConfig->getDiseasePointMin();
                 $playerDisease
@@ -255,13 +254,5 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
                 );
             }
         }
-    }
-
-    private function diseaseHealsAtCycleChange(PlayerDisease $playerDisease): bool
-    {
-        $spontaneousHealingDisorders = [DisorderEnum::VERTIGO, DisorderEnum::SPLEEN];
-
-        return $playerDisease->getDiseaseConfig()->getType() === MedicalConditionTypeEnum::DISEASE
-            || \in_array($playerDisease->getDiseaseConfig()->getDiseaseName(), $spontaneousHealingDisorders, true);
     }
 }

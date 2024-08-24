@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseStatusEnum;
+use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Player\Entity\Player;
 
@@ -142,5 +143,15 @@ class PlayerDisease
     public function isAPhysicalDisease(): bool
     {
         return $this->diseaseConfig->getType() === MedicalConditionTypeEnum::DISEASE;
+    }
+
+    public function healsAtCycleChange(): bool
+    {
+        return $this->isAPhysicalDisease() || $this->getName() === DisorderEnum::SPLEEN || $this->getName() === DisorderEnum::VERTIGO;
+    }
+
+    public function isIncubating(): bool
+    {
+        return $this->getStatus() === DiseaseStatusEnum::INCUBATING;
     }
 }

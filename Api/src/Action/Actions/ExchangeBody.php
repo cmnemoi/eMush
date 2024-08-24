@@ -78,8 +78,8 @@ final class ExchangeBody extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $this->exchangePlayerUsers();
-        $this->transferMushSkills();
         $this->makeTargetMush();
+        $this->transferMushSkills();
         $this->makePlayerHuman();
         $this->createHasExchangedBodyStatus();
         $this->createTargetNotification();

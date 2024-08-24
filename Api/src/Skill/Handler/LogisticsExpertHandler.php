@@ -7,6 +7,7 @@ namespace Mush\Skill\Handler;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -49,7 +50,7 @@ final class LogisticsExpertHandler
             time: $event->getTime()
         );
         $playerVariableEvent->setAuthor($player);
-        $playerVariableEvent->addTag(SkillEnum::LOGISTICS_EXPERT->toString());
+        $playerVariableEvent->addTag(ModifierNameEnum::LOGISTICS_MODIFIER);
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

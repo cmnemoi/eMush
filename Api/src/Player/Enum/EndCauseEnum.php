@@ -158,7 +158,6 @@ class EndCauseEnum
             self::METAL_PLATE,
             self::NO_INFIRMERIE,
             self::PATROL_SHIP_EXPLOSION,
-            self::QUARANTINE,
             self::ROCKETED,
             self::SELF_EXTRACTED,
             self::SPACE_ASPHYXIATED,

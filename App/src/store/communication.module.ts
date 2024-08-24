@@ -16,7 +16,8 @@ const state =  {
     messagesByChannelId: {},
     typedMessage: '',
     readMessageMutex: false,
-    currentChannelNumberOfNewMessages: 0
+    currentChannelNumberOfNewMessages: 0,
+    timeLimit: 48
 };
 
 const getters: GetterTree<any, any> = {
@@ -144,13 +145,12 @@ const actions: ActionTree<any, any> = {
 
     async loadMoreMessages({ getters, commit }) {
         const channel = state.currentChannel;
-        const channelMessages = getters.messages;
-        const page = channelMessages.length / Channel.MESSAGE_LIMIT + 1;
 
+        commit('setTimeLimit', state.timeLimit + 24);
         commit('setLoadingForChannel', { channel, newStatus: true });
         try {
-            const newMessages = await CommunicationService.loadMessages(channel, page);
-            const messages = channelMessages.concat(newMessages);
+            const newMessages = await CommunicationService.loadMessages(channel, state.timeLimit);
+            const messages = newMessages.concat(getters.messages).filter((message, index, self) => self.findIndex(m => m.id === message.id) === index);
 
             commit('setChannelMessages', { channel, messages });
             commit('setLoadingForChannel', { channel, newStatus: false });
@@ -339,6 +339,10 @@ const mutations: MutationTree<any> = {
         if (channel.id === state.currentChannel.id) {
             state.currentChannel.numberOfNewMessages = Math.max(0, numberOfNewMessages);
         }
+    },
+
+    setTimeLimit(state: any, timeLimit: number): void {
+        state.timeLimit = timeLimit;
     }
 };
 

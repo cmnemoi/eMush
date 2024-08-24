@@ -110,8 +110,7 @@ export default defineComponent ({
             markCurrentChannelAsRead: 'communication/markCurrentChannelAsRead'
         }),
         canLoadMoreMessages(): boolean {
-            return this.currentChannel.isChannelWithPagination() &&
-                this.messages.length % Channel.MESSAGE_LIMIT === 0;
+            return this.currentChannel.isChannelWithPagination();
         },
         getImgUrl,
         isChannelPirated(channel: Channel): boolean

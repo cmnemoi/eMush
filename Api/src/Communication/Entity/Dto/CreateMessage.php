@@ -25,9 +25,7 @@ class CreateMessage
 
     private ?Player $player;
 
-    private int $page;
-
-    private int $limit;
+    private \DateInterval $timeLimit;
 
     /**
      * @Assert\NotNull
@@ -84,26 +82,14 @@ class CreateMessage
         return $this;
     }
 
-    public function getPage(): int
+    public function getTimeLimit(): \DateInterval
     {
-        return $this->page;
+        return $this->timeLimit;
     }
 
-    public function setPage(int $page): self
+    public function setTimeLimit(\DateInterval $timeLimit): self
     {
-        $this->page = $page;
-
-        return $this;
-    }
-
-    public function getLimit(): int
-    {
-        return $this->limit;
-    }
-
-    public function setLimit(int $limit): self
-    {
-        $this->limit = $limit;
+        $this->timeLimit = $timeLimit;
 
         return $this;
     }

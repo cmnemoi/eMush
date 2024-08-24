@@ -28,8 +28,7 @@ class MessageCreateParamConverter implements ParamConverterInterface
         $message = $request->request->get('message');
         $parent = $request->request->get('parent');
         $playerId = $request->request->get('player');
-        $page = $request->request->get('page');
-        $limit = $request->request->get('limit');
+        $timeLimit = (int) $request->request->get('timeLimit', 48);
 
         $messageCreate = new CreateMessage();
         $parentMessage = null;
@@ -52,8 +51,7 @@ class MessageCreateParamConverter implements ParamConverterInterface
             ->setParent($parentMessage)
             ->setMessage((string) $message)
             ->setPlayer($player)
-            ->setPage((int) $page)
-            ->setLimit((int) $limit);
+            ->setTimeLimit(new \DateInterval(sprintf('PT%dH', $timeLimit)));
 
         $request->attributes->set($configuration->getName(), $messageCreate);
 

@@ -102,15 +102,15 @@ const CommunicationService = {
         return ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/exit');
     },
 
-    loadMessages: async (channel: Channel, page: integer = 1, limit: integer = Channel.MESSAGE_LIMIT): Promise<Array<Message|Record<string, unknown>>> => {
+    loadMessages: async (channel: Channel, timeLimit: integer = 48): Promise<Array<Message|Record<string, unknown>>> => {
         if (channel.scope === ChannelType.TIPS) {
             return [];
         } else if (channel.scope === ChannelType.ROOM_LOG) {
             return await loadRoomLogs();
         } else if (channel.scope === ChannelType.FAVORITES) {
-            return await loadFavoritesChannelMessages(page, limit);
+            return await loadFavoritesChannelMessages(timeLimit);
         } else {
-            return await CommunicationService.loadChannelMessages(channel, page, limit);
+            return await CommunicationService.loadChannelMessages(channel, timeLimit);
         }
 
         async function loadRoomLogs(): Promise<Record<string, unknown>[]> {
@@ -137,11 +137,10 @@ const CommunicationService = {
             return logs;
         }
 
-        async function loadFavoritesChannelMessages(page: integer, limit: integer): Promise<Message[]> {
+        async function loadFavoritesChannelMessages(timeLimit: integer): Promise<Message[]> {
             const messagesData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, 'favorites', 'messages'), {
                 params: {
-                    'page': page,
-                    'limit': limit
+                    timeLimit: timeLimit
                 }
             });
 
@@ -155,11 +154,10 @@ const CommunicationService = {
         }
     },
 
-    loadChannelMessages: async (channel: Channel, page: integer, limit: integer): Promise<Message[]> => {
+    loadChannelMessages: async (channel: Channel, timeLimit: integer): Promise<Message[]> => {
         const messagesData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, String(channel.id), 'message'), {
             params: {
-                'page': page,
-                'limit': limit
+                'timeLimit': timeLimit
             }
         });
 
@@ -226,8 +224,7 @@ const CommunicationService = {
             'message': text,
             'parent': parentId,
             'player': channel.piratedPlayer,
-            'page': 1,
-            'limit': Channel.MESSAGE_LIMIT
+            'timeLimit': 48
         });
 
         const messages: Message[] = [];

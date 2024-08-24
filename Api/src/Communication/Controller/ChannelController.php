@@ -422,15 +422,10 @@ class ChannelController extends AbstractGameController
      *                  description="id of the player sending message"
      *              ),
      *              @OA\Property(
-     *                  type="integer",
-     *                  property="page",
-     *                  description="page number"
-     *              ),
-     *              @OA\Property(
-     *                  type="integer",
-     *                  property="limit",
-     *                  description="number of messages per page"
-     *              )
+     *                  type="string",
+     *                  property="timeLimit",
+     *                  description="The time limit"
+     *             )
      *          )
      *      )
      *    )
@@ -484,9 +479,9 @@ class ChannelController extends AbstractGameController
 
         $this->messageService->createPlayerMessage($playerMessage, $messageCreate);
         if ($channel->isFavorites()) {
-            $messages = $this->messageService->getPlayerFavoritesChannelMessages($currentPlayer, $messageCreate->getPage(), $messageCreate->getLimit());
+            $messages = $this->messageService->getPlayerFavoritesChannelMessages($currentPlayer, $messageCreate->getTimeLimit());
         } else {
-            $messages = $this->messageService->getChannelMessages($currentPlayer, $channel, $messageCreate->getPage(), $messageCreate->getLimit());
+            $messages = $this->messageService->getChannelMessages($currentPlayer, $channel, $messageCreate->getTimeLimit());
         }
 
         $context = new Context();
@@ -531,10 +526,9 @@ class ChannelController extends AbstractGameController
             return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
-        $page = (int) $request->get('page');
-        $limit = (int) $request->get('limit');
+        $timeLimit = new \DateInterval(sprintf('PT%dH', $request->get('timeLimit', 48)));
 
-        $messages = $this->messageService->getChannelMessages($player, $channel, $page, $limit);
+        $messages = $this->messageService->getChannelMessages($player, $channel, $timeLimit);
 
         $context = new Context();
         $context->setAttribute('currentPlayer', $player);
@@ -727,10 +721,9 @@ class ChannelController extends AbstractGameController
         $context = new Context();
         $context->setAttribute('currentPlayer', $player);
 
-        $page = (int) $request->get('page');
-        $limit = (int) $request->get('limit');
+        $timeLimit = new \DateInterval(sprintf('PT%dH', $request->get('timeLimit', 48)));
 
-        $view = $this->view($this->messageService->getPlayerFavoritesChannelMessages($player, $page, $limit), Response::HTTP_OK);
+        $view = $this->view($this->messageService->getPlayerFavoritesChannelMessages($player, $timeLimit), Response::HTTP_OK);
         $view->setContext($context);
 
         return $view;

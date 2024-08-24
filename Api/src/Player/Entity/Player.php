@@ -371,9 +371,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getMedicalConditions()->filter(static fn (PlayerDisease $playerDisease) => $playerDisease->isADisorder());
     }
 
-    public function getOldestDisorder(): PlayerDisease
+    public function hasActiveDisorder(): bool
     {
-        return $this->getDisorders()->getSortedByCreationDate()->first() ?: PlayerDisease::createNull();
+        return $this->getDisorders()->filter(static fn (PlayerDisease $disorder) => $disorder->isActive())->count() > 0;
     }
 
     public function setMedicalConditions(Collection $medicalConditions): static

@@ -3,17 +3,16 @@
 namespace Mush\Disease\Listener;
 
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PlayerCycleSubscriber implements EventSubscriberInterface
+final class PlayerCycleSubscriber implements EventSubscriberInterface
 {
-    private PlayerDiseaseServiceInterface $playerDiseaseService;
-
-    public function __construct(PlayerDiseaseServiceInterface $playerDiseaseService)
-    {
-        $this->playerDiseaseService = $playerDiseaseService;
-    }
+    public function __construct(
+        private PlayerDiseaseServiceInterface $playerDiseaseService,
+        private RandomServiceInterface $randomService,
+    ) {}
 
     public static function getSubscribedEvents()
     {
@@ -30,8 +29,8 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
             $this->playerDiseaseService->handleNewCycle($disease, $event->getTime());
         }
 
-        $disorder = $player->getOldestDisorder();
-        if ($disorder->isTreatedByAShrink()) {
+        if ($player->hasActiveDisorder() && $player->isLaidDownInShrinkRoom()) {
+            $disorder = $this->randomService->getRandomElement($player->getDisorders()->toArray());
             $this->playerDiseaseService->treatDisorder($disorder, $event->getTime());
         }
     }

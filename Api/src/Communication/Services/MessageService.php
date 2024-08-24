@@ -215,11 +215,6 @@ class MessageService implements MessageServiceInterface
         return new ArrayCollection($this->messageRepository->findByChannel($channel, $timeLimit));
     }
 
-    private function getByChannelWithPagination(Channel $channel, int $page, int $limit): Collection
-    {
-        return new ArrayCollection($this->messageRepository->findByChannelWithPagination($channel, $page, $limit));
-    }
-
     private function getModifiedMessage(Message $message, Player $player): Message
     {
         $messageEvent = new MessageEvent(

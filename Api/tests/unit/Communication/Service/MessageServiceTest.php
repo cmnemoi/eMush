@@ -209,8 +209,12 @@ final class MessageServiceTest extends TestCase
         $message2 = new Message();
 
         $this->messageRepository
-            ->shouldReceive('findByChannelWithPagination')
-            ->with($channel, 1, 10)
+            ->shouldReceive('findByChannel')
+            ->withArgs(
+                static fn ($channelTest, $age) => $channelTest === $channel
+                && $age instanceof \DateInterval
+                && (int) $age->format('%H') === 48
+            )
             ->andReturn([$message1, $message2]);
         $this->channelRepository
             ->shouldReceive('findFavoritesChannelForPlayer')
@@ -219,7 +223,7 @@ final class MessageServiceTest extends TestCase
             ->andReturn(new MessageEvent($message1, $player, [], new \DateTime()))
             ->twice();
 
-        $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
+        $messages = $this->service->getChannelMessages($player, $channel, new \DateInterval('PT48H'));
 
         self::assertCount(2, $messages);
     }
@@ -250,7 +254,7 @@ final class MessageServiceTest extends TestCase
             ->shouldReceive('findFavoritesChannelForPlayer')
             ->andReturn(null);
 
-        $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
+        $messages = $this->service->getChannelMessages($player, $channel, new \DateInterval('PT48H'));
 
         self::assertCount(2, $messages);
     }
@@ -268,14 +272,18 @@ final class MessageServiceTest extends TestCase
         }
 
         $this->messageRepository
-            ->shouldReceive('findByChannelWithPagination')
-            ->with($channel, 1, 10)
+            ->shouldReceive('findByChannel')
+            ->withArgs(
+                static fn ($channelTest, $age) => $channelTest === $channel
+                && $age instanceof \DateInterval
+                && (int) $age->format('%H') === 48
+            )
             ->andReturn($messages->slice(0, 10));
         $this->eventService->shouldReceive('computeEventModifications')
             ->andReturn(new MessageEvent($message, $player, [], new \DateTime()))
             ->times(10);
 
-        $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
+        $messages = $this->service->getChannelMessages($player, $channel, new \DateInterval('PT48H'));
 
         self::assertCount(10, $messages);
     }
@@ -301,8 +309,12 @@ final class MessageServiceTest extends TestCase
             ->shouldReceive('findFavoritesChannelForPlayer')
             ->andReturn(null);
         $this->messageRepository
-            ->shouldReceive('findByChannelWithPagination')
-            ->with($channel, 1, 20)
+            ->shouldReceive('findByChannel')
+            ->withArgs(
+                static fn ($channelTest, $age) => $channelTest === $channel
+                && $age instanceof \DateInterval
+                && (int) $age->format('%H') === 48
+            )
             ->andReturn($messages->slice(10, 25));
         $this->eventService->shouldReceive('computeEventModifications')
             ->andReturn(new MessageEvent($message, $player, [], new \DateTime()))

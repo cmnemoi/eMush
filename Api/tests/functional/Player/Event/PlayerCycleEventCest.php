@@ -9,6 +9,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
@@ -431,12 +432,18 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         // given Chun has 10 morale points
         $this->chun->setMoralPoint(10);
 
+        // given KT has 10 morale points
+        $this->kuanTi->setMoralPoint(10);
+
         // when cycle change is triggered
-        $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        $cycleEvent = new PlaceCycleEvent($this->chun->getPlace(), [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, PlaceCycleEvent::PLACE_NEW_CYCLE);
 
         // then Chun should have 11 morale points
         $I->assertEquals(11, $this->chun->getMoralPoint());
+
+        // then KT should have 10 morale points
+        $I->assertEquals(10, $this->kuanTi->getMoralPoint());
     }
 
     public function shrinkShouldNotGiveMoraleToHimself(FunctionalTester $I): void
@@ -457,8 +464,8 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $janice->setMoralPoint(10);
 
         // when cycle change is triggered
-        $cycleEvent = new PlayerCycleEvent($janice, [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        $cycleEvent = new PlaceCycleEvent($janice->getPlace(), [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, PlaceCycleEvent::PLACE_NEW_CYCLE);
 
         // then Janice should have 10 morale points
         $I->assertEquals(10, $janice->getMoralPoint());
@@ -486,8 +493,8 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHRINK, $janice2));
 
         // when cycle change is triggered
-        $cycleEvent = new PlayerCycleEvent($janice, [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        $cycleEvent = new PlaceCycleEvent($janice->getPlace(), [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, PlaceCycleEvent::PLACE_NEW_CYCLE);
 
         // then Janice should have 11 morale points
         $I->assertEquals(11, $janice->getMoralPoint());

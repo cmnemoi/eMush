@@ -106,6 +106,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setActivationRequirement(PlayerStatusEnum::LYING_DOWN)
             ->buildName();
         $manager->persist($lyingDownActivationRequirement);
+        $this->addReference(ModifierRequirementEnum::HOLDER_HAS_STATUS . '_' . PlayerStatusEnum::LYING_DOWN, $lyingDownActivationRequirement);
 
         $moveIncreaseMovement = new VariableEventModifierConfig('increased1MovementCostOnActions');
         $moveIncreaseMovement

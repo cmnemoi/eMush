@@ -5,18 +5,22 @@ declare(strict_types=1);
 namespace Mush\Modifier\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 /** @codeCoverageIgnore */
-final class SkillModifierConfigFixtures extends Fixture
+final class SkillModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -144,13 +148,20 @@ final class SkillModifierConfigFixtures extends Fixture
 
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference('change.variable_player_+1moralePoint');
-        $LogisticModifier = TriggerEventModifierConfig::fromConfigData(
+
+        /** @var ModifierActivationRequirement $lyingDownActivationRequirement */
+        $lyingDownActivationRequirement = $this->getReference(ModifierRequirementEnum::HOLDER_HAS_STATUS . '_' . PlayerStatusEnum::LYING_DOWN);
+
+        $shrinkModifier = TriggerEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName('modifier_for_player_+1morale_point_on_new_cycle_if_lying_down')
         );
-        $LogisticModifier->setTriggeredEvent($eventConfig);
+        $shrinkModifier->setTriggeredEvent($eventConfig);
+        $shrinkModifier->setEventTargetRequirements([
+            $lyingDownActivationRequirement,
+        ]);
 
-        $this->addReference($LogisticModifier->getName(), $LogisticModifier);
-        $manager->persist($LogisticModifier);
+        $this->addReference($shrinkModifier->getName(), $shrinkModifier);
+        $manager->persist($shrinkModifier);
 
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference('change.variable_player_+1_actionPoint');
@@ -163,5 +174,12 @@ final class SkillModifierConfigFixtures extends Fixture
         $manager->persist($LogisticModifier);
 
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            DiseaseModifierConfigFixtures::class,
+        ];
     }
 }

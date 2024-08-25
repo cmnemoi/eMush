@@ -118,6 +118,9 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::LOGISTICS_EXPERT,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::MANKIND_ONLY_HOPE,
                 modifierConfigs: [
                     'modifier_for_daedalus_+1moral_on_day_change',
@@ -231,7 +234,7 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
-                name: SkillEnum::LOGISTICS_EXPERT,
+                name: SkillEnum::TRACKER,
             ),
             new SkillConfigDto(
                 name: SkillEnum::TRANSFER,

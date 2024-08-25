@@ -17,6 +17,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Service\PlayerService;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -42,12 +43,18 @@ class CreatePlayerServiceCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushStatusConfig);
 
+        $alphaMushStatusConfig = new StatusConfig();
+        $alphaMushStatusConfig
+            ->setStatusName(PlayerStatusEnum::ALPHA_MUSH)
+            ->buildName(GameConfigEnum::TEST);
+        $I->haveInRepository($alphaMushStatusConfig);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
+            'statusConfigs' => new ArrayCollection([$mushStatusConfig, $alphaMushStatusConfig]),
         ]);
 
         /** @var CharacterConfig $gioeleCharacterConfig */

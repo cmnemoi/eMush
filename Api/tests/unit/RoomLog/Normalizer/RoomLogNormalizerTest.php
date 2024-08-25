@@ -90,12 +90,12 @@ final class RoomLogNormalizerTest extends TestCase
     {
         $this->translationService
             ->shouldReceive('translate')
-            ->with('logKey1', [], 'log', LanguageEnum::FRENCH)
+            ->with('logKey1', ['is_tracker' => 'false'], 'log', LanguageEnum::FRENCH)
             ->andReturn('translated log 1')
             ->once();
         $this->translationService
             ->shouldReceive('translate')
-            ->with('logKey2', ['player' => 'andie'], 'log', LanguageEnum::FRENCH)
+            ->with('logKey2', ['player' => 'andie', 'is_tracker' => 'false'], 'log', LanguageEnum::FRENCH)
             ->andReturn('translated log 2')
             ->once();
         $this->translationService

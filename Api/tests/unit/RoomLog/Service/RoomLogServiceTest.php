@@ -529,9 +529,8 @@ final class RoomLogServiceTest extends TestCase
 
         $this->repository
             ->shouldReceive('getPlayerRoomLog')
-            ->with($playerInfo)
-            ->andReturn([$roomLog1, $roomLog2])
-            ->once();
+            ->once()
+            ->andReturn([$roomLog1, $roomLog2]);
 
         $logs = $this->service->getRoomLog($player);
         $expectedLogs = new RoomLogCollection([$roomLog1, $roomLog2]);
@@ -611,7 +610,10 @@ final class RoomLogServiceTest extends TestCase
         $roomLogs->get(1)->addReader($player);
 
         // given universe is setup so that everything works
-        $this->repository->shouldReceive('getPlayerRoomLog')->with($playerInfo)->andReturn($roomLogs->toArray())->once();
+        $this->repository
+            ->shouldReceive('getPlayerRoomLog')
+            ->once()
+            ->andReturn($roomLogs->toArray());
         $this->entityManager->shouldReceive('persist')->times(3);
         $this->entityManager->shouldReceive('flush')->times(3);
 

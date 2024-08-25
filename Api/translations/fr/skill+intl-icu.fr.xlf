@@ -525,5 +525,15 @@
         <target>Vos bactéries plantaires peuvent avoir des usages particulièrement virulents.//:point: Pour **1** :pa:, vous pouvez donner une **maladie** à un équipier. Ceci est une action **furtive**.</target>
       </segment>
     </unit>
+    <unit id="pyromaniac">
+      <segment id="pyromaniac.name" state="translated">
+        <source>pyromaniac.name</source>
+        <target>Pyromane</target>
+      </segment>
+      <segment id="pyromaniac.description" state="translated">
+        <source>pyromaniac.description</source>
+        <target>Le pyromane peut injecter des microspores explosifs dans un support inflammable afin de déclencher une combustion violente susceptible d'endommager à terme le vaisseau.//:point: Pour **4** :pa:, vous pouvez déclencher un **incendie** dans une salle.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

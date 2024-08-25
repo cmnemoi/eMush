@@ -181,6 +181,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::PYROMANIAC,
+                actionConfigs: [
+                    ActionEnum::SPREAD_FIRE,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::RADIO_PIRACY,
                 actionConfigs: [
                     ActionEnum::SCREW_TALKIE,

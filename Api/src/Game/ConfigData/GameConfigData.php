@@ -595,6 +595,7 @@ class GameConfigData
                 SkillEnum::RADIO_PIRACY,
                 SkillEnum::BACTEROPHILIAC,
                 SkillEnum::INFECTOR,
+                SkillEnum::PYROMANIAC,
             ],
         ],
     ];

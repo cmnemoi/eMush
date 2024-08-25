@@ -472,16 +472,13 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $extractSporeAction = $this->getReference(MushActionFixtures::EXTRACT_SPORE);
 
         /** @var ActionConfig $infectAction */
-        $infectAction = $this->getReference(MushActionFixtures::SPREAD_FIRE);
+        $infectAction = $this->getReference(MushActionFixtures::INFECT_PLAYER);
 
         // Skills actions
         // @TODO: after skill implementation, action will be given by skills
 
         /** @var ActionConfig $surgeryAction */
         $surgeryAction = $this->getReference(ActionsFixtures::SURGERY);
-
-        /** @var ActionConfig $spreadFireAction */
-        $spreadFireAction = $this->getReference(MushActionFixtures::INFECT_PLAYER);
 
         /** @var ActionConfig $guardAction */
         $guardAction = $this->getReference(ActionEnum::GUARD->value);
@@ -506,7 +503,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $healAction,
             $selfHealAction,
             $rejuvenateAlphaAction,
-            $spreadFireAction,
             $flirtAction,
             $doTheThingAction,
             $fakeDiseaseAction,

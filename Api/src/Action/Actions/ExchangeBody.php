@@ -149,12 +149,12 @@ final class ExchangeBody extends AbstractAction
 
     private function createTargetNotification(): void
     {
-        $this->updatePlayerNotification->execute($this->target(), sprintf('%s_mush', ActionEnum::EXCHANGE_BODY->value));
+        $this->updatePlayerNotification->execute($this->target(), \sprintf('%s_mush', ActionEnum::EXCHANGE_BODY->value));
     }
 
     private function createPlayerNotification(): void
     {
-        $this->updatePlayerNotification->execute($this->player, sprintf('%s_human', ActionEnum::EXCHANGE_BODY->value));
+        $this->updatePlayerNotification->execute($this->player, \sprintf('%s_human', ActionEnum::EXCHANGE_BODY->value));
     }
 
     private function target(): Player

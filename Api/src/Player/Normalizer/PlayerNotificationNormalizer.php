@@ -25,13 +25,13 @@ final class PlayerNotificationNormalizer implements NormalizerInterface
 
         return [
             'title' => $this->translationService->translate(
-                key: sprintf('%s.title', $notification->getMessage()),
+                key: \sprintf('%s.title', $notification->getMessage()),
                 parameters: [],
                 domain: 'notification',
                 language: $notification->getLanguage(),
             ),
             'description' => $this->translationService->translate(
-                key: sprintf('%s.description', $notification->getMessage()),
+                key: \sprintf('%s.description', $notification->getMessage()),
                 parameters: [],
                 domain: 'notification',
                 language: $notification->getLanguage(),

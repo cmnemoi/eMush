@@ -28,13 +28,13 @@ final class TipsChannelNormalizer implements NormalizerInterface
 
         return [
             'name' => $this->translationService->translate(
-                key: sprintf('%s.name', $channel->getScope()),
+                key: \sprintf('%s.name', $channel->getScope()),
                 parameters: [],
                 domain: 'chat',
                 language: $currentPlayer->getLanguage(),
             ),
             'description' => $this->translationService->translate(
-                key: sprintf('%s.description', $channel->getScope()),
+                key: \sprintf('%s.description', $channel->getScope()),
                 parameters: [],
                 domain: 'chat',
                 language: $currentPlayer->getLanguage(),
@@ -58,7 +58,7 @@ final class TipsChannelNormalizer implements NormalizerInterface
     private function getCurrentPlayerTips(Player $currentPlayer): array
     {
         return explode('//', $this->translationService->translate(
-            key: sprintf('%s.tips', $currentPlayer->getName()),
+            key: \sprintf('%s.tips', $currentPlayer->getName()),
             parameters: [],
             domain: 'characters',
             language: $currentPlayer->getLanguage()
@@ -86,7 +86,7 @@ final class TipsChannelNormalizer implements NormalizerInterface
                     language: $currentPlayer->getLanguage()
                 ),
                 'link' => $this->translationService->translate(
-                    key: sprintf('%s.tutorial', $currentPlayer->getName()),
+                    key: \sprintf('%s.tutorial', $currentPlayer->getName()),
                     parameters: [],
                     domain: 'characters',
                     language: $currentPlayer->getLanguage()

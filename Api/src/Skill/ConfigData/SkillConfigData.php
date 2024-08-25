@@ -224,6 +224,15 @@ abstract class SkillConfigData
                     ActionEnum::EXCHANGE_BODY,
                 ],
             ),
+            new SkillConfigDto(
+                name: SkillEnum::WRESTLER,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_PLUS_2_DAMAGE_ON_HIT,
+                ],
+                actionConfigs: [
+                    ActionEnum::PUT_THROUGH_DOOR,
+                ],
+            ),
         ];
     }
 

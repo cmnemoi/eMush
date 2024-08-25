@@ -55,6 +55,7 @@ class CharacterConfigData
             'skillConfigs' => [
                 SkillEnum::SHOOTER,
                 SkillEnum::SURVIVALIST,
+                SkillEnum::WRESTLER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -140,6 +141,7 @@ class CharacterConfigData
             'characterName' => 'derek',
             'skillConfigs' => [
                 SkillEnum::SHOOTER,
+                SkillEnum::WRESTLER,
                 SkillEnum::FIREFIGHTER,
                 SkillEnum::MOTIVATOR,
             ],

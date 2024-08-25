@@ -162,6 +162,12 @@ final class SkillModifierConfigFixtures extends Fixture
         $this->addReference($LogisticModifier->getName(), $LogisticModifier);
         $manager->persist($LogisticModifier);
 
+        $playerPlusTwoDamageOnHit = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_2_DAMAGE_ON_HIT)
+        );
+        $this->addReference($playerPlusTwoDamageOnHit->getName(), $playerPlusTwoDamageOnHit);
+        $manager->persist($playerPlusTwoDamageOnHit);
+
         $manager->flush();
     }
 }

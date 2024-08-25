@@ -9,7 +9,6 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -58,7 +57,7 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
         $I->assertEquals($numberOfCharacters - $numberOfMush, $this->daedalus->getPlayers()->getHumanPlayer()->count());
         $mushPlayers = $this->daedalus->getPlayers()->getMushPlayer();
         foreach ($mushPlayers as $mushPlayer) {
-            $I->assertTrue($mushPlayer->hasStatus(PlayerStatusEnum::ALPHA_MUSH));
+            $I->assertTrue($mushPlayer->isAlphaMush());
         }
     }
 

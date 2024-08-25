@@ -8,6 +8,7 @@ use Mush\Action\Actions\PrintZeList;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -21,7 +22,6 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -194,18 +194,12 @@ final class PrintZeListCest extends AbstractFunctionalTest
 
     private function givenKuanTiIsAlphaMush(): void
     {
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::MUSH,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime(),
+        $playerEvent = new PlayerEvent(
+            $this->kuanTi,
+            [DaedalusEvent::FULL_DAEDALUS],
+            new \DateTime()
         );
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::ALPHA_MUSH,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
     }
 
     private function givenTabulatrixIsBroken(): void

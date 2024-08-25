@@ -584,7 +584,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($jukeboxSongStatus)
             ->addStatusConfig($hasCeasefiredStatus)
             ->addStatusConfig($hasExchangedBodyStatus)
-            ->addStatusConfig($alphaMushStatus)
             ->addStatusConfig($hasPrintedZeList);
 
         $manager->persist($gameConfig);
@@ -640,7 +639,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_CEASEFIRED, $hasCeasefiredStatus);
         $this->addReference(PlayerStatusEnum::PREVIOUS_ROOM, $previousRoom);
         $this->addReference(PlayerStatusEnum::HAS_EXCHANGED_BODY, $hasExchangedBodyStatus);
-        $this->addReference(PlayerStatusEnum::ALPHA_MUSH, $alphaMushStatus);
         $this->addReference(PlayerStatusEnum::HAS_PRINTED_ZE_LIST, $hasPrintedZeList);
 
         $manager->flush();

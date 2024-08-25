@@ -1098,6 +1098,18 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $place instanceof Place ? $place : throw new \RuntimeException('The player does not have a previous room');
     }
 
+    public function flagAsAlphaMush(): static
+    {
+        $this->playerInfo->getClosedPlayer()->flagAsAlphaMush();
+
+        return $this;
+    }
+
+    public function isAlphaMush(): bool
+    {
+        return $this->playerInfo->getClosedPlayer()->isAlphaMush();
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {

@@ -162,7 +162,10 @@ final class PrintZeList extends AbstractAction
     private function selectedAlphaMush(): Player
     {
         $players = $this->player->getDaedalus()->getPlayers();
-        $alphaMushs = $players->filter(static fn (Player $player) => $player->hasStatus(PlayerStatusEnum::ALPHA_MUSH));
+        $alphaMushs = $players->filter(static fn (Player $player) => $player->isAlphaMush());
+
+        // Temporary condition during the alpha as on-going ships do not have alpha mushes
+        // Can be removed safely when all ships started after September 1, 2024 are finished
         if ($alphaMushs->isEmpty()) {
             return $this->randomService->getRandomElement($players->getMushPlayer()->toArray());
         }

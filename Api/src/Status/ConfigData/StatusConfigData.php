@@ -1436,7 +1436,7 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => PlayerStatusEnum::HAS_PRINTED_ZE_LIST .  '_default',
+            'name' => PlayerStatusEnum::HAS_PRINTED_ZE_LIST . '_default',
             'statusName' => PlayerStatusEnum::HAS_PRINTED_ZE_LIST,
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'status_config',

@@ -39,7 +39,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $mushStatusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::MUSH, $player->getDaedalus());
         $this->statusService->createStatusFromConfig($mushStatusConfig, $player, $playerEvent->getTags(), $playerEvent->getTime());
-        
+
         if ($playerEvent->hasTag(DaedalusEvent::FULL_DAEDALUS)) {
             $this->statusService->createStatusFromName(
                 PlayerStatusEnum::ALPHA_MUSH,

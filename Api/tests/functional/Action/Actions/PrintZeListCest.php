@@ -27,6 +27,9 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
 
+/**
+ * @internal
+ */
 final class PrintZeListCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
@@ -77,7 +80,7 @@ final class PrintZeListCest extends AbstractFunctionalTest
         $this->whenChunPrintsZeList();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: "La tabulatrice émet un grondement étonnant. Une perforation est en cours...",
+            expectedRoomLog: 'La tabulatrice émet un grondement étonnant. Une perforation est en cours...',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->chun,
                 log: LogEnum::TABULATRIX_PRINTS,
@@ -98,7 +101,7 @@ final class PrintZeListCest extends AbstractFunctionalTest
     }
 
     public function zeListShouldContainThreeNamesAtDaySix(FunctionalTester $I): void
-    {   
+    {
         $this->givenDaedalusHasBeenCreatedDaysAgo(5);
 
         $this->givenChunIsATracker();
@@ -109,14 +112,14 @@ final class PrintZeListCest extends AbstractFunctionalTest
     }
 
     public function zeListShouldContainAtLeastOneAlphaMush(FunctionalTester $I): void
-    {   
+    {
         $this->givenDaedalusHasBeenCreatedDaysAgo(8);
 
         $this->givenChunIsATracker();
 
         $this->whenChunPrintsZeList();
 
-        $this->thenZeListShouldContainPlayerName("Kuan Ti", $I);
+        $this->thenZeListShouldContainPlayerName('Kuan Ti', $I);
     }
 
     public function shouldNotBeExecutableIfTabulatrixIsBroken(FunctionalTester $I): void
@@ -186,11 +189,11 @@ final class PrintZeListCest extends AbstractFunctionalTest
 
     private function givenDaedalusHasBeenCreatedDaysAgo(int $days): void
     {
-        $this->daedalus->setCreatedAt(new \DateTime("-$days days"));
+        $this->daedalus->setCreatedAt(new \DateTime("-{$days} days"));
     }
 
     private function givenKuanTiIsAlphaMush(): void
-    {   
+    {
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::MUSH,
             holder: $this->kuanTi,

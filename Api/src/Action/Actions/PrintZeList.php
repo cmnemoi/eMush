@@ -13,9 +13,7 @@ use Mush\Action\Validator\AllMushsAreDead;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasSkill;
 use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\IsActionProviderOperational;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Game\Enum\VisibilityEnum;
@@ -42,8 +40,7 @@ final class PrintZeList extends AbstractAction
         private RandomServiceInterface $randomService,
         private StatusServiceInterface $statusService,
         private TranslationServiceInterface $translationService,
-    )
-    {
+    ) {
         parent::__construct($eventService, $actionService, $validator);
     }
 
@@ -84,7 +81,7 @@ final class PrintZeList extends AbstractAction
         $this->createHasPrintedZeListStatus();
     }
 
-    private function createZeList(): GameItem
+    private function createZeList(): GameEquipment
     {
         $zeList = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::DOCUMENT,
@@ -109,7 +106,7 @@ final class PrintZeList extends AbstractAction
         );
     }
 
-    private function addNamesToZeList(GameItem $zeList): void
+    private function addNamesToZeList(GameEquipment $zeList): void
     {
         $this->statusService->createContentStatus(
             content: $this->translatedList(),
@@ -119,13 +116,13 @@ final class PrintZeList extends AbstractAction
     }
 
     private function translatedList(): string
-    {   
+    {
         $selectedPlayers = $this->selectedPlayers();
         $lastPlayer = array_pop($selectedPlayers);
-        
+
         $translatedFirstPlayers = array_map(
             fn (Player $player) => $this->translationService->translate(
-                key: sprintf('%s.name', $player->getLogName()),
+                key: \sprintf('%s.name', $player->getLogName()),
                 parameters: [],
                 domain: 'characters',
                 language: $this->player->getLanguage()
@@ -133,30 +130,29 @@ final class PrintZeList extends AbstractAction
             $selectedPlayers,
         );
         $translatedLastPlayer = $this->translationService->translate(
-            key: sprintf('%s.name', $lastPlayer->getLogName()),
+            key: \sprintf('%s.name', $lastPlayer->getLogName()),
             parameters: [],
             domain: 'characters',
             language: $this->player->getLanguage()
         );
-        
+
         return $this->translationService->translate(
             key: 'ze_list',
             parameters: [
-                'firstPlayers' => join(', ', array_map(static fn (string $name) => $name, $translatedFirstPlayers)),
+                'firstPlayers' => implode(', ', array_map(static fn (string $name) => $name, $translatedFirstPlayers)),
                 'lastPlayer' => $translatedLastPlayer,
                 'quantity' => \count($this->selectedPlayers()),
             ],
             domain: 'event_log',
             language: $this->player->getLanguage(),
         );
-
     }
 
     private function selectedPlayers(): array
-    {   
+    {
         $players = $this->player->getDaedalus()->getPlayers()->toArray();
         $randomPlayers = $this->randomService->getRandomElements($players, $this->numberOfNames());
-        
+
         $selectedPlayers = [$this->selectedAlphaMush(), ...$randomPlayers];
         shuffle($selectedPlayers);
 
@@ -166,7 +162,7 @@ final class PrintZeList extends AbstractAction
     private function selectedAlphaMush(): Player
     {
         $players = $this->player->getDaedalus()->getPlayers();
-        $alphaMushs = $players->filter(fn (Player $player) => $player->hasStatus(PlayerStatusEnum::ALPHA_MUSH));
+        $alphaMushs = $players->filter(static fn (Player $player) => $player->hasStatus(PlayerStatusEnum::ALPHA_MUSH));
 
         return $this->randomService->getRandomElement($alphaMushs->toArray());
     }
@@ -179,9 +175,10 @@ final class PrintZeList extends AbstractAction
     private function numberOfDaysElapsed(): int
     {
         $daedalus = $this->player->getDaedalus();
-        $createdAt = $daedalus->getCreatedAt();
-        $now = new \DateTime();
 
-        return $createdAt->diff($now)->days;
+        /** @var \DateTime $createdAt */
+        $createdAt = $daedalus->getCreatedAt();
+
+        return $createdAt->diff(new \DateTime('now'))->days;
     }
 }

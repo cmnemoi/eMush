@@ -593,6 +593,7 @@ class GameConfigData
                 SkillEnum::FERTILE,
                 SkillEnum::MYCELIUM_SPIRIT,
                 SkillEnum::RADIO_PIRACY,
+                SkillEnum::BACTEROPHILIAC,
                 SkillEnum::INFECTOR,
             ],
         ],

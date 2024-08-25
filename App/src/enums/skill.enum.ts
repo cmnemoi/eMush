@@ -110,6 +110,10 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/human/astrophysicist.png')
     },
 
+    [SkillEnum.BACTEROPHILIAC]: {
+        'icon': getImgUrl('skills/mush/bacterial_contact.png')
+    },
+
     [SkillEnum.BIOLOGIST]: {
         'icon': getImgUrl('skills/human/biologist.png')
     },

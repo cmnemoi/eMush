@@ -38,6 +38,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::BACTEROPHILIAC,
+                actionConfigs: [
+                    ActionEnum::MAKE_SICK,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::BOTANIST,
                 skillPointsConfig: SkillPointsEnum::BOTANIST_POINTS,
             ),

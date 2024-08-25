@@ -480,9 +480,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $surgeryAction */
         $surgeryAction = $this->getReference(ActionsFixtures::SURGERY);
 
-        /** @var ActionConfig $makeSickAction */
-        $makeSickAction = $this->getReference(MushActionFixtures::MAKE_SICK);
-
         /** @var ActionConfig $spreadFireAction */
         $spreadFireAction = $this->getReference(MushActionFixtures::INFECT_PLAYER);
 
@@ -512,7 +509,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $spreadFireAction,
             $flirtAction,
             $doTheThingAction,
-            $makeSickAction,
             $fakeDiseaseAction,
             $ungag,
             $autoDestroyAction,

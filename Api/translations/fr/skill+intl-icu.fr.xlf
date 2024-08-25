@@ -515,5 +515,15 @@
         <target>Le Traqueur voit les provenances et les directions de chaque mouvement de l'équipage. Il peut en outre imprimer un résultat d'enquête grâce à la tabulatrice durant la partie. Il s'agit d'une liste de personnes contenant au moins un infecté Mush.//:point: Accès complet aux **historiques de déplacement**.//:point: Permet d'**imprimer la liste secrète** sur la Tabulatrice.</target>
       </segment>
     </unit>
+    <unit id="bacterophiliac">
+      <segment id="bacterophiliac.name" state="translated">
+        <source>bacterophiliac.name</source>
+        <target>Bacterophilie</target>
+      </segment>
+      <segment id="bacterophiliac.description" state="translated">
+        <source>bacterophiliac.description</source>
+        <target>Vos bactéries plantaires peuvent avoir des usages particulièrement virulents.//:point: Pour **1** :pa:, vous pouvez donner une **maladie** à un équipier. Ceci est une action **furtive**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -879,6 +879,13 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var ActionConfig $dismantle12 */
         $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
+
+        /** @var ActionConfig $printZeListAction */
+        $printZeListAction = $this->getReference(ActionEnum::PRINT_ZE_LIST->value);
+
+        $tabulatrixTool = $this->createTool([$printZeListAction], EquipmentEnum::TABULATRIX);
+        $manager->persist($tabulatrixTool);
+
         $tabulatrixActions = [
             $dismantle12,
             $repair12,
@@ -894,6 +901,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsBreakable(true)
             ->setActionConfigs($tabulatrixActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
+            ->setMechanics([$tabulatrixTool])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($tabulatrix);
 

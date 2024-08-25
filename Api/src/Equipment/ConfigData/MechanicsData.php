@@ -41,6 +41,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'read_document',
+                'shred',
             ],
             'modifierConfigs' => [],
         ],
@@ -3724,6 +3725,13 @@ class MechanicsData
             'type' => 'tool',
             'actions' => [
                 ActionEnum::CHECK_SPORE_LEVEL->value,
+            ],
+        ],
+        [
+            'name' => 'tool_tabulatrix_default',
+            'type' => 'tool',
+            'actions' => [
+                ActionEnum::PRINT_ZE_LIST->value,
             ],
         ],
         [

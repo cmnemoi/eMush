@@ -28,6 +28,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ActionEnum::TRANSPLANT->value => ActionLogEnum::TRANSPLANT_SUCCESS,
         ActionEnum::OPEN->value => ActionLogEnum::OPEN_SUCCESS,
         LogEnum::FOUND_ITEM_IN_EXPLORATION => LogEnum::FOUND_ITEM_IN_EXPLORATION,
+        ActionEnum::PRINT_ZE_LIST->value => LogEnum::TABULATRIX_PRINTS,
     ];
 
     private const DESTRUCTION_LOG_MAP = [

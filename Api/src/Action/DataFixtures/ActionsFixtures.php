@@ -1097,6 +1097,9 @@ class ActionsFixtures extends Fixture
         $rejectMission = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REJECT_MISSION));
         $manager->persist($rejectMission);
 
+        $printZeList = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PRINT_ZE_LIST));
+        $manager->persist($printZeList);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1209,5 +1212,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::COMMANDER_ORDER->value, $commanderOrder);
         $this->addReference(ActionEnum::ACCEPT_MISSION->value, $acceptMission);
         $this->addReference(ActionEnum::REJECT_MISSION->value, $rejectMission);
+        $this->addReference(ActionEnum::PRINT_ZE_LIST->value, $printZeList);
     }
 }

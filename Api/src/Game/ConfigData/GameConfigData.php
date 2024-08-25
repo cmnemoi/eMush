@@ -454,6 +454,8 @@ class GameConfigData
                 PlayerStatusEnum::PREVIOUS_ROOM . '_default',
                 PlayerStatusEnum::HAS_EXCHANGED_BODY . '_default',
                 PlayerStatusEnum::HAS_ISSUED_MISSION . '_default',
+                PlayerStatusEnum::ALPHA_MUSH . '_default',
+                PlayerStatusEnum::HAS_PRINTED_ZE_LIST . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

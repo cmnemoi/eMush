@@ -2,6 +2,7 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
@@ -38,6 +39,15 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $mushStatusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::MUSH, $player->getDaedalus());
         $this->statusService->createStatusFromConfig($mushStatusConfig, $player, $playerEvent->getTags(), $playerEvent->getTime());
+        
+        if ($playerEvent->hasTag(DaedalusEvent::FULL_DAEDALUS)) {
+            $this->statusService->createStatusFromName(
+                PlayerStatusEnum::ALPHA_MUSH,
+                $player,
+                $playerEvent->getTags(),
+                $playerEvent->getTime(),
+            );
+        }
     }
 
     public function onNewPlayer(PlayerEvent $playerEvent): void

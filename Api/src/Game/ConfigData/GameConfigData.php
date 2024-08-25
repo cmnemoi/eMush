@@ -589,6 +589,7 @@ class GameConfigData
                 SkillEnum::MYCELIUM_SPIRIT,
                 SkillEnum::SPLASHPROOF,
                 SkillEnum::TRANSFER,
+                SkillEnum::RADIO_PIRACY,
                 SkillEnum::INFECTOR,
             ],
         ],

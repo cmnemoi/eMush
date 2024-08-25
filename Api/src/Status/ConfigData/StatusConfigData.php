@@ -869,7 +869,6 @@ abstract class StatusConfigData
                 'infect',
                 'extract_spore',
                 'make_sick',
-                'screw_talkie',
                 ActionEnum::TRAP_CLOSET->value,
             ],
         ],

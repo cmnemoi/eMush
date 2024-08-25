@@ -128,7 +128,7 @@ class MushActionFixtures extends Fixture
         $this->addReference(self::SPREAD_FIRE, $spreadFireAction);
         $this->addReference(self::MAKE_SICK, $makeSickAction);
         $this->addReference(self::FAKE_DISEASE, $fakeDiseaseAction);
-        $this->addReference(self::SCREW_TALKIE, $screwTalkieAction);
+        $this->addReference(ActionEnum::SCREW_TALKIE->value, $screwTalkieAction);
         $this->addReference(ActionEnum::PHAGOCYTE->value, $phagocyteAction);
         $this->addReference(ActionEnum::TRAP_CLOSET->value, $trapClosetAction);
         $this->addReference(ActionEnum::EXCHANGE_BODY->value, $exchangeBoodyAction);

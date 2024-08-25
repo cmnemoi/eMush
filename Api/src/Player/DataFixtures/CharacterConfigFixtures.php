@@ -482,9 +482,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $spreadFireAction */
         $spreadFireAction = $this->getReference(MushActionFixtures::INFECT_PLAYER);
 
-        /** @var ActionConfig $screwTalkieAction */
-        $screwTalkieAction = $this->getReference(MushActionFixtures::SCREW_TALKIE);
-
         /** @var ActionConfig $guardAction */
         $guardAction = $this->getReference(ActionEnum::GUARD->value);
 
@@ -513,7 +510,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $doTheThingAction,
             $makeSickAction,
             $fakeDiseaseAction,
-            $screwTalkieAction,
             $ungag,
             $autoDestroyAction,
             $suicideAction,

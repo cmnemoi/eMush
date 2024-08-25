@@ -485,5 +485,15 @@
         <target>Dans le feu de l'action, on peut compter sur vous.//:point: Vous gagnez **3** :pa: de plus quand vous acceptez une mission.</target>
       </segment>
     </unit>
+    <unit id="radio_piracy">
+      <segment id="radio_piracy.name" state="translated">
+        <source>radio_piracy.name</source>
+        <target>Piratage radio</target>
+      </segment>
+      <segment id="radio_piracy.description" state="translated">
+        <source>radio_piracy.description</source>
+        <target>Ce moyen de communication préhistorique est surfait. Don't act.//:point: Pour **3** :pa: vous pouvez brouiller les communications d'un joueur possédant un **Talkie-Walkie**. Ceci **casse** son **Talkie-Walkie** et vous permet d'écrire **à sa place** jusqu'à ce qu'il le répare.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

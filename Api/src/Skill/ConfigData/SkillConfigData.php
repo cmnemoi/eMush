@@ -172,6 +172,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::RADIO_PIRACY,
+                actionConfigs: [
+                    ActionEnum::SCREW_TALKIE,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::SHOOTER,
                 skillPointsConfig: SkillPointsEnum::SHOOTER_POINTS,
             ),

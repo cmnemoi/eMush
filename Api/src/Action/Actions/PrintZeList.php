@@ -163,6 +163,9 @@ final class PrintZeList extends AbstractAction
     {
         $players = $this->player->getDaedalus()->getPlayers();
         $alphaMushs = $players->filter(static fn (Player $player) => $player->hasStatus(PlayerStatusEnum::ALPHA_MUSH));
+        if ($alphaMushs->isEmpty()) {
+            return $this->randomService->getRandomElement($players->getMushPlayer()->toArray());
+        }
 
         return $this->randomService->getRandomElement($alphaMushs->toArray());
     }

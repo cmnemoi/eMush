@@ -1091,6 +1091,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
             || $this->hasTitle(TitleEnum::COM_MANAGER);
     }
 
+    public function getOldPlaceOrThrow(): Place
+    {
+        $place = $this->getStatusByNameOrThrow(PlayerStatusEnum::PREVIOUS_ROOM)->getTarget();
+
+        return $place instanceof Place ? $place : throw new \RuntimeException('The player does not have a previous room');
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {

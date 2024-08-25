@@ -235,9 +235,9 @@
       <segment id="enter_room" state="final">
         <source>enter_room</source>
         <target>{character_gender, select,
-                    male {**{character}** est entré.}
-                    female {**{character}** est entrée.}
-                    other {invalid gender input}
+                    male {**{character}** est entré{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.}
+                    female {**{character}** est entrée{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.}
+                    other {**{character}** est entré{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.}
                 }</target>
       </segment>
     </unit>
@@ -245,9 +245,9 @@
       <segment id="exit_room" state="final">
         <source>exit_room</source>
         <target>{character_gender, select,
-                    male {**{character}** est sorti.}
-                    female {**{character}** est sortie.}
-                    other {invalid gender input}
+                    male {**{character}** est sorti{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.}
+                    female {**{character}** est sortie{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.}
+                    other {**{character}** est sorti{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.}
                 }</target>
       </segment>
     </unit>

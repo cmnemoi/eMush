@@ -5,6 +5,7 @@ namespace Mush\RoomLog\Normalizer;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
+use Mush\Skill\Enum\SkillEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class RoomLogNormalizer implements NormalizerInterface
@@ -33,11 +34,13 @@ class RoomLogNormalizer implements NormalizerInterface
 
         $logs = [];
         foreach ($logCollection as $roomLog) {
+            $parameters = $roomLog->getParameters();
+            $parameters['is_tracker'] = $currentPlayer->hasSkill(SkillEnum::TRACKER) ? 'true' : 'false';
             $log = [
                 'id' => $roomLog->getId(),
                 'log' => $this->translationService->translate(
                     $roomLog->getLog(),
-                    $roomLog->getParameters(),
+                    $parameters,
                     $roomLog->getType(),
                     $language
                 ),

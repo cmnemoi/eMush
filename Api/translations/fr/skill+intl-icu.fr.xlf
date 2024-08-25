@@ -495,5 +495,15 @@
         <target>Ce moyen de communication préhistorique est surfait. Don't act.//:point: Pour **3** :pa: vous pouvez brouiller les communications d'un joueur possédant un **Talkie-Walkie**. Ceci **casse** son **Talkie-Walkie** et vous permet d'écrire **à sa place** jusqu'à ce qu'il le répare.</target>
       </segment>
     </unit>
+    <unit id="trapper">
+      <segment id="trapper.name" state="translated">
+        <source>trapper.name</source>
+        <target>Piégeur</target>
+      </segment>
+      <segment id="trapper.description" state="translated">
+        <source>trapper.description</source>
+        <target>Surprise !//:point: Pour **1** :pa:, vous pouvez piéger une **pièce** avec un **spore**. Si une personne manipule un **objet** ou un **équipement** de la pièce, elle sera **infectée**. Si c'est un Mush (dont vous-même) ou un Immunisé, le spore est perdu.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

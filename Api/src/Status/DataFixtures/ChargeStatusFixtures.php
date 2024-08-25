@@ -261,9 +261,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         /** @var ActionConfig $trapClosetAction */
         $trapClosetAction = $this->getReference(ActionEnum::TRAP_CLOSET->value);
 
-        /** @var ActionConfig $screwTalkieAction */
-        $screwTalkieAction = $this->getReference(ActionEnum::SCREW_TALKIE->value);
-
         $mushStatus = new ChargeStatusConfig();
         $mushStatus
             ->setStatusName(PlayerStatusEnum::MUSH)
@@ -278,7 +275,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
                 $consumeSatietyModifier,
                 $moraleModifier,
             ])
-            ->setActionConfigs([$trapClosetAction, $screwTalkieAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mushStatus);
 

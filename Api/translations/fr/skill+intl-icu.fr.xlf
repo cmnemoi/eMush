@@ -451,5 +451,15 @@
         <target>En cas de coup dur, vous avez LA solution.//:point: Pour **0** :pa:, vous pouvez dévorer un **Spore** ce qui vous rend **4** :pa: et **4** :hp:.</target>
       </segment>
     </unit>
+    <unit id="wrestler">
+      <segment id="wrestler.name" state="translated">
+        <source>wrestler.name</source>
+        <target>Lutteur</target>
+      </segment>
+      <segment id="wrestler.description" state="translated">
+        <source>wrestler.description</source>
+        <target>Les german suplex du Lutteur font trembler les vertèbres de tous ses adversaires.//:point: Vos attaques de corps-à-corps infligent **2 dégats supplémentaires** si vous n'êtes pas muté.//:point: Vous disposez de l'action **Mettre à la porte**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -8,9 +8,8 @@ use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
+use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -24,7 +23,7 @@ final class HitActionCest extends AbstractFunctionalTest
     private Hit $hitAction;
     private ActionConfig $action;
     private StatusServiceInterface $statusService;
-    private ChooseSkillUseCase $chooseSkillUseCase;
+    private AddSkillToPlayerService $addSkillToPlayer;
 
     public function _before(FunctionalTester $I)
     {
@@ -35,7 +34,7 @@ final class HitActionCest extends AbstractFunctionalTest
 
         $this->hitAction = $I->grabService(Hit::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
+        $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
     }
 
     public function testHitSuccess(FunctionalTester $I)
@@ -189,6 +188,32 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->thenHitActionSuccessRateShouldBe(45, $I);
     }
 
+    public function solidPlayerShouldDoMoreDamage(FunctionalTester $I): void
+    {
+        $this->givenHitActionHasSuccessRate(100);
+
+        $this->givenKuanTiHasHealthPoint(10);
+
+        $this->givenChunHasSolidSkill();
+
+        $this->whenChunHitsKuanTi();
+
+        $this->thenKuanTiShouldHaveLessOrEqualThanHealthPoint(8, $I);
+    }
+
+    public function wrestlerPlayerShouldDoMoreDamage(FunctionalTester $I): void
+    {
+        $this->givenHitActionHasSuccessRate(100);
+
+        $this->givenKuanTiHasHealthPoint(10);
+
+        $this->givenChunHasWrestlerSkill();
+
+        $this->whenChunHitsKuanTi();
+
+        $this->thenKuanTiShouldHaveLessOrEqualThanHealthPoint(7, $I);
+    }
+
     private function givenChunHasInactiveStatus(): void
     {
         $this->statusService->createStatusFromName(
@@ -211,12 +236,27 @@ final class HitActionCest extends AbstractFunctionalTest
 
     private function givenChunHasSneakSkill(): void
     {
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SNEAK, $this->chun));
+        $this->addSkillToPlayer->execute(SkillEnum::SNEAK, $this->chun);
     }
 
     private function givenHitActionHasSuccessRate(int $successRate): void
     {
         $this->action->setSuccessRate($successRate);
+    }
+
+    private function givenChunHasSolidSkill(): void
+    {
+        $this->addSkillToPlayer->execute(SkillEnum::SOLID, $this->chun);
+    }
+
+    private function givenChunHasWrestlerSkill(): void
+    {
+        $this->addSkillToPlayer->execute(SkillEnum::WRESTLER, $this->chun);
+    }
+
+    private function givenKuanTiHasHealthPoint(int $healthPoint): void
+    {
+        $this->kuanTi->setHealthPoint($healthPoint);
     }
 
     private function whenKuanTiTriesToHitChun(): void
@@ -229,8 +269,24 @@ final class HitActionCest extends AbstractFunctionalTest
         );
     }
 
+    private function whenChunHitsKuanTi(): void
+    {
+        $this->hitAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->chun,
+            player: $this->chun,
+            target: $this->kuanTi,
+        );
+        $this->hitAction->execute();
+    }
+
     private function thenHitActionSuccessRateShouldBe(int $expectedSuccessRate, FunctionalTester $I): void
     {
         $I->assertEquals($expectedSuccessRate, $this->hitAction->getSuccessRate());
+    }
+
+    private function thenKuanTiShouldHaveLessOrEqualThanHealthPoint(int $expectedHealthPoint, FunctionalTester $I): void
+    {
+        $I->assertLessThanOrEqual($expectedHealthPoint, $this->kuanTi->getHealthPoint());
     }
 }

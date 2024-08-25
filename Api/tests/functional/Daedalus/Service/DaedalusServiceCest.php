@@ -43,7 +43,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -54,7 +54,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testFindAllFinishedDaedaluses(FunctionalTester $I)
+    public function testFindAllFinishedDaedaluses(FunctionalTester $I): void
     {
         $finishedDaedalus = $this->createDaedalus($I);
         $this->daedalusService->endDaedalus($finishedDaedalus, 'test', new \DateTime());
@@ -66,7 +66,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         $I->assertCount(1, $nonFinishedDaedaluses);
     }
 
-    public function testFindAllDaedalusesOnCycleChange(FunctionalTester $I)
+    public function testFindAllDaedalusesOnCycleChange(FunctionalTester $I): void
     {
         $lockedUpDaedalus = $this->createDaedalus($I);
         $lockedUpDaedalus->setIsCycleChange(true);
@@ -80,7 +80,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         $I->assertCount(1, $lockedUpDaedaluses);
     }
 
-    public function testSelectAlphaMushChunNotPicked(FunctionalTester $I)
+    public function testSelectAlphaMushChunNotPicked(FunctionalTester $I): void
     {
         // test with 60 iterations Chun is not alpha mush because mush selection is random
         for ($i = 0; $i < 60; ++$i) {
@@ -92,7 +92,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         }
     }
 
-    public function testAttributeTitles(FunctionalTester $I)
+    public function testAttributeTitles(FunctionalTester $I): void
     {
         /** @var Player $chun */
         $chun = $this->daedalus->getPlayers()->getPlayerByName(CharacterEnum::CHUN);
@@ -110,7 +110,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         $I->assertEquals($gioele->getTitles(), [TitleEnum::COMMANDER]);
     }
 
-    public function testDeleteDaedalusCorrectlyDeletesHunterTargets(FunctionalTester $I)
+    public function testDeleteDaedalusCorrectlyDeletesHunterTargets(FunctionalTester $I): void
     {
         // given there are some attacking hunters
         $this->daedalus->setHunterPoints(40);
@@ -153,7 +153,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(Hunter::class);
     }
 
-    public function testExplorationIsClosedWhenDaedalusIsEnded(FunctionalTester $I)
+    public function testExplorationIsClosedWhenDaedalusIsEnded(FunctionalTester $I): void
     {
         // given there is an exploration ongoing
         $exploration = $this->createExploration($I);

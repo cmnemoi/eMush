@@ -106,7 +106,7 @@ class User implements UserInterface
         return \in_array(RoleEnum::MODERATOR, $this->roles, true) || $this->isAdmin();
     }
 
-    public function getPassword()
+    public function getPassword(): null
     {
         return null;
     }

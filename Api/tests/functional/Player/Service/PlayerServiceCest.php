@@ -2,11 +2,15 @@
 
 namespace Mush\Tests\functional\Player\Service;
 
+use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\TitleEnum;
+use Mush\Game\Service\EventService;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -25,15 +29,19 @@ use Mush\Tests\FunctionalTester;
 final class PlayerServiceCest extends AbstractFunctionalTest
 {
     private PlayerService $playerService;
+    private DaedalusService $daedalusService;
+    private EventService $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->playerService = $I->grabService(PlayerService::class);
+        $this->daedalusService = $I->grabService(DaedalusService::class);
+        $this->eventService = $I->grabService(EventService::class);
     }
 
-    public function testDeathHumanPlayer(FunctionalTester $I)
+    public function testDeathHumanPlayer(FunctionalTester $I): void
     {
         /** @var Player $player */
         $player = $this->player;
@@ -62,7 +70,22 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $I->assertCount(0, $this->daedalus->getPlayers()->getMushPlayer());
     }
 
-    public function testDeathMushPlayer(FunctionalTester $I)
+    public function testDeathPlayerLooseTitles(FunctionalTester $I): void
+    {
+        $kuanTi = $this->daedalus->getPlayers()->getPlayerByName(CharacterEnum::KUAN_TI);
+
+        $this->daedalus = $this->daedalusService->attributeTitles($this->daedalus, new \DateTime());
+        $I->assertNotEmpty($kuanTi->getTitles());
+        $I->assertEquals($kuanTi->getTitles(), [TitleEnum::COMMANDER, TitleEnum::NERON_MANAGER, TitleEnum::COM_MANAGER]);
+
+        // Given Kuan is now (horribly) dead.
+        $this->playerService->playerDeath($kuanTi, EndCauseEnum::MANKAROG, new \DateTime());
+        $this->eventService->callEvent(new DaedalusCycleEvent($this->daedalus, [], new \DateTime()), DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        $I->assertEmpty($kuanTi->getTitles());
+    }
+
+    public function testDeathMushPlayer(FunctionalTester $I): void
     {
         /** @var Player $player */
         $player = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ANDIE);
@@ -92,7 +115,7 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $I->assertCount(2, $this->daedalus->getPlayers()->getHumanPlayer());
     }
 
-    public function testDeathEffectOnOtherPlayer(FunctionalTester $I)
+    public function testDeathEffectOnOtherPlayer(FunctionalTester $I): void
     {
         /** @var Player $player */
         $player = $this->player1;
@@ -113,7 +136,7 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $mushStatus = new ChargeStatus($mushPlayer, $mushConfig);
         $I->haveInRepository($mushStatus);
 
-        $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
+        $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
         $I->assertEquals(9, $player2->getMoralPoint());
         $I->assertEquals(10, $mushPlayer->getMoralPoint());
@@ -122,7 +145,7 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $I->assertCount(2, $this->daedalus->getPlayers()->getHumanPlayer());
     }
 
-    public function testDeathEffectOnItems(FunctionalTester $I)
+    public function testDeathEffectOnItems(FunctionalTester $I): void
     {
         /** @var Player $player */
         $player = $this->player;
@@ -137,7 +160,7 @@ final class PlayerServiceCest extends AbstractFunctionalTest
 
         $player->addEquipment($gameItem);
 
-        $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
+        $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
         $I->assertCount(2, $room->getPlayers());
         $I->assertCount(1, $room->getPlayers()->getPlayerAlive());
@@ -145,7 +168,7 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $I->assertCount(1, $room->getEquipments());
     }
 
-    public function testHandleNewCyclePointsEarned(FunctionalTester $I)
+    public function testHandleNewCyclePointsEarned(FunctionalTester $I): void
     {
         $this->player1->setActionPoint(10);
         $this->player1->setMovementPoint(10);
@@ -158,12 +181,12 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $I->assertEquals(11, $this->player1->getMovementPoint());
     }
 
-    public function testEndPlayer(FunctionalTester $I)
+    public function testEndPlayer(FunctionalTester $I): void
     {
         /** @var Player $player */
         $player = $this->player;
         $deathTime = new \DateTime();
-        $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, $deathTime);
+        $this->playerService->playerDeath($player, EndCauseEnum::INJURY, $deathTime);
 
         $otherPlayer = $this->player2;
 
@@ -179,11 +202,11 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $I->assertEquals($closedPlayer->getFinishedAt(), $deathTime);
     }
 
-    public function testEndPlayerCannotLikeThemself(FunctionalTester $I)
+    public function testEndPlayerCannotLikeThemself(FunctionalTester $I): void
     {
         /** @var Player $player */
         $player = $this->player;
-        $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
+        $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
         $otherPlayer = $this->player2;
 
@@ -196,11 +219,11 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $I->assertEquals($otherClosedPlayer->getLikes(), 1);
     }
 
-    public function testEndPlayerCannotLikeOtherPlayerMultipleTimes(FunctionalTester $I)
+    public function testEndPlayerCannotLikeOtherPlayerMultipleTimes(FunctionalTester $I): void
     {
         /** @var Player $player */
         $player = $this->player;
-        $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
+        $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
         $otherPlayer = $this->player2;
 
@@ -213,10 +236,10 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $I->assertEquals($otherClosedPlayer->getLikes(), 1);
     }
 
-    public function testEndPlayerCannotLikePlayerFromDifferentDaedalus(FunctionalTester $I)
+    public function testEndPlayerCannotLikePlayerFromDifferentDaedalus(FunctionalTester $I): void
     {
         $player = $this->player;
-        $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
+        $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
         $daedalus2 = $this->createDaedalus($I);
         $otherPlayer = $this->addPlayerByCharacter($I, $daedalus2, CharacterEnum::ANDIE);

@@ -15,7 +15,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->userService = $userService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             PlayerEvent::END_PLAYER => 'onEndPlayer',

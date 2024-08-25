@@ -24,7 +24,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->eventService = $eventService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             PlayerEvent::NEW_PLAYER => 'onNewPlayer',
@@ -63,9 +63,9 @@ class PlayerSubscriber implements EventSubscriberInterface
         $reasons = $event->getTags();
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
-        if ($player->getDaedalus()->getPlayers()->getPlayerAlive()->isEmpty()
-            && !\in_array($endCause, [EndCauseEnum::SOL_RETURN, EndCauseEnum::EDEN, EndCauseEnum::SUPER_NOVA, EndCauseEnum::KILLED_BY_NERON], true)
+        if (!\in_array($endCause, [EndCauseEnum::SOL_RETURN, EndCauseEnum::EDEN, EndCauseEnum::SUPER_NOVA, EndCauseEnum::KILLED_BY_NERON], true)
             && $player->getDaedalus()->getGameStatus() !== GameStatusEnum::STARTING
+            && $player->getDaedalus()->getPlayers()->getPlayerAlive()->isEmpty()
         ) {
             $endDaedalusEvent = new DaedalusEvent(
                 $player->getDaedalus(),
@@ -81,8 +81,8 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getPlayer()->getDaedalus();
 
-        if ($daedalus->getPlayers()->filter(static fn (Player $player) => $player->getPlayerInfo()->getGameStatus() !== GameStatusEnum::CLOSED)->isEmpty()
-            && $daedalus->getGameStatus() === GameStatusEnum::FINISHED
+        if ($daedalus->getGameStatus() === GameStatusEnum::FINISHED
+            && $daedalus->getPlayers()->filter(static fn (Player $player) => $player->getPlayerInfo()->getGameStatus() !== GameStatusEnum::CLOSED)->isEmpty()
         ) {
             $this->daedalusService->closeDaedalus($daedalus, $event->getTags(), $event->getTime());
         }

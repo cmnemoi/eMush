@@ -44,7 +44,6 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
         $time = $event->getTime();
-
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
         if ($endCause === null) {
@@ -108,7 +107,6 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
         $time = $event->getTime();
-
         $title = $event->mapLog(TitleEnum::TITLES_MAP);
 
         if ($title === null) {

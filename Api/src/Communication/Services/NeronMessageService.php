@@ -102,27 +102,7 @@ class NeronMessageService implements NeronMessageServiceInterface
     public function createPlayerDeathMessage(Player $player, string $cause, \DateTime $time): void
     {
         $playerName = $player->getName();
-
-        switch ($playerName) {
-            case CharacterEnum::RALUCA:
-                $message = NeronMessageEnum::RALUCA_DEATH;
-
-                break;
-
-            case CharacterEnum::JANICE:
-                $message = NeronMessageEnum::JANICE_DEATH;
-
-                break;
-
-            default:
-                if ($cause === EndCauseEnum::ASPHYXIA) {
-                    $message = NeronMessageEnum::ASPHYXIA_DEATH;
-                } else {
-                    $message = NeronMessageEnum::PLAYER_DEATH;
-                }
-
-                break;
-        }
+        $message = $this->getDeathMessage($playerName, $cause);
 
         $cause = $this->translationService->translate(
             $cause . '.name',
@@ -137,25 +117,13 @@ class NeronMessageService implements NeronMessageServiceInterface
     public function createBrokenEquipmentMessage(GameEquipment $equipment, string $visibility, \DateTime $time, array $eventTags = []): void
     {
         $equipmentName = $equipment->getName();
-
         $daedalus = $equipment->getDaedalus();
 
-        switch ($equipmentName) {
-            case EquipmentEnum::OXYGEN_TANK:
-                $message = NeronMessageEnum::BROKEN_OXYGEN;
-
-                break;
-
-            case EquipmentEnum::FUEL_TANK:
-                $message = NeronMessageEnum::BROKEN_FUEL;
-
-                break;
-
-            default:
-                $message = NeronMessageEnum::BROKEN_EQUIPMENT;
-
-                break;
-        }
+        $message = match ($equipmentName) {
+            EquipmentEnum::OXYGEN_TANK => NeronMessageEnum::BROKEN_OXYGEN,
+            EquipmentEnum::FUEL_TANK => NeronMessageEnum::BROKEN_FUEL,
+            default => NeronMessageEnum::BROKEN_EQUIPMENT,
+        };
 
         $parentMessage = $this->getMessageNeronCycleFailures($daedalus, $time, $eventTags);
 
@@ -183,5 +151,31 @@ class NeronMessageService implements NeronMessageServiceInterface
         );
         $parameters = ['character' => $player->getName(), 'title' => $title];
         $this->createNeronMessage(NeronMessageEnum::TITLE_ATTRIBUTION, $player->getDaedalus(), $parameters, $time);
+    }
+
+    private function getDeathMessage(string $playerName, string $cause): string
+    {
+        switch ($playerName) {
+            case CharacterEnum::RALUCA:
+                $message = NeronMessageEnum::RALUCA_DEATH;
+
+                break;
+
+            case CharacterEnum::JANICE:
+                $message = NeronMessageEnum::JANICE_DEATH;
+
+                break;
+
+            default:
+                if ($cause === EndCauseEnum::ASPHYXIA) {
+                    $message = NeronMessageEnum::ASPHYXIA_DEATH;
+                } else {
+                    $message = NeronMessageEnum::PLAYER_DEATH;
+                }
+
+                break;
+        }
+
+        return $message;
     }
 }

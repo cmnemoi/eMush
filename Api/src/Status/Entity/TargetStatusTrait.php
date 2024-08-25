@@ -70,6 +70,11 @@ trait TargetStatusTrait
         return $this->getStatuses()->exists(static fn ($key, Status $status) => ($status->getName() === $statusName));
     }
 
+    public function hasAnyStatuses(Collection $statuses): bool
+    {
+        return $this->getStatuses()->exists(static fn ($key, Status $status) => $statuses->contains($status->getName()));
+    }
+
     public function hasTargetingStatus(string $statusName): bool
     {
         return $this->getTargetingStatuses()->exists(static fn ($key, Status $status) => ($status->getName() === $statusName));

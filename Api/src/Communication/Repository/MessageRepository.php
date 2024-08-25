@@ -34,7 +34,7 @@ class MessageRepository extends ServiceEntityRepository
 
         if ($cycleChange || $propagatingFire) {
             $cycleStartedAt = clone $daedalus->getCycleStartedAt();
-            $offset = (int) ($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() * 60 - 1);
+            $offset = ($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() * 60 - 1);
             $cycleStartedAt->modify("+{$offset} seconds");
         } else {
             $cycleStartedAt = $daedalus->getCycleStartedAt();

@@ -55,9 +55,9 @@ final class PlayerServiceTest extends TestCase
 
     /** @var Mockery\Mock|PlayerInfoRepositoryInterface */
     private PlayerInfoRepositoryInterface $playerInfoRepository;
-
     private CharacterConfigCollection $charactersConfigs;
     private PlayerService $service;
+    private DeadPlayerInfoRepository $deadPlayerInfoRepository;
 
     /**
      * @before
@@ -214,7 +214,7 @@ final class PlayerServiceTest extends TestCase
 
         $this->eventService->shouldReceive('callEvent');
 
-        $player = $this->service->endPlayer($player, $message, []);
+        $this->service->endPlayer($player, $message, []);
 
         self::assertSame(GameStatusEnum::CLOSED, $playerInfo->getGameStatus());
         self::assertSame($closedPlayer->getMessage(), $message);

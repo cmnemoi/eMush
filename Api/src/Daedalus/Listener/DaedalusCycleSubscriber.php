@@ -24,9 +24,9 @@ use Symfony\Component\Lock\LockFactory;
 
 class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
-    public const CYCLE_OXYGEN_LOSS = -3;
-    public const BASE_DAEDALUS_CYCLE_CHANGE = 'base_daedalus_cycle_change';
-    public const LOBBY_TIME_LIMIT = 3 * 24 * 60;
+    public const int CYCLE_OXYGEN_LOSS = -3;
+    public const string BASE_DAEDALUS_CYCLE_CHANGE = 'base_daedalus_cycle_change';
+    public const float LOBBY_TIME_LIMIT = 3 * 24 * 60;
 
     private DaedalusServiceInterface $daedalusService;
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
@@ -233,7 +233,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         return false;
     }
 
-    private function handleOxygen(Daedalus $daedalus, \DateTime $time): Daedalus
+    private function handleOxygen(Daedalus $daedalus, \DateTime $time): void
     {
         // Handle oxygen loss
         $oxygenLoss = self::CYCLE_OXYGEN_LOSS;
@@ -250,7 +250,5 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         if ($daedalus->getOxygen() <= 0) {
             $this->daedalusService->getRandomAsphyxia($daedalus, $time);
         }
-
-        return $daedalus;
     }
 }

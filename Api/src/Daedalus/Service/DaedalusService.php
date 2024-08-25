@@ -122,24 +122,14 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function findAvailableDaedalus(string $name): ?Daedalus
     {
-        $daedalusInfo = $this->daedalusInfoRepository->findAvailableDaedalus($name);
-
-        if ($daedalusInfo === null) {
-            return null;
-        }
-
-        return $daedalusInfo->getDaedalus();
+        return $this->daedalusInfoRepository->findAvailableDaedalus($name)?->getDaedalus();
     }
 
     public function findAvailableDaedalusInLanguage(string $language): ?Daedalus
     {
         $daedalusInfo = $this->daedalusInfoRepository->findAvailableDaedalusInLanguage($language);
 
-        if ($daedalusInfo === null) {
-            return null;
-        }
-
-        return $daedalusInfo->getDaedalus();
+        return $daedalusInfo?->getDaedalus();
     }
 
     public function findAvailableDaedalusInLanguageForUser(string $language, User $user): ?Daedalus
@@ -457,7 +447,6 @@ class DaedalusService implements DaedalusServiceInterface
     public function attributeTitles(Daedalus $daedalus, \DateTime $date): Daedalus
     {
         $gameConfig = $daedalus->getGameConfig();
-
         $titleConfigs = $gameConfig->getTitleConfigs();
 
         // Get the names of all alive players
@@ -477,7 +466,7 @@ class DaedalusService implements DaedalusServiceInterface
                     continue;
                 }
 
-                if (!$player->hasTitle($title) && !$titleAssigned) {
+                if (!$titleAssigned && !$player->hasTitle($title)) {
                     // If first person in order of priority does not have title, assign it
                     $player->addTitle($title);
                     $playerEvent = new PlayerEvent(
@@ -487,9 +476,9 @@ class DaedalusService implements DaedalusServiceInterface
                     );
                     $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_ATTRIBUTED);
                     $titleAssigned = true;
-                } elseif ($player->hasTitle($title) && !$titleAssigned) {
+                } elseif (!$titleAssigned && $player->hasTitle($title)) {
                     $titleAssigned = true;
-                } elseif ($player->hasTitle($title) && $titleAssigned) {
+                } elseif ($titleAssigned && $player->hasTitle($title)) {
                     // If someone has a title when they are not the player alive with the biggest priority, remove it
                     // For when an inactive player wakes up
                     $player->removeTitle($title);

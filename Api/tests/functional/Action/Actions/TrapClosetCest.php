@@ -12,6 +12,8 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -26,6 +28,7 @@ final class TrapClosetCest extends AbstractFunctionalTest
     private ActionConfig $trapClosetConfig;
     private TrapCloset $trapClosetAction;
 
+    private AddSkillToPlayerService $addSkillToPlayer;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
@@ -33,6 +36,7 @@ final class TrapClosetCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->trapClosetConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TRAP_CLOSET]);
         $this->trapClosetAction = $I->grabService(TrapCloset::class);
+        $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given KT is Mush so he has the action available
@@ -42,6 +46,7 @@ final class TrapClosetCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
+        $this->addSkillToPlayer->execute(SkillEnum::TRAPPER, $this->kuanTi);
     }
 
     public function shouldNotBeVisibleIfPlayerDoesNotHaveASporeAvailable(FunctionalTester $I): void

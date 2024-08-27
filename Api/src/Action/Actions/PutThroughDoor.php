@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\OperationalDoorInRoom;
 use Mush\Action\Validator\PlaceType;
 use Mush\Game\Service\EventServiceInterface;
@@ -18,6 +19,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -37,18 +39,23 @@ final class PutThroughDoor extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(
+        $metadata->addConstraints([
             new PlaceType([
                 'groups' => [ClassConstraint::VISIBILITY],
                 'type' => 'room',
-            ])
-        );
-        $metadata->addConstraint(
+            ]),
+            new HasStatus([
+                'status' => PlaceStatusEnum::CEASEFIRE->toString(),
+                'target' => HasStatus::PLAYER_ROOM,
+                'contain' => false,
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::CEASEFIRE,
+            ]),
             new OperationalDoorInRoom([
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::NO_WORKING_DOOR,
-            ])
-        );
+            ]),
+        ]);
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

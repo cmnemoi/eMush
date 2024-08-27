@@ -4,6 +4,7 @@ namespace Mush\Communication\Services;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
@@ -178,12 +179,16 @@ class MessageService implements MessageServiceInterface
 
     public function markMessageAsReadForPlayer(Message $message, Player $player): void
     {
-        $message
-            ->addReader($player)
-            ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the message because this would change the order of the messages
+        try {
+            $message
+                ->addReader($player)
+                ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the message because this would change the order of the messages
 
-        $this->entityManager->persist($message);
-        $this->entityManager->flush();
+            $this->entityManager->persist($message);
+            $this->entityManager->flush();
+        } catch (UniqueConstraintViolationException $e) {
+            // ignore as this is probably due to a race condition
+        }
     }
 
     public function putMessageInFavoritesForPlayer(Message $message, Player $player): void

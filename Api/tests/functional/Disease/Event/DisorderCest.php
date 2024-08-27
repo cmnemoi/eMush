@@ -350,8 +350,8 @@ final class DisorderCest extends AbstractFunctionalTest
             reasons: [],
         );
 
-        // given disorder has 1 disease points
-        $paranoia->setDiseasePoint(1);
+        // given disorder has 2 disease points
+        $paranoia->setDiseasePoint(2);
 
         // given KT is a shrink
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHRINK, $this->kuanTi));
@@ -373,7 +373,9 @@ final class DisorderCest extends AbstractFunctionalTest
         $this->eventService->callEvent($playerCycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // then only one disorder should be treated
-        $I->assertEquals(1, $depression->getDiseasePoint());
-        $I->assertEquals(1, $paranoia->getDiseasePoint());
+        $I->assertTrue(
+            ($depression->getDiseasePoint() === 1 && $paranoia->getDiseasePoint() === 2)
+            || ($paranoia->getDiseasePoint() === 1 && $depression->getDiseasePoint() === 2)
+        );
     }
 }

@@ -157,50 +157,6 @@ final class PlayerDiseaseServiceTest extends TestCase
         self::assertSame(DiseaseStatusEnum::ACTIVE, $disease->getStatus());
     }
 
-    public function testHandleNewCycle()
-    {
-        $daedalus = new Daedalus();
-        $player = new Player();
-        $player->setDaedalus($daedalus);
-
-        $diseaseConfig = new DiseaseConfig();
-
-        $diseasePlayer = new PlayerDisease();
-        $diseasePlayer
-            ->setPlayer($player)
-            ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(10);
-
-        $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
-
-        $this->playerDiseaseService->handleNewCycle($diseasePlayer, new \DateTime());
-
-        self::assertSame(9, $diseasePlayer->getDiseasePoint());
-    }
-
-    public function testHandleNewCycleSpontaneousCure()
-    {
-        $daedalus = new Daedalus();
-        $player = new Player();
-        $player->setDaedalus($daedalus);
-
-        $diseaseConfig = new DiseaseConfig();
-
-        $diseasePlayer = new PlayerDisease();
-        $diseasePlayer
-            ->setPlayer($player)
-            ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(1);
-
-        $this->entityManager->shouldReceive('remove')->once();
-        $this->entityManager->shouldReceive('flush')->once();
-        $this->eventService->shouldReceive('callEvent')->once();
-
-        $this->playerDiseaseService->handleNewCycle($diseasePlayer, new \DateTime());
-
-        self::assertSame(0, $diseasePlayer->getDiseasePoint());
-    }
-
     public function testHandleNewCycleIncubatedDiseaseAppear()
     {
         $daedalus = new Daedalus();

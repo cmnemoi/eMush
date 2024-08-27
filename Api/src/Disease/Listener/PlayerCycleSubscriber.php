@@ -3,17 +3,16 @@
 namespace Mush\Disease\Listener;
 
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PlayerCycleSubscriber implements EventSubscriberInterface
+final class PlayerCycleSubscriber implements EventSubscriberInterface
 {
-    private PlayerDiseaseServiceInterface $playerDiseaseService;
-
-    public function __construct(PlayerDiseaseServiceInterface $playerDiseaseService)
-    {
-        $this->playerDiseaseService = $playerDiseaseService;
-    }
+    public function __construct(
+        private PlayerDiseaseServiceInterface $playerDiseaseService,
+        private RandomServiceInterface $randomService,
+    ) {}
 
     public static function getSubscribedEvents()
     {
@@ -26,13 +25,22 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
 
-        foreach ($player->getMedicalConditions() as $disease) {
-            $this->playerDiseaseService->handleNewCycle($disease, $event->getTime());
+        // first, decrement a random active disease which heals at cycle change
+        if ($player->hasActiveDiseaseHealingAtCycleChange()) {
+            $playerDisease = $this->randomService->getRandomElement($player->getActiveDiseasesHealingAtCycleChange()->toArray());
+            $playerDisease->decrementDiseasePoints();
+            $this->playerDiseaseService->persist($playerDisease);
         }
 
-        $disorder = $player->getDisorderWithMostDiseasePoints();
-        if ($disorder->isTreatedByAShrink()) {
+        // then, treat a random disorder by a shrink
+        if ($player->hasActiveDisorder() && $player->isLaidDownInShrinkRoom()) {
+            $disorder = $this->randomService->getRandomElement($player->getActiveDisorders()->toArray());
             $this->playerDiseaseService->treatDisorder($disorder, $event->getTime());
+        }
+
+        // finally, handle all player diseases as a whole
+        foreach ($player->getMedicalConditions() as $playerDisease) {
+            $this->playerDiseaseService->handleNewCycle($playerDisease, $event->getTime());
         }
     }
 }

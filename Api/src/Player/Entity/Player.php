@@ -22,6 +22,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
@@ -361,19 +362,24 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $disease->isEmpty() ? null : $disease->first();
     }
 
-    public function getPhysicalDiseases(): PlayerDiseaseCollection
+    public function getActiveDisorders(): PlayerDiseaseCollection
     {
-        return $this->getMedicalConditions()->filter(static fn (PlayerDisease $playerDisease) => $playerDisease->isAPhysicalDisease());
+        return $this->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(MedicalConditionTypeEnum::DISORDER);
     }
 
-    public function getDisorders(): PlayerDiseaseCollection
+    public function getActiveDiseasesHealingAtCycleChange(): PlayerDiseaseCollection
     {
-        return $this->getMedicalConditions()->filter(static fn (PlayerDisease $playerDisease) => $playerDisease->isADisorder());
+        return $this->getMedicalConditions()->getActiveDiseases()->filter(static fn (PlayerDisease $playerDisease) => $playerDisease->healsAtCycleChange());
     }
 
-    public function getDisorderWithMostDiseasePoints(): PlayerDisease
+    public function hasActiveDisorder(): bool
     {
-        return $this->getDisorders()->getSortedByDiseasePoints(order: Order::Descending)->first() ?: PlayerDisease::createNull();
+        return $this->getActiveDisorders()->count() > 0;
+    }
+
+    public function hasActiveDiseaseHealingAtCycleChange(): bool
+    {
+        return $this->getActiveDiseasesHealingAtCycleChange()->count() > 0;
     }
 
     public function setMedicalConditions(Collection $medicalConditions): static

@@ -13,7 +13,7 @@ export class ModerationViewPlayer {
     public id!: number;
     public daedalusId: number|null;
     public user!: ShortUser;
-    public character!: Character;
+    public character!: {characterName: string, characterValue: string};
     public isMush!: boolean;
     public isAlive!: boolean;
     public cycleStartedAt: Date|null;
@@ -30,7 +30,7 @@ export class ModerationViewPlayer {
             this.id = object.id;
             this.daedalusId = object.daedalusId;
             this.user = object.user;
-            this.character = new Character().load(object.character);
+            this.character = object.character;
             this.isMush = object.isMush;
             this.isAlive = object.isAlive;
             this.cycleStartedAt = object.cycleStartedAt ? new Date(object.cycleStartedAt) : null;

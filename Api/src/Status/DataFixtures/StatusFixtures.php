@@ -525,7 +525,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($alphaMushStatus);
 
         $hasPrintedZeList = StatusConfig::fromConfigData(
-            StatusConfigData::getByName(PlayerStatusEnum::HAS_PRINTED_ZE_LIST . '_default')
+            StatusConfigData::getByName(DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED . '_default')
         );
         $manager->persist($hasPrintedZeList);
 
@@ -639,7 +639,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_CEASEFIRED, $hasCeasefiredStatus);
         $this->addReference(PlayerStatusEnum::PREVIOUS_ROOM, $previousRoom);
         $this->addReference(PlayerStatusEnum::HAS_EXCHANGED_BODY, $hasExchangedBodyStatus);
-        $this->addReference(PlayerStatusEnum::HAS_PRINTED_ZE_LIST, $hasPrintedZeList);
+        $this->addReference(DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED, $hasPrintedZeList);
 
         $manager->flush();
     }

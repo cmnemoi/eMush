@@ -16,4 +16,5 @@ abstract class DaedalusStatusEnum
     public const string NO_GRAVITY = 'no_gravity';
     public const string NO_GRAVITY_REPAIRED = 'no_gravity_repaired';
     public const string TRAVELING = 'traveling';
+    public const string ZE_LIST_HAS_BEEN_PRINTED = 'ze_list_has_been_printed';
 }

@@ -51,5 +51,4 @@ abstract class PlayerStatusEnum
     public const string HAS_EXCHANGED_BODY = 'has_exchanged_body';
     public const string HAS_ISSUED_MISSION = 'has_issued_mission';
     public const string ALPHA_MUSH = 'alpha_mush';
-    public const string HAS_PRINTED_ZE_LIST = 'has_printed_ze_list';
 }

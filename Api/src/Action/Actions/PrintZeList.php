@@ -23,7 +23,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -52,8 +52,8 @@ final class PrintZeList extends AbstractAction
                 'groups' => [ClassConstraint::VISIBILITY],
             ]),
             new HasStatus([
-                'status' => PlayerStatusEnum::HAS_PRINTED_ZE_LIST,
-                'target' => HasStatus::PLAYER,
+                'status' => DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED,
+                'target' => HasStatus::DAEDALUS,
                 'contain' => false,
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::LIST_ALREADY_PRINTED,
@@ -81,7 +81,7 @@ final class PrintZeList extends AbstractAction
         $this->createHasPrintedZeListStatus();
     }
 
-    private function createZeList(): GameEquipment
+    private function createZeList(): void
     {
         $zeList = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::DOCUMENT,
@@ -92,15 +92,13 @@ final class PrintZeList extends AbstractAction
         );
 
         $this->addNamesToZeList($zeList);
-
-        return $zeList;
     }
 
     private function createHasPrintedZeListStatus(): void
     {
         $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::HAS_PRINTED_ZE_LIST,
-            holder: $this->player,
+            statusName: DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED,
+            holder: $this->player->getDaedalus(),
             tags: $this->getTags(),
             time: new \DateTime(),
         );

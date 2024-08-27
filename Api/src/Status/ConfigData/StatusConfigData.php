@@ -1436,8 +1436,8 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => PlayerStatusEnum::HAS_PRINTED_ZE_LIST . '_default',
-            'statusName' => PlayerStatusEnum::HAS_PRINTED_ZE_LIST,
+            'name' => DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED . '_default',
+            'statusName' => DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED,
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'status_config',
             'modifierConfigs' => [],

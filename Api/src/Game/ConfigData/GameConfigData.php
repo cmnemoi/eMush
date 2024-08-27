@@ -455,7 +455,7 @@ class GameConfigData
                 PlayerStatusEnum::HAS_EXCHANGED_BODY . '_default',
                 PlayerStatusEnum::HAS_ISSUED_MISSION . '_default',
                 PlayerStatusEnum::ALPHA_MUSH . '_default',
-                PlayerStatusEnum::HAS_PRINTED_ZE_LIST . '_default',
+                DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

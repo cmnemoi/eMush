@@ -8,7 +8,7 @@ use Mush\Place\Entity\Place;
 
 class PlaceCycleEvent extends AbstractGameEvent
 {
-    public const PLACE_NEW_CYCLE = 'place.new.cycle';
+    public const string PLACE_NEW_CYCLE = 'place.new.cycle';
 
     protected Place $place;
 

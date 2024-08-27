@@ -97,6 +97,19 @@ class Exploration
     }
 
     /**
+     * Return the number of explorators who has a skill to extend the exploration with +n steps.
+     * Where n is the number of explorators with skills.
+     * This method can be chained with more skills later.
+     * E.G: Roland with Sprinter.
+     */
+    public function countSkillExtendingExploration(): int
+    {
+        return $this->getExplorators()
+            ->getPlayersWithSkill(SkillEnum::SPRINTER)
+            ->count();
+    }
+
+    /**
      * Returns active explorators : alive if there is oxygen on the planet, alive and with spacesuit otherwise.
      */
     public function getActiveExplorators(): PlayerCollection
@@ -195,7 +208,7 @@ class Exploration
     {
         $cycleLength = (int) ($this->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCycleLength() / self::CYCLE_LENGTH);
 
-        return $cycleLength > 1 ? $cycleLength : 1;
+        return max($cycleLength, 1);
     }
 
     public function isFinished(): bool

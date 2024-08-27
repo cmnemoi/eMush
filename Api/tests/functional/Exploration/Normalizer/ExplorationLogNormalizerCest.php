@@ -369,9 +369,9 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     public function testNormalizeKillRandomEvent(FunctionalTester $I): void
     {
-        // given sismic activity sector has only kill random event
+        // given seismic activity sector has only kill random event
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             events: [PlanetSectorEvent::KILL_RANDOM => 1]
         );
 
@@ -385,7 +385,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // given exploration is created
         $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::SEISMIC_ACTIVITY], $I),
             explorators: new ArrayCollection([$this->player]),
         );
 
@@ -394,7 +394,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when kill random event exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
-            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SISMIC_ACTIVITY,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SEISMIC_ACTIVITY,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -402,7 +402,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $I->assertEquals(
             expected: [
                 'id' => $explorationLog->getId(),
-                'planetSectorKey' => PlanetSectorEnum::SISMIC_ACTIVITY,
+                'planetSectorKey' => PlanetSectorEnum::SEISMIC_ACTIVITY,
                 'planetSectorName' => 'Sismique',
                 'eventName' => 'Mort',
                 'eventDescription' => 'Une faille s\'ouvre sous les pieds de l\'expédition !!! Chun glisse et disparaît dans un cri d\'effroi !',
@@ -414,7 +414,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     public function testNormalizeKillAllEvent(FunctionalTester $I): void
     {
-        // given sismic activity sector has only kill all event
+        // given seismic activity sector has only kill all event
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::VOLCANIC_ACTIVITY,
             events: [PlanetSectorEvent::KILL_ALL => 1]
@@ -1177,15 +1177,15 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     public function testNormalizeBackEvent(FunctionalTester $I): void
     {
-        // given sismic activity sector has only back event
+        // given seismic activity sector has only back event
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             events: [PlanetSectorEvent::BACK => 1]
         );
 
         // given exploration is created
         $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY, PlanetSectorEnum::OXYGEN], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::SEISMIC_ACTIVITY, PlanetSectorEnum::OXYGEN], $I),
             explorators: $this->players,
         );
         $closedExploration = $this->exploration->getClosedExploration();
@@ -1206,7 +1206,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $I->assertEquals(
             expected: [
                 'id' => $explorationLog->getId(),
-                'planetSectorKey' => PlanetSectorEnum::SISMIC_ACTIVITY,
+                'planetSectorKey' => PlanetSectorEnum::SEISMIC_ACTIVITY,
                 'planetSectorName' => 'Sismique',
                 'eventName' => 'Retour',
                 'eventDescription' => 'Une violente secousse paralyse l\'expédition… Puis de nouveau le silence… Mieux vaut revenir au Daedalus vite fait !',
@@ -1365,9 +1365,9 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     public function testNormalizeAccidentEventWithARope(FunctionalTester $I): void
     {
-        // given sismic activity sector has only accident event
+        // given seismic activity sector has only accident event
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             events: [PlanetSectorEvent::ACCIDENT_3_5 => 1]
         );
 
@@ -1389,7 +1389,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // given exploration is created
         $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::SEISMIC_ACTIVITY], $I),
             explorators: new ArrayCollection([$this->player]),
         );
 
@@ -1398,7 +1398,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when accident exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
-            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SISMIC_ACTIVITY,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SEISMIC_ACTIVITY,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -1406,7 +1406,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $I->assertEquals(
             expected: [
                 'id' => $explorationLog->getId(),
-                'planetSectorKey' => PlanetSectorEnum::SISMIC_ACTIVITY,
+                'planetSectorKey' => PlanetSectorEnum::SEISMIC_ACTIVITY,
                 'planetSectorName' => 'Sismique',
                 'eventName' => 'Accident',
                 'eventDescription' => 'Chun chute dans une crevasse… Aïe !',
@@ -1418,9 +1418,9 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     public function testNormalizeAccidentEventWithASurvivalist(FunctionalTester $I): void
     {
-        // given sismic activity sector has only accident event
+        // given seismic activity sector has only accident event
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             events: [PlanetSectorEvent::ACCIDENT_3_5 => 1]
         );
 
@@ -1440,7 +1440,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // given exploration is created
         $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::SEISMIC_ACTIVITY], $I),
             explorators: new ArrayCollection([$this->player]),
         );
 
@@ -1449,7 +1449,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when accident exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
-            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SISMIC_ACTIVITY,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SEISMIC_ACTIVITY,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -1457,7 +1457,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $I->assertEquals(
             expected: [
                 'id' => $explorationLog->getId(),
-                'planetSectorKey' => PlanetSectorEnum::SISMIC_ACTIVITY,
+                'planetSectorKey' => PlanetSectorEnum::SEISMIC_ACTIVITY,
                 'planetSectorName' => 'Sismique',
                 'eventName' => 'Accident',
                 'eventDescription' => 'Chun chute dans une crevasse… Aïe !',

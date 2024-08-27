@@ -624,13 +624,14 @@ abstract class ModifierConfigData
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
-            'triggeredEvent' => null,
-            'visibility' => null,
-            'delta' => -2.0,
+            'delta' => -2,
             'targetVariable' => 'movementPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [
+                ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS,
+                SkillEnum::SPRINTER->value => ModifierRequirementEnum::NONE_TAGS,
+            ],
         ],
         [
             'name' => 'modifier_for_player_+1movementPoint_on_event_action_movement_conversion_if_cycle_even',
@@ -2085,7 +2086,7 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 PlanetSectorEvent::ACCIDENT => ModifierRequirementEnum::ALL_TAGS,
                 PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ALL_TAGS,
-                PlanetSectorEnum::SISMIC_ACTIVITY => ModifierRequirementEnum::ANY_TAGS,
+                PlanetSectorEnum::SEISMIC_ACTIVITY => ModifierRequirementEnum::ANY_TAGS,
                 PlanetSectorEnum::MOUNTAIN => ModifierRequirementEnum::ANY_TAGS,
                 PlanetSectorEnum::CAVE => ModifierRequirementEnum::ANY_TAGS,
             ],
@@ -3008,7 +3009,7 @@ abstract class ModifierConfigData
             ],
         ],
         [
-            'name' => ModifierNameEnum::PLAYER_ALWAYS_SUCCEDS_REPAIR_ACTION,
+            'name' => ModifierNameEnum::PLAYER_ALWAYS_SUCCEEDS_REPAIR_ACTION,
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
@@ -3146,6 +3147,23 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::HIT->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+            ],
+        ],
+        [
+            'name' => ModifierNameEnum::PLAYER_PLUS_2_MOVEMENT_POINT_ON_EVENT_ACTION_MOVEMENT_CONVERSION_FOR_SPRINTER,
+            'modifierName' => ModifierNameEnum::SPRINTER_MODIFIER,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => -2,
+            'targetVariable' => PlayerVariableEnum::MOVEMENT_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
     ];

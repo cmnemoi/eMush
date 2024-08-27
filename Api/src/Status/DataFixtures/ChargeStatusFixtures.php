@@ -499,7 +499,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($hasChitchattedStatus);
 
         $modifierPlayerAlwaysSucceedsRepairAction = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_ALWAYS_SUCCEDS_REPAIR_ACTION)
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_ALWAYS_SUCCEEDS_REPAIR_ACTION)
         );
         $this->addReference($modifierPlayerAlwaysSucceedsRepairAction->getName(), $modifierPlayerAlwaysSucceedsRepairAction);
         $manager->persist($modifierPlayerAlwaysSucceedsRepairAction);

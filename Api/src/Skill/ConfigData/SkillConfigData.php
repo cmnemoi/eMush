@@ -233,6 +233,12 @@ abstract class SkillConfigData
                     ActionEnum::PUT_THROUGH_DOOR,
                 ],
             ),
+            new SkillConfigDto(
+                name: SkillEnum::SPRINTER,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_PLUS_2_MOVEMENT_POINT_ON_EVENT_ACTION_MOVEMENT_CONVERSION_FOR_SPRINTER,
+                ],
+            ),
         ];
     }
 

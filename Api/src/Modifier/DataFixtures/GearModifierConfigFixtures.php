@@ -20,6 +20,7 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
+use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
@@ -155,16 +156,9 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($aimHunterModifier);
 
-        $antiGravScooterModifier = new VariableEventModifierConfig(ModifierNameEnum::ANTIGRAV_SCOOTER_CONVERSION_MODIFIER);
-        $antiGravScooterModifier
-            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(-2)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::ANTIGRAV_SCOOTER_CONVERSION_MODIFIER);
+        $antiGravScooterModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_for_player_+2movementPoint_on_event_action_movement_conversion')
+        );
         $manager->persist($antiGravScooterModifier);
 
         $evenCyclesActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::CYCLE);
@@ -347,7 +341,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTagConstraints([
                 PlanetSectorEvent::ACCIDENT => ModifierRequirementEnum::ALL_TAGS,
                 PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ALL_TAGS,
-                PlanetSectorEnum::SISMIC_ACTIVITY => ModifierRequirementEnum::ANY_TAGS,
+                PlanetSectorEnum::SEISMIC_ACTIVITY => ModifierRequirementEnum::ANY_TAGS,
                 PlanetSectorEnum::MOUNTAIN => ModifierRequirementEnum::ANY_TAGS,
                 PlanetSectorEnum::CAVE => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -423,7 +417,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(self::SOAP_MODIFIER, $soapModifier);
         $this->addReference(self::AIM_MODIFIER, $aimModifier);
         $this->addReference(self::AIM_HUNTER_MODIFIER, $aimHunterModifier);
-        $this->addReference(self::SCOOTER_MODIFIER, $antiGravScooterModifier);
+        $this->addReference('modifier_for_player_+2movementPoint_on_event_action_movement_conversion', $antiGravScooterModifier);
         $this->addReference(self::ROLLING_BOULDER, $rollingBoulderModifier);
         $this->addReference(self::OSCILLOSCOPE_SUCCESS_MODIFIER, $oscilloscopeSuccessModifier);
         $this->addReference(self::OSCILLOSCOPE_SUCCESS_MODIFIER_RENOVATE_ACTION, $oscilloscopeSuccessModifierRenovateAction);

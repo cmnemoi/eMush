@@ -13,6 +13,7 @@ use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -47,6 +48,9 @@ abstract class AbstractExplorationTester extends AbstractFunctionalTest
         );
     }
 
+    /**
+     * @param array<array-key, PlanetSectorEnum> $sectors
+     */
     protected function createPlanet(array $sectors, FunctionalTester $functionalTester): Planet
     {
         $planetName = new PlanetName();

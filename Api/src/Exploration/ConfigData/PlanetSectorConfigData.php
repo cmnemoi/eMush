@@ -246,8 +246,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::SISMIC_ACTIVITY . '_default',
-            'sectorName' => PlanetSectorEnum::SISMIC_ACTIVITY,
+            'name' => PlanetSectorEnum::SEISMIC_ACTIVITY . '_default',
+            'sectorName' => PlanetSectorEnum::SEISMIC_ACTIVITY,
             'weightAtPlanetGeneration' => 3,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,

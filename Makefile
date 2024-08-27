@@ -23,7 +23,7 @@ build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_front chown -R node:node /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_eternaltwin chown -R node:node /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_php chown -R dev:dev /www
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-start
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-start --remove-orphans
 
 docker-fresh-start: docker-stop
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --remove-orphans
@@ -40,7 +40,7 @@ docker-watch:
 fill-daedalus:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:fill-daedalus
 
-install: setup-git-hooks setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates fill-daedalus
+install: setup-git-hooks setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates reset-eternaltwin-database fill-daedalus
 	@echo "Installation completed successfully ! You can access eMush at http://localhost/."
 	@echo "You can log in with the following credentials:"
 	@echo "Username: chun"

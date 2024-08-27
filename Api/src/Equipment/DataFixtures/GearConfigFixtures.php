@@ -207,7 +207,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $antiGravScooterActions->add($sabotage6);
         $antiGravScooterActions->add($reportAction);
 
-        $antiGravScooterGear = $this->createGear([GearModifierConfigFixtures::SCOOTER_MODIFIER], GearItemEnum::ANTIGRAV_SCOOTER);
+        $antiGravScooterGear = $this->createGear(['modifier_for_player_+2movementPoint_on_event_action_movement_conversion'], GearItemEnum::ANTIGRAV_SCOOTER);
 
         /** @var ChargeStatusConfig $scooterCharge */
         $scooterCharge = $this->getReference(ChargeStatusFixtures::SCOOTER_CHARGE);

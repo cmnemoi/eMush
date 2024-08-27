@@ -11,6 +11,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\SkillModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Skill\ConfigData\SkillConfigData;
@@ -54,6 +55,7 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
             ActionsFixtures::class,
             GameConfigFixtures::class,
             SkillModifierConfigFixtures::class,
+            GearModifierConfigFixtures::class,
             SkillPointsFixtures::class,
         ];
     }

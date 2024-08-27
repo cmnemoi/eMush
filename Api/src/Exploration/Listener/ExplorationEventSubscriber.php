@@ -19,7 +19,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $this->explorationService = $explorationService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ExplorationEvent::ALL_EXPLORATORS_STUCKED => 'onAllExploratorsStucked',

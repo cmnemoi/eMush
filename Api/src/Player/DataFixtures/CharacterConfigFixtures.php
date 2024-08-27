@@ -82,6 +82,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $creativeSkillConfig */
         $creativeSkillConfig = $this->getReference(SkillEnum::CREATIVE->value);
 
+        /** @var SkillConfig $sprinterSkillConfig */
+        $sprinterSkillConfig = $this->getReference(SkillEnum::SPRINTER->value);
+
         /** @var SkillConfig $confidentSkillConfig */
         $confidentSkillConfig = $this->getReference(SkillEnum::CONFIDENT->value);
 
@@ -349,6 +352,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $firefighterSkillConfig,
                 $optimistSkillConfig,
                 $creativeSkillConfig,
+                $sprinterSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($roland);

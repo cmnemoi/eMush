@@ -25,7 +25,7 @@ final class OptimistCest extends AbstractFunctionalTest
     private ChooseSkillUseCase $chooseSkillUseCase;
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -37,16 +37,16 @@ final class OptimistCest extends AbstractFunctionalTest
 
     public function shouldLoseOneLessMoralePointAtDayChange(FunctionalTester $I): void
     {
-        $this->givenPlayerHasMoralePoints(10, $I);
+        $this->givenPlayerHasMoralePoints(10);
 
-        $this->whenADayPasses($I);
+        $this->whenADayPasses();
 
         $this->thenPlayerShouldHaveMoralePoints(9, $I);
     }
 
     public function shouldPrintAPrivateLog(FunctionalTester $I): void
     {
-        $this->whenADayPasses($I);
+        $this->whenADayPasses();
 
         $this->ISeeTranslatedRoomLogInRepository(
             expectedRoomLog: 'Votre compétence **Optimiste** a porté ses fruits...',

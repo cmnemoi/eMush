@@ -218,9 +218,9 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         $desertSector = new PlanetSector($desertSectorConfig, $planet);
         $I->haveInRepository($desertSector);
 
-        $sismicSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::SISMIC_ACTIVITY . '_default']);
-        $sismicSector = new PlanetSector($sismicSectorConfig, $planet);
-        $I->haveInRepository($sismicSector);
+        $seismicSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::SEISMIC_ACTIVITY . '_default']);
+        $seismicSector = new PlanetSector($seismicSectorConfig, $planet);
+        $I->haveInRepository($seismicSector);
 
         $oxygenSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::OXYGEN . '_default']);
         $oxygenSector = new PlanetSector($oxygenSectorConfig, $planet);
@@ -230,7 +230,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         $hydroCarbonSector = new PlanetSector($hydroCarbonSectorConfig, $planet);
         $I->haveInRepository($hydroCarbonSector);
 
-        $planet->setSectors(new ArrayCollection([$desertSector, $sismicSector, $oxygenSector, $hydroCarbonSector]));
+        $planet->setSectors(new ArrayCollection([$desertSector, $seismicSector, $oxygenSector, $hydroCarbonSector]));
 
         // given the Daedalus is in orbit around the planet
         $this->statusService->createStatusFromName(

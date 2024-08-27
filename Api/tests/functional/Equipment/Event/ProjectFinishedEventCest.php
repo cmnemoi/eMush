@@ -28,7 +28,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    #[DataProvider(method: 'shouldCreateEquipmentWhenProjectIsFinishedDataProvider')]
+    #[DataProvider(methodName: 'shouldCreateEquipmentWhenProjectIsFinishedDataProvider')]
     public function shouldCreateEquipmentWhenProjectIsFinished(FunctionalTester $I, Example $example): void
     {
         // given I have the equipment creation places in this Daedalus
@@ -53,7 +53,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         }
     }
 
-    #[DataProvider(method: 'shouldReplaceEquipmentWhenProjectIsFinishedDataProvider')]
+    #[DataProvider(methodName: 'shouldReplaceEquipmentWhenProjectIsFinishedDataProvider')]
     public function shouldReplaceEquipmentWhenProjectIsFinished(FunctionalTester $I, Example $example): void
     {
         $room = $this->player->getPlace();

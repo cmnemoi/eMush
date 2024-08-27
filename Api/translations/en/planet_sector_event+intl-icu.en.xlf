@@ -54,8 +54,8 @@
         <source>nothing_to_report.oxygen_description</source>
         <target>The {equipment} oxygen pump is jammed, there's nothing coming through!</target>
       </segment>
-      <segment id="sismic_activity_description" state="translated">
-        <source>nothing_to_report.sismic_activity_description</source>
+      <segment id="seismic_activity_description" state="translated">
+        <source>nothing_to_report.seismic_activity_description</source>
         <target>This planet's soil is scarred with crevasses... That's not a good sign...</target>
       </segment>
       <segment id="ruins_description" state="translated">
@@ -169,8 +169,8 @@
         <source>accident.cave_description</source>
         <target>Jumping to avoid a passing alien scorpion, {character} split their head open on a stalactite.</target>
       </segment>
-      <segment id="sismic_activity_description" state="translated">
-        <source>accident.sismic_activity_description</source>
+      <segment id="seismic_activity_description" state="translated">
+        <source>accident.seismic_activity_description</source>
         <target>{character} fell into a crevasse... Aaaargh!</target>
       </segment>
       <segment id="ruins_description" state="translated">
@@ -335,8 +335,8 @@
         <source>kill_random.description</source>
         <target>A team member has died.{fight_prevented_by_item}</target>
       </segment>
-      <segment id="sismic_activity_description" state="translated">
-        <source>kill_random.sismic_activity_description</source>
+      <segment id="seismic_activity_description" state="translated">
+        <source>kill_random.seismic_activity_description</source>
         <target>A crack opens in the earth right below the expedition crew!!! {character} slips and disappears into the void!</target>
       </segment>
       <segment id="mankarog_description" state="translated">
@@ -577,8 +577,8 @@
         <source>back.description</source>
         <target>You abandon the current expedition.{fight_prevented_by_item}</target>
       </segment>
-      <segment id="sismic_activity_description" state="translated">
-        <source>back.sismic_activity_description</source>
+      <segment id="seismic_activity_description" state="translated">
+        <source>back.seismic_activity_description</source>
         <target>A violent tremor paralyses the expedition... And then silence again... best return to the Daedalus quick smart!</target>
       </segment>
       <segment id="volcanic_activity_description" state="translated">

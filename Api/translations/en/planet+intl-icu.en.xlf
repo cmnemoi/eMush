@@ -171,13 +171,13 @@
         <target>Strong winds are sweeping the planet.</target>
       </segment>
     </unit>
-    <unit id="sismic_activity">
+    <unit id="seismic_activity">
       <segment id="name" state="translated">
-        <source>sismic_activity.name</source>
+        <source>seismic_activity.name</source>
         <target>Seismic activity</target>
       </segment>
       <segment id="description" state="translated">
-        <source>sismic_activity.description</source>
+        <source>seismic_activity.description</source>
         <target>Significant seismic activity detected.</target>
       </segment>
     </unit>

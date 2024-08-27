@@ -22,7 +22,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 /** @codeCoverageIgnore */
 final class SkillModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $pilotAlwaysCriticalSuccessPiloting = VariableEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName('modifier_pilot_always_critical_success_piloting')
@@ -178,6 +178,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         );
         $this->addReference($playerPlusTwoDamageOnHit->getName(), $playerPlusTwoDamageOnHit);
         $manager->persist($playerPlusTwoDamageOnHit);
+
+        $sprinterModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_2_MOVEMENT_POINT_ON_EVENT_ACTION_MOVEMENT_CONVERSION_FOR_SPRINTER)
+        );
+        $this->addReference($sprinterModifier->getName(), $sprinterModifier);
+        $manager->persist($sprinterModifier);
 
         $manager->flush();
     }

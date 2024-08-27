@@ -663,6 +663,7 @@ class CharacterConfigData
                 SkillEnum::FIREFIGHTER,
                 SkillEnum::CREATIVE,
                 SkillEnum::OPTIMIST,
+                SkillEnum::SPRINTER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

@@ -12,6 +12,7 @@ use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -19,10 +20,8 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
+use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -41,7 +40,7 @@ final class MoveCest extends AbstractFunctionalTest
     private ChannelServiceInterface $channelService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private ChooseSkillUseCase $chooseSkillUseCase;
+    private AddSkillToPlayerService $addSkillToPlayer;
 
     public function _before(FunctionalTester $I)
     {
@@ -63,7 +62,7 @@ final class MoveCest extends AbstractFunctionalTest
         $this->channelService = $I->grabService(ChannelServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
+        $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
     }
 
     public function testMoveActionNotExecutableIfIcarusBayHasTooMuchPeopleInside(FunctionalTester $I): void
@@ -292,7 +291,7 @@ final class MoveCest extends AbstractFunctionalTest
         // given there is a door leading to Icarus Bay
         $door = $this->createDoorFromTo($I, RoomEnum::LABORATORY, RoomEnum::ICARUS_BAY);
 
-        $this->givenChunIsSolidPlayer($I);
+        $this->givenChunIsSolidPlayer();
 
         $this->givenChunHasAMicrowave();
 
@@ -303,12 +302,39 @@ final class MoveCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveMovementPoint(11, $I);
     }
 
-    private function givenChunIsSolidPlayer(FunctionalTester $I): void
+    public function sprinterShouldGainMoreMovementPointsDuringConversion(FunctionalTester $I): void
     {
-        $this->chun->getCharacterConfig()->addSkillConfig(
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SOLID])
-        );
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SOLID, $this->chun));
+        // given there is a door leading to Icarus Bay
+        $door = $this->createDoorFromTo($I, RoomEnum::LABORATORY, RoomEnum::ICARUS_BAY);
+
+        $this->givenChunIsSprinter();
+
+        $this->givenChunHasMovementPoint(0);
+
+        $this->whenChunMovesToIcarusBay($door);
+
+        $this->thenChunShouldHaveMovementPoint(4, $I);
+    }
+
+    public function scooterShouldNotBeStackableWithSprinter(FunctionalTester $I): void
+    {
+        // given there is a door leading to Icarus Bay
+        $door = $this->createDoorFromTo($I, RoomEnum::LABORATORY, RoomEnum::ICARUS_BAY);
+
+        $this->givenChunIsSprinter();
+
+        $this->givenChunHasAntigravScooter();
+
+        $this->givenChunHasMovementPoint(0);
+
+        $this->whenChunMovesToIcarusBay($door);
+
+        $this->thenChunShouldHaveMovementPoint(4, $I);
+    }
+
+    private function givenChunIsSolidPlayer(): void
+    {
+        $this->addSkillToPlayer->execute(SkillEnum::SOLID, $this->chun);
     }
 
     private function givenChunHasAMicrowave(): void
@@ -324,6 +350,21 @@ final class MoveCest extends AbstractFunctionalTest
     private function givenChunHasMovementPoint(int $movementPoint): void
     {
         $this->chun->setMovementPoint($movementPoint);
+    }
+
+    private function givenChunIsSprinter(): void
+    {
+        $this->addSkillToPlayer->execute(SkillEnum::SPRINTER, $this->chun);
+    }
+
+    private function givenChunHasAntigravScooter(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::ANTIGRAV_SCOOTER,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
     }
 
     private function whenChunMovesToIcarusBay(Door $door): void

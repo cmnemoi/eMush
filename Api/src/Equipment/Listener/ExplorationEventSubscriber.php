@@ -10,7 +10,7 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class ExplorationEventSubscriber implements EventSubscriberInterface
+final readonly class ExplorationEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(private GameEquipmentServiceInterface $gameEquipmentService) {}
 

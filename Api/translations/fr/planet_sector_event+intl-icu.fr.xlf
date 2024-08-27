@@ -68,8 +68,8 @@
         other {La pompe d'oxygène du {equipment} est enrayée, il n'y a rien à en tirer !}
         }</target>
       </segment>
-      <segment id="sismic_activity_description" state="final">
-        <source>nothing_to_report.sismic_activity_description</source>
+      <segment id="seismic_activity_description" state="final">
+        <source>nothing_to_report.seismic_activity_description</source>
         <target>Le sol de cette planète est balafré de profondes crevasses... Ce n'est pas bon signe...</target>
       </segment>
       <segment id="ruins_description" state="final">
@@ -183,8 +183,8 @@
         <source>accident.cave_description</source>
         <target>En sautant pour éviter un scorpion alien qui passait par là, {character} s'ouvre le cuir chevelu sur une stalactite.</target>
       </segment>
-      <segment id="sismic_activity_description" state="final">
-        <source>accident.sismic_activity_description</source>
+      <segment id="seismic_activity_description" state="final">
+        <source>accident.seismic_activity_description</source>
         <target>{character} chute dans une crevasse… Aïe !</target>
       </segment>
       <segment id="ruins_description" state="final">
@@ -353,8 +353,8 @@
         <source>kill_random.description</source>
         <target>Un équipier meurt.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="sismic_activity_description" state="final">
-        <source>kill_random.sismic_activity_description</source>
+      <segment id="seismic_activity_description" state="final">
+        <source>kill_random.seismic_activity_description</source>
         <target>Une faille s'ouvre sous les pieds de l'expédition !!! {character} glisse et disparaît dans un cri d'effroi !</target>
       </segment>
       <segment id="mankarog_description" state="final">
@@ -598,8 +598,8 @@
         <source>back.description</source>
         <target>Vous abandonnez l'expédition en cours.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="sismic_activity_description" state="final">
-        <source>back.sismic_activity_description</source>
+      <segment id="seismic_activity_description" state="final">
+        <source>back.seismic_activity_description</source>
         <target>Une violente secousse paralyse l'expédition… Puis de nouveau le silence… Mieux vaut revenir au Daedalus vite fait !</target>
       </segment>
       <segment id="volcanic_activity_description" state="final">

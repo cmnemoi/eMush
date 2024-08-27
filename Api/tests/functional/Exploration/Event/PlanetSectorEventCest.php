@@ -95,13 +95,13 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     {
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::SEISMIC_ACTIVITY], $I),
             explorators: $this->players
         );
 
-        // given there is a sismic sector on the planet with accident event
+        // given there is a seismic sector on the planet with accident event
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             events: [PlanetSectorEvent::ACCIDENT_3_5 => 1]
         );
 
@@ -143,13 +143,13 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     {
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::SEISMIC_ACTIVITY], $I),
             explorators: $this->players
         );
 
-        // given there is a sismic sector on the planet with accident event
+        // given there is a seismic sector on the planet with accident event
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             events: [PlanetSectorEvent::ACCIDENT_3_5 => 1]
         );
 
@@ -187,13 +187,13 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     {
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::SEISMIC_ACTIVITY], $I),
             explorators: new PlayerCollection([$this->chun]),
         );
 
-        // given there is a sismic sector on the planet with accident event
+        // given there is a seismic sector on the planet with accident event
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             events: [PlanetSectorEvent::ACCIDENT_3_5 => 1]
         );
 
@@ -484,13 +484,13 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     {
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::SEISMIC_ACTIVITY], $I),
             explorators: $this->players
         );
 
-        // given only kill random event can happen in sismic sector
+        // given only kill random event can happen in seismic sector
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             events: [PlanetSectorEvent::KILL_RANDOM => 1]
         );
 
@@ -1280,14 +1280,14 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->givenChunIsASurvivalist($I);
 
         $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             players: [$this->chun],
             I: $I
         );
 
         $this->givenOnlyThisEventCanHappenInSector(
             event: PlanetSectorEvent::ACCIDENT_3_5,
-            sector: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sector: PlanetSectorEnum::SEISMIC_ACTIVITY,
         );
 
         $this->givenAccidentDealsOneDamage($I);
@@ -1368,14 +1368,14 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->givenChunIsASurvivalist($I);
 
         $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             players: [$this->chun, $this->kuanTi],
             I: $I
         );
 
         $this->givenOnlyThisEventCanHappenInSector(
             event: PlanetSectorEvent::KILL_RANDOM,
-            sector: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sector: PlanetSectorEnum::SEISMIC_ACTIVITY,
         );
 
         $this->whenExplorationEventIsDispatched($exploration);
@@ -1389,14 +1389,14 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->givenChunIsASurvivalist($I);
 
         $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             players: [$this->chun],
             I: $I
         );
 
         $this->givenOnlyThisEventCanHappenInSector(
             event: PlanetSectorEvent::KILL_RANDOM,
-            sector: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sector: PlanetSectorEnum::SEISMIC_ACTIVITY,
         );
 
         $this->whenExplorationEventIsDispatched($exploration);

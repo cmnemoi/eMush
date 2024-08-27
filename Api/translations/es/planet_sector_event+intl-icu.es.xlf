@@ -54,9 +54,9 @@
         <source>nothing_to_report.oxygen_description</source>
         <target>nothing_to_report.oxygen_description</target>
       </segment>
-      <segment id="sismic_activity_description" state="initial">
-        <source>nothing_to_report.sismic_activity_description</source>
-        <target>nothing_to_report.sismic_activity_description</target>
+      <segment id="seismic_activity_description" state="initial">
+        <source>nothing_to_report.seismic_activity_description</source>
+        <target>nothing_to_report.seismic_activity_description</target>
       </segment>
       <segment id="ruins_description" state="initial">
         <source>nothing_to_report.ruins_description</source>
@@ -166,9 +166,9 @@
         <source>accident.cave_description</source>
         <target>accident.cave_description</target>
       </segment>
-      <segment id="sismic_activity_description" state="initial">
-        <source>accident.sismic_activity_description</source>
-        <target>accident.sismic_activity_description</target>
+      <segment id="seismic_activity_description" state="initial">
+        <source>accident.seismic_activity_description</source>
+        <target>accident.seismic_activity_description</target>
       </segment>
       <segment id="ruins_description" state="initial">
         <source>accident.ruins_description</source>
@@ -310,9 +310,9 @@
         <source>kill_random.description</source>
         <target>kill_random.description</target>
       </segment>
-      <segment id="sismic_activity_description" state="initial">
-        <source>kill_random.sismic_activity_description</source>
-        <target>kill_random.sismic_activity_description</target>
+      <segment id="seismic_activity_description" state="initial">
+        <source>kill_random.seismic_activity_description</source>
+        <target>kill_random.seismic_activity_description</target>
       </segment>
       <segment id="mankarog_description" state="initial">
         <source>kill_random.mankarog_description</source>
@@ -538,9 +538,9 @@
         <source>back.description</source>
         <target>back.description</target>
       </segment>
-      <segment id="sismic_activity_description" state="initial">
-        <source>back.sismic_activity_description</source>
-        <target>back.sismic_activity_description</target>
+      <segment id="seismic_activity_description" state="initial">
+        <source>back.seismic_activity_description</source>
+        <target>back.seismic_activity_description</target>
       </segment>
       <segment id="volcanic_activity_description" state="initial">
         <source>back.volcanic_activity_description</source>

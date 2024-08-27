@@ -1349,7 +1349,7 @@ abstract class StatusConfigData
             ],
             'autoRemove' => true,
             'modifierConfigs' => [
-                ModifierNameEnum::PLAYER_ALWAYS_SUCCEDS_REPAIR_ACTION,
+                ModifierNameEnum::PLAYER_ALWAYS_SUCCEEDS_REPAIR_ACTION,
             ],
             'actionConfigs' => [],
         ],

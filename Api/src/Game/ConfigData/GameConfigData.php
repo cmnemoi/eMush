@@ -524,7 +524,7 @@ class GameConfigData
                 PlanetSectorEnum::COLD . '_default',
                 PlanetSectorEnum::HOT . '_default',
                 PlanetSectorEnum::STRONG_WIND . '_default',
-                PlanetSectorEnum::SISMIC_ACTIVITY . '_default',
+                PlanetSectorEnum::SEISMIC_ACTIVITY . '_default',
                 PlanetSectorEnum::VOLCANIC_ACTIVITY . '_default',
                 PlanetSectorEnum::RUINS . '_default',
                 PlanetSectorEnum::WRECK . '_default',

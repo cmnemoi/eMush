@@ -461,5 +461,19 @@
         <target>Les german suplex du Lutteur font trembler les vertèbres de tous ses adversaires.//:point: Vos attaques de corps-à-corps infligent **2 dégats supplémentaires** si vous n'êtes pas muté.//:point: Vous disposez de l'action **Mettre à la porte**.</target>
       </segment>
     </unit>
+    <unit id="sprinter">
+      <segment id="sprinter.name" state="translated">
+          <source>sprinter.name</source>
+          <target>Sprinter</target>
+      </segment>
+      <segment id="sprinter.description" state="translated">
+          <source>sprinter.description</source>
+          <target>Le Sprinter débute toujours sa journée du bon pied ! Il profite de Points de Mouvement supplémentaires.
+//
+:point: Vous gagnez **2** :pm: de plus à chaque conversion :pa: / :pm:. (Non cumulatif avec la **Trotinette**).
+//
+:point: **+1 étape** en exploration.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

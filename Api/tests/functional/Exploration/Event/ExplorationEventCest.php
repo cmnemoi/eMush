@@ -38,14 +38,14 @@ final class ExplorationEventCest extends AbstractExplorationTester
             sectors: [
                 PlanetSectorEnum::OXYGEN,
                 PlanetSectorEnum::DESERT,
-                PlanetSectorEnum::SISMIC_ACTIVITY,
+                PlanetSectorEnum::SEISMIC_ACTIVITY,
             ],
             functionalTester: $I,
         );
 
-        // given only nothing to report event can happen in sismic activity sector
+        // given only nothing to report event can happen in seismic activity sector
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             events: [PlanetSectorEvent::NOTHING_TO_REPORT => 1],
         );
 
@@ -78,7 +78,7 @@ final class ExplorationEventCest extends AbstractExplorationTester
             sectors: [
                 PlanetSectorEnum::OXYGEN,
                 PlanetSectorEnum::DESERT,
-                PlanetSectorEnum::SISMIC_ACTIVITY,
+                PlanetSectorEnum::SEISMIC_ACTIVITY,
             ],
             functionalTester: $I,
         );
@@ -89,9 +89,9 @@ final class ExplorationEventCest extends AbstractExplorationTester
             events: [PlanetSectorEvent::NOTHING_TO_REPORT => 1],
         );
 
-        // given only nothing to report event can happen in sismic activity sector to avoid back event
+        // given only nothing to report event can happen in seismic activity sector to avoid back event
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             events: [PlanetSectorEvent::NOTHING_TO_REPORT => 1],
         );
 

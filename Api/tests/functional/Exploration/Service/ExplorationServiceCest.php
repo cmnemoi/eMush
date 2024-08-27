@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Exploration\Service;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -577,5 +579,32 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 
         // then Chun should not be dirty
         $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::DIRTY));
+    }
+
+    #[DataProvider('skillExplorationCycleIncrementDataProvider')]
+    public function ensureSkillAddPlusOneCycleIfPresent(FunctionalTester $I, Example $scenario): void
+    {
+        $planet = $this->createPlanet([PlanetSectorEnum::DESERT], $I);
+        $roland = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ROLAND);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto($scenario[0], $roland));
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $planet,
+            explorators: new PlayerCollection([$roland]),
+        );
+
+        $I->assertSame($exploration->getNumberOfSectionsToVisit(), $scenario[1]);
+    }
+
+    private function skillExplorationCycleIncrementDataProvider(): iterable
+    {
+        yield 'Skill: Sprinter' => [SkillEnum::SPRINTER, 10];
+
+        yield 'Skill: Pilot' => [SkillEnum::PILOT, 9];
+
+        yield 'Skill: Optimist' => [SkillEnum::OPTIMIST, 9];
+
+        yield 'Skill: Shooter' => [SkillEnum::SHOOTER, 9];
     }
 }

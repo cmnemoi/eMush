@@ -9,31 +9,31 @@ use Doctrine\Common\Collections\ArrayCollection;
 /** @codeCoverageIgnore */
 final class PlanetSectorEnum
 {
-    public const CAVE = 'cave';
-    public const COLD = 'cold';
-    public const CRISTAL_FIELD = 'cristal_field';
-    public const DESERT = 'desert';
-    public const FOREST = 'forest';
-    public const FRUIT_TREES = 'fruit_trees';
-    public const HOT = 'hot';
-    public const HYDROCARBON = 'hydrocarbon';
-    public const INSECT = 'insect';
-    public const INTELLIGENT = 'intelligent';
-    public const LANDING = 'landing';
-    public const LOST = 'lost';
-    public const MANKAROG = 'mankarog';
-    public const MOUNTAIN = 'mountain';
-    public const OCEAN = 'ocean';
-    public const OXYGEN = 'oxygen';
-    public const PREDATOR = 'predator';
-    public const RUINS = 'ruins';
-    public const RUMINANT = 'ruminant';
-    public const SISMIC_ACTIVITY = 'sismic_activity';
-    public const STRONG_WIND = 'strong_wind';
-    public const SWAMP = 'swamp';
-    public const UNKNOWN = 'unknown';
-    public const VOLCANIC_ACTIVITY = 'volcanic_activity';
-    public const WRECK = 'wreck';
+    public const string CAVE = 'cave';
+    public const string COLD = 'cold';
+    public const string CRISTAL_FIELD = 'cristal_field';
+    public const string DESERT = 'desert';
+    public const string FOREST = 'forest';
+    public const string FRUIT_TREES = 'fruit_trees';
+    public const string HOT = 'hot';
+    public const string HYDROCARBON = 'hydrocarbon';
+    public const string INSECT = 'insect';
+    public const string INTELLIGENT = 'intelligent';
+    public const string LANDING = 'landing';
+    public const string LOST = 'lost';
+    public const string MANKAROG = 'mankarog';
+    public const string MOUNTAIN = 'mountain';
+    public const string OCEAN = 'ocean';
+    public const string OXYGEN = 'oxygen';
+    public const string PREDATOR = 'predator';
+    public const string RUINS = 'ruins';
+    public const string RUMINANT = 'ruminant';
+    public const string SEISMIC_ACTIVITY = 'seismic_activity';
+    public const string STRONG_WIND = 'strong_wind';
+    public const string SWAMP = 'swamp';
+    public const string UNKNOWN = 'unknown';
+    public const string VOLCANIC_ACTIVITY = 'volcanic_activity';
+    public const string WRECK = 'wreck';
 
     public static function getAll(): ArrayCollection
     {
@@ -55,7 +55,7 @@ final class PlanetSectorEnum
             self::PREDATOR,
             self::RUINS,
             self::RUMINANT,
-            self::SISMIC_ACTIVITY,
+            self::SEISMIC_ACTIVITY,
             self::STRONG_WIND,
             self::SWAMP,
             self::VOLCANIC_ACTIVITY,

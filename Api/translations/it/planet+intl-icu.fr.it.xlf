@@ -171,14 +171,14 @@
         <target>strong_wind.description</target>
       </segment>
     </unit>
-    <unit id="sismic_activity">
+    <unit id="seismic_activity">
       <segment id="name" state="initial">
-        <source>sismic_activity.name</source>
-        <target>sismic_activity.name</target>
+        <source>seismic_activity.name</source>
+        <target>seismic_activity.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>sismic_activity.description</source>
-        <target>sismic_activity.description</target>
+        <source>seismic_activity.description</source>
+        <target>seismic_activity.description</target>
       </segment>
     </unit>
     <unit id="volcanic_activity">

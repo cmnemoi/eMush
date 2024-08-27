@@ -146,7 +146,7 @@ final class TrackerCest extends AbstractFunctionalTest
         $chunLogs = $this->roomLogNormalizer->normalize($this->chunLogs, null, ['currentPlayer' => $this->chun])[$this->daedalus->getDay()][$this->daedalus->getCycle()];
 
         $I->assertContains(
-            '**Kuan Ti** est sorti dans le Couloir Avant.',
+            '**Kuan Ti** est sorti vers le Couloir Avant.',
             array_map(static fn ($log) => $log['log'], $chunLogs),
         );
     }

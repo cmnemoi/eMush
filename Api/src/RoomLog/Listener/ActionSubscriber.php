@@ -41,7 +41,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         if ($actionName === ActionEnum::MOVE) {
             /** @var Door $door */
             $door = $actionTarget;
-            $this->createMoveRoomLog($player, ActionLogEnum::EXIT_ROOM, $door);
+            $this->createExitRoomLog($player, $door);
         }
 
         match ($actionName) {
@@ -79,7 +79,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         if ($action->getActionName() === ActionEnum::MOVE) {
             /** @var Door $door */
             $door = $actionHolder;
-            $this->createMoveRoomLog($player, ActionLogEnum::ENTER_ROOM, $door);
+            $this->createEnterRoomLog($player, $door);
         }
 
         match ($action->getActionName()) {
@@ -121,15 +121,34 @@ final class ActionSubscriber implements EventSubscriberInterface
         );
     }
 
-    private function createMoveRoomLog(Player $player, string $type, Door $door): void
+    private function createEnterRoomLog(Player $player, Door $door): void
     {
         $this->roomLogService->createLog(
-            $type,
+            ActionLogEnum::ENTER_ROOM,
             $player->getPlace(),
             VisibilityEnum::PUBLIC,
             'actions_log',
             $player,
-            $this->getMoveLogParameters($player, $type, $door),
+            [
+                $player->getLogKey() => $player->getLogName(),
+                ...$this->getEnterLogParameters($player, $door),
+            ],
+            new \DateTime('now')
+        );
+    }
+
+    private function createExitRoomLog(Player $player, Door $door): void
+    {
+        $this->roomLogService->createLog(
+            ActionLogEnum::EXIT_ROOM,
+            $player->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'actions_log',
+            $player,
+            [
+                $player->getLogKey() => $player->getLogName(),
+                ...$this->getExitLogParameters($player, $door),
+            ],
             new \DateTime('now')
         );
     }
@@ -164,27 +183,35 @@ final class ActionSubscriber implements EventSubscriberInterface
         );
     }
 
-    private function getMoveLogParameters(Player $player, string $type, Door $door): array
+    private function getEnterLogParameters(Player $player, Door $door): array
     {
-        $placeName = $type === ActionLogEnum::EXIT_ROOM ? $door->getOtherRoom($player->getPlace())->getLogName() : $player->getOldPlaceOrThrow()->getLogName();
-        $exitLocPrep = $this->translationService->translate(
-            "{$placeName}.loc_prep",
-            [],
-            'rooms',
-            $player->getLanguage()
-        );
+        $placeName = $door->getOtherRoom($player->getPlace())->getLogName();
         $enterLocPrep = $this->translationService->translate(
-            "{$placeName}.tracker_loc_prep",
+            "{$placeName}.enter_loc_prep",
             [],
             'rooms',
             $player->getLanguage()
         );
 
         return [
-            $player->getLogKey() => $player->getLogName(),
-            'enter_loc_prep' => $enterLocPrep,
-            'exit_loc_prep' => $exitLocPrep,
             'place' => $placeName,
+            'enter_loc_prep' => $enterLocPrep,
+        ];
+    }
+
+    private function getExitLogParameters(Player $player, Door $door): array
+    {
+        $placeName = $door->getOtherRoom($player->getPlace())->getLogName();
+        $exitLocPrep = $this->translationService->translate(
+            "{$placeName}.exit_loc_prep",
+            [],
+            'rooms',
+            $player->getLanguage()
+        );
+
+        return [
+            'place' => $placeName,
+            'exit_loc_prep' => $exitLocPrep,
         ];
     }
 }

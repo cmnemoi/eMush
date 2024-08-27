@@ -10,9 +10,13 @@
         <source>bridge.loc_prep</source>
         <target>sur le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>bridge.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>bridge.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>bridge.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="alpha_bay">
@@ -24,9 +28,13 @@
         <source>alpha_bay.loc_prep</source>
         <target>dans la</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>alpha_bay.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>alpha_bay.enter_loc_prep</source>
         <target>depuis la</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>alpha_bay.exit_loc_prep</source>
+        <target>vers la</target>
       </segment>
     </unit>
     <unit id="bravo_bay">
@@ -38,9 +46,13 @@
         <source>bravo_bay.loc_prep</source>
         <target>dans la</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>bravo_bay.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>bravo_bay.enter_loc_prep</source>
         <target>depuis la</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>bravo_bay.exit_loc_prep</source>
+        <target>vers la</target>
       </segment>
     </unit>
     <unit id="alpha_bay_2">
@@ -52,9 +64,13 @@
         <source>alpha_bay_2.loc_prep</source>
         <target>dans la</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>alpha_bay_2.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>alpha_bay_2.enter_loc_prep</source>
         <target>depuis la</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>alpha_bay_2.exit_loc_prep</source>
+        <target>vers la</target>
       </segment>
     </unit>
     <unit id="nexus">
@@ -66,9 +82,13 @@
         <source>nexus.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>nexus.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>nexus.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>nexus.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="medlab">
@@ -80,9 +100,13 @@
         <source>medlab.loc_prep</source>
         <target>dans l'</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>medlab.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>medlab.enter_loc_prep</source>
         <target>depuis l'</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>medlab.exit_loc_prep</source>
+        <target>vers l'</target>
       </segment>
     </unit>
     <unit id="laboratory">
@@ -94,9 +118,13 @@
         <source>laboratory.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>laboratory.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>laboratory.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>laboratory.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="refectory">
@@ -108,9 +136,13 @@
         <source>refectory.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>refectory.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>refectory.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>refectory.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="hydroponic_garden">
@@ -122,9 +154,13 @@
         <source>hydroponic_garden.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>hydroponic_garden.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>hydroponic_garden.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>hydroponic_garden.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="engine_room">
@@ -136,9 +172,13 @@
         <source>engine_room.loc_prep</source>
         <target>dans la</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>engine_room.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>engine_room.enter_loc_prep</source>
         <target>depuis la</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>engine_room.exit_loc_prep</source>
+        <target>vers la</target>
       </segment>
     </unit>
     <unit id="front_alpha_turret">
@@ -150,9 +190,13 @@
         <source>front_alpha_turret.loc_prep</source>
         <target>dans la</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>front_alpha_turret.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>front_alpha_turret.enter_loc_prep</source>
         <target>depuis la</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>front_alpha_turret.exit_loc_prep</source>
+        <target>vers la</target>
       </segment>
     </unit>
     <unit id="centre_alpha_turret">
@@ -164,9 +208,13 @@
         <source>centre_alpha_turret.loc_prep</source>
         <target>dans la</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>centre_alpha_turret.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>centre_alpha_turret.enter_loc_prep</source>
         <target>depuis la</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>centre_alpha_turret.exit_loc_prep</source>
+        <target>vers la</target>
       </segment>
     </unit>
     <unit id="rear_alpha_turret">
@@ -178,9 +226,13 @@
         <source>rear_alpha_turret.loc_prep</source>
         <target>dans la</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>rear_alpha_turret.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>rear_alpha_turret.enter_loc_prep</source>
         <target>depuis la</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>rear_alpha_turret.exit_loc_prep</source>
+        <target>vers la</target>
       </segment>
     </unit>
     <unit id="front_bravo_turret">
@@ -192,9 +244,13 @@
         <source>front_bravo_turret.loc_prep</source>
         <target>dans la</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>front_bravo_turret.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>front_bravo_turret.enter_loc_prep</source>
         <target>depuis la</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>front_bravo_turret.exit_loc_prep</source>
+        <target>vers la</target>
       </segment>
     </unit>
     <unit id="centre_bravo_turret">
@@ -206,9 +262,13 @@
         <source>centre_bravo_turret.loc_prep</source>
         <target>dans la</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>centre_bravo_turret.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>centre_bravo_turret.enter_loc_prep</source>
         <target>depuis la</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>centre_bravo_turret.exit_loc_prep</source>
+        <target>vers la</target>
       </segment>
     </unit>
     <unit id="rear_bravo_turret">
@@ -220,9 +280,13 @@
         <source>rear_bravo_turret.loc_prep</source>
         <target>dans la</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>rear_bravo_turret.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>rear_bravo_turret.enter_loc_prep</source>
         <target>depuis la</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>rear_bravo_turret.exit_loc_prep</source>
+        <target>vers la</target>
       </segment>
     </unit>
     <unit id="front_corridor">
@@ -234,9 +298,13 @@
         <source>front_corridor.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>front_corridor.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>front_corridor.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>front_corridor.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="central_corridor">
@@ -248,9 +316,13 @@
         <source>central_corridor.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>central_corridor.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>central_corridor.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>central_corridor.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="rear_corridor">
@@ -262,9 +334,13 @@
         <source>rear_corridor.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>rear_corridor.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>rear_corridor.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>rear_corridor.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="icarus_bay">
@@ -276,9 +352,13 @@
         <source>icarus_bay.loc_prep</source>
         <target>dans la</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>icarus_bay.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>icarus_bay.enter_loc_prep</source>
         <target>depuis la</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>icarus_bay.exit_loc_prep</source>
+        <target>vers la</target>
       </segment>
     </unit>
     <unit id="alpha_dorm">
@@ -290,9 +370,13 @@
         <source>alpha_dorm.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>alpha_dorm.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>alpha_dorm.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>alpha_dorm.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="bravo_dorm">
@@ -304,9 +388,13 @@
         <source>bravo_dorm.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>bravo_dorm.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>bravo_dorm.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>bravo_dorm.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="front_storage">
@@ -318,9 +406,13 @@
         <source>front_storage.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>front_storage.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>front_storage.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>front_storage.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="center_alpha_storage">
@@ -332,9 +424,13 @@
         <source>center_alpha_storage.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>center_alpha_storage.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>center_alpha_storage.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>center_alpha_storage.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="center_bravo_storage">
@@ -346,9 +442,13 @@
         <source>center_bravo_storage.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>center_bravo_storage.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>center_bravo_storage.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>center_bravo_storage.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="rear_alpha_storage">
@@ -360,9 +460,13 @@
         <source>rear_alpha_storage.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>rear_alpha_storage.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>rear_alpha_storage.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>rear_alpha_storage.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="rear_bravo_storage">
@@ -374,9 +478,13 @@
         <source>rear_bravo_storage.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>rear_bravo_storage.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>rear_bravo_storage.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>rear_bravo_storage.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="patrol_ship_bravo_epicure">
@@ -388,6 +496,14 @@
         <source>patrol_ship_bravo_epicure.loc_prep</source>
         <target>dans le</target>
       </segment>
+      <segment id="enter_loc_prep" state="final">
+        <source>patrol_ship_bravo_epicure.enter_loc_prep</source>
+        <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>patrol_ship_bravo_epicure.exit_loc_prep</source>
+        <target>vers le</target>
+      </segment>
     </unit>
     <unit id="patrol_ship_bravo_socrate">
       <segment id="name" state="final">
@@ -398,9 +514,13 @@
         <source>patrol_ship_bravo_socrate.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>patrol_ship_bravo_socrate.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>patrol_ship_bravo_socrate.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>patrol_ship_bravo_socrate.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="patrol_ship_bravo_planton">
@@ -412,9 +532,13 @@
         <source>patrol_ship_bravo_planton.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>patrol_ship_bravo_planton.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>patrol_ship_bravo_planton.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>patrol_ship_bravo_planton.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_tamarin">
@@ -426,9 +550,13 @@
         <source>patrol_ship_alpha_tamarin.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>patrol_ship_alpha_tamarin.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>patrol_ship_alpha_tamarin.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>patrol_ship_alpha_tamarin.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_jujube">
@@ -440,9 +568,13 @@
         <source>patrol_ship_alpha_jujube.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>patrol_ship_alpha_jujube.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>patrol_ship_alpha_jujube.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>patrol_ship_alpha_jujube.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_longane">
@@ -454,9 +586,13 @@
         <source>patrol_ship_alpha_longane.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>patrol_ship_alpha_longane.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>patrol_ship_alpha_longane.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>patrol_ship_alpha_longane.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_2_wallis">
@@ -468,9 +604,13 @@
         <source>patrol_ship_alpha_2_wallis.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>patrol_ship_alpha_2_wallis.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>patrol_ship_alpha_2_wallis.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>patrol_ship_alpha_2_wallis.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="pasiphae">
@@ -482,9 +622,13 @@
         <source>pasiphae.loc_prep</source>
         <target>dans le</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>pasiphae.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>pasiphae.enter_loc_prep</source>
         <target>depuis le</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>pasiphae.exit_loc_prep</source>
+        <target>vers le</target>
       </segment>
     </unit>
     <unit id="space">
@@ -496,9 +640,13 @@
         <source>space.loc_prep</source>
         <target>dans l'</target>
       </segment>
-      <segment id="tracker_loc_prep" state="final">
-        <source>space.tracker_loc_prep</source>
+      <segment id="enter_loc_prep" state="final">
+        <source>space.enter_loc_prep</source>
         <target>depuis l'</target>
+      </segment>
+      <segment id="exit_loc_prep" state="final">
+        <source>space.exit_loc_prep</source>
+        <target>vers l'</target>
       </segment>
     </unit>
   </file>

@@ -21,9 +21,9 @@ interface MessageServiceInterface
         \DateTime $dateTime,
     ): Message;
 
-    public function getChannelMessages(?Player $player, Channel $channel, int $page, int $limit): Collection;
+    public function getChannelMessages(?Player $player, Channel $channel, \DateInterval $timeLimit): Collection;
 
-    public function getPlayerFavoritesChannelMessages(Player $player, int $page, int $limit): Collection;
+    public function getPlayerFavoritesChannelMessages(Player $player, \DateInterval $timeLimit): Collection;
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool;
 

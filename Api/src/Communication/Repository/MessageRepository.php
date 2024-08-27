@@ -79,20 +79,4 @@ class MessageRepository extends ServiceEntityRepository
 
         return $queryBuilder->getQuery()->getResult();
     }
-
-    public function findByChannelWithPagination(Channel $channel, int $page, int $limit): array
-    {
-        $queryBuilder = $this->createQueryBuilder('message');
-
-        $queryBuilder
-            ->setFirstResult(($page - 1) * $limit)
-            ->setMaxResults($limit)
-            ->where($queryBuilder->expr()->eq('message.channel', ':channel'))
-            ->andWhere($queryBuilder->expr()->isNull('message.parent'))
-            ->setParameter('channel', $channel);
-
-        $queryBuilder->orderBy('message.updatedAt', 'desc');
-
-        return $queryBuilder->getQuery()->getResult();
-    }
 }

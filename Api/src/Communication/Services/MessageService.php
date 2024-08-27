@@ -105,16 +105,14 @@ class MessageService implements MessageServiceInterface
         return $message;
     }
 
-    public function getChannelMessages(?Player $player, Channel $channel, int $page, int $limit): Collection
+    public function getChannelMessages(?Player $player, Channel $channel, \DateInterval $timeLimit): Collection
     {
-        if ($channel->isMushChannel()) {
-            $messages = $this->getByChannelWithTimeLimit($channel, new \DateInterval('PT24H'));
-        } else {
-            $messages = $this->getByChannelWithPagination($channel, $page, $limit);
-            // if a message has been put in favorite, remove it from the public channel messages for the player
-            if ($player && $channel->isPublic()) {
-                $messages = $messages->filter(static fn (Message $message) => !$message->isFavoriteFor($player));
-            }
+        $timeLimit = $channel->isMushChannel() ? new \DateInterval('PT24H') : $timeLimit;
+
+        $messages = $this->getByChannelWithTimeLimit($channel, $timeLimit);
+
+        if ($player && $channel->isPublic()) {
+            $messages = $messages->filter(static fn (Message $message) => !$message->isFavoriteFor($player));
         }
 
         if (!$player) {
@@ -124,9 +122,9 @@ class MessageService implements MessageServiceInterface
         return $messages->map(fn (Message $message) => $this->getModifiedMessage($message, $player));
     }
 
-    public function getPlayerFavoritesChannelMessages(Player $player, int $page, int $limit): Collection
+    public function getPlayerFavoritesChannelMessages(Player $player, \DateInterval $timeLimit): Collection
     {
-        $messages = new ArrayCollection($player->getFavoriteMessages()->slice(($page - 1) * $limit, $limit));
+        $messages = new ArrayCollection($player->getFavoriteMessages()->filter(static fn (Message $message) => $message->getCreatedAt() >= (new \DateTime())->sub($timeLimit))->toArray());
 
         return $messages->map(fn (Message $message) => $this->getModifiedMessage($message, $player));
     }
@@ -160,7 +158,7 @@ class MessageService implements MessageServiceInterface
 
     public function getNumberOfNewMessagesForPlayer(Player $player, Channel $channel): int
     {
-        $messages = $channel->isFavorites() ? $player->getFavoriteMessages() : $this->getChannelMessages($player, $channel, page: 1, limit: 20);
+        $messages = $channel->isFavorites() ? $player->getFavoriteMessages() : $this->getChannelMessages($player, $channel, timeLimit: new \DateInterval('PT48H'));
 
         $nbNewMessages = 0;
         foreach ($messages as $message) {
@@ -220,11 +218,6 @@ class MessageService implements MessageServiceInterface
     private function getByChannelWithTimeLimit(Channel $channel, \DateInterval $timeLimit): Collection
     {
         return new ArrayCollection($this->messageRepository->findByChannel($channel, $timeLimit));
-    }
-
-    private function getByChannelWithPagination(Channel $channel, int $page, int $limit): Collection
-    {
-        return new ArrayCollection($this->messageRepository->findByChannelWithPagination($channel, $page, $limit));
     }
 
     private function getModifiedMessage(Message $message, Player $player): Message

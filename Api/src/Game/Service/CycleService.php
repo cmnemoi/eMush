@@ -163,7 +163,7 @@ class CycleService implements CycleServiceInterface
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalusInfo);
 
         if ($cycleElapsed > 0) {
-            $this->toggleCycleChange($daedalus);
+            $this->activateCycleChange($daedalus);
 
             try {
                 $this->entityManager->beginTransaction();
@@ -183,7 +183,7 @@ class CycleService implements CycleServiceInterface
                 }
 
                 $daedalus->setCycleStartedAt($dateDaedalusLastCycle);
-                $this->toggleCycleChange($daedalus);
+                $this->deactivateCycleChange($daedalus);
                 $this->entityManager->commit();
             } catch (\Throwable $error) {
                 $this->logger->error('Error during cycle change', [
@@ -192,7 +192,7 @@ class CycleService implements CycleServiceInterface
                     'trace' => $error->getTraceAsString(),
                 ]);
                 $this->entityManager->rollback();
-                $this->toggleCycleChange($daedalus);
+                $this->deactivateCycleChange($daedalus);
                 $this->entityManager->close();
 
                 throw $error;
@@ -284,9 +284,16 @@ class CycleService implements CycleServiceInterface
         return $daedalusInfo->isDaedalusFinished() || $exploration->isExplorationFinished();
     }
 
-    private function toggleCycleChange(Daedalus $daedalus): void
+    private function activateCycleChange(Daedalus $daedalus): void
     {
-        $daedalus->setIsCycleChange(!$daedalus->isCycleChange());
+        $daedalus->setIsCycleChange(true);
+        $this->entityManager->persist($daedalus);
+        $this->entityManager->flush();
+    }
+
+    private function deactivateCycleChange(Daedalus $daedalus): void
+    {
+        $daedalus->setIsCycleChange(false);
         $this->entityManager->persist($daedalus);
         $this->entityManager->flush();
     }

@@ -12,12 +12,12 @@ final class UpdatePlayerNotificationService
         private PlayerNotificationRepositoryInterface $playerNotificationRepository,
     ) {}
 
-    public function execute(Player $player, string $message): void
+    public function execute(Player $player, string $message, array $parameters = []): void
     {
         if ($player->hasNotification()) {
             $this->playerNotificationRepository->delete($player->getNotificationOrThrow());
         }
 
-        $this->playerNotificationRepository->save(new PlayerNotification($player, $message));
+        $this->playerNotificationRepository->save(new PlayerNotification($player, $message, $parameters));
     }
 }

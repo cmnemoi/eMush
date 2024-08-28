@@ -229,6 +229,13 @@ const ModerationService = {
 
         return response;
     },
+    reportCommanderMission: async(missionId: number, params: URLSearchParams): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(urlJoin(MODERATION_ENDPOINT, 'report-commander-mission', String(missionId)) + '?' + params.toString());
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     loadReportablePlayers: async (): Promise<Player[]> => {
         const playersData = await ApiService.get(MODERATION_ENDPOINT + '/reportable');
 

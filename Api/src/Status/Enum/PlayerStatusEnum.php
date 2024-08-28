@@ -49,4 +49,5 @@ abstract class PlayerStatusEnum
     public const string HAS_CEASEFIRED = 'has_ceasefired';
     public const string PREVIOUS_ROOM = 'previous_room';
     public const string HAS_EXCHANGED_BODY = 'has_exchanged_body';
+    public const string HAS_ISSUED_MISSION = 'has_issued_mission';
 }

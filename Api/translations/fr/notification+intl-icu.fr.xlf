@@ -21,5 +21,45 @@
         <target>Un Mush a échangé de corps avec le vôtre. Vous allez maintenant vivre une nouvelle vie...</target>
       </segment>
     </unit>
+    <unit id="mission_sent">
+      <segment state="translated">
+        <source>mission_sent.title</source>
+        <target></target>
+      </segment>
+      <segment state="translated">
+        <source>mission_sent.description</source>
+        <target>Mission envoyée.</target>
+      </segment>
+    </unit>
+    <unit id="mission_received">
+      <segment state="translated">
+        <source>mission_received.title</source>
+        <target></target>
+      </segment>
+      <segment state="translated">
+        <source>mission_received.description</source>
+        <target>Vous avez reçu une nouvelle mission du Commandant. Rendez-vous dans l'onglet Conseils.</target>
+      </segment>
+    </unit>
+    <unit id="mission_accepted">
+      <segment state="translated">
+        <source>mission_accepted.title</source>
+        <target></target>
+      </segment>
+      <segment state="translated">
+        <source>mission_accepted.description</source>
+        <target>Votre mission "{mission}" a été acceptée.</target>
+      </segment>
+    </unit>
+    <unit id="mission_rejected">
+      <segment state="translated">
+        <source>mission_rejected.title</source>
+        <target></target>
+      </segment>
+      <segment state="translated">
+        <source>mission_rejected.description</source>
+        <target>Votre mission "{mission}" a été refusée.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

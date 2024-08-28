@@ -98,7 +98,17 @@ export default defineComponent ({
         getActions(): Action[]
         {
             if (!(this.selectedTarget instanceof Player)) { return [];}
-            return this.selectedTarget.actions;
+            let actions = this.selectedTarget.actions.filter(action => action.isNotMissionAction());
+            // Setup commander order action to 0 action points if available
+            if (this.selectedTarget instanceof Player && this.target.hasActionByKey(ActionEnum.COMMANDER_ORDER)) {
+                const commanderOrderAction = this.selectedTarget.getActionByKey(ActionEnum.COMMANDER_ORDER);
+                actions = actions.filter(action => action.key !== ActionEnum.COMMANDER_ORDER);
+                const newOrderAction = (new Action()).decode(commanderOrderAction?.jsonEncode());
+                newOrderAction.actionPointCost = 0;
+                actions.push(newOrderAction);
+            }
+
+            return actions;
         },
         ...mapGetters('player', [
             'player'
@@ -110,20 +120,27 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             'executeAction': 'action/executeAction',
-            'openLearnSkillPopUp': 'popup/openLearnSkillPopUp'
+            'openLearnSkillPopUp': 'popup/openLearnSkillPopUp',
+            'openCommanderOrderPanel': 'player/openCommanderOrderPanel'
         }),
         async executeTargetAction(action: Action) {
+            if (action.canExecute === false) {
+                return;
+            }
+
             if (action.key === ActionEnum.LEARN) {
                 this.openLearnSkillPopUp();
                 return;
             }
+            if (action.key === ActionEnum.COMMANDER_ORDER) {
+                this.openCommanderOrderPanel();
+                return;
+            }
 
-            if(action.canExecute) {
-                if (this.selectedTarget === this.player) {
-                    await this.executeAction({ target: null, action });
-                } else {
-                    await this.executeAction({ target: this.selectedTarget, action });
-                }
+            if (this.selectedTarget === this.player) {
+                await this.executeAction({ target: null, action });
+            } else {
+                await this.executeAction({ target: this.selectedTarget, action });
             }
         },
         formatText,

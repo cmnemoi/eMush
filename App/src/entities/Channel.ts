@@ -1,6 +1,15 @@
 import { ChannelParticipant } from "./ChannelParticipant";
 import { ChannelType } from "@/enums/communication.enum";
 
+export type CommanderMission = {
+    id: number,
+    commander: {id: number, key: string, name: string},
+    mission: string,
+    date: string,
+    isPending: boolean,
+    isCompleted: boolean,
+};
+
 type Tips = {
     teamObjectives: {
         title: string;
@@ -21,6 +30,13 @@ type Tips = {
     externalResources: {
         title: string;
         elements: Array<{ text: string, link?: string }>;
+    };
+    missions: {
+        title: string;
+        elements: CommanderMission[];
+        buttons: {
+            accept: string;
+        }
     };
 }
 

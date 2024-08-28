@@ -67,6 +67,12 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::DEVOTION,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_PLUS_3_ACTION_POINT_ON_ACCEPT_MISSION,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::FERTILE,
                 skillPointsConfig: SkillPointsEnum::SPORE_POINTS,
             ),

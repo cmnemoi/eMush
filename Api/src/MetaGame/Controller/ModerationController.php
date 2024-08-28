@@ -14,6 +14,7 @@ use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\MetaGame\Repository\ModerationSanctionRepository;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
+use Mush\Player\Entity\CommanderMission;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\PlayerRepository;
@@ -688,6 +689,70 @@ final class ModerationController extends AbstractFOSRestController
             author: $reportAuthor,
             reason: $request->get('reason'),
             sanctionEvidence: $roomLog,
+            message: $request->get('adminMessage'),
+        );
+
+        return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Report a commander mission that needs moderation action.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The message id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="reason",
+     *     in="query",
+     *     description="Reason for the report",
+     *
+     *     @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="player",
+     *     in="query",
+     *     description="the player id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="adminMessage",
+     *     in="query",
+     *     description="Message of the user",
+     *
+     *     @OA\Schema(type="string", nullable=true)
+     * )
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post(path="/report-commander-mission/{id}")
+     *
+     * @Rest\View()
+     */
+    public function reportCommanderMissionEndpoint(
+        CommanderMission $commanderMission,
+        Request $request
+    ): View {
+        /** @var User $reportAuthor */
+        $reportAuthor = $this->getUser();
+
+        /** @var Player $player */
+        $player = $this->playerRepository->find($request->get('player'));
+
+        $this->moderationService->reportPlayer(
+            player: $player->getPlayerInfo(),
+            author: $reportAuthor,
+            reason: $request->get('reason'),
+            sanctionEvidence: $commanderMission,
             message: $request->get('adminMessage'),
         );
 

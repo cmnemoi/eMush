@@ -136,12 +136,16 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $wrestlerSkillConfig */
         $wrestlerSkillConfig = $this->getReference(SkillEnum::WRESTLER->value);
 
+        /** @var SkillConfig $devotionSkillConfig */
+        $devotionSkillConfig = $this->getReference(SkillEnum::DEVOTION->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
             ->setCharacterName(CharacterEnum::ANDIE)
             ->setSkillConfigs([
                 $pilotSkillConfig,
+                $devotionSkillConfig,
                 $confidentSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);
@@ -484,6 +488,15 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $guardAction */
         $guardAction = $this->getReference(ActionEnum::GUARD->value);
 
+        /** @var ActionConfig $commanderOrderAction */
+        $commanderOrderAction = $this->getReference(ActionEnum::COMMANDER_ORDER->value);
+
+        /** @var ActionConfig $acceptMissionAction */
+        $acceptMissionAction = $this->getReference(ActionEnum::ACCEPT_MISSION->value);
+
+        /** @var ActionConfig $rejectMissionAction */
+        $rejectMissionAction = $this->getReference(ActionEnum::REJECT_MISSION->value);
+
         /** @var ArrayCollection<array-key, ActionConfig> $defaultActions */
         $defaultActions = new ArrayCollection([
             $hitAction,
@@ -507,6 +520,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $surgeryAction,
             $killPlayerAction,
             $guardAction,
+            $commanderOrderAction,
+            $acceptMissionAction,
+            $rejectMissionAction,
         ]);
 
         $characterConfig = new CharacterConfig();

@@ -654,6 +654,7 @@ export default defineComponent({
             if (
                 evidenceClass === 'message'
                 || evidenceClass === 'roomLog'
+                || evidenceClass === 'commanderMission'
             ) {
                 const startDate = new Date(sanctionEvidence.date.getTime() - 30*60000).toISOString();
                 const endDate = new Date(sanctionEvidence.date.getTime() + 30*60000).toISOString();

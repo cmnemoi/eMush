@@ -1,6 +1,6 @@
 <template>
-    <PopUp :is-open="popUp.isOpen" @close="close">
-        <h1 class="title" v-html="formatText(popUp.title)" />
+    <PopUp :is-open="popUp.isOpen">
+        <h1 class="title" v-html="formatText(popUp.title)" v-if="popUp.title" />
         <p v-html="formatText(popUp.description)" />
         <div class="actions">
             <button class="action-button" @click="close">{{ $t('game.popUp.ok') }}</button>

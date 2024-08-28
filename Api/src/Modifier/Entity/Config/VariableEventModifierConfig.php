@@ -3,6 +3,7 @@
 namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
@@ -41,6 +42,10 @@ class VariableEventModifierConfig extends EventModifierConfig
         $this->priority = ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE;
 
         parent::__construct($name);
+
+        if ($this->delta < 0 && $this->targetVariable === PlayerVariableEnum::ACTION_POINT) {
+            $this->addTagConstraint(ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES->toString(), ModifierRequirementEnum::NONE_TAGS);
+        }
     }
 
     public static function fromConfigData(array $configData): self
@@ -209,5 +214,12 @@ class VariableEventModifierConfig extends EventModifierConfig
         }
 
         return $parameters;
+    }
+
+    private function addTagConstraint(string $tag, string $constraint): self
+    {
+        $this->tagConstraints[$tag] = $constraint;
+
+        return $this;
     }
 }

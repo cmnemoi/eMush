@@ -60,4 +60,6 @@ abstract class ModifierNameEnum
     public const string PLAYER_PLUS_2_DAMAGE_ON_HIT = 'player_+2_damage_on_hit';
     public const string PLAYER_PLUS_2_MOVEMENT_POINT_ON_EVENT_ACTION_MOVEMENT_CONVERSION_FOR_SPRINTER = 'player_+2_movement_point_on_event_action_movement_conversion_for_sprinter';
     public const string SPRINTER_MODIFIER = 'sprinter_modifier';
+    public const string PLAYER_PLUS_3_ACTION_POINT_ON_ACCEPT_MISSION = 'player_+3_action_point_on_accept_mission';
+    public const string DEVOTION_MODIFIER = 'devotion_modifier';
 }

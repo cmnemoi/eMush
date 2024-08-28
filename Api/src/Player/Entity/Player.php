@@ -27,6 +27,8 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Game\Entity\Collection\GameVariableCollection;
@@ -34,6 +36,7 @@ use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\TitleEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -139,6 +142,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\OneToOne(mappedBy: 'player', targetEntity: PlayerNotification::class)]
     private ?PlayerNotification $notification = null;
 
+    #[ORM\OneToMany(mappedBy: 'subordinate', targetEntity: CommanderMission::class, orphanRemoval: true)]
+    #[OrderBy(['createdAt' => Order::Descending->value])]
+    private Collection $receivedMissions;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -150,6 +157,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->planets = new ArrayCollection();
         $this->favoriteMessages = new ArrayCollection();
         $this->lastActionDate = new \DateTime();
+        $this->receivedMissions = new ArrayCollection();
     }
 
     public static function createNull(): self
@@ -1050,6 +1058,32 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function hasFilledTheirMushSkillSlots(): bool
     {
         return $this->getMushSkills()->count() === $this->daedalus->getDaedalusConfig()->getMushSkillSlots();
+    }
+
+    public function addReceivedMission(CommanderMission $mission): static
+    {
+        $this->receivedMissions->add($mission);
+
+        return $this;
+    }
+
+    public function getReceivedMissions(): ArrayCollection
+    {
+        return new ArrayCollection($this->receivedMissions->toArray());
+    }
+
+    public function hasPendingMissions(): bool
+    {
+        return $this->receivedMissions->filter(static fn (CommanderMission $mission) => $mission->isPending())->count() > 0;
+    }
+
+    public function hasMeansOfCommunication(): bool
+    {
+        return $this->hasOperationalEquipmentByName(ItemEnum::WALKIE_TALKIE)
+            || $this->hasOperationalEquipmentByName(ItemEnum::ITRACKIE)
+            || $this->hasStatus(PlayerStatusEnum::BRAINSYNC)
+            || $this->getPlace()->hasOperationalEquipmentByName(EquipmentEnum::COMMUNICATION_CENTER)
+            || $this->hasTitle(TitleEnum::COM_MANAGER);
     }
 
     private function getMinEfficiencyForProject(Project $project): int

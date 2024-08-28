@@ -6,6 +6,7 @@ import { Player } from "@/entities/Player";
 import { ChannelType } from "@/enums/communication.enum";
 import { AxiosResponse } from "axios";
 import urlJoin from "url-join";
+import { ContactablePlayer } from "@/entities/ContactablePlayer";
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
@@ -16,6 +17,7 @@ const ROOM_LOGS_ENDPOINT = urlJoin(API_URL, "room-log");
 const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(API_URL, "room-log/channel");
 const TIPS_CHANNEL_ENDPOINT = urlJoin(API_URL, "channel/tips");
 const FAVORITES_CHANNEL_ENDPOINT = urlJoin(API_URL, "channel/favorites");
+const PLAYER_ENDPOINT = urlJoin(API_URL, "player");
 
 // If there is only one element found, the API returns an object instead of an array.
 // We need to handle this case to avoid not being able to load the channels / messages.
@@ -96,6 +98,18 @@ const CommunicationService = {
     createPrivateChannel: async (): Promise<Channel> => {
         const response = await ApiService.post(CHANNELS_ENDPOINT);
         return (new Channel()).load(response.data);
+    },
+
+    getContactablePlayers: async(player: Player): Promise<ContactablePlayer[]> => {
+        const playersData = await ApiService.get(urlJoin(PLAYER_ENDPOINT, String(player.id), 'contactable-players'));
+
+        const players: ContactablePlayer[] = [];
+        if (playersData.data) {
+            toArray(playersData.data).forEach((data: any) => {
+                players.push((new ContactablePlayer()).load(data));
+            });
+        }
+        return players;
     },
 
     leaveChannel: async (channel: Channel): Promise<AxiosResponse> => {

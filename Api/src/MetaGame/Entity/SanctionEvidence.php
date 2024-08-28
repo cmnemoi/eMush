@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Communication\Entity\Message;
 use Mush\Player\Entity\ClosedPlayer;
+use Mush\Player\Entity\CommanderMission;
 use Mush\RoomLog\Entity\RoomLog;
 
 #[ORM\Entity]
@@ -28,6 +29,9 @@ class SanctionEvidence
     #[ORM\ManyToOne(targetEntity: RoomLog::class)]
     private ?RoomLog $roomLog;
 
+    #[ORM\ManyToOne(targetEntity: CommanderMission::class)]
+    private ?CommanderMission $commanderMission;
+
     #[ORM\OneToOne(inversedBy: 'sanctionEvidence', targetEntity: ModerationSanction::class)]
     private ModerationSanction $moderationSanction;
 
@@ -38,7 +42,7 @@ class SanctionEvidence
 
     public function getSanctionEvidence(): SanctionEvidenceInterface
     {
-        $sanctionEvidence = $this->message ?: $this->roomLog ?: $this->closedPlayer;
+        $sanctionEvidence = $this->message ?: $this->roomLog ?: $this->closedPlayer ?: $this->commanderMission;
         if ($sanctionEvidence === null) {
             throw new \Exception('One sanction evidence should be set');
         }
@@ -57,6 +61,8 @@ class SanctionEvidence
             $className = 'message';
         } elseif ($sanctionEvidence instanceof ClosedPlayer) {
             $className = 'closedPlayer';
+        } elseif ($sanctionEvidence instanceof CommanderMission) {
+            $className = 'commanderMission';
         }
 
         return [
@@ -83,6 +89,12 @@ class SanctionEvidence
         }
         if ($sanctionEvidence instanceof ClosedPlayer) {
             $this->closedPlayer = $sanctionEvidence;
+
+            return $this;
+        }
+
+        if ($sanctionEvidence instanceof CommanderMission) {
+            $this->commanderMission = $sanctionEvidence;
 
             return $this;
         }

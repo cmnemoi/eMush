@@ -1088,6 +1088,15 @@ class ActionsFixtures extends Fixture
         $guard = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GUARD));
         $manager->persist($guard);
 
+        $commanderOrder = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::COMMANDER_ORDER));
+        $manager->persist($commanderOrder);
+
+        $acceptMission = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::ACCEPT_MISSION));
+        $manager->persist($acceptMission);
+
+        $rejectMission = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REJECT_MISSION));
+        $manager->persist($rejectMission);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1197,5 +1206,8 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::PREMONITION->value, $premonition);
         $this->addReference(ActionEnum::CEASEFIRE->value, $ceasefire);
         $this->addReference(ActionEnum::GUARD->value, $guard);
+        $this->addReference(ActionEnum::COMMANDER_ORDER->value, $commanderOrder);
+        $this->addReference(ActionEnum::ACCEPT_MISSION->value, $acceptMission);
+        $this->addReference(ActionEnum::REJECT_MISSION->value, $rejectMission);
     }
 }

@@ -12,7 +12,8 @@ const state =  {
     selectedItem: null,
     confirmPopup: new ConfirmPopup(),
     displayMushSkills: false,
-    playerChanged: false
+    playerChanged: false,
+    commanderOrderPanelOpen: false
 };
 
 const getters: GetterTree<any, any> = {
@@ -33,6 +34,9 @@ const getters: GetterTree<any, any> = {
     },
     playerChanged: (state: any): boolean => {
         return state.playerChanged;
+    },
+    commanderOrderPanelOpen: (state: any): boolean => {
+        return state.commanderOrderPanelOpen;
     }
 };
 
@@ -56,6 +60,15 @@ const actions: ActionTree<any, any> = {
         try {
             const player = store.getters['player/player'];
             await PlayerService.deleteNotification(player);
+        } catch (error) {
+            console.error(error);
+        }
+        commit('setLoading', false);
+    },
+    async toggleMissionCompletion({ commit }, { mission }) {
+        commit('setLoading', true);
+        try {
+            await PlayerService.toggleMissionCompletion(mission.id);
         } catch (error) {
             console.error(error);
         }
@@ -144,6 +157,12 @@ const actions: ActionTree<any, any> = {
     },
     togglePlayerChanged({ commit }) {
         commit('setPlayerChanged', !state.playerChanged);
+    },
+    openCommanderOrderPanel({ commit }) {
+        commit('openCommanderOrderPanel');
+    },
+    closeCommanderOrderPanel({ commit }) {
+        commit('closeCommanderOrderPanel');
     }
 };
 
@@ -208,6 +227,12 @@ const mutations : MutationTree<any> = {
     },
     setPlayerChanged(state, playerChanged: boolean) {
         state.playerChanged = playerChanged;
+    },
+    openCommanderOrderPanel(state) {
+        state.commanderOrderPanelOpen = true;
+    },
+    closeCommanderOrderPanel(state) {
+        state.commanderOrderPanelOpen = false;
     }
 };
 

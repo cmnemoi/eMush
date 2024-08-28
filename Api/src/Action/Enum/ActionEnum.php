@@ -108,6 +108,8 @@ enum ActionEnum: string
     case REPORT_FIRE = 'report_fire';
     case DO_THE_THING = 'do_the_thing';
     case CONVERT_ACTION_TO_MOVEMENT = 'convert_action_to_movement';
+    case ACCEPT_MISSION = 'accept_mission';
+    case REJECT_MISSION = 'reject_mission';
 
     // Skill-related actions (Humans)
     case FIERY_SPEECH = 'fiery_speech';
@@ -171,6 +173,9 @@ enum ActionEnum: string
     case TOGGLE_PLASMA_SHIELD = 'toggle_plasma_shield';
     case TOGGLE_MAGNETIC_NET = 'toggle_magnetic_net';
 
+    // Titles-related actions
+    case COMMANDER_ORDER = 'commander_order';
+
     public function toString(): string
     {
         return $this->value;
@@ -187,6 +192,8 @@ enum ActionEnum: string
             self::TAKE,
             self::TOGGLE_MAGNETIC_NET,
             self::TOGGLE_PLASMA_SHIELD,
+            self::ACCEPT_MISSION,
+            self::REJECT_MISSION,
         ]))->contains($this);
     }
 

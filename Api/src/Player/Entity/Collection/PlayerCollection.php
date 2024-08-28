@@ -73,4 +73,9 @@ class PlayerCollection extends ArrayCollection
     {
         return $this->filter(static fn (Player $player) => $player->hasStatus($status))->count() > 0;
     }
+
+    public function getAllExceptMultiple(self $playersToExclude): self
+    {
+        return $this->filter(static fn (Player $player) => !$playersToExclude->contains($player));
+    }
 }

@@ -16,11 +16,11 @@ final class ModerationSanctionNormalizer implements NormalizerInterface, Normali
 {
     use NormalizerAwareTrait;
 
-    private const ALREADY_CALLED = 'MODERATION_SANCTION_NORMALIZER_ALREADY_CALLED';
+    private const string ALREADY_CALLED = 'MODERATION_SANCTION_NORMALIZER_ALREADY_CALLED';
 
     public function __construct(
-        private PlayerInfoRepositoryInterface $playerInfoRepository,
-        private TokenStorageInterface $tokenStorage,
+        private readonly PlayerInfoRepositoryInterface $playerInfoRepository,
+        private readonly TokenStorageInterface $tokenStorage,
     ) {}
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
@@ -48,10 +48,23 @@ final class ModerationSanctionNormalizer implements NormalizerInterface, Normali
 
         // If user is in the same daedalus as the player they are trying to access and the game is not finished, refuse access
         $requestUserPlayerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($requestUser);
-        if ($requestUserPlayerInfo?->getDaedalusId() === $moderationSanction->getPlayer()?->getDaedalusId()) {
+        if (
+            $requestUserPlayerInfo !== null
+            && $this->appNotInDev()
+            && $requestUserPlayerInfo->getDaedalusId() === $moderationSanction->getPlayer()?->getDaedalusId()
+        ) {
             return null;
         }
 
         return $this->normalizer->normalize($moderationSanction, $format, $context);
+    }
+
+    private function appNotInDev(): bool
+    {
+        if (!isset($_ENV['APP_ENV'])) {
+            throw new \RuntimeException('APP_ENV not set');
+        }
+
+        return $_ENV['APP_ENV'] !== 'dev';
     }
 }

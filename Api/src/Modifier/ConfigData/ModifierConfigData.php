@@ -789,6 +789,7 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ALL_TAGS,
                 ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -810,7 +811,9 @@ abstract class ModifierConfigData
             ],
             'tagConstraints' => [
                 ActionEnum::MOVE->value => ModifierRequirementEnum::NONE_TAGS,
-                ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS, ],
+                ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES->value => ModifierRequirementEnum::NONE_TAGS,
+            ],
         ],
         [
             'name' => 'screaming_for_player_set_-1actionPoint_on_new_cycle_if_random_16',
@@ -903,6 +906,7 @@ abstract class ModifierConfigData
             ],
             'tagConstraints' => [
                 ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES->value => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::MOVE->value => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::NONE_TAGS,
             ],
@@ -926,6 +930,7 @@ abstract class ModifierConfigData
             ],
             'tagConstraints' => [
                 ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES->value => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
@@ -986,6 +991,7 @@ abstract class ModifierConfigData
                 ActionEnum::SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::SELF_SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
                 ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -1009,6 +1015,7 @@ abstract class ModifierConfigData
                 ActionEnum::SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::SELF_SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
                 ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -1032,6 +1039,7 @@ abstract class ModifierConfigData
                 ActionEnum::SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::SELF_SURGERY->value => ModifierRequirementEnum::NONE_TAGS,
                 ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -3164,6 +3172,23 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS,
+            ],
+        ],
+        [
+            'name' => ModifierNameEnum::PLAYER_PLUS_3_ACTION_POINT_ON_ACCEPT_MISSION,
+            'modifierName' => ModifierNameEnum::DEVOTION_MODIFIER,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 3,
+            'targetVariable' => 'outputQuantity',
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::ACCEPT_MISSION->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
     ];

@@ -254,12 +254,22 @@ export class Player {
         return this.hasStatusByKey(StatusPlayerNameEnum.MUSH);
     }
 
+    public getActionByKey(key: string): Action | undefined {
+        return this.actions.find(action => action.key === key);
+    }
+
     public getActionByKeyOrThrow(key: string): Action {
-        const action = this.actions.find(action => action.key === key);
+        const action = this.getActionByKey(key);
         if (action) {
             return action;
         }
 
         throw new Error(`No action found with key ${key} for player ${this.id}`);
+    }
+
+    public hasActionByKey(key: string): boolean {
+        return this.actions.filter((action: Action) => {
+            return action.key === key;
+        }).length > 0;
     }
 }

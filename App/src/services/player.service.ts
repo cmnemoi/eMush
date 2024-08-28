@@ -117,6 +117,13 @@ const PlayerService = {
         await store.dispatch('player/setLoading', { loading: true });
         await ApiService.delete(urlJoin(PLAYER_ENDPOINT, String(player.id), 'notification'));
         await store.dispatch('player/setLoading', { loading: false });
+    },
+
+    toggleMissionCompletion: async (missionId: number): Promise<void> => {
+        await store.dispatch('player/setLoading', { loading: true });
+        await ApiService.put(urlJoin(PLAYER_ENDPOINT, 'toggle-mission-completion', String(missionId)));
+        await store.dispatch("communication/loadAlivePlayerChannels", null, { root: true });
+        await store.dispatch('player/setLoading', { loading: false });
     }
 };
 export default PlayerService;

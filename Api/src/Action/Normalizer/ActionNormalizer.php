@@ -219,7 +219,10 @@ class ActionNormalizer implements NormalizerInterface
         $actionName = $actionClass->getActionName();
         $daedalus = $currentPlayer->getDaedalus();
 
-        $translationParameters = [$currentPlayer->getLogKey() => $currentPlayer->getLogName()];
+        $translationParameters = [
+            $currentPlayer->getLogKey() => $currentPlayer->getLogName(),
+            'outputQuantity' => $actionClass->getOutputQuantity(),
+        ];
 
         if ($actionName === ActionEnum::EXTRACT_SPORE->value) {
             $translationParameters['quantity'] = $daedalus->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();

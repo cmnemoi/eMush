@@ -4,6 +4,7 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { ChannelType } from "@/enums/communication.enum";
 import { Message } from "@/entities/Message";
 import { RoomLog } from "@/entities/RoomLog";
+import { ContactablePlayer } from "@/entities/ContactablePlayer";
 
 const state =  {
     currentChannel: new Channel(),
@@ -17,7 +18,8 @@ const state =  {
     typedMessage: '',
     readMessageMutex: false,
     currentChannelNumberOfNewMessages: 0,
-    timeLimit: 48
+    timeLimit: 48,
+    contactablePlayers: []
 };
 
 const getters: GetterTree<any, any> = {
@@ -59,6 +61,9 @@ const getters: GetterTree<any, any> = {
     },
     publicChannel(state) {
         return state.channels.find((channel: Channel) => channel.scope === ChannelType.PUBLIC);
+    },
+    contactablePlayers(state) {
+        return state.contactablePlayers;
     }
 };
 
@@ -195,6 +200,13 @@ const actions: ActionTree<any, any> = {
         const invitablePlayers = await CommunicationService.loadInvitablePlayers(channel);
         commit("player/setLoading", false, { root: true });
         commit('setInvitablePlayers', { invitablePlayers: invitablePlayers });
+    },
+
+    async getContactablePlayers({ commit }, player) {
+        commit("player/setLoading", true, { root: true });
+        const contactablePlayers = await CommunicationService.getContactablePlayers(player);
+        commit("player/setLoading", false, { root: true });
+        commit('setContactablePlayers', contactablePlayers);
     },
 
     async invitePlayer({ dispatch }, { player, channel }) {
@@ -343,6 +355,10 @@ const mutations: MutationTree<any> = {
 
     setTimeLimit(state: any, timeLimit: number): void {
         state.timeLimit = timeLimit;
+    },
+
+    setContactablePlayers(state: any, contactablePlayers: ContactablePlayer[]): void {
+        state.contactablePlayers = contactablePlayers;
     }
 };
 

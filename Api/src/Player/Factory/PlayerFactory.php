@@ -58,6 +58,8 @@ final class PlayerFactory
         (new \ReflectionClass($playerInfo))->getProperty('id')->setValue($playerInfo, random_int(1, PHP_INT_MAX));
 
         $player->setPlayerVariables($characterConfig);
+        $player->setPlace(Place::createNull());
+
         self::setPlayerId($player, random_int(1, PHP_INT_MAX));
 
         return $player;

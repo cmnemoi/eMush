@@ -70,6 +70,16 @@ const actions: ActionTree<any, any> = {
             await dispatch('error/setError', error, { root: true });
             await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
         }
+    },
+    async reportCommanderMission({ dispatch }, { missionId, params }) {
+        try {
+            const response: SuccessReponse = await ModerationService.reportCommanderMission(missionId, params);
+            await dispatch('toast/openInfoToast', response.data.detail, { root: true });
+        } catch (error) {
+            console.error(error);
+            await dispatch('error/setError', error, { root: true });
+            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+        }
     }
 };
 

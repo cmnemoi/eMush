@@ -1,3 +1,5 @@
+import { ActionEnum } from "@/enums/action.enum";
+
 type ActionProvider = {
     id: number;
     class: string;
@@ -60,5 +62,9 @@ export class Action {
         }
 
         return this;
+    }
+
+    isNotMissionAction(): boolean {
+        return [ActionEnum.ACCEPT_MISSION, ActionEnum.REJECT_MISSION].includes(this.key) === false;
     }
 }

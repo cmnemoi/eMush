@@ -32,7 +32,8 @@
 	"util": {
 		"prev": "Page précédente",
 		"next": "Page suivante",
-		"goBack": "Retour"
+		"goBack": "Retour",
+		"exit": "Quitter"
 	},
 	"banner": {
 		"ranking": "Classements",
@@ -627,6 +628,10 @@
 		"exploration": {
 			"newStep": "Nouvelle étape"
 		},
+		"commanderOrderPanel": {
+			"title": "Mission",
+			"tips": "Vous êtes le *Commandant* du vaisseau et vous avez le pouvoir de *commander des missions* à vos camarades. Vous pourrez choisir à qui envoyer la mission que vous aurez librement décidée et il recevra des :pa: s'il l'accepte. Mais, personne ne vous garantit que votre camarade respectera vos ordres..."
+		},
 		"popUp": {
 			"close": "Fermer",
 			"ok": "D'accord",
@@ -805,7 +810,8 @@
 			"playerMessage": "Description de la situation :",
 			"player": "Joueur visé par la plainte",
 			"seeContext": "Voir dans son contexte",
-			"message": "Si vous pensez qu'un coéquipier enfreint le règlement de eMush, merci de vous assurer d'avoir sélectionné un message illustrant le problème et d'expliquer en détail le motif de votre plainte."
+			"message": "Si vous pensez qu'un coéquipier enfreint le règlement de eMush, merci de vous assurer d'avoir sélectionné un message illustrant le problème et d'expliquer en détail le motif de votre plainte.",
+			"commanderMission": "Mission du commandant"
 		},
 		"actions": {
 			"name": "Actions",

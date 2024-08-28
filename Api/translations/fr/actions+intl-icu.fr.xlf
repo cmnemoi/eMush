@@ -1264,5 +1264,27 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet d'échanger votre corps avec la cible. Cette action est irrémédiable. Vos compétences seront remises à zéro. **Les scores de :triumph: seront échangés**.</target>
       </segment>
     </unit>
+    <unit id="accept_mission">
+      <segment id="name" state="final">
+        <source>accept_mission.name</source>
+        <target>:online: Oui + {outputQuantity} :pa:</target>
+      </segment>
+    </unit>
+    <unit id="reject_mission">
+      <segment id="name" state="final">
+        <source>reject_mission.name</source>
+        <target>:offline: Non</target>
+      </segment>
+    </unit>
+    <unit id="commander_order">
+      <segment id="name" state="final">
+        <source>commander_order.name</source>
+        <target>Donner une mission</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>commander_order.description</source>
+        <target>Permet de donner une mission à un de vos subalternes. Celui-ci se verra octroyer des :pa::pm: pour l'accomplir s'il l'accepte. Vous ne pouvez utiliser cette action qu'une fois par jour. Cette action est restituée si votre subalterne la refuse.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -175,6 +175,16 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getPlayers()->getPlayerByName($name);
     }
 
+    public function getAlivePlayerByNameOrThrow(string $name): Player
+    {
+        $player = $this->getAlivePlayers()->getPlayerByName($name);
+        if (!$player) {
+            throw new \RuntimeException("Daedalus should have an alive player named {$name}");
+        }
+
+        return $player;
+    }
+
     public function getPlaces(): Collection
     {
         return $this->places;
@@ -826,6 +836,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function hasAliveNeronOnlyFriend(): bool
     {
         return $this->getAlivePlayers()->hasPlayerWithSkill(SkillEnum::NERON_ONLY_FRIEND);
+    }
+
+    public function getAlivePlayersWithMeansOfCommunication(): PlayerCollection
+    {
+        return $this->getAlivePlayers()->filter(static fn (Player $player) => $player->hasMeansOfCommunication());
     }
 
     private function isExplorationChangingCycle(): bool

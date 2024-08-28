@@ -73,7 +73,7 @@
                 </div>
                 <div v-else>
                     <ActionButton
-                        v-for="(action, key) in target.actions"
+                        v-for="(action, key) in targetActions"
                         :key="key"
                         :action="action"
                         @click="executeTargetAction(null, action)"
@@ -222,6 +222,19 @@ export default defineComponent ({
         },
         target(): Item | Player | null {
             return this.selectedItem || this.player;
+        },
+        targetActions(): Action[] {
+            let actions = this.target?.actions.filter(action => action.isNotMissionAction());
+            // Setup commander order action cost to 0 if available
+            if (this.target instanceof Player && this.target.hasActionByKey(ActionEnum.COMMANDER_ORDER)) {
+                const commanderOrderAction = this.target.getActionByKey(ActionEnum.COMMANDER_ORDER);
+                actions = actions.filter(action => action.key !== ActionEnum.COMMANDER_ORDER);
+                const newOrderAction = (new Action()).decode(commanderOrderAction?.jsonEncode());
+                newOrderAction.actionPointCost = 0;
+                actions.push(newOrderAction);
+            }
+
+            return actions;
         }
     },
     methods: {
@@ -231,7 +244,8 @@ export default defineComponent ({
             'openSkillSelectionPopUp': 'popup/openSkillSelectionPopUp',
             'openLearnSkillPopUp': 'popup/openLearnSkillPopUp',
             'initMushSkillsDisplay': 'player/initMushSkillsDisplay',
-            'toggleMushSkillsDisplay': 'player/toggleMushSkillsDisplay'
+            'toggleMushSkillsDisplay': 'player/toggleMushSkillsDisplay',
+            'openCommanderOrderPanel': 'player/openCommanderOrderPanel'
         }),
         getImgUrl,
         formatText,
@@ -275,16 +289,21 @@ export default defineComponent ({
             }
         },
         async executeTargetAction(target: Door | Item | Equipment | Player | null, action: Action): Promise<void> {
+            if (action.canExecute === false) {
+                return;
+            }
             if (action.key === ActionEnum.LEARN) {
                 this.openLearnSkillPopUp();
                 return;
             }
+            if (action.key === ActionEnum.COMMANDER_ORDER) {
+                this.openCommanderOrderPanel();
+                return;
+            }
 
-            if (action.canExecute) {
-                await this.executeAction({ target, action });
-                if (this.selectedItem instanceof Item && ! this.player.items.includes(this.selectedItem)) {
-                    this.selectedItem = null;
-                }
+            await this.executeAction({ target, action });
+            if (this.selectedItem instanceof Item && ! this.player.items.includes(this.selectedItem)) {
+                this.selectedItem = null;
             }
         }
     },

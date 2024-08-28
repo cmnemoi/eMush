@@ -475,5 +475,15 @@
 :point: **+1 étape** en exploration.</target>
       </segment>
     </unit>
+    <unit id="devotion">
+      <segment id="devotion.name" state="translated">
+        <source>devotion.name</source>
+        <target>Dévotion</target>
+      </segment>
+      <segment id="devotion.description" state="translated">
+        <source>devotion.description</source>
+        <target>Dans le feu de l'action, on peut compter sur vous.//:point: Vous gagnez **3** :pa: de plus quand vous acceptez une mission.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

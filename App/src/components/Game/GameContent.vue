@@ -9,6 +9,7 @@
             <div class="game-content">
                 <CharPanel :player="player" />
                 <TerminalPanel v-if="player.isFocused()" :player="player" />
+                <CommanderOrderPanel v-else-if="commanderOrderPanelOpen" :player="player" />
                 <ExpeditionPanel v-else-if="player.isExploring()" :player="player" />
                 <ShipPanel v-else :room="player.room" :player="player" />
                 <CommsPanel :calendar="player.daedalus.calendar"/>
@@ -28,7 +29,7 @@ import CharPanel from "@/components/Game/CharPanel.vue";
 import ShipPanel from "@/components/Game/Ship/ShipPanel.vue";
 import CommsPanel from "@/components/Game/Communications/CommsPanel.vue";
 import ProjectsPanel from "@/components/Game/ProjectsPanel.vue";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 import Purgatory from "@/components/PurgatoryPage.vue";
 import InvitationPrivateChannelMenu from "@/components/Game/Communications/InvitationPrivateChannelMenu.vue";
 import ExpeditionPopUp from "@/components/Game/ExpeditionPopUp.vue";
@@ -36,6 +37,7 @@ import { defineComponent } from "vue";
 import { TerminalEnum } from "@/enums/terminal.enum";
 import TerminalPanel from "@/components/Game/Terminals/TerminalPanel.vue";
 import ExpeditionPanel from "@/components/Game/ExpeditionPanel.vue";
+import CommanderOrderPanel from "@/components/Game/CommanderOrderPanel.vue";
 
 
 export default defineComponent ({
@@ -50,7 +52,8 @@ export default defineComponent ({
         CommsPanel,
         ProjectsPanel,
         TerminalPanel,
-        ExpeditionPanel
+        ExpeditionPanel,
+        CommanderOrderPanel
     },
     data() {
         return {
@@ -64,7 +67,8 @@ export default defineComponent ({
         ...mapState('player', [
             'player',
             'playerChanged'
-        ])
+        ]),
+        ...mapGetters('player', ['commanderOrderPanelOpen'])
     },
     async beforeMount(): Promise<void> {
         if (!this.playerChanged && this.playerId) {

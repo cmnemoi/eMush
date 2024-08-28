@@ -453,6 +453,7 @@ class GameConfigData
                 PlayerStatusEnum::HAS_CEASEFIRED . '_default',
                 PlayerStatusEnum::PREVIOUS_ROOM . '_default',
                 PlayerStatusEnum::HAS_EXCHANGED_BODY . '_default',
+                PlayerStatusEnum::HAS_ISSUED_MISSION . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

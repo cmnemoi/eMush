@@ -185,6 +185,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($sprinterModifier->getName(), $sprinterModifier);
         $manager->persist($sprinterModifier);
 
+        $devotionModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_3_ACTION_POINT_ON_ACCEPT_MISSION)
+        );
+        $this->addReference($devotionModifier->getName(), $devotionModifier);
+        $manager->persist($devotionModifier);
+
         $manager->flush();
     }
 

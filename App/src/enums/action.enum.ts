@@ -1,8 +1,10 @@
 export enum ActionEnum {
+    ACCEPT_MISSION = "accept_mission",
     ADVANCE_DAEDALUS = "advance_daedalus",
     ANALYZE_PLANET = "analyze_planet",
     CHANGE_NERON_CPU_PRIORITY = "change_neron_cpu_priority",
     CHANGE_NERON_CREW_LOCK = "change_neron_crew_lock",
+    COMMANDER_ORDER = "commander_order",
     DELETE_PLANET = "delete_planet",
     EXCHANGE_BODY = "exchange_body",
     EXIT_TERMINAL = "exit_terminal",
@@ -10,6 +12,7 @@ export enum ActionEnum {
     LEARN = "learn",
     PARTICIPATE = "participate",
     REPAIR_PILGRED = "repair_pilgred",
+    REJECT_MISSION = "reject_mission",
     RETURN_TO_SOL = "return_to_sol",
     SCAN = "scan",
     SHOOT_HUNTER = "shoot_hunter",

@@ -6,12 +6,17 @@ namespace Mush\Communication\Normalizer;
 
 use Mush\Communication\Entity\Channel;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\CommanderMission;
 use Mush\Player\Entity\Player;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class TipsChannelNormalizer implements NormalizerInterface
+final class TipsChannelNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
-    public function __construct(private TranslationServiceInterface $translationService) {}
+    use NormalizerAwareTrait;
+
+    public function __construct(private readonly TranslationServiceInterface $translationService) {}
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
@@ -50,6 +55,25 @@ final class TipsChannelNormalizer implements NormalizerInterface
                         language: $currentPlayer->getLanguage(),
                     ),
                     'elements' => $this->getExternalResources($currentPlayer),
+                ],
+                'missions' => [
+                    'title' => $this->translationService->translate(
+                        key: 'tips.missions.title',
+                        parameters: [],
+                        domain: 'chat',
+                        language: $currentPlayer->getLanguage(),
+                    ),
+                    'elements' => $currentPlayer->getReceivedMissions()->map(
+                        fn (CommanderMission $commanderMission) => $this->normalizer->normalize($commanderMission, $format, $context)
+                    )->toArray(),
+                    'buttons' => [
+                        'accept' => $this->translationService->translate(
+                            key: 'tips.missions.accept',
+                            parameters: [],
+                            domain: 'chat',
+                            language: $currentPlayer->getLanguage(),
+                        ),
+                    ],
                 ],
             ],
         ];

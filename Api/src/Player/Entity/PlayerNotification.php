@@ -14,16 +14,20 @@ class PlayerNotification
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'notifications')]
+    #[ORM\OneToOne(targetEntity: Player::class, inversedBy: 'notification')]
     private Player $player;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => ''])]
     private string $message = '';
 
-    public function __construct(Player $player, string $message)
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '{a:0:{}}'])]
+    private array $parameters = [];
+
+    public function __construct(Player $player, string $message, array $parameters = [])
     {
         $this->player = $player;
         $this->message = $message;
+        $this->parameters = $parameters;
 
         $this->player->updateNotification($this);
     }
@@ -41,6 +45,11 @@ class PlayerNotification
     public function getMessage(): string
     {
         return $this->message;
+    }
+
+    public function getParameters(): array
+    {
+        return $this->parameters;
     }
 
     public function getLanguage(): string

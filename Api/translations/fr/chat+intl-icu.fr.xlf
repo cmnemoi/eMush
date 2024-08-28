@@ -71,6 +71,14 @@
         <source>tips.externalResources.wikiLink</source>
         <target>https://twin.tithom.fr/mush</target>
       </segment>
+      <segment id="missions.title" state="final">
+        <source>tips.missions.title</source>
+        <target>Missions</target>
+      </segment>
+      <segment id="missions.accept" state="final">
+        <source>tips.missions.accept</source>
+        <target>Accepter ?</target>
+      </segment>
     </unit>
     <unit id="room_log">
       <segment id="name" state="final">

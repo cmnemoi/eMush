@@ -520,6 +520,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $ceasefireStatus->setModifierConfigs([$ceasefireModifier]);
         $manager->persist($ceasefireStatus);
 
+        $hasIssuedMissionStatus = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_ISSUED_MISSION . '_default')
+        );
+        $manager->persist($hasIssuedMissionStatus);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -558,7 +563,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($droneCharges)
             ->addStatusConfig($ceasefireStatus)
             ->addStatusConfig($hasChitchattedStatus)
-            ->addStatusConfig($geniusIdea);
+            ->addStatusConfig($geniusIdea)
+            ->addStatusConfig($hasIssuedMissionStatus);
 
         $manager->persist($gameConfig);
 
@@ -602,6 +608,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference($geniusIdea->getName(), $geniusIdea);
         $this->addReference($hasChitchattedStatus->getName(), $hasChitchattedStatus);
         $this->addReference($ceasefireStatus->getName(), $ceasefireStatus);
+        $this->addReference($hasIssuedMissionStatus->getName(), $hasIssuedMissionStatus);
     }
 
     public function getDependencies(): array

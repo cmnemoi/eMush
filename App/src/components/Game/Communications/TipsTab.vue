@@ -1,5 +1,46 @@
 <template>
     <TabContainer id="tips-tab" :channel="channel" v-if="channel?.tips">
+        <section class="unit" v-if="channel.tips.missions.elements.length > 0">
+            <div class="banner">
+                <span><img :src="getImgUrl('comms/notebook.png')"> {{ channel.tips.missions.title }} <img :src="getImgUrl('comms/notebook.png')"></span>
+            </div>
+            <div class="mission" v-for="mission in channel.tips.missions.elements" :key="mission.commander.key">
+                <div class="message">
+                    <div class="char-portrait">
+                        <img :src="getImgUrl(`char/body/${mission.commander.key}.png`)">
+                    </div>
+                    <p>
+                        <span class="author">{{ mission.commander.name }} :</span>{{ mission.mission }}
+                        <span class="timestamp">{{ mission.date }}</span>
+                        <Tippy tag="span" @click="submitReport(mission)">
+                            <img :src="getImgUrl('comms/alert.png')" alt="Report message">
+                            <template #content>
+                                <h1>{{ $t('moderation.report.name')}}</h1>
+                                <p>{{ $t('moderation.report.description') }}</p>
+                            </template>
+                        </Tippy>
+                    </p>
+                </div>
+                <span class="mission-actions" v-if="mission.isPending && acceptMissionAction && rejectMissionAction">
+                    {{ channel.tips.missions.buttons.accept }}
+                    <a v-html="formatText(acceptMissionAction.name)" @click="acceptMission(mission.id)" /> /
+                    <a v-html="formatText(rejectMissionAction.name)" @click="rejectMission(mission.id)" />
+                </span>
+                <span class="mission-completion" v-else>
+                    <img
+                        :src="getImgUrl('comms/check.png')"
+                        alt="Completed"
+                        v-if="mission.isCompleted"
+                        @click="toggleMissionCompletion(mission)"/>
+                    <img
+                        :src="getImgUrl('comms/uncheck.png')"
+                        alt="Pending"
+                        v-else
+                        @click="toggleMissionCompletion(mission)"/>
+                </span>
+            </div>
+        </section>
+
         <section class="unit">
             <div class="banner">
                 <span><img :src="getImgUrl('comms/tip.png')"> {{ channel.name }} <img :src="getImgUrl('comms/tip.png')"></span>
@@ -49,28 +90,57 @@
 </template>
 
 <script lang="ts">
-import { Channel } from "@/entities/Channel";
+import { CommanderMission } from "@/entities/Channel";
 import TabContainer from "@/components/Game/Communications/TabContainer.vue";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { formatText } from "@/utils/formatText";
-import { mapGetters } from "vuex";
-
+import { mapActions,mapGetters } from "vuex";
+import { ActionEnum } from "@/enums/action.enum";
+import { Action } from "@/entities/Action";
 
 export default defineComponent ({
     name: "TipsTab",
     components: {
         TabContainer
     },
-    props: {
-        channel: Channel
-    },
     computed: {
         ...mapGetters({
+            channel: "communication/currentChannel",
             player: "player/player"
-        })
+        }),
+        acceptMissionAction(): Action | undefined {
+            return this.player.getActionByKey(ActionEnum.ACCEPT_MISSION);
+        },
+        rejectMissionAction(): Action | undefined {
+            return this.player.getActionByKey(ActionEnum.REJECT_MISSION);
+        }
     },
     methods: {
+        ...mapActions({
+            'executeAction': 'action/executeAction',
+            'reportCommanderMission': 'moderation/reportCommanderMission',
+            'toggleMission': 'player/toggleMissionCompletion'
+        }),
+        async acceptMission(missionId: number): Promise<void> {
+            await this.executeAction({ target: null, action: this.acceptMissionAction, params: { missionId } });
+        },
+        async rejectMission(missionId: number): Promise<void> {
+            await this.executeAction({ target: null, action: this.rejectMissionAction, params: { missionId } });
+        },
+        async submitReport(mission: CommanderMission): Promise<void> {
+            const params = new URLSearchParams();
+
+            params.append('reason', 'hate_speech');
+            params.append('player', mission.commander.id);
+            params.append('adminMessage', `${mission.mission} (${this.$t('moderation.report.commanderMission')})`);
+
+            await this.reportCommanderMission({ missionId : mission.id, params });
+        },
+        async toggleMissionCompletion(mission: CommanderMission): Promise<void> {
+            await this.toggleMission({ mission });
+            mission.isCompleted = !mission.isCompleted;
+        },
         getImgUrl,
         formatText
     }
@@ -103,7 +173,7 @@ export default defineComponent ({
         word-break: break-word;
 
         .author {
-            color: $cyan;
+            color: $blue;
             font-weight: 700;
             font-variant: small-caps;
             padding-right: 0.25em;
@@ -244,6 +314,19 @@ export default defineComponent ({
             list-style: disc;
             margin-left: 20px;
         }
+    }
+
+    .mission-actions {
+        a {
+            color: $mushRed;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    .mission-completion {
+        display: flex;
+        justify-content: right;
     }
 }
 

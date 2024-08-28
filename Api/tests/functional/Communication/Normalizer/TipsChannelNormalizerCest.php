@@ -76,6 +76,13 @@ final class TipsChannelNormalizerCest extends AbstractFunctionalTest
                             ['text' => '**Le wiki** Twinpédia', 'link' => 'https://twin.tithom.fr/mush'],
                         ],
                     ],
+                    'missions' => [
+                        'title' => 'Missions',
+                        'elements' => [],
+                        'buttons' => [
+                            'accept' => 'Accepter ?',
+                        ],
+                    ],
                 ],
             ],
             actual: $this->normalizer->normalize($channel, format: null, context: ['currentPlayer' => $player])

@@ -1415,6 +1415,20 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::HAS_ISSUED_MISSION . '_default',
+            'statusName' => PlayerStatusEnum::HAS_ISSUED_MISSION,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::DAILY_DECREMENT,
+            'maxCharge' => 1,
+            'startCharge' => 1,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => true,
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

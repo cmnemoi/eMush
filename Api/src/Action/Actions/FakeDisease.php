@@ -7,11 +7,13 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\HasDiseases;
+use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\HasRole;
 use Mush\Action\Validator\PlaceType;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\User\Enum\RoleEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -42,18 +44,21 @@ class FakeDisease extends AbstractAction
         return $target === null;
     }
 
-    /* This may be latter used
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new HasDiseases([
-            'groups' => ['execute'],
-            'type' => TypeEnum::DISEASE,
-            'target' => HasDiseases::PLAYER,
-            'isEmpty' => true,
-            'message' => ActionImpossibleCauseEnum::HAVE_ALL_FAKE_DISEASES,
-        ]));
-        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches'=> false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
-    }*/
+        $metadata->addConstraints([
+            new PlaceType([
+                'groups' => ['execute'],
+                'type' => 'planet',
+                'allowIfTypeMatches' => false,
+                'message' => ActionImpossibleCauseEnum::ON_PLANET,
+            ]),
+            new HasRole([
+                'roles' => [RoleEnum::SUPER_ADMIN, RoleEnum::ADMIN],
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
+        ]);
+    }
 
     protected function checkResult(): ActionResult
     {

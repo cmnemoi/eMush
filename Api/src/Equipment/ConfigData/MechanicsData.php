@@ -2405,12 +2405,14 @@ class MechanicsData
             'extraEffects' => null,
             'isPerishable' => null,
             'baseAccuracy' => 100.0,
-            'baseDamageRange' => [0 => 10],
+            'baseDamageRange' => [2 => 8],
             'expeditionBonus' => 3.0,
             'criticalSuccessRate' => 0.0,
             'criticalFailRate' => 0.0,
             'oneShotRate' => 0.0,
-            'actions' => [],
+            'actions' => [
+                ActionEnum::THROW_GRENADE->value,
+            ],
             'modifierConfigs' => [],
         ],
         [

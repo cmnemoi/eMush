@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -148,12 +149,15 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($knife);
         $manager->persist($knifeMechanic);
 
+        /** @var ActionConfig $throwGrenade */
+        $throwGrenade = $this->getReference(ActionEnum::THROW_GRENADE->value);
+
         $grenadeMechanic = new Weapon();
         $grenadeMechanic
             ->setBaseAccuracy(100)
-            ->setBaseDamageRange([0 => 10])
+            ->setBaseDamageRange([2 => 8])
             ->setExpeditionBonus(3)
-            ->addAction($attackAction)
+            ->addAction($throwGrenade)
             ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::GRENADE, GameConfigEnum::DEFAULT);
 
         $grenade = new ItemConfig();

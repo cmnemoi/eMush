@@ -423,9 +423,9 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function getWeaponMechanicOrThrow(): Weapon
     {
-        $weapon = $this->getMechanicByNameOrNull(EquipmentMechanicEnum::WEAPON);
+        $weapon = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::WEAPON);
 
-        return $weapon instanceof Weapon ? $weapon : throw new \RuntimeException("Weapon mechanic not found in the mechanics of {$this->name} equipment.");
+        return $weapon instanceof Weapon ? $weapon : throw new \RuntimeException("Equipment {$this->name} does not have a weapon mechanic.");
     }
 
     public function hasMechanicByName(string $mechanicName): bool

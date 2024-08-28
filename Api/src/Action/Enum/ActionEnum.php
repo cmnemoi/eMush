@@ -64,6 +64,7 @@ enum ActionEnum: string
     case SELF_HEAL = 'self_heal';
     case RENOVATE = 'renovate';
     case AUTO_EJECT = 'auto_eject';
+    case THROW_GRENADE = 'throw_grenade';
 
     // Equipment-enabled actions
     case INSERT_FUEL = 'insert_fuel';

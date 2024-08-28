@@ -131,6 +131,6 @@ abstract class EquipmentMechanic
 
     public function hasAction(ActionEnum $actionName): bool
     {
-        return !$this->getActions()->filter(static fn (ActionConfig $actionConfig) => $actionConfig->getActionName() === $actionName)->isEmpty();
+        return $this->getActions()->filter(static fn (ActionConfig $actionConfig) => $actionConfig->getActionName() === $actionName)->count() > 0;
     }
 }

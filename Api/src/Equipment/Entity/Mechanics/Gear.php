@@ -41,4 +41,11 @@ class Gear extends EquipmentMechanic
 
         return $this;
     }
+
+    public function hasModifierConfigByModifierName(string $modifierName): bool
+    {
+        return $this->modifierConfigs->filter(
+            static fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getModifierName() === $modifierName
+        )->count() > 0;
+    }
 }

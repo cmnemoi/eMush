@@ -23,7 +23,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Entity\ModifierHolderTrait;
@@ -416,13 +415,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function getMechanicByNameOrThrow(string $mechanicName): EquipmentMechanic
     {
-        foreach ($this->getEquipment()->getMechanics() as $mechanic) {
-            if (\in_array($mechanicName, $mechanic->getMechanics(), true)) {
-                return $mechanic;
-            }
-        }
-
-        throw new \RuntimeException("Mechanic {$mechanicName} not found in the mechanics of {$this->name} equipment.");
+        return $this->getMechanicByNameOrNull($mechanicName) ?? throw new \RuntimeException("Mechanic {$mechanicName} not found in the mechanics of {$this->name} equipment.");
     }
 
     public function hasMechanicByName(string $mechanicName): bool
@@ -580,17 +573,34 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     private function isActionProvidedByMechanic(string $actionName): bool
     {
-        foreach ($this->equipment->getMechanics() as $mechanic) {
-            if ($mechanic instanceof Tool) {
-                return $mechanic->hasAction(ActionEnum::from($actionName));
-            }
-            if ($mechanic instanceof Gear) {
-                return !$mechanic->getModifierConfigs()->filter(
-                    static fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getModifierName() === $actionName
-                )->isEmpty();
+        $toolProvidesAction = $this->getToolMechanicOrNull()?->hasAction(ActionEnum::from($actionName));
+        $gearProvidesAction = $this->getGearMechanicOrNull()?->hasModifierConfigByModifierName($actionName);
+
+        return $toolProvidesAction || $gearProvidesAction;
+    }
+
+    private function getGearMechanicOrNull(): ?Gear
+    {
+        $gear = $this->getMechanicByNameOrNull(EquipmentMechanicEnum::GEAR);
+
+        return $gear instanceof Gear ? $gear : null;
+    }
+
+    private function getToolMechanicOrNull(): ?Tool
+    {
+        $tool = $this->getMechanicByNameOrNull(EquipmentMechanicEnum::TOOL);
+
+        return $tool instanceof Tool ? $tool : null;
+    }
+
+    private function getMechanicByNameOrNull(string $mechanicName): ?EquipmentMechanic
+    {
+        foreach ($this->getEquipment()->getMechanics() as $mechanic) {
+            if (\in_array($mechanicName, $mechanic->getMechanics(), true)) {
+                return $mechanic;
             }
         }
 
-        return false;
+        return null;
     }
 }

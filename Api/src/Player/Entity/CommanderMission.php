@@ -9,7 +9,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 
 #[ORM\Entity]
-final class CommanderMission implements SanctionEvidenceInterface
+class CommanderMission implements SanctionEvidenceInterface
 {
     use TimestampableEntity;
 

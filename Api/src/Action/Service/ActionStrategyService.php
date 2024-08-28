@@ -39,16 +39,30 @@ class ActionStrategyService implements ActionStrategyServiceInterface
 
     public function executeAction(Player $player, int $actionId, array $params): ActionResult
     {
+        $this->entityManager->beginTransaction();
+
+        try {
+            $result = $this->executeInTransaction($player, $actionId, $params);
+            $this->entityManager->flush();
+            $this->entityManager->commit();
+        } catch (\Throwable $e) {
+            $this->entityManager->rollback();
+
+            throw $e;
+        }
+
+        return $result;
+    }
+
+    private function executeInTransaction(Player $player, int $actionId, array $params): ActionResult
+    {
         /** @var ActionConfig $actionConfig */
         $actionConfig = $this->entityManager->getRepository(ActionConfig::class)->find($actionId);
-
         if (!$actionConfig) {
             throw new NotFoundHttpException('This actionConfig does not exist');
         }
-
         $actionName = $actionConfig->getActionName();
         $actionService = $this->getAction($actionName);
-
         if (null === $actionService) {
             throw new \Exception("this action is not implemented ({$actionName->value})");
         }
@@ -58,7 +72,6 @@ class ActionStrategyService implements ActionStrategyServiceInterface
 
         /** @var ActionProviderInterface $actionProvider */
         $actionProvider = $this->loadGameEntity($params['actionProvider']);
-
         $actionService->loadParameters($actionConfig, $actionProvider, $player, $target, $params);
 
         return $actionService->execute();

@@ -46,7 +46,7 @@ class Weapon extends Tool
         return $this->baseAccuracy;
     }
 
-    public function setBaseAccuracy(int $baseAccuracy): static
+    public function setBaseAccuracy(int $baseAccuracy): self
     {
         $this->baseAccuracy = $baseAccuracy;
 
@@ -58,7 +58,7 @@ class Weapon extends Tool
         return new ProbaCollection($this->baseDamageRange);
     }
 
-    public function setBaseDamageRange(array $baseDamageRange): static
+    public function setBaseDamageRange(array $baseDamageRange): self
     {
         $this->baseDamageRange = $baseDamageRange;
 
@@ -70,7 +70,7 @@ class Weapon extends Tool
         return $this->expeditionBonus;
     }
 
-    public function setExpeditionBonus(int $expeditionBonus): static
+    public function setExpeditionBonus(int $expeditionBonus): self
     {
         $this->expeditionBonus = $expeditionBonus;
 
@@ -82,7 +82,7 @@ class Weapon extends Tool
         return $this->criticalSuccessRate;
     }
 
-    public function setCriticalSuccessRate(int $criticalSuccessRate): static
+    public function setCriticalSuccessRate(int $criticalSuccessRate): self
     {
         $this->criticalSuccessRate = $criticalSuccessRate;
 
@@ -94,7 +94,7 @@ class Weapon extends Tool
         return $this->criticalFailRate;
     }
 
-    public function setCriticalFailRate(int $criticalFailRate): static
+    public function setCriticalFailRate(int $criticalFailRate): self
     {
         $this->criticalFailRate = $criticalFailRate;
 
@@ -106,7 +106,7 @@ class Weapon extends Tool
         return $this->oneShotRate;
     }
 
-    public function setOneShotRate(int $oneShotRate): static
+    public function setOneShotRate(int $oneShotRate): self
     {
         $this->oneShotRate = $oneShotRate;
 

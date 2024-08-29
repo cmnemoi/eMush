@@ -7,7 +7,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Planet;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Player\Entity\Player;
@@ -17,15 +16,8 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class ReachValidator extends ConstraintValidator
+final class ReachValidator extends ConstraintValidator
 {
-    private GameEquipmentServiceInterface $gameEquipmentService;
-
-    public function __construct(GameEquipmentServiceInterface $gameEquipmentService)
-    {
-        $this->gameEquipmentService = $gameEquipmentService;
-    }
-
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
@@ -65,14 +57,7 @@ class ReachValidator extends ConstraintValidator
             throw new LogicException('invalid reach for player');
         }
 
-        if ($actionTarget === $player
-            || $actionTarget->getPlace() !== $player->getPlace()
-            || !$actionTarget->isAlive()
-        ) {
-            return false;
-        }
-
-        return true;
+        return !($actionTarget === $player || $actionTarget->isAlive() === false || $actionTarget->getPlace() !== $player->getPlace());
     }
 
     private function canReachGameEquipment(Player $player, GameEquipment $actionTarget, string $reach): bool
@@ -81,12 +66,8 @@ class ReachValidator extends ConstraintValidator
             case ReachEnum::INVENTORY:
                 return $this->canReachItemInInventory($player, $actionTarget);
 
-                break;
-
             case ReachEnum::SHELVE:
                 return $this->canReachItemInShelf($player, $actionTarget);
-
-                break;
 
             case ReachEnum::ROOM:
                 if (!$player->canReachEquipment($actionTarget)) {
@@ -97,8 +78,6 @@ class ReachValidator extends ConstraintValidator
 
             case ReachEnum::SPACE_BATTLE:
                 return $this->canReachSpaceBattle($player, $actionTarget);
-
-                break;
         }
 
         return true;
@@ -150,25 +129,13 @@ class ReachValidator extends ConstraintValidator
 
     private function canReachPlanet(Player $player): bool
     {
-        if ($player->isFocusedOnTerminalByName(EquipmentEnum::ASTRO_TERMINAL)
-            && $player->getPlace()->hasEquipmentByName(EquipmentEnum::ASTRO_TERMINAL)
-        ) {
-            return true;
-        }
-
-        return false;
+        return $player->isFocusedOnTerminalByName(EquipmentEnum::ASTRO_TERMINAL) && $player->getPlace()->hasEquipmentByName(EquipmentEnum::ASTRO_TERMINAL);
     }
 
     private function canReachProject(Player $player): bool
     {
-        foreach (EquipmentEnum::getProjectTerminals() as $terminalName) {
-            if ($player->isFocusedOnTerminalByName($terminalName)
-                && $player->getPlace()->hasEquipmentByName($terminalName)
-            ) {
-                return true;
-            }
-        }
-
-        return false;
+        return EquipmentEnum::getProjectTerminals()
+            ->filter(static fn (string $name) => $player->isFocusedOnTerminalByName($name) && $player->getPlace()->hasEquipmentByName($name))
+            ->count() > 0;
     }
 }

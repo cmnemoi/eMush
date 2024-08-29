@@ -19,16 +19,16 @@ use Mush\Status\Enum\PlaceStatusEnum;
 
 class ActionEvent extends AbstractGameEvent
 {
-    public const PRE_ACTION = 'pre.action';
-    public const POST_ACTION = 'post.action';
-    public const RESULT_ACTION = 'result.action';
-    public const EXECUTE_ACTION = 'execute.action';
+    public const string PRE_ACTION = 'pre.action';
+    public const string POST_ACTION = 'post.action';
+    public const string RESULT_ACTION = 'result.action';
+    public const string EXECUTE_ACTION = 'execute.action';
 
     private ActionConfig $actionConfig;
     private ActionProviderInterface $actionProvider;
     private ?LogParameterInterface $actionTarget;
     private ?ActionResult $actionResult = null;
-    private array $actionParameters = [];
+    private array $actionParameters;
 
     public function __construct(
         ActionConfig $actionConfig,
@@ -61,7 +61,7 @@ class ActionEvent extends AbstractGameEvent
     {
         $player = $this->author;
         if ($player === null) {
-            throw new \Exception('applyEffectEvent should have a player');
+            throw new \RuntimeException('applyEffectEvent should have a player');
         }
 
         return $player;

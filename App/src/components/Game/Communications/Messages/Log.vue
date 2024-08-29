@@ -15,7 +15,7 @@
             <span class="room" v-if="roomLog?.place"> - {{ roomLog.place }}</span>
             <span class="timestamp">{{ roomLog?.date }}</span>
         </p>
-        <div class="actions" @click.stop>
+        <div class="actions" v-if="roomLogChannel.id" @click.stop>
             <Tippy tag="span" @click="openReportDialog">
                 <img :src="getImgUrl('comms/alert.png')" alt="Report message">
                 <template #content>
@@ -129,11 +129,10 @@ export default defineComponent ({
 
     &.revealed {
         background: #e29ec3;
-        border: 1px solid #ff3f58;
+        border: 1px solid #ff3f58 !important;
         font-style: normal;
+        border-radius: 3px;
     }
-
-    //Add corresponding icons next to the timestamp
 
     &.personnal,
     &.covert,

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
 #[ORM\Entity]
-class Exploration extends Gear
+final class Exploration extends Gear
 {
     public function getMechanics(): array
     {

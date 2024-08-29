@@ -30,7 +30,7 @@ class Blueprint extends Tool
         return $this->craftedEquipmentName;
     }
 
-    public function setCraftedEquipmentName(string $craftedEquipmentName): static
+    public function setCraftedEquipmentName(string $craftedEquipmentName): self
     {
         $this->craftedEquipmentName = $craftedEquipmentName;
 
@@ -42,7 +42,7 @@ class Blueprint extends Tool
         return $this->ingredients;
     }
 
-    public function setIngredients(array $ingredients): static
+    public function setIngredients(array $ingredients): self
     {
         $this->ingredients = $ingredients;
 

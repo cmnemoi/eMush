@@ -21,6 +21,7 @@ const DESTROY_ALL_DAEDALUS_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, 
 
 const DaedalusService = {
     loadAlerts: async (daedalus: Daedalus): Promise<Alert[]> => {
+        if (daedalus.id === undefined ) { return; }
         const alertsData = await ApiService.get(DAEDALUS_ALERTS_ENDPOINT + '/' + daedalus.id + '/alerts');
 
         const alerts: Alert[] = [];
@@ -32,11 +33,11 @@ const DaedalusService = {
         return alerts;
     },
     loadMinimap: async (daedalus: Daedalus): Promise<Minimap[]> => {
+        if (daedalus.id === undefined ) { return; }
         const minimapData = await ApiService.get(DAEDALUS_ENDPOINT + '/' + daedalus.id + '/minimap');
 
         const minimap: Minimap[] = [];
         if (minimapData.data) {
-
             Object.values(minimapData.data).forEach((data: any) => {
                 minimap.push((new Minimap()).load(data));
             });
@@ -51,7 +52,7 @@ const DaedalusService = {
         });
     },
     loadClosedDaedalus: async (closedDaedalusId: integer): Promise<ClosedDaedalus | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const closedDaedalusData = await ApiService.get(CLOSED_DAEDALUS_ENDPOINT + '/' + closedDaedalusId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -63,16 +64,16 @@ const DaedalusService = {
         return closedDaedalus;
     },
     destroyDaedalus: async (daedalusId: integer): Promise<any> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = ApiService.post(DESTROY_DAEDALUS_ENDPOINT + '/' + daedalusId);
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
     destroyAllDaedaluses: async (): Promise<any> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = ApiService.post(DESTROY_ALL_DAEDALUS_ENDPOINT);
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     }

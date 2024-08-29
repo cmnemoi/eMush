@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class TryKube extends AbstractAction
 {
-    private const KUBE_SUCCESS_RATE = 4;
+    private const int KUBE_SUCCESS_RATE = 4;
 
     protected ActionEnum $name = ActionEnum::TRY_KUBE;
 

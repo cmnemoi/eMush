@@ -21,10 +21,10 @@ const getters: GetterTree<any, any> = {
 
 const actions: ActionTree<any, any> = {
     async loadReportablePlayers({ commit }) {
-        commit('player/setLoading', true, { root: true });
+        await commit('player/setLoading', true, { root: true });
         const reportablePlayers = await ModerationService.loadReportablePlayers();
-        commit('player/setLoading', false, { root: true });
-        commit('setReportablePlayers', { reportablePlayers: reportablePlayers });
+        await commit('player/setLoading', false, { root: true });
+        await commit('setReportablePlayers', { reportablePlayers: reportablePlayers });
     },
     async loadUserSanctions({ commit, dispatch }, userId: integer): Promise<boolean> {
         try {

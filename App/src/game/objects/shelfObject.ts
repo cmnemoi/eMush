@@ -20,7 +20,6 @@ export default class ShelfObject extends InteractObject {
     ) {
         super(scene, cart_coords, iso_geom, tileset, frame, 'shelf', isFlipped, collides, isAnimationYoyo, group);
 
-
         //If this is clicked then:
         this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
             store.dispatch('room/openInventory');

@@ -50,7 +50,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $action = $this->actionStrategyService->getAction($actionName);
 
         if ($action === null) {
-            throw new \Exception("this action is not implemented ({$actionName->value})");
+            throw new \RuntimeException("this action is not implemented ({$actionName->value})");
         }
 
         $action->loadParameters(

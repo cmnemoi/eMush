@@ -15,10 +15,14 @@ class Ration extends EquipmentMechanic
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $isPerishable = true;
+
+    /**
+     * Possibilities are stored as key, array value represent the probability to get the key value.
+     *
+     * @see ProbaCollection
+     */
     #[ORM\Column(type: 'array', nullable: false)]
     private array $moralPoints;
-    // possibilities are stored as key, array value represent the probability to get the key value
-    // see ProbaCollection Entity
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $actionPoints;
@@ -29,7 +33,7 @@ class Ration extends EquipmentMechanic
     #[ORM\Column(type: 'array', nullable: false)]
     private array $healthPoints;
 
-    // Store any extra effect the food has as key with the chance to get it as value
+    /** Store any extra effect the food has as key with the chance to get it as value */
     #[ORM\Column(type: 'array', nullable: false)]
     private array $extraEffects;
 

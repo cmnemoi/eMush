@@ -763,7 +763,7 @@ abstract class ModifierConfigData
             'type' => 'variable_event_modifier',
             'triggeredEvent' => null,
             'visibility' => null,
-            'delta' => 1.0,
+            'delta' => 1,
             'targetVariable' => 'oxygen',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],

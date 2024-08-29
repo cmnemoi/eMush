@@ -8,11 +8,9 @@ trait TargetStatusTrait
 {
     public function getStatuses(): Collection
     {
-        $statuses = $this->statuses
+        return $this->statuses
             ->filter(fn (StatusTarget $statusTarget) => ($statusOwner = $statusTarget->getOwner()) && $statusOwner->getOwner() === $this)
             ->map(static fn (StatusTarget $statusTarget) => $statusTarget->getOwner());
-
-        return $statuses;
     }
 
     public function getTargetingStatuses(): Collection

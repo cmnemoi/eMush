@@ -20,7 +20,6 @@ use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -35,8 +34,7 @@ final class Graft extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        private GameEquipmentServiceInterface $gameEquipmentService,
-        private RandomServiceInterface $randomService,
+        private readonly GameEquipmentServiceInterface $gameEquipmentService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }

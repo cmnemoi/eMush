@@ -9,7 +9,7 @@ use Mush\Skill\Enum\SkillEnum;
 #[ORM\Entity]
 class Book extends Tool
 {
-    #[ORM\Column(type: 'string', enumType: SkillEnum::class, nullable: false, options: ['default' => SkillEnum::NULL])]
+    #[ORM\Column(type: 'string', nullable: false, enumType: SkillEnum::class, options: ['default' => SkillEnum::NULL])]
     private SkillEnum $skill = SkillEnum::NULL;
 
     public function getMechanics(): array

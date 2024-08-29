@@ -32,13 +32,10 @@ class GameItem extends GameEquipment
         $place = $this->place;
 
         if ($player === null && $place === null) {
-            throw new \Exception("equipment {$this->getName()} should have a holder");
-        }
-        if ($player === null) {
-            return $place;
+            throw new \RuntimeException("equipment {$this->getName()} should have a holder");
         }
 
-        return $player;
+        return $player ?? $place;
     }
 
     public function setHolder(EquipmentHolderInterface $holder): static

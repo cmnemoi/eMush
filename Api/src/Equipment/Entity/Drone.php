@@ -21,12 +21,6 @@ class Drone extends GameItem
     #[ORM\OneToOne(mappedBy: 'drone', targetEntity: DroneInfo::class, cascade: ['remove'])]
     private DroneInfo $droneInfo;
 
-    public function __construct(
-        EquipmentHolderInterface $equipmentHolder,
-    ) {
-        parent::__construct($equipmentHolder);
-    }
-
     public function getDroneInfo(): DroneInfo
     {
         return $this->droneInfo;

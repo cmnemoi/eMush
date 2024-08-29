@@ -38,8 +38,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class Surgery extends AbstractAction
 {
-    private const FAIL_CHANCES = 10;
-    private const CRITICAL_SUCCESS_CHANCES = 15;
+    private const int FAIL_CHANCES = 10;
+    private const int CRITICAL_SUCCESS_CHANCES = 15;
     protected ActionEnum $name = ActionEnum::SURGERY;
 
     private RandomServiceInterface $randomService;
@@ -132,7 +132,7 @@ class Surgery extends AbstractAction
         $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
     }
 
-    private function failedSurgery(Player $targetPlayer, \DateTime $time): ActionResult
+    private function failedSurgery(Player $targetPlayer, \DateTime $time): void
     {
         $diseaseEvent = new ApplyEffectEvent(
             $this->player,
@@ -142,8 +142,6 @@ class Surgery extends AbstractAction
             $time
         );
         $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
-
-        return new Fail();
     }
 
     private function getModifiedPercentage(int $percentage, string $mode = ActionVariableEnum::PERCENTAGE_SUCCESS): int

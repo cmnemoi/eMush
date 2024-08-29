@@ -14,11 +14,11 @@ namespace Mush\Action\Validator;
  */
 class HasStatus extends ClassConstraint
 {
-    public const PLAYER = 'player';
-    public const PARAMETER = 'parameter';
-    public const ACTION_PROVIDER = 'action_provider';
-    public const PLAYER_ROOM = 'player_room';
-    public const DAEDALUS = 'daedalus';
+    public const string PLAYER = 'player';
+    public const string PARAMETER = 'parameter';
+    public const string ACTION_PROVIDER = 'action_provider';
+    public const string PLAYER_ROOM = 'player_room';
+    public const string DAEDALUS = 'daedalus';
 
     public string $message = 'parameter do not match expected status';
 

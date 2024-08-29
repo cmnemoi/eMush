@@ -41,7 +41,7 @@ class Door extends GameEquipment
         return $this->rooms;
     }
 
-    public function setRooms(Collection $rooms): static
+    public function setRooms(Collection $rooms): self
     {
         $this->rooms = $rooms;
 
@@ -54,7 +54,7 @@ class Door extends GameEquipment
         return $this;
     }
 
-    public function addRoom(Place $room): static
+    public function addRoom(Place $room): self
     {
         $this->rooms->add($room);
 
@@ -73,11 +73,6 @@ class Door extends GameEquipment
     public function getLogName(): string
     {
         return EquipmentEnum::DOOR;
-    }
-
-    public function getLogKey(): string
-    {
-        return LogParameterKeyEnum::EQUIPMENT;
     }
 
     public function canPlayerReach(Player $player): bool

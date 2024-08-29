@@ -10,12 +10,12 @@ import store from "@/store";
 import { Hunter } from "@/entities/Hunter";
 import { Terminal } from "@/entities/Terminal";
 import { Planet } from "@/entities/Planet";
-import { Project } from "@/entities/Project";
+import { Project } from "@/entities/Project"; // @ts-ignore
 
 // @ts-ignore
 const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "player");
 // @ts-ignore
-const ACTION_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "actions");
+const ACTION_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "action_configs");
 
 const EquipmentClassName = "Mush\\Equipment\\Entity\\GameEquipment";
 const PlayerClassName = "Mush\\Player\\Entity\\Player";
@@ -74,10 +74,10 @@ const ActionService = {
 
 
     loadAction: async(actionId: number): Promise<Action | null> => {
-        store.dispatch('action/setLoading', { loading: true });
+        await store.dispatch('action/setLoading', { loading: true });
         const actionData = await ApiService.get(ACTION_ENDPOINT + '/' + actionId)
             .finally(() => (store.dispatch('action/setLoading', { loading: false })));
-        store.dispatch('action/setLoading', { loading: false });
+        await store.dispatch('action/setLoading', { loading: false });
         let action = null;
         if (actionData.data) {
             action = (new Action()).load(actionData.data);

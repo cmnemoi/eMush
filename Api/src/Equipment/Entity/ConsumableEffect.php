@@ -9,8 +9,6 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 #[ORM\Entity]
 class ConsumableEffect
 {
-    #[ORM\Column(type: 'integer', nullable: true)]
-    protected ?int $satiety = null;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
@@ -37,6 +35,9 @@ class ConsumableEffect
     #[ORM\Column(type: 'array', nullable: false)]
     private array $extraEffects = [];
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $satiety = null;
+
     public function getId(): int
     {
         return $this->id;
@@ -47,7 +48,7 @@ class ConsumableEffect
         return $this->daedalus;
     }
 
-    public function setDaedalus(Daedalus $daedalus): static
+    public function setDaedalus(Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 
@@ -59,7 +60,7 @@ class ConsumableEffect
         return $this->ration;
     }
 
-    public function setRation(Ration $ration): static
+    public function setRation(Ration $ration): self
     {
         $this->ration = $ration;
 
@@ -71,7 +72,7 @@ class ConsumableEffect
         return $this->actionPoint;
     }
 
-    public function setActionPoint(?int $actionPoint): static
+    public function setActionPoint(?int $actionPoint): self
     {
         $this->actionPoint = $actionPoint;
 
@@ -83,7 +84,7 @@ class ConsumableEffect
         return $this->movementPoint;
     }
 
-    public function setMovementPoint(?int $movementPoint): static
+    public function setMovementPoint(?int $movementPoint): self
     {
         $this->movementPoint = $movementPoint;
 
@@ -95,7 +96,7 @@ class ConsumableEffect
         return $this->healthPoint;
     }
 
-    public function setHealthPoint(?int $healthPoint): static
+    public function setHealthPoint(?int $healthPoint): self
     {
         $this->healthPoint = $healthPoint;
 
@@ -107,7 +108,7 @@ class ConsumableEffect
         return $this->moralPoint;
     }
 
-    public function setMoralPoint(?int $moralPoint): static
+    public function setMoralPoint(?int $moralPoint): self
     {
         $this->moralPoint = $moralPoint;
 
@@ -119,7 +120,7 @@ class ConsumableEffect
         return $this->satiety;
     }
 
-    public function setSatiety(?int $satiety): static
+    public function setSatiety(?int $satiety): self
     {
         $this->satiety = $satiety;
 
@@ -131,7 +132,7 @@ class ConsumableEffect
         return $this->extraEffects;
     }
 
-    public function setExtraEffects(array $extraEffects): static
+    public function setExtraEffects(array $extraEffects): self
     {
         $this->extraEffects = $extraEffects;
 

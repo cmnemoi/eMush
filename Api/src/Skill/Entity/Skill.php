@@ -147,7 +147,7 @@ class Skill implements ActionProviderInterface
 
     public function getClassName(): string
     {
-        return static::class;
+        return self::class;
     }
 
     public function getProvidedActions(ActionHolderEnum $actionTarget, array $actionRanges): Collection

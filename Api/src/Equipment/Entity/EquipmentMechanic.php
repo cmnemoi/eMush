@@ -92,6 +92,9 @@ abstract class EquipmentMechanic
         return $this->mechanics;
     }
 
+    /**
+     * @return Collection<array-key, ActionConfig>
+     */
     public function getActions(): Collection
     {
         return $this->actions;

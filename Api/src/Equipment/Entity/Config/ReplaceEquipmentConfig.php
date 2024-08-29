@@ -49,7 +49,7 @@ class ReplaceEquipmentConfig
         return $this->replacedEquipmentName;
     }
 
-    public function updateFromDto(ReplaceEquipmentConfigDto $dto): static
+    public function updateFromDto(ReplaceEquipmentConfigDto $dto): self
     {
         $this->name = $dto->name;
         $this->equipmentName = $dto->equipmentName;

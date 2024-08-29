@@ -17,12 +17,12 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
 {
     use NormalizerAwareTrait;
 
-    private const ALREADY_CALLED = 'PLAYER_INFO_NORMALIZER_ALREADY_CALLED';
+    private const string ALREADY_CALLED = 'PLAYER_INFO_NORMALIZER_ALREADY_CALLED';
 
     public function __construct(
-        private PlayerInfoRepositoryInterface $playerInfoRepository,
-        private TokenStorageInterface $tokenStorage,
-        private TranslationServiceInterface $translationService
+        private readonly PlayerInfoRepositoryInterface $playerInfoRepository,
+        private readonly TokenStorageInterface $tokenStorage,
+        private readonly TranslationServiceInterface $translationService
     ) {}
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
@@ -37,9 +37,10 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
 
     public function normalize(mixed $object, ?string $format = null, array $context = []): ?array
     {
+        $context[self::ALREADY_CALLED] = true;
+
         /** @var PlayerInfo $playerInfo */
         $playerInfo = $object;
-        $context[self::ALREADY_CALLED] = true;
 
         /** @var ?User $requestUser */
         // If user is not logged in, they cannot access player infos
@@ -50,7 +51,7 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
 
         // If user is in the same Daedalus as the player they are trying to access, refuse access
         $requestUserPlayerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($requestUser);
-        if ($requestUserPlayerInfo?->getDaedalusId() === $playerInfo->getDaedalusId() && $this->appNotInDev()) {
+        if ($this->appNotInDev() && $requestUserPlayerInfo?->getDaedalusId() === $playerInfo->getDaedalusId()) {
             return null;
         }
 
@@ -114,7 +115,7 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
     private function appNotInDev(): bool
     {
         if (!isset($_ENV['APP_ENV'])) {
-            throw new \Exception('APP_ENV not set');
+            throw new \RuntimeException('APP_ENV not set');
         }
 
         return $_ENV['APP_ENV'] !== 'dev';

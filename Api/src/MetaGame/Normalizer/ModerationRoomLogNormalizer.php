@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\MetaGame\Normalizer;
 
 use Mush\Game\Enum\LanguageEnum;
@@ -7,15 +9,11 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class ModerationRoomLogNormalizer implements NormalizerInterface
+final readonly class ModerationRoomLogNormalizer implements NormalizerInterface
 {
-    private TranslationServiceInterface $translationService;
-
     public function __construct(
-        TranslationServiceInterface $translationService,
-    ) {
-        $this->translationService = $translationService;
-    }
+        private TranslationServiceInterface $translationService,
+    ) {}
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {

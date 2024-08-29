@@ -39,7 +39,7 @@ class Plant extends EquipmentMechanic
         return $this->fruitName;
     }
 
-    public function setFruitName(string $fruitName): static
+    public function setFruitName(string $fruitName): self
     {
         $this->fruitName = $fruitName;
 
@@ -51,7 +51,7 @@ class Plant extends EquipmentMechanic
         return new ProbaCollection($this->maturationTime);
     }
 
-    public function setMaturationTime(array $maturationTime): static
+    public function setMaturationTime(array $maturationTime): self
     {
         $this->maturationTime = $maturationTime;
 
@@ -63,7 +63,7 @@ class Plant extends EquipmentMechanic
         return new ProbaCollection($this->oxygen);
     }
 
-    public function setOxygen(array $oxygen): static
+    public function setOxygen(array $oxygen): self
     {
         $this->oxygen = $oxygen;
 

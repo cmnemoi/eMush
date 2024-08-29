@@ -10,15 +10,11 @@ use Mush\RoomLog\Enum\LogParameterKeyEnum;
 #[ORM\Entity]
 class DroneConfig extends ItemConfig
 {
-    public function createGameEquipment(
-        EquipmentHolderInterface $holder,
-    ): Drone {
-        $drone = new Drone($holder);
-        $drone
+    public function createGameEquipment(EquipmentHolderInterface $holder): Drone
+    {
+        return (new Drone($holder))
             ->setName($this->getEquipmentShortName())
             ->setEquipment($this);
-
-        return $drone;
     }
 
     public function getLogKey(): string

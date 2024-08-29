@@ -24,7 +24,7 @@ class Fruit extends Ration
         return $this->plantName;
     }
 
-    public function setPlantName(string $plantName): static
+    public function setPlantName(string $plantName): self
     {
         $this->plantName = $plantName;
 

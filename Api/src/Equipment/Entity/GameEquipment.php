@@ -182,6 +182,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     {
         $allModifiers = $this->getModifiers();
 
+        /** @var Player $player */
         if (($player = $this->getHolder()) instanceof Player) {
             $allModifiers = $allModifiers->addModifiers($player->getModifiers());
         }
@@ -219,9 +220,9 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
             if (\in_array($status->getStatusConfig()->getStatusName(), EquipmentStatusEnum::getOutOfOrderStatuses(), true)) {
                 return false;
             }
-            if (($status->getStatusConfig()->getStatusName() === EquipmentStatusEnum::ELECTRIC_CHARGES)
-                && $status instanceof ChargeStatus
+            if ($status instanceof ChargeStatus
                 && !$status->isCharged()
+                && $status->getStatusConfig()->getStatusName() === EquipmentStatusEnum::ELECTRIC_CHARGES
             ) {
                 return false;
             }
@@ -290,10 +291,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
     {
-        if (
-            $this->isBroken()
-            && $this->isActionProvidedByMechanic($actionName)
-        ) {
+        if ($this->isBroken() && $this->isActionProvidedByMechanic($actionName)) {
             return ActionProviderOperationalStateEnum::BROKEN;
         }
 
@@ -335,19 +333,23 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
 
         // add actions provided by the statuses
+        $allActions = [];
+
         /** @var Status $status */
         foreach ($this->getStatuses() as $status) {
-            $actions = array_merge($actions, $status->getProvidedActions($actionTarget, $actionRanges)->toArray());
+            $allActions[] = $status->getProvidedActions($actionTarget, $actionRanges)->toArray();
         }
 
-        return new ArrayCollection($actions);
+        return new ArrayCollection(array_merge($actions, ...$allActions));
     }
 
-    // return action available for this target $actionTarget should be set to game_equipment
+    /**
+     * Return action available for this target $actionTarget should be set to game_equipment.
+     */
     public function getActions(Player $activePlayer, ?ActionHolderEnum $actionTarget = null): Collection
     {
         if ($actionTarget === null) {
-            throw new \Exception('You must specify if the action holder is equipment or terminal');
+            throw new \RuntimeException('You must specify if the action holder is equipment or terminal');
         }
 
         // first actions provided by the gameEquipment itself
@@ -474,11 +476,10 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     {
         $names = [];
         foreach ($this->getEquipment()->getMechanics() as $mechanic) {
-            $names = array_merge($names, $mechanic->getMechanics());
+            $names[] = $mechanic->getMechanics();
         }
-        $names[] = $this->getName();
 
-        return new ArrayCollection($names);
+        return new ArrayCollection(array_merge([$this->getName()], ...$names));
     }
 
     public function isARation(): bool

@@ -28,6 +28,11 @@ class DroneInfo
         $this->serialNumber = $serialNumber;
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function getNickName(): int
     {
         return $this->nickName;
@@ -36,5 +41,10 @@ class DroneInfo
     public function getSerialNumber(): int
     {
         return $this->serialNumber;
+    }
+
+    public function getDrone(): Drone
+    {
+        return $this->drone;
     }
 }

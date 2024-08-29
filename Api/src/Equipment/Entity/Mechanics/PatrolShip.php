@@ -46,7 +46,7 @@ class PatrolShip extends Tool
         return new ProbaCollection($this->collectScrapNumber);
     }
 
-    public function setCollectScrapNumber(array|ProbaCollection $collectScrapNumber): static
+    public function setCollectScrapNumber(array|ProbaCollection $collectScrapNumber): self
     {
         if ($collectScrapNumber instanceof ProbaCollection) {
             $collectScrapNumber = $collectScrapNumber->toArray();
@@ -62,7 +62,7 @@ class PatrolShip extends Tool
         return new ProbaCollection($this->collectScrapPatrolShipDamage);
     }
 
-    public function setCollectScrapPatrolShipDamage(array|ProbaCollection $collectScrapPatrolShipDamage): static
+    public function setCollectScrapPatrolShipDamage(array|ProbaCollection $collectScrapPatrolShipDamage): self
     {
         if ($collectScrapPatrolShipDamage instanceof ProbaCollection) {
             $collectScrapPatrolShipDamage = $collectScrapPatrolShipDamage->toArray();
@@ -78,7 +78,7 @@ class PatrolShip extends Tool
         return new ProbaCollection($this->collectScrapPlayerDamage);
     }
 
-    public function setCollectScrapPlayerDamage(array|ProbaCollection $collectScrapPlayerDamage): static
+    public function setCollectScrapPlayerDamage(array|ProbaCollection $collectScrapPlayerDamage): self
     {
         if ($collectScrapPlayerDamage instanceof ProbaCollection) {
             $collectScrapPlayerDamage = $collectScrapPlayerDamage->toArray();
@@ -94,7 +94,7 @@ class PatrolShip extends Tool
         return $this->dockingPlace;
     }
 
-    public function setDockingPlace(string $dockingPlace): static
+    public function setDockingPlace(string $dockingPlace): self
     {
         $this->dockingPlace = $dockingPlace;
 
@@ -106,7 +106,7 @@ class PatrolShip extends Tool
         return new ProbaCollection($this->failedManoeuvreDaedalusDamage);
     }
 
-    public function setFailedManoeuvreDaedalusDamage(array|ProbaCollection $failedManoeuvreDaedalusDamage): static
+    public function setFailedManoeuvreDaedalusDamage(array|ProbaCollection $failedManoeuvreDaedalusDamage): self
     {
         if ($failedManoeuvreDaedalusDamage instanceof ProbaCollection) {
             $failedManoeuvreDaedalusDamage = $failedManoeuvreDaedalusDamage->toArray();
@@ -122,7 +122,7 @@ class PatrolShip extends Tool
         return new ProbaCollection($this->failedManoeuvrePatrolShipDamage);
     }
 
-    public function setFailedManoeuvrePatrolShipDamage(array|ProbaCollection $failedManoeuvrePatrolShipDamage): static
+    public function setFailedManoeuvrePatrolShipDamage(array|ProbaCollection $failedManoeuvrePatrolShipDamage): self
     {
         if ($failedManoeuvrePatrolShipDamage instanceof ProbaCollection) {
             $failedManoeuvrePatrolShipDamage = $failedManoeuvrePatrolShipDamage->toArray();
@@ -138,7 +138,7 @@ class PatrolShip extends Tool
         return new ProbaCollection($this->failedManoeuvrePlayerDamage);
     }
 
-    public function setFailedManoeuvrePlayerDamage(array|ProbaCollection $failedManoeuvrePlayerDamage): static
+    public function setFailedManoeuvrePlayerDamage(array|ProbaCollection $failedManoeuvrePlayerDamage): self
     {
         if ($failedManoeuvrePlayerDamage instanceof ProbaCollection) {
             $failedManoeuvrePlayerDamage = $failedManoeuvrePlayerDamage->toArray();
@@ -154,7 +154,7 @@ class PatrolShip extends Tool
         return $this->numberOfExplorationSteps;
     }
 
-    public function setNumberOfExplorationSteps(int $numberOfExplorationSteps): static
+    public function setNumberOfExplorationSteps(int $numberOfExplorationSteps): self
     {
         $this->numberOfExplorationSteps = $numberOfExplorationSteps;
 

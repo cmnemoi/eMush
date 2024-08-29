@@ -32,10 +32,10 @@ class ActionConfig implements GameVariableHolderInterface
     #[ORM\Column(type: 'array', nullable: false)]
     private array $types = [];
 
-    #[ORM\Column(type: 'string', enumType: ActionHolderEnum::class, nullable: false, options: ['default' => ActionHolderEnum::NULL])]
+    #[ORM\Column(type: 'string', nullable: false, enumType: ActionHolderEnum::class, options: ['default' => ActionHolderEnum::NULL])]
     private ActionHolderEnum $displayHolder;
 
-    #[ORM\Column(type: 'string', enumType: ActionRangeEnum::class, nullable: false, options: ['default' => ActionRangeEnum::NULL])]
+    #[ORM\Column(type: 'string', nullable: false, enumType: ActionRangeEnum::class, options: ['default' => ActionRangeEnum::NULL])]
     private ActionRangeEnum $range;
 
     #[ORM\Column(type: 'array', nullable: false)]

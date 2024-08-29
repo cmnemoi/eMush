@@ -59,7 +59,7 @@ class SpawnEquipmentConfig
         return $this->quantity;
     }
 
-    public function updateFromDto(SpawnEquipmentConfigDto $dto): static
+    public function updateFromDto(SpawnEquipmentConfigDto $dto): self
     {
         $this->name = $dto->name;
         $this->equipmentName = $dto->equipmentName;

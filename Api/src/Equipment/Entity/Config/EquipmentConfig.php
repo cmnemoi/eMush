@@ -250,12 +250,14 @@ class EquipmentConfig
     {
         $actions = $this->actionConfigs->toArray();
 
+        $allActions = [];
+
         /** @var EquipmentMechanic $mechanic */
         foreach ($this->getMechanics() as $mechanic) {
-            $actions = array_merge($actions, $mechanic->getActions()->toArray());
+            $allActions[] = $mechanic->getActions()->toArray();
         }
 
-        return new ArrayCollection($actions);
+        return new ArrayCollection(array_merge($actions, ...$allActions));
     }
 
     /**

@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class IsPasiphaeDestroyedValidator extends ConstraintValidator
+final class IsPasiphaeDestroyedValidator extends ConstraintValidator
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
 
@@ -20,7 +20,7 @@ class IsPasiphaeDestroyedValidator extends ConstraintValidator
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
             throw new UnexpectedTypeException($value, AbstractAction::class);

@@ -17,7 +17,7 @@ use Mush\Status\Service\StatusServiceInterface;
 /**
  * /!\ Do not use this service for usual skill selection ! Use ChooseSkillUseCase instead, or verify that the player has the skill before adding it. /!\.
  */
-final class AddSkillToPlayerService
+final readonly class AddSkillToPlayerService
 {
     public function __construct(
         private ModifierCreationServiceInterface $modifierCreationService,

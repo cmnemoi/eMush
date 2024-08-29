@@ -13,6 +13,8 @@ export class TerminalSectionTitles {
     public plasmaShieldDescription: string|null = null;
     public magneticNetName: string|null = null;
     public magneticNetDescription: string|null = null;
+    public neronInhibitionName: string|null = null;
+    public neronInhibitionDescription: string|null = null;
 
     public load(object: any): TerminalSectionTitles {
         if (object) {
@@ -30,6 +32,8 @@ export class TerminalSectionTitles {
             this.plasmaShieldDescription = object['plasma_shield_description'];
             this.magneticNetName = object['magnetic_net_name'];
             this.magneticNetDescription = object['magnetic_net_description'];
+            this.neronInhibitionName = object['neron_inhibition_name'];
+            this.neronInhibitionDescription = object['neron_inhibition_description'];
         }
         return this;
     }

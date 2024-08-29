@@ -470,6 +470,9 @@ abstract class ActionLogEnum
         ActionEnum::THROW_GRENADE->value => [
             ActionOutputEnum::SUCCESS => self::THROW_GRENADE_SUCCESS,
         ],
+        ActionEnum::TOGGLE_NERON_INHIBITION->value => [
+            ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
+        ],
     ];
 
     public static function dependsOnNeronMood(string $logKey): bool

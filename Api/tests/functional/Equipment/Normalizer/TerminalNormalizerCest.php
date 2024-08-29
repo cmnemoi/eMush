@@ -294,7 +294,14 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             actual: $normalizedTerminal['tips']
         );
         $I->assertEquals(
-            expected: [ActionEnum::EXIT_TERMINAL->value, ActionEnum::CHANGE_NERON_CPU_PRIORITY->value, ActionEnum::CHANGE_NERON_CREW_LOCK->value, ActionEnum::TOGGLE_MAGNETIC_NET->value, ActionEnum::TOGGLE_PLASMA_SHIELD->value],
+            expected: [
+                ActionEnum::EXIT_TERMINAL->value,
+                ActionEnum::CHANGE_NERON_CPU_PRIORITY->value,
+                ActionEnum::CHANGE_NERON_CREW_LOCK->value,
+                ActionEnum::TOGGLE_MAGNETIC_NET->value,
+                ActionEnum::TOGGLE_NERON_INHIBITION->value,
+                ActionEnum::TOGGLE_PLASMA_SHIELD->value,
+            ],
             actual: array_map(static fn ($action) => $action['key'], $normalizedTerminal['actions'])
         );
         $I->assertEquals(
@@ -307,6 +314,8 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 'plasma_shield_description' => 'Active le bouclier plasma.',
                 'magnetic_net_name' => 'Filet magnétique',
                 'magnetic_net_description' => 'Active le filet magnétique qui permet d\'abandonner les Patrouilleurs à leur triste sort. Ou pas...',
+                'neron_inhibition_name' => 'Entrave DMZ-CorePeace',
+                'neron_inhibition_description' => 'Active l\'inhibiteur de comportements de NERON. L\'inhibiteur permet de changer un certain nombre de comportements de NERON concernant l\'agressivité.',
             ],
             actual: $normalizedTerminal['sectionTitles']
         );
@@ -342,6 +351,11 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                     ['key' => 'inactive', 'name' => 'Inactif'],
                 ],
                 'isMagneticNetActive' => true,
+                'isNeronInhibited' => true,
+                'neronInhibitionToggles' => [
+                    ['key' => 'active', 'name' => 'Oui'],
+                    ['key' => 'inactive', 'name' => 'Non'],
+                ],
             ],
             actual: $normalizedTerminal['infos']
         );

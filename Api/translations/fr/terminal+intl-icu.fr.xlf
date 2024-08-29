@@ -228,6 +228,22 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <source>bios_terminal.magnetic_net_toggle_inactive</source>
         <target>Inactif</target>
       </segment>
+      <segment id="neron_inhibition.name" state="final">
+        <source>bios_terminal.neron_inhibition_name</source>
+        <target>Entrave DMZ-CorePeace</target>
+      </segment>
+      <segment id="neron_inhibition.description" state="translated">
+        <source>bios_terminal.neron_inhibition_description</source>
+        <target>Active l'inhibiteur de comportements de NERON. L'inhibiteur permet de changer un certain nombre de comportements de NERON concernant l'agressivité.</target>
+      </segment>
+      <segment id="neron_inhibition.toggle_active" state="translated">
+        <source>bios_terminal.neron_inhibition_toggle_active</source>
+        <target>Oui</target>
+      </segment>
+      <segment id="neron_inhibition.toggle_inactive" state="translated">
+        <source>bios_terminal.neron_inhibition_toggle_inactive</source>
+        <target>Non</target>
+      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="name" state="final">

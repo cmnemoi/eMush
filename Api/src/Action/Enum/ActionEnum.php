@@ -173,6 +173,7 @@ enum ActionEnum: string
     case CHANGE_NERON_CREW_LOCK = 'change_neron_crew_lock';
     case TOGGLE_PLASMA_SHIELD = 'toggle_plasma_shield';
     case TOGGLE_MAGNETIC_NET = 'toggle_magnetic_net';
+    case TOGGLE_NERON_INHIBITION = 'toggle_neron_inhibition';
 
     // Titles-related actions
     case COMMANDER_ORDER = 'commander_order';

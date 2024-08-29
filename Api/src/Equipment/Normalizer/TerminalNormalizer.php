@@ -267,6 +267,8 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'currentCpuPriority' => $neron->getCpuPriority(),
             'crewLocks' => $this->getTranslatedAvailableCrewLocks($terminal),
             'currentCrewLock' => $neron->getCrewLock()->value,
+            'neronInhibitionToggles' => $this->getTranslatedNeronInhibitionToggles($terminal),
+            'isNeronInhibited' => $neron->isInhibited(),
         ];
         if ($daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD)) {
             $infos['plasmaShieldToggles'] = $this->getTranslatedPlasmaShieldToggles($terminal);
@@ -389,5 +391,23 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $magneticNetToggles;
+    }
+
+    private function getTranslatedNeronInhibitionToggles(GameEquipment $terminal): array
+    {
+        $neronInhibitionToggles = [];
+        foreach (['active', 'inactive'] as $toggle) {
+            $neronInhibitionToggles[] = [
+                'key' => $toggle,
+                'name' => $this->translationService->translate(
+                    key: $terminal->getName() . '.neron_inhibition_toggle_' . $toggle,
+                    parameters: [],
+                    domain: 'terminal',
+                    language: $terminal->getDaedalus()->getLanguage()
+                ),
+            ];
+        }
+
+        return $neronInhibitionToggles;
     }
 }

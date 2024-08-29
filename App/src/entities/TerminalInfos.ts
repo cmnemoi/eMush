@@ -20,6 +20,8 @@ export class TerminalInfos {
     public isPlasmaShieldActive: boolean|null = null;
     public magneticNetToggles: {key: string, name: string}[]|null = null;
     public isMagneticNetActive: boolean|null = null;
+    public neronInhibitionToggles: {key: string, name: string}[]|null = null;
+    public isNeronInhibited: boolean|null = null;
 
     constructor() {
         this.difficulty = null;
@@ -52,6 +54,8 @@ export class TerminalInfos {
             this.isPlasmaShieldActive = object.isPlasmaShieldActive;
             this.magneticNetToggles = object.magneticNetToggles;
             this.isMagneticNetActive = object.isMagneticNetActive;
+            this.neronInhibitionToggles = object.neronInhibitionToggles;
+            this.isNeronInhibited = object.isNeronInhibited;
         }
         return this;
     }

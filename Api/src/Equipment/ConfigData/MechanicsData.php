@@ -3677,6 +3677,7 @@ class MechanicsData
                 ActionEnum::CHANGE_NERON_CREW_LOCK->value,
                 ActionEnum::TOGGLE_PLASMA_SHIELD->value,
                 ActionEnum::TOGGLE_MAGNETIC_NET->value,
+                ActionEnum::TOGGLE_NERON_INHIBITION->value,
                 ActionEnum::ACCESS_TERMINAL->value,
                 ActionEnum::EXIT_TERMINAL->value,
             ],

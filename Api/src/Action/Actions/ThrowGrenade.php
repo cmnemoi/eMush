@@ -7,7 +7,10 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\NumberPlayersAliveInRoom;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -19,6 +22,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class ThrowGrenade extends AbstractAction
@@ -32,6 +36,18 @@ final class ThrowGrenade extends AbstractAction
         private RandomServiceInterface $randomService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraints([
+            new NumberPlayersAliveInRoom([
+                'mode' => NumberPlayersAliveInRoom::EQUAL,
+                'number' => 1,
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::LAUNCH_GRENADE_ALONE,
+            ]),
+        ]);
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

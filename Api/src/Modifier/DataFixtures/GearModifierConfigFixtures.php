@@ -86,6 +86,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
                 ActionEnum::HIT->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
                 PlanetSectorEvent::FIGHT => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::CRITICAL_SUCCESS => ModifierRequirementEnum::NONE_TAGS,
             ])

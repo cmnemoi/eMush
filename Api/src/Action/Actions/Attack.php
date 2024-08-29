@@ -13,7 +13,6 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
@@ -21,7 +20,6 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\VariableEventInterface;
@@ -67,14 +65,6 @@ class Attack extends AttemptAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]));
-        $metadata->addConstraint(new HasEquipment([
-            'reach' => ReachEnum::INVENTORY,
-            'equipments' => [ItemEnum::KNIFE],
-            'contains' => true,
-            'checkIfOperational' => true,
-            'target' => HasEquipment::PLAYER,
-            'groups' => ['visibility'],
-        ]));
         $metadata->addConstraint(new PlaceType(['groups' => ['visibility'], 'type' => 'room']));
     }
 
@@ -86,7 +76,7 @@ class Attack extends AttemptAction
     // Special checkResult for Attack action waiting for a refactor
     protected function checkResult(): ActionResult
     {
-        $knife = $this->getPlayerKnife();
+        $knife = $this->knifeMechanic();
 
         $success = $this->randomService->isSuccessful($this->getSuccessRate());
 
@@ -114,7 +104,7 @@ class Attack extends AttemptAction
         /** @var Player $target */
         $target = $this->target;
 
-        $knife = $this->getPlayerKnife();
+        $knife = $this->knifeMechanic();
 
         if ($result instanceof Success) {
             $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($knife->getBaseDamageRange());
@@ -148,24 +138,9 @@ class Attack extends AttemptAction
         }
     }
 
-    private function getPlayerKnife(): Weapon
+    private function knifeMechanic(): Weapon
     {
-        /** @var GameItem $knifeItem */
-        $knifeItem = $this->player->getEquipments()->filter(
-            static fn (GameItem $gameItem) => $gameItem->getName() === ItemEnum::KNIFE && $gameItem->isOperational()
-        )->first();
-
-        if (!$knifeItem instanceof GameItem) {
-            throw new \Exception("Attack action : {$this->player->getLogName()} should have a knife");
-        }
-
-        /** @var Weapon $knifeWeapon */
-        $knifeWeapon = $knifeItem->getEquipment()->getMechanics()->first();
-        if (!$knifeWeapon instanceof Weapon) {
-            throw new \Exception('Attack action : Knife should have a weapon mechanic');
-        }
-
-        return $knifeWeapon;
+        return $this->knife()->getWeaponMechanicOrThrow();
     }
 
     private function rollCriticalChances(int $percentage): bool
@@ -197,5 +172,12 @@ class Attack extends AttemptAction
         $damageEvent->setAuthor($author);
 
         return $damageEvent;
+    }
+
+    private function knife(): GameItem
+    {
+        $knife = $this->actionProvider;
+
+        return $knife instanceof GameItem ? $knife : throw new \Exception('Attack action : Knife should be a GameItem');
     }
 }

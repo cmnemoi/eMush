@@ -11,6 +11,9 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -93,6 +96,20 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         $this->whenKuanTiTriesToThrowGrenade();
 
         $this->thenActionIsExecutable($I);
+    }
+
+    public function shouldCreateAPublicLog(FunctionalTester $I): void
+    {
+        $this->whenChunThrowsGrenade();
+
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->chun->getPlace()->getName(),
+                'log' => ActionLogEnum::THROW_GRENADE_SUCCESS,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
     }
 
     private function givenChunHasAGrenade(): void

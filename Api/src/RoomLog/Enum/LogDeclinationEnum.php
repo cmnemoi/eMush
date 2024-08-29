@@ -41,6 +41,7 @@ abstract class LogDeclinationEnum
             ActionLogEnum::SHOOT_FAIL => [self::VERSION => 4],
             ActionLogEnum::SHOOT_CRITICAL_FAIL => [self::VERSION => 2],
             ActionLogEnum::SHRED_SUCCESS => [self::VERSION => 4],
+            ActionLogEnum::THROW_GRENADE_SUCCESS => [self::VERSION => 2],
             ActionEnum::RETRIEVE_OXYGEN->value => [self::VERSION => 10],
             NeronMessageEnum::ASPHYXIA_DEATH => [self::VERSION_PART_1 => 3, self::VERSION_PART_2 => 9],
             NeronMessageEnum::BROKEN_EQUIPMENT => [self::VERSION => 5],

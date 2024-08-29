@@ -1296,5 +1296,19 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Vous permet de récupérer une liste que vous avez créée avant le départ du Daedalus. Cette liste contient des noms de personnes potentiellement infectées. À chaque jour, cette liste s'affine d'un nom.</target>
       </segment>
     </unit>
+    <unit id="throw_grenade">
+      <segment id="name" state="final">
+        <source>throw_grenade.name</source>
+        <target>Lancer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>throw_grenade.description</source>
+        <target>Permet de lancer une grenade dans la pièce. Avec ça, vous êtes sûr du résultat.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>throw_grenade.confirmation</source>
+        <target>Cette action est dangereuse, êtes-vous sûr de vouloir continuer ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

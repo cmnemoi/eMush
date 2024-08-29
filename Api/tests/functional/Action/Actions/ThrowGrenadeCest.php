@@ -11,6 +11,8 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -22,6 +24,7 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private ThrowGrenade $throwGrenade;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     private GameItem $grenade;
 
@@ -33,8 +36,10 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         $this->throwGrenade = $I->grabService(ThrowGrenade::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenChunHasAGrenade();
+        $this->givenNeronIsNotInhibited();
     }
 
     public function shouldDestroyGrenade(FunctionalTester $I): void
@@ -65,6 +70,31 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldNotBeExecutableForHumanPlayerIfNeronIsInhibited(FunctionalTester $I): void
+    {
+        $this->givenNeronIsInhibited();
+
+        $this->whenChunThrowsGrenade();
+
+        $this->thenActionIsNotExecutableWithMessage(
+            ActionImpossibleCauseEnum::DMZ_CORE_PEACE,
+            $I
+        );
+    }
+
+    public function shouldBeExecutableForMushPlayerIfNeronIsInhibited(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsMush();
+
+        $this->givenKuanTiHasAGrenade();
+
+        $this->givenNeronIsInhibited();
+
+        $this->whenKuanTiTriesToThrowGrenade();
+
+        $this->thenActionIsExecutable($I);
+    }
+
     private function givenChunHasAGrenade(): void
     {
         $this->grenade = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -85,6 +115,36 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         $this->kuanTi->changePlace($this->daedalus->getSpace());
     }
 
+    private function givenNeronIsNotInhibited(): void
+    {
+        $this->daedalus->getNeron()->setIsInhibited(false);
+    }
+
+    private function givenNeronIsInhibited(): void
+    {
+        $this->daedalus->getNeron()->setIsInhibited(true);
+    }
+
+    private function givenKuanTiIsMush(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenKuanTiHasAGrenade(): void
+    {
+        $this->grenade = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::GRENADE,
+            equipmentHolder: $this->kuanTi,
+            reasons: [],
+            time: new \DateTime()
+        );
+    }
+
     private function whenChunThrowsGrenade(): void
     {
         $this->throwGrenade->loadParameters(
@@ -94,6 +154,16 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
             target: $this->grenade,
         );
         $this->throwGrenade->execute();
+    }
+
+    private function whenKuanTiTriesToThrowGrenade(): void
+    {
+        $this->throwGrenade->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->grenade,
+            player: $this->kuanTi,
+            target: $this->grenade,
+        );
     }
 
     private function thenGrenadeIsDestroyed(FunctionalTester $I): void
@@ -109,5 +179,10 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
     private function thenActionIsNotExecutableWithMessage(string $message, FunctionalTester $I): void
     {
         $I->assertEquals($message, $this->throwGrenade->cannotExecuteReason());
+    }
+
+    private function thenActionIsExecutable(FunctionalTester $I): void
+    {
+        $I->assertNull($this->throwGrenade->cannotExecuteReason());
     }
 }

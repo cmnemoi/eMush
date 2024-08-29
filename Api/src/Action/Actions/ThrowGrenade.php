@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\GrenadeInhibit;
 use Mush\Action\Validator\NumberPlayersAliveInRoom;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
@@ -46,6 +47,10 @@ final class ThrowGrenade extends AbstractAction
                 'number' => 1,
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::LAUNCH_GRENADE_ALONE,
+            ]),
+            new GrenadeInhibit([
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::DMZ_CORE_PEACE,
             ]),
         ]);
     }

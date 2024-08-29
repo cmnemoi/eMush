@@ -155,7 +155,15 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $grenadeMechanic = new Weapon();
         $grenadeMechanic
             ->setBaseAccuracy(100)
-            ->setBaseDamageRange([2 => 8])
+            ->setBaseDamageRange([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+                5 => 1,
+                6 => 1,
+                7 => 1,
+                8 => 1,
+            ])
             ->setExpeditionBonus(3)
             ->addAction($throwGrenade)
             ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::GRENADE, GameConfigEnum::DEFAULT);

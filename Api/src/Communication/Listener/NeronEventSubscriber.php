@@ -23,7 +23,7 @@ final class NeronEventSubscriber implements EventSubscriberInterface
     public function onInhibitionToggled(NeronEvent $event): void
     {
         $neron = $event->getNeron();
-        $daedalus = $neron->getDaedalusInfo()->getDaedalus();
+        $daedalus = $event->getDaedalus();
 
         $this->neronMessageService->createNeronMessage(
             messageKey: $neron->isInhibited() ? NeronMessageEnum::ACTIVATE_DMZ : NeronMessageEnum::DEACTIVATE_DMZ,

@@ -2,6 +2,7 @@
 
 namespace Mush\Daedalus\Event;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 
 final class NeronEvent extends DaedalusEvent
@@ -26,5 +27,12 @@ final class NeronEvent extends DaedalusEvent
     public function getNeron(): Neron
     {
         return $this->neron;
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        $daedalus = $this->neron->getDaedalusInfo()->getDaedalus();
+
+        return $daedalus ?? throw new \RuntimeException('NeronEvent should have a Daedalus!');
     }
 }

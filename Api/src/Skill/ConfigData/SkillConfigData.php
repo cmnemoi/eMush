@@ -95,6 +95,14 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::EXPERT,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_PLUS_20_PERCENTAGE_ON_ACTIONS,
+                    ModifierNameEnum::PLAYER_PLUS_20_PERCENTAGE_ON_CLUMSINESS,
+                    ModifierNameEnum::PLAYER_PLUS_20_PERCENTAGE_ON_DIRTINESS,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::FERTILE,
                 skillPointsConfig: SkillPointsEnum::SPORE_POINTS,
             ),

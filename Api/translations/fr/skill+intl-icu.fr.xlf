@@ -555,5 +555,15 @@
         <target>Le détaché est froid, dur, imperméable. Il n'est pas affecté par la mort de ses camarades.//:point: Vous ne **perdez pas de Points de Moral (:pmo:) lorsqu'un équipier meurt**.//:point: Pas de risque de maladies psy si vous êtes témoin d'un décès.</target>
       </segment>
     </unit>
+    <unit id="expert">
+      <segment id="expert.name" state="translated">
+        <source>expert.name</source>
+        <target>Expert</target>
+      </segment>
+      <segment id="expert.description" state="translated">
+        <source>expert.description</source>
+        <target>Vos compétences sont incroyables mais vous travaillez sans vraiment vous préoccuper de certaines conséquences...//:point: Vos **réussites aux actions** sont **améliorées de 20%**, mais les **blessures** et les **salissures** le sont aussi.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

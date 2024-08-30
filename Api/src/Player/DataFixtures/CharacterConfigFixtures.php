@@ -154,6 +154,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $detachedCrewmemberSkillConfig */
         $detachedCrewmemberSkillConfig = $this->getReference(SkillEnum::DETACHED_CREWMEMBER->value);
 
+        /** @var SkillConfig $expertSkillConfig */
+        $expertSkillConfig = $this->getReference(SkillEnum::EXPERT->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -162,6 +165,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $pilotSkillConfig,
                 $devotionSkillConfig,
                 $confidentSkillConfig,
+                $expertSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($andie);

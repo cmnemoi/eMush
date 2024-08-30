@@ -199,6 +199,24 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($detachedCrewmemberModifier->getName(), $detachedCrewmemberModifier);
         $manager->persist($detachedCrewmemberModifier);
 
+        $expertModifierOnActions = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_20_PERCENTAGE_ON_ACTIONS)
+        );
+        $this->addReference($expertModifierOnActions->getName(), $expertModifierOnActions);
+        $manager->persist($expertModifierOnActions);
+
+        $expertModifierOnClumsiness = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_20_PERCENTAGE_ON_CLUMSINESS)
+        );
+        $this->addReference($expertModifierOnClumsiness->getName(), $expertModifierOnClumsiness);
+        $manager->persist($expertModifierOnClumsiness);
+
+        $expertModifierOnDirtiness = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_20_PERCENTAGE_ON_DIRTINESS)
+        );
+        $this->addReference($expertModifierOnDirtiness->getName(), $expertModifierOnDirtiness);
+        $manager->persist($expertModifierOnDirtiness);
+
         $manager->flush();
     }
 

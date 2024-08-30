@@ -15,6 +15,7 @@ class CharacterConfigData
                 SkillEnum::PILOT,
                 SkillEnum::DEVOTION,
                 SkillEnum::CONFIDENT,
+                SkillEnum::EXPERT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

@@ -69,4 +69,10 @@ abstract class ModifierNameEnum
     public const string CAFFEINE_JUNKIE_MODIFIER = 'caffeine_junkie_modifier';
     public const string PLAYER_SET_0_MORALE_POINT_ON_DEATH = 'player_set_0_morale_point_on_death';
     public const string DETATCHED_CREWMEMBER_MODIFIER = 'detatched_crewmember_modifier';
+    public const string PLAYER_PLUS_20_PERCENTAGE_ON_ACTIONS = 'player_+20_percentage_on_actions';
+    public const string EXPERT_MODIFIER_ON_ACTIONS = 'expert_modifier_on_actions';
+    public const string PLAYER_PLUS_20_PERCENTAGE_ON_CLUMSINESS = 'player_+20_percentage_on_clumsiness';
+    public const string EXPERT_MODIFIER_ON_CLUMSINESS = 'expert_modifier_on_clumsiness';
+    public const string PLAYER_PLUS_20_PERCENTAGE_ON_DIRTINESS = 'player_+20_percentage_on_dirtiness';
+    public const string EXPERT_MODIFIER_ON_DIRTINESS = 'expert_modifier_on_dirtiness';
 }

@@ -12,6 +12,8 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -24,6 +26,7 @@ final class ConsumeCoffeeCest extends AbstractFunctionalTest
     private Consume $consume;
     private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     private GameItem $coffee;
 
@@ -35,6 +38,7 @@ final class ConsumeCoffeeCest extends AbstractFunctionalTest
 
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenPlayerHasACoffee();
     }
@@ -48,6 +52,19 @@ final class ConsumeCoffeeCest extends AbstractFunctionalTest
         $this->whenPlayerConsumesCoffee();
 
         $this->thenPlayerShouldHaveActionPoints(12, $I);
+    }
+
+    public function mushCaffeineJunkieShouldNotGainAnyActionPoints(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsACaffeineJunkie();
+
+        $this->givenPlayerIsMush();
+
+        $this->givenPlayerHasActionPoints(8);
+
+        $this->whenPlayerConsumesCoffee();
+
+        $this->thenPlayerShouldHaveActionPoints(8, $I);
     }
 
     private function givenPlayerHasACoffee(): void
@@ -68,6 +85,16 @@ final class ConsumeCoffeeCest extends AbstractFunctionalTest
     private function givenPlayerHasActionPoints(int $actionPoints): void
     {
         $this->player->setActionPoint($actionPoints);
+    }
+
+    private function givenPlayerIsMush(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime()
+        );
     }
 
     private function whenPlayerConsumesCoffee(): void

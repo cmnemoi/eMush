@@ -62,7 +62,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
                 frames: frames,
                 frameRate: textureProperties.frameRate,
                 repeat: -1,
-                repeatDelay: textureProperties.replayDelay,
+                repeatDelay: textureProperties.replayDelay
             });
 
             this.anims.play(anim);

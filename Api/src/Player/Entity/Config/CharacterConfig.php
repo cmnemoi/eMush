@@ -9,10 +9,10 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\MetaGame\Entity\Skin\SkinSlotConfig;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Entity\SkillConfigCollection;
-use Mush\MetaGame\Entity\Skin\SkinSlotConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]

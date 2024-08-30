@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"tilesets\/plasma_shield.png",
+ "imageheight":85,
+ "imagewidth":95,
+ "margin":0,
+ "name":"plasma_shield",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.0",
+ "tileheight":85,
+ "tilewidth":95,
+ "type":"tileset",
+ "version":"1.10"
+}

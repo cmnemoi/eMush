@@ -18,7 +18,7 @@ class SkinSlotConfig
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
 
-    #[ORM\ManyToMany( targetEntity: Skin::class)]
+    #[ORM\ManyToMany(targetEntity: Skin::class)]
     private Collection $skins;
 
     public function __construct()

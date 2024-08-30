@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"tilesets\/engine_room.png",
+ "imageheight":241,
+ "imagewidth":343,
+ "margin":0,
+ "name":"engine_room",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.0",
+ "tileheight":241,
+ "tilewidth":343,
+ "type":"tileset",
+ "version":"1.10"
+}

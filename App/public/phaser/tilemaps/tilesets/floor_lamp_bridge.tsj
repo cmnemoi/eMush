@@ -1,0 +1,14 @@
+{ "columns":2,
+ "image":"floor_lamp_bridge.png",
+ "imageheight":71,
+ "imagewidth":180,
+ "margin":0,
+ "name":"floor_lamp_bridge",
+ "spacing":0,
+ "tilecount":2,
+ "tiledversion":"1.11.0",
+ "tileheight":71,
+ "tilewidth":90,
+ "type":"tileset",
+ "version":"1.10"
+}

@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"..\/..\/..\/..\/..\/..\/mush_sup\/jukebox_north.png",
+ "imageheight":31,
+ "imagewidth":20,
+ "margin":0,
+ "name":"jukebox_north",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.0",
+ "tileheight":31,
+ "tilewidth":20,
+ "type":"tileset",
+ "version":"1.10"
+}

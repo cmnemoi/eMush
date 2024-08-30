@@ -1,0 +1,5017 @@
+{
+	"textures": [
+		{
+			"image": "baseTiles",
+			"format": "RGBA8888",
+			"size": {
+				"w": 795,
+				"h": 780
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "shelf_big",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 192,
+						"h": 134
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 192,
+						"h": 134
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 192,
+						"h": 134
+					}
+				},
+				{
+					"filename": "shelf_front_storage-part_1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 123,
+						"h": 101
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 123,
+						"h": 101
+					},
+					"frame": {
+						"x": 0,
+						"y": 134,
+						"w": 123,
+						"h": 101
+					}
+				},
+				{
+					"filename": "shelf_front_storage-part_2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 111,
+						"h": 91
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 111,
+						"h": 91
+					},
+					"frame": {
+						"x": 123,
+						"y": 134,
+						"w": 111,
+						"h": 91
+					}
+				},
+				{
+					"filename": "shelf_center_bravo_storage-part_1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 106,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 106,
+						"h": 93
+					},
+					"frame": {
+						"x": 192,
+						"y": 0,
+						"w": 106,
+						"h": 93
+					}
+				},
+				{
+					"filename": "shelf_front_storage-part_4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 109,
+						"h": 79
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 109,
+						"h": 79
+					},
+					"frame": {
+						"x": 123,
+						"y": 225,
+						"w": 109,
+						"h": 79
+					}
+				},
+				{
+					"filename": "shelf_center_alpha_storage-part_1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 105,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 105,
+						"h": 80
+					},
+					"frame": {
+						"x": 232,
+						"y": 225,
+						"w": 105,
+						"h": 80
+					}
+				},
+				{
+					"filename": "shelf_front_storage-part_3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 109,
+						"h": 74
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 109,
+						"h": 74
+					},
+					"frame": {
+						"x": 0,
+						"y": 235,
+						"w": 109,
+						"h": 74
+					}
+				},
+				{
+					"filename": "shelf_center_alpha_storage-part_2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 77,
+						"h": 72
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 77,
+						"h": 72
+					},
+					"frame": {
+						"x": 234,
+						"y": 93,
+						"w": 77,
+						"h": 72
+					}
+				},
+				{
+					"filename": "shelf_center_bravo_storage-part_3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 298,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "shelf_center_bravo_storage-part_2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 65,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 65,
+						"h": 50
+					},
+					"frame": {
+						"x": 234,
+						"y": 165,
+						"w": 65,
+						"h": 50
+					}
+				},
+				{
+					"filename": "door_big-north-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 362,
+						"y": 0,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 311,
+						"y": 64,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 311,
+						"y": 135,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 337,
+						"y": 206,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-17",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 351,
+						"y": 71,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-18",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 337,
+						"y": 277,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-19",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 109,
+						"y": 304,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-20",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 149,
+						"y": 304,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-21",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 189,
+						"y": 304,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-22",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 0,
+						"y": 309,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-23",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 40,
+						"y": 309,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 229,
+						"y": 305,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 269,
+						"y": 305,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 309,
+						"y": 348,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 349,
+						"y": 348,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 80,
+						"y": 375,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 0,
+						"y": 380,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 40,
+						"y": 380,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 120,
+						"y": 375,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 160,
+						"y": 375,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-17",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 200,
+						"y": 376,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-18",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 240,
+						"y": 376,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-19",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 377,
+						"y": 142,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 391,
+						"y": 71,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-20",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 402,
+						"y": 0,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-21",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 377,
+						"y": 213,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-22",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 389,
+						"y": 284,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-23",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 389,
+						"y": 355,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 417,
+						"y": 142,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 431,
+						"y": 71,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 442,
+						"y": 0,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 417,
+						"y": 213,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 429,
+						"y": 284,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 429,
+						"y": 355,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 80,
+						"y": 446,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 0,
+						"y": 451,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 40,
+						"y": 451,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 120,
+						"y": 446,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 160,
+						"y": 446,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 280,
+						"y": 419,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 200,
+						"y": 447,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 240,
+						"y": 447,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 320,
+						"y": 419,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-17",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 360,
+						"y": 426,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-18",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 400,
+						"y": 426,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-19",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 440,
+						"y": 426,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-red-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 457,
+						"y": 142,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-21",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 471,
+						"y": 71,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-22",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 482,
+						"y": 0,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-23",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 457,
+						"y": 213,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 469,
+						"y": 284,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 469,
+						"y": 355,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 480,
+						"y": 426,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 280,
+						"y": 490,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 320,
+						"y": 490,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 80,
+						"y": 517,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 0,
+						"y": 522,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 40,
+						"y": 522,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 120,
+						"y": 517,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-17",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 160,
+						"y": 517,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-18",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 200,
+						"y": 518,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-19",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 240,
+						"y": 518,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 360,
+						"y": 497,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-20",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 400,
+						"y": 497,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-21",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 440,
+						"y": 497,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-22",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 480,
+						"y": 497,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-23",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 497,
+						"y": 142,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 511,
+						"y": 71,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 522,
+						"y": 0,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 497,
+						"y": 213,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 509,
+						"y": 284,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 509,
+						"y": 355,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 520,
+						"y": 426,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-red-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 520,
+						"y": 497,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 537,
+						"y": 142,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 551,
+						"y": 71,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 562,
+						"y": 0,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 537,
+						"y": 213,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-20",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 549,
+						"y": 284,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door-north-red-23",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 15,
+						"w": 46,
+						"h": 58
+					},
+					"frame": {
+						"x": 549,
+						"y": 355,
+						"w": 46,
+						"h": 58
+					}
+				},
+				{
+					"filename": "shelf_medium-model_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 560,
+						"y": 413,
+						"w": 48,
+						"h": 48
+					}
+				},
+				{
+					"filename": "door_ground-north-3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 36
+					},
+					"frame": {
+						"x": 280,
+						"y": 561,
+						"w": 64,
+						"h": 36
+					}
+				},
+				{
+					"filename": "door_ground-south-0",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 36
+					},
+					"frame": {
+						"x": 80,
+						"y": 588,
+						"w": 64,
+						"h": 36
+					}
+				},
+				{
+					"filename": "door_ground-south-1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 36
+					},
+					"frame": {
+						"x": 0,
+						"y": 593,
+						"w": 64,
+						"h": 36
+					}
+				},
+				{
+					"filename": "door_ground-south-2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 36
+					},
+					"frame": {
+						"x": 144,
+						"y": 589,
+						"w": 64,
+						"h": 36
+					}
+				},
+				{
+					"filename": "door_ground-south-3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 36
+					},
+					"frame": {
+						"x": 208,
+						"y": 589,
+						"w": 64,
+						"h": 36
+					}
+				},
+				{
+					"filename": "door_ground-east-0",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 36
+					},
+					"frame": {
+						"x": 272,
+						"y": 597,
+						"w": 64,
+						"h": 36
+					}
+				},
+				{
+					"filename": "door_ground-east-1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 36
+					},
+					"frame": {
+						"x": 336,
+						"y": 597,
+						"w": 64,
+						"h": 36
+					}
+				},
+				{
+					"filename": "door_ground-east-2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 36
+					},
+					"frame": {
+						"x": 400,
+						"y": 568,
+						"w": 64,
+						"h": 36
+					}
+				},
+				{
+					"filename": "door_ground-west-3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 36
+					},
+					"frame": {
+						"x": 464,
+						"y": 568,
+						"w": 64,
+						"h": 36
+					}
+				},
+				{
+					"filename": "door_ground-east-3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 36
+					},
+					"frame": {
+						"x": 528,
+						"y": 568,
+						"w": 64,
+						"h": 36
+					}
+				},
+				{
+					"filename": "shelf_medium-model_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 560,
+						"y": 461,
+						"w": 48,
+						"h": 48
+					}
+				},
+				{
+					"filename": "shelf_medium-model_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 560,
+						"y": 509,
+						"w": 48,
+						"h": 48
+					}
+				},
+				{
+					"filename": "door-north-red-22",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 39,
+						"h": 58
+					},
+					"frame": {
+						"x": 592,
+						"y": 557,
+						"w": 39,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-23",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 14,
+						"w": 38,
+						"h": 59
+					},
+					"frame": {
+						"x": 577,
+						"y": 142,
+						"w": 38,
+						"h": 59
+					}
+				},
+				{
+					"filename": "door_ground-north-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 64,
+						"h": 35
+					},
+					"frame": {
+						"x": 577,
+						"y": 201,
+						"w": 64,
+						"h": 35
+					}
+				},
+				{
+					"filename": "door_ground-west-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 64,
+						"h": 35
+					},
+					"frame": {
+						"x": 577,
+						"y": 236,
+						"w": 64,
+						"h": 35
+					}
+				},
+				{
+					"filename": "door_ground-west-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 64,
+						"h": 35
+					},
+					"frame": {
+						"x": 64,
+						"y": 624,
+						"w": 64,
+						"h": 35
+					}
+				},
+				{
+					"filename": "door_ground-west-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 64,
+						"h": 35
+					},
+					"frame": {
+						"x": 0,
+						"y": 629,
+						"w": 64,
+						"h": 35
+					}
+				},
+				{
+					"filename": "door_ground-north-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 64,
+						"h": 35
+					},
+					"frame": {
+						"x": 128,
+						"y": 625,
+						"w": 64,
+						"h": 35
+					}
+				},
+				{
+					"filename": "door_ground-north-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 64,
+						"h": 35
+					},
+					"frame": {
+						"x": 192,
+						"y": 625,
+						"w": 64,
+						"h": 35
+					}
+				},
+				{
+					"filename": "door-west-red-23",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 14,
+						"w": 37,
+						"h": 59
+					},
+					"frame": {
+						"x": 591,
+						"y": 71,
+						"w": 37,
+						"h": 59
+					}
+				},
+				{
+					"filename": "door-west-23",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 14,
+						"w": 37,
+						"h": 59
+					},
+					"frame": {
+						"x": 602,
+						"y": 0,
+						"w": 37,
+						"h": 59
+					}
+				},
+				{
+					"filename": "door-north-red-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 589,
+						"y": 271,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 595,
+						"y": 329,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-17",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 608,
+						"y": 387,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-18",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 608,
+						"y": 445,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-19",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 400,
+						"y": 604,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 437,
+						"y": 604,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-20",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 474,
+						"y": 604,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-21",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 511,
+						"y": 604,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 548,
+						"y": 604,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 626,
+						"y": 271,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 632,
+						"y": 329,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 615,
+						"y": 130,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 641,
+						"y": 188,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 628,
+						"y": 59,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 639,
+						"y": 0,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 631,
+						"y": 503,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 645,
+						"y": 387,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 645,
+						"y": 445,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 631,
+						"y": 561,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 64,
+						"y": 659,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 0,
+						"y": 664,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 585,
+						"y": 615,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 622,
+						"y": 619,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 256,
+						"y": 633,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 293,
+						"y": 633,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-17",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 330,
+						"y": 633,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-18",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 101,
+						"y": 660,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-19",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 138,
+						"y": 660,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-20",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 175,
+						"y": 660,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-21",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 212,
+						"y": 660,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-22",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 367,
+						"y": 662,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 404,
+						"y": 662,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 441,
+						"y": 662,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 478,
+						"y": 662,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 515,
+						"y": 662,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 663,
+						"y": 246,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 669,
+						"y": 304,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 652,
+						"y": 117,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 678,
+						"y": 175,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 665,
+						"y": 58,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 676,
+						"y": 0,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-17",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 659,
+						"y": 619,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-18",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 668,
+						"y": 503,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-19",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 668,
+						"y": 561,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 682,
+						"y": 362,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-20",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 682,
+						"y": 420,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-21",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 689,
+						"y": 116,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-22",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 702,
+						"y": 58,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 713,
+						"y": 0,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 700,
+						"y": 233,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 715,
+						"y": 174,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 706,
+						"y": 291,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 696,
+						"y": 619,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 705,
+						"y": 478,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 705,
+						"y": 536,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-red-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 719,
+						"y": 349,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 719,
+						"y": 407,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 37,
+						"y": 717,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 0,
+						"y": 722,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-17",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 552,
+						"y": 673,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-18",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 249,
+						"y": 691,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-19",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 286,
+						"y": 691,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 323,
+						"y": 691,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-20",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 74,
+						"y": 718,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-21",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 111,
+						"y": 718,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-22",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 148,
+						"y": 718,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 185,
+						"y": 718,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 360,
+						"y": 720,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 397,
+						"y": 720,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 434,
+						"y": 720,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 471,
+						"y": 720,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 508,
+						"y": 720,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 589,
+						"y": 677,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 626,
+						"y": 677,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 663,
+						"y": 677,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 700,
+						"y": 677,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 737,
+						"y": 232,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 743,
+						"y": 290,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 726,
+						"y": 116,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 752,
+						"y": 174,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 739,
+						"y": 58,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-north-red-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 750,
+						"y": 0,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "shelf-model_2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 32,
+						"h": 40
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 32,
+						"h": 40
+					},
+					"frame": {
+						"x": 192,
+						"y": 93,
+						"w": 32,
+						"h": 40
+					}
+				},
+				{
+					"filename": "shelf-model_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 40
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 32,
+						"h": 39
+					},
+					"frame": {
+						"x": 763,
+						"y": 116,
+						"w": 32,
+						"h": 39
+					}
+				},
+				{
+					"filename": "shelf-model_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 40
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 32,
+						"h": 39
+					},
+					"frame": {
+						"x": 545,
+						"y": 731,
+						"w": 32,
+						"h": 39
+					}
+				},
+				{
+					"filename": "hunter",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 26
+					},
+					"frame": {
+						"x": 344,
+						"y": 568,
+						"w": 48,
+						"h": 26
+					}
+				},
+				{
+					"filename": "shelf-model_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 40
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 32,
+						"h": 39
+					},
+					"frame": {
+						"x": 733,
+						"y": 594,
+						"w": 32,
+						"h": 39
+					}
+				},
+				{
+					"filename": "tile_highlight",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 32,
+						"h": 20
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 32,
+						"h": 20
+					},
+					"frame": {
+						"x": 367,
+						"y": 633,
+						"w": 32,
+						"h": 20
+					}
+				},
+				{
+					"filename": "smoke_particle",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 7,
+						"h": 7
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 7,
+						"h": 7
+					},
+					"frame": {
+						"x": 272,
+						"y": 589,
+						"w": 7,
+						"h": 7
+					}
+				},
+				{
+					"filename": "flame-5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 3,
+						"h": 3
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 3,
+						"h": 3
+					},
+					"frame": {
+						"x": 622,
+						"y": 615,
+						"w": 3,
+						"h": 3
+					}
+				},
+				{
+					"filename": "flame-3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 3,
+						"h": 3
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 3,
+						"h": 3
+					},
+					"frame": {
+						"x": 625,
+						"y": 615,
+						"w": 3,
+						"h": 3
+					}
+				},
+				{
+					"filename": "flame-2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 3,
+						"h": 3
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 3,
+						"h": 3
+					},
+					"frame": {
+						"x": 628,
+						"y": 615,
+						"w": 3,
+						"h": 3
+					}
+				},
+				{
+					"filename": "flame-1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 3,
+						"h": 3
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 3,
+						"h": 3
+					},
+					"frame": {
+						"x": 351,
+						"y": 64,
+						"w": 3,
+						"h": 3
+					}
+				},
+				{
+					"filename": "flame-0",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 3,
+						"h": 3
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 3,
+						"h": 3
+					},
+					"frame": {
+						"x": 351,
+						"y": 67,
+						"w": 3,
+						"h": 3
+					}
+				},
+				{
+					"filename": "flame-4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 3,
+						"h": 3
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 3,
+						"h": 3
+					},
+					"frame": {
+						"x": 354,
+						"y": 64,
+						"w": 3,
+						"h": 3
+					}
+				},
+				{
+					"filename": "door-west-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 64,
+						"y": 659,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 64,
+						"y": 659,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 0,
+						"y": 664,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 585,
+						"y": 615,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 622,
+						"y": 619,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 256,
+						"y": 633,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 293,
+						"y": 633,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 330,
+						"y": 633,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door-west-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 37,
+						"h": 58
+					},
+					"frame": {
+						"x": 101,
+						"y": 660,
+						"w": 37,
+						"h": 58
+					}
+				},
+				{
+					"filename": "door_big-north-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 562,
+						"y": 0,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 562,
+						"y": 0,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 537,
+						"y": 213,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 362,
+						"y": 0,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 311,
+						"y": 64,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 337,
+						"y": 206,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 351,
+						"y": 71,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-north-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 337,
+						"y": 277,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 120,
+						"y": 446,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 120,
+						"y": 446,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 160,
+						"y": 446,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 280,
+						"y": 419,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 200,
+						"y": 447,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 240,
+						"y": 447,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 320,
+						"y": 419,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 360,
+						"y": 426,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_big-west-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 40,
+						"h": 71
+					},
+					"frame": {
+						"x": 400,
+						"y": 426,
+						"w": 40,
+						"h": 71
+					}
+				},
+				{
+					"filename": "door_ground-east-4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 36
+					},
+					"frame": {
+						"x": 272,
+						"y": 597,
+						"w": 64,
+						"h": 36
+					}
+				},
+				{
+					"filename": "door_ground-north-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 64,
+						"h": 35
+					},
+					"frame": {
+						"x": 192,
+						"y": 625,
+						"w": 64,
+						"h": 35
+					}
+				},
+				{
+					"filename": "door_ground-south-4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 36
+					},
+					"frame": {
+						"x": 80,
+						"y": 588,
+						"w": 64,
+						"h": 36
+					}
+				},
+				{
+					"filename": "door_ground-west-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 64,
+						"h": 35
+					},
+					"frame": {
+						"x": 0,
+						"y": 629,
+						"w": 64,
+						"h": 35
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.7"
+	}
+}

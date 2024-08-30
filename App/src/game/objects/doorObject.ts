@@ -32,7 +32,7 @@ export default class DoorObject extends DoorGroundObject {
         this.closedFrameId = textureProperties.frames[0];
         this.openedFrameId = 10 + this.closedFrameId;
 
-        this.setTexture(textureProperties.textureName, this.name+'-' + this.closedFrameId)
+        this.setTexture(textureProperties.textureName, this.name+'-' + this.closedFrameId);
         // create animations
         const openFrames = this.anims.generateFrameNames(textureProperties.textureName, {
             prefix: this.name+'-',

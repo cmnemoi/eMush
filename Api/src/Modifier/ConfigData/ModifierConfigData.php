@@ -3174,6 +3174,23 @@ abstract class ModifierConfigData
                 ActionEnum::ACCEPT_MISSION->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::SKILL_POINT_CHEF,
+            'modifierName' => ModifierNameEnum::SKILL_POINT_CHEF,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 0,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_COOK->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

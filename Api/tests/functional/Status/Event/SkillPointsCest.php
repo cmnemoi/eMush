@@ -82,6 +82,7 @@ final class SkillPointsCest extends AbstractFunctionalTest
     {
         return match (SkillPointsEnum::from($skillPoints)) {
             SkillPointsEnum::BOTANIST_POINTS => 2,
+            SkillPointsEnum::CHEF_POINTS => 4,
             SkillPointsEnum::CONCEPTOR_POINTS => 2,
             SkillPointsEnum::IT_EXPERT_POINTS => 2,
             SkillPointsEnum::PILGRED_POINTS => 1,

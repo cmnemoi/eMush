@@ -352,15 +352,7 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($expressCookAction);
 
-        $cookAction = new ActionConfig();
-        $cookAction
-            ->setName(ActionEnum::COOK->value)
-            ->setActionName(ActionEnum::COOK)
-            ->setRange(ActionRangeEnum::SHELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->setDirtyRate(20);
-
+        $cookAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::COOK));
         $manager->persist($cookAction);
 
         $selfHealAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SELF_HEAL));
@@ -399,15 +391,7 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($shredAction);
 
-        $hyperfreezeAction = new ActionConfig();
-        $hyperfreezeAction
-            ->setName(ActionEnum::HYPERFREEZE->value)
-            ->setActionName(ActionEnum::HYPERFREEZE)
-            ->setRange(ActionRangeEnum::SHELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
-
+        $hyperfreezeAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::HYPERFREEZE));
         $manager->persist($hyperfreezeAction);
 
         $gagAction = new ActionConfig();

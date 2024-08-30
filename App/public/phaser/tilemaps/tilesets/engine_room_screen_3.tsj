@@ -1,0 +1,14 @@
+{ "columns":8,
+ "image":"tilesets\/engine_room_screen_3.png",
+ "imageheight":17,
+ "imagewidth":128,
+ "margin":0,
+ "name":"engine_room_screen_3",
+ "spacing":0,
+ "tilecount":8,
+ "tiledversion":"1.11.0",
+ "tileheight":17,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}

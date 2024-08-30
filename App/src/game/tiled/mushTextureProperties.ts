@@ -1,10 +1,10 @@
 import Phaser from "phaser";
 import DecorationObject from "@/game/objects/decorationObject";
-import {Door} from "@/entities/Door";
+import { Door } from "@/entities/Door";
 import DoorObject from "@/game/objects/doorObject";
 import DoorGroundObject from "@/game/objects/doorGroundObject";
 import InteractObject from "@/game/objects/interactObject";
-import {Equipment} from "@/entities/Equipment";
+import { Equipment } from "@/entities/Equipment";
 import EquipmentObject from "@/game/objects/equipmentObject";
 import ShelfObject from "@/game/objects/shelfObject";
 
@@ -50,32 +50,33 @@ export default class mushTextureProperties {
             const animation = tiledData.animation;
             const animationLength = animation.length;
 
-            this.frameRate = 1000/animation[0].duration;
+            const frameDuration = animation[0].duration;
+            this.frameRate = 1000/frameDuration;
 
             for (let i = 0; i < animationLength; i++) {
                 const currentFrame = animation[i];
                 this.frames[i] = currentFrame.tileid;
             }
-            this.replayDelay = animation[animationLength-1].duration;
+            this.replayDelay = animation[animationLength-1].duration - frameDuration;
         }
     }
 
     setTextureName(tiledObj: Phaser.Types.Tilemaps.TiledObject)
     {
         switch (tiledObj.type) {
-            case 'shelf':
-            case 'door':
-            case 'door_ground':
-                this.textureName = 'base_textures';
-                break;
-            case 'decoration':
-            case 'interact':
-            case 'equipment':
-            case 'patrol_ship':
-                this.textureName = 'equipments';
-                break;
-            default:
-                throw new Error(this.tiledObj.type + " type does not exist for this tiled object: " + this.tiledObj.name);
+        case 'shelf':
+        case 'door':
+        case 'door_ground':
+            this.textureName = 'base_textures';
+            break;
+        case 'decoration':
+        case 'interact':
+        case 'equipment':
+        case 'patrol_ship':
+            this.textureName = 'equipments';
+            break;
+        default:
+            throw new Error(this.tiledObj.type + " type does not exist for this tiled object: " + this.tiledObj.name);
         }
     }
 

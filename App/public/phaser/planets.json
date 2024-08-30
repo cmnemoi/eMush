@@ -1,0 +1,125 @@
+{
+	"textures": [
+		{
+			"image": "planets.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1340,
+				"h": 193
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "planet_0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 268,
+						"h": 191
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 266,
+						"h": 191
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 266,
+						"h": 191
+					}
+				},
+				{
+					"filename": "planet_1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 268,
+						"h": 191
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 266,
+						"h": 191
+					},
+					"frame": {
+						"x": 269,
+						"y": 1,
+						"w": 266,
+						"h": 191
+					}
+				},
+				{
+					"filename": "planet_2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 268,
+						"h": 191
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 266,
+						"h": 191
+					},
+					"frame": {
+						"x": 537,
+						"y": 1,
+						"w": 266,
+						"h": 191
+					}
+				},
+				{
+					"filename": "planet_3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 268,
+						"h": 191
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 266,
+						"h": 191
+					},
+					"frame": {
+						"x": 805,
+						"y": 1,
+						"w": 266,
+						"h": 191
+					}
+				},
+				{
+					"filename": "planet_4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 268,
+						"h": 191
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 266,
+						"h": 191
+					},
+					"frame": {
+						"x": 1073,
+						"y": 1,
+						"w": 266,
+						"h": 191
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:6caf4a6ed034493c48d97ce7958e595c:3dd84a1997d98dc870bf6acc5acc20a0:b39012af8c10e6f2542ba48f4ca1957d$"
+	}
+}

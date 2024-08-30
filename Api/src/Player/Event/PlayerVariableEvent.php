@@ -67,7 +67,7 @@ class PlayerVariableEvent extends PlayerEvent implements VariableEventInterface
     public function getLogParameters(): array
     {
         $params = parent::getLogParameters();
-        $params['quantity'] = abs($this->quantity);
+        $params['quantity'] = abs($this->getRoundedQuantity());
 
         return $params;
     }

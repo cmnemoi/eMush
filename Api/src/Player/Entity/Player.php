@@ -1168,7 +1168,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function canReadRationProperties(GameEquipment $food): bool
     {
-        return $food->isARation() && $this->hasStatus(PlayerStatusEnum::MUSH);
+        return $food->isARation() && ($this->hasStatus(PlayerStatusEnum::MUSH) || $this->hasSkill(SkillEnum::CHEF));
     }
 
     private function canReadFruitProperties(GameEquipment $food): bool

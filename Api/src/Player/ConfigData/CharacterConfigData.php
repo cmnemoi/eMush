@@ -769,6 +769,7 @@ class CharacterConfigData
             'name' => 'stephen',
             'characterName' => 'stephen',
             'skillConfigs' => [
+                SkillEnum::CHEF,
                 SkillEnum::SOLID,
                 SkillEnum::SHOOTER,
                 SkillEnum::APPRENTICE,

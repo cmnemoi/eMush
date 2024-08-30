@@ -19,6 +19,8 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Skill\Entity\Skill;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
@@ -134,6 +136,39 @@ final class PlayerSubscriberTest extends TestCase
 
         // then no trauma is created
         $this->randomService->shouldReceive('isSuccessful')->never();
+        $this->diseaseCauseService->shouldNotHaveReceived('handleDiseaseForCause');
+        $this->roomLogService->shouldNotHaveReceived('createLog');
+    }
+
+    public function testShouldNotCreateTraumaIfPlayerIsDetachedCrewmember(): void
+    {
+        // given a detached crewmember player
+        $player = PlayerFactory::createPlayer();
+        Skill::createByNameForPlayer(SkillEnum::DETACHED_CREWMEMBER, $player);
+
+        // given some player who will die
+        $deadPlayer = \Mockery::mock(Player::class);
+        $deadPlayer->shouldReceive('getMedicalConditions')->andReturn(new PlayerDiseaseCollection([]));
+        $deadPlayer->makePartial();
+
+        $deadPlayerInfo = new PlayerInfo($deadPlayer, new User(), new CharacterConfig());
+        $deadPlayer->shouldReceive('getPlayerInfo')->andReturn($deadPlayerInfo);
+
+        // given players are in the same place
+        $place = \Mockery::mock(Place::class);
+        $place->shouldReceive('getPlayers')->andReturn(new PlayerCollection([$player, $deadPlayer]));
+        $place->makePartial();
+
+        $deadPlayer->shouldReceive('getPlace')->andReturn($place);
+
+        // given universe state should make that detached crewmember player should have a trauma
+        $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_PROBABILTY)->andReturn(true);
+
+        // when the dead player dies
+        $playerEvent = new PlayerEvent($deadPlayer, [], new \DateTime());
+        $this->playerSubscriber->onDeathPlayer($playerEvent);
+
+        // then no trauma is created
         $this->diseaseCauseService->shouldNotHaveReceived('handleDiseaseForCause');
         $this->roomLogService->shouldNotHaveReceived('createLog');
     }

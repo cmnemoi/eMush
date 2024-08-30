@@ -5,7 +5,6 @@ namespace Mush\Disease\Listener;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\RollPercentageEvent;
@@ -17,6 +16,7 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -99,15 +99,18 @@ final class PlayerSubscriber implements EventSubscriberInterface
 
         /** @var Player $player */
         foreach ($playersInRoom as $player) {
-            if ($this->randomService->isSuccessful(self::TRAUMA_PROBABILTY) && !$player->isMush()) {
-                $characterGender = CharacterEnum::isMale($player->getName()) ? 'male' : 'female';
+            if (
+                $this->randomService->isSuccessful(self::TRAUMA_PROBABILTY)
+                && $player->isHuman()
+                && $player->doesNotHaveSkill(SkillEnum::DETACHED_CREWMEMBER)
+            ) {
                 $this->roomLogService->createLog(
                     LogEnum::TRAUMA_DISEASE,
                     $event->getPlace(),
                     VisibilityEnum::PRIVATE,
                     'event_log',
                     $player,
-                    ['character_gender' => $characterGender],
+                    ['character_gender' => $player->getGender()],
                     $event->getTime()
                 );
                 $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::TRAUMA, $player);

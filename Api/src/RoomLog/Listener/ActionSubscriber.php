@@ -9,16 +9,22 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\Door;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ActionSubscriber implements EventSubscriberInterface
 {
+    public const int OBSERVANT_REVEAL_CHANCE = 25;
+
     public function __construct(
+        private D100RollServiceInterface $d100Roll,
         private RoomLogServiceInterface $roomLogService,
         private TranslationServiceInterface $translationService,
     ) {}
@@ -90,6 +96,14 @@ final class ActionSubscriber implements EventSubscriberInterface
         $content = $actionResult->getContent();
         if ($content !== null) {
             $this->createContentLog($event, $content);
+        }
+
+        if (
+            $player->hasSkill(SkillEnum::OBSERVANT)
+            && $this->d100Roll->isSuccessful(self::OBSERVANT_REVEAL_CHANCE)
+            && $this->canPlayerSeeSecretRevealedLogs($player)
+        ) {
+            $this->createObservantNoticeSomethingLog($player);
         }
     }
 
@@ -213,5 +227,26 @@ final class ActionSubscriber implements EventSubscriberInterface
             'place' => $placeName,
             'exit_loc_prep' => $exitLocPrep,
         ];
+    }
+
+    private function createObservantNoticeSomethingLog(Player $player): void
+    {
+        $this->roomLogService->createLog(
+            LogEnum::OBSERVANT_NOTICED_SOMETHING,
+            $player->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'event_log',
+            $player,
+            [$player->getLogKey() => $player->getLogName()],
+            new \DateTime()
+        );
+    }
+
+    private function canPlayerSeeSecretRevealedLogs(Player $player): bool
+    {
+        return $this->roomLogService->getRoomLog($player)->filter(
+            static fn (RoomLog $roomLog) => $roomLog->getBaseVisibility() === VisibilityEnum::SECRET
+            && $roomLog->getVisibility() === VisibilityEnum::REVEALED
+        )->count() > 0;
     }
 }

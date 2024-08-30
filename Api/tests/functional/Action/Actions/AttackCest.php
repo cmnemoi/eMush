@@ -20,123 +20,114 @@ use Mush\Tests\FunctionalTester;
 /**
  * @internal
  */
-final class ShootActionCest extends AbstractFunctionalTest
+final class AttackCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
-    private Shoot $shootAction;
+    private Attack $attack;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
-    private GameItem $blaster;
+    private GameItem $knife;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT]);
-        $this->shootAction = $I->grabService(Shoot::class);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::ATTACK]);
+        $this->attack = $I->grabService(Attack::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->givenChunHasABlaster();
+        $this->givenChunHasAKnife();
     }
 
     public function shouldRemoveHealthPointsToTarget(FunctionalTester $I): void
     {
-        $this->givenBlasterHas100ChanceToHit();
+        $this->givenKnifeHas100ChanceToHit();
 
         $this->givenKuanTiHasHealthPoints(10);
 
-        $this->whenChunShootsAtKuanTi();
+        $this->whenChunAttacksAtKuanTi();
 
-        $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(8, $I);
+        $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(9, $I);
     }
 
     public function armorShouldReduceDamage(FunctionalTester $I): void
     {
-        $this->givenBlasterHas100ChanceToHit();
+        $this->givenKnifeHas100ChanceToHit();
 
-        $this->givenBlasterHas0ChanceToDoCriticalHit();
+        $this->givenKnifeHas0ChanceToDoCriticalHit();
 
-        $this->givenBlasterInflictsOneDamage();
+        $this->givenKnifeInflictsOneDamage();
 
         $this->givenKuanTiHasPlasteniteArmor();
 
         $this->givenKuanTiHasHealthPoints(10);
 
-        $this->whenChunShootsAtKuanTi();
+        $this->whenChunAttacksAtKuanTi();
 
         $this->thenKuanTiShouldHaveHealthPoints(10, $I);
     }
 
     public function criticalHitShouldInflictInjuryToTarget(FunctionalTester $I): void
     {
-        $this->givenBlasterHas100ChanceToHit();
+        $this->givenKnifeHas100ChanceToHit();
 
-        $this->givenBlasterHas100ChanceToDoCriticalHit();
+        $this->givenKnifeHas100ChanceToDoCriticalHit();
 
-        $this->whenChunShootsAtKuanTi();
+        $this->whenChunAttacksAtKuanTi();
 
         $this->thenKuanTiShouldHaveAnInjury($I);
     }
 
     public function criticalHitShouldIgnoreArmor(FunctionalTester $I): void
     {
-        $this->givenBlasterHas100ChanceToHit();
+        $this->givenKnifeHas100ChanceToHit();
 
-        $this->givenBlasterHas100ChanceToDoCriticalHit();
+        $this->givenKnifeHas100ChanceToDoCriticalHit();
 
-        $this->givenBlasterInflictsOneDamage();
+        $this->givenKnifeInflictsOneDamage();
 
         $this->givenKuanTiHasPlasteniteArmor();
 
         $this->givenKuanTiHasHealthPoints(10);
 
-        $this->whenChunShootsAtKuanTi();
+        $this->whenChunAttacksAtKuanTi();
 
         $this->thenKuanTiShouldHaveHealthPoints(9, $I);
     }
 
     public function criticalMissShouldInflictInjuryToPlayer(FunctionalTester $I): void
     {
-        $this->givenBlasterHas0ChanceToHit();
+        $this->givenKnifeHas0ChanceToHit();
 
-        $this->givenBlasterHas100ChanceToDoCriticalMiss();
+        $this->givenKnifeHas100ChanceToDoCriticalMiss();
 
-        $this->whenChunShootsAtKuanTi();
+        $this->whenChunAttacksAtKuanTi();
 
         $this->thenChunShouldHaveAnInjury($I);
     }
 
-    public function shouldNotBeExecutableIfBlasterIsBroken(FunctionalTester $I): void
+    public function shouldNotBeExecutableIfKnifeIsBroken(FunctionalTester $I): void
     {
-        $this->givenBlasterIsBroken();
+        $this->givenKnifeIsBroken();
 
-        $this->whenChunShootsAtKuanTi();
+        $this->whenChunAttacksAtKuanTi();
 
         $this->thenActionIsNotExecutableWithMessage(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $I);
     }
 
-    public function shouldNotBeExecutableIfBlasterIsUncharged(FunctionalTester $I): void
+    private function givenChunHasAKnife(): void
     {
-        $this->givenBlasterIsUncharged();
-
-        $this->whenChunShootsAtKuanTi();
-
-        $this->thenActionIsNotExecutableWithMessage(ActionImpossibleCauseEnum::UNLOADED_WEAPON, $I);
-    }
-
-    private function givenChunHasABlaster(): void
-    {
-        $this->blaster = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::BLASTER,
+        $this->knife = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::KNIFE,
             equipmentHolder: $this->chun,
             reasons: [],
             time: new \DateTime(),
         );
     }
 
-    private function givenBlasterHas100ChanceToHit(): void
+    private function givenKnifeHas100ChanceToHit(): void
     {
         $this->actionConfig->setSuccessRate(100);
     }
@@ -146,19 +137,19 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->kuanTi->setHealthPoint($healthPoints);
     }
 
-    private function givenBlasterHas100ChanceToDoCriticalHit(): void
+    private function givenKnifeHas100ChanceToDoCriticalHit(): void
     {
-        $this->blaster->getWeaponMechanicOrThrow()->setCriticalSuccessRate(100);
+        $this->knife->getWeaponMechanicOrThrow()->setCriticalSuccessRate(100);
     }
 
-    private function givenBlasterHas0ChanceToDoCriticalHit(): void
+    private function givenKnifeHas0ChanceToDoCriticalHit(): void
     {
-        $this->blaster->getWeaponMechanicOrThrow()->setCriticalSuccessRate(0);
+        $this->knife->getWeaponMechanicOrThrow()->setCriticalSuccessRate(0);
     }
 
-    private function givenBlasterInflictsOneDamage(): void
+    private function givenKnifeInflictsOneDamage(): void
     {
-        $this->blaster->getWeaponMechanicOrThrow()->setBaseDamageRange([1 => 1]);
+        $this->knife->getWeaponMechanicOrThrow()->setBaseDamageRange([1 => 1]);
     }
 
     private function givenKuanTiHasPlasteniteArmor(): void
@@ -171,45 +162,35 @@ final class ShootActionCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenBlasterHas0ChanceToHit(): void
+    private function givenKnifeHas0ChanceToHit(): void
     {
         $this->actionConfig->setSuccessRate(0);
     }
 
-    private function givenBlasterHas100ChanceToDoCriticalMiss(): void
+    private function givenKnifeHas100ChanceToDoCriticalMiss(): void
     {
-        $this->blaster->getWeaponMechanicOrThrow()->setCriticalFailRate(100);
+        $this->knife->getWeaponMechanicOrThrow()->setCriticalFailRate(100);
     }
 
-    private function givenBlasterIsBroken(): void
+    private function givenKnifeIsBroken(): void
     {
         $this->statusService->createStatusFromName(
             statusName: EquipmentStatusEnum::BROKEN,
-            holder: $this->blaster,
+            holder: $this->knife,
             tags: [],
             time: new \DateTime(),
         );
     }
 
-    private function givenBlasterIsUncharged(): void
+    private function whenChunAttacksAtKuanTi(): void
     {
-        $this->statusService->updateCharge(
-            chargeStatus: $this->blaster->getUsedCharge(ActionEnum::SHOOT->value),
-            delta: -1,
-            tags: [],
-            time: new \DateTime(),
-        );
-    }
-
-    private function whenChunShootsAtKuanTi(): void
-    {
-        $this->shootAction->loadParameters(
+        $this->attack->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $this->blaster,
+            actionProvider: $this->knife,
             player: $this->chun,
             target: $this->kuanTi,
         );
-        $this->shootAction->execute();
+        $this->attack->execute();
     }
 
     private function thenKuanTiShouldHaveLessOrEqualHealthPoints(int $healthPoints, FunctionalTester $I): void
@@ -234,6 +215,6 @@ final class ShootActionCest extends AbstractFunctionalTest
 
     private function thenActionIsNotExecutableWithMessage(string $message, FunctionalTester $I): void
     {
-        $I->assertEquals($message, $this->shootAction->cannotExecuteReason());
+        $I->assertEquals($message, $this->attack->cannotExecuteReason());
     }
 }

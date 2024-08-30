@@ -193,6 +193,7 @@ enum ActionEnum: string
             self::MOVE,
             self::TAKE,
             self::TOGGLE_MAGNETIC_NET,
+            self::TOGGLE_NERON_INHIBITION,
             self::TOGGLE_PLASMA_SHIELD,
             self::ACCEPT_MISSION,
             self::REJECT_MISSION,

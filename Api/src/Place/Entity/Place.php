@@ -534,4 +534,9 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     {
         return $this->getPlayers()->getPlayerAlive()->hasOneWithStatus(PlayerStatusEnum::GUARDIAN);
     }
+
+    public function hasAlivePlayerWithSkill(SkillEnum $skill): bool
+    {
+        return $this->getPlayers()->getPlayersWithSkill($skill)->getPlayerAlive()->count() > 0;
+    }
 }

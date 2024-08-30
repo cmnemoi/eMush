@@ -99,7 +99,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         }
 
         if (
-            $player->hasSkill(SkillEnum::OBSERVANT)
+            $player->getPlace()->hasAlivePlayerWithSkill(SkillEnum::OBSERVANT)
             && $this->d100Roll->isSuccessful(self::OBSERVANT_REVEAL_CHANCE)
             && $this->canPlayerSeeSecretRevealedLogs($player)
         ) {

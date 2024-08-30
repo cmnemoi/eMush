@@ -29,13 +29,15 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class SearchActionCest extends AbstractFunctionalTest
-{   
+/**
+ * @internal
+ */
+final class SearchActionCest extends AbstractFunctionalTest
+{
     private ActionConfig $actionConfig;
     private Search $searchAction;
     private Hide $hideAction;
@@ -43,7 +45,7 @@ class SearchActionCest extends AbstractFunctionalTest
     private AddSkillToPlayerService $addSkillToPlayer;
 
     public function _before(FunctionalTester $I)
-    {   
+    {
         parent::_before($I);
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]);

@@ -187,12 +187,15 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($observantModifier->getName(), $observantModifier);
         $manager->persist($observantModifier);
 
-        /** @var VariableEventConfig $eventConfig */
-        $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_2_ACTION_POINT);
-        $caffeineJunkieModifier = TriggerEventModifierConfig::fromConfigData(
+        $observantModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_MINUS_1_ACTION_POINT_ON_SEARCH)
+        );
+        $this->addReference($observantModifier->getName(), $observantModifier);
+        $manager->persist($observantModifier);
+
+        $caffeineJunkieModifier = VariableEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_2_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE)
         );
-        $caffeineJunkieModifier->setTriggeredEvent($eventConfig);
         $this->addReference($caffeineJunkieModifier->getName(), $caffeineJunkieModifier);
         $manager->persist($caffeineJunkieModifier);
 

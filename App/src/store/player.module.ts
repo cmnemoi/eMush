@@ -91,9 +91,9 @@ const actions: ActionTree<any, any> = {
                         playerIsNull ? this.dispatch("daedalus/loadAlerts", { daedalus: player.daedalus }) : Promise.resolve(),
                         playerIsNull ? this.dispatch("daedalus/loadMinimap", { player }) : Promise.resolve(),
                         this.dispatch("room/loadRoom", { room: player?.room }),
-                        this.dispatch("room/updateSelectedItemPile"),
                         player?.spaceBattle !== null ? this.dispatch("room/loadSpaceBattle", { spaceBattle: player?.spaceBattle }) : Promise.resolve()
                     ]);
+                    await this.dispatch("room/updateSelectedItemPile"),
                     commit('updateSelectedItem');
                 })
             ]);

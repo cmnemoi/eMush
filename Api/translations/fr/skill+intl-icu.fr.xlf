@@ -535,5 +535,15 @@
         <target>Le pyromane peut injecter des microspores explosifs dans un support inflammable afin de déclencher une combustion violente susceptible d'endommager à terme le vaisseau.//:point: Pour **4** :pa:, vous pouvez déclencher un **incendie** dans une salle.</target>
       </segment>
     </unit>
+    <unit id="observant">
+      <segment id="observant.name" state="translated">
+        <source>observant.name</source>
+        <target>Observateur</target>
+      </segment>
+      <segment id="observant.description" state="translated">
+        <source>observant.description</source>
+        <target>Vous dépensez un :pa: de moins pour retrouver des objets cachés, vous avez 25% de chances de détécter une action discrète dans votre pièce.//:point: L'action **Fouiller** vous coûte un :pa: de moins.//:point: Vous avez **25% de chances de détecter les actions discrètes** de votre pièce.//:point: Vous avez **25% de chances de révéler les actions furtives** réalisées en votre présence.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

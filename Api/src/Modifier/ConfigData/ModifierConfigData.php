@@ -3224,7 +3224,7 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::CONSUME->value => ModifierRequirementEnum::ALL_TAGS,
-                GameRationEnum::COFFEE . '_action_target' => ModifierRequirementEnum::ALL_TAGS,
+                GameRationEnum::COFFEE => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
     ];

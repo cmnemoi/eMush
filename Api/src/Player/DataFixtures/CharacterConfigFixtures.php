@@ -145,6 +145,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $chefSkillConfig */
         $chefSkillConfig = $this->getReference(SkillEnum::CHEF->value);
 
+        /** @var SkillConfig $observantSkillConfig */
+        $observantSkillConfig = $this->getReference(SkillEnum::OBSERVANT->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -213,6 +216,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setSkillConfigs([
                 $trackerSkillConfig,
                 $determinedSkillConfig,
+                $observantSkillConfig,
                 $technicianSkillConfig,
                 $itExpertSkillConfig,
             ])

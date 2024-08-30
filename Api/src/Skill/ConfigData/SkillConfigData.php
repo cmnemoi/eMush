@@ -156,6 +156,9 @@ abstract class SkillConfigData
                 skillPointsConfig: SkillPointsEnum::NURSE_POINTS,
             ),
             new SkillConfigDto(
+                name: SkillEnum::OBSERVANT,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::OPTIMIST,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_1_MORALE_POINT_ON_DAY_CHANGE,

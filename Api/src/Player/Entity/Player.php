@@ -925,7 +925,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getAlivePlayersInRoomExceptSelf(): PlayerCollection
     {
         return $this->getPlace()->getPlayers()->getPlayerAlive()->filter(
-            fn (Player $player) => $player->getId() !== $this->getId()
+            fn (Player $player) => $player->notEquals($this)
         );
     }
 

@@ -30,6 +30,8 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class RoomLogService implements RoomLogServiceInterface
 {
+    public const int OBSERVANT_REVEAL_CHANCE = 25;
+
     private EntityManagerInterface $entityManager;
     private RandomServiceInterface $randomService;
     private RoomLogRepository $repository;
@@ -198,19 +200,16 @@ class RoomLogService implements RoomLogServiceInterface
         }
 
         $place = $player->getPlace();
-        $placeEquipments = $place->getEquipments();
 
-        $equipmentIsACamera = static fn (GameEquipment $gameEquipment): bool => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
-        $equipmentIsNotBroken = static fn (GameEquipment $gameEquipment): bool => $gameEquipment->isBroken() === false;
-
-        $placeHasAFunctionalCamera = $placeEquipments->filter($equipmentIsACamera)->filter($equipmentIsNotBroken)->count() > 0;
+        $placeHasAFunctionalCamera = $place->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
         $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
+        $observantRevealsLog = $player->getAlivePlayersInRoomExceptSelf()->getPlayersWithSkill(SkillEnum::OBSERVANT)->count() > 0 && $this->randomService->isSuccessful(self::OBSERVANT_REVEAL_CHANCE);
 
         if ($visibility === VisibilityEnum::SECRET && ($placeHasAWitness || $placeHasAFunctionalCamera)) {
             return VisibilityEnum::REVEALED;
         }
 
-        if ($visibility === VisibilityEnum::COVERT && $placeHasAFunctionalCamera) {
+        if ($visibility === VisibilityEnum::COVERT && ($placeHasAFunctionalCamera || $observantRevealsLog)) {
             return VisibilityEnum::REVEALED;
         }
 

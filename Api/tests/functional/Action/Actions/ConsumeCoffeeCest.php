@@ -10,12 +10,15 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -65,6 +68,25 @@ final class ConsumeCoffeeCest extends AbstractFunctionalTest
         $this->whenPlayerConsumesCoffee();
 
         $this->thenPlayerShouldHaveActionPoints(8, $I);
+    }
+
+    public function shouldPrintAPrivateLog(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasActionPoints(8);
+
+        $this->givenPlayerIsACaffeineJunkie();
+
+        $this->whenPlayerConsumesCoffee();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'Vous avez gagné 4 :pa:.',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player,
+                log: PlayerModifierLogEnum::GAIN_ACTION_POINT,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I
+        );
     }
 
     private function givenPlayerHasACoffee(): void

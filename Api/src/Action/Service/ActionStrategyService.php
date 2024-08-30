@@ -10,17 +10,21 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ActionStrategyService implements ActionStrategyServiceInterface
 {
     private array $actions = [];
     private EntityManagerInterface $entityManager;
+    private LoggerInterface $logger;
 
     public function __construct(
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
+        $this->logger = $logger;
     }
 
     public function addAction(AbstractAction $action): void
@@ -45,10 +49,18 @@ class ActionStrategyService implements ActionStrategyServiceInterface
             $result = $this->executeInTransaction($player, $actionId, $params);
             $this->entityManager->flush();
             $this->entityManager->commit();
-        } catch (\Throwable $e) {
+        } catch (\Throwable $error) {
+            $this->logger->error('Error while executing action', [
+                'player' => $player->getId(),
+                'actionId' => $actionId,
+                'actionParameters' => $params,
+                'error' => $error->getMessage(),
+                'trace' => $error->getTraceAsString(),
+            ]);
             $this->entityManager->rollback();
+            $this->entityManager->close();
 
-            throw $e;
+            throw $error;
         }
 
         return $result;

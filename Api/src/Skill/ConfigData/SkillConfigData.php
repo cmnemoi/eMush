@@ -157,6 +157,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::OBSERVANT,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_MINUS_1_ACTION_POINT_ON_SEARCH,
+                ]
             ),
             new SkillConfigDto(
                 name: SkillEnum::OPTIMIST,

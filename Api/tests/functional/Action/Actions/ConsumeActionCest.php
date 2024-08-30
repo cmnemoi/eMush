@@ -21,13 +21,14 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -44,7 +45,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
     private ActionConfig $consumeConfig;
     private Consume $consumeAction;
 
-    private EventServiceInterface $eventService;
+    private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -55,7 +56,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $this->consumeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CONSUME]);
         $this->consumeAction = $I->grabService(Consume::class);
 
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
@@ -438,5 +439,34 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         // then Chun should not have any starving statuses
         $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::STARVING_WARNING));
         $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::STARVING));
+    }
+
+    public function caffeineJunkieShouldNotGainMoreActionPointsWithARation(FunctionalTester $I): void
+    {
+        // given Chun is a caffeine junkie
+        $this->addSkillToPlayer->execute(SkillEnum::CAFFEINE_JUNKIE, $this->chun);
+
+        // given Chun has a standard ration in her inventory
+        $ration = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameRationEnum::STANDARD_RATION,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun has 6 action points
+        $this->chun->setActionPoint(6);
+
+        // when Chun consumes the ration
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->consumeConfig,
+            actionProvider: $ration,
+            player: $this->chun,
+            target: $ration,
+        );
+        $this->consumeAction->execute();
+
+        // then Chun should have 10 action points
+        $I->assertEquals(10, $this->chun->getActionPoint());
     }
 }

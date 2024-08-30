@@ -12,6 +12,7 @@ use Mush\Communication\Event\MessageEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
@@ -3190,6 +3191,25 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::ACCEPT_MISSION->value => ModifierRequirementEnum::ANY_TAGS,
             ],
+        ],
+        [
+            'name' => ModifierNameEnum::PLAYER_PLUS_2_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE,
+            'modifierName' => ModifierNameEnum::CAFFEINE_JUNKIE_MODIFIER,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'trigger_event_modifier',
+            'visibility' => VisibilityEnum::PRIVATE,
+            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_2_ACTION_POINT,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ALL_TAGS,
+                GameRationEnum::COFFEE . '_action_target' => ModifierRequirementEnum::ALL_TAGS,
+            ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
     ];
 

@@ -343,6 +343,7 @@ class CharacterConfigData
             'characterName' => 'gioele',
             'skillConfigs' => [
                 SkillEnum::SOLID,
+                SkillEnum::CAFFEINE_JUNKIE,
                 SkillEnum::ASTROPHYSICIST,
             ],
             'maxNumberPrivateChannel' => 3,

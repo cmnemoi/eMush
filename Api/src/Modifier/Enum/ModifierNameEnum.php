@@ -62,4 +62,6 @@ abstract class ModifierNameEnum
     public const string SPRINTER_MODIFIER = 'sprinter_modifier';
     public const string PLAYER_PLUS_3_ACTION_POINT_ON_ACCEPT_MISSION = 'player_+3_action_point_on_accept_mission';
     public const string DEVOTION_MODIFIER = 'devotion_modifier';
+    public const string PLAYER_PLUS_2_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE = 'player_+2_action_points_on_consume_action_if_coffee';
+    public const string CAFFEINE_JUNKIE_MODIFIER = 'caffeine_junkie_modifier';
 }

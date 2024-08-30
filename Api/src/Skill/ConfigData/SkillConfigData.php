@@ -42,6 +42,12 @@ abstract class SkillConfigData
                 skillPointsConfig: SkillPointsEnum::BOTANIST_POINTS,
             ),
             new SkillConfigDto(
+                name: SkillEnum::CAFFEINE_JUNKIE,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_PLUS_2_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::CONCEPTOR,
                 skillPointsConfig: SkillPointsEnum::CONCEPTOR_POINTS,
             ),

@@ -132,7 +132,7 @@ final class FakeRoomLogService implements RoomLogServiceInterface
 
     private function setId(RoomLog $roomLog): RoomLog
     {
-        (new \ReflectionProperty($roomLog, 'id'))->setValue($roomLog, (int) crc32(uniqid()));
+        (new \ReflectionProperty($roomLog, 'id'))->setValue($roomLog, crc32(uniqid()));
 
         return $roomLog;
     }

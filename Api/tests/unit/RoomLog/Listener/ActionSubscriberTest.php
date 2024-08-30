@@ -14,6 +14,7 @@ use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\Random\FakeD100RollService;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -45,6 +46,7 @@ final class ActionSubscriberTest extends TestCase
         $this->actionSubscriber = new ActionSubscriber(
             new FakeD100RollService(isSuccessful: true),
             $this->roomLogService,
+            $this->createStub(TranslationServiceInterface::class),
         );
     }
 

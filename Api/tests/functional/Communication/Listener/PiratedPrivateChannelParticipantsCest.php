@@ -23,6 +23,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Status;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -97,6 +98,7 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
             ->setParticipant($this->player2->getPlayerInfo());
         $I->haveInRepository($channelPlayer2);
         $this->convertPlayerToMush($I, $this->player1);
+        $this->addSkillToPlayer(SkillEnum::RADIO_PIRACY, $I);
     }
 
     // This test aims to reproduce a bug reported by users
@@ -261,6 +263,7 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         // Create a third player
         $player3 = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::FINOLA);
         $this->convertPlayerToMush($I, $player3);
+        $this->addSkillToPlayer(SkillEnum::RADIO_PIRACY, $I, $player3);
 
         $equipmentConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => 'walkie_talkie']);
         // initialize talkie

@@ -112,7 +112,6 @@ class MoveSubscriberCest
     public function testMoveWithStatusWithPlaceModifier(FunctionalTester $I)
     {
         // Given the player has a status with modifierConfig with ROOM reach
-
         $modifierConfigPlace = new VariableEventModifierConfig('testModifierShower2');
         $modifierConfigPlace
             ->setTargetEvent(ActionVariableEnum::OUTPUT_QUANTITY)
@@ -123,8 +122,6 @@ class MoveSubscriberCest
             ->buildName();
         $I->haveInRepository($modifierConfigPlace);
 
-        $modifierPlace = new GameModifier($this->currentRoom, $modifierConfigPlace);
-        $I->haveInRepository($modifierPlace);
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
@@ -133,6 +130,10 @@ class MoveSubscriberCest
         $I->haveInRepository($statusConfig);
         $statusPlayer = new Status($this->player, $statusConfig);
         $I->haveInRepository($statusPlayer);
+
+        $modifierPlace = new GameModifier($this->currentRoom, $modifierConfigPlace);
+        $modifierPlace->setModifierProvider($this->player);
+        $I->haveInRepository($modifierPlace);
 
         $I->assertCount(1, $this->currentRoom->getPlayers());
         $I->assertCount(0, $this->destinationRoom->getPlayers());
@@ -165,8 +166,7 @@ class MoveSubscriberCest
             ->setMode(VariableModifierModeEnum::ADDITIVE);
         $I->haveInRepository($modifierConfigPlayerReach);
         $I->haveInRepository($this->player);
-        $modifierPlayer = new GameModifier($this->player, $modifierConfigPlayerReach);
-        $I->haveInRepository($modifierPlayer);
+
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfigPlayerReach]))
@@ -185,6 +185,10 @@ class MoveSubscriberCest
         $I->haveInRepository($gameEquipment);
         $this->player->addEquipment($gameEquipment);
 
+        $modifierPlayer = new GameModifier($this->player, $modifierConfigPlayerReach);
+        $modifierPlayer->setModifierProvider($gameEquipment);
+        $I->haveInRepository($modifierPlayer);
+
         // Given the player has another gear with ROOM reach
         $modifierConfigPlaceReach = new VariableEventModifierConfig('testModifierShower2');
         $modifierConfigPlaceReach
@@ -195,8 +199,7 @@ class MoveSubscriberCest
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName();
         $I->haveInRepository($modifierConfigPlaceReach);
-        $modifierPlace = new GameModifier($this->currentRoom, $modifierConfigPlaceReach);
-        $I->haveInRepository($modifierPlace);
+
         $gear2 = new Gear();
         $gear2
             ->setModifierConfigs(new ArrayCollection([$modifierConfigPlaceReach]))
@@ -211,6 +214,10 @@ class MoveSubscriberCest
         $gameEquipment2 = $equipmentConfig2->createGameEquipment($this->player);
         $I->haveInRepository($gameEquipment2);
         $this->player->addEquipment($gameEquipment2);
+
+        $modifierPlace = new GameModifier($this->currentRoom, $modifierConfigPlaceReach);
+        $modifierPlace->setModifierProvider($gameEquipment2);
+        $I->haveInRepository($modifierPlace);
 
         // Check our initialisation
         $I->assertCount(1, $this->currentRoom->getPlayers());
@@ -268,11 +275,12 @@ class MoveSubscriberCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
-        $modifier4 = new GameModifier($this->currentRoom, $modifierConfig);
-        $I->haveInRepository($modifier4);
-        $I->haveInRepository($statusConfig);
         $statusEquipment = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($statusEquipment);
+
+        $modifier4 = new GameModifier($this->currentRoom, $modifierConfig);
+        $modifier4->setModifierProvider($gameEquipment);
+        $I->haveInRepository($modifier4);
 
         $I->assertCount(1, $this->currentRoom->getPlayers());
         $I->assertCount(0, $this->destinationRoom->getPlayers());

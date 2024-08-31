@@ -81,9 +81,6 @@ class DropSubscriberCest
             'name' => 'soapShowerActionModifier',
         ]);
 
-        $modifier = new GameModifier($player, $modifierConfig);
-        $I->haveInRepository($modifier);
-
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
@@ -105,6 +102,10 @@ class DropSubscriberCest
         $I->haveInRepository($gameEquipment);
 
         $player->addEquipment($gameEquipment);
+
+        $modifier = new GameModifier($player, $modifierConfig);
+        $modifier->setModifierProvider($gameEquipment);
+        $I->haveInRepository($modifier);
 
         $this->dropAction->loadParameters($dropActionEntity, $gameEquipment, $player, $gameEquipment);
         $this->dropAction->execute();
@@ -322,12 +323,6 @@ class DropSubscriberCest
             'name' => 'soapShowerActionModifier',
         ]);
 
-        $modifier = new GameModifier($player, $modifierConfig);
-        $I->haveInRepository($modifier);
-
-        $modifier2 = new GameModifier($player, $modifierConfig);
-        $I->haveInRepository($modifier2);
-
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
@@ -369,6 +364,13 @@ class DropSubscriberCest
             ->setEquipment($equipmentConfig2)
             ->setName('some name');
         $I->haveInRepository($gameEquipment2);
+
+        $modifier = new GameModifier($player, $modifierConfig);
+        $modifier->setModifierProvider($gameEquipment);
+        $I->haveInRepository($modifier);
+        $modifier2 = new GameModifier($player, $modifierConfig);
+        $modifier2->setModifierProvider($gameEquipment2);
+        $I->haveInRepository($modifier2);
 
         $player->addEquipment($gameEquipment)->addEquipment($gameEquipment2);
 
@@ -425,11 +427,6 @@ class DropSubscriberCest
             'name' => 'soapShowerActionModifier',
         ]);
 
-        $modifier = new GameModifier($player, $modifierConfig);
-        $I->haveInRepository($modifier);
-        $modifier2 = new GameModifier($player, $modifierConfig);
-        $I->haveInRepository($modifier2);
-
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
@@ -456,6 +453,13 @@ class DropSubscriberCest
             ->setEquipment($equipmentConfig)
             ->setName('some name');
         $I->haveInRepository($gameEquipment2);
+
+        $modifier = new GameModifier($player, $modifierConfig);
+        $modifier->setModifierProvider($gameEquipment);
+        $I->haveInRepository($modifier);
+        $modifier2 = new GameModifier($player, $modifierConfig);
+        $modifier2->setModifierProvider($gameEquipment2);
+        $I->haveInRepository($modifier2);
 
         $this->dropAction->loadParameters($takeActionEntity, $gameEquipment, $player, $gameEquipment);
         $this->dropAction->execute();

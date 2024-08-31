@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\TimestampableCancelInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -56,6 +57,9 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $timestampableCanceled = false;
+
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => VisibilityEnum::HIDDEN])]
+    private string $baseVisibility = VisibilityEnum::HIDDEN;
 
     public function __construct()
     {
@@ -207,6 +211,18 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
     public function cancelTimestampable(): void
     {
         $this->timestampableCanceled = true;
+    }
+
+    public function getBaseVisibility(): string
+    {
+        return $this->baseVisibility;
+    }
+
+    public function setBaseVisibility(string $baseVisibility): self
+    {
+        $this->baseVisibility = $baseVisibility;
+
+        return $this;
     }
 
     public function getClassName(): string

@@ -204,6 +204,7 @@ class CharacterConfigData
             'skillConfigs' => [
                 SkillEnum::TRACKER,
                 SkillEnum::DETERMINED,
+                SkillEnum::OBSERVANT,
                 SkillEnum::TECHNICIAN,
                 SkillEnum::IT_EXPERT,
             ],

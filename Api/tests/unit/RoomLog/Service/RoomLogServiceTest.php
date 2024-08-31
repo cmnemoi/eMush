@@ -37,6 +37,10 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\RoomLog\Service\RoomLogService;
+use Mush\Skill\ConfigData\SkillConfigData;
+use Mush\Skill\Entity\Skill;
+use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -152,6 +156,7 @@ final class RoomLogServiceTest extends TestCase
         $visibility = VisibilityEnum::PUBLIC;
         $type = 'log';
         $player = new Player();
+        (new \ReflectionProperty($player, 'id'))->setValue($player, 1);
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
@@ -199,6 +204,7 @@ final class RoomLogServiceTest extends TestCase
         $visibility = VisibilityEnum::SECRET;
         $type = 'log';
         $player = new Player();
+        (new \ReflectionProperty($player, 'id'))->setValue($player, 1);
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
@@ -249,6 +255,7 @@ final class RoomLogServiceTest extends TestCase
         $visibility = VisibilityEnum::SECRET;
         $type = 'log';
         $player = new Player();
+        (new \ReflectionProperty($player, 'id'))->setValue($player, 1);
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
@@ -262,6 +269,7 @@ final class RoomLogServiceTest extends TestCase
         $player2
             ->setPlayerInfo($playerInfo2)
             ->setPlace($place);
+        (new \ReflectionProperty($player2, 'id'))->setValue($player2, 2);
 
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -303,6 +311,7 @@ final class RoomLogServiceTest extends TestCase
         $visibility = VisibilityEnum::COVERT;
         $type = 'log';
         $player = new Player();
+        (new \ReflectionProperty($player, 'id'))->setValue($player, 1);
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
@@ -354,6 +363,7 @@ final class RoomLogServiceTest extends TestCase
         $visibility = VisibilityEnum::COVERT;
         $type = 'log';
         $player = new Player();
+        (new \ReflectionProperty($player, 'id'))->setValue($player, 1);
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
@@ -501,6 +511,7 @@ final class RoomLogServiceTest extends TestCase
 
         $place = new Place();
         $player = new Player();
+        (new \ReflectionProperty($player, 'id'))->setValue($player, 1);
         $player->setPlace($place)->setDaedalus($daedalus);
 
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -557,6 +568,7 @@ final class RoomLogServiceTest extends TestCase
         $visibility = VisibilityEnum::SECRET;
         $type = 'log';
         $player = new Player();
+        (new \ReflectionProperty($player, 'id'))->setValue($player, 1);
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
@@ -600,6 +612,7 @@ final class RoomLogServiceTest extends TestCase
     {
         // given a player
         $player = new Player();
+        (new \ReflectionProperty($player, 'id'))->setValue($player, 1);
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         // given some unread room logs
@@ -624,6 +637,30 @@ final class RoomLogServiceTest extends TestCase
         $roomLogs->map(function (RoomLog $roomLog) use ($player) {
             $this->assertTrue($roomLog->isReadBy($player));
         });
+    }
+
+    public function testObservantRevealsCovertLog(): void
+    {
+        $daedalus = DaedalusFactory::createDaedalus();
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
+        $observant = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ELEESHA, $daedalus);
+        new Skill(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::OBSERVANT)), $observant);
+
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->randomService->shouldReceive('isSuccessful')->with(RoomLogService::OBSERVANT_REVEAL_CHANCE)->andReturn(true)->once();
+
+        $roomLog = $this->service->createLog(
+            ActionLogEnum::MAKE_SICK,
+            $player->getPlace(),
+            VisibilityEnum::COVERT,
+            'log',
+            $player,
+            [],
+            new \DateTime()
+        );
+
+        self::assertSame(VisibilityEnum::REVEALED, $roomLog->getVisibility());
     }
 
     private function roomLogFactory(PlayerInfo $playerInfo, int $number = 1): RoomLogCollection

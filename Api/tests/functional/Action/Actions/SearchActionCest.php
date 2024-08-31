@@ -23,22 +23,36 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class SearchActionCest
+/**
+ * @internal
+ */
+final class SearchActionCest extends AbstractFunctionalTest
 {
+    private ActionConfig $actionConfig;
     private Search $searchAction;
     private Hide $hideAction;
 
+    private AddSkillToPlayerService $addSkillToPlayer;
+
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]);
         $this->searchAction = $I->grabService(Search::class);
         $this->hideAction = $I->grabService(Hide::class);
+
+        $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
     }
 
     public function testSearch(FunctionalTester $I)
@@ -332,5 +346,33 @@ class SearchActionCest
         $I->assertCount(0, $gameEquipment1->getStatuses());
         $I->assertCount(0, $gameEquipment2->getStatuses());
         $I->assertCount(0, $gameEquipment3->getStatuses());
+    }
+
+    public function observantShouldSearchForZeroActionPoints(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsObservant();
+
+        $this->whenPlayerWantsToSearch();
+
+        $this->thenActionShouldCostZeroActionPoints($I);
+    }
+
+    private function givenPlayerIsObservant(): void
+    {
+        $this->addSkillToPlayer->execute(SkillEnum::OBSERVANT, $this->player);
+    }
+
+    private function whenPlayerWantsToSearch(): void
+    {
+        $this->searchAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->player,
+            player: $this->player
+        );
+    }
+
+    private function thenActionShouldCostZeroActionPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(0, $this->searchAction->getActionPointCost());
     }
 }

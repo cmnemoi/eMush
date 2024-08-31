@@ -1047,5 +1047,11 @@
         other {L'un d'entre eux était un agent infecté du Mush quand on a fui Xyloph. J'en mettrais ma main au feu... {firstPlayers} et {lastPlayer}. Mais qui...}}</target>
       </segment>
     </unit>
+    <unit id="observant_noticed_something">
+      <segment id="observant_noticed_something" state="final">
+        <source>observant_noticed_something</source>
+        <target>**{character}** a remarqué quelque chose d'intéressant...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

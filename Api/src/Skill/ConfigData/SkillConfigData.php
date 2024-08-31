@@ -225,6 +225,12 @@ abstract class SkillConfigData
                 skillPointsConfig: SkillPointsEnum::TECHNICIAN_POINTS,
             ),
             new SkillConfigDto(
+                name: SkillEnum::TRAPPER,
+                actionConfigs: [
+                    ActionEnum::TRAP_CLOSET,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::LOGISTICS_EXPERT,
             ),
             new SkillConfigDto(

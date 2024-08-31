@@ -12,7 +12,9 @@ use Mush\Action\Normalizer\ActionNormalizer;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Skill\Entity\Skill;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -25,6 +27,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
 {
     private ActionNormalizer $normalizer;
 
+    private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -32,20 +35,21 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
     {
         parent::_before($I);
         $this->normalizer = $I->grabService(ActionNormalizer::class);
-
+        $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldNormalizeTrapClosetAction(FunctionalTester $I): void
     {
-        // given KT is Mush so he has the action available
-        $mushStatus = $this->statusService->createStatusFromName(
+        // given KT is Mush and has Trapper skill so he has the action available
+        $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::MUSH,
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime(),
         );
+        $this->addSkillToPlayer->execute(SkillEnum::TRAPPER, $this->kuanTi);
 
         // given KT has one spore
         $this->kuanTi->setSpores(1);
@@ -65,8 +69,8 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'id' => $trapClosetAction->getActionConfig()->getId(),
                 'key' => 'trap_closet',
                 'actionProvider' => [
-                    'id' => $mushStatus->getId(),
-                    'class' => ChargeStatus::class,
+                    'id' => $this->kuanTi->getSkillByNameOrThrow(SkillEnum::TRAPPER)->getId(),
+                    'class' => Skill::class,
                 ],
                 'actionPointCost' => 1,
                 'moralPointCost' => 0,

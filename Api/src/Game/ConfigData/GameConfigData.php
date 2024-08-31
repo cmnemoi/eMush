@@ -585,10 +585,11 @@ class GameConfigData
             'mushSkillConfigs' => [
                 SkillEnum::PHAGOCYTE,
                 SkillEnum::ANONYMUSH,
-                SkillEnum::FERTILE,
-                SkillEnum::MYCELIUM_SPIRIT,
+                SkillEnum::TRAPPER,
                 SkillEnum::SPLASHPROOF,
                 SkillEnum::TRANSFER,
+                SkillEnum::FERTILE,
+                SkillEnum::MYCELIUM_SPIRIT,
                 SkillEnum::RADIO_PIRACY,
                 SkillEnum::INFECTOR,
             ],

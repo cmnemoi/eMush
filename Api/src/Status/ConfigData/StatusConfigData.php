@@ -1442,6 +1442,22 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => SkillPointsEnum::CHEF_POINTS->value,
+            'statusName' => SkillPointsEnum::CHEF_POINTS->value,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SKILL_POINTS_INCREMENT,
+            'maxCharge' => 8,
+            'startCharge' => 8,
+            'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_CHEF],
+            'autoRemove' => false,
+            'modifierConfigs' => [
+                ModifierNameEnum::SKILL_POINT_CHEF,
+            ],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

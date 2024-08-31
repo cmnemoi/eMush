@@ -11,22 +11,44 @@ use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Tool;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Service\AddSkillToPlayerService;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class CookActionCest
+/**
+ * @internal
+ */
+final class CookActionCest extends AbstractFunctionalTest
 {
+    private ActionConfig $actionConfig;
     private Cook $cookAction;
+    private AddSkillToPlayerService $addSkillToPlayer;
+    private GameEquipmentServiceInterface $gameEquipmentService;
+
+    private GameEquipment $kitchen;
+    private GameItem $ration;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::COOK]);
         $this->cookAction = $I->grabService(Cook::class);
+        $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+
+        $this->givenAKitchenInRoom();
+        $this->givenARationInRoom();
     }
 
     public function testCanReach(FunctionalTester $I)
@@ -129,6 +151,81 @@ class CookActionCest
         $gameEquipment->getEquipment()->setEquipmentName(GameRationEnum::COFFEE);
 
         $I->assertFalse($this->cookAction->isVisible());
+    }
+
+    public function shouldCostZeroActionPointsForAChef(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsAChef($I);
+
+        $this->whenPlayerWantsToCook();
+
+        $this->thenActionShouldCostZeroActionPoints($I);
+    }
+
+    public function shouldCostOneChefPointsForAChef(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsAChef();
+
+        $this->whenPlayerCooksRation();
+
+        $this->thenPlayerShouldHaveChefPoints(7, $I);
+    }
+
+    private function givenAKitchenInRoom(): void
+    {
+        $this->kitchen = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::KITCHEN,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenARationInRoom(): void
+    {
+        $this->ration = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameRationEnum::STANDARD_RATION,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenPlayerIsAChef(): void
+    {
+        $this->addSkillToPlayer->execute(SkillEnum::CHEF, $this->player);
+    }
+
+    private function whenPlayerWantsToCook(): void
+    {
+        $this->cookAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->ration,
+            player: $this->player,
+            target: $this->ration,
+        );
+    }
+
+    private function whenPlayerCooksRation(): void
+    {
+        $this->cookAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->kitchen,
+            player: $this->player,
+            target: $this->ration,
+        );
+
+        $this->cookAction->execute();
+    }
+
+    private function thenActionShouldCostZeroActionPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(0, $this->cookAction->getActionPointCost());
+    }
+
+    private function thenPlayerShouldHaveChefPoints(int $expectedChefPoints, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedChefPoints, $this->player->getSkillByNameOrThrow(SkillEnum::CHEF)->getSkillPoints());
     }
 
     private function createPlayer(Daedalus $daedalus, Place $room): Player

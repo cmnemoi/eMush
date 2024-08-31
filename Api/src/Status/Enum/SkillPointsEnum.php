@@ -11,6 +11,7 @@ use Mush\Skill\Enum\SkillEnum;
 enum SkillPointsEnum: string
 {
     case BOTANIST_POINTS = 'botanist_points';
+    case CHEF_POINTS = 'chef_points';
     case CONCEPTOR_POINTS = 'conceptor_points';
     case NURSE_POINTS = 'nurse_points';
     case IT_EXPERT_POINTS = 'it_expert_points';
@@ -24,6 +25,7 @@ enum SkillPointsEnum: string
     {
         return match ($skill->getName()) {
             SkillEnum::BOTANIST => self::BOTANIST_POINTS,
+            SkillEnum::CHEF => self::CHEF_POINTS,
             SkillEnum::CONCEPTOR => self::CONCEPTOR_POINTS,
             SkillEnum::NURSE => self::NURSE_POINTS,
             SkillEnum::IT_EXPERT => self::IT_EXPERT_POINTS,

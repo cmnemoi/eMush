@@ -402,7 +402,7 @@ class ActionData
         [
             'name' => 'cook',
             'action_name' => ActionEnum::COOK,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_COOK],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SHELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -514,7 +514,7 @@ class ActionData
         [
             'name' => 'hyperfreeze',
             'action_name' => ActionEnum::HYPERFREEZE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_COOK],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SHELF,
             'visibilities' => ['success' => 'private', 'fail' => 'private'],

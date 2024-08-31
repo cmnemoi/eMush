@@ -62,4 +62,5 @@ abstract class ModifierNameEnum
     public const string PLAYER_PLUS_3_ACTION_POINT_ON_ACCEPT_MISSION = 'player_+3_action_point_on_accept_mission';
     public const string DEVOTION_MODIFIER = 'devotion_modifier';
     public const string LOGISTICS_MODIFIER = 'logistics_modifier';
+    public const string SKILL_POINT_CHEF = 'skill_point_chef';
 }

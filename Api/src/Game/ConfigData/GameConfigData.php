@@ -456,6 +456,7 @@ class GameConfigData
                 PlayerStatusEnum::HAS_ISSUED_MISSION . '_default',
                 PlayerStatusEnum::ALPHA_MUSH . '_default',
                 DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED . '_default',
+                SkillPointsEnum::CHEF_POINTS->value,
             ],
             'triumphConfigs' => [
                 'alien_science',

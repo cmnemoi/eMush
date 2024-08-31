@@ -151,7 +151,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.DETACHED_CREWMEMBER]: {
-        'icon': getImgUrl('skills/human/detached_crewmember.png')
+        'icon': getImgUrl('skills/human/unconcerned.png')
     },
 
     [SkillEnum.DETERMINED]: {

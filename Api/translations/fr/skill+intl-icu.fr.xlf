@@ -545,5 +545,15 @@
         <target>Vous dépensez un :pa: de moins pour retrouver des objets cachés, vous avez 25% de chances de détécter une action discrète dans votre pièce.//:point: L'action **Fouiller** vous coûte un :pa: de moins.//:point: Vous avez **25% de chances de détecter les actions discrètes** de votre pièce.//:point: Vous avez **25% de chances de révéler les actions furtives** réalisées en votre présence.</target>
       </segment>
     </unit>
+    <unit id="detached_crewmember">
+      <segment id="detached_crewmember.name" state="translated">
+        <source>detached_crewmember.name</source>
+        <target>Détaché</target>
+      </segment>
+      <segment id="detached_crewmember.description" state="translated">
+        <source>detached_crewmember.description</source>
+        <target>Le détaché est froid, dur, imperméable. Il n'est pas affecté par la mort de ses camarades.//:point: Vous ne **perdez pas de Points de Moral (:pmo:) lorsqu'un équipier meurt**.//:point: Pas de risque de maladies psy si vous êtes témoin d'un décès.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

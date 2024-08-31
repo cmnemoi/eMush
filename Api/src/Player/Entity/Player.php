@@ -1115,6 +1115,16 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->playerInfo->getClosedPlayer()->isAlphaMush();
     }
 
+    public function isMale(): bool
+    {
+        return CharacterEnum::isMale($this->getName());
+    }
+
+    public function getGender(): string
+    {
+        return $this->isMale() ? 'male' : 'female';
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {

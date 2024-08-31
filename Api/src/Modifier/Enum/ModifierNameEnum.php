@@ -67,4 +67,6 @@ abstract class ModifierNameEnum
     public const string OBSERVANT_MODIFIER = 'observant_modifier';
     public const string PLAYER_PLUS_2_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE = 'player_+2_action_points_on_consume_action_if_coffee';
     public const string CAFFEINE_JUNKIE_MODIFIER = 'caffeine_junkie_modifier';
+    public const string PLAYER_SET_0_MORALE_POINT_ON_DEATH = 'player_set_0_morale_point_on_death';
+    public const string DETATCHED_CREWMEMBER_MODIFIER = 'detatched_crewmember_modifier';
 }

@@ -3227,6 +3227,23 @@ abstract class ModifierConfigData
                 GameRationEnum::COFFEE => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_SET_0_MORALE_POINT_ON_DEATH,
+            'modifierName' => ModifierNameEnum::DETATCHED_CREWMEMBER_MODIFIER,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 0,
+            'targetVariable' => PlayerVariableEnum::MORAL_POINT,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                EventEnum::PLAYER_DEATH => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

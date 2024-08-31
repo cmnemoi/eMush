@@ -83,6 +83,12 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::DETACHED_CREWMEMBER,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_SET_0_MORALE_POINT_ON_DEATH,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::DEVOTION,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_3_ACTION_POINT_ON_ACCEPT_MISSION,

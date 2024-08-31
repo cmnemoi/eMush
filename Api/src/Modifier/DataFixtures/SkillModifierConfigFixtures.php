@@ -193,6 +193,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($caffeineJunkieModifier->getName(), $caffeineJunkieModifier);
         $manager->persist($caffeineJunkieModifier);
 
+        $detachedCrewmemberModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_SET_0_MORALE_POINT_ON_DEATH)
+        );
+        $this->addReference($detachedCrewmemberModifier->getName(), $detachedCrewmemberModifier);
+        $manager->persist($detachedCrewmemberModifier);
+
         $manager->flush();
     }
 

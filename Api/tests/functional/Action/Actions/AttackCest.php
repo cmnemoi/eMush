@@ -45,9 +45,11 @@ final class AttackCest extends AbstractFunctionalTest
     {
         $this->givenKnifeHas100ChanceToHit();
 
+        $this->givenKnifeHas0ChanceToDoCriticalHit();
+
         $this->givenKuanTiHasHealthPoints(10);
 
-        $this->whenChunAttacksAtKuanTi();
+        $this->whenChunAttacksKuanTi();
 
         $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(9, $I);
     }
@@ -64,7 +66,7 @@ final class AttackCest extends AbstractFunctionalTest
 
         $this->givenKuanTiHasHealthPoints(10);
 
-        $this->whenChunAttacksAtKuanTi();
+        $this->whenChunAttacksKuanTi();
 
         $this->thenKuanTiShouldHaveHealthPoints(10, $I);
     }
@@ -75,7 +77,7 @@ final class AttackCest extends AbstractFunctionalTest
 
         $this->givenKnifeHas100ChanceToDoCriticalHit();
 
-        $this->whenChunAttacksAtKuanTi();
+        $this->whenChunAttacksKuanTi();
 
         $this->thenKuanTiShouldHaveAnInjury($I);
     }
@@ -92,7 +94,7 @@ final class AttackCest extends AbstractFunctionalTest
 
         $this->givenKuanTiHasHealthPoints(10);
 
-        $this->whenChunAttacksAtKuanTi();
+        $this->whenChunAttacksKuanTi();
 
         $this->thenKuanTiShouldHaveHealthPoints(9, $I);
     }
@@ -103,7 +105,7 @@ final class AttackCest extends AbstractFunctionalTest
 
         $this->givenKnifeHas100ChanceToDoCriticalMiss();
 
-        $this->whenChunAttacksAtKuanTi();
+        $this->whenChunAttacksKuanTi();
 
         $this->thenChunShouldHaveAnInjury($I);
     }
@@ -112,7 +114,7 @@ final class AttackCest extends AbstractFunctionalTest
     {
         $this->givenKnifeIsBroken();
 
-        $this->whenChunAttacksAtKuanTi();
+        $this->whenChunAttacksKuanTi();
 
         $this->thenActionIsNotExecutableWithMessage(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $I);
     }
@@ -182,7 +184,7 @@ final class AttackCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenChunAttacksAtKuanTi(): void
+    private function whenChunAttacksKuanTi(): void
     {
         $this->attack->loadParameters(
             actionConfig: $this->actionConfig,

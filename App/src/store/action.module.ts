@@ -91,12 +91,10 @@ async function handleActionExecution(actionExecution: ActionExecution): Promise<
         await Promise.all([
             isExchangeBodyAction(action) === false ? dispatch("player/reloadPlayer", null, { root: true }) : Promise.resolve(),
             dispatch("communication/loadRoomLogs", null, { root: true }),
-            store.getters["player/player"].isDead() ? await dispatch("communication/loadDeadPlayerChannels", null, { root: true }) : await dispatch("communication/loadAlivePlayerChannels", null, { root: true })
+            store.getters["player/player"].isDead() ? dispatch("communication/loadDeadPlayerChannels", null, { root: true }) : dispatch("communication/loadAlivePlayerChannels", null, { root: true })
         ]);
         await dispatch("communication/changeChannel", { channel: store.getters["communication/roomChannel"] }, { root: true });
     });
-
-    await dispatch("player/setLoading", { loading: false }, { root: true });
 }
 
 async function handleExchangeBodyAction(axiosResponse: AxiosResponse<any, any>, dispatch: Dispatch): Promise<void> {

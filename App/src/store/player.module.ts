@@ -77,24 +77,26 @@ const actions: ActionTree<any, any> = {
     async loadPlayer({ commit, dispatch }, { playerId }) {
         commit('setLoading', true);
         try {
-            const isNewGame = store.getters['player/player'] === null;
+            const playerIsNull = store.getters['player/player'] === null;
             const player = store.getters['player/player'];
             await Promise.all([
-                isNewGame ? Promise.resolve() : this.dispatch("daedalus/loadAlerts", { daedalus: player.daedalus }),
-                isNewGame ? Promise.resolve() : this.dispatch("daedalus/loadMinimap", { player }),
+                playerIsNull ? Promise.resolve() : (player.isAlive() ? this.dispatch("daedalus/loadAlerts", { daedalus: player.daedalus }) : Promise.resolve()),
+                playerIsNull ? Promise.resolve() : (player.isAlive() ? this.dispatch("daedalus/loadMinimap", { player }) : Promise.resolve()),
                 PlayerService.loadPlayer(playerId).then(async (player: Player | null) => {
                     commit('updatePlayer', player);
                     if (player?.gameStatus !== 'in_game') {
                         return true;
                     }
                     await Promise.all([
-                        isNewGame ? this.dispatch("daedalus/loadAlerts", { daedalus: player.daedalus }) : Promise.resolve(),
-                        isNewGame ? this.dispatch("daedalus/loadMinimap", { player }) : Promise.resolve(),
-                        this.dispatch("room/loadRoom", { room: player?.room }),
-                        this.dispatch("room/updateSelectedItemPile"),
-                        player?.spaceBattle !== null ? this.dispatch("room/loadSpaceBattle", { spaceBattle: player?.spaceBattle }) : null
+                        playerIsNull ? this.dispatch("daedalus/loadAlerts", { daedalus: player.daedalus }) : Promise.resolve(),
+                        playerIsNull ? this.dispatch("daedalus/loadMinimap", { player }) : Promise.resolve(),
+                        this.dispatch("room/loadRoom", { room: player?.room })
                     ]);
+                    await this.dispatch("room/updateSelectedItemPile"),
                     commit('updateSelectedItem');
+                    if (player?.spaceBattle) {
+                        await this.dispatch("room/loadSpaceBattle", { spaceBattle: player?.spaceBattle });
+                    }
                 })
             ]);
             return true;
@@ -102,7 +104,6 @@ const actions: ActionTree<any, any> = {
             // an error here probably means player in store is not the expected player : case of transfer.
             // so we re try by refreshing user info
             try {
-                console.error(e);
                 await dispatch("player/togglePlayerChanged", null, { root: true }); // avoid to load player twice
                 await dispatch("player/clearPlayer", null, { root: true });
                 await dispatch("error/clearError", null, { root: true });
@@ -118,6 +119,7 @@ const actions: ActionTree<any, any> = {
             }
         } finally {
             await dispatch("popup/openPlayerNotificationPopUp", { player: store.getters["player/player"] }, { root: true });
+            commit('setLoading', false);
         }
     },
     async reloadPlayer({ state, dispatch }) {

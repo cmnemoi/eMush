@@ -24,6 +24,7 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
@@ -143,7 +144,9 @@ class RoomLogService implements RoomLogServiceInterface
 
     public function getRoomLog(Player $player): RoomLogCollection
     {
-        return new RoomLogCollection($this->repository->getPlayerRoomLog($player->getPlayerInfo()));
+        $dateLimit = $player->hasSkill(SkillEnum::TRACKER) ? new \DateTime('-2 days') : new \DateTime('-1 day');
+
+        return new RoomLogCollection($this->repository->getPlayerRoomLog($player->getPlayerInfo(), $dateLimit));
     }
 
     public function getDaedalusRoomLogs(Daedalus $daedalus): RoomLogCollection

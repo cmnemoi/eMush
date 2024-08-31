@@ -1427,6 +1427,22 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::ALPHA_MUSH . '_default',
+            'statusName' => PlayerStatusEnum::ALPHA_MUSH,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED . '_default',
+            'statusName' => DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

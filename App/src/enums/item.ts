@@ -118,6 +118,8 @@ const ALIEN_STEAK = "alien_steak";
 // NPCs
 const SUPPORT_DRONE = "support_drone";
 
+// Documents
+const DOCUMENT = "document";
 
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
@@ -434,5 +436,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [SUPPORT_DRONE] : {
         'image': getImgUrl('items/help_drone.jpg')
+    },
+    [DOCUMENT]: {
+        'image': getImgUrl('items/document.jpg')
     }
 };

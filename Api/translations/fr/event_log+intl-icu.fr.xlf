@@ -1033,5 +1033,19 @@
         other {**{target_character}** a quitté la pièce. Fin du cessez-le-feu.}}</target>
       </segment>
     </unit>
+    <unit id="tabulatrix_prints">
+      <segment id="tabulatrix_prints" state="final">
+        <source>tabulatrix_prints</source>
+        <target>La tabulatrice émet un grondement étonnant. Une perforation est en cours...</target>
+      </segment>
+    </unit>
+    <unit id="ze_list">
+      <segment id="ze_list" state="final">
+        <source>ze_list</source>
+        <target>{quantity, select,
+        1 {{lastPlayer} est infecté(e) par le Mush. C'est une certitude.}
+        other {L'un d'entre eux était un agent infecté du Mush quand on a fui Xyloph. J'en mettrais ma main au feu... {firstPlayers} et {lastPlayer}. Mais qui...}}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

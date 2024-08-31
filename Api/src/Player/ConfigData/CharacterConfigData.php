@@ -202,6 +202,7 @@ class CharacterConfigData
             'name' => 'eleesha',
             'characterName' => 'eleesha',
             'skillConfigs' => [
+                SkillEnum::TRACKER,
                 SkillEnum::DETERMINED,
                 SkillEnum::TECHNICIAN,
                 SkillEnum::IT_EXPERT,

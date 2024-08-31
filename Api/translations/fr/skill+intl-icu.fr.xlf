@@ -505,5 +505,15 @@
         <target>Surprise !//:point: Pour **1** :pa:, vous pouvez piéger une **pièce** avec un **spore**. Si une personne manipule un **objet** ou un **équipement** de la pièce, elle sera **infectée**. Si c'est un Mush (dont vous-même) ou un Immunisé, le spore est perdu.</target>
       </segment>
     </unit>
+    <unit id="tracker">
+      <segment id="tracker.name" state="translated">
+        <source>tracker.name</source>
+        <target>Traqueur</target>
+      </segment>
+      <segment id="tracker.description" state="translated">
+        <source>tracker.description</source>
+        <target>Le Traqueur voit les provenances et les directions de chaque mouvement de l'équipage. Il peut en outre imprimer un résultat d'enquête grâce à la tabulatrice durant la partie. Il s'agit d'une liste de personnes contenant au moins un infecté Mush.//:point: Accès complet aux **historiques de déplacement**.//:point: Permet d'**imprimer la liste secrète** sur la Tabulatrice.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -1286,5 +1286,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de donner une mission à un de vos subalternes. Celui-ci se verra octroyer des :pa::pm: pour l'accomplir s'il l'accepte. Vous ne pouvez utiliser cette action qu'une fois par jour. Cette action est restituée si votre subalterne la refuse.</target>
       </segment>
     </unit>
+    <unit id="print_ze_list">
+      <segment id="name" state="final">
+        <source>print_ze_list.name</source>
+        <target>Imprimer LA liste</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>print_ze_list.description</source>
+        <target>Vous permet de récupérer une liste que vous avez créée avant le départ du Daedalus. Cette liste contient des noms de personnes potentiellement infectées. À chaque jour, cette liste s'affine d'un nom.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

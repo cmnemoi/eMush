@@ -24,10 +24,8 @@ class RoomLogRepository extends ServiceEntityRepository
     /**
      * @psalm-suppress TooManyArguments
      */
-    public function getPlayerRoomLog(PlayerInfo $playerInfo): array
+    public function getPlayerRoomLog(PlayerInfo $playerInfo, \DateTime $limitDate = new \DateTime('1 day ago')): array
     {
-        $yesterday = new \DateTime('1 day ago');
-
         /** @var Player $player */
         $player = $playerInfo->getPlayer();
 
@@ -53,7 +51,7 @@ class RoomLogRepository extends ServiceEntityRepository
             ->setParameter('publicArray', [VisibilityEnum::PUBLIC, VisibilityEnum::REVEALED])
             ->setParameter('privateArray', [VisibilityEnum::PRIVATE, VisibilityEnum::SECRET, VisibilityEnum::COVERT])
             ->setParameter('player', $playerInfo)
-            ->setParameter('date', $yesterday);
+            ->setParameter('date', $limitDate);
 
         return $queryBuilder->getQuery()->getResult();
     }

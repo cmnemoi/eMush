@@ -55,6 +55,10 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
         $I->assertEquals($numberOfCharacters, $this->daedalus->getPlayers()->getPlayerAlive()->count());
         $I->assertEquals($numberOfMush, $this->daedalus->getPlayers()->getMushPlayer()->count());
         $I->assertEquals($numberOfCharacters - $numberOfMush, $this->daedalus->getPlayers()->getHumanPlayer()->count());
+        $mushPlayers = $this->daedalus->getPlayers()->getMushPlayer();
+        foreach ($mushPlayers as $mushPlayer) {
+            $I->assertTrue($mushPlayer->isAlphaMush());
+        }
     }
 
     public function testStartDaedalusAlphaMushAlreadyDead(FunctionalTester $I): void

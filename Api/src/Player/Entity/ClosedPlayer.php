@@ -54,6 +54,9 @@ class ClosedPlayer implements SanctionEvidenceInterface
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $messageIsEdited = false;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $isAlphaMush = false;
+
     public function getId(): int
     {
         return $this->id;
@@ -255,5 +258,17 @@ class ClosedPlayer implements SanctionEvidenceInterface
     public function getDay(): int
     {
         return $this->getDayDeath();
+    }
+
+    public function isAlphaMush(): bool
+    {
+        return $this->isAlphaMush;
+    }
+
+    public function flagAsAlphaMush(): static
+    {
+        $this->isAlphaMush = true;
+
+        return $this;
     }
 }

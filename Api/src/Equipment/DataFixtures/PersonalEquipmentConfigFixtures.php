@@ -21,7 +21,7 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
 {
     public const ITRACKIE = 'i_trackie';
     public const WALKIE_TALKIE = 'walkie_talkie';
-    public const TRACKER = 'tracker';
+    public const TRACKER = 'tracker_';
 
     public function load(ObjectManager $manager): void
     {

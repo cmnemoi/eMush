@@ -283,10 +283,6 @@ abstract class ActionLogEnum
             ActionOutputEnum::SUCCESS => self::FLIRT_SUCCESS,
         ],
 
-        ActionEnum::MOVE->value => [
-            ActionOutputEnum::SUCCESS => self::EXIT_ROOM,
-        ],
-
         ActionEnum::DO_THE_THING->value => [
             ActionOutputEnum::SUCCESS => self::DO_THE_THING_SUCCESS,
             ActionOutputEnum::FAIL => self::DO_THE_THING_BREAKS_SOFA,

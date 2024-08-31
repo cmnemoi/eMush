@@ -3494,7 +3494,9 @@ class EquipmentConfigData
                 'report_equipment',
                 'examine',
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                'tool_tabulatrix_default',
+            ],
             'initStatuses' => [],
         ],
         [

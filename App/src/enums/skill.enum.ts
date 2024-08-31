@@ -371,7 +371,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.TRACKER]: {
-        'icon': getImgUrl('skills/human/tracker.png')
+        'icon': getImgUrl('skills/human/hunt.png')
     },
 
     [SkillEnum.U_TURN]: {

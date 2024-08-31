@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -130,6 +131,10 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $playerInfo = $player->getPlayerInfo();
         $playerInfo->getClosedPlayer()->setIsMush(true);
+
+        if ($event->hasTag(DaedalusEvent::FULL_DAEDALUS)) {
+            $player->flagAsAlphaMush();
+        }
 
         $this->playerService->persistPlayerInfo($playerInfo);
     }

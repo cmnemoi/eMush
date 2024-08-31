@@ -357,6 +357,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]),
             actionProvider: $door,
             player: $this->kuanTi,
+            actionTarget: $door,
         );
         $actionEvent->setActionResult(new Success());
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);

@@ -18,6 +18,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
+use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
@@ -418,6 +419,13 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     public function getMechanicByNameOrThrow(string $mechanicName): EquipmentMechanic
     {
         return $this->getMechanicByNameOrNull($mechanicName) ?? throw new \RuntimeException("Mechanic {$mechanicName} not found in the mechanics of {$this->name} equipment.");
+    }
+
+    public function getWeaponMechanicOrThrow(): Weapon
+    {
+        $weapon = $this->getMechanicByNameOrNull(EquipmentMechanicEnum::WEAPON);
+
+        return $weapon instanceof Weapon ? $weapon : throw new \RuntimeException("Weapon mechanic not found in the mechanics of {$this->name} equipment.");
     }
 
     public function hasMechanicByName(string $mechanicName): bool

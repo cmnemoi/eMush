@@ -154,4 +154,9 @@ class PlayerDisease
     {
         return $this->getStatus() === DiseaseStatusEnum::INCUBATING;
     }
+
+    public function isAnInjury(): bool
+    {
+        return $this->diseaseConfig->getType() === MedicalConditionTypeEnum::INJURY;
+    }
 }

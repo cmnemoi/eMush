@@ -2348,7 +2348,9 @@ class MechanicsData
             'criticalSuccessRate' => 5.0,
             'criticalFailRate' => 1.0,
             'oneShotRate' => 1.0,
-            'actions' => [],
+            'actions' => [
+                ActionEnum::SHOOT->value,
+            ],
             'modifierConfigs' => [],
         ],
         [
@@ -2377,7 +2379,9 @@ class MechanicsData
             'criticalSuccessRate' => 25.0,
             'criticalFailRate' => 20.0,
             'oneShotRate' => 2.0,
-            'actions' => [],
+            'actions' => [
+                ActionEnum::ATTACK->value,
+            ],
             'modifierConfigs' => [],
         ],
         [

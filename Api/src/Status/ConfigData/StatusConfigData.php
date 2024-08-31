@@ -1052,17 +1052,6 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => 'in_orbit_default',
-            'statusName' => 'in_orbit',
-            'visibility' => 'public',
-            'type' => 'status_config',
-            'modifierConfigs' => [
-                'modifier_for_daedalus_-1actionPoint_on_action_analyze_planet',
-                'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
-            ],
-            'actionConfigs' => [],
-        ],
-        [
             'name' => 'exploration_oxygen_default',
             'statusName' => 'exploration_oxygen',
             'visibility' => 'hidden',
@@ -1124,6 +1113,17 @@ abstract class StatusConfigData
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'status_config',
             'modifierConfigs' => [
+                'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
+            ],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => 'in_orbit_default',
+            'statusName' => 'in_orbit',
+            'visibility' => 'public',
+            'type' => 'status_config',
+            'modifierConfigs' => [
+                'modifier_for_daedalus_-1actionPoint_on_action_analyze_planet',
                 'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
             ],
             'actionConfigs' => [],

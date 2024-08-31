@@ -436,13 +436,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($noGravity);
 
-        $inOrbit = new StatusConfig();
-        $inOrbit
-            ->setStatusName(DaedalusStatusEnum::IN_ORBIT)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT);
-        $manager->persist($inOrbit);
-
         /** @var VariableEventModifierConfig $astronavigatioNeronCpuPriorityModifierPlus1Section */
         $astronavigationNeronCpuPriorityModifierPlus1Section = $this->getReference(StatusModifierConfigFixtures::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION);
 
@@ -454,7 +447,18 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             $astronavigationNeronCpuPriorityModifierPlus1Section,
             $astronavigationNeronCpuPriorityModifierMinus1ActionPoint,
         ];
+        $inOrbit = new StatusConfig();
+        $inOrbit
+            ->setStatusName(DaedalusStatusEnum::IN_ORBIT)
+            ->setModifierConfigs($modifierConfigs)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($inOrbit);
 
+        /** @var array<int, VariableEventModifierConfig> $modifierConfigs */
+        $modifierConfigs = [
+            $astronavigationNeronCpuPriorityModifierPlus1Section,
+        ];
         $astronavigationNeronCpuPriority = new StatusConfig();
         $astronavigationNeronCpuPriority
             ->setStatusName(DaedalusStatusEnum::ASTRONAVIGATION_NERON_CPU_PRIORITY)

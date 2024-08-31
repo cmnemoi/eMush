@@ -39,7 +39,6 @@ abstract class ModifierNameEnum
     public const string PREVENT_MUSH_SHOWER_MALUS = 'prevent_mush_shower_malus';
     public const string PLAYER_PLUS_1_INFECTION = 'player_+1_infection';
     public const string PLAYER_MINUS_25_PERCENTAGE_ON_ACTION_HIT_AND_ATTACK = 'player_-25_percentage_on_action_hit_and_attack';
-    public const string LOGISTIC_MODIFIER = 'logistic_modifier';
     public const string SHOOTER_SKILL_POINT = 'shooter_skill_point';
     public const string LOST_MODIFIER = 'lost_modifier';
     public const string ROPE_MODIFIER = 'rope_modifier';
@@ -62,4 +61,5 @@ abstract class ModifierNameEnum
     public const string SPRINTER_MODIFIER = 'sprinter_modifier';
     public const string PLAYER_PLUS_3_ACTION_POINT_ON_ACCEPT_MISSION = 'player_+3_action_point_on_accept_mission';
     public const string DEVOTION_MODIFIER = 'devotion_modifier';
+    public const string LOGISTICS_MODIFIER = 'logistics_modifier';
 }

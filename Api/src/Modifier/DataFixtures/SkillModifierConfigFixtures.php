@@ -163,16 +163,6 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($shrinkModifier->getName(), $shrinkModifier);
         $manager->persist($shrinkModifier);
 
-        /** @var VariableEventConfig $eventConfig */
-        $eventConfig = $this->getReference('change.variable_player_+1_actionPoint');
-        $LogisticModifier = TriggerEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('logistic_modifier')
-        );
-        $LogisticModifier->setTriggeredEvent($eventConfig);
-
-        $this->addReference($LogisticModifier->getName(), $LogisticModifier);
-        $manager->persist($LogisticModifier);
-
         $playerPlusTwoDamageOnHit = VariableEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_2_DAMAGE_ON_HIT)
         );

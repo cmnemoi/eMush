@@ -508,6 +508,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
     }
 
+    public function doesNotHaveSkill(SkillEnum $skillName): bool
+    {
+        return $this->hasSkill($skillName) === false;
+    }
+
     public function getSelectableHumanSkills(): SkillConfigCollection
     {
         if ($this->hasFilledTheirHumanSkillSlots()) {
@@ -1128,11 +1133,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
 
         return $efficiency;
-    }
-
-    private function doesNotHaveSkill(SkillEnum $skillName): bool
-    {
-        return $this->hasSkill($skillName) === false;
     }
 
     private function getHumanSkillConfigs(): SkillConfigCollection

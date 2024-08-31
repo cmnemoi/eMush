@@ -60,7 +60,7 @@ abstract class PlayerModifierLogEnum
             ModifierNameEnum::OPTIMIST_MODIFIER => self::OPTIMIST_WORKED,
             PlayerService::DAY_MORAL_CHANGE => self::DAILY_MORALE_LOSS,
             HunterEvent::HUNTER_SHOT => LogEnum::ATTACKED_BY_HUNTER,
-            ModifierNameEnum::LOGISTIC_MODIFIER => self::LOGISTIC_LOG,
+            ModifierNameEnum::LOGISTICS_MODIFIER => self::LOGISTIC_LOG,
         ],
         self::VISIBILITY => [
             ModifierNameEnum::STARVING => VisibilityEnum::PRIVATE,
@@ -71,7 +71,7 @@ abstract class PlayerModifierLogEnum
             HunterEvent::HUNTER_SHOT => VisibilityEnum::PUBLIC,
             ModifierNameEnum::LOST_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::OPTIMIST_MODIFIER => VisibilityEnum::PRIVATE,
-            ModifierNameEnum::LOGISTIC_MODIFIER => VisibilityEnum::PUBLIC,
+            ModifierNameEnum::LOGISTICS_MODIFIER => VisibilityEnum::PRIVATE,
         ],
     ];
 }

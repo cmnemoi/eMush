@@ -1266,5 +1266,13 @@
         <target>**{character}** prend un air ennuyeux et se met à garder la pièce...</target>
       </segment>
     </unit>
+    <unit id="throw_grenade_success">
+      <segment id="throw_grenade_success" state="final">
+        <source>throw_grenade_success</source>
+        <target>{version, select,
+        1 {Ploc...poc...poc...pschhhhh... **{character}** se jette à couvert pendant que les autres regardent à leurs pieds. Tiens, une gre...}
+        other {Ploc...ploc...ploc...pschhhhh... **{character}** se jette à couvert pendant que les autres regardent à leurs pieds. L'explosion souffle tout le monde !}}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

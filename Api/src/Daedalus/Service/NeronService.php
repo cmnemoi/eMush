@@ -34,6 +34,15 @@ final class NeronService implements NeronServiceInterface
         $this->persist([$neron]);
     }
 
+    public function toggleInhibition(Neron $neron): void
+    {
+        $neron->toggleInhibition();
+        $this->persist([$neron]);
+
+        $neronEvent = new NeronEvent($neron);
+        $this->eventService->callEvent($neronEvent, NeronEvent::INHIBITION_TOGGLED);
+    }
+
     private function persist(array $entities): void
     {
         foreach ($entities as $entity) {

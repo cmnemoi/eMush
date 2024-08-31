@@ -51,4 +51,12 @@ export class Terminal {
     public getActionByKey(key: string): Action | null {
         return this.actions.find(action => action.key === key) || null;
     }
+
+    public getActionByKeyOrThrow(key: string): Action {
+        const action = this.getActionByKey(key);
+        if (!action) {
+            throw new Error(`Action with key ${key} not found`);
+        }
+        return action;
+    }
 }

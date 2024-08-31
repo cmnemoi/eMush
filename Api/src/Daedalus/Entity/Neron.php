@@ -63,6 +63,11 @@ class Neron
         return $this->isInhibited;
     }
 
+    public function toggleInhibition(): void
+    {
+        $this->isInhibited = !$this->isInhibited;
+    }
+
     public function setCpuPriority(string $cpuPriority): self
     {
         $this->cpuPriority = $cpuPriority;

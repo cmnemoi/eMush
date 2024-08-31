@@ -64,6 +64,7 @@ enum ActionEnum: string
     case SELF_HEAL = 'self_heal';
     case RENOVATE = 'renovate';
     case AUTO_EJECT = 'auto_eject';
+    case THROW_GRENADE = 'throw_grenade';
 
     // Equipment-enabled actions
     case INSERT_FUEL = 'insert_fuel';
@@ -172,6 +173,7 @@ enum ActionEnum: string
     case CHANGE_NERON_CREW_LOCK = 'change_neron_crew_lock';
     case TOGGLE_PLASMA_SHIELD = 'toggle_plasma_shield';
     case TOGGLE_MAGNETIC_NET = 'toggle_magnetic_net';
+    case TOGGLE_NERON_INHIBITION = 'toggle_neron_inhibition';
 
     // Titles-related actions
     case COMMANDER_ORDER = 'commander_order';
@@ -191,6 +193,7 @@ enum ActionEnum: string
             self::MOVE,
             self::TAKE,
             self::TOGGLE_MAGNETIC_NET,
+            self::TOGGLE_NERON_INHIBITION,
             self::TOGGLE_PLASMA_SHIELD,
             self::ACCEPT_MISSION,
             self::REJECT_MISSION,

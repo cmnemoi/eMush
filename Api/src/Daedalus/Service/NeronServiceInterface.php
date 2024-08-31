@@ -10,4 +10,6 @@ use Mush\Player\Entity\Player;
 interface NeronServiceInterface
 {
     public function changeCpuPriority(Neron $neron, string $cpuPriority, array $reasons = [], ?Player $author = null): void;
+
+    public function toggleInhibition(Neron $neron): void;
 }

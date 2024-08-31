@@ -18,6 +18,7 @@ export enum ActionEnum {
     SHOOT_HUNTER = "shoot_hunter",
     SHOOT_HUNTER_PATROL_SHIP = "shoot_hunter_patrol_ship",
     TOGGLE_MAGNETIC_NET = "toggle_magnetic_net",
+    TOGGLE_NERON_INHIBITION = "toggle_neron_inhibition",
     TOGGLE_PLASMA_SHIELD = "toggle_plasma_shield",
     TURN_DAEDALUS_LEFT = "turn_daedalus_left",
     TURN_DAEDALUS_RIGHT = "turn_daedalus_right",

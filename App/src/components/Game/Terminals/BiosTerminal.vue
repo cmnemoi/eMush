@@ -100,6 +100,31 @@
                 <label :key="toggle.key">{{ toggle.name }}</label>
             </div>
         </section>
+        <section class="neron-inhibition-section">
+            <Tippy tag="h3">
+                <img :src="getImgUrl('notes.gif')" />
+                {{ terminal.sectionTitles?.neronInhibitionName }}
+                <template #content>
+                    <h1 v-html="formatText(terminal.sectionTitles?.neronInhibitionName)" />
+                    <p v-html="formatText(terminal.sectionTitles?.neronInhibitionDescription)" />
+                </template>
+            </Tippy>
+            <div
+                class="radio-buttons-container"
+                v-for="toggle in terminal.infos?.neronInhibitionToggles"
+                :key="toggle.key"
+            >
+                <input
+                    type="radio"
+                    v-model="selectedNeronInhibitionToggle"
+                    :value="toggle.key"
+                    :checked="selectedNeronInhibitionToggle === toggle.key"
+                    :disabled="!toggleNeronInhibitionAction.canExecute"
+                    @change="executeTargetAction(terminal, toggleNeronInhibitionAction)"
+                >
+                <label :key="toggle.key">{{ toggle.name }}</label>
+            </div>
+        </section>
     </div>
 </template>
 
@@ -116,22 +141,19 @@ export default defineComponent ({
     name: "BiosTerminal",
     computed: {
         changeNeronCpuPriorityAction(): Action {
-            const action = this.terminal.getActionByKey(ActionEnum.CHANGE_NERON_CPU_PRIORITY);
-            if (!action) throw new Error(`No change_neron_cpu_priority action found for terminal ${this.terminal?.key}`);
-
-            return action;
+            return this.terminal.getActionByKeyOrThrow(ActionEnum.CHANGE_NERON_CPU_PRIORITY);
         },
         changeNeronCrewLockAction(): Action {
-            const action = this.terminal.getActionByKey(ActionEnum.CHANGE_NERON_CREW_LOCK);
-            if (!action) throw new Error(`No change_neron_crew_lock action found for terminal ${this.terminal?.key}`);
-
-            return action;
+            return this.terminal.getActionByKeyOrThrow(ActionEnum.CHANGE_NERON_CREW_LOCK);
         },
         togglePlasmaShieldAction(): Action | null {
             return this.terminal.getActionByKey(ActionEnum.TOGGLE_PLASMA_SHIELD);
         },
         toggleMagneticNetAction(): Action | null {
             return this.terminal.getActionByKey(ActionEnum.TOGGLE_MAGNETIC_NET);
+        },
+        toggleNeronInhibitionAction(): Action {
+            return this.terminal.getActionByKeyOrThrow(ActionEnum.TOGGLE_NERON_INHIBITION);
         },
         target(): Terminal {
             return this.terminal;
@@ -161,13 +183,20 @@ export default defineComponent ({
             selectedCpuPriority: '',
             selectedCrewLock: '',
             selectedPlasmaShieldToggle: '',
-            selectedMagneticNetToggle: ''
+            selectedMagneticNetToggle: '',
+            selectedNeronInhibitionToggle: ''
         };
     },
     beforeMount() {
         const currentCpuPriority = this.terminal.infos?.currentCpuPriority;
         if (!currentCpuPriority) throw new Error(`No currentCpuPriority found for terminal ${this.terminal?.key}`);
         this.selectedCpuPriority = currentCpuPriority;
+
+        const isNeronInhibited = this.terminal.infos?.isNeronInhibited;
+        if (!isNeronInhibited) {
+            throw new Error(`No isNeronInhibited found for terminal ${this.terminal?.key}`);
+        }
+        this.selectedNeronInhibitionToggle = isNeronInhibited ? 'active' : 'inactive';
 
         const currentCrewLock = this.terminal.infos?.currentCrewLock;
         if (!currentCrewLock) throw new Error(`No currentCrewLock found for terminal ${this.terminal?.key}`);

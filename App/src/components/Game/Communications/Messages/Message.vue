@@ -26,14 +26,15 @@
         </p>
         <div class="actions" @click.stop>
             <ActionButtons
-                v-if="isPlayerAlive"
+                v-if="isPlayerAlive && channel.supportsReplies()"
                 :actions="['reply']"
                 @reply="$emit('reply')"
             />
             <ActionButtons
-                v-if="isPlayerAlive"
+                v-if="isPlayerAlive && channel.supportsFavorite()"
                 :actions="channel.isFavorite() ? ['unfavorite'] : ['favorite']"
                 @favorite="favorite(message)"
+                @unfavorite="unfavorite(message)"
             />
             <ActionButtons
                 :actions="['report']"
@@ -41,7 +42,7 @@
             />
             <ActionButtons
                 v-if="adminMode"
-                :actions="['delete', 'report']"
+                :actions="['delete']"
                 @delete="openModerationDialog('delete_message')"
             />
         </div>
@@ -70,16 +71,18 @@
         </p>
         <div class="actions" @click.stop>
             <ActionButtons
-                v-if="isPlayerAlive && isReplyable && !channel.isFavorite()"
-                :actions="['reply', 'favorite', 'report']"
+                v-if="isPlayerAlive && channel.supportsReplies()"
+                :actions="['reply']"
                 @reply="$emit('reply')"
-                @favorite="favorite(message)"
             />
             <ActionButtons
-                v-if="isPlayerAlive && isReplyable && channel.isFavorite()"
-                :actions="['reply', 'unfavorite', 'report']"
-                @reply="$emit('reply')"
+                v-if="isPlayerAlive && channel.supportsFavorite()"
+                :actions="channel.isFavorite() ? ['unfavorite'] : ['favorite']"
+                @favorite="favorite(message)"
                 @unfavorite="unfavorite(message)"
+            />
+            <ActionButtons
+                :actions="['report']"
                 @report=openReportDialog
             />
             <ActionButtons

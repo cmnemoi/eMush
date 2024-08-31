@@ -115,4 +115,12 @@ export class Channel {
     isNotTipsChannel(): boolean {
         return this.scope !== ChannelType.TIPS;
     }
+
+    supportsReplies(): boolean {
+        return [ChannelType.PUBLIC, ChannelType.FAVORITES].includes(this.scope);
+    }
+
+    supportsFavorite(): boolean {
+        return [ChannelType.PUBLIC, ChannelType.FAVORITES].includes(this.scope);
+    }
 }

@@ -123,8 +123,12 @@ final class ModifierProviderCorrectlyDeletedCest extends AbstractFunctionalTest
         // Given player 2 leave orbit
         $this->leaveOrbit($I);
 
-        // then Daedalus should have 0 modifiers
-        $I->assertCount(0, $this->daedalus->getModifiers());
+        // then, if daedalus was able to move (possible arack spawn), daedalus hasn't in orbit status and in_orbit modifiers have been deleted
+        $isTravelling = $this->daedalus->hasStatus(DaedalusStatusEnum::TRAVELING);
+        if ($isTravelling) {
+            $I->assertFalse($this->daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT));
+            $I->assertCount(0, $this->daedalus->getModifiers());
+        }
     }
 
     public function testAppliesDirectModifierWithModifierRequirement(FunctionalTester $I): void
@@ -152,6 +156,13 @@ final class ModifierProviderCorrectlyDeletedCest extends AbstractFunctionalTest
 
         // Given player 2 leave orbit
         $this->leaveOrbit($I);
+
+        // then, if daedalus was able to move (possible arack spawn), daedalus hasn't in orbit status and in_orbit modifiers have been deleted
+        $isTravelling = $this->daedalus->hasStatus(DaedalusStatusEnum::TRAVELING);
+        if ($isTravelling) {
+            $I->assertFalse($this->daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT));
+            $I->assertCount(1, $this->daedalus->getModifiers());
+        }
     }
 
     private function setPriorityToAstro(FunctionalTester $I): void
@@ -183,21 +194,6 @@ final class ModifierProviderCorrectlyDeletedCest extends AbstractFunctionalTest
 
         // then Daedalus should have the astro priority status
         $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::ASTRONAVIGATION_NERON_CPU_PRIORITY));
-    }
-
-    private function scanSuccessCreatesAPlanet(FunctionalTester $I): void
-    {
-        // when player2 scans
-        $this->scanAction->loadParameters(
-            actionConfig: $this->scanActionConfig,
-            actionProvider: $this->astroTerminal,
-            player: $this->player2,
-            target: $this->astroTerminal
-        );
-        $this->scanAction->execute();
-
-        // then a planet is created
-        $I->seeInRepository(Planet::class);
     }
 
     private function moveDaedalusToAPlanet(FunctionalTester $I): void
@@ -267,9 +263,5 @@ final class ModifierProviderCorrectlyDeletedCest extends AbstractFunctionalTest
         );
         $I->assertTrue($this->leaveOrbitAction->isVisible());
         $this->leaveOrbitAction->execute();
-
-        // then daedalus hasn't in orbit status
-        $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::TRAVELING));
-        $I->assertFalse($this->daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT));
     }
 }

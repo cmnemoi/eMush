@@ -5,6 +5,7 @@ namespace Mush\Equipment\Listener;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Equipment\Entity\ConsumableEffect;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -59,7 +60,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $consumableEffect = $this->equipmentServiceEffect->getConsumableEffect($rationType, $player->getDaedalus());
 
         if (!$player->isMush()) {
-            $this->dispatchConsumableEffects($consumableEffect, $player, $ration->hasStatus(EquipmentStatusEnum::FROZEN));
+            $this->dispatchConsumableEffects($consumableEffect, $player, $ration);
         } else {
             $this->dispatchMushEffect($player);
         }
@@ -75,14 +76,17 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 
-    protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect, Player $player, bool $isFrozen): void
+    protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect, Player $player, GameEquipment $ration): void
     {
+        $isFrozen = $ration->hasStatus(EquipmentStatusEnum::FROZEN);
+        $tags = $this->createEventTags($ration);
+
         if (($delta = $consumableEffect->getActionPoint()) !== null) {
             $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::ACTION_POINT,
                 $delta,
-                [ActionEnum::CONSUME->value],
+                $tags,
                 new \DateTime()
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -92,7 +96,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 $player,
                 PlayerVariableEnum::MOVEMENT_POINT,
                 $delta,
-                [ActionEnum::CONSUME->value],
+                $tags,
                 new \DateTime()
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -102,7 +106,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 $player,
                 PlayerVariableEnum::HEALTH_POINT,
                 $delta,
-                [ActionEnum::CONSUME->value],
+                $tags,
                 new \DateTime()
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -113,7 +117,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 $player,
                 PlayerVariableEnum::MORAL_POINT,
                 $delta,
-                [ActionEnum::CONSUME->value],
+                $tags,
                 new \DateTime()
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -123,7 +127,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 $player,
                 PlayerVariableEnum::SATIETY,
                 $delta,
-                [ActionEnum::CONSUME->value],
+                $tags,
                 new \DateTime()
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -140,5 +144,18 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             new \DateTime()
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function createEventTags(GameEquipment $ration): array
+    {
+        $tags = [ActionEnum::CONSUME->value, $ration->getName()];
+        if ($ration->hasMechanicByName(EquipmentMechanicEnum::FRUIT)) {
+            $tags[] = EquipmentMechanicEnum::FRUIT;
+        }
+        if ($ration->hasMechanicByName(EquipmentMechanicEnum::DRUG)) {
+            $tags[] = EquipmentMechanicEnum::DRUG;
+        }
+
+        return $tags;
     }
 }

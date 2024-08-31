@@ -65,4 +65,6 @@ abstract class ModifierNameEnum
     public const string SKILL_POINT_CHEF = 'skill_point_chef';
     public const string PLAYER_MINUS_1_ACTION_POINT_ON_SEARCH = 'player_-1_action_point_on_search';
     public const string OBSERVANT_MODIFIER = 'observant_modifier';
+    public const string PLAYER_PLUS_2_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE = 'player_+2_action_points_on_consume_action_if_coffee';
+    public const string CAFFEINE_JUNKIE_MODIFIER = 'caffeine_junkie_modifier';
 }

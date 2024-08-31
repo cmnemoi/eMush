@@ -187,6 +187,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($observantModifier->getName(), $observantModifier);
         $manager->persist($observantModifier);
 
+        $caffeineJunkieModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_2_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE)
+        );
+        $this->addReference($caffeineJunkieModifier->getName(), $caffeineJunkieModifier);
+        $manager->persist($caffeineJunkieModifier);
+
         $manager->flush();
     }
 

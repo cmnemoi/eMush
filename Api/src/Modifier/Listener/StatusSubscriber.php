@@ -10,23 +10,22 @@ use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
+use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\File\Exception\UnexpectedTypeException;
 
-class StatusSubscriber implements EventSubscriberInterface
+final class StatusSubscriber implements EventSubscriberInterface
 {
-    private ModifierCreationServiceInterface $modifierCreationService;
-
     public function __construct(
-        ModifierCreationServiceInterface $modifierCreationService,
-    ) {
-        $this->modifierCreationService = $modifierCreationService;
-    }
+        private EquipmentModifierServiceInterface $equipmentModifierService,
+        private ModifierCreationServiceInterface $modifierCreationService,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -38,52 +37,19 @@ class StatusSubscriber implements EventSubscriberInterface
 
     public function onStatusApplied(StatusEvent $event): void
     {
-        $statusConfig = $event->getStatusConfig();
-        if ($statusConfig === null) {
-            throw new \LogicException('statusConfig should be provided');
-        }
+        $this->createStatusModifiers($event);
 
-        $statusHolder = $event->getStatusHolder();
-
-        foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
-            $modifierHolder = $this->getModifierHolderFromConfig($statusHolder, $modifierConfig);
-            if ($modifierHolder === null) {
-                return;
-            }
-
-            $this->modifierCreationService->createModifier(
-                modifierConfig: $modifierConfig,
-                holder: $modifierHolder,
-                modifierProvider: $this->getModifierProvider($event),
-                tags: $event->getTags(),
-                time: $event->getTime(),
-            );
+        if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
+            $this->deleteGearModifiers($event);
         }
     }
 
     public function onStatusRemoved(StatusEvent $event): void
     {
-        $statusHolder = $event->getStatusHolder();
+        $this->deleteStatusModifiers($event);
 
-        $statusConfig = $event->getStatusConfig();
-        if ($statusConfig === null) {
-            throw new \LogicException('statusConfig should be provided');
-        }
-
-        /** @var AbstractModifierConfig $modifierConfig */
-        foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
-            $modifierHolder = $this->getModifierHolderFromConfig($statusHolder, $modifierConfig);
-            if ($modifierHolder === null) {
-                return;
-            }
-
-            $this->modifierCreationService->deleteModifier(
-                modifierConfig: $modifierConfig,
-                holder: $modifierHolder,
-                modifierProvider: $this->getModifierProvider($event),
-                tags: $event->getTags(),
-                time: $event->getTime()
-            );
+        if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
+            $this->createGearModifiers($event);
         }
     }
 
@@ -179,5 +145,65 @@ class StatusSubscriber implements EventSubscriberInterface
         }
 
         return null;
+    }
+
+    private function createStatusModifiers(StatusEvent $event): void
+    {
+        $statusConfig = $event->getStatusConfig();
+        $statusHolder = $event->getStatusHolder();
+
+        foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
+            $modifierHolder = $this->getModifierHolderFromConfig($statusHolder, $modifierConfig);
+            if ($modifierHolder === null) {
+                return;
+            }
+
+            $this->modifierCreationService->createModifier(
+                modifierConfig: $modifierConfig,
+                holder: $modifierHolder,
+                modifierProvider: $this->getModifierProvider($event),
+                tags: $event->getTags(),
+                time: $event->getTime(),
+            );
+        }
+    }
+
+    private function deleteStatusModifiers(StatusEvent $event): void
+    {
+        $statusConfig = $event->getStatusConfig();
+        $statusHolder = $event->getStatusHolder();
+
+        foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
+            $modifierHolder = $this->getModifierHolderFromConfig($statusHolder, $modifierConfig);
+            if ($modifierHolder === null) {
+                return;
+            }
+
+            $this->modifierCreationService->deleteModifier(
+                modifierConfig: $modifierConfig,
+                holder: $modifierHolder,
+                modifierProvider: $this->getModifierProvider($event),
+                tags: $event->getTags(),
+                time: $event->getTime()
+            );
+        }
+    }
+
+    private function createGearModifiers(StatusEvent $event): void
+    {
+        $statusHolder = $event->getStatusHolder();
+        if (!$statusHolder instanceof GameEquipment) {
+            throw new UnexpectedTypeException($statusHolder, GameEquipment::class);
+        }
+        $this->equipmentModifierService->gearCreated($statusHolder, $event->getTags(), $event->getTime());
+    }
+
+    private function deleteGearModifiers(StatusEvent $event): void
+    {
+        $statusHolder = $event->getStatusHolder();
+        if (!$statusHolder instanceof GameEquipment) {
+            throw new UnexpectedTypeException($statusHolder, GameEquipment::class);
+        }
+        $this->equipmentModifierService->gearDestroyed($statusHolder, $event->getTags(), $event->getTime());
     }
 }

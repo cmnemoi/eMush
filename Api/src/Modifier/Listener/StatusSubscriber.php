@@ -22,7 +22,6 @@ use Symfony\Component\HttpFoundation\File\Exception\UnexpectedTypeException;
 final class StatusSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private EquipmentModifierServiceInterface $equipmentModifierService,
         private ModifierCreationServiceInterface $modifierCreationService,
     ) {}
 

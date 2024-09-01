@@ -180,21 +180,3 @@ final class StatusSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function createGearModifiers(StatusEvent $event): void
-    {
-        $statusHolder = $event->getStatusHolder();
-        if (!$statusHolder instanceof GameEquipment) {
-            throw new UnexpectedTypeException($statusHolder, GameEquipment::class);
-        }
-        $this->equipmentModifierService->gearCreated($statusHolder, $event->getTags(), $event->getTime());
-    }
-
-    private function deleteGearModifiers(StatusEvent $event): void
-    {
-        $statusHolder = $event->getStatusHolder();
-        if (!$statusHolder instanceof GameEquipment) {
-            throw new UnexpectedTypeException($statusHolder, GameEquipment::class);
-        }
-        $this->equipmentModifierService->gearDestroyed($statusHolder, $event->getTags(), $event->getTime());
-    }
-}

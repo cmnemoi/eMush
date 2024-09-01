@@ -86,9 +86,6 @@ class HideSubscriberCest
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'soapShowerActionModifier']);
 
-        $modifier = new GameModifier($player, $modifierConfig);
-        $I->haveInRepository($modifier);
-
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
@@ -108,6 +105,10 @@ class HideSubscriberCest
             ->setEquipment($equipmentConfig)
             ->setName('some name');
         $I->haveInRepository($gameEquipment);
+
+        $modifier = new GameModifier($player, $modifierConfig);
+        $modifier->setModifierProvider($gameEquipment);
+        $I->haveInRepository($modifier);
 
         $player->addEquipment($gameEquipment);
 

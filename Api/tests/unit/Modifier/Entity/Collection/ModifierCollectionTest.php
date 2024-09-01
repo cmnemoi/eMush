@@ -50,12 +50,16 @@ final class ModifierCollectionTest extends TestCase
 
         $modifier1 = new GameModifier($player, $modifierConfig1);
         $modifier2 = new GameModifier($player, $modifierConfig1);
-        $modifier3 = new GameModifier(new Daedalus(), $modifierConfig1);
+        $modifier3 = new GameModifier(new Daedalus(), $modifierConfig2);
         $modifier4 = new GameModifier(new Place(), $modifierConfig2);
+        $modifier1->setModifierProvider($player);
+        $modifier2->setModifierProvider($player);
+        $modifier3->setModifierProvider(new Player());
+        $modifier4->setModifierProvider($player);
 
         $modifierCollection1 = new ModifierCollection([$modifier1, $modifier2, $modifier3, $modifier4]);
 
-        $result = $modifierCollection1->getModifierFromConfig($modifierConfig2);
+        $result = $modifierCollection1->getModifierFromConfigAndProvider($modifierConfig2, $player);
 
         self::assertSame($modifier4, $result);
     }

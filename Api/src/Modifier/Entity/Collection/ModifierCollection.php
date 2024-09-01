@@ -8,6 +8,7 @@ use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Entity\ModifierProviderInterface;
 
 /**
  * @template-extends ArrayCollection<int, GameModifier>
@@ -33,11 +34,16 @@ class ModifierCollection extends ArrayCollection
         return new self($array);
     }
 
-    public function getModifierFromConfig(AbstractModifierConfig $modifierConfig): ?GameModifier
-    {
-        $modifierConfig = $this->filter(static fn (GameModifier $modifier) => $modifier->getModifierConfig() === $modifierConfig)->first();
+    public function getModifierFromConfigAndProvider(
+        AbstractModifierConfig $modifierConfig,
+        ModifierProviderInterface $modifierProvider
+    ): ?GameModifier {
+        $modifier = $this->filter(
+            static fn (GameModifier $modifier) => $modifier->getModifierConfig() === $modifierConfig
+            && $modifier->getModifierProvider() === $modifierProvider
+        )->first();
 
-        return $modifierConfig ?: null;
+        return $modifier ?: null;
     }
 
     public function getEventModifiers(AbstractGameEvent $event, array $priorities): self

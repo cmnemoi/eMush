@@ -213,12 +213,14 @@ final class ModifierCreationServiceTest extends TestCase
     public function testDeleteEventModifier()
     {
         $daedalus = new Daedalus();
+        $player = new Player();
 
         // create a daedalus GameModifier
         $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
 
         $gameModifier = new GameModifier($daedalus, $modifierConfig);
+        $gameModifier->setModifierProvider($player);
 
         $this->entityManager->shouldReceive('remove')->with($gameModifier)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -226,7 +228,7 @@ final class ModifierCreationServiceTest extends TestCase
         $this->service->deleteModifier(
             modifierConfig: $modifierConfig,
             holder: $daedalus,
-            modifierProvider: new Player(),
+            modifierProvider: $player,
             tags: [],
             time: new \DateTime(),
         );

@@ -391,6 +391,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setStartCharge(1)
             ->setMaxCharge(1)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
             ->setAutoRemove(true)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($traveling);

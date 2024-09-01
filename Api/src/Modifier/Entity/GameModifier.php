@@ -94,10 +94,6 @@ class GameModifier
     {
         $modifierName = $this->modifierConfig->getModifierName();
 
-        if ($modifierName === null) {
-            return true;
-        }
-
         $operationalStatus = $this->modifierProvider->getModifierProvider()->getOperationalStatus($modifierName);
 
         return $operationalStatus === ActionProviderOperationalStateEnum::OPERATIONAL;
@@ -107,10 +103,6 @@ class GameModifier
     {
         $modifierProvider = $this->modifierProvider->getModifierProvider();
         $modifierName = $this->modifierConfig->getModifierName();
-
-        if ($modifierName === null) {
-            return null;
-        }
 
         return $modifierProvider->getUsedCharge($modifierName);
     }

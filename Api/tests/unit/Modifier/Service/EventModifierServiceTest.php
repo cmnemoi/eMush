@@ -79,7 +79,7 @@ final class EventModifierServiceTest extends TestCase
             ->setSuccessRate(50);
 
         // add attempt
-        $event = new ActionVariableEvent($action, $player, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
+        $event = new ActionVariableEvent($action, $player, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, [], null);
         $statusConfig = new ChargeStatusConfig();
         $statusConfig->setStatusName(StatusEnum::ATTEMPT);
         $attempt = new Attempt($player, $statusConfig);
@@ -96,7 +96,7 @@ final class EventModifierServiceTest extends TestCase
         self::assertSame(50 * 1.25 ** 1, $modifiedEvent->getQuantity());
 
         // More attempts
-        $event = new ActionVariableEvent($action, $player, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
+        $event = new ActionVariableEvent($action, $player, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, [], null);
         $attempt->setCharge(3);
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
@@ -125,7 +125,7 @@ final class EventModifierServiceTest extends TestCase
             ->setSuccessRate(50);
 
         // add attempt
-        $event = new ActionVariableEvent($action, $player, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
+        $event = new ActionVariableEvent($action, $player, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, [], null);
         $statusConfig = new ChargeStatusConfig();
         $statusConfig->setStatusName(StatusEnum::ATTEMPT);
         $attempt = new Attempt($player, $statusConfig);

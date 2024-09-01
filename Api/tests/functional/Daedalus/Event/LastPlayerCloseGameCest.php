@@ -791,7 +791,7 @@ class LastPlayerCloseGameCest
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setTargetEvent(ActionEnum::SHOWER->value)
+            ->setTargetEvent(ActionEnum::TAKE_SHOWER->value)
             ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE);
         $I->haveInRepository($modifierConfig);

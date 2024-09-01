@@ -92,7 +92,7 @@ final class DoTheThingActionTest extends AbstractActionTest
         $this->statusService->shouldReceive('createStatusFromName')->twice();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionConfig, $this->actionProvider, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->with($player, $this->actionConfig, $this->actionProvider, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY, $this->actionHandler->getTags())
             ->andReturn(2)
             ->once();
 
@@ -142,7 +142,7 @@ final class DoTheThingActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('isSuccessful')->once()->with(DoTheThing::STD_TRANSMISSION_RATE)->andReturn(false);
         $this->randomService->shouldReceive('isSuccessful')->once()->with(DoTheThing::TOO_PASSIONATE_ACT_RATE)->andReturn(false);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionConfig, $this->actionProvider, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->with($player, $this->actionConfig, $this->actionProvider, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY, $this->actionConfig->getActionTags())
             ->andReturn(2)
             ->once();
     }

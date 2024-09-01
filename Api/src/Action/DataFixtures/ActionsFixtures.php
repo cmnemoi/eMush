@@ -416,8 +416,8 @@ class ActionsFixtures extends Fixture
 
         $showerAction = new ActionConfig();
         $showerAction
-            ->setName(ActionEnum::SHOWER->value)
-            ->setActionName(ActionEnum::SHOWER)
+            ->setName(ActionEnum::TAKE_SHOWER->value)
+            ->setActionName(ActionEnum::TAKE_SHOWER)
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)

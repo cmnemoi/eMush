@@ -61,7 +61,7 @@ final class BoringSpeechActionTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent')->once();
         $this->statusService->shouldReceive('createStatusFromName')->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($speaker, $this->actionConfig, $this->actionProvider, null, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->with($speaker, $this->actionConfig, $this->actionProvider, null, ActionVariableEnum::OUTPUT_QUANTITY, $this->actionHandler->getTags())
             ->andReturn(3)
             ->once();
 

@@ -63,6 +63,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
             actionProvider: $postIt,
             player: $this->kuanTi,
+            tags: []
         );
         $actionEvent->setActionResult(new Success());
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
@@ -94,6 +95,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
             actionProvider: $postIt,
             player: $this->kuanTi,
+            tags: []
         );
         $actionEvent->setActionResult(new Success());
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
@@ -136,6 +138,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
             actionProvider: $postIt,
             player: $this->chun,
+            tags: []
         );
         $actionEvent->setActionResult(new Success());
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
@@ -178,6 +181,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
             actionProvider: $postIt,
             player: $this->kuanTi,
+            tags: []
         );
         $actionEvent->setActionResult(new Success());
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
@@ -212,6 +216,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
             actionProvider: $postIt,
             player: $this->kuanTi,
+            tags: []
         );
         $actionEvent->setActionResult(new Success());
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
@@ -249,6 +254,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
             actionProvider: $postIt,
             player: $this->kuanTi,
+            tags: []
         );
         $actionEvent->setActionResult(new Success());
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
@@ -295,6 +301,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::READ_DOCUMENT]),
             actionProvider: $postIt,
             player: $this->kuanTi,
+            tags: []
         );
         $actionEvent->setActionResult(new Success());
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
@@ -323,6 +330,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]),
             actionProvider: $this->kuanTi,
             player: $this->kuanTi,
+            tags: []
         );
         $actionEvent->setActionResult(new Success());
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
@@ -357,7 +365,8 @@ final class PreActionEventCest extends AbstractFunctionalTest
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]),
             actionProvider: $door,
             player: $this->kuanTi,
-            actionTarget: $door,
+            tags: [],
+            actionTarget: $door
         );
         $actionEvent->setActionResult(new Success());
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);

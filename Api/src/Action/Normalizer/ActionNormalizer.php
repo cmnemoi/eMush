@@ -105,9 +105,7 @@ class ActionNormalizer implements NormalizerInterface
                 $normalizedAction = $this->normalizeCost(
                     $normalizedAction,
                     $currentPlayer,
-                    $actionConfig,
-                    $actionProvider,
-                    $actionTarget,
+                    $actionClass,
                 );
 
                 if ($actionClass instanceof AttemptAction) {
@@ -131,17 +129,17 @@ class ActionNormalizer implements NormalizerInterface
     private function normalizeCost(
         array $normalizedAction,
         Player $currentPlayer,
-        ActionConfig $actionConfig,
-        ActionProviderInterface $actionProvider,
-        ?LogParameterInterface $actionTarget,
+        AbstractAction $actionClass,
     ): array {
+        $actionConfig = $actionClass->getActionConfig();
         foreach (self::COST_POINT_MAP as $key => $pointName) {
             $normalizedAction[$key] = $this->actionService->getActionModifiedActionVariable(
                 $currentPlayer,
                 $actionConfig,
-                $actionProvider,
-                $actionTarget,
-                $pointName
+                $actionClass->getActionProvider(),
+                $actionClass->getTarget(),
+                $pointName,
+                $actionClass->getTags()
             );
         }
 

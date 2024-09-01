@@ -45,7 +45,7 @@ final class ShowerActionCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->showerAction = $I->grabService(Shower::class);
-        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SHOWER]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE_SHOWER]);
         $this->action->setInjuryRate(0);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);

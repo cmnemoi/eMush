@@ -15,6 +15,7 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Take extends AbstractAction
@@ -31,6 +32,20 @@ class Take extends AbstractAction
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameItem;
+    }
+
+    public function getTags(): array
+    {
+        $tags = parent::getTags();
+
+        /** @var GameItem $target */
+        $target = $this->target;
+        $tags[] = $target->getName();
+        if ($target->hasStatus(EquipmentStatusEnum::HEAVY)) {
+            $tags[] = EquipmentStatusEnum::HEAVY;
+        }
+
+        return $tags;
     }
 
     protected function checkResult(): ActionResult

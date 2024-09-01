@@ -102,7 +102,7 @@ final class PublicBroadcastActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('createStatusFromName')->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY, $this->actionHandler->getTags())
             ->andReturn(2)
             ->once();
         $this->eventService->shouldReceive('callEvent')->once();

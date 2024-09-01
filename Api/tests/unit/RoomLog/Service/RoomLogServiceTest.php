@@ -414,6 +414,7 @@ final class RoomLogServiceTest extends TestCase
             actionConfig: ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::STRENGTHEN_HULL)),
             actionProvider: $this->createStub(ActionProviderInterface::class),
             player: $player,
+            tags: []
         );
         $actionEvent->setActionResult($actionResult);
 
@@ -447,6 +448,7 @@ final class RoomLogServiceTest extends TestCase
             actionConfig: ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::STRENGTHEN_HULL)),
             actionProvider: $this->createStub(ActionProviderInterface::class),
             player: $player,
+            tags: []
         );
         $actionEvent->setActionResult($actionResult);
 
@@ -484,7 +486,8 @@ final class RoomLogServiceTest extends TestCase
             actionConfig: ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::STRENGTHEN_HULL)),
             actionProvider: $this->createStub(ActionProviderInterface::class),
             player: $player,
-            actionTarget: $gameEquipment,
+            tags: [],
+            actionTarget: $gameEquipment
         );
         $actionEvent->setActionResult($actionResult);
 

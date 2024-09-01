@@ -104,7 +104,16 @@ class PsychoticAttack extends AbstractSymptomHandler
             throw new \Exception('makePlayerRandomlyAttacking() : Player ' . $player->getName() . ' should have a Attack action');
         }
 
-        $actionEvent = new ActionEvent($attackActionEntity, $knife, $player, $victim);
+        $tags = $attackActionEntity->getActionTags();
+        $tags[] = $this->name;
+
+        $actionEvent = new ActionEvent(
+            actionConfig: $attackActionEntity,
+            actionProvider: $knife,
+            player: $player,
+            tags: $tags,
+            actionTarget: $victim
+        );
         $actionEvent->setEventName(ActionEvent::EXECUTE_ACTION);
 
         return $actionEvent;
@@ -135,7 +144,16 @@ class PsychoticAttack extends AbstractSymptomHandler
             throw new \Exception('makePlayerRandomlyShooting() : Player' . $player->getName() . 'should have a Shoot action');
         }
 
-        $actionEvent = new ActionEvent($shootActionEntity, $player, $victim);
+        $tags = $shootActionEntity->getActionTags();
+        $tags[] = $this->name;
+
+        $actionEvent = new ActionEvent(
+            actionConfig: $shootActionEntity,
+            actionProvider: $blaster,
+            player: $player,
+            tags: $tags,
+            actionTarget: $victim
+        );
         $actionEvent->setEventName(ActionEvent::EXECUTE_ACTION);
 
         return $actionEvent;

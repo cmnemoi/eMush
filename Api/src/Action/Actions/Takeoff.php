@@ -94,11 +94,12 @@ final class Takeoff extends AbstractAction
     {
         // a successful landing still create damage to the hull, only critical success avoid any damage
         $criticalSuccessRate = $this->actionService->getActionModifiedActionVariable(
-            $this->player,
-            $this->actionConfig,
-            $this->actionProvider,
-            $this->target,
-            ActionVariableEnum::PERCENTAGE_CRITICAL
+            player: $this->player,
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->actionProvider,
+            actionTarget: $this->target,
+            variableName: ActionVariableEnum::PERCENTAGE_CRITICAL,
+            tags: $this->getTags()
         );
         $isSuccessCritical = $this->randomService->isSuccessful($criticalSuccessRate);
 

@@ -66,7 +66,7 @@ final class ComfortActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionConfig, $this->actionProvider, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->with($player, $this->actionConfig, $this->actionProvider, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY, $this->actionHandler->getTags())
             ->andReturn(2)
             ->once();
         $result = $this->actionHandler->execute();

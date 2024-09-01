@@ -76,9 +76,10 @@ final class AddEventTest extends TestCase
         $jinSu = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::JIN_SU, $daedalus);
 
         $actionEvent = new ActionEvent(
-            ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOWER)),
+            ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TAKE_SHOWER)),
             actionProvider: $thalasso,
             player: $chun,
+            tags: []
         );
         $actionEvent->addTag($chun->getLogName());
 
@@ -99,7 +100,7 @@ final class AddEventTest extends TestCase
             modifier: $modifier,
             events: new EventChain([$actionEvent]),
             eventName: ActionEvent::POST_ACTION,
-            tags: [ActionEnum::SHOWER->value, ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER],
+            tags: [ActionEnum::TAKE_SHOWER->value, ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER],
             time: new \DateTime()
         );
 
@@ -125,7 +126,7 @@ final class AddEventTest extends TestCase
             ->setEventTargetRequirements(new ArrayCollection())
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ])

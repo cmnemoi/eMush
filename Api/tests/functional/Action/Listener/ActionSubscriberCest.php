@@ -93,6 +93,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             actionConfig: $action,
             actionProvider: $player,
             player: $player,
+            tags: $action->getActionTags(),
             actionTarget: null
         );
 
@@ -163,6 +164,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             actionConfig: $action,
             actionProvider: $player,
             player: $player,
+            tags: $action->getActionTags(),
             actionTarget: null
         );
 
@@ -237,6 +239,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             actionConfig: $action,
             actionProvider: $player,
             player: $player,
+            tags: $action->getActionTags(),
             actionTarget: null
         );
 
@@ -292,6 +295,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             actionConfig: $action,
             actionProvider: $player,
             player: $player,
+            tags: $action->getActionTags(),
             actionTarget: null
         );
 

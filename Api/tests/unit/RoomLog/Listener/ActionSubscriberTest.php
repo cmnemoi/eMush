@@ -90,6 +90,7 @@ final class ActionSubscriberTest extends TestCase
             actionConfig: $this->actionConfig(),
             actionProvider: $this->createStub(ActionProviderInterface::class),
             player: $player,
+            tags: $this->actionConfig()->getActionTags()
         );
         $actionEvent->setActionResult(new Success());
         $this->actionSubscriber->onPostAction($actionEvent);

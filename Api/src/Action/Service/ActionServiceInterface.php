@@ -15,7 +15,8 @@ interface ActionServiceInterface
         ActionConfig $actionConfig,
         ActionProviderInterface $actionProvider,
         ?LogParameterInterface $actionTarget,
-        ActionResult $actionResult
+        ActionResult $actionResult,
+        array $tags
     ): Player;
 
     public function getActionModifiedActionVariable(
@@ -23,13 +24,15 @@ interface ActionServiceInterface
         ActionConfig $actionConfig,
         ActionProviderInterface $actionProvider,
         ?LogParameterInterface $actionTarget,
-        string $variableName
+        string $variableName,
+        array $tags
     ): int;
 
     public function playerCanAffordPoints(
         Player $player,
         ActionConfig $actionConfig,
         ActionProviderInterface $actionProvider,
-        ?LogParameterInterface $actionTarget
+        ?LogParameterInterface $actionTarget,
+        array $tags
     ): bool;
 }

@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Shower extends AbstractAction
 {
-    protected ActionEnum $name = ActionEnum::SHOWER;
+    protected ActionEnum $name = ActionEnum::TAKE_SHOWER;
 
     protected StatusServiceInterface $statusService;
 

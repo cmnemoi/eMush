@@ -116,6 +116,7 @@ final class InactivityStatusCest extends AbstractFunctionalTest
             actionConfig: $I->grabEntityFromRepository(entity: ActionConfig::class, params: ['name' => ActionEnum::SEARCH]),
             actionProvider: $this->player,
             player: $this->player,
+            tags: []
         );
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
     }

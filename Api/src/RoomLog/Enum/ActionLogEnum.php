@@ -231,7 +231,7 @@ abstract class ActionLogEnum
         ActionEnum::DISPENSE->value => [
             ActionOutputEnum::SUCCESS => self::DISPENSE_SUCCESS,
         ],
-        ActionEnum::SHOWER->value => [
+        ActionEnum::TAKE_SHOWER->value => [
             ActionOutputEnum::SUCCESS => self::SHOWER_HUMAN,
             ActionOutputEnum::FAIL => self::SHOWER_MUSH,
         ],

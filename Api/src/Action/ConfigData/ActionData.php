@@ -560,8 +560,8 @@ class ActionData
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
         [
-            'name' => 'shower',
-            'action_name' => ActionEnum::SHOWER,
+            'name' => 'take_shower',
+            'action_name' => ActionEnum::TAKE_SHOWER,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,

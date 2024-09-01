@@ -81,11 +81,11 @@ final class ExtinguishActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS, $this->actionHandler->getTags())
             ->andReturn(10)
             ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL, $this->actionHandler->getTags())
             ->never();
         $this->randomService->shouldReceive('isSuccessful')->with(10)->andReturn(false)->once();
 
@@ -119,11 +119,11 @@ final class ExtinguishActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS, $this->actionHandler->getTags())
             ->andReturn(10)
             ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL, $this->actionHandler->getTags())
             ->andReturn(0)
             ->once();
         $this->randomService->shouldReceive('isSuccessful')->with(10)->andReturn(true)->once();

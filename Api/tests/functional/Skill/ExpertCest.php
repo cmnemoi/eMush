@@ -81,6 +81,7 @@ final class ExpertCest extends AbstractFunctionalTest
             ActionVariableEnum::PERCENTAGE_INJURY,
             $this->actionConfig->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_INJURY),
             $this->player,
+            $this->actionConfig->getActionTags(),
             null
         );
     }
@@ -100,6 +101,7 @@ final class ExpertCest extends AbstractFunctionalTest
             ActionVariableEnum::PERCENTAGE_DIRTINESS,
             $this->actionConfig->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS),
             $this->player,
+            $this->actionConfig->getActionTags(),
             null
         );
     }

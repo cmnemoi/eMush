@@ -34,6 +34,7 @@ use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerService;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 
@@ -370,6 +371,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTagConstraints([
                 ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ])
@@ -386,6 +388,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTagConstraints([
                 ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ])
@@ -402,6 +405,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTagConstraints([
                 ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ])

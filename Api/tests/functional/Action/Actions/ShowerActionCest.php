@@ -443,4 +443,44 @@ final class ShowerActionCest extends AbstractFunctionalTest
             I: $I,
         );
     }
+
+    public function splashproofMushPlayerShouldNotGainThalassoBonus(FunctionalTester $I): void
+    {
+        // given a shower in KT's room
+        $shower = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::THALASSO,
+            equipmentHolder: $this->kuanTi->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given KT is Mush
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given KT has splashproof skill
+        $this->addSkillToPlayer(SkillEnum::SPLASHPROOF, $I, $this->kuanTi);
+
+        // when KT takes a shower
+        $this->showerAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $shower,
+            player: $this->kuanTi,
+            target: $shower
+        );
+        $this->showerAction->execute();
+
+        // then KT should not have gained any health point, morale point or movement point
+        $expectedKTHealthPoint = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint();
+        $expectedKTMoralePoint = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint();
+        $expectedKTMovementPoint = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitMovementPoint();
+
+        $I->assertEquals($expectedKTHealthPoint, $this->kuanTi->getHealthPoint());
+        $I->assertEquals($expectedKTMoralePoint, $this->kuanTi->getMoralPoint());
+        $I->assertEquals($expectedKTMovementPoint, $this->kuanTi->getMovementPoint());
+    }
 }

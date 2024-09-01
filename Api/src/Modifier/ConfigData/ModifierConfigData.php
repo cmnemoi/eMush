@@ -2206,6 +2206,7 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ],
@@ -2229,6 +2230,7 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ],
@@ -2252,6 +2254,7 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ],
@@ -3065,7 +3068,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => ModifierNameEnum::PREVENT_MUSH_SHOWER_MALUS,
-            'modifierName' => null,
+            'modifierName' => ModifierNameEnum::PREVENT_MUSH_SHOWER_MALUS,
             'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,

@@ -73,9 +73,9 @@
         <target>Impossible to **move**.</target>
       </segment>
     </unit>
-    <unit id="prevent_pick_heavy_item_on_pre.action">
+    <unit id="prevent_pick_heavy_on_pre.action">
       <segment id="description" state="translated">
-        <source>prevent_pick_heavy_item_on_pre.action.description</source>
+        <source>prevent_pick_heavy_on_pre.action.description</source>
         <target>Impossible to **carry heavy items**.</target>
       </segment>
     </unit>
@@ -130,21 +130,21 @@
         <target>Gives the symptom **Sneezing**.</target>
       </segment>
     </unit>
-    <unit id="prevent_attack_actions_on_pre.action">
+    <unit id="prevent_attacking_on_pre.action">
       <segment id="description" state="translated">
-        <source>prevent_attack_actions_on_pre.action.description</source>
+        <source>prevent_attacking_on_pre.action.description</source>
         <target>Forbids the action **Attack**.</target>
       </segment>
     </unit>
-    <unit id="prevent_piloting_actions_on_pre.action">
+    <unit id="prevent_piloting_on_pre.action">
       <segment id="description" state="translated">
-        <source>prevent_piloting_actions_on_pre.action.description</source>
+        <source>prevent_piloting_on_pre.action.description</source>
         <target>Impossible to **pilot**.</target>
       </segment>
     </unit>
-    <unit id="prevent_shoot_actions_on_pre.action">
+    <unit id="prevent_shoot_on_pre.action">
       <segment id="description" state="translated">
-        <source>prevent_shoot_actions_on_pre.action.description</source>
+        <source>prevent_shoot_on_pre.action.description</source>
         <target>Forbids the action **Shoot**.</target>
       </segment>
     </unit>

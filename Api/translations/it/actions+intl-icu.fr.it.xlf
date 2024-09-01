@@ -1211,5 +1211,51 @@
         <target>exchange_body.description</target>
       </segment>
     </unit>
+    <unit id="accept_mission">
+      <segment id="name" state="initial">
+        <source>accept_mission.name</source>
+        <target>accept_mission.name</target>
+      </segment>
+    </unit>
+    <unit id="reject_mission">
+      <segment id="name" state="initial">
+        <source>reject_mission.name</source>
+        <target>reject_mission.name</target>
+      </segment>
+    </unit>
+    <unit id="commander_order">
+      <segment id="name" state="initial">
+        <source>commander_order.name</source>
+        <target>commander_order.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>commander_order.description</source>
+        <target>commander_order.description</target>
+      </segment>
+    </unit>
+    <unit id="print_ze_list">
+      <segment id="name" state="initial">
+        <source>print_ze_list.name</source>
+        <target>print_ze_list.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>print_ze_list.description</source>
+        <target>print_ze_list.description</target>
+      </segment>
+    </unit>
+    <unit id="throw_grenade">
+      <segment id="name" state="initial">
+        <source>throw_grenade.name</source>
+        <target>throw_grenade.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>throw_grenade.description</source>
+        <target>throw_grenade.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>throw_grenade.confirmation</source>
+        <target>throw_grenade.confirmation</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

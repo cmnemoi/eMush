@@ -721,5 +721,23 @@
         <target>ceasefire_end</target>
       </segment>
     </unit>
+    <unit id="tabulatrix_prints">
+      <segment id="tabulatrix_prints" state="initial">
+        <source>tabulatrix_prints</source>
+        <target>tabulatrix_prints</target>
+      </segment>
+    </unit>
+    <unit id="ze_list">
+      <segment id="ze_list" state="initial">
+        <source>ze_list</source>
+        <target>ze_list</target>
+      </segment>
+    </unit>
+    <unit id="observant_noticed_something">
+      <segment id="observant_noticed_something" state="initial">
+        <source>observant_noticed_something</source>
+        <target>observant_noticed_something</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

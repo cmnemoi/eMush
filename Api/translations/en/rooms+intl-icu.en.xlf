@@ -10,6 +10,14 @@
         <source>bridge.loc_prep</source>
         <target>on the</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>bridge.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>bridge.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="alpha_bay">
       <segment id="name" state="translated">
@@ -19,6 +27,14 @@
       <segment id="loc_prep" state="translated">
         <source>alpha_bay.loc_prep</source>
         <target>in</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>alpha_bay.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>alpha_bay.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="bravo_bay">
@@ -30,6 +46,14 @@
         <source>bravo_bay.loc_prep</source>
         <target>in</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>bravo_bay.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>bravo_bay.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="alpha_bay_2">
       <segment id="name" state="translated">
@@ -39,6 +63,14 @@
       <segment id="loc_prep" state="translated">
         <source>alpha_bay_2.loc_prep</source>
         <target>in</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>alpha_bay_2.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>alpha_bay_2.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="nexus">
@@ -50,6 +82,14 @@
         <source>nexus.loc_prep</source>
         <target>in the</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>nexus.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>nexus.exit_loc_prep</source>
+        <target>from the</target>
+      </segment>
     </unit>
     <unit id="medlab">
       <segment id="name" state="translated">
@@ -59,6 +99,14 @@
       <segment id="loc_prep" state="translated">
         <source>medlab.loc_prep</source>
         <target>in the</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>medlab.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>medlab.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="laboratory">
@@ -70,6 +118,14 @@
         <source>laboratory.loc_prep</source>
         <target>in the</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>laboratory.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>laboratory.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="refectory">
       <segment id="name" state="translated">
@@ -79,6 +135,14 @@
       <segment id="loc_prep" state="translated">
         <source>refectory.loc_prep</source>
         <target>in the</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>refectory.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>refectory.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="hydroponic_garden">
@@ -90,6 +154,14 @@
         <source>hydroponic_garden.loc_prep</source>
         <target>in the</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>hydroponic_garden.enter_loc_prep</source>
+        <target>to the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>hydroponic_garden.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="engine_room">
       <segment id="name" state="translated">
@@ -99,6 +171,14 @@
       <segment id="loc_prep" state="translated">
         <source>engine_room.loc_prep</source>
         <target>in</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>engine_room.enter_loc_prep</source>
+        <target>to the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>engine_room.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="front_alpha_turret">
@@ -110,6 +190,14 @@
         <source>front_alpha_turret.loc_prep</source>
         <target>in</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>front_alpha_turret.enter_loc_prep</source>
+        <target>to the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>front_alpha_turret.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="centre_alpha_turret">
       <segment id="name" state="translated">
@@ -119,6 +207,14 @@
       <segment id="loc_prep" state="translated">
         <source>centre_alpha_turret.loc_prep</source>
         <target>in</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>centre_alpha_turret.enter_loc_prep</source>
+        <target>to the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>centre_alpha_turret.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="rear_alpha_turret">
@@ -130,6 +226,14 @@
         <source>rear_alpha_turret.loc_prep</source>
         <target>in</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>rear_alpha_turret.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>rear_alpha_turret.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="front_bravo_turret">
       <segment id="name" state="translated">
@@ -139,6 +243,14 @@
       <segment id="loc_prep" state="translated">
         <source>front_bravo_turret.loc_prep</source>
         <target>in</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>front_bravo_turret.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>front_bravo_turret.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="centre_bravo_turret">
@@ -150,6 +262,14 @@
         <source>centre_bravo_turret.loc_prep</source>
         <target>in</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>centre_bravo_turret.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>centre_bravo_turret.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="rear_bravo_turret">
       <segment id="name" state="translated">
@@ -159,6 +279,14 @@
       <segment id="loc_prep" state="translated">
         <source>rear_bravo_turret.loc_prep</source>
         <target>in</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>rear_bravo_turret.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>rear_bravo_turret.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="front_corridor">
@@ -170,6 +298,14 @@
         <source>front_corridor.loc_prep</source>
         <target>in</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>front_corridor.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>front_corridor.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="central_corridor">
       <segment id="name" state="translated">
@@ -179,6 +315,14 @@
       <segment id="loc_prep" state="translated">
         <source>central_corridor.loc_prep</source>
         <target>in</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>central_corridor.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>central_corridor.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="rear_corridor">
@@ -190,6 +334,14 @@
         <source>rear_corridor.loc_prep</source>
         <target>in</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>rear_corridor.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>rear_corridor.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="icarus_bay">
       <segment id="name" state="translated">
@@ -199,6 +351,14 @@
       <segment id="loc_prep" state="translated">
         <source>icarus_bay.loc_prep</source>
         <target>in</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>icarus_bay.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>icarus_bay.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="alpha_dorm">
@@ -210,6 +370,14 @@
         <source>alpha_dorm.loc_prep</source>
         <target>in</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>alpha_dorm.enter_loc_prep</source>
+        <target>to the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>alpha_dorm.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="bravo_dorm">
       <segment id="name" state="translated">
@@ -219,6 +387,14 @@
       <segment id="loc_prep" state="translated">
         <source>bravo_dorm.loc_prep</source>
         <target>in</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>bravo_dorm.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>bravo_dorm.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="front_storage">
@@ -230,6 +406,14 @@
         <source>front_storage.loc_prep</source>
         <target>in</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>front_storage.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>front_storage.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="center_alpha_storage">
       <segment id="name" state="translated">
@@ -239,6 +423,14 @@
       <segment id="loc_prep" state="translated">
         <source>center_alpha_storage.loc_prep</source>
         <target>in</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>center_alpha_storage.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>center_alpha_storage.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="center_bravo_storage">
@@ -250,6 +442,14 @@
         <source>center_bravo_storage.loc_prep</source>
         <target>in</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>center_bravo_storage.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>center_bravo_storage.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="rear_alpha_storage">
       <segment id="name" state="translated">
@@ -259,6 +459,14 @@
       <segment id="loc_prep" state="translated">
         <source>rear_alpha_storage.loc_prep</source>
         <target>in</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>rear_alpha_storage.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>rear_alpha_storage.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="rear_bravo_storage">
@@ -270,6 +478,14 @@
         <source>rear_bravo_storage.loc_prep</source>
         <target>in</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>rear_bravo_storage.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>rear_bravo_storage.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="patrol_ship_bravo_epicure">
       <segment id="name" state="translated">
@@ -279,6 +495,14 @@
       <segment id="loc_prep" state="translated">
         <source>patrol_ship_bravo_epicure.loc_prep</source>
         <target>in the</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>patrol_ship_bravo_epicure.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>patrol_ship_bravo_epicure.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="patrol_ship_bravo_socrate">
@@ -290,6 +514,14 @@
         <source>patrol_ship_bravo_socrate.loc_prep</source>
         <target>in the</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>patrol_ship_bravo_socrate.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>patrol_ship_bravo_socrate.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="patrol_ship_bravo_planton">
       <segment id="name" state="final">
@@ -299,6 +531,14 @@
       <segment id="loc_prep" state="translated">
         <source>patrol_ship_bravo_planton.loc_prep</source>
         <target>in the</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>patrol_ship_bravo_planton.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>patrol_ship_bravo_planton.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_tamarin">
@@ -310,6 +550,14 @@
         <source>patrol_ship_alpha_tamarin.loc_prep</source>
         <target>in the</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>patrol_ship_alpha_tamarin.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>patrol_ship_alpha_tamarin.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="patrol_ship_alpha_jujube">
       <segment id="name" state="translated">
@@ -319,6 +567,14 @@
       <segment id="loc_prep" state="translated">
         <source>patrol_ship_alpha_jujube.loc_prep</source>
         <target>in the</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>patrol_ship_alpha_jujube.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>patrol_ship_alpha_jujube.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_longane">
@@ -330,6 +586,14 @@
         <source>patrol_ship_alpha_longane.loc_prep</source>
         <target>in the</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>patrol_ship_alpha_longane.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>patrol_ship_alpha_longane.exit_loc_prep</source>
+        <target>to the</target>
+      </segment>
     </unit>
     <unit id="patrol_ship_alpha_2_wallis">
       <segment id="name" state="translated">
@@ -339,6 +603,14 @@
       <segment id="loc_prep" state="translated">
         <source>patrol_ship_alpha_2_wallis.loc_prep</source>
         <target>in the</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>patrol_ship_alpha_2_wallis.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>patrol_ship_alpha_2_wallis.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
     <unit id="pasiphae">
@@ -350,6 +622,14 @@
         <source>pasiphae.loc_prep</source>
         <target>in the</target>
       </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>pasiphae.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>pasiphae.exit_loc_prep</source>
+        <target>from the</target>
+      </segment>
     </unit>
     <unit id="space">
       <segment id="name" state="translated">
@@ -359,6 +639,14 @@
       <segment id="loc_prep" state="translated">
         <source>space.loc_prep</source>
         <target>in the</target>
+      </segment>
+      <segment id="enter_loc_prep" state="translated">
+        <source>space.enter_loc_prep</source>
+        <target>from the</target>
+      </segment>
+      <segment id="exit_loc_prep" state="translated">
+        <source>space.exit_loc_prep</source>
+        <target>to the</target>
       </segment>
     </unit>
   </file>

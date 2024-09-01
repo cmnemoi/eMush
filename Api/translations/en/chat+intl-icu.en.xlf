@@ -71,6 +71,14 @@
         <source>tips.externalResources.wikiLink</source>
         <target>https://www.mushpedia.com/</target>
       </segment>
+      <segment id="missions.title" state="translated">
+        <source>tips.missions.title</source>
+        <target>Missions</target>
+      </segment>
+      <segment id="missions.accept" state="translated">
+        <source>tips.missions.accept</source>
+        <target>Accept?</target>
+      </segment>
     </unit>
     <unit id="room_log">
       <segment id="name" state="translated">

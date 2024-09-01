@@ -376,7 +376,7 @@
       </segment>
       <segment id="mycelium_spirit.description" state="translated">
         <source>mycelium_spirit.description</source>
-        <target>Votre mission est sacrée. Le Mush vous a choisi comme relais majeur fongique trans dimensionnel.//:point: Tant que vous êtes en vie, les Mush peuvent **produire 1 spore de plus par jour**.</target>
+        <target>Votre mission est sacrée. Le Mush vous a choisi comme relais majeur fongique transdimensionnel.//:point: Tant que vous êtes en vie, les Mush peuvent **produire 1 spore de plus par jour**.</target>
       </segment>
     </unit>
     <unit id="fertile">
@@ -463,14 +463,14 @@
     </unit>
     <unit id="sprinter">
       <segment id="sprinter.name" state="translated">
-          <source>sprinter.name</source>
-          <target>Sprinter</target>
+        <source>sprinter.name</source>
+        <target>Sprinter</target>
       </segment>
       <segment id="sprinter.description" state="translated">
-          <source>sprinter.description</source>
-          <target>Le Sprinter débute toujours sa journée du bon pied ! Il profite de Points de Mouvement supplémentaires.
+        <source>sprinter.description</source>
+        <target>Le Sprinter débute toujours sa journée du bon pied ! Il profite de Points de Mouvement supplémentaires.
 //
-:point: Vous gagnez **2** :pm: de plus à chaque conversion :pa: / :pm:. (Non cumulatif avec la **Trotinette**).
+:point: Vous gagnez **2** :pm: de plus à chaque conversion :pa::pm: (non cumulatif avec la **Trottinette**).
 //
 :point: **+1 étape** en exploration.</target>
       </segment>

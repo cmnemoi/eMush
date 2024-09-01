@@ -991,13 +991,21 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="put_through_door_success">
       <segment id="put_through_door_success" state="translated">
         <source>put_through_door_success</source>
-        <target>:guardian: **{character}** has put **{target_character}** through the door. It's like The Shining in here, get a cleanup crew over here! </target>
+        <target>:guardian: **{character}** has put **{target_character}** through the door. It's like The Shining in here, get a cleanup crew over here!</target>
       </segment>
     </unit>
     <unit id="guard_success">
       <segment id="guard_success" state="translated">
         <source>guard_success</source>
-        <target>**{character}** suddenly got all serious-looking and started guarding the room... </target>
+        <target>**{character}** suddenly got all serious-looking and started guarding the room...</target>
+      </segment>
+    </unit>
+    <unit id="throw_grenade_success">
+      <segment id="throw_grenade_success" state="translated">
+        <source>throw_grenade_success</source>
+        <target>{version, select,
+        1 {Ploc...poc...poc...pschhhhh... **{character}** takes cover while the others look at their feet. Oh look, a gre...}
+        other {Ploc...ploc...ploc...pschhhhh... **{character}** takes cover while the others look down. The explosion blows everyone away!}}</target>
       </segment>
     </unit>
   </file>

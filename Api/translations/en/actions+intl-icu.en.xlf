@@ -1238,5 +1238,51 @@ Or you simply need some fresh air.... or not.</target>
         <target>Allows you to take over the body of your target. This action is irreversible. All your skills are reset.</target>
       </segment>
     </unit>
+    <unit id="accept_mission">
+      <segment id="name" state="translated">
+        <source>accept_mission.name</source>
+        <target>:online: Yes + {outputQuantity} :pa:</target>
+      </segment>
+    </unit>
+    <unit id="reject_mission">
+      <segment id="name" state="translated">
+        <source>reject_mission.name</source>
+        <target>:offline: No</target>
+      </segment>
+    </unit>
+    <unit id="commander_order">
+      <segment id="name" state="translated">
+        <source>commander_order.name</source>
+        <target>Issue mission</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>commander_order.description</source>
+        <target>Allows you to delegate a mission to one of your subordinates. They will be allocated :pa::pm: to complete the mission if they accept. You can only use this action once per day. This action is made available to you again should the subordinate refuse.</target>
+      </segment>
+    </unit>
+    <unit id="print_ze_list">
+      <segment id="name" state="translated">
+        <source>print_ze_list.name</source>
+        <target>Print THE list</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>print_ze_list.description</source>
+        <target>This lets you print a list you prepared before the Daedalus departed. This list details potentially infected crewmembers. Every day, one name is removed from the list. The list currently contains **{numberOfNames}** names.</target>
+      </segment>
+    </unit>
+    <unit id="throw_grenade">
+      <segment id="name" state="translated">
+        <source>throw_grenade.name</source>
+        <target>Throw</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>throw_grenade.description</source>
+        <target>Allows you to throw a grenade in the room. You're sure to get a result this way.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>throw_grenade.confirmation</source>
+        <target>This action is dangerous. Are you sure you want to continue?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

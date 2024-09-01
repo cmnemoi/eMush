@@ -22,9 +22,9 @@
       </segment>
     </unit>
     <unit id="mission_sent">
-      <segment state="translated">
+      <segment state="final">
         <source>mission_sent.title</source>
-        <target></target>
+        <target/>
       </segment>
       <segment state="translated">
         <source>mission_sent.description</source>
@@ -32,9 +32,9 @@
       </segment>
     </unit>
     <unit id="mission_received">
-      <segment state="translated">
+      <segment state="final">
         <source>mission_received.title</source>
-        <target></target>
+        <target/>
       </segment>
       <segment state="translated">
         <source>mission_received.description</source>
@@ -42,9 +42,9 @@
       </segment>
     </unit>
     <unit id="mission_accepted">
-      <segment state="translated">
+      <segment state="final">
         <source>mission_accepted.title</source>
-        <target></target>
+        <target/>
       </segment>
       <segment state="translated">
         <source>mission_accepted.description</source>
@@ -52,11 +52,11 @@
       </segment>
     </unit>
     <unit id="mission_rejected">
-      <segment state="translated">
+      <segment state="final">
         <source>mission_rejected.title</source>
-        <target></target>
+        <target/>
       </segment>
-      <segment state="translated">
+      <segment state="final">
         <source>mission_rejected.description</source>
         <target>Votre mission "{mission}" a été refusée.</target>
       </segment>

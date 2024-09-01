@@ -745,5 +745,11 @@
         <target>guard_success</target>
       </segment>
     </unit>
+    <unit id="throw_grenade_success">
+      <segment id="throw_grenade_success" state="initial">
+        <source>throw_grenade_success</source>
+        <target>throw_grenade_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

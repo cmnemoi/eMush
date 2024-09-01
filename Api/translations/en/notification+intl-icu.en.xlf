@@ -21,5 +21,45 @@
         <target>A Mush agent has swapped their body with yours. You will now live an entirely different life...</target>
       </segment>
     </unit>
+    <unit id="mission_sent">
+      <segment state="final">
+        <source>mission_sent.title</source>
+        <target/>
+      </segment>
+      <segment state="translated">
+        <source>mission_sent.description</source>
+        <target>Mission sent.</target>
+      </segment>
+    </unit>
+    <unit id="mission_received">
+      <segment state="final">
+        <source>mission_received.title</source>
+        <target/>
+      </segment>
+      <segment state="translated">
+        <source>mission_received.description</source>
+        <target>You have received a new mission from the Commander. Go to the Tips tab.</target>
+      </segment>
+    </unit>
+    <unit id="mission_accepted">
+      <segment state="final">
+        <source>mission_accepted.title</source>
+        <target/>
+      </segment>
+      <segment state="translated">
+        <source>mission_accepted.description</source>
+        <target>Your mission “{mission}” has been accepted.</target>
+      </segment>
+    </unit>
+    <unit id="mission_rejected">
+      <segment state="final">
+        <source>mission_rejected.title</source>
+        <target/>
+      </segment>
+      <segment state="translated">
+        <source>mission_rejected.description</source>
+        <target>Votre mission "{mission}" has been refused.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

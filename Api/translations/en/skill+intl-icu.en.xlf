@@ -430,5 +430,125 @@
         <target>The Mush has passed to you one of the genotypes from our weapons of mass transmission. Help yourself!//:point: **Unique**: Allows you to **inhabit the body of another human**. They must have been **infected at least once**. Thereafter, they will find themselves in your former body... and may warn other crewmembers. Your :triumph: points will be switched.</target>
       </segment>
     </unit>
+    <unit id="phagocyte">
+      <segment id="phagocyte.name" state="translated">
+        <source>phagocyte.name</source>
+        <target>Phagocytosis</target>
+      </segment>
+      <segment id="phagocyte.description" state="translated">
+        <source>phagocyte.description</source>
+        <target>In hard times, you have THE SOLUTION.//:point: For **0** :pa:, you can devour a **Spore** to gain **4** :pa: and **4** :hp:.</target>
+      </segment>
+    </unit>
+    <unit id="wrestler">
+      <segment id="wrestler.name" state="translated">
+        <source>wrestler.name</source>
+        <target>Wrestler</target>
+      </segment>
+      <segment id="wrestler.description" state="translated">
+        <source>wrestler.description</source>
+        <target>The wrestler's german suplex makes the vertebrae of your enemies tremble.//:point: Your hand-to-hand attacks **deal 2 additional damage** (doesn't apply during **Berzerk**).//:point: Grants the **Kick them out** action.</target>
+      </segment>
+    </unit>
+    <unit id="sprinter">
+      <segment id="sprinter.name" state="translated">
+        <source>sprinter.name</source>
+        <target>Sprinter</target>
+      </segment>
+      <segment id="sprinter.description" state="translated">
+        <source>sprinter.description</source>
+        <target>The Sprinter always puts their best foot forward! They get additional Movement Points.//:point: You gain 2 more :pm: when converting :pa: to :pm: (doesn't stack with **Scooter**).//:point: Expedition: Allows the exploration of 1 additional zone.</target>
+      </segment>
+    </unit>
+    <unit id="devotion">
+      <segment id="devotion.name" state="translated">
+        <source>devotion.name</source>
+        <target>Devotion</target>
+      </segment>
+      <segment id="devotion.description" state="translated">
+        <source>devotion.description</source>
+        <target>In the heat of the action, we can count on you.//:point: You gain an additional **3** :pa: when you accept a mission.</target>
+      </segment>
+    </unit>
+    <unit id="radio_piracy">
+      <segment id="radio_piracy.name" state="translated">
+        <source>radio_piracy.name</source>
+        <target>Radio Piracy</target>
+      </segment>
+      <segment id="radio_piracy.description" state="translated">
+        <source>radio_piracy.description</source>
+        <target>This means of communication is overrated. So act.//:point: For **3** :pa: you can distort the communication on a player **Walkie-Talkie**. This breaks their **Walkie-Talkie** and allows you to write **on their behalf** until they repair it.</target>
+      </segment>
+    </unit>
+    <unit id="trapper">
+      <segment id="trapper.name" state="translated">
+        <source>trapper.name</source>
+        <target>Trapper</target>
+      </segment>
+      <segment id="trapper.description" state="translated">
+        <source>trapper.description</source>
+        <target>Surprise!//:point: For **1** :pa:, you can booby-trap a **room** with a **spore**. As soon as someone interacts with any **object** or piece of **equipment** they will become **infected**. However, if they're Mush or Immunized, the spore will be lost.</target>
+      </segment>
+    </unit>
+    <unit id="tracker">
+      <segment id="tracker.name" state="translated">
+        <source>tracker.name</source>
+        <target>Tracker</target>
+      </segment>
+      <segment id="tracker.description" state="translated">
+        <source>tracker.description</source>
+        <target>The Tracker can see the comings and goings of every team member. Furthermore, they can print any research results during the game via the Tabulatrix. This provides a list of players of which at least one is Mush.//:point: Full access to **movement history**.//:point: Able to use the Tabulatrix to **print the secret list**.</target>
+      </segment>
+    </unit>
+    <unit id="bacterophiliac">
+      <segment id="bacterophiliac.name" state="translated">
+        <source>bacterophiliac.name</source>
+        <target>Bacterophiliac</target>
+      </segment>
+      <segment id="bacterophiliac.description" state="translated">
+        <source>bacterophiliac.description</source>
+        <target>Your plant bacteria can have particularly virulent applications.//:point: For 2 :pa: you can give an **illness** to a crewmember. This is a **covert** action.</target>
+      </segment>
+    </unit>
+    <unit id="pyromaniac">
+      <segment id="pyromaniac.name" state="translated">
+        <source>pyromaniac.name</source>
+        <target>Pyromaniac</target>
+      </segment>
+      <segment id="pyromaniac.description" state="translated">
+        <source>pyromaniac.description</source>
+        <target>The pyromaniac injects explosive microspores into an inflammable medium which triggers a violent combustion which is liable to do long-term damage to the ship.//:point: For **4** :pa: you can start a **fire** in a room.</target>
+      </segment>
+    </unit>
+    <unit id="observant">
+      <segment id="observant.name" state="translated">
+        <source>observant.name</source>
+        <target>Observant</target>
+      </segment>
+      <segment id="observant.description" state="translated">
+        <source>observant.description</source>
+        <target>You use 1 :pa: less to discover hidden objects. You have a 25% chance of detecting secret activity in the room you are in.//:point: The **Search** action costs 1 :pa: less.//:point: You have a **25% chance of detecting sercret activity** in your current room.//:point: You have a **25% chance of revealing covert actions** performed in your presence.</target>
+      </segment>
+    </unit>
+    <unit id="detached_crewmember">
+      <segment id="detached_crewmember.name" state="translated">
+        <source>detached_crewmember.name</source>
+        <target>Detached Crewmember</target>
+      </segment>
+      <segment id="detached_crewmember.description" state="translated">
+        <source>detached_crewmember.description</source>
+        <target>The unconcerned crewmember is cold, hard, and unfeeling. They are unaffected by deaths of teammates.//:point: You **lose no Moral Points (:pmo:) when a crewmate dies**.//:point: Zero risk of psychological illness if you witness a death.</target>
+      </segment>
+    </unit>
+    <unit id="expert">
+      <segment id="expert.name" state="translated">
+        <source>expert.name</source>
+        <target>Expert</target>
+      </segment>
+      <segment id="expert.description" state="translated">
+        <source>expert.description</source>
+        <target>Your skills are impressive, but your disregard for your own safety is equally so!//:point: Your chances of succeeding at a particular task are increased by 20% but so is the likelihood of injury and getting dirty.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

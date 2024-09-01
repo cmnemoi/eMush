@@ -223,6 +223,22 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         <source>bios_terminal.magnetic_net_toggle_inactive</source>
         <target>No</target>
       </segment>
+      <segment id="neron_inhibition.name" state="translated">
+        <source>bios_terminal.neron_inhibition_name</source>
+        <target>Inhibit DMZ-CorePeace</target>
+      </segment>
+      <segment id="neron_inhibition.description" state="translated">
+        <source>bios_terminal.neron_inhibition_description</source>
+        <target>Activates NERON's behavior inhibitor. The inhibitor changes a number of NERON's aggressive behaviors.</target>
+      </segment>
+      <segment id="neron_inhibition.toggle_active" state="translated">
+        <source>bios_terminal.neron_inhibition_toggle_active</source>
+        <target>Yes</target>
+      </segment>
+      <segment id="neron_inhibition.toggle_inactive" state="translated">
+        <source>bios_terminal.neron_inhibition_toggle_inactive</source>
+        <target>No</target>
+      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="name" state="translated">

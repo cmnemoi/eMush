@@ -32,7 +32,8 @@
 	"util": {
 		"prev": "Previous page",
 		"next": "Next page",
-		"goBack": "Back"
+		"goBack": "Back",
+		"exit": "Exit"
 	},
 	"banner": {
 		"ranking": "Rankings",
@@ -627,6 +628,10 @@
 		"exploration": {
 			"newStep": "New step"
 		},
+		"commanderOrderPanel": {
+			"title": "Mission",
+			"tips": "You are the ship's *Commander* and you have the power to *command missions* from your comrades. You can choose who to send the mission you've freely decided on, and they'll receive :pa: if they accept. But there's no guarantee that your comrade will respect your orders..."
+		},
 		"popUp": {
 			"close": "Close",
 			"ok": "I understand",
@@ -805,7 +810,8 @@
 			"playerMessage": "Description of the situation:",
 			"player": "Player concerned by the complaint",
 			"seeContext": "See in context",
-			"message": "If you feel that a teammate is violating eMush's rules, please make sure you have selected a message illustrating the problem and explain in detail the reason for your complaint."
+			"message": "If you feel that a teammate is violating eMush's rules, please make sure you have selected a message illustrating the problem and explain in detail the reason for your complaint.",
+			"commanderMission": "Commander mission"
 		},
 		"actions": {
 			"name": "Actions",

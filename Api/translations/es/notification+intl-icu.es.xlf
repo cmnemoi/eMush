@@ -21,5 +21,45 @@
         <target>exchange_body_human.description</target>
       </segment>
     </unit>
+    <unit id="mission_sent">
+      <segment state="initial">
+        <source>mission_sent.title</source>
+        <target>mission_sent.title</target>
+      </segment>
+      <segment state="initial">
+        <source>mission_sent.description</source>
+        <target>mission_sent.description</target>
+      </segment>
+    </unit>
+    <unit id="mission_received">
+      <segment state="initial">
+        <source>mission_received.title</source>
+        <target>mission_received.title</target>
+      </segment>
+      <segment state="initial">
+        <source>mission_received.description</source>
+        <target>mission_received.description</target>
+      </segment>
+    </unit>
+    <unit id="mission_accepted">
+      <segment state="initial">
+        <source>mission_accepted.title</source>
+        <target>mission_accepted.title</target>
+      </segment>
+      <segment state="initial">
+        <source>mission_accepted.description</source>
+        <target>mission_accepted.description</target>
+      </segment>
+    </unit>
+    <unit id="mission_rejected">
+      <segment state="initial">
+        <source>mission_rejected.title</source>
+        <target>mission_rejected.title</target>
+      </segment>
+      <segment state="initial">
+        <source>mission_rejected.description</source>
+        <target>mission_rejected.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

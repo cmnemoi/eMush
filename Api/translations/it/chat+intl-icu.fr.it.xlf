@@ -62,6 +62,14 @@
         <source>tips.externalResources.wikiLink</source>
         <target>tips.externalResources.wikiLink</target>
       </segment>
+      <segment id="missions.title" state="initial">
+        <source>tips.missions.title</source>
+        <target>tips.missions.title</target>
+      </segment>
+      <segment id="missions.accept" state="initial">
+        <source>tips.missions.accept</source>
+        <target>tips.missions.accept</target>
+      </segment>
     </unit>
     <unit id="room_log">
       <segment id="name" state="initial">

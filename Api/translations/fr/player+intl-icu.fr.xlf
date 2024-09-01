@@ -148,7 +148,7 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
       </segment>
       <segment id="description" state="translated">
         <source>heal.description</source>
-        <target>Les Points de Soin vous donnent des **actions gratuites** pour toutes les **actions de soins**.</target>
+        <target>Les Points de Soin vous donnent des **actions gratuites** pour toutes les *actions de soins*.</target>
       </segment>
     </unit>
   </file>

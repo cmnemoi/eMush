@@ -208,6 +208,22 @@
         <source>bios_terminal.magnetic_net_toggle_inactive</source>
         <target>bios_terminal.magnetic_net_toggle_inactive</target>
       </segment>
+      <segment id="neron_inhibition.name" state="initial">
+        <source>bios_terminal.neron_inhibition_name</source>
+        <target>bios_terminal.neron_inhibition_name</target>
+      </segment>
+      <segment id="neron_inhibition.description" state="initial">
+        <source>bios_terminal.neron_inhibition_description</source>
+        <target>bios_terminal.neron_inhibition_description</target>
+      </segment>
+      <segment id="neron_inhibition.toggle_active" state="initial">
+        <source>bios_terminal.neron_inhibition_toggle_active</source>
+        <target>bios_terminal.neron_inhibition_toggle_active</target>
+      </segment>
+      <segment id="neron_inhibition.toggle_inactive" state="initial">
+        <source>bios_terminal.neron_inhibition_toggle_inactive</source>
+        <target>bios_terminal.neron_inhibition_toggle_inactive</target>
+      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="name" state="initial">

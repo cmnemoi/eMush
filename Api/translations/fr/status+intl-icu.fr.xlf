@@ -134,7 +134,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>frozen.description</source>
-        <target>Cette nourriture est hyper-gelée. Sa consommation tel quel peut s'avérer difficile.</target>
+        <target>Cette nourriture est hyper-gelée. Sa consommation telle quelle peut s'avérer difficile.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>frozen.examine</source>
@@ -148,7 +148,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>contaminated.description</source>
-        <target>Cet objet est contaminé, le premier équipier (Mush ou non) qui le manipulera sera contaminé par un spore. Vous voyez ce message car vous faites parti du Mush.</target>
+        <target>Cet objet est contaminé, le premier équipier (Mush ou non) qui le manipulera sera contaminé par un spore. Vous voyez ce message car vous faites partie du Mush.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>contaminated.examine</source>
@@ -162,7 +162,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>plant_young.description</source>
-        <target>Cette plante est jeune. Elle ne produira ni oxygène ni fruits jusqu'à maturation.</target>
+        <target>Cette plante est jeune. Elle ne produira ni oxygène ni fruit jusqu'à maturation.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>plant_young.examine</source>
@@ -190,7 +190,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>plant_dry.description</source>
-        <target>Cette plante est **Desséchée**, elle ne produira ni fruits ni oxygène. Si elle n'est pas arrosée, demain elle sera morte.</target>
+        <target>Cette plante est **Desséchée**, elle ne produira ni fruit ni oxygène. Si elle n'est pas arrosée, demain elle sera morte.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>plant_dry.examine</source>
@@ -204,7 +204,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>plant_diseased.description</source>
-        <target>Cette plante est **Malade**, elle ne produira ni fruits ni oxygène.</target>
+        <target>Cette plante est **Malade**, elle ne produira ni fruit ni oxygène.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>plant_diseased.examine</source>
@@ -1124,7 +1124,7 @@
     <unit id="antisocial">
       <segment id="name" state="translated">
         <source>antisocial.name</source>
-        <target>Associal</target>
+        <target>Asocial</target>
       </segment>
       <segment id="description" state="translated">
         <source>antisocial.description</source>
@@ -1226,7 +1226,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>eureka_moment.description</source>
-        <target>Votre prochaine réparation ou Recherche est réussie.</target>
+        <target>Votre prochaine réparation, recherche ou projet est réussi.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>eureka_moment.examine</source>
@@ -1634,7 +1634,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>genius_idea.description</source>
-        <target>Votre prochaine réparation, projet ou recherche est réussie.</target>
+        <target>Votre prochaine réparation, recherche ou projet est réussi.</target>
       </segment>
     </unit>
   </file>

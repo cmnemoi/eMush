@@ -1140,9 +1140,9 @@
         <source>berzerk.name</source>
         <target>Berzerk</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>berzerk.description</source>
-        <target>berzerk.description</target>
+        <target>You have changed. You now have a damage bonus. You also have the permanent status of Guardian.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>berzerk.examine</source>
@@ -1364,9 +1364,9 @@
         <source>inactive.name</source>
         <target>Inactive</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>inactive.description</source>
-        <target>inactive.description</target>
+        <target>If your :pa: gauges are full, you are considered inactive and become an easy target. Good luck then...</target>
       </segment>
       <segment id="effect" state="initial">
         <source>inactive.examine</source>

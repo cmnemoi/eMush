@@ -745,7 +745,7 @@
     <unit id="logistic_log">
       <segment state="translated">
         <source>logistic_log</source>
-        <target>The **Logistics** skills of **{character}** has borne fruit... </target>
+        <target>The **Logistics** skills of **{character}** has borne fruit...</target>
       </segment>
     </unit>
     <unit id="drone">
@@ -907,6 +907,26 @@
         <target>{new_cycle, select, 
         true {Nobody is taking **{target_character}**  seriously anymore. End of ceasefire.}
         other {**{target_character}** left the room. End of ceasefire.}}</target>
+      </segment>
+    </unit>
+    <unit id="tabulatrix_prints">
+      <segment id="tabulatrix_prints" state="translated">
+        <source>tabulatrix_prints</source>
+        <target>The tabulatrix lets out an astonishing groan. Something is printing...</target>
+      </segment>
+    </unit>
+    <unit id="ze_list">
+      <segment id="ze_list" state="translated">
+        <source>ze_list</source>
+        <target>{quantity, select,
+        1 {{lastPlayer} is infected by the Mush. It's a certainty.}
+        other {At the very least one of them were an agent of Mush when we fled Xyloph. I'd bet my life on it... {firstPlayers} and {lastPlayer}. But which one...}}</target>
+      </segment>
+    </unit>
+    <unit id="observant_noticed_something">
+      <segment id="observant_noticed_something" state="translated">
+        <source>observant_noticed_something</source>
+        <target>**{character}** has noticed something interesting...</target>
       </segment>
     </unit>
   </file>

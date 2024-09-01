@@ -214,7 +214,7 @@
     <unit id="booby_trap_already_done">
       <segment id="description" state="translated">
         <source>booby_trap_already_done.description</source>
-        <target>Great funghi think alike. This shelving unit is already booby-trapped...</target>
+        <target>Great fungi think alike. This shelving unit is already booby-trapped...</target>
       </segment>
     </unit>
     <unit id="slime_already_done">

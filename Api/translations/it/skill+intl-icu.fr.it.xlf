@@ -401,5 +401,125 @@
         <target>transfer.description</target>
       </segment>
     </unit>
+    <unit id="phagocyte">
+      <segment id="phagocyte.name" state="initial">
+        <source>phagocyte.name</source>
+        <target>phagocyte.name</target>
+      </segment>
+      <segment id="phagocyte.description" state="initial">
+        <source>phagocyte.description</source>
+        <target>phagocyte.description</target>
+      </segment>
+    </unit>
+    <unit id="wrestler">
+      <segment id="wrestler.name" state="initial">
+        <source>wrestler.name</source>
+        <target>wrestler.name</target>
+      </segment>
+      <segment id="wrestler.description" state="initial">
+        <source>wrestler.description</source>
+        <target>wrestler.description</target>
+      </segment>
+    </unit>
+    <unit id="sprinter">
+      <segment id="sprinter.name" state="initial">
+        <source>sprinter.name</source>
+        <target>sprinter.name</target>
+      </segment>
+      <segment id="sprinter.description" state="initial">
+        <source>sprinter.description</source>
+        <target>sprinter.description</target>
+      </segment>
+    </unit>
+    <unit id="devotion">
+      <segment id="devotion.name" state="initial">
+        <source>devotion.name</source>
+        <target>devotion.name</target>
+      </segment>
+      <segment id="devotion.description" state="initial">
+        <source>devotion.description</source>
+        <target>devotion.description</target>
+      </segment>
+    </unit>
+    <unit id="radio_piracy">
+      <segment id="radio_piracy.name" state="initial">
+        <source>radio_piracy.name</source>
+        <target>radio_piracy.name</target>
+      </segment>
+      <segment id="radio_piracy.description" state="initial">
+        <source>radio_piracy.description</source>
+        <target>radio_piracy.description</target>
+      </segment>
+    </unit>
+    <unit id="trapper">
+      <segment id="trapper.name" state="initial">
+        <source>trapper.name</source>
+        <target>trapper.name</target>
+      </segment>
+      <segment id="trapper.description" state="initial">
+        <source>trapper.description</source>
+        <target>trapper.description</target>
+      </segment>
+    </unit>
+    <unit id="tracker">
+      <segment id="tracker.name" state="initial">
+        <source>tracker.name</source>
+        <target>tracker.name</target>
+      </segment>
+      <segment id="tracker.description" state="initial">
+        <source>tracker.description</source>
+        <target>tracker.description</target>
+      </segment>
+    </unit>
+    <unit id="bacterophiliac">
+      <segment id="bacterophiliac.name" state="initial">
+        <source>bacterophiliac.name</source>
+        <target>bacterophiliac.name</target>
+      </segment>
+      <segment id="bacterophiliac.description" state="initial">
+        <source>bacterophiliac.description</source>
+        <target>bacterophiliac.description</target>
+      </segment>
+    </unit>
+    <unit id="pyromaniac">
+      <segment id="pyromaniac.name" state="initial">
+        <source>pyromaniac.name</source>
+        <target>pyromaniac.name</target>
+      </segment>
+      <segment id="pyromaniac.description" state="initial">
+        <source>pyromaniac.description</source>
+        <target>pyromaniac.description</target>
+      </segment>
+    </unit>
+    <unit id="observant">
+      <segment id="observant.name" state="initial">
+        <source>observant.name</source>
+        <target>observant.name</target>
+      </segment>
+      <segment id="observant.description" state="initial">
+        <source>observant.description</source>
+        <target>observant.description</target>
+      </segment>
+    </unit>
+    <unit id="detached_crewmember">
+      <segment id="detached_crewmember.name" state="initial">
+        <source>detached_crewmember.name</source>
+        <target>detached_crewmember.name</target>
+      </segment>
+      <segment id="detached_crewmember.description" state="initial">
+        <source>detached_crewmember.description</source>
+        <target>detached_crewmember.description</target>
+      </segment>
+    </unit>
+    <unit id="expert">
+      <segment id="expert.name" state="initial">
+        <source>expert.name</source>
+        <target>expert.name</target>
+      </segment>
+      <segment id="expert.description" state="initial">
+        <source>expert.description</source>
+        <target>expert.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

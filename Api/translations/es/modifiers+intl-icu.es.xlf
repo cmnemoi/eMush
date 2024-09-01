@@ -67,10 +67,10 @@
         <target>cant_move.description</target>
       </segment>
     </unit>
-    <unit id="prevent_pick_heavy_item_on_pre.action">
-      <segment id="description" state="translated">
-        <source>prevent_pick_heavy_item_on_pre.action.description</source>
-        <target>cant_pick_up_heavy_items.description</target>
+    <unit id="prevent_pick_heavy_on_pre.action">
+      <segment id="description" state="initial">
+        <source>prevent_pick_heavy_on_pre.action.description</source>
+        <target>prevent_pick_heavy_on_pre.action.description</target>
       </segment>
     </unit>
     <unit id="cat_allergy_on_post.action">
@@ -121,22 +121,22 @@
         <target>sneezing.description</target>
       </segment>
     </unit>
-    <unit id="prevent_attack_actions_on_pre.action">
-      <segment id="description" state="translated">
-        <source>prevent_attack_actions_on_pre.action.description</source>
-        <target>no_attack_actions.description</target>
+    <unit id="prevent_attacking_on_pre.action">
+      <segment id="description" state="initial">
+        <source>prevent_attacking_on_pre.action.description</source>
+        <target>prevent_attacking_on_pre.action.description</target>
       </segment>
     </unit>
-    <unit id="prevent_piloting_actions_on_pre.action">
-      <segment id="description" state="translated">
-        <source>prevent_piloting_actions_on_pre.action.description</source>
-        <target>no_piloting_actions.description</target>
+    <unit id="prevent_piloting_on_pre.action">
+      <segment id="description" state="initial">
+        <source>prevent_piloting_on_pre.action.description</source>
+        <target>prevent_piloting_on_pre.action.description</target>
       </segment>
     </unit>
-    <unit id="prevent_shoot_actions_on_pre.action">
-      <segment id="description" state="translated">
-        <source>prevent_shoot_actions_on_pre.action.description</source>
-        <target>no_shoot_actions.description</target>
+    <unit id="prevent_shoot_on_pre.action">
+      <segment id="description" state="initial">
+        <source>prevent_shoot_on_pre.action.description</source>
+        <target>prevent_shoot_on_pre.action.description</target>
       </segment>
     </unit>
     <unit id="psychotic_attacks_on_post.action">

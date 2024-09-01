@@ -224,22 +224,17 @@ class ActionNormalizer implements NormalizerInterface
             'outputQuantity' => $actionClass->getOutputQuantity(),
         ];
 
-        if ($actionName === ActionEnum::EXTRACT_SPORE->value) {
-            $translationParameters['quantity'] = $daedalus->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();
-        }
         if ($actionTarget instanceof Player) {
             $translationParameters['target.' . $actionTarget->getLogKey()] = $actionTarget->getLogName();
         }
+        if ($actionName === ActionEnum::EXTRACT_SPORE->value) {
+            $translationParameters['quantity'] = $daedalus->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();
+        }
+        if ($actionName === ActionEnum::PRINT_ZE_LIST->value) {
+            $translationParameters['numberOfNames'] = $actionClass->getOutputQuantity() - $currentPlayer->getDaedalus()->getDaysElapsedSinceCreation();
+        }
         if (ActionEnum::getTakeOffToPlanetActions()->contains($actionName)) {
-            $inOrbitPlanet = $this->planetService->findPlanetInDaedalusOrbit($daedalus);
-            if ($inOrbitPlanet) {
-                $translationParameters['planet'] = $this->translationService->translate(
-                    key: 'planet_name',
-                    parameters: $inOrbitPlanet->getName()->toArray(),
-                    domain: 'planet',
-                    language: $daedalus->getLanguage()
-                );
-            }
+            $translationParameters['planet'] = $this->getTranslatedInOrbitPlanet($currentPlayer);
         }
         if ($actionName === ActionEnum::GRAFT->value) {
             /** @var GameItem $fruit */
@@ -262,5 +257,19 @@ class ActionNormalizer implements NormalizerInterface
         }
 
         return $skillPointCosts;
+    }
+
+    private function getTranslatedInOrbitPlanet(Player $currentPlayer): ?string
+    {
+        $daedalus = $currentPlayer->getDaedalus();
+        $inOrbitPlanet = $this->planetService->findPlanetInDaedalusOrbit($daedalus);
+
+        return $inOrbitPlanet
+            ? $this->translationService->translate(
+                key: 'planet_name',
+                parameters: $inOrbitPlanet->getName()->toArray(),
+                domain: 'planet',
+                language: $daedalus->getLanguage()
+            ) : null;
     }
 }

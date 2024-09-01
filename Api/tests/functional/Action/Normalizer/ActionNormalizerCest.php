@@ -146,4 +146,63 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
             actual: $normalizedAction,
         );
     }
+
+    public function shouldNormalizePrintZeListAction(FunctionalTester $I): void
+    {
+        // given a tabulatrix in the room
+        $tabulatrix = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::TABULATRIX,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Kuan Ti is Mush
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Daedalus has been created 5 days ago
+        $this->daedalus->setCreatedAt(new \DateTime('-5 days'));
+
+        // given Chun is a tracker
+        $this->addSkillToPlayer->execute(SkillEnum::TRACKER, $this->chun);
+
+        // given print ze list action
+        $action = $tabulatrix
+            ->getActions($this->chun, ActionHolderEnum::EQUIPMENT)
+            ->filter(static fn (Action $action) => $action->getActionConfig()->getActionName() === ActionEnum::PRINT_ZE_LIST)
+            ->first();
+
+        // when I normalize the action
+        $normalizedAction = $this->normalizer->normalize($action, format: null, context: [
+            'currentPlayer' => $this->chun,
+            $tabulatrix->getClassName() => $tabulatrix,
+        ]);
+
+        // then I should see the normalized action
+        $I->assertEquals(
+            expected: [
+                'id' => $action->getActionConfig()->getId(),
+                'key' => 'print_ze_list',
+                'actionProvider' => [
+                    'id' => $tabulatrix->getId(),
+                    'class' => GameEquipment::class,
+                ],
+                'actionPointCost' => 0,
+                'moralPointCost' => 0,
+                'movementPointCost' => 0,
+                'skillPointCosts' => [],
+                'successRate' => 100,
+                'name' => 'Imprimer LA liste',
+                'description' => 'Vous permet de récupérer une liste que vous avez créée avant le départ du Daedalus. Cette liste contient des noms de personnes potentiellement infectées. À chaque jour, cette liste s\'affine d\'un nom. Cette liste contient actuellement **3** noms.',
+                'canExecute' => true,
+                'confirmation' => null,
+            ],
+            actual: $normalizedAction,
+        );
+    }
 }

@@ -178,11 +178,6 @@ final class PrintZeList extends AbstractAction
 
     private function numberOfDaysElapsed(): int
     {
-        $daedalus = $this->player->getDaedalus();
-
-        /** @var \DateTime $createdAt */
-        $createdAt = $daedalus->getCreatedAt();
-
-        return $createdAt->diff(new \DateTime('now'))->days;
+        return $this->player->getDaedalus()->getDaysElapsedSinceCreation();
     }
 }

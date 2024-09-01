@@ -1293,7 +1293,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="final">
         <source>print_ze_list.description</source>
-        <target>Vous permet de récupérer une liste que vous avez créée avant le départ du Daedalus. Cette liste contient des noms de personnes potentiellement infectées. À chaque jour, cette liste s'affine d'un nom.</target>
+        <target>Vous permet de récupérer une liste que vous avez créée avant le départ du Daedalus. Cette liste contient des noms de personnes potentiellement infectées. À chaque jour, cette liste s'affine d'un nom. Cette liste contient actuellement **{numberOfNames}** noms.</target>
       </segment>
     </unit>
     <unit id="throw_grenade">

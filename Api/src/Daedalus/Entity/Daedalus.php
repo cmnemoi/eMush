@@ -843,8 +843,23 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getAlivePlayers()->filter(static fn (Player $player) => $player->hasMeansOfCommunication());
     }
 
+    public function getDaysElapsedSinceCreation(): int
+    {
+        return $this->getCreatedAtOrThrow()->diff(new \DateTime('now'))->days;
+    }
+
     private function isExplorationChangingCycle(): bool
     {
         return $this->getExploration()?->isChangingCycle() ?? false;
+    }
+
+    private function getCreatedAtOrThrow(): \DateTime
+    {
+        $createdAt = $this->getCreatedAt();
+        if (!$createdAt) {
+            throw new \RuntimeException('Daedalus should have a creation date');
+        }
+
+        return $createdAt;
     }
 }

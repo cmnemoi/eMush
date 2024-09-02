@@ -14,7 +14,10 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Repository\PlayerNotificationRepositoryInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\Service\UpdatePlayerNotificationService;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 /**
  * @internal
@@ -46,7 +49,11 @@ final class TakeoffActionTest extends AbstractActionTest
             $this->validator,
             $this->createStub(PatrolShipManoeuvreServiceInterface::class),
             $this->playerService,
-            $this->randomService
+            $this->randomService,
+            $this->createStub(RoomLogServiceInterface::class),
+            new UpdatePlayerNotificationService(
+                $this->createStub(PlayerNotificationRepositoryInterface::class),
+            )
         );
     }
 

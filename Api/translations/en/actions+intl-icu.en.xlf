@@ -403,14 +403,14 @@ Thanks for your help!</target>
         <target>Breaks the targeted equipment.</target>
       </segment>
     </unit>
-    <unit id="shower">
+    <unit id="take_shower">
       <segment id="name" state="final">
-        <source>shower.name</source>
+        <source>take_shower.name</source>
         <target>Wash</target>
       </segment>
       <segment id="description" state="final">
-        <source>shower.description</source>
-        <target>When the grime thickens, when general cleanliness fails, when the shame of your odor overwhelms you. There is one solution : the shower.</target>
+        <source>take_shower.description</source>
+        <target>When the grime thickens, when general cleanliness fails, when the shame of your odor overwhelms you. There is one solution : the take_shower.</target>
       </segment>
     </unit>
     <unit id="wash_in_sink">

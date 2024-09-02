@@ -196,7 +196,7 @@ const CommunicationService = {
         return players;
     },
 
-    invitePlayer: async (player:Player, channel: Channel): Promise<void> => {
+    invitePlayer: async (player: ContactablePlayer, channel: Channel): Promise<void> => {
         await ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/invite', {
             player: player.id
         });

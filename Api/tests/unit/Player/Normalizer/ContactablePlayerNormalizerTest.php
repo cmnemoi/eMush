@@ -33,6 +33,7 @@ final class ContactablePlayerNormalizerTest extends TestCase
 
         // then
         self::assertEquals([
+            'id' => $paola->getId(),
             'key' => 'paola',
             'name' => 'Paola',
         ], $normalizedPlayer);

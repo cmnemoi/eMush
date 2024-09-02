@@ -22,6 +22,7 @@ final readonly class ContactablePlayerNormalizer implements NormalizerInterface
         $player = $this->player($object);
 
         return [
+            'id' => $player->getId(),
             'key' => $player->getName(),
             'name' => $this->translationService->translate(
                 key: \sprintf('%s.name', $player->getName()),

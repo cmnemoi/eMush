@@ -2,8 +2,8 @@
     <GamePopUp title="Inviter" @exit="closeInvitation" :is-open="invitablePlayerMenuOpen">
         <div class="invite-selection">
             <button v-for="(player, key) in invitablePlayers" :key="key" @click="invitePlayer({player: player, channel: invitationChannel})">
-                <img :src="characterBody(player.character.key)">
-                <p>{{ player.character.name }}</p>
+                <img :src="characterBody(player.key)">
+                <p>{{ player.name }}</p>
             </button>
         </div>
     </GamePopUp>
@@ -26,8 +26,7 @@ export default defineComponent ({
     },
     methods: {
         characterBody: function(character: string): string {
-            const images = characterEnum[character];
-            return images.body;
+            return characterEnum[character]?.body;
         },
         ...mapActions('communication', [
             'invitePlayer',

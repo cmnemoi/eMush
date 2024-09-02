@@ -184,13 +184,13 @@ const CommunicationService = {
         return messages;
     },
 
-    loadInvitablePlayers: async (channel: Channel): Promise<Player[]> => {
+    loadInvitablePlayers: async (channel: Channel): Promise<ContactablePlayer[]> => {
         const playersData = await ApiService.get(CHANNELS_ENDPOINT + '/' + channel.id + '/invite');
 
-        const players:Player[] = [];
+        const players : ContactablePlayer[] = [];
         if (playersData.data) {
             toArray(playersData.data).forEach((data: any) => {
-                players.push((new Player()).load(data));
+                players.push((new ContactablePlayer()).load(data));
             });
         }
         return players;

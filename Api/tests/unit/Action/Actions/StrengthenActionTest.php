@@ -75,7 +75,7 @@ final class StrengthenActionTest extends AbstractActionTest
             ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
             ->once();
-        $this->randomService->shouldReceive('isActionSuccessful')->andReturn(false)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         // Fail try
         $result = $this->actionHandler->execute();
@@ -115,7 +115,7 @@ final class StrengthenActionTest extends AbstractActionTest
             ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->andReturn(10)
             ->once();
-        $this->randomService->shouldReceive('isActionSuccessful')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         $this->actionService->shouldReceive('getActionModifiedActionVariable')

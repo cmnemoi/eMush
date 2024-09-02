@@ -34,9 +34,6 @@ class MessageModifier extends AbstractModifierHandler
         if (!$initialEvent instanceof MessageEvent) {
             return $events;
         }
-        if ($modifierName === null) {
-            throw new \LogicException('A modifier with a MessageModifier strategy should have a ModifierName');
-        }
 
         // if the event already have been modified no need for extra changes
         if ($initialEvent->isModified()) {

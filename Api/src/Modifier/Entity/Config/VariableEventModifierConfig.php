@@ -70,11 +70,7 @@ class VariableEventModifierConfig extends EventModifierConfig
     {
         $modifierName = $this->modifierName;
 
-        if ($modifierName === null) {
-            $name = 'modifier';
-        } else {
-            $name = $modifierName;
-        }
+        $name = $modifierName;
 
         $name = $name . '_for_' . $this->modifierRange;
 

@@ -10,20 +10,16 @@ use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
-use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\StatusHolderInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\File\Exception\UnexpectedTypeException;
 
 final class StatusSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private EquipmentModifierServiceInterface $equipmentModifierService,
         private ModifierCreationServiceInterface $modifierCreationService,
     ) {}
 
@@ -38,19 +34,11 @@ final class StatusSubscriber implements EventSubscriberInterface
     public function onStatusApplied(StatusEvent $event): void
     {
         $this->createStatusModifiers($event);
-
-        if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
-            $this->deleteGearModifiers($event);
-        }
     }
 
     public function onStatusRemoved(StatusEvent $event): void
     {
         $this->deleteStatusModifiers($event);
-
-        if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
-            $this->createGearModifiers($event);
-        }
     }
 
     // Applies direct modifiers already present to the newly created charge status
@@ -187,23 +175,5 @@ final class StatusSubscriber implements EventSubscriberInterface
                 time: $event->getTime()
             );
         }
-    }
-
-    private function createGearModifiers(StatusEvent $event): void
-    {
-        $statusHolder = $event->getStatusHolder();
-        if (!$statusHolder instanceof GameEquipment) {
-            throw new UnexpectedTypeException($statusHolder, GameEquipment::class);
-        }
-        $this->equipmentModifierService->gearCreated($statusHolder, $event->getTags(), $event->getTime());
-    }
-
-    private function deleteGearModifiers(StatusEvent $event): void
-    {
-        $statusHolder = $event->getStatusHolder();
-        if (!$statusHolder instanceof GameEquipment) {
-            throw new UnexpectedTypeException($statusHolder, GameEquipment::class);
-        }
-        $this->equipmentModifierService->gearDestroyed($statusHolder, $event->getTags(), $event->getTime());
     }
 }

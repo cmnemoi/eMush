@@ -74,6 +74,7 @@ final class ModifierRequirementServiceTest extends TestCase
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($modifierActivationRequirement);
         $modifier = new GameModifier($room, $modifierConfig1);
+        $modifier->setModifierProvider($player1);
         $modifierCollection = new ModifierCollection([$modifier]);
 
         $requirementHandler = \Mockery::mock(RequirementRandom::class);
@@ -111,6 +112,7 @@ final class ModifierRequirementServiceTest extends TestCase
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($modifierActivationRequirement);
         $modifier = new GameModifier($room, $modifierConfig1);
+        $modifier->setModifierProvider($player1);
         $modifierCollection = new ModifierCollection([$modifier]);
 
         $requirementHandler = \Mockery::mock(RequirementRandom::class);

@@ -20,7 +20,7 @@ class PlayerNotification
     #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => ''])]
     private string $message = '';
 
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '{a:0:{}}'])]
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $parameters = [];
 
     public function __construct(Player $player, string $message, array $parameters = [])

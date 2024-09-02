@@ -8,6 +8,7 @@ use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Project\Event\BricBrocProjectWorkedEvent;
 use Mush\Project\Event\ProjectEvent;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ProjectEventSubscriber implements EventSubscriberInterface
@@ -41,6 +42,10 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
     {
         $author = $event->getAuthor();
         $project = $event->getProject();
+
+        if ($author->getPlace()->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
+            return;
+        }
 
         $this->neronMessageService->createNeronMessage(
             messageKey: $project->isPilgred() ? NeronMessageEnum::REPAIRED_PILGRED : NeronMessageEnum::NEW_PROJECT,

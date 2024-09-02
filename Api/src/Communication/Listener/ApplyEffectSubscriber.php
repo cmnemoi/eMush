@@ -7,6 +7,7 @@ use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ApplyEffectSubscriber implements EventSubscriberInterface
@@ -33,6 +34,10 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $daedalus = $player->getDaedalus();
         $place = $event->getPlace();
 
+        if ($place->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
+            return;
+        }
+
         $parentMessage = $this->neronMessageService->getMessageNeronCycleFailures($daedalus, $event->getTime(), $event->getTags());
 
         $this->neronMessageService->createNeronMessage(
@@ -49,6 +54,10 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $player = $event->getAuthor();
         $daedalus = $player->getDaedalus();
         $equipment = $event->getParameter();
+
+        if ($player->getPlace()->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
+            return;
+        }
 
         if (!$equipment instanceof GameEquipment) {
             throw new \LogicException('equipment should not be null');

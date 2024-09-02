@@ -7,6 +7,7 @@ use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
@@ -33,31 +34,27 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $equipmentName = $event->getGameEquipment()->getName();
+        $equipment = $event->getGameEquipment();
+        $equipmentName = $equipment->getName();
+
+        if ($equipment->getPlace()->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
+            return;
+        }
 
         if (\in_array($equipmentName, [EquipmentEnum::SHOWER, EquipmentEnum::THALASSO], true)) {
-            $holder = $event->getGameEquipment()->getHolder();
+            $holder = $equipment->getHolder();
 
             $daedalus = $holder->getPlace()->getDaedalus();
 
             $numberShowersLeft = ($this->gameEquipmentService->findEquipmentByNameAndDaedalus(EquipmentEnum::THALASSO, $daedalus)->count() +
                 $this->gameEquipmentService->findEquipmentByNameAndDaedalus(EquipmentEnum::SHOWER, $daedalus)->count());
 
-            if ($numberShowersLeft <= 1) {
-                $this->neronMessageService->createNeronMessage(
-                    NeronMessageEnum::NO_SHOWER,
-                    $daedalus,
-                    $event->getLogParameters(),
-                    $event->getTime(),
-                );
-            } else {
-                $this->neronMessageService->createNeronMessage(
-                    NeronMessageEnum::DISMANTLED_SHOWER,
-                    $daedalus,
-                    $event->getLogParameters(),
-                    $event->getTime(),
-                );
-            }
+            $this->neronMessageService->createNeronMessage(
+                messageKey: $numberShowersLeft <= 1 ? NeronMessageEnum::NO_SHOWER : NeronMessageEnum::DISMANTLED_SHOWER,
+                daedalus: $daedalus,
+                parameters: $event->getLogParameters(),
+                dateTime: $event->getTime(),
+            );
         }
     }
 }

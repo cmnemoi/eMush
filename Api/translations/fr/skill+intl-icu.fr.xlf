@@ -565,5 +565,15 @@
         <target>Vos compétences sont incroyables mais vous travaillez sans vraiment vous préoccuper de certaines conséquences...//:point: Vos **réussites aux actions** sont **améliorées de 20%**, mais les **blessures** et les **salissures** le sont aussi.</target>
       </segment>
     </unit>
+    <unit id="defacer">
+      <segment id="defacer.name" state="translated">
+        <source>defacer.name</source>
+        <target>Dialoguiste</target>
+      </segment>
+      <segment id="defacer.description" state="translated">
+        <source>defacer.description</source>
+        <target>Votre ADN vous permet de modifier certaines séquences de données périphériques. Plein de potentiel !//:point: Une fois par jour. Pour **2** :pa:, vous pouvez effacer tous les logs d'une salle. L'enregistrement des logs se fera à nouveau à partir du prochain cycle.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

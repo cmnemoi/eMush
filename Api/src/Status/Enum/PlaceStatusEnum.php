@@ -7,6 +7,7 @@ namespace Mush\Status\Enum;
 enum PlaceStatusEnum: string
 {
     case CEASEFIRE = 'ceasefire';
+    case DELOGGED = 'delogged';
     case MUSH_TRAPPED = 'mush_trapped';
 
     public function toString(): string

@@ -18,6 +18,7 @@ class ChargeStatusConfigDataLoader extends StatusConfigDataLoader
                 $statusConfig = new ChargeStatusConfig();
             } elseif (!$statusConfig instanceof ChargeStatusConfig) {
                 $this->entityManager->remove($statusConfig);
+                $this->entityManager->flush();
                 $statusConfig = new ChargeStatusConfig();
             }
 

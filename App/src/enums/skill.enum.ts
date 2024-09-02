@@ -150,6 +150,10 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/human/conceptor.png')
     },
 
+    [SkillEnum.DEFACER]: {
+        'icon': getImgUrl('skills/mush/defacer.png')
+    },
+
     [SkillEnum.DETACHED_CREWMEMBER]: {
         'icon': getImgUrl('skills/human/unconcerned.png')
     },

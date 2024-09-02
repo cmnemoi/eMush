@@ -1310,5 +1310,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action est dangereuse, êtes-vous sûr de vouloir continuer ?</target>
       </segment>
     </unit>
+    <unit id="delog">
+      <segment id="name" state="final">
+        <source>delog.name</source>
+        <target>Effacer les logs</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>delog.description</source>
+        <target>Les logs de cette pièce vont être effacés et cette pièce ne les retrouvera qu'au prochain cycle.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

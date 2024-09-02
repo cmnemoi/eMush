@@ -77,9 +77,9 @@ abstract class SkillConfigData
                 name: SkillEnum::DETERMINED
             ),
             new SkillConfigDto(
-                name: SkillEnum::DIPLOMAT,
+                name: SkillEnum::DEFACER,
                 actionConfigs: [
-                    ActionEnum::CEASEFIRE,
+                    ActionEnum::DELOG,
                 ],
             ),
             new SkillConfigDto(
@@ -93,6 +93,12 @@ abstract class SkillConfigData
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_3_ACTION_POINT_ON_ACCEPT_MISSION,
                 ]
+            ),
+            new SkillConfigDto(
+                name: SkillEnum::DIPLOMAT,
+                actionConfigs: [
+                    ActionEnum::CEASEFIRE,
+                ],
             ),
             new SkillConfigDto(
                 name: SkillEnum::EXPERT,

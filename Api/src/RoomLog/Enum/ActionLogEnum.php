@@ -136,6 +136,7 @@ abstract class ActionLogEnum
     public const string PUT_THROUGH_DOOR_SUCCESS = 'put_through_door_success';
     public const string GUARD_SUCCESS = 'guard_success';
     public const string THROW_GRENADE_SUCCESS = 'throw_grenade_success';
+    public const string DELOG_SUCCESS = 'delog_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -472,6 +473,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::TOGGLE_NERON_INHIBITION->value => [
             ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
+        ],
+        ActionEnum::DELOG->value => [
+            ActionOutputEnum::SUCCESS => self::DELOG_SUCCESS,
         ],
     ];
 

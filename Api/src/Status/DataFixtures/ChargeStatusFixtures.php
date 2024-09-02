@@ -525,6 +525,16 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasIssuedMissionStatus);
 
+        $deloggedStatus = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlaceStatusEnum::DELOGGED->toString() . '_default')
+        );
+        $manager->persist($deloggedStatus);
+
+        $hasUsedDelogStatus = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_USED_DELOG . '_default')
+        );
+        $manager->persist($hasUsedDelogStatus);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -564,7 +574,9 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($ceasefireStatus)
             ->addStatusConfig($hasChitchattedStatus)
             ->addStatusConfig($geniusIdea)
-            ->addStatusConfig($hasIssuedMissionStatus);
+            ->addStatusConfig($hasIssuedMissionStatus)
+            ->addStatusConfig($deloggedStatus)
+            ->addStatusConfig($hasUsedDelogStatus);
 
         $manager->persist($gameConfig);
 
@@ -609,6 +621,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference($hasChitchattedStatus->getName(), $hasChitchattedStatus);
         $this->addReference($ceasefireStatus->getName(), $ceasefireStatus);
         $this->addReference($hasIssuedMissionStatus->getName(), $hasIssuedMissionStatus);
+        $this->addReference($deloggedStatus->getName(), $deloggedStatus);
+        $this->addReference($hasUsedDelogStatus->getName(), $hasUsedDelogStatus);
     }
 
     public function getDependencies(): array

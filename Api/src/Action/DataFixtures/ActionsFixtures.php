@@ -1090,6 +1090,9 @@ class ActionsFixtures extends Fixture
         $toggleNeronInhibition = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TOGGLE_NERON_INHIBITION));
         $manager->persist($toggleNeronInhibition);
 
+        $delog = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::DELOG));
+        $manager->persist($delog);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1205,5 +1208,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::PRINT_ZE_LIST->value, $printZeList);
         $this->addReference(ActionEnum::THROW_GRENADE->value, $throwGrenade);
         $this->addReference(ActionEnum::TOGGLE_NERON_INHIBITION->value, $toggleNeronInhibition);
+        $this->addReference(ActionEnum::DELOG->value, $delog);
     }
 }

@@ -848,6 +848,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getCreatedAtOrThrow()->diff(new \DateTime('now'))->days;
     }
 
+    public function getPlace(): Place
+    {
+        throw new \RuntimeException('Daedalus does not implement getPlace method');
+    }
+
     private function isExplorationChangingCycle(): bool
     {
         return $this->getExploration()?->isChangingCycle() ?? false;

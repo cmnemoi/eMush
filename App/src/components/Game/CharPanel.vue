@@ -212,7 +212,7 @@ export default defineComponent ({
             return this.selectedItem;
         },
         numberOfSkillSlots(): number {
-            return this.displayMushSkills ? this.player.character.mushSkillSlots - this.player.mushSkills.length : this.player.character.humanSkillSlots - this.player.humanSkills.length;
+            return this.displayMushSkills ? Math.max(this.player.character.mushSkillSlots - this.player.mushSkills.length, 0) : Math.max(this.player.character.humanSkillSlots - this.player.humanSkills.length, 0);
         },
         skillsToDisplay(): Array<Skill> {
             return this.displayMushSkills ? this.player.mushSkills : this.player.humanSkills;

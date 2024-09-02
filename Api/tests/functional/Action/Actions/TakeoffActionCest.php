@@ -28,6 +28,7 @@ use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -42,6 +43,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -574,6 +576,71 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
         // then terrence should have 1 action point left
         $I->assertEquals(1, $this->terrence->getActionPoint());
+    }
+
+    public function shouldCreateALogWhenDroppingCriticalItem(FunctionalTester $I): void
+    {
+        $this->givenChunIsAPilot($I);
+
+        $this->givenChunHasStainproofApron();
+
+        $this->whenChunTakeoffs();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: '**Chun** a lâché un **Tablier intachable**.',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player,
+                log: ActionLogEnum::DROP,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
+    }
+
+    public function shouldCreateANotificationWhenDroppingCriticalItem(FunctionalTester $I): void
+    {
+        $this->givenChunIsAPilot($I);
+
+        $this->givenChunHasStainproofApron();
+
+        $this->whenChunTakeoffs();
+
+        $this->thenChunShouldReceiveANotification($I);
+    }
+
+    private function givenChunIsAPilot(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::PILOT, $I);
+    }
+
+    private function givenChunHasStainproofApron(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::STAINPROOF_APRON,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function whenChunTakeoffs(): void
+    {
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->chun,
+            target: $this->pasiphae
+        );
+        $this->takeoffAction->execute();
+    }
+
+    private function thenChunShouldReceiveANotification(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $this->chun->getNotificationOrThrow()->getMessage(),
+            actual: PlayerNotificationEnum::DROPPED_CRITICAL_ITEM->toString(),
+        );
     }
 
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void

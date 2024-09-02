@@ -481,7 +481,7 @@ class ChannelController extends AbstractGameController
 
         $this->messageService->createPlayerMessage($playerMessage, $messageCreate);
         if ($channel->isFavorites()) {
-            $messages = $this->messageService->getPlayerFavoritesChannelMessages($currentPlayer, $messageCreate->getTimeLimit());
+            $messages = $this->messageService->getPlayerFavoritesChannelMessages($currentPlayer);
         } else {
             $messages = $this->messageService->getChannelMessages($currentPlayer, $channel, $messageCreate->getTimeLimit());
         }
@@ -702,7 +702,7 @@ class ChannelController extends AbstractGameController
      *
      * @Rest\Get (path="/favorites/messages")
      */
-    public function getFavoritesChannelMessages(Request $request): View
+    public function getFavoritesChannelMessages(): View
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -723,9 +723,7 @@ class ChannelController extends AbstractGameController
         $context = new Context();
         $context->setAttribute('currentPlayer', $player);
 
-        $timeLimit = new \DateInterval(\sprintf('PT%dH', $request->get('timeLimit', self::TIME_LIMIT)));
-
-        $view = $this->view($this->messageService->getPlayerFavoritesChannelMessages($player, $timeLimit), Response::HTTP_OK);
+        $view = $this->view($this->messageService->getPlayerFavoritesChannelMessages($player), Response::HTTP_OK);
         $view->setContext($context);
 
         return $view;

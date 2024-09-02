@@ -122,11 +122,9 @@ class MessageService implements MessageServiceInterface
         return $messages->map(fn (Message $message) => $this->getModifiedMessage($message, $player));
     }
 
-    public function getPlayerFavoritesChannelMessages(Player $player, \DateInterval $timeLimit): Collection
+    public function getPlayerFavoritesChannelMessages(Player $player): Collection
     {
-        $messages = new ArrayCollection($player->getFavoriteMessages()->filter(static fn (Message $message) => $message->getCreatedAt() >= (new \DateTime())->sub($timeLimit))->toArray());
-
-        return $messages->map(fn (Message $message) => $this->getModifiedMessage($message, $player));
+        return $player->getFavoriteMessages()->map(fn (Message $message) => $this->getModifiedMessage($message, $player));
     }
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool

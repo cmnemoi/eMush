@@ -105,7 +105,7 @@ export class Channel {
     }
 
     isChannelWithPagination(): boolean {
-        return [ChannelType.PUBLIC, ChannelType.PRIVATE, ChannelType.FAVORITES].includes(this.scope);
+        return [ChannelType.PUBLIC, ChannelType.PRIVATE].includes(this.scope);
     }
 
     isFavorite(): boolean {

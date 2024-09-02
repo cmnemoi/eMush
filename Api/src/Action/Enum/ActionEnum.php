@@ -77,7 +77,7 @@ enum ActionEnum: string
     case COOK = 'cook';
     case COFFEE = 'coffee';
     case SELF_SURGERY = 'self_surgery';
-    case SHOWER = 'shower';
+    case TAKE_SHOWER = 'take_shower';
     case WASH_IN_SINK = 'wash_in_sink';
     case CHECK_ROSTER = 'check_roster';
     case PLAY_ARCADE = 'play_arcade';
@@ -331,7 +331,7 @@ enum ActionEnum: string
             self::CONTACT_SOL,
             self::CHECK_SPORE_LEVEL,
             self::WASH_IN_SINK,
-            self::SHOWER,
+            self::TAKE_SHOWER,
             self::EXAMINE,
             self::REPORT_FIRE,
             self::REPORT_EQUIPMENT,

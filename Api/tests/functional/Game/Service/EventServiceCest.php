@@ -149,6 +149,7 @@ final class EventServiceCest extends AbstractFunctionalTest
             ActionVariableEnum::PERCENTAGE_INJURY,
             $actionConfig->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_INJURY),
             $this->player,
+            $actionConfig->getActionTags(),
             null
         );
     }

@@ -265,7 +265,7 @@ class TakeSubscriberCest
         $statusConfig
             ->setStatusName(ActionEnum::REPAIR->value)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategies([ActionEnum::SHOWER])
+            ->setDischargeStrategies([ActionEnum::TAKE_SHOWER])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);

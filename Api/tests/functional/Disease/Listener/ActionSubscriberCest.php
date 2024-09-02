@@ -260,7 +260,7 @@ class ActionSubscriberCest
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setTagConstraints([
                 ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
-                ItemEnum::SCHRODINGER . '_action_target' => ModifierRequirementEnum::ALL_TAGS,
+                ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(SymptomEnum::CAT_ALLERGY);

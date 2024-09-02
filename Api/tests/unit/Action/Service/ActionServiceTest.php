@@ -97,6 +97,7 @@ final class ActionServiceTest extends TestCase
             PlayerVariableEnum::MOVEMENT_POINT,
             $action->getGameVariables()->getValueByName(PlayerVariableEnum::MOVEMENT_POINT),
             $player,
+            $action->getActionTags(),
             null
         );
 
@@ -122,7 +123,7 @@ final class ActionServiceTest extends TestCase
             ))
             ->once();
 
-        $result = $this->service->applyCostToPlayer($player, $action, new Player(), null, new Success());
+        $result = $this->service->applyCostToPlayer($player, $action, new Player(), null, new Success(), []);
 
         self::assertSame($player, $result);
     }
@@ -165,6 +166,7 @@ final class ActionServiceTest extends TestCase
             PlayerVariableEnum::MOVEMENT_POINT,
             1,
             $player,
+            [],
             null
         );
 
@@ -190,6 +192,7 @@ final class ActionServiceTest extends TestCase
             PlayerVariableEnum::MOVEMENT_POINT,
             -2,
             $player,
+            [],
             null
         );
         $this->eventService->shouldReceive('computeEventModifications')
@@ -210,6 +213,7 @@ final class ActionServiceTest extends TestCase
             PlayerVariableEnum::ACTION_POINT,
             1,
             $player,
+            [],
             null
         );
         $this->eventService->shouldReceive('computeEventModifications')
@@ -242,7 +246,7 @@ final class ActionServiceTest extends TestCase
             ))
             ->once();
 
-        $result = $this->service->applyCostToPlayer($player, $action, new Player(), null, new Success());
+        $result = $this->service->applyCostToPlayer($player, $action, new Player(), null, new Success(), []);
 
         self::assertSame($player, $result);
     }
@@ -285,6 +289,7 @@ final class ActionServiceTest extends TestCase
             PlayerVariableEnum::MOVEMENT_POINT,
             2,
             $player,
+            [],
             null
         );
 
@@ -310,6 +315,7 @@ final class ActionServiceTest extends TestCase
             PlayerVariableEnum::MOVEMENT_POINT,
             -1,
             $player,
+            [],
             null
         );
         $this->eventService->shouldReceive('computeEventModifications')
@@ -330,6 +336,7 @@ final class ActionServiceTest extends TestCase
             PlayerVariableEnum::ACTION_POINT,
             1,
             $player,
+            [],
             null
         );
         $this->eventService->shouldReceive('computeEventModifications')
@@ -362,7 +369,7 @@ final class ActionServiceTest extends TestCase
             ))
             ->once();
 
-        $result = $this->service->applyCostToPlayer($player, $action, new Player(), null, new Success());
+        $result = $this->service->applyCostToPlayer($player, $action, new Player(), null, new Success(), []);
 
         self::assertSame($player, $result);
     }
@@ -379,6 +386,7 @@ final class ActionServiceTest extends TestCase
             ActionVariableEnum::PERCENTAGE_SUCCESS,
             30,
             $player,
+            [],
             null
         );
         $this->eventService->shouldReceive('computeEventModifications')
@@ -397,7 +405,8 @@ final class ActionServiceTest extends TestCase
             $action,
             new Player(),
             null,
-            ActionVariableEnum::PERCENTAGE_SUCCESS
+            ActionVariableEnum::PERCENTAGE_SUCCESS,
+            []
         );
         self::assertSame(30, $result);
 
@@ -408,6 +417,7 @@ final class ActionServiceTest extends TestCase
             ActionVariableEnum::PERCENTAGE_SUCCESS,
             234,
             $player,
+            [],
             null
         );
         $this->eventService->shouldReceive('computeEventModifications')
@@ -426,7 +436,8 @@ final class ActionServiceTest extends TestCase
             $action,
             new Player(),
             null,
-            ActionVariableEnum::PERCENTAGE_SUCCESS
+            ActionVariableEnum::PERCENTAGE_SUCCESS,
+            []
         );
 
         self::assertSame(99, $result);
@@ -444,6 +455,7 @@ final class ActionServiceTest extends TestCase
             PlayerVariableEnum::ACTION_POINT,
             3,
             $player,
+            [],
             null
         );
         $this->eventService->shouldReceive('computeEventModifications')
@@ -462,7 +474,8 @@ final class ActionServiceTest extends TestCase
             $action,
             new Player(),
             null,
-            PlayerVariableEnum::MOVEMENT_POINT
+            PlayerVariableEnum::MOVEMENT_POINT,
+            []
         ));
 
         // reduce cost bellow 0
@@ -475,6 +488,7 @@ final class ActionServiceTest extends TestCase
             PlayerVariableEnum::MOVEMENT_POINT,
             -1,
             $player,
+            [],
             null
         );
         $this->eventService->shouldReceive('computeEventModifications')
@@ -493,7 +507,8 @@ final class ActionServiceTest extends TestCase
             $action,
             new Player(),
             null,
-            PlayerVariableEnum::MOVEMENT_POINT
+            PlayerVariableEnum::MOVEMENT_POINT,
+            []
         ));
     }
 
@@ -509,6 +524,7 @@ final class ActionServiceTest extends TestCase
             PlayerVariableEnum::ACTION_POINT,
             1,
             $player,
+            [],
             null
         );
         $this->eventService->shouldReceive('computeEventModifications')
@@ -529,6 +545,7 @@ final class ActionServiceTest extends TestCase
             PlayerVariableEnum::MOVEMENT_POINT,
             0,
             $player,
+            [],
             null
         );
 
@@ -537,7 +554,8 @@ final class ActionServiceTest extends TestCase
             $action,
             new Player(),
             null,
-            PlayerVariableEnum::ACTION_POINT
+            PlayerVariableEnum::ACTION_POINT,
+            []
         ));
     }
 
@@ -558,6 +576,7 @@ final class ActionServiceTest extends TestCase
             PlayerVariableEnum::ACTION_POINT,
             1,
             $player,
+            [],
             null
         );
         $this->eventService->shouldReceive('computeEventModifications')
@@ -579,7 +598,8 @@ final class ActionServiceTest extends TestCase
             $action,
             new Player(),
             null,
-            PlayerVariableEnum::ACTION_POINT
+            PlayerVariableEnum::ACTION_POINT,
+            []
         ));
     }
 

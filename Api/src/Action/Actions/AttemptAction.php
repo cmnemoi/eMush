@@ -33,22 +33,24 @@ abstract class AttemptAction extends AbstractAction
     public function getCriticalSuccessRate(): int
     {
         return $this->actionService->getActionModifiedActionVariable(
-            $this->player,
-            $this->actionConfig,
-            $this->actionProvider,
-            $this->target,
-            ActionVariableEnum::PERCENTAGE_CRITICAL
+            player: $this->player,
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->actionProvider,
+            actionTarget: $this->target,
+            variableName: ActionVariableEnum::PERCENTAGE_CRITICAL,
+            tags: $this->getTags()
         );
     }
 
     public function getSuccessRate(): int
     {
         return $this->actionService->getActionModifiedActionVariable(
-            $this->player,
-            $this->actionConfig,
-            $this->actionProvider,
-            $this->target,
-            ActionVariableEnum::PERCENTAGE_SUCCESS
+            player: $this->player,
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->actionProvider,
+            actionTarget: $this->target,
+            variableName: ActionVariableEnum::PERCENTAGE_SUCCESS,
+            tags: $this->getTags()
         );
     }
 

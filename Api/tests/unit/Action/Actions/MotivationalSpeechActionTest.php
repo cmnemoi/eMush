@@ -53,7 +53,7 @@ final class MotivationalSpeechActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($listener);
         $this->eventService->shouldReceive('callEvent')->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($speaker, $this->actionConfig, $this->actionProvider, null, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->with($speaker, $this->actionConfig, $this->actionProvider, null, ActionVariableEnum::OUTPUT_QUANTITY, $this->actionHandler->getTags())
             ->andReturn(2)
             ->once();
 

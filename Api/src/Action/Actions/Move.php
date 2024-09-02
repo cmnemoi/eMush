@@ -16,6 +16,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -51,6 +52,18 @@ class Move extends AbstractAction
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Door;
+    }
+
+    public function getTags(): array
+    {
+        $tags = parent::getTags();
+
+        $daedalus = $this->player->getDaedalus();
+        if ($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY) || $daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY_REPAIRED)) {
+            $tags[] = DaedalusStatusEnum::NO_GRAVITY;
+        }
+
+        return $tags;
     }
 
     protected function checkResult(): ActionResult

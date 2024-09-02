@@ -32,7 +32,8 @@ class ActionService implements ActionServiceInterface
         ActionConfig $actionConfig,
         ActionProviderInterface $actionProvider,
         ?LogParameterInterface $actionTarget,
-        ActionResult $actionResult
+        ActionResult $actionResult,
+        array $tags
     ): Player {
         // ActionConfig point
         $actionPointCostEvent = $this->getActionEvent(
@@ -40,7 +41,8 @@ class ActionService implements ActionServiceInterface
             $actionConfig,
             $actionProvider,
             $actionTarget,
-            PlayerVariableEnum::ACTION_POINT
+            PlayerVariableEnum::ACTION_POINT,
+            $tags
         );
         $this->eventService->callEvent($actionPointCostEvent, ActionVariableEvent::APPLY_COST);
 
@@ -50,7 +52,8 @@ class ActionService implements ActionServiceInterface
             $actionConfig,
             $actionProvider,
             $actionTarget,
-            PlayerVariableEnum::MORAL_POINT
+            PlayerVariableEnum::MORAL_POINT,
+            $tags
         );
         $this->eventService->callEvent($moralPointCostEvent, ActionVariableEvent::APPLY_COST);
 
@@ -60,7 +63,8 @@ class ActionService implements ActionServiceInterface
             $actionConfig,
             $actionProvider,
             $actionTarget,
-            PlayerVariableEnum::MOVEMENT_POINT
+            PlayerVariableEnum::MOVEMENT_POINT,
+            $tags
         );
 
         /** @var ActionVariableEvent $movementPointCostEvent */
@@ -81,6 +85,7 @@ class ActionService implements ActionServiceInterface
             $actionProvider,
             $actionTarget,
             ActionVariableEnum::OUTPUT_QUANTITY,
+            $tags,
             $actionResult
         );
         $this->eventService->callEvent($actionPointCostEvent, ActionVariableEvent::GET_OUTPUT_QUANTITY);
@@ -93,7 +98,8 @@ class ActionService implements ActionServiceInterface
         ActionConfig $actionConfig,
         ActionProviderInterface $actionProvider,
         ?LogParameterInterface $actionTarget,
-        string $variableName
+        string $variableName,
+        array $tags
     ): int {
         if (\array_key_exists($variableName, ActionVariableEvent::VARIABLE_TO_EVENT_MAP)) {
             $eventName = ActionVariableEvent::VARIABLE_TO_EVENT_MAP[$variableName];
@@ -107,7 +113,8 @@ class ActionService implements ActionServiceInterface
             $actionConfig,
             $actionProvider,
             $actionTarget,
-            $variableName
+            $variableName,
+            $tags
         );
 
         /** @var ActionVariableEvent $actionVariableEvent */
@@ -122,7 +129,8 @@ class ActionService implements ActionServiceInterface
         Player $player,
         ActionConfig $actionConfig,
         ActionProviderInterface $actionProvider,
-        ?LogParameterInterface $actionTarget
+        ?LogParameterInterface $actionTarget,
+        array $tags
     ): bool {
         $playerAction = $player->getActionPoint();
         $playerMovement = $player->getMovementPoint();
@@ -133,21 +141,24 @@ class ActionService implements ActionServiceInterface
             $actionConfig,
             $actionProvider,
             $actionTarget,
-            PlayerVariableEnum::MORAL_POINT
+            PlayerVariableEnum::MORAL_POINT,
+            $tags
         );
         $actionCost = $this->getActionModifiedActionVariable(
             $player,
             $actionConfig,
             $actionProvider,
             $actionTarget,
-            PlayerVariableEnum::ACTION_POINT
+            PlayerVariableEnum::ACTION_POINT,
+            $tags
         );
         $movementCost = $this->getActionModifiedActionVariable(
             $player,
             $actionConfig,
             $actionProvider,
             $actionTarget,
-            PlayerVariableEnum::MOVEMENT_POINT
+            PlayerVariableEnum::MOVEMENT_POINT,
+            $tags
         );
         $extraActionPoints = 0;
 
@@ -156,7 +167,11 @@ class ActionService implements ActionServiceInterface
         }
 
         if ($playerMovement < $movementCost) {
-            $extraActionPoints = $this->handleConversionEvents($player, $movementCost - $playerMovement, false);
+            $extraActionPoints = $this->handleConversionEvents(
+                $player,
+                $movementCost - $playerMovement,
+                false,
+            );
         }
         if ($playerAction < $extraActionPoints + $actionCost) {
             return false;
@@ -177,12 +192,13 @@ class ActionService implements ActionServiceInterface
 
         // first get how much movement point each conversion provides
         $conversionGainEvent = new ActionVariableEvent(
-            $convertActionConfig,
-            $player,
-            PlayerVariableEnum::MOVEMENT_POINT,
-            $convertActionConfig->getMovementCost(),
-            $player,
-            null
+            actionConfig: $convertActionConfig,
+            actionProvider: $player,
+            variableName: PlayerVariableEnum::MOVEMENT_POINT,
+            quantity: $convertActionConfig->getMovementCost(),
+            player: $player,
+            tags: $convertActionConfig->getActionTags(),
+            actionTarget: null
         );
 
         /** @var ActionVariableEvent $conversionGainEvent */
@@ -199,12 +215,13 @@ class ActionService implements ActionServiceInterface
 
         // How much each conversion is going to cost in action points
         $conversionCostEvent = new ActionVariableEvent(
-            $convertActionConfig,
-            $player,
-            PlayerVariableEnum::ACTION_POINT,
-            $convertActionConfig->getActionCost(),
-            $player,
-            null
+            actionConfig: $convertActionConfig,
+            actionProvider: $player,
+            variableName: PlayerVariableEnum::ACTION_POINT,
+            quantity: $convertActionConfig->getActionCost(),
+            player: $player,
+            tags: $convertActionConfig->getActionTags(),
+            actionTarget: null
         );
 
         /** @var ActionVariableEvent $conversionCostEvent */
@@ -226,15 +243,17 @@ class ActionService implements ActionServiceInterface
         ActionProviderInterface $actionProvider,
         ?LogParameterInterface $actionTarget,
         string $variable,
+        array $tags,
         ?ActionResult $result = null
     ): ActionVariableEvent {
         $event = new ActionVariableEvent(
-            $actionConfig,
-            $actionProvider,
-            $variable,
-            $actionConfig->getGameVariables()->getValueByName($variable),
-            $player,
-            $actionTarget
+            actionConfig: $actionConfig,
+            actionProvider: $actionProvider,
+            variableName: $variable,
+            quantity: $actionConfig->getGameVariables()->getValueByName($variable),
+            player: $player,
+            tags: $tags,
+            actionTarget: $actionTarget,
         );
         if ($result) {
             $event->addTag($result->getResultTag());

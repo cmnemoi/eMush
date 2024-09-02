@@ -175,7 +175,7 @@ class CreateDestroyEquipmentSubscriberCest
     {
         $modifierConfig = new VariableEventModifierConfig('modifierShowerActionTest');
         $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER->value)
+            ->setTargetEvent(ActionEnum::TAKE_SHOWER->value)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::PLACE)
@@ -426,7 +426,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         $modifierConfig2 = new VariableEventModifierConfig('modifierShowerActionTest');
         $modifierConfig2
-            ->setTargetEvent(ActionEnum::SHOWER->value)
+            ->setTargetEvent(ActionEnum::TAKE_SHOWER->value)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)

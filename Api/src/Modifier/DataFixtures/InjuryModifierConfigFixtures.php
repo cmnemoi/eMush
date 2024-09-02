@@ -236,15 +236,17 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         );
         $manager->persist($cannotMoveModifier);
 
-        $heavyRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
-        $heavyRequirement
-            ->setValue(10)
-            ->setName('heavy_status_requirement_fixtures')
-            ->setActivationRequirement(EquipmentStatusEnum::HEAVY);
-        $preventTakeHeavy = EventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('prevent_pick_heavy_item')
-        );
-        $manager->persist($heavyRequirement);
+        $preventTakeHeavy = new EventModifierConfig('prevent_pick_heavy_item');
+        $preventTakeHeavy
+            ->setTargetEvent(ActionEvent::PRE_ACTION)
+            ->setApplyWhenTargeted(false)
+            ->setTagConstraints([
+                ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
+                EquipmentStatusEnum::HEAVY => ModifierRequirementEnum::ALL_TAGS,
+            ])
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
+            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($preventTakeHeavy);
 
         $preventAttackActions = EventModifierConfig::fromConfigData(

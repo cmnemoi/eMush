@@ -120,7 +120,13 @@ abstract class AbstractAction
         $result = $this->checkResult();
         $result->setVisibility($this->actionConfig->getVisibility($result->getName()));
 
-        $preActionEvent = new ActionEvent($this->actionConfig, $this->actionProvider, $this->player, $this->target);
+        $preActionEvent = new ActionEvent(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->actionProvider,
+            player: $this->player,
+            tags: $this->getTags(),
+            actionTarget: $this->target
+        );
         $preActionEvent->setActionResult($result);
         $this->eventService->callEvent($preActionEvent, ActionEvent::PRE_ACTION);
 
@@ -129,16 +135,29 @@ abstract class AbstractAction
             $this->actionConfig,
             $this->actionProvider,
             $this->target,
-            $result
+            $result,
+            $this->getTags()
         );
 
-        $resultActionEvent = new ActionEvent($this->actionConfig, $this->actionProvider, $this->player, $this->target);
+        $resultActionEvent = new ActionEvent(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->actionProvider,
+            player: $this->player,
+            tags: $this->getTags(),
+            actionTarget: $this->target
+        );
         $resultActionEvent->setActionResult($result);
         $this->eventService->callEvent($resultActionEvent, ActionEvent::RESULT_ACTION);
 
         $this->applyEffect($result);
 
-        $postActionEvent = new ActionEvent($this->actionConfig, $this->actionProvider, $this->player, $this->target);
+        $postActionEvent = new ActionEvent(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->actionProvider,
+            player: $this->player,
+            tags: $this->getTags(),
+            actionTarget: $this->target
+        );
         if ($this->getActionPointCost() === 0) {
             $postActionEvent->addTag(ActionTypeEnum::ACTION_ZERO_ACTION_COST->value);
         }
@@ -167,7 +186,8 @@ abstract class AbstractAction
             $this->actionConfig,
             $this->actionProvider,
             $this->target,
-            PlayerVariableEnum::ACTION_POINT
+            PlayerVariableEnum::ACTION_POINT,
+            $this->getTags()
         );
     }
 
@@ -178,7 +198,8 @@ abstract class AbstractAction
             $this->actionConfig,
             $this->actionProvider,
             $this->target,
-            PlayerVariableEnum::MOVEMENT_POINT
+            PlayerVariableEnum::MOVEMENT_POINT,
+            $this->getTags()
         );
     }
 
@@ -189,7 +210,8 @@ abstract class AbstractAction
             $this->actionConfig,
             $this->actionProvider,
             $this->target,
-            PlayerVariableEnum::MORAL_POINT
+            PlayerVariableEnum::MORAL_POINT,
+            $this->getTags()
         );
     }
 
@@ -201,6 +223,7 @@ abstract class AbstractAction
             $this->actionProvider,
             $this->target,
             ActionVariableEnum::OUTPUT_QUANTITY,
+            $this->getTags()
         );
     }
 

@@ -198,7 +198,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)

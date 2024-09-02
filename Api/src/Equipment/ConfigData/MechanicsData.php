@@ -3718,7 +3718,7 @@ class MechanicsData
             'name' => 'tool_shower_default',
             'type' => 'tool',
             'actions' => [
-                ActionEnum::SHOWER->value,
+                ActionEnum::TAKE_SHOWER->value,
             ],
         ],
         [

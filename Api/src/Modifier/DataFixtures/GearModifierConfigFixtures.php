@@ -127,7 +127,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([
                 ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
@@ -369,7 +369,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
                 SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
@@ -386,7 +386,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
                 SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
@@ -403,7 +403,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
                 SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,

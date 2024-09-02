@@ -86,7 +86,8 @@ class ActionServiceCest
             actionConfig: $action,
             actionProvider: $player,
             actionTarget: null,
-            actionResult: new Success()
+            actionResult: new Success(),
+            tags: $action->getActionTags()
         );
 
         $I->assertEquals(4, $player->getActionPoint());
@@ -143,7 +144,8 @@ class ActionServiceCest
             actionConfig: $action,
             actionProvider: $player,
             actionTarget: null,
-            actionResult: new Success()
+            actionResult: new Success(),
+            tags: $action->getActionTags()
         );
 
         $I->assertEquals(10, $player->getActionPoint());
@@ -203,7 +205,8 @@ class ActionServiceCest
             actionConfig: $action,
             actionProvider: $player,
             actionTarget: null,
-            actionResult: new Success()
+            actionResult: new Success(),
+            tags: $action->getActionTags()
         );
 
         $I->assertEquals(9, $player->getActionPoint());
@@ -280,7 +283,8 @@ class ActionServiceCest
             actionConfig: $action,
             actionProvider: $player,
             actionTarget: null,
-            actionResult: new Success()
+            actionResult: new Success(),
+            tags: $action->getActionTags()
         );
 
         $I->assertEquals(9, $player->getActionPoint());

@@ -65,6 +65,7 @@ final class ActionPointValidatorTest extends TestCase
                 'getActionConfig' => new ActionConfig(),
                 'getTarget' => null,
                 'getActionProvider' => new Player(),
+                'getTags' => [],
             ]);
 
         $this->actionService->shouldReceive('playerCanAffordPoints')->andReturn(true);
@@ -94,6 +95,7 @@ final class ActionPointValidatorTest extends TestCase
                 'getActionConfig' => new ActionConfig(),
                 'getTarget' => null,
                 'getActionProvider' => new Player(),
+                'getTags' => [],
             ]);
 
         $this->actionService->shouldReceive('playerCanAffordPoints')->andReturn(false);

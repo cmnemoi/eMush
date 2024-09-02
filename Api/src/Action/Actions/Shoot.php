@@ -147,12 +147,13 @@ class Shoot extends AttemptAction
     private function rollCriticalChances(int $percentage): bool
     {
         $criticalRollEvent = new ActionVariableEvent(
-            $this->actionConfig,
-            $this->actionProvider,
-            ActionVariableEnum::PERCENTAGE_CRITICAL,
-            $percentage,
-            $this->player,
-            $this->target
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->actionProvider,
+            variableName: ActionVariableEnum::PERCENTAGE_CRITICAL,
+            quantity: $percentage,
+            player: $this->player,
+            tags: $this->getTags(),
+            actionTarget: $this->target
         );
 
         /** @var ActionVariableEvent $criticalRollEvent */

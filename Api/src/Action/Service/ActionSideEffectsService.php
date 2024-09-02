@@ -44,12 +44,13 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         }
 
         $actionEvent = new ActionVariableEvent(
-            $actionConfig,
-            $actionProvider,
-            ActionVariableEnum::PERCENTAGE_DIRTINESS,
-            $actionConfig->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS),
-            $player,
-            $actionTarget
+            actionConfig: $actionConfig,
+            actionProvider: $actionProvider,
+            variableName: ActionVariableEnum::PERCENTAGE_DIRTINESS,
+            quantity: $actionConfig->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS),
+            player: $player,
+            tags: $actionConfig->getActionTags(),
+            actionTarget: $actionTarget
         );
 
         $this->eventService->callEvent($actionEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);
@@ -62,12 +63,13 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         ?LogParameterInterface $actionTarget
     ): void {
         $actionEvent = new ActionVariableEvent(
-            $actionConfig,
-            $actionProvider,
-            ActionVariableEnum::PERCENTAGE_INJURY,
-            $actionConfig->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_INJURY),
-            $player,
-            $actionTarget
+            actionConfig: $actionConfig,
+            actionProvider: $actionProvider,
+            variableName: ActionVariableEnum::PERCENTAGE_INJURY,
+            quantity: $actionConfig->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_INJURY),
+            player: $player,
+            tags: $actionConfig->getActionTags(),
+            actionTarget: $actionTarget
         );
 
         $this->eventService->callEvent($actionEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);

@@ -14,7 +14,6 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Entity\Skill;
-use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 
 class ActionEvent extends AbstractGameEvent
@@ -34,8 +33,9 @@ class ActionEvent extends AbstractGameEvent
         ActionConfig $actionConfig,
         ActionProviderInterface $actionProvider,
         Player $player,
+        array $tags,
         ?LogParameterInterface $actionTarget = null,
-        array $actionParameters = []
+        array $actionParameters = [],
     ) {
         $this->actionConfig = $actionConfig;
         $this->actionProvider = $actionProvider;
@@ -43,16 +43,7 @@ class ActionEvent extends AbstractGameEvent
         $this->actionTarget = $actionTarget;
         $this->actionParameters = $actionParameters;
 
-        parent::__construct($actionConfig->getActionTags(), new \DateTime());
-
-        if ($actionTarget !== null) {
-            $this->addTag($actionTarget->getLogName() . '_action_target');
-        }
-
-        $daedalus = $this->author->getDaedalus();
-        if ($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY) || $daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY_REPAIRED)) {
-            $this->addTag(DaedalusStatusEnum::NO_GRAVITY);
-        }
+        parent::__construct($tags, new \DateTime());
 
         $player->getSkills()->map(fn (Skill $skill) => $this->addTag($skill->getNameAsString()));
     }

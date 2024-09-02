@@ -81,12 +81,15 @@ final class SurgeryActionTest extends AbstractActionTest
 
         $targetPlayer->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
+
         $actionVariableEvent = new ActionVariableEvent(
             $this->actionConfig,
             $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             10,
             $player,
+            $this->actionHandler->getTags(),
             null
         );
         $this->eventService
@@ -100,6 +103,7 @@ final class SurgeryActionTest extends AbstractActionTest
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             15,
             $player,
+            $this->actionHandler->getTags(),
             null
         );
         $this->eventService
@@ -113,8 +117,6 @@ final class SurgeryActionTest extends AbstractActionTest
             ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
-
-        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
@@ -144,12 +146,14 @@ final class SurgeryActionTest extends AbstractActionTest
 
         $targetPlayer->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
         $actionVariableEvent = new ActionVariableEvent(
             $this->actionConfig,
             $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             10,
             $player,
+            $this->actionHandler->getTags(),
             null
         );
         $this->eventService
@@ -163,6 +167,7 @@ final class SurgeryActionTest extends AbstractActionTest
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             15,
             $player,
+            $this->actionHandler->getTags(),
             null
         );
         $this->eventService
@@ -176,8 +181,6 @@ final class SurgeryActionTest extends AbstractActionTest
             ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
-
-        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
@@ -208,12 +211,14 @@ final class SurgeryActionTest extends AbstractActionTest
 
         $targetPlayer->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
         $actionVariableEvent = new ActionVariableEvent(
             $this->actionConfig,
             $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             10,
             $player,
+            $this->actionHandler->getTags(),
             null
         );
         $this->eventService
@@ -227,6 +232,7 @@ final class SurgeryActionTest extends AbstractActionTest
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             15,
             $player,
+            $this->actionHandler->getTags(),
             null
         );
         $this->eventService
@@ -240,8 +246,6 @@ final class SurgeryActionTest extends AbstractActionTest
             ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
-
-        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');

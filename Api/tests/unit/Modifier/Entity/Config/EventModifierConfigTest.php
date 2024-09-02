@@ -34,7 +34,7 @@ final class EventModifierConfigTest extends TestCase
                 ActionEnum::ANATHEMA->value => ModifierRequirementEnum::ALL_TAGS,
                 ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS,
                 ModifierNameEnum::APRON_MODIFIER => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
             ]);
 
         $event = new AbstractGameEvent([], new \DateTime());
@@ -77,11 +77,11 @@ final class EventModifierConfigTest extends TestCase
         $event->setEventName(ActionVariableEvent::APPLY_COST);
         self::assertFalse($modifier->doModifierApplies($event));
 
-        $event = new ActionVariableEvent($action, $player, PlayerVariableEnum::ACTION_POINT, 2, $player, null);
+        $event = new ActionVariableEvent($action, $player, PlayerVariableEnum::ACTION_POINT, 2, $player, [], null);
         $event->setEventName(ActionVariableEvent::APPLY_COST);
         self::assertFalse($modifier->doModifierApplies($event));
 
-        $event = new ActionVariableEvent($action, $player, DaedalusVariableEnum::FUEL, 2, $player, null);
+        $event = new ActionVariableEvent($action, $player, DaedalusVariableEnum::FUEL, 2, $player, [], null);
         $event->setEventName(ActionVariableEvent::APPLY_COST);
         self::assertTrue($modifier->doModifierApplies($event));
     }

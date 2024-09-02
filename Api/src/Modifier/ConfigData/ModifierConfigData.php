@@ -596,7 +596,7 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1328,7 +1328,7 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-3_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
             ],
             'targetFilters' => [],
@@ -1452,13 +1452,14 @@ abstract class ModifierConfigData
             'targetEvent' => ActionEvent::PRE_ACTION,
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,
-            'applyOnTarget' => true,
+            'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'event_modifier',
             'triggeredEvent' => null,
-            'modifierActivationRequirements' => ['item_status_heavy'],
+            'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::TAKE->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
+                EquipmentStatusEnum::HEAVY => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
         [
@@ -1570,7 +1571,7 @@ abstract class ModifierConfigData
             'type' => 'event_modifier',
             'modifierActivationRequirements' => [
                 'random_50',
-                'player_equipment_schrodinger',
+                'item_in_room_schrodinger',
             ],
             'tagConstraints' => [
                 ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
@@ -1640,7 +1641,7 @@ abstract class ModifierConfigData
             ],
             'tagConstraints' => [
                 ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
-                ItemEnum::SCHRODINGER . '_action_target' => ModifierRequirementEnum::ALL_TAGS,
+                ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
                 SymptomEnum::CAT_ALLERGY => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
@@ -2204,7 +2205,7 @@ abstract class ModifierConfigData
                 'random_25',
             ],
             'tagConstraints' => [
-                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
                 SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
@@ -2228,7 +2229,7 @@ abstract class ModifierConfigData
                 'random_25',
             ],
             'tagConstraints' => [
-                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
                 SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
@@ -2252,7 +2253,7 @@ abstract class ModifierConfigData
                 'random_25',
             ],
             'tagConstraints' => [
-                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
                 SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,

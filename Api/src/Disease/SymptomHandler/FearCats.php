@@ -59,9 +59,11 @@ class FearCats extends AbstractSymptomHandler
         })->first();
 
         $moveEventAction = new ActionEvent(
-            $moveActionEntity,
-            $player,
-            $randomDoor
+            actionConfig: $moveActionEntity,
+            actionProvider: $randomDoor,
+            player: $player,
+            tags: $moveActionEntity->getActionTags(),
+            actionTarget: $randomDoor
         );
         $this->eventService->callEvent($moveEventAction, ActionEvent::EXECUTE_ACTION);
     }

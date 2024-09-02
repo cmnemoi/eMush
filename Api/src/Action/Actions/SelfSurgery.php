@@ -139,12 +139,13 @@ class SelfSurgery extends AbstractAction
     private function getModifiedPercentage(int $percentage, string $mode = ActionVariableEnum::PERCENTAGE_SUCCESS): int
     {
         $criticalRollEvent = new ActionVariableEvent(
-            $this->actionConfig,
-            $this->actionProvider,
-            $mode,
-            $percentage,
-            $this->player,
-            $this->target
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->actionProvider,
+            variableName: $mode,
+            quantity: $percentage,
+            player: $this->player,
+            tags: $this->getTags(),
+            actionTarget: $this->target
         );
 
         /** @var ActionVariableEvent $criticalRollEvent */

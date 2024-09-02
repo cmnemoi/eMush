@@ -34,7 +34,8 @@ class PlayerCanAffordPointsValidator extends ConstraintValidator
             $player,
             $value->getActionConfig(),
             $value->getActionProvider(),
-            $value->getTarget()
+            $value->getTarget(),
+            $value->getTags()
         )
         ) {
             if ($player->isMush()) {

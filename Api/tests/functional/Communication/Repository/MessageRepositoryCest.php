@@ -86,6 +86,7 @@ class MessageRepositoryCest
         $message1 = new Message();
         $message1
             ->setCreatedAt($time1)
+            ->setUpdatedAt($time1)
             ->setChannel($channel1)
             ->setMessage('message')
             ->setDay(1)->setCycle(1);
@@ -96,6 +97,7 @@ class MessageRepositoryCest
         $message2 = new Message();
         $message2
             ->setCreatedAt($time2)
+            ->setUpdatedAt($time2)
             ->setChannel($channel1)
             ->setMessage('message')
             ->setDay(1)->setCycle(1);

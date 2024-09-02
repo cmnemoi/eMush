@@ -164,6 +164,24 @@ class EquipmentEnum
         return new ArrayCollection($criticalItems);
     }
 
+    public static function getCriticalItems(): ArrayCollection
+    {
+        return new ArrayCollection([
+            ToolItemEnum::HACKER_KIT,
+            ToolItemEnum::EXTINGUISHER,
+            GearItemEnum::ANTIGRAV_SCOOTER,
+            GearItemEnum::ROLLING_BOULDER,
+            GearItemEnum::ADJUSTABLE_WRENCH,
+            GearItemEnum::ALIEN_BOTTLE_OPENER,
+            GearItemEnum::STAINPROOF_APRON,
+            ItemEnum::MUSH_GENOME_DISK,
+            ToolItemEnum::MEDIKIT,
+            GearItemEnum::SOAP,
+            GearItemEnum::SUPER_SOAPER,
+            ItemEnum::STARMAP_FRAGMENT,
+        ]);
+    }
+
     public static function getPilotingCrewLockRestrictedTerminals(): ArrayCollection
     {
         return new ArrayCollection([

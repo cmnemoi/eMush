@@ -334,6 +334,22 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $equipment->isEmpty() ? null : $equipment->first();
     }
 
+    /**
+     * @return Collection<array-key, GameItem>
+     */
+    public function getCriticalItemsForMe(): Collection
+    {
+        return $this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->isCritical());
+    }
+
+    /**
+     * @return Collection<array-key, GameItem>
+     */
+    public function getAllCriticalItems(): Collection
+    {
+        return $this->getEquipments()->filter(static fn (GameItem $gameItem) => EquipmentEnum::getCriticalItems()->contains($gameItem->getName()));
+    }
+
     public function addStatus(Status $status): static
     {
         if (!$this->getStatuses()->contains($status)) {

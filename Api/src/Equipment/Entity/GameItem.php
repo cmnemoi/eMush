@@ -4,6 +4,7 @@ namespace Mush\Equipment\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\Mechanics\Fruit;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -106,5 +107,15 @@ class GameItem extends GameEquipment
         return $this->hasStatus(EquipmentStatusEnum::PLANT_THIRSTY)
             || $this->hasStatus(EquipmentStatusEnum::PLANT_DRY)
             || $this->hasStatus(EquipmentStatusEnum::PLANT_DISEASED);
+    }
+
+    public function isCritical(): bool
+    {
+        $holder = $this->getHolder();
+        if ($holder instanceof Player) {
+            return EquipmentEnum::getCriticalItemsGivenPlayer($holder)->contains($this->getName());
+        }
+
+        throw new \LogicException('Cannot determine if item is critical if it is not held by a player');
     }
 }

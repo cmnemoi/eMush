@@ -17,7 +17,7 @@ use Mush\Action\Validator\NeronCrewLock;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
@@ -25,8 +25,12 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\Service\UpdatePlayerNotificationService;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -38,6 +42,8 @@ final class Takeoff extends AbstractAction
     private PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService;
     private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
+    private RoomLogServiceInterface $roomLogService;
+    private UpdatePlayerNotificationService $updatePlayerNotification;
 
     public function __construct(
         EventServiceInterface $eventService,
@@ -46,6 +52,8 @@ final class Takeoff extends AbstractAction
         PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
+        RoomLogServiceInterface $roomLogService,
+        UpdatePlayerNotificationService $updatePlayerNotification,
     ) {
         parent::__construct(
             $eventService,
@@ -56,6 +64,8 @@ final class Takeoff extends AbstractAction
         $this->patrolShipManoeuvreService = $patrolShipManoeuvreService;
         $this->playerService = $playerService;
         $this->randomService = $randomService;
+        $this->roomLogService = $roomLogService;
+        $this->updatePlayerNotification = $updatePlayerNotification;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -102,32 +112,59 @@ final class Takeoff extends AbstractAction
         /** @var GameEquipment $patrolShip */
         $patrolShip = $this->target;
 
+        $this->createDropCriticalItemsLogs();
         $this->dropCriticalItems();
         $this->playerService->changePlace($this->player, $daedalus->getPlaceByNameOrThrow($patrolShip->getName()));
         $this->patrolShipManoeuvreService->handleTakeoff(
             patrolShip: $patrolShip,
             pilot: $this->player,
             actionResult: $result,
-            tags: $this->getActionConfig()->getActionTags(),
+            tags: $this->getTags(),
             time: new \DateTime(),
         );
     }
 
+    private function createDropCriticalItemsLogs(): void
+    {
+        foreach ($this->player->getAllCriticalItems() as $item) {
+            $this->roomLogService->createLog(
+                logKey: ActionLogEnum::DROP,
+                place: $this->player->getPlace(),
+                visibility: VisibilityEnum::PUBLIC,
+                type: 'actions_log',
+                player: $this->player,
+                parameters: [
+                    $this->player->getLogKey() => $this->player->getLogName(),
+                    \sprintf('target_%s', $item->getLogKey()) => $item->getLogName(),
+                ],
+            );
+        }
+    }
+
     private function dropCriticalItems(): void
     {
-        /** @var GameEquipment $equipment */
-        foreach ($this->player->getEquipments() as $equipment) {
-            if (EquipmentEnum::getCriticalItemsGivenPlayer($this->player)->contains($equipment->getName())) {
-                $equipmentEvent = new MoveEquipmentEvent(
-                    equipment: $equipment,
-                    newHolder: $this->player->getPlace(),
-                    author: $this->player,
-                    visibility: VisibilityEnum::HIDDEN,
-                    tags: $this->getActionConfig()->getActionTags(),
-                    time: new \DateTime(),
-                );
-                $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
-            }
-        }
+        $this->player->getCriticalItemsForMe()->map(fn (GameItem $item) => $this->dropItem($item));
+    }
+
+    private function createDroppedCriticalItemNotification(): void
+    {
+        $this->updatePlayerNotification->execute(
+            player: $this->player,
+            message: PlayerNotificationEnum::DROPPED_CRITICAL_ITEM->toString(),
+        );
+    }
+
+    private function dropItem(GameItem $item): void
+    {
+        $equipmentEvent = new MoveEquipmentEvent(
+            equipment: $item,
+            newHolder: $this->player->getPlace(),
+            author: $this->player,
+            visibility: VisibilityEnum::HIDDEN,
+            tags: $this->getTags(),
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+        $this->createDroppedCriticalItemNotification();
     }
 }

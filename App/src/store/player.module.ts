@@ -92,11 +92,11 @@ const actions: ActionTree<any, any> = {
                         playerIsNull ? this.dispatch("daedalus/loadMinimap", { player }) : Promise.resolve(),
                         this.dispatch("room/loadRoom", { room: player?.room })
                     ]);
-                    await this.dispatch("room/updateSelectedItemPile"),
-                    commit('updateSelectedItem');
                     if (player?.spaceBattle) {
                         await this.dispatch("room/loadSpaceBattle", { spaceBattle: player?.spaceBattle });
                     }
+                    await this.dispatch("room/updateSelectedItemPile");
+                    commit('updateSelectedItem');
                 })
             ]);
             return true;

@@ -87,7 +87,7 @@ final class ExtinguishActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->never();
-        $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(false)->once();
+        $this->randomService->shouldReceive('isSuccessful')->with(10)->andReturn(false)->once();
 
         // Fail try
         $result = $this->actionHandler->execute();
@@ -126,7 +126,7 @@ final class ExtinguishActionTest extends AbstractActionTest
             ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->andReturn(0)
             ->once();
-        $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->with(10)->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->with(0)->andReturn(false)->once();
         $this->statusService->shouldReceive('removeStatus')->once();
 

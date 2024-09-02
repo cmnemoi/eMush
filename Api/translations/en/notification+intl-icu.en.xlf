@@ -61,5 +61,15 @@
         <target>Votre mission "{mission}" has been refused.</target>
       </segment>
     </unit>
+    <unit id="dropped_critical_item">
+      <segment state="translated">
+        <source>dropped_critical_item.title</source>
+        <target/>
+      </segment>
+      <segment state="translated">
+        <source>dropped_critical_item.description</source>
+        <target>*Hinnnn* this object is critical to the crew's survival. You can't take it with you...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -61,5 +61,15 @@
         <target>mission_rejected.description</target>
       </segment>
     </unit>
+    <unit id="dropped_critical_item">
+      <segment state="initial">
+        <source>dropped_critical_item.title</source>
+        <target>dropped_critical_item.title</target>
+      </segment>
+      <segment state="initial">
+        <source>dropped_critical_item.description</source>
+        <target>dropped_critical_item.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

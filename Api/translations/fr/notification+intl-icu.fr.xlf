@@ -62,11 +62,11 @@
       </segment>
     </unit>
     <unit id="dropped_critical_item">
-      <segment state="final">
+      <segment state="translated">
         <source>dropped_critical_item.title</source>
         <target/>
       </segment>
-      <segment state="final">
+      <segment state="translated">
         <source>dropped_critical_item.description</source>
         <target>*Hinnnn* cet objet est critique pour la survie de l'équipage. Vous ne pouvez l'emporter avec vous...</target>
       </segment>

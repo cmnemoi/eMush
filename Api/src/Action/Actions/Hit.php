@@ -5,9 +5,12 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\VariableEventInterface;
@@ -26,6 +29,15 @@ final class Hit extends AttemptAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(
+            new HasEquipment([
+                'reach' => ReachEnum::INVENTORY,
+                'equipments' => [ItemEnum::KNIFE],
+                'all' => false,
+                'contains' => false,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ])
+        );
         $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }

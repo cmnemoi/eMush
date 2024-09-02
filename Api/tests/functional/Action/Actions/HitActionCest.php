@@ -6,6 +6,8 @@ use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Skill\Enum\SkillEnum;
@@ -22,6 +24,8 @@ final class HitActionCest extends AbstractFunctionalTest
 {
     private Hit $hitAction;
     private ActionConfig $action;
+
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private AddSkillToPlayerService $addSkillToPlayer;
 
@@ -33,6 +37,8 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->action->setDirtyRate(0);
 
         $this->hitAction = $I->grabService(Hit::class);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
     }
@@ -214,6 +220,15 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveLessOrEqualThanHealthPoint(7, $I);
     }
 
+    public function shouldNotBeVisibleIfPlayerHasAKnife(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasAKnife();
+
+        $this->whenKuanTiTriesToHitChun();
+
+        $this->thenActionShouldNotBeVisible($I);
+    }
+
     private function givenChunHasInactiveStatus(): void
     {
         $this->statusService->createStatusFromName(
@@ -254,6 +269,16 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->addSkillToPlayer->execute(SkillEnum::WRESTLER, $this->chun);
     }
 
+    private function givenKuanTiHasAKnife(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::KNIFE,
+            equipmentHolder: $this->kuanTi,
+            reasons: [],
+            time: new \DateTime()
+        );
+    }
+
     private function givenKuanTiHasHealthPoint(int $healthPoint): void
     {
         $this->kuanTi->setHealthPoint($healthPoint);
@@ -288,5 +313,10 @@ final class HitActionCest extends AbstractFunctionalTest
     private function thenKuanTiShouldHaveLessOrEqualThanHealthPoint(int $expectedHealthPoint, FunctionalTester $I): void
     {
         $I->assertLessThanOrEqual($expectedHealthPoint, $this->kuanTi->getHealthPoint());
+    }
+
+    private function thenActionShouldNotBeVisible(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->hitAction->isVisible());
     }
 }

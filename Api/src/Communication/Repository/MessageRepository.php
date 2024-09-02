@@ -71,7 +71,7 @@ class MessageRepository extends ServiceEntityRepository
             $timeLimit->sub($ageLimit);
 
             $queryBuilder
-                ->andWhere($queryBuilder->expr()->gte('message.createdAt', ':date'))
+                ->andWhere($queryBuilder->expr()->gte('message.updatedAt', ':date'))
                 ->setParameter('date', $timeLimit);
         }
 

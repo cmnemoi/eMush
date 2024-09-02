@@ -409,13 +409,13 @@ Merci de nous aider !</target>
         <target>Casse l'équipement ciblé.</target>
       </segment>
     </unit>
-    <unit id="shower">
+    <unit id="take_shower">
       <segment id="name" state="final">
-        <source>shower.name</source>
+        <source>take_shower.name</source>
         <target>Se laver</target>
       </segment>
       <segment id="description" state="final">
-        <source>shower.description</source>
+        <source>take_shower.description</source>
         <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution : la douche.</target>
       </segment>
     </unit>

@@ -30,7 +30,7 @@ abstract class AbstractModifierConfig
     protected string $name;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    protected string $modifierName;
+    protected ?string $modifierName = null;
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
     protected ?string $modifierStrategy = '';
@@ -50,7 +50,6 @@ abstract class AbstractModifierConfig
     {
         $this->modifierActivationRequirements = new ArrayCollection([]);
         $this->name = $name;
-        $this->modifierName = $name;
     }
 
     public function getId(): int
@@ -72,16 +71,12 @@ abstract class AbstractModifierConfig
 
     public function setModifierName(?string $modifierName): self
     {
-        if ($modifierName === null) {
-            $this->modifierName = $this->name;
-        } else {
-            $this->modifierName = $modifierName;
-        }
+        $this->modifierName = $modifierName;
 
         return $this;
     }
 
-    public function getModifierName(): string
+    public function getModifierName(): ?string
     {
         return $this->modifierName;
     }

@@ -279,7 +279,6 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         /** @var VariableEventModifierConfig $lensesModifierConfig */
         $lensesModifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'modifier_for_player_x1.1percentage_on_action_shoot_hunter']);
         $lensesModifier = new GameModifier($this->player1, $lensesModifierConfig);
-        $lensesModifier->setModifierProvider($lenses);
         $I->haveInRepository($lensesModifier);
 
         $this->shootHunterAction->loadParameters(

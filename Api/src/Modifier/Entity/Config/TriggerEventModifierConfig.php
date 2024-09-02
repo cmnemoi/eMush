@@ -64,6 +64,11 @@ class TriggerEventModifierConfig extends EventModifierConfig
     public function buildName(string $configName): self
     {
         $baseName = $this->modifierName;
+        $triggeredEvent = $this->triggeredEvent;
+
+        if ($baseName === null) {
+            $baseName = $triggeredEvent->getName();
+        }
 
         $this->name = $baseName . '_ON_' . $this->getTargetEvent() . '_' . $configName;
 
@@ -177,6 +182,11 @@ class TriggerEventModifierConfig extends EventModifierConfig
     private function addNoneTagName(): void
     {
         $modifierName = $this->modifierName;
+
+        if ($modifierName === null) {
+            $modifierName = $this->name;
+            $this->modifierName = $modifierName;
+        }
 
         $this->tagConstraints[$modifierName] = ModifierRequirementEnum::NONE_TAGS;
     }

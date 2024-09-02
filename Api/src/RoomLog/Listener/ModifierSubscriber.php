@@ -35,7 +35,7 @@ class ModifierSubscriber implements EventSubscriberInterface
         $modifierName = $event->getModifier()->getModifierConfig()->getModifierName();
         $logMap = LogEnum::MODIFIER_LOG_ENUM[LogEnum::VALUE];
 
-        if (\array_key_exists($modifierName, $logMap)) {
+        if ($modifierName !== null && \array_key_exists($modifierName, $logMap)) {
             $logKey = $logMap[$modifierName];
             $logVisibility = LogEnum::MODIFIER_LOG_ENUM[LogEnum::VISIBILITY][$modifierName];
 

@@ -30,6 +30,9 @@ class SymptomModifierHandler extends AbstractModifierHandler
         if ($initialEvent === null) {
             return $events;
         }
+        if ($modifierName === null) {
+            throw new \Exception('A modifier with a SymptomModifier strategy should have a ModifierName');
+        }
 
         $player = $modifier->getModifierHolder();
         if (!$player instanceof Player) {

@@ -28,7 +28,9 @@ class ModifierEvent extends AbstractGameEvent
 
         $this->modifier = $modifier;
 
-        $this->addTag($modifier->getModifierConfig()->getModifierName());
+        if (($name = $modifier->getModifierConfig()->getModifierName()) !== null) {
+            $this->addTag($name);
+        }
     }
 
     public function getModifier(): GameModifier

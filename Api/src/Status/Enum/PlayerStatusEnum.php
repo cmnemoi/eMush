@@ -52,4 +52,5 @@ abstract class PlayerStatusEnum
     public const string HAS_ISSUED_MISSION = 'has_issued_mission';
     public const string ALPHA_MUSH = 'alpha_mush';
     public const string HAS_USED_DELOG = 'has_used_delog';
+    public const string HAS_USED_PUTSCH = 'has_used_putsch';
 }

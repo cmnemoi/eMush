@@ -7,6 +7,7 @@ namespace Mush\tests\functional\Action\Actions;
 use Mush\Action\Actions\Putsch;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\TitlePriority;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -31,6 +32,7 @@ final class PutschCest extends AbstractFunctionalTest
         $this->putsch = $I->grabService(Putsch::class);
 
         $this->addSkillToPlayer(SkillEnum::POLITICIAN, $I, $this->chun);
+        $this->chun->setActionPoint(12);
     }
 
     public function shouldPutPlayerInFirstPlaceForCommanderTitle(FunctionalTester $I): void
@@ -56,6 +58,23 @@ final class PutschCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldBeExecutableOncePerGame(FunctionalTester $I): void
+    {
+        $this->givenChunPutsches();
+
+        $this->whenChunPutsches();
+
+        $this->thenActionIsNotExecutableWithMessage(
+            message: ActionImpossibleCauseEnum::UNIQUE_ACTION,
+            I: $I,
+        );
+    }
+
+    private function givenChunPutsches(): void
+    {
+        $this->whenChunPutsches();
+    }
+
     private function whenChunPutsches(): void
     {
         $this->putsch->loadParameters(
@@ -75,5 +94,10 @@ final class PutschCest extends AbstractFunctionalTest
             ->getPriority();
 
         $I->assertEquals($this->chun->getName(), $commanderTitlePriorities[0]);
+    }
+
+    private function thenActionIsNotExecutableWithMessage(string $message, FunctionalTester $I): void
+    {
+        $I->assertEquals($message, $this->putsch->cannotExecuteReason());
     }
 }

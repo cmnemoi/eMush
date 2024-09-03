@@ -533,6 +533,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasPrintedZeList);
 
+        $hasUsedPutsch = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_USED_PUTSCH . '_default')
+        );
+        $manager->persist($hasUsedPutsch);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -588,7 +593,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($jukeboxSongStatus)
             ->addStatusConfig($hasCeasefiredStatus)
             ->addStatusConfig($hasExchangedBodyStatus)
-            ->addStatusConfig($hasPrintedZeList);
+            ->addStatusConfig($hasPrintedZeList)
+            ->addStatusConfig($hasUsedPutsch);
 
         $manager->persist($gameConfig);
 
@@ -644,6 +650,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::PREVIOUS_ROOM, $previousRoom);
         $this->addReference(PlayerStatusEnum::HAS_EXCHANGED_BODY, $hasExchangedBodyStatus);
         $this->addReference(DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED, $hasPrintedZeList);
+        $this->addReference(PlayerStatusEnum::HAS_USED_PUTSCH, $hasUsedPutsch);
 
         $manager->flush();
     }

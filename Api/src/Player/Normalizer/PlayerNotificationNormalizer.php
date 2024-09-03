@@ -24,18 +24,9 @@ final class PlayerNotificationNormalizer implements NormalizerInterface
         $notification = $this->playerNotification($object);
 
         return [
-            'title' => $this->translationService->translate(
-                key: \sprintf('%s.title', $notification->getMessage()),
-                parameters: $notification->getParameters(),
-                domain: 'notification',
-                language: $notification->getLanguage(),
-            ),
-            'description' => $this->translationService->translate(
-                key: \sprintf('%s.description', $notification->getMessage()),
-                parameters: $notification->getParameters(),
-                domain: 'notification',
-                language: $notification->getLanguage(),
-            ),
+            'title' => $this->translatedNotificationKey('title', $notification),
+            'subTitle' => $this->translatedNotificationKey('subTitle', $notification),
+            'description' => $this->translatedNotificationKey('description', $notification),
         ];
     }
 
@@ -46,5 +37,18 @@ final class PlayerNotificationNormalizer implements NormalizerInterface
         }
 
         return $object;
+    }
+
+    private function translatedNotificationKey(string $key, PlayerNotification $notification): string
+    {
+        $key = \sprintf('%s.%s', $notification->getMessage(), $key);
+        $translation = $this->translationService->translate(
+            key: $key,
+            parameters: $notification->getParameters(),
+            domain: 'notification',
+            language: $notification->getLanguage(),
+        );
+
+        return $translation !== $key ? $translation : '';
     }
 }

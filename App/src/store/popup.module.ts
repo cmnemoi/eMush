@@ -6,6 +6,13 @@ type BasicPopUp = {
     isOpen: boolean;
 }
 
+type PlayerNotificationPopUp = {
+    title?: string;
+    subTitle?: string;
+    description: string;
+    isOpen: boolean;
+}
+
 const state = {
     newRulesPopUp: {
         isOpen: false
@@ -18,6 +25,7 @@ const state = {
     },
     playerNotificationPopUp: {
         title: '',
+        subTitle: '',
         description: '',
         isOpen: false
     }
@@ -33,7 +41,7 @@ const getters: GetterTree<any, any> = {
     learnSkillPopUp: (state: any): BasicPopUp => {
         return state.learnSkillPopUp;
     },
-    playerNotificationPopUp: (state: any): BasicPopUp => {
+    playerNotificationPopUp: (state: any): PlayerNotificationPopUp => {
         return state.playerNotificationPopUp;
     }
 };
@@ -64,6 +72,7 @@ const mutations: MutationTree<any> = {
         }
 
         state.playerNotificationPopUp.title = notification.title;
+        state.playerNotificationPopUp.subTitle = notification.subTitle;
         state.playerNotificationPopUp.description = notification.description;
         state.playerNotificationPopUp.isOpen = true;
     },

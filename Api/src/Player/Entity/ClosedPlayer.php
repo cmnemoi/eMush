@@ -271,4 +271,9 @@ class ClosedPlayer implements SanctionEvidenceInterface
 
         return $this;
     }
+
+    public function getPlayerOrThrow(): Player
+    {
+        return $this->playerInfo->getPlayer() ?? throw new \RuntimeException('This closed player has no player');
+    }
 }

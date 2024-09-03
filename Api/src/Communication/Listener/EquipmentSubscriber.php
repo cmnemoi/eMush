@@ -7,7 +7,6 @@ use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Status\Enum\PlaceStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
@@ -36,10 +35,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getGameEquipment();
         $equipmentName = $equipment->getName();
-
-        if ($equipment->getPlace()->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
-            return;
-        }
 
         if (\in_array($equipmentName, [EquipmentEnum::SHOWER, EquipmentEnum::THALASSO], true)) {
             $holder = $equipment->getHolder();

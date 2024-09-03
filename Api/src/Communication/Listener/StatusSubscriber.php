@@ -12,7 +12,6 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -52,11 +51,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 return;
 
             case StatusEnum::FIRE:
-                if ($holder->getPlace()->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
-                    return;
-                }
-                $daedalus = $event->getDaedalus();
-                $this->neronMessageService->createNewFireMessage($daedalus, $event->getTime(), $event->getTags());
+                $this->neronMessageService->createNewFireMessage($event->getDaedalus(), $event->getTime(), $event->getTags());
 
                 return;
 

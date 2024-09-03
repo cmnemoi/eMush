@@ -10,18 +10,19 @@ use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Daedalus\Entity\TitlePriority;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Daedalus\Repository\DaedalusInfoRepository;
 use Mush\Daedalus\Repository\DaedalusRepository;
+use Mush\Daedalus\Repository\TitlePriorityRepositoryInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\TitleConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -49,6 +50,7 @@ class DaedalusService implements DaedalusServiceInterface
     private LocalizationConfigRepository $localizationConfigRepository;
     private DaedalusInfoRepository $daedalusInfoRepository;
     private DaedalusRepository $daedalusRepository;
+    private TitlePriorityRepositoryInterface $titlePriorityRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -58,7 +60,8 @@ class DaedalusService implements DaedalusServiceInterface
         RandomServiceInterface $randomService,
         LocalizationConfigRepository $localizationConfigRepository,
         DaedalusInfoRepository $daedalusInfoRepository,
-        DaedalusRepository $daedalusRepository
+        DaedalusRepository $daedalusRepository,
+        TitlePriorityRepositoryInterface $titlePriorityRepository
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
@@ -68,6 +71,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->localizationConfigRepository = $localizationConfigRepository;
         $this->daedalusInfoRepository = $daedalusInfoRepository;
         $this->daedalusRepository = $daedalusRepository;
+        $this->titlePriorityRepository = $titlePriorityRepository;
     }
 
     /**
@@ -188,6 +192,8 @@ class DaedalusService implements DaedalusServiceInterface
             ->setName($name)
             ->setNeron($neron);
         $this->persistDaedalusInfo($daedalusInfo);
+
+        $daedalus = $this->addTitlePrioritiesToDaedalus($daedalus);
 
         $daedalusEvent = new DaedalusInitEvent(
             $daedalus,
@@ -446,18 +452,14 @@ class DaedalusService implements DaedalusServiceInterface
      */
     public function attributeTitles(Daedalus $daedalus, \DateTime $date): Daedalus
     {
-        $gameConfig = $daedalus->getGameConfig();
-        $titleConfigs = $gameConfig->getTitleConfigs();
-
         // Get the names of all alive players
         $players = $daedalus->getActivePlayers();
 
-        /** @var TitleConfig $titleConfig */
-        foreach ($titleConfigs as $titleConfig) {
+        foreach ($daedalus->getTitlePriorities() as $titlePriority) {
             $titleAssigned = false;
-            $title = $titleConfig->getName();
+            $title = $titlePriority->getName();
 
-            foreach ($titleConfig->getPriority() as $priorityCharacter) {
+            foreach ($titlePriority->getPriority() as $priorityCharacter) {
                 // This will return the player if it is alive, and null if not
                 $player = $players->getPlayerByName($priorityCharacter);
 
@@ -538,5 +540,16 @@ class DaedalusService implements DaedalusServiceInterface
         }
 
         return $value;
+    }
+
+    private function addTitlePrioritiesToDaedalus(Daedalus $daedalus): Daedalus
+    {
+        foreach ($daedalus->getGameConfig()->getTitleConfigs() as $titleConfig) {
+            $titlePriority = new TitlePriority($titleConfig, $daedalus);
+            $this->titlePriorityRepository->save($titlePriority);
+            $daedalus->addTitlePriority($titlePriority);
+        }
+
+        return $daedalus;
     }
 }

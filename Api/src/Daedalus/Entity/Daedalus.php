@@ -104,6 +104,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     #[ORM\OrderBy(['id' => 'ASC'])]
     private Collection $projects;
 
+    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: TitlePriority::class, cascade: ['remove'], orphanRemoval: true)]
+    private Collection $titlePriorities;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -111,6 +114,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         $this->modifiers = new ModifierCollection();
         $this->statuses = new ArrayCollection();
         $this->projects = new ArrayCollection();
+        $this->titlePriorities = new ArrayCollection();
     }
 
     public function getId(): int
@@ -776,6 +780,21 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function pilgredIsNotFinished(): bool
     {
         return $this->isPilgredFinished() === false;
+    }
+
+    /** @return ArrayCollection<array-key, TitlePriority> */
+    public function getTitlePriorities(): ArrayCollection
+    {
+        return new ArrayCollection($this->titlePriorities->toArray());
+    }
+
+    public function addTitlePriority(TitlePriority $titlePriority): static
+    {
+        if ($this->titlePriorities->contains($titlePriority) === false) {
+            $this->titlePriorities->add($titlePriority);
+        }
+
+        return $this;
     }
 
     public function getDaedalusConfig(): DaedalusConfig

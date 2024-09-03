@@ -291,6 +291,12 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::U_TURN,
+                actionConfigs: [
+                    ActionEnum::RUN_HOME,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::WRESTLER,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_2_DAMAGE_ON_HIT,

@@ -396,6 +396,7 @@ class CharacterConfigData
                 SkillEnum::SURVIVALIST,
                 SkillEnum::TECHNICIAN,
                 SkillEnum::DETERMINED,
+                SkillEnum::U_TURN,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

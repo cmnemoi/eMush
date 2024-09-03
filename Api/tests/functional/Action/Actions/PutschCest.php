@@ -9,9 +9,12 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\TitlePriority;
 use Mush\Game\Enum\TitleEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -35,6 +38,22 @@ final class PutschCest extends AbstractFunctionalTest
         $this->whenChunPutsches();
 
         $this->thenChunShouldBeInFirstPlaceForCommanderTitle($I);
+    }
+
+    public function shouldPrintAPublicLog(FunctionalTester $I): void
+    {
+        $this->whenChunPutsches();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: "**Chun** entre en grande discussion avec NERON. Qui sait ce qu'ils peuvent bien se dire…",
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: ActionLogEnum::PUTSCH_SUCCESS,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
     }
 
     private function whenChunPutsches(): void

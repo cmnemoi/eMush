@@ -797,6 +797,16 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
+    public function getTitlePriorityByNameOrThrow(string $name): TitlePriority
+    {
+        $titlePriority = $this->getTitlePriorityByName($name);
+        if (!$titlePriority) {
+            throw new \RuntimeException("Daedalus should have a title priority named {$name}");
+        }
+
+        return $titlePriority;
+    }
+
     public function getDaedalusConfig(): DaedalusConfig
     {
         return $this->getGameConfig()->getDaedalusConfig();
@@ -885,5 +895,10 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         }
 
         return $createdAt;
+    }
+
+    private function getTitlePriorityByName(string $name): ?TitlePriority
+    {
+        return $this->titlePriorities->filter(static fn (TitlePriority $titlePriority) => $titlePriority->getName() === $name)->first() ?: null;
     }
 }

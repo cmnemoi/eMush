@@ -1096,6 +1096,9 @@ class ActionsFixtures extends Fixture
         $runHome = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::RUN_HOME));
         $manager->persist($runHome);
 
+        $putsch = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PUTSCH));
+        $manager->persist($putsch);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1213,5 +1216,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::TOGGLE_NERON_INHIBITION->value, $toggleNeronInhibition);
         $this->addReference(ActionEnum::DELOG->value, $delog);
         $this->addReference(ActionEnum::RUN_HOME->value, $runHome);
+        $this->addReference(ActionEnum::PUTSCH->value, $putsch);
     }
 }

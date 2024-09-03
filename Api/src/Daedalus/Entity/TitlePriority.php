@@ -6,6 +6,7 @@ namespace Mush\Daedalus\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\TitleConfig;
+use Mush\Player\Entity\Player;
 
 #[ORM\Entity]
 class TitlePriority
@@ -39,5 +40,12 @@ class TitlePriority
     public function getPriority(): array
     {
         return $this->priority;
+    }
+
+    public function movePlayerToFirstPlace(Player $player): void
+    {
+        $this->priority = array_filter($this->priority, static fn (string $playerName) => $playerName !== $player->getName());
+
+        array_unshift($this->priority, $player->getName());
     }
 }

@@ -586,6 +586,7 @@ class CharacterConfigData
                 SkillEnum::ASTROPHYSICIST,
                 SkillEnum::TECHNICIAN,
                 SkillEnum::LEADER,
+                SkillEnum::POLITICIAN,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

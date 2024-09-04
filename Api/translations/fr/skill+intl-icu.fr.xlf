@@ -585,5 +585,15 @@
         <target>Il faut savoir changer de certitudes.//:point: Pour 2 :pa:, en expédition, vous permet de rentrer sur le Daedalus en urgence.</target>
       </segment>
     </unit>
+    <unit id="politician">
+      <segment id="politician.name" state="translated">
+        <source>politician.name</source>
+        <target>Politicien</target>
+      </segment>
+      <segment id="politician.description" state="translated">
+        <source>politician.description</source>
+        <target>Ils sont avec vous ou contre vous !//:point: **Unique** : Pour **3** :pa: vous pouvez déclarer un Putsch au Nexus. Au prochain cycle, NERON vous considérera comme le leader du Daedalus.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

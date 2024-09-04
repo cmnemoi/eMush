@@ -44,21 +44,24 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     public function onStatusApplied(StatusEvent $event): void
     {
         $statusHolder = $event->getStatusHolder();
+        $statusName = $event->getStatusName();
 
-        if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
-            $this->createNoGravityStatus($statusHolder, $event->getTags(), $event->getTime());
-            $this->ejectFocusedPlayers($statusHolder, $event->getTags(), $event->getTime());
-            $this->makeLaidDownPlayersGetUp($statusHolder, $event->getTags(), $event->getTime());
-        }
-
-        if ($event->getStatusName() === PlayerStatusEnum::MUSH) {
-            $this->statusService->removeStatus(
+        match ($statusName) {
+            EquipmentStatusEnum::BROKEN => $this->handleBrokenEquipment($statusHolder, $event->getTags(), $event->getTime()),
+            PlayerStatusEnum::MUSH => $this->statusService->removeStatus(
                 PlayerStatusEnum::STARVING,
                 $statusHolder,
                 $event->getTags(),
                 $event->getTime()
-            );
-        }
+            ),
+            PlayerStatusEnum::INACTIVE, PlayerStatusEnum::HIGHLY_INACTIVE => $this->statusService->removeStatus(
+                PlayerStatusEnum::PARIAH,
+                $statusHolder,
+                $event->getTags(),
+                $event->getTime()
+            ),
+            default => null,
+        };
     }
 
     public function onStatusRemoved(StatusEvent $event): void
@@ -84,6 +87,16 @@ final class StatusEventSubscriber implements EventSubscriberInterface
 
             default:
         }
+    }
+
+    private function handleBrokenEquipment(
+        StatusHolderInterface $statusHolder,
+        array $tags,
+        \DateTime $time
+    ): void {
+        $this->createNoGravityStatus($statusHolder, $tags, $time);
+        $this->ejectFocusedPlayers($statusHolder, $tags, $time);
+        $this->makeLaidDownPlayersGetUp($statusHolder, $tags, $time);
     }
 
     private function createNoGravityStatus(

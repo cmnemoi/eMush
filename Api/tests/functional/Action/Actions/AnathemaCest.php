@@ -19,6 +19,7 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -33,6 +34,7 @@ final class AnathemaCest extends AbstractFunctionalTest
     private Hit $attemptAction;
 
     private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -44,6 +46,7 @@ final class AnathemaCest extends AbstractFunctionalTest
         $this->attemptActionConfig->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::COVERT);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::VICTIMIZER, $I);
     }
@@ -93,6 +96,15 @@ final class AnathemaCest extends AbstractFunctionalTest
         $this->thenIShouldNotSeePariahAlert($I);
     }
 
+    public function pariahStatusShouldBeRemovedWhenPariahBecomesInactive(FunctionalTester $I): void
+    {
+        $this->givenChunUsesAnathemaOnKuanTi();
+
+        $this->whenKuanTiBecomesInactive();
+
+        $this->thenKuanTiShouldNotHavePariahStatus($I);
+    }
+
     private function givenChunUsesAnathemaOnKuanTi(): void
     {
         $this->whenChunUsesAnathemaOnKuanTi();
@@ -140,6 +152,16 @@ final class AnathemaCest extends AbstractFunctionalTest
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
     }
 
+    private function whenKuanTiBecomesInactive(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::INACTIVE,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function thenKuanTiShouldHavePariahStatus(FunctionalTester $I): void
     {
         $I->assertTrue($this->kuanTi->hasStatus(PlayerStatusEnum::PARIAH));
@@ -179,5 +201,10 @@ final class AnathemaCest extends AbstractFunctionalTest
                 'name' => AlertEnum::OUTCAST,
             ],
         );
+    }
+
+    private function thenKuanTiShouldNotHavePariahStatus(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::PARIAH));
     }
 }

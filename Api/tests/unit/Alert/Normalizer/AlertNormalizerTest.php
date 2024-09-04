@@ -10,14 +10,19 @@ use Mush\Alert\Normalizer\AlertNormalizer;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Factory\PlayerFactory;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Factory\StatusFactory;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -49,14 +54,12 @@ final class AlertNormalizerTest extends TestCase
         \Mockery::close();
     }
 
-    public function testNormalize()
+    public function testNormalizePariahStatus()
     {
-        $gameConfig = new GameConfig();
-        $localizationConfig = new LocalizationConfig();
-        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $daedalus = new Daedalus();
-        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $pariah = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::RALUCA, $daedalus);
+        StatusFactory::createStatusByNameForHolder(PlayerStatusEnum::PARIAH, $pariah);
 
         $alert = new Alert();
         $alert->setName('outcast')->setDaedalus($daedalus);
@@ -75,7 +78,7 @@ final class AlertNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('outcast.description', [], 'alerts', LanguageEnum::FRENCH)
+            ->with('outcast.description', ['character' => 'raluca'], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once();
 

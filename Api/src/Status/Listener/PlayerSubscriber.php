@@ -65,6 +65,8 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onPlayerDeath(PlayerEvent $playerEvent): void
     {
         $this->statusService->removeAllStatuses($playerEvent->getPlayer(), $playerEvent->getTags(), $playerEvent->getTime());
+
+        $this->removePariahStatus($playerEvent);
     }
 
     public function onPlayerChangedPlace(PlayerChangedPlaceEvent $event): void
@@ -152,5 +154,25 @@ class PlayerSubscriber implements EventSubscriberInterface
             tags: $event->getTags(),
             time: $event->getTime(),
         );
+    }
+
+    private function removePariahStatus(PlayerEvent $playerEvent): void
+    {
+        $deadPlayer = $playerEvent->getPlayer();
+        $daedalus = $deadPlayer->getDaedalus();
+
+        if ($daedalus->hasAPariah() === false) {
+            return;
+        }
+
+        $currentPariah = $daedalus->getCurrentPariah();
+        if ($currentPariah->getStatusByNameOrThrow(PlayerStatusEnum::PARIAH)->getTargetOrThrow()->equals($deadPlayer)) {
+            $this->statusService->removeStatus(
+                statusName: PlayerStatusEnum::PARIAH,
+                holder: $currentPariah,
+                tags: $playerEvent->getTags(),
+                time: $playerEvent->getTime(),
+            );
+        }
     }
 }

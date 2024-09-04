@@ -131,6 +131,15 @@ final class AnathemaCest extends AbstractFunctionalTest
         );
     }
 
+    public function pariahStatusShouldBeRemovedWhenVictimizerDies(FunctionalTester $I): void
+    {
+        $this->givenChunUsesAnathemaOnKuanTi();
+
+        $this->whenChunDies();
+
+        $this->thenKuanTiShouldNotHavePariahStatus($I);
+    }
+
     private function givenChunUsesAnathemaOnKuanTi(): void
     {
         $this->whenChunUsesAnathemaOnKuanTi();
@@ -198,6 +207,16 @@ final class AnathemaCest extends AbstractFunctionalTest
             target: $paola,
         );
         $this->anathema->execute();
+    }
+
+    private function whenChunDies(): void
+    {
+        $deathEvent = new PlayerEvent(
+            player: $this->chun,
+            tags: [EndCauseEnum::QUARANTINE],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
     }
 
     private function thenKuanTiShouldHavePariahStatus(FunctionalTester $I): void

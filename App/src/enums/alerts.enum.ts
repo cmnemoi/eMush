@@ -11,6 +11,7 @@ export enum AlertEnum {
     NO_GRAVITY = 'no_gravity',
     HUNGER = 'hunger',
     HUNTER = 'hunter',
+    OUTCAST = 'outcast',
 }
 
 export const AlertsIcons: {[index: string]: string} = {
@@ -23,6 +24,7 @@ export const AlertsIcons: {[index: string]: string} = {
     [AlertEnum.NO_GRAVITY]: getImgUrl('alerts/simulator.png'),
     [AlertEnum.GRAVITY_REBOOT]: getImgUrl('alerts/simulatorReboot.png'),
     [AlertEnum.HUNGER]: getImgUrl('alerts/hunger.png'),
-    [AlertEnum.HUNTER]: getImgUrl('alerts/hunter.png')
+    [AlertEnum.HUNTER]: getImgUrl('alerts/hunter.png'),
+    [AlertEnum.OUTCAST]: getImgUrl('status/unsociable.png')
 }
 ;

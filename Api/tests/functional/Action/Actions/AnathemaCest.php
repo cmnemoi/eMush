@@ -8,6 +8,8 @@ use Mush\Action\Actions\Anathema;
 use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Alert\Entity\Alert;
+use Mush\Alert\Enum\AlertEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -69,6 +71,13 @@ final class AnathemaCest extends AbstractFunctionalTest
         $this->thenIShouldSeeRevealedLog($I);
     }
 
+    public function shouldCreatePariahAlert(FunctionalTester $I): void
+    {
+        $this->givenChunUsesAnathemaOnKuanTi();
+
+        $this->thenIShouldSeePariahAlert($I);
+    }
+
     private function givenChunUsesAnathemaOnKuanTi(): void
     {
         $this->whenChunUsesAnathemaOnKuanTi();
@@ -123,6 +132,16 @@ final class AnathemaCest extends AbstractFunctionalTest
             params: [
                 'visibility' => VisibilityEnum::REVEALED,
                 'log' => ActionLogEnum::HIT_FAIL,
+            ],
+        );
+    }
+
+    private function thenIShouldSeePariahAlert(FunctionalTester $I): void
+    {
+        $I->seeInRepository(
+            entity: Alert::class,
+            params: [
+                'name' => AlertEnum::OUTCAST,
             ],
         );
     }

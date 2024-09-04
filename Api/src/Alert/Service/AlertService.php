@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 use Mush\Status\Enum\StatusEnum;
 use Psr\Log\LoggerInterface;
 
@@ -431,6 +432,13 @@ class AlertService implements AlertServiceInterface
         if ($daedalus->getLostPlayers()->isEmpty()) {
             $this->delete($alert);
         }
+    }
+
+    public function handlePariahAlert(Player $player): void
+    {
+        $alert = $this->getAlert($player->getDaedalus(), AlertEnum::OUTCAST);
+
+        $this->persist($alert);
     }
 
     private function getAlert(Daedalus $daedalus, string $alertName): Alert

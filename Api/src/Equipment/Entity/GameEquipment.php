@@ -21,6 +21,7 @@ use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -556,6 +557,16 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
 
         return new ArrayCollection($modifierConfigs);
+    }
+
+    public function isAnAlienFruit(): bool
+    {
+        return GameFruitEnum::getAlienFruits()->contains($this->getName());
+    }
+
+    public function isABanana(): bool
+    {
+        return $this->getName() === GameFruitEnum::BANANA;
     }
 
     private function canProduceFruit(): bool

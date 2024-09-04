@@ -19,6 +19,7 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -125,7 +126,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
     private function getEquipmentEffects(GameEquipment $equipment, Player $player): array
     {
         if ($player->canReadFoodProperties($equipment)) {
-            return $this->getRationsEffect($equipment, $player->getDaedalus());
+            return $this->getRationsEffect($equipment, $player);
         }
         if ($player->canReadPlantProperties($equipment)) {
             return $this->getPlantEffects($equipment, $player->getDaedalus());
@@ -134,8 +135,9 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         return [];
     }
 
-    private function getRationsEffect(GameEquipment $gameEquipment, Daedalus $daedalus): array
+    private function getRationsEffect(GameEquipment $gameEquipment, Player $player): array
     {
+        $daedalus = $player->getDaedalus();
         $language = $daedalus->getLanguage();
 
         /** @var Ration $ration */
@@ -161,7 +163,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
         return [
             'title' => $this->translationService->translate('ration_data', [], 'misc', $language),
-            'effects' => array_merge($effects, $this->createConsumableLines($this->equipmentEffectService->getConsumableEffect($ration, $daedalus), $language)),
+            'effects' => array_merge($effects, $this->createConsumableLines($gameEquipment, $this->equipmentEffectService->getConsumableEffect($ration, $daedalus), $player)),
         ];
     }
 
@@ -181,8 +183,9 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         ];
     }
 
-    private function createConsumableLines(ConsumableEffect $consumableEffect, string $language): array
+    private function createConsumableLines(GameEquipment $food, ConsumableEffect $consumableEffect, Player $player): array
     {
+        $language = $player->getLanguage();
         $effects = [];
 
         $satiety = $consumableEffect->getSatiety();
@@ -191,6 +194,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         }
         $actionPoint = $consumableEffect->getActionPoint();
         if ($actionPoint) {
+            $actionPoint += $this->getFrugivoreBonus($food, $player);
             $effects[] = $this->createEffectLine($actionPoint, 'action_point', $language);
         }
         $movementPoint = $consumableEffect->getMovementPoint();
@@ -286,5 +290,17 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         }
 
         return $description;
+    }
+
+    private function getFrugivoreBonus(GameEquipment $food, Player $player): int
+    {
+        if ($player->hasModifierByModifierName(ModifierNameEnum::FRUGIVORE_MODIFIER_FOR_ALIEN_FRUITS) && $food->isAnAlienFruit()) {
+            return (int) $player->getModifiers()->getModifierByModifierNameOrThrow(ModifierNameEnum::FRUGIVORE_MODIFIER_FOR_ALIEN_FRUITS)->getVariableModifierConfigOrThrow()->getDelta();
+        }
+        if ($player->hasModifierByModifierName(ModifierNameEnum::FRUGIVORE_MODIFIER_FOR_BANANA) && $food->isABanana()) {
+            return (int) $player->getModifiers()->getModifierByModifierNameOrThrow(ModifierNameEnum::FRUGIVORE_MODIFIER_FOR_BANANA)->getVariableModifierConfigOrThrow()->getDelta();
+        }
+
+        return 0;
     }
 }

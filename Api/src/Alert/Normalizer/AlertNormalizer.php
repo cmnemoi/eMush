@@ -48,27 +48,26 @@ class AlertNormalizer implements NormalizerInterface
 
         if (($quantity = $this->getAlertQuantity($alert)) !== null) {
             $normalizedAlert['name'] = $this->translationService->translate(
-                $alert->getName() . '.name',
+                \sprintf('%s.name', $key),
                 ['quantity' => $quantity],
                 'alerts',
                 $language
             );
             $normalizedAlert['description'] = $this->translationService->translate(
-                "{$key}.description",
+                \sprintf('%s.description', $key),
                 ['quantity' => $quantity],
                 'alerts',
                 $language
             );
         } else {
             $normalizedAlert['name'] = $this->translationService->translate(
-                $alert->getName() .
-                '.name',
+                \sprintf('%s.name', $key),
                 [],
                 'alerts',
                 $language
             );
             $normalizedAlert['description'] = $this->translationService->translate(
-                "{$key}.description",
+                \sprintf('%s.description', $key),
                 $this->getAlertDesriptionParameters($alert),
                 'alerts',
                 $language
@@ -81,7 +80,7 @@ class AlertNormalizer implements NormalizerInterface
 
         if ($alert->getName() === AlertEnum::LOST_CREWMATE) {
             /** @var Player $lastLostPlayer */
-            $lastLostPlayer = $alert->getDaedalus()->getLostPlayers()->last();
+            $lastLostPlayer = $daedalus->getLostPlayers()->last();
             $normalizedAlert['lostPlayer'] = $lastLostPlayer->getName();
         }
 

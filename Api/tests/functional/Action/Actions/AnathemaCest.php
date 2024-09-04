@@ -12,6 +12,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
@@ -110,10 +111,22 @@ final class AnathemaCest extends AbstractFunctionalTest
     {
         $this->givenChunUsesAnathemaOnKuanTi();
 
-        $this->whenChunUsesAnathemaOnKuanTi();
+        $this->whenChunUsesAnathemaOnPaola($I);
 
         $this->thenActionShouldNotBeExecutableWithMessage(
             message: ActionImpossibleCauseEnum::ALREADY_OUTCAST_ONBOARD,
+            I: $I,
+        );
+    }
+
+    public function shouldNotBeExecutableIfTargetIsAlreadyAPariah(FunctionalTester $I): void
+    {
+        $this->givenChunUsesAnathemaOnKuanTi();
+
+        $this->whenChunUsesAnathemaOnKuanTi();
+
+        $this->thenActionShouldNotBeExecutableWithMessage(
+            message: ActionImpossibleCauseEnum::TARGET_ALREADY_OUTCAST,
             I: $I,
         );
     }
@@ -173,6 +186,18 @@ final class AnathemaCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
+    }
+
+    private function whenChunUsesAnathemaOnPaola(FunctionalTester $I): void
+    {
+        $paola = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::PAOLA);
+        $this->anathema->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->chun,
+            player: $this->chun,
+            target: $paola,
+        );
+        $this->anathema->execute();
     }
 
     private function thenKuanTiShouldHavePariahStatus(FunctionalTester $I): void

@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NoPariahOnBoard;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -35,6 +36,13 @@ final class Anathema extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
+            new HasStatus([
+                'status' => PlayerStatusEnum::PARIAH,
+                'target' => HasStatus::PARAMETER,
+                'contain' => false,
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::TARGET_ALREADY_OUTCAST,
+            ]),
             new NoPariahOnBoard([
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::ALREADY_OUTCAST_ONBOARD,

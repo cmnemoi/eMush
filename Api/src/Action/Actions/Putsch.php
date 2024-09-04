@@ -11,10 +11,12 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\IsInPlace;
 use Mush\Daedalus\Entity\TitlePriority;
 use Mush\Daedalus\Repository\TitlePriorityRepositoryInterface;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -38,6 +40,10 @@ final class Putsch extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
+            new IsInPlace([
+                'place' => RoomEnum::NEXUS,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
             new HasStatus([
                 'status' => PlayerStatusEnum::HAS_USED_PUTSCH,
                 'target' => HasStatus::PLAYER,

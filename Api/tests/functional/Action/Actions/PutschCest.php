@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\TitlePriority;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -32,7 +33,8 @@ final class PutschCest extends AbstractFunctionalTest
         $this->putsch = $I->grabService(Putsch::class);
 
         $this->addSkillToPlayer(SkillEnum::POLITICIAN, $I, $this->chun);
-        $this->chun->setActionPoint(12);
+        $this->givenChunHasActionPoints(12);
+        $this->givenChunIsInNexus($I);
     }
 
     public function shouldPutPlayerInFirstPlaceForCommanderTitle(FunctionalTester $I): void
@@ -70,6 +72,26 @@ final class PutschCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldNotBeVisibleIfPlayerNotInNexus(FunctionalTester $I): void
+    {
+        $this->givenChunPutsches();
+
+        $this->whenChunIsNotInNexus();
+
+        $this->thenActionIsNotVisible($I);
+    }
+
+    private function givenChunHasActionPoints(int $actionPoints): void
+    {
+        $this->chun->setActionPoint($actionPoints);
+    }
+
+    private function givenChunIsInNexus(FunctionalTester $I): void
+    {
+        $nexus = $this->createExtraPlace(placeName: RoomEnum::NEXUS, I: $I, daedalus: $this->daedalus);
+        $this->chun->changePlace($nexus);
+    }
+
     private function givenChunPutsches(): void
     {
         $this->whenChunPutsches();
@@ -83,6 +105,11 @@ final class PutschCest extends AbstractFunctionalTest
             player: $this->chun,
         );
         $this->putsch->execute();
+    }
+
+    private function whenChunIsNotInNexus(): void
+    {
+        $this->chun->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
     }
 
     private function thenChunShouldBeInFirstPlaceForCommanderTitle(FunctionalTester $I): void
@@ -99,5 +126,10 @@ final class PutschCest extends AbstractFunctionalTest
     private function thenActionIsNotExecutableWithMessage(string $message, FunctionalTester $I): void
     {
         $I->assertEquals($message, $this->putsch->cannotExecuteReason());
+    }
+
+    private function thenActionIsNotVisible(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->putsch->isVisible());
     }
 }

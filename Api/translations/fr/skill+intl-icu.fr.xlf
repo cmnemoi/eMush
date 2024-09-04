@@ -595,5 +595,15 @@
         <target>Ils sont avec vous ou contre vous !//:point: **Unique** : Pour **3** :pa: vous pouvez déclarer un Putsch au Nexus. Au prochain cycle, NERON vous considérera comme le leader du Daedalus.</target>
       </segment>
     </unit>
+    <unit id="victimizer">
+      <segment id="victimizer.name" state="translated">
+        <source>victimizer.name</source>
+        <target>Persécuteur</target>
+      </segment>
+      <segment id="victimizer.description" state="translated">
+        <source>victimizer.description</source>
+        <target>Certaines remarques bien senties peuvent avoir des répercussions inattendues.//:point: Pour **1** :pa:, permet de jeter l'anathème sur un co-équipier.//:point: Ce co-équipier gagne le statut Paria. Le Paria perd 20% de réussite à ses actions.//:point: Ses actions furtives deviennent discrètes.//:point: Le status Paria dure tant que le perséctueur est en vie, ou que le paria meurt ou devienne inactif.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

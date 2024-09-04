@@ -58,5 +58,7 @@ interface AlertServiceInterface
 
     public function handleLostPlayerFound(Daedalus $daedalus): void;
 
-    public function handlePariahAlert(Player $player): void;
+    public function handlePariahApplied(Player $player): void;
+
+    public function handlePariahRemoved(Player $player): void;
 }

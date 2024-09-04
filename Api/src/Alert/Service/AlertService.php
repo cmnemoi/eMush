@@ -434,11 +434,22 @@ class AlertService implements AlertServiceInterface
         }
     }
 
-    public function handlePariahAlert(Player $player): void
+    public function handlePariahApplied(Player $player): void
     {
         $alert = $this->getAlert($player->getDaedalus(), AlertEnum::OUTCAST);
 
         $this->persist($alert);
+    }
+
+    public function handlePariahRemoved(Player $player): void
+    {
+        $alert = $this->findByNameAndDaedalus(AlertEnum::OUTCAST, $player->getDaedalus());
+
+        if ($alert === null) {
+            throw new \LogicException('there should be a pariah alert on this Daedalus');
+        }
+
+        $this->delete($alert);
     }
 
     private function getAlert(Daedalus $daedalus, string $alertName): Alert

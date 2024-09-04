@@ -74,7 +74,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 return;
 
             case PlayerStatusEnum::PARIAH:
-                $this->alertService->handlePariahAlert($this->getHolderAsPlayer($event));
+                $this->alertService->handlePariahApplied($this->getHolderAsPlayer($event));
 
                 return;
         }
@@ -114,6 +114,11 @@ class StatusSubscriber implements EventSubscriberInterface
 
             case DaedalusStatusEnum::NO_GRAVITY_REPAIRED:
                 $this->alertService->gravityAlert($holder->getDaedalus(), AlertEnum::GRAVITY_REBOOT);
+
+                return;
+
+            case PlayerStatusEnum::PARIAH:
+                $this->alertService->handlePariahRemoved($this->getHolderAsPlayer($event));
 
                 return;
         }

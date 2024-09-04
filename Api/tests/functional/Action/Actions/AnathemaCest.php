@@ -8,6 +8,7 @@ use Mush\Action\Actions\Anathema;
 use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -103,6 +104,18 @@ final class AnathemaCest extends AbstractFunctionalTest
         $this->whenKuanTiBecomesInactive();
 
         $this->thenKuanTiShouldNotHavePariahStatus($I);
+    }
+
+    public function shouldNotBeExecutableIfAlreadyAPariahOnboard(FunctionalTester $I): void
+    {
+        $this->givenChunUsesAnathemaOnKuanTi();
+
+        $this->whenChunUsesAnathemaOnKuanTi();
+
+        $this->thenActionShouldNotBeExecutableWithMessage(
+            message: ActionImpossibleCauseEnum::ALREADY_OUTCAST_ONBOARD,
+            I: $I,
+        );
     }
 
     private function givenChunUsesAnathemaOnKuanTi(): void
@@ -206,5 +219,10 @@ final class AnathemaCest extends AbstractFunctionalTest
     private function thenKuanTiShouldNotHavePariahStatus(FunctionalTester $I): void
     {
         $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::PARIAH));
+    }
+
+    private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
+    {
+        $I->assertEquals($message, $this->anathema->cannotExecuteReason());
     }
 }

@@ -90,6 +90,11 @@ class PlayerCollection extends ArrayCollection
         return $player;
     }
 
+    public function hasPlayerWithStatus(string $status): bool
+    {
+        return $this->getPlayerWithStatus($status) !== null;
+    }
+
     private function getPlayerWithStatus(string $status): ?Player
     {
         return $this->filter(static fn (Player $player) => $player->hasStatus($status))->first() ?: null;

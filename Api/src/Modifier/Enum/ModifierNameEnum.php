@@ -75,4 +75,8 @@ abstract class ModifierNameEnum
     public const string EXPERT_MODIFIER_ON_CLUMSINESS = 'expert_modifier_on_clumsiness';
     public const string PLAYER_PLUS_20_PERCENTAGE_ON_DIRTINESS = 'player_+20_percentage_on_dirtiness';
     public const string EXPERT_MODIFIER_ON_DIRTINESS = 'expert_modifier_on_dirtiness';
+    public const string PLAYER_PLUS_2_ACTION_POINTS_ON_CONSUME_ACTION_IF_ALIEN_FRUIT = 'player_+2_action_points_on_consume_action_if_alien_fruit';
+    public const string FRUGIVORE_MODIFIER_FOR_ALIEN_FRUITS = 'frugivore_modifier_for_alien_fruits';
+    public const string PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_BANANA = 'player_+1_action_points_on_consume_action_if_banana';
+    public const string FRUGIVORE_MODIFIER_FOR_BANANA = 'frugivore_modifier_for_banana';
 }

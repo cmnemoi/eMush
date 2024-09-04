@@ -116,6 +116,13 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::FRUGIVORE,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_PLUS_2_ACTION_POINTS_ON_CONSUME_ACTION_IF_ALIEN_FRUIT,
+                    ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_BANANA,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::GENIUS,
                 actionConfigs: [
                     ActionEnum::BECOME_GENIUS,

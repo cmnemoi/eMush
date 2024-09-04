@@ -441,6 +441,7 @@ class CharacterConfigData
             'skillConfigs' => [
                 SkillEnum::BOTANIST,
                 SkillEnum::FIREFIGHTER,
+                SkillEnum::FRUGIVORE,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

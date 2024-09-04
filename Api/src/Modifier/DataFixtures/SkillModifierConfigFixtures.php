@@ -217,6 +217,18 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($expertModifierOnDirtiness->getName(), $expertModifierOnDirtiness);
         $manager->persist($expertModifierOnDirtiness);
 
+        $frugivoreModifierForAlienFruits = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_2_ACTION_POINTS_ON_CONSUME_ACTION_IF_ALIEN_FRUIT)
+        );
+        $this->addReference($frugivoreModifierForAlienFruits->getName(), $frugivoreModifierForAlienFruits);
+        $manager->persist($frugivoreModifierForAlienFruits);
+
+        $frugivoreModifierForBanana = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_BANANA)
+        );
+        $this->addReference($frugivoreModifierForBanana->getName(), $frugivoreModifierForBanana);
+        $manager->persist($frugivoreModifierForBanana);
+
         $manager->flush();
     }
 

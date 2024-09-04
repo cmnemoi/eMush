@@ -223,7 +223,7 @@ class ActionNormalizer implements NormalizerInterface
         ];
 
         if ($actionTarget instanceof Player) {
-            $translationParameters['target.' . $actionTarget->getLogKey()] = $actionTarget->getLogName();
+            $translationParameters['target_' . $actionTarget->getLogKey()] = $actionTarget->getLogName();
         }
         if ($actionName === ActionEnum::EXTRACT_SPORE->value) {
             $translationParameters['quantity'] = $daedalus->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();

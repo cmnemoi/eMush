@@ -29,6 +29,6 @@ trait ModifierHolderTrait
 
     public function hasModifierByModifierName(string $modifierName): bool
     {
-        return $this->modifiers->exists(static fn ($_, ModifierHolder $modifier) => $modifier->getGameModifier()->getModifierNameOrThrow() === $modifierName);
+        return $this->modifiers->exists(static fn ($_, ModifierHolder $modifier) => $modifier->getGameModifier()->getModifierNameOrNull() === $modifierName);
     }
 }

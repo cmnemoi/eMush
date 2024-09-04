@@ -121,9 +121,9 @@ class GameModifier
         return $modifierProvider->getUsedCharge($modifierName);
     }
 
-    public function getModifierNameOrThrow(): string
+    public function getModifierNameOrNull(): ?string
     {
-        return $this->modifierConfig->getModifierName() ?? throw new \RuntimeException('Modifier name not found.');
+        return $this->modifierConfig->getModifierName();
     }
 
     private function getName(): string

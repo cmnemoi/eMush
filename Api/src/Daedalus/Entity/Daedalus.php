@@ -882,6 +882,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         throw new \RuntimeException('Daedalus does not implement getPlace method');
     }
 
+    public function getCurrentPariah(): Player
+    {
+        return $this->getAlivePlayers()->getPlayerWithStatusOrThrow(PlayerStatusEnum::PARIAH);
+    }
+
     private function isExplorationChangingCycle(): bool
     {
         return $this->getExploration()?->isChangingCycle() ?? false;

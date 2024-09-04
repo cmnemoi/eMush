@@ -31,7 +31,8 @@ class AlertNormalizer implements NormalizerInterface
         /** @var Alert $alert */
         $alert = $object;
 
-        $language = $alert->getDaedalus()->getLanguage();
+        $daedalus = $alert->getDaedalus();
+        $language = $daedalus->getLanguage();
 
         $key = $alert->getName();
 
@@ -68,7 +69,7 @@ class AlertNormalizer implements NormalizerInterface
             );
             $normalizedAlert['description'] = $this->translationService->translate(
                 "{$key}.description",
-                [],
+                $this->getAlertDesriptionParameters($alert),
                 'alerts',
                 $language
             );
@@ -85,6 +86,15 @@ class AlertNormalizer implements NormalizerInterface
         }
 
         return $normalizedAlert;
+    }
+
+    private function getAlertDesriptionParameters(Alert $alert): array
+    {
+        if ($alert->getName() === AlertEnum::OUTCAST) {
+            return [$alert->getDaedalus()->getCurrentPariah()->getLogKey() => $alert->getDaedalus()->getCurrentPariah()->getLogName()];
+        }
+
+        return [];
     }
 
     private function getAlertQuantity(Alert $alert): ?int

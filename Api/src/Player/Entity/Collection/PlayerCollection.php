@@ -78,4 +78,20 @@ class PlayerCollection extends ArrayCollection
     {
         return $this->filter(static fn (Player $player) => !$playersToExclude->contains($player));
     }
+
+    public function getPlayerWithStatusOrThrow(string $status): Player
+    {
+        $player = $this->getPlayerWithStatus($status);
+
+        if ($player === null) {
+            throw new \RuntimeException('No player with status ' . $status);
+        }
+
+        return $player;
+    }
+
+    private function getPlayerWithStatus(string $status): ?Player
+    {
+        return $this->filter(static fn (Player $player) => $player->hasStatus($status))->first() ?: null;
+    }
 }

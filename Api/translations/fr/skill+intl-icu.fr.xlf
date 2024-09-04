@@ -575,5 +575,15 @@
         <target>Votre ADN vous permet de modifier certaines séquences de données périphériques. Plein de potentiel !//:point: Une fois par jour. Pour **2** :pa:, vous pouvez effacer tous les logs d'une salle. L'enregistrement des logs se fera à nouveau à partir du prochain cycle.</target>
       </segment>
     </unit>
+    <unit id="u_turn">
+      <segment id="u_turn.name" state="translated">
+        <source>u_turn.name</source>
+        <target>Retour arrière</target>
+      </segment>
+      <segment id="u_turn.description" state="translated">
+        <source>u_turn.description</source>
+        <target>Il faut savoir changer de certitudes.//:point: Pour 2 :pa:, en expédition, vous permet de rentrer sur le Daedalus en urgence.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

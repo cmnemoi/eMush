@@ -2258,7 +2258,7 @@ class ActionData
         [
             'name' => ActionEnum::RUN_HOME->value,
             'action_name' => ActionEnum::RUN_HOME,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'hidden', 'fail' => 'hidden'],

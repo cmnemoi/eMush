@@ -218,9 +218,6 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::POLITICIAN,
-                actionConfigs: [
-                    ActionEnum::PUTSCH,
-                ]
             ),
             new SkillConfigDto(
                 name: SkillEnum::PYROMANIAC,

@@ -2275,7 +2275,7 @@ class ActionData
             'name' => ActionEnum::PUTSCH->value,
             'action_name' => ActionEnum::PUTSCH,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
-            'target' => ActionHolderEnum::PLAYER,
+            'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => VisibilityEnum::HIDDEN],
             'actionPoint' => ['value' => 3, 'min_value' => 0, 'max_value' => null],

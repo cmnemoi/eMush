@@ -113,7 +113,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $participateAction */
         $participateAction = $this->getReference(ActionEnum::PARTICIPATE->value);
 
-        $neronCoreTool = $this->createTool([$participateAction, $accessTerminalAction, $exitTerminalAction], EquipmentEnum::NERON_CORE);
+        /** @var ActionConfig $putschAction */
+        $putschAction = $this->getReference(ActionEnum::PUTSCH->value);
+
+        $neronCoreTool = $this->createTool([$participateAction, $putschAction, $accessTerminalAction, $exitTerminalAction], EquipmentEnum::NERON_CORE);
         $manager->persist($neronCoreTool);
 
         $neronCore = new EquipmentConfig();

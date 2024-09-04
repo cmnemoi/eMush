@@ -3701,6 +3701,7 @@ class MechanicsData
             'type' => 'tool',
             'actions' => [
                 ActionEnum::PARTICIPATE->value,
+                ActionEnum::PUTSCH->value,
                 ActionEnum::ACCESS_TERMINAL->value,
                 ActionEnum::EXIT_TERMINAL->value,
             ],

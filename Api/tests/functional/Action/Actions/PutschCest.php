@@ -8,10 +8,11 @@ use Mush\Action\Actions\Putsch;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Daedalus\Entity\TitlePriority;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -26,19 +27,25 @@ final class PutschCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private Putsch $putsch;
 
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private GameEquipment $neronCore;
+
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PUTSCH]);
         $this->putsch = $I->grabService(Putsch::class);
 
-        $this->addSkillToPlayer(SkillEnum::POLITICIAN, $I, $this->chun);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+
         $this->givenChunHasActionPoints(12);
-        $this->givenChunIsInNexus($I);
+        $this->givenANeronCoreInChunRoom();
     }
 
     public function shouldPutPlayerInFirstPlaceForCommanderTitle(FunctionalTester $I): void
     {
+        $this->addSkillToPlayer(SkillEnum::POLITICIAN, $I, $this->chun);
+
         $this->whenChunPutsches();
 
         $this->thenChunShouldBeInFirstPlaceForCommanderTitle($I);
@@ -46,6 +53,8 @@ final class PutschCest extends AbstractFunctionalTest
 
     public function shouldPrintAPublicLog(FunctionalTester $I): void
     {
+        $this->addSkillToPlayer(SkillEnum::POLITICIAN, $I, $this->chun);
+
         $this->whenChunPutsches();
 
         $this->ISeeTranslatedRoomLogInRepository(
@@ -62,6 +71,8 @@ final class PutschCest extends AbstractFunctionalTest
 
     public function shouldBeExecutableOncePerGame(FunctionalTester $I): void
     {
+        $this->addSkillToPlayer(SkillEnum::POLITICIAN, $I, $this->chun);
+
         $this->givenChunPutsches();
 
         $this->whenChunPutsches();
@@ -72,11 +83,9 @@ final class PutschCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNotBeVisibleIfPlayerNotInNexus(FunctionalTester $I): void
+    public function shouldNotBeVisibleIfPlayerIsNotPolitician(FunctionalTester $I): void
     {
-        $this->givenChunPutsches();
-
-        $this->whenChunIsNotInNexus();
+        $this->whenChunPutsches();
 
         $this->thenActionIsNotVisible($I);
     }
@@ -86,10 +95,14 @@ final class PutschCest extends AbstractFunctionalTest
         $this->chun->setActionPoint($actionPoints);
     }
 
-    private function givenChunIsInNexus(FunctionalTester $I): void
+    private function givenANeronCoreInChunRoom(): void
     {
-        $nexus = $this->createExtraPlace(placeName: RoomEnum::NEXUS, I: $I, daedalus: $this->daedalus);
-        $this->chun->changePlace($nexus);
+        $this->neronCore = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::NERON_CORE,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
     }
 
     private function givenChunPutsches(): void
@@ -101,23 +114,17 @@ final class PutschCest extends AbstractFunctionalTest
     {
         $this->putsch->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $this->chun,
+            actionProvider: $this->neronCore,
             player: $this->chun,
+            target: $this->neronCore,
         );
         $this->putsch->execute();
-    }
-
-    private function whenChunIsNotInNexus(): void
-    {
-        $this->chun->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
     }
 
     private function thenChunShouldBeInFirstPlaceForCommanderTitle(FunctionalTester $I): void
     {
         $commanderTitlePriorities = $this->daedalus
-            ->getTitlePriorities()
-            ->filter(static fn (TitlePriority $titlePriority) => $titlePriority->getName() === TitleEnum::COMMANDER)
-            ->first()
+            ->getTitlePriorityByNameOrThrow(TitleEnum::COMMANDER)
             ->getPriority();
 
         $I->assertEquals($this->chun->getName(), $commanderTitlePriorities[0]);

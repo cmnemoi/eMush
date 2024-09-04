@@ -10,14 +10,15 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\HasSkill;
 use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\IsInPlace;
 use Mush\Daedalus\Entity\TitlePriority;
 use Mush\Daedalus\Repository\TitlePriorityRepositoryInterface;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -40,8 +41,8 @@ final class Putsch extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
-            new IsInPlace([
-                'place' => RoomEnum::NEXUS,
+            new HasSkill([
+                'skill' => SkillEnum::POLITICIAN,
                 'groups' => [ClassConstraint::VISIBILITY],
             ]),
             new HasStatus([
@@ -56,7 +57,7 @@ final class Putsch extends AbstractAction
 
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $target === null;
+        return $target instanceof GameEquipment;
     }
 
     protected function checkResult(): ActionResult

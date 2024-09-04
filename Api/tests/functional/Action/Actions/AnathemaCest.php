@@ -8,6 +8,10 @@ use Mush\Action\Actions\Anathema;
 use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -30,6 +34,8 @@ final class AnathemaCest extends AbstractFunctionalTest
         $this->anathema = $I->grabService(Anathema::class);
         $this->attemptActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HIT]);
         $this->attemptAction = $I->grabService(Hit::class);
+        $this->attemptActionConfig->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT);
+        $this->attemptActionConfig->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::COVERT);
 
         $this->addSkillToPlayer(SkillEnum::VICTIMIZER, $I);
     }
@@ -52,6 +58,17 @@ final class AnathemaCest extends AbstractFunctionalTest
         $this->thenActionSuccessRateShouldBe(48, $I);
     }
 
+    public function pariahCovertActionsShouldBeSecret(FunctionalTester $I): void
+    {
+        $this->givenActionSuccessRateIs(0);
+
+        $this->givenChunUsesAnathemaOnKuanTi();
+
+        $this->whenKuanTiDoesAction();
+
+        $this->thenIShouldSeeRevealedLog($I);
+    }
+
     private function givenChunUsesAnathemaOnKuanTi(): void
     {
         $this->whenChunUsesAnathemaOnKuanTi();
@@ -70,6 +87,12 @@ final class AnathemaCest extends AbstractFunctionalTest
             player: $this->kuanTi,
             target: $this->chun,
         );
+    }
+
+    private function whenKuanTiDoesAction(): void
+    {
+        $this->whenKuanTiAttemptsAction();
+        $this->attemptAction->execute();
     }
 
     private function whenChunUsesAnathemaOnKuanTi(): void
@@ -91,5 +114,16 @@ final class AnathemaCest extends AbstractFunctionalTest
     private function thenActionSuccessRateShouldBe(int $expectedSuccessRate, FunctionalTester $I): void
     {
         $I->assertEquals($expectedSuccessRate, $this->attemptAction->getSuccessRate());
+    }
+
+    private function thenIShouldSeeRevealedLog(FunctionalTester $I): void
+    {
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'visibility' => VisibilityEnum::REVEALED,
+                'log' => ActionLogEnum::HIT_FAIL,
+            ],
+        );
     }
 }

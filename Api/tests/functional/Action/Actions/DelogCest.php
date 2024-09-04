@@ -118,6 +118,17 @@ final class DelogCest extends AbstractFunctionalTest
         $this->thenIShouldNotSeeAnyNeronAnnouncements($I);
     }
 
+    public function delogLogShouldBeHiddenWhenCyclePasses(FunctionalTester $I): void
+    {
+        $this->givenPlayerUseDelogAction();
+
+        $this->givenACyclePasses();
+
+        $roomLog = $I->grabEntityFromRepository(RoomLog::class, ['log' => LogEnum::DELOGGED]);
+
+        $this->thenLogShouldBeHidden($roomLog, $I);
+    }
+
     private function givenPlayerIsMush(): void
     {
         $this->statusService->createStatusFromName(

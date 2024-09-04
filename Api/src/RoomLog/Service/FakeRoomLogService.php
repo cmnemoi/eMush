@@ -107,6 +107,17 @@ final class FakeRoomLogService implements RoomLogServiceInterface
         return null;
     }
 
+    public function findOneByPlaceAndLogKeyOrThrow(Place $place, string $logKey): RoomLog
+    {
+        foreach ($this->roomLogs as $roomLog) {
+            if ($roomLog->getPlace() === $place->getName() && $roomLog->getLog() === $logKey) {
+                return $roomLog;
+            }
+        }
+
+        throw new \LogicException('Room log not found');
+    }
+
     private function getVisibility(?Player $player, string $visibility): string
     {
         if ($player === null) {

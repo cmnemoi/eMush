@@ -104,6 +104,11 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         return null;
     }
 
+    public function getPlaceOrThrow(): Place
+    {
+        return $this->getPlace() ?? throw new \LogicException('This status event does not have a place');
+    }
+
     public function getLogParameters(): array
     {
         $parameters = [];

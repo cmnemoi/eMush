@@ -9,6 +9,8 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\IsExploring;
 use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -18,6 +20,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Service\UpdatePlayerNotificationService;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class RunHome extends AbstractAction
@@ -33,6 +36,15 @@ final class RunHome extends AbstractAction
         private TranslationServiceInterface $translationService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(
+            new IsExploring([
+                'groups' => [ClassConstraint::VISIBILITY],
+            ])
+        );
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

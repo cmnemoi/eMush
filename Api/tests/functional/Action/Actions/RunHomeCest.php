@@ -50,6 +50,13 @@ final class RunHomeCest extends AbstractExplorationTester
         $this->thenNotificationShouldBeSentToAllExplorators($I);
     }
 
+    public function shouldNotBeVisibleIfPlayerIsNotExploring(FunctionalTester $I): void
+    {
+        $this->whenChunTriesToRunHome($I);
+
+        $this->thenActionShouldNotBeVisible($I);
+    }
+
     private function givenPlayersAreInAnExpedition(FunctionalTester $I): void
     {
         $this->exploration = $this->createExploration(
@@ -71,6 +78,15 @@ final class RunHomeCest extends AbstractExplorationTester
         $this->runHome->execute();
     }
 
+    private function whenChunTriesToRunHome(FunctionalTester $I): void
+    {
+        $this->runHome->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->chun,
+            player: $this->chun
+        );
+    }
+
     private function thenExplorationShouldBeClosed(FunctionalTester $I): void
     {
         $I->assertTrue($this->exploration->isFinished());
@@ -87,5 +103,10 @@ final class RunHomeCest extends AbstractExplorationTester
                 ]
             );
         }
+    }
+
+    private function thenActionShouldNotBeVisible(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->runHome->isVisible());
     }
 }

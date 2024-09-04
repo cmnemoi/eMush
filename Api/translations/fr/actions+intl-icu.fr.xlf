@@ -1341,7 +1341,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="final">
         <source>putsch.description</source>
-        <target>NERON vous considérera comme le chef absolu à partir du prochain cycle.</target>
+        <target>**Unique** : NERON vous considérera comme le chef absolu à partir du prochain cycle.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>putsch.confirmation</source>

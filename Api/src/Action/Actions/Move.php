@@ -45,7 +45,7 @@ class Move extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new CanGoToIcarusBay(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CANNOT_GO_TO_THIS_ROOM]));
-        $metadata->addConstraint(new PlaceType(['groups' => ['visible'], 'type' => 'room']));
+        $metadata->addConstraint(new PlaceType(['groups' => ['visibility'], 'type' => 'room']));
         $metadata->addConstraint(new Guardian(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CANNOT_GO_TO_THIS_ROOM_BECAUSE_GUARDIAN]));
     }
 

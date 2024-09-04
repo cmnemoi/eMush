@@ -348,6 +348,7 @@ class CharacterConfigData
                 SkillEnum::SOLID,
                 SkillEnum::CAFFEINE_JUNKIE,
                 SkillEnum::ASTROPHYSICIST,
+                SkillEnum::VICTIMIZER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

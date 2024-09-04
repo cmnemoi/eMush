@@ -163,6 +163,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $politicianSkillConfig */
         $politicianSkillConfig = $this->getReference(SkillEnum::POLITICIAN->value);
 
+        /** @var SkillConfig $victimizerSkillConfig */
+        $victimizerSkillConfig = $this->getReference(SkillEnum::VICTIMIZER->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -274,6 +277,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $solidSkillConfig,
                 $caffeineJunkieConfig,
                 $astrophysicistSkillConfig,
+                $victimizerSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($gioele);

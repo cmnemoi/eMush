@@ -75,4 +75,6 @@ abstract class ModifierNameEnum
     public const string EXPERT_MODIFIER_ON_CLUMSINESS = 'expert_modifier_on_clumsiness';
     public const string PLAYER_PLUS_20_PERCENTAGE_ON_DIRTINESS = 'player_+20_percentage_on_dirtiness';
     public const string EXPERT_MODIFIER_ON_DIRTINESS = 'expert_modifier_on_dirtiness';
+    public const string PLAYER_MINUS_20_PERCENTAGE_ON_ACTIONS = 'player_-20_percentage_on_actions';
+    public const string PARIAH_MODIFIER = 'pariah_modifier';
 }

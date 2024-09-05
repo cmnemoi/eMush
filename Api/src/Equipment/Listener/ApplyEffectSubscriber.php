@@ -60,8 +60,8 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $consumableEffect = $this->equipmentServiceEffect->getConsumableEffect($rationType, $player->getDaedalus());
 
         if ($player->isHuman()) {
-            $this->dispatchConsumableEffects($consumableEffect, $player, $ration);
             $this->dispatchContaminatedFoodEffect($ration, $player, $consumeEvent->getTags());
+            $this->dispatchConsumableEffects($consumableEffect, $player, $ration);
         } else {
             $this->dispatchMushEffect($player);
         }
@@ -153,13 +153,16 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
+        $contaminatedStatus = $ration->getChargeStatusByNameOrThrow(EquipmentStatusEnum::CONTAMINATED);
+
         $playerModifierEvent = new PlayerVariableEvent(
             player: $player,
             variableName: PlayerVariableEnum::SPORE,
-            quantity: $ration->getChargeStatusByNameOrThrow(EquipmentStatusEnum::CONTAMINATED)->getCharge(),
+            quantity: $contaminatedStatus->getCharge(),
             tags: $tags,
             time: new \DateTime()
         );
+        $playerModifierEvent->setAuthor($contaminatedStatus->getPlayerTargetOrThrow());
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 

@@ -878,7 +878,7 @@ abstract class StatusConfigData
             'chargeVisibility' => 'mush',
             'chargeStrategy' => 'none',
             'maxCharge' => null,
-            'startCharge' => 0,
+            'startCharge' => 1,
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [],

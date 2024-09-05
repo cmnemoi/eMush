@@ -663,6 +663,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume_drug',
+                ActionEnum::MIX_RATION_SPORE->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1142,6 +1143,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1175,6 +1177,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1208,6 +1211,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1241,6 +1245,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1274,6 +1279,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1307,6 +1313,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1340,6 +1347,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1373,6 +1381,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1406,6 +1415,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1439,6 +1449,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1472,6 +1483,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1505,6 +1517,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1538,6 +1551,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1571,6 +1585,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
                 'transplant',
                 ActionEnum::GRAFT->value,
             ],
@@ -1604,6 +1619,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1635,6 +1651,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1666,6 +1683,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1697,6 +1715,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1728,6 +1747,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1759,6 +1779,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1790,6 +1811,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1821,6 +1843,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1852,6 +1875,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1883,6 +1907,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'consume',
+                ActionEnum::MIX_RATION_SPORE->value,
             ],
             'modifierConfigs' => [],
         ],

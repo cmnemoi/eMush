@@ -1102,6 +1102,9 @@ class ActionsFixtures extends Fixture
         $anathema = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::ANATHEMA));
         $manager->persist($anathema);
 
+        $mixRationSpore = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::MIX_RATION_SPORE));
+        $manager->persist($mixRationSpore);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1221,5 +1224,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::RUN_HOME->value, $runHome);
         $this->addReference(ActionEnum::PUTSCH->value, $putsch);
         $this->addReference(ActionEnum::ANATHEMA->value, $anathema);
+        $this->addReference(ActionEnum::MIX_RATION_SPORE->value, $mixRationSpore);
     }
 }

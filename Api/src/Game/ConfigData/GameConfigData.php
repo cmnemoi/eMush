@@ -591,6 +591,7 @@ class GameConfigData
             ],
             'mushSkillConfigs' => [
                 SkillEnum::PHAGOCYTE,
+                SkillEnum::FUNGAL_KITCHEN,
                 SkillEnum::ANONYMUSH,
                 SkillEnum::TRAPPER,
                 SkillEnum::SPLASHPROOF,

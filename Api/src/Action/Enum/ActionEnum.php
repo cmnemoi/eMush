@@ -142,7 +142,7 @@ enum ActionEnum: string
 
     // Skill-related actions (Mush)
     case PHAGOCYTE = 'eat_spore';
-    case FUNGAL_KITCHEN = 'mix_ration_spore';
+    case MIX_RATION_SPORE = 'mix_ration_spore';
     case DEPRESS = 'depress';
     case TRAP_CLOSET = 'trap_closet';
     case SLIME_OBJECT = 'slime_object';

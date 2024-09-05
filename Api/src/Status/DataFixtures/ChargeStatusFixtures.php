@@ -283,6 +283,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(EquipmentStatusEnum::CONTAMINATED)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setChargeVisibility(VisibilityEnum::MUSH)
+            ->setStartCharge(1)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($contaminated);
 

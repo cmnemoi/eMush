@@ -67,20 +67,22 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onInfectionPlayer(PlayerEvent $event): void
     {
+        $player = $event->getPlayer();
+
         // If the player is Mush, we want to log only mush traps in Mush channel
-        if (!$event->hasTag(PlanetSectorEvent::MUSH_TRAP) && $event->getPlayer()->isMush()) {
+        if (!$event->hasTag(PlanetSectorEvent::MUSH_TRAP) && $player->isMush()) {
             return;
         }
 
         $params = $event->getLogParameters();
-        $params['quantity'] = $event->getPlayer()->getSpores();
-        $params['is_player_mush'] = $event->getPlayer()->isMush() ? 'true' : 'false';
+        $params['quantity'] = $player->getSpores();
+        $params['is_player_mush'] = $player->isMush() ? 'true' : 'false';
         $key = $event->mapLog(MushMessageEnum::PLAYER_INFECTION_LOGS);
         if ($key === null) {
             return;
         }
 
-        $daedalusInfo = $event->getPlayer()->getDaedalus()->getDaedalusInfo();
+        $daedalusInfo = $player->getDaedalusInfo();
 
         /** @var Channel $mushChannel */
         $mushChannel = $this->channelService->getMushChannel($daedalusInfo);

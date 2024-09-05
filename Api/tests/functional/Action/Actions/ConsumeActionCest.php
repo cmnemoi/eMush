@@ -8,6 +8,8 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
+use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\MushMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -548,6 +550,21 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $this->whenKuanTiConsumesTheRation();
 
         $this->thenKuanTiShouldBeContaminatedBySpores(0, $I);
+    }
+
+    public function contaminatedFoodShouldCreateAMessageInMushChannel(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasAContaminatedRationWithSpores(1);
+
+        $this->whenKuanTiConsumesTheRation();
+
+        $I->seeInRepository(
+            entity: Message::class,
+            params: [
+                'channel' => $this->mushChannel,
+                'message' => MushMessageEnum::INFECT_TRAPPED_RATION,
+            ]
+        );
     }
 
     private function givenKuanTiHasAContaminatedRationWithSpores(int $spores): void

@@ -442,6 +442,7 @@ class CharacterConfigData
             'characterName' => 'ian',
             'skillConfigs' => [
                 SkillEnum::BOTANIST,
+                SkillEnum::MYCOLOGIST,
                 SkillEnum::FIREFIGHTER,
                 SkillEnum::FRUGIVORE,
             ],

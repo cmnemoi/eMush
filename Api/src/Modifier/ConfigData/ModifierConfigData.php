@@ -7,6 +7,7 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Communication\Event\MessageEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
@@ -3356,6 +3357,25 @@ abstract class ModifierConfigData
                 ActionEnum::CONSUME->value => ModifierRequirementEnum::ALL_TAGS,
                 GameFruitEnum::BANANA => ModifierRequirementEnum::ANY_TAGS,
             ],
+        ],
+        [
+            'name' => ModifierNameEnum::PLAYER_MINUS_1_SPORE_ON_HEAL,
+            'modifierName' => ModifierNameEnum::MYCOLOGIST_MODIFIER,
+            'targetEvent' => ApplyEffectEvent::HEAL,
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_MINUS_1_SPORE,
+            'modifierActivationRequirements' => ['player_is_mush'],
+            'tagConstraints' => [
+                ActionEnum::SELF_HEAL->value => ModifierRequirementEnum::NONE_TAGS,
+            ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
     ];
 

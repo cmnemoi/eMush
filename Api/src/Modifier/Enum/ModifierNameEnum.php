@@ -81,4 +81,6 @@ abstract class ModifierNameEnum
     public const string FRUGIVORE_MODIFIER_FOR_ALIEN_FRUITS = 'frugivore_modifier_for_alien_fruits';
     public const string PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_BANANA = 'player_+1_action_points_on_consume_action_if_banana';
     public const string FRUGIVORE_MODIFIER_FOR_BANANA = 'frugivore_modifier_for_banana';
+    public const string PLAYER_MINUS_1_SPORE_ON_HEAL = 'player_minus_1_spore_on_heal';
+    public const string MYCOLOGIST_MODIFIER = 'mycologist_modifier';
 }

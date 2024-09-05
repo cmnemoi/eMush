@@ -26,6 +26,7 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -152,5 +153,49 @@ final class SelfHealCest extends AbstractFunctionalTest
             'log' => LogEnum::DISEASE_CURED_PLAYER,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+    }
+
+    public function mycologistShouldRemoveTheirSpores(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsInMedlab($I);
+
+        $this->givenPlayerIsAMycologist($I);
+
+        $this->givenPlayerHasSpore(2);
+
+        $this->whenPlayerHealsSelf();
+
+        $this->thenPlayerShouldHaveNoSpore(1, $I);
+    }
+
+    private function givenPlayerIsInMedlab(FunctionalTester $I): void
+    {
+        $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
+        $this->player->changePlace($medlab);
+    }
+
+    private function givenPlayerIsAMycologist(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::MYCOLOGIST, $I);
+    }
+
+    private function givenPlayerHasSpore(int $quantity): void
+    {
+        $this->player->setSpores($quantity);
+    }
+
+    private function whenPlayerHealsSelf(): void
+    {
+        $this->selfHealAction->loadParameters(
+            actionConfig: $this->selfHealConfig,
+            actionProvider: $this->player,
+            player: $this->player,
+        );
+        $this->selfHealAction->execute();
+    }
+
+    private function thenPlayerShouldHaveNoSpore(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->player->getSpores());
     }
 }

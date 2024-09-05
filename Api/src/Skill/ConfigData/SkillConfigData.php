@@ -145,6 +145,12 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::HARD_BOILED,
+                modifierConfigs: [
+                    'modifier_for_target_player_+1healthPoint_on_injury',
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::INFECTOR,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_1_INFECTION,

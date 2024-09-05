@@ -101,7 +101,7 @@ final class HitActionCest extends AbstractFunctionalTest
         /** @var VariableEventModifierConfig $armorModifierConfig */
         $armorModifierConfig = $I->grabEntityFromRepository(
             VariableEventModifierConfig::class,
-            ['name' => 'armorReduceDamage']
+            ['name' => 'modifier_for_target_player_+1healthPoint_on_injury']
         );
         $armorModifierConfig->setDelta(5);
         $modifier = new GameModifier($this->player2, $armorModifierConfig);
@@ -138,7 +138,7 @@ final class HitActionCest extends AbstractFunctionalTest
 
         /** @var VariableEventModifierConfig $armorModifierConfig */
         $armorModifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'armorReduceDamage',
+            'name' => 'modifier_for_target_player_+1healthPoint_on_injury',
         ]);
         $armorModifierConfig->setDelta(-3);
         $modifier = new GameModifier($this->player2, $armorModifierConfig);
@@ -183,7 +183,7 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->thenHitActionSuccessRateShouldBe(90, $I);
     }
 
-    public function sneakPlayerShouldBeLessHarderToHit(FunctionalTester $I): void
+    public function sneakPlayerShouldBeHarderToHit(FunctionalTester $I): void
     {
         $this->givenHitActionHasSuccessRate(60);
 
@@ -227,6 +227,21 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->whenKuanTiTriesToHitChun();
 
         $this->thenActionShouldNotBeVisible($I);
+    }
+
+    public function shouldDealLessDamageOnHardBoiledPlayer(FunctionalTester $I): void
+    {
+        $this->givenHitMinDamageIs(0);
+
+        $this->givenHitActionHasSuccessRate(100);
+
+        $this->givenKuanTiHasHealthPoint(10);
+
+        $this->addSkillToPlayer->execute(SkillEnum::HARD_BOILED, $this->kuanTi);
+
+        $this->whenChunHitsKuanTi();
+
+        $this->thenKuanTiShouldHaveMoreOrEqualThanHealthPoint(9, $I);
     }
 
     private function givenChunHasInactiveStatus(): void
@@ -284,6 +299,11 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->kuanTi->setHealthPoint($healthPoint);
     }
 
+    private function givenHitMinDamageIs(int $damage): void
+    {
+        $this->action->setOutputQuantity($damage);
+    }
+
     private function whenKuanTiTriesToHitChun(): void
     {
         $this->hitAction->loadParameters(
@@ -318,5 +338,10 @@ final class HitActionCest extends AbstractFunctionalTest
     private function thenActionShouldNotBeVisible(FunctionalTester $I): void
     {
         $I->assertFalse($this->hitAction->isVisible());
+    }
+
+    private function thenKuanTiShouldHaveMoreOrEqualThanHealthPoint(int $expectedHealthPoint, FunctionalTester $I): void
+    {
+        $I->assertGreaterThanOrEqual($expectedHealthPoint, $this->kuanTi->getHealthPoint());
     }
 }

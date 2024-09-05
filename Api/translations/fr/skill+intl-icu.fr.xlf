@@ -635,5 +635,15 @@
         <target>Un grand classique de la gastonomie moderne sur Sol.//:point: Vous pouvez créer un **aliment piégé** en mélangeant un **spore** et un **consommable** pour **1** :pa:.</target>
       </segment>
     </unit>
+    <unit id="hard_boiled">
+      <segment id="hard_boiled.name" state="translated">
+        <source>hard_boiled.name</source>
+        <target>Dur-à-cuire</target>
+      </segment>
+      <segment id="hard_boiled.description" state="translated">
+        <source>hard_boiled.description</source>
+        <target>Votre épiderme est particulièrement coriace. Le plastenite sans la transpiration.//:point: Chaque **dégât de combat** qui vous est infligé est **réduit d'un point**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

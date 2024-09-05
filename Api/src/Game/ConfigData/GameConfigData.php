@@ -593,6 +593,7 @@ class GameConfigData
                 SkillEnum::PHAGOCYTE,
                 SkillEnum::FUNGAL_KITCHEN,
                 SkillEnum::ANONYMUSH,
+                SkillEnum::HARD_BOILED,
                 SkillEnum::TRAPPER,
                 SkillEnum::SPLASHPROOF,
                 SkillEnum::TRANSFER,

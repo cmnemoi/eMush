@@ -41,7 +41,7 @@ use Mush\Status\Event\StatusEvent;
 class GearModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public const string APRON_MODIFIER = 'apron_modifier';
-    public const string ARMOR_MODIFIER = 'armor_modifier';
+    public const string ARMOR_MODIFIER = 'modifier_for_target_player_+1healthPoint_on_injury';
     public const string WRENCH_MODIFIER = 'wrench_modifier';
     public const string GLOVES_MODIFIER = 'gloves_modifier';
     public const string SOAP_MODIFIER = 'soap_modifier';
@@ -79,7 +79,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($apronModifier);
 
-        $armorModifier = new VariableEventModifierConfig('armorReduceDamage');
+        $armorModifier = new VariableEventModifierConfig('modifier_for_target_player_+1healthPoint_on_injury');
         $armorModifier
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(1)

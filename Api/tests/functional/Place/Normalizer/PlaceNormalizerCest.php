@@ -9,9 +9,12 @@ use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\GameDrugEnum;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Normalizer\PlaceNormalizer;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -25,6 +28,7 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
     private NormalizerInterface $normalizer;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     private ActionConfig $dropConfig;
     private Drop $dropAction;
@@ -38,6 +42,7 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
 
         $this->placeNormalizer = $I->grabService(PlaceNormalizer::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->normalizer = $I->grabService(NormalizerInterface::class);
 
         $this->dropConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]);
@@ -150,5 +155,40 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
         $placeNormalizedItems = $normalizedPlace['items'];
         $I->assertEquals(ItemEnum::METAL_SCRAPS, $placeNormalizedItems[0]['key']);
         $I->assertEquals(GameDrugEnum::BACTA, $placeNormalizedItems[1]['key']);
+    }
+
+    public function shouldPutContaminatedFoodOnPileTop(FunctionalTester $I): void
+    {
+        // given i have a clean rations in player's place
+        $cleanRations = [];
+        for ($i = 0; $i < 2; ++$i) {
+            $cleanRations[] = $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: GameRationEnum::COOKED_RATION,
+                equipmentHolder: $this->player->getPlace(),
+                reasons: [],
+                time: new \DateTime()
+            );
+        }
+
+        // given i have a contaminated ration in player's place
+        $contaminatedRation = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameRationEnum::COOKED_RATION,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+        $this->statusService->createOrIncrementChargeStatus(
+            name: EquipmentStatusEnum::CONTAMINATED,
+            holder: $contaminatedRation,
+            target: $this->player,
+        );
+
+        // when I normalize the place
+        $place = $this->player->getPlace();
+        $normalizedPlace = $this->placeNormalizer->normalize($place, null, ['currentPlayer' => $this->player]);
+
+        // then the contaminated ration should be at the top of the normalized pile
+        $placeNormalizedItems = $normalizedPlace['items'];
+        $I->assertEquals($contaminatedRation->getId(), $placeNormalizedItems[0]['id']);
     }
 }

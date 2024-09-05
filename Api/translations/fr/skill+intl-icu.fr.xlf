@@ -655,5 +655,15 @@
         <target>Votre salive produit un acide liquide léger suffisant pour court circuiter à peu près n'importe quoi...//:point: Vos chances de succès pour le **sabotage** d'équipement sont **doublées**.</target>
       </segment>
     </unit>
+    <unit id="disheartening_contact">
+      <segment id="disheartening_contact.name" state="translated">
+        <source>disheartening_contact.name</source>
+        <target>Contact déprimant</target>
+      </segment>
+      <segment id="disheartening_contact.description" state="translated">
+        <source>disheartening_contact.description</source>
+        <target>Les phéromones Mush ne permettent pas de communication directe mais leur saturation peut les déstabiliser. Et vous savez vous en servir.//:point: Pour **2** :pa: vous pouvez faire perdre **2** :pmo: à un équipier.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

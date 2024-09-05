@@ -595,6 +595,7 @@ class GameConfigData
                 SkillEnum::ANONYMUSH,
                 SkillEnum::HARD_BOILED,
                 SkillEnum::SABOTEUR,
+                SkillEnum::DISHEARTENING_CONTACT,
                 SkillEnum::TRAPPER,
                 SkillEnum::SPLASHPROOF,
                 SkillEnum::TRANSFER,

@@ -1280,5 +1280,13 @@
         <target>**{character}** entre en grande discussion avec NERON. Qui sait ce qu'ils peuvent bien se dire…</target>
       </segment>
     </unit>
+    <unit id="depress_success">
+      <segment id="depress_success" state="final">
+        <source>depress_success</source>
+        <target>:mush: **{character}** se rapproche subrepticement de **{target_character}**. {character_gender, select,
+        female {Après qu'elle s'en soit éloignée, les traits de **{target_character}** s'affaissent...}
+        other {Après qu'il s'en soit éloigné, les traits de **{target_character}** se tirent et se creusent...}}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -101,6 +101,12 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::DISHEARTENING_CONTACT,
+                actionConfigs: [
+                    ActionEnum::DEPRESS,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::EXPERT,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_20_PERCENTAGE_ON_ACTIONS,

@@ -22,8 +22,8 @@ enum SkillEnum: string
     case CONFIDENT = 'confident';
     case CRAZY_EYE = 'crazy_eye';
     case CREATIVE = 'creative';
+    case DISHEARTENING_CONTACT = 'disheartening_contact';
     case DEFACER = 'defacer';
-    case DEMORALIZE = 'demoralize';
     case DETACHED_CREWMEMBER = 'detached_crewmember';
     case DETERMINED = 'determined';
     case DEVOTION = 'devotion';
@@ -111,7 +111,7 @@ enum SkillEnum: string
             self::BACTEROPHILIAC,
             self::BYPASS,
             self::DEFACER,
-            self::DEMORALIZE,
+            self::DISHEARTENING_CONTACT,
             self::DOORMAN,
             self::FERTILE,
             self::FUNGAL_KITCHEN,

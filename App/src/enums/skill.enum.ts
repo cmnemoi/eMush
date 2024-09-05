@@ -17,11 +17,11 @@ export enum SkillEnum {
     CRAZY_EYE = 'crazy_eye',
     CREATIVE = 'creative',
     DEFACER = 'defacer',
-    DEMORALIZE = 'demoralize',
     DETACHED_CREWMEMBER = 'detached_crewmember',
     DETERMINED = 'determined',
     DEVOTION = 'devotion',
     DIPLOMAT = 'diplomat',
+    DISHEARTENING_CONTACT = 'disheartening_contact',
     DOORMAN = 'doorman',
     EXPERT = 'expert',
     FERTILE = 'fertile',
@@ -168,6 +168,10 @@ export const SkillIconRecord: {[index: string]: any} = {
 
     [SkillEnum.DIPLOMAT]: {
         'icon': getImgUrl('skills/human/diplomacy.png')
+    },
+
+    [SkillEnum.DISHEARTENING_CONTACT]: {
+        'icon': getImgUrl('skills/mush/disheartening_contact.png')
     },
 
     [SkillEnum.EXPERT]: {

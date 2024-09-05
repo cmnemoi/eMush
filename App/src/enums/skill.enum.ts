@@ -338,6 +338,10 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/human/robotics.png')
     },
 
+    [SkillEnum.SABOTEUR]: {
+        'icon': getImgUrl('skills/mush/sapper.png')
+    },
+
     [SkillEnum.SELF_SACRIFICE]: {
         'icon': getImgUrl('skills/human/self_sacrifice.png')
     },

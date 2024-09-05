@@ -645,5 +645,15 @@
         <target>Votre épiderme est particulièrement coriace. Le plastenite sans la transpiration.//:point: Chaque **dégât de combat** qui vous est infligé est **réduit d'un point**.</target>
       </segment>
     </unit>
+    <unit id="saboteur">
+      <segment id="saboteur.name" state="translated">
+        <source>saboteur.name</source>
+        <target>Saboteur</target>
+      </segment>
+      <segment id="saboteur.description" state="translated">
+        <source>saboteur.description</source>
+        <target>Votre salive produit un acide liquide léger suffisant pour court circuiter à peu près n'importe quoi...//:point: Vos chances de succès pour le **sabotage** d'équipement sont **doublées**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

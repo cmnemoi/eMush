@@ -254,6 +254,12 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::SABOTEUR,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_DOUBLE_PERCENTAGE_ON_SABOTAGE,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::SHOOTER,
                 skillPointsConfig: SkillPointsEnum::SHOOTER_POINTS,
             ),

@@ -83,4 +83,6 @@ abstract class ModifierNameEnum
     public const string FRUGIVORE_MODIFIER_FOR_BANANA = 'frugivore_modifier_for_banana';
     public const string PLAYER_MINUS_1_SPORE_ON_HEAL = 'player_minus_1_spore_on_heal';
     public const string MYCOLOGIST_MODIFIER = 'mycologist_modifier';
+    public const string PLAYER_DOUBLE_PERCENTAGE_ON_SABOTAGE = 'player_double_percentage_on_sabotage';
+    public const string SABOTEUR_MODIFIER = 'saboteur_modifier';
 }

@@ -594,6 +594,7 @@ class GameConfigData
                 SkillEnum::FUNGAL_KITCHEN,
                 SkillEnum::ANONYMUSH,
                 SkillEnum::HARD_BOILED,
+                SkillEnum::SABOTEUR,
                 SkillEnum::TRAPPER,
                 SkillEnum::SPLASHPROOF,
                 SkillEnum::TRANSFER,

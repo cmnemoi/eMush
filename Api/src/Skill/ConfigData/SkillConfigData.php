@@ -270,6 +270,12 @@ abstract class SkillConfigData
                 skillPointsConfig: SkillPointsEnum::SHOOTER_POINTS,
             ),
             new SkillConfigDto(
+                name: SkillEnum::SLIMETRAP,
+                actionConfigs: [
+                    ActionEnum::SLIME_TRAP,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::SHRINK,
                 modifierConfigs: [
                     'modifier_for_player_+1morale_point_on_new_cycle_if_lying_down',

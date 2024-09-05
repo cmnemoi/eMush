@@ -78,6 +78,11 @@ trait TargetStatusTrait
         return $this->getTargetingStatuses()->exists(static fn ($key, Status $status) => ($status->getName() === $statusName));
     }
 
+    public function doesNotHaveStatus(string $statusName): bool
+    {
+        return $this->hasStatus($statusName) === false;
+    }
+
     /**
      * @return static
      */

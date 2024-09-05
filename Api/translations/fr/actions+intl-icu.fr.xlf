@@ -1362,5 +1362,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action est très puissante et menera sans doute à des représailles. Continuer ?</target>
       </segment>
     </unit>
+    <unit id="mix_ration_spore">
+      <segment id="name" state="final">
+        <source>mix_ration_spore.name</source>
+        <target>Contaminer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>mix_ration_spore.description</source>
+        <target>Permet de mettre un spore dans une denrée ingérable.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

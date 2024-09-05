@@ -186,6 +186,10 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/human/frugivore.png')
     },
 
+    [SkillEnum.FUNGAL_KITCHEN]: {
+        'icon': getImgUrl('skills/mush/fungus_cook.png')
+    },
+
     [SkillEnum.GENIUS]: {
         'icon': getImgUrl('skills/human/genius.png')
     },

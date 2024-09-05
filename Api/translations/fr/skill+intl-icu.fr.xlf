@@ -665,5 +665,15 @@
         <target>Les phéromones Mush ne permettent pas de communication directe mais leur saturation peut les déstabiliser. Et vous savez vous en servir.//:point: Pour **2** :pa: vous pouvez faire perdre **2** :pmo: à un équipier.</target>
       </segment>
     </unit>
+    <unit id="slimetrap">
+      <segment id="slimetrap.name" state="translated">
+        <source>slimetrap.name</source>
+        <target>Piège moisi</target>
+      </segment>
+      <segment id="slimetrap.description" state="translated">
+        <source>slimetrap.description</source>
+        <target>Ces foutues champignons se reproduisent vite, trop vite, très vite...Ils sont partout !!!//:point: Pour **1** :pa:, le joueur ciblé deviendra sale dans 1 à 4 cycles.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

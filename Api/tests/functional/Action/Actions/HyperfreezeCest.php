@@ -33,6 +33,7 @@ final class HyperfreezeCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
 
     private GameItem $alienSteak;
+    private GameItem $cookedRation;
     private GameItem $superfreezer;
 
     public function _before(FunctionalTester $I): void
@@ -96,6 +97,22 @@ final class HyperfreezeCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveChefPoints(7, $I);
     }
 
+    public function shouldRemoveContaminatedRationStatus(FunctionalTester $I): void
+    {
+        $this->givenACookedRationInRoom();
+        $this->givenSuperfreezerInRoom();
+
+        $this->statusService->createOrIncrementChargeStatus(
+            name: EquipmentStatusEnum::CONTAMINATED,
+            holder: $this->cookedRation,
+            target: $this->player,
+        );
+
+        $this->whenPlayerHyperfreezesCookedRation();
+
+        $this->thenStandardRationShouldNotBeContaminated($I);
+    }
+
     protected function decompositionStatusProvider(): array
     {
         return [
@@ -130,6 +147,16 @@ final class HyperfreezeCest extends AbstractFunctionalTest
         $this->addSkillToPlayer->execute(SkillEnum::CHEF, $this->player);
     }
 
+    private function givenACookedRationInRoom(): void
+    {
+        $this->cookedRation = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameRationEnum::COOKED_RATION,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+    }
+
     private function whenPlayerWantsToHyperfreeze(): void
     {
         $this->hyperfreezeAction->loadParameters(
@@ -146,6 +173,17 @@ final class HyperfreezeCest extends AbstractFunctionalTest
         $this->hyperfreezeAction->execute();
     }
 
+    private function whenPlayerHyperfreezesCookedRation(): void
+    {
+        $this->hyperfreezeAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->superfreezer,
+            player: $this->player,
+            target: $this->cookedRation,
+        );
+        $this->hyperfreezeAction->execute();
+    }
+
     private function thenActionShouldCostZeroActionPoints(FunctionalTester $I): void
     {
         $I->assertEquals(0, $this->hyperfreezeAction->getActionPointCost());
@@ -154,5 +192,10 @@ final class HyperfreezeCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveChefPoints(int $expectedChefPoints, FunctionalTester $I): void
     {
         $I->assertEquals($expectedChefPoints, $this->player->getSkillByNameOrThrow(SkillEnum::CHEF)->getSkillPoints());
+    }
+
+    private function thenStandardRationShouldNotBeContaminated(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->player->getEquipmentByNameOrThrow(GameRationEnum::STANDARD_RATION)->hasStatus(EquipmentStatusEnum::CONTAMINATED));
     }
 }

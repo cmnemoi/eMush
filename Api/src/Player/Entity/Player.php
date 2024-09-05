@@ -334,6 +334,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $equipment->isEmpty() ? null : $equipment->first();
     }
 
+    public function getEquipmentByNameOrThrow(string $name): GameEquipment
+    {
+        $equipment = $this->getEquipmentByName($name);
+
+        return $equipment ?? throw new \Exception('The player does not have the equipment ' . $name);
+    }
+
     /**
      * @return Collection<array-key, GameItem>
      */

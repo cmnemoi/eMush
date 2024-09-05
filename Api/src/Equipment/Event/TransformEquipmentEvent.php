@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\Event;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 
@@ -40,5 +41,15 @@ class TransformEquipmentEvent extends EquipmentEvent
         }
 
         return $logParameters;
+    }
+
+    public function isFromCookAction(): bool
+    {
+        return $this->hasAnyTag([ActionEnum::COOK->value, ActionEnum::EXPRESS_COOK->value]);
+    }
+
+    public function isFromHyperfreezeAction(): bool
+    {
+        return $this->hasTag(ActionEnum::HYPERFREEZE->value);
     }
 }

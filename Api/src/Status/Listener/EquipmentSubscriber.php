@@ -54,8 +54,13 @@ final class EquipmentSubscriber implements EventSubscriberInterface
         $newEquipment = $event->getGameEquipment();
         $oldEquipment = $event->getEquipmentFrom();
 
+        $statuses = $oldEquipment->getStatuses();
+        if ($event->isFromCookAction() || ($event->isFromHyperfreezeAction() && $newEquipment->isAStandardRation())) {
+            $statuses = $statuses->filter(static fn (Status $status) => $status->getName() !== EquipmentStatusEnum::CONTAMINATED);
+        }
+
         /** @var Status $status */
-        foreach ($oldEquipment->getStatuses() as $status) {
+        foreach ($statuses as $status) {
             $this->statusService->createStatusFromName(
                 $status->getName(),
                 $newEquipment,

@@ -622,7 +622,7 @@
       </segment>
       <segment id="mycologist.description" state="translated">
         <source>mycologist.description</source>
-        <target>Le Mycologiste peut soigner les infections fongiques à l'**Infirmerie** ou a l'aide d'un **Medikit**.//:point: Lorsque vous soignez un équipier, il perd automatiquement un spore.</target>
+        <target>Le Mycologiste peut soigner les infections fongiques à l'**Infirmerie** ou a l'aide d'un **Medikit**.//:point: Vos soins retirent automatiquement un spore.</target>
       </segment>
     </unit>
   </file>

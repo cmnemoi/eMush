@@ -5,6 +5,7 @@ namespace Mush\Status\Normalizer;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -34,7 +35,7 @@ class StatusNormalizer implements NormalizerInterface
         $currentPlayer = $context['currentPlayer'];
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        if ($this->isVisible($status->getVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget(), $context)) {
+        if ($this->isVisible($status->getVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget())) {
             $normedStatus = [
                 'key' => $statusName,
                 'name' => $this->translationService->translate($statusName . '.name', [], 'status', $language),
@@ -44,7 +45,7 @@ class StatusNormalizer implements NormalizerInterface
 
             if (
                 $status instanceof ChargeStatus
-                && $this->isVisible($status->getChargeVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget(), $context)
+                && $this->isVisible($status->getChargeVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget())
             ) {
                 $normedStatus['charge'] = $status->getCharge();
             }
@@ -64,26 +65,35 @@ class StatusNormalizer implements NormalizerInterface
         Player $currentPlayer,
         ?StatusHolderInterface $statusOwner,
         ?StatusHolderInterface $statusTarget,
-        array $context
     ): bool {
-        $isModerator = isset($context['groups']) && \in_array('moderation_view', $context['groups'], true);
-
-        if (
-            $isModerator
-            || $visibility === VisibilityEnum::PUBLIC
-            || $visibility === VisibilityEnum::MUSH && $currentPlayer->isMush()
-        ) {
+        if ($this->isPublicOrSpecialVisibility($visibility, $currentPlayer)) {
             return true;
         }
 
-        if ($statusOwner instanceof Player) {
-            $player = $statusOwner;
-        } elseif ($statusTarget instanceof Player) {
-            $player = $statusTarget;
-        } else {
+        $player = $this->getRelevantPlayer($statusOwner, $statusTarget);
+        if ($player === null) {
             return false;
         }
 
         return $visibility === VisibilityEnum::PRIVATE && $player === $currentPlayer;
+    }
+
+    private function isPublicOrSpecialVisibility(string $visibility, Player $currentPlayer): bool
+    {
+        return $visibility === VisibilityEnum::PUBLIC
+            || ($visibility === VisibilityEnum::MUSH && $currentPlayer->isMush())
+            || ($visibility === VisibilityEnum::CHEF && ($currentPlayer->hasSkill(SkillEnum::CHEF) || $currentPlayer->isMush()));
+    }
+
+    private function getRelevantPlayer(?StatusHolderInterface $statusOwner, ?StatusHolderInterface $statusTarget): ?Player
+    {
+        if ($statusOwner instanceof Player) {
+            return $statusOwner;
+        }
+        if ($statusTarget instanceof Player) {
+            return $statusTarget;
+        }
+
+        return null;
     }
 }

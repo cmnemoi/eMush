@@ -91,7 +91,7 @@ abstract class StatusConfigData
         [
             'name' => 'unstable_default',
             'statusName' => 'unstable',
-            'visibility' => 'public',
+            'visibility' => VisibilityEnum::CHEF,
             'type' => 'status_config',
             'chargeVisibility' => null,
             'chargeStrategy' => 'none',
@@ -105,7 +105,7 @@ abstract class StatusConfigData
         [
             'name' => 'hazardous_default',
             'statusName' => 'hazardous',
-            'visibility' => 'public',
+            'visibility' => VisibilityEnum::CHEF,
             'type' => 'status_config',
             'chargeVisibility' => null,
             'chargeStrategy' => 'none',
@@ -119,7 +119,7 @@ abstract class StatusConfigData
         [
             'name' => 'decomposing_default',
             'statusName' => 'decomposing',
-            'visibility' => 'public',
+            'visibility' => VisibilityEnum::CHEF,
             'type' => 'status_config',
             'chargeVisibility' => null,
             'chargeStrategy' => 'none',

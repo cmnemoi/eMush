@@ -118,21 +118,21 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $unstable = new StatusConfig();
         $unstable
             ->setStatusName(EquipmentStatusEnum::UNSTABLE)
-            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setVisibility(VisibilityEnum::CHEF)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($unstable);
 
         $hazardous = new StatusConfig();
         $hazardous
             ->setStatusName(EquipmentStatusEnum::HAZARDOUS)
-            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setVisibility(VisibilityEnum::CHEF)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($hazardous);
 
         $decomposing = new StatusConfig();
         $decomposing
             ->setStatusName(EquipmentStatusEnum::DECOMPOSING)
-            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setVisibility(VisibilityEnum::CHEF)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($decomposing);
 

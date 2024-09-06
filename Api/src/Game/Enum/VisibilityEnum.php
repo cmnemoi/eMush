@@ -14,6 +14,7 @@ namespace Mush\Game\Enum;
  * MUSH: only player with mush status can see this element
  * HUMAN: only human player can see this element
  * HIDDEN: this element is not visible to anyone but administrators and developers
+ * CHEF: only players with Chef skill can see this element
  */
 abstract class VisibilityEnum
 {
@@ -25,4 +26,5 @@ abstract class VisibilityEnum
     public const string MUSH = 'mush'; // logs in mush channel
     public const string HUMAN = 'human'; // not visible by mush
     public const string HIDDEN = 'hidden'; // internal status
+    public const string CHEF = 'chef'; // only players with chef skill can see this element
 }

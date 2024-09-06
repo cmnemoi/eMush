@@ -10,6 +10,7 @@ use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -103,6 +104,65 @@ final class RationCest extends AbstractFunctionalTest
                 ],
             ],
             actual: $normalizedBanana['effects']
+        );
+    }
+
+    public function shouldNotDisplayDecompositionStatusToRandomPlayer(FunctionalTester $I): void
+    {
+        $this->givenBananaIsDecomposed();
+
+        $normalizedBanana = $this->equipmentNormalizer->normalize(
+            $this->banana,
+            format: null,
+            context: ['currentPlayer' => $this->player]
+        );
+
+        $I->assertEmpty($normalizedBanana['statuses']);
+    }
+
+    public function shouldDisplayDecompositionStatusToChef(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsAChef();
+
+        $this->givenBananaIsDecomposed();
+
+        $normalizedBanana = $this->equipmentNormalizer->normalize(
+            $this->banana,
+            format: null,
+            context: ['currentPlayer' => $this->player]
+        );
+
+        $I->assertContains(
+            needle: EquipmentStatusEnum::DECOMPOSING,
+            haystack: array_map(static fn (array $status) => $status['key'], $normalizedBanana['statuses'])
+        );
+    }
+
+    public function shouldDisplayDecompositionStatusToMush(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsMush();
+
+        $this->givenBananaIsDecomposed();
+
+        $normalizedBanana = $this->equipmentNormalizer->normalize(
+            $this->banana,
+            format: null,
+            context: ['currentPlayer' => $this->player]
+        );
+
+        $I->assertContains(
+            needle: EquipmentStatusEnum::DECOMPOSING,
+            haystack: array_map(static fn (array $status) => $status['key'], $normalizedBanana['statuses'])
+        );
+    }
+
+    private function givenBananaIsDecomposed(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::DECOMPOSING,
+            holder: $this->banana,
+            tags: [],
+            time: new \DateTime()
         );
     }
 

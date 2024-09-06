@@ -119,6 +119,15 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
         $this->thenActionShouldCost(1, $I);
     }
 
+    public function shouldRemoveTargetedPlayerFocusedStatus(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsFocused();
+
+        $this->whenChunPutsThroughKuanTiThroughDoor();
+
+        $this->thenKuanTiShouldNotBeFocused($I);
+    }
+
     private function givenPlayersAreOnPlanet(): void
     {
         $this->chun->changePlace($this->daedalus->getPlanetPlace());
@@ -180,6 +189,16 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenKuanTiIsFocused(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+    }
+
     private function whenChunTriesToPutThroughKuanTiThroughDoor(): void
     {
         $this->putThroughDoor->loadParameters(
@@ -233,5 +252,10 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
     private function thenKuanTiShouldNotBeLyingDown(FunctionalTester $I): void
     {
         $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::LYING_DOWN));
+    }
+
+    private function thenKuanTiShouldNotBeFocused(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::FOCUSED));
     }
 }

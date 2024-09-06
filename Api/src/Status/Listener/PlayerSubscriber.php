@@ -83,6 +83,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $this->removeGuardianStatus($event);
         $this->removeLyingDownStatus($event);
+        $this->removeFocusedStatus($event);
     }
 
     private function deleteCeasefireStatus(PlayerChangedPlaceEvent $event): void
@@ -137,6 +138,16 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $this->statusService->removeStatus(
             statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $event->getPlayer(),
+            tags: $event->getTags(),
+            time: $event->getTime(),
+        );
+    }
+
+    private function removeFocusedStatus(PlayerChangedPlaceEvent $event): void
+    {
+        $this->statusService->removeStatus(
+            statusName: PlayerStatusEnum::FOCUSED,
             holder: $event->getPlayer(),
             tags: $event->getTags(),
             time: $event->getTime(),

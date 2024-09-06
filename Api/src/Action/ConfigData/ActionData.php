@@ -818,7 +818,7 @@ class ActionData
         [
             'name' => 'install_camera',
             'action_name' => ActionEnum::INSTALL_CAMERA,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -834,7 +834,7 @@ class ActionData
         [
             'name' => 'remove_camera',
             'action_name' => ActionEnum::REMOVE_CAMERA,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],

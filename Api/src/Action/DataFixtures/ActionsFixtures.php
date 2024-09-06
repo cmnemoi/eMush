@@ -563,26 +563,10 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($reportFireAction);
 
-        $installCameraAction = new ActionConfig();
-        $installCameraAction
-            ->setName(ActionEnum::INSTALL_CAMERA->value)
-            ->setActionName(ActionEnum::INSTALL_CAMERA)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(2)
-            ->setDirtyRate(15);
-
+        $installCameraAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::INSTALL_CAMERA));
         $manager->persist($installCameraAction);
 
-        $removeCameraAction = new ActionConfig();
-        $removeCameraAction
-            ->setName(ActionEnum::REMOVE_CAMERA->value)
-            ->setActionName(ActionEnum::REMOVE_CAMERA)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->setDirtyRate(5);
-
+        $removeCameraAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REMOVE_CAMERA));
         $manager->persist($removeCameraAction);
 
         $examineEquipmentAction = new ActionConfig();

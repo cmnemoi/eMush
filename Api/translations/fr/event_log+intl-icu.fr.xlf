@@ -1092,5 +1092,11 @@
         <target>Vous avez appris la compétence **{skill}** ! Faites en bon usage !</target>
       </segment>
     </unit>
+    <unit id="cold_blooded_worked">
+      <segment id="cold_blooded_worked" state="final">
+        <source>cold_blooded_worked</source>
+        <target>Votre compétence **Sang-froid** a porté ses fruits...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

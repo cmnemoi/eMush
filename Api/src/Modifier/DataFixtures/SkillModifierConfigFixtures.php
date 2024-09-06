@@ -244,6 +244,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($saboteurModifier->getName(), $saboteurModifier);
         $manager->persist($saboteurModifier);
 
+        $coldBloodedModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_3_ACTION_POINT_ON_PLAYER_DEATH)
+        );
+        $this->addReference($coldBloodedModifier->getName(), $coldBloodedModifier);
+        $manager->persist($coldBloodedModifier);
+
         $manager->flush();
     }
 

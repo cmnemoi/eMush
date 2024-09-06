@@ -3391,6 +3391,21 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [ActionEnum::SABOTAGE->value => ModifierRequirementEnum::ANY_TAGS],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_PLUS_3_ACTION_POINT_ON_PLAYER_DEATH,
+            'modifierName' => ModifierNameEnum::COLD_BLOODED_MODIFIER,
+            'targetEvent' => self::DUMMY_EVENT, // this modifier does not listen to any event, it is just used to store the delta and allowing configuration
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 3,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

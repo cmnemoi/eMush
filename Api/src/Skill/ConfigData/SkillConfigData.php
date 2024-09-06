@@ -61,6 +61,12 @@ abstract class SkillConfigData
                 skillPointsConfig: SkillPointsEnum::CHEF_POINTS,
             ),
             new SkillConfigDto(
+                name: SkillEnum::COLD_BLOODED,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_PLUS_3_ACTION_POINT_ON_PLAYER_DEATH,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::CONCEPTOR,
                 skillPointsConfig: SkillPointsEnum::CONCEPTOR_POINTS,
             ),

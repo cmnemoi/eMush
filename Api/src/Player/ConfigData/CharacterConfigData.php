@@ -539,6 +539,7 @@ class CharacterConfigData
             'skillConfigs' => [
                 SkillEnum::LEADER,
                 SkillEnum::PILOT,
+                SkillEnum::COLD_BLOODED,
                 SkillEnum::SHOOTER,
                 SkillEnum::LOGISTICS_EXPERT,
             ],

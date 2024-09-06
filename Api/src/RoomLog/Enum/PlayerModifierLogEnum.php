@@ -29,6 +29,7 @@ abstract class PlayerModifierLogEnum
     public const string DAILY_MORALE_LOSS = 'daily_morale_loss';
     public const string LOGISTIC_LOG = 'logistic_log';
     public const string OPTIMIST_WORKED = 'optimist_worked';
+    public const string COLD_BLOODED_WORKED = 'cold_blooded_worked';
     public const string GAIN = 'gain';
     public const string LOSS = 'loss';
     public const string VISIBILITY = 'visibility';
@@ -61,6 +62,7 @@ abstract class PlayerModifierLogEnum
             PlayerService::DAY_MORAL_CHANGE => self::DAILY_MORALE_LOSS,
             HunterEvent::HUNTER_SHOT => LogEnum::ATTACKED_BY_HUNTER,
             ModifierNameEnum::LOGISTICS_MODIFIER => self::LOGISTIC_LOG,
+            ModifierNameEnum::COLD_BLOODED_MODIFIER => self::COLD_BLOODED_WORKED,
         ],
         self::VISIBILITY => [
             ModifierNameEnum::STARVING => VisibilityEnum::PRIVATE,
@@ -72,6 +74,7 @@ abstract class PlayerModifierLogEnum
             ModifierNameEnum::LOST_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::OPTIMIST_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::LOGISTICS_MODIFIER => VisibilityEnum::PRIVATE,
+            ModifierNameEnum::COLD_BLOODED_MODIFIER => VisibilityEnum::PRIVATE,
         ],
     ];
 }

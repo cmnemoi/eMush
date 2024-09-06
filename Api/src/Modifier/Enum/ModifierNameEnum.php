@@ -85,4 +85,6 @@ abstract class ModifierNameEnum
     public const string MYCOLOGIST_MODIFIER = 'mycologist_modifier';
     public const string PLAYER_DOUBLE_PERCENTAGE_ON_SABOTAGE = 'player_double_percentage_on_sabotage';
     public const string SABOTEUR_MODIFIER = 'saboteur_modifier';
+    public const string PLAYER_PLUS_3_ACTION_POINT_ON_PLAYER_DEATH = 'player_+3_action_point_on_player_death';
+    public const string COLD_BLOODED_MODIFIER = 'cold_blooded_modifier';
 }

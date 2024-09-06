@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Event;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -65,5 +66,10 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
     public function getCharacterConfig(): ?CharacterConfig
     {
         return $this->characterConfig;
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        return $this->getPlayer()->getDaedalus();
     }
 }

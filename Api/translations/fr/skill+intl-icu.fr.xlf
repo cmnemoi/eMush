@@ -716,5 +716,15 @@
         <target>Vous avez développé un sens pour attirer les ennuis. Tiens un Mankarog... Et si on le chatouillait pour voir...//:point: Probabilités de **résultats négatifs dans les expéditions** auxquelles vous participez sont **multipliées par 2**.</target>
       </segment>
     </unit>
+    <unit id="cold_blooded">
+      <segment id="cold_blooded.name" state="translated">
+        <source>cold_blooded.name</source>
+        <target>Sang-froid</target>
+      </segment>
+      <segment id="cold_blooded.description" state="translated">
+        <source>cold_blooded.description</source>
+        <target>Dans l'espace, tout peut arriver. Savoir garder son calme est un atout.//:point: **Gagne 3 :pa:** à chaque fois qu'un équipier **décède**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

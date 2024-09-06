@@ -172,6 +172,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $mycologistSkillConfig */
         $mycologistSkillConfig = $this->getReference(SkillEnum::MYCOLOGIST->value);
 
+        /** @var SkillConfig $coldBloodedSkillConfig */
+        $coldBloodedSkillConfig = $this->getReference(SkillEnum::COLD_BLOODED->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -340,6 +343,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setSkillConfigs([
                 $leaderSkillConfig,
                 $pilotSkillConfig,
+                $coldBloodedSkillConfig,
                 $shooterSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);

@@ -39,5 +39,5 @@ interface RoomLogServiceInterface
 
     public function markAllRoomLogsAsReadForPlayer(Player $player): void;
 
-    public function findOneByPlaceAndLogKeyOrThrow(Place $place, string $logKey): RoomLog;
+    public function findOneByOrThrow(array $parameters): RoomLog;
 }

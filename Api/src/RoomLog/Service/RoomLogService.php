@@ -195,12 +195,9 @@ class RoomLogService implements RoomLogServiceInterface
         }
     }
 
-    public function findOneByPlaceAndLogKeyOrThrow(Place $place, string $logKey): RoomLog
+    public function findOneByOrThrow(array $parameters): RoomLog
     {
-        return $this->repository->findOneBy([
-            'place' => $place->getName(),
-            'log' => $logKey,
-        ]) ?? throw new \RuntimeException("Log {$logKey} not found for place {$place->getName()} in daedalus {$place->getDaedalus()->getId()}");
+        return $this->repository->findOneBy($parameters) ?? throw new \RuntimeException("Log {$parameters['log']} not found in daedalus {$parameters['place']->getDaedalus()->getId()} for given parameters");
     }
 
     private function getVisibility(?Player $player, string $visibility): string

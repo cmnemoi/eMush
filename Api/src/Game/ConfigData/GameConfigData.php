@@ -611,6 +611,7 @@ class GameConfigData
                 SkillEnum::PYROMANIAC,
                 SkillEnum::DEFACER,
                 SkillEnum::MASSIVE_MUSHIFICATION,
+                SkillEnum::BYPASS,
             ],
         ],
     ];

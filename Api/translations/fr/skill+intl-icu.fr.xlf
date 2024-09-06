@@ -695,5 +695,15 @@
         <target>Certains péniceliums sont d'une virulence extrême. L'effet est de courte durée mais très efficace.//:point: **Unique** : Pour **2** :pa: et 2 spores, vous pouvez enlever 2 :pa: à chaque membre d'équipage et provoquer un état de saleté.</target>
       </segment>
     </unit>
+    <unit id="bypass">
+      <segment id="bypass.name" state="translated">
+        <source>bypass.name</source>
+        <target>Conspirateur</target>
+      </segment>
+      <segment id="bypass.description" state="translated">
+        <source>bypass.description</source>
+        <target>Les ambiguïtés dans le code de NERON envers le Mush sont si délectables parfois...//:point: Vous pouvez accéder au **BIOS** de NERON même si vous n'êtes pas **Administrateur**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

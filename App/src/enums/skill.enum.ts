@@ -122,6 +122,10 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/human/botanic.png')
     },
 
+    [SkillEnum.BYPASS]: {
+        'icon': getImgUrl('skills/mush/neron_access.png')
+    },
+
     [SkillEnum.CAFFEINE_JUNKIE]: {
         'icon': getImgUrl('skills/human/caffeinomaniac.png')
     },

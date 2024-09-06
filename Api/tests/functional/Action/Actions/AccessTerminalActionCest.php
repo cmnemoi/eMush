@@ -267,4 +267,29 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         // then the action is executable
         $I->assertNull($this->accessTerminal->cannotExecuteReason());
     }
+
+    public function bypassPlayerShouldBeAbleToAccessBiosTerminal(FunctionalTester $I): void
+    {
+        // given a bios terminal in player2's place
+        $biosTerminal = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::BIOS_TERMINAL,
+            equipmentHolder: $this->player2->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given player2 has the Bypass skill
+        $this->addSkillToPlayer(SkillEnum::BYPASS, $I, $this->player2);
+
+        // when player2 access bios terminal
+        $this->accessTerminal->loadParameters(
+            actionConfig: $this->accessTerminalConfig,
+            actionProvider: $biosTerminal,
+            player: $this->player2,
+            target: $biosTerminal
+        );
+
+        // then the action is executable
+        $I->assertNull($this->accessTerminal->cannotExecuteReason());
+    }
 }

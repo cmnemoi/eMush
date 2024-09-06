@@ -598,6 +598,7 @@ class GameConfigData
                 SkillEnum::HARD_BOILED,
                 SkillEnum::SABOTEUR,
                 SkillEnum::DISHEARTENING_CONTACT,
+                SkillEnum::TRAITOR,
                 SkillEnum::TRAPPER,
                 SkillEnum::SPLASHPROOF,
                 SkillEnum::TRANSFER,

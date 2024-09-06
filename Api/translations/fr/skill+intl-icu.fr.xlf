@@ -705,5 +705,15 @@
         <target>Les ambiguïtés dans le code de NERON envers le Mush sont si délectables parfois...//:point: Vous pouvez accéder au **BIOS** de NERON même si vous n'êtes pas **Administrateur**.</target>
       </segment>
     </unit>
+    <unit id="traitor">
+      <segment id="traitor.name" state="translated">
+        <source>traitor.name</source>
+        <target>Traître</target>
+      </segment>
+      <segment id="traitor.description" state="translated">
+        <source>traitor.description</source>
+        <target>Vous avez développé un sens pour attirer les ennuis. Tiens un Mankarog... Et si on le chatouillait pour voir...//:point: Probabilités de **résultats négatifs dans les expéditions** auxquelles vous participez sont **multipliées par 2**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

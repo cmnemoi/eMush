@@ -340,6 +340,9 @@ abstract class SkillConfigData
                 name: SkillEnum::TRACKER,
             ),
             new SkillConfigDto(
+                name: SkillEnum::TRAITOR
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::TRANSFER,
                 actionConfigs: [
                     ActionEnum::EXCHANGE_BODY,

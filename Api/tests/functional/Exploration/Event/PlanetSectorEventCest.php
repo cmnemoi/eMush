@@ -45,6 +45,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 final class PlanetSectorEventCest extends AbstractExplorationTester
 {
@@ -1388,20 +1389,62 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     {
         $this->givenChunIsASurvivalist($I);
 
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::KILL_RANDOM,
+            sector: PlanetSectorEnum::SEISMIC_ACTIVITY,
+        );
+
         $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
             sectorName: PlanetSectorEnum::SEISMIC_ACTIVITY,
             players: [$this->chun],
             I: $I
         );
 
+        $this->whenExplorationEventIsDispatched($exploration);
+
+        $this->thenPlayerShouldBeDead($this->chun, $I);
+    }
+
+    public function traitorExploratorShouldHaveAPrivateLogWhenTriggeringNegativeEvent(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::TRAITOR, $I);
+
         $this->givenOnlyThisEventCanHappenInSector(
-            event: PlanetSectorEvent::KILL_RANDOM,
-            sector: PlanetSectorEnum::SEISMIC_ACTIVITY,
+            event: PlanetSectorEvent::NOTHING_TO_REPORT,
+            sector: PlanetSectorEnum::LANDING,
+        );
+
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::FIGHT_12,
+            sector: PlanetSectorEnum::INTELLIGENT,
+        );
+
+        $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            players: [$this->chun, $this->kuanTi],
+            I: $I
         );
 
         $this->whenExplorationEventIsDispatched($exploration);
 
-        $this->thenPlayerShouldBeDead($this->chun, $I);
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: ':mush: Votre action de traîtrise a favorisé un incident fâcheux.',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: LogEnum::TRAITOR_WORKED,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I
+        );
+
+        $I->cantSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => LogEnum::TRAITOR_WORKED,
+                'playerInfo' => $this->kuanTi->getPlayerInfo(),
+            ]
+        );
     }
 
     private function givenChunIsASurvivalist(FunctionalTester $I): void

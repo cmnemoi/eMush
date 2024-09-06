@@ -1300,5 +1300,11 @@
         <target>:mush: **{character}** projette rapidement une infâme gelée sur {target_equipment_gender, select, female {une} other {un}} **{target_equipment}**. {target_equipment_gender, select, female {Elle sera cassée} other {Il sera cassé}} d'ici {quantity, select, 1 {1 cycle} other {{quantity} cycles}}...</target>
       </segment>
     </unit>
+    <unit id="mass_ggedon_success">
+      <segment id="mass_ggedon_success" state="final">
+        <source>mass_ggedon_success</source>
+        <target>:mush: **{character}** se raidit soudain... On dirait que des filaments jaunes pourris tortillonnants s'échappe de sa combinaison pour pénétrer la coque...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

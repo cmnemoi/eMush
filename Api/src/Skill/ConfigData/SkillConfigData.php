@@ -188,6 +188,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::MASSIVE_MUSHIFICATION,
+                actionConfigs: [
+                    ActionEnum::MASS_GGEDON,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::MOTIVATOR,
                 actionConfigs: [
                     ActionEnum::BORING_SPEECH,

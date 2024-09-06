@@ -246,6 +246,10 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/human/mankind_only_hope.png')
     },
 
+    [SkillEnum.MASSIVE_MUSHIFICATION]: {
+        'icon': getImgUrl('skills/mush/massggedon.png')
+    },
+
     [SkillEnum.MEDIC]: {
         'icon': getImgUrl('skills/human/medic.png')
     },

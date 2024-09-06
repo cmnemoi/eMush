@@ -1114,6 +1114,9 @@ class ActionsFixtures extends Fixture
         $slimeObject = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SLIME_OBJECT));
         $manager->persist($slimeObject);
 
+        $massGgedon = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::MASS_GGEDON));
+        $manager->persist($massGgedon);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1237,5 +1240,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::DEPRESS->value, $depress);
         $this->addReference(ActionEnum::SLIME_TRAP->value, $slimeTrap);
         $this->addReference(ActionEnum::SLIME_OBJECT->value, $slimeObject);
+        $this->addReference(ActionEnum::MASS_GGEDON->value, $massGgedon);
     }
 }

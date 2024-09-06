@@ -1111,6 +1111,9 @@ class ActionsFixtures extends Fixture
         $slimeTrap = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SLIME_TRAP));
         $manager->persist($slimeTrap);
 
+        $slimeObject = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SLIME_OBJECT));
+        $manager->persist($slimeObject);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1233,5 +1236,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::MIX_RATION_SPORE->value, $mixRationSpore);
         $this->addReference(ActionEnum::DEPRESS->value, $depress);
         $this->addReference(ActionEnum::SLIME_TRAP->value, $slimeTrap);
+        $this->addReference(ActionEnum::SLIME_OBJECT->value, $slimeObject);
     }
 }

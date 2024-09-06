@@ -144,6 +144,9 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::GREEN_JELLY,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::GUNNER,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_DOUBLE_SUCCESS_RATE_ON_SHOOT_HUNTER,

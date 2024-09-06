@@ -143,6 +143,7 @@ abstract class ActionLogEnum
     public const string MIX_RATION_SPORE_SUCCESS = 'mix_ration_spore_success';
     public const string DEPRESS_SUCCESS = 'depress_success';
     public const string SLIME_TRAP_SUCCESS = 'slime_trap_success';
+    public const string SLIME_OBJECT_SUCCESS = 'slime_object_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -500,6 +501,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::SLIME_TRAP->value => [
             ActionOutputEnum::SUCCESS => self::SLIME_TRAP_SUCCESS,
+        ],
+        ActionEnum::SLIME_OBJECT->value => [
+            ActionOutputEnum::SUCCESS => self::SLIME_OBJECT_SUCCESS,
         ],
     ];
 

@@ -1294,5 +1294,11 @@
         <target>:mush: L'espace d'un instant, **{character}** met une tape affectueuse à **{target_character}**... Mais on dirait qu'une fumée putride est sortie de ses doigts !</target>
       </segment>
     </unit>
+    <unit id="slime_object_success">
+      <segment id="slime_object_success" state="final">
+        <source>slime_object_success</source>
+        <target>:mush: **{character}** projette rapidement une infâme gelée sur {target_equipment_gender, select, female {une} other {un}} **{target_equipment}**. {target_equipment_gender, select, female {Elle sera cassée} other {Il sera cassé}} d'ici {quantity, select, 1 {1 cycle} other {{quantity} cycles}}...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

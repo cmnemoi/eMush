@@ -24,6 +24,7 @@ class EquipmentStatusEnum
     public const PATROL_SHIP_ARMOR = 'patrol_ship_armor';
     public const SINK_CHARGE = 'sink_charge';
     public const JUKEBOX_SONG = 'jukebox_song';
+    public const SLIMED = 'slimed';
 
     public const UPDATING = 'updating';
 

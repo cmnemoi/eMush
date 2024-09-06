@@ -1378,5 +1378,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de provoquer un état de salissure dans quelques cycles.</target>
       </segment>
     </unit>
+    <unit id="slime_object">
+      <segment id="name" state="final">
+        <source>slime_object.name</source>
+        <target>Engluer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>slime_object.description</source>
+        <target>L'objet ciblé deviendra cassé d'ici 1 à {outputQuantity} cycles.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

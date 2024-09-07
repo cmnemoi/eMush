@@ -154,7 +154,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             $alienPlantMechanic = new Plant();
             $alienPlantMechanic
                 ->setFruitName($alienFruit->getEquipmentName())
-                ->setMaturationTime([2 => 7, 4 => 7, 8 => 24, 12 => 14, 16 => 7, 24 => 7, 48 => 7])
+                ->setMaturationTime([8 => 1])
                 ->setOxygen([1 => 1])
                 ->setActions($plantActions)
                 ->buildName(EquipmentMechanicEnum::PLANT . '_' . $plantName, GameConfigEnum::DEFAULT);

@@ -664,6 +664,35 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
     }
 
+    public function testFightEventIsPreventedByPolyvalent(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given only fight and nothing to report events can happen in intelligent sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: ['fight_1' => PHP_INT_MAX - 1, 'nothing_to_report' => 1]
+        );
+
+        // given Chun is a polyvalent
+        $this->givenPlayerHasSkill($this->chun, SkillEnum::POLYVALENT, $I);
+
+        // when I try to dispatch fight event
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then the fight event is not dispatched
+        $I->dontSeeInRepository(
+            entity: ExplorationLog::class,
+            params: [
+                'eventName' => PlanetSectorEvent::FIGHT,
+            ]
+        );
+    }
+
     public function testProvisionEvent(FunctionalTester $I): void
     {
         // given an exploration is created

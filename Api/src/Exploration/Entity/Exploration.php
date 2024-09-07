@@ -283,7 +283,7 @@ class Exploration
 
     public function hasAnActiveDiplomat(): bool
     {
-        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::DIPLOMAT))->count() > 0;
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasAnySkill([SkillEnum::DIPLOMAT, SkillEnum::POLYVALENT]))->count() > 0;
     }
 
     public function hasATraitor(): bool

@@ -193,7 +193,7 @@ export default defineComponent ({
         this.selectedCpuPriority = currentCpuPriority;
 
         const isNeronInhibited = this.terminal.infos?.isNeronInhibited;
-        if (!isNeronInhibited) {
+        if (isNeronInhibited === null) {
             throw new Error(`No isNeronInhibited found for terminal ${this.terminal?.key}`);
         }
         this.selectedNeronInhibitionToggle = isNeronInhibited ? 'active' : 'inactive';

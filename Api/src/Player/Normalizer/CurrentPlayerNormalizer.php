@@ -114,7 +114,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
                 'description' => $this->translationService->translate($character . '.description', [], 'characters', $language),
                 'selectableHumanSkills' => $this->normalizeSelectableSkills($player->getSelectableHumanSkills(), $format, $context),
                 'selectableMushSkills' => $this->normalizeSelectableSkills($player->getSelectableMushSkills(), $format, $context),
-                'humanSkillSlots' => min($player->getDaedalus()->getDaedalusConfig()->getHumanSkillSlots(), $player->getHumanLevel()),
+                'humanSkillSlots' => $player->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK) ? min($player->getHumanSkillSlots(), $player->getHumanLevel() + 1) : min($player->getHumanSkillSlots(), $player->getHumanLevel()),
                 'mushSkillSlots' => min($player->getDaedalus()->getDaedalusConfig()->getMushSkillSlots(), $player->getMushLevel()),
                 'humanLevel' => $player->getHumanLevel(),
                 'mushLevel' => $player->getMushLevel(),

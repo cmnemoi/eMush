@@ -99,11 +99,32 @@ final class SelectableSkillsCest extends AbstractFunctionalTest
         $this->thenPlayerShouldNotSeeAvailableMushSkill($I);
     }
 
+    public function shouldBeAbleToChooseAllSkillsEventAfterReadingMageBook(FunctionalTester $I): void
+    {
+        $this->givenPlayerReadsSprinterMageBook();
+        $this->givenPlayerHasHumanSkillsAvailable([SkillEnum::TECHNICIAN, SkillEnum::IT_EXPERT, SkillEnum::DETERMINED], $I);
+
+        $this->whenINormalizePlayer();
+
+        $this->thenPlayerShouldSeeAvailableHumanSkills($I);
+        $this->thenPlayerShouldHaveFourSkillSlotsAvailable($I);
+    }
+
     private function givenPlayerHasHumanSkillAvailable(SkillEnum $skill, FunctionalTester $I): void
     {
         $this->player->getCharacterConfig()->setSkillConfigs([
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]),
         ]);
+    }
+
+    private function givenPlayerHasHumanSkillsAvailable(array $skills, FunctionalTester $I): void
+    {
+        $this->player->getCharacterConfig()->setSkillConfigs([]);
+        foreach ($skills as $skill) {
+            $this->player->getCharacterConfig()->addSkillConfig(
+                $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]),
+            );
+        }
     }
 
     private function givenPlayerHasMushSkillAvailable(SkillEnum $skill, FunctionalTester $I): void
@@ -115,6 +136,17 @@ final class SelectableSkillsCest extends AbstractFunctionalTest
     {
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::MUSH,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenPlayerReadsSprinterMageBook(): void
+    {
+        $this->addSkillToPlayer->execute(skill: SkillEnum::SPRINTER, player: $this->player);
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::HAS_READ_MAGE_BOOK,
             holder: $this->player,
             tags: [],
             time: new \DateTime(),
@@ -156,5 +188,15 @@ final class SelectableSkillsCest extends AbstractFunctionalTest
     private function thenPlayerShouldNotSeeAvailableHumanSkills(FunctionalTester $I): void
     {
         $I->assertEmpty($this->normalizedPlayer['character']['selectableHumanSkills']);
+    }
+
+    private function thenPlayerShouldSeeAvailableHumanSkills(FunctionalTester $I): void
+    {
+        $I->assertCount(3, $this->normalizedPlayer['character']['selectableHumanSkills']);
+    }
+
+    private function thenPlayerShouldHaveFourSkillSlotsAvailable(FunctionalTester $I): void
+    {
+        $I->assertEquals(4, $this->normalizedPlayer['character']['humanSkillSlots']);
     }
 }

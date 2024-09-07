@@ -726,5 +726,15 @@
         <target>Dans l'espace, tout peut arriver. Savoir garder son calme est un atout.//:point: **Gagne 3 :pa:** à chaque fois qu'un équipier **décède**.</target>
       </segment>
     </unit>
+    <unit id="green_thumb">
+      <segment id="green_thumb.name" state="translated">
+        <source>green_thumb.name</source>
+        <target>Main verte</target>
+      </segment>
+      <segment id="green_thumb.description" state="translated">
+        <source>green_thumb.description</source>
+        <target>Les plantes poussent naturellement en votre présence, vous n'avez qu'à leur adresser un regard langoureux pour qu'elles produisent leurs plus beaux fruits.//:point: Commence la partie avec **deux pots** supplémentaires.//:point: Les **greffes** de la Main Verte commencent avec un cycle de maturation court.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

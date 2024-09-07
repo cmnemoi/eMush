@@ -1053,5 +1053,11 @@
         <target>**{character}** a remarqué quelque chose d'intéressant...</target>
       </segment>
     </unit>
+    <unit id="strateguru_worked">
+      <segment id="strateguru_worked" state="final">
+        <source>strateguru_worked</source>
+        <target>Votre compétence **Stratéguerre** a porté ses fruits, vous avez perdu une partie de vos aggresseurs dans un bras de nébuleuse...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

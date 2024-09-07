@@ -263,6 +263,9 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::STRATEGURU,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::TECHNICIAN,
                 modifierConfigs: [
                     'modifier_technician_double_repair_and_renovate_chance',

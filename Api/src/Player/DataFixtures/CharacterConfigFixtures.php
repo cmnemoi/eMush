@@ -157,6 +157,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $expertSkillConfig */
         $expertSkillConfig = $this->getReference(SkillEnum::EXPERT->value);
 
+        /** @var SkillConfig $strateguruSkillConfig */
+        $strateguruSkillConfig = $this->getReference(SkillEnum::STRATEGURU->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -322,6 +325,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $leaderSkillConfig,
                 $pilotSkillConfig,
                 $shooterSkillConfig,
+                $logisticExpert,
+                $strateguruSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($jinSu);

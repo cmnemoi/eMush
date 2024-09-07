@@ -2,25 +2,22 @@
 
 namespace Mush\RoomLog\Listener;
 
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Event\HunterEvent;
+use Mush\Hunter\Event\StrateguruWorkedEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class HunterEventSubscriber implements EventSubscriberInterface
+final class HunterEventSubscriber implements EventSubscriberInterface
 {
-    private RoomLogServiceInterface $roomLogService;
-
-    public function __construct(
-        RoomLogServiceInterface $roomLogService
-    ) {
-        $this->roomLogService = $roomLogService;
-    }
+    public function __construct(private RoomLogServiceInterface $roomLogService) {}
 
     public static function getSubscribedEvents(): array
     {
         return [
             HunterEvent::HUNTER_DEATH => 'onHunterDeath',
+            StrateguruWorkedEvent::class => 'onStrateguruWorked',
         ];
     }
 
@@ -53,5 +50,21 @@ class HunterEventSubscriber implements EventSubscriberInterface
             ],
             $event->getTime()
         );
+    }
+
+    public function onStrateguruWorked(StrateguruWorkedEvent $event): void
+    {
+        $strateguruPlayers = $event->getStrateguruPlayers();
+
+        foreach ($strateguruPlayers as $player) {
+            $this->roomLogService->createLog(
+                logKey: LogEnum::STRATEGURU_WORKED,
+                place: $player->getPlace(),
+                visibility: VisibilityEnum::PRIVATE,
+                type: 'event_log',
+                player: $player,
+                dateTime: $event->getTime()
+            );
+        }
     }
 }

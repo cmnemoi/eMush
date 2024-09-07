@@ -75,6 +75,7 @@ abstract class LogEnum
     public const string PREMONITION_ACTION = 'premonition_action';
     public const string TABULATRIX_PRINTS = 'tabulatrix_prints';
     public const string OBSERVANT_NOTICED_SOMETHING = 'observant_noticed_something';
+    public const string STRATEGURU_WORKED = 'strateguru_worked';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

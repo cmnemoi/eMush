@@ -537,6 +537,7 @@ class CharacterConfigData
                 SkillEnum::PILOT,
                 SkillEnum::SHOOTER,
                 SkillEnum::LOGISTICS_EXPERT,
+                SkillEnum::STRATEGURU,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

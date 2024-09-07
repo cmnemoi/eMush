@@ -89,9 +89,8 @@ final class ReadBook extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $this->destroyBook();
-
         if ($this->bookMechanic()->isMageBook()) {
+            $this->destroyBook();
             $this->addSkillToPlayer();
             $this->createLearnedSkillLog();
             $this->createHasReadMageBookStatus();

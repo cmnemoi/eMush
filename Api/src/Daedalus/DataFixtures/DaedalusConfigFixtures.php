@@ -40,6 +40,23 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setInitHunterPoints(40)
             ->setInitCombustionChamberFuel(0)
             ->setDailySporeNb(4)
+            ->setStartingApprentrons([
+                'apprentron_technician' => 14,
+                'apprentron_pilot' => 12,
+                'apprentron_astrophysicist' => 10,
+                'apprentron_biologist' => 10,
+                'apprentron_botanist' => 10,
+                'apprentron_shooter' => 10,
+                'apprentron_radio_expert' => 9,
+                'apprentron_medic' => 8,
+                'apprentron_sprinter' => 8,
+                'apprentron_shrink' => 6,
+                'apprentron_robotics_expert' => 4,
+                'apprentron_firefighter' => 2,
+                'apprentron_it_expert' => 2,
+                'apprentron_diplomat' => 2,
+                'apprentron_logistics_expert' => 2,
+            ])
             ->setMaxOxygen(32)
             ->setMaxFuel(32)
             ->setMaxHull(100)

@@ -117,7 +117,7 @@ class EquipmentConfig
             return ItemEnum::BLUEPRINT;
         }
         if ($this->getMechanicByName(EquipmentMechanicEnum::BOOK)) {
-            return ItemEnum::APPRENTON;
+            return ItemEnum::APPRENTRON;
         }
 
         return $this->equipmentName;

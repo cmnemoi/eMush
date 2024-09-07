@@ -35,7 +35,7 @@ class ItemEnum
     public const string ITRACKIE = 'itrackie';
     public const string OXYGEN_CAPSULE = 'oxygen_capsule';
     public const string FUEL_CAPSULE = 'fuel_capsule';
-    public const string APPRENTON = 'apprenton';
+    public const string APPRENTRON = 'apprentron';
     public const string BLUEPRINT = 'blueprint';
     public const string DOCUMENT = 'document';
     public const string COMMANDERS_MANUAL = 'commanders_manual';

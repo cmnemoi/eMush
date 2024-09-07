@@ -140,7 +140,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_astrophysicist_default',
+            'name' => 'apprentron_astrophysicist_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -171,7 +171,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_biologist_default',
+            'name' => 'apprentron_biologist_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -202,7 +202,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_botanist_default',
+            'name' => 'apprentron_botanist_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -233,7 +233,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_diplomat_default',
+            'name' => 'apprentron_diplomat_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -264,7 +264,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_firefighter_default',
+            'name' => 'apprentron_firefighter_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -295,7 +295,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_chef_default',
+            'name' => 'apprentron_chef_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -326,7 +326,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_it_expert_default',
+            'name' => 'apprentron_it_expert_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -357,7 +357,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_logistics_expert_default',
+            'name' => 'apprentron_logistics_expert_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -388,7 +388,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_medic_default',
+            'name' => 'apprentron_medic_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -419,7 +419,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_pilot_default',
+            'name' => 'apprentron_pilot_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -450,7 +450,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_radio_expert_default',
+            'name' => 'apprentron_radio_expert_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -481,7 +481,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_robotics_expert_default',
+            'name' => 'apprentron_robotics_expert_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -512,7 +512,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_shooter_default',
+            'name' => 'apprentron_shooter_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -543,7 +543,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_shrink_default',
+            'name' => 'apprentron_shrink_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -574,7 +574,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_sprinter_default',
+            'name' => 'apprentron_sprinter_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -605,7 +605,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprenton_technician_default',
+            'name' => 'apprentron_technician_default',
             'type' => 'book',
             'craftedEquipmentName' => null,
             'ingredients' => null,

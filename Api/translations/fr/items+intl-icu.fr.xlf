@@ -3430,29 +3430,29 @@ Impérissable
                     }</target>
       </segment>
     </unit>
-    <unit id="apprenton">
+    <unit id="apprentron">
       <segment id="name" state="final">
-        <source>apprenton.name</source>
+        <source>apprentron.name</source>
         <target>Apprentron : {skill}</target>
       </segment>
       <segment id="short_name" state="final">
-        <source>apprenton.short_name</source>
+        <source>apprentron.short_name</source>
         <target>Apprentron</target>
       </segment>
       <segment id="genre" state="final">
-        <source>apprenton.gender</source>
+        <source>apprentron.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="final">
-        <source>apprenton.first_letter</source>
+        <source>apprentron.first_letter</source>
         <target>vowel</target>
       </segment>
       <segment id="description" state="final">
-        <source>apprenton.description</source>
+        <source>apprentron.description</source>
         <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
       </segment>
       <segment id="examine" state="final">
-        <source>apprenton.examine</source>
+        <source>apprentron.examine</source>
         <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal. 
 //
 Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>

@@ -100,7 +100,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             return ItemEnum::BLUEPRINT;
         }
         if ($equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK) instanceof Book) {
-            return ItemEnum::APPRENTON;
+            return ItemEnum::APPRENTRON;
         }
 
         return $equipment->getName();

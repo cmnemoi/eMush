@@ -52,7 +52,7 @@ const BUMPJUMPKIN = 'bumpjumpkin';
 
 const BLUEPRINT = "blueprint";
 const SNIPER_HELMET = "sniper_helmet";
-const APPRENTON = "apprenton";
+const APPRENTRON = "apprentron";
 const MAD_KUBE = "mad_kube";
 const MICROWAVE = "microwave";
 const SUPERFREEZER = "superfreezer";
@@ -155,7 +155,7 @@ export const itemEnum: {[index: string]: any} = {
     [PLASTIC_SCRAP]: {
         'image': getImgUrl('items/plastic_scraps.jpg')
     },
-    [APPRENTON]: {
+    [APPRENTRON]: {
         'image': getImgUrl('items/book.jpg')
     },
     [BLUEPRINT]: {

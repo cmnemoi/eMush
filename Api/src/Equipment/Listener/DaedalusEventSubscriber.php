@@ -15,32 +15,25 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Factory\PlayerFactory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusEventSubscriber implements EventSubscriberInterface
 {
-    private EquipmentEffectServiceInterface $equipmentEffectService;
-    private EventServiceInterface $eventService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService;
-
     public function __construct(
-        EquipmentEffectServiceInterface $equipmentEffectService,
-        EventServiceInterface $eventService,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService
-    ) {
-        $this->equipmentEffectService = $equipmentEffectService;
-        $this->eventService = $eventService;
-        $this->gameEquipmentService = $gameEquipmentService;
-        $this->patrolShipManoeuvreService = $patrolShipManoeuvreService;
-    }
+        private EquipmentEffectServiceInterface $equipmentEffectService,
+        private EventServiceInterface $eventService,
+        private GameEquipmentServiceInterface $gameEquipmentService,
+        private PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService,
+        private RandomServiceInterface $randomService,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
         return [
             DaedalusEvent::DELETE_DAEDALUS => ['onDeleteDaedalus', 1000],
+            DaedalusEvent::FULL_DAEDALUS => 'onFullDaedalus',
             DaedalusEvent::TRAVEL_LAUNCHED => 'onTravelLaunched',
         ];
     }
@@ -48,6 +41,11 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     public function onDeleteDaedalus(DaedalusEvent $event): void
     {
         $this->equipmentEffectService->removeAllEffects($event->getDaedalus());
+    }
+
+    public function onFullDaedalus(DaedalusEvent $event): void
+    {
+        $this->createRandomApprentronInStorage($event);
     }
 
     public function onTravelLaunched(DaedalusEvent $event): void
@@ -61,6 +59,20 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         }
 
         $this->destroyAllEquipmentInSpace($event);
+    }
+
+    private function createRandomApprentronInStorage(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $randomStorage = $this->randomService->getRandomElement($daedalus->getStorages()->toArray());
+        $randomApprentron = (string) $this->randomService->getSingleRandomElementFromProbaCollection($daedalus->getDaedalusConfig()->getStartingApprentrons());
+
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: $randomApprentron,
+            equipmentHolder: $randomStorage,
+            reasons: $event->getTags(),
+            time: $event->getTime()
+        );
     }
 
     private function makePatrolShipsInBattleLand(DaedalusEvent $event): void

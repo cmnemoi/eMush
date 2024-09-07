@@ -455,8 +455,8 @@ class CreateDestroyEquipmentSubscriberCest
         /** @var ItemConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$gear2]),
-            'name' => ItemEnum::APPRENTON,
-            'equipmentName' => ItemEnum::APPRENTON,
+            'name' => ItemEnum::APPRENTRON,
+            'equipmentName' => ItemEnum::APPRENTRON,
         ]);
 
         /** @var GameConfig $gameConfig */
@@ -499,7 +499,7 @@ class CreateDestroyEquipmentSubscriberCest
         );
 
         $transformedEquipment = $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
-            ItemEnum::APPRENTON,
+            ItemEnum::APPRENTRON,
             $gameEquipment,
             $player,
             ['a test reason'],

@@ -531,6 +531,15 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
     }
 
+    /** @param array<SkillEnum> $expectedSkills */
+    public function hasAnySkill(array $expectedSkills): bool
+    {
+        $expectedSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $expectedSkills);
+        $playerSkills = $this->getSkills()->map(static fn (Skill $skill) => $skill->getNameAsString())->toArray();
+
+        return \count(array_intersect($playerSkills, $expectedSkills)) > 0;
+    }
+
     public function doesNotHaveSkill(SkillEnum $skillName): bool
     {
         return $this->hasSkill($skillName) === false;
@@ -1220,15 +1229,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $skill = $this->getSkills()->filter(static fn (Skill $skill) => $skill->getName() === $name)->first();
 
         return $skill ?: null;
-    }
-
-    /** @param array<SkillEnum> $expectedSkills */
-    private function hasAnySkill(array $expectedSkills): bool
-    {
-        $expectedSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $expectedSkills);
-        $playerSkills = $this->getSkills()->map(static fn (Skill $skill) => $skill->getNameAsString())->toArray();
-
-        return \count(array_intersect($playerSkills, $expectedSkills)) > 0;
     }
 
     private function canReadRationProperties(GameEquipment $food): bool

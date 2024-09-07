@@ -278,7 +278,7 @@ class Exploration
 
     public function getNumberOfActiveBotanists(): int
     {
-        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::BOTANIST))->count();
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasAnySkill([SkillEnum::BOTANIST, SkillEnum::POLYVALENT]))->count();
     }
 
     public function hasAnActiveDiplomat(): bool

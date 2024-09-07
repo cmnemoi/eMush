@@ -741,6 +741,33 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertTrue(\in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()], true));
     }
 
+    public function testHarvestEventShouldGiveMoreFruitsWithAPolyvalent(FunctionalTester $I): void
+    {
+        // given Chun is a polyvalent
+        $this->addSkillToPlayer(SkillEnum::POLYVALENT, $I);
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::FRUIT_TREES], $I),
+            explorators: $this->players
+        );
+
+        // given only harvest event can happen in fruit trees sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::FRUIT_TREES,
+            events: [PlanetSectorEvent::HARVEST_3 => 1]
+        );
+
+        // when harvest event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then I should see 4 alien fruits in planet place
+        $I->assertCount(
+            expectedCount: 4,
+            haystack: $this->daedalus->getPlanetPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => GameFruitEnum::getAlienFruits()->contains($gameEquipment->getName()))
+        );
+    }
+
     public function testDiseaseEventCreatesADiseaseForOneExplorator(FunctionalTester $I): void
     {
         // given an exploration is created

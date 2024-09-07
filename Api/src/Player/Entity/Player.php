@@ -1220,9 +1220,18 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function getSkillByNameOrNull(SkillEnum $name): ?Skill
     {
-        $skill = $this->getSkills()->filter(static fn (Skill $skill) => $skill->getName() === $name)->first();
+        $skill = $this->getSkills()->filter(static fn (Skill $skill) => $skill->getNameAsString() === $name)->first();
 
         return $skill ?: null;
+    }
+
+    /** @param array<array-key, SkillEnum> $expectedSkills */
+    private function hasAnySkill(array $expectedSkills): bool
+    {
+        $expectedSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $expectedSkills);
+        $playerSkills = $this->getSkills()->map(static fn (Skill $skill) => $skill->getNameAsString())->toArray();
+
+        return \count(array_intersect($playerSkills, $expectedSkills)) > 0;
     }
 
     private function canReadRationProperties(GameEquipment $food): bool
@@ -1237,6 +1246,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function canReadDrugProperties(GameEquipment $food): bool
     {
-        return $food->isADrug() && $this->hasSkill(SkillEnum::NURSE);
+        return $food->isADrug() && $this->hasAnySkill([SkillEnum::NURSE, SkillEnum::POLYVALENT]);
     }
 }

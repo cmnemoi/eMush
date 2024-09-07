@@ -72,7 +72,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::HEAT_LAMP,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 3,
-                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BOTANIST],
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BOTANIST, SkillEnum::POLYVALENT],
                 'activationRate' => 50,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
@@ -118,7 +118,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::EXTRA_HYDROPONPOTS,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BOTANIST],
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BOTANIST, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
@@ -332,7 +332,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::HYDROPONIC_INCUBATOR,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::BOTANIST],
+                'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::BOTANIST, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
@@ -344,7 +344,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::ICARUS_LAVATORY,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 18,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::TECHNICIAN],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::TECHNICIAN, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [
                     'modifier_for_player_prevent_dirty_for_exploration_finished',
@@ -486,7 +486,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::OXY_MORE,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BIOLOGIST],
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BIOLOGIST, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [
                     'modifier_for_daedalus_+1oxygen_on_change.variable_if_reason_new_cycle_random_20',

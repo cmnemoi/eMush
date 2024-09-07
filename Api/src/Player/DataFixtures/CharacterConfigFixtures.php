@@ -178,6 +178,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $greenThumbSkillConfig */
         $greenThumbSkillConfig = $this->getReference(SkillEnum::GREEN_THUMB->value);
 
+        /** @var SkillConfig $polyvalentSkillConfig */
+        $polyvalentSkillConfig = $this->getReference(SkillEnum::POLYVALENT->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -185,6 +188,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setSkillConfigs([
                 $pilotSkillConfig,
                 $devotionSkillConfig,
+                $polyvalentSkillConfig,
                 $confidentSkillConfig,
                 $expertSkillConfig,
             ])

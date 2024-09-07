@@ -108,7 +108,8 @@ final class StatusEventSubscriber implements EventSubscriberInterface
                     $event->getTime(),
                 );
 
-                // no break
+                break;
+
             default:
         }
     }

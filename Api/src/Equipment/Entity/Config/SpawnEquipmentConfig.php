@@ -15,16 +15,16 @@ class SpawnEquipmentConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
     private string $name;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
     private string $equipmentName;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
     private string $placeName;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $quantity;
 
     public function __construct(

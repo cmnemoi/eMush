@@ -1532,6 +1532,14 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::HAS_READ_MAGE_BOOK . '_default',
+            'statusName' => PlayerStatusEnum::HAS_READ_MAGE_BOOK,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

@@ -55,4 +55,5 @@ abstract class PlayerStatusEnum
     public const string HAS_USED_PUTSCH = 'has_used_putsch';
     public const string PARIAH = 'pariah';
     public const string SLIME_TRAP = 'slime_trap';
+    public const string HAS_READ_MAGE_BOOK = 'has_read_mage_book';
 }

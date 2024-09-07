@@ -463,6 +463,7 @@ class GameConfigData
                 PlayerStatusEnum::SLIME_TRAP . '_default',
                 EquipmentStatusEnum::SLIMED . '_default',
                 PlayerStatusEnum::HAS_USED_MASS_GGEDON . '_default',
+                PlayerStatusEnum::HAS_READ_MAGE_BOOK . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

@@ -546,6 +546,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasUsedMassGgedon);
 
+        $hasReadMageBook = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_READ_MAGE_BOOK . '_default')
+        );
+        $manager->persist($hasReadMageBook);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -602,6 +607,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasCeasefiredStatus)
             ->addStatusConfig($hasExchangedBodyStatus)
             ->addStatusConfig($hasPrintedZeList)
+            ->addStatusConfig($hasReadMageBook)
             ->addStatusConfig($hasUsedMassGgedon)
             ->addStatusConfig($hasUsedPutsch)
             ->addStatusConfig($pariahStatus);
@@ -663,6 +669,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_USED_PUTSCH, $hasUsedPutsch);
         $this->addReference(PlayerStatusEnum::PARIAH, $pariahStatus);
         $this->addReference(PlayerStatusEnum::HAS_USED_MASS_GGEDON, $hasUsedMassGgedon);
+        $this->addReference(PlayerStatusEnum::HAS_READ_MAGE_BOOK, $hasReadMageBook);
 
         $manager->flush();
     }

@@ -13,7 +13,7 @@ final class EquipmentCommandConfigDataLoader extends ConfigDataLoader
     public function loadConfigsData(): void
     {
         foreach (SpawnEquipmentConfigData::getAll() as $spawnEquipmentConfigData) {
-            /** @var null|SpawnEquipmentConfig $spawnEquipmentConfig */
+            /** @var ?SpawnEquipmentConfig $spawnEquipmentConfig */
             $spawnEquipmentConfig = $this->entityManager->getRepository(SpawnEquipmentConfig::class)->findOneBy([
                 'name' => $spawnEquipmentConfigData->name,
             ]);
@@ -27,7 +27,7 @@ final class EquipmentCommandConfigDataLoader extends ConfigDataLoader
         }
 
         foreach (ReplaceEquipmentConfigData::getAll() as $replaceEquipmentConfigData) {
-            /** @var null|ReplaceEquipmentConfig $replaceEquipmentConfig */
+            /** @var ?ReplaceEquipmentConfig $replaceEquipmentConfig */
             $replaceEquipmentConfig = $this->entityManager->getRepository(ReplaceEquipmentConfig::class)->findOneBy([
                 'name' => $replaceEquipmentConfigData->name,
             ]);

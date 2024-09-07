@@ -444,6 +444,7 @@ class CharacterConfigData
                 SkillEnum::BOTANIST,
                 SkillEnum::MYCOLOGIST,
                 SkillEnum::FIREFIGHTER,
+                SkillEnum::GREEN_THUMB,
                 SkillEnum::FRUGIVORE,
             ],
             'maxNumberPrivateChannel' => 3,

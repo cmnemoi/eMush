@@ -1086,10 +1086,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function canReadPlantProperties(GameEquipment $plant): bool
     {
-        return match ($plant->isAPlant()) {
-            true => $this->hasSkill(SkillEnum::BOTANIST),
-            default => false,
-        };
+        return $plant->isAPlant() && $this->hasAnySkill([SkillEnum::BOTANIST, SkillEnum::POLYVALENT]);
     }
 
     public function shouldBeHurtByShower(): bool
@@ -1220,12 +1217,12 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function getSkillByNameOrNull(SkillEnum $name): ?Skill
     {
-        $skill = $this->getSkills()->filter(static fn (Skill $skill) => $skill->getNameAsString() === $name)->first();
+        $skill = $this->getSkills()->filter(static fn (Skill $skill) => $skill->getName() === $name)->first();
 
         return $skill ?: null;
     }
 
-    /** @param array<array-key, SkillEnum> $expectedSkills */
+    /** @param array<SkillEnum> $expectedSkills */
     private function hasAnySkill(array $expectedSkills): bool
     {
         $expectedSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $expectedSkills);

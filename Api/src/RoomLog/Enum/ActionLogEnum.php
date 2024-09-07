@@ -145,6 +145,8 @@ abstract class ActionLogEnum
     public const string SLIME_TRAP_SUCCESS = 'slime_trap_success';
     public const string SLIME_OBJECT_SUCCESS = 'slime_object_success';
     public const string MASS_GGEDON_SUCCESS = 'mass_ggedon_success';
+    public const string REINFORCE_SUCCESS = 'reinforce_success';
+    public const string REINFORCE_FAIL = 'reinforce_fail';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -508,6 +510,10 @@ abstract class ActionLogEnum
         ],
         ActionEnum::MASS_GGEDON->value => [
             ActionOutputEnum::SUCCESS => self::MASS_GGEDON_SUCCESS,
+        ],
+        ActionEnum::REINFORCE->value => [
+            ActionOutputEnum::SUCCESS => self::REINFORCE_SUCCESS,
+            ActionOutputEnum::FAIL => self::REINFORCE_FAIL,
         ],
     ];
 

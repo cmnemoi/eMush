@@ -123,7 +123,7 @@ enum ActionEnum: string
     case PRINT_SECRET_LIST = 'print_secret_list';
     case SURGERY = 'surgery';
     case DISASSEMBLE = 'disassemble';
-    case REINFORCE_EQUIPMENT = 'reinforce_equipment'; // /!\ This is preventing disassembly, not reinforcing the hull!
+    case REINFORCE = 'reinforce'; // /!\ This is preventing disassembly, not reinforcing the hull!
     case PREMONITION = 'premonition';
     case EXTINGUISH_MANUALLY = 'extinguish_manually';
     case CEASEFIRE = 'ceasefire';
@@ -348,7 +348,7 @@ enum ActionEnum: string
             self::HIDE,
             self::READ_BOOK,
             self::READ_DOCUMENT,
-            self::REINFORCE_EQUIPMENT,
+            self::REINFORCE,
             self::INSTALL_CAMERA,
             self::DISASSEMBLE,
             self::BUILD,

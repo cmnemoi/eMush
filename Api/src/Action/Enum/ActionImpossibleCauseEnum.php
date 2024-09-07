@@ -82,6 +82,7 @@ abstract class ActionImpossibleCauseEnum
     public const string DEAL_LACK_RESSOURCES = 'deal_lack_ressources';
     public const string DEAL_NOT_COMS_OFFICER = 'deal_not_coms_officer';
     public const string DISMANTLE_REINFORCED = 'dismantle_reinforced';
+    public const string SABOTAGE_REINFORCED = 'sabotage_reinforced';
     public const string BED_OCCUPIED = 'bed_occupied';
     public const string ALREADY_IN_BED = 'already_in_bed';
     public const string REINFORCE_LACK_RESSOURCES = 'reinforce_lack_ressources';

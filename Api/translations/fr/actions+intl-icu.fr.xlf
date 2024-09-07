@@ -1402,5 +1402,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action est très puissante et mènera sans doute à des représailles. Continuer ?</target>
       </segment>
     </unit>
+    <unit id="reinforce">
+      <segment id="name" state="final">
+        <source>reinforce.name</source>
+        <target>Blinder</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>reinforce.description</source>
+        <target>Permet de blinder un objet démontable pour qu'il ne le soit plus. Protège également contre les sabotages.//Consomme 1 **Débris métallique**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

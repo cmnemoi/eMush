@@ -57,7 +57,7 @@ class Sabotage extends AttemptAction
             'status' => EquipmentStatusEnum::REINFORCED,
             'contain' => false,
             'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
+            'message' => ActionImpossibleCauseEnum::SABOTAGE_REINFORCED,
         ]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }

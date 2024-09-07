@@ -494,6 +494,12 @@
         <target>Cet équipement est blindé, impossible de le démonter...</target>
       </segment>
     </unit>
+    <unit id="sabotage_reinforced">
+      <segment id="description" state="final">
+        <source>sabotage_reinforced.description</source>
+        <target>Cet équipement est blindé, impossible de le saboter...</target>
+      </segment>
+    </unit>
     <unit id="bed_occupied">
       <segment id="description" state="final">
         <source>bed_occupied.description</source>

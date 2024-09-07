@@ -2383,6 +2383,22 @@ class ActionData
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'outputQuantity' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
         ],
+        [
+            'name' => ActionEnum::REINFORCE->value,
+            'action_name' => ActionEnum::REINFORCE,
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
+            'target' => ActionHolderEnum::EQUIPMENT,
+            'scope' => ActionRangeEnum::SELF,
+            'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => VisibilityEnum::PRIVATE],
+            'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 20, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 50, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 35, 'min_value' => 1, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+        ],
     ];
 
     public static function getByName(ActionEnum $name): array

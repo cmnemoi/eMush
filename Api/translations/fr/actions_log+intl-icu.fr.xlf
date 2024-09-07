@@ -1306,5 +1306,17 @@
         <target>:mush: **{character}** se raidit soudain... On dirait que des filaments jaunes pourris tortillonnants s'échappe de sa combinaison pour pénétrer la coque...</target>
       </segment>
     </unit>
+    <unit id="reinforce_success">
+      <segment id="reinforce_success" state="final">
+        <source>reinforce_success</source>
+        <target>{character_gender, select, female {**{character}** s'est lancée} other {**{character}** s'est lancé}} dans une mini cathédrale autour {target_equipment_gender, select, female {d'une **{target_equipment}**} other {d'un **{target_equipment}**}}... On dirait plus un tatou crevé maintenant mais ça devrait tenir.</target>
+      </segment>
+    </unit>
+    <unit id="reinforce_fail">
+      <segment id="reinforce_fail" state="final">
+        <source>reinforce_fail</source>
+        <target>Vous vous reculez fièrement et... patatra... bon... tant pis... Votre tentative de blindage a échoué.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -66,6 +66,7 @@ class EquipmentConfigData
                 'hide',
                 'examine',
                 'disassemble_percent_50_cost_3',
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -124,6 +125,7 @@ class EquipmentConfigData
                 'hide',
                 'examine',
                 'disassemble_percent_50_cost_3',
+                ActionEnum::REINFORCE->value,
                 'repair_percent_25',
                 'sabotage_percent_25',
             ],
@@ -1635,6 +1637,7 @@ class EquipmentConfigData
                 'hide',
                 'repair_percent_6',
                 'sabotage_percent_6',
+                ActionEnum::REINFORCE->value,
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
             ],
@@ -1678,6 +1681,7 @@ class EquipmentConfigData
             'actions' => [
                 'take',
                 'disassemble_percent_25_cost_3',
+                ActionEnum::REINFORCE->value,
                 'repair_percent_25',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
@@ -1703,6 +1707,7 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_3',
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => ['extinguisher_mechanic_default'],
             'initStatuses' => [],
@@ -1793,6 +1798,7 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_4',
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'tools_superfreezer_default',
@@ -1862,6 +1868,7 @@ class EquipmentConfigData
                 'repair_percent_25',
                 'sabotage_percent_25',
                 ActionEnum::SLIME_OBJECT->value,
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => ['spore_sucker_mechanic_default'],
             'initStatuses' => [],
@@ -1966,6 +1973,7 @@ class EquipmentConfigData
                 'examine',
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'gear_stainproof_apron_default',
@@ -1990,6 +1998,7 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_3',
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'gear_plastenite_armor_default',
@@ -2034,6 +2043,7 @@ class EquipmentConfigData
                 'examine',
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'gear_protective_gloves_default',
@@ -2079,6 +2089,7 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_3',
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'gear_sniper_helmet_default',
@@ -2127,6 +2138,7 @@ class EquipmentConfigData
                 'repair_percent_6',
                 'sabotage_percent_6',
                 ActionEnum::SLIME_OBJECT->value,
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'gear_antigrav_scooter_default',
@@ -2175,6 +2187,7 @@ class EquipmentConfigData
                 'examine',
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'gear_ncc_lenses_default',
@@ -2197,6 +2210,7 @@ class EquipmentConfigData
                 'hide',
                 'examine',
                 'sabotage_percent_6',
+                ActionEnum::REINFORCE->value,
                 'repair_percent_6',
                 'disassemble_percent_6_cost_4',
                 ActionEnum::SLIME_OBJECT->value,
@@ -2226,6 +2240,7 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_3',
                 'repair_percent_6',
                 'sabotage_percent_6',
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => ['tool_spacesuit_default'],
             'initStatuses' => [],
@@ -2336,6 +2351,7 @@ class EquipmentConfigData
                 'repair_percent_25',
                 'sabotage_percent_25',
                 ActionEnum::SLIME_OBJECT->value,
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'weapon_blaster_default',
@@ -2362,6 +2378,7 @@ class EquipmentConfigData
                 'disassemble_percent_50_cost_3',
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'weapon_knife_default',
@@ -2408,6 +2425,7 @@ class EquipmentConfigData
                 'repair_percent_12',
                 'sabotage_percent_12',
                 ActionEnum::SLIME_OBJECT->value,
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'weapon_natamy_rifle_default',
@@ -2435,6 +2453,7 @@ class EquipmentConfigData
                 'repair_percent_12',
                 'sabotage_percent_12',
                 ActionEnum::SLIME_OBJECT->value,
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'weapon_old_faithful_default',
@@ -2463,6 +2482,7 @@ class EquipmentConfigData
                 'repair_percent_12',
                 'sabotage_percent_12',
                 ActionEnum::SLIME_OBJECT->value,
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'weapon_lizaro_jungle_default',
@@ -2490,6 +2510,7 @@ class EquipmentConfigData
                 'repair_percent_12',
                 'sabotage_percent_12',
                 ActionEnum::SLIME_OBJECT->value,
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'weapon_rocket_launcher_default',
@@ -2527,6 +2548,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -2546,6 +2568,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_6',
                 'sabotage_percent_6',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
@@ -2566,6 +2589,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_6',
                 'sabotage_percent_6',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
@@ -2588,6 +2612,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_6',
                 'sabotage_percent_6',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
@@ -2610,6 +2635,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -2631,6 +2657,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_6',
                 'sabotage_percent_6',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
@@ -2669,6 +2696,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_6',
                 'sabotage_percent_6',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
@@ -2709,6 +2737,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -2728,6 +2757,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
@@ -2750,6 +2780,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -2771,6 +2802,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -2792,6 +2824,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_6',
                 'sabotage_percent_6',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -2811,6 +2844,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_6',
                 'sabotage_percent_6',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -2830,6 +2864,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_6',
                 'sabotage_percent_6',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -2849,6 +2884,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_6',
                 'sabotage_percent_6',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -2868,6 +2904,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -2889,6 +2926,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -2910,6 +2948,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_6',
                 'sabotage_percent_6',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -2930,6 +2969,7 @@ class EquipmentConfigData
                 'repair_percent_25',
                 'disassemble_percent_25_cost_3',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
                 'examine',
                 'report_equipment',
             ],
@@ -2948,6 +2988,7 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'examine',
                 'report_equipment',
                 ActionEnum::RENOVATE->value,
@@ -2967,6 +3008,7 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'examine',
                 'report_equipment',
                 ActionEnum::RENOVATE->value,
@@ -2986,6 +3028,7 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'examine',
                 'report_equipment',
                 ActionEnum::RENOVATE->value,
@@ -3005,6 +3048,7 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'examine',
                 'report_equipment',
                 ActionEnum::RENOVATE->value,
@@ -3024,6 +3068,7 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'examine',
                 'report_equipment',
                 ActionEnum::RENOVATE->value,
@@ -3043,6 +3088,7 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'examine',
                 'report_equipment',
                 ActionEnum::RENOVATE->value,
@@ -3062,6 +3108,7 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'examine',
                 'report_equipment',
                 ActionEnum::RENOVATE->value,
@@ -3081,6 +3128,7 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'examine',
                 'report_equipment',
                 ActionEnum::RENOVATE->value,
@@ -3102,6 +3150,7 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_3',
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
@@ -3122,6 +3171,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -3143,6 +3193,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -3166,6 +3217,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -3188,6 +3240,7 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'disassemble_percent_25_cost_3',
+                ActionEnum::REINFORCE->value,
                 'examine',
             ],
             'mechanics' => [
@@ -3211,6 +3264,7 @@ class EquipmentConfigData
                 'repair_percent_25',
                 'disassemble_percent_25_cost_3',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
                 'examine',
                 'report_equipment',
             ],
@@ -3230,6 +3284,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -3266,6 +3321,7 @@ class EquipmentConfigData
                 'examine',
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
                 'disassemble_percent_25_cost_3',
                 'report_equipment',
             ],
@@ -3285,6 +3341,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
@@ -3325,6 +3382,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
@@ -3345,6 +3403,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
@@ -3369,6 +3428,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
@@ -3391,6 +3451,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -3412,6 +3473,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],
@@ -3496,6 +3558,7 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_3',
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -3514,6 +3577,7 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_3',
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
@@ -3597,6 +3661,7 @@ class EquipmentConfigData
                 'hide',
                 'examine',
                 'disassemble_percent_50_cost_3',
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -3619,6 +3684,7 @@ class EquipmentConfigData
                 'disassemble_percent_50_cost_3',
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [],
             'initStatuses' => [],

@@ -736,5 +736,15 @@
         <target>Les plantes poussent naturellement en votre présence, vous n'avez qu'à leur adresser un regard langoureux pour qu'elles produisent leurs plus beaux fruits.//:point: Commence la partie avec **deux pots** supplémentaires.//:point: Les **greffes** de la Main Verte commencent avec un cycle de maturation court.</target>
       </segment>
     </unit>
+    <unit id="polyvalent">
+      <segment id="polyvalent.name" state="translated">
+        <source>polyvalent.name</source>
+        <target>Polyvalent</target>
+      </segment>
+      <segment id="polyvalent.description" state="translated">
+        <source>polyvalent.description</source>
+        <target>Vous avez des connaissances... Ça peut toujours servir.//:point: Vous êtes considéré comme **Botaniste**, **Diplomate** et **Biologiste** mais ne disposez pas de leurs actions et ressources.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

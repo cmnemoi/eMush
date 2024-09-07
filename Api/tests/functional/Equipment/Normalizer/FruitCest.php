@@ -99,6 +99,35 @@ final class FruitCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldDisplayEffectsToPolyvalent(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsAPolyvalent($I);
+
+        $normalizedBanana = $this->equipmentNormalizer->normalize(
+            $this->banana,
+            format: null,
+            context: ['currentPlayer' => $this->player]
+        );
+
+        $I->assertEquals(
+            expected: [
+                'title' => 'Données sur les effets :',
+                'effects' => [
+                    '+ 1 :pa_cook:',
+                    '+ 1 :pa:',
+                    '+ 1 :hp:',
+                    '+ 1 :pmo:',
+                ],
+            ],
+            actual: $normalizedBanana['effects']
+        );
+    }
+
+    private function givenPlayerIsAPolyvalent(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::POLYVALENT, $I);
+    }
+
     private function givenPlayerIsABotanist(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::BOTANIST, $I);

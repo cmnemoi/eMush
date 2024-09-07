@@ -1241,7 +1241,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function canReadFruitProperties(GameEquipment $food): bool
     {
-        return $food->isAFruit() && $this->hasSkill(SkillEnum::BOTANIST);
+        return $food->isAFruit() && $this->hasAnySkill([SkillEnum::BOTANIST, SkillEnum::POLYVALENT]);
     }
 
     private function canReadDrugProperties(GameEquipment $food): bool

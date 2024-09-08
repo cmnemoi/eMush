@@ -27,7 +27,7 @@
                 @mouseleave="characterHovered = false"
             >
                 <div class="header">
-                    <p class="level" />
+                    <p class="level">{{ character.level }}</p>
                     <h2 class="name">
                         {{ character.name }}
                     </h2>
@@ -40,6 +40,9 @@
                 </div>
             </section>
         </div>
+        <span class="more-info" v-if="characters.length > 0 && !characterHovered && !characterSelected">
+            {{ $t('charSelection.moreInfo') }}
+        </span>
         <div class="banner" v-if="!error">
             <div class="skills" v-if="characterHovered">
                 <Tippy
@@ -102,6 +105,7 @@ type SelectableCharacter = {
     name: string;
     abstract: string;
     description: string;
+    level: number;
     skills: {
         key: string;
         name: string;
@@ -229,6 +233,7 @@ h1 {
 
         .flag {
             margin: 4% 15% 0 15%;
+            cursor: pointer;
         }
     }
 

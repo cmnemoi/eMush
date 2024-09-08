@@ -41,6 +41,7 @@ final class SelectableCharacterNormalizer implements NormalizerInterface, Normal
                 domain: 'characters',
                 language: $daedalus->getLanguage()
             ),
+            'level' => $character->getSkillConfigs()->count(),
             'skills' => $this->normalizer->normalize($character->getSkillConfigs(), context: $context),
         ];
     }

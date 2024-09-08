@@ -69,6 +69,7 @@ final class SelectableCharacterNormalizerCest extends AbstractFunctionalTest
                     'description' => 'Le Psy occupe un poste de soutien psychologique. Il permet de garder le moral et soigne les maladies psychologiques.//:point: A chaque cycle, **1 Point de Moral (:pmo:) est régénéré** à chaque personnage allongé dans sa pièce.//:point: **Soigne les maladies Psy**.//:point: Accorde l\'action **Réconforter**, laquelle améliore le moral.//:point: Bonus pour développer certains **Projets NERON**.',
                 ],
             ],
+            'level' => 4,
         ], $normalizedCharacter);
     }
 }

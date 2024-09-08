@@ -178,7 +178,7 @@ final class GraftCest extends AbstractFunctionalTest
 
         $this->whenChunGraftsOnBananaTree();
 
-        $this->thenAnemolePlantShouldHaveMaturationTime(4, $I);
+        $this->thenAnemolePlantShouldHaveAge(1, $I);
     }
 
     private function givenKuanTiHasABananaTree(): void
@@ -392,12 +392,12 @@ final class GraftCest extends AbstractFunctionalTest
         $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(ItemEnum::HYDROPOT));
     }
 
-    private function thenAnemolePlantShouldHaveMaturationTime(int $expectedMaturationTime, FunctionalTester $I): void
+    private function thenAnemolePlantShouldHaveAge(int $expectedAge, FunctionalTester $I): void
     {
         $anemolePlant = $this->chun->getPlace()->getEquipmentByName($this->anemole->getPlantNameOrThrow());
         $I->assertEquals(
-            expected: $expectedMaturationTime,
-            actual: $anemolePlant->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG)->getMaturationTimeOrThrow(),
+            expected: $expectedAge,
+            actual: $anemolePlant->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG)->getCharge(),
         );
     }
 }

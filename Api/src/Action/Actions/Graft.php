@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Graft extends AbstractAction
 {
-    private const int GREEN_THUMB_BONUS = 4;
+    private const int GREEN_THUMB_BONUS = 1;
     protected ActionEnum $name = ActionEnum::GRAFT;
 
     public function __construct(
@@ -106,10 +106,10 @@ final class Graft extends AbstractAction
         $graftedFruitPlant = $this->player->getPlace()->getEquipmentByNameOrThrow($this->graftedFruit()->getPlantNameOrThrow());
         $this->statusService->updateCharge(
             chargeStatus: $graftedFruitPlant->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG),
-            delta: -self::GREEN_THUMB_BONUS,
+            delta: self::GREEN_THUMB_BONUS,
             tags: $this->getTags(),
             time: new \DateTime(),
-            mode: VariableEventInterface::CHANGE_VALUE_MAX,
+            mode: VariableEventInterface::CHANGE_VARIABLE,
         );
     }
 

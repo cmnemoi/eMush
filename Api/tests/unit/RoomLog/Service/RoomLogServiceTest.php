@@ -324,8 +324,8 @@ final class RoomLogServiceTest extends TestCase
         $cameraEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT);
 
         $this->entityManager->shouldReceive('flush')->once();
-
         $this->entityManager->shouldReceive('persist')->once();
+        $this->randomService->shouldIgnoreMissing();
 
         $test = $this->service->createLog(
             ActionLogEnum::OPEN_SUCCESS,
@@ -376,6 +376,7 @@ final class RoomLogServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('flush')->once();
         $this->entityManager->shouldReceive('persist')->once();
+        $this->randomService->shouldIgnoreMissing();
 
         $test = $this->service->createLog(
             ActionLogEnum::OPEN_SUCCESS,
@@ -649,9 +650,9 @@ final class RoomLogServiceTest extends TestCase
         $observant = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ELEESHA, $daedalus);
         new Skill(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::OBSERVANT)), $observant);
 
-        $this->entityManager->shouldReceive('persist')->once();
-        $this->entityManager->shouldReceive('flush')->once();
         $this->randomService->shouldReceive('isSuccessful')->with(RoomLogService::OBSERVANT_REVEAL_CHANCE)->andReturn(true)->once();
+        $this->entityManager->shouldReceive('persist')->twice(); // once for the original log, once for the "[Observant] noticed something" log
+        $this->entityManager->shouldReceive('flush')->twice(); // once for the original log, once for the "[Observant] noticed something" log
 
         $roomLog = $this->service->createLog(
             ActionLogEnum::MAKE_SICK,

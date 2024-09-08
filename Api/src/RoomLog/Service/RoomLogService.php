@@ -23,6 +23,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -200,17 +201,13 @@ class RoomLogService implements RoomLogServiceInterface
             return $visibility;
         }
 
-        $place = $player->getPlace();
+        if ($this->observantRevealsLog($player, $visibility)) {
+            $this->createObservantNoticeSomethingLog($player);
 
-        $placeHasAFunctionalCamera = $place->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
-        $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
-        $observantRevealsLog = $player->getAlivePlayersInRoomExceptSelf()->getPlayersWithSkill(SkillEnum::OBSERVANT)->count() > 0 && $this->randomService->isSuccessful(self::OBSERVANT_REVEAL_CHANCE);
-
-        if ($visibility === VisibilityEnum::SECRET && ($placeHasAWitness || $placeHasAFunctionalCamera)) {
             return VisibilityEnum::REVEALED;
         }
 
-        if ($visibility === VisibilityEnum::COVERT && ($placeHasAFunctionalCamera || $observantRevealsLog)) {
+        if ($this->shouldRevealSecretLog($player, $visibility) || $this->shouldRevealCovertLog($player, $visibility)) {
             return VisibilityEnum::REVEALED;
         }
 
@@ -311,5 +308,44 @@ class RoomLogService implements RoomLogServiceInterface
             $this->randomService->randomPercent() <= Neron::CRAZY_NERON_CHANCE => NeronPersonalitiesEnum::CRAZY,
             default => NeronPersonalitiesEnum::NEUTRAL,
         };
+    }
+
+    private function shouldRevealCovertLog(Player $player, string $visibility): bool
+    {
+        $place = $player->getPlace();
+        $placeHasAFunctionalCamera = $place->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
+
+        return $visibility === VisibilityEnum::COVERT && $placeHasAFunctionalCamera;
+    }
+
+    private function shouldRevealSecretLog(Player $player, string $visibility): bool
+    {
+        $place = $player->getPlace();
+        $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
+        $placeHasAFunctionalCamera = $place->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
+
+        return $visibility === VisibilityEnum::SECRET && ($placeHasAWitness || $placeHasAFunctionalCamera);
+    }
+
+    private function observantRevealsLog(Player $player, string $visibility): bool
+    {
+        $observantInRoom = $player->getAlivePlayersInRoomExceptSelf()->hasPlayerWithSkill(SkillEnum::OBSERVANT);
+        $observantDetectedCovertAction = $visibility === VisibilityEnum::COVERT && $this->randomService->isSuccessful(self::OBSERVANT_REVEAL_CHANCE);
+
+        return $observantInRoom && $observantDetectedCovertAction;
+    }
+
+    private function createObservantNoticeSomethingLog(Player $player): void
+    {
+        $observant = $player->getAlivePlayersInRoomExceptSelf()->getOnePlayerWithSkillOrThrow(SkillEnum::OBSERVANT);
+        $this->createLog(
+            LogEnum::OBSERVANT_NOTICED_SOMETHING,
+            $observant->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'event_log',
+            $observant,
+            [$observant->getLogKey() => $observant->getLogName()],
+            new \DateTime(),
+        );
     }
 }

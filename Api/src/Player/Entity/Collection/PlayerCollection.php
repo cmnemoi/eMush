@@ -41,6 +41,16 @@ class PlayerCollection extends ArrayCollection
         return $this->filter(static fn (Player $player) => $player->hasSkill($skill));
     }
 
+    public function getOnePlayerWithSkillOrThrow(SkillEnum $skill): Player
+    {
+        $player = $this->getPlayersWithSkill($skill)->first();
+        if (!$player) {
+            throw new \RuntimeException("Player with skill {$skill->value} not found");
+        }
+
+        return $player;
+    }
+
     public function getAllExcept(Player $playerToExclude): self
     {
         return $this->filter(static fn (Player $player) => $player->notEquals($playerToExclude));

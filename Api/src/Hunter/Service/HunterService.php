@@ -139,13 +139,19 @@ final class HunterService implements HunterServiceInterface
 
     private function unpoolHuntersForRandomWave(Daedalus $daedalus, \DateTime $time): void
     {
-        $hunterTypes = HunterEnum::getAll();
+        $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, HunterEnum::getAll());
+
+        /** @var ArrayCollection<array-key, string> $hunterTypes */
+        $hunterTypes = new ArrayCollection($hunterProbaCollection->getKeys());
         $wave = new HunterCollection();
 
         while ($this->getHunterPoints($daedalus) >= $this->getMinCost($daedalus, $hunterTypes)) {
             $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, $hunterTypes);
 
             $hunterNameToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($hunterProbaCollection);
+            if (!$hunterNameToCreate) {
+                break;
+            }
 
             $hunter = $this->drawHunterFromPoolByName($daedalus, $hunterNameToCreate);
             if (!$hunter) {
@@ -269,13 +275,17 @@ final class HunterService implements HunterServiceInterface
         return $hunter;
     }
 
+    /** @param ArrayCollection<array-key, string> $hunterTypes */
     private function getHunterProbaCollection(Daedalus $daedalus, ArrayCollection $hunterTypes): ProbaCollection
     {
         $currentDifficulty = $daedalus->getDifficultyMode();
         $probaCollection = new ProbaCollection();
 
         foreach ($hunterTypes as $hunterType) {
-            $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getByNameOrThrow($hunterType);
+            $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterType);
+            if (!$hunterConfig) {
+                continue;
+            }
 
             $hunterAvailableInCurrentDifficulty = $hunterConfig->getSpawnDifficulty() <= $currentDifficulty;
             if ($hunterAvailableInCurrentDifficulty) {
@@ -286,6 +296,7 @@ final class HunterService implements HunterServiceInterface
         return $probaCollection;
     }
 
+    /** @param ArrayCollection<array-key, string> $hunterTypes */
     private function getMinCost(Daedalus $daedalus, ArrayCollection $hunterTypes): int
     {
         $minCost = 0;

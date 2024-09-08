@@ -231,13 +231,14 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function createObservantNoticeSomethingLog(Player $player): void
     {
+        $observantPlayer = $player->getAlivePlayersInRoom()->getOnePlayerWithSkillOrThrow(SkillEnum::OBSERVANT);
         $this->roomLogService->createLog(
             LogEnum::OBSERVANT_NOTICED_SOMETHING,
-            $player->getPlace(),
+            $observantPlayer->getPlace(),
             VisibilityEnum::PUBLIC,
             'event_log',
-            $player,
-            [$player->getLogKey() => $player->getLogName()],
+            $observantPlayer,
+            [$observantPlayer->getLogKey() => $observantPlayer->getLogName()],
             new \DateTime()
         );
     }

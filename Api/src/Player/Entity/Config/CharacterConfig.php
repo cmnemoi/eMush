@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -390,5 +391,10 @@ class CharacterConfig
         $this->maxDiscoverablePlanets = $maxDiscoverablePlanets;
 
         return $this;
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::CHARACTER;
     }
 }

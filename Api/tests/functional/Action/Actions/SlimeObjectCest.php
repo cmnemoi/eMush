@@ -8,6 +8,8 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -106,6 +108,24 @@ final class SlimeObjectCest extends AbstractFunctionalTest
         $this->whenSlimedStatusIsRemoved();
 
         $this->thenBlasterShouldBeBroken($I);
+    }
+
+    public function shouldCreateNeronAnnouncementWhenSlimedStatusIsRemoved(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::GREEN_JELLY, $I, $this->kuanTi);
+
+        $this->givenKuanTiSlimesObject();
+
+        $this->whenSlimedStatusIsRemoved();
+
+        $announcement = $I->grabEntityFromRepository(
+            entity: Message::class,
+            params: [
+                'neron' => $this->daedalus->getNeron(),
+                'message' => NeronMessageEnum::BROKEN_EQUIPMENT,
+            ]
+        );
+        $I->assertEquals($announcement->getTranslationParameters()['target_item'], ItemEnum::BLASTER);
     }
 
     private function givenBlasterAlreadySlimed(): void

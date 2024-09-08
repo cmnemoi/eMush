@@ -60,6 +60,16 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         return $this->holder;
     }
 
+    public function getGameEquipmentStatusHolder(): GameEquipment
+    {
+        return $this->holder instanceof GameEquipment ? $this->holder : throw new \RuntimeException('The holder of this status is not a GameEquipment');
+    }
+
+    public function getPlayerStatusHolder(): Player
+    {
+        return $this->holder instanceof Player ? $this->holder : throw new \RuntimeException('The holder of this status is not a Player');
+    }
+
     public function getStatusConfig(): StatusConfig
     {
         return $this->status->getStatusConfig();

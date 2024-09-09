@@ -10,6 +10,7 @@ use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Service\EventCreationServiceInterface;
+use Mush\Player\Event\PlayerCycleEvent;
 
 class AddEvent extends AbstractModifierHandler
 {
@@ -43,9 +44,11 @@ class AddEvent extends AbstractModifierHandler
 
         $newEvents = new EventChain([]);
         if ($eventConfig instanceof VariableEventConfig) {
-            $author = $events->getInitialEvent()?->getAuthor();
-            if ($author !== null && $modifierConfig->getApplyWhenTargeted()) {
-                $modifierTarget = $author;
+            $initialEvent = $events->getInitialEvent();
+            $player = $initialEvent instanceof PlayerCycleEvent ? $initialEvent->getPlayer() : $initialEvent?->getAuthor();
+
+            if ($player !== null && $modifierConfig->getApplyWhenTargeted()) {
+                $modifierTarget = $player;
             } else {
                 $modifierTarget = $modifier->getModifierHolder();
             }

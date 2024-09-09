@@ -14,6 +14,7 @@ use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Event\RollPercentageEvent;
+use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
@@ -348,13 +349,10 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
 
         /** @var AbstractEventConfig $eventConfig */
         $eventConfig = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_4);
-        $infected4HealthLost = new TriggerEventModifierConfig('infected4HealthLost');
-        $infected4HealthLost
-            ->setTriggeredEvent($eventConfig)
-            ->setTargetEvent(PlayerEvent::INFECTION_PLAYER)
-            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-            ->setApplyWhenTargeted(true)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $infected4HealthLost = TriggerEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_for_player_set_-4healthPoint_on_infection.player')
+        );
+        $infected4HealthLost->setTriggeredEvent($eventConfig);
         $manager->persist($infected4HealthLost);
 
         /** @var AbstractEventConfig $eventConfig */

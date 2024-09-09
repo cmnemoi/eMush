@@ -412,7 +412,7 @@ abstract class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
-            'replaceEvent' => false,
+            'visibility' => VisibilityEnum::PRIVATE,
             'triggeredEvent' => 'change.variable_player_-4_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Player\Normalizer;
 
 use Mush\Player\Normalizer\CurrentPlayerNormalizer;
-use Mush\Skill\Entity\Skill;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -36,12 +34,22 @@ final class SkillsCest extends AbstractFunctionalTest
         $this->thenPlayerShouldSeeSkill(SkillEnum::TECHNICIAN, $I);
     }
 
+    public function shouldNormalizeMushThenHumanSkills(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasSkill(SkillEnum::TECHNICIAN, $I);
+        $this->givenPlayerHasSkill(SkillEnum::TRANSFER, $I);
+
+        $this->whenINormalizePlayer();
+
+        $I->assertEquals(
+            expected: [SkillEnum::TRANSFER->toString(), SkillEnum::TECHNICIAN->toString()],
+            actual: array_map(static fn ($skill) => $skill['key'], $this->normalizedPlayer['skills']),
+        );
+    }
+
     private function givenPlayerHasSkill(SkillEnum $skill, FunctionalTester $I): void
     {
-        new Skill(
-            skillConfig: $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]),
-            player: $this->player,
-        );
+        $this->addSkillToPlayer($skill, $I);
     }
 
     private function whenINormalizePlayer(): void

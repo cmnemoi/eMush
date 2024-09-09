@@ -25,4 +25,9 @@ class SkillCollection extends ArrayCollection
     {
         return $this->filter(static fn (Skill $skill) => $skill->hasSkillPoints());
     }
+
+    public function addSkills(self $skills): self
+    {
+        return new self(array_merge($this->toArray(), $skills->toArray()));
+    }
 }

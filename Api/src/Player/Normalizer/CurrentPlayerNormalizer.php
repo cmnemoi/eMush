@@ -153,7 +153,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $playerData = array_merge($playerData, [
             'room' => $this->normalizer->normalize($player->getPlace(), $format, $context),
-            'skills' => $player->getSkills()->map(fn (Skill $skill) => $this->normalizer->normalize($skill, $format, $context))->toArray(),
+            'skills' => $player->getMushAndHumanSkills()->map(fn (Skill $skill) => $this->normalizer->normalize($skill, $format, $context))->toArray(),
             'titles' => $titles,
             'actions' => $this->getNormalizedActions($player, ActionHolderEnum::PLAYER, $player, $format, $context),
             'items' => $items,

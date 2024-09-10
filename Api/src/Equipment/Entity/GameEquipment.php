@@ -592,6 +592,23 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return \in_array($this->getName(), [EquipmentEnum::TABULATRIX], true);
     }
 
+    public function getSkinSlots(): ArrayCollection
+    {
+        return new ArrayCollection($this->skinSlots->toArray());
+    }
+
+    public function initializeSkinSlots(): static
+    {
+        foreach ($this->equipment->getSkinSlotsConfig() as $skinSlotConfig) {
+            $skinSlot = new SkinSlot();
+            $skinSlot->setNameFromConfig($skinSlotConfig);
+
+            $this->skinSlots->add($skinSlot);
+        }
+
+        return $this;
+    }
+
     private function canProduceFruit(): bool
     {
         foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED, EquipmentStatusEnum::PLANT_THIRSTY] as $status) {
@@ -645,22 +662,5 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
 
         return null;
-    }
-
-    public function getSkinSlots(): ArrayCollection
-    {
-        return new ArrayCollection($this->skinSlots->toArray());
-    }
-
-    public function initializeSkinSlots(): static
-    {
-        foreach ($this->equipment->getSkinSlotsConfig() as $skinSlotConfig) {
-            $skinSlot = new SkinSlot();
-            $skinSlot->setNameFromConfig($skinSlotConfig);
-
-            $this->skinSlots->add($skinSlot);
-        }
-
-        return $this;
     }
 }

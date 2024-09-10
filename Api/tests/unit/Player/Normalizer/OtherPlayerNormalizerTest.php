@@ -71,8 +71,9 @@ final class OtherPlayerNormalizerTest extends TestCase
                 'value' => 'translated eleesha',
                 'description' => 'translated eleesha description',
             ],
-            'statuses' => [],
             'skills' => [],
+            'skins' => [],
+            'statuses' => [],
             'titles' => [],
             'actions' => [],
         ];

@@ -90,6 +90,7 @@ final class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);
         $equipment->shouldReceive('getPlace')->andReturn($place);
+        $equipment->shouldReceive('getSkinSlots')->andReturn(new ArrayCollection());
         $equipment->makePartial();
 
         $equipment
@@ -118,6 +119,7 @@ final class EquipmentNormalizerTest extends TestCase
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'skins' => [],
         ];
 
         self::assertIsArray($data);
@@ -145,6 +147,7 @@ final class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getHolder')->andReturn($place);
         $time = new \DateTime();
         $equipment->shouldReceive('getUpdatedAt')->andReturn($time);
+        $equipment->shouldReceive('getSkinSlots')->andReturn(new ArrayCollection());
         $equipment->makePartial();
 
         $equipment
@@ -173,6 +176,7 @@ final class EquipmentNormalizerTest extends TestCase
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'skins' => [],
             'updatedAt' => $time,
         ];
 
@@ -208,6 +212,7 @@ final class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);
         $equipment->shouldReceive('getPlace')->andReturn($place);
+        $equipment->shouldReceive('getSkinSlots')->andReturn(new ArrayCollection());
         $equipment->makePartial();
 
         $equipment
@@ -248,6 +253,7 @@ final class EquipmentNormalizerTest extends TestCase
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'skins' => [],
         ];
 
         self::assertIsArray($data);
@@ -283,6 +289,7 @@ final class EquipmentNormalizerTest extends TestCase
         $bananaTree->shouldReceive('hasStatus')->with(EquipmentStatusEnum::PLANT_YOUNG)->andReturn(false);
         $time = new \DateTime();
         $bananaTree->shouldReceive('getUpdatedAt')->andReturn($time);
+        $bananaTree->shouldReceive('getSkinSlots')->andReturn(new ArrayCollection());
         $bananaTree->makePartial();
 
         $bananaTree->setEquipment($bananaTreeConfig);
@@ -310,6 +317,7 @@ final class EquipmentNormalizerTest extends TestCase
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'skins' => [],
             'updatedAt' => $time,
         ];
 
@@ -346,6 +354,7 @@ final class EquipmentNormalizerTest extends TestCase
         $bananaTree->shouldReceive('hasStatus')->with(EquipmentStatusEnum::PLANT_YOUNG)->andReturn(true);
         $time = new \DateTime();
         $bananaTree->shouldReceive('getUpdatedAt')->andReturn($time);
+        $bananaTree->shouldReceive('getSkinSlots')->andReturn(new ArrayCollection());
         $bananaTree->makePartial();
 
         $bananaTree->setEquipment($bananaTreeConfig);
@@ -373,6 +382,7 @@ final class EquipmentNormalizerTest extends TestCase
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'skins' => [],
             'updatedAt' => $time,
         ];
 

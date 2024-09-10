@@ -59,6 +59,7 @@ final class PlaceNormalizerTest extends TestCase
         $room->method('getEquipments')->willReturn(new ArrayCollection());
         $room->method('getStatuses')->willReturn(new ArrayCollection());
         $room->method('getType')->willReturn(PlaceTypeEnum::ROOM);
+        $room->method('getSkinSlots')->willReturn(new ArrayCollection());
 
         $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
@@ -74,6 +75,7 @@ final class PlaceNormalizerTest extends TestCase
             'items' => [],
             'equipments' => [],
             'type' => PlaceTypeEnum::ROOM,
+            'skins' => [],
         ];
 
         self::assertIsArray($data);
@@ -99,6 +101,7 @@ final class PlaceNormalizerTest extends TestCase
         $room->method('getEquipments')->willReturn(new ArrayCollection());
         $room->method('getStatuses')->willReturn(new ArrayCollection());
         $room->method('getType')->willReturn(PlaceTypeEnum::ROOM);
+        $room->method('getSkinSlots')->willReturn(new ArrayCollection());
 
         $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
@@ -119,6 +122,7 @@ final class PlaceNormalizerTest extends TestCase
             'items' => [],
             'equipments' => [],
             'type' => PlaceTypeEnum::ROOM,
+            'skins' => [],
         ];
 
         self::assertIsArray($data);
@@ -135,6 +139,7 @@ final class PlaceNormalizerTest extends TestCase
         $room->method('getDoors')->willReturn(new ArrayCollection());
         $room->method('getStatuses')->willReturn(new ArrayCollection());
         $room->method('getType')->willReturn(PlaceTypeEnum::ROOM);
+        $room->method('getSkinSlots')->willReturn(new ArrayCollection());
 
         $gameItem1 = $this->createGameItem('name');
         $gameItem2 = $this->createGameItem('name2');
@@ -160,6 +165,7 @@ final class PlaceNormalizerTest extends TestCase
             'items' => [[], []],
             'equipments' => [],
             'type' => PlaceTypeEnum::ROOM,
+            'skins' => [],
         ];
 
         self::assertIsArray($data);
@@ -176,6 +182,7 @@ final class PlaceNormalizerTest extends TestCase
         $room->method('getDoors')->willReturn(new ArrayCollection());
         $room->method('getStatuses')->willReturn(new ArrayCollection());
         $room->method('getType')->willReturn(PlaceTypeEnum::ROOM);
+        $room->method('getSkinSlots')->willReturn(new ArrayCollection());
 
         $gameItem1 = $this->createGameItem('name', true);
         $gameItem2 = $this->createGameItem('name', true);
@@ -203,6 +210,7 @@ final class PlaceNormalizerTest extends TestCase
             'items' => [['number' => 2]],
             'equipments' => [],
             'type' => PlaceTypeEnum::ROOM,
+            'skins' => [],
         ];
 
         self::assertIsArray($data);
@@ -219,6 +227,7 @@ final class PlaceNormalizerTest extends TestCase
         $room->method('getDoors')->willReturn(new ArrayCollection());
         $room->method('getStatuses')->willReturn(new ArrayCollection());
         $room->method('getType')->willReturn(PlaceTypeEnum::ROOM);
+        $room->method('getSkinSlots')->willReturn(new ArrayCollection());
 
         $gameItem1 = $this->createGameItem('name', true);
         $gameItem2 = $this->createGameItem('name', true);
@@ -251,6 +260,7 @@ final class PlaceNormalizerTest extends TestCase
             'items' => [['number' => 2], []],
             'equipments' => [],
             'type' => PlaceTypeEnum::ROOM,
+            'skins' => [],
         ];
 
         self::assertIsArray($data);

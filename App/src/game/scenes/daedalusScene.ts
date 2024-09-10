@@ -409,9 +409,15 @@ export default class DaedalusScene extends Phaser.Scene
         this.updateEquipments();
 
         store.subscribeAction({
+            before: (action) => {
+                if (action.type === 'player/reloadPlayer') {
+                    this.input.enabled = false;
+                }
+            },
             after: (action) => {
                 if (action.type === 'player/reloadPlayer' && this.player.isAlive()) {
                     this.reloadScene();
+                    this.input.enabled = true;
                 }
             }
         });
@@ -437,6 +443,7 @@ export default class DaedalusScene extends Phaser.Scene
         const newRoom = this.player.room;
         if (newRoom === null) { throw new Error("player room should be defined");}
 
+        store.dispatch('player/setLoading', { loading: true });
         if (this.room.key !== newRoom.key) {
             this.selectedGameObject = null;
             store.dispatch('room/closeInventory');
@@ -487,6 +494,7 @@ export default class DaedalusScene extends Phaser.Scene
             this.updateEquipments();
             this.updateStatuses();
         }
+        store.dispatch('player/setLoading', { loading: false });
     }
 
     updateStatuses(): void

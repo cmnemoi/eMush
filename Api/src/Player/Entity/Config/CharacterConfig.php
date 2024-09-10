@@ -90,9 +90,8 @@ class CharacterConfig
         $this->actionConfigs = new ArrayCollection();
         $this->startingItems = new ArrayCollection();
         $this->initDiseases = new ArrayCollection();
-        $this->skills = [];
-        $this->skinSlotsConfig = new ArrayCollection();
         $this->skillConfigs = new ArrayCollection();
+        $this->skinSlotsConfig = new ArrayCollection();
     }
 
     public static function fromConfigData(array $data): self

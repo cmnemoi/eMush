@@ -236,6 +236,7 @@ class User implements UserInterface
     {
         return $this->hasReadLatestNews === false;
     }
+
     public function getUnlockedSkins(): Collection
     {
         return $this->unlockedSkins;

@@ -116,6 +116,7 @@ final class OtherPlayerNormalizerTest extends TestCase
                 'description' => 'translated eleesha description',
             ],
             'statuses' => [],
+            'skins' => [],
             'skills' => [
                 [
                     'key' => SkillEnum::DETACHED_CREWMEMBER->toString(),

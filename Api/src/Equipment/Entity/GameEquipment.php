@@ -668,6 +668,23 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return $this instanceof GameItem || \in_array($this->getName(), [EquipmentEnum::TABULATRIX], true);
     }
 
+    public function getSkinSlots(): ArrayCollection
+    {
+        return new ArrayCollection($this->skinSlots->toArray());
+    }
+
+    public function initializeSkinSlots(): static
+    {
+        foreach ($this->equipment->getSkinSlotsConfig() as $skinSlotConfig) {
+            $skinSlot = new SkinSlot();
+            $skinSlot->setNameFromConfig($skinSlotConfig);
+
+            $this->skinSlots->add($skinSlot);
+        }
+
+        return $this;
+    }
+
     public function isSchrodinger(): bool
     {
         return $this->getName() === ItemEnum::SCHRODINGER;
@@ -724,22 +741,5 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         }
 
         return null;
-    }
-
-    public function getSkinSlots(): ArrayCollection
-    {
-        return new ArrayCollection($this->skinSlots->toArray());
-    }
-
-    public function initializeSkinSlots(): static
-    {
-        foreach ($this->equipment->getSkinSlotsConfig() as $skinSlotConfig) {
-            $skinSlot = new SkinSlot();
-            $skinSlot->setNameFromConfig($skinSlotConfig);
-
-            $this->skinSlots->add($skinSlot);
-        }
-
-        return $this;
     }
 }

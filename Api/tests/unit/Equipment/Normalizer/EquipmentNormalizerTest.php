@@ -126,6 +126,7 @@ final class EquipmentNormalizerTest extends TestCase
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'skins' => [],
         ];
 
         self::assertIsArray($data);
@@ -182,6 +183,7 @@ final class EquipmentNormalizerTest extends TestCase
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'skins' => [],
             'updatedAt' => $time,
         ];
 
@@ -258,6 +260,7 @@ final class EquipmentNormalizerTest extends TestCase
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'skins' => [],
         ];
 
         self::assertIsArray($data);
@@ -321,6 +324,7 @@ final class EquipmentNormalizerTest extends TestCase
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'skins' => [],
             'updatedAt' => $time,
         ];
 
@@ -385,6 +389,7 @@ final class EquipmentNormalizerTest extends TestCase
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'skins' => [],
             'updatedAt' => $time,
         ];
 

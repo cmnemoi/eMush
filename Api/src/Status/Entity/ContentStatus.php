@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class ContentStatus extends Status
 {
-    #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
+    #[ORM\Column(type: 'text', nullable: false, options: ['default' => ''])]
     private string $content = '';
 
     public function getContent(): string

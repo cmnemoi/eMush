@@ -81,15 +81,10 @@ export default defineComponent({
         await this.loadGameMaintenanceStatus();
         if (this.user) {
             await this.loadUserSanctions(this.user.id);
-        }
-    },
-    async updated() {
-        if (!this.user) {
-            return;
-        }
-        const userHasNotReadLatestNews = await UserService.hasNotReadLatestNews();
-        if (userHasNotReadLatestNews) {
-            this.openNewsToast(this.$t('game.popUp.newNews'));
+            const userHasNotReadLatestNews = await UserService.hasNotReadLatestNews();
+            if (userHasNotReadLatestNews) {
+                this.openNewsToast(this.$t('game.popUp.newNews'));
+            }
         }
     }
 });

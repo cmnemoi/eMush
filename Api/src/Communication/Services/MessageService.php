@@ -175,15 +175,16 @@ class MessageService implements MessageServiceInterface
 
     public function markMessageAsReadForPlayer(Message $message, Player $player): void
     {
-        try {
-            $message
-                ->addReader($player)
-                ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the message because this would change the order of the messages
+        if ($message->isReadBy($player)) {
+            return;
+        }
 
+        try {
+            $message->addReader($player)->cancelTimestampable();
             $this->entityManager->persist($message);
             $this->entityManager->flush();
         } catch (UniqueConstraintViolationException $e) {
-            // ignore as this is probably due to a race condition
+            // Ignore as this is probably due to a race condition
         }
     }
 

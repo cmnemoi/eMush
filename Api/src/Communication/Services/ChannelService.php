@@ -340,35 +340,30 @@ class ChannelService implements ChannelServiceInterface
         /** @var Message $message */
         foreach ($unreadMessages as $message) {
             try {
-                $message
-                    ->addReader($player)
-                    ->cancelTimestampable();
-                $this->entityManager->persist($message);
-            } catch (UniqueConstraintViolationException $e) {
-                continue;
+                $this->entityManager->beginTransaction();
+                $this->readMessage($message, $player);
+                $this->entityManager->commit();
+            } catch (\Throwable $e) {
+                $this->entityManager->rollback();
+                $this->entityManager->close();
+
+                throw $e;
             }
 
             $unreadChildren = $message->getChild()->filter(
                 static fn (Message $child) => $child->isUnreadBy($player)
             );
 
-            /** @var Message $child */
-            foreach ($unreadChildren as $child) {
-                try {
-                    $child
-                        ->addReader($player)
-                        ->cancelTimestampable();
-                    $this->entityManager->persist($child);
-                } catch (UniqueConstraintViolationException $e) {
-                    continue;
-                }
-            }
-        }
+            try {
+                $this->entityManager->beginTransaction();
+                $unreadChildren->map(fn (Message $child) => $this->readMessage($child, $player));
+                $this->entityManager->commit();
+            } catch (\Throwable $e) {
+                $this->entityManager->rollback();
+                $this->entityManager->close();
 
-        try {
-            $this->entityManager->flush();
-        } catch (UniqueConstraintViolationException $e) {
-            // ignore as this is probably due to a race condition
+                throw $e;
+            }
         }
     }
 
@@ -471,5 +466,20 @@ class ChannelService implements ChannelServiceInterface
         }
 
         return true;
+    }
+
+    private function readMessage(Message $message, Player $player): void
+    {
+        if ($message->isReadBy($player)) {
+            return;
+        }
+
+        try {
+            $message->addReader($player)->cancelTimestampable();
+            $this->entityManager->persist($message);
+            $this->entityManager->flush();
+        } catch (UniqueConstraintViolationException $e) {
+            // ignore as this is probably due to a race condition
+        }
     }
 }

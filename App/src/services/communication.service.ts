@@ -215,12 +215,10 @@ const CommunicationService = {
     },
 
     readMessage: async (message: Message): Promise<void> => {
-        message.isUnread = false;
         await ApiService.patch(urlJoin(CHANNELS_ENDPOINT, 'read-message', String(message.id)));
     },
 
     readRoomLog: async (roomLog: RoomLog): Promise<void> => {
-        roomLog.isUnread = false;
         await ApiService.patch(urlJoin(ROOM_LOGS_ENDPOINT, 'read', String(roomLog.id)));
     },
 

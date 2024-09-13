@@ -333,37 +333,33 @@ class ChannelService implements ChannelServiceInterface
             return;
         }
 
-        $unreadMessages = $channel->getMessages()->filter(
-            static fn (Message $message) => $message->isUnreadBy($player)
-        );
+        $unreadMessages = $channel->getPlayerUnreadMessages($player);
 
-        /** @var Message $message */
-        foreach ($unreadMessages as $message) {
-            try {
-                $this->entityManager->beginTransaction();
-                $this->readMessage($message, $player);
-                $this->entityManager->commit();
-            } catch (\Throwable $e) {
-                $this->entityManager->rollback();
-                $this->entityManager->close();
+        try {
+            $this->entityManager->beginTransaction();
+            $unreadMessages->map(fn (Message $message) => $this->readMessage($message, $player));
+            $this->entityManager->flush();
+            $this->entityManager->commit();
+        } catch (\Throwable $e) {
+            $this->entityManager->rollback();
+            $this->entityManager->close();
 
-                throw $e;
-            }
+            throw $e;
+        }
 
-            $unreadChildren = $message->getChild()->filter(
-                static fn (Message $child) => $child->isUnreadBy($player)
-            );
-
-            try {
-                $this->entityManager->beginTransaction();
+        try {
+            $this->entityManager->beginTransaction();
+            foreach ($channel->getMessagesWithChildren() as $message) {
+                $unreadChildren = $message->getChild()->filter(static fn (Message $message) => $message->isUnreadBy($player));
                 $unreadChildren->map(fn (Message $child) => $this->readMessage($child, $player));
-                $this->entityManager->commit();
-            } catch (\Throwable $e) {
-                $this->entityManager->rollback();
-                $this->entityManager->close();
-
-                throw $e;
             }
+            $this->entityManager->flush();
+            $this->entityManager->commit();
+        } catch (\Throwable $e) {
+            $this->entityManager->rollback();
+            $this->entityManager->close();
+
+            throw $e;
         }
     }
 
@@ -477,7 +473,6 @@ class ChannelService implements ChannelServiceInterface
         try {
             $message->addReader($player)->cancelTimestampable();
             $this->entityManager->persist($message);
-            $this->entityManager->flush();
         } catch (UniqueConstraintViolationException $e) {
             // ignore as this is probably due to a race condition
         }

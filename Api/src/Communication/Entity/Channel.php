@@ -157,6 +157,18 @@ class Channel
         return $this;
     }
 
+    /** @return Collection<array-key, Message> */
+    public function getPlayerUnreadMessages(Player $player): Collection
+    {
+        return $this->getMessages()->filter(static fn (Message $message) => $message->isUnreadBy($player));
+    }
+
+    /** @return Collection<array-key, Message> */
+    public function getMessagesWithChildren(): Collection
+    {
+        return $this->getMessages()->filter(static fn (Message $message) => $message->getChild()->count() > 0);
+    }
+
     public function isTipsChannel(): bool
     {
         return ChannelScopeEnum::TIPS === $this->scope;

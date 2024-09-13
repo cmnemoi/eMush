@@ -273,13 +273,13 @@ const actions: ActionTree<any, any> = {
             throw new Error('Current channel is not a room log');
         }
 
-        await getters.messages.forEach((roomLog: RoomLog) => { roomLog.isUnread = false });
+        await getters.messages.forEach((roomLog: RoomLog) => { roomLog.isUnread = false; });
         await CommunicationService.markAllRoomLogsAsRead();
         commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: 0 });
     },
 
     async markCurrentChannelAsRead({ getters, commit }) {
-        await getters.messages.forEach((message: Message) => { message.read() });
+        await getters.messages.forEach((message: Message) => { message.read(); });
 
         await CommunicationService.markChannelAsRead(state.currentChannel);
         commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: 0 });

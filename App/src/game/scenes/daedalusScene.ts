@@ -443,7 +443,6 @@ export default class DaedalusScene extends Phaser.Scene
         const newRoom = this.player.room;
         if (newRoom === null) { throw new Error("player room should be defined");}
 
-        store.dispatch('player/setLoading', { loading: true });
         if (this.room.key !== newRoom.key) {
             this.selectedGameObject = null;
             store.dispatch('room/closeInventory');
@@ -494,7 +493,6 @@ export default class DaedalusScene extends Phaser.Scene
             this.updateEquipments();
             this.updateStatuses();
         }
-        store.dispatch('player/setLoading', { loading: false });
     }
 
     updateStatuses(): void

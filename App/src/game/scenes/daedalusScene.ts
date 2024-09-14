@@ -409,9 +409,15 @@ export default class DaedalusScene extends Phaser.Scene
         this.updateEquipments();
 
         store.subscribeAction({
+            before: (action) => {
+                if (action.type === 'player/reloadPlayer') {
+                    this.input.enabled = false;
+                }
+            },
             after: (action) => {
                 if (action.type === 'player/reloadPlayer' && this.player.isAlive()) {
                     this.reloadScene();
+                    this.input.enabled = true;
                 }
             }
         });

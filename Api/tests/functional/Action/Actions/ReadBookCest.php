@@ -107,6 +107,20 @@ final class ReadBookCest extends AbstractFunctionalTest
         );
     }
 
+    public function polyvalentShouldNotBeAbleToReadDiplomatMageBook(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::POLYVALENT, $I);
+
+        $this->givenPlayerHasADiplomatMageBook();
+
+        $this->whenPlayerTriesToReadBook();
+
+        $this->thenActionShouldNotBeExecutableWithMessage(
+            message: ActionImpossibleCauseEnum::MAGE_BOOK_ALREADY_HAVE_SKILL,
+            I: $I,
+        );
+    }
+
     private function givenPlayerHasASprinterMageBook(): void
     {
         $this->magebook = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -132,6 +146,16 @@ final class ReadBookCest extends AbstractFunctionalTest
     {
         $this->magebook = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: 'apprentron_technician',
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenPlayerHasADiplomatMageBook(): void
+    {
+        $this->magebook = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: 'apprentron_diplomat',
             equipmentHolder: $this->player,
             reasons: [],
             time: new \DateTime(),

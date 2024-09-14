@@ -1120,6 +1120,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getMushSkills()->count() === $this->daedalus->getDaedalusConfig()->getMushSkillSlots();
     }
 
+    public function cannotLearnSkill(SkillEnum $skill): bool
+    {
+        return $this->hasSkill($skill) || ($this->hasSkill(SkillEnum::POLYVALENT) && $skill->isPolyvalentSkill());
+    }
+
     public function addReceivedMission(CommanderMission $mission): static
     {
         $this->receivedMissions->add($mission);

@@ -129,6 +129,9 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::FUNGAL_KITCHEN,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::GENIUS,
                 actionConfigs: [
                     ActionEnum::BECOME_GENIUS,

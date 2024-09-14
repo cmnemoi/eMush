@@ -171,6 +171,13 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
         throw new \LogicException("Status {$this->getName()} has unhandled target type.");
     }
 
+    public function getPlayerTargetOrThrow(): Player
+    {
+        $target = $this->getTargetOrThrow();
+
+        return $target instanceof Player ? $target : throw new \RuntimeException("Status {$this->getName()} target is not a Player.");
+    }
+
     public function setStatusTargetOwner(StatusTarget $statusTarget): self
     {
         $this->owner = $statusTarget;

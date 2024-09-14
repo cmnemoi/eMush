@@ -625,5 +625,15 @@
         <target>Le Mycologiste peut soigner les infections fongiques à l'**Infirmerie** ou a l'aide d'un **Medikit**.//:point: Vos soins retirent automatiquement un spore.</target>
       </segment>
     </unit>
+    <unit id="fungal_kitchen">
+      <segment id="fungal_kitchen.name" state="translated">
+        <source>fungal_kitchen.name</source>
+        <target>Cuisine fongique</target>
+      </segment>
+      <segment id="fungal_kitchen.description" state="translated">
+        <source>fungal_kitchen.description</source>
+        <target>Un grand classique de la gastonomie moderne sur Sol.//:point: Vous pouvez créer un **aliment piégé** en mélangeant un **spore** et un **consommable** pour **1** :pa:.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

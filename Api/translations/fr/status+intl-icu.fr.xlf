@@ -144,11 +144,11 @@
     <unit id="contaminated">
       <segment id="name" state="translated">
         <source>contaminated.name</source>
-        <target>Contaminée</target>
+        <target>Contaminé</target>
       </segment>
       <segment id="description" state="translated">
         <source>contaminated.description</source>
-        <target>Cet objet est contaminé, le premier équipier (Mush ou non) qui le manipulera sera contaminé par un spore. Vous voyez ce message car vous faites partie du Mush.</target>
+        <target>Cet aliment est contaminé, l'équipier qui le consommera sera infecté du nombre de spores qu'il contient.//Vous voyez ce message car vous faites partie du Mush.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>contaminated.examine</source>

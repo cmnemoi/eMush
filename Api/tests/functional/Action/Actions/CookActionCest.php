@@ -22,6 +22,8 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -35,6 +37,7 @@ final class CookActionCest extends AbstractFunctionalTest
     private Cook $cookAction;
     private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     private GameEquipment $kitchen;
     private GameItem $ration;
@@ -46,6 +49,7 @@ final class CookActionCest extends AbstractFunctionalTest
         $this->cookAction = $I->grabService(Cook::class);
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenAKitchenInRoom();
         $this->givenARationInRoom();
@@ -171,6 +175,15 @@ final class CookActionCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveChefPoints(7, $I);
     }
 
+    public function shouldRemoveFoodContaminatedStatus(FunctionalTester $I): void
+    {
+        $this->givenRationIsContaminated();
+
+        $this->whenPlayerCooksRation();
+
+        $this->thenCookedRationShouldNotBeContaminated($I);
+    }
+
     private function givenAKitchenInRoom(): void
     {
         $this->kitchen = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -196,6 +209,15 @@ final class CookActionCest extends AbstractFunctionalTest
         $this->addSkillToPlayer->execute(SkillEnum::CHEF, $this->player);
     }
 
+    private function givenRationIsContaminated(): void
+    {
+        $this->statusService->createOrIncrementChargeStatus(
+            name: EquipmentStatusEnum::CONTAMINATED,
+            holder: $this->ration,
+            target: $this->kuanTi,
+        );
+    }
+
     private function whenPlayerWantsToCook(): void
     {
         $this->cookAction->loadParameters(
@@ -214,7 +236,6 @@ final class CookActionCest extends AbstractFunctionalTest
             player: $this->player,
             target: $this->ration,
         );
-
         $this->cookAction->execute();
     }
 
@@ -226,6 +247,11 @@ final class CookActionCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveChefPoints(int $expectedChefPoints, FunctionalTester $I): void
     {
         $I->assertEquals($expectedChefPoints, $this->player->getSkillByNameOrThrow(SkillEnum::CHEF)->getSkillPoints());
+    }
+
+    private function thenCookedRationShouldNotBeContaminated(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->chun->getEquipmentByNameOrThrow(GameRationEnum::COOKED_RATION)->hasStatus(EquipmentStatusEnum::CONTAMINATED));
     }
 
     private function createPlayer(Daedalus $daedalus, Place $room): Player

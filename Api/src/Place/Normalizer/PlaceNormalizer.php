@@ -77,6 +77,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
 
         // do not normalize doors
         $items = $items->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getClassName() !== Door::class);
+        $items = $this->putContaminatedItemsOnTop($items);
 
         $normalizedEquipments = $this->normalizeEquipments(
             $currentPlayer,
@@ -84,7 +85,6 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             $format,
             $context
         );
-
         $normalizedItems = $this->normalizeItems($items, $currentPlayer, $format, $context);
 
         $language = $room->getDaedalus()->getLanguage();
@@ -308,6 +308,8 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
 
     /**
      * Given a collection of gameItem, group them by status in an array.
+     *
+     * @return array<string, array<GameItem>>
      */
     private function groupByStatus(Collection $itemsGroup, Player $currentPlayer): array
     {
@@ -348,5 +350,16 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         }
 
         return $pileName ?? 'no_status';
+    }
+
+    private function putContaminatedItemsOnTop(Collection $items): ArrayCollection
+    {
+        $items = $items->toArray();
+        usort(
+            $items,
+            static fn (GameItem $a, GameItem $b) => $b->hasStatus(EquipmentStatusEnum::CONTAMINATED) <=> $a->hasStatus(EquipmentStatusEnum::CONTAMINATED)
+        );
+
+        return new ArrayCollection($items);
     }
 }

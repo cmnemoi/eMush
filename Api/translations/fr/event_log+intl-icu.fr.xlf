@@ -507,7 +507,10 @@
     <unit id="infect_action">
       <segment id="infect_action" state="final">
         <source>infect_action</source>
-        <target>**{target_character}** a été contaminé par un spore par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        <target>{target_character_gender, select,
+        male {**{target_character}** a été contaminé}
+        female {**{target_character}** a été contaminée}
+        other {**{target_character}** a été contaminé}} par un spore par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_trap">
@@ -522,13 +525,19 @@
     <unit id="infect_std">
       <segment id="infect_std" state="final">
         <source>infect_std</source>
-        <target>**{target_character}** a été contaminé en le faisant avec **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        <target>{target_character_gender, select,
+        male {**{target_character}** a été contaminé}
+        female {**{target_character}** a été contaminée}
+        other {**{target_character}** a été contaminé}} en le faisant avec **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_cat">
       <segment id="infect_cat" state="final">
         <source>infect_cat</source>
-        <target>**{target_character}** a été contaminé par **{character}** en prenant **Schrödinger**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        <target>{target_character_gender, select,
+        male {**{target_character}** a été contaminé}
+        female {**{target_character}** a été contaminée}
+        other {**{target_character}** a été contaminé}} par **{character}** en prenant **Schrödinger**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_mush_raid">
@@ -536,14 +545,20 @@
         <source>infect_mush_raid</source>
         <target>{is_player_mush, select,
           true {Profitant de la confusion de l'attaque dans le champ de cristalite, **{target_character}** a récupéré un spore.}
-          other {**{target_character}** a été contaminé par un raid Mush en exploration. Son niveau de contamination est maintenant de **{quantity}**.}
+          other {{target_character_gender, select,
+        male {**{target_character}** a été contaminé}
+        female {**{target_character}** a été contaminée}
+        other {**{target_character}** a été contaminé}} par un raid Mush en exploration. Son niveau de contamination est maintenant de **{quantity}**.}
         }</target>
       </segment>
     </unit>
     <unit id="infect_trapped_ration">
       <segment id="infect_trapped_ration" state="final">
         <source>infect_trapped_ration</source>
-        <target>**{target_character}** a été contaminé par une ration contaminée par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        <target>{target_character_gender, select,
+        male {**{target_character}** a été contaminé}
+        female {**{target_character}** a été contaminée}
+        other {**{target_character}** a été contaminé}} par un aliment contaminé par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="mush_convert_event">

@@ -140,6 +140,7 @@ abstract class ActionLogEnum
     public const string RUN_HOME_SUCCESS = 'run_home_success';
     public const string EXCHANGE_BODY_SUCCESS = 'exchange_body_success';
     public const string PUTSCH_SUCCESS = 'putsch_success';
+    public const string MIX_RATION_SPORE_SUCCESS = 'mix_ration_spore_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -488,6 +489,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::PUTSCH->value => [
             ActionOutputEnum::SUCCESS => self::PUTSCH_SUCCESS,
+        ],
+        ActionEnum::MIX_RATION_SPORE->value => [
+            ActionOutputEnum::SUCCESS => self::MIX_RATION_SPORE_SUCCESS,
         ],
     ];
 

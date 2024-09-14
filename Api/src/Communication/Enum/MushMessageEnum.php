@@ -21,5 +21,7 @@ class MushMessageEnum
         ActionEnum::DO_THE_THING->value => self::INFECT_STD,
         PlaceStatusEnum::MUSH_TRAPPED->value => self::INFECT_TRAP,
         PlanetSectorEvent::MUSH_TRAP => self::INFECT_MUSH_RAID,
+        ActionEnum::CONSUME->value => self::INFECT_TRAPPED_RATION,
+        ActionEnum::CONSUME_DRUG->value => self::INFECT_TRAPPED_RATION,
     ];
 }

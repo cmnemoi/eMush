@@ -569,6 +569,11 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->getName() === GameFruitEnum::BANANA;
     }
 
+    public function isAStandardRation(): bool
+    {
+        return $this->getName() === GameRationEnum::STANDARD_RATION;
+    }
+
     private function canProduceFruit(): bool
     {
         foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED, EquipmentStatusEnum::PLANT_THIRSTY] as $status) {

@@ -8,9 +8,7 @@ use Mush\Action\Actions\ExchangeBody;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
-use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
@@ -36,8 +34,6 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private User $oldMushUser;
     private User $oldHumanUser;
 
-    private Channel $mushChannel;
-
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
@@ -48,7 +44,6 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->target = $this->player2;
         $this->oldMushUser = $this->source->getUser();
         $this->oldHumanUser = $this->target->getUser();
-        $this->mushChannel = $I->grabEntityFromRepository(Channel::class, ['scope' => ChannelScopeEnum::MUSH]);
 
         $this->givenSourcePlayerIsMush();
         $this->givenTargetPlayerHasSpores(1);

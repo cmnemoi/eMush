@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ExtraEffectEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Ration;
@@ -38,7 +39,10 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var ActionConfig $consumeRationAction */
         $consumeRationAction = $this->getReference(ActionsFixtures::RATION_CONSUME);
 
-        $actions = [$takeAction, $dropAction, $hideAction, $examineAction];
+        /** @var ActionConfig $mixRationSporeAction */
+        $mixRationSporeAction = $this->getReference(ActionEnum::MIX_RATION_SPORE->value);
+
+        $actions = [$takeAction, $dropAction, $hideAction, $examineAction, $consumeRationAction, $mixRationSporeAction];
 
         $standardRationMechanic = new Ration();
         $standardRationMechanic

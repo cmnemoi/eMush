@@ -8,6 +8,8 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
+use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\MushMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -32,6 +34,7 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -527,5 +530,84 @@ final class ConsumeActionCest extends AbstractFunctionalTest
 
         // then Chun should have 6 (base) + 1 (alien fruit) + 1 (frugivore bonus) action points
         $I->assertEquals(6 + 1 + 1, $this->chun->getActionPoint());
+    }
+
+    public function contaminatedFoodShouldContaminateHumanPlayer(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasAContaminatedRationWithSpores(1);
+
+        $this->whenKuanTiConsumesTheRation();
+
+        $this->thenKuanTiShouldBeContaminatedBySpores(1, $I);
+    }
+
+    public function contaminatedFoodShouldNotContaminateMushPlayer(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsMush();
+
+        $this->givenKuanTiHasAContaminatedRationWithSpores(1);
+
+        $this->whenKuanTiConsumesTheRation();
+
+        $this->thenKuanTiShouldBeContaminatedBySpores(0, $I);
+    }
+
+    public function contaminatedFoodShouldCreateAMessageInMushChannel(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasAContaminatedRationWithSpores(1);
+
+        $this->whenKuanTiConsumesTheRation();
+
+        $I->seeInRepository(
+            entity: Message::class,
+            params: [
+                'channel' => $this->mushChannel,
+                'message' => MushMessageEnum::INFECT_TRAPPED_RATION,
+            ]
+        );
+    }
+
+    private function givenKuanTiHasAContaminatedRationWithSpores(int $spores): void
+    {
+        $ration = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameRationEnum::STANDARD_RATION,
+            equipmentHolder: $this->kuanTi,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        for ($i = 0; $i < $spores; ++$i) {
+            $this->statusService->createOrIncrementChargeStatus(
+                name: EquipmentStatusEnum::CONTAMINATED,
+                holder: $ration,
+                target: $this->chun,
+            );
+        }
+    }
+
+    private function givenKuanTiIsMush(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function whenKuanTiConsumesTheRation(): void
+    {
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->consumeConfig,
+            actionProvider: $this->kuanTi->getEquipmentByName(GameRationEnum::STANDARD_RATION),
+            player: $this->kuanTi,
+            target: $this->kuanTi->getEquipmentByName(GameRationEnum::STANDARD_RATION),
+        );
+        $this->consumeAction->execute();
+    }
+
+    private function thenKuanTiShouldBeContaminatedBySpores(int $spores, FunctionalTester $I): void
+    {
+        $I->assertEquals($spores, $this->kuanTi->getSpores());
     }
 }

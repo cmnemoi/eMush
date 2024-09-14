@@ -54,6 +54,9 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         /** @var ActionConfig $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
+        /** @var ActionConfig $mixRationSporeAction */
+        $mixRationSporeAction = $this->getReference(ActionEnum::MIX_RATION_SPORE->value);
+
         /** @var ArrayCollection $actions */
         $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
@@ -61,7 +64,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $plantActions = new ArrayCollection([$treatAction, $waterAction]);
 
         /** @var ArrayCollection $fruitActions */
-        $fruitActions = new ArrayCollection([$consumeRationAction, $transplantAction, $graftAction]);
+        $fruitActions = new ArrayCollection([$consumeRationAction, $transplantAction, $graftAction, $mixRationSporeAction]);
 
         $bananaMechanic = new Fruit();
         $bananaMechanic

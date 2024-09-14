@@ -239,10 +239,10 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     }
 
     private function handleMushStatusApplied(StatusEvent $event): void
-    {   
+    {
         $this->statusService->removeStatus(
             PlayerStatusEnum::STARVING,
-            $statusHolder,
+            $event->getPlayerStatusHolder(),
             $event->getTags(),
             $event->getTime()
         );
@@ -250,9 +250,9 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         if ($event->hasTag(ActionEnum::EXCHANGE_BODY->value)) {
             $this->statusService->removeStatus(
                 statusName: PlayerStatusEnum::HAS_READ_MAGE_BOOK,
-                holder: $event->getStatusHolder(),
+                holder: $event->getPlayerStatusHolder(),
                 tags: $event->getTags(),
-                time:$event->getTime(),
+                time: $event->getTime(),
             );
         }
     }

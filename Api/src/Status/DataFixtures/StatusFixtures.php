@@ -604,7 +604,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasPrintedZeList)
             ->addStatusConfig($hasUsedMassGgedon)
             ->addStatusConfig($hasUsedPutsch)
-            ->addStatusConfig($alphaMushStatus)
             ->addStatusConfig($pariahStatus);
 
         $manager->persist($gameConfig);
@@ -662,7 +661,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_EXCHANGED_BODY, $hasExchangedBodyStatus);
         $this->addReference(DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED, $hasPrintedZeList);
         $this->addReference(PlayerStatusEnum::HAS_USED_PUTSCH, $hasUsedPutsch);
-        $this->addReference(PlayerStatusEnum::ALPHA_MUSH, $alphaMushStatus);
         $this->addReference(PlayerStatusEnum::PARIAH, $pariahStatus);
         $this->addReference(PlayerStatusEnum::HAS_USED_MASS_GGEDON, $hasUsedMassGgedon);
 

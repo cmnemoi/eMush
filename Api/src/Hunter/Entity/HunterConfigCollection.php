@@ -17,4 +17,14 @@ class HunterConfigCollection extends ArrayCollection
 
         return $hunter === false ? null : $hunter;
     }
+
+    public function getByNameOrThrow(string $name): HunterConfig
+    {
+        $hunter = $this->getHunter($name);
+        if (!$hunter) {
+            throw new \RuntimeException("HunterConfig {$name} not found");
+        }
+
+        return $hunter;
+    }
 }

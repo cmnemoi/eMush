@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\AbstractEventConfig;
+use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 
 /**
@@ -85,9 +86,9 @@ class DirectModifierConfig extends AbstractModifierConfig
         return $this->triggeredEvent->getTranslationParameters();
     }
 
-    public function getEventActivationRequirements(): Collection
+    public function getEventActivationRequirements(): ModifierActivationRequirementCollection
     {
-        return $this->eventActivationRequirements;
+        return new ModifierActivationRequirementCollection($this->eventActivationRequirements->toArray());
     }
 
     public function addEventActivationRequirement(ModifierActivationRequirement $requirement): self

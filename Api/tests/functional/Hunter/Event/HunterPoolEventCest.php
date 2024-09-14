@@ -7,6 +7,7 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -94,5 +95,17 @@ final class HunterPoolEventCest extends AbstractFunctionalTest
 
         // then we should have attacking D1000s
         $I->assertNotEmpty($this->daedalus->getAttackingHunters());
+    }
+
+    public function strateguruShouldReduceHuntersByThirtyThreePercent(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::STRATEGURU, $I);
+
+        $this->daedalus->setHunterPoints(40); // should be enough to unpool 4 hunters
+
+        $unpoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
+        $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+
+        $I->assertCount(3, $this->daedalus->getAttackingHunters());
     }
 }

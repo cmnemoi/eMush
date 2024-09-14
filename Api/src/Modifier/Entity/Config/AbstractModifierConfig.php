@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
 
 /**
  * Class storing the various information needed to create and apply Modifiers.
@@ -105,9 +106,9 @@ abstract class AbstractModifierConfig
         return $this;
     }
 
-    public function getModifierActivationRequirements(): Collection
+    public function getModifierActivationRequirements(): ModifierActivationRequirementCollection
     {
-        return $this->modifierActivationRequirements;
+        return new ModifierActivationRequirementCollection($this->modifierActivationRequirements->toArray());
     }
 
     public function addModifierRequirement(ModifierActivationRequirement $modifierRequirement): self

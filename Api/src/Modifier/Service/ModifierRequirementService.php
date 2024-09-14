@@ -2,7 +2,7 @@
 
 namespace Mush\Modifier\Service;
 
-use Doctrine\Common\Collections\Collection;
+use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierHolderInterface;
@@ -35,7 +35,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
     }
 
     public function checkRequirements(
-        Collection $modifierRequirements,
+        ModifierActivationRequirementCollection $modifierRequirements,
         ModifierHolderInterface $holder
     ): bool {
         /** @var ModifierActivationRequirement $activationRequirement */

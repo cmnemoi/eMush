@@ -18,46 +18,33 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
-use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Hunter\Event\StrateguruWorkedEvent;
+use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusService;
-use Psr\Log\LoggerInterface;
 
-class HunterService implements HunterServiceInterface
+final class HunterService implements HunterServiceInterface
 {
-    private EntityManagerInterface $entityManager;
-    private EventServiceInterface $eventService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private LoggerInterface $logger;
-    private RandomServiceInterface $randomService;
-    private StatusService $statusService;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        EventServiceInterface $eventService,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        LoggerInterface $logger,
-        RandomServiceInterface $randomService,
-        StatusService $statusService
-    ) {
-        $this->entityManager = $entityManager;
-        $this->eventService = $eventService;
-        $this->gameEquipmentService = $gameEquipmentService;
-        $this->logger = $logger;
-        $this->randomService = $randomService;
-        $this->statusService = $statusService;
-    }
+        private EntityManagerInterface $entityManager,
+        private EventServiceInterface $eventService,
+        private GameEquipmentServiceInterface $gameEquipmentService,
+        private RandomServiceInterface $randomService,
+        private StatusService $statusService,
+    ) {}
 
     public function delete(array $entities): void
     {
@@ -154,16 +141,17 @@ class HunterService implements HunterServiceInterface
 
     private function unpoolHuntersForRandomWave(Daedalus $daedalus, \DateTime $time): void
     {
-        $hunterTypes = HunterEnum::getAll();
+        $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, HunterEnum::getAll());
+
+        /** @var ArrayCollection<array-key, string> $hunterTypes */
+        $hunterTypes = new ArrayCollection($hunterProbaCollection->getKeys());
         $wave = new HunterCollection();
 
-        while ($daedalus->getHunterPoints() >= $this->getMinCost($daedalus, $hunterTypes)) {
+        while ($this->getHunterPoints($daedalus) >= $this->getMinCost($daedalus, $hunterTypes)) {
             $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, $hunterTypes);
 
-            $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaCollection(
-                $hunterProbaCollection
-            );
-            if (!\is_string($hunterNameToCreate)) {
+            $hunterNameToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($hunterProbaCollection);
+            if (!$hunterNameToCreate) {
                 break;
             }
 
@@ -171,7 +159,8 @@ class HunterService implements HunterServiceInterface
             if (!$hunter) {
                 $hunter = $this->createHunterFromName($daedalus, $hunterNameToCreate);
             }
-            // a hunter pooled for a random wave should not have a target, so they don't shoot right away
+
+            // a hunter unpooled for a random wave should not have a target, so they don't shoot right away
             $hunter->resetTarget();
 
             // do not create a hunter if max per wave is reached
@@ -194,14 +183,8 @@ class HunterService implements HunterServiceInterface
 
     private function unpoolHuntersForCatchingWave(Daedalus $daedalus): void
     {
-        /** @var ?ChargeStatus $followingHuntersStatus */
-        $followingHuntersStatus = $daedalus->getStatusByName(DaedalusStatusEnum::FOLLOWING_HUNTERS);
-        if (!$followingHuntersStatus) {
-            throw new \LogicException('Daedalus should have a following hunters status');
-        }
-
         $wave = new HunterCollection();
-        for ($i = 0; $i < $followingHuntersStatus->getCharge(); ++$i) {
+        for ($i = 0; $i < $this->getFollowingHunters($daedalus); ++$i) {
             $hunter = $this->drawHunterFromPoolByName($daedalus, HunterEnum::HUNTER);
             if (!$hunter) {
                 $hunter = $this->createHunterFromName($daedalus, HunterEnum::HUNTER);
@@ -221,13 +204,61 @@ class HunterService implements HunterServiceInterface
         $this->persist([$hunter]);
     }
 
+    private function getHunterPoints(Daedalus $daedalus): int
+    {
+        $hunterPoints = $daedalus->getHunterPoints();
+        $strateguruWorked = $daedalus->getAlivePlayers()->hasPlayerWithSkill(SkillEnum::STRATEGURU) && $this->randomService->isSuccessful($this->strateguruActivationRate($daedalus));
+
+        if ($strateguruWorked) {
+            $hunterPoints *= $this->strateguruBonus($daedalus);
+            $this->eventService->callEvent(new StrateguruWorkedEvent($daedalus), StrateguruWorkedEvent::class);
+        }
+
+        return (int) $hunterPoints;
+    }
+
+    private function getFollowingHunters(Daedalus $daedalus): int
+    {
+        $followingHuntersStatus = $daedalus->getChargeStatusByNameOrThrow(DaedalusStatusEnum::FOLLOWING_HUNTERS);
+
+        $followingHunters = $followingHuntersStatus->getCharge();
+        $strateguruWorked = $daedalus->getAlivePlayers()->hasPlayerWithSkill(SkillEnum::STRATEGURU) && $this->randomService->isSuccessful($this->strateguruActivationRate($daedalus));
+
+        if ($strateguruWorked) {
+            $followingHunters *= $this->strateguruBonus($daedalus);
+            $this->eventService->callEvent(new StrateguruWorkedEvent($daedalus), StrateguruWorkedEvent::class);
+        }
+
+        return (int) $followingHunters;
+    }
+
+    private function strateguruActivationRate(Daedalus $daedalus): int
+    {
+        $strateguruPlayer = $daedalus->getAlivePlayers()->getOnePlayerWithSkillOrThrow(SkillEnum::STRATEGURU);
+
+        return (int) $strateguruPlayer
+            ->getModifiers()
+            ->getModifierByModifierNameOrThrow(ModifierNameEnum::STRATEGURU_MODIFIER)
+            ->getVariableModifierConfigOrThrow()
+            ->getModifierActivationRequirements()
+            ->getOneByTypeOrNull(ModifierRequirementEnum::RANDOM)
+            ?->getValue() ?: 100;
+    }
+
+    private function strateguruBonus(Daedalus $daedalus): float
+    {
+        $strateguruPlayer = $daedalus->getAlivePlayers()->getOnePlayerWithSkillOrThrow(SkillEnum::STRATEGURU);
+
+        return $strateguruPlayer
+            ->getModifiers()
+            ->getModifierByModifierNameOrThrow(ModifierNameEnum::STRATEGURU_MODIFIER)
+            ->getVariableModifierConfigOrThrow()
+            ->getDelta();
+    }
+
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter
     {
-        /** @var HunterConfig $hunterConfig */
-        $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterName);
-        if (!$hunterConfig) {
-            throw new \Exception("Hunter config not found for hunter name {$hunterName}");
-        }
+        $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getByNameOrThrow($hunterName);
 
         $hunter = new Hunter($hunterConfig, $daedalus);
         $hunter->setHunterVariables($hunterConfig);
@@ -270,6 +301,7 @@ class HunterService implements HunterServiceInterface
         return $hunter;
     }
 
+    /** @param ArrayCollection<array-key, string> $hunterTypes */
     private function getHunterProbaCollection(Daedalus $daedalus, ArrayCollection $hunterTypes): ProbaCollection
     {
         $currentDifficulty = $daedalus->getDifficultyMode();
@@ -278,10 +310,6 @@ class HunterService implements HunterServiceInterface
         foreach ($hunterTypes as $hunterType) {
             $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterType);
             if (!$hunterConfig) {
-                $this->logger->error("Hunter config not found for hunter name {$hunterType}", [
-                    'daedalus' => $daedalus->getId(),
-                ]);
-
                 continue;
             }
 
@@ -294,18 +322,12 @@ class HunterService implements HunterServiceInterface
         return $probaCollection;
     }
 
+    /** @param ArrayCollection<array-key, string> $hunterTypes */
     private function getMinCost(Daedalus $daedalus, ArrayCollection $hunterTypes): int
     {
         $minCost = 0;
         foreach ($hunterTypes as $hunterType) {
-            $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterType);
-            if (!$hunterConfig) {
-                $this->logger->error("Hunter config not found for hunter name {$hunterType}", [
-                    'daedalus' => $daedalus->getId(),
-                ]);
-
-                continue;
-            }
+            $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getByNameOrThrow($hunterType);
 
             if ($minCost === 0 || $minCost > $hunterConfig->getDrawCost()) {
                 $minCost = $hunterConfig->getDrawCost();

@@ -544,6 +544,7 @@ class CharacterConfigData
                 SkillEnum::COLD_BLOODED,
                 SkillEnum::SHOOTER,
                 SkillEnum::LOGISTICS_EXPERT,
+                SkillEnum::STRATEGURU,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

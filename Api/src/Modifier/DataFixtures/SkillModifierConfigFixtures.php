@@ -256,6 +256,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($greenThumbModifier->getName(), $greenThumbModifier);
         $manager->persist($greenThumbModifier);
 
+        $strateguruModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_MINUS_33_PERCENTAGE_HUNTERS)
+        );
+        $this->addReference($strateguruModifier->getName(), $strateguruModifier);
+        $manager->persist($strateguruModifier);
+
         $manager->flush();
     }
 

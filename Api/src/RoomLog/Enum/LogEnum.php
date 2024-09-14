@@ -78,6 +78,7 @@ abstract class LogEnum
     public const string DELOGGED = 'delogged';
     public const string TRAITOR_WORKED = 'traitor_worked';
     public const string LEARNED_SKILL = 'learned_skill';
+    public const string STRATEGURU_WORKED = 'strateguru_worked';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

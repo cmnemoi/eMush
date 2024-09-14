@@ -341,6 +341,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::STRATEGURU,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_MINUS_33_PERCENTAGE_HUNTERS,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::TECHNICIAN,
                 modifierConfigs: [
                     'modifier_technician_double_repair_and_renovate_chance',

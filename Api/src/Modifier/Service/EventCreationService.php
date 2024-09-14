@@ -2,13 +2,13 @@
 
 namespace Mush\Modifier\Service;
 
-use Doctrine\Common\Collections\Collection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Modifier\Enum\EventTargetNameEnum;
@@ -35,7 +35,7 @@ final class EventCreationService implements EventCreationServiceInterface
 
     public function getEventTargetsFromModifierHolder(
         VariableEventConfig $eventConfig,
-        Collection $eventTargetRequirements,
+        ModifierActivationRequirementCollection $eventTargetRequirements,
         array $targetFilters,
         ModifierHolderInterface $range,
         ModifierProviderInterface $author
@@ -128,7 +128,7 @@ final class EventCreationService implements EventCreationServiceInterface
         });
     }
 
-    private function checkRequirements(array $targets, Collection $targetRequirements): array
+    private function checkRequirements(array $targets, ModifierActivationRequirementCollection $targetRequirements): array
     {
         return array_filter($targets, function ($target) use ($targetRequirements) {
             return $this->modifierRequirementService->checkRequirements($targetRequirements, $target);

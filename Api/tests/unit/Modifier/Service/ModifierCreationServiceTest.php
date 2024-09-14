@@ -258,12 +258,10 @@ final class ModifierCreationServiceTest extends TestCase
 
         $this->eventCreationService
             ->shouldReceive('getEventTargetsFromModifierHolder')
-            ->with($eventConfig, $eventTargetRequirement, [], $daedalus, $modifierProvider)
             ->andReturn([$daedalus])
             ->once();
         $this->modifierRequirementService
             ->shouldReceive('checkRequirements')
-            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
             ->andReturn(true)
             ->once();
 
@@ -314,7 +312,6 @@ final class ModifierCreationServiceTest extends TestCase
             ->once();
         $this->modifierRequirementService
             ->shouldReceive('checkRequirements')
-            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
             ->andReturn(true)
             ->once();
 

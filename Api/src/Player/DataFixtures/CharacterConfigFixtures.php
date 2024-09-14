@@ -181,6 +181,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $polyvalentSkillConfig */
         $polyvalentSkillConfig = $this->getReference(SkillEnum::POLYVALENT->value);
 
+        /** @var SkillConfig $strateguruSkillConfig */
+        $strateguruSkillConfig = $this->getReference(SkillEnum::STRATEGURU->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -353,6 +356,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $pilotSkillConfig,
                 $coldBloodedSkillConfig,
                 $shooterSkillConfig,
+                $logisticExpert,
+                $strateguruSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($jinSu);

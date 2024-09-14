@@ -746,5 +746,15 @@
         <target>Vous avez des connaissances... Ça peut toujours servir.//:point: Vous êtes considéré comme **Botaniste**, **Diplomate** et **Biologiste** mais ne disposez pas de leurs actions et ressources.</target>
       </segment>
     </unit>
+    <unit id="strateguru">
+      <segment id="strateguru.name" state="translated">
+        <source>strateguru.name</source>
+        <target>Stratéguerre</target>
+      </segment>
+      <segment id="strateguru.description" state="translated">
+        <source>strateguru.description</source>
+        <target>A un certain degré de mégalomanie, on peut appeler ça du talent. Vous êtes expert en bataille spatiale mais tout le monde vous prend pour un fou.//:point: **50%** de chances de réduire chaque vague de Hunters de **33%**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

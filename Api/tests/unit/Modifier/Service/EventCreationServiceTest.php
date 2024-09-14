@@ -2,12 +2,12 @@
 
 namespace Mush\Tests\unit\Modifier\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Enum\EventTargetNameEnum;
 use Mush\Modifier\Service\EventCreationService;
@@ -95,7 +95,7 @@ final class EventCreationServiceTest extends TestCase
         $eventConfig = new VariableEventConfig();
         $eventConfig->setVariableHolderClass(EventTargetNameEnum::PLAYER);
 
-        $eventRequirement = new ArrayCollection();
+        $eventRequirement = new ModifierActivationRequirementCollection();
         $variableModifierConfig = new TriggerEventModifierConfig('test_trigger_event');
         $variableModifierConfig->setModifierActivationRequirements($eventRequirement);
 
@@ -157,7 +157,7 @@ final class EventCreationServiceTest extends TestCase
         $eventConfig = new VariableEventConfig();
         $eventConfig->setVariableHolderClass(EventTargetNameEnum::PLAYER);
 
-        $eventRequirement = new ArrayCollection();
+        $eventRequirement = new ModifierActivationRequirementCollection();
         $variableModifierConfig = new TriggerEventModifierConfig('test_trigger_event');
         $variableModifierConfig->setModifierActivationRequirements($eventRequirement);
 
@@ -221,7 +221,7 @@ final class EventCreationServiceTest extends TestCase
         $eventConfig = new VariableEventConfig();
         $eventConfig->setVariableHolderClass(EventTargetNameEnum::PLAYER);
 
-        $eventRequirement = new ArrayCollection();
+        $eventRequirement = new ModifierActivationRequirementCollection();
         $variableModifierConfig = new TriggerEventModifierConfig('test_trigger_event');
         $variableModifierConfig->setModifierActivationRequirements($eventRequirement);
 
@@ -281,7 +281,7 @@ final class EventCreationServiceTest extends TestCase
         $eventConfig
             ->setVariableHolderClass(EventTargetNameEnum::PLAYER);
 
-        $eventRequirement = new ArrayCollection();
+        $eventRequirement = new ModifierActivationRequirementCollection();
         $variableModifierConfig = new TriggerEventModifierConfig('test_trigger_event');
         $variableModifierConfig->setModifierActivationRequirements($eventRequirement);
 
@@ -341,7 +341,7 @@ final class EventCreationServiceTest extends TestCase
         $eventConfig = new VariableEventConfig();
         $eventConfig->setVariableHolderClass(EventTargetNameEnum::PLAYER);
 
-        $eventRequirement = new ArrayCollection();
+        $eventRequirement = new ModifierActivationRequirementCollection();
         $variableModifierConfig = new TriggerEventModifierConfig('test_trigger_event');
         $variableModifierConfig->setModifierActivationRequirements($eventRequirement);
 
@@ -381,7 +381,7 @@ final class EventCreationServiceTest extends TestCase
         $eventConfig = new VariableEventConfig();
         $eventConfig->setVariableHolderClass(EventTargetNameEnum::DAEDALUS);
 
-        $eventRequirement = new ArrayCollection();
+        $eventRequirement = new ModifierActivationRequirementCollection();
         $variableModifierConfig = new TriggerEventModifierConfig('test_trigger_event');
         $variableModifierConfig->setModifierActivationRequirements($eventRequirement);
 
@@ -419,7 +419,7 @@ final class EventCreationServiceTest extends TestCase
         $eventConfig = new VariableEventConfig();
         $eventConfig->setVariableHolderClass(EventTargetNameEnum::DAEDALUS);
 
-        $eventRequirement = new ArrayCollection();
+        $eventRequirement = new ModifierActivationRequirementCollection();
         $variableModifierConfig = new TriggerEventModifierConfig('test_trigger_event');
         $variableModifierConfig->setModifierActivationRequirements($eventRequirement);
 
@@ -454,7 +454,7 @@ final class EventCreationServiceTest extends TestCase
         $eventConfig = new VariableEventConfig();
         $eventConfig->setVariableHolderClass(EventTargetNameEnum::DAEDALUS);
 
-        $eventRequirement = new ArrayCollection();
+        $eventRequirement = new ModifierActivationRequirementCollection();
         $variableModifierConfig = new TriggerEventModifierConfig('test_trigger_event');
         $variableModifierConfig->setModifierActivationRequirements($eventRequirement);
 

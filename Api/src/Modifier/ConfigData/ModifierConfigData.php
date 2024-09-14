@@ -24,6 +24,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Modifier\Enum\EventTargetNameEnum;
@@ -3419,6 +3420,23 @@ abstract class ModifierConfigData
             'targetVariable' => EquipmentStatusEnum::PLANT_YOUNG,
             'mode' => VariableModifierModeEnum::SET_VALUE,
             'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
+        [
+            'name' => ModifierNameEnum::PLAYER_MINUS_33_PERCENTAGE_HUNTERS,
+            'modifierName' => ModifierNameEnum::STRATEGURU_MODIFIER,
+            'targetEvent' => self::DUMMY_EVENT, // this modifier does not listen to any event, it is just used to store the delta and allowing configuration
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 0.66,
+            'targetVariable' => HunterEnum::HUNTER,
+            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
+            'modifierActivationRequirements' => [
+                'random_50',
+            ],
             'tagConstraints' => [],
         ],
     ];

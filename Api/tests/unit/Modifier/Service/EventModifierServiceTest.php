@@ -10,9 +10,11 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
@@ -144,7 +146,7 @@ final class EventModifierServiceTest extends TestCase
 
     public function testApplyOneModifier()
     {
-        $daedalus = new Daedalus();
+        $daedalus = DaedalusFactory::createDaedalus();
         $room = new Place();
         $room->setDaedalus($daedalus);
         $player = new Player();
@@ -163,7 +165,7 @@ final class EventModifierServiceTest extends TestCase
 
         $this->modifierRequirementService
             ->shouldReceive('checkRequirements')
-            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
+            ->withArgs(static fn (ModifierActivationRequirementCollection $requirement) => $requirement->isEmpty())
             ->andReturn(true)
             ->once();
 
@@ -274,7 +276,7 @@ final class EventModifierServiceTest extends TestCase
 
         $this->modifierRequirementService
             ->shouldReceive('checkRequirements')
-            ->with($modifierConfig->getModifierActivationRequirements(), $daedalus)
+            ->withArgs(static fn (ModifierActivationRequirementCollection $requirement) => $requirement->isEmpty())
             ->andReturn(false)
             ->once();
         $this->modifierHandlerService
@@ -317,9 +319,8 @@ final class EventModifierServiceTest extends TestCase
         // Modifier1 should be applied first
         $this->modifierRequirementService
             ->shouldReceive('checkRequirements')
-            ->with($modifierConfig1->getModifierActivationRequirements(), $daedalus)
             ->andReturn(true)
-            ->once();
+            ->twice();
         $modifierHandler1 = $this->createMock(AbstractModifierHandler::class);
         $this->modifierHandlerService
             ->shouldReceive('getModifierHandler')
@@ -332,11 +333,6 @@ final class EventModifierServiceTest extends TestCase
             ->willReturn($firstEventChain);
 
         // Now applies modifier2
-        $this->modifierRequirementService
-            ->shouldReceive('checkRequirements')
-            ->with($modifierConfig2->getModifierActivationRequirements(), $daedalus)
-            ->andReturn(true)
-            ->once();
         $modifierHandler2 = $this->createMock(AbstractModifierHandler::class);
         $this->modifierHandlerService
             ->shouldReceive('getModifierHandler')

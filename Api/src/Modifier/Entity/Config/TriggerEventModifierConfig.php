@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 
@@ -149,9 +150,9 @@ class TriggerEventModifierConfig extends EventModifierConfig
         return array_merge($parameters, $this->triggeredEvent->getTranslationParameters());
     }
 
-    public function getEventTargetRequirements(): Collection
+    public function getEventTargetRequirements(): ModifierActivationRequirementCollection
     {
-        return $this->eventTargetRequirements;
+        return new ModifierActivationRequirementCollection($this->eventTargetRequirements->toArray());
     }
 
     public function addEventActivationRequirement(ModifierActivationRequirement $requirement): self

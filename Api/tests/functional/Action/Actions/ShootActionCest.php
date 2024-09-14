@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -129,9 +130,20 @@ final class ShootActionCest extends AbstractFunctionalTest
     {
         $this->givenBlasterIsUncharged();
 
-        $this->whenChunShootsAtKuanTi();
+        $this->whenChunShootsAtKuanTi($I);
 
         $this->thenActionIsNotExecutableWithMessage(ActionImpossibleCauseEnum::UNLOADED_WEAPON, $I);
+    }
+
+    public function oneShotEndCauseShouldBeBeheaded(FunctionalTester $I): void
+    {
+        $this->givenBlasterHas100ChanceToHit();
+
+        $this->givenBlasterHas100ChanceToOneShot();
+
+        $this->whenChunShootsAtKuanTi();
+
+        $this->thenKuanTiShouldDieBeheaded($I);
     }
 
     private function givenChunHasABlaster(): void
@@ -214,6 +226,11 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->blaster->getWeaponMechanicOrThrow()->setOneShotRate(0);
     }
 
+    private function givenBlasterHas100ChanceToOneShot(): void
+    {
+        $this->blaster->getWeaponMechanicOrThrow()->setOneShotRate(100);
+    }
+
     private function whenChunShootsAtKuanTi(): void
     {
         $this->shootAction->loadParameters(
@@ -248,5 +265,10 @@ final class ShootActionCest extends AbstractFunctionalTest
     private function thenActionIsNotExecutableWithMessage(string $message, FunctionalTester $I): void
     {
         $I->assertEquals($message, $this->shootAction->cannotExecuteReason());
+    }
+
+    private function thenKuanTiShouldDieBeheaded(FunctionalTester $I): void
+    {
+        $I->assertEquals($this->kuanTi->getPlayerInfo()->getClosedPlayer()->getEndCause(), EndCauseEnum::BEHEADED);
     }
 }

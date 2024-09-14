@@ -461,6 +461,7 @@ class GameConfigData
                 PlayerStatusEnum::HAS_USED_DELOG . '_default',
                 PlayerStatusEnum::HAS_USED_PUTSCH . '_default',
                 PlayerStatusEnum::PARIAH . '_default',
+                PlayerStatusEnum::SLIME_TRAP . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -599,6 +600,7 @@ class GameConfigData
                 SkillEnum::TRAPPER,
                 SkillEnum::SPLASHPROOF,
                 SkillEnum::TRANSFER,
+                SkillEnum::SLIMETRAP,
                 SkillEnum::FERTILE,
                 SkillEnum::MYCELIUM_SPIRIT,
                 SkillEnum::RADIO_PIRACY,

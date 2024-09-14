@@ -156,6 +156,7 @@ enum ActionEnum: string
     case NERON_DEPRESS = 'neron_depress';
     case MASS_MUSHIFICATION = 'mass_mushification';
     case MASS_GGEDON = 'mass_ggeddon';
+    case SLIME_TRAP = 'slime_trap';
 
     // Terminal related actions
     case EXIT_TERMINAL = 'exit_terminal';

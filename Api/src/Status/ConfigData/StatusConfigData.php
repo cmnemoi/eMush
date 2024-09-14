@@ -1504,6 +1504,20 @@ abstract class StatusConfigData
             ],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::SLIME_TRAP . '_default',
+            'statusName' => PlayerStatusEnum::SLIME_TRAP,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+            'maxCharge' => 4,
+            'startCharge' => 1,
+            'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
+            'autoRemove' => true,
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

@@ -1368,5 +1368,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de mettre un spore dans une denrée ingérable.</target>
       </segment>
     </unit>
+    <unit id="slime_trap">
+      <segment id="name" state="final">
+        <source>slime_trap.name</source>
+        <target>Moisifier</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>slime_trap.description</source>
+        <target>Permet de provoquer un état de salissure dans quelques cycles.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

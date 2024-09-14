@@ -75,7 +75,7 @@ export enum SkillEnum {
     SELF_SACRIFICE = 'self_sacrifice',
     SHOOTER = 'shooter',
     SHRINK = 'shrink',
-    SLIMETRAP = 'slimetrapp',
+    SLIMETRAP = 'slimetrap',
     SNEAK = 'sneak',
     SOLID = 'solid',
     SPLASHPROOF = 'splashproof',
@@ -348,6 +348,10 @@ export const SkillIconRecord: {[index: string]: any} = {
 
     [SkillEnum.SELF_SACRIFICE]: {
         'icon': getImgUrl('skills/human/self_sacrifice.png')
+    },
+
+    [SkillEnum.SLIMETRAP]: {
+        'icon': getImgUrl('skills/mush/slimetrap.png')
     },
 
     [SkillEnum.SHOOTER]: {

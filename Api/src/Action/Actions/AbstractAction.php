@@ -242,6 +242,11 @@ abstract class AbstractAction
         return $this->target;
     }
 
+    public function targetAsPlayer(): Player
+    {
+        return $this->target instanceof Player ? $this->target : throw new \InvalidArgumentException('Target is not a player.');
+    }
+
     public function getActionConfig(): ActionConfig
     {
         return $this->actionConfig;

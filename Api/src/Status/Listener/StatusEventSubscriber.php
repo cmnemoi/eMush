@@ -85,6 +85,16 @@ final class StatusEventSubscriber implements EventSubscriberInterface
 
                 break;
 
+            case PlayerStatusEnum::SLIME_TRAP:
+                $this->statusService->createStatusFromName(
+                    PlayerStatusEnum::DIRTY,
+                    $statusHolder,
+                    $event->getTags(),
+                    $event->getTime()
+                );
+
+                break;
+
             default:
         }
     }

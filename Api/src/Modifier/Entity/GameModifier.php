@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
@@ -64,6 +65,11 @@ class GameModifier
     public function getVariableModifierConfigOrThrow(): VariableEventModifierConfig
     {
         return $this->modifierConfig instanceof VariableEventModifierConfig ? $this->modifierConfig : throw new \LogicException("{$this->getName()} is not a variable event modifier!");
+    }
+
+    public function getTriggerModifierConfigOrThrow(): TriggerEventModifierConfig
+    {
+        return $this->modifierConfig instanceof TriggerEventModifierConfig ? $this->modifierConfig : throw new \RuntimeException("{$this->modifierConfig->getName()} is not a trigger event modifier!");
     }
 
     public function getModifierHolder(): ModifierHolderInterface

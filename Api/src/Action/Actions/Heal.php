@@ -55,44 +55,60 @@ class Heal extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        /** @var Player $target */
-        $target = $this->target;
-        // if the player is full life (because he only needs to cure a disease) return a fail so no log is displayed
-        if ($target->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->isMax()) {
+        // if player to heal is full life (because they only need to cure a disease)
+        // return a fail so no log is displayed
+        if ($this->target()->isFullHealth()) {
             return new Fail();
         }
 
-        $healedQuantity = $this->getOutputQuantity();
-        $success = new Success();
-
-        return $success->setQuantity($healedQuantity);
+        return $this->success();
     }
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $target */
-        $target = $this->target;
-        $quantity = $result->getQuantity();
+        $healedQuantity = $result->getQuantity();
 
-        if ($quantity) {
-            $playerModifierEvent = new PlayerVariableEvent(
-                $target,
-                PlayerVariableEnum::HEALTH_POINT,
-                $quantity,
-                $this->getActionConfig()->getActionTags(),
-                new \DateTime(),
-            );
-            $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+        if ($healedQuantity > 0) {
+            $this->addHealthPointToTarget($healedQuantity);
         }
 
+        $this->applyHealSideEffects();
+    }
+
+    private function addHealthPointToTarget(int $quantity): void
+    {
+        $playerModifierEvent = new PlayerVariableEvent(
+            $this->target(),
+            PlayerVariableEnum::HEALTH_POINT,
+            $quantity,
+            $this->getTags(),
+            new \DateTime(),
+        );
+        $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function applyHealSideEffects(): void
+    {
         $healEvent = new ApplyEffectEvent(
             $this->player,
-            $target,
+            $this->target(),
             VisibilityEnum::PUBLIC,
-            $this->getActionConfig()->getActionTags(),
+            $this->getTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($healEvent, ApplyEffectEvent::HEAL);
+    }
+
+    private function target(): Player
+    {
+        return $this->target instanceof Player ? $this->target : throw new \LogicException('Heal action should have a Player as target');
+    }
+
+    private function success(): ActionResult
+    {
+        $success = new Success();
+
+        return $success->setQuantity($this->getOutputQuantity());
     }
 }

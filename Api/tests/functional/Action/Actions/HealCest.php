@@ -32,6 +32,8 @@ use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -46,6 +48,7 @@ final class HealCest extends AbstractFunctionalTest
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private ChooseSkillUseCase $chooseSkillUseCase;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
@@ -55,6 +58,7 @@ final class HealCest extends AbstractFunctionalTest
 
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given players are in medlab
         $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
@@ -283,6 +287,30 @@ final class HealCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveOneNursePoint($I);
     }
 
+    public function mycologistShouldRemoveSporeFromTarget(FunctionalTester $I): void
+    {
+        $this->givenChunIsAMycologist($I);
+
+        $this->givenKuanTiHasASpore();
+
+        $this->whenChunHealsKuanTi();
+
+        $this->thenKuanTiShouldHaveSpore(0, $I);
+    }
+
+    public function mushMycologistShouldNotRemoveSporeFromTarget(FunctionalTester $I): void
+    {
+        $this->givenChunIsAMycologist($I);
+
+        $this->givenChunIsMush();
+
+        $this->givenKuanTiHasASpore();
+
+        $this->whenChunHealsKuanTi();
+
+        $this->thenKuanTiShouldHaveSpore(1, $I);
+    }
+
     private function givenPlayerIsANurse(FunctionalTester $I): void
     {
         $this->player->getCharacterConfig()->setSkillConfigs([
@@ -301,6 +329,29 @@ final class HealCest extends AbstractFunctionalTest
         $this->player->setActionPoint(10);
     }
 
+    private function givenChunIsAMycologist(FunctionalTester $I): void
+    {
+        $this->player->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::MYCOLOGIST]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::MYCOLOGIST, $this->player));
+    }
+
+    private function givenKuanTiHasASpore(): void
+    {
+        $this->kuanTi->setSpores(1);
+    }
+
+    private function givenChunIsMush(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function whenPlayerHeal(): void
     {
         $this->healAction->loadParameters(
@@ -308,6 +359,17 @@ final class HealCest extends AbstractFunctionalTest
             actionProvider: $this->player,
             player: $this->player,
             target: $this->player2
+        );
+        $this->healAction->execute();
+    }
+
+    private function whenChunHealsKuanTi(): void
+    {
+        $this->healAction->loadParameters(
+            actionConfig: $this->healConfig,
+            actionProvider: $this->chun,
+            player: $this->chun,
+            target: $this->kuanTi
         );
         $this->healAction->execute();
     }
@@ -320,5 +382,10 @@ final class HealCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveOneNursePoint(FunctionalTester $I): void
     {
         $I->assertEquals(1, $this->player->getSkillByNameOrThrow(SkillEnum::NURSE)->getSkillPoints());
+    }
+
+    private function thenKuanTiShouldHaveSpore(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->kuanTi->getSpores());
     }
 }

@@ -52,40 +52,55 @@ class SelfHeal extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        // if the player is full life (because he only needs to cure a disease) return a fail so no log is displayed
-        if ($this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->isMax()) {
+        // if the player is full life (because they only needs to cure a disease)
+        // return a fail so no log is displayed
+        if ($this->player->isFullHealth()) {
             return new Fail();
         }
 
-        $healedQuantity = $this->getOutputQuantity();
-        $success = new Success();
-
-        return $success->setQuantity($healedQuantity);
+        return $this->success();
     }
 
     protected function applyEffect(ActionResult $result): void
     {
-        $quantity = $result->getQuantity();
+        $healedQuantity = $result->getQuantity();
 
-        if ($quantity) {
-            $playerModifierEvent = new PlayerVariableEvent(
-                $this->player,
-                PlayerVariableEnum::HEALTH_POINT,
-                $quantity,
-                $this->getActionConfig()->getActionTags(),
-                new \DateTime(),
-            );
-            $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+        if ($healedQuantity > 0) {
+            $this->addHealthPointToPlayer($healedQuantity);
         }
 
+        $this->applyHealSideEffects();
+    }
+
+    private function addHealthPointToPlayer(int $quantity): void
+    {
+        $playerModifierEvent = new PlayerVariableEvent(
+            $this->player,
+            PlayerVariableEnum::HEALTH_POINT,
+            $quantity,
+            $this->getTags(),
+            new \DateTime(),
+        );
+        $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function applyHealSideEffects(): void
+    {
         $healEvent = new ApplyEffectEvent(
             $this->player,
             $this->player,
             VisibilityEnum::PUBLIC,
-            $this->getActionConfig()->getActionTags(),
+            $this->getTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($healEvent, ApplyEffectEvent::HEAL);
+    }
+
+    private function success(): ActionResult
+    {
+        $success = new Success();
+
+        return $success->setQuantity($this->getOutputQuantity());
     }
 }

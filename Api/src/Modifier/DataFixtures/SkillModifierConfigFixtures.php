@@ -229,6 +229,15 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($frugivoreModifierForBanana->getName(), $frugivoreModifierForBanana);
         $manager->persist($frugivoreModifierForBanana);
 
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_MINUS_1_SPORE);
+        $mycologistModifier = TriggerEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_MINUS_1_SPORE_ON_HEAL)
+        );
+        $mycologistModifier->setTriggeredEvent($eventConfig);
+        $this->addReference($mycologistModifier->getName(), $mycologistModifier);
+        $manager->persist($mycologistModifier);
+
         $manager->flush();
     }
 

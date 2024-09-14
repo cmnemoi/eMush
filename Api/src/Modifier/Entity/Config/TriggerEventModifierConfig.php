@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\AbstractEventConfig;
+use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
@@ -110,6 +111,11 @@ class TriggerEventModifierConfig extends EventModifierConfig
     public function getTriggeredEvent(): AbstractEventConfig
     {
         return $this->triggeredEvent;
+    }
+
+    public function getTriggeredVariableEventConfigOrThrow(): VariableEventConfig
+    {
+        return $this->triggeredEvent instanceof VariableEventConfig ? $this->triggeredEvent : throw new \RuntimeException("{$this->triggeredEvent->getName()} is not a variable event config!");
     }
 
     public function setTriggeredEvent(AbstractEventConfig $triggeredEvent): self

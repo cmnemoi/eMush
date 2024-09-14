@@ -615,5 +615,15 @@
         <target>Vous terrorisez les fruits, vous les adorez, c'est votre drogue. Quand vous croisez le regard d'un fruit, il blettit instantanément.//:point: Vous gagnez **2** :pa: supplémentaires quand vous mangez des fruits aliens, **1** :pa: pour les bananes.</target>
       </segment>
     </unit>
+    <unit id="mycologist">
+      <segment id="mycologist.name" state="translated">
+        <source>mycologist.name</source>
+        <target>Mycologiste</target>
+      </segment>
+      <segment id="mycologist.description" state="translated">
+        <source>mycologist.description</source>
+        <target>Le Mycologiste peut soigner les infections fongiques à l'**Infirmerie** ou a l'aide d'un **Medikit**.//:point: Vos soins retirent automatiquement un spore.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

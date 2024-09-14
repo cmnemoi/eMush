@@ -88,4 +88,11 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
 
         return $logParameters;
     }
+
+    public function getActionTargetAsPlayer(): Player
+    {
+        $player = $this->getParameter();
+
+        return $player instanceof Player ? $player : throw new \LogicException('ApplyEffectEvent parameter is not a Player');
+    }
 }

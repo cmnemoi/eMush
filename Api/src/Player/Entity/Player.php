@@ -573,6 +573,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->playerVariables->getValueByName(PlayerVariableEnum::HEALTH_POINT);
     }
 
+    public function isFullHealth(): bool
+    {
+        return $this->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->isMax();
+    }
+
     public function setHealthPoint(int $healthPoint): static
     {
         $this->playerVariables->setValueByName($healthPoint, PlayerVariableEnum::HEALTH_POINT);

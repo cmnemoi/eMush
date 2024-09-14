@@ -182,6 +182,12 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::MYCOLOGIST,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_MINUS_1_SPORE_ON_HEAL,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::NERON_ONLY_FRIEND,
             ),
             new SkillConfigDto(

@@ -49,6 +49,8 @@ use Mush\Status\Event\StatusEvent;
 /** @codeCoverageIgnore */
 abstract class ModifierConfigData
 {
+    private const string DUMMY_EVENT = ''; // used to create a modifier which does not listen to any event, but allows configuration
+
     public static array $dataArray = [
         [
             'name' => 'modifier_for_player_+1movementPoint_on_move',
@@ -3356,6 +3358,23 @@ abstract class ModifierConfigData
                 ActionEnum::CONSUME->value => ModifierRequirementEnum::ALL_TAGS,
                 GameFruitEnum::BANANA => ModifierRequirementEnum::ANY_TAGS,
             ],
+        ],
+        [
+            'name' => ModifierNameEnum::PLAYER_MINUS_1_SPORE_ON_HEAL,
+            'modifierName' => ModifierNameEnum::MYCOLOGIST_MODIFIER,
+            'targetEvent' => self::DUMMY_EVENT,
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_MINUS_1_SPORE,
+            'modifierActivationRequirements' => ['player_is_mush'],
+            'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
     ];
 

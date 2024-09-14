@@ -166,6 +166,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $victimizerSkillConfig */
         $victimizerSkillConfig = $this->getReference(SkillEnum::VICTIMIZER->value);
 
+        /** @var SkillConfig $frugivoreSkillConfig */
+        $frugivoreSkillConfig = $this->getReference(SkillEnum::FRUGIVORE->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -307,6 +310,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setSkillConfigs([
                 $botanistSkillConfig,
                 $firefighterSkillConfig,
+                $frugivoreSkillConfig,
             ])
             ->setInitStatuses([$pacifistStatus])
             ->setStartingItems($trackerTalkieCollection);

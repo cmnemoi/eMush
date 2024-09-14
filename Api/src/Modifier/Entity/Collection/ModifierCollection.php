@@ -71,4 +71,15 @@ class ModifierCollection extends ArrayCollection
             && $modifierConfig->getApplyWhenTargeted() === $condition
         ));
     }
+
+    public function getModifierByModifierNameOrThrow(string $modifierName): GameModifier
+    {
+        $modifier = $this->filter(static fn (GameModifier $modifier) => $modifier->getModifierNameOrNull() === $modifierName)->first() ?: null;
+
+        if ($modifier === null) {
+            throw new \RuntimeException("Modifier with name {$modifierName} not found.");
+        }
+
+        return $modifier;
+    }
 }

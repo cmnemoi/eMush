@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
@@ -468,5 +469,63 @@ final class ConsumeActionCest extends AbstractFunctionalTest
 
         // then Chun should have 10 action points
         $I->assertEquals(10, $this->chun->getActionPoint());
+    }
+
+    public function frugivoreShouldGainMoreActionPointsWithAlienFruits(FunctionalTester $I): void
+    {
+        // given Chun is a frugivore
+        $this->addSkillToPlayer->execute(SkillEnum::FRUGIVORE, $this->chun);
+
+        // given Chun has alien fruits in her inventory
+        $alienFruit = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameFruitEnum::ANEMOLE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun has 6 action points
+        $this->chun->setActionPoint(6);
+
+        // when Chun consumes the alien fruits
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->consumeConfig,
+            actionProvider: $alienFruit,
+            player: $this->chun,
+            target: $alienFruit,
+        );
+        $this->consumeAction->execute();
+
+        // then Chun should have 6 (base) + 1 (alien fruit) + 2 (frugivore bonus) action points
+        $I->assertEquals(6 + 1 + 2, $this->chun->getActionPoint());
+    }
+
+    public function frugivoreShouldGainMoreActionPointsWithBanana(FunctionalTester $I): void
+    {
+        // given Chun is a frugivore
+        $this->addSkillToPlayer->execute(SkillEnum::FRUGIVORE, $this->chun);
+
+        // given Chun has alien fruits in her inventory
+        $alienFruit = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameFruitEnum::BANANA,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun has 6 action points
+        $this->chun->setActionPoint(6);
+
+        // when Chun consumes the alien fruits
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->consumeConfig,
+            actionProvider: $alienFruit,
+            player: $this->chun,
+            target: $alienFruit,
+        );
+        $this->consumeAction->execute();
+
+        // then Chun should have 6 (base) + 1 (alien fruit) + 1 (frugivore bonus) action points
+        $I->assertEquals(6 + 1 + 1, $this->chun->getActionPoint());
     }
 }

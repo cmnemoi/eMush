@@ -8,10 +8,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -24,7 +21,6 @@ final class FruitCest extends AbstractFunctionalTest
     private EquipmentNormalizer $equipmentNormalizer;
     private GameItem $banana;
 
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)
@@ -34,7 +30,6 @@ final class FruitCest extends AbstractFunctionalTest
         $this->equipmentNormalizer = $I->grabService(EquipmentNormalizer::class);
         $this->equipmentNormalizer->setNormalizer($I->grabService(NormalizerInterface::class));
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         $this->banana = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: GameFruitEnum::BANANA,
@@ -79,11 +74,38 @@ final class FruitCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldDisplayFrugivoreBonusToBotanist(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsABotanist($I);
+        $this->givenPlayerIsFrugivore($I);
+
+        $normalizedBanana = $this->equipmentNormalizer->normalize(
+            $this->banana,
+            format: null,
+            context: ['currentPlayer' => $this->player]
+        );
+
+        $I->assertEquals(
+            expected: [
+                'title' => 'Données sur les effets :',
+                'effects' => [
+                    '+ 1 :pa_cook:',
+                    '+ 2 :pa:',
+                    '+ 1 :hp:',
+                    '+ 1 :pmo:',
+                ],
+            ],
+            actual: $normalizedBanana['effects']
+        );
+    }
+
     private function givenPlayerIsABotanist(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::BOTANIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::BOTANIST, $this->player));
+        $this->addSkillToPlayer(SkillEnum::BOTANIST, $I);
+    }
+
+    private function givenPlayerIsFrugivore(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::FRUGIVORE, $I);
     }
 }

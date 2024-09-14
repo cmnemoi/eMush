@@ -129,7 +129,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             $alienFruitMechanic = new Fruit();
             $alienFruitMechanic
                 ->setPlantName($plantName)
-                ->setActionPoints([1 => 90, 2 => 9, 3 => 1])
+                ->setActionPoints([1 => 100])
                 ->setMoralPoints([0 => 30, 1 => 70])
                 ->setExtraEffects([ExtraEffectEnum::EXTRA_PA_GAIN => 50])
                 ->setSatiety(1)

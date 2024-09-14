@@ -12,6 +12,7 @@ use Mush\Communication\Event\MessageEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
@@ -3307,6 +3308,54 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+        ],
+        [
+            'name' => ModifierNameEnum::PLAYER_PLUS_2_ACTION_POINTS_ON_CONSUME_ACTION_IF_ALIEN_FRUIT,
+            'modifierName' => ModifierNameEnum::FRUGIVORE_MODIFIER_FOR_ALIEN_FRUITS,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 2,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ALL_TAGS,
+                GameFruitEnum::CREEPNUT => ModifierRequirementEnum::ANY_TAGS,
+                GameFruitEnum::MEZTINE => ModifierRequirementEnum::ANY_TAGS,
+                GameFruitEnum::GUNTIFLOP => ModifierRequirementEnum::ANY_TAGS,
+                GameFruitEnum::PLOSHMINA => ModifierRequirementEnum::ANY_TAGS,
+                GameFruitEnum::PRECATI => ModifierRequirementEnum::ANY_TAGS,
+                GameFruitEnum::BOTTINE => ModifierRequirementEnum::ANY_TAGS,
+                GameFruitEnum::FRAGILANE => ModifierRequirementEnum::ANY_TAGS,
+                GameFruitEnum::ANEMOLE => ModifierRequirementEnum::ANY_TAGS,
+                GameFruitEnum::PENICRAFT => ModifierRequirementEnum::ANY_TAGS,
+                GameFruitEnum::KUBINUS => ModifierRequirementEnum::ANY_TAGS,
+                GameFruitEnum::CALEBOOT => ModifierRequirementEnum::ANY_TAGS,
+                GameFruitEnum::FILANDRA => ModifierRequirementEnum::ANY_TAGS,
+                GameFruitEnum::JUMPKIN => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_BANANA,
+            'modifierName' => ModifierNameEnum::FRUGIVORE_MODIFIER_FOR_BANANA,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 1,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ALL_TAGS,
+                GameFruitEnum::BANANA => ModifierRequirementEnum::ANY_TAGS,
+            ],
         ],
     ];
 

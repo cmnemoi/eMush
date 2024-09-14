@@ -605,5 +605,15 @@
         <target>Certaines remarques bien senties peuvent avoir des répercussions inattendues.//:point: Pour **1** :pa:, permet de jeter l'anathème sur un co-équipier.//:point: Ce co-équipier gagne le statut Paria. Le Paria perd 20% de réussite à ses actions.//:point: Ses actions furtives deviennent discrètes.//:point: Le status Paria dure tant que le persécuteur est en vie, ou que le paria meurt ou devienne inactif.</target>
       </segment>
     </unit>
+    <unit id="frugivore">
+      <segment id="frugivore.name" state="translated">
+        <source>frugivore.name</source>
+        <target>Frugivore</target>
+      </segment>
+      <segment id="frugivore.description" state="translated">
+        <source>frugivore.description</source>
+        <target>Vous terrorisez les fruits, vous les adorez, c'est votre drogue. Quand vous croisez le regard d'un fruit, il blettit instantanément.//:point: Vous gagnez **2** :pa: supplémentaires quand vous mangez des fruits aliens, **1** :pa: pour les bananes.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

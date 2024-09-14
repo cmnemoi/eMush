@@ -4,6 +4,7 @@ namespace Mush\Action\Normalizer;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\AttemptAction;
+use Mush\Action\Actions\PrintZeList;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
@@ -229,7 +230,9 @@ class ActionNormalizer implements NormalizerInterface
             $translationParameters['quantity'] = $daedalus->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();
         }
         if ($actionName === ActionEnum::PRINT_ZE_LIST->value) {
-            $translationParameters['numberOfNames'] = $actionClass->getOutputQuantity() - $currentPlayer->getDaedalus()->getDaysElapsedSinceCreation();
+            /** @var PrintZeList $printZeListAction */
+            $printZeListAction = $actionClass;
+            $translationParameters['numberOfNames'] = $printZeListAction->numberOfNames();
         }
         if (ActionEnum::getTakeOffToPlanetActions()->contains($actionName)) {
             $translationParameters['planet'] = $this->getTranslatedInOrbitPlanet($currentPlayer);

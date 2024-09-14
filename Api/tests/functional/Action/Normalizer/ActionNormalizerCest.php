@@ -165,8 +165,8 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // given Daedalus has been created 5 days ago
-        $this->daedalus->setCreatedAt(new \DateTime('-5 days'));
+        // given Daedalus has been created 10 days ago
+        $this->daedalus->setCreatedAt(new \DateTime('-10 days'));
 
         // given Chun is a tracker
         $this->addSkillToPlayer->execute(SkillEnum::TRACKER, $this->chun);
@@ -198,7 +198,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'skillPointCosts' => [],
                 'successRate' => 100,
                 'name' => 'Imprimer LA liste',
-                'description' => 'Vous permet de récupérer une liste que vous avez créée avant le départ du Daedalus. Cette liste contient des noms de personnes potentiellement infectées. À chaque jour, cette liste s\'affine d\'un nom. Cette liste contient actuellement **3** noms.',
+                'description' => 'Vous permet de récupérer une liste que vous avez créée avant le départ du Daedalus. Cette liste contient des noms de personnes potentiellement infectées. À chaque jour, cette liste s\'affine d\'un nom. Cette liste contient actuellement **1** nom.',
                 'canExecute' => true,
                 'confirmation' => null,
             ],

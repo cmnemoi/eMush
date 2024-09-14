@@ -70,6 +70,11 @@ final class PrintZeList extends AbstractAction
         return $target instanceof GameEquipment;
     }
 
+    public function numberOfNames(): int
+    {
+        return max($this->getOutputQuantity() - $this->numberOfDaysElapsed(), 1);
+    }
+
     protected function checkResult(): ActionResult
     {
         return new Success();
@@ -149,7 +154,7 @@ final class PrintZeList extends AbstractAction
     private function selectedPlayers(): array
     {
         $players = $this->player->getDaedalus()->getPlayers()->toArray();
-        $randomPlayers = $this->randomService->getRandomElements($players, $this->numberOfNames());
+        $randomPlayers = $this->randomService->getRandomElements($players, $this->numberOfNames() - 1);
 
         $selectedPlayers = [$this->selectedAlphaMush(), ...$randomPlayers];
         shuffle($selectedPlayers);
@@ -169,11 +174,6 @@ final class PrintZeList extends AbstractAction
         }
 
         return $this->randomService->getRandomElement($alphaMushs->toArray());
-    }
-
-    private function numberOfNames(): int
-    {
-        return max($this->getOutputQuantity() - $this->numberOfDaysElapsed() - 1, 0);
     }
 
     private function numberOfDaysElapsed(): int

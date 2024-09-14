@@ -1053,5 +1053,11 @@
         <target>**{character}** a remarqué quelque chose d'intéressant...</target>
       </segment>
     </unit>
+    <unit id="delogged">
+      <segment id="delogged" state="final">
+        <source>delogged</source>
+        <target>Les archives sont toutes brouillées… Qui a fait mumuse avec les senseurs encore !?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

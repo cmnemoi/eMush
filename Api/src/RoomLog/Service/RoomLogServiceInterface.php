@@ -38,4 +38,6 @@ interface RoomLogServiceInterface
     public function markRoomLogAsReadForPlayer(RoomLog $roomLog, Player $player): void;
 
     public function markAllRoomLogsAsReadForPlayer(Player $player): void;
+
+    public function findOneByOrThrow(array $parameters): RoomLog;
 }

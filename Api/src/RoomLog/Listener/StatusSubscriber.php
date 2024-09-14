@@ -6,6 +6,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -68,6 +69,11 @@ class StatusSubscriber implements EventSubscriberInterface
     public function onStatusRemoved(StatusEvent $event): void
     {
         $statusName = $event->getStatusName();
+        match ($statusName) {
+            PlaceStatusEnum::DELOGGED->toString() => $this->hideDeloggedLog($event),
+            default => null,
+        };
+
         $logMap = StatusEventLogEnum::STATUS_EVENT_LOGS[StatusEvent::STATUS_REMOVED];
 
         if (isset($logMap[$statusName])) {
@@ -137,5 +143,17 @@ class StatusSubscriber implements EventSubscriberInterface
             $logParameters,
             $event->getTime()
         );
+    }
+
+    private function hideDeloggedLog(StatusEvent $event): void
+    {
+        $deloggedLog = $this->roomLogService->findOneByOrThrow([
+            'cycle' => $event->getDaedalus()->getCycle() - 1,
+            'place' => $event->getPlaceOrThrow()->getName(),
+            'log' => LogEnum::DELOGGED,
+        ]);
+
+        $deloggedLog->hide();
+        $this->roomLogService->persist($deloggedLog);
     }
 }

@@ -43,38 +43,15 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         $holder = $event->getStatusHolder();
         $time = $event->getTime();
-        $equipmentBrokenByCycleChange = $event->hasAllTags(
-            tags: [
-                EventEnum::NEW_CYCLE,
-                EquipmentEvent::EQUIPMENT_BROKEN,
-            ],
-        )
-        && $holder instanceof GameEquipment;
-        // $brokenByGreenJelly = $event->getReason() === EventEnum::GREEN_JELLY;
 
         switch ($event->getStatusName()) {
             case EquipmentStatusEnum::BROKEN:
-                if (!$holder instanceof GameEquipment) {
-                    throw new UnexpectedTypeException($holder, GameEquipment::class);
-                }
-
-                /** @TODO : if ($brokenByGreenJelly || $equipmentBrokenByCycleChange) */
-                if ($equipmentBrokenByCycleChange) {
-                    $this->neronMessageService->createBrokenEquipmentMessage($holder, $event->getVisibility(), $time, $event->getTags());
-                }
-
-                // check if player needs to be expelled from private channels
-                if ($holder->getName() === EquipmentEnum::COMMUNICATION_CENTER) {
-                    foreach ($holder->getPlace()->getPlayers() as $player) {
-                        $this->channelService->updatePlayerPrivateChannels($player, EquipmentStatusEnum::BROKEN, $time);
-                    }
-                }
+                $this->handleBrokenStatusApplied($event);
 
                 return;
 
             case StatusEnum::FIRE:
-                $daedalus = $event->getDaedalus();
-                $this->neronMessageService->createNewFireMessage($daedalus, $event->getTime(), $event->getTags());
+                $this->neronMessageService->createNewFireMessage($event->getDaedalus(), $event->getTime(), $event->getTags());
 
                 return;
 
@@ -108,6 +85,33 @@ class StatusSubscriber implements EventSubscriberInterface
                 $this->channelService->removePlayerFromMushChannel($player);
 
                 return;
+        }
+    }
+
+    private function handleBrokenStatusApplied(StatusEvent $event): void
+    {
+        $holder = $event->getStatusHolder();
+
+        if (!$holder instanceof GameEquipment) {
+            throw new UnexpectedTypeException($holder, GameEquipment::class);
+        }
+
+        $equipmentBrokenByCycleChange = $event->hasAllTags(
+            tags: [
+                EventEnum::NEW_CYCLE,
+                EquipmentEvent::EQUIPMENT_BROKEN,
+            ],
+        ) && $holder instanceof GameEquipment;
+
+        if ($equipmentBrokenByCycleChange) {
+            $this->neronMessageService->createBrokenEquipmentMessage($holder, $event->getVisibility(), $event->getTime(), $event->getTags());
+        }
+
+        // check if player needs to be expelled from private channels
+        if ($holder->getName() === EquipmentEnum::COMMUNICATION_CENTER) {
+            foreach ($holder->getPlace()->getPlayers() as $player) {
+                $this->channelService->updatePlayerPrivateChannels($player, EquipmentStatusEnum::BROKEN, $event->getTime());
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
@@ -45,6 +46,10 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $time = $event->getTime();
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
+
+        if ($player->getPlace()->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
+            return;
+        }
 
         if ($endCause === null) {
             throw new \LogicException('Player should die with a reason');

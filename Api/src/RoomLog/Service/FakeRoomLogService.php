@@ -107,6 +107,11 @@ final class FakeRoomLogService implements RoomLogServiceInterface
         return null;
     }
 
+    public function findOneByOrThrow(array $parameters): RoomLog
+    {
+        return $this->roomLogs[$parameters['id']] ?? throw new \RuntimeException("Log {$parameters['log']} not found in daedalus {$parameters['place']->getDaedalus()->getId()} for given parameters");
+    }
+
     private function getVisibility(?Player $player, string $visibility): string
     {
         if ($player === null) {

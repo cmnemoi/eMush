@@ -4,6 +4,7 @@ namespace Mush\Status\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Place\Entity\Place;
 
 interface StatusHolderInterface
 {
@@ -36,4 +37,6 @@ interface StatusHolderInterface
     public function equals(self $statusHolder): bool;
 
     public function notEquals(self $statusHolder): bool;
+
+    public function getPlace(): Place;
 }

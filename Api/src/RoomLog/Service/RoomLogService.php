@@ -27,6 +27,7 @@ use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 
 class RoomLogService implements RoomLogServiceInterface
 {
@@ -194,6 +195,11 @@ class RoomLogService implements RoomLogServiceInterface
         }
     }
 
+    public function findOneByOrThrow(array $parameters): RoomLog
+    {
+        return $this->repository->findOneBy($parameters) ?? throw new \RuntimeException("Log {$parameters['log']} not found in daedalus {$parameters['place']->getDaedalus()->getId()} for given parameters");
+    }
+
     private function getVisibility(?Player $player, string $visibility): string
     {
         if ($player === null) {
@@ -202,15 +208,11 @@ class RoomLogService implements RoomLogServiceInterface
 
         $place = $player->getPlace();
 
-        $placeHasAFunctionalCamera = $place->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
-        $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
-        $observantRevealsLog = $player->getAlivePlayersInRoomExceptSelf()->getPlayersWithSkill(SkillEnum::OBSERVANT)->count() > 0 && $this->randomService->isSuccessful(self::OBSERVANT_REVEAL_CHANCE);
-
-        if ($visibility === VisibilityEnum::SECRET && ($placeHasAWitness || $placeHasAFunctionalCamera)) {
-            return VisibilityEnum::REVEALED;
+        if ($place->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
+            return VisibilityEnum::HIDDEN;
         }
 
-        if ($visibility === VisibilityEnum::COVERT && ($placeHasAFunctionalCamera || $observantRevealsLog)) {
+        if ($this->shouldRevealSecretLog($player, $visibility) || $this->shouldRevealCovertLog($player, $visibility)) {
             return VisibilityEnum::REVEALED;
         }
 
@@ -311,5 +313,23 @@ class RoomLogService implements RoomLogServiceInterface
             $this->randomService->randomPercent() <= Neron::CRAZY_NERON_CHANCE => NeronPersonalitiesEnum::CRAZY,
             default => NeronPersonalitiesEnum::NEUTRAL,
         };
+    }
+
+    private function shouldRevealCovertLog(Player $player, string $visibility): bool
+    {
+        $place = $player->getPlace();
+        $placeHasAFunctionalCamera = $place->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
+        $observantRevealsLog = $player->getAlivePlayersInRoomExceptSelf()->getPlayersWithSkill(SkillEnum::OBSERVANT)->count() > 0 && $this->randomService->isSuccessful(self::OBSERVANT_REVEAL_CHANCE);
+
+        return $visibility === VisibilityEnum::COVERT && ($placeHasAFunctionalCamera || $observantRevealsLog);
+    }
+
+    private function shouldRevealSecretLog(Player $player, string $visibility): bool
+    {
+        $place = $player->getPlace();
+        $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
+        $placeHasAFunctionalCamera = $place->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
+
+        return $visibility === VisibilityEnum::SECRET && ($placeHasAWitness || $placeHasAFunctionalCamera);
     }
 }

@@ -457,6 +457,8 @@ class GameConfigData
                 PlayerStatusEnum::ALPHA_MUSH . '_default',
                 DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED . '_default',
                 SkillPointsEnum::CHEF_POINTS->value,
+                PlaceStatusEnum::DELOGGED->value . '_default',
+                PlayerStatusEnum::HAS_USED_DELOG . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -597,6 +599,7 @@ class GameConfigData
                 SkillEnum::BACTEROPHILIAC,
                 SkillEnum::INFECTOR,
                 SkillEnum::PYROMANIAC,
+                SkillEnum::DEFACER,
             ],
         ],
     ];

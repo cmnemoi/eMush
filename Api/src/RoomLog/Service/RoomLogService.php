@@ -212,7 +212,7 @@ class RoomLogService implements RoomLogServiceInterface
         if ($place->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
             return VisibilityEnum::HIDDEN;
         }
-        
+
         if ($visibility === VisibilityEnum::COVERT && $player->hasStatus(PlayerStatusEnum::PARIAH)) {
             $visibility = VisibilityEnum::SECRET;
         }

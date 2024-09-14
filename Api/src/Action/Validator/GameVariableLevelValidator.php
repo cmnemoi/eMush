@@ -71,6 +71,9 @@ class GameVariableLevelValidator extends ConstraintValidator
             case GameVariableLevel::EQUALS:
                 return $this->checkEqualsVariableLevel($gameVariable, $constraint->value);
 
+            case GameVariableLevel::NOT_EQUALS:
+                return $this->checkEqualsVariableLevel($gameVariable, $constraint->value) === false;
+
             default:
                 throw new LogicException('unsupported checkMode');
         }

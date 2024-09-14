@@ -1388,5 +1388,19 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>L'objet ciblé deviendra cassé d'ici 1 à {outputQuantity} cycles.</target>
       </segment>
     </unit>
+    <unit id="mass_ggeddon">
+      <segment id="name" state="final">
+        <source>mass_ggeddon.name</source>
+        <target>Moisification de masse</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>mass_ggeddon.description</source>
+        <target>Inflige une perte de 2 :pa: et le status sale à tout l'équipage.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>mass_ggeddon.confirmation</source>
+        <target>Cette action est très puissante et mènera sans doute à des représailles. Continuer ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

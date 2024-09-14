@@ -523,11 +523,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasExchangedBodyStatus);
 
-        $alphaMushStatus = StatusConfig::fromConfigData(
-            StatusConfigData::getByName(PlayerStatusEnum::ALPHA_MUSH . '_default')
-        );
-        $manager->persist($alphaMushStatus);
-
         $hasPrintedZeList = StatusConfig::fromConfigData(
             StatusConfigData::getByName(DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED . '_default')
         );
@@ -545,6 +540,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $pariahStatus->setModifierConfigs([$pariahModifier]);
         $manager->persist($pariahStatus);
+
+        $hasUsedMassGgedon = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_USED_MASS_GGEDON . '_default')
+        );
+        $manager->persist($hasUsedMassGgedon);
 
         $gameConfig
             ->addStatusConfig($noGravity)
@@ -602,8 +602,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasCeasefiredStatus)
             ->addStatusConfig($hasExchangedBodyStatus)
             ->addStatusConfig($hasPrintedZeList)
+            ->addStatusConfig($hasUsedMassGgedon)
             ->addStatusConfig($hasUsedPutsch)
-            ->addStatusConfig($alphaMushStatus)
             ->addStatusConfig($pariahStatus);
 
         $manager->persist($gameConfig);
@@ -661,8 +661,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_EXCHANGED_BODY, $hasExchangedBodyStatus);
         $this->addReference(DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED, $hasPrintedZeList);
         $this->addReference(PlayerStatusEnum::HAS_USED_PUTSCH, $hasUsedPutsch);
-        $this->addReference(PlayerStatusEnum::ALPHA_MUSH, $alphaMushStatus);
         $this->addReference(PlayerStatusEnum::PARIAH, $pariahStatus);
+        $this->addReference(PlayerStatusEnum::HAS_USED_MASS_GGEDON, $hasUsedMassGgedon);
 
         $manager->flush();
     }

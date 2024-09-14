@@ -685,5 +685,15 @@
         <target>Vous produisez une gelée verte acide étrange avec vos aisselles...//:point: Pour **1** :pa:, vous pouvez provoquer la casse d'un objet électronique. Celui-ci mettra plusieurs cycles avant de se dégrader.</target>
       </segment>
     </unit>
+    <unit id="massive_mushification">
+      <segment id="massive_mushification.name" state="translated">
+        <source>massive_mushification.name</source>
+        <target>Mosification de masse</target>
+      </segment>
+      <segment id="massive_mushification.description" state="translated">
+        <source>massive_mushification.description</source>
+        <target>Certains péniceliums sont d'une virulence extrême. L'effet est de courte durée mais très efficace.//:point: **Unique** : Pour **2** :pa: et 2 spores, vous pouvez enlever 2 :pa: à chaque membre d'équipage et provoquer un état de saleté.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

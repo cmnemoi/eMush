@@ -454,7 +454,6 @@ class GameConfigData
                 PlayerStatusEnum::PREVIOUS_ROOM . '_default',
                 PlayerStatusEnum::HAS_EXCHANGED_BODY . '_default',
                 PlayerStatusEnum::HAS_ISSUED_MISSION . '_default',
-                PlayerStatusEnum::ALPHA_MUSH . '_default',
                 DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED . '_default',
                 SkillPointsEnum::CHEF_POINTS->value,
                 PlaceStatusEnum::DELOGGED->value . '_default',
@@ -463,6 +462,7 @@ class GameConfigData
                 PlayerStatusEnum::PARIAH . '_default',
                 PlayerStatusEnum::SLIME_TRAP . '_default',
                 EquipmentStatusEnum::SLIMED . '_default',
+                PlayerStatusEnum::HAS_USED_MASS_GGEDON . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -610,6 +610,7 @@ class GameConfigData
                 SkillEnum::INFECTOR,
                 SkillEnum::PYROMANIAC,
                 SkillEnum::DEFACER,
+                SkillEnum::MASSIVE_MUSHIFICATION,
             ],
         ],
     ];

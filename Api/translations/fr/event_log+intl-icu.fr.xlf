@@ -1074,5 +1074,11 @@
         <target>Les archives sont toutes brouillées… Qui a fait mumuse avec les senseurs encore !?</target>
       </segment>
     </unit>
+    <unit id="soiled_by_mass_ggedon">
+      <segment id="soiled_by_mass_ggedon" state="final">
+        <source>soiled_by_mass_ggedon</source>
+        <target>Vous vous sentez mal, une sensation étrange, comme ci tout était couvert de pourriture... Votre estomac chavire... Vous vous sentez très faible... bluuurrrpp.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

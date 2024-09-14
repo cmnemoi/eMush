@@ -13,30 +13,31 @@ use Mush\Status\Event\StatusEvent;
 
 abstract class StatusEventLogEnum
 {
-    public const SOILED = 'soiled';
-    public const BECOME_PREGNANT = 'become_pregnant';
-    public const EQUIPMENT_BROKEN = 'equipment_broken';
-    public const STUCK_IN_THE_SHIP = 'stuck_in_the_ship';
-    public const GET_UP_BED_BROKEN = 'get_up_bed_broken';
-    public const GAIN_BOTANIST_POINT = 'gain_botanist_point';
-    public const GAIN_CONCEPTOR_POINT = 'gain_conceptor_point';
-    public const GAIN_IT_EXPERT_POINT = 'gain_it_expert_point';
-    public const GAIN_NURSE_POINT = 'gain_nurse_point';
-    public const GAIN_PILGRED_POINT = 'gain_pilgred_point';
-    public const GAIN_SHOOT_POINT = 'gain_shoot_point';
-    public const GAIN_TECHNICIAN_POINT = 'gain_technician_point';
-    public const LOST_IN_EXPLORATION = 'lost_in_exploration';
-    public const PLAYER_FALL_ASLEEP = 'player_fall_asleep';
-    public const PLAYER_WAKE_UP = 'player_wake_up';
-    public const CEASEFIRE_END = 'ceasefire_end';
+    public const string SOILED = 'soiled';
+    public const string BECOME_PREGNANT = 'become_pregnant';
+    public const string EQUIPMENT_BROKEN = 'equipment_broken';
+    public const string STUCK_IN_THE_SHIP = 'stuck_in_the_ship';
+    public const string GET_UP_BED_BROKEN = 'get_up_bed_broken';
+    public const string GAIN_BOTANIST_POINT = 'gain_botanist_point';
+    public const string GAIN_CONCEPTOR_POINT = 'gain_conceptor_point';
+    public const string GAIN_IT_EXPERT_POINT = 'gain_it_expert_point';
+    public const string GAIN_NURSE_POINT = 'gain_nurse_point';
+    public const string GAIN_PILGRED_POINT = 'gain_pilgred_point';
+    public const string GAIN_SHOOT_POINT = 'gain_shoot_point';
+    public const string GAIN_TECHNICIAN_POINT = 'gain_technician_point';
+    public const string LOST_IN_EXPLORATION = 'lost_in_exploration';
+    public const string PLAYER_FALL_ASLEEP = 'player_fall_asleep';
+    public const string PLAYER_WAKE_UP = 'player_wake_up';
+    public const string CEASEFIRE_END = 'ceasefire_end';
+    public const string SOILED_BY_MASS_GGEDON = 'soiled_by_mass_ggedon';
 
-    public const VALUE = 'value';
-    public const VISIBILITY = 'visibility';
+    public const string VALUE = 'value';
+    public const string VISIBILITY = 'visibility';
 
-    public const GAIN = 'gain';
-    public const LOSS = 'loss';
+    public const string GAIN = 'gain';
+    public const string LOSS = 'loss';
 
-    public const STATUS_EVENT_LOGS = [
+    public const array STATUS_EVENT_LOGS = [
         StatusEvent::STATUS_APPLIED => [
             PlayerStatusEnum::DIRTY => self::SOILED,
             PlayerStatusEnum::PREGNANT => self::BECOME_PREGNANT,
@@ -62,7 +63,7 @@ abstract class StatusEventLogEnum
         ],
     ];
 
-    public const CHARGE_STATUS_UPDATED_LOGS = [
+    public const array CHARGE_STATUS_UPDATED_LOGS = [
         self::GAIN => [
             self::VALUE => [
                 SkillPointsEnum::BOTANIST_POINTS->value => self::GAIN_BOTANIST_POINT,

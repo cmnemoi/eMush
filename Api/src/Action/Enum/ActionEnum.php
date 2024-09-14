@@ -154,7 +154,6 @@ enum ActionEnum: string
     case SCREW_TALKIE = 'screw_talkie';
     case SPREAD_FIRE = 'spread_fire';
     case NERON_DEPRESS = 'neron_depress';
-    case MASS_MUSHIFICATION = 'mass_mushification';
     case MASS_GGEDON = 'mass_ggeddon';
     case SLIME_TRAP = 'slime_trap';
 

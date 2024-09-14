@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Mush;
 
-use OpenTelemetry\API\Common\Time\Clock;
 use OpenTelemetry\API\Trace\Propagation\TraceContextPropagator;
 use OpenTelemetry\Context\Context;
 use OpenTelemetry\Contrib\Otlp\SpanExporter;
 use OpenTelemetry\SDK\Common\Attribute\Attributes;
 use OpenTelemetry\SDK\Common\Export\Http\PsrTransportFactory;
+use OpenTelemetry\SDK\Common\Time\ClockFactory;
 use OpenTelemetry\SDK\Resource\ResourceInfo;
 use OpenTelemetry\SDK\Resource\ResourceInfoFactory;
 use OpenTelemetry\SDK\Sdk;
@@ -45,7 +45,7 @@ final class OpenTelemetry
 
         $resource = ResourceInfoFactory::emptyResource()->merge(ResourceInfo::create(Attributes::create([
             ResourceAttributes::SERVICE_NAME => $apiConfig->appName,
-            ResourceAttributes::DEPLOYMENT_ENVIRONMENT => $apiConfig->appEnv,
+            ResourceAttributes::DEPLOYMENT_ENVIRONMENT_NAME => $apiConfig->appEnv,
         ])));
         $spanExporter = new SpanExporter(
             PsrTransportFactory::discover()
@@ -56,7 +56,7 @@ final class OpenTelemetry
                 )
         );
 
-        $spanProcessor = $apiConfig->isApiOnDev() ? new SimpleSpanProcessor($spanExporter) : new BatchSpanProcessor($spanExporter, Clock::getDefault());
+        $spanProcessor = $apiConfig->isApiOnDev() ? new SimpleSpanProcessor($spanExporter) : new BatchSpanProcessor($spanExporter, ClockFactory::getDefault());
 
         $tracerProvider = TracerProvider::builder()
             ->addSpanProcessor($spanProcessor)

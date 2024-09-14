@@ -459,6 +459,7 @@ class GameConfigData
                 SkillPointsEnum::CHEF_POINTS->value,
                 PlaceStatusEnum::DELOGGED->value . '_default',
                 PlayerStatusEnum::HAS_USED_DELOG . '_default',
+                PlayerStatusEnum::HAS_USED_PUTSCH . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

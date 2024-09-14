@@ -9,6 +9,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Daedalus\Entity\TitlePriority;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -104,6 +105,8 @@ class AbstractFunctionalTest
         $daedalus->setPlaces($places);
 
         $daedalus->setDaedalusVariables($daedalusConfig);
+
+        $this->createTitlePriorities($daedalus, $I);
 
         $I->haveInRepository($daedalus);
 
@@ -265,6 +268,15 @@ class AbstractFunctionalTest
             $I->haveInRepository($project);
 
             $this->daedalus->addProject($project);
+        }
+    }
+
+    private function createTitlePriorities(Daedalus $daedalus, FunctionalTester $I): void
+    {
+        foreach ($daedalus->getGameConfig()->getTitleConfigs() as $titleConfig) {
+            $titlePriority = new TitlePriority($titleConfig, $daedalus);
+            $I->haveInRepository($titlePriority);
+            $daedalus->addTitlePriority($titlePriority);
         }
     }
 }

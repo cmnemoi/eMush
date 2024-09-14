@@ -160,6 +160,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $uTurnSkillConfig */
         $uTurnSkillConfig = $this->getReference(SkillEnum::U_TURN->value);
 
+        /** @var SkillConfig $politicianSkillConfig */
+        $politicianSkillConfig = $this->getReference(SkillEnum::POLITICIAN->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -340,6 +343,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $astrophysicistSkillConfig,
                 $technicianSkillConfig,
                 $leaderSkillConfig,
+                $politicianSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($kuanTi);

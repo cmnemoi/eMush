@@ -9,11 +9,13 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\RandomItemPlaces;
+use Mush\Daedalus\Entity\TitlePriority;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Daedalus\Repository\DaedalusInfoRepository;
 use Mush\Daedalus\Repository\DaedalusRepository;
+use Mush\Daedalus\Repository\TitlePriorityRepositoryInterface;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
@@ -93,7 +95,8 @@ final class DaedalusServiceTest extends TestCase
             $this->randomService,
             $this->localizationConfigRepository,
             $this->daedalusInfoRepository,
-            $this->daedalusRepository
+            $this->daedalusRepository,
+            $this->createStub(TitlePriorityRepositoryInterface::class),
         );
     }
 
@@ -417,6 +420,8 @@ final class DaedalusServiceTest extends TestCase
 
         $gameConfig->setDaedalusConfig($daedalusConfig);
         $gameConfig->setTitleConfigs($titleConfigCollection);
+
+        $daedalus->addTitlePriority(new TitlePriority($titleConfig, $daedalus));
 
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 

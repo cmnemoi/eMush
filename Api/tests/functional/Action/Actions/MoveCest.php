@@ -11,6 +11,7 @@ use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -148,15 +149,7 @@ final class MoveCest extends AbstractFunctionalTest
         $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
 
         // given there is a door for exiting laboratory to front corridor
-        $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
-        $laboratory = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
-        $frontCorridor = $this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR);
-        $door = new Door($laboratory);
-        $door
-            ->setName('door_default')
-            ->setEquipment($doorConfig)
-            ->addRoom($frontCorridor)->addRoom($laboratory);
-        $I->haveInRepository($door);
+        $door = $this->createDoorFromLaboratoryToFrontCorridor($I);
 
         // when derek tries to move to the front corridor
         $this->moveAction->loadParameters(
@@ -389,20 +382,15 @@ final class MoveCest extends AbstractFunctionalTest
     private function createDoorFromLaboratoryToFrontCorridor(FunctionalTester $I): Door
     {
         $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
-        $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
-        $door = new Door($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
-        $door
-            ->setName('door_default')
-            ->setEquipment($doorConfig)
-            ->addRoom($this->daedalus->getPlaceByNameOrThrow(RoomEnum::FRONT_CORRIDOR));
-        $I->haveInRepository($door);
 
-        return $door;
+        return $this->createDoorFromTo($I, RoomEnum::LABORATORY, RoomEnum::FRONT_CORRIDOR);
     }
 
     private function createDoorFromTo(FunctionalTester $I, string $from, string $to): Door
     {
+        $doorMechanic = $I->grabEntityFromRepository(Tool::class, ['name' => 'tools_door_default']);
         $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
+        $doorConfig->setMechanics([$doorMechanic]);
         $door = Door::createFromRooms($this->daedalus->getPlaceByNameOrThrow($from), $this->daedalus->getPlaceByNameOrThrow($to));
         $door->setEquipment($doorConfig);
         $I->haveInRepository($door);

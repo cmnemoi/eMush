@@ -1334,5 +1334,19 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action interrompra l'expédition pour toute l'équipe. Continuer ?</target>
       </segment>
     </unit>
+    <unit id="putsch">
+      <segment id="name" state="final">
+        <source>putsch.name</source>
+        <target>Putsch !</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>putsch.description</source>
+        <target>**Unique** : NERON vous considérera comme le chef absolu à partir du prochain cycle.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>putsch.confirmation</source>
+        <target>Cette action peut-être très mal perçue, êtes-vous sûr de vouloir continuer ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

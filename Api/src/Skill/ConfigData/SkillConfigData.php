@@ -217,6 +217,9 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::POLITICIAN,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::PYROMANIAC,
                 actionConfigs: [
                     ActionEnum::SPREAD_FIRE,

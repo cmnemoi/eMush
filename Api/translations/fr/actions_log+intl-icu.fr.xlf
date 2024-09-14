@@ -1274,5 +1274,11 @@
         other {Ploc...ploc...ploc...pschhhhh... **{character}** se jette à couvert pendant que les autres regardent à leurs pieds. L'explosion souffle tout le monde !}}</target>
       </segment>
     </unit>
+    <unit id="putsch_success">
+      <segment id="putsch_success" state="final">
+        <source>putsch_success</source>
+        <target>**{character}** entre en grande discussion avec NERON. Qui sait ce qu'ils peuvent bien se dire…</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

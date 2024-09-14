@@ -55,7 +55,7 @@ final class SlimeTrapCest extends AbstractFunctionalTest
         $this->whenKuanTiUsesSlimeTrapOnChun();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: ":mush: L'espace d'un instant, **Kuan Ti** met une tape affectueuse à **Chun**... Mais on dirait qu'une fumée putride est sorti de ses doigts !",
+            expectedRoomLog: ":mush: L'espace d'un instant, **Kuan Ti** met une tape affectueuse à **Chun**... Mais on dirait qu'une fumée putride est sortie de ses doigts !",
             actualRoomLogDto: new RoomLogDto(
                 player: $this->kuanTi,
                 log: ActionLogEnum::SLIME_TRAP_SUCCESS,

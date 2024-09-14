@@ -1291,7 +1291,7 @@
     <unit id="slime_trap_success">
       <segment id="slime_trap_success" state="final">
         <source>slime_trap_success</source>
-        <target>:mush: L'espace d'un instant, **{character}** met une tape affectueuse à **{target_character}**... Mais on dirait qu'une fumée putride est sorti de ses doigts !</target>
+        <target>:mush: L'espace d'un instant, **{character}** met une tape affectueuse à **{target_character}**... Mais on dirait qu'une fumée putride est sortie de ses doigts !</target>
       </segment>
     </unit>
   </file>

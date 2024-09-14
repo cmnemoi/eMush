@@ -8,6 +8,7 @@ use Mush\Alert\Entity\AlertElement;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 
 interface AlertServiceInterface
 {
@@ -56,4 +57,8 @@ interface AlertServiceInterface
     public function handlePlayerLost(Daedalus $daedalus): void;
 
     public function handleLostPlayerFound(Daedalus $daedalus): void;
+
+    public function handlePariahApplied(Player $player): void;
+
+    public function handlePariahRemoved(Player $player): void;
 }

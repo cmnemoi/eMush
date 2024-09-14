@@ -1348,5 +1348,19 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action peut-être très mal perçue, êtes-vous sûr de vouloir continuer ?</target>
       </segment>
     </unit>
+    <unit id="anathema">
+      <segment id="name" state="final">
+        <source>anathema.name</source>
+        <target>Anathème</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>anathema.description</source>
+        <target>Permet de jeter l'anathème ce qui lui confère le statut Paria.//Le Paria souffre de malus importants.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>anathema.confirmation</source>
+        <target>Cette action est très puissante et menera sans doute à des représailles. Continuer ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

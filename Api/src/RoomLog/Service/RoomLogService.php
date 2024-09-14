@@ -28,6 +28,7 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class RoomLogService implements RoomLogServiceInterface
 {
@@ -210,6 +211,10 @@ class RoomLogService implements RoomLogServiceInterface
 
         if ($place->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
             return VisibilityEnum::HIDDEN;
+        }
+
+        if ($visibility === VisibilityEnum::COVERT && $player->hasStatus(PlayerStatusEnum::PARIAH)) {
+            $visibility = VisibilityEnum::SECRET;
         }
 
         if ($this->shouldRevealSecretLog($player, $visibility) || $this->shouldRevealCovertLog($player, $visibility)) {

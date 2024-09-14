@@ -391,7 +391,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.VICTIMIZER]: {
-        'icon': getImgUrl('skills/human/victimizer.png')
+        'icon': getImgUrl('skills/human/juge.png')
     },
 
     [SkillEnum.WRESTLER]: {

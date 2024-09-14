@@ -300,6 +300,12 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::VICTIMIZER,
+                actionConfigs: [
+                    ActionEnum::ANATHEMA,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::WRESTLER,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_2_DAMAGE_ON_HIT,

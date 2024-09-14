@@ -538,6 +538,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasUsedPutsch);
 
+        /** @var VariableEventModifierConfig $pariahModifier */
+        $pariahModifier = $this->getReference(ModifierNameEnum::PLAYER_MINUS_20_PERCENTAGE_ON_ACTIONS);
+        $pariahStatus = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::PARIAH . '_default')
+        );
+        $pariahStatus->setModifierConfigs([$pariahModifier]);
+        $manager->persist($pariahStatus);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -594,7 +602,9 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasCeasefiredStatus)
             ->addStatusConfig($hasExchangedBodyStatus)
             ->addStatusConfig($hasPrintedZeList)
-            ->addStatusConfig($hasUsedPutsch);
+            ->addStatusConfig($hasUsedPutsch)
+            ->addStatusConfig($alphaMushStatus)
+            ->addStatusConfig($pariahStatus);
 
         $manager->persist($gameConfig);
 
@@ -651,6 +661,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_EXCHANGED_BODY, $hasExchangedBodyStatus);
         $this->addReference(DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED, $hasPrintedZeList);
         $this->addReference(PlayerStatusEnum::HAS_USED_PUTSCH, $hasUsedPutsch);
+        $this->addReference(PlayerStatusEnum::ALPHA_MUSH, $alphaMushStatus);
+        $this->addReference(PlayerStatusEnum::PARIAH, $pariahStatus);
 
         $manager->flush();
     }

@@ -1494,6 +1494,16 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::PARIAH . '_default',
+            'statusName' => PlayerStatusEnum::PARIAH,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'status_config',
+            'modifierConfigs' => [
+                ModifierNameEnum::PLAYER_MINUS_20_PERCENTAGE_ON_ACTIONS,
+            ],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

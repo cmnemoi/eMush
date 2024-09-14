@@ -1099,6 +1099,9 @@ class ActionsFixtures extends Fixture
         $putsch = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PUTSCH));
         $manager->persist($putsch);
 
+        $anathema = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::ANATHEMA));
+        $manager->persist($anathema);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1217,5 +1220,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::DELOG->value, $delog);
         $this->addReference(ActionEnum::RUN_HOME->value, $runHome);
         $this->addReference(ActionEnum::PUTSCH->value, $putsch);
+        $this->addReference(ActionEnum::ANATHEMA->value, $anathema);
     }
 }

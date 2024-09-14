@@ -81,7 +81,7 @@
       </segment>
       <segment id="description" state="final">
         <source>outcast.description</source>
-        <target>On vous a jeté l'anathème. Un poids pèse sur vos épaules. On vous montre du doigt, on vous épie, on vous regarde attentivement. Vous êtes le bouc-émissaire. La victime. Vos actions sont plus dures.</target>
+        <target>{character} est {character_gender, select, male {un} female {une} other {un}} paria, vous devriez consulter l'équipage pour savoir ce qu'il faut en faire.</target>
       </segment>
     </unit>
     <unit id="lost_crewmate">

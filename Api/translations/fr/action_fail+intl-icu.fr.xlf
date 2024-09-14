@@ -306,7 +306,7 @@
         <target>{target_character_gender, select,
             male {Cet équipier est un paria, il a déjà reçu sa peine !}
             female {Cette équipière est une paria, elle a déjà reçu sa peine !}
-            other {invalid target gender}
+            other {Cet équipier est un paria, il a déjà reçu sa peine !}
             }</target>
       </segment>
     </unit>

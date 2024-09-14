@@ -7,6 +7,7 @@ use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -71,6 +72,11 @@ class StatusSubscriber implements EventSubscriberInterface
                 $this->alertService->handlePlayerLost($holder->getDaedalus());
 
                 return;
+
+            case PlayerStatusEnum::PARIAH:
+                $this->alertService->handlePariahApplied($this->getHolderAsPlayer($event));
+
+                return;
         }
     }
 
@@ -110,6 +116,22 @@ class StatusSubscriber implements EventSubscriberInterface
                 $this->alertService->gravityAlert($holder->getDaedalus(), AlertEnum::GRAVITY_REBOOT);
 
                 return;
+
+            case PlayerStatusEnum::PARIAH:
+                $this->alertService->handlePariahRemoved($this->getHolderAsPlayer($event));
+
+                return;
         }
+    }
+
+    private function getHolderAsPlayer(StatusEvent $event): Player
+    {
+        $holder = $event->getStatusHolder();
+
+        if (!$holder instanceof Player) {
+            throw new UnexpectedTypeException($holder, Player::class);
+        }
+
+        return $holder;
     }
 }

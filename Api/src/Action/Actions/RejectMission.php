@@ -104,7 +104,7 @@ final class RejectMission extends AbstractAction
         $this->updatePlayerNotification->execute(
             player: $mission->getCommander(),
             message: PlayerNotificationEnum::MISSION_REJECTED->toString(),
-            parameters: ['mission' => mb_substr($mission->getMission(), 0, 50) . '...'],
+            parameters: ['missionContent' => mb_substr($mission->getMission(), 0, 50) . '...'],
         );
     }
 

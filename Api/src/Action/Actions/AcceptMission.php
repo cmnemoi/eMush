@@ -105,7 +105,7 @@ final class AcceptMission extends AbstractAction
         $this->updatePlayerNotification->execute(
             player: $mission->getCommander(),
             message: PlayerNotificationEnum::MISSION_ACCEPTED->toString(),
-            parameters: ['mission' => mb_substr($mission->getMission(), 0, 50) . '...'],
+            parameters: ['missionContent' => mb_substr($mission->getMission(), 0, 50) . '...'],
         );
     }
 

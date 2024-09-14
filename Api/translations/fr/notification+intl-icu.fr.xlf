@@ -36,13 +36,13 @@
     <unit id="mission_accepted">
       <segment state="translated">
         <source>mission_accepted.description</source>
-        <target>Votre mission "{mission}" a été acceptée.</target>
+        <target>Votre mission "{missionContent}" a été acceptée.</target>
       </segment>
     </unit>
     <unit id="mission_rejected">
       <segment state="final">
         <source>mission_rejected.description</source>
-        <target>Votre mission "{mission}" a été refusée.</target>
+        <target>Votre mission "{missionContent}" a été refusée.</target>
       </segment>
     </unit>
     <unit id="dropped_critical_item">

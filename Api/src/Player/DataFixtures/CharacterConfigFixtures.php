@@ -157,6 +157,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $expertSkillConfig */
         $expertSkillConfig = $this->getReference(SkillEnum::EXPERT->value);
 
+        /** @var SkillConfig $uTurnSkillConfig */
+        $uTurnSkillConfig = $this->getReference(SkillEnum::U_TURN->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -282,6 +285,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $survivalistSkillConfig,
                 $technicianSkillConfig,
                 $determinedSkillConfig,
+                $uTurnSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($hua);

@@ -119,5 +119,11 @@
         <target>Ce plant arrivera à maturité dans {quantity} cycles</target>
       </segment>
     </unit>
+    <unit id="exploration_archive">
+      <segment id="exploration_archive" state="final">
+        <source>exploration_archive</source>
+        <target>l'archive de l'expédition</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

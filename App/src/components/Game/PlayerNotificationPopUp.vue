@@ -1,7 +1,8 @@
 <template>
     <PopUp :is-open="popUp.isOpen">
         <h1 class="title" v-html="formatText(popUp.title)" v-if="popUp.title" />
-        <p v-html="formatText(popUp.description)" />
+        <h3 class="sub-title" v-html="formatText(popUp.subTitle)" v-if="popUp.subTitle" />
+        <p class="message" v-html="formatText(popUp.description)" />
         <div class="actions">
             <button class="action-button" @click="close">{{ $t('game.popUp.ok') }}</button>
         </div>
@@ -44,5 +45,15 @@ export default defineComponent ({
      button, a {
         min-width: 160px;
      }
+}
+
+.sub-title {
+    margin-bottom: 0;
+}
+
+.message {
+    :deep(a) {
+        color: $green;
+    }
 }
 </style>

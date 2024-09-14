@@ -387,7 +387,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.U_TURN]: {
-        'icon': getImgUrl('skills/human/u_turn.png')
+        'icon': getImgUrl('skills/human/fast_backward.png')
     },
 
     [SkillEnum.VICTIMIZER]: {

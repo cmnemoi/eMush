@@ -22,30 +22,18 @@
       </segment>
     </unit>
     <unit id="mission_sent">
-      <segment state="final">
-        <source>mission_sent.title</source>
-        <target/>
-      </segment>
       <segment state="translated">
         <source>mission_sent.description</source>
         <target>Mission envoyée.</target>
       </segment>
     </unit>
     <unit id="mission_received">
-      <segment state="final">
-        <source>mission_received.title</source>
-        <target/>
-      </segment>
       <segment state="translated">
         <source>mission_received.description</source>
         <target>Vous avez reçu une nouvelle mission du Commandant. Rendez-vous dans l'onglet Conseils.</target>
       </segment>
     </unit>
     <unit id="mission_accepted">
-      <segment state="final">
-        <source>mission_accepted.title</source>
-        <target/>
-      </segment>
       <segment state="translated">
         <source>mission_accepted.description</source>
         <target>Votre mission "{mission}" a été acceptée.</target>
@@ -53,22 +41,24 @@
     </unit>
     <unit id="mission_rejected">
       <segment state="final">
-        <source>mission_rejected.title</source>
-        <target/>
-      </segment>
-      <segment state="final">
         <source>mission_rejected.description</source>
         <target>Votre mission "{mission}" a été refusée.</target>
       </segment>
     </unit>
     <unit id="dropped_critical_item">
       <segment state="translated">
-        <source>dropped_critical_item.title</source>
-        <target/>
-      </segment>
-      <segment state="translated">
         <source>dropped_critical_item.description</source>
         <target>*Hinnnn* cet objet est critique pour la survie de l'équipage. Vous ne pouvez l'emporter avec vous...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_by_u_turn">
+      <segment state="translated">
+        <source>exploration_closed_by_u_turn.subTitle</source>
+        <target>{character_gender, select, female {{character} s'est mise} other {{character} s'est mis}} à hurler et tout le monde est retourné à la navette fissa !</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed_by_u_turn.description</source>
+        <target>Vous pouvez consulter {exploration_link} pour découvrir ce qui s'est passé...</target>
       </segment>
     </unit>
   </file>

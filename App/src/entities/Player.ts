@@ -21,7 +21,8 @@ export type Skill = {
 };
 
 export type PlayerNotification = {
-    title: string;
+    title?: string;
+    subTitle?: string;
     description: string;
 };
 

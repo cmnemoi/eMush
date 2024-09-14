@@ -1320,5 +1320,19 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Les logs de cette pièce vont être effacés et cette pièce ne les retrouvera qu'au prochain cycle.</target>
       </segment>
     </unit>
+    <unit id="run_home">
+      <segment id="name" state="final">
+        <source>run_home.name</source>
+        <target>MAISON !</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>run_home.description</source>
+        <target>Cette expédition, vous ne la sentez pas. Allez hop, cassos.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>run_home.confirmation</source>
+        <target>Cette action interrompra l'expédition pour toute l'équipe. Continuer ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

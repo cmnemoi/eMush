@@ -797,6 +797,15 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return \in_array($title, $this->getTitles(), true);
     }
 
+    public function getExplorationOrThrow(): Exploration
+    {
+        if ($this->exploration === null) {
+            throw new \RuntimeException('The player is not exploring');
+        }
+
+        return $this->exploration;
+    }
+
     public function setExploration(?Exploration $exploration): static
     {
         $this->exploration = $exploration;

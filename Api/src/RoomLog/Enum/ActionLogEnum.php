@@ -137,6 +137,8 @@ abstract class ActionLogEnum
     public const string GUARD_SUCCESS = 'guard_success';
     public const string THROW_GRENADE_SUCCESS = 'throw_grenade_success';
     public const string DELOG_SUCCESS = 'delog_success';
+    public const string RUN_HOME_SUCCESS = 'run_home_success';
+    public const string EXCHANGE_BODY_SUCCESS = 'exchange_body_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -476,6 +478,12 @@ abstract class ActionLogEnum
         ],
         ActionEnum::DELOG->value => [
             ActionOutputEnum::SUCCESS => self::DELOG_SUCCESS,
+        ],
+        ActionEnum::RUN_HOME->value => [
+            ActionOutputEnum::SUCCESS => self::RUN_HOME_SUCCESS,
+        ],
+        ActionEnum::EXCHANGE_BODY->value => [
+            ActionOutputEnum::SUCCESS => self::EXCHANGE_BODY_SUCCESS,
         ],
     ];
 

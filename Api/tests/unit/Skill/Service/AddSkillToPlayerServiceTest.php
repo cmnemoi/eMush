@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\tests\unit\Skill\Service;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Exception\GameException;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
@@ -92,6 +93,7 @@ final class AddSkillToPlayerServiceTest extends TestCase
     private function whenIAddSkillToPlayer(SkillEnum $skill): void
     {
         $service = new AddSkillToPlayerService(
+            $this->createStub(GameEquipmentServiceInterface::class),
             $this->createStub(ModifierCreationServiceInterface::class),
             $this->playerRepository,
             $this->skillConfigRepository,

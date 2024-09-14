@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Skill\Dto\SkillConfigDto;
@@ -20,6 +21,7 @@ final class SkillConfigDataLoader extends ConfigDataLoader
     private EntityRepository $modifierConfigRepository;
     private EntityRepository $skillConfigRepository;
     private EntityRepository $skillPointsRepository;
+    private EntityRepository $spawnEquipmentConfigRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -29,6 +31,7 @@ final class SkillConfigDataLoader extends ConfigDataLoader
         $this->modifierConfigRepository = $entityManager->getRepository(AbstractModifierConfig::class);
         $this->skillConfigRepository = $entityManager->getRepository(SkillConfig::class);
         $this->skillPointsRepository = $entityManager->getRepository(ChargeStatusConfig::class);
+        $this->spawnEquipmentConfigRepository = $entityManager->getRepository(SpawnEquipmentConfig::class);
     }
 
     /**
@@ -45,6 +48,7 @@ final class SkillConfigDataLoader extends ConfigDataLoader
                 modifierConfigs: $this->getModifierConfigsFromDto($skillConfigDto),
                 actionConfigs: $this->getActionConfigsFromDto($skillConfigDto),
                 skillPointsConfig: $this->getSkillPointsConfigFromDto($skillConfigDto),
+                spawnEquipmentConfig: $this->getSpawnEquipmentConfigFromDto($skillConfigDto),
             );
 
             if ($skillConfig === null) {
@@ -112,5 +116,23 @@ final class SkillConfigDataLoader extends ConfigDataLoader
         }
 
         return $skillPointsConfig;
+    }
+
+    private function getSpawnEquipmentConfigFromDto(SkillConfigDto $skillConfigDto): ?SpawnEquipmentConfig
+    {
+        $configName = $skillConfigDto->spawnEquipmentConfig;
+        if (!$configName) {
+            return null;
+        }
+
+        /** @var ?SpawnEquipmentConfig $spawnEquipmentConfig */
+        $spawnEquipmentConfig = $this->spawnEquipmentConfigRepository->findOneBy([
+            'name' => $skillConfigDto->spawnEquipmentConfig,
+        ]);
+        if (!$spawnEquipmentConfig) {
+            throw new \RuntimeException("SpawnEquipmentConfig {$configName} not found for SkillConfig {$skillConfigDto->name->toString()}");
+        }
+
+        return $spawnEquipmentConfig;
     }
 }

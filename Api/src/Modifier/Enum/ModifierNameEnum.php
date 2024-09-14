@@ -87,4 +87,6 @@ abstract class ModifierNameEnum
     public const string SABOTEUR_MODIFIER = 'saboteur_modifier';
     public const string PLAYER_PLUS_3_ACTION_POINT_ON_PLAYER_DEATH = 'player_+3_action_point_on_player_death';
     public const string COLD_BLOODED_MODIFIER = 'cold_blooded_modifier';
+    public const string PLANT_SET_CHARGE_TO_ONE = 'plant_set_charge_to_one';
+    public const string GREEN_THUMB_MODIFIER = 'green_thumb_modifier';
 }

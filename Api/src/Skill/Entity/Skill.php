@@ -13,6 +13,7 @@ use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -92,6 +93,16 @@ class Skill implements ActionProviderInterface
     public function getSkillPointConfig(): ChargeStatusConfig
     {
         return $this->skillConfig->getSkillPointsConfig();
+    }
+
+    public function spawnsEquipment(): bool
+    {
+        return $this->skillConfig->hasSpawnEquipmentConfig();
+    }
+
+    public function getSpawnEquipmentConfigOrThrow(): SpawnEquipmentConfig
+    {
+        return $this->skillConfig->getSpawnEquipmentConfigOrThrow();
     }
 
     public function getSkillPoints(): int

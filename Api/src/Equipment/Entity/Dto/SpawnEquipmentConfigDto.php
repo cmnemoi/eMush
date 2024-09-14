@@ -11,8 +11,8 @@ final readonly class SpawnEquipmentConfigDto
     public function __construct(
         public string $name,
         public string $equipmentName,
-        public string $placeName,
         public int $quantity,
+        public string $placeName = '',
     ) {}
 
     public function toEntity(): SpawnEquipmentConfig

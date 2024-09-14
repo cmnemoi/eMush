@@ -11,6 +11,8 @@ use Mush\Place\Enum\RoomEnum;
 
 abstract class SpawnEquipmentConfigData
 {
+    public const string TWO_HYDROPOTS_IN_PLAYER_INVENTORY = 'two_hydropots_in_player_inventory';
+
     /**
      * @return SpawnEquipmentConfigDto[]
      */
@@ -76,6 +78,11 @@ abstract class SpawnEquipmentConfigData
                 equipmentName: 'jukebox_blueprint',
                 placeName: RoomEnum::NEXUS,
                 quantity: 1,
+            ),
+            new SpawnEquipmentConfigDto(
+                name: self::TWO_HYDROPOTS_IN_PLAYER_INVENTORY,
+                equipmentName: ItemEnum::HYDROPOT,
+                quantity: 2,
             ),
         ];
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Skill\Service;
 
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
@@ -45,6 +46,13 @@ final class AddSkillToPlayerServiceCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveTechnicianModifier($I);
     }
 
+    public function shouldCreateStartingItemsForPlayer(FunctionalTester $I): void
+    {
+        $this->whenIAddSkillToPlayer(SkillEnum::GREEN_THUMB);
+
+        $this->thenPlayerShouldHaveItemsInInventory(ItemEnum::HYDROPOT, $I);
+    }
+
     private function whenIAddSkillToPlayer(SkillEnum $skill): void
     {
         $this->addSkillToPlayerService->execute($skill, $this->player);
@@ -73,6 +81,16 @@ final class AddSkillToPlayerServiceCest extends AbstractFunctionalTest
             expectedCount: 1,
             haystack: $this->player->getModifiers()->filter(
                 static fn ($modifier) => $modifier->getModifierConfig()->getName() === 'modifier_technician_double_repair_and_renovate_chance'
+            )
+        );
+    }
+
+    private function thenPlayerShouldHaveItemsInInventory(string $itemName, FunctionalTester $I): void
+    {
+        $I->assertCount(
+            expectedCount: 2,
+            haystack: $this->player->getEquipments()->filter(
+                static fn ($equipment) => $equipment->getName() === $itemName
             )
         );
     }

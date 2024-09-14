@@ -172,6 +172,15 @@ final class GraftCest extends AbstractFunctionalTest
         $this->thenIShouldSeeAPublicFailLog($I);
     }
 
+    public function greenThumbShouldHaveShorterMaturationTime(FunctionalTester $I): void
+    {
+        $this->givenChunHasGreenThumb($I);
+
+        $this->whenChunGraftsOnBananaTree();
+
+        $this->thenAnemolePlantShouldHaveAge(1, $I);
+    }
+
     private function givenKuanTiHasABananaTree(): void
     {
         $this->bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -288,6 +297,11 @@ final class GraftCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenChunHasGreenThumb(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::GREEN_THUMB, $I);
+    }
+
     private function whenChunGraftsOnBananaTree(): ActionResult
     {
         $this->graft->loadParameters(
@@ -376,5 +390,14 @@ final class GraftCest extends AbstractFunctionalTest
     private function thenPlaceShouldHaveAnHydropot(FunctionalTester $I): void
     {
         $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(ItemEnum::HYDROPOT));
+    }
+
+    private function thenAnemolePlantShouldHaveAge(int $expectedAge, FunctionalTester $I): void
+    {
+        $anemolePlant = $this->chun->getPlace()->getEquipmentByName($this->anemole->getPlantNameOrThrow());
+        $I->assertEquals(
+            expected: $expectedAge,
+            actual: $anemolePlant->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG)->getCharge(),
+        );
     }
 }

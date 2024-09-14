@@ -19,10 +19,14 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -35,6 +39,7 @@ final class Graft extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         private readonly GameEquipmentServiceInterface $gameEquipmentService,
+        private readonly StatusServiceInterface $statusService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -73,6 +78,7 @@ final class Graft extends AbstractAction
     {
         if ($result->isASuccess()) {
             $this->createGraftedFruitPlant();
+            $this->reduceMaturationTime();
         } else {
             $this->createHydropot();
         }
@@ -88,6 +94,22 @@ final class Graft extends AbstractAction
             equipmentHolder: $this->player->getPlace(),
             reasons: $this->getTags(),
             time: new \DateTime(),
+        );
+    }
+
+    private function reduceMaturationTime(): void
+    {
+        if ($this->player->doesNotHaveSkill(SkillEnum::GREEN_THUMB)) {
+            return;
+        }
+
+        $graftedFruitPlant = $this->player->getPlace()->getEquipmentByNameOrThrow($this->graftedFruit()->getPlantNameOrThrow());
+        $this->statusService->updateCharge(
+            chargeStatus: $graftedFruitPlant->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG),
+            delta: $this->greenThumbBonus(),
+            tags: $this->getTags(),
+            time: new \DateTime(),
+            mode: VariableEventInterface::CHANGE_VARIABLE,
         );
     }
 
@@ -134,5 +156,14 @@ final class Graft extends AbstractAction
     private function plant(): GameItem
     {
         return $this->target instanceof GameItem ? $this->target : throw new \RuntimeException('Target must be a GameItem');
+    }
+
+    private function greenThumbBonus(): int
+    {
+        return (int) $this->player
+            ->getModifiers()
+            ->getModifierByModifierNameOrThrow(ModifierNameEnum::GREEN_THUMB_MODIFIER)
+            ->getVariableModifierConfigOrThrow()
+            ->getDelta();
     }
 }

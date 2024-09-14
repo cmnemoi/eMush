@@ -175,6 +175,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $coldBloodedSkillConfig */
         $coldBloodedSkillConfig = $this->getReference(SkillEnum::COLD_BLOODED->value);
 
+        /** @var SkillConfig $greenThumbSkillConfig */
+        $greenThumbSkillConfig = $this->getReference(SkillEnum::GREEN_THUMB->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -317,6 +320,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $botanistSkillConfig,
                 $mycologistSkillConfig,
                 $firefighterSkillConfig,
+                $greenThumbSkillConfig,
                 $frugivoreSkillConfig,
             ])
             ->setInitStatuses([$pacifistStatus])

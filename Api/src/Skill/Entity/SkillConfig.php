@@ -90,6 +90,16 @@ class SkillConfig
         return $this->skillPointsConfig ?? ChargeStatusConfig::createNull();
     }
 
+    public function hasSpawnEquipmentConfig(): bool
+    {
+        return $this->spawnEquipmentConfig !== null;
+    }
+
+    public function getSpawnEquipmentConfigOrThrow(): SpawnEquipmentConfig
+    {
+        return $this->spawnEquipmentConfig ?? throw new \RuntimeException('This skill has no spawnEquipmentConfig');
+    }
+
     public function update(self $skillConfig): void
     {
         $this->name = $skillConfig->name;

@@ -10,6 +10,8 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Equipment\DataFixtures\SpawnEquipmentConfigFixtures;
+use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\SkillModifierConfigFixtures;
@@ -36,6 +38,7 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
                 modifierConfigs: $this->getModifierConfigsFromDto($skillConfigDto),
                 actionConfigs: $this->getActionConfigsFromDto($skillConfigDto),
                 skillPointsConfig: $this->getSkillPointsConfigFromDto($skillConfigDto),
+                spawnEquipmentConfig: $this->getSpawnEquipmentConfigFromDto($skillConfigDto),
             );
             $manager->persist($skillConfig);
             $this->addReference($skillConfigDto->name->value, $skillConfig);
@@ -57,6 +60,7 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
             SkillModifierConfigFixtures::class,
             GearModifierConfigFixtures::class,
             SkillPointsFixtures::class,
+            SpawnEquipmentConfigFixtures::class,
         ];
     }
 
@@ -105,6 +109,20 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
     private function getSkillPointsConfigFromDto(SkillConfigDto $skillConfigDto): ?ChargeStatusConfig
     {
         $configName = $skillConfigDto->skillPointsConfig?->value;
+        if (!$configName) {
+            return null;
+        }
+
+        return $this->getReference($configName);
+    }
+
+    /**
+     * @psalm-suppress LessSpecificReturnStatement
+     * @psalm-suppress MoreSpecificReturnType
+     */
+    private function getSpawnEquipmentConfigFromDto(SkillConfigDto $skillConfigDto): ?SpawnEquipmentConfig
+    {
+        $configName = $skillConfigDto->spawnEquipmentConfig;
         if (!$configName) {
             return null;
         }

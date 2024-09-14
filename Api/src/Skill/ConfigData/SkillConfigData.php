@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Skill\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\ConfigData\SpawnEquipmentConfigData;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Skill\Dto\SkillConfigDto;
 use Mush\Skill\Enum\SkillEnum;
@@ -154,6 +155,13 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::GREEN_JELLY,
+            ),
+            new SkillConfigDto(
+                name: SkillEnum::GREEN_THUMB,
+                modifierConfigs: [
+                    ModifierNameEnum::PLANT_SET_CHARGE_TO_ONE,
+                ],
+                spawnEquipmentConfig: SpawnEquipmentConfigData::TWO_HYDROPOTS_IN_PLAYER_INVENTORY,
             ),
             new SkillConfigDto(
                 name: SkillEnum::GUNNER,

@@ -18,6 +18,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Normalizer\SelectableCharacterNormalizer;
 use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
@@ -40,35 +41,19 @@ class DaedalusController extends AbstractGameController
 {
     private const int MAX_CHARACTERS_TO_RETURN = 4;
 
-    private DaedalusServiceInterface $daedalusService;
-    private DaedalusWidgetServiceInterface $daedalusWidgetService;
-    private TranslationServiceInterface $translationService;
-    private PlayerInfoRepository $playerInfoRepository;
-    private ValidatorInterface $validator;
-    private RandomServiceInterface $randomService;
-    private GameConfigServiceInterface $gameConfigService;
-    private CycleServiceInterface $cycleService;
-
     public function __construct(
         AdminServiceInterface $adminService,
-        DaedalusServiceInterface $daedalusService,
-        DaedalusWidgetServiceInterface $daedalusWidgetStrategyService,
-        TranslationServiceInterface $translationService,
-        PlayerInfoRepository $playerInfoRepository,
-        ValidatorInterface $validator,
-        RandomServiceInterface $randomService,
-        GameConfigServiceInterface $gameConfigService,
-        CycleServiceInterface $cycleService,
+        private DaedalusServiceInterface $daedalusService,
+        private DaedalusWidgetServiceInterface $daedalusWidgetService,
+        private TranslationServiceInterface $translationService,
+        private PlayerInfoRepository $playerInfoRepository,
+        private ValidatorInterface $validator,
+        private RandomServiceInterface $randomService,
+        private GameConfigServiceInterface $gameConfigService,
+        private CycleServiceInterface $cycleService,
+        private SelectableCharacterNormalizer $selectableCharacterNormalizer,
     ) {
         parent::__construct($adminService);
-        $this->daedalusService = $daedalusService;
-        $this->daedalusWidgetService = $daedalusWidgetStrategyService;
-        $this->translationService = $translationService;
-        $this->playerInfoRepository = $playerInfoRepository;
-        $this->validator = $validator;
-        $this->randomService = $randomService;
-        $this->gameConfigService = $gameConfigService;
-        $this->cycleService = $cycleService;
     }
 
     /**
@@ -111,21 +96,13 @@ class DaedalusController extends AbstractGameController
 
         /** @var CharacterConfig $character */
         foreach ($availableCharacters as $character) {
-            $characters[] = [
-                'key' => $character->getCharacterName(),
-                'name' => $this->translationService->translate(
-                    $character->getCharacterName() . '.name',
-                    [],
-                    'characters',
-                    $daedalus->getLanguage()
-                ),
-                'abstract' => $this->translationService->translate(
-                    $character->getCharacterName() . '.abstract',
-                    [],
-                    'characters',
-                    $daedalus->getLanguage()
-                ),
-            ];
+            $characters[] = $this->selectableCharacterNormalizer->normalize(
+                $character,
+                context: [
+                    'character' => $character,
+                    'daedalus' => $daedalus,
+                ]
+            );
         }
 
         return $this->view(['daedalus' => $daedalus->getId(), 'characters' => $characters], 200);

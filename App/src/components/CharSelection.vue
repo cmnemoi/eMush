@@ -27,7 +27,7 @@
                 @mouseleave="characterHovered = false"
             >
                 <div class="header">
-                    <p class="level" />
+                    <p class="level">{{ character.level }}</p>
                     <h2 class="name">
                         {{ character.name }}
                     </h2>
@@ -40,24 +40,43 @@
                 </div>
             </section>
         </div>
+        <span class="more-info" v-if="characters.length > 0 && !characterHovered && !characterSelected">
+            {{ $t('charSelection.moreInfo') }}
+        </span>
         <div class="banner" v-if="!error">
-            <div class="skills" style="display:none">
-                <div class="Expert radio">
-                    <img :src="getImgUrl('skills/human/cook.png')" alt="cook">
-                    <p>Expert radio</p>
-                </div>
-                <div class="Expert logistique">
-                    <img :src="getImgUrl('skills/human/cook.png')" alt="cook">
-                    <p>Expert logistique</p>
-                </div>
-                <div class="Tireur">
-                    <img :src="getImgUrl('skills/human/cook.png')" alt="cook">
-                    <p>Tireur</p>
-                </div>
+            <div class="skills" v-if="characterHovered">
+                <Tippy
+                    tag="div"
+                    class="skill"
+                    v-for="skill in hoveredCharacter?.skills"
+                    :key="skill.name"
+                >
+                    <img :src="skillIcon(skill.key)" :alt="skill.name">
+                    <p>{{ skill.name }}</p>
+                    <template #content>
+                        <h1 v-html="formatText(skill.name)" />
+                        <p v-html="formatText(skill.description)" />
+                    </template>
+                </Tippy>
+            </div>
+            <div class="skills" v-else-if="characterSelected">
+                <Tippy
+                    tag="div"
+                    class="skill"
+                    v-for="skill in selectedCharacter?.skills"
+                    :key="skill.name"
+                >
+                    <img :src="skillIcon(skill.key)" :alt="skill.name">
+                    <p>{{ skill.name }}</p>
+                    <template #content>
+                        <h1 v-html="formatText(skill.name)" />
+                        <p v-html="formatText(skill.description)" />
+                    </template>
+                </Tippy>
             </div>
             <div class="description">
-                <p v-if="characterHovered">{{ hoveredCharacter.abstract }}</p>
-                <p v-else-if="characterSelected">{{ selectedCharacter.abstract }}</p>
+                <p v-if="characterHovered">{{ hoveredCharacter?.abstract }}</p>
+                <p v-else-if="characterSelected">{{ selectedCharacter?.abstract }}</p>
             </div>
             <div class="gamestart" v-if="selectedCharacter">
                 <p class="choice">
@@ -73,12 +92,26 @@
 import ApiService from "@/services/api.service";
 import { characterEnum } from "@/enums/character";
 import PlayerService from "@/services/player.service";
-import { Character } from "@/entities/Character";
 import Spinner from "@/components/Utils/Spinner.vue";
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import { gameLocales } from "@/i18n";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { formatText } from "@/utils/formatText";
+import { SkillIconRecord } from "@/enums/skill.enum";
+
+type SelectableCharacter = {
+    key: string;
+    name: string;
+    abstract: string;
+    description: string;
+    level: number;
+    skills: {
+        key: string;
+        name: string;
+        description: string;
+    }
+}
 
 export default defineComponent ({
     name: 'CharSelection',
@@ -96,7 +129,7 @@ export default defineComponent ({
         return {
             loading: false,
             daedalusId: -1,
-            characters: Array<Character>(),
+            characters: Array<SelectableCharacter>(),
             daedaluses: Array<any>(),
             daedalusName: '',
             characterHovered: false,
@@ -128,23 +161,24 @@ export default defineComponent ({
                 });
 
         },
-        characterPortrait: function(character: Character) {
+        characterPortrait: function(character: SelectableCharacter) {
             return characterEnum[character.key] ? characterEnum[character.key].portrait : getImgUrl('items/todo.png');
         },
-        characterBody: function(character: Character) {
+        characterBody: function(character: SelectableCharacter) {
             return characterEnum[character.key] ? characterEnum[character.key].body : getImgUrl('items/todo.png');
         },
-        characterCompleteName: function(character: Character) {
+        characterCompleteName: function(character: SelectableCharacter) {
             return characterEnum[character.key] ? characterEnum[character.key].completeName : 'Unknown';
         },
         getImgUrl,
+        formatText,
         resetValues: function() {
             this.characterHovered = false;
             this.hoveredCharacter = null;
             this.characterSelected = false;
             this.selectedCharacter = null;
         },
-        selectCharacter: function(character: Character) {
+        selectCharacter: function(character: SelectableCharacter) {
             PlayerService.selectCharacter(this.getUserInfo.userId, this.daedalusId, character.key)
                 .then(() => {
                     this.loading = false;
@@ -153,6 +187,9 @@ export default defineComponent ({
                     this.error = error.response?.data?.detail;
                     this.loading = false;
                 });
+        },
+        skillIcon: function(skill: string): string {
+            return SkillIconRecord[skill].icon ?? '';
         },
         ...mapActions('error', [
             'clearError'
@@ -196,6 +233,7 @@ h1 {
 
         .flag {
             margin: 4% 15% 0 15%;
+            cursor: pointer;
         }
     }
 

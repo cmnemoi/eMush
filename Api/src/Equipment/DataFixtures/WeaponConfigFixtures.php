@@ -74,12 +74,16 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var StatusConfig $heavyStatus */
         $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
 
+        /** @var ActionConfig $slimeObjectAction */
+        $slimeObjectAction = $this->getReference(ActionEnum::SLIME_OBJECT->value);
+
         /** @var ArrayCollection $actions25 */
         $actions25 = clone $actions;
         $actions25->add($dismantle25);
         $actions25->add($repair25);
         $actions25->add($sabotage25);
         $actions25->add($reportAction);
+        $actions25->add($slimeObjectAction);
 
         /** @TODO more details are needed on the output of each weapon */
         $blasterMechanic = new Weapon();

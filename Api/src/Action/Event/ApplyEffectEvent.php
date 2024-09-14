@@ -89,7 +89,7 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
         return $logParameters;
     }
 
-    public function getActionTargetAsPlayer(): Player
+    public function getPlayerActionTarget(): Player
     {
         $player = $this->getParameter();
 

@@ -541,6 +541,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($slimeTrapStatus);
 
+        $slimedStatus = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(EquipmentStatusEnum::SLIMED . '_default')
+        );
+        $manager->persist($slimedStatus);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -581,6 +586,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasChitchattedStatus)
             ->addStatusConfig($geniusIdea)
             ->addStatusConfig($hasIssuedMissionStatus)
+            ->addStatusConfig($slimedStatus)
             ->addStatusConfig($deloggedStatus)
             ->addStatusConfig($hasUsedDelogStatus)
             ->addStatusConfig($slimeTrapStatus);
@@ -631,6 +637,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference($deloggedStatus->getName(), $deloggedStatus);
         $this->addReference($hasUsedDelogStatus->getName(), $hasUsedDelogStatus);
         $this->addReference($slimeTrapStatus->getName(), $slimeTrapStatus);
+        $this->addReference(EquipmentStatusEnum::SLIMED, $slimedStatus);
     }
 
     public function getDependencies(): array

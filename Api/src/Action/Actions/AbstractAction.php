@@ -19,6 +19,7 @@ use Mush\Action\Validator\IsActionProviderOperational;
 use Mush\Action\Validator\ModifierPreventAction;
 use Mush\Action\Validator\PlayerAlive;
 use Mush\Action\Validator\PlayerCanAffordPoints;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -242,9 +243,14 @@ abstract class AbstractAction
         return $this->target;
     }
 
-    public function targetAsPlayer(): Player
+    public function playerTarget(): Player
     {
         return $this->target instanceof Player ? $this->target : throw new \InvalidArgumentException('Target is not a player.');
+    }
+
+    public function gameEquipmentTarget(): GameEquipment
+    {
+        return $this->target instanceof GameEquipment ? $this->target : throw new \InvalidArgumentException('Target is not a GameEquipment.');
     }
 
     public function getActionConfig(): ActionConfig

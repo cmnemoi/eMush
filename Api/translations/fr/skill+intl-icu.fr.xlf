@@ -675,5 +675,15 @@
         <target>Ces foutues champignons se reproduisent vite, trop vite, très vite...Ils sont partout !!!//:point: Pour **1** :pa:, le joueur ciblé deviendra sale dans 1 à 4 cycles.</target>
       </segment>
     </unit>
+    <unit id="green_jelly">
+      <segment id="green_jelly.name" state="translated">
+        <source>green_jelly.name</source>
+        <target>Gelée verte</target>
+      </segment>
+      <segment id="green_jelly.description" state="translated">
+        <source>green_jelly.description</source>
+        <target>Vous produisez une gelée verte acide étrange avec vos aisselles...//:point: Pour **1** :pa:, vous pouvez provoquer la casse d'un objet électronique. Celui-ci mettra plusieurs cycles avant de se dégrader.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

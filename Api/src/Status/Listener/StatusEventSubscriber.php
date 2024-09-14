@@ -95,6 +95,16 @@ final class StatusEventSubscriber implements EventSubscriberInterface
 
                 break;
 
+            case EquipmentStatusEnum::SLIMED:
+                $this->statusService->createStatusFromName(
+                    statusName: EquipmentStatusEnum::BROKEN,
+                    holder: $statusHolder,
+                    tags: $event->getTags(),
+                    time: $event->getTime()
+                );
+
+                break;
+
             default:
         }
     }

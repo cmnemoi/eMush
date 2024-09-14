@@ -34,7 +34,7 @@ final class ApplyEffectEventSubscriber implements EventSubscriberInterface
     private function removeOneSporeFromTarget(ApplyEffectEvent $event): void
     {
         $playerVariableEvent = new PlayerVariableEvent(
-            player: $event->getActionTargetAsPlayer(),
+            player: $event->getPlayerActionTarget(),
             variableName: PlayerVariableEnum::SPORE,
             quantity: $this->mycologistBonus($event),
             tags: $event->getTags(),

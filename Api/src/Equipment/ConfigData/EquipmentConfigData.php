@@ -1636,6 +1636,7 @@ class EquipmentConfigData
                 'repair_percent_6',
                 'sabotage_percent_6',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'tools_hacker_kit_default',
@@ -1679,6 +1680,7 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_3',
                 'repair_percent_25',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => ['camera_item_mechanic_default'],
             'initStatuses' => [],
@@ -1816,6 +1818,7 @@ class EquipmentConfigData
                 'repair_percent_3',
                 'sabotage_percent_3',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => ['alien_tv_mechanic_default'],
             'initStatuses' => [
@@ -1858,6 +1861,7 @@ class EquipmentConfigData
                 'examine',
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => ['spore_sucker_mechanic_default'],
             'initStatuses' => [],
@@ -2122,6 +2126,7 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_3',
                 'repair_percent_6',
                 'sabotage_percent_6',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'gear_antigrav_scooter_default',
@@ -2194,6 +2199,7 @@ class EquipmentConfigData
                 'sabotage_percent_6',
                 'repair_percent_6',
                 'disassemble_percent_6_cost_4',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'gear_oscilloscope_default',
@@ -2329,6 +2335,7 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_3',
                 'repair_percent_25',
                 'sabotage_percent_25',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'weapon_blaster_default',
@@ -2400,6 +2407,7 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_3',
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'weapon_natamy_rifle_default',
@@ -2426,6 +2434,7 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_4',
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'weapon_old_faithful_default',
@@ -2453,6 +2462,7 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_3',
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'weapon_lizaro_jungle_default',
@@ -2479,6 +2489,7 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_3',
                 'repair_percent_12',
                 'sabotage_percent_12',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'weapon_rocket_launcher_default',
@@ -2537,6 +2548,7 @@ class EquipmentConfigData
                 'sabotage_percent_6',
                 'report_equipment',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2556,6 +2568,7 @@ class EquipmentConfigData
                 'sabotage_percent_6',
                 'report_equipment',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'tool_neron_core_default',
@@ -2577,6 +2590,7 @@ class EquipmentConfigData
                 'sabotage_percent_6',
                 'report_equipment',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'tool_auxiliary_terminal_default',
@@ -2619,6 +2633,7 @@ class EquipmentConfigData
                 'sabotage_percent_6',
                 'report_equipment',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2656,6 +2671,7 @@ class EquipmentConfigData
                 'sabotage_percent_6',
                 'report_equipment',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2675,6 +2691,7 @@ class EquipmentConfigData
                 'sabotage_percent_3',
                 'report_equipment',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => ['tool_bios_terminal_default'],
             'initStatuses' => [],
@@ -2713,6 +2730,7 @@ class EquipmentConfigData
                 'sabotage_percent_12',
                 'report_equipment',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'gear_planet_scanner_default',
@@ -3086,6 +3104,7 @@ class EquipmentConfigData
                 'sabotage_percent_25',
                 'report_equipment',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => ['camera_equipment_mechanic_default'],
             'initStatuses' => [],
@@ -3268,6 +3287,7 @@ class EquipmentConfigData
                 'sabotage_percent_12',
                 'report_equipment',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'tool_coffee_machine_default',
@@ -3307,6 +3327,7 @@ class EquipmentConfigData
                 'sabotage_percent_12',
                 'report_equipment',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => ['tool_mycoscan_default'],
             'initStatuses' => [],
@@ -3326,6 +3347,7 @@ class EquipmentConfigData
                 'sabotage_percent_12',
                 'report_equipment',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'weapon_turret_default',
@@ -3349,6 +3371,7 @@ class EquipmentConfigData
                 'sabotage_percent_12',
                 'report_equipment',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'tools_surgery_plot_default',
@@ -3493,6 +3516,7 @@ class EquipmentConfigData
                 'sabotage_percent_12',
                 'report_equipment',
                 'examine',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [
                 'tool_tabulatrix_default',
@@ -4000,6 +4024,7 @@ class EquipmentConfigData
                 'drop',
                 'examine',
                 'repair_percent_12',
+                ActionEnum::SLIME_OBJECT->value,
             ],
             'mechanics' => [],
             'initStatuses' => [

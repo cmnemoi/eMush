@@ -7,6 +7,8 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\Infect;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Disease\Enum\DiseaseEnum;
+use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -24,6 +26,7 @@ final class InfectCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private Infect $infect;
     private EventServiceInterface $eventService;
+    private PlayerDiseaseService $playerDiseaseService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
@@ -33,6 +36,7 @@ final class InfectCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::INFECT->value]);
         $this->infect = $I->grabService(Infect::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->playerDiseaseService = $I->grabService(PlayerDiseaseService::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenKuanTiIsMush();
@@ -42,7 +46,7 @@ final class InfectCest extends AbstractFunctionalTest
     {
         $this->addSkillToPlayer(SkillEnum::INFECTOR, $I, $this->kuanTi);
 
-        $this->givenKuanTiInfects();
+        $this->givenKuanTiInfectsPlayer();
 
         $this->whenKuanTiTriesToInfect();
 
@@ -51,11 +55,22 @@ final class InfectCest extends AbstractFunctionalTest
 
     public function dayChangeShouldMakeAbleToInfectAgain(FunctionalTester $I): void
     {
-        $this->givenKuanTiInfects();
+        $this->givenKuanTiInfectsPlayer();
 
         $this->whenANewDayPasses();
 
         $this->thenActionShouldBeExecutable($I);
+    }
+
+    public function mushAllergyShouldRemoveHealthPointsToTargetPlayer(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasMushAllergy();
+
+        $this->givenPlayerHasHealthPoints(10);
+
+        $this->whenKuanTiInfectsPlayer();
+
+        $this->thenPlayerShouldHaveHealthPoints(6, $I);
     }
 
     private function givenKuanTiIsMush(): void
@@ -69,7 +84,7 @@ final class InfectCest extends AbstractFunctionalTest
         $this->kuanTi->setSpores(2);
     }
 
-    private function givenKuanTiInfects(): void
+    private function givenKuanTiInfectsPlayer(): void
     {
         $this->infect->loadParameters(
             actionConfig: $this->actionConfig,
@@ -80,6 +95,20 @@ final class InfectCest extends AbstractFunctionalTest
         $this->infect->execute();
     }
 
+    private function givenPlayerHasMushAllergy(): void
+    {
+        $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DiseaseEnum::MUSH_ALLERGY,
+            player: $this->player,
+            reasons: [],
+        );
+    }
+
+    private function givenPlayerHasHealthPoints(int $healthPoints): void
+    {
+        $this->player->setHealthPoint($healthPoints);
+    }
+
     private function whenKuanTiTriesToInfect(): void
     {
         $this->infect->loadParameters(
@@ -88,6 +117,17 @@ final class InfectCest extends AbstractFunctionalTest
             player: $this->kuanTi,
             target: $this->player,
         );
+    }
+
+    private function whenKuanTiInfectsPlayer(): void
+    {
+        $this->infect->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi,
+            target: $this->player,
+        );
+        $this->infect->execute();
     }
 
     private function whenANewDayPasses(): void
@@ -105,5 +145,10 @@ final class InfectCest extends AbstractFunctionalTest
     private function thenActionShouldBeExecutable(FunctionalTester $I): void
     {
         $I->assertNull($this->infect->cannotExecuteReason());
+    }
+
+    private function thenPlayerShouldHaveHealthPoints(int $healthPoints, FunctionalTester $I): void
+    {
+        $I->assertEquals($healthPoints, $this->player->getHealthPoint());
     }
 }

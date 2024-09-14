@@ -206,6 +206,15 @@ final class ExplorationService implements ExplorationServiceInterface
             $newProbability = $sectorEvents->getElementProbability(PlanetSectorEvent::NOTHING_TO_REPORT) * 2;
             $sectorEvents->setElementProbability(PlanetSectorEvent::NOTHING_TO_REPORT, $newProbability);
         }
+        if ($exploration->hasATraitor()) {
+            /** @var string $eventKey */
+            foreach ($sectorEvents->getKeys() as $eventKey) {
+                if (PlanetSectorEvent::isNegativeKey($eventKey)) {
+                    $newProbability = $sectorEvents->getElementProbability($eventKey) * 2;
+                    $sectorEvents->setElementProbability($eventKey, $newProbability);
+                }
+            }
+        }
 
         return (string) $this->randomService->getSingleRandomElementFromProbaCollection($sectorEvents);
     }

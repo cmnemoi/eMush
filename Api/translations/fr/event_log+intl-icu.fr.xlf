@@ -1077,7 +1077,13 @@
     <unit id="soiled_by_mass_ggedon">
       <segment id="soiled_by_mass_ggedon" state="final">
         <source>soiled_by_mass_ggedon</source>
-        <target>Vous vous sentez mal, une sensation étrange, comme ci tout était couvert de pourriture... Votre estomac chavire... Vous vous sentez très faible... bluuurrrpp.</target>
+        <target>Vous vous sentez mal, une sensation étrange, comme si tout était couvert de pourriture... Votre estomac chavire... Vous vous sentez très faible... bluuurrrpp.</target>
+      </segment>
+    </unit>
+    <unit id="traitor_worked">
+      <segment id="traitor_worked" state="final">
+        <source>traitor_worked</source>
+        <target>:mush: Votre action de traîtrise a favorisé un incident fâcheux.</target>
       </segment>
     </unit>
   </file>

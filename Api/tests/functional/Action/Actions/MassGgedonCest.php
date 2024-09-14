@@ -83,7 +83,7 @@ final class MassGgedonCest extends AbstractFunctionalTest
         $this->whenKuanTiUsesMassGgedon();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: 'Vous vous sentez mal, une sensation étrange, comme ci tout était couvert de pourriture... Votre estomac chavire... Vous vous sentez très faible... bluuurrrpp.',
+            expectedRoomLog: 'Vous vous sentez mal, une sensation étrange, comme si tout était couvert de pourriture... Votre estomac chavire... Vous vous sentez très faible... bluuurrrpp.',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->chun,
                 log: StatusEventLogEnum::SOILED_BY_MASS_GGEDON,

@@ -76,6 +76,7 @@ abstract class LogEnum
     public const string TABULATRIX_PRINTS = 'tabulatrix_prints';
     public const string OBSERVANT_NOTICED_SOMETHING = 'observant_noticed_something';
     public const string DELOGGED = 'delogged';
+    public const string TRAITOR_WORKED = 'traitor_worked';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

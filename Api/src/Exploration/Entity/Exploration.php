@@ -285,4 +285,14 @@ class Exploration
     {
         return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::DIPLOMAT))->count() > 0;
     }
+
+    public function hasATraitor(): bool
+    {
+        return $this->getAliveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::TRAITOR))->count() > 0;
+    }
+
+    public function getTraitors(): PlayerCollection
+    {
+        return $this->getAliveExplorators()->getPlayersWithSkill(SkillEnum::TRAITOR);
+    }
 }

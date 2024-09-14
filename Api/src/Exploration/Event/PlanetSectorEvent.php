@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Event;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Game\Entity\Collection\ProbaCollection;
@@ -155,5 +156,36 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
         $logParameters['max_quantity'] = $maxQuantity;
 
         return $logParameters;
+    }
+
+    public function isNegative(): bool
+    {
+        return self::isNegativeKey($this->getKey());
+    }
+
+    /**
+     * @psalm-suppress ArgumentTypeCoercion
+     */
+    public static function isNegativeKey(string $eventKey): bool
+    {
+        return (new ArrayCollection([
+            self::ACCIDENT_3_5,
+            self::DISASTER_3_5,
+            self::DISEASE,
+            self::FIGHT_8,
+            self::FIGHT_10,
+            self::FIGHT_12,
+            self::FIGHT_15,
+            self::FIGHT_18,
+            self::FIGHT_32,
+            self::FIGHT_8_10_12_15_18_32,
+            self::ITEM_LOST,
+            self::KILL_ALL,
+            self::KILL_LOST,
+            self::KILL_RANDOM,
+            self::MUSH_TRAP,
+            self::PLAYER_LOST,
+            self::TIRED_2,
+        ]))->contains($eventKey);
     }
 }

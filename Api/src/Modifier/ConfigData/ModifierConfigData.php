@@ -7,7 +7,6 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
-use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Communication\Event\MessageEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
@@ -50,6 +49,8 @@ use Mush\Status\Event\StatusEvent;
 /** @codeCoverageIgnore */
 abstract class ModifierConfigData
 {
+    private const string DUMMY_EVENT = ''; // used to create a modifier which does not listen to any event, but allows configuration
+
     public static array $dataArray = [
         [
             'name' => 'modifier_for_player_+1movementPoint_on_move',
@@ -3361,7 +3362,7 @@ abstract class ModifierConfigData
         [
             'name' => ModifierNameEnum::PLAYER_MINUS_1_SPORE_ON_HEAL,
             'modifierName' => ModifierNameEnum::MYCOLOGIST_MODIFIER,
-            'targetEvent' => ApplyEffectEvent::HEAL,
+            'targetEvent' => self::DUMMY_EVENT,
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -3371,9 +3372,7 @@ abstract class ModifierConfigData
             'visibility' => VisibilityEnum::HIDDEN,
             'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_MINUS_1_SPORE,
             'modifierActivationRequirements' => ['player_is_mush'],
-            'tagConstraints' => [
-                ActionEnum::SELF_HEAL->value => ModifierRequirementEnum::NONE_TAGS,
-            ],
+            'tagConstraints' => [],
             'targetFilters' => [],
             'eventActivationRequirements' => [],
         ],

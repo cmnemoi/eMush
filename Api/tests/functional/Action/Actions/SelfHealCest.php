@@ -165,7 +165,7 @@ final class SelfHealCest extends AbstractFunctionalTest
 
         $this->whenPlayerHealsSelf();
 
-        $this->thenPlayerShouldHaveNoSpore(1, $I);
+        $this->thenPlayerShouldHaveSpore(1, $I);
     }
 
     private function givenPlayerIsInMedlab(FunctionalTester $I): void
@@ -194,7 +194,7 @@ final class SelfHealCest extends AbstractFunctionalTest
         $this->selfHealAction->execute();
     }
 
-    private function thenPlayerShouldHaveNoSpore(int $quantity, FunctionalTester $I): void
+    private function thenPlayerShouldHaveSpore(int $quantity, FunctionalTester $I): void
     {
         $I->assertEquals($quantity, $this->player->getSpores());
     }

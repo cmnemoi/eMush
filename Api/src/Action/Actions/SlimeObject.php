@@ -77,7 +77,7 @@ final class SlimeObject extends AbstractAction
         /** @var ChargeStatus $slimedStatus */
         $slimedStatus = $this->statusService->createStatusFromName(
             statusName: EquipmentStatusEnum::SLIMED,
-            holder: $this->getTargetAsGameEquipment(),
+            holder: $this->gameEquipmentTarget(),
             tags: $this->getTags(),
             time: new \DateTime(),
         );

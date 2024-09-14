@@ -52,7 +52,7 @@ final class SlimeTrap extends AbstractAction
         /** @var ChargeStatus $slimeTrapStatus */
         $slimeTrapStatus = $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::SLIME_TRAP,
-            holder: $this->targetAsPlayer(),
+            holder: $this->playerTarget(),
             tags: $this->getTags(),
             time: new \DateTime(),
         );

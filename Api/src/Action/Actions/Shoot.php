@@ -111,7 +111,7 @@ class Shoot extends AttemptAction
 
             if ($result instanceof OneShot) {
                 $reasons = $this->getActionConfig()->getActionTags();
-                $reasons[] = EndCauseEnum::BLED;
+                $reasons[] = EndCauseEnum::BEHEADED;
                 $reasons[] = ActionOutputEnum::ONE_SHOT;
                 $deathEvent = new PlayerEvent(
                     $target,

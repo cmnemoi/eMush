@@ -45,6 +45,8 @@ final class ShootActionCest extends AbstractFunctionalTest
     {
         $this->givenBlasterHas100ChanceToHit();
 
+        $this->givenBlasterHas0ChanceOfOneShot();
+
         $this->givenKuanTiHasHealthPoints(10);
 
         $this->whenChunShootsAtKuanTi();
@@ -57,6 +59,8 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->givenBlasterHas100ChanceToHit();
 
         $this->givenBlasterHas0ChanceToDoCriticalHit();
+
+        $this->givenBlasterHas0ChanceOfOneShot();
 
         $this->givenBlasterInflictsOneDamage();
 
@@ -75,6 +79,8 @@ final class ShootActionCest extends AbstractFunctionalTest
 
         $this->givenBlasterHas100ChanceToDoCriticalHit();
 
+        $this->givenBlasterHas0ChanceOfOneShot();
+
         $this->whenChunShootsAtKuanTi();
 
         $this->thenKuanTiShouldHaveAnInjury($I);
@@ -85,6 +91,8 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->givenBlasterHas100ChanceToHit();
 
         $this->givenBlasterHas100ChanceToDoCriticalHit();
+
+        $this->givenBlasterHas0ChanceOfOneShot();
 
         $this->givenBlasterInflictsOneDamage();
 
@@ -199,6 +207,11 @@ final class ShootActionCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
+    }
+
+    private function givenBlasterHas0ChanceOfOneShot(): void
+    {
+        $this->blaster->getWeaponMechanicOrThrow()->setOneShotRate(0);
     }
 
     private function whenChunShootsAtKuanTi(): void

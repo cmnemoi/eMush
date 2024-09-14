@@ -105,7 +105,7 @@ final class TrackerCest extends AbstractFunctionalTest
             visibility: VisibilityEnum::PUBLIC,
             type: 'event_log',
             player: $this->chun,
-            dateTime: new \DateTime('-2 days'),
+            dateTime: (new \DateTime('-2 days'))->modify('+1 minute'),
         );
     }
 

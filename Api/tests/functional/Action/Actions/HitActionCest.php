@@ -235,6 +235,8 @@ final class HitActionCest extends AbstractFunctionalTest
 
         $this->givenHitActionHasSuccessRate(100);
 
+        $this->givenHitActionHasCriticalSuccessRate(0);
+
         $this->givenKuanTiHasHealthPoint(10);
 
         $this->addSkillToPlayer->execute(SkillEnum::HARD_BOILED, $this->kuanTi);
@@ -302,6 +304,11 @@ final class HitActionCest extends AbstractFunctionalTest
     private function givenHitMinDamageIs(int $damage): void
     {
         $this->action->setOutputQuantity($damage);
+    }
+
+    private function givenHitActionHasCriticalSuccessRate(int $criticalSuccessRate): void
+    {
+        $this->action->setCriticalRate($criticalSuccessRate);
     }
 
     private function whenKuanTiTriesToHitChun(): void

@@ -175,12 +175,8 @@ class RoomLogService implements RoomLogServiceInterface
     public function markRoomLogAsReadForPlayer(RoomLog $roomLog, Player $player): void
     {
         try {
-            $roomLog
-                ->addReader($player)
-                ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the log because this would change the order of the messages
-
+            $roomLog->addReader($player)->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the log because this would change the order of the messages
             $this->entityManager->persist($roomLog);
-            $this->entityManager->flush();
         } catch (UniqueConstraintViolationException $e) {
             // ignore as this is probably due to a race condition
         }
@@ -188,12 +184,18 @@ class RoomLogService implements RoomLogServiceInterface
 
     public function markAllRoomLogsAsReadForPlayer(Player $player): void
     {
-        $unreadLogs = $this->getRoomLog($player)->filter(
-            static fn (RoomLog $roomLog) => $roomLog->isUnreadBy($player)
-        );
+        $unreadLogs = $this->getRoomLog($player)->getUnreadForPlayer($player);
 
-        foreach ($unreadLogs as $roomLog) {
-            $this->markRoomLogAsReadForPlayer($roomLog, $player);
+        try {
+            $this->entityManager->beginTransaction();
+            $unreadLogs->map(fn (RoomLog $roomLog) => $this->markRoomLogAsReadForPlayer($roomLog, $player));
+            $this->entityManager->flush();
+            $this->entityManager->commit();
+        } catch (\Throwable $e) {
+            $this->entityManager->rollback();
+            $this->entityManager->close();
+
+            throw $e;
         }
     }
 

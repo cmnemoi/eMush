@@ -803,8 +803,10 @@ final class ChannelServiceTest extends TestCase
         $channel->setMessages(new ArrayCollection($messages));
 
         // setup universe state
+        $this->entityManager->shouldReceive('beginTransaction')->twice();
         $this->entityManager->shouldReceive('persist')->times(16);
-        $this->entityManager->shouldReceive('flush')->once();
+        $this->entityManager->shouldReceive('flush')->times(2);
+        $this->entityManager->shouldReceive('commit')->times(2);
 
         // when player mark the channel as read
         $this->service->markChannelAsReadForPlayer($channel, $player);

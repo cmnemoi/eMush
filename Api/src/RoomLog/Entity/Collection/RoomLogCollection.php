@@ -22,10 +22,15 @@ class RoomLogCollection extends ArrayCollection
         });
     }
 
-    public function getNumberOfUnreadLogsForPlayer(Player $player): int
+    public function getUnreadForPlayer(Player $player): self
     {
         return $this->filter(static function (RoomLog $roomLog) use ($player) {
             return $roomLog->isUnreadBy($player);
-        })->count();
+        });
+    }
+
+    public function getNumberOfUnreadLogsForPlayer(Player $player): int
+    {
+        return $this->getUnreadForPlayer($player)->count();
     }
 }

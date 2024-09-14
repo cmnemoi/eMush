@@ -35,14 +35,12 @@ export class RoomLog {
     decode(jsonString: string): RoomLog {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.message = object.key;
-            this.visibility = object.visibility;
-            this.date = object.date;
-            this.place = object.place;
-            this.day = object.day;
-            this.cycle = object.cycle;
+            this.load(object);
         }
 
         return this;
+    }
+    read(): void {
+        this.isUnread = false;
     }
 }

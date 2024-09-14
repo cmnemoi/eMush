@@ -64,6 +64,9 @@ export class Message {
             child.toggle();
         });
     }
+    read(): void {
+        this.isUnread = false;
+    }
     private hideFirstChildren(): void {
         this.children.slice(0, -this.nbChildrenToDisplay).forEach(child => {
             child.isHidden = true;

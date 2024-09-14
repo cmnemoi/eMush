@@ -631,8 +631,10 @@ final class RoomLogServiceTest extends TestCase
             ->shouldReceive('getPlayerRoomLog')
             ->once()
             ->andReturn($roomLogs->toArray());
+        $this->entityManager->shouldReceive('beginTransaction')->once();
         $this->entityManager->shouldReceive('persist')->times(3);
-        $this->entityManager->shouldReceive('flush')->times(3);
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->entityManager->shouldReceive('commit')->once();
 
         // when I call markAllRoomLogsAsReadForPlayer
         $this->service->markAllRoomLogsAsReadForPlayer($player);

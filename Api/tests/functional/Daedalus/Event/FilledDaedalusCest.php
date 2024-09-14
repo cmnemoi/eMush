@@ -7,6 +7,7 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Tests\AbstractFunctionalTest;
@@ -23,6 +24,8 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+
+        $this->createExtraPlace(RoomEnum::FRONT_STORAGE, $I, $this->daedalus);
     }
 
     public function testStartDaedalus(FunctionalTester $I): void

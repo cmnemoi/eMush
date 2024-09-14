@@ -14,6 +14,8 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -27,6 +29,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private ExchangeBody $exchangeBody;
 
     private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     private Player $source;
     private Player $target;
@@ -40,6 +43,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::EXCHANGE_BODY]);
         $this->exchangeBody = $I->grabService(ExchangeBody::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->source = $this->player;
         $this->target = $this->player2;
         $this->oldMushUser = $this->source->getUser();
@@ -189,6 +193,24 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->thenTargetPlayerShouldHaveNotification($I);
     }
 
+    public function shouldDeleteHasUsedMageBookStatusOnPlayer(FunctionalTester $I): void
+    {
+        $this->givenSourcePlayerHasUsedMageBook();
+
+        $this->whenSourceExchangesBodyWithTarget();
+
+        $this->thenSourcePlayerShouldNotHaveUsedMageBookStatus($I);
+    }
+
+    public function shouldDeleteHasUsedMageBookStatusOnTarget(FunctionalTester $I): void
+    {
+        $this->givenTargetPlayerHasUsedMageBook();
+
+        $this->whenSourceExchangesBodyWithTarget();
+
+        $this->thenTargetPlayerShouldNotHaveUsedMageBookStatus($I);
+    }
+
     private function givenTargetPlayerIsMush(): void
     {
         $this->eventService->callEvent(
@@ -226,6 +248,26 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private function givenSourceExchangesBodyWithTarget(): void
     {
         $this->whenSourceExchangesBodyWithTarget();
+    }
+
+    private function givenSourcePlayerHasUsedMageBook(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::HAS_READ_MAGE_BOOK,
+            holder: $this->source,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenTargetPlayerHasUsedMageBook(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::HAS_READ_MAGE_BOOK,
+            holder: $this->target,
+            tags: [],
+            time: new \DateTime(),
+        );
     }
 
     private function whenSourceTriesToExchangeBodyWithTarget(): void
@@ -339,5 +381,15 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
             expected: \sprintf('%s_mush', ActionEnum::EXCHANGE_BODY->value),
             actual: $this->target->getNotificationOrThrow()->getMessage(),
         );
+    }
+
+    private function thenSourcePlayerShouldNotHaveUsedMageBookStatus(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->source->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK));
+    }
+
+    private function thenTargetPlayerShouldNotHaveUsedMageBookStatus(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->target->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK));
     }
 }

@@ -30,6 +30,7 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
     public function loadConfigsData(): void
     {
         foreach (DaedalusConfigData::$dataArray as $daedalusConfigData) {
+            /** @var ?DaedalusConfig $daedalusConfig */
             $daedalusConfig = $this->daedalusConfigRepository->findOneBy(['name' => $daedalusConfigData['name']]);
 
             if ($daedalusConfig === null) {
@@ -44,6 +45,7 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
                 ->setInitShield($daedalusConfigData['initShield'])
                 ->setInitHunterPoints($daedalusConfigData['initHunterPoints'])
                 ->setInitCombustionChamberFuel($daedalusConfigData['initCombustionChamberFuel'])
+                ->setStartingApprentrons($daedalusConfigData['startingApprentrons'])
                 ->setMaxOxygen($daedalusConfigData['maxOxygen'])
                 ->setMaxFuel($daedalusConfigData['maxFuel'])
                 ->setMaxHull($daedalusConfigData['maxHull'])

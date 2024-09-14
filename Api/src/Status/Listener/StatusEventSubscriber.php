@@ -48,12 +48,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
 
         match ($statusName) {
             EquipmentStatusEnum::BROKEN => $this->handleBrokenEquipment($statusHolder, $event->getTags(), $event->getTime()),
-            PlayerStatusEnum::MUSH => $this->statusService->removeStatus(
-                PlayerStatusEnum::STARVING,
-                $statusHolder,
-                $event->getTags(),
-                $event->getTime()
-            ),
+            PlayerStatusEnum::MUSH => $this->handleMushStatusApplied($event),
             PlayerStatusEnum::INACTIVE, PlayerStatusEnum::HIGHLY_INACTIVE => $this->statusService->removeStatus(
                 PlayerStatusEnum::PARIAH,
                 $statusHolder,
@@ -101,6 +96,16 @@ final class StatusEventSubscriber implements EventSubscriberInterface
                     holder: $statusHolder,
                     tags: $event->getTags(),
                     time: $event->getTime()
+                );
+
+                break;
+
+            case PlayerStatusEnum::MUSH:
+                $this->statusService->removeStatus(
+                    PlayerStatusEnum::HAS_READ_MAGE_BOOK,
+                    $statusHolder,
+                    $event->getTags(),
+                    $event->getTime(),
                 );
 
                 break;
@@ -229,6 +234,25 @@ final class StatusEventSubscriber implements EventSubscriberInterface
                 $daedalus,
                 $tags,
                 $time
+            );
+        }
+    }
+
+    private function handleMushStatusApplied(StatusEvent $event): void
+    {
+        $this->statusService->removeStatus(
+            PlayerStatusEnum::STARVING,
+            $event->getPlayerStatusHolder(),
+            $event->getTags(),
+            $event->getTime()
+        );
+
+        if ($event->hasTag(ActionEnum::EXCHANGE_BODY->value)) {
+            $this->statusService->removeStatus(
+                statusName: PlayerStatusEnum::HAS_READ_MAGE_BOOK,
+                holder: $event->getPlayerStatusHolder(),
+                tags: $event->getTags(),
+                time: $event->getTime(),
             );
         }
     }

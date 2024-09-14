@@ -12,13 +12,18 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Service\AddSkillToPlayerService;
+use Mush\Status\Service\StatusServiceInterface;
 
 /**
  * @internal
  */
 final class ReadBookActionTest extends AbstractActionTest
 {
+    private AddSkillToPlayerService $addSkillToPlayerService;
+
     /**
      * @before
      */
@@ -34,6 +39,9 @@ final class ReadBookActionTest extends AbstractActionTest
             $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->createStub(AddSkillToPlayerService::class),
+            $this->createStub(RoomLogServiceInterface::class),
+            $this->createStub(StatusServiceInterface::class),
         );
     }
 

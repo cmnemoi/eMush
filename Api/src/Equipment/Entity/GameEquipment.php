@@ -16,6 +16,7 @@ use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
@@ -427,6 +428,13 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         $weapon = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::WEAPON);
 
         return $weapon instanceof Weapon ? $weapon : throw new \RuntimeException("Equipment {$this->name} does not have a weapon mechanic.");
+    }
+
+    public function getBookMechanicOrThrow(): Book
+    {
+        $book = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::BOOK);
+
+        return $book instanceof Book ? $book : throw new \RuntimeException("Equipment {$this->name} does not have a book mechanic.");
     }
 
     public function hasMechanicByName(string $mechanicName): bool

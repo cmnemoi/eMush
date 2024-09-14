@@ -1097,9 +1097,16 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->isMush() && $this->doesNotHaveSkill(SkillEnum::SPLASHPROOF);
     }
 
+    public function getHumanSkillSlots(): int
+    {
+        $skillSlots = $this->daedalus->getDaedalusConfig()->getHumanSkillSlots();
+
+        return $this->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK) ? $skillSlots + 1 : $skillSlots;
+    }
+
     public function hasFilledTheirHumanSkillSlots(): bool
     {
-        return $this->getHumanSkills()->count() === $this->daedalus->getDaedalusConfig()->getHumanSkillSlots();
+        return $this->getHumanSkills()->count() === $this->getHumanSkillSlots();
     }
 
     public function hasFilledTheirMushSkillSlots(): bool

@@ -6,8 +6,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -45,9 +47,19 @@ class CreatePlayerServiceCest
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
 
+        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $daedalusConfig->setStartingApprentrons([
+            'apprentron_technician' => 14,
+        ]);
+
+        $equipmentConfigs = new ArrayCollection();
+        $equipmentConfigs->add($I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'apprentron_technician_default']));
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
+            'daedalusConfig' => $daedalusConfig,
+            'equipmentsConfig' => $equipmentConfigs,
         ]);
 
         /** @var CharacterConfig $gioeleCharacterConfig */
@@ -78,7 +90,11 @@ class CreatePlayerServiceCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
+        /** @var Place $storage */
+        $storage = $I->have(Place::class, ['name' => RoomEnum::FRONT_STORAGE, 'daedalus' => $daedalus]);
+
         $daedalus->addPlace($room);
+        $daedalus->addPlace($storage);
         $I->refreshEntities($daedalus);
 
         /** @var User $user */

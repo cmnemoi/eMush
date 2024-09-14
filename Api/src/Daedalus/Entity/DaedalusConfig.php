@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Place\Entity\PlaceConfig;
 
 #[ORM\Entity]
@@ -52,6 +53,9 @@ class DaedalusConfig
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $maxCombustionChamberFuel = 0;
+
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $startingApprentrons = [];
 
     #[ORM\OneToOne(targetEntity: RandomItemPlaces::class, cascade: ['ALL'])]
     private ?RandomItemPlaces $randomItemPlaces = null;
@@ -165,6 +169,18 @@ class DaedalusConfig
     public function setInitCombustionChamberFuel(int $initCombustionChamberFuel): static
     {
         $this->initCombustionChamberFuel = $initCombustionChamberFuel;
+
+        return $this;
+    }
+
+    public function getStartingApprentrons(): ProbaCollection
+    {
+        return new ProbaCollection($this->startingApprentrons);
+    }
+
+    public function setStartingApprentrons(array $startingApprentrons): static
+    {
+        $this->startingApprentrons = $startingApprentrons;
 
         return $this;
     }

@@ -1086,5 +1086,11 @@
         <target>:mush: Votre action de traîtrise a favorisé un incident fâcheux.</target>
       </segment>
     </unit>
+    <unit id="learned_skill">
+      <segment id="learned_skill" state="final">
+        <source>learned_skill</source>
+        <target>Vous avez appris la compétence **{skill}** ! Faites en bon usage !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

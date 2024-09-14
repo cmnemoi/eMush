@@ -254,6 +254,12 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getRooms()->filter(static fn (Place $place) => $place->getPlayers()->getPlayerAlive()->count() > 0);
     }
 
+    /** @return Collection<array-key, Place> */
+    public function getStorages(): Collection
+    {
+        return $this->getPlaces()->filter(static fn (Place $place) => \in_array($place->getName(), RoomEnum::getStorages(), true));
+    }
+
     public function setPlaces(Collection $places): static
     {
         $this->places = $places;

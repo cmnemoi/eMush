@@ -68,11 +68,11 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             $apprentonMechanic
                 ->setSkill($skill)
                 ->addAction($readBook)
-                ->buildName(ItemEnum::APPRENTON . '_' . $skill->value, GameConfigEnum::DEFAULT);
+                ->buildName(ItemEnum::APPRENTRON . '_' . $skill->value, GameConfigEnum::DEFAULT);
 
             $apprenton = new ItemConfig();
             $apprenton
-                ->setEquipmentName(ItemEnum::APPRENTON . '_' . $skill->value)
+                ->setEquipmentName(ItemEnum::APPRENTRON . '_' . $skill->value)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)

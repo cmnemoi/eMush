@@ -34,4 +34,9 @@ class Book extends Tool
 
         return $this;
     }
+
+    public function isMageBook(): bool
+    {
+        return $this->skill !== SkillEnum::NULL;
+    }
 }

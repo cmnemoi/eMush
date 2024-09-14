@@ -265,6 +265,9 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::POLYVALENT,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::PRESENTIMENT,
                 actionConfigs: [
                     ActionEnum::PREMONITION,

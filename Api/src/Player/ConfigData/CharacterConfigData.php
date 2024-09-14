@@ -14,6 +14,7 @@ class CharacterConfigData
             'skillConfigs' => [
                 SkillEnum::PILOT,
                 SkillEnum::DEVOTION,
+                SkillEnum::POLYVALENT,
                 SkillEnum::CONFIDENT,
                 SkillEnum::EXPERT,
             ],

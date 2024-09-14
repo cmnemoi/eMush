@@ -263,6 +263,29 @@ final class PlantCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldDisplayEffectsToPolyvalent(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsAPolyvalent($I);
+
+        $normalizedBananaTree = $this->equipmentNormalizer->normalize(
+            $this->bananaTree,
+            format: null,
+            context: ['currentPlayer' => $this->player]
+        );
+
+        $I->assertEquals(
+            expected: [
+                'title' => 'Données sur la plante :',
+                'effects' => [
+                    'Productivité Fruit : 0 / jour',
+                    'Productivité O2 : 0 / jour',
+                    'Ce plant arrivera à maturité dans 36 cycles',
+                ],
+            ],
+            actual: $normalizedBananaTree['effects']
+        );
+    }
+
     private function givenPlayerIsABotanist(FunctionalTester $I): void
     {
         $this->player->getCharacterConfig()->setSkillConfigs([
@@ -339,5 +362,10 @@ final class PlantCest extends AbstractFunctionalTest
             daedalus: $this->daedalus,
         );
         $this->player->changePlace($garden);
+    }
+
+    private function givenPlayerIsAPolyvalent(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::POLYVALENT, $I);
     }
 }

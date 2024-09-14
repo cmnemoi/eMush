@@ -172,4 +172,14 @@ enum SkillEnum: string
             }
         );
     }
+
+    public function isPolyvalentSkill(): bool
+    {
+        return $this->isIn([self::BOTANIST, self::BIOLOGIST, self::DIPLOMAT, self::POLYVALENT]);
+    }
+
+    private function isIn(array $array): bool
+    {
+        return \in_array($this, $array, true);
+    }
 }

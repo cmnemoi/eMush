@@ -664,6 +664,35 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
     }
 
+    public function testFightEventIsPreventedByPolyvalent(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given only fight and nothing to report events can happen in intelligent sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: ['fight_1' => PHP_INT_MAX - 1, 'nothing_to_report' => 1]
+        );
+
+        // given Chun is a polyvalent
+        $this->givenPlayerHasSkill($this->chun, SkillEnum::POLYVALENT, $I);
+
+        // when I try to dispatch fight event
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then the fight event is not dispatched
+        $I->dontSeeInRepository(
+            entity: ExplorationLog::class,
+            params: [
+                'eventName' => PlanetSectorEvent::FIGHT,
+            ]
+        );
+    }
+
     public function testProvisionEvent(FunctionalTester $I): void
     {
         // given an exploration is created
@@ -739,6 +768,33 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
         $I->assertTrue(\in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()], true));
+    }
+
+    public function testHarvestEventShouldGiveMoreFruitsWithAPolyvalent(FunctionalTester $I): void
+    {
+        // given Chun is a polyvalent
+        $this->addSkillToPlayer(SkillEnum::POLYVALENT, $I);
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::FRUIT_TREES], $I),
+            explorators: $this->players
+        );
+
+        // given only harvest event can happen in fruit trees sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::FRUIT_TREES,
+            events: [PlanetSectorEvent::HARVEST_3 => 1]
+        );
+
+        // when harvest event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then I should see 4 alien fruits in planet place
+        $I->assertCount(
+            expectedCount: 4,
+            haystack: $this->daedalus->getPlanetPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => GameFruitEnum::getAlienFruits()->contains($gameEquipment->getName()))
+        );
     }
 
     public function testDiseaseEventCreatesADiseaseForOneExplorator(FunctionalTester $I): void

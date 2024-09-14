@@ -531,6 +531,15 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
     }
 
+    /** @param array<SkillEnum> $expectedSkills */
+    public function hasAnySkill(array $expectedSkills): bool
+    {
+        $expectedSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $expectedSkills);
+        $playerSkills = $this->getSkills()->map(static fn (Skill $skill) => $skill->getNameAsString())->toArray();
+
+        return \count(array_intersect($playerSkills, $expectedSkills)) > 0;
+    }
+
     public function doesNotHaveSkill(SkillEnum $skillName): bool
     {
         return $this->hasSkill($skillName) === false;
@@ -1086,10 +1095,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function canReadPlantProperties(GameEquipment $plant): bool
     {
-        return match ($plant->isAPlant()) {
-            true => $this->hasSkill(SkillEnum::BOTANIST),
-            default => false,
-        };
+        return $plant->isAPlant() && $this->hasAnySkill([SkillEnum::BOTANIST, SkillEnum::POLYVALENT]);
     }
 
     public function shouldBeHurtByShower(): bool
@@ -1112,6 +1118,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function hasFilledTheirMushSkillSlots(): bool
     {
         return $this->getMushSkills()->count() === $this->daedalus->getDaedalusConfig()->getMushSkillSlots();
+    }
+
+    public function cannotLearnSkill(SkillEnum $skill): bool
+    {
+        return $this->hasSkill($skill) || ($this->hasSkill(SkillEnum::POLYVALENT) && $skill->isPolyvalentSkill());
     }
 
     public function addReceivedMission(CommanderMission $mission): static
@@ -1232,11 +1243,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function canReadFruitProperties(GameEquipment $food): bool
     {
-        return $food->isAFruit() && $this->hasSkill(SkillEnum::BOTANIST);
+        return $food->isAFruit() && $this->hasAnySkill([SkillEnum::BOTANIST, SkillEnum::POLYVALENT]);
     }
 
     private function canReadDrugProperties(GameEquipment $food): bool
     {
-        return $food->isADrug() && $this->hasSkill(SkillEnum::NURSE);
+        return $food->isADrug() && $this->hasAnySkill([SkillEnum::NURSE, SkillEnum::POLYVALENT]);
     }
 }

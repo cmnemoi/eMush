@@ -23,7 +23,7 @@ Please read [APP.md](./App/README.md) for details on the APP architecture.
 
 ### Gitpod : your development environment in the cloud
 
-If you don't want to go through the installation process, you can try using the project's Gitpod workspace (in alpha): 
+If you don't want to go through the installation process, you can use the project's Gitpod workspace:
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://gitlab.com/eternaltwin/mush/mush)
 
@@ -86,7 +86,7 @@ Run `docker run hello-world` to check if Docker is correctly installed. If not :
 - If not done yet, generate a SSH key and add it to your GitLab profile :
   - Generate the key : `ssh-keygen -t rsa -b 2048 -C "SSH Key for eMush repository (https://gitlab.com/eternaltwin/mush/mush)"`
   - Display the key : `cat ~/.ssh/id_rsa.pub`
-  - Copy the key and add it to your GitLab profile here : https://gitlab.com/-/profile/keys
+  - Copy the key and add it to your GitLab profile here : https://gitlab.com/-/user_settings/ssh_keys/
 
 - Clone the repository and move to it : `git clone git@gitlab.com:eternaltwin/mush/mush.git && cd mush`
 
@@ -151,6 +151,8 @@ composer update
 php bin/console mush:migrate --dev
 php -S localhost:8080 -t public
 ```
+
+Replace all instances of `mush_eternaltwin` by `localhost` in your `.env`
      
 - In folder `App/`
 ```
@@ -159,20 +161,24 @@ yarn install
 yarn serve
 ```
 
+Modify `.env` `VITE_APP_URL` value to `http://localhost:5173`
+
 - In folder `EternalTwin/`
 ```
-cp .etwin.toml.example .etwin.toml
+cp eternaltwin.toml eternaltwin.local.toml
 yarn install
 yarn etwin db create
 yarn etwin start
 ```
+
+Modify `eternaltwin.local.toml` `uri` value to `http://localhost:5173`
 
 ## Contributing
 
 Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Endpoints
-A swagger is available that list all the available endpoints and their specifications [Swagger](http://localhost:8080/swagger/)
+A swagger is available that list all the available endpoints and their specifications : [Swagger](http://localhost:8080/swagger/)
 
 To authenticate, at the moment, use the login endpoint and set the access_token returned in the swagger header to use the other endpoints
 

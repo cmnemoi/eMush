@@ -3406,6 +3406,21 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
         ],
+        [
+            'name' => ModifierNameEnum::PLANT_SET_CHARGE_TO_ONE,
+            'modifierName' => ModifierNameEnum::GREEN_THUMB_MODIFIER,
+            'targetEvent' => self::DUMMY_EVENT, // this modifier does not listen to any event, it is just used to store the delta and allowing configuration
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::INITIAL_SET_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 1,
+            'targetVariable' => EquipmentStatusEnum::PLANT_YOUNG,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

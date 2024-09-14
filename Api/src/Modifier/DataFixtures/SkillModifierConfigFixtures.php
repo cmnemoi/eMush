@@ -250,6 +250,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($coldBloodedModifier->getName(), $coldBloodedModifier);
         $manager->persist($coldBloodedModifier);
 
+        $greenThumbModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLANT_SET_CHARGE_TO_ONE)
+        );
+        $this->addReference($greenThumbModifier->getName(), $greenThumbModifier);
+        $manager->persist($greenThumbModifier);
+
         $manager->flush();
     }
 

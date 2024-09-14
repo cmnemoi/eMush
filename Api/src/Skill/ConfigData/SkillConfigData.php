@@ -158,6 +158,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::GREEN_THUMB,
+                modifierConfigs: [
+                    ModifierNameEnum::PLANT_SET_CHARGE_TO_ONE,
+                ],
                 spawnEquipmentConfig: SpawnEquipmentConfigData::TWO_HYDROPOTS_IN_PLAYER_INVENTORY,
             ),
             new SkillConfigDto(

@@ -21,6 +21,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -31,7 +32,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Graft extends AbstractAction
 {
-    private const int GREEN_THUMB_BONUS = 1;
     protected ActionEnum $name = ActionEnum::GRAFT;
 
     public function __construct(
@@ -106,7 +106,7 @@ final class Graft extends AbstractAction
         $graftedFruitPlant = $this->player->getPlace()->getEquipmentByNameOrThrow($this->graftedFruit()->getPlantNameOrThrow());
         $this->statusService->updateCharge(
             chargeStatus: $graftedFruitPlant->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG),
-            delta: self::GREEN_THUMB_BONUS,
+            delta: $this->greenThumbBonus(),
             tags: $this->getTags(),
             time: new \DateTime(),
             mode: VariableEventInterface::CHANGE_VARIABLE,
@@ -156,5 +156,14 @@ final class Graft extends AbstractAction
     private function plant(): GameItem
     {
         return $this->target instanceof GameItem ? $this->target : throw new \RuntimeException('Target must be a GameItem');
+    }
+
+    private function greenThumbBonus(): int
+    {
+        return (int) $this->player
+            ->getModifiers()
+            ->getModifierByModifierNameOrThrow(ModifierNameEnum::GREEN_THUMB_MODIFIER)
+            ->getVariableModifierConfigOrThrow()
+            ->getDelta();
     }
 }

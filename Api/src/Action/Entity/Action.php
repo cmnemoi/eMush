@@ -7,6 +7,11 @@ class Action
     private ActionConfig $actionConfig;
     private ActionProviderInterface $actionProvider;
 
+    public function getId(): int
+    {
+        return $this->actionConfig->getId() ?? throw new \RuntimeException('ActionConfig should have an id');
+    }
+
     public function setActionConfig(ActionConfig $actionConfig): self
     {
         $this->actionConfig = $actionConfig;

@@ -12,6 +12,7 @@ use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Normalizer\CurrentPlayerNormalizer;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -109,5 +110,19 @@ final class PlayerNormalizerCest extends AbstractFunctionalTest
         $playerNormalizedItems = $normalizedPlayer['items'];
         $I->assertEquals(GameDrugEnum::BACTA, $playerNormalizedItems[0]['key']);
         $I->assertEquals(ItemEnum::POST_IT, $playerNormalizedItems[1]['key']);
+    }
+
+    public function testShouldNotNormalizeSameActionGivenByMultipleSkills(FunctionalTester $I): void
+    {
+        // given player is Solid and Wrestler, two skills which give Put Through Door actions
+        $this->addSkillToPlayer(SkillEnum::SOLID, $I);
+        $this->addSkillToPlayer(SkillEnum::WRESTLER, $I);
+
+        // when I normalize the player
+        $normalizedPlayer = $this->currentPlayerNormalizer->normalize($this->player, null, ['currentPlayer' => $this->player]);
+
+        // then the player should have only one Put Through Door action available
+        $actions = $normalizedPlayer['room']['players'][0]['actions'];
+        $I->assertCount(1, array_filter($actions, static fn (array $action) => $action['key'] === ActionEnum::PUT_THROUGH_DOOR->value));
     }
 }

@@ -938,6 +938,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         /** @var Skill $skill */
         foreach ($this->getSkills() as $skill) {
             $actions = array_merge($actions, $skill->getProvidedActions($actionTarget, $actionRanges)->toArray());
+            $actions = $this->removeDuplicateActions($actions);
         }
 
         return new ArrayCollection($actions);
@@ -1246,5 +1247,17 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     private function canReadDrugProperties(GameEquipment $food): bool
     {
         return $food->isADrug() && $this->hasAnySkill([SkillEnum::NURSE, SkillEnum::POLYVALENT]);
+    }
+
+    private function removeDuplicateActions(array $actions): array
+    {
+        for ($key = 1; $key < \count($actions); ++$key) {
+            $action = $actions[$key];
+            if ($action->getId() === $actions[$key - 1]->getId()) {
+                unset($actions[$key]);
+            }
+        }
+
+        return $actions;
     }
 }

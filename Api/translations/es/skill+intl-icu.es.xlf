@@ -521,5 +521,195 @@
         <target>expert.description</target>
       </segment>
     </unit>
+    <unit id="defacer">
+      <segment id="defacer.name" state="initial">
+        <source>defacer.name</source>
+        <target>defacer.name</target>
+      </segment>
+      <segment id="defacer.description" state="initial">
+        <source>defacer.description</source>
+        <target>defacer.description</target>
+      </segment>
+    </unit>
+    <unit id="u_turn">
+      <segment id="u_turn.name" state="initial">
+        <source>u_turn.name</source>
+        <target>u_turn.name</target>
+      </segment>
+      <segment id="u_turn.description" state="initial">
+        <source>u_turn.description</source>
+        <target>u_turn.description</target>
+      </segment>
+    </unit>
+    <unit id="politician">
+      <segment id="politician.name" state="initial">
+        <source>politician.name</source>
+        <target>politician.name</target>
+      </segment>
+      <segment id="politician.description" state="initial">
+        <source>politician.description</source>
+        <target>politician.description</target>
+      </segment>
+    </unit>
+    <unit id="victimizer">
+      <segment id="victimizer.name" state="initial">
+        <source>victimizer.name</source>
+        <target>victimizer.name</target>
+      </segment>
+      <segment id="victimizer.description" state="initial">
+        <source>victimizer.description</source>
+        <target>victimizer.description</target>
+      </segment>
+    </unit>
+    <unit id="frugivore">
+      <segment id="frugivore.name" state="initial">
+        <source>frugivore.name</source>
+        <target>frugivore.name</target>
+      </segment>
+      <segment id="frugivore.description" state="initial">
+        <source>frugivore.description</source>
+        <target>frugivore.description</target>
+      </segment>
+    </unit>
+    <unit id="mycologist">
+      <segment id="mycologist.name" state="initial">
+        <source>mycologist.name</source>
+        <target>mycologist.name</target>
+      </segment>
+      <segment id="mycologist.description" state="initial">
+        <source>mycologist.description</source>
+        <target>mycologist.description</target>
+      </segment>
+    </unit>
+    <unit id="fungal_kitchen">
+      <segment id="fungal_kitchen.name" state="initial">
+        <source>fungal_kitchen.name</source>
+        <target>fungal_kitchen.name</target>
+      </segment>
+      <segment id="fungal_kitchen.description" state="initial">
+        <source>fungal_kitchen.description</source>
+        <target>fungal_kitchen.description</target>
+      </segment>
+    </unit>
+    <unit id="hard_boiled">
+      <segment id="hard_boiled.name" state="initial">
+        <source>hard_boiled.name</source>
+        <target>hard_boiled.name</target>
+      </segment>
+      <segment id="hard_boiled.description" state="initial">
+        <source>hard_boiled.description</source>
+        <target>hard_boiled.description</target>
+      </segment>
+    </unit>
+    <unit id="saboteur">
+      <segment id="saboteur.name" state="initial">
+        <source>saboteur.name</source>
+        <target>saboteur.name</target>
+      </segment>
+      <segment id="saboteur.description" state="initial">
+        <source>saboteur.description</source>
+        <target>saboteur.description</target>
+      </segment>
+    </unit>
+    <unit id="disheartening_contact">
+      <segment id="disheartening_contact.name" state="initial">
+        <source>disheartening_contact.name</source>
+        <target>disheartening_contact.name</target>
+      </segment>
+      <segment id="disheartening_contact.description" state="initial">
+        <source>disheartening_contact.description</source>
+        <target>disheartening_contact.description</target>
+      </segment>
+    </unit>
+    <unit id="slimetrap">
+      <segment id="slimetrap.name" state="initial">
+        <source>slimetrap.name</source>
+        <target>slimetrap.name</target>
+      </segment>
+      <segment id="slimetrap.description" state="initial">
+        <source>slimetrap.description</source>
+        <target>slimetrap.description</target>
+      </segment>
+    </unit>
+    <unit id="green_jelly">
+      <segment id="green_jelly.name" state="initial">
+        <source>green_jelly.name</source>
+        <target>green_jelly.name</target>
+      </segment>
+      <segment id="green_jelly.description" state="initial">
+        <source>green_jelly.description</source>
+        <target>green_jelly.description</target>
+      </segment>
+    </unit>
+    <unit id="massive_mushification">
+      <segment id="massive_mushification.name" state="initial">
+        <source>massive_mushification.name</source>
+        <target>massive_mushification.name</target>
+      </segment>
+      <segment id="massive_mushification.description" state="initial">
+        <source>massive_mushification.description</source>
+        <target>massive_mushification.description</target>
+      </segment>
+    </unit>
+    <unit id="bypass">
+      <segment id="bypass.name" state="initial">
+        <source>bypass.name</source>
+        <target>bypass.name</target>
+      </segment>
+      <segment id="bypass.description" state="initial">
+        <source>bypass.description</source>
+        <target>bypass.description</target>
+      </segment>
+    </unit>
+    <unit id="traitor">
+      <segment id="traitor.name" state="initial">
+        <source>traitor.name</source>
+        <target>traitor.name</target>
+      </segment>
+      <segment id="traitor.description" state="initial">
+        <source>traitor.description</source>
+        <target>traitor.description</target>
+      </segment>
+    </unit>
+    <unit id="cold_blooded">
+      <segment id="cold_blooded.name" state="initial">
+        <source>cold_blooded.name</source>
+        <target>cold_blooded.name</target>
+      </segment>
+      <segment id="cold_blooded.description" state="initial">
+        <source>cold_blooded.description</source>
+        <target>cold_blooded.description</target>
+      </segment>
+    </unit>
+    <unit id="green_thumb">
+      <segment id="green_thumb.name" state="initial">
+        <source>green_thumb.name</source>
+        <target>green_thumb.name</target>
+      </segment>
+      <segment id="green_thumb.description" state="initial">
+        <source>green_thumb.description</source>
+        <target>green_thumb.description</target>
+      </segment>
+    </unit>
+    <unit id="polyvalent">
+      <segment id="polyvalent.name" state="initial">
+        <source>polyvalent.name</source>
+        <target>polyvalent.name</target>
+      </segment>
+      <segment id="polyvalent.description" state="initial">
+        <source>polyvalent.description</source>
+        <target>polyvalent.description</target>
+      </segment>
+    </unit>
+    <unit id="strateguru">
+      <segment id="strateguru.name" state="initial">
+        <source>strateguru.name</source>
+        <target>strateguru.name</target>
+      </segment>
+      <segment id="strateguru.description" state="initial">
+        <source>strateguru.description</source>
+        <target>strateguru.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

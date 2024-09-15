@@ -739,5 +739,41 @@
         <target>observant_noticed_something</target>
       </segment>
     </unit>
+    <unit id="delogged">
+      <segment id="delogged" state="initial">
+        <source>delogged</source>
+        <target>delogged</target>
+      </segment>
+    </unit>
+    <unit id="soiled_by_mass_ggedon">
+      <segment id="soiled_by_mass_ggedon" state="initial">
+        <source>soiled_by_mass_ggedon</source>
+        <target>soiled_by_mass_ggedon</target>
+      </segment>
+    </unit>
+    <unit id="traitor_worked">
+      <segment id="traitor_worked" state="initial">
+        <source>traitor_worked</source>
+        <target>traitor_worked</target>
+      </segment>
+    </unit>
+    <unit id="learned_skill">
+      <segment id="learned_skill" state="initial">
+        <source>learned_skill</source>
+        <target>learned_skill</target>
+      </segment>
+    </unit>
+    <unit id="cold_blooded_worked">
+      <segment id="cold_blooded_worked" state="initial">
+        <source>cold_blooded_worked</source>
+        <target>cold_blooded_worked</target>
+      </segment>
+    </unit>
+    <unit id="strateguru_worked">
+      <segment id="strateguru_worked" state="initial">
+        <source>strateguru_worked</source>
+        <target>strateguru_worked</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

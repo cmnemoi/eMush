@@ -288,11 +288,11 @@
     <unit id="disorder_appear">
       <segment state="final">
         <source>disorder_appear</source>
-        <target>:psy_disease: Vous ne vous sentez pas très très bien... Votre tête tourne, vous vous sentez confus, 
+        <target>:psy_disease: Vous ne vous sentez pas très très bien... Votre tête tourne, vous vous sentez 
                 {character_gender, select,
-                male {stressé, angoissé}
-                female {stressée, angoisée}
-                other {stressé, angoissé}
+                male {confus, stressé, angoissé}
+                female {confuse, stressée, angoissée}
+                other {confus, stressé, angoissé}
                 }. Vous devriez voir un *Psy*. Vous avez développé une maladie mentale : {disease}.</target>
       </segment>
     </unit>
@@ -1101,7 +1101,7 @@
     <unit id="strateguru_worked">
       <segment id="strateguru_worked" state="final">
         <source>strateguru_worked</source>
-        <target>Votre compétence **Stratéguerre** a porté ses fruits, vous avez perdu une partie de vos aggresseurs dans un bras de nébuleuse...</target>
+        <target>Votre compétence **Stratéguerre** a porté ses fruits, vous avez perdu une partie de vos agresseurs dans un bras de nébuleuse...</target>
       </segment>
     </unit>
   </file>

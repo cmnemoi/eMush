@@ -295,7 +295,7 @@
       </segment>
       <segment id="determined.description" state="translated">
         <source>determined.description</source>
-        <target>Une fois qu'il a commencé sa tâche rien ne peut perturber le joueur persévérant.//:point: En cas d'**échec** sur une action, les chances de réussite **augmentent plus vite**.</target>
+        <target>Une fois qu'il a commencé sa tâche, rien ne peut perturber le joueur persévérant.//:point: En cas d'**échec** sur une action, les chances de réussite **augmentent plus vite**.</target>
       </segment>
     </unit>
     <unit id="optimist">
@@ -603,7 +603,7 @@
       </segment>
       <segment id="victimizer.description" state="translated">
         <source>victimizer.description</source>
-        <target>Certaines remarques bien senties peuvent avoir des répercussions inattendues.//:point: Pour **1** :pa:, permet de jeter l'anathème sur un co-équipier.//:point: Ce co-équipier gagne le statut Paria. Le Paria perd 20% de réussite à ses actions.//:point: Ses actions furtives deviennent discrètes.//:point: Le status Paria dure tant que le persécuteur est en vie, ou que le paria meurt ou devienne inactif.</target>
+        <target>Certaines remarques bien senties peuvent avoir des répercussions inattendues.//:point: Pour **1** :pa:, permet de jeter l'anathème sur un coéquipier.//:point: Ce coéquipier gagne le statut Paria. Le Paria perd 20% de réussite à ses actions.//:point: Ses actions furtives deviennent discrètes.//:point: Le status Paria dure tant que le persécuteur est en vie, ou que le paria meurt ou devienne inactif.</target>
       </segment>
     </unit>
     <unit id="frugivore">
@@ -623,7 +623,7 @@
       </segment>
       <segment id="mycologist.description" state="translated">
         <source>mycologist.description</source>
-        <target>Le Mycologiste peut soigner les infections fongiques à l'**Infirmerie** ou a l'aide d'un **Medikit**.//:point: Vos soins retirent automatiquement un spore.</target>
+        <target>Le Mycologiste peut soigner les infections fongiques à l'**Infirmerie** ou à l'aide d'un **Medikit**.//:point: Vos soins retirent automatiquement un spore.</target>
       </segment>
     </unit>
     <unit id="fungal_kitchen">
@@ -673,7 +673,7 @@
       </segment>
       <segment id="slimetrap.description" state="translated">
         <source>slimetrap.description</source>
-        <target>Ces foutues champignons se reproduisent vite, trop vite, très vite...Ils sont partout !!!//:point: Pour **1** :pa:, le joueur ciblé deviendra sale dans 1 à 4 cycles.</target>
+        <target>Ces foutus champignons se reproduisent vite, trop vite, très vite... Ils sont partout !!!//:point: Pour **1** :pa:, le joueur ciblé deviendra sale dans 1 à 4 cycles.</target>
       </segment>
     </unit>
     <unit id="green_jelly">
@@ -693,7 +693,7 @@
       </segment>
       <segment id="massive_mushification.description" state="translated">
         <source>massive_mushification.description</source>
-        <target>Certains péniceliums sont d'une virulence extrême. L'effet est de courte durée mais très efficace.//:point: **Unique** : Pour **2** :pa: et 2 spores, vous pouvez enlever 2 :pa: à chaque membre d'équipage et provoquer un état de saleté.</target>
+        <target>Certains pénicilliums sont d'une virulence extrême. L'effet est de courte durée mais très efficace.//:point: **Unique** : Pour **2** :pa: et 2 spores, vous pouvez enlever 2 :pa: à chaque membre d'équipage et provoquer un état de saleté.</target>
       </segment>
     </unit>
     <unit id="bypass">
@@ -753,7 +753,7 @@
       </segment>
       <segment id="strateguru.description" state="translated">
         <source>strateguru.description</source>
-        <target>A un certain degré de mégalomanie, on peut appeler ça du talent. Vous êtes expert en bataille spatiale mais tout le monde vous prend pour un fou.//:point: **50%** de chances de réduire chaque vague de Hunters de **33%**.</target>
+        <target>À un certain degré de mégalomanie, on peut appeler ça du talent. Vous êtes expert en bataille spatiale mais tout le monde vous prend pour un fou.//:point: **50%** de chances de réduire chaque vague de Hunters de **33%**.</target>
       </segment>
     </unit>
   </file>

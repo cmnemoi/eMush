@@ -463,6 +463,12 @@
         <target>dismantle_reinforced.description</target>
       </segment>
     </unit>
+    <unit id="sabotage_reinforced">
+      <segment id="description" state="initial">
+        <source>sabotage_reinforced.description</source>
+        <target>sabotage_reinforced.description</target>
+      </segment>
+    </unit>
     <unit id="bed_occupied">
       <segment id="description" state="initial">
         <source>bed_occupied.description</source>

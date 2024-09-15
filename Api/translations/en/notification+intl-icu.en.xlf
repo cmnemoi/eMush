@@ -22,53 +22,43 @@
       </segment>
     </unit>
     <unit id="mission_sent">
-      <segment state="final">
-        <source>mission_sent.title</source>
-        <target/>
-      </segment>
       <segment state="translated">
         <source>mission_sent.description</source>
         <target>Mission sent.</target>
       </segment>
     </unit>
     <unit id="mission_received">
-      <segment state="final">
-        <source>mission_received.title</source>
-        <target/>
-      </segment>
       <segment state="translated">
         <source>mission_received.description</source>
         <target>You have received a new mission from the Commander. Go to the Tips tab.</target>
       </segment>
     </unit>
     <unit id="mission_accepted">
-      <segment state="final">
-        <source>mission_accepted.title</source>
-        <target/>
-      </segment>
       <segment state="translated">
         <source>mission_accepted.description</source>
-        <target>Your mission “{mission}” has been accepted.</target>
+        <target>Your mission “{missionContent}” has been accepted.</target>
       </segment>
     </unit>
     <unit id="mission_rejected">
-      <segment state="final">
-        <source>mission_rejected.title</source>
-        <target/>
-      </segment>
       <segment state="translated">
         <source>mission_rejected.description</source>
-        <target>Votre mission "{mission}" has been refused.</target>
+        <target>Your mission “{missionContent}” has been refused.</target>
       </segment>
     </unit>
     <unit id="dropped_critical_item">
       <segment state="translated">
-        <source>dropped_critical_item.title</source>
-        <target/>
-      </segment>
-      <segment state="translated">
         <source>dropped_critical_item.description</source>
         <target>*Hinnnn* this object is critical to the crew's survival. You can't take it with you...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_by_u_turn">
+      <segment state="translated">
+        <source>exploration_closed_by_u_turn.subTitle</source>
+        <target>Hua started screaming and everyone returned to the ship double-quick!</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed_by_u_turn.description</source>
+        <target>You may consult {exploration_link} to discover what happened...</target>
       </segment>
     </unit>
   </file>

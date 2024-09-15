@@ -117,5 +117,11 @@
         <target>maturity_info</target>
       </segment>
     </unit>
+    <unit id="exploration_archive">
+      <segment id="exploration_archive" state="initial">
+        <source>exploration_archive</source>
+        <target>exploration_archive</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

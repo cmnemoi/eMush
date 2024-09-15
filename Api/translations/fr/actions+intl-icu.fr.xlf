@@ -410,11 +410,11 @@ Merci de nous aider !</target>
       </segment>
     </unit>
     <unit id="take_shower">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>take_shower.name</source>
         <target>Se laver</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>take_shower.description</source>
         <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution : la douche.</target>
       </segment>
@@ -1341,7 +1341,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="confirmation" state="translated">
         <source>putsch.confirmation</source>
-        <target>Cette action peut-être très mal perçue, êtes-vous sûr de vouloir continuer ?</target>
+        <target>Cette action peut être très mal perçue, êtes-vous sûr de vouloir continuer ?</target>
       </segment>
     </unit>
     <unit id="anathema">
@@ -1355,7 +1355,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="confirmation" state="translated">
         <source>anathema.confirmation</source>
-        <target>Cette action est très puissante et menera sans doute à des représailles. Continuer ?</target>
+        <target>Cette action est très puissante et mènera sans doute à des représailles. Continuer ?</target>
       </segment>
     </unit>
     <unit id="mix_ration_spore">
@@ -1410,6 +1410,24 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="final">
         <source>reinforce.description</source>
         <target>Permet de blinder un objet démontable pour qu'il ne le soit plus. Protège également contre les sabotages.//Consomme 1 **Débris métallique**.</target>
+      </segment>
+    </unit>
+    <unit id="throw_grenade.name">
+      <segment state="translated">
+        <source>throw_grenade.name</source>
+        <target>Lancer</target>
+      </segment>
+    </unit>
+    <unit id="throw_grenade.description">
+      <segment state="translated">
+        <source>throw_grenade.description</source>
+        <target>Permet de lancer une grenade dans la pièce. Avec ça, vous êtes sûr du résultat.</target>
+      </segment>
+    </unit>
+    <unit id="throw_grenade.confirmation">
+      <segment state="translated">
+        <source>throw_grenade.confirmation</source>
+        <target>Cette action est dangereuse. Êtes-vous sûr de vouloir continuer ?</target>
       </segment>
     </unit>
   </file>

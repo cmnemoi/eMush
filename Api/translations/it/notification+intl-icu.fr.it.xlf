@@ -23,19 +23,11 @@
     </unit>
     <unit id="mission_sent">
       <segment state="initial">
-        <source>mission_sent.title</source>
-        <target>mission_sent.title</target>
-      </segment>
-      <segment state="initial">
         <source>mission_sent.description</source>
         <target>mission_sent.description</target>
       </segment>
     </unit>
     <unit id="mission_received">
-      <segment state="initial">
-        <source>mission_received.title</source>
-        <target>mission_received.title</target>
-      </segment>
       <segment state="initial">
         <source>mission_received.description</source>
         <target>mission_received.description</target>
@@ -43,19 +35,11 @@
     </unit>
     <unit id="mission_accepted">
       <segment state="initial">
-        <source>mission_accepted.title</source>
-        <target>mission_accepted.title</target>
-      </segment>
-      <segment state="initial">
         <source>mission_accepted.description</source>
         <target>mission_accepted.description</target>
       </segment>
     </unit>
     <unit id="mission_rejected">
-      <segment state="initial">
-        <source>mission_rejected.title</source>
-        <target>mission_rejected.title</target>
-      </segment>
       <segment state="initial">
         <source>mission_rejected.description</source>
         <target>mission_rejected.description</target>
@@ -63,12 +47,18 @@
     </unit>
     <unit id="dropped_critical_item">
       <segment state="initial">
-        <source>dropped_critical_item.title</source>
-        <target>dropped_critical_item.title</target>
-      </segment>
-      <segment state="initial">
         <source>dropped_critical_item.description</source>
         <target>dropped_critical_item.description</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_by_u_turn">
+      <segment state="initial">
+        <source>exploration_closed_by_u_turn.subTitle</source>
+        <target>exploration_closed_by_u_turn.subTitle</target>
+      </segment>
+      <segment state="initial">
+        <source>exploration_closed_by_u_turn.description</source>
+        <target>exploration_closed_by_u_turn.description</target>
       </segment>
     </unit>
   </file>

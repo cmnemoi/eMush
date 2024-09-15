@@ -404,13 +404,13 @@ Thanks for your help!</target>
       </segment>
     </unit>
     <unit id="take_shower">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>take_shower.name</source>
         <target>Wash</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>take_shower.description</source>
-        <target>When the grime thickens, when general cleanliness fails, when the shame of your odor overwhelms you. There is one solution : the take_shower.</target>
+        <target>When the grime thickens, when general cleanliness fails, when the shame of your odor overwhelms you. There is one solution : the shower.</target>
       </segment>
     </unit>
     <unit id="wash_in_sink">
@@ -1270,16 +1270,136 @@ Or you simply need some fresh air.... or not.</target>
         <target>This lets you print a list you prepared before the Daedalus departed. This list details potentially infected crewmembers. Every day, one name is removed from the list. The list currently contains **{numberOfNames}** names.</target>
       </segment>
     </unit>
-    <unit id="throw_grenade">
+    <unit id="depress">
       <segment id="name" state="translated">
+        <source>depress.name</source>
+        <target>Buzzkill</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>depress.description</source>
+        <target>Lets you cause your target to lose 2 :pmo:.</target>
+      </segment>
+    </unit>
+    <unit id="delog">
+      <segment id="name" state="translated">
+        <source>delog.name</source>
+        <target>Clear logs</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>delog.description</source>
+        <target>The logs from this room will be deleted and won't start again until the next cycle.</target>
+      </segment>
+    </unit>
+    <unit id="run_home">
+      <segment id="name" state="translated">
+        <source>run_home.name</source>
+        <target>Go HOME !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>run_home.description</source>
+        <target>You're really not feeling this expedition. Let's book it outta here !</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>run_home.confirmation</source>
+        <target>This action will interrupt the expedition for the whole team. Continue?</target>
+      </segment>
+    </unit>
+    <unit id="putsch">
+      <segment id="name" state="translated">
+        <source>putsch.name</source>
+        <target>Coup!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>putsch.description</source>
+        <target>**Unique**: NERON will consider you the absolute leader from the next cycle onwards.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>putsch.confirmation</source>
+        <target>This action may be very poorly received, are you sure you want to continue?</target>
+      </segment>
+    </unit>
+    <unit id="anathema">
+      <segment id="name" state="translated">
+        <source>anathema.name</source>
+        <target>Anathema</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>anathema.description</source>
+        <target>Allows you to offload on someone, which turns them into a pariah.//The Pariah receives significant penalties.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>anathema.confirmation</source>
+        <target>This action is very powerful and will undoubtedly lead to retaliation. Continue?</target>
+      </segment>
+    </unit>
+    <unit id="mix_ration_spore">
+      <segment id="name" state="translated">
+        <source>mix_ration_spore.name</source>
+        <target>Contaminate</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mix_ration_spore.description</source>
+        <target>Lets you contaminate an inedible ration with a mush spore.</target>
+      </segment>
+    </unit>
+    <unit id="slime_trap">
+      <segment id="name" state="translated">
+        <source>slime_trap.name</source>
+        <target>Slime Trap</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>slime_trap.description</source>
+        <target>Allows you to cause some serious dirtification in the coming cycles.</target>
+      </segment>
+    </unit>
+    <unit id="slime_object">
+      <segment id="name" state="translated">
+        <source>slime_object.name</source>
+        <target>Slime</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>slime_object.description</source>
+        <target>The targeted object will break within 1 to {outputQuantity} cycles.</target>
+      </segment>
+    </unit>
+    <unit id="mass_ggeddon">
+      <segment id="name" state="translated">
+        <source>mass_ggeddon.name</source>
+        <target>Moldification of the masses</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mass_ggeddon.description</source>
+        <target>Inflicts a loss of 2 :pa: and dirty status on the entire crew.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>mass_ggeddon.confirmation</source>
+        <target>This action is very powerful and will undoubtedly lead to retaliation. Continue?</target>
+      </segment>
+    </unit>
+    <unit id="reinforce">
+      <segment id="name" state="translated">
+        <source>reinforce.name</source>
+        <target>Reinforce</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>reinforce.description</source>
+        <target>Lets you reinforce an object so that it can no longer be dismantled. Also protects objects against sabotage.//Uses 1 **Scrap Metal**.</target>
+      </segment>
+    </unit>
+    <unit id="throw_grenade.name">
+      <segment state="translated">
         <source>throw_grenade.name</source>
         <target>Throw</target>
       </segment>
-      <segment id="description" state="translated">
+    </unit>
+    <unit id="throw_grenade.description">
+      <segment state="translated">
         <source>throw_grenade.description</source>
         <target>Allows you to throw a grenade in the room. You're sure to get a result this way.</target>
       </segment>
-      <segment id="confirmation" state="translated">
+    </unit>
+    <unit id="throw_grenade.confirmation">
+      <segment state="translated">
         <source>throw_grenade.confirmation</source>
         <target>This action is dangerous. Are you sure you want to continue?</target>
       </segment>

@@ -929,5 +929,41 @@
         <target>**{character}** has noticed something interesting...</target>
       </segment>
     </unit>
+    <unit id="delogged">
+      <segment id="delogged" state="translated">
+        <source>delogged</source>
+        <target>The archives are scrambled... Who's been messing with the sensors?!</target>
+      </segment>
+    </unit>
+    <unit id="soiled_by_mass_ggedon">
+      <segment id="soiled_by_mass_ggedon" state="translated">
+        <source>soiled_by_mass_ggedon</source>
+        <target>You feel ill, but not like you've felt before, as if everything is covered in filth... your stomach is churning... and you feel extremely weak... buuurrrpp.</target>
+      </segment>
+    </unit>
+    <unit id="traitor_worked">
+      <segment id="traitor_worked" state="translated">
+        <source>traitor_worked</source>
+        <target>:mush: Your treacherous action has led to an unfortunate incident.</target>
+      </segment>
+    </unit>
+    <unit id="learned_skill">
+      <segment id="learned_skill" state="translated">
+        <source>learned_skill</source>
+        <target>You have learned a new skill: **{skill}**! Make good use of it!</target>
+      </segment>
+    </unit>
+    <unit id="cold_blooded_worked">
+      <segment id="cold_blooded_worked" state="translated">
+        <source>cold_blooded_worked</source>
+        <target>Your **Cold Blooded** skill has borne fruit...</target>
+      </segment>
+    </unit>
+    <unit id="strateguru_worked">
+      <segment id="strateguru_worked" state="translated">
+        <source>strateguru_worked</source>
+        <target>Your Strateguru skill has proven useful, you have lost some of your attackers in the spirals of a nebula...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

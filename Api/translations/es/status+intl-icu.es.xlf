@@ -1429,18 +1429,18 @@
         <target>mush.examine</target>
       </segment>
     </unit>
-    <unit id="outcast">
+    <unit id="pariah">
       <segment id="name" state="initial">
-        <source>outcast.name</source>
-        <target>outcast.name</target>
+        <source>pariah.name</source>
+        <target>pariah.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>outcast.description</source>
-        <target>outcast.description</target>
+        <source>pariah.description</source>
+        <target>pariah.description</target>
       </segment>
       <segment id="effect" state="initial">
-        <source>outcast.examine</source>
-        <target>outcast.examine</target>
+        <source>pariah.examine</source>
+        <target>pariah.examine</target>
       </segment>
     </unit>
     <unit id="pacifist">

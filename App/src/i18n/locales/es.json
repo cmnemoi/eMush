@@ -596,10 +596,11 @@
 		}
 	},
 	"charSelection": {
-		"selectLanguage": "Seleccionar idioma:",
+		"selectLanguage": "Sélectionnez une langue pour rejoindre un vaisseau 👉",
 		"shipNotFound": "Aucun vaisseau avec ce nom n'a été trouvé. Vérifiez son orthographe et réessayez.",
 		"startGame": "Empezar a jugar",
-		"youChoose": "Has elegido a "
+		"youChoose": "Has elegido a ",
+		"moreInfo": "Survolez les portraits avec votre souris pour en savoir plus sur les personnages."
 	},
 	"game": {
 		"communications": {

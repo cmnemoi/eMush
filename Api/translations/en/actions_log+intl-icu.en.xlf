@@ -184,13 +184,13 @@
     <unit id="enter_room">
       <segment id="enter_room" state="final">
         <source>enter_room</source>
-        <target>**{character}** entered the room.</target>
+        <target>**{character}** entered the room{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.</target>
       </segment>
     </unit>
     <unit id="exit_room">
       <segment id="exit_room" state="final">
         <source>exit_room</source>
-        <target>**{character}** left the room.</target>
+        <target>**{character}** exited the room{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.</target>
       </segment>
     </unit>
     <unit id="read_book">
@@ -1006,6 +1006,48 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>{version, select,
         1 {Ploc...poc...poc...pschhhhh... **{character}** takes cover while the others look at their feet. Oh look, a gre...}
         other {Ploc...ploc...ploc...pschhhhh... **{character}** takes cover while the others look down. The explosion blows everyone away!}}</target>
+      </segment>
+    </unit>
+    <unit id="putsch_success">
+      <segment id="putsch_success" state="translated">
+        <source>putsch_success</source>
+        <target>**{character}** is going through an argument with NERON. Who knows what they can scheme about...</target>
+      </segment>
+    </unit>
+    <unit id="depress_success">
+      <segment id="depress_success" state="translated">
+        <source>depress_success</source>
+        <target>:mush: **{character}** approaches **{target_character}** furtively. After moving away again, **{target_character}**'s mood seems to drop rapidly...</target>
+      </segment>
+    </unit>
+    <unit id="slime_trap_success">
+      <segment id="slime_trap_success" state="translated">
+        <source>slime_trap_success</source>
+        <target>:mush: In a flash, **{character}** taps **{target_character}**affectionately, but it seems as though some kind of putrid smoke came out of their fingers!</target>
+      </segment>
+    </unit>
+    <unit id="slime_object_success">
+      <segment id="slime_object_success" state="translated">
+        <source>slime_object_success</source>
+        <target>mush: **{character}** ejected some wretched slime onto {target_equipment_first_letter, select, vowel {an} other {a}} **{target_equipment}**. It'll break down in {quantity, select, 1 {1 cycle} other {{quantity} cycles}}...</target>
+      </segment>
+    </unit>
+    <unit id="mass_ggedon_success">
+      <segment id="mass_ggedon_success" state="translated">
+        <source>mass_ggedon_success</source>
+        <target>**{character}** suddenly stiffens... It looks like twisted yellow threads are escaping from their spacesuit and trying to penetrate the hull...</target>
+      </segment>
+    </unit>
+    <unit id="reinforce_success">
+      <segment id="reinforce_success" state="translated">
+        <source>reinforce_success</source>
+        <target>**{character}** has been beavering away over what looked like the beginnings of a mini cathedral near {target_equipment_first_letter, select, vowel {an} other {a}} **{target_equipment}**... OK, it looks more like they reinforced the area with a dead armadillo but hey, who's caring, it should do the job.</target>
+      </segment>
+    </unit>
+    <unit id="reinforce_fail">
+      <segment id="reinforce_fail" state="translated">
+        <source>reinforce_fail</source>
+        <target>You retreat proudly... bla bla... ah... never mind... your attempt at armor plating failed.</target>
       </segment>
     </unit>
   </file>

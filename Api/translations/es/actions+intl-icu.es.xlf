@@ -393,14 +393,14 @@
         <target>sabotage.description</target>
       </segment>
     </unit>
-    <unit id="shower">
+    <unit id="take_shower">
       <segment id="name" state="initial">
-        <source>shower.name</source>
-        <target>shower.name</target>
+        <source>take_shower.name</source>
+        <target>take_shower.name</target>
       </segment>
-      <segment id="description" state="translated">
-        <source>shower.description</source>
-        <target>shower.short_name</target>
+      <segment id="description" state="initial">
+        <source>take_shower.description</source>
+        <target>take_shower.description</target>
       </segment>
     </unit>
     <unit id="wash_in_sink">
@@ -1243,16 +1243,136 @@
         <target>print_ze_list.description</target>
       </segment>
     </unit>
-    <unit id="throw_grenade">
+    <unit id="depress">
       <segment id="name" state="initial">
+        <source>depress.name</source>
+        <target>depress.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>depress.description</source>
+        <target>depress.description</target>
+      </segment>
+    </unit>
+    <unit id="delog">
+      <segment id="name" state="initial">
+        <source>delog.name</source>
+        <target>delog.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>delog.description</source>
+        <target>delog.description</target>
+      </segment>
+    </unit>
+    <unit id="run_home">
+      <segment id="name" state="initial">
+        <source>run_home.name</source>
+        <target>run_home.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>run_home.description</source>
+        <target>run_home.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>run_home.confirmation</source>
+        <target>run_home.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="putsch">
+      <segment id="name" state="initial">
+        <source>putsch.name</source>
+        <target>putsch.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>putsch.description</source>
+        <target>putsch.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>putsch.confirmation</source>
+        <target>putsch.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="anathema">
+      <segment id="name" state="initial">
+        <source>anathema.name</source>
+        <target>anathema.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>anathema.description</source>
+        <target>anathema.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>anathema.confirmation</source>
+        <target>anathema.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="mix_ration_spore">
+      <segment id="name" state="initial">
+        <source>mix_ration_spore.name</source>
+        <target>mix_ration_spore.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mix_ration_spore.description</source>
+        <target>mix_ration_spore.description</target>
+      </segment>
+    </unit>
+    <unit id="slime_trap">
+      <segment id="name" state="initial">
+        <source>slime_trap.name</source>
+        <target>slime_trap.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>slime_trap.description</source>
+        <target>slime_trap.description</target>
+      </segment>
+    </unit>
+    <unit id="slime_object">
+      <segment id="name" state="initial">
+        <source>slime_object.name</source>
+        <target>slime_object.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>slime_object.description</source>
+        <target>slime_object.description</target>
+      </segment>
+    </unit>
+    <unit id="mass_ggeddon">
+      <segment id="name" state="initial">
+        <source>mass_ggeddon.name</source>
+        <target>mass_ggeddon.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mass_ggeddon.description</source>
+        <target>mass_ggeddon.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>mass_ggeddon.confirmation</source>
+        <target>mass_ggeddon.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="reinforce">
+      <segment id="name" state="initial">
+        <source>reinforce.name</source>
+        <target>reinforce.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>reinforce.description</source>
+        <target>reinforce.description</target>
+      </segment>
+    </unit>
+    <unit id="throw_grenade.name">
+      <segment state="initial">
         <source>throw_grenade.name</source>
         <target>throw_grenade.name</target>
       </segment>
-      <segment id="description" state="initial">
+    </unit>
+    <unit id="throw_grenade.description">
+      <segment state="initial">
         <source>throw_grenade.description</source>
         <target>throw_grenade.description</target>
       </segment>
-      <segment id="confirmation" state="initial">
+    </unit>
+    <unit id="throw_grenade.confirmation">
+      <segment state="initial">
         <source>throw_grenade.confirmation</source>
         <target>throw_grenade.confirmation</target>
       </segment>

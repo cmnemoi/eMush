@@ -463,6 +463,12 @@
         <target>This piece of equipment has been reinforced, dismantling it is impossible...</target>
       </segment>
     </unit>
+    <unit id="sabotage_reinforced">
+      <segment id="description" state="translated">
+        <source>sabotage_reinforced.description</source>
+        <target>This piece of equipment has been **reinforced**...</target>
+      </segment>
+    </unit>
     <unit id="bed_occupied">
       <segment id="description" state="translated">
         <source>bed_occupied.description</source>

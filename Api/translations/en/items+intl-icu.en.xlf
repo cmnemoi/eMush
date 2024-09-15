@@ -3466,31 +3466,30 @@ This plan requires:</target>
                     }</target>
       </segment>
     </unit>
-    <unit id="apprenton">
+    <unit id="apprentron">
       <segment id="name" state="translated">
-        <source>apprenton.name</source>
-        <target>Mage book: {skill}</target>
+        <source>apprentron.name</source>
+        <target>Mage Book: {skill}</target>
       </segment>
       <segment id="short_name" state="translated">
-        <source>apprenton.short_name</source>
-        <target>Mage book</target>
+        <source>apprentron.short_name</source>
+        <target>Mage Book</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>apprenton.gender</source>
+        <source>apprentron.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
-        <source>apprenton.first_letter</source>
+        <source>apprentron.first_letter</source>
         <target>vowel</target>
       </segment>
       <segment id="description" state="translated">
-        <source>apprenton.description</source>
+        <source>apprentron.description</source>
         <target>Books. A practical, if antiquated invention. Maybe you'll find the solutions to your life's problems within. In any case, reading won't do you any harm.</target>
       </segment>
       <segment id="examine" state="translated">
-        <source>apprenton.examine</source>
-        <target>Books. A practical, if antiquated invention. Maybe you'll find the solutions to your life's problems within. In any case, reading won't do you any harm.
-//
+        <source>apprentron.examine</source>
+        <target>Books. A practical, if antiquated invention. Maybe you'll find the solutions to your life's problems within. In any case, reading won't do you any harm.//
 A stack of cellulose with which it might be able to knock Raluca out, and more besides...</target>
       </segment>
     </unit>

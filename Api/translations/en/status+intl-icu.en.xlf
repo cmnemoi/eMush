@@ -1429,18 +1429,18 @@
         <target>mush.examine</target>
       </segment>
     </unit>
-    <unit id="outcast">
+    <unit id="pariah">
       <segment id="name" state="translated">
-        <source>outcast.name</source>
+        <source>pariah.name</source>
         <target>Outcast</target>
       </segment>
       <segment id="description" state="translated">
-        <source>outcast.description</source>
-        <target>You have been judged by the others. A heavy burden weighs on your shoulders. They point at you, they spy on you, and they watch you closely. You are the whipping-boy. The victim.//Your {b]secret{\b} actions become {b}covert{\b}. It is harder for you to do everything.</target>
+        <source>pariah.description</source>
+        <target>You have been judged by the others. A heavy burden weighs on your shoulders. They point at you, they spy on you, and they watch you closely. You are the whipping-boy. The victim.//Your **secret** actions become **covert**.//It is harder for you to do everything.</target>
       </segment>
-      <segment id="effect" state="initial">
-        <source>outcast.examine</source>
-        <target>outcast.examine</target>
+      <segment id="effect" state="translated">
+        <source>pariah.examine</source>
+        <target/>
       </segment>
     </unit>
     <unit id="pacifist">

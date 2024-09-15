@@ -596,10 +596,11 @@
 		}
 	},
 	"charSelection": {
-		"selectLanguage": "Select a language :",
+		"selectLanguage": "Select a language to join a ship 👉",
 		"shipNotFound": "No ship was found. One should be created in the incoming hour!",
 		"startGame": "Start the game",
-		"youChoose": "You choose "
+		"youChoose": "You choose ",
+		"moreInfo": "Move the mouse over the portraits to see a detailed description of the characters."
 	},
 	"game": {
 		"communications": {

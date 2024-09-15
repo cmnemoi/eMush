@@ -550,5 +550,195 @@
         <target>Your skills are impressive, but your disregard for your own safety is equally so!//:point: Your chances of succeeding at a particular task are increased by 20% but so is the likelihood of injury and getting dirty.</target>
       </segment>
     </unit>
+    <unit id="defacer">
+      <segment id="defacer.name" state="translated">
+        <source>defacer.name</source>
+        <target>Defacer</target>
+      </segment>
+      <segment id="defacer.description" state="translated">
+        <source>defacer.description</source>
+        <target>Your DNA allows you to modify certain peripheral data. This has potential!//:point: For **2** :pa: you can delete the log in a given room, once per day. Logging will automatically resume next cycle. </target>
+      </segment>
+    </unit>
+    <unit id="u_turn">
+      <segment id="u_turn.name" state="translated">
+        <source>u_turn.name</source>
+        <target>U-Turn</target>
+      </segment>
+      <segment id="u_turn.description" state="translated">
+        <source>u_turn.description</source>
+        <target>You've got to know how to change your certitudes.//:point: When on an expedition, if there's an emergency, you can return to the Daedalus for 2 :pa:.</target>
+      </segment>
+    </unit>
+    <unit id="politician">
+      <segment id="politician.name" state="translated">
+        <source>politician.name</source>
+        <target>Politician</target>
+      </segment>
+      <segment id="politician.description" state="translated">
+        <source>politician.description</source>
+        <target>Either they are with you or against you.//:point: **Unique** : For **3** :pa: you can declare a Coup at the Nexus. On next cycle, NERON will consider as the new commander.</target>
+      </segment>
+    </unit>
+    <unit id="victimizer">
+      <segment id="victimizer.name" state="translated">
+        <source>victimizer.name</source>
+        <target>Victimizer</target>
+      </segment>
+      <segment id="victimizer.description" state="translated">
+        <source>victimizer.description</source>
+        <target>Certain well-targeted remarks can have unexpected results.//:point: For **1** :pa: you can accuse a crewmate, penalizing them with the **Pariah** status.//:point: Their actions become 20% likely to be successful.//:point: Their covert actions become secret.//:point: The Pariah status remains for as long as the Victimizer is alive, or until the pariah dies or becomes inactive.</target>
+      </segment>
+    </unit>
+    <unit id="frugivore">
+      <segment id="frugivore.name" state="translated">
+        <source>frugivore.name</source>
+        <target>Frugivore</target>
+      </segment>
+      <segment id="frugivore.description" state="translated">
+        <source>frugivore.description</source>
+        <target>You terrorize fruits, you adore them, they are your drug. When you make eye contact with a fruit, it over-ripens before you...//:point: You gain an additional **2** :pa:when you eat alien fruits, **1** :pa: for bananas.</target>
+      </segment>
+    </unit>
+    <unit id="mycologist">
+      <segment id="mycologist.name" state="translated">
+        <source>mycologist.name</source>
+        <target>Mycologist</target>
+      </segment>
+      <segment id="mycologist.description" state="translated">
+        <source>mycologist.description</source>
+        <target>The mycologist can treat fungal infections in the **Hospital** or using a **Medikit**.//:point: Your heals automatically remove a spore.</target>
+      </segment>
+    </unit>
+    <unit id="fungal_kitchen">
+      <segment id="fungal_kitchen.name" state="translated">
+        <source>fungal_kitchen.name</source>
+        <target>Fungal Kitchen</target>
+      </segment>
+      <segment id="fungal_kitchen.description" state="translated">
+        <source>fungal_kitchen.description</source>
+        <target>A fine example of the fine cuisine of Sol.//:point: You can create a **Booby trapped food** by mixing a **spore** and one **consumable** using **1** :pa:.</target>
+      </segment>
+    </unit>
+    <unit id="hard_boiled">
+      <segment id="hard_boiled.name" state="translated">
+        <source>hard_boiled.name</source>
+        <target>Hard Boiled</target>
+      </segment>
+      <segment id="hard_boiled.description" state="translated">
+        <source>hard_boiled.description</source>
+        <target>Your skin is particularly tough. Plastenite without the sweat.//:point: All **combat damage** you sustain is **reduced by one point**.</target>
+      </segment>
+    </unit>
+    <unit id="saboteur">
+      <segment id="saboteur.name" state="translated">
+        <source>saboteur.name</source>
+        <target>Saboteur</target>
+      </segment>
+      <segment id="saboteur.description" state="translated">
+        <source>saboteur.description</source>
+        <target>Your saliva becomes lightly acidic which is sufficient to short-circuit pretty much anything...//:point: Your chances of success in attempts to **sabotage** equipment are **doubled**.</target>
+      </segment>
+    </unit>
+    <unit id="disheartening_contact">
+      <segment id="disheartening_contact.name" state="translated">
+        <source>disheartening_contact.name</source>
+        <target>Demoralize</target>
+      </segment>
+      <segment id="disheartening_contact.description" state="translated">
+        <source>disheartening_contact.description</source>
+        <target>Mush pheromones do not allow direct communication but saturation can destabilize. You know how to take advantage of this.//:point: For **2** :pa: you can cause a crewmember to lose **2** :pmo:.</target>
+      </segment>
+    </unit>
+    <unit id="slimetrap">
+      <segment id="slimetrap.name" state="translated">
+        <source>slimetrap.name</source>
+        <target>Slimetrap</target>
+      </segment>
+      <segment id="slimetrap.description" state="translated">
+        <source>slimetrap.description</source>
+        <target>These damn mushrooms reproduce quickly. Really quickly. Too quickly! They're everywhere!//:point: For **1** :pa:, target player will get dirty in 1–4 cycles.</target>
+      </segment>
+    </unit>
+    <unit id="green_jelly">
+      <segment id="green_jelly.name" state="translated">
+        <source>green_jelly.name</source>
+        <target>Green Jelly</target>
+      </segment>
+      <segment id="green_jelly.description" state="translated">
+        <source>green_jelly.description</source>
+        <target>You produce an acidic green jelly from your armpits.//:point: For **1** :pa:, you can break an electronic object. It will take a few cycles for the object to break down.</target>
+      </segment>
+    </unit>
+    <unit id="massive_mushification">
+      <segment id="massive_mushification.name" state="translated">
+        <source>massive_mushification.name</source>
+        <target>Massive Mushification</target>
+      </segment>
+      <segment id="massive_mushification.description" state="translated">
+        <source>massive_mushification.description</source>
+        <target>Certain penicillia are extremely virulent. The effect doesn't last for long, but it's extremely powerful.//:point: **Unique**: For **2** :pa: and two spores, you can fatigue all crewmembers by 2 :pa: and give them the status "Dirty".</target>
+      </segment>
+    </unit>
+    <unit id="bypass">
+      <segment id="bypass.name" state="translated">
+        <source>bypass.name</source>
+        <target>Bypass</target>
+      </segment>
+      <segment id="bypass.description" state="translated">
+        <source>bypass.description</source>
+        <target>The ambiguities of the NERON code vis-a-vis Mush are sometimes so welcome...//:point: You can access NERON's **BIOS** even if you're not the **Administrator**.</target>
+      </segment>
+    </unit>
+    <unit id="traitor">
+      <segment id="traitor.name" state="translated">
+        <source>traitor.name</source>
+        <target>Traitor</target>
+      </segment>
+      <segment id="traitor.description" state="translated">
+        <source>traitor.description</source>
+        <target>You have developed an innate ability to attract misfortune. Look - a Mankarog... Let's see what happens when we tickle it...//:point: **Doubles** the probability of getting **negative results** during expeditions that you participate in.</target>
+      </segment>
+    </unit>
+    <unit id="cold_blooded">
+      <segment id="cold_blooded.name" state="translated">
+        <source>cold_blooded.name</source>
+        <target>Cold Blooded</target>
+      </segment>
+      <segment id="cold_blooded.description" state="translated">
+        <source>cold_blooded.description</source>
+        <target>In space, anything can and does happen. Knowing how to keep calm is extremely useful.//:point: **Gains 3** :pa: every time a crewmate **dies**.</target>
+      </segment>
+    </unit>
+    <unit id="green_thumb">
+      <segment id="green_thumb.name" state="translated">
+        <source>green_thumb.name</source>
+        <target>Green Thumb</target>
+      </segment>
+      <segment id="green_thumb.description" state="translated">
+        <source>green_thumb.description</source>
+        <target>Plants grow naturally in your presence, you only require speaking to them with a languishing gaze for them to bear beautiful fruit.//:point: Starts the game with an additional **two pots**.//:point: **Hybrids** made by the Green Thumb start with a short growth cycle.</target>
+      </segment>
+    </unit>
+    <unit id="polyvalent">
+      <segment id="polyvalent.name" state="translated">
+        <source>polyvalent.name</source>
+        <target>Polyvalent</target>
+      </segment>
+      <segment id="polyvalent.description" state="translated">
+        <source>polyvalent.description</source>
+        <target>You have skills, they're always useful...//:point: You are considered a **Botanist**, **Diplomat** and **Biologist** but you don't have their actions or resources.</target>
+      </segment>
+    </unit>
+    <unit id="strateguru">
+      <segment id="strateguru.name" state="translated">
+        <source>strateguru.name</source>
+        <target>Strateguru</target>
+      </segment>
+      <segment id="strateguru.description" state="translated">
+        <source>strateguru.description</source>
+        <target>After displaying a certain degree of megalomania, it can be mistaken for talent. You are an expert in intergalactic warfare, but everyone thinks you're crazy.//:point: **50%** chance of reducing each wave of Hunters by **33%**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

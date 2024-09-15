@@ -775,5 +775,11 @@
         <target>strateguru_worked</target>
       </segment>
     </unit>
+    <unit id="drop_success">
+      <segment id="drop_success" state="initial">
+        <source>drop_success</source>
+        <target>drop_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -26,10 +26,13 @@ final readonly class ModerationRoomLogNormalizer implements NormalizerInterface
         $roomLog = $object;
         $language = LanguageEnum::FRENCH;
 
+        $logParameters = $roomLog->getParameters();
+        $logParameters['is_tracker'] = 'false';
+
         return [
             'log' => "{$this->translationService->translate(
                 $roomLog->getLog(),
-                $roomLog->getParameters(),
+                $logParameters,
                 $roomLog->getType(),
                 $language
             )} ({$roomLog->getLog()})",

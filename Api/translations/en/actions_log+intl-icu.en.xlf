@@ -190,7 +190,7 @@
     <unit id="exit_room">
       <segment id="exit_room" state="final">
         <source>exit_room</source>
-        <target>**{character}** exited the room{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.</target>
+        <target>**{character}** left the room{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.</target>
       </segment>
     </unit>
     <unit id="read_book">
@@ -1023,7 +1023,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="slime_trap_success">
       <segment id="slime_trap_success" state="translated">
         <source>slime_trap_success</source>
-        <target>:mush: In a flash, **{character}** taps **{target_character}**affectionately, but it seems as though some kind of putrid smoke came out of their fingers!</target>
+        <target>:mush: In a flash, **{character}** taps **{target_character}** affectionately, but it seems as though some kind of putrid smoke came out of their fingers!</target>
       </segment>
     </unit>
     <unit id="slime_object_success">

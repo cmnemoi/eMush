@@ -1105,7 +1105,7 @@
       </segment>
     </unit>
     <unit id="drop_success">
-      <segment id="drop_success" state="final">
+      <segment id="drop_success" state="translated">
         <source>drop_success</source>
         <target>{target_equipment_gender, select,
                         male {**{character}** a lâché un **{target_equipment}**.}

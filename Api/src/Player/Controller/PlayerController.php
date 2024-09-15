@@ -83,12 +83,6 @@ class PlayerController extends AbstractGameController
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
         $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
 
-        $daedalus = $player->getDaedalus();
-        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
-        }
-        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
-
         $context = new Context();
         $context->setAttribute('currentPlayer', $player);
 

@@ -74,26 +74,25 @@ final class ThrowGrenade extends AbstractAction
     private function destroyGrenade(): void
     {
         $equipmentEvent = new InteractWithEquipmentEvent(
-            $this->grenade(),
-            $this->player,
-            VisibilityEnum::HIDDEN,
-            $this->getTags(),
-            new \DateTime()
+            equipment: $this->grenade(),
+            author: $this->player,
+            visibility: VisibilityEnum::HIDDEN,
+            tags: $this->getTags(),
+            time: new \DateTime()
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 
     private function removeHealthToPlayersInRoom(): void
     {
-        $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($this->grenadeMechanic()->getBaseDamageRange());
-
         foreach ($this->player->getAlivePlayersInRoomExceptSelf() as $player) {
+            $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($this->grenadeMechanic()->getBaseDamageRange());
             $playerVariableEvent = new PlayerVariableEvent(
-                $player,
-                PlayerVariableEnum::HEALTH_POINT,
-                -$damage,
-                $this->getTags(),
-                new \DateTime(),
+                player: $player,
+                variableName: PlayerVariableEnum::HEALTH_POINT,
+                quantity: -$damage,
+                tags: $this->getTags(),
+                time: new \DateTime(),
             );
             $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
@@ -101,9 +100,7 @@ final class ThrowGrenade extends AbstractAction
 
     private function grenade(): GameItem
     {
-        $grenade = $this->actionProvider;
-
-        return $grenade instanceof GameItem ? $grenade : throw new \RuntimeException('Action provider is not a GameItem');
+        return $this->actionProvider instanceof GameItem ? $this->actionProvider : throw new \RuntimeException('Action provider is not a GameItem');
     }
 
     private function grenadeMechanic(): Weapon

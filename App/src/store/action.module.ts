@@ -1,7 +1,6 @@
 import ActionService from "@/services/action.service";
 import { ActionTree, Commit, Dispatch, GetterTree, MutationTree } from "vuex";
 import store from "@/store/index";
-import { ActionEnum, ShootHunterActionsEnum } from "@/enums/action.enum";
 import { AxiosResponse } from "axios";
 import { Action } from "@/entities/Action";
 import { Hunter } from "@/entities/Hunter";
@@ -81,16 +80,20 @@ async function handleActionExecution(actionExecution: ActionExecution): Promise<
     await dispatch("communication/clearRoomLogs", null, { root: true });
 
     await ActionService.executeTargetAction(target, action, params).then(async (response: AxiosResponse<any, any>) => {
-        if (isShootAction(action)) {
+        if (action.isExchangeBodyAction()) {
+            return await handleExchangeBodyAction(response, dispatch);
+        }
+
+        if (action.isShootHunterAction()) {
             handleShootHunterAction(response, commit);
         }
-        if (isExchangeBodyAction(action)) {
-            await handleExchangeBodyAction(response, dispatch);
+
+        await dispatch("player/reloadPlayer", null, { root: true });
+        if (shouldReloadChannels(response)) {
+            await dispatch("communication/loadAlivePlayerChannels", null, { root: true });
         } else {
-            await dispatch("player/reloadPlayer", null, { root: true });
+            await dispatch("communication/changeChannel", { channel: store.getters["communication/roomChannel"] }, { root: true });
         }
-        await dispatch("communication/loadAlivePlayerChannels", null, { root: true });
-        commit('setCurrentChannel', store.getters["communication/roomChannel"]);
     });
 }
 
@@ -113,10 +116,6 @@ function handleShootHunterAction(axiosResponse: AxiosResponse<any, any>, commit:
     commit("setTargetedHunterId", targetedHunterId);
 }
 
-function isShootAction(action: Action): boolean {
-    return Object.values(ShootHunterActionsEnum).includes(action.key as ShootHunterActionsEnum);
-}
-
-function isExchangeBodyAction(action: Action): boolean {
-    return action.key === ActionEnum.EXCHANGE_BODY;
+function shouldReloadChannels(axiosResponse: AxiosResponse<any, any>): boolean {
+    return axiosResponse.data.actionDetails.reloadChannels;
 }

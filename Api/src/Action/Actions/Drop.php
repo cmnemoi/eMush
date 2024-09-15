@@ -38,17 +38,26 @@ class Drop extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $target */
-        $target = $this->target;
+        $this->putItemInPlayerRoom();
 
-        $equipmentEvent = new MoveEquipmentEvent(
-            $target,
-            $this->player->getPlace(),
-            $this->player,
-            VisibilityEnum::HIDDEN,
-            $this->getActionConfig()->getActionTags(),
-            new \DateTime(),
+        if ($this->gameItemTarget()->isATalkie()) {
+            $result->addDetail('reloadChannels', true);
+        }
+    }
+
+    private function putItemInPlayerRoom(): void
+    {
+        $tags = $this->getTags();
+        $tags[] = $this->gameItemTarget()->getName();
+
+        $itemEvent = new MoveEquipmentEvent(
+            equipment: $this->gameItemTarget(),
+            newHolder: $this->player->getPlace(),
+            author: $this->player,
+            visibility: VisibilityEnum::HIDDEN,
+            tags: $tags,
+            time: new \DateTime(),
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+        $this->eventService->callEvent($itemEvent, EquipmentEvent::CHANGE_HOLDER);
     }
 }

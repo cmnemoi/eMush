@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -117,5 +118,10 @@ class GameItem extends GameEquipment
         }
 
         throw new \LogicException('Cannot determine if item is critical if it is not held by a player');
+    }
+
+    public function isATalkie(): bool
+    {
+        return \in_array($this->getName(), [ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE], true);
     }
 }

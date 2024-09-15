@@ -63,8 +63,13 @@ export class Action {
 
         return this;
     }
-
     isNotMissionAction(): boolean {
         return [ActionEnum.ACCEPT_MISSION, ActionEnum.REJECT_MISSION].includes(this.key) === false;
+    }
+    isExchangeBodyAction(): boolean {
+        return this.key === ActionEnum.EXCHANGE_BODY;
+    }
+    isShootHunterAction(): boolean {
+        return [ActionEnum.SHOOT_HUNTER, ActionEnum.SHOOT_HUNTER_PATROL_SHIP].includes(this.key);
     }
 }

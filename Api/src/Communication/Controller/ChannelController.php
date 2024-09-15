@@ -144,10 +144,6 @@ class ChannelController extends AbstractGameController
         }
 
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
-        }
-        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         if (!$this->canCreateChannel->isSatisfied($player)) {
             $canCreate = [
@@ -185,10 +181,6 @@ class ChannelController extends AbstractGameController
         $player = $this->getUserPlayer($user);
 
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
-        }
-        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         $channels = $this->channelService->getPlayerChannels($player);
         $context = new Context();
@@ -221,10 +213,6 @@ class ChannelController extends AbstractGameController
         $player = $this->getUserPlayer($user);
 
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
-        }
-        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
@@ -347,11 +335,6 @@ class ChannelController extends AbstractGameController
             return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
-        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
-        }
-        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
-
         return $this->view(
             $this->channelService->getInvitablePlayersToPrivateChannel($channel, $playerInfo?->getPlayer()),
             200
@@ -385,7 +368,7 @@ class ChannelController extends AbstractGameController
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus is changing cycle');
         }
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
@@ -513,10 +496,6 @@ class ChannelController extends AbstractGameController
 
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
-        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
-        }
-        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         // @TODO: move this to a Voter
         /** @var User $user */
@@ -673,10 +652,6 @@ class ChannelController extends AbstractGameController
         $player = $this->getUserPlayer($user);
 
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
-        }
-        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         if ($player->getFavoriteMessages()->isEmpty() || !$this->channelService->canPlayerCommunicate($player)) {
             return $this->view(null, Response::HTTP_NO_CONTENT);
@@ -715,10 +690,6 @@ class ChannelController extends AbstractGameController
 
         /** @var Daedalus $daedalus */
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
-        }
-        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         $context = new Context();
         $context->setAttribute('currentPlayer', $player);

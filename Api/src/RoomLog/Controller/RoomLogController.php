@@ -20,7 +20,6 @@ use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -67,12 +66,6 @@ class RoomLogController extends AbstractGameController
 
         $player = $this->getUserPlayer();
 
-        $daedalus = $player->getDaedalus();
-        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
-        }
-        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
-
         $logs = $this->roomLogService->getRoomLog($player);
 
         $context = new Context();
@@ -103,13 +96,7 @@ class RoomLogController extends AbstractGameController
 
         $player = $this->getUserPlayer();
 
-        $daedalus = $player->getDaedalus();
-        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
-        }
-        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
-
-        $language = $daedalus->getLanguage();
+        $language = $player->getLanguage();
 
         return $this->view([
             'name' => $this->translationService->translate('room_log.name', [], 'chat', $language),

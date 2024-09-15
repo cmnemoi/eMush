@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Listener;
 
+use Mush\Action\Actions\Takeoff;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GearItemEnum;
@@ -42,6 +43,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     private const MOVE_EQUIPMENT_LOG_MAP = [
         ActionEnum::COLLECT_SCRAP->value => LogEnum::SCRAP_COLLECTED,
         ProjectName::FOOD_RETAILER->value => LogEnum::FRUIT_TRANSPORTED,
+        Takeoff::DROP_CRITICAL_ITEM => LogEnum::DROP_SUCCESS,
     ];
     private RoomLogServiceInterface $roomLogService;
 

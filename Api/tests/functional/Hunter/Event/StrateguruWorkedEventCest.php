@@ -34,7 +34,7 @@ final class StrateguruWorkedEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent(new StrateguruWorkedEvent($this->daedalus), StrateguruWorkedEvent::class);
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: 'Votre compétence **Stratéguerre** a porté ses fruits, vous avez perdu une partie de vos aggresseurs dans un bras de nébuleuse...',
+            expectedRoomLog: 'Votre compétence **Stratéguerre** a porté ses fruits, vous avez perdu une partie de vos agresseurs dans un bras de nébuleuse...',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->chun,
                 log: LogEnum::STRATEGURU_WORKED,

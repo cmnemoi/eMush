@@ -46,7 +46,7 @@ final class DepressCest extends AbstractFunctionalTest
         $this->whenKuanTiDepressChun();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: ":mush: **Kuan Ti** se rapproche subrepticement de **Chun**. Après qu'il s'en soit éloigné, les traits de **Chun** se tirent et se creusent...",
+            expectedRoomLog: ":mush: **Kuan Ti** se rapproche subrepticement de **Chun**. Après qu'il s'en est éloigné, les traits de **Chun** se tirent et se creusent...",
             actualRoomLogDto: new RoomLogDto(
                 player: $this->kuanTi,
                 log: ActionLogEnum::DEPRESS_SUCCESS,

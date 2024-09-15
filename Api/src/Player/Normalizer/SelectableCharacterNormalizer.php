@@ -19,7 +19,7 @@ final class SelectableCharacterNormalizer implements NormalizerInterface, Normal
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof CharacterConfig;
+        return $data instanceof CharacterConfig && \array_key_exists('daedalus', $context);
     }
 
     public function normalize($object, ?string $format = null, array $context = []): array

@@ -127,7 +127,7 @@ final class Takeoff extends AbstractAction
 
     private function createDropCriticalItemsLogs(): void
     {
-        foreach ($this->player->getAllCriticalItems() as $item) {
+        foreach ($this->player->getCriticalItemsForMe() as $item) {
             $this->roomLogService->createLog(
                 logKey: ActionLogEnum::DROP,
                 place: $this->player->getPlace(),

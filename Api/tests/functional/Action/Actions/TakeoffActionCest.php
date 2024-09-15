@@ -590,7 +590,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             expectedRoomLog: '**Chun** a lâché un **Tablier intachable**.',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->player,
-                log: ActionLogEnum::DROP,
+                log: LogEnum::DROP_SUCCESS,
                 visibility: VisibilityEnum::PUBLIC,
                 inPlayerRoom: false,
             ),

@@ -88,6 +88,8 @@ final class Takeoff extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
+        $this->dropCriticalItems();
+
         // a successful landing still create damage to the hull, only critical success avoid any damage
         $criticalSuccessRate = $this->actionService->getActionModifiedActionVariable(
             player: $this->player,
@@ -109,7 +111,6 @@ final class Takeoff extends AbstractAction
         /** @var GameEquipment $patrolShip */
         $patrolShip = $this->target;
 
-        $this->dropCriticalItems();
         $this->playerService->changePlace($this->player, $daedalus->getPlaceByNameOrThrow($patrolShip->getName()));
         $this->patrolShipManoeuvreService->handleTakeoff(
             patrolShip: $patrolShip,

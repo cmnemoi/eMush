@@ -89,7 +89,8 @@ async function handleActionExecution(actionExecution: ActionExecution): Promise<
         } else {
             await dispatch("player/reloadPlayer", null, { root: true });
         }
-        await dispatch("communication/changeChannel", { channel: store.getters["communication/roomChannel"] }, { root: true });
+        await dispatch("communication/loadAlivePlayerChannels", null, { root: true });
+        commit('setCurrentChannel', store.getters["communication/roomChannel"]);
     });
 }
 

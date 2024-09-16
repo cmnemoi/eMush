@@ -93,6 +93,20 @@ class ChannelRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 
+    public function getNumberOfPlayerPrivateChannels(Player $player): int
+    {
+        $queryBuilder = $this->createQueryBuilder('channel');
+        $queryBuilder
+            ->select('COUNT(channel)')
+            ->leftJoin('channel.participants', 'channelPlayer')
+            ->where($queryBuilder->expr()->eq('channelPlayer.participant', ':playerInfo'))
+            ->andWhere($queryBuilder->expr()->eq('channel.scope', ':scope'))
+            ->setParameter('playerInfo', $player->getPlayerInfo())
+            ->setParameter('scope', ChannelScopeEnum::PRIVATE);
+
+        return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
     private function findPrivateChannelsByPlayer(PlayerInfo $playerInfo): Collection
     {
         $queryBuilder = $this->createQueryBuilder('channel');

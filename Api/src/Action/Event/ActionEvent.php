@@ -73,6 +73,11 @@ class ActionEvent extends AbstractGameEvent
         return $this->actionTarget;
     }
 
+    public function getPlayerActionTarget(): Player
+    {
+        return $this->actionTarget instanceof Player ? $this->actionTarget : throw new \RuntimeException('Action target is not a player');
+    }
+
     public function getActionParameters(): array
     {
         return $this->actionParameters;
@@ -89,6 +94,11 @@ class ActionEvent extends AbstractGameEvent
         $this->addTag($actionResult->getResultTag());
 
         return $this;
+    }
+
+    public function getActionResultOrThrow(): ActionResult
+    {
+        return $this->actionResult ?? throw new \RuntimeException('Action result is not set');
     }
 
     public function getModifiersByPriorities(array $priorities): ModifierCollection
@@ -113,6 +123,11 @@ class ActionEvent extends AbstractGameEvent
     public function getActionName(): ActionEnum
     {
         return $this->actionConfig->getActionName();
+    }
+
+    public function getActionNameAsString(): string
+    {
+        return $this->actionConfig->getActionName()->value;
     }
 
     public function shouldTriggerRoomTrap(): bool

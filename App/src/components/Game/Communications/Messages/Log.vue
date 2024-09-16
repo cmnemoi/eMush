@@ -15,7 +15,7 @@
             <span class="room" v-if="roomLog?.place"> - {{ roomLog.place }}</span>
             <span class="timestamp">{{ roomLog?.date }}</span>
         </p>
-        <div class="actions" v-if="roomLogChannel.id" @click.stop>
+        <div class="actions" v-if="roomLogChannel" @click.stop>
             <Tippy tag="span" @click="openReportDialog">
                 <img :src="getImgUrl('comms/alert.png')" alt="Report message">
                 <template #content>

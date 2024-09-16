@@ -1,9 +1,13 @@
 <template>
     <section>
-        <button class="banner cycle-banner" @click="isOpen = !isOpen">
-            <img :alt="isOpen ? `retract` : `expand`" :src="isOpen ? getImgUrl('comms/less.png') : getImgUrl('comms/more.png') ">
+        <div class="banner cycle-banner">
+            <img
+                class="plus"
+                :alt="isOpen ? `retract` : `expand`"
+                :src="isOpen ? getImgUrl('comms/less.png') : getImgUrl('comms/more.png')"
+                @click="isOpen = !isOpen">
             <span>{{ calendar?.dayName }} {{ cycleRoomLog?.day }} {{ calendar?.cycleName }} {{ cycleRoomLog?.cycle }}</span>
-        </button>
+        </div>
         <div class="cycle-events" v-if="isOpen">
             <Log v-for="(roomLog, id) in cycleRoomLog?.roomLogs" :key="id" :room-log="roomLog" />
         </div>
@@ -50,11 +54,13 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-
 .cycle-events {
-    &::v-deep(a) {
+    :deep(a){
         color: $green;
     }
 }
 
+.plus {
+    cursor: pointer;
+}
 </style>

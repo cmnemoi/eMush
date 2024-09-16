@@ -6,6 +6,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Services\ChannelServiceInterface;
@@ -325,6 +326,18 @@ final class MoveCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveMovementPoint(4, $I);
     }
 
+    public function shouldTellFrontEndToRefreshChannelsWhenLeavingPrivateChannel(FunctionalTester $I): void
+    {
+        // given there is a door leading to Icarus Bay
+        $door = $this->createDoorFromTo($I, RoomEnum::LABORATORY, RoomEnum::ICARUS_BAY);
+
+        $this->givenChunIsInPrivateChannelWithKuanTi();
+
+        $result = $this->whenChunMovesToIcarusBay($door);
+
+        $this->thenActionResultShouldContainReloadChannels($result, $I);
+    }
+
     private function givenChunIsSolidPlayer(): void
     {
         $this->addSkillToPlayer->execute(SkillEnum::SOLID, $this->chun);
@@ -360,7 +373,13 @@ final class MoveCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenChunMovesToIcarusBay(Door $door): void
+    private function givenChunIsInPrivateChannelWithKuanTi(): void
+    {
+        $channel = $this->channelService->createPrivateChannel($this->chun);
+        $this->channelService->addPlayer($this->kuanTi->getPlayerInfo(), $channel);
+    }
+
+    private function whenChunMovesToIcarusBay(Door $door): ActionResult
     {
         $this->moveAction->loadParameters(
             actionConfig: $this->moveConfig,
@@ -368,7 +387,8 @@ final class MoveCest extends AbstractFunctionalTest
             player: $this->chun,
             target: $door
         );
-        $this->moveAction->execute();
+
+        return $this->moveAction->execute();
     }
 
     private function thenChunShouldHaveMovementPoint(int $expected, FunctionalTester $I): void
@@ -377,6 +397,11 @@ final class MoveCest extends AbstractFunctionalTest
             expected: $expected,
             actual: $this->chun->getMovementPoint(),
         );
+    }
+
+    private function thenActionResultShouldContainReloadChannels(ActionResult $result, FunctionalTester $I): void
+    {
+        $I->assertArrayHasKey('reloadChannels', $result->getDetails());
     }
 
     private function createDoorFromLaboratoryToFrontCorridor(FunctionalTester $I): Door

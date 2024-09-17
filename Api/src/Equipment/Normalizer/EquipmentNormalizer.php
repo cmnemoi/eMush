@@ -14,7 +14,6 @@ use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\Mechanics\Ration;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
@@ -87,7 +86,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             'effects' => $this->getEquipmentEffects($equipment, $currentPlayer),
         ];
 
-        if (EquipmentEnum::equipmentToNormalizeAsItems()->contains($equipment->getName()) || $equipment instanceof GameItem) {
+        if ($equipment->shouldBeNormalizedAsItem() || $equipment instanceof GameItem) {
             $normalizedEquipment['updatedAt'] = $equipment->getUpdatedAt();
         }
 

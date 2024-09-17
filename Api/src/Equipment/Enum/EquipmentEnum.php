@@ -134,11 +134,6 @@ class EquipmentEnum
         ]);
     }
 
-    public static function equipmentToNormalizeAsItems(): ArrayCollection
-    {
-        return new ArrayCollection([self::TABULATRIX]);
-    }
-
     public static function getCriticalItemsGivenPlayer(Player $player): ArrayCollection
     {
         $criticalItems = [ToolItemEnum::HACKER_KIT];

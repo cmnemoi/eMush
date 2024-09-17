@@ -10,7 +10,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -69,8 +68,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         );
 
         // Split equipments between items and equipments
-        $partition = $room->getEquipments()->partition(static fn (int $key, GameEquipment $gameEquipment) => ($gameEquipment->getClassName() === GameEquipment::class
-            && !EquipmentEnum::equipmentToNormalizeAsItems()->contains($gameEquipment->getName())));
+        $partition = $room->getEquipments()->partition(static fn ($_, GameEquipment $gameEquipment) => ($gameEquipment->getClassName() === GameEquipment::class && $gameEquipment->shouldBeNormalizedAsItem() === false));
 
         $equipments = $partition[0];
         $items = $partition[1];
@@ -357,7 +355,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         $items = $items->toArray();
         usort(
             $items,
-            static fn (GameItem $a, GameItem $b) => $b->hasStatus(EquipmentStatusEnum::CONTAMINATED) <=> $a->hasStatus(EquipmentStatusEnum::CONTAMINATED)
+            static fn (GameEquipment $a, GameEquipment $b) => $b->hasStatus(EquipmentStatusEnum::CONTAMINATED) <=> $a->hasStatus(EquipmentStatusEnum::CONTAMINATED)
         );
 
         return new ArrayCollection($items);

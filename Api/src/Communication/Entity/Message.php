@@ -106,6 +106,10 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     {
         $this->parent = $parent;
 
+        if ($parent !== null) {
+            $parent->addChild($this);
+        }
+
         return $this;
     }
 
@@ -153,6 +157,17 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     public function setChild(Collection $child): static
     {
         $this->child = $child;
+
+        return $this;
+    }
+
+    public function addChild(self $child): static
+    {
+        if ($this->child->contains($child)) {
+            return $this;
+        }
+
+        $this->child->add($child);
 
         return $this;
     }

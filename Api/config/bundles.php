@@ -13,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
-use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Twig\Extra\TwigExtraBundle\TwigExtraBundle;
 
 return [
@@ -31,5 +30,4 @@ return [
     NelmioCorsBundle::class => ['all' => true],
     ApiPlatformBundle::class => ['all' => true],
     SensioFrameworkExtraBundle::class => ['all' => true],
-    WebProfilerBundle::class => ['dev' => true, 'test' => true],
 ];

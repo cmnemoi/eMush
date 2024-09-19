@@ -18,7 +18,6 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Normalizer\SelectableCharacterNormalizer;
 use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
@@ -29,6 +28,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -51,7 +51,7 @@ class DaedalusController extends AbstractGameController
         private RandomServiceInterface $randomService,
         private GameConfigServiceInterface $gameConfigService,
         private CycleServiceInterface $cycleService,
-        private SelectableCharacterNormalizer $selectableCharacterNormalizer,
+        private NormalizerInterface $selectableCharacterNormalizer,
     ) {
         parent::__construct($adminService);
     }

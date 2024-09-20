@@ -1178,6 +1178,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->isMale() ? 'male' : 'female';
     }
 
+    public function isTheOnlyGuardianInTheRoom(): bool
+    {
+        return $this->getPlace()->getAlivePlayersExcept($this)->hasPlayerWithStatus(PlayerStatusEnum::GUARDIAN) === false;
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {

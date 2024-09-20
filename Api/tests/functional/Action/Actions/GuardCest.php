@@ -132,6 +132,17 @@ final class GuardCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldNotPreventThemselvesFromGoingToOtherRooms(FunctionalTester $I): void
+    {
+        $this->givenChunMovesTo(RoomEnum::MEDLAB);
+
+        $this->givenChunMovesTo(RoomEnum::LABORATORY);
+
+        $this->whenChunGuardsTheRoom();
+
+        $this->thenChunShouldBeAbleToMoveTo(RoomEnum::FRONT_CORRIDOR, $I);
+    }
+
     private function givenLaboratoryIsLinkedToFrontCorridor(FunctionalTester $I): void
     {
         $laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
@@ -185,6 +196,22 @@ final class GuardCest extends AbstractFunctionalTest
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SNEAK])
         );
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SNEAK, $this->kuanTi));
+    }
+
+    private function givenChunMovesTo(string $room): void
+    {
+        $door = $this->chun->getPlace()
+            ->getDoors()
+            ->filter(fn (Door $door) => $door->getOtherRoom($this->chun->getPlace()) === $this->daedalus->getPlaceByNameOrThrow($room))
+            ->first();
+
+        $this->move->loadParameters(
+            actionConfig: $this->moveActionConfig,
+            actionProvider: $door,
+            player: $this->chun,
+            target: $door,
+        );
+        $this->move->execute();
     }
 
     private function whenChunTriesToGuardTheRoom(): void
@@ -275,6 +302,23 @@ final class GuardCest extends AbstractFunctionalTest
             expected: false,
             actual: $this->chun->hasStatus(PlayerStatusEnum::GUARDIAN),
         );
+    }
+
+    private function thenChunShouldBeAbleToMoveTo(string $room, FunctionalTester $I): void
+    {
+        $door = $this->chun
+            ->getPlace()
+            ->getDoors()
+            ->filter(fn (Door $door) => $door->getOtherRoom($this->chun->getPlace())->getName() === $room)
+            ->first();
+
+        $this->move->loadParameters(
+            actionConfig: $this->moveActionConfig,
+            actionProvider: $door,
+            player: $this->chun,
+            target: $door,
+        );
+        $I->assertNull($this->move->cannotExecuteReason());
     }
 
     private function createDoorFromTo(Place $from, Place $to, FunctionalTester $I): void

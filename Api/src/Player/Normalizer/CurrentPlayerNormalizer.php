@@ -9,9 +9,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Normalizer\SpaceBattlePatrolShipNormalizer;
-use Mush\Equipment\Normalizer\SpaceBattleTurretNormalizer;
-use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Exploration\Entity\Exploration;
@@ -39,9 +36,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private PlayerVariableServiceInterface $playerVariableService;
-    private SpaceBattlePatrolShipNormalizer $spaceBattlePatrolShipNormalizer;
-    private SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer;
-    private TerminalNormalizer $terminalNormalizer;
     private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
     private HunterNormalizerHelperInterface $hunterNormalizerHelper;
@@ -52,9 +46,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         GameEquipmentServiceInterface $equipmentService,
         PlayerServiceInterface $playerService,
         PlayerVariableServiceInterface $playerVariableService,
-        SpaceBattlePatrolShipNormalizer $spaceBattlePatrolShipNormalizer,
-        SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer,
-        TerminalNormalizer $terminalNormalizer,
         TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService,
         HunterNormalizerHelperInterface $hunterNormalizerHelper,
@@ -63,10 +54,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     ) {
         $this->gameEquipmentService = $equipmentService;
         $this->playerService = $playerService;
-        $this->playerVariableService = $playerVariableService;
-        $this->spaceBattlePatrolShipNormalizer = $spaceBattlePatrolShipNormalizer;
-        $this->spaceBattleTurretNormalizer = $spaceBattleTurretNormalizer;
-        $this->terminalNormalizer = $terminalNormalizer;
         $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
         $this->hunterNormalizerHelper = $hunterNormalizerHelper;
@@ -127,7 +114,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             ],
             'daedalus' => $this->normalizer->normalize($daedalus, $format, $context),
             'spaceBattle' => $this->normalizeSpaceBattle($player, $format, $context),
-            'terminal' => $this->terminalNormalizer->normalize($player->getFocusedTerminal(), $format, $context),
+            'terminal' => $this->normalizer->normalize($player->getFocusedTerminal(), $format, $context),
             'exploration' => $this->normalizer->normalize($this->getExplorationForPlayer($player), $format, $context),
         ];
 
@@ -247,8 +234,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         return [
             'hunters' => $normalizedHunters,
-            'patrolShips' => $patrolShips->map(fn (GameEquipment $patrolShip) => $this->spaceBattlePatrolShipNormalizer->normalize($patrolShip, $format, $context))->toArray(),
-            'turrets' => $turrets->map(fn (GameEquipment $turret) => $this->spaceBattleTurretNormalizer->normalize($turret, $format, $context))->toArray(),
+            'patrolShips' => $patrolShips->map(fn (GameEquipment $patrolShip) => $this->normalizer->normalize($patrolShip, $format, $context))->toArray(),
+            'turrets' => $turrets->map(fn (GameEquipment $turret) => $this->normalizer->normalize($turret, $format, $context))->toArray(),
         ];
     }
 

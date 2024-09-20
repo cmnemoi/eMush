@@ -140,10 +140,12 @@ class RoomLogService implements RoomLogServiceInterface
             ->setPlace($place->getName())
             ->setPlayerInfo($player?->getPlayerInfo())
             ->setBaseVisibility($visibility)
-            ->setVisibility($this->getVisibility($player, $visibility))
             ->setCreatedAt($dateTime ?? new \DateTime('now'))
             ->setCycle($place->getDaedalus()->getCycle())
             ->setDay($place->getDaedalus()->getDay());
+
+        $visibility = $this->getVisibility($roomLog);
+        $roomLog->setVisibility($visibility);
 
         return $this->persist($roomLog);
     }
@@ -204,8 +206,11 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->repository->findOneBy($parameters) ?? throw new \RuntimeException("Log {$parameters['log']} not found in daedalus {$parameters['place']->getDaedalus()->getId()} for given parameters");
     }
 
-    private function getVisibility(?Player $player, string $visibility): string
+    private function getVisibility(RoomLog $roomLog): string
     {
+        $player = $roomLog->getPlayerInfo()?->getPlayer();
+        $visibility = $roomLog->getBaseVisibility();
+
         if ($player === null) {
             return $visibility;
         }
@@ -218,6 +223,7 @@ class RoomLogService implements RoomLogServiceInterface
 
         if ($this->observantRevealsLog($player, $visibility)) {
             $this->createObservantNoticeSomethingLog($player);
+            $roomLog->markAsNoticed();
 
             return VisibilityEnum::REVEALED;
         }

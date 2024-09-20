@@ -13,7 +13,10 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 final class FakeRoomLogService implements RoomLogServiceInterface
 {
@@ -112,6 +115,18 @@ final class FakeRoomLogService implements RoomLogServiceInterface
         return $this->roomLogs[$parameters['id']] ?? throw new \RuntimeException("Log {$parameters['log']} not found in daedalus {$parameters['place']->getDaedalus()->getId()} for given parameters");
     }
 
+    public function findAllByPlayerAndLogKey(Player $player, string $logKey): RoomLogCollection
+    {
+        $logs = [];
+        foreach ($this->roomLogs as $roomLog) {
+            if ($roomLog->getPlayerInfo() === $player->getPlayerInfo() && $roomLog->getLog() === $logKey) {
+                $logs[] = $roomLog;
+            }
+        }
+
+        return new RoomLogCollection($logs);
+    }
+
     private function getVisibility(?Player $player, string $visibility): string
     {
         if ($player === null) {
@@ -120,19 +135,64 @@ final class FakeRoomLogService implements RoomLogServiceInterface
 
         $place = $player->getPlace();
 
-        $placeHasAFunctionalCamera = $place->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
-        $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
-        $observantRevealsLog = $player->getAlivePlayersInRoomExceptSelf()->getPlayersWithSkill(SkillEnum::OBSERVANT)->count() > 0 && $this->d100Roll->isSuccessful(self::OBSERVANT_REVEAL_CHANCE);
+        if ($place->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
+            return VisibilityEnum::HIDDEN;
+        }
 
-        if ($visibility === VisibilityEnum::SECRET && ($placeHasAWitness || $placeHasAFunctionalCamera)) {
+        if ($this->observantRevealsLog($player, $visibility)) {
+            $this->createObservantNoticeSomethingLog($player);
+
             return VisibilityEnum::REVEALED;
         }
 
-        if ($visibility === VisibilityEnum::COVERT && ($placeHasAFunctionalCamera || $observantRevealsLog)) {
+        if ($visibility === VisibilityEnum::COVERT && $player->hasStatus(PlayerStatusEnum::PARIAH)) {
+            $visibility = VisibilityEnum::SECRET;
+        }
+
+        if ($this->shouldRevealSecretLog($player, $visibility) || $this->shouldRevealCovertLog($player, $visibility)) {
             return VisibilityEnum::REVEALED;
         }
 
         return $visibility;
+    }
+
+    private function shouldRevealCovertLog(Player $player, string $visibility): bool
+    {
+        $place = $player->getPlace();
+        $placeHasAFunctionalCamera = $place->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
+
+        return $visibility === VisibilityEnum::COVERT && $placeHasAFunctionalCamera;
+    }
+
+    private function shouldRevealSecretLog(Player $player, string $visibility): bool
+    {
+        $place = $player->getPlace();
+        $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
+        $placeHasAFunctionalCamera = $place->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
+
+        return $visibility === VisibilityEnum::SECRET && ($placeHasAWitness || $placeHasAFunctionalCamera);
+    }
+
+    private function observantRevealsLog(Player $player, string $visibility): bool
+    {
+        $observantInRoom = $player->getAlivePlayersInRoomExceptSelf()->hasPlayerWithSkill(SkillEnum::OBSERVANT);
+        $observantDetectedCovertAction = $visibility === VisibilityEnum::COVERT && $this->d100Roll->isSuccessful(self::OBSERVANT_REVEAL_CHANCE);
+
+        return $observantInRoom && $observantDetectedCovertAction;
+    }
+
+    private function createObservantNoticeSomethingLog(Player $player): void
+    {
+        $observant = $player->getAlivePlayersInRoomExceptSelf()->getOnePlayerWithSkillOrThrow(SkillEnum::OBSERVANT);
+        $this->createLog(
+            LogEnum::OBSERVANT_NOTICED_SOMETHING,
+            $observant->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'event_log',
+            $observant,
+            [$observant->getLogKey() => $observant->getLogName()],
+            new \DateTime(),
+        );
     }
 
     private function setId(RoomLog $roomLog): RoomLog

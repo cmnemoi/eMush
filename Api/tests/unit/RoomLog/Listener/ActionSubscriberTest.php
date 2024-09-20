@@ -6,7 +6,6 @@ namespace Mush\tests\unit\RoomLog\Listener;
 
 use Mush\Action\ConfigData\ActionData;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
@@ -68,6 +67,15 @@ final class ActionSubscriberTest extends TestCase
         // given a witness to reveal the log
         $playerWitness = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
 
+        // given unnoticed action log
+        $log = $this->roomLogService->createLog(
+            logKey: ActionLogEnum::SUICIDE_SUCCESS,
+            place: $player->getPlace(),
+            visibility: VisibilityEnum::SECRET,
+            type: 'action_log',
+            player: $player,
+        );
+
         // when player performs an action
         $this->whenPlayerPerformsAction($player);
 
@@ -76,8 +84,17 @@ final class ActionSubscriberTest extends TestCase
         self::assertNotNull($roomLog);
     }
 
-    private function whenPlayerPerformsAction(Player $player): void
+    public function testObservantShouldNotNoticeSameLogTwice(): void
     {
+        // given player is observant
+        $daedalus = DaedalusFactory::createDaedalus();
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ELEESHA, $daedalus);
+        Skill::createByNameForPlayer(SkillEnum::OBSERVANT, $player);
+
+        // given a witness to reveal the log
+        $playerWitness = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
+
+        // given an unoticed action log
         $this->roomLogService->createLog(
             logKey: ActionLogEnum::SUICIDE_SUCCESS,
             place: $player->getPlace(),
@@ -86,9 +103,22 @@ final class ActionSubscriberTest extends TestCase
             player: $player,
         );
 
+        // given player performs the same action
+        $this->whenPlayerPerformsAction($player);
+
+        // when player performs the same action
+        $this->whenPlayerPerformsAction($player);
+
+        // then I should see only one noticed something log
+        $noticedLogs = $this->roomLogService->findAllByPlayerAndLogKey($player, LogEnum::OBSERVANT_NOTICED_SOMETHING);
+        self::assertCount(1, $noticedLogs);
+    }
+
+    private function whenPlayerPerformsAction(Player $player): void
+    {
         $actionEvent = new ActionEvent(
             actionConfig: $this->actionConfig(),
-            actionProvider: $this->createStub(ActionProviderInterface::class),
+            actionProvider: $player,
             player: $player,
             tags: $this->actionConfig()->getActionTags()
         );

@@ -101,9 +101,10 @@ final class ActionSubscriber implements EventSubscriberInterface
         if (
             $player->getPlace()->hasAlivePlayerWithSkill(SkillEnum::OBSERVANT)
             && $this->d100Roll->isSuccessful(self::OBSERVANT_REVEAL_CHANCE)
-            && $this->canPlayerSeeSecretRevealedLogs($player)
+            && ($unnoticedSecretRevealedLog = $this->getUnnoticedSecretRevealedLog($player))
         ) {
             $this->createObservantNoticeSomethingLog($player);
+            $this->markLogAsNoticed($unnoticedSecretRevealedLog);
         }
     }
 
@@ -243,11 +244,19 @@ final class ActionSubscriber implements EventSubscriberInterface
         );
     }
 
-    private function canPlayerSeeSecretRevealedLogs(Player $player): bool
+    private function getUnnoticedSecretRevealedLog(Player $player): ?RoomLog
     {
-        return $this->roomLogService->getRoomLog($player)->filter(
+        $unnoticedSecretRevealedLog = $this->roomLogService->getRoomLog($player)->filter(
             static fn (RoomLog $roomLog) => $roomLog->getBaseVisibility() === VisibilityEnum::SECRET
-            && $roomLog->getVisibility() === VisibilityEnum::REVEALED
-        )->count() > 0;
+            && $roomLog->getVisibility() === VisibilityEnum::REVEALED && $roomLog->isUnnoticed()
+        )->first() ?: null;
+
+        return $unnoticedSecretRevealedLog;
+    }
+
+    private function markLogAsNoticed(RoomLog $roomLog): void
+    {
+        $roomLog->markAsNoticed();
+        $this->roomLogService->persist($roomLog);
     }
 }

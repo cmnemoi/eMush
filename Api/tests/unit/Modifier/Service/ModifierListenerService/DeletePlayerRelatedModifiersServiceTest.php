@@ -6,13 +6,9 @@ namespace Mush\Tests\unit\Modifier\Service\ModifierListenerService;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Modifier\Entity\Config\AbstractModifierConfig;
-use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierHolderInterface;
-use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Modifier\Factory\GameModifierFactory;
-use Mush\Modifier\Service\ModifierCreationServiceInterface;
+use Mush\Modifier\Service\FakeModifierCreationService;
 use Mush\Modifier\Service\ModifierListenerService\DeletePlayerRelatedModifiersService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
@@ -87,17 +83,6 @@ final class DeletePlayerRelatedModifiersServiceTest extends TestCase
         return $modifier;
     }
 
-    private function givenPlayerHasAModifier(): GameModifier
-    {
-        $modifier = GameModifierFactory::createByNameForHolder(
-            name: 'modifier_for_player_+1movementPoint_on_move',
-            holder: $this->player
-        );
-        $this->modifierCreationService->persist($modifier);
-
-        return $modifier;
-    }
-
     private function givenPlayerHasAStatusHoldingModifierConfig(GameModifier $modifier): Status
     {
         $status = StatusFactory::createStatusByNameForHolder(
@@ -132,68 +117,5 @@ final class DeletePlayerRelatedModifiersServiceTest extends TestCase
         $modifier = $this->modifierCreationService->findOneById($modifier->getId());
 
         self::assertTrue($modifier->isNull());
-    }
-}
-
-final class FakeModifierCreationService implements ModifierCreationServiceInterface
-{
-    /** @var GameModifier[] */
-    private array $repository = [];
-
-    public function persist(GameModifier $modifier): GameModifier
-    {
-        $this->repository[$modifier->getId()] = $modifier;
-
-        return $modifier;
-    }
-
-    public function delete(GameModifier $modifier): void
-    {
-        $holder = $modifier->getModifierHolder();
-        $holder->removeModifier($modifier);
-
-        unset($this->repository[$modifier->getId()]);
-    }
-
-    public function createModifier(
-        AbstractModifierConfig $modifierConfig,
-        ModifierHolderInterface $holder,
-        ModifierProviderInterface $modifierProvider,
-        array $tags = [],
-        \DateTime $time = new \DateTime(),
-    ): void {}
-
-    public function deleteModifier(
-        AbstractModifierConfig $modifierConfig,
-        ModifierHolderInterface $holder,
-        ModifierProviderInterface $modifierProvider,
-        array $tags = [],
-        \DateTime $time = new \DateTime(),
-    ): void {
-        // delete all modifiers with the same config
-        foreach ($this->repository as $modifier) {
-            if ($modifier->getModifierConfig()->getId() === $modifierConfig->getId()) {
-                $this->delete($modifier);
-            }
-        }
-    }
-
-    public function createDirectModifier(
-        DirectModifierConfig $modifierConfig,
-        ModifierHolderInterface $modifierRange,
-        ModifierProviderInterface $modifierProvider,
-        array $tags,
-        \DateTime $time,
-        bool $reverse
-    ): void {}
-
-    public function clearRepository(): void
-    {
-        $this->repository = [];
-    }
-
-    public function findOneById(int $id): GameModifier
-    {
-        return $this->repository[$id] ?? GameModifier::createNullEventModifier();
     }
 }

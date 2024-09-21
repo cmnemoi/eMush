@@ -3,6 +3,8 @@
 namespace Mush\Modifier\Factory;
 
 use Mush\Modifier\ConfigData\ModifierConfigData;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
@@ -15,6 +17,7 @@ final class GameModifierFactory
 
         $modifierConfig = match ($modifierConfigData['type']) {
             'variable_event_modifier' => VariableEventModifierConfig::fromConfigData($modifierConfigData),
+            'trigger_event_modifier' => TriggerEventModifierConfig::fromConfigData($modifierConfigData),
             default => throw new \LogicException("Unsupported modifier type {$modifierConfigData['type']}"),
         };
         self::setupModifierConfigId($modifierConfig);
@@ -25,7 +28,7 @@ final class GameModifierFactory
         return $modifier;
     }
 
-    private static function setupModifierConfigId(VariableEventModifierConfig $modifierConfig): void
+    private static function setupModifierConfigId(AbstractModifierConfig $modifierConfig): void
     {
         $hash = crc32(serialize($modifierConfig));
 

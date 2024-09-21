@@ -47,7 +47,7 @@ class ModifierSubscriber implements EventSubscriberInterface
     {
         $modifier = $event->getModifier();
         $holder = $modifier->getModifierHolder();
-        $player = null;
+        $player = $event->getAuthor();
         $logParameters = $event->getLogParameters();
 
         switch (true) {
@@ -77,7 +77,7 @@ class ModifierSubscriber implements EventSubscriberInterface
             $otherPlayers = $player->getPlace()->getPlayers()->getPlayerAlive()->filter(
                 static fn (Player $otherPlayer) => ($player->getLogName() !== $otherPlayer->getLogName())
             );
-            if ($otherPlayers->count() < 1) {
+            if ($otherPlayers->isEmpty()) {
                 throw new \LogicException('there should be another player in the room for this modifier to trigger');
             }
 

@@ -29,6 +29,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -191,14 +192,15 @@ final class ScanCest extends AbstractFunctionalTest
         $I->assertNotEmpty($planet->getRevealedSectors());
 
         // then there should be a specific public log to tell that the map worked
-        $I->seeInRepository(
-            entity: RoomLog::class,
-            params: [
-                'place' => RoomEnum::BRIDGE,
-                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-                'log' => LogEnum::LIQUID_MAP_HELPED,
-                'visibility' => VisibilityEnum::PUBLIC,
-            ]
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'La carte liquide a bien aidé **Chun**.',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: LogEnum::LIQUID_MAP_HELPED,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
         );
     }
 

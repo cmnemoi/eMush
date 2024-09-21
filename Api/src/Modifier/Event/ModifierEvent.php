@@ -59,6 +59,9 @@ class ModifierEvent extends AbstractGameEvent
         if ($provider instanceof LogParameterInterface) {
             $logParameters = array_merge($logParameters, [$provider->getLogKey() => $provider->getLogName()]);
         }
+        if ($this->author) {
+            $logParameters[$this->author->getLogKey()] = $this->author->getLogName();
+        }
 
         switch (true) {
             case $modifierHolder instanceof Player:

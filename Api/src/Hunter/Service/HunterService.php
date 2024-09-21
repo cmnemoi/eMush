@@ -194,7 +194,6 @@ final class HunterService implements HunterServiceInterface
 
             $wave->add($hunter);
             $daedalus->removeHunterPoints($hunter->getDrawCost());
-            --$followingHunters;
         }
 
         $this->persist($wave->toArray());

@@ -103,7 +103,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         /** @var Player $gioele */
         $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
 
-        $this->daedalus = $this->daedalusService->attributeTitles($this->daedalus, new \DateTime());
+        $this->daedalusService->attributeTitles($this->daedalus, new \DateTime());
 
         $I->assertEmpty($chun->getTitles());
         $I->assertEquals($kuanTi->getTitles(), [TitleEnum::NERON_MANAGER, TitleEnum::COM_MANAGER]);

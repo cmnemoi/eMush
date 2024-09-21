@@ -26,7 +26,6 @@ use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
 final class PlayerService implements PlayerServiceInterface

@@ -63,7 +63,7 @@ class PlayerCollection extends ArrayCollection
 
     public function getInactivePlayers(): self
     {
-        return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isActive() === false);
+        return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isInactive());
     }
 
     public function getNumberOfHumanAndAnonymushPlayers(): int

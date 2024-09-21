@@ -68,9 +68,10 @@ trait TargetStatusTrait
         return $this->getStatuses()->exists(static fn ($key, Status $status) => ($status->getName() === $statusName));
     }
 
-    public function hasAnyStatuses(Collection $statuses): bool
+    /** @param array<string> $statuses */
+    public function hasAnyStatuses(array $statuses): bool
     {
-        return $this->getStatuses()->exists(static fn ($key, Status $status) => $statuses->contains($status->getName()));
+        return $this->getStatuses()->exists(static fn ($_, Status $status) => \in_array($status->getName(), $statuses, true));
     }
 
     public function hasTargetingStatus(string $statusName): bool

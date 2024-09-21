@@ -61,6 +61,11 @@ class PlayerCollection extends ArrayCollection
         return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isActive());
     }
 
+    public function getInactivePlayers(): self
+    {
+        return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isActive() === false);
+    }
+
     public function getNumberOfHumanAndAnonymushPlayers(): int
     {
         $anoymushPlayers = $this->getPlayersWithSkill(SkillEnum::ANONYMUSH)->toArray();

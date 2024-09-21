@@ -7,6 +7,7 @@
                 <textarea
                     v-model="mission"
                     class="text-input"
+                    ref="input"
                     @keydown.enter.exact.prevent="breakLine"
                     @keydown.enter.ctrl.exact.prevent="breakLine"
                     @keydown.enter.shift.exact.prevent="breakLine"
@@ -80,7 +81,15 @@ export default defineComponent ({
             'getContactablePlayers': 'communication/getContactablePlayers'
         }),
         breakLine(): void {
-            this.mission += "\n";
+            // find current caret position
+            const element = this.$refs.input;
+            const caretPos = element.selectionStart;
+
+            // insert \n at the caret position
+            element.value = element.value.slice(0, caretPos) + "\n" + element.value.slice(caretPos);
+
+            // move caret to the end of the inserted "//"
+            element.selectionStart = element.selectionEnd = caretPos + 1;
         },
         getImgUrl,
         async executeTargetAction(action: Action): Promise<void> {

@@ -3,6 +3,7 @@
         <form class="chat-input">
             <textarea
                 v-model="text"
+                ref="input"
                 class="text-input"
                 @keydown.enter.exact.prevent="breakLine"
                 @keydown.enter.ctrl.exact.prevent="breakLine"
@@ -53,14 +54,23 @@ export default defineComponent ({
             'executeAction': 'action/executeAction'
         }),
         breakLine (): void {
-            this.text += "\n//\n";
+            // find current caret position
+            const element = this.$refs.input;
+            const caretPos = element.selectionStart;
+
+            // insert \n at the caret position
+            element.value = element.value.slice(0, caretPos) + "\n" + element.value.slice(caretPos);
+
+            // move caret to the end of the inserted "//"
+            element.selectionStart = element.selectionEnd = caretPos + 1;
         },
         async executeTargetAction(target: Terminal, action: Action): Promise<void> {
-            if(action.canExecute) {
-                const params = { "content": this.text };
-                this.text = '';
-                await this.executeAction({ target, action, params });
+            if (!action.canExecute) {
+                return;
             }
+            const params = { "content": this.text };
+            this.text = '';
+            await this.executeAction({ target, action, params });
         }
     },
     data() {

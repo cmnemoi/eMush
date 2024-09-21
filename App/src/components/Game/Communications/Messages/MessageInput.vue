@@ -60,7 +60,15 @@ export default defineComponent ({
             }
         },
         breakLine (): void {
-            this.text += "\n";
+            // find current caret position
+            const element = this.$refs.input;
+            const caretPos = element.selectionStart;
+
+            // insert \n at the caret position
+            element.value = element.value.slice(0, caretPos) + "\n" + element.value.slice(caretPos);
+
+            // move caret to the end of the inserted "//"
+            element.selectionStart = element.selectionEnd = caretPos + 1;
         },
         ...mapActions('communication', [
             'sendMessage',

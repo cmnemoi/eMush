@@ -8,18 +8,14 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Enum\EventPriorityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(
-        private EventServiceInterface $eventService,
-        private PlayerServiceInterface $playerService,
-    ) {}
+    public function __construct(private PlayerServiceInterface $playerService) {}
 
     public static function getSubscribedEvents()
     {
@@ -49,12 +45,11 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         );
 
         foreach ($playersToKill as $player) {
-            $playerDeathEvent = new PlayerEvent(
-                $player,
-                $event->getTags(),
-                $event->getTime(),
+            $this->playerService->killPlayer(
+                player: $player,
+                endReason: EndCauseEnum::mapEndCause($event->getTags()),
+                time: $event->getTime()
             );
-            $this->eventService->callEvent($playerDeathEvent, PlayerEvent::DEATH_PLAYER);
         }
     }
 
@@ -65,12 +60,11 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         );
 
         foreach ($playersToKill as $player) {
-            $playerDeathEvent = new PlayerEvent(
-                $player,
-                $event->getTags(),
-                $event->getTime(),
+            $this->playerService->killPlayer(
+                player: $player,
+                endReason: EndCauseEnum::mapEndCause($event->getTags()),
+                time: $event->getTime()
             );
-            $this->eventService->callEvent($playerDeathEvent, PlayerEvent::DEATH_PLAYER);
         }
     }
 
@@ -81,12 +75,11 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         );
 
         foreach ($playersToKill as $player) {
-            $playerDeathEvent = new PlayerEvent(
-                $player,
-                $event->getTags(),
-                $event->getTime(),
+            $this->playerService->killPlayer(
+                player: $player,
+                endReason: EndCauseEnum::mapEndCause($event->getTags()),
+                time: $event->getTime()
             );
-            $this->eventService->callEvent($playerDeathEvent, PlayerEvent::DEATH_PLAYER);
         }
     }
 

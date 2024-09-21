@@ -28,8 +28,8 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -49,6 +49,7 @@ class Shoot extends AttemptAction
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
         DiseaseCauseServiceInterface $diseaseCauseService,
+        private PlayerServiceInterface $playerService,
     ) {
         parent::__construct(
             $eventService,
@@ -110,16 +111,14 @@ class Shoot extends AttemptAction
             $damageEvent = $this->createDamageEvent($damage, $target);
 
             if ($result instanceof OneShot) {
-                $reasons = $this->getActionConfig()->getActionTags();
+                $reasons = $this->getTags();
                 $reasons[] = EndCauseEnum::BEHEADED;
                 $reasons[] = ActionOutputEnum::ONE_SHOT;
-                $deathEvent = new PlayerEvent(
-                    $target,
-                    $reasons,
-                    new \DateTime()
+                $this->playerService->killPlayer(
+                    player: $target,
+                    endReason: EndCauseEnum::mapEndCause($reasons),
+                    time: new \DateTime()
                 );
-
-                $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
                 return;
             }

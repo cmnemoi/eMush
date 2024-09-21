@@ -7,7 +7,7 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -53,12 +53,11 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
         // kill player if they don't have an operational spacesuit
         if ($player->isAlive() && !$player->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)) {
-            $deathPlayerEvent = new PlayerEvent(
-                $player,
-                $tags,
-                $time
+            $this->playerService->killPlayer(
+                player: $player,
+                endReason: EndCauseEnum::mapEndCause($tags),
+                time: $time
             );
-            $this->eventService->callEvent($deathPlayerEvent, PlayerEvent::DEATH_PLAYER);
         }
     }
 }

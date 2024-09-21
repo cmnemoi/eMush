@@ -815,6 +815,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return \in_array($title, $this->getTitles(), true);
     }
 
+    public function removeAllTitles(): static
+    {
+        $this->titles = [];
+
+        return $this;
+    }
+
     public function getExplorationOrThrow(): Exploration
     {
         if ($this->exploration === null) {

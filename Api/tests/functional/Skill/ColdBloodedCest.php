@@ -7,7 +7,7 @@ namespace Mush\tests\functional\Skill;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -21,7 +21,7 @@ use Mush\Tests\RoomLogDto;
  */
 final class ColdBloodedCest extends AbstractFunctionalTest
 {
-    private EventServiceInterface $eventService;
+    private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
@@ -29,6 +29,7 @@ final class ColdBloodedCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::COLD_BLOODED, $I, $this->chun);
@@ -92,12 +93,11 @@ final class ColdBloodedCest extends AbstractFunctionalTest
 
     private function whenKuanTiDies(): void
     {
-        $playerEvent = new PlayerEvent(
+        $this->playerService->killPlayer(
             player: $this->kuanTi,
-            tags: [EndCauseEnum::DEPRESSION],
+            endReason: EndCauseEnum::DEPRESSION,
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
     }
 
     private function thenChunShouldHaveActionPoints(int $expectedActionPoints, FunctionalTester $I): void

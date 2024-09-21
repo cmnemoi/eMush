@@ -193,6 +193,15 @@ class GameVariable
         return $this->minValue;
     }
 
+    public function getMaxValueOrThrow(): int
+    {
+        if ($this->maxValue === null) {
+            throw new \RuntimeException('maxValue should have been set');
+        }
+
+        return $this->maxValue;
+    }
+
     public function setValueByName(?int $value, string $name): static
     {
         switch ($name) {

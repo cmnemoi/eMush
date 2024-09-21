@@ -14,7 +14,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\User\Enum\RoleEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -23,11 +23,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * Allow admins to kill a player.
  */
-class KillPlayer extends AbstractAction
+final class KillPlayer extends AbstractAction
 {
-    private const NB_ORGANIC_WASTE_MIN = 3;
-    private const NB_ORGANIC_WASTE_MAX = 4;
-
     protected ActionEnum $name = ActionEnum::KILL_PLAYER;
     protected GameEquipmentServiceInterface $gameEquipmentService;
     protected RandomServiceInterface $randomService;
@@ -36,12 +33,9 @@ class KillPlayer extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validationService,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        RandomServiceInterface $randomService,
+        private PlayerServiceInterface $playerService,
     ) {
         parent::__construct($eventService, $actionService, $validationService);
-        $this->gameEquipmentService = $gameEquipmentService;
-        $this->randomService = $randomService;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -62,10 +56,10 @@ class KillPlayer extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $playerToKill */
-        $playerToKill = $this->target;
-
-        $deathEvent = new PlayerEvent($playerToKill, [EndCauseEnum::QUARANTINE], new \DateTime());
-        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
+        $this->playerService->killPlayer(
+            player: $this->playerTarget(),
+            endReason: EndCauseEnum::QUARANTINE,
+            time: new \DateTime()
+        );
     }
 }

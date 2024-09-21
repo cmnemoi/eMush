@@ -3,35 +3,34 @@
 namespace Mush\Player\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Psr\Log\LoggerInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PlayerSubscriber implements EventSubscriberInterface
+final class PlayerSubscriber implements EventSubscriberInterface
 {
     private PlayerServiceInterface $playerService;
     private EventServiceInterface $eventService;
     private RandomServiceInterface $randomService;
-    private LoggerInterface $logger;
 
     public function __construct(
         PlayerServiceInterface $playerService,
         EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
-        LoggerInterface $logger
     ) {
         $this->playerService = $playerService;
         $this->eventService = $eventService;
         $this->randomService = $randomService;
-        $this->logger = $logger;
     }
 
     public static function getSubscribedEvents()
@@ -47,22 +46,16 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onDeathPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
-        if (!$player->isAlive()) {
-            $exception = new \LogicException('Player is already dead');
-            $this->logger->warning($exception->getMessage(), [
-                'trace' => $exception->getTraceAsString(),
-            ]);
+        $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
+        if (!$endCause) {
+            throw new \LogicException('Player should die with a reason');
+        }
+        if (EndCauseEnum::doesNotRemoveMorale($endCause)) {
             return;
         }
 
-        $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
-
-        if ($endCause === null) {
-            throw new \LogicException('Player should die with a reason');
-        }
-
-        $this->playerService->playerDeath($player, $endCause, $event->getTime());
+        $this->removeMoraleToOtherPlayers($player);
     }
 
     public function onMetalPlate(PlayerEvent $event): void
@@ -111,10 +104,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $tags = $event->getTags();
         $tags[] = $event->getEventName();
 
-        $maxMoral = $player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->getMaxValue();
-        if ($maxMoral === null) {
-            throw new \LogicException('moral Variable should have a maximum value');
-        }
+        $maxMoral = $player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->getMaxValueOrThrow();
         $playerModifierEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MORAL_POINT,
@@ -126,7 +116,6 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::SET_VALUE);
 
         $sporeVariable = $player->getVariableByName(PlayerVariableEnum::SPORE);
-
         $sporeVariable->setValue(0)->setMaxValue(2);
 
         $playerInfo = $player->getPlayerInfo();
@@ -135,7 +124,25 @@ class PlayerSubscriber implements EventSubscriberInterface
         if ($event->hasTag(DaedalusEvent::FULL_DAEDALUS)) {
             $player->flagAsAlphaMush();
         }
-
         $this->playerService->persistPlayerInfo($playerInfo);
+    }
+
+    private function removeMoraleToOtherPlayers(Player $player): void
+    {
+        /** @var Player $otherPlayer */
+        foreach ($player->getDaedalus()->getAlivePlayers()->getAllExcept($player) as $otherPlayer) {
+            if ($otherPlayer->isMush()) {
+                continue;
+            }
+
+            $playerModifierEvent = new PlayerVariableEvent(
+                $otherPlayer,
+                PlayerVariableEnum::MORAL_POINT,
+                $player->hasStatus(PlayerStatusEnum::PREGNANT) ? -2 : -1,
+                [EventEnum::PLAYER_DEATH],
+                new \DateTime()
+            );
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+        }
     }
 }

@@ -29,6 +29,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -38,13 +39,15 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class PlayerEventCest
+final class PlayerEventCest
 {
     private EventServiceInterface $eventService;
+    private PlayerServiceInterface $playerService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
     }
 
     public function testDispatchPlayerDeath(FunctionalTester $I)
@@ -106,10 +109,11 @@ class PlayerEventCest
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
 
-        $playerEvent = new PlayerEvent($player, [EndCauseEnum::CLUMSINESS], new \DateTime());
-        $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
-
-        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->playerService->killPlayer(
+            player: $player,
+            endReason: EndCauseEnum::CLUMSINESS,
+            time: new \DateTime(),
+        );
 
         $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
         $closedPlayer = $playerInfo->getClosedPlayer();
@@ -197,10 +201,11 @@ class PlayerEventCest
         $status = new Status($player, $mushConfig);
         $I->haveInRepository($status);
 
-        $playerEvent = new PlayerEvent($player, [EndCauseEnum::CLUMSINESS], new \DateTime());
-        $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
-
-        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->playerService->killPlayer(
+            player: $player,
+            endReason: EndCauseEnum::CLUMSINESS,
+            time: new \DateTime(),
+        );
 
         $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
         $closedPlayer = $playerInfo->getClosedPlayer();

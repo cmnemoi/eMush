@@ -12,8 +12,8 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerCycleEvent;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerService;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
@@ -38,6 +38,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
     private ChooseSkillUseCase $chooseSkillUseCase;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
     private RoomLogRepository $roomLogRepository;
 
@@ -47,6 +48,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
 
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->roomLogRepository = $I->grabService(RoomLogRepository::class);
@@ -567,8 +569,11 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::MANKIND_ONLY_HOPE, $this->chun));
 
         // given Chun is dead
-        $deathEvent = new PlayerEvent($this->chun, [EndCauseEnum::DEPRESSION], new \DateTime());
-        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
+        $this->playerService->killPlayer(
+            player: $this->chun,
+            endReason: EndCauseEnum::DEPRESSION,
+            time: new \DateTime(),
+        );
 
         // given KT has 10 morale points
         $this->kuanTi->setMoralPoint(10);

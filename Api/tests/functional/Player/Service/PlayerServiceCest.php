@@ -56,7 +56,7 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
 
-        $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
+        $deadPlayer = $this->playerService->killPlayer($player, EndCauseEnum::INJURY, new \DateTime());
 
         $I->seeInRepository(ClosedPlayer::class, [
             'endCause' => EndCauseEnum::INJURY,
@@ -79,7 +79,7 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $I->assertEquals($kuanTi->getTitles(), [TitleEnum::COMMANDER, TitleEnum::NERON_MANAGER, TitleEnum::COM_MANAGER]);
 
         // Given Kuan is now (horribly) dead.
-        $this->playerService->playerDeath($kuanTi, EndCauseEnum::MANKAROG, new \DateTime());
+        $this->playerService->killPlayer($kuanTi, EndCauseEnum::MANKAROG, new \DateTime());
         $this->eventService->callEvent(new DaedalusCycleEvent($this->daedalus, [], new \DateTime()), DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         $I->assertEmpty($kuanTi->getTitles());

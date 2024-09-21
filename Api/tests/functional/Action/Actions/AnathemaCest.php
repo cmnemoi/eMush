@@ -16,7 +16,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
@@ -36,6 +36,7 @@ final class AnathemaCest extends AbstractFunctionalTest
     private Hit $attemptAction;
 
     private EventServiceInterface $eventService;
+    private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
@@ -48,6 +49,7 @@ final class AnathemaCest extends AbstractFunctionalTest
         $this->attemptActionConfig->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::COVERT);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::VICTIMIZER, $I);
@@ -179,12 +181,11 @@ final class AnathemaCest extends AbstractFunctionalTest
 
     private function whenKuanTiDies(): void
     {
-        $deathEvent = new PlayerEvent(
+        $this->playerService->killPlayer(
             player: $this->kuanTi,
-            tags: [EndCauseEnum::QUARANTINE],
+            endReason: EndCauseEnum::QUARANTINE,
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
     }
 
     private function whenKuanTiBecomesInactive(): void
@@ -211,12 +212,11 @@ final class AnathemaCest extends AbstractFunctionalTest
 
     private function whenChunDies(): void
     {
-        $deathEvent = new PlayerEvent(
+        $this->playerService->killPlayer(
             player: $this->chun,
-            tags: [EndCauseEnum::QUARANTINE],
+            endReason: EndCauseEnum::QUARANTINE,
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
     }
 
     private function thenKuanTiShouldHavePariahStatus(FunctionalTester $I): void

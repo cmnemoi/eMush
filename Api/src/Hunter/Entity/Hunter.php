@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\Collection\GameVariableCollection;
+use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Hunter\Enum\HunterEnum;
@@ -268,5 +269,25 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     public function isNotAnAsteroid(): bool
     {
         return $this->getHunterConfig()->getHunterName() !== HunterEnum::ASTEROID;
+    }
+
+    public function getDrawCost(): int
+    {
+        return $this->getHunterConfig()->getDrawCost();
+    }
+
+    public function getMaxPerWave(): ?int
+    {
+        return $this->getHunterConfig()->getMaxPerWave();
+    }
+
+    public function getBonusAfterFailedShot(): int
+    {
+        return $this->getHunterConfig()->getBonusAfterFailedShot();
+    }
+
+    public function getDamageRange(): ProbaCollection
+    {
+        return $this->getHunterConfig()->getDamageRange();
     }
 }

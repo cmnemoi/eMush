@@ -109,6 +109,16 @@ final class HunterPoolEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
         $I->assertCount(6, $this->daedalus->getAttackingHunters());
+    }
+
+    public function strateguruShouldPrintASingleLogWhenWorking(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::STRATEGURU, $I);
+
+        $this->daedalus->setHunterPoints(90); // should be enough to unpool 9 hunters
+
+        $unpoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
+        $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
         $I->grabEntityFromRepository(
             entity: RoomLog::class,

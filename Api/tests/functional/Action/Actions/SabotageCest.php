@@ -12,7 +12,10 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -32,6 +35,7 @@ final class SabotageCest extends AbstractFunctionalTest
     private GameEquipment $pasiphae;
     private StatusServiceInterface $statusService;
     private GameItem $blaster;
+    private GameEquipment $camera;
 
     public function _before(FunctionalTester $I)
     {
@@ -98,6 +102,27 @@ final class SabotageCest extends AbstractFunctionalTest
         );
     }
 
+    public function cameraShouldNotRevealTheirOwnSabotage(FunctionalTester $I): void
+    {
+        $this->givenACameraInPlayerRoom();
+
+        $this->givenPlayerIsMush();
+
+        $this->givenActionSuccessRateIs(100);
+
+        $this->player2->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::SPACE));
+
+        $this->whenPlayerSabotagesCamera();
+
+        $log = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => ActionLogEnum::SABOTAGE_SUCCESS,
+            ]
+        );
+        $I->assertEquals(VisibilityEnum::SECRET, $log->getVisibility());
+    }
+
     private function givenPlayerHasSaboteurSkill(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::SABOTEUR, $I);
@@ -108,6 +133,16 @@ final class SabotageCest extends AbstractFunctionalTest
         $this->sabotageActionConfig->setSuccessRate($successRate);
     }
 
+    private function givenACameraInPlayerRoom(): void
+    {
+        $this->camera = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::CAMERA_EQUIPMENT,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function whenPlayerTriesToSabotagePasiphae(): void
     {
         $this->sabotageAction->loadParameters(
@@ -116,6 +151,17 @@ final class SabotageCest extends AbstractFunctionalTest
             player: $this->player,
             target: $this->pasiphae
         );
+    }
+
+    private function whenPlayerSabotagesCamera(): void
+    {
+        $this->sabotageAction->loadParameters(
+            actionConfig: $this->sabotageActionConfig,
+            actionProvider: $this->camera,
+            player: $this->player,
+            target: $this->camera
+        );
+        $this->sabotageAction->execute();
     }
 
     private function thenActionSuccessRateShouldBe(int $expectedSuccessRate, FunctionalTester $I): void

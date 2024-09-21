@@ -232,7 +232,7 @@ class RoomLogService implements RoomLogServiceInterface
             $visibility = VisibilityEnum::SECRET;
         }
 
-        if ($this->shouldRevealSecretLog($player, $visibility) || $this->shouldRevealCovertLog($player, $visibility)) {
+        if ($this->shouldRevealSecretLog($roomLog, $visibility) || $this->shouldRevealCovertLog($player, $visibility)) {
             return VisibilityEnum::REVEALED;
         }
 
@@ -343,13 +343,14 @@ class RoomLogService implements RoomLogServiceInterface
         return $visibility === VisibilityEnum::COVERT && $placeHasAFunctionalCamera;
     }
 
-    private function shouldRevealSecretLog(Player $player, string $visibility): bool
+    private function shouldRevealSecretLog(RoomLog $roomLog, string $visibility): bool
     {
-        $place = $player->getPlace();
-        $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
-        $placeHasAFunctionalCamera = $place->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
+        $player = $roomLog->getPlayerInfo()?->getPlayer();
+        $place = $player?->getPlace();
+        $placeHasAWitness = $place?->getNumberOfPlayersAlive() > 1;
+        $placeHasAFunctionalCamera = $place?->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
 
-        return $visibility === VisibilityEnum::SECRET && ($placeHasAWitness || $placeHasAFunctionalCamera);
+        return $visibility === VisibilityEnum::SECRET && ($placeHasAWitness || ($placeHasAFunctionalCamera && $roomLog->isSabotageCameraLog() === false));
     }
 
     private function observantRevealsLog(Player $player, string $visibility): bool

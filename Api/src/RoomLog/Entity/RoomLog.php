@@ -7,11 +7,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\TimestampableCancelInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 
 #[ORM\Entity(repositoryClass: RoomLogRepository::class)]
@@ -246,5 +248,13 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
     public function hide(): void
     {
         $this->setVisibility(VisibilityEnum::HIDDEN);
+    }
+
+    public function isSabotageCameraLog(): bool
+    {
+        $isSabotageLog = \in_array($this->log, [ActionLogEnum::SABOTAGE_SUCCESS, ActionLogEnum::SABOTAGE_FAIL], true);
+        $sabotagedEquipmentIsCamera = $this->getParameters()['target_equipment'] === EquipmentEnum::CAMERA_EQUIPMENT;
+
+        return $isSabotageLog && $sabotagedEquipmentIsCamera;
     }
 }

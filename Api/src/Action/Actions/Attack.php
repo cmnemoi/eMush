@@ -120,6 +120,7 @@ class Attack extends AttemptAction
                     endReason: EndCauseEnum::mapEndCause($tags),
                     time: new \DateTime()
                 );
+                $deathEvent->setAuthor($this->player);
 
                 return;
             }

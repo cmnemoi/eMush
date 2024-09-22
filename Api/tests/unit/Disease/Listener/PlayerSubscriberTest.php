@@ -75,6 +75,7 @@ final class PlayerSubscriberTest extends TestCase
     {
         // given a Mush player
         $mushPlayer = \Mockery::mock(Player::class);
+        $mushPlayer->shouldReceive('getId')->andReturn(1);
         $mushPlayer->shouldReceive('hasStatus')->with(PlayerStatusEnum::MUSH)->andReturn(true);
         $mushPlayer->shouldReceive('getMedicalConditions')->andReturn(new PlayerDiseaseCollection([]));
         $mushPlayer->makePartial();
@@ -84,6 +85,7 @@ final class PlayerSubscriberTest extends TestCase
 
         // given some player who will die
         $deadPlayer = \Mockery::mock(Player::class);
+        $deadPlayer->shouldReceive('getId')->andReturn(2);
         $deadPlayer->shouldReceive('getMedicalConditions')->andReturn(new PlayerDiseaseCollection([]));
         $deadPlayer->makePartial();
 
@@ -99,7 +101,8 @@ final class PlayerSubscriberTest extends TestCase
         $mushPlayer->shouldReceive('getPlace')->andReturn($place);
 
         // given univese state should make that the mush player have a trauma
-        $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_PROBABILTY)->andReturn(true);
+        $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_AUTHOR_PROBABILTY)->andReturn(true);
+        $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_WITNESS_PROBABILTY)->andReturn(true);
 
         // when the dead player dies
         $playerEvent = new PlayerEvent($deadPlayer, [], new \DateTime());
@@ -117,6 +120,7 @@ final class PlayerSubscriberTest extends TestCase
 
         // given some player who will die
         $deadPlayer = \Mockery::mock(Player::class);
+        $deadPlayer->shouldReceive('getId')->andReturn(2);
         $deadPlayer->shouldReceive('getMedicalConditions')->andReturn(new PlayerDiseaseCollection([]));
         $deadPlayer->makePartial();
 
@@ -148,6 +152,7 @@ final class PlayerSubscriberTest extends TestCase
 
         // given some player who will die
         $deadPlayer = \Mockery::mock(Player::class);
+        $deadPlayer->shouldReceive('getId')->andReturn(2);
         $deadPlayer->shouldReceive('getMedicalConditions')->andReturn(new PlayerDiseaseCollection([]));
         $deadPlayer->makePartial();
 
@@ -162,7 +167,8 @@ final class PlayerSubscriberTest extends TestCase
         $deadPlayer->shouldReceive('getPlace')->andReturn($place);
 
         // given universe state should make that detached crewmember player should have a trauma
-        $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_PROBABILTY)->andReturn(true);
+        $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_AUTHOR_PROBABILTY)->andReturn(true);
+        $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_WITNESS_PROBABILTY)->andReturn(true);
 
         // when the dead player dies
         $playerEvent = new PlayerEvent($deadPlayer, [], new \DateTime());

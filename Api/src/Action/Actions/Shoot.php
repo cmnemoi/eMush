@@ -119,6 +119,7 @@ class Shoot extends AttemptAction
                     endReason: EndCauseEnum::mapEndCause($reasons),
                     time: new \DateTime()
                 );
+                $deathEvent->setAuthor($this->player);
 
                 return;
             }

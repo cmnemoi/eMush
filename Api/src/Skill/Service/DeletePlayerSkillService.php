@@ -33,7 +33,7 @@ final class DeletePlayerSkillService
         $now = new \DateTime();
 
         /** @var AbstractModifierConfig $modifierConfig */
-        foreach ($player->getAllModifierConfigs() as $modifierConfig) {
+        foreach ($skill->getAllModifierConfigs() as $modifierConfig) {
             $modifierHolder = match ($modifierConfig->getModifierRange()) {
                 ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER => $player,
                 ModifierHolderClassEnum::DAEDALUS => $player->getDaedalus(),

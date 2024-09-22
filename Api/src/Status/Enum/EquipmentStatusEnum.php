@@ -25,6 +25,7 @@ class EquipmentStatusEnum
     public const SINK_CHARGE = 'sink_charge';
     public const JUKEBOX_SONG = 'jukebox_song';
     public const SLIMED = 'slimed';
+    public const TURBO_DRONE_UPGRADE = 'turbo_drone_upgrade';
 
     public const UPDATING = 'updating';
 

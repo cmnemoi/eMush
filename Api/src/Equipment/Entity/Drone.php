@@ -57,7 +57,7 @@ class Drone extends GameItem
         return $this->getPlace()->getBrokenDoorsAndEquipments();
     }
 
-    public function getChargesStatus(): ChargeStatus
+    public function getChargeStatus(): ChargeStatus
     {
         return $this->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
     }

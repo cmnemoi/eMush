@@ -1324,5 +1324,11 @@
         <target>**{character}** tente un looping audacieux pour attraper un débris en plein vol, mais ne collecte rien...</target>
       </segment>
     </unit>
+    <unit id="upgrade_drone_to_turbo_success">
+      <segment id="upgrade_drone_to_turbo_success" state="final">
+        <source>upgrade_drone_to_turbo_success</source>
+        <target>**{character}** s'acharne un peu sur ce pauvre {target_drone}. Mais c'est pour son bien. {target_drone} reçoit l'amélioration **Turbo**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

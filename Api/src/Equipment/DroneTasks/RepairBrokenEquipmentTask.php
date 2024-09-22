@@ -15,7 +15,7 @@ use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-final class RepairBrokenEquipmentTask extends AbstractDroneTask
+class RepairBrokenEquipmentTask extends AbstractDroneTask
 {
     public function __construct(
         protected EventServiceInterface $eventService,
@@ -28,37 +28,41 @@ final class RepairBrokenEquipmentTask extends AbstractDroneTask
 
     public function execute(Drone $drone, \DateTime $time): void
     {
-        // If the drone is not operational, do not repair equipment.
-        if ($drone->isNotOperational()) {
-            return;
+        $actions = $drone->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getCharge();
+
+        for ($i = 0; $i < $actions; ++$i) {
+            // If the drone is not operational, do not repair equipment.
+            if ($drone->isNotOperational()) {
+                return;
+            }
+
+            $equipmentToRepair = $this->getEquipmentToRepair($drone);
+            // If there is no broken equipment in the room, execute the next task.
+            if (!$equipmentToRepair) {
+                $this->nextTask?->execute($drone, $time);
+
+                return;
+            }
+
+            // The drone acts, so it consumes a charge.
+            $this->removeOneDroneCharge($drone, $time);
+
+            // If the repair fails, increase the number of failed repair attempts.
+            if ($this->d100Roll->isAFailure($drone->getRepairSuccessRateForEquipment($equipmentToRepair))) {
+                $this->statusService->handleAttempt(
+                    holder: $drone,
+                    actionName: DroneTaskEnum::REPAIR_BROKEN_EQUIPMENT->value,
+                    result: new Fail(),
+                    tags: [],
+                    time: $time,
+                );
+
+                continue;
+            }
+
+            // Else, the equipment is repaired.
+            $this->repairEquipment($drone, $equipmentToRepair, $time);
         }
-
-        $equipmentToRepair = $this->getEquipmentToRepair($drone);
-        // If there is no broken equipment in the room, execute the next task.
-        if (!$equipmentToRepair) {
-            $this->nextTask?->execute($drone, $time);
-
-            return;
-        }
-
-        // The drone acts, so it consumes a charge.
-        $this->removeOneDroneCharge($drone, $time);
-
-        // If the repair fails, increase the number of failed repair attempts.
-        if ($this->d100Roll->isAFailure($drone->getRepairSuccessRateForEquipment($equipmentToRepair))) {
-            $this->statusService->handleAttempt(
-                holder: $drone,
-                actionName: DroneTaskEnum::REPAIR_BROKEN_EQUIPMENT->value,
-                result: new Fail(),
-                tags: [],
-                time: $time,
-            );
-
-            return;
-        }
-
-        // Else, the equipment is repaired.
-        $this->repairEquipment($drone, $equipmentToRepair, $time);
     }
 
     private function getEquipmentToRepair(Drone $drone): ?GameEquipment

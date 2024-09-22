@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Mush\Equipment\DroneTasks;
 
 use Mush\Equipment\Entity\Drone;
+use Mush\Game\Service\Random\D100RollServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 
 /**
  * This class handles drone tasks.
@@ -17,6 +20,8 @@ use Mush\Equipment\Entity\Drone;
 class DroneTasksHandler
 {
     public function __construct(
+        private D100RollServiceInterface $d100Roll,
+        private StatusServiceInterface $statusService,
         private RepairBrokenEquipmentTask $repairBrokenEquipmentTask,
         private MoveInRandomAdjacentRoomTask $moveInRandomAdjacentRoomTask
     ) {
@@ -25,7 +30,22 @@ class DroneTasksHandler
 
     public function execute(Drone $drone, \DateTime $time): void
     {
+        $this->applyTurboUpgrade($drone, $time);
+
         // Each task will call the next one if it cannot be executed, starting with the first one.
         $this->repairBrokenEquipmentTask->execute($drone, $time);
+    }
+
+    private function applyTurboUpgrade(Drone $drone, \DateTime $time): void
+    {
+        $turboWorkedChance = $drone->getChargeStatusByName(EquipmentStatusEnum::TURBO_DRONE_UPGRADE)?->getCharge() ?? 0;
+        if ($this->d100Roll->isSuccessful($turboWorkedChance)) {
+            $this->statusService->updateCharge(
+                chargeStatus: $drone->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES),
+                delta: 1,
+                tags: [],
+                time: $time,
+            );
+        }
     }
 }

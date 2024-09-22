@@ -65,6 +65,7 @@ enum ActionEnum: string
     case RENOVATE = 'renovate';
     case AUTO_EJECT = 'auto_eject';
     case THROW_GRENADE = 'throw_grenade';
+    case UPGRADE_DRONE_TO_TURBO = 'upgrade_drone_to_turbo';
 
     // Equipment-enabled actions
     case INSERT_FUEL = 'insert_fuel';

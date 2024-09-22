@@ -10,9 +10,10 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-final class MoveInRandomAdjacentRoomTask extends AbstractDroneTask
+class MoveInRandomAdjacentRoomTask extends AbstractDroneTask
 {
     public function __construct(
         protected EventServiceInterface $eventService,
@@ -25,24 +26,28 @@ final class MoveInRandomAdjacentRoomTask extends AbstractDroneTask
 
     public function execute(Drone $drone, \DateTime $time): void
     {
-        // If the drone is not operational, do not move it.
-        if ($drone->isNotOperational()) {
-            return;
+        $actions = $drone->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getCharge();
+
+        for ($i = 0; $i < $actions; ++$i) {
+            // If the drone is not operational, do not move it.
+            if ($drone->isNotOperational()) {
+                return;
+            }
+
+            // If there is no room to move to, execute the next task.
+            $roomToMoveTo = $this->getRoomToMoveTo($drone);
+            if (!$roomToMoveTo) {
+                $this->nextTask?->execute($drone, $time);
+
+                return;
+            }
+
+            // The drone acts, so it consumes a charge.
+            $this->removeOneDroneCharge($drone, $time);
+
+            // Else, move the drone to the room.
+            $this->moveDroneToPlace($drone, $roomToMoveTo, $time);
         }
-
-        // The drone acts, so it consumes a charge.
-        $this->removeOneDroneCharge($drone, $time);
-
-        // If there is no room to move to, execute the next task.
-        $roomToMoveTo = $this->getRoomToMoveTo($drone);
-        if (!$roomToMoveTo) {
-            $this->nextTask?->execute($drone, $time);
-
-            return;
-        }
-
-        // Else, move the drone to the room.
-        $this->moveDroneToPlace($drone, $roomToMoveTo, $time);
     }
 
     private function getRoomToMoveTo(Drone $drone): ?Place

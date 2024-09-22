@@ -4112,6 +4112,7 @@ class EquipmentConfigData
                 'examine',
                 'repair_percent_12',
                 ActionEnum::SLIME_OBJECT->value,
+                ActionEnum::UPGRADE_DRONE_TO_TURBO->value,
             ],
             'mechanics' => [],
             'initStatuses' => [

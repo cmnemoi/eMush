@@ -546,6 +546,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($slimedStatus);
 
+        $turboDroneUpgrade = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(EquipmentStatusEnum::TURBO_DRONE_UPGRADE . '_default')
+        );
+        $manager->persist($turboDroneUpgrade);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -589,7 +594,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($slimedStatus)
             ->addStatusConfig($deloggedStatus)
             ->addStatusConfig($hasUsedDelogStatus)
-            ->addStatusConfig($slimeTrapStatus);
+            ->addStatusConfig($slimeTrapStatus)
+            ->addStatusConfig($turboDroneUpgrade);
 
         $manager->persist($gameConfig);
 
@@ -638,6 +644,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference($hasUsedDelogStatus->getName(), $hasUsedDelogStatus);
         $this->addReference($slimeTrapStatus->getName(), $slimeTrapStatus);
         $this->addReference(EquipmentStatusEnum::SLIMED, $slimedStatus);
+        $this->addReference(EquipmentStatusEnum::TURBO_DRONE_UPGRADE, $turboDroneUpgrade);
     }
 
     public function getDependencies(): array

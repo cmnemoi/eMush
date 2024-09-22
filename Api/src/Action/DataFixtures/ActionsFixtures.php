@@ -1094,6 +1094,9 @@ class ActionsFixtures extends Fixture
         $reinforce = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REINFORCE));
         $manager->persist($reinforce);
 
+        $upgradeDroneToTurbo = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPGRADE_DRONE_TO_TURBO));
+        $manager->persist($upgradeDroneToTurbo);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1219,5 +1222,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::SLIME_OBJECT->value, $slimeObject);
         $this->addReference(ActionEnum::MASS_GGEDON->value, $massGgedon);
         $this->addReference(ActionEnum::REINFORCE->value, $reinforce);
+        $this->addReference(ActionEnum::UPGRADE_DRONE_TO_TURBO->value, $upgradeDroneToTurbo);
     }
 }

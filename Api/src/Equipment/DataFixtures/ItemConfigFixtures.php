@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\DroneConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
@@ -214,13 +215,16 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var ChargeStatusConfig $droneCharges */
         $droneCharges = $this->getReference(EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE);
 
+        /** @var ActionConfig $upgradeDroneToTurbo */
+        $upgradeDroneToTurbo = $this->getReference(ActionEnum::UPGRADE_DRONE_TO_TURBO->value);
+
         $drone = new DroneConfig();
         $drone
             ->setEquipmentName(ItemEnum::SUPPORT_DRONE)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setActionConfigs([$takeAction, $examineAction, $dropAction, $repair12])
+            ->setActionConfigs([$takeAction, $examineAction, $dropAction, $repair12, $upgradeDroneToTurbo])
             ->setInitStatuses([$droneCharges])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($drone);

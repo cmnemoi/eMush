@@ -11,8 +11,9 @@ namespace Mush\Action\Validator;
  * @param bool   $contains           if true, the equipment must be present, if false, they must not be present (default: true)
  * @param bool   $checkIfOperational if true, checks that the equipment is currently working (default: false)
  * @param string $target             either player or parameter (default: player)
+ * @param string $number             minimum number of equipment required (default: 1)
  */
-class HasEquipment extends ClassConstraint
+final class HasEquipment extends ClassConstraint
 {
     public const PLAYER = 'player';
     public const PARAMETER = 'parameter';
@@ -25,4 +26,5 @@ class HasEquipment extends ClassConstraint
     public bool $contains = true;
     public bool $checkIfOperational = false;
     public string $target = self::PLAYER;
+    public int $number = 1;
 }

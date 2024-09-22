@@ -1430,5 +1430,21 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action est dangereuse. Êtes-vous sûr de vouloir continuer ?</target>
       </segment>
     </unit>
+    <unit id="throw_grenade.name">
+      <segment state="translated">
+        <source>throw_grenade.name</source>
+        <target>Lancer</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_drone_to_turbo">
+      <segment id="name" state="translated">
+        <source>upgrade_drone_to_turbo.name</source>
+        <target>Améliorer : Turbo</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>upgrade_drone_to_turbo.description</source>
+        <target>Permet d'ajouter à ce drone ://*80% de chance d'agir une seconde fois à chaque cycle.*//Le Drone est capable d'évoluer, profitez-en !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

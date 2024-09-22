@@ -193,6 +193,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $crazyEyeSkillConfig */
         $crazyEyeSkillConfig = $this->getReference(SkillEnum::CRAZY_EYE->value);
 
+        /** @var SkillConfig $roboticsExpertSkillConfig */
+        $roboticsExpertSkillConfig = $this->getReference(SkillEnum::ROBOTICS_EXPERT->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -455,6 +458,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(CharacterEnum::TERRENCE)
             ->setCharacterName(CharacterEnum::TERRENCE)
             ->setSkillConfigs([
+                $roboticsExpertSkillConfig,
                 $technicianSkillConfig,
                 $pilotSkillConfig,
                 $shooterSkillConfig,

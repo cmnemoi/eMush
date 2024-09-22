@@ -4076,6 +4076,27 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
+            'name' => 'support_drone_blueprint_default',
+            'equipmentName' => 'support_drone_blueprint',
+            'isBreakable' => false,
+            'isFireDestroyable' => true,
+            'isFireBreakable' => false,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => true,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => [
+                'support_drone_blueprint_default',
+            ],
+            'initStatuses' => [],
+        ],
+        [
             'name' => ItemEnum::SUPPORT_DRONE . '_default',
             'equipmentName' => ItemEnum::SUPPORT_DRONE,
             'isBreakable' => false,

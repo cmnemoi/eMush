@@ -8,6 +8,7 @@ import { Channel } from "@/entities/Channel";
 import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 import { Player } from "@/entities/Player";
 import { ModerationSanction } from "@/entities/ModerationSanction";
+import { ContactablePlayer } from "@/entities/ContactablePlayer";
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
@@ -236,13 +237,13 @@ const ModerationService = {
 
         return response;
     },
-    loadReportablePlayers: async (): Promise<Player[]> => {
+    loadReportablePlayers: async (): Promise<ContactablePlayer[]> => {
         const playersData = await ApiService.get(MODERATION_ENDPOINT + '/reportable');
 
-        const players:Player[] = [];
+        const players: ContactablePlayer[] = [];
         if (playersData.data) {
             toArray(playersData.data).forEach((data: any) => {
-                players.push((new Player()).load(data));
+                players.push((new ContactablePlayer()).load(data));
             });
         }
         return players;

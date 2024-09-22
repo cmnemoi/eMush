@@ -4,6 +4,7 @@ import ModerationService from "@/services/moderation.service";
 import { Player } from "@/entities/Player";
 import { SuccessReponse } from "@/services/api.service";
 import store from ".";
+import { ContactablePlayer } from "@/entities/ContactablePlayer";
 
 const state = {
     userSanctions: [] as ModerationSanction[],
@@ -14,17 +15,17 @@ const getters: GetterTree<any, any> = {
     userSanctions: (state: any): ModerationSanction[] => {
         return state.userSanctions;
     },
-    getReportablePlayers: (state: any): Player[] => {
+    getReportablePlayers: (state: any): ContactablePlayer[] => {
         return state.reportablePlayers;
     }
 };
 
 const actions: ActionTree<any, any> = {
     async loadReportablePlayers({ commit }) {
-        await commit('player/setLoading', true, { root: true });
+        commit('player/setLoading', true, { root: true });
         const reportablePlayers = await ModerationService.loadReportablePlayers();
-        await commit('player/setLoading', false, { root: true });
-        await commit('setReportablePlayers', { reportablePlayers: reportablePlayers });
+        commit('player/setLoading', false, { root: true });
+        commit('setReportablePlayers', { reportablePlayers: reportablePlayers });
     },
     async loadUserSanctions({ commit, dispatch }, userId: integer): Promise<boolean> {
         try {

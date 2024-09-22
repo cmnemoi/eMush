@@ -11,9 +11,8 @@
                 >
                     {{ $t("moderation.report.choosePlayer") }}
                 </option>
-                <option v-for="player in reportablePlayers" :key="player.id" :value="player.id">
-                    <img :src="characterBody(player.character.key)">
-                    {{ $t(player.character.name) }}
+                <option v-for="player in reportablePlayers" :key="player.key" :value="player.key">
+                    {{ $t(player.name) }}
                 </option>
             </select>
         </label>
@@ -52,8 +51,6 @@ import PopUp from "@/components/Utils/PopUp.vue";
 import { defineComponent } from "vue";
 import { formatText } from "@/utils/formatText";
 import { moderationReasons } from "@/enums/moderation_reason.enum";
-import { characterEnum } from "@/enums/character";
-
 
 export default defineComponent ({
     name: 'ReportPopup',
@@ -95,10 +92,6 @@ export default defineComponent ({
 
             this.$emit("submitReport", params);
             this.resetPopup();
-        },
-        characterBody: function(character: string): string {
-            const images = characterEnum[character];
-            return images.body;
         },
         formatText,
         resetPopup() {

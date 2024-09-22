@@ -26,12 +26,14 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -451,6 +453,52 @@ final class CollectScrapCest extends AbstractFunctionalTest
             'log' => LogEnum::PATROL_DISCHARGE,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+    }
+
+    public function shouldPrintFailedLogWhenNoScrapIsCollected(FunctionalTester $I): void
+    {
+        // given there is some scrap in space
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::METAL_SCRAPS,
+            equipmentHolder: $this->daedalus->getSpace(),
+            reasons: ['test'],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::HIDDEN
+        );
+
+        // given player is in a patrol ship
+        $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
+
+        // given Pasiphae is destroyed
+        $interactEvent = new InteractWithEquipmentEvent(
+            $this->pasiphae,
+            null,
+            VisibilityEnum::HIDDEN,
+            ['test'],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+
+        // patrol ship cannot collect scrap
+        $this->patrolShip->getPatrolShipMechanicOrThrow()->setCollectScrapNumber([0 => 1]);
+
+        $this->collectScrapAction->loadParameters(
+            actionConfig: $this->collectScrapActionConfig,
+            actionProvider: $this->patrolShip,
+            player: $this->player1,
+            target: $this->patrolShip
+        );
+        $this->collectScrapAction->execute();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: '**Chun** tente un looping audacieux pour attraper un débris en plein vol, mais ne collecte rien...',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player1,
+                log: ActionLogEnum::COLLECT_SCRAP_FAIL,
+                visibility: VisibilityEnum::PUBLIC,
+            ),
+            I: $I,
+        );
     }
 
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void

@@ -18,6 +18,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -435,6 +436,13 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         $book = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::BOOK);
 
         return $book instanceof Book ? $book : throw new \RuntimeException("Equipment {$this->name} does not have a book mechanic.");
+    }
+
+    public function getPatrolShipMechanicOrThrow(): PatrolShip
+    {
+        $patrolShip = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+
+        return $patrolShip instanceof PatrolShip ? $patrolShip : throw new \RuntimeException("Equipment {$this->name} does not have a patrol ship mechanic.");
     }
 
     public function hasMechanicByName(string $mechanicName): bool

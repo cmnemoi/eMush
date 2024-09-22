@@ -788,17 +788,7 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN);
         $manager->persist($shootRandomHunterPatrolShip);
 
-        $collectScrap = new ActionConfig();
-        $collectScrap
-            ->setName(ActionEnum::COLLECT_SCRAP->value)
-            ->setActionName(ActionEnum::COLLECT_SCRAP)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(2)
-            ->setSuccessRate(100)
-            ->setCriticalRate(50)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $collectScrap = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::COLLECT_SCRAP));
         $manager->persist($collectScrap);
 
         $renovate = new ActionConfig();

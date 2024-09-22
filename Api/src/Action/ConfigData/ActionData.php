@@ -1576,7 +1576,7 @@ class ActionData
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
-            'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
+            'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::PUBLIC],
             'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

@@ -3248,6 +3248,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_alpha_longane_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [
+                0 => 3,
                 1 => 1,
             ],
             'collectScrapPatrolShipDamage' => [
@@ -3286,6 +3287,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_alpha_jujube_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [
+                0 => 3,
                 1 => 1,
             ],
             'collectScrapPatrolShipDamage' => [
@@ -3324,6 +3326,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_alpha_tamarin_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [
+                0 => 3,
                 1 => 1,
             ],
             'collectScrapPatrolShipDamage' => [
@@ -3362,6 +3365,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_bravo_socrate_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [
+                0 => 3,
                 1 => 1,
             ],
             'collectScrapPatrolShipDamage' => [
@@ -3400,6 +3404,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_bravo_epicure_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [
+                0 => 3,
                 1 => 1,
             ],
             'collectScrapPatrolShipDamage' => [
@@ -3438,6 +3443,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_bravo_planton_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [
+                0 => 3,
                 1 => 1,
             ],
             'collectScrapPatrolShipDamage' => [
@@ -3476,6 +3482,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_alpha_2_wallis_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [
+                0 => 3,
                 1 => 1,
             ],
             'collectScrapPatrolShipDamage' => [

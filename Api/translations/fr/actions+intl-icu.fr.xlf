@@ -1443,7 +1443,17 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>upgrade_drone_to_turbo.description</source>
-        <target>Permet d'ajouter à ce drone ://*80% de chance d'agir une seconde fois à chaque cycle.*//Le Drone est capable d'évoluer, profitez-en !</target>
+        <target>Permet d'ajouter à ce drone ://**80% de chance d'agir une seconde fois à chaque cycle.**//Le Drone est capable d'évoluer, profitez-en !</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_drone_to_firefighter">
+      <segment id="name" state="translated">
+        <source>upgrade_drone_to_firefighter.name</source>
+        <target>Améliorer : Pompier</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>upgrade_drone_to_firefighter.description</source>
+        <target>Permet d'ajouter à ce drone ://**Tente d'éteindre les incendies dans la pièce avant de se déplacer. Deviens également ignifuge.**//Le Drone est capable d'évoluer, profitez-en !</target>
       </segment>
     </unit>
   </file>

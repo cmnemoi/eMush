@@ -6,16 +6,13 @@ namespace Mush\Tests;
 
 use Mush\Action\Actions\AbstractUpgradeDrone;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\Enum\EquipmentStatusEnum;
 
 abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
 {
@@ -83,10 +80,10 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
         $this->whenChunUpgradesDroneToTurbo();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: "**Chun** s'acharne un peu sur ce pauvre **Robo Wheatley #0**. Mais c'est pour son bien. **Robo Wheatley #0** reçoit l'amélioration **{$this->upgradeName()}**.",
+            expectedRoomLog: "**Chun** s'acharne un peu sur ce pauvre **Robo Wheatley #0**. Mais c'est pour son bien. **Robo Wheatley #0** reçoit l'amélioration **{$this->upgradeDrone->upgradeName()}**.",
             actualRoomLogDto: new RoomLogDto(
                 player: $this->chun,
-                log: $this->upgradeLog(),
+                log: $this->upgradeDrone->upgradeLog(),
                 visibility: VisibilityEnum::PUBLIC,
                 inPlayerRoom: false,
             ),
@@ -103,30 +100,6 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
         $this->whenChunUpgradesDroneToTurbo();
 
         $this->thenChunShouldHaveScrapMetalOnReach(1, $I);
-    }
-
-    protected function upgradeStatus(): string
-    {
-        return match ($this->upgradeDrone->getActionName()) {
-            ActionEnum::UPGRADE_DRONE_TO_TURBO->value => EquipmentStatusEnum::TURBO_DRONE_UPGRADE,
-            default => throw new \LogicException('Unknown upgrade status'),
-        };
-    }
-
-    protected function upgradeLog(): string
-    {
-        return match ($this->upgradeDrone->getActionName()) {
-            ActionEnum::UPGRADE_DRONE_TO_TURBO->value => ActionLogEnum::UPGRADE_DRONE_TO_TURBO_SUCCESS,
-            default => throw new \LogicException('Unknown upgrade log'),
-        };
-    }
-
-    protected function upgradeName(): string
-    {
-        return match ($this->upgradeDrone->getActionName()) {
-            ActionEnum::UPGRADE_DRONE_TO_TURBO->value => 'Turbo',
-            default => throw new \LogicException('Unknown upgrade name'),
-        };
     }
 
     private function givenChunHasASupportDrone(): void
@@ -178,7 +151,7 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
 
     private function thenDroneShouldHaveUpgradeStatus(FunctionalTester $I): void
     {
-        $I->assertTrue($this->drone->hasStatus($this->upgradeStatus()));
+        $I->assertTrue($this->drone->hasStatus($this->upgradeDrone->upgradeStatus()));
     }
 
     private function thenActionShouldNotBeVisible(FunctionalTester $I): void

@@ -26,6 +26,7 @@ class EquipmentStatusEnum
     public const JUKEBOX_SONG = 'jukebox_song';
     public const SLIMED = 'slimed';
     public const TURBO_DRONE_UPGRADE = 'turbo_drone_upgrade';
+    public const FIREFIGHTER_DRONE_UPGRADE = 'firefighter_drone_upgrade';
 
     public const UPDATING = 'updating';
 

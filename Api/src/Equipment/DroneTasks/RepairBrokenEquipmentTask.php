@@ -26,43 +26,31 @@ class RepairBrokenEquipmentTask extends AbstractDroneTask
         parent::__construct($this->eventService, $this->statusService);
     }
 
-    public function execute(Drone $drone, \DateTime $time): void
+    protected function applyEffect(Drone $drone, \DateTime $time): void
     {
-        $actions = $drone->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getCharge();
+        // If there is no broken equipment in the room, the task is not applicable.
+        $equipmentToRepair = $this->getEquipmentToRepair($drone);
+        if (!$equipmentToRepair) {
+            $this->taskNotApplicable = true;
 
-        for ($i = 0; $i < $actions; ++$i) {
-            // If the drone is not operational, do not repair equipment.
-            if ($drone->isNotOperational()) {
-                return;
-            }
-
-            $equipmentToRepair = $this->getEquipmentToRepair($drone);
-            // If there is no broken equipment in the room, execute the next task.
-            if (!$equipmentToRepair) {
-                $this->nextTask?->execute($drone, $time);
-
-                return;
-            }
-
-            // The drone acts, so it consumes a charge.
-            $this->removeOneDroneCharge($drone, $time);
-
-            // If the repair fails, increase the number of failed repair attempts.
-            if ($this->d100Roll->isAFailure($drone->getRepairSuccessRateForEquipment($equipmentToRepair))) {
-                $this->statusService->handleAttempt(
-                    holder: $drone,
-                    actionName: DroneTaskEnum::REPAIR_BROKEN_EQUIPMENT->value,
-                    result: new Fail(),
-                    tags: [],
-                    time: $time,
-                );
-
-                continue;
-            }
-
-            // Else, the equipment is repaired.
-            $this->repairEquipment($drone, $equipmentToRepair, $time);
+            return;
         }
+
+        // If the repair fails, increase the number of failed repair attempts and abort.
+        if ($this->d100Roll->isAFailure($drone->getRepairSuccessRateForEquipment($equipmentToRepair))) {
+            $this->statusService->handleAttempt(
+                holder: $drone,
+                actionName: DroneTaskEnum::REPAIR_BROKEN_EQUIPMENT->value,
+                result: new Fail(),
+                tags: [],
+                time: $time,
+            );
+
+            return;
+        }
+
+        // Else, the equipment is repaired.
+        $this->repairEquipment($drone, $equipmentToRepair, $time);
     }
 
     private function getEquipmentToRepair(Drone $drone): ?GameEquipment

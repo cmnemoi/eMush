@@ -12,18 +12,37 @@ use Mush\Status\Service\StatusServiceInterface;
 abstract class AbstractDroneTask
 {
     protected ?self $nextTask = null;
+    protected bool $taskNotApplicable = false;
 
     public function __construct(
         protected EventServiceInterface $eventService,
         protected StatusServiceInterface $statusService
     ) {}
 
-    abstract public function execute(Drone $drone, \DateTime $time): void;
+    public function execute(Drone $drone, \DateTime $time): void
+    {
+        while ($drone->isOperational()) {
+            // Apply current task effect.
+            $this->applyEffect($drone, $time);
+
+            // If current task is not applicable anymore, move to the next task.
+            if ($this->taskNotApplicable) {
+                $this->nextTask?->execute($drone, $time);
+
+                return;
+            }
+
+            // Drone acts, so it consumes a charge.
+            $this->removeOneDroneCharge($drone, $time);
+        }
+    }
 
     public function setNextDroneTask(self $task): void
     {
         $this->nextTask = $task;
     }
+
+    abstract protected function applyEffect(Drone $drone, \DateTime $time): void;
 
     protected function removeOneDroneCharge(Drone $drone, \DateTime $time): void
     {

@@ -7,6 +7,8 @@ namespace Mush\Equipment\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Repository\ActionConfigRepositoryInterface;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -62,6 +64,11 @@ class Drone extends GameItem
         return $this->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
     }
 
+    public function getNumberOfActions(): int
+    {
+        return $this->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getCharge();
+    }
+
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::DRONE;
@@ -81,7 +88,28 @@ class Drone extends GameItem
         return (int) ($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getFailedRepairAttempts());
     }
 
+    public function getExtinguishFireSuccessRate(ActionConfigRepositoryInterface $actionConfigRepository): int
+    {
+        $baseSuccessRate = $actionConfigRepository->findActionSuccessRateByDaedalusAndMechanicOrThrow(
+            ActionEnum::EXTINGUISH,
+            $this->getDaedalus(),
+            EquipmentMechanicEnum::TOOL,
+        );
+
+        return (int) ($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getExtinguishFailedAttempts());
+    }
+
+    public function noFireInRoom(): bool
+    {
+        return $this->getPlace()->doesNotHaveStatus(StatusEnum::FIRE);
+    }
+
     private function getFailedRepairAttempts(): int
+    {
+        return $this->getChargeStatusByName(StatusEnum::ATTEMPT)?->getCharge() ?? 0;
+    }
+
+    private function getExtinguishFailedAttempts(): int
     {
         return $this->getChargeStatusByName(StatusEnum::ATTEMPT)?->getCharge() ?? 0;
     }

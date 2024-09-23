@@ -66,19 +66,30 @@ abstract class AbstractUpgradeDrone extends AbstractAction
         ]);
     }
 
-    protected function upgradeStatus(): string
+    public function upgradeStatus(): string
     {
         return match ($this->name) {
             ActionEnum::UPGRADE_DRONE_TO_TURBO => EquipmentStatusEnum::TURBO_DRONE_UPGRADE,
+            ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER => EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE,
             default => throw new \LogicException('Unknown upgrade status'),
         };
     }
 
-    protected function upgradeLog(): string
+    public function upgradeLog(): string
     {
         return match ($this->name) {
             ActionEnum::UPGRADE_DRONE_TO_TURBO => ActionLogEnum::UPGRADE_DRONE_TO_TURBO_SUCCESS,
+            ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER => ActionLogEnum::UPGRADE_DRONE_TO_FIREFIGHTER_SUCCESS,
             default => throw new \LogicException('Unknown upgrade log'),
+        };
+    }
+
+    public function upgradeName(): string
+    {
+        return match ($this->name) {
+            ActionEnum::UPGRADE_DRONE_TO_TURBO => 'Turbo',
+            ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER => 'Pompier',
+            default => throw new \LogicException('Unknown upgrade name'),
         };
     }
 

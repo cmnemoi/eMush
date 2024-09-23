@@ -6,24 +6,26 @@ namespace Mush\Tests\unit\Equipment\DroneTasks;
 
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Repository\InMemoryActionConfigRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\DroneTasks\DroneTasksHandler;
+use Mush\Equipment\DroneTasks\ExtinguishFireTask;
 use Mush\Equipment\DroneTasks\MoveInRandomAdjacentRoomTask;
 use Mush\Equipment\DroneTasks\RepairBrokenEquipmentTask;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\Random\FakeD100RollService as FakeD100Roll;
-use Mush\Game\Service\Random\FakeGetRandomIntegerService as FakeGetRandomInteger;
+use Mush\Game\Service\Random\FakeD100RollService as D100Roll;
+use Mush\Game\Service\Random\FakeGetRandomIntegerService as GetRandomInteger;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayService as GetRandomElementsFromArray;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Factory\StatusFactory;
-use Mush\Status\Service\FakeStatusService;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Service\FakeStatusService as StatusService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -31,10 +33,10 @@ use PHPUnit\Framework\TestCase;
  */
 final class DroneTasksHandlerTest extends TestCase
 {
-    private StatusServiceInterface $statusService;
-
     private DroneTasksHandler $droneTasks;
+    private ExtinguishFireTask $extinguishFireTask;
     private RepairBrokenEquipmentTask $repairBrokenEquipmentTask;
+    private MoveInRandomAdjacentRoomTask $moveInRandomAdjacentRoomTask;
 
     private Daedalus $daedalus;
     private Drone $drone;
@@ -45,20 +47,33 @@ final class DroneTasksHandlerTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->statusService = \Mockery::spy(StatusServiceInterface::class);
+        $this->extinguishFireTask = new ExtinguishFireTask(
+            $this->createStub(EventServiceInterface::class),
+            new StatusService(),
+            new InMemoryActionConfigRepository(),
+            new D100Roll(isSuccessful: false), // extinguish fire will always fail
+        );
 
         $this->repairBrokenEquipmentTask = new RepairBrokenEquipmentTask(
             $this->createStub(EventServiceInterface::class),
-            $this->statusService,
-            new FakeD100Roll(isSuccessful: false), // repair will always fail
-            new GetRandomElementsFromArray(new FakeGetRandomInteger(result: 0)),
+            new StatusService(),
+            new D100Roll(isSuccessful: false), // repair will always fail
+            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
+        );
+
+        $this->moveInRandomAdjacentRoomTask = new MoveInRandomAdjacentRoomTask(
+            $this->createStub(EventServiceInterface::class),
+            new StatusService(),
+            $this->createStub(GameEquipmentServiceInterface::class),
+            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
         );
 
         $this->droneTasks = new DroneTasksHandler(
-            new FakeD100Roll(isSuccessful: true), // turbo upgrade will always succeed
-            new FakeStatusService(),
-            $this->repairBrokenEquipmentTask,
-            $this->createStub(MoveInRandomAdjacentRoomTask::class),
+            d100Roll: new D100Roll(isSuccessful: true), // turbo upgrade will always succeed
+            statusService: new StatusService(),
+            extinguishFireTask: $this->extinguishFireTask,
+            repairBrokenEquipmentTask: $this->repairBrokenEquipmentTask,
+            moveInRandomAdjacentRoomTask: $this->moveInRandomAdjacentRoomTask,
         );
 
         $this->daedalus = DaedalusFactory::createDaedalus();
@@ -82,8 +97,8 @@ final class DroneTasksHandlerTest extends TestCase
         // when drone acts
         $this->droneTasks->execute($this->drone, new \DateTime());
 
-        // then drone should try to repair twice
-        $this->statusService->shouldHaveReceived('handleAttempt')->twice();
+        // then drone should fail to repair twice so its success rate should be 93%
+        self::assertEquals(93, $this->drone->getRepairSuccessRateForEquipment($this->mycoscan));
     }
 
     private function givenDroneInRoom(): void
@@ -103,7 +118,7 @@ final class DroneTasksHandlerTest extends TestCase
 
         $repairAction = new ActionConfig();
         $repairAction->setActionName(ActionEnum::REPAIR);
-        $repairAction->setSuccessRate(12);
+        $repairAction->setSuccessRate(60);
 
         $this->mycoscan->getEquipment()->setActionConfigs([$repairAction]);
 

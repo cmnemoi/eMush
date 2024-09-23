@@ -1578,6 +1578,14 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE . '_default',
+            'statusName' => EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

@@ -139,6 +139,17 @@ final class FakeRoomLogService implements RoomLogServiceInterface
         return $logs;
     }
 
+    public function findByDaedalusAndLogKeyOrThrow(Daedalus $daedalus, string $logKey): RoomLog
+    {
+        foreach ($this->roomLogs as $roomLog) {
+            if ($roomLog->getDaedalusInfo() === $daedalus->getDaedalusInfo() && $roomLog->getLog() === $logKey) {
+                return $roomLog;
+            }
+        }
+
+        throw new \RuntimeException("Log {$logKey} not found in daedalus {$daedalus->getId()}");
+    }
+
     private function getVisibility(?Player $player, string $visibility): string
     {
         if ($player === null) {

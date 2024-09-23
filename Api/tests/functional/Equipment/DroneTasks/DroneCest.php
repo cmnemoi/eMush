@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Equipment\DroneTasks;
 
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\DroneTasks\DroneTasksHandler;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -18,9 +19,11 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -338,6 +341,50 @@ final class DroneCest extends AbstractFunctionalTest
         $this->thenEquipmentShouldBeRepaired($door, $I);
     }
 
+    public function firefighterShouldExtinguishFire(FunctionalTester $I): void
+    {
+        $this->givenFrontCorridorExists($I);
+
+        $this->givenFireInTheRoom();
+
+        $this->givenDroneHas100PercentChanceToExtinguishFire($I);
+
+        $this->whenDroneActs();
+
+        $this->thenFireShouldBeExtinguished($I);
+    }
+
+    public function firefighterShouldPrintAPublicLogWhenFireIsExtinguished(FunctionalTester $I): void
+    {
+        $this->givenFireInTheRoom();
+        $this->givenDroneHas100PercentChanceToExtinguishFire($I);
+
+        $this->whenDroneActs();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: ':fires: **Robo Wheatley #0** a éteint l\'incendie !',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: LogEnum::DRONE_EXTINGUISHED_FIRE,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
+    }
+
+    public function turboShouldExtinguishThenMove(FunctionalTester $I): void
+    {
+        $this->givenFireInTheRoom();
+        $this->givenDroneHas100PercentChanceToExtinguishFire($I);
+        $this->givenDroneHasTurboUpgrade($I);
+
+        $this->whenDroneActs();
+
+        $this->thenFireShouldBeExtinguished($I);
+        $this->thenDroneShouldMove($I);
+    }
+
     private function givenABrokenDoor(FunctionalTester $I): Door
     {
         $door = Door::createFromRooms(
@@ -362,6 +409,39 @@ final class DroneCest extends AbstractFunctionalTest
         $equipment->getActionConfigByNameOrThrow(ActionEnum::REPAIR)->setSuccessRate(100);
     }
 
+    private function givenFrontCorridorExists(FunctionalTester $I): void
+    {
+        $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
+        Door::createFromRooms($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY), $frontCorridor);
+    }
+
+    private function givenFireInTheRoom(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: StatusEnum::FIRE,
+            holder: $this->chun->getPlace(),
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenDroneHas100PercentChanceToExtinguishFire(FunctionalTester $I): void
+    {
+        $extinguishActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::EXTINGUISH->value]);
+        $extinguishActionConfig->setSuccessRate(100);
+        $I->haveInRepository($extinguishActionConfig);
+    }
+
+    private function givenDroneHasTurboUpgrade(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::TURBO_DRONE_UPGRADE,
+            holder: $this->drone,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function whenDroneActs(): void
     {
         $this->droneTasksHandler->execute($this->drone, new \DateTime());
@@ -370,6 +450,19 @@ final class DroneCest extends AbstractFunctionalTest
     private function thenEquipmentShouldBeRepaired(GameEquipment $equipment, FunctionalTester $I): void
     {
         $I->assertFalse($equipment->hasStatus(EquipmentStatusEnum::BROKEN));
+    }
+
+    private function thenFireShouldBeExtinguished(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->chun->getPlace()->hasStatus(StatusEnum::FIRE));
+    }
+
+    private function thenDroneShouldMove(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->getName(),
+            actual: $this->drone->getPlace()->getName(),
+        );
     }
 
     private function setupDroneNicknameAndSerialNumber(Drone $drone, int $nickName, int $serialNumber): void

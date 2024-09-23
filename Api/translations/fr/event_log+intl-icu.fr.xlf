@@ -1120,5 +1120,11 @@
         <target>opportunist_worked</target>
       </segment>
     </unit>
+    <unit id="drone_extinguished_fire">
+      <segment id="drone_extinguished_fire" state="translated">
+        <source>drone_extinguished_fire</source>
+        <target>:fires: {drone} a éteint l'incendie !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

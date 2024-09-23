@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\RoomLog\Listener;
 
 use Mush\Equipment\Event\AbstractDroneEvent;
+use Mush\Equipment\Event\DroneExtinguishedFireEvent;
 use Mush\Equipment\Event\DroneMovedEvent;
 use Mush\Equipment\Event\DroneRepairedEvent;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -22,9 +23,23 @@ final class DroneEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            DroneExtinguishedFireEvent::class => 'onDroneExtinguishedFire',
             DroneMovedEvent::class => 'onDroneMoved',
             DroneRepairedEvent::class => 'onDroneRepaired',
         ];
+    }
+
+    public function onDroneExtinguishedFire(DroneExtinguishedFireEvent $event): void
+    {
+        $this->roomLogService->createLog(
+            LogEnum::DRONE_EXTINGUISHED_FIRE,
+            $event->getDrone()->getPlace(),
+            $event->getVisibility(),
+            'event_log',
+            null,
+            $this->getLogParameters($event),
+            $event->getTime()
+        );
     }
 
     public function onDroneMoved(DroneMovedEvent $event): void

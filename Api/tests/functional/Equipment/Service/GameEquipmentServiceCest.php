@@ -12,6 +12,8 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -21,11 +23,13 @@ use Mush\Tests\FunctionalTester;
 final class GameEquipmentServiceCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testInvertebrateShellBreaksAllEquipmentInRoomAfterBeingDestroyedByAFire(FunctionalTester $I): void
@@ -108,5 +112,31 @@ final class GameEquipmentServiceCest extends AbstractFunctionalTest
             ]
         );
         $I->assertCount(2, $logs);
+    }
+
+    public function shouldNotBreakFirefighterDrone(FunctionalTester $I): void
+    {
+        // given I have a firefighter drone in the room
+        $drone = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::SUPPORT_DRONE,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE,
+            holder: $drone,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given fire has a 100% chance to break equipment
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setEquipmentFireBreakRate(100);
+
+        // when I try to break drone with fire
+        $this->gameEquipmentService->handleBreakFire($drone, new \DateTime());
+
+        // then the drone should not be broken
+        $I->assertFalse($drone->isBroken());
     }
 }

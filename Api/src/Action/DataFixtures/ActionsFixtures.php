@@ -286,16 +286,7 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($attackAction);
 
-        $extinguishAction = new ActionConfig();
-        $extinguishAction
-            ->setName(ActionEnum::EXTINGUISH->value)
-            ->setActionName(ActionEnum::EXTINGUISH)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setActionCost(1)
-            ->setInjuryRate(1)
-            ->setSuccessRate(50);
-
+        $extinguishAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::EXTINGUISH));
         $manager->persist($extinguishAction);
 
         $tryKubeAction = new ActionConfig();
@@ -1097,6 +1088,9 @@ class ActionsFixtures extends Fixture
         $upgradeDroneToTurbo = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPGRADE_DRONE_TO_TURBO));
         $manager->persist($upgradeDroneToTurbo);
 
+        $upgradeDroneToFirefighter = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER));
+        $manager->persist($upgradeDroneToFirefighter);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1119,7 +1113,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::READ_DOCUMENT, $readDocument);
         $this->addReference(self::READ_BOOK, $readAction);
         $this->addReference(self::ATTACK_DEFAULT, $attackAction);
-        $this->addReference(self::EXTINGUISH_DEFAULT, $extinguishAction);
+        $this->addReference(ActionEnum::EXTINGUISH->value, $extinguishAction);
         $this->addReference(self::TRY_KUBE, $tryKubeAction);
         $this->addReference(self::OPEN_SPACE_CAPSULE, $openSpaceCapsuleAction);
         $this->addReference(self::INJECT_SERUM, $injectSerumAction);
@@ -1223,5 +1217,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::MASS_GGEDON->value, $massGgedon);
         $this->addReference(ActionEnum::REINFORCE->value, $reinforce);
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_TURBO->value, $upgradeDroneToTurbo);
+        $this->addReference(ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER->value, $upgradeDroneToFirefighter);
     }
 }

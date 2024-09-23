@@ -22,9 +22,11 @@ class DroneTasksHandler
     public function __construct(
         private D100RollServiceInterface $d100Roll,
         private StatusServiceInterface $statusService,
+        private ExtinguishFireTask $extinguishFireTask,
         private RepairBrokenEquipmentTask $repairBrokenEquipmentTask,
         private MoveInRandomAdjacentRoomTask $moveInRandomAdjacentRoomTask
     ) {
+        $extinguishFireTask->setNextDroneTask($repairBrokenEquipmentTask);
         $repairBrokenEquipmentTask->setNextDroneTask($moveInRandomAdjacentRoomTask);
     }
 
@@ -33,7 +35,7 @@ class DroneTasksHandler
         $this->applyTurboUpgrade($drone, $time);
 
         // Each task will call the next one if it cannot be executed, starting with the first one.
-        $this->repairBrokenEquipmentTask->execute($drone, $time);
+        $this->extinguishFireTask->execute($drone, $time);
     }
 
     private function applyTurboUpgrade(Drone $drone, \DateTime $time): void

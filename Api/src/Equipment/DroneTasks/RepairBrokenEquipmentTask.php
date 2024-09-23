@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\DroneTasks;
 
-use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\DroneTaskEnum;
 use Mush\Equipment\Event\DroneRepairedEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface;
@@ -38,11 +36,9 @@ class RepairBrokenEquipmentTask extends AbstractDroneTask
 
         // If the repair fails, increase the number of failed repair attempts and abort.
         if ($this->d100Roll->isAFailure($drone->getRepairSuccessRateForEquipment($equipmentToRepair))) {
-            $this->statusService->handleAttempt(
+            $this->statusService->createOrIncrementChargeStatus(
+                name: EquipmentStatusEnum::DRONE_REPAIR_FAILED_ATTEMPTS,
                 holder: $drone,
-                actionName: DroneTaskEnum::REPAIR_BROKEN_EQUIPMENT->value,
-                result: new Fail(),
-                tags: [],
                 time: $time,
             );
 

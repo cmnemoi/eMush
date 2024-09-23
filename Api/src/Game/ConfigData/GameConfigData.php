@@ -470,6 +470,8 @@ class GameConfigData
                 PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_COM_MANAGER . '_default',
                 EquipmentStatusEnum::TURBO_DRONE_UPGRADE . '_default',
                 EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE . '_default',
+                EquipmentStatusEnum::DRONE_REPAIR_FAILED_ATTEMPTS . '_default',
+                EquipmentStatusEnum::DRONE_EXTINGUISH_FAILED_ATTEMPTS . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

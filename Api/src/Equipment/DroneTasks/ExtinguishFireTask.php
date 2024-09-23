@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\DroneTasks;
 
-use Mush\Action\Entity\ActionResult\Fail;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Repository\ActionConfigRepositoryInterface;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Event\DroneExtinguishedFireEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -36,11 +35,9 @@ class ExtinguishFireTask extends AbstractDroneTask
 
         // If the drone fails to extinguish the fire, do not proceed.
         if ($this->d100Roll->isAFailure($drone->getExtinguishFireSuccessRate($this->actionConfigRepository))) {
-            $this->statusService->handleAttempt(
+            $this->statusService->createOrIncrementChargeStatus(
+                name: EquipmentStatusEnum::DRONE_EXTINGUISH_FAILED_ATTEMPTS,
                 holder: $drone,
-                actionName: ActionEnum::EXTINGUISH->value,
-                result: new Fail(),
-                tags: [],
                 time: $time,
             );
 

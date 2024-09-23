@@ -76,12 +76,7 @@ class Drone extends GameItem
 
     public function getRepairSuccessRateForEquipment(GameEquipment $gameEquipment): int
     {
-        $repairActionConfig = $gameEquipment->getActionConfigByNameOrNull(ActionEnum::REPAIR);
-
-        // Handle patrol ship case
-        if ($repairActionConfig === null) {
-            $repairActionConfig = $gameEquipment->getActionConfigByNameOrThrow(ActionEnum::RENOVATE);
-        }
+        $repairActionConfig = $gameEquipment->getActionConfigByNameOrNull(ActionEnum::REPAIR) ?? $gameEquipment->getActionConfigByNameOrThrow(ActionEnum::RENOVATE);
 
         $baseSuccessRate = $repairActionConfig->getSuccessRate();
 
@@ -106,11 +101,11 @@ class Drone extends GameItem
 
     private function getFailedRepairAttempts(): int
     {
-        return $this->getChargeStatusByName(StatusEnum::ATTEMPT)?->getCharge() ?? 0;
+        return $this->getChargeStatusByName(EquipmentStatusEnum::DRONE_REPAIR_FAILED_ATTEMPTS)?->getCharge() ?? 0;
     }
 
     private function getExtinguishFailedAttempts(): int
     {
-        return $this->getChargeStatusByName(StatusEnum::ATTEMPT)?->getCharge() ?? 0;
+        return $this->getChargeStatusByName(EquipmentStatusEnum::DRONE_EXTINGUISH_FAILED_ATTEMPTS)?->getCharge() ?? 0;
     }
 }

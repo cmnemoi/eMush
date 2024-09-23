@@ -7,7 +7,6 @@ namespace Mush\Action\Actions;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
@@ -23,10 +22,8 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -66,32 +63,11 @@ abstract class AbstractUpgradeDrone extends AbstractAction
         ]);
     }
 
-    public function upgradeStatus(): string
-    {
-        return match ($this->name) {
-            ActionEnum::UPGRADE_DRONE_TO_TURBO => EquipmentStatusEnum::TURBO_DRONE_UPGRADE,
-            ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER => EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE,
-            default => throw new \LogicException('Unknown upgrade status'),
-        };
-    }
+    abstract public function upgradeStatus(): string;
 
-    public function upgradeLog(): string
-    {
-        return match ($this->name) {
-            ActionEnum::UPGRADE_DRONE_TO_TURBO => ActionLogEnum::UPGRADE_DRONE_TO_TURBO_SUCCESS,
-            ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER => ActionLogEnum::UPGRADE_DRONE_TO_FIREFIGHTER_SUCCESS,
-            default => throw new \LogicException('Unknown upgrade log'),
-        };
-    }
+    abstract public function upgradeLog(): string;
 
-    public function upgradeName(): string
-    {
-        return match ($this->name) {
-            ActionEnum::UPGRADE_DRONE_TO_TURBO => 'Turbo',
-            ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER => 'Pompier',
-            default => throw new \LogicException('Unknown upgrade name'),
-        };
-    }
+    abstract public function upgradeName(): string;
 
     protected function checkResult(): ActionResult
     {

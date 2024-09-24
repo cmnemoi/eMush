@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Equipment\DroneTasks;
 
 use Mush\Equipment\Entity\Drone;
+use Mush\Equipment\Event\DroneTurboWorkedEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -32,6 +33,10 @@ abstract class AbstractDroneTask
                 return;
             }
 
+            if ($drone->turboWorked()) {
+                $this->dispatchTurboWorkedEvent($drone, $time);
+            }
+
             // Drone acts, so it consumes a charge.
             $this->removeOneDroneCharge($drone, $time);
         }
@@ -40,6 +45,11 @@ abstract class AbstractDroneTask
     public function setNextDroneTask(self $task): void
     {
         $this->nextTask = $task;
+    }
+
+    public function isApplicable(): bool
+    {
+        return $this->taskNotApplicable === false;
     }
 
     abstract protected function applyEffect(Drone $drone, \DateTime $time): void;
@@ -51,6 +61,14 @@ abstract class AbstractDroneTask
             delta: -1,
             tags: [],
             time: $time,
+        );
+    }
+
+    private function dispatchTurboWorkedEvent(Drone $drone, \DateTime $time): void
+    {
+        $this->eventService->callEvent(
+            event: new DroneTurboWorkedEvent(drone: $drone, time: $time),
+            name: DroneTurboWorkedEvent::class,
         );
     }
 }

@@ -99,6 +99,21 @@ class Drone extends GameItem
         return $this->getPlace()->doesNotHaveStatus(StatusEnum::FIRE);
     }
 
+    public function isNotFirefighter(): bool
+    {
+        return $this->doesNotHaveStatus(EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE);
+    }
+
+    public function turboWorked(): bool
+    {
+        return $this->numberOfActions() > 1;
+    }
+
+    private function numberOfActions(): int
+    {
+        return $this->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getCharge();
+    }
+
     private function getFailedRepairAttempts(): int
     {
         return $this->getChargeStatusByName(EquipmentStatusEnum::DRONE_REPAIR_FAILED_ATTEMPTS)?->getCharge() ?? 0;

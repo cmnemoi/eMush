@@ -1126,5 +1126,11 @@
         <target>:fires: {drone} a éteint l'incendie !</target>
       </segment>
     </unit>
+    <unit id="drone_turbo_worked">
+      <segment id="drone_turbo_worked" state="translated">
+        <source>drone_turbo_worked</source>
+        <target>La compétence **Turbo** de {drone} a porté ses fruits...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

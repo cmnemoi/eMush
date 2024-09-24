@@ -15,6 +15,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -347,6 +348,8 @@ final class DroneCest extends AbstractFunctionalTest
 
         $this->givenFireInTheRoom();
 
+        $this->givenDroneIsFirefighter();
+
         $this->givenDroneHas100PercentChanceToExtinguishFire($I);
 
         $this->whenDroneActs();
@@ -357,6 +360,9 @@ final class DroneCest extends AbstractFunctionalTest
     public function firefighterShouldPrintAPublicLogWhenFireIsExtinguished(FunctionalTester $I): void
     {
         $this->givenFireInTheRoom();
+
+        $this->givenDroneIsFirefighter();
+
         $this->givenDroneHas100PercentChanceToExtinguishFire($I);
 
         $this->whenDroneActs();
@@ -376,6 +382,7 @@ final class DroneCest extends AbstractFunctionalTest
     public function turboShouldExtinguishThenMove(FunctionalTester $I): void
     {
         $this->givenFireInTheRoom();
+        $this->givenDroneIsFirefighter();
         $this->givenDroneHas100PercentChanceToExtinguishFire($I);
         $this->givenDroneHasTurboUpgrade($I);
 
@@ -383,6 +390,28 @@ final class DroneCest extends AbstractFunctionalTest
 
         $this->thenFireShouldBeExtinguished($I);
         $this->thenDroneShouldMove($I);
+    }
+
+    public function turboShouldPrintLog(FunctionalTester $I): void
+    {
+        $this->givenFireInTheRoom();
+
+        $this->givenDroneIsFirefighter();
+
+        $this->givenDroneHasTurboUpgrade($I);
+
+        $this->whenDroneActs();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'La compétence **Turbo** de **Robo Wheatley #0** a porté ses fruits...',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: LogEnum::DRONE_TURBO_WORKED,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
     }
 
     private function givenABrokenDoor(FunctionalTester $I): Door
@@ -434,8 +463,23 @@ final class DroneCest extends AbstractFunctionalTest
 
     private function givenDroneHasTurboUpgrade(): void
     {
+        $status = $this->statusService->createOrIncrementChargeStatus(
+            name: EquipmentStatusEnum::TURBO_DRONE_UPGRADE,
+            holder: $this->drone,
+        );
+        $this->statusService->updateCharge(
+            chargeStatus: $status,
+            delta: 100,
+            tags: [],
+            time: new \DateTime(),
+            mode: VariableEventInterface::SET_VALUE,
+        );
+    }
+
+    private function givenDroneIsFirefighter(): void
+    {
         $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::TURBO_DRONE_UPGRADE,
+            statusName: EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE,
             holder: $this->drone,
             tags: [],
             time: new \DateTime(),

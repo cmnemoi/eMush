@@ -7,6 +7,7 @@ namespace Mush\tests\unit\Equipment\DroneTasks;
 use Mush\Action\Repository\InMemoryActionConfigRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Equipment\DroneTasks\AbstractDroneTask;
 use Mush\Equipment\DroneTasks\ExtinguishFireTask;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Factory\GameEquipmentFactory;
@@ -14,6 +15,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\FakeD100RollService as D100Roll;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Factory\StatusFactory;
 use Mush\Status\Service\FakeStatusService as StatusService;
@@ -39,8 +41,19 @@ final class ExtinguishFireTaskTest extends TestCase
         $this->drone->getChargeStatus()->setCharge(1);
     }
 
+    public function testShouldNotBeApplicableIfDroneIsNotFirefighter(): void
+    {
+        $this->givenLaboratoryIsOnFire();
+
+        $task = $this->whenExtinguishTaskIsSuccessful();
+
+        $this->thenTaskShouldNotBeApplicable($task);
+    }
+
     public function testShouldExtinguishFireAfterSuccessfulAttempt(): void
     {
+        $this->givenDroneHasFirefighterUpgrade();
+
         $this->givenLaboratoryIsOnFire();
 
         $this->whenExtinguishTaskIsSuccessful();
@@ -50,6 +63,8 @@ final class ExtinguishFireTaskTest extends TestCase
 
     public function testShouldNotExtinguishFireAfterFailedAttempt(): void
     {
+        $this->givenDroneHasFirefighterUpgrade();
+
         $this->givenLaboratoryIsOnFire();
 
         $this->whenExtinguishTaskFails();
@@ -59,6 +74,8 @@ final class ExtinguishFireTaskTest extends TestCase
 
     public function testShouldIncreaseSuccessRateAfterFailedAttempt(): void
     {
+        $this->givenDroneHasFirefighterUpgrade();
+
         $this->givenLaboratoryIsOnFire();
 
         $this->whenExtinguishTaskFails();
@@ -71,6 +88,14 @@ final class ExtinguishFireTaskTest extends TestCase
         StatusFactory::createStatusByNameForHolder(
             name: StatusEnum::FIRE,
             holder: $this->laboratory,
+        );
+    }
+
+    private function givenDroneHasFirefighterUpgrade(): void
+    {
+        StatusFactory::createStatusByNameForHolder(
+            name: EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE,
+            holder: $this->drone,
         );
     }
 
@@ -111,5 +136,10 @@ final class ExtinguishFireTaskTest extends TestCase
     private function thenDroneShouldHaveSuccessRateOf(int $expectedSuccessRate): void
     {
         self::assertEquals($expectedSuccessRate, $this->drone->getExtinguishFireSuccessRate(new InMemoryActionConfigRepository()));
+    }
+
+    private function thenTaskShouldNotBeApplicable(AbstractDroneTask $task): void
+    {
+        self::assertFalse($task->isApplicable());
     }
 }

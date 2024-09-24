@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Repository\ActionConfigRepositoryInterface;
+use Mush\Equipment\DroneTasks\AbstractDroneTask;
+use Mush\Equipment\DroneTasks\TakeoffTask;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -94,6 +96,14 @@ class Drone extends GameItem
         return (int) ($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getExtinguishFailedAttempts());
     }
 
+    public function cannotApplyTask(AbstractDroneTask $task): bool
+    {
+        return match ($task->name()) {
+            TakeoffTask::class => $this->isNotPilot() || $this->noOperationalPatrolShipInRoom() || $this->noAttackingHunters(),
+            default => true,
+        };
+    }
+
     public function noFireInRoom(): bool
     {
         return $this->getPlace()->doesNotHaveStatus(StatusEnum::FIRE);
@@ -104,9 +114,31 @@ class Drone extends GameItem
         return $this->doesNotHaveStatus(EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE);
     }
 
+    public function operationalPatrolShipsInRoom(): array
+    {
+        return $this->getPlace()->getEquipments()
+            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational() && $gameEquipment->isAPatrolShip())
+            ->toArray();
+    }
+
     public function turboWorked(): bool
     {
         return $this->numberOfActions() > 1;
+    }
+
+    private function isNotPilot(): bool
+    {
+        return $this->doesNotHaveStatus(EquipmentStatusEnum::PILOT_DRONE_UPGRADE);
+    }
+
+    private function noOperationalPatrolShipInRoom(): bool
+    {
+        return empty($this->operationalPatrolShipsInRoom());
+    }
+
+    private function noAttackingHunters(): bool
+    {
+        return $this->getDaedalus()->getAttackingHunters()->isEmpty();
     }
 
     private function numberOfActions(): int

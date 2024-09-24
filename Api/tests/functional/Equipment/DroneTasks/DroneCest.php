@@ -16,6 +16,8 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -34,7 +36,9 @@ final class DroneCest extends AbstractFunctionalTest
     private DroneTasksHandler $droneTasksHandler;
 
     private Drone $drone;
+    private GameEquipment $patrolShip;
 
+    private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -44,6 +48,7 @@ final class DroneCest extends AbstractFunctionalTest
 
         $this->droneTasksHandler = $I->grabService(DroneTasksHandler::class);
 
+        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -414,6 +419,19 @@ final class DroneCest extends AbstractFunctionalTest
         );
     }
 
+    public function pilotShouldTakeOff(FunctionalTester $I): void
+    {
+        $this->givenThereIsAttackingHunters();
+
+        $this->givenDroneIsPilot();
+
+        $this->givenPatrolShipInRoom($I);
+
+        $this->whenDroneActs();
+
+        $this->thenDroneShouldBeInPatrolShipPlace($I);
+    }
+
     private function givenABrokenDoor(FunctionalTester $I): Door
     {
         $door = Door::createFromRooms(
@@ -486,6 +504,37 @@ final class DroneCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenThereIsAttackingHunters(): void
+    {
+        $hunterPoolEvent = new HunterPoolEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+    }
+
+    private function givenDroneIsPilot(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::PILOT_DRONE_UPGRADE,
+            holder: $this->drone,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenPatrolShipInRoom(FunctionalTester $I): void
+    {
+        $this->patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            equipmentHolder: $this->drone->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+        $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
+    }
+
     private function whenDroneActs(): void
     {
         $this->droneTasksHandler->execute($this->drone, new \DateTime());
@@ -505,6 +554,14 @@ final class DroneCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->getName(),
+            actual: $this->drone->getPlace()->getName(),
+        );
+    }
+
+    private function thenDroneShouldBeInPatrolShipPlace(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: RoomEnum::PATROL_SHIP_ALPHA_TAMARIN,
             actual: $this->drone->getPlace()->getName(),
         );
     }

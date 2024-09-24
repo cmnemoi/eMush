@@ -8,6 +8,7 @@ use Mush\Equipment\Event\AbstractDroneEvent;
 use Mush\Equipment\Event\DroneExtinguishedFireEvent;
 use Mush\Equipment\Event\DroneMovedEvent;
 use Mush\Equipment\Event\DroneRepairedEvent;
+use Mush\Equipment\Event\DroneTakeoffEvent;
 use Mush\Equipment\Event\DroneTurboWorkedEvent;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
@@ -27,6 +28,7 @@ final class DroneEventSubscriber implements EventSubscriberInterface
             DroneExtinguishedFireEvent::class => 'onDroneExtinguishedFire',
             DroneMovedEvent::class => 'onDroneMoved',
             DroneRepairedEvent::class => 'onDroneRepaired',
+            DroneTakeoffEvent::class => 'onDroneTakeoff',
             DroneTurboWorkedEvent::class => 'onDroneTurboWorked',
         ];
     }
@@ -71,6 +73,19 @@ final class DroneEventSubscriber implements EventSubscriberInterface
     {
         $this->roomLogService->createLog(
             LogEnum::DRONE_REPAIRED_EQUIPMENT,
+            $event->getPlace(),
+            $event->getVisibility(),
+            'event_log',
+            null,
+            $this->getLogParameters($event),
+            $event->getTime()
+        );
+    }
+
+    public function onDroneTakeoff(DroneTakeoffEvent $event): void
+    {
+        $this->roomLogService->createLog(
+            LogEnum::DRONE_TAKEOFF,
             $event->getPlace(),
             $event->getVisibility(),
             'event_log',

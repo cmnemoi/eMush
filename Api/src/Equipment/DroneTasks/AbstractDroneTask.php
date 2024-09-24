@@ -52,6 +52,11 @@ abstract class AbstractDroneTask
         return $this->taskNotApplicable === false;
     }
 
+    public function name(): string
+    {
+        return static::class;
+    }
+
     abstract protected function applyEffect(Drone $drone, \DateTime $time): void;
 
     protected function removeOneDroneCharge(Drone $drone, \DateTime $time): void

@@ -1132,5 +1132,11 @@
         <target>La compétence **Turbo** de {drone} a porté ses fruits...</target>
       </segment>
     </unit>
+    <unit id="drone_takeoff">
+      <segment id="drone_takeoff" state="translated">
+        <source>drone_takeoff</source>
+        <target>{drone} vient de décoller.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

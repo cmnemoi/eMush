@@ -29,6 +29,7 @@ class EquipmentStatusEnum
     public const FIREFIGHTER_DRONE_UPGRADE = 'firefighter_drone_upgrade';
     public const DRONE_REPAIR_FAILED_ATTEMPTS = 'drone_repair_failed_attempts';
     public const DRONE_EXTINGUISH_FAILED_ATTEMPTS = 'drone_extinguish_failed_attempts';
+    public const PILOT_DRONE_UPGRADE = 'pilot_drone_upgrade';
 
     public const UPDATING = 'updating';
 

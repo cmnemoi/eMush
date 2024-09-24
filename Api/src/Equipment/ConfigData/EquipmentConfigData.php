@@ -4114,6 +4114,7 @@ class EquipmentConfigData
                 ActionEnum::SLIME_OBJECT->value,
                 ActionEnum::UPGRADE_DRONE_TO_TURBO->value,
                 ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER->value,
+                ActionEnum::UPGRADE_DRONE_TO_PILOT->value,
             ],
             'mechanics' => [],
             'initStatuses' => [

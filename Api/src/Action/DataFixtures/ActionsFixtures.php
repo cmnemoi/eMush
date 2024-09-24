@@ -1091,6 +1091,9 @@ class ActionsFixtures extends Fixture
         $upgradeDroneToFirefighter = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER));
         $manager->persist($upgradeDroneToFirefighter);
 
+        $upgradeDroneToPilot = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPGRADE_DRONE_TO_PILOT));
+        $manager->persist($upgradeDroneToPilot);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1218,5 +1221,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::REINFORCE->value, $reinforce);
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_TURBO->value, $upgradeDroneToTurbo);
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER->value, $upgradeDroneToFirefighter);
+        $this->addReference(ActionEnum::UPGRADE_DRONE_TO_PILOT->value, $upgradeDroneToPilot);
     }
 }

@@ -1336,5 +1336,11 @@
         <target>**{character}** s'acharne un peu sur ce pauvre {target_drone}. Mais c'est pour son bien. {target_drone} reçoit l'amélioration **Pompier**.</target>
       </segment>
     </unit>
+    <unit id="upgrade_drone_to_pilot_success">
+      <segment id="upgrade_drone_to_pilot_success" state="final">
+        <source>upgrade_drone_to_pilot_success</source>
+        <target>**{character}** s'acharne un peu sur ce pauvre {target_drone}. Mais c'est pour son bien. {target_drone} reçoit l'amélioration **Pilote**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

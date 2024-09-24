@@ -44,7 +44,7 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
 
         $this->givenChunHasPiecesOfScrapMetalOnReach(4);
 
-        $this->givenChunUpgradesDroneToTurbo();
+        $this->givenChunUpgradesDrone();
 
         $this->whenChunTriesToUpgradeDrone();
 
@@ -66,7 +66,7 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
 
         $this->givenChunHasPiecesOfScrapMetalOnReach(2);
 
-        $this->whenChunUpgradesDroneToTurbo();
+        $this->whenChunUpgradesDrone();
 
         $this->thenDroneShouldHaveUpgradeStatus($I);
     }
@@ -77,7 +77,7 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
 
         $this->givenChunHasPiecesOfScrapMetalOnReach(2);
 
-        $this->whenChunUpgradesDroneToTurbo();
+        $this->whenChunUpgradesDrone();
 
         $this->ISeeTranslatedRoomLogInRepository(
             expectedRoomLog: "**Chun** s'acharne un peu sur ce pauvre **Robo Wheatley #0**. Mais c'est pour son bien. **Robo Wheatley #0** reçoit l'amélioration **{$this->upgradeDrone->upgradeName()}**.",
@@ -97,7 +97,7 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
 
         $this->givenChunHasPiecesOfScrapMetalOnReach(3);
 
-        $this->whenChunUpgradesDroneToTurbo();
+        $this->whenChunUpgradesDrone();
 
         $this->thenChunShouldHaveScrapMetalOnReach(1, $I);
     }
@@ -112,9 +112,9 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenChunUpgradesDroneToTurbo(): void
+    private function givenChunUpgradesDrone(): void
     {
-        $this->whenChunUpgradesDroneToTurbo();
+        $this->whenChunUpgradesDrone();
     }
 
     private function givenChunHasPiecesOfScrapMetalOnReach(int $quantity): void
@@ -128,7 +128,7 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenChunUpgradesDroneToTurbo(): void
+    private function whenChunUpgradesDrone(): void
     {
         $this->upgradeDrone->loadParameters(
             actionConfig: $this->actionConfig,

@@ -221,13 +221,16 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var ActionConfig $upgradeDroneToFirefighter */
         $upgradeDroneToFirefighter = $this->getReference(ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER->value);
 
+        /** @var ActionConfig $upgradeDroneToPilot */
+        $upgradeDroneToPilot = $this->getReference(ActionEnum::UPGRADE_DRONE_TO_PILOT->value);
+
         $drone = new DroneConfig();
         $drone
             ->setEquipmentName(ItemEnum::SUPPORT_DRONE)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setActionConfigs([$takeAction, $examineAction, $dropAction, $repair12, $upgradeDroneToTurbo, $upgradeDroneToFirefighter])
+            ->setActionConfigs([$takeAction, $examineAction, $dropAction, $repair12, $upgradeDroneToTurbo, $upgradeDroneToFirefighter, $upgradeDroneToPilot])
             ->setInitStatuses([$droneCharges])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($drone);

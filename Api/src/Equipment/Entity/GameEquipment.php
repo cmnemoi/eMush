@@ -396,6 +396,11 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $actionConfig;
     }
 
+    public function hasActionByName(ActionEnum $actionName): bool
+    {
+        return $this->getActionConfigByNameOrNull($actionName) !== null;
+    }
+
     public function canPlayerReach(Player $player): bool
     {
         return $this->getPlace() === $player->getPlace();

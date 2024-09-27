@@ -9,8 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Repository\ActionConfigRepositoryInterface;
 use Mush\Equipment\DroneTasks\AbstractDroneTask;
+use Mush\Equipment\DroneTasks\ShootHunterTask;
 use Mush\Equipment\DroneTasks\TakeoffTask;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -96,11 +98,22 @@ class Drone extends GameItem
         return (int) ($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getExtinguishFailedAttempts());
     }
 
+    public function getShootHunterSuccessRate(): int
+    {
+        $patrolShip = $this->getPlace()->getFirstEquipmentByMechanicNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+
+        $baseSuccessRate = $patrolShip->getWeaponMechanicOrThrow()->getBaseAccuracy();
+        $droneBonus = 1 + $this->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PILOT_DRONE_UPGRADE)->getCharge() / 100;
+
+        return (int) ($baseSuccessRate * $droneBonus);
+    }
+
     public function cannotApplyTask(AbstractDroneTask $task): bool
     {
         return match ($task->name()) {
-            TakeoffTask::class => $this->isNotPilot() || $this->noOperationalPatrolShipInRoom() || $this->noAttackingHunters(),
-            default => true,
+            TakeoffTask::class => $this->isNotPilot() || $this->noAttackingHunters() || $this->noOperationalPatrolShipInRoom(),
+            ShootHunterTask::class => $this->isNotPilot() || $this->noAttackingHunters() || $this->noShootHunterActionAvailable(),
+            default => false,
         };
     }
 
@@ -126,6 +139,18 @@ class Drone extends GameItem
         return $this->numberOfActions() > 1;
     }
 
+    public function turboChance(): int
+    {
+        return $this->getChargeStatusByName(EquipmentStatusEnum::TURBO_DRONE_UPGRADE)?->getCharge() ?? 0;
+    }
+
+    public function shootHunterDamageRange(): ProbaCollection
+    {
+        $patrolShip = $this->getPlace()->getFirstEquipmentByMechanicNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+
+        return $patrolShip->getWeaponMechanicOrThrow()->getBaseDamageRange();
+    }
+
     private function isNotPilot(): bool
     {
         return $this->doesNotHaveStatus(EquipmentStatusEnum::PILOT_DRONE_UPGRADE);
@@ -139,6 +164,16 @@ class Drone extends GameItem
     private function noAttackingHunters(): bool
     {
         return $this->getDaedalus()->getAttackingHunters()->isEmpty();
+    }
+
+    private function noShootHunterActionAvailable(): bool
+    {
+        $patrolShip = $this->getPlace()->getFirstEquipmentByMechanicNameOrNull(EquipmentMechanicEnum::PATROL_SHIP);
+        if (!$patrolShip || $patrolShip->isNotOperational()) {
+            return true;
+        }
+
+        return $patrolShip->hasActionByName(ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP) === false;
     }
 
     private function numberOfActions(): int

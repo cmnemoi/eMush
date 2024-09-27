@@ -489,6 +489,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($icarus);
 
+        /** @var ActionConfig $shootHunterRandomPatrolShipAction */
+        $shootHunterRandomPatrolShipAction = $this->getReference(ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value);
+
         $patrolShipMechanic = $this->createPatrolShip(
             [$takeoffAction, $landAction, $collectScrap, $takeoffToPlanetAction],
             EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN
@@ -532,7 +535,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                     6 => 1,
                 ]
             )
-            ->addAction($shootHunterPatrolShipAction);
+            ->setBaseAccuracy(40)
+            ->addAction($shootHunterPatrolShipAction)
+            ->addAction($shootHunterRandomPatrolShipAction);
 
         $patrolShip = new EquipmentConfig();
         $patrolShip

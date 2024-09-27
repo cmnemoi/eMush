@@ -1169,7 +1169,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::ACCESS_TERMINAL, $accessTerminal);
         $this->addReference(self::LAND, $land);
         $this->addReference(self::SHOOT_HUNTER_PATROL_SHIP, $shootHunterPatrolShip);
-        $this->addReference(self::SHOOT_RANDOM_HUNTER_PATROL_SHIP, $shootRandomHunterTurret);
+        $this->addReference(self::SHOOT_RANDOM_HUNTER_PATROL_SHIP, $shootRandomHunterPatrolShip);
         $this->addReference(self::COLLECT_SCRAP, $collectScrap);
         $this->addReference(self::RENOVATE, $renovate);
         $this->addReference(self::CONVERT_ACTION_TO_MOVEMENT, $convertActionToMovement);

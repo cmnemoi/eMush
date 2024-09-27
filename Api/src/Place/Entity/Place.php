@@ -285,7 +285,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $equipment;
     }
 
-    public function getFirstEquipmentByMechanicNameOrThrow(string $mechanicName): GameEquipment
+    public function getFirstEquipmentByMechanicNameOrNull(string $mechanicName): ?GameEquipment
     {
         /** @var GameEquipment $equipment */
         foreach ($this->equipments as $equipment) {
@@ -294,7 +294,17 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
             }
         }
 
-        throw new \RuntimeException("There should be an equipment with {$mechanicName} mechanic in the place {$this->name}");
+        return null;
+    }
+
+    public function getFirstEquipmentByMechanicNameOrThrow(string $mechanicName): GameEquipment
+    {
+        $equipment = $this->getFirstEquipmentByMechanicNameOrNull($mechanicName);
+        if ($equipment === null) {
+            throw new \RuntimeException("There should be an equipment with {$mechanicName} mechanic in the place {$this->name}");
+        }
+
+        return $equipment;
     }
 
     /**

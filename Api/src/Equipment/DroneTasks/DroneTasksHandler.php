@@ -25,11 +25,13 @@ class DroneTasksHandler
         private ExtinguishFireTask $extinguishFireTask,
         private RepairBrokenEquipmentTask $repairBrokenEquipmentTask,
         private TakeoffTask $takeoffTask,
+        private ShootHunterTask $shootHunterTask,
         private MoveInRandomAdjacentRoomTask $moveInRandomAdjacentRoomTask
     ) {
         $extinguishFireTask->setNextDroneTask($repairBrokenEquipmentTask);
         $repairBrokenEquipmentTask->setNextDroneTask($takeoffTask);
-        $takeoffTask->setNextDroneTask($moveInRandomAdjacentRoomTask);
+        $takeoffTask->setNextDroneTask($shootHunterTask);
+        $shootHunterTask->setNextDroneTask($moveInRandomAdjacentRoomTask);
     }
 
     public function execute(Drone $drone, \DateTime $time): void
@@ -42,8 +44,7 @@ class DroneTasksHandler
 
     private function applyTurboUpgrade(Drone $drone, \DateTime $time): void
     {
-        $turboWorkedChance = $drone->getChargeStatusByName(EquipmentStatusEnum::TURBO_DRONE_UPGRADE)?->getCharge() ?? 0;
-        if ($this->d100Roll->isSuccessful($turboWorkedChance)) {
+        if ($this->d100Roll->isSuccessful($drone->turboChance())) {
             $this->statusService->createOrIncrementChargeStatus(
                 name: EquipmentStatusEnum::ELECTRIC_CHARGES,
                 holder: $drone,

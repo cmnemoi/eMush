@@ -571,6 +571,15 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($upgradedFirefighter);
 
+        /** @var VariableEventModifierConfig $pilotDroneModifier */
+        $pilotDroneModifier = $this->getReference(ModifierNameEnum::DRONE_PLUS_20_PERCENTAGE_ON_SHOOT_HUNTER);
+
+        $pilotDroneUpgrade = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(EquipmentStatusEnum::PILOT_DRONE_UPGRADE . '_default')
+        );
+        $pilotDroneUpgrade->setModifierConfigs([$pilotDroneModifier]);
+        $manager->persist($pilotDroneUpgrade);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -632,6 +641,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasUsedPutsch)
             ->addStatusConfig($pariahStatus)
             ->addStatusConfig($upgradedFirefighter)
+            ->addStatusConfig($pilotDroneUpgrade)
             ->addStatusConfig(statusConfig: $hasUsedOpportunistAsCommander)
             ->addStatusConfig($hasUsedOpportunistAsNeronManager)
             ->addStatusConfig($hasUsedOpportunistAsComManager);
@@ -695,6 +705,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_USED_MASS_GGEDON, $hasUsedMassGgedon);
         $this->addReference(PlayerStatusEnum::HAS_READ_MAGE_BOOK, $hasReadMageBook);
         $this->addReference(EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE, $upgradedFirefighter);
+        $this->addReference(EquipmentStatusEnum::PILOT_DRONE_UPGRADE, $pilotDroneUpgrade);
 
         $manager->flush();
     }

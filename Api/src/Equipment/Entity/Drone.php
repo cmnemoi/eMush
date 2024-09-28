@@ -13,6 +13,7 @@ use Mush\Equipment\DroneTasks\ShootHunterTask;
 use Mush\Equipment\DroneTasks\TakeoffTask;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -100,12 +101,7 @@ class Drone extends GameItem
 
     public function getShootHunterSuccessRate(): int
     {
-        $patrolShip = $this->getPlace()->getFirstEquipmentByMechanicNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
-
-        $baseSuccessRate = $patrolShip->getWeaponMechanicOrThrow()->getBaseAccuracy();
-        $droneBonus = 1 + $this->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PILOT_DRONE_UPGRADE)->getCharge() / 100;
-
-        return (int) ($baseSuccessRate * $droneBonus);
+        return (int) ($this->shootHunterBaseSuccessRate() * $this->pilotBonus());
     }
 
     public function cannotApplyTask(AbstractDroneTask $task): bool
@@ -189,5 +185,21 @@ class Drone extends GameItem
     private function getExtinguishFailedAttempts(): int
     {
         return $this->getChargeStatusByName(EquipmentStatusEnum::DRONE_EXTINGUISH_FAILED_ATTEMPTS)?->getCharge() ?? 0;
+    }
+
+    private function shootHunterBaseSuccessRate(): int
+    {
+        $patrolShip = $this->getPlace()->getFirstEquipmentByMechanicNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+
+        return $patrolShip->getWeaponMechanicOrThrow()->getBaseAccuracy();
+    }
+
+    private function pilotBonus(): float
+    {
+        return $this
+            ->getModifiers()
+            ->getByModifierNameOrThrow(ModifierNameEnum::PILOT_DRONE_MODIFIER)
+            ->getVariableModifierConfigOrThrow()
+            ->getDelta();
     }
 }

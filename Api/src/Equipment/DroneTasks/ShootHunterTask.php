@@ -36,8 +36,8 @@ final class ShootHunterTask extends AbstractDroneTask
             return;
         }
 
-        $hunter = $this->getRandomHunterFromDaedalus($drone->getDaedalus());
-        $damage = $this->getInflictedDamage($drone);
+        $hunter = $this->getRandomHunterFrom($drone->getDaedalus());
+        $damage = $this->getInflictedDamageBy($drone);
         $this->removeHealthToHunter($damage, $hunter);
     }
 
@@ -53,7 +53,7 @@ final class ShootHunterTask extends AbstractDroneTask
         $this->eventService->callEvent($hunterVariableEvent, HunterVariableEvent::CHANGE_VARIABLE);
     }
 
-    private function getRandomHunterFromDaedalus(Daedalus $daedalus): Hunter
+    private function getRandomHunterFrom(Daedalus $daedalus): Hunter
     {
         $attackingHunters = $daedalus->getAttackingHunters()->toArray();
 
@@ -65,7 +65,7 @@ final class ShootHunterTask extends AbstractDroneTask
         return $hunter;
     }
 
-    private function getInflictedDamage(Drone $drone): int
+    private function getInflictedDamageBy(Drone $drone): int
     {
         return (int) $this->randomService->getSingleRandomElementFromProbaCollection($drone->shootHunterDamageRange());
     }

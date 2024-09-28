@@ -142,7 +142,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
 
     private function givenOneAttackingHunter(): void
     {
-        $this->daedalus->setHunterPoints(10);
+        $this->daedalus->setHunterPoints(15);
         $hunterPoolEvent = new HunterPoolEvent(
             daedalus: $this->daedalus,
             tags: [],

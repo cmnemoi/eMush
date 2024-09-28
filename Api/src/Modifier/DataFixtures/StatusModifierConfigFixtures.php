@@ -332,6 +332,11 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         );
         $manager->persist($pariahModifier);
 
+        $pilotDroneModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::DRONE_PLUS_20_PERCENTAGE_ON_SHOOT_HUNTER)
+        );
+        $manager->persist($pilotDroneModifier);
+
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -358,6 +363,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE, $immunizedModifierSet0SporesOnChangeVariable);
         $this->addReference($inactiveModifier->getName(), $inactiveModifier);
         $this->addReference($pariahModifier->getName(), $pariahModifier);
+        $this->addReference($pilotDroneModifier->getName(), $pilotDroneModifier);
     }
 
     public function getDependencies(): array

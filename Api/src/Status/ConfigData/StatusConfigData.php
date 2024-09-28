@@ -1618,14 +1618,10 @@ abstract class StatusConfigData
             'name' => EquipmentStatusEnum::PILOT_DRONE_UPGRADE . '_default',
             'statusName' => EquipmentStatusEnum::PILOT_DRONE_UPGRADE,
             'visibility' => VisibilityEnum::HIDDEN,
-            'type' => 'charge_status_config',
-            'chargeVisibility' => VisibilityEnum::HIDDEN,
-            'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
-            'maxCharge' => null,
-            'startCharge' => 12,
-            'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
-            'autoRemove' => false,
-            'modifierConfigs' => [],
+            'type' => 'status_config',
+            'modifierConfigs' => [
+                ModifierNameEnum::DRONE_PLUS_20_PERCENTAGE_ON_SHOOT_HUNTER,
+            ],
             'actionConfigs' => [],
         ],
     ];

@@ -99,4 +99,6 @@ abstract class ModifierNameEnum
     public const string PLAYER_ALWAYS_SUCCEEDS_EXTINGUISH_ACTION = 'player_always_succeeds_extinguish_action';
     public const string GENIUS_MODIFIER = 'genius_modifier';
     public const string FIREFIGHTER_MODIFIER = 'firefighter_modifier';
+    public const string PILOT_DRONE_MODIFIER = 'pilot_drone_modifier';
+    public const string DRONE_PLUS_20_PERCENTAGE_ON_SHOOT_HUNTER = 'drone_plus_20_percentage_on_shoot_hunter';
 }

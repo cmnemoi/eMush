@@ -10,14 +10,19 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Hunter\Event\HunterVariableEvent;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -104,6 +109,48 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->thenAttackingHunterShouldHaveLessHealth($I);
     }
 
+    public function shouldPrintAPublicLogWhenHittingAHunter(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->givenOneAttackingHunter();
+
+        $this->whenIExecuteShootHunterTask();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: "C'était presque ça ! **Robo Wheatley #0** a touché un **Hunter**.",
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: LogEnum::DRONE_HIT_HUNTER,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
+    }
+
+    public function shouldPrintAPublicLogWhenKillingAHunter(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->givenOneAttackingHunter();
+
+        $this->givenHunterHasOneHealthPoint();
+
+        $this->whenIExecuteShootHunterTask();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: '**Robo Wheatley #0** émet une trille de bonheur ! Un **Hunter** de moins, *bli bli blip* !',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: LogEnum::DRONE_KILL_HUNTER,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
+    }
+
     private function givenAPatrolShipInBattle(): void
     {
         $this->patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -160,6 +207,19 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
             time: new \DateTime(),
             mode: VariableEventInterface::SET_VALUE,
         );
+    }
+
+    private function givenHunterHasOneHealthPoint(): void
+    {
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunterVariableEvent = new HunterVariableEvent(
+            hunter: $hunter,
+            variableName: HunterVariableEnum::HEALTH,
+            quantity: -5,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($hunterVariableEvent, HunterVariableEvent::CHANGE_VARIABLE);
     }
 
     private function whenIExecuteShootHunterTask(): void

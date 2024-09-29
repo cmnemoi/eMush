@@ -109,4 +109,5 @@ abstract class ModifierNameEnum
     public const string PLUS_2_HEALTH_POINTS_ON_HEAL = 'modifier_for_player_plus_2_health_points_on_heal';
     public const string DOUBLE_DECODE_REBEL_SIGNAL = 'double_decode_rebel_signal';
     public const string REBEL_MODIFIER = 'rebel_modifier';
+    public const string CAT_OWNER_MODIFIER = 'cat_owner_modifier';
 }

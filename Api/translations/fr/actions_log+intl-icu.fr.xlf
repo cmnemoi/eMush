@@ -131,6 +131,7 @@
         <target>{target_equipment_gender, select,
                         male {**{character}** a lâché un **{target_equipment}**.}
                         female {**{character}** a lâché une **{target_equipment}**.}
+                        name {**{character}** a lâché **{target_equipment}**.}
                         other {invalid gender input}
                 }</target>
       </segment>
@@ -1340,6 +1341,12 @@
       <segment id="upgrade_drone_to_pilot_success" state="final">
         <source>upgrade_drone_to_pilot_success</source>
         <target>**{character}** s'acharne un peu sur ce pauvre {target_drone}. Mais c'est pour son bien. {target_drone} reçoit l'amélioration **Pilote**.</target>
+      </segment>
+    </unit>
+    <unit id="take_cat">
+      <segment id="take_cat" state="final">
+        <source>take_cat</source>
+        <target>**{character}** a pris **{target_equipment}**.</target>
       </segment>
     </unit>
   </file>

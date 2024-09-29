@@ -118,7 +118,7 @@ class Attack extends AttemptAction
                 $this->playerService->killPlayer(
                     player: $target,
                     endReason: EndCauseEnum::mapEndCause($tags),
-                    time: new \DateTime()
+                    author: $this->player,
                 );
 
                 return;

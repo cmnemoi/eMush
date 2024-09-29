@@ -34,5 +34,5 @@ interface PlayerServiceInterface
 
     public function findUserCurrentGame(User $user): ?Player;
 
-    public function killPlayer(Player $player, string $endReason, \DateTime $time): Player;
+    public function killPlayer(Player $player, string $endReason, \DateTime $time = new \DateTime(), ?Player $author = null): Player;
 }

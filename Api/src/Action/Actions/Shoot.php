@@ -117,7 +117,7 @@ class Shoot extends AttemptAction
                 $this->playerService->killPlayer(
                     player: $target,
                     endReason: EndCauseEnum::mapEndCause($reasons),
-                    time: new \DateTime()
+                    author: $this->player,
                 );
 
                 return;

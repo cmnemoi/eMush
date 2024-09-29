@@ -22,7 +22,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class PlayerSubscriber implements EventSubscriberInterface
 {
-    public const TRAUMA_PROBABILTY = 33;
+    public const TRAUMA_AUTHOR_PROBABILTY = 33;
+    public const TRAUMA_WITNESS_PROBABILTY = 5;
 
     private const INFECTION_DISEASE_RATE = 2;
     private const INFECTION_DISEASES_INCUBATING_DELAY = 2;
@@ -88,40 +89,15 @@ final class PlayerSubscriber implements EventSubscriberInterface
 
     public function onDeathPlayer(PlayerEvent $event): void
     {
+        $this->removeDeadPlayerDiseases($event);
+
         // Do not apply trauma diseases if player's end cause is not a "real" death
         if ($event->hasAnyTag(EndCauseEnum::getNotDeathEndCauses()->toArray())) {
             return;
         }
 
-        $playersInRoom = $event->getPlace()->getPlayers()->getPlayerAlive()->filter(
-            static fn (Player $player) => $player !== $event->getPlayer()
-        );
-
-        /** @var Player $player */
-        foreach ($playersInRoom as $player) {
-            if (
-                $this->randomService->isSuccessful(self::TRAUMA_PROBABILTY)
-                && $player->isHuman()
-                && $player->doesNotHaveSkill(SkillEnum::DETACHED_CREWMEMBER)
-            ) {
-                $this->roomLogService->createLog(
-                    LogEnum::TRAUMA_DISEASE,
-                    $event->getPlace(),
-                    VisibilityEnum::PRIVATE,
-                    'event_log',
-                    $player,
-                    ['character_gender' => $player->getGender()],
-                    $event->getTime()
-                );
-                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::TRAUMA, $player);
-            }
-        }
-
-        // remove disease of the player
-        $diseases = $event->getPlayer()->getMedicalConditions();
-        foreach ($diseases as $disease) {
-            $this->playerDiseaseService->delete($disease);
-        }
+        $this->applyTraumaToDeathAuthor($event);
+        $this->applyTraumaToDeathWitnesses($event);
     }
 
     public function onInfectionPlayer(PlayerEvent $event): void
@@ -159,6 +135,59 @@ final class PlayerSubscriber implements EventSubscriberInterface
                 $player,
                 $reasons,
             );
+        }
+    }
+
+    private function removeDeadPlayerDiseases(PlayerEvent $event): void
+    {
+        $diseases = $event->getPlayer()->getMedicalConditions();
+        foreach ($diseases as $disease) {
+            $this->playerDiseaseService->delete($disease);
+        }
+    }
+
+    private function applyTraumaToDeathAuthor(PlayerEvent $event): void
+    {
+        $author = $event->getAuthor();
+
+        if (
+            $this->randomService->isSuccessful(self::TRAUMA_AUTHOR_PROBABILTY)
+            && $author?->isHuman() && $author->doesNotHaveSkill(SkillEnum::DETACHED_CREWMEMBER)
+        ) {
+            $this->roomLogService->createLog(
+                logKey: LogEnum::TRAUMA_DISEASE,
+                place: $event->getPlace(),
+                visibility: VisibilityEnum::PRIVATE,
+                type: 'event_log',
+                player: $author,
+                parameters: ['character_gender' => $author->getGender()],
+                dateTime: $event->getTime()
+            );
+            $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::TRAUMA, $author);
+        }
+    }
+
+    private function applyTraumaToDeathWitnesses(PlayerEvent $event): void
+    {
+        $playersInRoom = $event->getPlace()->getAlivePlayersExcept($event->getPlayer());
+
+        /** @var Player $player */
+        foreach ($playersInRoom as $player) {
+            if (
+                $this->randomService->isSuccessful(self::TRAUMA_WITNESS_PROBABILTY)
+                && $player->isHuman() && $player->doesNotHaveSkill(SkillEnum::DETACHED_CREWMEMBER)
+            ) {
+                $this->roomLogService->createLog(
+                    logKey: LogEnum::TRAUMA_DISEASE,
+                    place: $event->getPlace(),
+                    visibility: VisibilityEnum::PRIVATE,
+                    type: 'event_log',
+                    player: $player,
+                    parameters: ['character_gender' => $player->getGender()],
+                    dateTime: $event->getTime()
+                );
+                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::TRAUMA, $player);
+            }
         }
     }
 }

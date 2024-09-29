@@ -318,7 +318,7 @@ final class PlayerService implements PlayerServiceInterface
         return $this->persist($player);
     }
 
-    public function killPlayer(Player $player, string $endReason, \DateTime $time): Player
+    public function killPlayer(Player $player, string $endReason, \DateTime $time = new \DateTime(), ?Player $author = null): Player
     {
         if ($player->isDead()) {
             throw new \LogicException('Player is already dead');
@@ -330,7 +330,7 @@ final class PlayerService implements PlayerServiceInterface
             $this->markPlayerAsDead($player, $endReason, $time);
             $this->removePlayerTitles($player);
             $this->createClosedPlayer($player, $endReason, $time);
-            $this->dispatchPlayerDeathEvent($player, $endReason, $time);
+            $this->dispatchPlayerDeathEvent($player, $endReason, $time, $author);
             $this->entityManager->commit();
         } catch (\Throwable $e) {
             $this->entityManager->rollback();
@@ -396,9 +396,10 @@ final class PlayerService implements PlayerServiceInterface
         $this->persistClosedPlayer($closedPlayer);
     }
 
-    private function dispatchPlayerDeathEvent(Player $player, string $endCause, \DateTime $date): void
+    private function dispatchPlayerDeathEvent(Player $player, string $endCause, \DateTime $date, ?Player $author = null): void
     {
         $playerDeathEvent = new PlayerEvent($player, [$endCause], $date);
+        $playerDeathEvent->setAuthor($author);
         $this->eventService->callEvent($playerDeathEvent, PlayerEvent::DEATH_PLAYER);
     }
 }

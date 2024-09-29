@@ -1156,5 +1156,11 @@
         <target>Le Patrouilleur de {drone} vient d'atterrir.</target>
       </segment>
     </unit>
+    <unit id="awaken_schrodinger">
+      <segment id="awaken_schrodinger" state="translated">
+        <source>awaken_schrodinger</source>
+        <target>**{target_equipment}** se réveille en même temps que **{character}** et il n'a pas l'air content.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -5,6 +5,7 @@ namespace Mush\RoomLog\Listener;
 use Mush\Action\Actions\Takeoff;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEventReason;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
@@ -30,6 +31,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ActionEnum::OPEN->value => ActionLogEnum::OPEN_SUCCESS,
         LogEnum::FOUND_ITEM_IN_EXPLORATION => LogEnum::FOUND_ITEM_IN_EXPLORATION,
         ActionEnum::PRINT_ZE_LIST->value => LogEnum::TABULATRIX_PRINTS,
+        EquipmentEventReason::AWAKEN_SCHRODINGER => LogEnum::AWAKEN_SCHRODINGER,
     ];
 
     private const DESTRUCTION_LOG_MAP = [

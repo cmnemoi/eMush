@@ -736,6 +736,7 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'antisocial_default',
+                'cat_owner_default',
             ],
         ],
         [

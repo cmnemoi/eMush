@@ -2,7 +2,6 @@
 
 namespace Mush\Player\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -27,7 +26,6 @@ use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
 final class PlayerService implements PlayerServiceInterface
@@ -286,7 +284,7 @@ final class PlayerService implements PlayerServiceInterface
         );
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
 
-        if (!$player->hasAnyStatuses(new ArrayCollection([PlayerStatusEnum::INACTIVE, PlayerStatusEnum::HIGHLY_INACTIVE]))) {
+        if ($player->isActive()) {
             $this->handleTriumphChange($player, $date);
         }
 

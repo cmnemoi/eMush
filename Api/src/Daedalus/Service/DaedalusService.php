@@ -444,7 +444,7 @@ class DaedalusService implements DaedalusServiceInterface
     /**
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
-    public function attributeTitles(Daedalus $daedalus, \DateTime $date): Daedalus
+    public function attributeTitles(Daedalus $daedalus, \DateTime $date): void
     {
         // Get the names of all alive players
         $players = $daedalus->getActivePlayers();
@@ -488,7 +488,20 @@ class DaedalusService implements DaedalusServiceInterface
             }
         }
 
-        return $daedalus;
+        // remove titles from inactive players
+        $inactivePlayers = $daedalus->getAlivePlayers()->getInactivePlayers();
+        foreach ($daedalus->getTitlePriorities() as $titlePriority) {
+            foreach ($titlePriority->getPriority() as $playerName) {
+                $player = $inactivePlayers->getPlayerByName($playerName);
+                if (!$player) {
+                    continue;
+                }
+
+                $player->removeTitle($titlePriority->getName());
+                $playerEvent = new PlayerEvent($player, [$titlePriority->getName()], $date);
+                $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_REMOVED);
+            }
+        }
     }
 
     private function getRandomPlayersWithLessOxygen(Daedalus $daedalus): ?Player

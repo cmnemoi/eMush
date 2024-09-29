@@ -822,6 +822,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
+    public function doesNotHaveTitle(string $title): bool
+    {
+        return $this->hasTitle($title) === false;
+    }
+
     public function getExplorationOrThrow(): Exploration
     {
         if ($this->exploration === null) {
@@ -1075,12 +1080,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    /**
-     * @psalm-suppress InvalidArgument
-     */
     public function isActive(): bool
     {
-        return !$this->hasAnyStatuses(new ArrayCollection([PlayerStatusEnum::INACTIVE, PlayerStatusEnum::HIGHLY_INACTIVE]));
+        return $this->isInactive() === false;
+    }
+
+    public function isInactive(): bool
+    {
+        return $this->hasAnyStatuses([PlayerStatusEnum::INACTIVE, PlayerStatusEnum::HIGHLY_INACTIVE]);
     }
 
     public function getHumanLevel(): int

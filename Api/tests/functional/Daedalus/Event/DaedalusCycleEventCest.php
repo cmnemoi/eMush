@@ -178,6 +178,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
         // given Gioele is commander
         $gioele->addTitle(TitleEnum::COMMANDER);
+        $I->haveInRepository($gioele);
 
         // when cycle change event is triggered
         $event = new DaedalusCycleEvent(
@@ -225,6 +226,45 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         // then Jin Su is not commander, but Gioele is commander
         $I->assertEmpty($jinSu->getTitles());
         $I->assertEquals($gioele->getTitles(), [TitleEnum::COMMANDER]);
+    }
+
+    public function shouldRemoveTitlesFromInactivePlayers(FunctionalTester $I): void
+    {
+        $this->setupNoIncidents();
+
+        // given daedalus is in game so titles can be assigned
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+
+        // given those players in the daedalus
+        /** @var Player $jinSu */
+        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+
+        /** @var Player $gioele */
+        $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
+
+        // given Jin Su is commander
+        $jinSu->addTitle(TitleEnum::COMMANDER);
+        $I->haveInRepository($jinSu);
+
+        // given Jin Su is inactive
+        (new \ReflectionProperty($jinSu, 'lastActionDate'))->setValue($jinSu, new \DateTime('-3 days'));
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::INACTIVE,
+            holder: $jinSu,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when cycle change event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then Jin Su is not commander anymore
+        $I->assertFalse($jinSu->hasTitle(TitleEnum::COMMANDER));
     }
 
     public function shouldImproveDaedalusShieldByFiveIfPlasmaShieldProjectIsActive(FunctionalTester $I): void

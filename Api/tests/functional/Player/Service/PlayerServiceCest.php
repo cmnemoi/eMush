@@ -75,7 +75,7 @@ final class PlayerServiceCest extends AbstractFunctionalTest
     {
         $kuanTi = $this->daedalus->getPlayers()->getPlayerByName(CharacterEnum::KUAN_TI);
 
-        $this->daedalus = $this->daedalusService->attributeTitles($this->daedalus, new \DateTime());
+        $this->daedalusService->attributeTitles($this->daedalus, new \DateTime());
         $I->assertNotEmpty($kuanTi->getTitles());
         $I->assertEquals($kuanTi->getTitles(), [TitleEnum::COMMANDER, TitleEnum::NERON_MANAGER, TitleEnum::COM_MANAGER]);
 

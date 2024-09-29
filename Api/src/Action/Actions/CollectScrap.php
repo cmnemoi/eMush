@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -14,7 +15,6 @@ use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
@@ -25,13 +25,11 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -43,7 +41,6 @@ final class CollectScrap extends AbstractAction
 
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
-    private PlaceServiceInterface $placeService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
@@ -52,14 +49,12 @@ final class CollectScrap extends AbstractAction
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
-        PlaceServiceInterface $placeService,
         StatusServiceInterface $statusService
     ) {
         parent::__construct($eventService, $actionService, $validator);
 
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
-        $this->placeService = $placeService;
         $this->statusService = $statusService;
     }
 
@@ -78,21 +73,26 @@ final class CollectScrap extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        return new Success();
+        $numberOfScrapToCollect = (int) $this->randomService->getSingleRandomElementFromProbaCollection($this->gameEquipmentTarget()->getPatrolShipMechanicOrThrow()->getCollectScrapNumber());
+
+        if ($numberOfScrapToCollect <= 0) {
+            return new Fail();
+        }
+
+        $result = new Success();
+        $result->setQuantity($numberOfScrapToCollect);
+
+        return $result;
     }
 
     protected function applyEffect(ActionResult $result): void
     {
         $daedalus = $this->player->getDaedalus();
-        $patrolShipPlace = $this->getPatrolShipPlace();
-        $patrolShipMechanic = $this->getPatrolShipMechanic();
+        $patrolShipPlace = $this->gameEquipmentTarget()->getPlace();
+        $patrolShipMechanic = $this->gameEquipmentTarget()->getPatrolShipMechanicOrThrow();
         $spaceContent = $daedalus->getSpace()->getEquipments();
 
-        $numberOfScrapToCollect = (int) $this->randomService->getSingleRandomElementFromProbaCollection($patrolShipMechanic->getCollectScrapNumber());
-        if (!$numberOfScrapToCollect) {
-            throw new \RuntimeException('There should be at least one scrap to collect if CollectScrap action is called');
-        }
-        $scrapToCollect = $this->randomService->getRandomElements($spaceContent->toArray(), $numberOfScrapToCollect);
+        $scrapToCollect = $this->randomService->getRandomElements($spaceContent->toArray(), $result->getQuantityOr(0));
 
         /** @var GameEquipment $scrap */
         foreach ($scrapToCollect as $scrap) {
@@ -124,7 +124,7 @@ final class CollectScrap extends AbstractAction
             player: $this->player,
             variableName: PlayerVariableEnum::HEALTH_POINT,
             quantity: -$damage,
-            tags: $this->getActionConfig()->getActionTags(),
+            tags: $this->getTags(),
             time: new \DateTime()
         );
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -132,14 +132,8 @@ final class CollectScrap extends AbstractAction
 
     private function damagePatrolShip(PatrolShip $patrolShipMechanic, Place $patrolShipPlace): void
     {
-        /** @var GameEquipment $patrolShip */
-        $patrolShip = $this->target;
-
-        /** @var ChargeStatus $patrolShipArmor */
-        $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
-        if ($patrolShipArmor === null) {
-            throw new \RuntimeException('PatrolShip should have a patrol ship armor status');
-        }
+        $patrolShip = $this->gameEquipmentTarget();
+        $patrolShipArmor = $patrolShip->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
         $damage = (int)
             $this->randomService->getSingleRandomElementFromProbaCollection(
@@ -149,7 +143,7 @@ final class CollectScrap extends AbstractAction
         $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,
             delta: -$damage,
-            tags: $this->getActionConfig()->getActionTags(),
+            tags: $this->getTags(),
             time: new \DateTime()
         );
 
@@ -171,33 +165,9 @@ final class CollectScrap extends AbstractAction
             newHolder: $patrolShipPlace,
             author: $this->player,
             visibility: VisibilityEnum::PUBLIC,
-            tags: $this->getActionConfig()->getActionTags(),
+            tags: $this->getTags(),
             time: new \DateTime()
         );
         $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);
-    }
-
-    private function getPatrolShipPlace(): Place
-    {
-        /** @var GameEquipment $patrolShip */
-        $patrolShip = $this->target;
-        $patrolShipPlace = $this->placeService->findByNameAndDaedalus($patrolShip->getName(), $patrolShip->getDaedalus());
-        if (!$patrolShipPlace) {
-            throw new \RuntimeException('Daedalus should have a PatrolShip place');
-        }
-
-        return $patrolShipPlace;
-    }
-
-    private function getPatrolShipMechanic(): PatrolShip
-    {
-        /** @var GameEquipment $patrolShip */
-        $patrolShip = $this->target;
-        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
-        if (!$patrolShipMechanic instanceof PatrolShip) {
-            throw new \RuntimeException('PatrolShip should have a PatrolShip mechanic');
-        }
-
-        return $patrolShipMechanic;
     }
 }

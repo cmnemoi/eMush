@@ -45,6 +45,11 @@ abstract class ActionResult
         return $this->quantity ?? throw new \RuntimeException('Quantity is not set');
     }
 
+    public function getQuantityOr(int $default): int
+    {
+        return $this->quantity ?? $default;
+    }
+
     public function getName(): string
     {
         return self::DEFAULT;

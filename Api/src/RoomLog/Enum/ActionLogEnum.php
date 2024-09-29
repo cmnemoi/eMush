@@ -147,6 +147,7 @@ abstract class ActionLogEnum
     public const string MASS_GGEDON_SUCCESS = 'mass_ggedon_success';
     public const string REINFORCE_SUCCESS = 'reinforce_success';
     public const string REINFORCE_FAIL = 'reinforce_fail';
+    public const string COLLECT_SCRAP_FAIL = 'collect_scrap_fail';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -514,6 +515,9 @@ abstract class ActionLogEnum
         ActionEnum::REINFORCE->value => [
             ActionOutputEnum::SUCCESS => self::REINFORCE_SUCCESS,
             ActionOutputEnum::FAIL => self::REINFORCE_FAIL,
+        ],
+        ActionEnum::COLLECT_SCRAP->value => [
+            ActionOutputEnum::FAIL => self::COLLECT_SCRAP_FAIL,
         ],
     ];
 

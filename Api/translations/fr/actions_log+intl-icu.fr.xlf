@@ -1318,5 +1318,11 @@
         <target>Vous vous reculez fièrement et... patatra... bon... tant pis... Votre tentative de blindage a échoué.</target>
       </segment>
     </unit>
+    <unit id="collect_scrap_fail">
+      <segment id="collect_scrap_fail" state="final">
+        <source>collect_scrap_fail</source>
+        <target>**{character}** tente un looping audacieux pour attraper un débris en plein vol, mais ne collecte rien...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

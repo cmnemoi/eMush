@@ -15,7 +15,7 @@ use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterVariableEvent;
 use Mush\Status\Service\StatusServiceInterface;
 
-final class ShootHunterTask extends AbstractDroneTask
+class ShootHunterTask extends AbstractDroneTask
 {
     public function __construct(
         protected EventServiceInterface $eventService,
@@ -40,7 +40,6 @@ final class ShootHunterTask extends AbstractDroneTask
 
         $hunter = $this->getRandomHunterFrom($drone->getDaedalus());
         $initialHealth = $hunter->getHealth();
-
         $damage = $this->getInflictedDamageBy($drone);
 
         if ($initialHealth - $damage <= 0) {

@@ -13,6 +13,8 @@ use Mush\Equipment\DroneTasks\DroneTasksHandler;
 use Mush\Equipment\DroneTasks\ExtinguishFireTask;
 use Mush\Equipment\DroneTasks\MoveInRandomAdjacentRoomTask;
 use Mush\Equipment\DroneTasks\RepairBrokenEquipmentTask;
+use Mush\Equipment\DroneTasks\ShootHunterTask;
+use Mush\Equipment\DroneTasks\TakeoffTask;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -22,6 +24,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\FakeD100RollService as D100Roll;
 use Mush\Game\Service\Random\FakeGetRandomIntegerService as GetRandomInteger;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayService as GetRandomElementsFromArray;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Factory\StatusFactory;
@@ -37,6 +40,10 @@ final class DroneTasksHandlerTest extends TestCase
     private ExtinguishFireTask $extinguishFireTask;
     private RepairBrokenEquipmentTask $repairBrokenEquipmentTask;
     private MoveInRandomAdjacentRoomTask $moveInRandomAdjacentRoomTask;
+    private TakeoffTask $takeoffTask;
+    private ShootHunterTask $shootHunterTask;
+
+    private StatusService $statusService;
 
     private Daedalus $daedalus;
     private Drone $drone;
@@ -47,32 +54,49 @@ final class DroneTasksHandlerTest extends TestCase
      */
     protected function setUp(): void
     {
+        $this->statusService = new StatusService();
+
         $this->extinguishFireTask = new ExtinguishFireTask(
             $this->createStub(EventServiceInterface::class),
-            new StatusService(),
+            $this->statusService,
             new InMemoryActionConfigRepository(),
             new D100Roll(isSuccessful: false), // extinguish fire will always fail
         );
 
         $this->repairBrokenEquipmentTask = new RepairBrokenEquipmentTask(
             $this->createStub(EventServiceInterface::class),
-            new StatusService(),
+            $this->statusService,
             new D100Roll(isSuccessful: false), // repair will always fail
             new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
         );
 
         $this->moveInRandomAdjacentRoomTask = new MoveInRandomAdjacentRoomTask(
             $this->createStub(EventServiceInterface::class),
-            new StatusService(),
+            $this->statusService,
             $this->createStub(GameEquipmentServiceInterface::class),
             new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
         );
 
+        $this->takeoffTask = new TakeoffTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
+            $this->createStub(GameEquipmentServiceInterface::class),
+        );
+
+        $this->shootHunterTask = new ShootHunterTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            $this->createStub(RandomServiceInterface::class),
+        );
+
         $this->droneTasks = new DroneTasksHandler(
             d100Roll: new D100Roll(isSuccessful: true), // turbo upgrade will always succeed
-            statusService: new StatusService(),
+            statusService: $this->statusService,
             extinguishFireTask: $this->extinguishFireTask,
             repairBrokenEquipmentTask: $this->repairBrokenEquipmentTask,
+            takeoffTask: $this->takeoffTask,
+            shootHunterTask: $this->shootHunterTask,
             moveInRandomAdjacentRoomTask: $this->moveInRandomAdjacentRoomTask,
         );
 
@@ -87,6 +111,8 @@ final class DroneTasksHandlerTest extends TestCase
     protected function tearDown(): void
     {
         \Mockery::close();
+
+        $this->statusService->statuses->clear();
     }
 
     public function testTurboUpgradeAllowsDroneToActTwice(): void
@@ -104,7 +130,9 @@ final class DroneTasksHandlerTest extends TestCase
     private function givenDroneInRoom(): void
     {
         $this->drone = GameEquipmentFactory::createDroneForHolder($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
-        $this->drone->getChargeStatus()->setCharge(1);
+        $chargeStatus = $this->drone->getChargeStatus();
+        $chargeStatus->setCharge(1);
+        $this->statusService->persist($chargeStatus);
     }
 
     private function givenBrokenMycoscanInTheRoom(): void

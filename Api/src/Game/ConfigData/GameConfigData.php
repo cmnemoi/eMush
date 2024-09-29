@@ -473,6 +473,7 @@ class GameConfigData
                 EquipmentStatusEnum::DRONE_REPAIR_FAILED_ATTEMPTS . '_default',
                 EquipmentStatusEnum::DRONE_EXTINGUISH_FAILED_ATTEMPTS . '_default',
                 EquipmentStatusEnum::PILOT_DRONE_UPGRADE . '_default',
+                EquipmentStatusEnum::DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

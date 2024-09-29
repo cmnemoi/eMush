@@ -101,7 +101,9 @@ class Drone extends GameItem
 
     public function getShootHunterSuccessRate(): int
     {
-        return (int) ($this->shootHunterBaseSuccessRate() * $this->pilotBonus());
+        $successRate = $this->shootHunterBaseSuccessRate() * $this->pilotBonus();
+
+        return (int) ($successRate * self::ATTEMPT_INCREASE ** $this->getShootHunterFailedAttempts());
     }
 
     public function cannotApplyTask(AbstractDroneTask $task): bool
@@ -185,6 +187,11 @@ class Drone extends GameItem
     private function getExtinguishFailedAttempts(): int
     {
         return $this->getChargeStatusByName(EquipmentStatusEnum::DRONE_EXTINGUISH_FAILED_ATTEMPTS)?->getCharge() ?? 0;
+    }
+
+    private function getShootHunterFailedAttempts(): int
+    {
+        return $this->getChargeStatusByName(EquipmentStatusEnum::DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS)?->getCharge() ?? 0;
     }
 
     private function shootHunterBaseSuccessRate(): int

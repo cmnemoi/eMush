@@ -189,7 +189,7 @@ final class FakeStatusService implements StatusServiceInterface
         /** @var ?ChargeStatus $chargeStatus */
         $chargeStatus = $this->statuses
             ->filter(static fn (Status $chargeStatus) => $chargeStatus instanceof ChargeStatus)
-            ->filter(static fn (Status $chargeStatus) => $chargeStatus->getName() === $name && $chargeStatus->getOwner() === $holder)
+            ->filter(static fn (Status $chargeStatus) => $chargeStatus->getName() === $name && $chargeStatus->getOwner()->equals($holder))
             ->first() ?: null;
 
         if ($chargeStatus === null) {

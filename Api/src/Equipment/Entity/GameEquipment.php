@@ -68,7 +68,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    private int $id;
+    protected int $id;
 
     #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: StatusTarget::class, cascade: ['ALL'])]
     private Collection $statuses;

@@ -29,7 +29,9 @@ final class GameEquipmentFactory
 
         $drone = $droneConfig->createGameEquipment($holder);
 
-        StatusFactory::createChargeStatusWithName(
+        self::setupEquipmentId($drone);
+
+        StatusFactory::createChargeStatusFromStatusName(
             EquipmentStatusEnum::ELECTRIC_CHARGES,
             $drone,
         );
@@ -99,5 +101,10 @@ final class GameEquipmentFactory
             ->setName($equipmentConfig->getEquipmentName());
 
         return $equipment;
+    }
+
+    private static function setupEquipmentId(GameEquipment $equipment): void
+    {
+        (new \ReflectionProperty($equipment, 'id'))->setValue($equipment, crc32(serialize($equipment)));
     }
 }

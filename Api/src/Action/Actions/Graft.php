@@ -12,6 +12,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ActionProviderIsInPlayerInventory;
 use Mush\Action\Validator\FruitToGraftGivesDifferentPlant;
 use Mush\Action\Validator\HasSkill;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -77,8 +78,8 @@ final class Graft extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         if ($result->isASuccess()) {
-            $this->createGraftedFruitPlant();
-            $this->reduceMaturationTime();
+            $graftedFruitPlant = $this->createGraftedFruitPlant();
+            $this->reduceMaturationTime($graftedFruitPlant);
         } else {
             $this->createHydropot();
         }
@@ -87,9 +88,9 @@ final class Graft extends AbstractAction
         $this->destroyGraftedFruit();
     }
 
-    private function createGraftedFruitPlant(): void
+    private function createGraftedFruitPlant(): GameEquipment
     {
-        $this->gameEquipmentService->createGameEquipmentFromName(
+        return $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: $this->graftedFruit()->getPlantNameOrThrow(),
             equipmentHolder: $this->player->getPlace(),
             reasons: $this->getTags(),
@@ -97,13 +98,12 @@ final class Graft extends AbstractAction
         );
     }
 
-    private function reduceMaturationTime(): void
+    private function reduceMaturationTime(GameEquipment $graftedFruitPlant): void
     {
         if ($this->player->doesNotHaveSkill(SkillEnum::GREEN_THUMB)) {
             return;
         }
 
-        $graftedFruitPlant = $this->player->getPlace()->getEquipmentByNameOrThrow($this->graftedFruit()->getPlantNameOrThrow());
         $this->statusService->updateCharge(
             chargeStatus: $graftedFruitPlant->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG),
             delta: $this->greenThumbBonus(),

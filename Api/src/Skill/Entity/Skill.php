@@ -15,6 +15,7 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\ConfigData\SkillConfigData;
@@ -23,7 +24,7 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\SkillPointsEnum;
 
 #[ORM\Entity]
-class Skill implements ActionProviderInterface
+class Skill implements ActionProviderInterface, ModifierProviderInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -193,5 +194,10 @@ class Skill implements ActionProviderInterface
     public function getLogName(): string
     {
         return $this->getNameAsString();
+    }
+
+    public function getAllModifierConfigs(): ArrayCollection
+    {
+        return $this->skillConfig->getModifierConfigs();
     }
 }

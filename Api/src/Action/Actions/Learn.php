@@ -95,7 +95,7 @@ final class Learn extends AbstractAction
 
     private function deleteApprenticeSkillFromPlayer(): void
     {
-        $this->deletePlayerSkill->execute(skill: SkillEnum::APPRENTICE, player: $this->player);
+        $this->deletePlayerSkill->execute(skillName: SkillEnum::APPRENTICE, player: $this->player);
     }
 
     private function createHasLearnedSkillStatus(): void

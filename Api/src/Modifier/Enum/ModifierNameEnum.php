@@ -91,4 +91,5 @@ abstract class ModifierNameEnum
     public const string GREEN_THUMB_MODIFIER = 'green_thumb_modifier';
     public const string PLAYER_MINUS_33_PERCENTAGE_HUNTERS = 'player_minus_33_percentage_hunters';
     public const string STRATEGURU_MODIFIER = 'strateguru_modifier';
+    public const string SHRINK_MODIFIER = 'shrink_modifier';
 }

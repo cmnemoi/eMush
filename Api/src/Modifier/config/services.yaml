@@ -23,11 +23,4 @@ services:
     resource: '../ModifierHandler/'
     tags: ['mush.modifier.modifier_handler']
 
-  Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader:
-    public: true
-  Mush\Modifier\ConfigData\TriggerVariableEventModifierConfigDataLoader:
-    public: true
-  Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader:
-    public: true
-  Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader:
-    public: true
+  Mush\Modifier\Service\ModifierCreationServiceInterface: '@Mush\Modifier\Service\ModifierCreationService'

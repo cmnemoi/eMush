@@ -2268,7 +2268,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_player_+1morale_point_on_new_cycle_if_lying_down',
-            'modifierName' => null,
+            'modifierName' => ModifierNameEnum::SHRINK_MODIFIER,
             'targetEvent' => PlaceCycleEvent::PLACE_NEW_CYCLE,
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,

@@ -6,7 +6,6 @@ namespace Mush\Modifier\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
-use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 
 /**

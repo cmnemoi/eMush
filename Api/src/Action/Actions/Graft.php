@@ -78,7 +78,8 @@ final class Graft extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         if ($result->isASuccess()) {
-            $this->reduceMaturationTime($this->createGraftedFruitPlant());
+            $graftedFruitPlant = $this->createGraftedFruitPlant();
+            $this->reduceMaturationTime($graftedFruitPlant);
         } else {
             $this->createHydropot();
         }

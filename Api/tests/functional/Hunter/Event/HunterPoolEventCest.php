@@ -7,6 +7,8 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -101,11 +103,26 @@ final class HunterPoolEventCest extends AbstractFunctionalTest
     {
         $this->addSkillToPlayer(SkillEnum::STRATEGURU, $I);
 
-        $this->daedalus->setHunterPoints(40); // should be enough to unpool 4 hunters
+        $this->daedalus->setHunterPoints(90); // should be enough to unpool 9 hunters
 
         $unpoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
-        $I->assertCount(3, $this->daedalus->getAttackingHunters());
+        $I->assertCount(6, $this->daedalus->getAttackingHunters());
+    }
+
+    public function strateguruShouldPrintASingleLogWhenWorking(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::STRATEGURU, $I);
+
+        $this->daedalus->setHunterPoints(90); // should be enough to unpool 9 hunters
+
+        $unpoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
+        $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+
+        $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: ['log' => LogEnum::STRATEGURU_WORKED]
+        );
     }
 }

@@ -133,13 +133,15 @@ final class HunterService implements HunterServiceInterface
     public function unpoolHunters(Daedalus $daedalus, array $tags, \DateTime $time): void
     {
         if (\in_array(DaedalusEvent::TRAVEL_FINISHED, $tags, true)) {
-            $this->unpoolHuntersForCatchingWave($daedalus);
+            $followingHunters = $this->getFollowingHunters($daedalus);
+            $this->unpoolHuntersForCatchingWave($daedalus, $followingHunters);
         } else {
-            $this->unpoolHuntersForRandomWave($daedalus, $time);
+            $hunterPoints = $this->getHunterPoints($daedalus);
+            $this->unpoolHuntersForRandomWave($daedalus, $hunterPoints, $time);
         }
     }
 
-    private function unpoolHuntersForRandomWave(Daedalus $daedalus, \DateTime $time): void
+    private function unpoolHuntersForRandomWave(Daedalus $daedalus, int $hunterPoints, \DateTime $time): void
     {
         $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, HunterEnum::getAll());
 
@@ -147,7 +149,7 @@ final class HunterService implements HunterServiceInterface
         $hunterTypes = new ArrayCollection($hunterProbaCollection->getKeys());
         $wave = new HunterCollection();
 
-        while ($this->getHunterPoints($daedalus) >= $this->getMinCost($daedalus, $hunterTypes)) {
+        while ($hunterPoints >= $this->getMinCost($daedalus, $hunterTypes)) {
             $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, $hunterTypes);
 
             $hunterNameToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($hunterProbaCollection);
@@ -164,8 +166,7 @@ final class HunterService implements HunterServiceInterface
             $hunter->resetTarget();
 
             // do not create a hunter if max per wave is reached
-            $maxPerWave = $hunter->getHunterConfig()->getMaxPerWave();
-            if ($maxPerWave && $wave->getAllHuntersByType($hunter->getName())->count() === $maxPerWave) {
+            if ($wave->getAllHuntersByType($hunter->getName())->count() === $hunter->getMaxPerWave()) {
                 $hunterTypes->removeElement($hunterNameToCreate);
                 $this->delete([$hunter]);
 
@@ -173,7 +174,8 @@ final class HunterService implements HunterServiceInterface
             }
 
             $wave->add($hunter);
-            $daedalus->removeHunterPoints($hunter->getHunterConfig()->getDrawCost());
+            $daedalus->removeHunterPoints($hunter->getDrawCost());
+            $hunterPoints -= $hunter->getDrawCost();
         }
 
         $wave->map(fn ($hunter) => $this->createHunterStatuses($hunter, $time));
@@ -181,17 +183,17 @@ final class HunterService implements HunterServiceInterface
         $this->persist([$daedalus]);
     }
 
-    private function unpoolHuntersForCatchingWave(Daedalus $daedalus): void
+    private function unpoolHuntersForCatchingWave(Daedalus $daedalus, int $followingHunters): void
     {
         $wave = new HunterCollection();
-        for ($i = 0; $i < $this->getFollowingHunters($daedalus); ++$i) {
+        for ($i = 0; $i < $followingHunters; ++$i) {
             $hunter = $this->drawHunterFromPoolByName($daedalus, HunterEnum::HUNTER);
             if (!$hunter) {
                 $hunter = $this->createHunterFromName($daedalus, HunterEnum::HUNTER);
             }
 
             $wave->add($hunter);
-            $daedalus->removeHunterPoints($hunter->getHunterConfig()->getDrawCost());
+            $daedalus->removeHunterPoints($hunter->getDrawCost());
         }
 
         $this->persist($wave->toArray());
@@ -200,7 +202,7 @@ final class HunterService implements HunterServiceInterface
 
     private function addBonusToHunterHitChance(Hunter $hunter): void
     {
-        $hunter->setHitChance($hunter->getHitChance() + $hunter->getHunterConfig()->getBonusAfterFailedShot());
+        $hunter->setHitChance($hunter->getHitChance() + $hunter->getBonusAfterFailedShot());
         $this->persist([$hunter]);
     }
 
@@ -214,7 +216,7 @@ final class HunterService implements HunterServiceInterface
             $this->eventService->callEvent(new StrateguruWorkedEvent($daedalus), StrateguruWorkedEvent::class);
         }
 
-        return (int) $hunterPoints;
+        return (int) ceil($hunterPoints);
     }
 
     private function getFollowingHunters(Daedalus $daedalus): int
@@ -229,7 +231,7 @@ final class HunterService implements HunterServiceInterface
             $this->eventService->callEvent(new StrateguruWorkedEvent($daedalus), StrateguruWorkedEvent::class);
         }
 
-        return (int) $followingHunters;
+        return (int) ceil($followingHunters);
     }
 
     private function strateguruActivationRate(Daedalus $daedalus): int
@@ -343,9 +345,7 @@ final class HunterService implements HunterServiceInterface
             return $hunter->getHealth();
         }
 
-        $hunterDamageRange = $hunter->getHunterConfig()->getDamageRange();
-
-        return (int) $this->randomService->getSingleRandomElementFromProbaCollection($hunterDamageRange);
+        return (int) $this->randomService->getSingleRandomElementFromProbaCollection($hunter->getDamageRange());
     }
 
     /**

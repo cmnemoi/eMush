@@ -8,13 +8,13 @@ export class ModerationSanction {
     public reason!: string;
     public message: string|null = null;
     public isActive!: boolean;
-    public startDate!: Date;
-    public endDate!: Date;
     public authorName!: string;
     public isWarning!: boolean;
     public playerId!: number;
     public playerName!: string;
     public sanctionEvidence!: SanctionEvidence;
+    private startDate!: Date;
+    private endDate!: Date;
 
     public load(object: any): ModerationSanction {
         if (object) {
@@ -23,20 +23,8 @@ export class ModerationSanction {
             this.reason = object.reason;
             this.message = object.message;
             this.isActive = object.isActive;
-            this.startDate = new Date(object.startDate).toLocaleString("en-US", {
-                weekday: "short",
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-                hour: "numeric"
-            });
-            this.endDate = new Date(object.endDate).toLocaleString("en-US", {
-                weekday: "short",
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-                hour: "numeric"
-            });
+            this.startDate = new Date(object.startDate);
+            this.endDate = new Date(object.endDate);
             this.authorName = object.authorName;
             this.playerId = object.playerId;
             this.playerName = object.playerName;
@@ -59,6 +47,26 @@ export class ModerationSanction {
         }
 
         return this;
+    }
+
+    public startDateGivenLocale(locale: string): string {
+        return this.startDate.toLocaleDateString(locale, {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric"
+        });
+    }
+
+    public endDateGivenLocale(locale: string): string {
+        return this.endDate.toLocaleDateString(locale, {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric"
+        });
     }
 }
 

@@ -53,12 +53,12 @@
             <div class="row" :class="{ active: moderationSanction.isActive, inactive: !moderationSanction.isActive }">
                 <div class="cell double">
                     <strong>{{ isReport() ? $t('moderation.sanctionDetail.reportDate') : $t('moderation.sanctionDetail.startDate') }}</strong>
-                    {{ moderationSanction.startDate }}
+                    {{ moderationSanction?.startDateGivenLocale(currentLocale) }}
                 </div>
                 <div class="cell double" v-if="!isReport()">
                     <div class="cell double">
                         <strong>{{ $t('moderation.sanctionDetail.endDate') }}</strong>
-                        {{ moderationSanction.endDate }}
+                        {{ moderationSanction?.endDateGivenLocale(currentLocale) }}
                     </div>
                 </div>
             </div>
@@ -96,6 +96,11 @@ export default defineComponent({
         "close",
         "update"
     ],
+    computed: {
+        currentLocale() {
+            return this.$i18n.locale;
+        }
+    },
     methods: {
         close() {
             this.$emit('close');

@@ -108,6 +108,7 @@ class ActionsFixtures extends Fixture
     public const string TAKEOFF_TO_PLANET = 'takeoff_to_planet';
     public const string TAKEOFF_TO_PLANET_PATROL_SHIP = 'takeoff_to_planet_patrol_ship';
     public const string CHANGE_NERON_CPU_PRIORITY = 'change_neron_cpu_priority';
+    public const string TAKE_CAT = 'take_cat';
 
     public function load(ObjectManager $manager): void
     {
@@ -1093,6 +1094,16 @@ class ActionsFixtures extends Fixture
 
         $upgradeDroneToPilot = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPGRADE_DRONE_TO_PILOT));
         $manager->persist($upgradeDroneToPilot);
+
+        $take_cat = new ActionConfig();
+                $take_cat
+                    ->setName(ActionEnum::TAKE_CAT->value)
+                    ->setActionName(ActionEnum::TAKE_CAT)
+                    ->setRange(ActionRangeEnum::SELF)
+                    ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+                    ->setInjuryRate(20);
+                $manager->persist($take_cat);
+
 
         $manager->flush();
 

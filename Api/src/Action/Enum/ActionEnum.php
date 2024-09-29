@@ -68,6 +68,7 @@ enum ActionEnum: string
     case UPGRADE_DRONE_TO_TURBO = 'upgrade_drone_to_turbo';
     case UPGRADE_DRONE_TO_FIREFIGHTER = 'upgrade_drone_to_firefighter';
     case UPGRADE_DRONE_TO_PILOT = 'upgrade_drone_to_pilot';
+    case TAKE_CAT = 'take_cat';
 
     // Equipment-enabled actions
     case INSERT_FUEL = 'insert_fuel';
@@ -372,6 +373,7 @@ enum ActionEnum: string
             self::HYBRIDIZE,
             self::ULTRAHEAL,
             self::PUBLIC_BROADCAST,
+            self::TAKE_CAT,
         ]);
     }
 

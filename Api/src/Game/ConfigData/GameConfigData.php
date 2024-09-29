@@ -353,6 +353,7 @@ class GameConfigData
                 EquipmentEnum::HYDROPONIC_INCUBATOR . '_default',
                 'jukebox_blueprint_default',
                 'support_drone_blueprint_default',
+                ItemEnum::SCHRODINGER . '_default',
             ],
             'statusConfigs' => [
                 'alien_artefact_default',

@@ -229,6 +229,7 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [
                 'antisocial_modifier_for_player_-1moralPoint_on_new_cycle_if_player_in_room_not_alone',
+                'cat_owner_modifier_for_player_set_schrodinger_cant_hurt'
             ],
             'actionConfigs' => [],
         ],

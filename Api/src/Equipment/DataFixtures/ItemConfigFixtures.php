@@ -235,7 +235,17 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($drone);
 
-        // @TODO add drones, cat, coffee thermos, lunchbox, survival kit
+        $schrodinger = new ItemConfig();
+        $schrodinger
+            ->setEquipmentName(ItemEnum::SCHRODINGER)
+            ->setIsStackable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setActionConfigs([$take_cat, $examineAction, $dropAction]) //@TODO caress, infectious_caress, etc.
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($schrodinger);
+
+        // @TODO add coffee thermos, lunchbox, survival kit
 
         $gameConfig
             ->addEquipmentConfig($mycoAlarm)

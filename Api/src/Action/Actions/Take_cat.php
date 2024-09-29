@@ -56,7 +56,6 @@ class Take_cat extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $this->putItemInPlayerInventory();
-
     }
 
     private function putItemInPlayerInventory(): void

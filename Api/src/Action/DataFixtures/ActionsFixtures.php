@@ -1095,15 +1095,14 @@ class ActionsFixtures extends Fixture
         $upgradeDroneToPilot = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPGRADE_DRONE_TO_PILOT));
         $manager->persist($upgradeDroneToPilot);
 
-        $take_cat = new ActionConfig();
-                $take_cat
-                    ->setName(ActionEnum::TAKE_CAT->value)
-                    ->setActionName(ActionEnum::TAKE_CAT)
-                    ->setRange(ActionRangeEnum::SELF)
-                    ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-                    ->setInjuryRate(20);
-                $manager->persist($take_cat);
-
+        $takeCat = new ActionConfig();
+        $takeCat
+            ->setName(ActionEnum::TAKE_CAT->value)
+            ->setActionName(ActionEnum::TAKE_CAT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setInjuryRate(20);
+        $manager->persist($takeCat);
 
         $manager->flush();
 

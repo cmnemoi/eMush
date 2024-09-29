@@ -8,6 +8,7 @@ use Mush\Equipment\Event\AbstractDroneEvent;
 use Mush\Equipment\Event\DroneExtinguishedFireEvent;
 use Mush\Equipment\Event\DroneHitHunterEvent;
 use Mush\Equipment\Event\DroneKillHunterEvent;
+use Mush\Equipment\Event\DroneLandedEvent;
 use Mush\Equipment\Event\DroneMovedEvent;
 use Mush\Equipment\Event\DroneRepairedEvent;
 use Mush\Equipment\Event\DroneTakeoffEvent;
@@ -30,6 +31,7 @@ final class DroneEventSubscriber implements EventSubscriberInterface
             DroneExtinguishedFireEvent::class => 'onDroneExtinguishedFire',
             DroneHitHunterEvent::class => 'onDroneHitHunter',
             DroneKillHunterEvent::class => 'onDroneKillHunter',
+            DroneLandedEvent::class => 'onDroneLanded',
             DroneMovedEvent::class => 'onDroneMoved',
             DroneRepairedEvent::class => 'onDroneRepaired',
             DroneTakeoffEvent::class => 'onDroneTakeoff',
@@ -67,6 +69,19 @@ final class DroneEventSubscriber implements EventSubscriberInterface
     {
         $this->roomLogService->createLog(
             LogEnum::DRONE_KILL_HUNTER,
+            $event->getDrone()->getPlace(),
+            $event->getVisibility(),
+            'event_log',
+            null,
+            $this->getLogParameters($event),
+            $event->getTime()
+        );
+    }
+
+    public function onDroneLanded(DroneLandedEvent $event): void
+    {
+        $this->roomLogService->createLog(
+            LogEnum::DRONE_LAND,
             $event->getDrone()->getPlace(),
             $event->getVisibility(),
             'event_log',

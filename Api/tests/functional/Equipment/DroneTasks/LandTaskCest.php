@@ -1,0 +1,202 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Mush\Tests\functional\Equipment\DroneTasks;
+
+use Mush\Equipment\DroneTasks\LandTask;
+use Mush\Equipment\Entity\Drone;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
+
+/**
+ * @internal
+ */
+final class LandTaskCest extends AbstractFunctionalTest
+{
+    private LandTask $task;
+    private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
+
+    private Drone $drone;
+    private GameEquipment $patrolShip;
+
+    public function _before(FunctionalTester $I): void
+    {
+        parent::_before($I);
+
+        $this->task = $I->grabService(LandTask::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        $this->createExtraPlace(RoomEnum::ALPHA_BAY, $I, $this->daedalus);
+        $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
+        $this->givenAPatrolShipInItsPlace();
+        $this->givenADroneInPatrolShipPlace();
+    }
+
+    public function shouldNotBeAvailableIfDroneIsNotAPilot(FunctionalTester $I): void
+    {
+        $this->whenIExecuteLandTask();
+
+        $this->thenTaskShouldNotBeApplicable($I);
+    }
+
+    public function shouldNotBeAvailableIfLandActionIsNotAvailable(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->givenPatrolShipIsBroken();
+
+        $this->whenIExecuteLandTask();
+
+        $this->thenTaskShouldNotBeApplicable($I);
+    }
+
+    public function shouldNotBeAvailableIfHuntersAreAttacking(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->givenSomeHuntersAreAttacking();
+
+        $this->whenIExecuteLandTask();
+
+        $this->thenTaskShouldNotBeApplicable($I);
+    }
+
+    public function shouldMoveDroneToPatrolShipDockingPlace(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->whenIExecuteLandTask();
+
+        $this->thenDroneShouldBeInPatrolShipDockingPlace($I);
+    }
+
+    public function shouldMovePatrolShipToItsDockingPlace(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->whenIExecuteLandTask();
+
+        $this->thenPatrolShipShouldBeInItsDockingPlace($I);
+    }
+
+    public function shouldPrintPublicLog(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->whenIExecuteLandTask();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'Le Patrouilleur de **Robo Wheatley #0** vient d\'atterrir.',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: LogEnum::DRONE_LAND,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
+    }
+
+    private function givenADroneInPatrolShipPlace(): void
+    {
+        $this->drone = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::SUPPORT_DRONE,
+            equipmentHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN),
+            reasons: [],
+            time: new \DateTime()
+        );
+        $this->statusService->createOrIncrementChargeStatus(
+            name: EquipmentStatusEnum::ELECTRIC_CHARGES,
+            holder: $this->drone,
+        );
+        $this->setupDroneNicknameAndSerialNumber($this->drone, 0, 0);
+    }
+
+    private function givenAPatrolShipInItsPlace(): void
+    {
+        $this->patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            equipmentHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenDroneIsAPilot(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::PILOT_DRONE_UPGRADE,
+            holder: $this->drone,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenPatrolShipIsBroken(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $this->patrolShip,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenSomeHuntersAreAttacking(): void
+    {
+        $hunterPoolEvent = new HunterPoolEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+    }
+
+    private function whenIExecuteLandTask(): void
+    {
+        $this->task->execute($this->drone, new \DateTime());
+    }
+
+    private function thenTaskShouldNotBeApplicable(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->task->isApplicable());
+    }
+
+    private function thenDroneShouldBeInPatrolShipDockingPlace(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: RoomEnum::ALPHA_BAY,
+            actual: $this->drone->getPlace()->getName(),
+        );
+    }
+
+    private function thenPatrolShipShouldBeInItsDockingPlace(FunctionalTester $I): void
+    {
+        $I->assertEquals(RoomEnum::ALPHA_BAY, $this->patrolShip->getPlace()->getName());
+    }
+
+    private function setupDroneNicknameAndSerialNumber(Drone $drone, int $nickName, int $serialNumber): void
+    {
+        $droneInfo = $drone->getDroneInfo();
+        $ref = new \ReflectionClass($droneInfo);
+        $ref->getProperty('nickName')->setValue($droneInfo, $nickName);
+        $ref->getProperty('serialNumber')->setValue($droneInfo, $serialNumber);
+    }
+}

@@ -7,10 +7,12 @@ namespace Mush\Tests\unit\Equipment\DroneTasks;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Repository\InMemoryActionConfigRepository;
+use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\DroneTasks\DroneTasksHandler;
 use Mush\Equipment\DroneTasks\ExtinguishFireTask;
+use Mush\Equipment\DroneTasks\LandTask;
 use Mush\Equipment\DroneTasks\MoveInRandomAdjacentRoomTask;
 use Mush\Equipment\DroneTasks\RepairBrokenEquipmentTask;
 use Mush\Equipment\DroneTasks\ShootHunterTask;
@@ -42,6 +44,8 @@ final class DroneTasksHandlerTest extends TestCase
     private MoveInRandomAdjacentRoomTask $moveInRandomAdjacentRoomTask;
     private TakeoffTask $takeoffTask;
     private ShootHunterTask $shootHunterTask;
+
+    private LandTask $landTask;
 
     private StatusService $statusService;
 
@@ -90,6 +94,12 @@ final class DroneTasksHandlerTest extends TestCase
             $this->createStub(RandomServiceInterface::class),
         );
 
+        $this->landTask = new LandTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            $this->createStub(PatrolShipManoeuvreServiceInterface::class),
+        );
+
         $this->droneTasks = new DroneTasksHandler(
             d100Roll: new D100Roll(isSuccessful: true), // turbo upgrade will always succeed
             statusService: $this->statusService,
@@ -97,6 +107,7 @@ final class DroneTasksHandlerTest extends TestCase
             repairBrokenEquipmentTask: $this->repairBrokenEquipmentTask,
             takeoffTask: $this->takeoffTask,
             shootHunterTask: $this->shootHunterTask,
+            landTask: $this->landTask,
             moveInRandomAdjacentRoomTask: $this->moveInRandomAdjacentRoomTask,
         );
 

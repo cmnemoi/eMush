@@ -85,6 +85,7 @@ abstract class LogEnum
     public const string DRONE_TAKEOFF = 'drone_takeoff';
     public const string DRONE_HIT_HUNTER = 'drone_hit_hunter';
     public const string DRONE_KILL_HUNTER = 'drone_kill_hunter';
+    public const string DRONE_LAND = 'drone_land';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

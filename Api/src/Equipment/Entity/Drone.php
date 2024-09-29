@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Repository\ActionConfigRepositoryInterface;
 use Mush\Equipment\DroneTasks\AbstractDroneTask;
+use Mush\Equipment\DroneTasks\LandTask;
 use Mush\Equipment\DroneTasks\ShootHunterTask;
 use Mush\Equipment\DroneTasks\TakeoffTask;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -109,8 +110,9 @@ class Drone extends GameItem
     public function cannotApplyTask(AbstractDroneTask $task): bool
     {
         return match ($task->name()) {
-            TakeoffTask::class => $this->isNotPilot() || $this->noAttackingHunters() || $this->noOperationalPatrolShipInRoom(),
+            LandTask::class => $this->isNotPilot() || $this->huntersAreAttacking() || $this->noLandActionAvailable(),
             ShootHunterTask::class => $this->isNotPilot() || $this->noAttackingHunters() || $this->noShootHunterActionAvailable(),
+            TakeoffTask::class => $this->isNotPilot() || $this->noAttackingHunters() || $this->noOperationalPatrolShipInRoom(),
             default => false,
         };
     }
@@ -149,6 +151,18 @@ class Drone extends GameItem
         return $patrolShip->getWeaponMechanicOrThrow()->getBaseDamageRange();
     }
 
+    public function getPilotedPatrolShip(): GameEquipment
+    {
+        return $this->getPlace()->getFirstEquipmentByMechanicNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+    }
+
+    public function getPatrolShipDockingPlace(): Place
+    {
+        $patrolShip = $this->getPilotedPatrolShip();
+
+        return $this->getDaedalus()->getPlaceByNameOrThrow($patrolShip->getPatrolShipMechanicOrThrow()->getDockingPlace());
+    }
+
     private function isNotPilot(): bool
     {
         return $this->doesNotHaveStatus(EquipmentStatusEnum::PILOT_DRONE_UPGRADE);
@@ -172,6 +186,21 @@ class Drone extends GameItem
         }
 
         return $patrolShip->hasActionByName(ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP) === false;
+    }
+
+    private function noLandActionAvailable(): bool
+    {
+        $patrolShip = $this->getPlace()->getFirstEquipmentByMechanicNameOrNull(EquipmentMechanicEnum::PATROL_SHIP);
+        if (!$patrolShip || $patrolShip->isNotOperational()) {
+            return true;
+        }
+
+        return $patrolShip->hasActionByName(ActionEnum::LAND) === false;
+    }
+
+    private function huntersAreAttacking(): bool
+    {
+        return $this->getDaedalus()->getAttackingHunters()->count() > 0;
     }
 
     private function numberOfActions(): int

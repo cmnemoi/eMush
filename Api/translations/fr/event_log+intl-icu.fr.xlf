@@ -1150,5 +1150,11 @@
         <target>{drone} émet une trille de bonheur ! Un **{hunter}** de moins, *bli bli blip* !</target>
       </segment>
     </unit>
+    <unit id="drone_land">
+      <segment id="drone_land" state="translated">
+        <source>drone_land</source>
+        <target>Le Patrouilleur de {drone} vient d'atterrir.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

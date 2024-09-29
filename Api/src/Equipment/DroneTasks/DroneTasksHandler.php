@@ -26,12 +26,14 @@ class DroneTasksHandler
         private RepairBrokenEquipmentTask $repairBrokenEquipmentTask,
         private TakeoffTask $takeoffTask,
         private ShootHunterTask $shootHunterTask,
+        private LandTask $landTask,
         private MoveInRandomAdjacentRoomTask $moveInRandomAdjacentRoomTask
     ) {
         $extinguishFireTask->setNextDroneTask($repairBrokenEquipmentTask);
         $repairBrokenEquipmentTask->setNextDroneTask($takeoffTask);
         $takeoffTask->setNextDroneTask($shootHunterTask);
-        $shootHunterTask->setNextDroneTask($moveInRandomAdjacentRoomTask);
+        $shootHunterTask->setNextDroneTask($landTask);
+        $landTask->setNextDroneTask($moveInRandomAdjacentRoomTask);
     }
 
     public function execute(Drone $drone, \DateTime $time): void

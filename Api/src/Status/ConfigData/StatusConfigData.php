@@ -229,7 +229,6 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [
                 'antisocial_modifier_for_player_-1moralPoint_on_new_cycle_if_player_in_room_not_alone',
-                'cat_owner_modifier_for_player_set_schrodinger_cant_hurt',
             ],
             'actionConfigs' => [],
         ],
@@ -1637,6 +1636,18 @@ abstract class StatusConfigData
             'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlayerStatusEnum::CAT_OWNER . '_default',
+            'statusName' => PlayerStatusEnum::CAT_OWNER,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => null,
+            'modifierConfigs' => [
+                'cat_owner_modifier_for_player_set_schrodinger_cant_hurt',
+            ],
             'actionConfigs' => [],
         ],
     ];

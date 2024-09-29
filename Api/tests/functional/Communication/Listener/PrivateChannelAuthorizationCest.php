@@ -28,31 +28,30 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class PrivateChannelAuthorizationCest
+final class PrivateChannelAuthorizationCest
 {
     private Drop $dropAction;
     private Move $moveAction;
-    private EventServiceInterface $eventService;
+    private PlayerServiceInterface $playerService;
 
     public function _before(FunctionalTester $I)
     {
         $this->dropAction = $I->grabService(Drop::class);
         $this->moveAction = $I->grabService(Move::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
     }
 
     public function testDropTalkie(FunctionalTester $I)
@@ -598,12 +597,11 @@ class PrivateChannelAuthorizationCest
             'message' => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
         ]);
 
-        $playerEvent = new PlayerEvent(
-            $player2,
-            [EndCauseEnum::BLED],
-            new \DateTime()
+        $this->playerService->killPlayer(
+            player: $player2,
+            endReason: EndCauseEnum::BLED,
+            time: new \DateTime(),
         );
-        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertCount(1, $privateChannel->getParticipants());
         $I->dontSeeInRepository(Message::class, [
@@ -772,12 +770,11 @@ class PrivateChannelAuthorizationCest
 
         $I->assertCount(2, $privateChannel->getParticipants());
 
-        $playerEvent = new PlayerEvent(
-            $player2,
-            [EndCauseEnum::BLED],
-            new \DateTime()
+        $this->playerService->killPlayer(
+            player: $player2,
+            endReason: EndCauseEnum::BLED,
+            time: new \DateTime(),
         );
-        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertCount(1, $privateChannel->getParticipants());
         $I->seeInRepository(Message::class, [

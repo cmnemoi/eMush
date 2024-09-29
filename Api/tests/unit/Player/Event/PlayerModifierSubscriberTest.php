@@ -164,7 +164,7 @@ final class PlayerModifierSubscriberTest extends TestCase
             ->andReturn($player)
             ->once();
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->playerService->shouldReceive('killPlayer')->once();
 
         $this->playerModifierSubscriber->onChangeVariable($event);
     }

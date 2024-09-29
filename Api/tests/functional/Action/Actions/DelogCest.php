@@ -15,7 +15,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -36,6 +36,7 @@ final class DelogCest extends AbstractFunctionalTest
 
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
+    private PlayerServiceInterface $playerService;
     private RoomLogServiceInterface $roomLogService;
 
     public function _before(FunctionalTester $I)
@@ -46,6 +47,7 @@ final class DelogCest extends AbstractFunctionalTest
         $this->delog = $I->grabService(Delog::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->roomLogService = $I->grabService(RoomLogServiceInterface::class);
 
         $this->givenPlayerIsMush();
@@ -199,12 +201,11 @@ final class DelogCest extends AbstractFunctionalTest
 
     private function whenPlayerDies(): void
     {
-        $playerEvent = new PlayerEvent(
-            player: $this->player,
-            tags: [EndCauseEnum::DEPRESSION],
+        $this->playerService->killPlayer(
+            player: $this->chun,
+            endReason: EndCauseEnum::DEPRESSION,
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
     }
 
     private function thenPreviousLogsShouldBeHidden(array $roomLogs, FunctionalTester $I): void

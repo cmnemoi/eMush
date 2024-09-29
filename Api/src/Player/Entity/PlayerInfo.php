@@ -127,4 +127,9 @@ class PlayerInfo
 
         return $this;
     }
+
+    public function isDead(): bool
+    {
+        return $this->isAlive() === false;
+    }
 }

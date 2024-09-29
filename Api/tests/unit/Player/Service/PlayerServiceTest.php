@@ -146,7 +146,7 @@ final class PlayerServiceTest extends TestCase
         self::assertCount(0, $player->getSkills());
     }
 
-    public function testPlayerDeath()
+    public function testkillPlayer()
     {
         $gameConfig = new GameConfig();
         $room = new Place();
@@ -174,22 +174,18 @@ final class PlayerServiceTest extends TestCase
 
         $closedPlayer = $playerInfo->getClosedPlayer();
 
-        $this->entityManager->shouldReceive('persist')->once();
-        $this->entityManager
-            ->shouldReceive('flush')
-            ->once();
-        $this->gameEquipmentService
-            ->shouldReceive('persist')
-            ->once();
+        $this->entityManager->shouldReceive('beginTransaction')->once();
+        $this->entityManager->shouldReceive('persist')->times(3);
+        $this->entityManager->shouldReceive('flush')->times(3);
+        $this->entityManager->shouldReceive('commit')->once();
+
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $reason = 'bled';
 
-        $player = $this->service->playerDeath($player, $reason, new \DateTime());
+        $player = $this->service->killPlayer($player, $reason, new \DateTime());
 
         self::assertSame(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
-        self::assertCount(0, $player->getEquipments());
-        self::assertCount(1, $room->getEquipments());
-        self::assertCount(1, $room->getPlayers());
     }
 
     public function testEndPlayer()

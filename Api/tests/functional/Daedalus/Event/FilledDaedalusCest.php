@@ -9,7 +9,9 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -19,11 +21,13 @@ use Mush\Tests\FunctionalTester;
 final class FilledDaedalusCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
+    private PlayerServiceInterface $playerService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
 
         $this->createExtraPlace(RoomEnum::FRONT_STORAGE, $I, $this->daedalus);
     }
@@ -79,8 +83,11 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
                 $newPlayer = $this->addPlayerByCharacter($I, $this->daedalus, $character->getCharacterName());
 
                 // kill the new player
-                $event = new PlayerEvent($newPlayer, [ActionEnum::HIT->value], new \DateTime());
-                $this->eventService->callEvent($event, PlayerEvent::DEATH_PLAYER);
+                $this->playerService->killPlayer(
+                    player: $newPlayer,
+                    endReason: EndCauseEnum::mapEndCause([ActionEnum::HIT->value]),
+                    time: new \DateTime(),
+                );
             }
         }
 
@@ -132,8 +139,11 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
                 $newPlayer = $this->addPlayerByCharacter($I, $this->daedalus, $character->getCharacterName());
 
                 // kill the new player
-                $event = new PlayerEvent($newPlayer, [ActionEnum::HIT->value], new \DateTime());
-                $this->eventService->callEvent($event, PlayerEvent::DEATH_PLAYER);
+                $this->playerService->killPlayer(
+                    player: $newPlayer,
+                    endReason: EndCauseEnum::mapEndCause([ActionEnum::HIT->value]),
+                    time: new \DateTime(),
+                );
 
                 // close the new player
                 $event = new PlayerEvent($newPlayer, [ActionEnum::HIT->value], new \DateTime());

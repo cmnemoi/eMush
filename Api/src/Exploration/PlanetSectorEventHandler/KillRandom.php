@@ -4,13 +4,28 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Service\PlayerServiceInterface;
 
 final class KillRandom extends AbstractPlanetSectorEventHandler
 {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        EventServiceInterface $eventService,
+        RandomServiceInterface $randomService,
+        TranslationServiceInterface $translationService,
+        private PlayerServiceInterface $playerService,
+    ) {
+        parent::__construct($entityManager, $eventService, $randomService, $translationService);
+    }
+
     public function getName(): string
     {
         return PlanetSectorEvent::KILL_RANDOM;
@@ -20,7 +35,11 @@ final class KillRandom extends AbstractPlanetSectorEventHandler
     {
         $playerToKill = $this->drawPlayerToKill($event);
 
-        $this->killPlayer($playerToKill, $event);
+        $this->playerService->killPlayer(
+            player: $playerToKill,
+            endReason: EndCauseEnum::mapEndCause($event->getTags()),
+            time: $event->getTime()
+        );
 
         $logParameters = $this->getLogParameters($event);
         $logParameters[$playerToKill->getLogKey()] = $playerToKill->getLogName();
@@ -37,15 +56,5 @@ final class KillRandom extends AbstractPlanetSectorEventHandler
         }
 
         return $this->randomService->getRandomPlayer($exploration->getNotLostActiveExplorators());
-    }
-
-    private function killPlayer(Player $player, PlanetSectorEvent $event): void
-    {
-        $deathEvent = new PlayerEvent(
-            player: $player,
-            tags: $event->getTags(),
-            time: $event->getTime(),
-        );
-        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
     }
 }

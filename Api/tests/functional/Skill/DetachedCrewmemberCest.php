@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Skill;
 
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -16,12 +15,12 @@ use Mush\Tests\FunctionalTester;
  */
 final class DetachedCrewmemberCest extends AbstractFunctionalTest
 {
-    private EventServiceInterface $eventService;
+    private PlayerServiceInterface $playerService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
 
         $this->givenPlayerIsADetachedCrewmember($I);
     }
@@ -47,12 +46,11 @@ final class DetachedCrewmemberCest extends AbstractFunctionalTest
 
     private function whenCrewmateDies(): void
     {
-        $deathEvent = new PlayerEvent(
-            player: $this->player2,
-            tags: [EndCauseEnum::ABANDONED],
+        $this->playerService->killPlayer(
+            player: $this->chun,
+            endReason: EndCauseEnum::INJURY,
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
     }
 
     private function thenPlayerShouldHaveMoralePoints(int $expectedMoralePoints, FunctionalTester $I): void

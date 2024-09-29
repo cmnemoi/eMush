@@ -5,11 +5,15 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasRole;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\User\Enum\RoleEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Allow admins to suicide themselves.
@@ -17,6 +21,15 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 class Suicide extends AbstractAction
 {
     protected ActionEnum $name = ActionEnum::SUICIDE;
+
+    public function __construct(
+        EventServiceInterface $eventService,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        private PlayerServiceInterface $playerService,
+    ) {
+        parent::__construct($eventService, $actionService, $validator);
+    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -35,7 +48,10 @@ class Suicide extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $deathEvent = new PlayerEvent($this->player, $this->getActionConfig()->getActionTags(), new \DateTime());
-        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
+        $this->playerService->killPlayer(
+            player: $this->player,
+            endReason: EndCauseEnum::mapEndCause($this->getTags()),
+            time: new \DateTime()
+        );
     }
 }

@@ -11,7 +11,7 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
-class EndCauseEnum
+abstract class EndCauseEnum
 {
     public const string STILL_LIVING = 'still_living';
     // admin only
@@ -131,6 +131,22 @@ class EndCauseEnum
     public static function isNotDeathEndCause(string $endCause): bool
     {
         return self::getNotDeathEndCauses()->contains($endCause);
+    }
+
+    public static function doesNotRemoveMorale(string $endCause): bool
+    {
+        return self::getEndCausesWhichRemovesMorale()->contains($endCause) === false;
+    }
+
+    public static function mapEndCause(array $tags): string
+    {
+        $logs = array_intersect_key(self::DEATH_CAUSE_MAP, array_flip($tags));
+
+        if (\count($logs) > 0) {
+            return reset($logs);
+        }
+
+        throw new \LogicException('Cannot find a matching end cause');
     }
 
     private static function getEndCausesWhichRemovesMorale(): ArrayCollection

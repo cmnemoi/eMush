@@ -6,7 +6,6 @@ namespace Mush\MetaGame\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Message;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Entity\SanctionEvidence;
@@ -16,22 +15,22 @@ use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 
 final class ModerationService implements ModerationServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private EventServiceInterface $eventService;
+    private PlayerServiceInterface $playerService;
     private TranslationServiceInterface $translationService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventServiceInterface $eventService,
+        PlayerServiceInterface $playerService,
         TranslationServiceInterface $translationService
     ) {
         $this->entityManager = $entityManager;
-        $this->eventService = $eventService;
+        $this->playerService = $playerService;
         $this->translationService = $translationService;
     }
 
@@ -181,8 +180,7 @@ final class ModerationService implements ModerationServiceInterface
         string $reason,
         ?string $message = null
     ): Player {
-        $deathEvent = new PlayerEvent($player, [EndCauseEnum::QUARANTINE], new \DateTime());
-        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
+        $this->playerService->killPlayer(player: $player, endReason: EndCauseEnum::QUARANTINE, time: new \DateTime());
 
         $this->addSanctionEntity(
             user: $player->getUser(),

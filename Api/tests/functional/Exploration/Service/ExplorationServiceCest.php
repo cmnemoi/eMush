@@ -24,11 +24,10 @@ use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
@@ -43,8 +42,8 @@ use Mush\Tests\FunctionalTester;
 final class ExplorationServiceCest extends AbstractExplorationTester
 {
     private ChooseSkillUseCase $chooseSkillUseCase;
-    private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
 
     private GameEquipment $icarus;
@@ -55,8 +54,8 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         parent::_before($I);
 
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given there is Icarus Bay on this Daedalus
@@ -365,8 +364,11 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 
         // given all explorators are dead
         foreach ($exploration->getExplorators() as $explorator) {
-            $deathEvent = new PlayerEvent($explorator, ['test', EndCauseEnum::INJURY], new \DateTime());
-            $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
+            $this->playerService->killPlayer(
+                player: $explorator,
+                endReason: EndCauseEnum::INJURY,
+                time: new \DateTime(),
+            );
         }
 
         // when exploration is finished
@@ -463,12 +465,11 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         );
 
         // given Chun dies
-        $deathEvent = new PlayerEvent(
-            $this->chun,
-            [PlanetSectorEvent::PLANET_SECTOR_EVENT, EndCauseEnum::INJURY],
-            new \DateTime()
+        $this->playerService->killPlayer(
+            player: $this->chun,
+            endReason: EndCauseEnum::mapEndCause([PlanetSectorEvent::PLANET_SECTOR_EVENT, EndCauseEnum::INJURY]),
+            time: new \DateTime(),
         );
-        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
         // when exploration is closed
         $this->explorationService->closeExploration($exploration, ['test']);
@@ -516,12 +517,11 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         );
 
         // given Chun dies
-        $deathEvent = new PlayerEvent(
-            $this->chun,
-            [EndCauseEnum::INJURY],
-            new \DateTime()
+        $this->playerService->killPlayer(
+            player: $this->chun,
+            endReason: EndCauseEnum::INJURY,
+            time: new \DateTime(),
         );
-        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
         // when exploration is closed
         $this->explorationService->closeExploration($exploration, ['test']);

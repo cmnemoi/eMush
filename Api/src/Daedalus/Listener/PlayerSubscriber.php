@@ -60,7 +60,6 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onDeathPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
-        $reasons = $event->getTags();
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
         if (!\in_array($endCause, [EndCauseEnum::SOL_RETURN, EndCauseEnum::EDEN, EndCauseEnum::SUPER_NOVA, EndCauseEnum::KILLED_BY_NERON], true)

@@ -89,7 +89,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
 
         switch ($playerEvent->getVariableName()) {
             case PlayerVariableEnum::HEALTH_POINT:
-                $this->handleHealthPointModifier($player, $playerEvent, $playerEvent->getTime());
+                $this->handleHealthPointModifier($player, $playerEvent);
 
                 return;
 
@@ -100,16 +100,14 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function handleHealthPointModifier(Player $player, PlayerVariableEvent $event, \DateTime $time): void
+    private function handleHealthPointModifier(Player $player, PlayerVariableEvent $event): void
     {
         if ($player->getHealthPoint() <= 0) {
-            $deathReason = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
-
-            if ($deathReason === null) {
-                $event->addTag(EndCauseEnum::INJURY);
-            }
-
-            $this->eventService->callEvent($event, PlayerEvent::DEATH_PLAYER);
+            $this->playerService->killPlayer(
+                player: $player,
+                endReason: $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP) ?? EndCauseEnum::INJURY,
+                time: $event->getTime()
+            );
         }
     }
 

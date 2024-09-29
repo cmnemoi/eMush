@@ -37,6 +37,7 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
@@ -71,6 +72,9 @@ final class DaedalusServiceTest extends TestCase
     /** @var DaedalusRepository|Mockery\Mock */
     private DaedalusRepository $daedalusRepository;
 
+    /** @var Mockery\Mock|PlayerServiceInterface */
+    private PlayerServiceInterface $playerService;
+
     private DaedalusService $service;
 
     /**
@@ -86,6 +90,7 @@ final class DaedalusServiceTest extends TestCase
         $this->localizationConfigRepository = \Mockery::mock(LocalizationConfigRepository::class);
         $this->daedalusInfoRepository = \Mockery::mock(DaedalusInfoRepository::class);
         $this->daedalusRepository = \Mockery::mock(DaedalusRepository::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->service = new DaedalusService(
             $this->entityManager,
@@ -97,6 +102,7 @@ final class DaedalusServiceTest extends TestCase
             $this->daedalusInfoRepository,
             $this->daedalusRepository,
             $this->createStub(TitlePriorityRepositoryInterface::class),
+            $this->playerService,
         );
     }
 
@@ -273,7 +279,7 @@ final class DaedalusServiceTest extends TestCase
         $this->randomService->shouldReceive('getRandomPlayer')
             ->andReturn($noCapsulePlayer)
             ->once();
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->playerService->shouldReceive('killPlayer')->once();
 
         $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
 
@@ -281,10 +287,10 @@ final class DaedalusServiceTest extends TestCase
         self::assertCount(3, $threeCapsulePlayer->getEquipments());
 
         // 2 players with capsules
-        $this->eventService->shouldReceive('callEvent')->once();
         $this->randomService->shouldReceive('getRandomPlayer')
             ->andReturn($twoCapsulePlayer)
             ->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
 

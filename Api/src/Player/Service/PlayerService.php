@@ -5,7 +5,6 @@ namespace Mush\Player\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
@@ -31,7 +30,7 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
-class PlayerService implements PlayerServiceInterface
+final class PlayerService implements PlayerServiceInterface
 {
     public const string BASE_PLAYER_CYCLE_CHANGE = 'base_player_cycle_change';
     public const string BASE_PLAYER_DAY_CHANGE = 'base_player_day_change';
@@ -40,8 +39,6 @@ class PlayerService implements PlayerServiceInterface
     public const int CYCLE_SATIETY_CHANGE = -1;
     public const int DAY_HEALTH_CHANGE = 1;
     public const int DAY_MORAL_CHANGE = -2;
-    public const int NB_ORGANIC_WASTE_MIN = 3;
-    public const int NB_ORGANIC_WASTE_MAX = 4;
 
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
@@ -248,17 +245,16 @@ class PlayerService implements PlayerServiceInterface
      */
     public function handleNewCycle(Player $player, \DateTime $date): Player
     {
-        if (!$player->isAlive()) {
+        if ($player->isDead()) {
             return $player;
         }
 
         if ($player->getMoralPoint() === 0) {
-            $playerEvent = new PlayerEvent(
-                $player,
-                [EndCauseEnum::DEPRESSION],
-                $date
+            $this->killPlayer(
+                player: $player,
+                endReason: EndCauseEnum::DEPRESSION,
+                time: $date,
             );
-            $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
             return $player;
         }
@@ -324,51 +320,25 @@ class PlayerService implements PlayerServiceInterface
         return $this->persist($player);
     }
 
-    public function playerDeath(Player $player, string $endReason, \DateTime $time): Player
+    public function killPlayer(Player $player, string $endReason, \DateTime $time): Player
     {
-        $currentRoom = $player->getPlace();
-        foreach ($player->getEquipments() as $item) {
-            if ($player->isExploringOrIsLostOnPlanet()) {
-                $this->gameEquipmentService->delete($item);
-            } else {
-                $item->setHolder($currentRoom);
-                $this->gameEquipmentService->persist($item);
-            }
+        if ($player->isDead()) {
+            throw new \LogicException('Player is already dead');
         }
 
-        if ($endReason === EndCauseEnum::QUARANTINE) {
-            $this->handleQuarantineCompensation($player->getPlace());
-        }
+        $this->entityManager->beginTransaction();
 
-        $playerInfo = $player->getPlayerInfo();
-        $closedPlayer = $playerInfo->getClosedPlayer();
-        $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
-        $closedPlayer
-            ->setDayCycleDeath($player->getDaedalus())
-            ->setEndCause($endReason)
-            ->setIsMush($player->isMush())
-            ->setClosedDaedalus($player->getDaedalus()->getDaedalusInfo()->getClosedDaedalus())
-            ->setFinishedAt($time);
-        $this->persistPlayerInfo($playerInfo);
-        $player->setTitles([]);
+        try {
+            $this->markPlayerAsDead($player, $endReason, $time);
+            $this->removePlayerTitles($player);
+            $this->createClosedPlayer($player, $endReason, $time);
+            $this->dispatchPlayerDeathEvent($player, $endReason, $time);
+            $this->entityManager->commit();
+        } catch (\Throwable $e) {
+            $this->entityManager->rollback();
+            $this->entityManager->close();
 
-        if (EndCauseEnum::isEndCauseWhichRemovesMorale($endReason)) {
-            $moraleLoss = $player->hasStatus(PlayerStatusEnum::PREGNANT) ? -2 : -1;
-
-            /** @var Player $daedalusPlayer */
-            foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
-                if ($daedalusPlayer !== $player && !$daedalusPlayer->isMush()) {
-                    $playerModifierEvent = new PlayerVariableEvent(
-                        $daedalusPlayer,
-                        PlayerVariableEnum::MORAL_POINT,
-                        $moraleLoss,
-                        [EventEnum::PLAYER_DEATH],
-                        $time
-                    );
-
-                    $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
-                }
-            }
+            throw $e;
         }
 
         return $player;
@@ -403,22 +373,34 @@ class PlayerService implements PlayerServiceInterface
         );
     }
 
-    /**
-     * This function handle the compensation for a player who died because of quarantine.
-     * Currently it drops 3-4 organic waste.
-     * TODO: add more powerful compensation?
-     */
-    private function handleQuarantineCompensation(Place $playerDeathPlace): void
+    private function markPlayerAsDead(Player $player, string $endCause, \DateTime $date): void
     {
-        $nbOrganicWaste = $this->randomService->random(self::NB_ORGANIC_WASTE_MIN, self::NB_ORGANIC_WASTE_MAX);
+        $playerInfo = $player->getPlayerInfo();
+        $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
+        $this->persistPlayerInfo($playerInfo);
+    }
 
-        for ($i = 0; $i < $nbOrganicWaste; ++$i) {
-            $this->gameEquipmentService->createGameEquipmentFromName(
-                GameRationEnum::ORGANIC_WASTE,
-                $playerDeathPlace,
-                [EndCauseEnum::QUARANTINE],
-                new \DateTime()
-            );
-        }
+    private function removePlayerTitles(Player $player): void
+    {
+        $player->removeAllTitles();
+        $this->persist($player);
+    }
+
+    private function createClosedPlayer(Player $player, string $endCause, \DateTime $date): void
+    {
+        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
+        $closedPlayer
+            ->setDayCycleDeath($player->getDaedalus())
+            ->setEndCause($endCause)
+            ->setIsMush($player->isMush())
+            ->setClosedDaedalus($player->getDaedalus()->getDaedalusInfo()->getClosedDaedalus())
+            ->setFinishedAt($date);
+        $this->persistClosedPlayer($closedPlayer);
+    }
+
+    private function dispatchPlayerDeathEvent(Player $player, string $endCause, \DateTime $date): void
+    {
+        $playerDeathEvent = new PlayerEvent($player, [$endCause], $date);
+        $this->eventService->callEvent($playerDeathEvent, PlayerEvent::DEATH_PLAYER);
     }
 }

@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Action\Actions;
 
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -17,12 +16,12 @@ use Mush\Tests\FunctionalTester;
  */
 final class MyceliumSpiritCest extends AbstractFunctionalTest
 {
-    private EventServiceInterface $eventService;
+    private PlayerServiceInterface $playerService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
 
         $this->givenPlayerHasMyceliumSpirit($I);
     }
@@ -43,12 +42,11 @@ final class MyceliumSpiritCest extends AbstractFunctionalTest
 
     private function givenPlayerIsDead(): void
     {
-        $event = new PlayerEvent(
+        $this->playerService->killPlayer(
             player: $this->player,
-            tags: [EndCauseEnum::QUARANTINE],
+            endReason: EndCauseEnum::BEHEADED,
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($event, PlayerEvent::DEATH_PLAYER);
     }
 
     private function thenMaximumAvailableSporeShouldBe(int $expectedSporeNb, FunctionalTester $I): void

@@ -18,6 +18,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
@@ -38,6 +39,7 @@ final class PrintZeListCest extends AbstractFunctionalTest
     private AddSkillToPlayerService $addSkillToPlayer;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
     private GameEquipment $tabulatrix;
 
@@ -50,6 +52,7 @@ final class PrintZeListCest extends AbstractFunctionalTest
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenSomeExtraPlayersAreCreated($I);
@@ -219,12 +222,11 @@ final class PrintZeListCest extends AbstractFunctionalTest
 
     private function givenAllMushAreDead(): void
     {
-        $deathEvent = new PlayerEvent(
+        $this->playerService->killPlayer(
             player: $this->kuanTi,
-            tags: [EndCauseEnum::QUARANTINE],
+            endReason: EndCauseEnum::QUARANTINE,
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
     }
 
     private function whenChunTriesToPrintZeList(): void

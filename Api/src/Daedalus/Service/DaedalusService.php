@@ -36,6 +36,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
@@ -51,6 +52,7 @@ class DaedalusService implements DaedalusServiceInterface
     private DaedalusInfoRepository $daedalusInfoRepository;
     private DaedalusRepository $daedalusRepository;
     private TitlePriorityRepositoryInterface $titlePriorityRepository;
+    private PlayerServiceInterface $playerService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -61,7 +63,8 @@ class DaedalusService implements DaedalusServiceInterface
         LocalizationConfigRepository $localizationConfigRepository,
         DaedalusInfoRepository $daedalusInfoRepository,
         DaedalusRepository $daedalusRepository,
-        TitlePriorityRepositoryInterface $titlePriorityRepository
+        TitlePriorityRepositoryInterface $titlePriorityRepository,
+        PlayerServiceInterface $playerService
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
@@ -72,6 +75,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->daedalusInfoRepository = $daedalusInfoRepository;
         $this->daedalusRepository = $daedalusRepository;
         $this->titlePriorityRepository = $titlePriorityRepository;
+        $this->playerService = $playerService;
     }
 
     /**
@@ -333,13 +337,7 @@ class DaedalusService implements DaedalusServiceInterface
         }
 
         if ($this->getOxygenCapsuleCount($player) === 0) {
-            $playerEvent = new PlayerEvent(
-                $player,
-                [EndCauseEnum::ASPHYXIA],
-                $date
-            );
-
-            $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $this->playerService->killPlayer(player: $player, endReason: EndCauseEnum::ASPHYXIA, time: $date);
         } else {
             $capsule = $player->getEquipments()->filter(static fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
 
@@ -362,12 +360,8 @@ class DaedalusService implements DaedalusServiceInterface
         for ($i = 0; $i < $playerAliveNb; ++$i) {
             $player = $this->randomService->getAlivePlayerInDaedalus($daedalus);
 
-            $playerEvent = new PlayerEvent(
-                $player,
-                $reasons,
-                $date
-            );
-            $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $endCause = EndCauseEnum::mapEndCause($reasons);
+            $this->playerService->killPlayer(player: $player, endReason: $endCause, time: $date);
         }
 
         return $daedalus;

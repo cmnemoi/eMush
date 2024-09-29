@@ -13,22 +13,22 @@ use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class LastPlayerKilledCest
+final class LastPlayerKilledCest
 {
-    private EventServiceInterface $eventService;
+    private PlayerServiceInterface $playerService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
     }
 
     public function testLastPlayerKilled(FunctionalTester $I)
@@ -90,8 +90,11 @@ class LastPlayerKilledCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $event = new PlayerEvent($player, [ActionEnum::HIT->value], new \DateTime());
-        $this->eventService->callEvent($event, PlayerEvent::DEATH_PLAYER);
+        $this->playerService->killPlayer(
+            player: $player,
+            endReason: EndCauseEnum::mapEndCause([ActionEnum::HIT->value]),
+            time: new \DateTime(),
+        );
 
         $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
         $I->assertEquals(GameStatusEnum::FINISHED, $daedalus->getGameStatus());

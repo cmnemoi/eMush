@@ -17,12 +17,11 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Status;
 use Mush\Tests\AbstractFunctionalTest;
@@ -36,7 +35,7 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
     private Drop $dropAction;
     private Move $moveAction;
     private ScrewTalkie $pirateAction;
-    private EventServiceInterface $eventService;
+    private PlayerServiceInterface $playerService;
     private Channel $privateChannel;
 
     public function _before(FunctionalTester $I)
@@ -46,7 +45,7 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         $this->dropAction = $I->grabService(Drop::class);
         $this->pirateAction = $I->grabService(ScrewTalkie::class);
         $this->moveAction = $I->grabService(Move::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
 
         // add a room
         $room2 = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
@@ -123,12 +122,11 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         $I->assertCount(2, $this->privateChannel->getParticipants());
 
         // Given player1 dies
-        $playerEvent = new PlayerEvent(
-            $this->player1,
-            [EndCauseEnum::BLED],
-            new \DateTime()
+        $this->playerService->killPlayer(
+            player: $this->player1,
+            endReason: EndCauseEnum::BLED,
+            time: new \DateTime(),
         );
-        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         // Then player1 is no longer in the private channel
         $I->assertCount(1, $this->privateChannel->getParticipants());
@@ -207,12 +205,11 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         $I->assertCount(2, $this->privateChannel->getParticipants());
 
         // Given player1 die
-        $playerEvent = new PlayerEvent(
-            $this->player1,
-            [EndCauseEnum::BLED],
-            new \DateTime()
+        $this->playerService->killPlayer(
+            player: $this->player1,
+            endReason: EndCauseEnum::BLED,
+            time: new \DateTime(),
         );
-        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         // Then he should leave the channel
         $I->assertCount(1, $this->privateChannel->getParticipants());

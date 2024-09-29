@@ -4,12 +4,12 @@ namespace Mush\Tests\unit\MetaGame\Service;
 
 use Doctrine\ORM\EntityManager;
 use Mockery;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\MetaGame\Service\ModerationService;
 use Mush\MetaGame\Service\ModerationServiceInterface;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -18,9 +18,6 @@ use PHPUnit\Framework\TestCase;
  */
 final class ModerationServiceTest extends TestCase
 {
-    /** @var EventServiceInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
-
     /** @var EntityManager|Mockery\Mock */
     private EntityManager $entityManager;
 
@@ -34,13 +31,12 @@ final class ModerationServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->entityManager = \Mockery::mock(EntityManager::class);
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->service = new ModerationService(
             $this->entityManager,
-            $this->eventService,
+            $this->createStub(PlayerServiceInterface::class),
             $this->translationService
         );
     }

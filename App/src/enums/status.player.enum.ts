@@ -123,5 +123,5 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [StatusPlayerNameEnum.PARIAH]: {
         'icon': getImgUrl('status/unsociable.png')
-    },
+    }
 };

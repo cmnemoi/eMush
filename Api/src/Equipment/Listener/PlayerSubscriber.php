@@ -2,14 +2,14 @@
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Game\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Mush\Equipment\Enum\EquipmentEventReason;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Status\Enum\PlayerStatusEnum; 
-use Mush\Equipment\Enum\EquipmentEventReason;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
@@ -34,7 +34,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onNewPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
-        if ($player->hasStatus(PlayerStatusEnum::CAT_OWNER)){
+        if ($player->hasStatus(PlayerStatusEnum::CAT_OWNER)) {
             $this->gameEquipmentService->createGameEquipmentFromName(
                 ItemEnum::SCHRODINGER,
                 $player->getPlace(),

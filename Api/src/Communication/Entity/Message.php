@@ -28,7 +28,7 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     #[ORM\ManyToOne(targetEntity: Neron::class)]
     private ?Neron $neron = null;
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, orphanRemoval: true, fetch: 'EAGER')]
     #[ORM\OrderBy(['createdAt' => 'ASC'])]
     private Collection $child;
 
@@ -44,11 +44,11 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     #[ORM\Column(type: 'array', nullable: true)]
     private array $translationParameters = [];
 
-    #[ORM\ManyToMany(targetEntity: Player::class)]
+    #[ORM\ManyToMany(targetEntity: Player::class, fetch: 'EXTRA_LAZY')]
     #[ORM\JoinTable(name: 'message_readers')]
     private Collection $readers;
 
-    #[ORM\ManyToMany(targetEntity: Player::class, inversedBy: 'favoriteMessages')]
+    #[ORM\ManyToMany(targetEntity: Player::class, inversedBy: 'favoriteMessages', fetch: 'EXTRA_LAZY')]
     #[ORM\JoinTable(name: 'message_favorites')]
     private Collection $favorites;
 
@@ -106,6 +106,10 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     {
         $this->parent = $parent;
 
+        if ($parent !== null) {
+            $parent->addChild($this);
+        }
+
         return $this;
     }
 
@@ -153,6 +157,17 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     public function setChild(Collection $child): static
     {
         $this->child = $child;
+
+        return $this;
+    }
+
+    public function addChild(self $child): static
+    {
+        if ($this->child->contains($child)) {
+            return $this;
+        }
+
+        $this->child->add($child);
 
         return $this;
     }

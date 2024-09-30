@@ -3571,7 +3571,7 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [
                 'is_cat_owner',
             ],
-            'tagConstraints' => [ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ANY_TAGS],
+            'tagConstraints' => [ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ANY_TAGS, ActionEnum::PET_CAT->value => ModifierRequirementEnum::ANY_TAGS],
         ],
     ];
 

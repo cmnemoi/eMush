@@ -238,13 +238,16 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var ActionConfig $takeCatAction */
         $takeCatAction = $this->getReference(ActionsFixtures::TAKE_CAT);
 
+        /** @var ActionConfig $petCatAction */
+        $petCatAction = $this->getReference(ActionsFixtures::PET_CAT);
+
         $schrodinger = new ItemConfig();
         $schrodinger
             ->setEquipmentName(ItemEnum::SCHRODINGER)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActionConfigs([$takeCatAction, $examineAction, $dropAction]) // @TODO caress, infectious_caress, etc.
+            ->setActionConfigs([$takeCatAction, $petCatAction, $examineAction, $dropAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($schrodinger);
 

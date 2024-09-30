@@ -152,6 +152,7 @@ abstract class ActionLogEnum
     public const string UPGRADE_DRONE_TO_FIREFIGHTER_SUCCESS = 'upgrade_drone_to_firefighter_success';
     public const string UPGRADE_DRONE_TO_PILOT_SUCCESS = 'upgrade_drone_to_pilot_success';
     public const string TAKE_CAT = 'take_cat';
+    public const string PET_CAT = 'pet_cat';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -525,6 +526,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::TAKE_CAT->value => [
             ActionOutputEnum::SUCCESS => self::TAKE_CAT,
+        ],
+        ActionEnum::PET_CAT->value => [
+            ActionOutputEnum::SUCCESS => self::PET_CAT,
         ],
     ];
 

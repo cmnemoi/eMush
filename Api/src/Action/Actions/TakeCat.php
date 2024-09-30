@@ -18,7 +18,19 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class Take_cat extends AbstractAction
+/**
+ * Class implementing a unique "Take" action (picking up the cat).
+ * This action is granted by Schrodinger.
+ *
+ * This kitty hates human contact and comes with a heightened chance to hurt the player,
+ * upon which, if Schrodinger is infected and the player is human,
+ * they will receive one spore; hence the need for a custom Take action.
+ *
+ * @TODO: Infect player on injury if converted
+ *
+ * More info : http://www.mushpedia.com/wiki/Schr%C3%B6dinger
+ */
+class TakeCat extends AbstractAction
 {
     protected ActionEnum $name = ActionEnum::TAKE_CAT;
 

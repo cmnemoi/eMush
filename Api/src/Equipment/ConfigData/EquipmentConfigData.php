@@ -4151,6 +4151,7 @@ class EquipmentConfigData
             'isStackable' => false,
             'actions' => [
                 'take_cat',
+                'pet_cat',
                 'drop',
                 'examine',
             ],

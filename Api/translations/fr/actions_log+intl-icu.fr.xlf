@@ -1349,5 +1349,11 @@
         <target>**{character}** a pris **{target_equipment}**.</target>
       </segment>
     </unit>
+    <unit id="pet_cat">
+      <segment id="pet_cat" state="final">
+        <source>pet_cat</source>
+        <target>**{character}** fait un gros câlin à **{target_equipment}**. Celui-ci n'en veut manifestement pas mais ce n'est pas grave, ça fait toujours du bien...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

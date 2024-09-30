@@ -1650,6 +1650,14 @@ abstract class StatusConfigData
             ],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::HAS_PETTED_CAT . '_default',
+            'statusName' => PlayerStatusEnum::HAS_PETTED_CAT,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

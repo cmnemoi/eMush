@@ -169,7 +169,7 @@ class ModifierActivationRequirementData
         [
             'name' => 'is_cat_owner',
             'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
-            'activationRequirement' => PlayerStatusEnum::ANTISOCIAL,
+            'activationRequirement' => PlayerStatusEnum::CAT_OWNER,
             'value' => 100,
         ],
     ];

@@ -109,6 +109,7 @@ class ActionsFixtures extends Fixture
     public const string TAKEOFF_TO_PLANET_PATROL_SHIP = 'takeoff_to_planet_patrol_ship';
     public const string CHANGE_NERON_CPU_PRIORITY = 'change_neron_cpu_priority';
     public const string TAKE_CAT = 'take_cat';
+    public const string PET_CAT = 'pet_cat';
 
     public function load(ObjectManager $manager): void
     {
@@ -1103,6 +1104,17 @@ class ActionsFixtures extends Fixture
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setInjuryRate(20);
         $manager->persist($takeCat);
+
+        $petCat = new ActionConfig();
+        $petCat
+            ->setName(ActionEnum::PET_CAT->value)
+            ->setActionName(ActionEnum::PET_CAT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setInjuryRate(10)
+            ->setActionCost(1)
+            ->setOutputQuantity(3);
+        $manager->persist($petCat);
 
         $manager->flush();
 

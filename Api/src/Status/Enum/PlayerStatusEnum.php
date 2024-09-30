@@ -70,4 +70,5 @@ abstract class PlayerStatusEnum
 
     public const string HAS_USED_OPPORTUNIST_AS_COM_MANAGER = 'has_used_opportunist_as_com_manager';
     public const string CAT_OWNER = 'cat_owner';
+    public const string HAS_PETTED_CAT = 'has_petted_cat';
 }

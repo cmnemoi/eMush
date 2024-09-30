@@ -1470,5 +1470,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Soulevez ce gros matou et placez-le dans votre inventaire. Attention, il griffe!</target>
       </segment>
     </unit>
+    <unit id="pet_cat">
+      <segment id="name" state="final">
+        <source>pet_cat.name</source>
+        <target>Caresser</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>pet_cat.description</source>
+        <target>Permet de câliner amoureusement Schrödinger. Apporte un peu de joie la première fois...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -712,7 +712,7 @@
     <unit id="all_explorators_dead">
       <segment id="all_explorators_dead" state="translated">
         <source>all_explorators_dead</source>
-        <target>L'expédition est revenue plus tôt que prévu : tous les explorateurs sont morts ! Vous pouvez retrouver son déroulement {exploration_link}.</target>
+        <target>L'expédition s'est terminée plus tôt que prévu : tous les explorateurs sont morts ! Vous pouvez retrouver son déroulement {exploration_link}.</target>
       </segment>
     </unit>
     <unit id="gain_shoot_point">

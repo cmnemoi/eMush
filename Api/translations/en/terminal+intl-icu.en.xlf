@@ -267,7 +267,7 @@ Projects will advance more quickly if you have **the appropriate skills**.//
 //
 A solitary person, even if they have the appropriate skills, will have difficulty successfully completing research. If you advance research more than once in a row, your efficiency will decrease. **Working with a crewmate is the key!**//
 //
-That's not all: if more than one project is advancing in parallel, the first project completed will wipe out any progress made in the other.</target>
+That's not all: only one project per set can be brought to fruition. **When a project is complete, the other two are permanently discarded.** Talk with your crewmates to assess which will serve you best!</target>
       </segment>
       <segment id="no_proposed_neron_projects_description" state="translated">
         <source>neron_core.no_proposed_neron_projects_description</source>
@@ -287,7 +287,7 @@ Projects will advance more quickly if you have **the appropriate skills**.//
 //
 A solitary person, even if they have the appropriate skills, will have difficulty successfully completing research. If you advance research more than once in a row, your efficiency will decrease. **Working with a crewmate is the key!**//
 //
-That's not all: if more than one project is advancing in parallel, the first project completed will wipe out any progress made in the other.</target>
+That's not all: only one project per set can be brought to fruition. **When a project is complete, the other two are permanently discarded.** Talk with your crewmates to assess which will serve you best!</target>
       </segment>
       <segment id="no_proposed_neron_projects_description" state="translated">
         <source>auxiliary_terminal.no_proposed_neron_projects_description</source>

@@ -406,9 +406,9 @@
       </segment>
     </unit>
     <unit id="extinguish_success">
-      <segment id="extinguish_success" state="final">
+      <segment id="extinguish_success" state="translated">
         <source>extinguish_success</source>
-        <target>**{character}** put out the fire!</target>
+        <target>:fires: **{character}** put out the fire!</target>
       </segment>
     </unit>
     <unit id="extinguish_fail">
@@ -1048,6 +1048,12 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       <segment id="reinforce_fail" state="translated">
         <source>reinforce_fail</source>
         <target>You retreat proudly... bla bla... ah... never mind... your attempt at armor plating failed.</target>
+      </segment>
+    </unit>
+    <unit id="collect_scrap_fail">
+      <segment id="collect_scrap_fail" state="translated">
+        <source>collect_scrap_fail</source>
+        <target>**{character}** attempts a daring loop to catch a piece of scrap in midair, but collects nothing...</target>
       </segment>
     </unit>
   </file>

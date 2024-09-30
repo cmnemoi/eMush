@@ -1390,11 +1390,19 @@
     <unit id="lying_down">
       <segment id="name" state="translated">
         <source>lying_down.name</source>
-        <target>Allongé</target>
+        <target>{character_gender, select,
+            male {Allongé}
+            female {Allongée}
+            other {Allongé}
+            }</target>
       </segment>
       <segment id="description" state="translated">
         <source>lying_down.description</source>
-        <target>Vous êtes allongé.</target>
+        <target>{character_gender, select,
+            male {Vous êtes allongé.}
+            female {Vous êtes allongée.}
+            other {Vous êtes allongé.}
+            }</target>
       </segment>
       <segment id="effect" state="translated">
         <source>lying_down.examine</source>
@@ -1592,8 +1600,8 @@
         <target>Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
         :point: +1 :pa_eng: (point d'action **Réparation**) par jour.//
         :point: Peut **Démonter** des objets.//
-        :point: Chances de réussites doublées pour les **Réparations**.//
-        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Chance de réussite doublée pour les **Réparations**.//
+        :point: Chance de réussite doublée pour les **Rénovations**.//
         :point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>

@@ -30,7 +30,7 @@
         <source>shield.description</source>
         <target>{isPlasmaShieldDeactivated, select,
         true {Le bouclier plasma a été désactivé par l'Administrateur NERON.}
-        other {Le bouclier plasma absorbe les tirs ennemis à la place de la coque du Daedalus. À 0, c'est la coque qui reçoit les dégâts.}}</target>
+        other {Le bouclier plasma absorbe actuellement les tirs ennemis à la place de la coque du Daedalus. À 0, c'est la coque qui reçoit les dégâts.}}</target>
       </segment>
     </unit>
     <unit id="hull">

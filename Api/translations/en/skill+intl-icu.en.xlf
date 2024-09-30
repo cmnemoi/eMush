@@ -196,7 +196,9 @@
       </segment>
       <segment id="paranoid.description" state="translated">
         <source>paranoid.description</source>
-        <target>The Paranoid crewmember always believes their crewmates to be potentially dangerous, they always watch their back using their extra cameras.//Starts out with 2 additional **cameras**.//:point: Bonus for developing certain **NERON projects**.</target>
+        <target>The Paranoid crewmember always believes their crewmates to be potentially dangerous, they always watch their back using their extra cameras.//
+:point: Starts out with 2 additional **cameras**.//
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="biologist">
@@ -527,7 +529,7 @@
       </segment>
       <segment id="observant.description" state="translated">
         <source>observant.description</source>
-        <target>You use 1 :pa: less to discover hidden objects. You have a 25% chance of detecting secret activity in the room you are in.//:point: The **Search** action costs 1 :pa: less.//:point: You have a **25% chance of detecting sercret activity** in your current room.//:point: You have a **25% chance of revealing covert actions** performed in your presence.</target>
+        <target>You have a talent for perceiving what others miss. Nothing gets by you, neither sleight-of-hand nor hiding spots. //:point: The **Search** action costs 1 :pa: less.//:point: You have a **25% chance of detecting secret activity** in your current room.//:point: You have a **25% chance of revealing covert actions** performed in your presence.</target>
       </segment>
     </unit>
     <unit id="detached_crewmember">
@@ -575,9 +577,9 @@
         <source>politician.name</source>
         <target>Politician</target>
       </segment>
-      <segment id="politician.description" state="translated">
+      <segment id="politician.description" state="final">
         <source>politician.description</source>
-        <target>Either they are with you or against you.//:point: **Unique** : For **3** :pa: you can declare a Coup at the Nexus. On next cycle, NERON will consider as the new commander.</target>
+        <target>Either they are with you or against you.//:point: **Unique** : For **3** :pa: you can declare a Coup at the Nexus. On next cycle, NERON will consider you as the new commander.</target>
       </segment>
     </unit>
     <unit id="victimizer">

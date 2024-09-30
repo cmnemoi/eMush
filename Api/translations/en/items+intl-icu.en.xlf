@@ -1146,7 +1146,7 @@ The future of humanity will either be clean or it will not be.</target>
       </segment>
       <segment id="description" state="translated">
         <source>babel_module.description</source>
-        <target>A universal translation module.//Expedition : 2x Chance of finding artefacts in a sector containing "Intelligent Life".</target>
+        <target>A universal translation module.//Expedition: Doubles the odds of finding artifacts in "Intelligent Life" sectors.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>babel_module.examine</source>
@@ -2455,15 +2455,15 @@ The rocket launcher has long been an integral part of of the arsenal of expediti
       <segment id="description" state="translated">
         <source>survival_kit.description</source>
         <target>Contains drugs and bandages
-Contains $herog_numb x Bandage
-Contains $herog_numb x Drugs
+Contains {quantity} x Bandage
+Contains {quantity} x Drugs
 This is an object that can be **shared** (:group:).</target>
       </segment>
       <segment id="examine" state="translated">
         <source>survival_kit.examine</source>
         <target>Contains drugs and bandages
-Contains $herog_numb x Bandage
-Contains $herog_numb x Drugs
+Contains {quantity} x Bandage
+Contains {quantity} x Drugs
 The archetypal interstellar object which is always stored where it shouldn't be. Or in your pockets.</target>
       </segment>
     </unit>
@@ -2540,15 +2540,15 @@ A place to put a plant in the hydroponic garden.</target>
         <source>lunchbox.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>lunchbox.description</source>
         <target>Rations! A joy to share.
-Contains $herog_numb x Standard Ration.</target>
+Contains {quantity} x Standard Ration.</target>
       </segment>
-      <segment id="examine" state="final">
+      <segment id="examine" state="translated">
         <source>lunchbox.examine</source>
         <target>Rations! A joy to share.
-Contains $herog_numb x Standard Ration.
+Contains {quantity} x Standard Ration.
 The galactic equivalent of hot soup when you're getting spanked by absolute zero conditions.</target>
       </segment>
     </unit>
@@ -2657,12 +2657,12 @@ Who would have thought that a plywood structure and a few cushions could be so r
       <segment id="description" state="translated">
         <source>thermos_of_coffee.description</source>
         <target>There is nothing quite like a hot cup of joe...
-Contains $herog_numb x Coffee.</target>
+Contains {quantity} x Coffee.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>thermos_of_coffee.examine</source>
         <target>There's nothing quite like a hot cup of joe...
-Contains 4 x Coffee
+Contains {quantity} x Coffee
 The final word in solidarity in times of famine. Delivered without hot soup and without brazier.</target>
       </segment>
     </unit>

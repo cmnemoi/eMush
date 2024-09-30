@@ -131,7 +131,9 @@
       </segment>
       <segment id="conceptor.description" state="translated">
         <source>conceptor.description</source>
-        <target>Le Concepteur dispose de deux actions gratuites chaque jour pour utiliser le Cœur de NERON.//:point: +2 :pa_core: (points d'action **Conception**) par jour.//:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le Concepteur dispose de deux actions gratuites chaque jour pour utiliser le Cœur de NERON.//
+:point: +2 :pa_core: (points d'action **Conception**) par jour.//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="creative">
@@ -543,7 +545,7 @@
       </segment>
       <segment id="observant.description" state="translated">
         <source>observant.description</source>
-        <target>Vous dépensez un :pa: de moins pour retrouver des objets cachés, vous avez 25% de chances de détécter une action discrète dans votre pièce.//:point: L'action **Fouiller** vous coûte un :pa: de moins.//:point: Vous avez **25% de chances de détecter les actions discrètes** de votre pièce.//:point: Vous avez **25% de chances de révéler les actions furtives** réalisées en votre présence.</target>
+        <target>Vos capacités d'observation sont hors pair. Rien ne vous échappe, ni les tours de passe-passe, ni les cachettes faciles. //:point: L'action **Fouiller** vous coûte un :pa: de moins.//:point: Vous avez **25% de chances de détecter les actions discrètes** de votre pièce.//:point: Vous avez **25% de chances de révéler les actions furtives** réalisées en votre présence.</target>
       </segment>
     </unit>
     <unit id="detached_crewmember">

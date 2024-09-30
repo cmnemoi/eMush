@@ -793,5 +793,11 @@
         <target>reinforce_fail</target>
       </segment>
     </unit>
+    <unit id="collect_scrap_fail">
+      <segment id="collect_scrap_fail" state="initial">
+        <source>collect_scrap_fail</source>
+        <target>collect_scrap_fail</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

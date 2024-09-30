@@ -192,7 +192,7 @@
       </segment>
       <segment id="trail_reducer.description" state="translated">
         <source>trail_reducer.description</source>
-        <target>The number of enemy ships tracking you down after a trip is reduced to 25% (down from 50%).</target>
+        <target>The number of assailants joining you after a trip is reduced to 25% (down from 50%).</target>
       </segment>
       <segment id="trail_reducer.lore" state="translated">
         <source>trail_reducer.lore</source>
@@ -480,11 +480,11 @@
       </segment>
       <segment id="auto_return_icarus.description" state="translated">
         <source>auto_return_icarus.description</source>
-        <target>The Icarus automatically returns to the Daedalus in the event of mission failure.</target>
+        <target>The Icarus automatically returns to the Daedalus in the event of a full loss of the expedition crew.</target>
       </segment>
       <segment id="auto_return_icarus.lore" state="translated">
         <source>auto_return_icarus.lore</source>
-        <target>Using NERON's source code, you realize that you can give the Icarus a kind of pseudo-awareness. You decide to get rid of the pseudo-cognitive code and the emotion engine but keep the survival kernel. Now if a mission is a failure, the Icarus returns automatically.</target>
+        <target>Using NERON's source code, you realize that you can give the Icarus a kind of pseudo-awareness. You decide to get rid of the pseudo-cognitive code and the emotion engine but keep the survival kernel. Now if a planet expedition is a failure, the Icarus returns automatically.</target>
       </segment>
     </unit>
     <unit id="radar_trans_void">

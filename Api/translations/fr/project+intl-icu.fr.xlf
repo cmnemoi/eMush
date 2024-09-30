@@ -192,7 +192,7 @@
       </segment>
       <segment id="trail_reducer.description" state="translated">
         <source>trail_reducer.description</source>
-        <target>Le nombre d'assaillants qui vous retrouve après un voyage est réduit à 25% (au lieu de 50%).</target>
+        <target>Le nombre d'assaillants qui vous rejoignent après un voyage est réduit à 25% (au lieu de 50%).</target>
       </segment>
       <segment id="trail_reducer.lore" state="translated">
         <source>trail_reducer.lore</source>
@@ -480,7 +480,7 @@
       </segment>
       <segment id="auto_return_icarus.description" state="translated">
         <source>auto_return_icarus.description</source>
-        <target>L'Icarus retourne automatiquement dans le Daedalus en cas d'échec de la mission.</target>
+        <target>L'Icarus retourne automatiquement dans le Daedalus en cas de perte totale de l'équipe d'expédition.</target>
       </segment>
       <segment id="auto_return_icarus.lore" state="translated">
         <source>auto_return_icarus.lore</source>

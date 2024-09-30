@@ -74,7 +74,7 @@ final class DaedalusNormalizerCest extends AbstractFunctionalTest
             expected: [
                 'quantity' => 50,
                 'name' => 'Bouclier plasma : 50',
-                'description' => "Le bouclier plasma absorbe les tirs ennemis à la place de la coque du Daedalus. À 0, c'est la coque qui reçoit les dégâts.",
+                'description' => "Le bouclier plasma absorbe actuellement les tirs ennemis à la place de la coque du Daedalus. À 0, c'est la coque qui reçoit les dégâts.",
             ],
             actual: $normalizedDaedalus['shield']
         );

@@ -1162,5 +1162,31 @@
         <target>**{target_equipment}** se réveille en même temps que **{character}** et il n'a pas l'air content.</target>
       </segment>
     </unit>
+    <unit id="cat_meow">
+      <segment id="cat_meow" state="final">
+        <source>cat_meow</source>
+        <target>:cat: **{equipment} :** {version, select,
+                    1{miaou}
+                    2{maouuuuu}
+	                  3{maouuuuu maouuuuu}
+	                  4{maou?}
+	                  5{mrrrrrou mroouuuuuu}
+	                  6{mrrrrr}
+	                  7{rrrrrrrrrr}
+	                  8{pfffpffpffffpfff}
+	                  9{marrrrraouuuuuuuu}
+	                  10{mrrrrouuuu}
+	                  11{maou maou}
+	                  12{mmmmmaou}
+	                  13{mrouuuuuuuuuuuuuuu}
+	                  14{pschh pschhh}
+	                  15{maaaaaaaarrrr}
+	                  16{OUAH OUAH...}
+	                  17{mrrrrrhhhhhh}
+                    other {invalid version input}
+                }
+        </target>
+      </segment>
+    </unit>
   </file>
 </xliff>

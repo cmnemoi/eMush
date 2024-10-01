@@ -87,6 +87,7 @@ abstract class LogEnum
     public const string DRONE_KILL_HUNTER = 'drone_kill_hunter';
     public const string DRONE_LAND = 'drone_land';
     public const string AWAKEN_SCHRODINGER = 'awaken_schrodinger';
+    public const string CAT_MEOW = 'cat_meow';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

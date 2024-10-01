@@ -204,6 +204,15 @@ Access Token can be created at: https://gitlab.com/-/profile/personal_access_tok
 
 ## Troubleshooting
 
+### Eternaltwin login / website not working (Ports are not available: listen tcp 0.0.0.0:50320: bind : An attempt was made to access a socket in a way forbidden by its access permissions).
+
+Open Powershell as an administrator and run the following commands :
+```powershell
+netsh int ipv4 set dynamic tcp start=60536 num=5000
+netsh int ipv6 set dynamic tcp start=60536 num=5000
+```
+Restart your computer, then try to run `make docker-start` again.
+
 ### Use different ports
 To use different port modify the docker/docker-compose.dev.yml file
 

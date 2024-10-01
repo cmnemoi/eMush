@@ -38,6 +38,8 @@ docker-watch:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-recreate --remove-orphans
 
 fill-daedalus:
+	@echo "Waiting for Eternaltwin to be ready..."
+	@sleep 10
 	docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:fill-daedalus
 
 install: setup-git-hooks setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates reset-eternaltwin-database fill-daedalus
@@ -86,7 +88,7 @@ setup-JWT-certificates:
 start-eternaltwin-server:
 	docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn etwin start
 
-gitpod-install: setup-git-hooks gitpod-setup-env-variables gitpod-build install-api install-front install-eternaltwin setup-JWT-certificates fill-daedalus
+gitpod-install: setup-git-hooks gitpod-setup-env-variables gitpod-build install-api install-front install-eternaltwin setup-JWT-certificates reset-eternaltwin-database gitpod-start fill-daedalus
 
 gitpod-build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml build

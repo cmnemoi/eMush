@@ -17,9 +17,9 @@ Rather than checking every gear in every room every time the player check the co
 - Changing the cost of an action ;
   - Exemple: Observant [VariableEventModifier](./ConfigData/ModifierConfigData.php#L3204-L3218) set Search action cost to 0 action points.
 - Preventing an event from being called ;
-  - Exemple: a [PreventEventModifier](./ConfigData/ModifierConfigData.php#L515-L530) which prevents to get dirty when wearing the apron. 
+  - Exemple: Apron [PreventEventModifier](./ConfigData/ModifierConfigData.php#L515-L530) prevents `Dirty` status to apply. 
 - Triggering an additional event before a given event ;
-  - Exemple: Plasma Shield [TriggerEventModifier](./ConfigData/ModifierConfigData.php#L2124-L2140) triggers an event which adds +5 points to shield when the Daedalus changes cycle through `daedalus.new.cycle` event.
+  - Exemple: Plasma Shield [TriggerEventModifier](./ConfigData/ModifierConfigData.php#L2124-L2140) triggers an event which adds +5 points to shield when the Daedalus changes cycle.
 
 ### How to choose priority of a modifier ?
 The choice of [priority](./Enum/PriorityEnum) depends on the type of eventModifier you are using:
@@ -101,9 +101,10 @@ The choice of [priority](./Enum/PriorityEnum) depends on the type of eventModifi
 How to create a new modifier: 
 - Create a new modifierConfig in [ModifierConfigData](./ConfigData/ModifierConfigData.php)
 - Add the modifier config in the [status](../Status/ConfigData/StatusConfigData.php?ref_type=heads#L133-L148), [gear](../Equipment/
-Do not hesitate to ask for help on Discord if you need help to setup your modifier.
 ConfigData/MechanicsData.php?ref_type=heads#-L3795-L3802) or [disease](../Disease/ConfigData/DiseaseConfigData.php?ref_type=heads) configs
 
 For the moment (sorry), please read the PHP docs of the different modifiers to understand what each attribute does directly in their source code : [DirectModifierConfig](./Entity/Config/DirectModifierConfig.php), [VariableModifierConfig](./Entity/Config/VariableEventModifierConfig.php), [TriggerEventModifierConfig](./Entity/Config/TriggerEventModifierConfig.php)
 
 Take inspiration on the other configs to setup the different values.
+
+Do not hesitate to ask for help on Discord if you need help to setup your modifier.

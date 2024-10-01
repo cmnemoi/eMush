@@ -99,9 +99,8 @@ The choice of [priority](./Enum/PriorityEnum) depends on the type of eventModifi
 
 ### Data Fixtures
 How to create a new modifier: 
-- Create a new modifierConfig in [ModifierConfigData](./ConfigData/ModifierConfigData.php)
-- Add the modifier config in the [status](../Status/ConfigData/StatusConfigData.php?ref_type=heads#L133-L148), [gear](../Equipment/
-ConfigData/MechanicsData.php?ref_type=heads#-L3795-L3802) or [disease](../Disease/ConfigData/DiseaseConfigData.php?ref_type=heads) configs
+- Create a new modifierConfig in [ModifierConfigData](./ConfigData/ModifierConfigData.php) ;
+- Add the modifier config in the [status](../Status/ConfigData/StatusConfigData.php?ref_type=heads#L133-L148), [gear](../Equipment/ConfigData/MechanicsData.php?ref_type=heads#-L3795-L3802) or [disease](../Disease/ConfigData/DiseaseConfigData.php?ref_type=heads) configs ;
 
 For the moment (sorry), please read the PHP docs of the different modifiers to understand what each attribute does directly in their source code : [DirectModifierConfig](./Entity/Config/DirectModifierConfig.php), [VariableModifierConfig](./Entity/Config/VariableEventModifierConfig.php), [TriggerEventModifierConfig](./Entity/Config/TriggerEventModifierConfig.php)
 

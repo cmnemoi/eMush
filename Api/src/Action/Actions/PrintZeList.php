@@ -24,6 +24,7 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -49,6 +50,12 @@ final class PrintZeList extends AbstractAction
         $metadata->addConstraints([
             new HasSkill([
                 'skill' => SkillEnum::TRACKER,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
+            new HasStatus([
+                'status' => EquipmentStatusEnum::BROKEN,
+                'target' => HasStatus::PARAMETER,
+                'contain' => false,
                 'groups' => [ClassConstraint::VISIBILITY],
             ]),
             new HasStatus([

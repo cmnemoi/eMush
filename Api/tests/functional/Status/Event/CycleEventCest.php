@@ -408,16 +408,13 @@ final class CycleEventCest extends AbstractFunctionalTest
 
         // When a new cycle passes
         $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
-        
-        // Capture logs
-        $logHandler = new \Monolog\Handler\TestHandler();
-        $this->getContainer()->get('monolog.logger.mush_test')->pushHandler($logHandler);
 
         $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // Then there should be exactly one log entry for starving damage
-        $starvingLogs = array_filter($logHandler->getRecords(), function ($record) {
-            return strpos($record['message'], 'is starving') !== false;
+        $roomLogs = $this->chun->getPlace()->getLogsByPlayerId($this->chun->getId());
+        $starvingLogs = $roomLogs->filter(function ($log) {
+            return strpos($log->getLog(), 'is starving') !== false;
         });
 
         $I->assertCount(1, $starvingLogs);

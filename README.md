@@ -145,6 +145,10 @@ chmod go+r config/jwt/private.pem
 
 
 - In folder `Api/`
+
+  - Replace all instances of `mush_eternaltwin` by `localhost` in your `.env`
+  - Install and launch eMush back-end:
+
 ```
 cp .env.dist .env
 composer update
@@ -152,18 +156,20 @@ php bin/console mush:migrate --dev
 php -S localhost:8080 -t public
 ```
 
-Replace all instances of `mush_eternaltwin` by `localhost` in your `.env`
-     
 - In folder `App/`
+
+  - Modify `.env` `VITE_APP_URL` value to `http://localhost:5173`
+  - Install and launch eMush front-end:
 ```
 cp .env.dist .env
 yarn install
 yarn serve
 ```
 
-Modify `.env` `VITE_APP_URL` value to `http://localhost:5173`
-
 - In folder `EternalTwin/`
+
+  - Modify `eternaltwin.local.toml` `uri` value to `http://localhost:5173`
+  - Install and launch Eternaltwin server:
 ```
 cp eternaltwin.toml eternaltwin.local.toml
 yarn install
@@ -171,7 +177,6 @@ yarn etwin db create
 yarn etwin start
 ```
 
-Modify `eternaltwin.local.toml` `uri` value to `http://localhost:5173`
 
 ## Contributing
 
@@ -203,6 +208,15 @@ Access Token can be created at: https://gitlab.com/-/profile/personal_access_tok
 (you can also connect with password by using `docker login registry.gitlab.com -u YOUR_USERNAME` then entering your password)
 
 ## Troubleshooting
+
+### Eternaltwin login / website not working (Ports are not available: listen tcp 0.0.0.0:50320: bind : An attempt was made to access a socket in a way forbidden by its access permissions).
+
+Open Powershell as an administrator and run the following commands :
+```powershell
+netsh int ipv4 set dynamic tcp start=60536 num=5000
+netsh int ipv6 set dynamic tcp start=60536 num=5000
+```
+Restart your computer, then try to run `make docker-start` again.
 
 ### Use different ports
 To use different port modify the docker/docker-compose.dev.yml file

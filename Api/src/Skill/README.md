@@ -29,4 +29,4 @@ Skills grant players new actions, various bonuses through [modifiers](../Modifie
 - Add the skill to a character in [CharacterConfigData](../Player/ConfigData/CharacterConfigData.php) and [CharacterConfigFixtures](../Player/DataFixtures/CharacterConfigFixtures.php).
 - Add french translations in [skill+intl-icu.fr.xlf](../../translations/fr/skill+intl-icu.fr.xlf).
 
-If you want to implement a custom behavior which cannot be covered by the options above, you will need to check for Skill presence and implement your logic directly in the services / normalizers... Do not hesitate to contact us if you need help.
+If you want to implement a custom behavior which cannot be covered by the options above, you will need to check for Skill presence and implement your logic directly in the services / normalizers... Do not hesitate to contact us on [Discord](https://discord.com/channels/693082011484684348/746873392463872071) if you need help.

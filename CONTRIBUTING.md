@@ -1,13 +1,13 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via [issue](https://gitlab.com/eternaltwin/mush/mush/-/issues/?sort=updated_desc&state=opened&first_page_size=100),
-or [discord](https://discord.com/channels/693082011484684348) before making a change. 
+When contributing to this repository, please first discuss the change you wish to make via an [issue](https://gitlab.com/eternaltwin/mush/mush/-/issues/?sort=updated_desc&state=opened&first_page_size=100)
+or on [Discord](https://discord.com/channels/693082011484684348/746873392463872071) before making a change. 
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
 ## Pull Request Process
 
-1- Please make any changes on a local branch from the development branch, and prefix the branch name by feat for a new feature and fix for a fix:
+1 - Please make any changes on a local branch from the development branch, and prefix the branch name by feat for a new feature and fix for a fix:
 ```
 git checkout -b feat-some-feature
 ```
@@ -15,24 +15,20 @@ Or for a fix
 ```
 git checkout -b fix-some-fix
 ```
-2- Verify coding style before creating the merge request with `composer lint`
 
-3- Merge go through a pipeline that check unit test and syntax. Be sure to run following commands before merging:
-```
-composer lint
-composer test
-```
-In case of trouble when running tests, run following commands:
-```
-composer codecept:clean
-composer psalm:clear-cache
-```
-Test should cover at least 70 % of the lines. To check test coverage run:
-```
-XDEBUG_MODE=coverage php vendor/bin/codecept run  --coverage
-```
+2 - Each new feature or bug fix must be covered by tests.
 
-4- Issue a Merge Request describing summarizing what you have done, wait a moment (ideally 24h) or the approval of another developer before merging
+To run tests, you can use the `composer test` command. That said, due to the great amount of (slow integration) tests, it is recommended to only run the tests of the module you are working on.
+
+For example, to run the tests of the `Skill` module, you can use the following command: `composer test:skill`.
+
+If you work on a very test-heavy module like `Action`, you can only run the tests of the files you are working on. Example: `composer test tests/functional/Action/Actions/MyActionCest.php`.
+
+In any case, new code go through a CI pipeline that will run all tests.
+
+In case of trouble when running tests, run `composer codecept:clean`.
+
+3 - Issue a Merge Request describing summarizing what you have done, wait a moment (48h maximum) or the approval of another developer before merging. Do not hesitate to ask for a code review on [Discord](https://discord.com/channels/693082011484684348/746873392463872071).
 
 eMush uses [semantic-release](https://semantic-release.gitbook.io/semantic-release/) to generate changelogs and versioning.
 Therefore, your Merge Request title must follow the [Conventional commits convention](https://www.conventionalcommits.org/en/v1.0.0/#summary).
@@ -49,7 +45,7 @@ You can also use the following prefixes. They will not appear in the changelog, 
 - ci: Changes to our CI configuration files and scripts
 - internal: Changes that do not affect the users. Use this for bugs that are in production, or internal tools (admin panel, composer commands etc.)
 
-5- We advise new back-end developers to add an [action](./Api/src/Action/README.md). Do not hesitate to read the [API README](./Api/README.md).
+4 - We advise new back-end developers to add an [action](./Api/src/Action/README.md#create-a-new-action).
 
 ## Code of Conduct
 

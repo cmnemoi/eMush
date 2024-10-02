@@ -1,5 +1,5 @@
 # Action
-This module handle the actions executed by the player. If applies effects and compute what actons are available to the player.
+This module handles the actions executed by the player. If applies effects and computes what actions are available to the player.
 
 # Architecture 
 
@@ -22,7 +22,9 @@ This module handle the actions executed by the player. If applies effects and co
 
 ### Actions
 Contain a file for every available action, each action being its own class.
+
 All action classes extend [AbstractAction](./Actions/AbstractAction.php).
+
 Actions with a success rate extend [AttemptAction](./Actions/AttemptAction.php).
 
 ### ConfigData / DataFixtures
@@ -63,7 +65,7 @@ Obvious example:
 - The list of actions that need to be added can be found on [GitLab](https://gitlab.com/eternaltwin/mush/mush/-/issues/396). 
 - Create a class that extends [AbstractAction](./Actions/AbstractAction.php) in [Actions directory](./Actions).
 - Register the action name in the [ActionEnum](./Enum/ActionEnum.php)
-- Add the [action data](./ConfigData/ActionData.php) (cost, name, injury rate...) and fixtures in  [ActionsFixtures](./DataFixtures/ActionsFixtures.php).
+- Add the [action data](./ConfigData/ActionData.php) (cost, name, injury rate...) and fixtures in [ActionsFixtures](./DataFixtures/ActionsFixtures.php).
 - Add the action to the associated equipment, skill or status respectively in :
   - [equipment data](../Equipment/ConfigData/EquipmentConfigData.php) and [equipment fixtures](../Equipment/DataFixtures/EquipmentConfigFixtures.php)
   - [skill data](../Skill/ConfigData/SkillConfigData.php)

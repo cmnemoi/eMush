@@ -1017,7 +1017,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function lastActionIsFromYesterdayOrLater(): bool
     {
-        return $this->lastActionDate <= new \DateTime('yesterday');
+        return $this->lastActionDate <= new \DateTime('-1 day');
     }
 
     public function lastActionIsFromTwoDaysAgoOrLater(): bool

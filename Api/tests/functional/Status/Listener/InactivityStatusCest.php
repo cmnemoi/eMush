@@ -38,9 +38,9 @@ final class InactivityStatusCest extends AbstractFunctionalTest
 
     public function shouldBeCreatedAtCycleChange(FunctionalTester $I): void
     {
-        $this->givenPlayerHasAllTheirActionPoints($this->player);
+        $this->givenPlayerHasAllTheirActionPoints();
 
-        $this->givenPlayerLastActionIsFrom(new \DateTime('yesterday'));
+        $this->givenPlayerLastActionIsFrom(new \DateTime('-1 day'));
 
         $this->whenANewCycleIsTriggered();
 
@@ -49,9 +49,9 @@ final class InactivityStatusCest extends AbstractFunctionalTest
 
     public function shouldBeRemovedAfterAnAction(FunctionalTester $I): void
     {
-        $this->givenPlayerHasAllTheirActionPoints($this->player);
+        $this->givenPlayerHasAllTheirActionPoints();
 
-        $this->givenPlayerLastActionIsFrom(new \DateTime('yesterday'));
+        $this->givenPlayerLastActionIsFrom(new \DateTime('-1 day'));
 
         $this->givenPlayerHasInactiveStatus();
 
@@ -62,9 +62,9 @@ final class InactivityStatusCest extends AbstractFunctionalTest
 
     public function shouldPrintAPublicLogWhenCreated(FunctionalTester $I): void
     {
-        $this->givenPlayerHasAllTheirActionPoints($this->player);
+        $this->givenPlayerHasAllTheirActionPoints();
 
-        $this->givenPlayerLastActionIsFrom(new \DateTime('yesterday'));
+        $this->givenPlayerLastActionIsFrom(new \DateTime('-1 day'));
 
         $this->whenANewCycleIsTriggered();
 
@@ -73,9 +73,9 @@ final class InactivityStatusCest extends AbstractFunctionalTest
 
     public function shouldPrintAPublicLogWhenDeleted(FunctionalTester $I): void
     {
-        $this->givenPlayerHasAllTheirActionPoints($this->player);
+        $this->givenPlayerHasAllTheirActionPoints();
 
-        $this->givenPlayerLastActionIsFrom(new \DateTime('yesterday'));
+        $this->givenPlayerLastActionIsFrom(new \DateTime('-1 day'));
 
         $this->givenPlayerHasInactiveStatus();
 
@@ -107,7 +107,7 @@ final class InactivityStatusCest extends AbstractFunctionalTest
     private function whenANewCycleIsTriggered(): void
     {
         $playerCycleEvent = new PlayerCycleEvent($this->player, [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->playerCycleSubscriber->onNewCycle($playerCycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        $this->playerCycleSubscriber->onNewCycle($playerCycleEvent);
     }
 
     private function whenPlayerMakesAnAction(FunctionalTester $I): void

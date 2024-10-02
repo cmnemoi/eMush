@@ -43,7 +43,7 @@ final class MakePlayerInactiveUseCaseTest extends TestCase
 
         $this->givenPlayerHasAllTheirActionPoints($player);
 
-        $this->givenPlayerLastActionIsFrom($player, new \DateTime('yesterday'));
+        $this->givenPlayerLastActionIsFrom($player, new \DateTime('-1 day'));
 
         $this->whenIMakePlayerInactive($player);
 
@@ -54,7 +54,7 @@ final class MakePlayerInactiveUseCaseTest extends TestCase
     {
         $player = $this->givenAPlayer();
 
-        $this->givenPlayerLastActionIsFrom($player, new \DateTime('yesterday'));
+        $this->givenPlayerLastActionIsFrom($player, new \DateTime('-1 day'));
 
         $this->givenPlayerDoesNotHaveAllTheirActionPoints($player);
 

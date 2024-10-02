@@ -530,6 +530,9 @@ abstract class ActionLogEnum
         ActionEnum::PET_CAT->value => [
             ActionOutputEnum::SUCCESS => self::PET_CAT,
         ],
+        ActionEnum::CONVERT_CAT->value => [
+            ActionOutputEnum::SUCCESS => self::PET_CAT,
+        ],
     ];
 
     public static function dependsOnNeronMood(string $logKey): bool

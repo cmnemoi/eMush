@@ -16,7 +16,7 @@ abstract class EquipmentMechanicEnum
     public const string PLANT = 'plant';
     public const string PRIVATE_EQUIPMENT = 'private_equipment';
 
-/** Equipment that's only visible to owner. */
+    /** Equipment that's only visible to owner. */
     public const string RATION = 'ration';
     public const string TOOL = 'tool';
     public const string WEAPON = 'weapon';

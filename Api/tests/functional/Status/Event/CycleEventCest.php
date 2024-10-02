@@ -387,4 +387,39 @@ final class CycleEventCest extends AbstractFunctionalTest
         $turretCharges = $turret->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
         $I->assertEquals(3, $turretCharges->getCharge());
     }
+
+    public function testStarvingStatusPrintsSingleLogWhenPlayerHasFlu(FunctionalTester $I): void
+    {
+        // Given the player is starving
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::STARVING,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // And the player has the flu
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::DISEASE_FLU,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // When a new cycle passes
+        $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
+        
+        // Capture logs
+        $logHandler = new \Monolog\Handler\TestHandler();
+        $this->getContainer()->get('monolog.logger.mush_test')->pushHandler($logHandler);
+
+        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+
+        // Then there should be exactly one log entry for starving damage
+        $starvingLogs = array_filter($logHandler->getRecords(), function ($record) {
+            return strpos($record['message'], 'is starving') !== false;
+        });
+
+        $I->assertCount(1, $starvingLogs);
+    }
 }

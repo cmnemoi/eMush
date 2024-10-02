@@ -4154,6 +4154,7 @@ class EquipmentConfigData
                 'pet_cat',
                 'drop',
                 'examine',
+                'convert_cat',
             ],
             'mechanics' => [],
             'initStatuses' => [],

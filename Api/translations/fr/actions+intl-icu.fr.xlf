@@ -1480,5 +1480,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de câliner amoureusement Schrödinger. Apporte un peu de joie la première fois...</target>
       </segment>
     </unit>
+    <unit id="convert_cat">
+      <segment id="name" state="final">
+        <source>convert_cat.name</source>
+        <target>Caresse Infectieuse</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>convert_cat.description</source>
+        <target>Permet de câliner "amoureusement" Schrödinger et d'en faire un agent du Mush.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

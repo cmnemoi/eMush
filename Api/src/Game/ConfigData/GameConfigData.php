@@ -477,6 +477,7 @@ class GameConfigData
                 EquipmentStatusEnum::DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS . '_default',
                 PlayerStatusEnum::CAT_OWNER . '_default',
                 PlayerStatusEnum::HAS_PETTED_CAT . '_default',
+                EquipmentStatusEnum::CAT_INFECTED . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

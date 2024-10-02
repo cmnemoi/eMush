@@ -1658,6 +1658,15 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+
+        [
+            'name' => EquipmentStatusEnum::CAT_INFECTED . '_default',
+            'statusName' => EquipmentStatusEnum::CAT_INFECTED,
+            'visibility' => VisibilityEnum::MUSH,
+            'type' => 'status_config',
+            'modifierConfigs' => [], // todo
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

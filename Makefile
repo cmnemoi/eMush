@@ -42,7 +42,7 @@ fill-daedalus:
 	@sleep 10
 	docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:fill-daedalus
 
-install: setup-git-hooks setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates reset-eternaltwin-database fill-daedalus
+install: setup-git-hooks setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates reset-eternaltwin-database docker-start fill-daedalus
 	@echo "Installation completed successfully ! You can access eMush at http://localhost/."
 	@echo "You can log in with the following credentials:"
 	@echo "Username: chun"

@@ -587,6 +587,13 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($catInfected);
 
+        $catInfected = new StatusConfig();
+        $catInfected
+            ->setStatusName(EquipmentStatusEnum::CAT_INFECTED)
+            ->setVisibility(VisibilityEnum::MUSH)
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($catInfected);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -647,6 +654,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasUsedMassGgedon)
             ->addStatusConfig($hasUsedPutsch)
             ->addStatusConfig($pariahStatus)
+            ->addStatusConfig($catInfected)
             ->addStatusConfig($catInfected)
             ->addStatusConfig($upgradedFirefighter)
             ->addStatusConfig($pilotDroneUpgrade)

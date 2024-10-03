@@ -60,6 +60,6 @@ abstract class PlayerStatusEnum
     public const string HAS_USED_OPPORTUNIST_AS_COMMANDER = 'has_used_opportunist_as_commander';
 
     public const string HAS_USED_OPPORTUNIST_AS_NERON_MANAGER = 'has_used_opportunist_as_neron_manager';
-    
+
     public const string HAS_USED_OPPORTUNIST_AS_COM_MANAGER = 'has_used_opportunist_as_com_manager';
 }

@@ -466,7 +466,7 @@ class GameConfigData
                 PlayerStatusEnum::HAS_READ_MAGE_BOOK . '_default',
                 PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_COMMANDER . '_default',
                 PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_NERON_MANAGER . '_default',
-                PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_COM_MANAGER . '_default'
+                PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_COM_MANAGER . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

@@ -1549,7 +1549,7 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_NERON_MANAGER. '_default',
+            'name' => PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_NERON_MANAGER . '_default',
             'statusName' => PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_NERON_MANAGER,
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'status_config',

@@ -1,6 +1,7 @@
 <?php
 
 namespace Mush\Game\Enum;
+
 use Mush\Status\Enum\PlayerStatusEnum;
 
 abstract class TitleEnum

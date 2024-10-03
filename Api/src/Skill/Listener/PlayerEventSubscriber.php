@@ -31,7 +31,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         return [
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
             PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', EventPriorityEnum::LOW],
-            PlayerEvent::TITLE_ATTRIBUTED => 'onTitleAttributed'
+            PlayerEvent::TITLE_ATTRIBUTED => 'onTitleAttributed',
         ];
     }
 
@@ -62,10 +62,10 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         $associatedStatus = TitleEnum::TITLES_OPPORTUNIST_STATUSES_MAP[$title];
         $player = $event->getPlayer();
 
-        if(
-            $player->hasSkill(SkillEnum::OPPORTUNIST) && 
-            !$player->hasStatus($associatedStatus) && 
-            !$player->isMush()
+        if (
+            $player->hasSkill(SkillEnum::OPPORTUNIST)
+            && !$player->hasStatus($associatedStatus)
+            && !$player->isMush()
         ) {
             $this->opportunistHandler->execute($event->getPlayer(), $title);
         }

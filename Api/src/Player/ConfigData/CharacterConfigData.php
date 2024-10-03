@@ -787,7 +787,7 @@ class CharacterConfigData
                 SkillEnum::SHOOTER,
                 SkillEnum::APPRENTICE,
                 SkillEnum::CREATIVE,
-                SkillEnum::OPPORTUNIST
+                SkillEnum::OPPORTUNIST,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

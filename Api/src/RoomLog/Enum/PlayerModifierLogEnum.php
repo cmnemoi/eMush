@@ -78,7 +78,6 @@ abstract class PlayerModifierLogEnum
             ModifierNameEnum::LOGISTICS_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::COLD_BLOODED_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::OPPORTUNIST_MODIFIER => VisibilityEnum::PRIVATE,
-
         ],
     ];
 }

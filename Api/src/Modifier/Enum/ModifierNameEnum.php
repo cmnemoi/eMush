@@ -94,5 +94,4 @@ abstract class ModifierNameEnum
     public const string SHRINK_MODIFIER = 'shrink_modifier';
     public const string OPPORTUNIST_MODIFIER = 'opportunist_modifier';
     public const string PLAYER_PLUS_5_ACTION_POINT_ON_FIRST_TITLE_ATTRIBUTION = 'player_+5_action_point_on_first_title_attribution';
-
 }

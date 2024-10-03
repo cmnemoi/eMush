@@ -56,7 +56,8 @@ final class PrintZeList extends AbstractAction
                 'status' => EquipmentStatusEnum::BROKEN,
                 'target' => HasStatus::PARAMETER,
                 'contain' => false,
-                'groups' => [ClassConstraint::VISIBILITY],
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
             ]),
             new HasStatus([
                 'status' => DaedalusStatusEnum::ZE_LIST_HAS_BEEN_PRINTED,

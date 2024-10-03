@@ -398,6 +398,12 @@ abstract class SkillConfigData
                     ModifierNameEnum::PLAYER_PLUS_2_MOVEMENT_POINT_ON_EVENT_ACTION_MOVEMENT_CONVERSION_FOR_SPRINTER,
                 ],
             ),
+            new SkillConfigDto(
+                name: SkillEnum::OPPORTUNIST,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_PLUS_5_ACTION_POINT_ON_FIRST_TITLE_ATTRIBUTION,
+                ],
+            ),
         ];
     }
 

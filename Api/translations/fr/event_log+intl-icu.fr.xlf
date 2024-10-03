@@ -1114,5 +1114,11 @@
                 }</target>
       </segment>
     </unit>
+    <unit id="opportunist_worked">
+      <segment id="opportunist_worked" state="final">
+        <source>opportunist_worked</source>
+        <target>opportunist_worked</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

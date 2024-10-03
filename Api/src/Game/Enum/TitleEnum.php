@@ -1,6 +1,7 @@
 <?php
 
 namespace Mush\Game\Enum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 abstract class TitleEnum
 {
@@ -12,5 +13,11 @@ abstract class TitleEnum
         self::COMMANDER => self::COMMANDER,
         self::NERON_MANAGER => self::NERON_MANAGER,
         self::COM_MANAGER => self::COM_MANAGER,
+    ];
+
+    public const array TITLES_OPPORTUNIST_STATUSES_MAP = [
+        self::COMMANDER => PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_COMMANDER,
+        self::NERON_MANAGER => PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_NERON_MANAGER,
+        self::COM_MANAGER => PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_COM_MANAGER,
     ];
 }

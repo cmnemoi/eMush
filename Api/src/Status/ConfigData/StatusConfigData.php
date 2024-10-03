@@ -1540,6 +1540,30 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_COMMANDER . '_default',
+            'statusName' => PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_COMMANDER,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_NERON_MANAGER. '_default',
+            'statusName' => PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_NERON_MANAGER,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_COM_MANAGER . '_default',
+            'statusName' => PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_COM_MANAGER,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

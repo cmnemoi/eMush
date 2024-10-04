@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Mush\Skill\Handler;
 
-use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusService;
 
 final class OpportunistHandler
@@ -36,7 +36,7 @@ final class OpportunistHandler
 
     private function addHasUsedOportunistStatusOnTitle(Player $player, string $title): void
     {
-        $statusName = TitleEnum::TITLES_OPPORTUNIST_STATUSES_MAP[$title];
+        $statusName = PlayerStatusEnum::TITLES_OPPORTUNIST_STATUSES_MAP[$title];
         $this->statusService->createStatusFromName(
             statusName: $statusName,
             holder: $player,

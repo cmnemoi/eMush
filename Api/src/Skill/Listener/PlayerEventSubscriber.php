@@ -14,6 +14,7 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Handler\ColdBloodedHandler;
 use Mush\Skill\Handler\OpportunistHandler;
 use Mush\Skill\Service\DeletePlayerSkillService;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -59,7 +60,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         if ($title === null) {
             throw new \LogicException('Player needs a specific title to gain');
         }
-        $associatedStatus = TitleEnum::TITLES_OPPORTUNIST_STATUSES_MAP[$title];
+        $associatedStatus = PlayerStatusEnum::TITLES_OPPORTUNIST_STATUSES_MAP[$title];
         $player = $event->getPlayer();
 
         if (

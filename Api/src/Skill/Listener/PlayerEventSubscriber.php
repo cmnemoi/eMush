@@ -65,8 +65,8 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
 
         if (
             $player->hasSkill(SkillEnum::OPPORTUNIST)
-            && !$player->hasStatus($associatedStatus)
-            && !$player->isMush()
+            && $player->doesNotHaveStatus($associatedStatus)
+            && $player->isHuman()
         ) {
             $this->opportunistHandler->execute($event->getPlayer(), $title);
         }

@@ -146,11 +146,11 @@ chmod go+r config/jwt/private.pem
 
 - In folder `Api/`
 
+  - `cp .env.dist .env`
   - Replace all instances of `mush_eternaltwin` by `localhost` in your `.env`
   - Install and launch eMush back-end:
 
 ```
-cp .env.dist .env
 composer update
 php bin/console mush:migrate --dev
 php -S localhost:8080 -t public
@@ -158,25 +158,24 @@ php -S localhost:8080 -t public
 
 - In folder `App/`
 
+  - `cp .env.dist .env`
   - Modify `.env` `VITE_APP_URL` value to `http://localhost:5173`
   - Install and launch eMush front-end:
 ```
-cp .env.dist .env
 yarn install
 yarn serve
 ```
 
 - In folder `EternalTwin/`
 
+  - `cp eternaltwin.toml eternaltwin.local.toml`
   - Modify `eternaltwin.local.toml` `uri` value to `http://localhost:5173`
   - Install and launch Eternaltwin server:
 ```
-cp eternaltwin.toml eternaltwin.local.toml
 yarn install
 yarn etwin db create
 yarn etwin start
 ```
-
 
 ## Contributing
 

@@ -30,6 +30,7 @@ abstract class PlayerModifierLogEnum
     public const string LOGISTIC_LOG = 'logistic_log';
     public const string OPTIMIST_WORKED = 'optimist_worked';
     public const string COLD_BLOODED_WORKED = 'cold_blooded_worked';
+    public const string OPPORTUNIST_WORKED = 'opportunist_worked';
     public const string GAIN = 'gain';
     public const string LOSS = 'loss';
     public const string VISIBILITY = 'visibility';
@@ -63,6 +64,7 @@ abstract class PlayerModifierLogEnum
             HunterEvent::HUNTER_SHOT => LogEnum::ATTACKED_BY_HUNTER,
             ModifierNameEnum::LOGISTICS_MODIFIER => self::LOGISTIC_LOG,
             ModifierNameEnum::COLD_BLOODED_MODIFIER => self::COLD_BLOODED_WORKED,
+            ModifierNameEnum::OPPORTUNIST_MODIFIER => self::OPPORTUNIST_WORKED,
         ],
         self::VISIBILITY => [
             ModifierNameEnum::STARVING => VisibilityEnum::PRIVATE,
@@ -75,6 +77,7 @@ abstract class PlayerModifierLogEnum
             ModifierNameEnum::OPTIMIST_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::LOGISTICS_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::COLD_BLOODED_MODIFIER => VisibilityEnum::PRIVATE,
+            ModifierNameEnum::OPPORTUNIST_MODIFIER => VisibilityEnum::PRIVATE,
         ],
     ];
 }

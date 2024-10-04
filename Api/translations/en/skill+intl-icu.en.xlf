@@ -742,5 +742,15 @@
         <target>After displaying a certain degree of megalomania, it can be mistaken for talent. You are an expert in intergalactic warfare, but everyone thinks you're crazy.//:point: **50%** chance of reducing each wave of Hunters by **33%**.</target>
       </segment>
     </unit>
+    <unit id="opportunist">
+      <segment id="opportunist.name" state="translated">
+        <source>opportunist.name</source>
+        <target>Opportunist</target>
+      </segment>
+      <segment id="opportunist.description" state="translated">
+        <source>opportunist.description</source>
+        <target>The opportunist waits for the first chance to climb the ship's hierarchy, no opportunity escapes them.//:point: +5 :pa: when you **earn a title** for the first time.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

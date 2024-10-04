@@ -551,6 +551,21 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasReadMageBook);
 
+        $hasUsedOpportunistAsCommander = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_COMMANDER . '_default')
+        );
+        $manager->persist($hasUsedOpportunistAsCommander);
+
+        $hasUsedOpportunistAsNeronManager = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_NERON_MANAGER . '_default')
+        );
+        $manager->persist($hasUsedOpportunistAsNeronManager);
+
+        $hasUsedOpportunistAsComManager = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_USED_OPPORTUNIST_AS_COM_MANAGER . '_default')
+        );
+        $manager->persist($hasUsedOpportunistAsComManager);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -610,7 +625,10 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasReadMageBook)
             ->addStatusConfig($hasUsedMassGgedon)
             ->addStatusConfig($hasUsedPutsch)
-            ->addStatusConfig($pariahStatus);
+            ->addStatusConfig($pariahStatus)
+            ->addStatusConfig(statusConfig: $hasUsedOpportunistAsCommander)
+            ->addStatusConfig($hasUsedOpportunistAsNeronManager)
+            ->addStatusConfig($hasUsedOpportunistAsComManager);
 
         $manager->persist($gameConfig);
 

@@ -2,8 +2,15 @@
 
 namespace Mush\Status\Enum;
 
+use Mush\Game\Enum\TitleEnum;
+
 abstract class PlayerStatusEnum
 {
+    public const array TITLES_OPPORTUNIST_STATUSES_MAP = [
+        TitleEnum::COMMANDER => self::HAS_USED_OPPORTUNIST_AS_COMMANDER,
+        TitleEnum::NERON_MANAGER => self::HAS_USED_OPPORTUNIST_AS_NERON_MANAGER,
+        TitleEnum::COM_MANAGER => self::HAS_USED_OPPORTUNIST_AS_COM_MANAGER,
+    ];
     public const string ANTISOCIAL = 'antisocial';
     public const string BERZERK = 'berzerk';
     public const string BRAINSYNC = 'brainsync';
@@ -56,4 +63,10 @@ abstract class PlayerStatusEnum
     public const string PARIAH = 'pariah';
     public const string SLIME_TRAP = 'slime_trap';
     public const string HAS_READ_MAGE_BOOK = 'has_read_mage_book';
+
+    public const string HAS_USED_OPPORTUNIST_AS_COMMANDER = 'has_used_opportunist_as_commander';
+
+    public const string HAS_USED_OPPORTUNIST_AS_NERON_MANAGER = 'has_used_opportunist_as_neron_manager';
+
+    public const string HAS_USED_OPPORTUNIST_AS_COM_MANAGER = 'has_used_opportunist_as_com_manager';
 }

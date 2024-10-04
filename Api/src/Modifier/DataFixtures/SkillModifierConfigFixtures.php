@@ -262,6 +262,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($strateguruModifier->getName(), $strateguruModifier);
         $manager->persist($strateguruModifier);
 
+        $opportunistModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_5_ACTION_POINT_ON_FIRST_TITLE_ATTRIBUTION)
+        );
+        $this->addReference($opportunistModifier->getName(), $opportunistModifier);
+        $manager->persist($opportunistModifier);
+
         $manager->flush();
     }
 

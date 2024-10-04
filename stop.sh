@@ -19,7 +19,7 @@ stop_php_server() {
 # Stop Vite server
 stop_vite_server() {
     log_message "Stopping Vite server..."
-    pkill -f "vite"
+    pkill -f "yarn dev"
     if [ $? -eq 0 ]; then
         log_message "Vite server stopped successfully."
     else
@@ -31,7 +31,8 @@ stop_vite_server() {
 main() {
     stop_php_server
     stop_vite_server
-    log_message "All servers have been stopped."
+    log_message "Project stopped successfully."
+    log_message "To start the servers again, run ./start.sh"
 }
 
 # Run the main function

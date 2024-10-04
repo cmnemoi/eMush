@@ -88,8 +88,27 @@ uninstall_node() {
 
 # Uninstall PHP
 uninstall_php() {
-    log_message "Uninstalling PHP ${PHP_VERSION}..."
+    log_message "Uninstalling PHP ${PHP_VERSION} and extensions..."
     uninstall_package "php${PHP_VERSION}"
+    uninstall_package "php${PHP_VERSION}-common"
+    uninstall_package "php${PHP_VERSION}-pgsql"
+    uninstall_package "php${PHP_VERSION}-curl"
+    uninstall_package "php${PHP_VERSION}-opcache"
+    uninstall_package "php${PHP_VERSION}-intl"
+    uninstall_package "php${PHP_VERSION}-xml"
+    uninstall_package "php${PHP_VERSION}-dom"
+    uninstall_package "php${PHP_VERSION}-zip"
+
+    log_message "Uninstalling PHP dependencies..."
+    uninstall_package "ca-certificates"
+    uninstall_package "apt-transport-https"
+    uninstall_package "software-properties-common"
+    uninstall_package "lsb-release"
+    uninstall_package "openssl"
+    uninstall_package "zip"
+    uninstall_package "unzip"
+
+    log_message "Uninstalling Composer..."
     run_command "sudo rm -rf /usr/local/bin/composer"
 }
 

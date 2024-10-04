@@ -1,11 +1,10 @@
 #!/bin/bash
 
 set -e
-set -o pipefail
 
 NODE_VERSION=22
-NVM_VERSION=0.39.7
-POSTGRES_VERSION=15
+NVM_VERSION=0.40.1
+POSTGRES_VERSION=14
 PHP_VERSION=8.3
 
 # Function to log messages
@@ -17,7 +16,7 @@ log_message() {
 # Function to run commands with logging
 run_command() {
     log_message "Running: $1"
-    eval "$1" >> install.log 2>&1
+    eval "$1" >> install.log
 }
 
 # Function to check for sudo permissions
@@ -143,19 +142,23 @@ install_frontend() {
     run_command "cd App && npm install -g yarn"
 
     log_message "Setup front-end env variables..."
-    run_command "cd App && cp .env.bare-metal .env"
+    run_command "cp .env.bare-metal .env"
 
     log_message "Installing front-end dependencies..."
-    run_command "cd App && yarn install"
+    run_command "yarn install"
+
+    run_command "cd .."
 }
 
 # Function to install Eternaltwin server
 install_eternaltwin() {
     log_message "Setup Eternaltwin env variables..."
-    run_command "cd EternalTwin && cp eternaltwin.bare-metal.toml etwin.toml"
+    run_command "cd Eternaltwin && cp eternaltwin.bare-metal.toml etwin.toml"
 
     log_message "Installing Eternaltwin server dependencies..."
-    run_command "cd EternalTwin && yarn set version latest && yarn install"
+    run_command "yarn set version latest && yarn install"
+
+    run_command "cd .."
 }
 
 # Function to install back-end dependencies
@@ -203,16 +206,16 @@ install_backend() {
 
     log_message "Creating JWT certificates..."
     run_command "cd Api && openssl genpkey -pass pass:mush -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096"
-    run_command "cd Api && openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout"
-    run_command "cd Api && chmod go+r config/jwt/private.pem"
+    run_command "openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout"
+    run_command "chmod go+r config/jwt/private.pem"
 
     log_message "Setup back-end env variables..."
-    run_command "cd Api && cp .env.bare-metal .env.local"
-    run_command "cd Api && cp .env.bare-metal.test .env.test.local"
+    run_command "cp .env.bare-metal .env"
+    run_command "cp .env.bare-metal.test .env.test"
 
     log_message "Installing back-end dependencies..."
-    run_command "cd Api && composer install"
-    run_command "cd Api && composer reset"
+    run_command "composer install"
+    run_command "composer reset"
 }
 
 # Function to launch the project
@@ -222,10 +225,12 @@ launch_project() {
 
     log_message "Starting front-end server..."
     run_command "cd App && yarn dev > /dev/null 2>&1 &"
+    run_command "cd .."
 
     log_message "Starting Eternaltwin server..."
-    run_command "cd EternalTwin && yarn etwin db create"
-    run_command "cd EternalTwin && yarn etwin start > /dev/null 2>&1 &"
+    run_command "cd Eternaltwin && yarn etwin db create"
+    run_command "yarn etwin start > /dev/null 2>&1 &"
+    run_command "cd .."
     sleep 10
 
     log_message "Create Eternaltwin accounts..."

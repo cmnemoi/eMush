@@ -13,5 +13,4 @@ abstract class TitleEnum
         self::NERON_MANAGER => self::NERON_MANAGER,
         self::COM_MANAGER => self::COM_MANAGER,
     ];
-
 }

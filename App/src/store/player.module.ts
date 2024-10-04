@@ -84,9 +84,13 @@ const actions: ActionTree<any, any> = {
                 playerIsNull ? Promise.resolve() : (player.isAlive() ? this.dispatch("daedalus/loadMinimap", { player }) : Promise.resolve()),
                 PlayerService.loadPlayer(playerId).then(async (player: Player | null) => {
                     commit('updatePlayer', player);
-                    if (player?.gameStatus !== 'in_game') {
-                        return true;
+                    if (player === null) {
+                        return;
                     }
+                    if (player != null && player?.gameStatus !== 'in_game') {
+                        return false;
+                    }
+
                     await Promise.all([
                         playerIsNull ? this.dispatch("daedalus/loadAlerts", { daedalus: player.daedalus }) : Promise.resolve(),
                         playerIsNull ? this.dispatch("daedalus/loadMinimap", { player }) : Promise.resolve(),

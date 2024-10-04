@@ -61,6 +61,7 @@ uninstall_package() {
     esac
 }
 
+
 # Uninstall PostgreSQL
 uninstall_postgres() {
     log_message "Uninstalling PostgreSQL ${POSTGRES_VERSION}..."
@@ -68,7 +69,9 @@ uninstall_postgres() {
     
     log_message "Removing PostgreSQL repositories..."
     uninstall_package "postgresql-common"
-    run_command "sudo apt-get -yq autoremove"
+    if $(detect_os) == "debian"; then
+        run_command "sudo apt-get autoremove -y"
+    fi
     
     log_message "Removing PostgreSQL data..."
     run_command "sudo rm -rf /var/lib/postgresql"

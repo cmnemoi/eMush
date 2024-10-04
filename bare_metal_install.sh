@@ -152,7 +152,7 @@ install_frontend() {
 # Function to install Eternaltwin server
 install_eternaltwin() {
     log_message "Setup Eternaltwin env variables..."
-    run_command "cd EternalTwin && cp etwin.bare-metal.toml.example etwin.toml"
+    run_command "cd EternalTwin && cp eternaltwin.bare-metal.toml etwin.toml"
 
     log_message "Installing Eternaltwin server dependencies..."
     run_command "cd EternalTwin && yarn set version latest && yarn install"

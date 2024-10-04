@@ -761,11 +761,12 @@
     <unit id="opportunist">
       <segment id="opportunist.name" state="translated">
         <source>opportunist.name</source>
-        <target>Opportuniste</target>
+        <target>Arriviste</target>
       </segment>
       <segment id="opportunist.description" state="translated">
         <source>opportunist.description</source>
-        <target>opportunist.description</target>
+        <target>L'arriviste attend la première occasion pour monter dans la hiérarchie du vaisseau, aucune opportunité ne lui échappe.//:point: +5 :pa: lorsque vous **gagnez un titre** pour la première fois.
+        </target>
       </segment>
     </unit>
   </file>

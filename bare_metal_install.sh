@@ -31,23 +31,90 @@ check_sudo() {
     log_message "Thank you. Please provide your password when prompted."
 }
 
+# Function to detect OS
+detect_os() {
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        if [ -f /etc/debian_version ]; then
+            echo "debian"
+        elif [ -f /etc/arch-release ]; then
+            echo "arch"
+        else
+            echo "unsupported"
+        fi
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        echo "macos"
+    else
+        echo "unsupported"
+    fi
+}
+
+# Function to install packages at OS level
+install_package() {
+    local package_name="$1"
+    local os_type=$(detect_os)
+
+    case $os_type in
+        debian)
+            run_command "sudo apt-get install -y $package_name"
+            ;;
+        arch)
+            run_command "sudo pacman -S --noconfirm $package_name"
+            ;;
+        macos)
+            if ! command -v brew &> /dev/null; then
+                log_message "Homebrew is not installed. Installing Homebrew..."
+                run_command '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+            fi
+            run_command "brew install $package_name"
+            ;;
+        *)
+            log_message "Unsupported operating system. Cannot install $package_name."
+            exit 1
+            ;;
+    esac
+}
+
 # Function to update system
 update_system() {
-    log_message "Updating system..."
-    run_command "sudo apt-get update -yq && sudo apt-get upgrade -yq"
+    local os_type=$(detect_os)
+
+    case $os_type in
+        debian)
+            log_message "Updating system..."
+            run_command "sudo apt-get update -yq && sudo apt-get upgrade -yq"
+            ;;
+        arch)
+            log_message "Updating system..."
+            run_command "sudo pacman -Syu --noconfirm"
+            ;;
+        macos)
+            log_message "Updating system..."
+            run_command "brew update && brew upgrade"
+            ;;
+        *)
+            log_message "Unsupported operating system. Cannot update system."
+            exit 1
+            ;;
+    esac
 }
 
 # Function to install and setup PostgreSQL
 install_postgres() {
-    log_message "Setup PostgreSQL repositories..."
-    run_command "sudo apt-get install -y postgresql-common"
-    run_command "sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y"
-
     log_message "Installing PostgreSQL..."
-    run_command "sudo apt-get update -yq && sudo apt-get install postgresql-${POSTGRES_VERSION} -yq"
+    install_package "postgresql-${POSTGRES_VERSION}"
 
     log_message "Starting PostgreSQL..."
-    run_command "sudo service postgresql start"
+    case $(detect_os) in
+        debian)
+            run_command "sudo service postgresql start"
+            ;;
+        arch)
+            run_command "sudo systemctl start postgresql"
+            ;;
+        macos)
+            run_command "brew services start postgresql@${POSTGRES_VERSION}"
+            ;;
+    esac
 
     log_message "Creating users and databases..."
     sudo -u postgres psql -v ON_ERROR_STOP=1 --username "postgres" <<-EOSQL
@@ -61,7 +128,7 @@ EOSQL
 # Function to install front-end dependencies
 install_frontend() {
     log_message "Installing nvm ${NVM_VERSION}..."
-    run_command "sudo apt-get install curl -yq"
+    install_package "curl"
     run_command "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash"
 
     log_message "Loading nvm..."
@@ -94,18 +161,41 @@ install_eternaltwin() {
 # Function to install back-end dependencies
 install_backend() {
     log_message "Installing PHP build dependencies..."
-    run_command "sudo apt-get install ca-certificates apt-transport-https software-properties-common lsb-release openssl zip unzip -yq"
+    install_package "ca-certificates"
+    install_package "apt-transport-https"
+    install_package "software-properties-common"
+    install_package "lsb-release"
+    install_package "openssl"
+    install_package "zip"
+    install_package "unzip"
 
     log_message "Setup PHP repositories..."
-    run_command "curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x"
-    run_command "sudo sh -c 'echo \"deb https://packages.sury.org/php/ $(lsb_release -sc) main\" > /etc/apt/sources.list.d/php.list'"
-    run_command "sudo apt-get update -yq && sudo apt-get upgrade -yq"
+    case $(detect_os) in
+        debian)
+            run_command "curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x"
+            run_command "sudo sh -c 'echo \"deb https://packages.sury.org/php/ $(lsb_release -sc) main\" > /etc/apt/sources.list.d/php.list'"
+            run_command "sudo apt-get update -yq && sudo apt-get upgrade -yq"
+            ;;
+        arch)
+            # PHP is available in the official repositories for Arch Linux
+            ;;
+        macos)
+            # PHP can be installed via Homebrew
+            ;;
+    esac
 
     log_message "Installing PHP ${PHP_VERSION}..."
-    run_command "sudo apt-get install php${PHP_VERSION} -yq"
+    install_package "php${PHP_VERSION}"
 
     log_message "Installing PHP extensions..."
-    run_command "sudo apt-get install php${PHP_VERSION}-common php${PHP_VERSION}-pgsql php${PHP_VERSION}-curl php${PHP_VERSION}-opcache php${PHP_VERSION}-intl php${PHP_VERSION}-xml php${PHP_VERSION}-dom php${PHP_VERSION}-zip -yq"
+    install_package "php${PHP_VERSION}-common"
+    install_package "php${PHP_VERSION}-pgsql"
+    install_package "php${PHP_VERSION}-curl"
+    install_package "php${PHP_VERSION}-opcache"
+    install_package "php${PHP_VERSION}-intl"
+    install_package "php${PHP_VERSION}-xml"
+    install_package "php${PHP_VERSION}-dom"
+    install_package "php${PHP_VERSION}-zip"
 
     log_message "Installing Composer..."
     run_command "curl -sS https://getcomposer.org/installer | php"

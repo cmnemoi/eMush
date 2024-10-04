@@ -19,13 +19,55 @@ run_command() {
     eval "$1" >> "$LOG_FILE" 2>&1
 }
 
+# Function to detect OS
+detect_os() {
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        if [ -f /etc/debian_version ]; then
+            echo "debian"
+        elif [ -f /etc/arch-release ]; then
+            echo "arch"
+        else
+            echo "unsupported"
+        fi
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        echo "macos"
+    else
+        echo "unsupported"
+    fi
+}
+
+# Function to uninstall packages at OS level
+uninstall_package() {
+    local package_name="$1"
+    local os_type=$(detect_os)
+
+    case $os_type in
+        debian)
+            run_command "sudo apt-get remove -y $package_name"
+            ;;
+        arch)
+            run_command "sudo pacman -R --noconfirm $package_name"
+            ;;
+        macos)
+            if command -v brew &> /dev/null; then
+                run_command "brew uninstall $package_name"
+            else
+                log_message "Homebrew is not installed. Cannot uninstall $package_name."
+            fi
+            ;;
+        *)
+            log_message "Unsupported operating system. Cannot uninstall $package_name."
+            ;;
+    esac
+}
+
 # Uninstall PostgreSQL
 uninstall_postgres() {
     log_message "Uninstalling PostgreSQL ${POSTGRES_VERSION}..."
-    run_command "sudo apt-get -yq purge postgresql-${POSTGRES_VERSION}"
+    uninstall_package "postgresql-${POSTGRES_VERSION}"
     
     log_message "Removing PostgreSQL repositories..."
-    run_command "sudo apt-get -yq remove postgresql-common"
+    uninstall_package "postgresql-common"
     run_command "sudo apt-get -yq autoremove"
     
     log_message "Removing PostgreSQL data..."
@@ -44,7 +86,7 @@ uninstall_node() {
 # Uninstall PHP
 uninstall_php() {
     log_message "Uninstalling PHP ${PHP_VERSION}..."
-    run_command "sudo apt-get -yq purge php${PHP_VERSION}"
+    uninstall_package "php${PHP_VERSION}"
     run_command "sudo rm -rf /usr/local/bin/composer"
 }
 

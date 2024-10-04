@@ -2,8 +2,9 @@
 
 # Define variables
 $NODE_VERSION = "22.9.0"
-$POSTGRES_VERSION = "15"
-$PHP_VERSION = "8.3"
+$POSTGRES_VERSION = "16"
+$PHP_VERSION = "8.3.12"
+$COMPOSER_VERSION = "6.3.0"
 $LOG_FILE = "install.log"
 
 # Function to log messages
@@ -89,7 +90,7 @@ function Install-Backend {
     Run-Command "choco install php --version=$PHP_VERSION -y"
 
     Log-Message "Installing Composer..."
-    Run-Command "choco install composer -y"
+    Run-Command "choco install composer --version=$COMPOSER_VERSION -y"
 
     Log-Message "Creating JWT certificates..."
     Set-Location Api

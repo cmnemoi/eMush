@@ -3,7 +3,7 @@
 set -e
 set -o pipefail
 
-POSTGRES_VERSION=15
+POSTGRES_VERSION=14
 PHP_VERSION=8.3
 LOG_FILE="uninstall.log"
 
@@ -69,9 +69,6 @@ uninstall_postgres() {
     
     log_message "Removing PostgreSQL repositories..."
     uninstall_package "postgresql-common"
-    if $(detect_os) == "debian"; then
-        run_command "sudo apt-get autoremove -y"
-    fi
     
     log_message "Removing PostgreSQL data..."
     run_command "sudo rm -rf /var/lib/postgresql"
@@ -112,6 +109,13 @@ uninstall_php() {
     run_command "sudo rm -rf /usr/local/bin/composer"
 }
 
+autoremove() {
+    if $(detect_os) == "debian"; then
+        log_message "Running: sudo apt-get autoremove -y"
+        run_command "sudo apt-get autoremove -y"
+    fi
+}
+
 # Main uninstallation process
 main() {
     log_message "Starting uninstallation process..."
@@ -119,6 +123,7 @@ main() {
     uninstall_postgres
     uninstall_node
     uninstall_php
+    autoremove
     
     log_message "Uninstallation completed successfully."
 }

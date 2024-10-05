@@ -1141,13 +1141,13 @@
     <unit id="drone_hit_hunter">
       <segment id="drone_hit_hunter" state="translated">
         <source>drone_hit_hunter</source>
-        <target>C'était presque ça ! {drone} a touché un **{hunter}**.</target>
+        <target>:hunter: C'était presque ça ! {drone} a touché un **{hunter}**.</target>
       </segment>
     </unit>
     <unit id="drone_kill_hunter">
       <segment id="drone_kill_hunter" state="translated">
         <source>drone_kill_hunter</source>
-        <target>{drone} émet une trille de bonheur ! Un **{hunter}** de moins, *bli bli blip* !</target>
+        <target>:hunter: {drone} émet une trille de bonheur ! Un **{hunter}** de moins, *bli bli blip* !</target>
       </segment>
     </unit>
     <unit id="drone_land">

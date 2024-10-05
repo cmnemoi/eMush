@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Repository\ActionConfigRepositoryInterface;
 use Mush\Equipment\DroneTasks\AbstractDroneTask;
+use Mush\Equipment\DroneTasks\ExtinguishFireTask;
 use Mush\Equipment\DroneTasks\LandTask;
 use Mush\Equipment\DroneTasks\ShootHunterTask;
 use Mush\Equipment\DroneTasks\TakeoffTask;
@@ -110,6 +111,7 @@ class Drone extends GameItem
     public function cannotApplyTask(AbstractDroneTask $task): bool
     {
         return match ($task->name()) {
+            ExtinguishFireTask::class => $this->isNotFirefighter() || $this->noFireInRoom(),
             LandTask::class => $this->isNotPilot() || $this->huntersAreAttacking() || $this->noLandActionAvailable(),
             ShootHunterTask::class => $this->isNotPilot() || $this->noAttackingHunters() || $this->noShootHunterActionAvailable(),
             TakeoffTask::class => $this->isNotPilot() || $this->noAttackingHunters() || $this->noOperationalPatrolShipInRoom(),

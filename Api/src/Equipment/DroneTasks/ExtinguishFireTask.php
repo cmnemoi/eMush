@@ -26,8 +26,7 @@ class ExtinguishFireTask extends AbstractDroneTask
 
     protected function applyEffect(Drone $drone, \DateTime $time): void
     {
-        // If there is no fire in the room, the task is not applicable.
-        if ($drone->isNotFirefighter() || $drone->noFireInRoom()) {
+        if ($drone->cannotApplyTask($this)) {
             $this->taskNotApplicable = true;
 
             return;

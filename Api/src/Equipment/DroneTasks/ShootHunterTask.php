@@ -8,6 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Event\DroneHitHunterEvent;
 use Mush\Equipment\Event\DroneKillHunterEvent;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Hunter\Entity\Hunter;
@@ -88,6 +89,6 @@ class ShootHunterTask extends AbstractDroneTask
             tags: [],
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($hunterVariableEvent, HunterVariableEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

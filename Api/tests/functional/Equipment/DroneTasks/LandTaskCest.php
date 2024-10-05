@@ -125,6 +125,17 @@ final class LandTaskCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldMovePlayersToTheDockingPlace(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->givenChunIsInThePatrolShipPlace();
+
+        $this->whenIExecuteLandTask();
+
+        $this->thenChunShouldBeInTheDockingPlace($I);
+    }
+
     private function givenADroneInPatrolShipPlace(): void
     {
         $this->drone = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -193,6 +204,11 @@ final class LandTaskCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenChunIsInThePatrolShipPlace(): void
+    {
+        $this->chun->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
+    }
+
     private function whenIExecuteLandTask(): void
     {
         $this->task->execute($this->drone, new \DateTime());
@@ -214,6 +230,11 @@ final class LandTaskCest extends AbstractFunctionalTest
     private function thenPatrolShipShouldBeInItsDockingPlace(FunctionalTester $I): void
     {
         $I->assertEquals(RoomEnum::ALPHA_BAY, $this->patrolShip->getPlace()->getName());
+    }
+
+    private function thenChunShouldBeInTheDockingPlace(FunctionalTester $I): void
+    {
+        $I->assertEquals(RoomEnum::ALPHA_BAY, $this->chun->getPlace()->getName());
     }
 
     private function setupDroneNicknameAndSerialNumber(Drone $drone, int $nickName, int $serialNumber): void

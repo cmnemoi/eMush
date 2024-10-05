@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Event\DroneLandedEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 
 class LandTask extends AbstractDroneTask
@@ -18,6 +19,7 @@ class LandTask extends AbstractDroneTask
         protected EventServiceInterface $eventService,
         protected StatusServiceInterface $statusService,
         private PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService,
+        private PlayerServiceInterface $playerService,
     ) {
         parent::__construct($this->eventService, $this->statusService);
     }
@@ -36,8 +38,15 @@ class LandTask extends AbstractDroneTask
 
     private function handleLanding(Drone $drone, \DateTime $time): void
     {
+        $patrolShip = $drone->getPilotedPatrolShip();
+        $dockingPlace = $patrolShip->getDaedalus()->getPlaceByNameOrThrow($patrolShip->getPatrolShipMechanicOrThrow()->getDockingPlace());
+
+        foreach ($drone->getPlace()->getAlivePlayers() as $player) {
+            $this->playerService->changePlace($player, $dockingPlace);
+        }
+
         $this->patrolShipManoeuvreService->handleLand(
-            patrolShip: $drone->getPilotedPatrolShip(),
+            patrolShip: $patrolShip,
             pilot: Player::createNull(),
             actionResult: new CriticalSuccess(),
             time: $time,

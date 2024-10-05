@@ -70,7 +70,7 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         $statusName = $event->getStatusName();
         match ($statusName) {
-            PlaceStatusEnum::DELOGGED->toString() => $this->hideDeloggedLog($event),
+            PlaceStatusEnum::DELOGGED->toString() => $this->handleDeloggedPlace(event: $event),
             default => null,
         };
 
@@ -145,6 +145,12 @@ class StatusSubscriber implements EventSubscriberInterface
         );
     }
 
+    private function handleDeloggedPlace(StatusEvent $event): void
+    {
+        $this->hideDeloggedLog($event);
+        $this->displayCurrentCycleLogs($event);
+    }
+
     private function hideDeloggedLog(StatusEvent $event): void
     {
         $deloggedLog = $this->roomLogService->findOneByOrThrow([
@@ -155,5 +161,21 @@ class StatusSubscriber implements EventSubscriberInterface
 
         $deloggedLog->hide();
         $this->roomLogService->persist($deloggedLog);
+    }
+
+    private function displayCurrentCycleLogs(StatusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+
+        $currentCycleLogs = $this->roomLogService->findAllByDaedalusPlaceAndCycle(
+            daedalus: $daedalus,
+            place: $event->getPlaceOrThrow(),
+            cycle: $daedalus->getCycle()
+        );
+
+        foreach ($currentCycleLogs as $log) {
+            $log->resetVisibility();
+            $this->roomLogService->persist($log);
+        }
     }
 }

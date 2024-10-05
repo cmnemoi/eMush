@@ -127,6 +127,18 @@ final class FakeRoomLogService implements RoomLogServiceInterface
         return new RoomLogCollection($logs);
     }
 
+    public function findAllByDaedalusPlaceAndCycle(Daedalus $daedalus, Place $place, int $cycle): RoomLogCollection
+    {
+        $logs = new RoomLogCollection();
+        foreach ($this->roomLogs as $roomLog) {
+            if ($roomLog->getDaedalus() === $daedalus && $roomLog->getPlace() === $place->getName() && $roomLog->getCycle() === $cycle) {
+                $logs->add($roomLog);
+            }
+        }
+
+        return $logs;
+    }
+
     private function getVisibility(?Player $player, string $visibility): string
     {
         if ($player === null) {

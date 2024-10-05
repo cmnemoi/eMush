@@ -257,4 +257,9 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
 
         return $isSabotageLog && $sabotagedEquipmentIsCamera;
     }
+
+    public function resetVisibility(): void
+    {
+        $this->setVisibility($this->baseVisibility);
+    }
 }

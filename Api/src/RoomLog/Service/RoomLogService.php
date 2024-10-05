@@ -206,6 +206,17 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->repository->findOneBy($parameters) ?? throw new \RuntimeException("Log {$parameters['log']} not found in daedalus {$parameters['place']->getDaedalus()->getId()} for given parameters");
     }
 
+    public function findAllByDaedalusPlaceAndCycle(Daedalus $daedalus, Place $place, int $cycle): RoomLogCollection
+    {
+        $logs = $this->repository->findBy([
+            'daedalusInfo' => $daedalus->getDaedalusInfo(),
+            'place' => $place->getName(),
+            'cycle' => $cycle,
+        ]);
+
+        return new RoomLogCollection($logs);
+    }
+
     private function getVisibility(RoomLog $roomLog): string
     {
         $player = $roomLog->getPlayerInfo()?->getPlayer();

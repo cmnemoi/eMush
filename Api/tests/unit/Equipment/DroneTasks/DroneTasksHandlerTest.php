@@ -91,6 +91,7 @@ final class DroneTasksHandlerTest extends TestCase
         $this->shootHunterTask = new ShootHunterTask(
             $this->createStub(EventServiceInterface::class),
             $this->statusService,
+            new D100Roll(isSuccessful: false),
             $this->createStub(RandomServiceInterface::class),
         );
 

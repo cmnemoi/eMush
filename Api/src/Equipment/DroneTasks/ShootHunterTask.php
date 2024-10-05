@@ -10,6 +10,7 @@ use Mush\Equipment\Event\DroneHitHunterEvent;
 use Mush\Equipment\Event\DroneKillHunterEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterVariableEnum;
@@ -21,6 +22,7 @@ class ShootHunterTask extends AbstractDroneTask
     public function __construct(
         protected EventServiceInterface $eventService,
         protected StatusServiceInterface $statusService,
+        private D100RollServiceInterface $d100Roll,
         private RandomServiceInterface $randomService,
     ) {
         parent::__construct($this->eventService, $this->statusService);
@@ -35,19 +37,25 @@ class ShootHunterTask extends AbstractDroneTask
         }
 
         $successRate = $drone->getShootHunterSuccessRate();
-        if (!$this->randomService->isSuccessful($successRate)) {
+        if ($this->d100Roll->isAFailure($successRate)) {
             return;
         }
 
+        $this->handleShoot($drone, $time);
+    }
+
+    private function handleShoot(Drone $drone, \DateTime $time): void
+    {
         $hunter = $this->getRandomHunterFrom($drone->getDaedalus());
-        $initialHealth = $hunter->getHealth();
         $damage = $this->getInflictedDamageBy($drone);
+        $initialHealth = $hunter->getHealth();
 
         if ($initialHealth - $damage <= 0) {
             $this->dispatchDroneKillHunterEvent($drone, $hunter, $time);
         } else {
             $this->dispatchDroneHitHunterEvent($drone, $hunter, $time);
         }
+
         $this->removeHealthToHunter($damage, $hunter);
     }
 

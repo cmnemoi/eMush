@@ -73,8 +73,8 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
             $this->handlePatrolShipManoeuvreDamage($patrolShip, $pilot, $tags, $time);
         }
 
-        $patrolShipArmor = $patrolShip->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
-        $isPatrolShipAlive = $patrolShipArmor->isCharged();
+        $patrolShipArmor = $patrolShip->getChargeStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        $isPatrolShipAlive = $patrolShipArmor?->isCharged();
         if ($isPatrolShipAlive) {
             $this->moveScrapToPatrolShipDockingPlace($patrolShip, $tags, $time, $pilot);
         }

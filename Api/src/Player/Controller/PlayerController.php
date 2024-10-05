@@ -83,7 +83,7 @@ class PlayerController extends AbstractGameController
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
         $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
 
-        // Always needed so any player triggers cycle change : do not remove it!
+        // Always needed so any player triggers exploration steps : do not remove it!
         // Please increment the number of times you tried to implement an automated test at API level to remove this comment but failed
         // Counter: 3
         $this->handleExplorationCycleChange($player);

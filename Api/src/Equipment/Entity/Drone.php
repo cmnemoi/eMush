@@ -223,7 +223,7 @@ class Drone extends GameItem
             return true;
         }
 
-        return $patrolShip->hasActionByName(ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP) === false;
+        return $patrolShip->hasActionByName(ActionEnum::SHOOT_HUNTER_PATROL_SHIP) === false;
     }
 
     private function noLandActionAvailable(): bool

@@ -6,6 +6,7 @@ use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -246,6 +247,25 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveMoreOrEqualThanHealthPoint(9, $I);
     }
 
+    public function armorsShouldNotHealPlayer(FunctionalTester $I): void
+    {
+        $this->givenHitMinDamageIs(0);
+
+        $this->givenHitActionHasSuccessRate(100);
+
+        $this->givenHitActionHasCriticalSuccessRate(0);
+
+        $this->givenKuanTiHasHealthPoint(10);
+
+        $this->givenKuanTiHasPlasteniteArmor();
+
+        $this->givenKuanTiIsHardBoiled($I);
+
+        $this->whenChunHitsKuanTi();
+
+        $this->thenKuanTiShouldHaveLessOrEqualThanHealthPoint(10, $I);
+    }
+
     private function givenChunHasInactiveStatus(): void
     {
         $this->statusService->createStatusFromName(
@@ -309,6 +329,21 @@ final class HitActionCest extends AbstractFunctionalTest
     private function givenHitActionHasCriticalSuccessRate(int $criticalSuccessRate): void
     {
         $this->action->setCriticalRate($criticalSuccessRate);
+    }
+
+    private function givenKuanTiIsHardBoiled(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::HARD_BOILED, $I, $this->kuanTi);
+    }
+
+    private function givenKuanTiHasPlasteniteArmor(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::PLASTENITE_ARMOR,
+            equipmentHolder: $this->kuanTi,
+            reasons: [],
+            time: new \DateTime()
+        );
     }
 
     private function whenKuanTiTriesToHitChun(): void

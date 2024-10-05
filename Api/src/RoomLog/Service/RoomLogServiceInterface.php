@@ -40,4 +40,6 @@ interface RoomLogServiceInterface
     public function markAllRoomLogsAsReadForPlayer(Player $player): void;
 
     public function findOneByOrThrow(array $parameters): RoomLog;
+
+    public function findAllByDaedalusPlaceAndCycle(Daedalus $daedalus, Place $place, int $cycle): RoomLogCollection;
 }

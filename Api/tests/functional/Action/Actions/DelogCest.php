@@ -18,6 +18,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -126,9 +127,18 @@ final class DelogCest extends AbstractFunctionalTest
 
         $this->givenACyclePasses();
 
-        $roomLog = $I->grabEntityFromRepository(RoomLog::class, ['log' => LogEnum::DELOGGED]);
+        $roomLog = $I->grabEntityFromRepository(RoomLog::class, ['log' => LogEnum::DELOGGED, 'cycle' => 0]);
 
         $this->thenLogShouldBeHidden($roomLog, $I);
+    }
+
+    public function shouldNotHideNextCycleLogs(FunctionalTester $I): void
+    {
+        $this->givenPlayerUseDelogAction();
+
+        $this->whenACyclePasses();
+
+        $this->thenIShouldSeePrivateGainActionPointLog($I);
     }
 
     private function givenPlayerIsMush(): void
@@ -208,6 +218,16 @@ final class DelogCest extends AbstractFunctionalTest
         );
     }
 
+    private function whenACyclePasses(): void
+    {
+        $daedalusCycleEvent = new DaedalusCycleEvent(
+            daedalus: $this->daedalus,
+            tags: [EventEnum::NEW_CYCLE],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+    }
+
     private function thenPreviousLogsShouldBeHidden(array $roomLogs, FunctionalTester $I): void
     {
         array_map(
@@ -238,6 +258,18 @@ final class DelogCest extends AbstractFunctionalTest
             params: [
                 'neron' => $this->daedalus->getNeron(),
                 'message' => NeronMessageEnum::PLAYER_DEATH,
+            ]
+        );
+    }
+
+    private function thenIShouldSeePrivateGainActionPointLog(FunctionalTester $I): void
+    {
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => PlayerModifierLogEnum::GAIN_ACTION_POINT,
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PRIVATE,
             ]
         );
     }

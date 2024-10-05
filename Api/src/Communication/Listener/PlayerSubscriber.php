@@ -47,6 +47,11 @@ class PlayerSubscriber implements EventSubscriberInterface
         $time = $event->getTime();
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
+        $channels = $this->channelService->getPlayerChannels($player, true);
+        foreach ($channels as $channel) {
+            $this->channelService->exitChannel($player, $channel, $time, PlayerEvent::DEATH_PLAYER);
+        }
+
         if ($player->getPlace()->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
             return;
         }
@@ -56,12 +61,6 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
         if (EndCauseEnum::isDeathEndCause($endCause)) {
             $this->neronMessageService->createPlayerDeathMessage($player, $endCause, $time);
-        }
-
-        $channels = $this->channelService->getPlayerChannels($player, true);
-
-        foreach ($channels as $channel) {
-            $this->channelService->exitChannel($player, $channel, $time, PlayerEvent::DEATH_PLAYER);
         }
     }
 

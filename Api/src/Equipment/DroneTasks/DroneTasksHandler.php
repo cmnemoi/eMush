@@ -46,7 +46,7 @@ class DroneTasksHandler
 
     private function applyTurboUpgrade(Drone $drone, \DateTime $time): void
     {
-        if ($this->d100Roll->isSuccessful($drone->turboChance())) {
+        if ($drone->isTurbo() && $this->d100Roll->isSuccessful($drone->turboChance())) {
             $this->statusService->createOrIncrementChargeStatus(
                 name: EquipmentStatusEnum::ELECTRIC_CHARGES,
                 holder: $drone,

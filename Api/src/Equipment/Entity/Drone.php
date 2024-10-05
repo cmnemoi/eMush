@@ -156,6 +156,11 @@ class Drone extends GameItem
         return $this->getDaedalus()->getPlaceByNameOrThrow($patrolShip->getPatrolShipMechanicOrThrow()->getDockingPlace());
     }
 
+    public function isTurbo(): bool
+    {
+        return $this->hasStatus(EquipmentStatusEnum::TURBO_DRONE_UPGRADE);
+    }
+
     private function cannotExtinguish(): bool
     {
         return $this->isNotFirefighter() || $this->noFireInRoom();

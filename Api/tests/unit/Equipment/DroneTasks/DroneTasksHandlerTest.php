@@ -127,6 +127,17 @@ final class DroneTasksHandlerTest extends TestCase
         $this->statusService->statuses->clear();
     }
 
+    public function testTurboShouldNotApplyIfDroneDoesNotHaveRelevantUpgrade(): void
+    {
+        // given drone has no turbo upgrade
+
+        // when drone acts
+        $this->droneTasks->execute($this->drone, new \DateTime());
+
+        // then drone should fail to repair once so its success rate should be 75%
+        self::assertEquals(75, $this->drone->getRepairSuccessRateForEquipment($this->mycoscan));
+    }
+
     public function testTurboUpgradeAllowsDroneToActTwice(): void
     {
         // given drone has turbo upgrade

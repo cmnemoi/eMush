@@ -34,6 +34,7 @@ class DaedalusConfigData
                 'apprentron_shooter' => 10,
                 'apprentron_sprinter' => 8,
                 'apprentron_shrink' => 6,
+                'apprentron_robotics_expert' => 4,
                 'apprentron_firefighter' => 2,
                 'apprentron_it_expert' => 2,
                 'apprentron_diplomat' => 2,

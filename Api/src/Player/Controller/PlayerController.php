@@ -83,6 +83,11 @@ class PlayerController extends AbstractGameController
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
         $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
 
+        // Always needed so any player triggers cycle change : do not remove it!
+        // Please increment the number of times you tried to implement an automated test at API level to remove this comment but failed
+        // Counter: 3
+        $this->handleExplorationCycleChange($player);
+
         $context = new Context();
         $context->setAttribute('currentPlayer', $player);
 
@@ -272,15 +277,14 @@ class PlayerController extends AbstractGameController
 
         $result = $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $player->getDaedalus());
 
-        if ($result->noCycleElapsed()) {
-            return $this->view(['message' => 'No cycle change triggered'], Response::HTTP_OK);
-        }
         if ($result->hasDaedalusCycleElapsed()) {
             return $this->view(['message' => 'Daedalus cycle change(s) triggered successfully (' . $result->daedalusCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
         }
         if ($result->hasExplorationCycleElapsed()) {
             return $this->view(['message' => 'Exploration cycle change(s) triggered successfully (' . $result->explorationCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
         }
+
+        return $this->view(['message' => 'No cycle change triggered'], Response::HTTP_OK);
     }
 
     /**
@@ -400,5 +404,16 @@ class PlayerController extends AbstractGameController
         $this->deletePlayerNotification->execute($player->getNotificationOrThrow());
 
         return $this->view(['detail' => 'Notification deleted successfully'], Response::HTTP_OK);
+    }
+
+    private function handleExplorationCycleChange(Player $player): void
+    {
+        $daedalus = $player->getDaedalus();
+        if ($daedalus->isExplorationChangingCycle()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Exploration is changing cycle');
+        }
+        if ($daedalus->hasOngoingExploration()) {
+            $this->cycleService->handleExplorationCycleChange(new \DateTime(), $daedalus->getExploration());
+        }
     }
 }

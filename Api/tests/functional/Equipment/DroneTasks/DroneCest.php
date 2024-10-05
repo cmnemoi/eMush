@@ -389,7 +389,7 @@ final class DroneCest extends AbstractFunctionalTest
         $this->givenFireInTheRoom();
         $this->givenDroneIsFirefighter();
         $this->givenDroneHas100PercentChanceToExtinguishFire($I);
-        $this->givenDroneHasTurboUpgrade($I);
+        $this->givenDroneHasTurboUpgrade();
 
         $this->whenDroneActs();
 
@@ -403,7 +403,7 @@ final class DroneCest extends AbstractFunctionalTest
 
         $this->givenDroneIsFirefighter();
 
-        $this->givenDroneHasTurboUpgrade($I);
+        $this->givenDroneHasTurboUpgrade();
 
         $this->whenDroneActs();
 
@@ -421,7 +421,7 @@ final class DroneCest extends AbstractFunctionalTest
 
     public function pilotShouldTakeOff(FunctionalTester $I): void
     {
-        $this->givenThereIsAttackingHunters();
+        $this->givenThereIsOneAttackingHunter();
 
         $this->givenDroneIsPilot();
 
@@ -430,6 +430,35 @@ final class DroneCest extends AbstractFunctionalTest
         $this->whenDroneActs();
 
         $this->thenDroneShouldBeInPatrolShipPlace($I);
+    }
+
+    public function pilotShouldShootAtHunter(FunctionalTester $I): void
+    {
+        $this->givenThereIsOneAttackingHunter();
+
+        $this->givenDroneIsPilot();
+
+        $this->givenDroneIsInAPatrolShip($I);
+
+        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
+        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseDamageRange([1 => 1]);
+
+        $this->whenDroneActs();
+
+        $this->thenHunterShouldBeShot($I);
+    }
+
+    public function pilotShouldLand(FunctionalTester $I): void
+    {
+        $this->givenDroneIsPilot();
+
+        $this->givenDroneIsInAPatrolShip($I);
+
+        $this->createExtraPlace(placeName: RoomEnum::ALPHA_BAY, I: $I, daedalus: $this->daedalus);
+
+        $this->whenDroneActs();
+
+        $this->thenDroneShouldBeInPatrolShipDockingPlace($I);
     }
 
     private function givenABrokenDoor(FunctionalTester $I): Door
@@ -504,8 +533,9 @@ final class DroneCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenThereIsAttackingHunters(): void
+    private function givenThereIsOneAttackingHunter(): void
     {
+        $this->daedalus->setHunterPoints(15);
         $hunterPoolEvent = new HunterPoolEvent(
             daedalus: $this->daedalus,
             tags: [],
@@ -535,6 +565,23 @@ final class DroneCest extends AbstractFunctionalTest
         $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
     }
 
+    private function givenDroneIsInAPatrolShip(FunctionalTester $I): void
+    {
+        $place = $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
+        $this->patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            equipmentHolder: $place,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->drone,
+            newHolder: $place,
+            time: new \DateTime(),
+        );
+    }
+
     private function whenDroneActs(): void
     {
         $this->droneTasksHandler->execute($this->drone, new \DateTime());
@@ -562,6 +609,24 @@ final class DroneCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: RoomEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            actual: $this->drone->getPlace()->getName(),
+        );
+    }
+
+    private function thenHunterShouldBeShot(FunctionalTester $I): void
+    {
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+
+        $I->assertLessThan(
+            expected: $hunter->getHunterConfig()->getInitialHealth(),
+            actual: $hunter->getHealth(),
+        );
+    }
+
+    private function thenDroneShouldBeInPatrolShipDockingPlace(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: RoomEnum::ALPHA_BAY,
             actual: $this->drone->getPlace()->getName(),
         );
     }

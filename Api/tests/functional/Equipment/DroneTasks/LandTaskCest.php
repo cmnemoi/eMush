@@ -78,6 +78,17 @@ final class LandTaskCest extends AbstractFunctionalTest
         $this->thenTaskShouldNotBeApplicable($I);
     }
 
+    public function shouldNotBeApplicableIfDroneIsNotInAPatrolShip(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->givenDroneIsNotInAPatrolShip($I);
+
+        $this->whenIExecuteLandTask();
+
+        $this->thenTaskShouldNotBeApplicable($I);
+    }
+
     public function shouldMoveDroneToPatrolShipDockingPlace(FunctionalTester $I): void
     {
         $this->givenDroneIsAPilot();
@@ -167,6 +178,19 @@ final class LandTaskCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
         $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+    }
+
+    private function givenDroneIsNotInAPatrolShip(FunctionalTester $I): void
+    {
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->drone,
+            newHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY),
+        );
+
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->patrolShip,
+            newHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY),
+        );
     }
 
     private function whenIExecuteLandTask(): void

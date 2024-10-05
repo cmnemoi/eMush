@@ -80,6 +80,19 @@ final class TakeoffTaskCest extends AbstractFunctionalTest
         $this->thenTaskShouldNotBeApplicable($I);
     }
 
+    public function shouldNotBeApplicableIfDroneIsInAPatrolShip(FunctionalTester $I): void
+    {
+        $this->givenThereIsAttackingHunters();
+
+        $this->givenDroneIsPilot();
+
+        $this->givenDroneIsInAPatrolShip($I);
+
+        $this->whenIExecuteTakeoffTask();
+
+        $this->thenTaskShouldNotBeApplicable($I);
+    }
+
     public function shouldMovePatrolShipToItsPlace(FunctionalTester $I): void
     {
         $this->givenThereIsAttackingHunters();
@@ -171,6 +184,23 @@ final class TakeoffTaskCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
         $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+    }
+
+    private function givenDroneIsInAPatrolShip(FunctionalTester $I): void
+    {
+        $place = $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
+        $this->patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            equipmentHolder: $place,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->drone,
+            newHolder: $place,
+            time: new \DateTime(),
+        );
     }
 
     private function whenIExecuteTakeoffTask(): void

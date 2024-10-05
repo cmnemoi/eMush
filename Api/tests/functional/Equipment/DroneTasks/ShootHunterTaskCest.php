@@ -46,7 +46,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->givenAPatrolShipInBattle();
+        $this->givenAPatrolShipInBattle($I);
         $this->givenADroneInPatrolShip();
     }
 
@@ -98,11 +98,37 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->thenTaskShouldNotBeApplicable($I);
     }
 
+    public function shouldNotBeApplicableIfDroneIsNotInAPatrolShip(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->givenOneAttackingHunter();
+
+        // drone is not in patrol ship
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->drone,
+            newHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY),
+        );
+
+        // patrol ship is not in its place
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->patrolShip,
+            newHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY),
+        );
+
+        $this->whenIExecuteShootHunterTask();
+
+        $this->thenTaskShouldNotBeApplicable($I);
+    }
+
     public function shouldRemoveHealthToAttackingHunter(FunctionalTester $I): void
     {
         $this->givenDroneIsAPilot();
 
         $this->givenOneAttackingHunter();
+
+        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
+        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseDamageRange([1 => 1]);
 
         $this->whenIExecuteShootHunterTask();
 
@@ -114,6 +140,9 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->givenDroneIsAPilot();
 
         $this->givenOneAttackingHunter();
+
+        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
+        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseDamageRange([1 => 1]);
 
         $this->whenIExecuteShootHunterTask();
 
@@ -137,6 +166,9 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
 
         $this->givenHunterHasOneHealthPoint();
 
+        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
+        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseDamageRange([1 => 1]);
+
         $this->whenIExecuteShootHunterTask();
 
         $this->ISeeTranslatedRoomLogInRepository(
@@ -151,11 +183,12 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenAPatrolShipInBattle(): void
+    private function givenAPatrolShipInBattle(FunctionalTester $I): void
     {
+        $place = $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
         $this->patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
-            equipmentHolder: $this->chun->getPlace(),
+            equipmentHolder: $place,
             reasons: [],
             time: new \DateTime()
         );
@@ -219,7 +252,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($hunterVariableEvent, HunterVariableEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
     private function whenIExecuteShootHunterTask(): void

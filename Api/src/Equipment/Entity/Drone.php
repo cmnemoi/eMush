@@ -17,6 +17,7 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -48,6 +49,17 @@ class Drone extends GameItem
     public function getSerialNumber(): int
     {
         return $this->droneInfo->getSerialNumber();
+    }
+
+    public function cannotApplyTask(AbstractDroneTask $task): bool
+    {
+        return match ($task->name()) {
+            ExtinguishFireTask::class => $this->cannotExtinguish(),
+            LandTask::class => $this->cannotLand(),
+            ShootHunterTask::class => $this->cannotShootHunter(),
+            TakeoffTask::class => $this->cannotTakeoff(),
+            default => false,
+        };
     }
 
     /**
@@ -108,27 +120,6 @@ class Drone extends GameItem
         return (int) ($successRate * self::ATTEMPT_INCREASE ** $this->getShootHunterFailedAttempts());
     }
 
-    public function cannotApplyTask(AbstractDroneTask $task): bool
-    {
-        return match ($task->name()) {
-            ExtinguishFireTask::class => $this->isNotFirefighter() || $this->noFireInRoom(),
-            LandTask::class => $this->isNotPilot() || $this->huntersAreAttacking() || $this->noLandActionAvailable(),
-            ShootHunterTask::class => $this->isNotPilot() || $this->noAttackingHunters() || $this->noShootHunterActionAvailable(),
-            TakeoffTask::class => $this->isNotPilot() || $this->noAttackingHunters() || $this->noOperationalPatrolShipInRoom(),
-            default => false,
-        };
-    }
-
-    public function noFireInRoom(): bool
-    {
-        return $this->getPlace()->doesNotHaveStatus(StatusEnum::FIRE);
-    }
-
-    public function isNotFirefighter(): bool
-    {
-        return $this->doesNotHaveStatus(EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE);
-    }
-
     public function operationalPatrolShipsInRoom(): array
     {
         return $this->getPlace()->getEquipments()
@@ -165,14 +156,54 @@ class Drone extends GameItem
         return $this->getDaedalus()->getPlaceByNameOrThrow($patrolShip->getPatrolShipMechanicOrThrow()->getDockingPlace());
     }
 
+    private function cannotExtinguish(): bool
+    {
+        return $this->isNotFirefighter() || $this->noFireInRoom();
+    }
+
+    private function cannotLand(): bool
+    {
+        return $this->isNotPilot() || $this->isInDaedalus() || $this->huntersAreAttacking() || $this->noLandActionAvailable();
+    }
+
+    private function cannotShootHunter(): bool
+    {
+        return $this->isNotPilot() || $this->isInDaedalus() || $this->noAttackingHunters() || $this->noShootHunterActionAvailable();
+    }
+
+    private function cannotTakeoff(): bool
+    {
+        return $this->isNotPilot() || $this->isInAPatrolShip() || $this->noAttackingHunters() || $this->noPatrolShipTakeoffActionAvailable();
+    }
+
+    private function noFireInRoom(): bool
+    {
+        return $this->getPlace()->doesNotHaveStatus(StatusEnum::FIRE);
+    }
+
+    private function isNotFirefighter(): bool
+    {
+        return $this->doesNotHaveStatus(EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE);
+    }
+
     private function isNotPilot(): bool
     {
         return $this->doesNotHaveStatus(EquipmentStatusEnum::PILOT_DRONE_UPGRADE);
     }
 
-    private function noOperationalPatrolShipInRoom(): bool
+    private function isInDaedalus(): bool
     {
-        return empty($this->operationalPatrolShipsInRoom());
+        return $this->getPlace()->getType() === PlaceTypeEnum::ROOM;
+    }
+
+    private function noPatrolShipTakeoffActionAvailable(): bool
+    {
+        $equipment = $this->getPlace()->getFirstEquipmentByMechanicNameOrNull(EquipmentMechanicEnum::PATROL_SHIP);
+        if (!$equipment || $equipment->isAPatrolShip() === false || $equipment->isNotOperational()) {
+            return true;
+        }
+
+        return $equipment->hasActionByName(ActionEnum::TAKEOFF) === false;
     }
 
     private function noAttackingHunters(): bool

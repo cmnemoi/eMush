@@ -14,6 +14,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -112,6 +113,15 @@ final class LandTaskCest extends AbstractFunctionalTest
         $this->givenDroneIsAPilot();
 
         $this->whenIExecuteLandTask();
+
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlaceByNameOrThrow(RoomEnum::ALPHA_BAY)->getName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::DRONE_LAND,
+            ]
+        );
 
         $this->ISeeTranslatedRoomLogInRepository(
             expectedRoomLog: 'Le Patrouilleur de **Robo Wheatley #0** vient d\'atterrir.',

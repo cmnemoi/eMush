@@ -37,9 +37,9 @@ class TakeoffTask extends AbstractDroneTask
 
     private function handleTakeoff(Drone $drone, GameEquipment $patrolShip, \DateTime $time): void
     {
+        $this->dispatchDroneTakeoffEvent($drone, $time);
         $this->movePatrolShipToItsPlace($patrolShip, $time);
         $this->moveDroneToPatrolShipPlace($drone, $patrolShip, $time);
-        $this->dispatchDroneTakeoffEvent($drone, $time);
     }
 
     private function movePatrolShipToItsPlace(GameEquipment $patrolShip, \DateTime $time): void

@@ -4,10 +4,10 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Examine;
 use Mush\Action\Actions\Repair;
-use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
@@ -54,7 +54,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         $this->repairActionConfig->setSuccessRate(100);
     }
 
-    public function shoudlRepairBrokenEquipment(FunctionalTester $I): void
+    public function shouldRepairBrokenEquipment(FunctionalTester $I): void
     {
         // given I have a broken Mycoscan in the room
         $mycoscan = $this->prepareBrokenEquipmentInRoom();
@@ -179,8 +179,8 @@ final class RepairActionCest extends AbstractFunctionalTest
         // given I have a broken Mycoscan in the room
         $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
-        // given repair action has a 0% success rate
-        $this->repairActionConfig->setSuccessRate(0);
+        // given repair action has a 50% success rate
+        $this->repairActionConfig->setSuccessRate(50);
 
         // given Kuan Ti has a genius idea
         $this->statusService->createStatusFromName(
@@ -200,6 +200,8 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // then repair action should have a 100% success rate
         $I->assertEquals(100, $this->repairAction->getSuccessRate());
+
+        $this->thenRepairActionConfigRateShouldRemainUnchanged($I);
     }
 
     public function playerWithGeniusIdeaShouldLoseStatusAfterRepair(FunctionalTester $I): void
@@ -249,5 +251,13 @@ final class RepairActionCest extends AbstractFunctionalTest
         );
 
         return $equipment;
+    }
+
+    private function thenRepairActionConfigRateShouldRemainUnchanged(FunctionalTester $I): void
+    {
+        $I->refreshEntities($this->repairActionConfig);
+        $I->assertEquals(50, $this->repairActionConfig->getVariableByName(ActionVariableEnum::PERCENTAGE_SUCCESS)->getValue());
+        $I->assertEquals(1, $this->repairActionConfig->getVariableByName(ActionVariableEnum::PERCENTAGE_SUCCESS)->getMinValue());
+        $I->assertEquals(99, $this->repairActionConfig->getVariableByName(ActionVariableEnum::PERCENTAGE_SUCCESS)->getMaxValue());
     }
 }

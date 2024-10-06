@@ -213,6 +213,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::MEDIC,
+                actionConfigs: [
+                    ActionEnum::SURGERY,
+                ]
             ),
             new SkillConfigDto(
                 name: SkillEnum::MOTIVATOR,

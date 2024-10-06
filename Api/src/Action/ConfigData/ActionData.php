@@ -996,7 +996,7 @@ class ActionData
             'action_name' => ActionEnum::SURGERY,
             'types' => [ActionTypeEnum::ACTION_HEAL],
             'target' => ActionHolderEnum::OTHER_PLAYER,
-            'scope' => ActionRangeEnum::ROOM,
+            'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'public', 'fail' => 'public'],
             'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

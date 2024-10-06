@@ -2633,7 +2633,6 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'self_surgery',
-                'surgery',
             ],
             'modifierConfigs' => [],
         ],

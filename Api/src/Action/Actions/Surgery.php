@@ -67,9 +67,9 @@ class Surgery extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::SURGERY_NOT_LYING_DOWN,
         ]));
-        $metadata->addConstraint(new CanHeal([
-            'groups' => ['visibility'],
-        ]));
+        // $metadata->addConstraint(new CanHeal([
+        //     'groups' => ['visibility'],
+        // ]));
         $metadata->addConstraint(new HasDiseases([
             'groups' => ['visibility'],
             'target' => HasDiseases::PARAMETER,

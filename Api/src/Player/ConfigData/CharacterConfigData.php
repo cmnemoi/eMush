@@ -255,6 +255,7 @@ class CharacterConfigData
             'name' => 'finola',
             'characterName' => 'finola',
             'skillConfigs' => [
+                SkillEnum::BIOLOGIST,
                 SkillEnum::NURSE,
                 SkillEnum::DIPLOMAT,
             ],
@@ -446,6 +447,7 @@ class CharacterConfigData
             'characterName' => 'ian',
             'skillConfigs' => [
                 SkillEnum::BOTANIST,
+                SkillEnum::BIOLOGIST,
                 SkillEnum::MYCOLOGIST,
                 SkillEnum::FIREFIGHTER,
                 SkillEnum::GREEN_THUMB,
@@ -642,9 +644,10 @@ class CharacterConfigData
             'characterName' => 'paola',
             'skillConfigs' => [
                 SkillEnum::RADIO_EXPERT,
-                SkillEnum::SHOOTER,
-                SkillEnum::GUNNER,
                 SkillEnum::LOGISTICS_EXPERT,
+                SkillEnum::SHOOTER,
+                SkillEnum::BIOLOGIST,
+                SkillEnum::GUNNER,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

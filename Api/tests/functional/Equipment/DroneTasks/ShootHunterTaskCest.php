@@ -127,8 +127,9 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
 
         $this->givenOneAttackingHunter();
 
-        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
-        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseDamageRange([1 => 1]);
+        $this->givenPatrolShipAlwaysHits();
+
+        $this->givenPatrolShipDealsOnePointOfDamage();
 
         $this->whenIExecuteShootHunterTask();
 
@@ -166,8 +167,9 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
 
         $this->givenHunterHasOneHealthPoint();
 
-        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
-        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseDamageRange([1 => 1]);
+        $this->givenPatrolShipAlwaysHits();
+
+        $this->givenPatrolShipDealsOnePointOfDamage();
 
         $this->whenIExecuteShootHunterTask();
 
@@ -181,6 +183,17 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
             ),
             I: $I,
         );
+    }
+
+    public function shouldConsumeOnePatrolShipCharge(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->givenOneAttackingHunter();
+
+        $this->whenIExecuteShootHunterTask();
+
+        $this->thenPatrolShipShouldHaveCharges(9, $I);
     }
 
     private function givenAPatrolShipInBattle(FunctionalTester $I): void
@@ -255,6 +268,16 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
+    private function givenPatrolShipAlwaysHits(): void
+    {
+        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
+    }
+
+    private function givenPatrolShipDealsOnePointOfDamage(): void
+    {
+        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseDamageRange([1 => 1, 2 => 1]);
+    }
+
     private function whenIExecuteShootHunterTask(): void
     {
         $this->task->execute($this->drone, new \DateTime());
@@ -270,6 +293,11 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $hunter = $this->daedalus->getAttackingHunters()->first();
 
         $I->assertLessThan(6, $hunter->getHealth());
+    }
+
+    private function thenPatrolShipShouldHaveCharges(int $expectedCharges, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedCharges, $this->patrolShip->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getCharge());
     }
 
     private function setupDroneNicknameAndSerialNumber(Drone $drone, int $nickName, int $serialNumber): void

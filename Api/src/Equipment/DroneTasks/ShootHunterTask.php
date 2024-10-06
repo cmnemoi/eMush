@@ -6,6 +6,7 @@ namespace Mush\Equipment\DroneTasks;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Drone;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\DroneHitHunterEvent;
 use Mush\Equipment\Event\DroneKillHunterEvent;
 use Mush\Game\Event\VariableEventInterface;
@@ -15,6 +16,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterVariableEvent;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 class ShootHunterTask extends AbstractDroneTask
@@ -49,6 +51,7 @@ class ShootHunterTask extends AbstractDroneTask
         $hunter = $this->getRandomHunterFrom($drone->getDaedalus());
         $damage = $this->getInflictedDamageBy($drone);
         $initialHealth = $hunter->getHealth();
+        $patrolShip = $drone->getPilotedPatrolShip();
 
         if ($initialHealth - $damage <= 0) {
             $this->dispatchDroneKillHunterEvent($drone, $hunter, $time);
@@ -57,6 +60,7 @@ class ShootHunterTask extends AbstractDroneTask
         }
 
         $this->removeHealthToHunter($damage, $hunter);
+        $this->removeOneChargeToPatrolShip($patrolShip, $time);
     }
 
     private function dispatchDroneHitHunterEvent(Drone $drone, Hunter $hunter, \DateTime $time): void
@@ -98,5 +102,15 @@ class ShootHunterTask extends AbstractDroneTask
             time: new \DateTime(),
         );
         $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function removeOneChargeToPatrolShip(GameEquipment $patrolShip, $time): void
+    {
+        $this->statusService->updateCharge(
+            chargeStatus: $patrolShip->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES),
+            delta: -1,
+            tags: [],
+            time: $time,
+        );
     }
 }

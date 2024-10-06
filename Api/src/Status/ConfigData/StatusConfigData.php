@@ -689,7 +689,7 @@ abstract class StatusConfigData
             'chargeStrategy' => 'cycle_increment',
             'maxCharge' => 3,
             'startCharge' => 1,
-            'dischargeStrategies' => ['shoot'],
+            'dischargeStrategies' => ['shoot', 'shoot_cat'],
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],

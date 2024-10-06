@@ -1355,5 +1355,43 @@
         <target>**{character}** fait un gros câlin à **{target_equipment}**. Celui-ci n'en veut manifestement pas mais ce n'est pas grave, ça fait toujours du bien...</target>
       </segment>
     </unit>
+    <unit id="shoot_cat_success">
+      <segment id="shoot_cat_success" state="final">
+        <source>shoot_cat_success</source>
+        <target>L'oeil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
+      </segment>
+    </unit>
+        <unit id="shoot_cat_critical_success">
+      <segment id="shoot_cat_critical_success" state="final">
+        <source>shoot_cat_critical_success</source>
+        <target>L'oeil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
+      </segment>
+    </unit>
+    <unit id="shoot_cat_fail">
+      <segment id="shoot_cat_fail" state="final">
+        <source>shoot_cat_fail</source>
+        <target>{version, select,
+                    1 {Clic...clic...**{character}** a raté une occasion...}
+                    2 {**{character}** bute sur un poney imaginaire et tombe en arrière !}
+                    3 {Clic...clic... l'arme de **{character}** est enrayée.}
+                    4 {**{character}** a fait feu sur **{target_equipment}** mais n'est hélas juste pas capable de viser correctement...}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="shoot_cat_critical_fail">
+      <segment id="shoot_cat_critical_fail" state="final">
+        <source>shoot_critical_fail</source>
+        <target>{version, select,
+                    1 {{character_gender, select,
+                        male {Le tour de magie de **{character}** est décidément raté, il retourne son arme contre lui par mégarde.}
+                        female {Le tour de magie de **{character}** est décidément raté, elle retourne son arme contre elle par mégarde.}
+                        other {invalid gender input}
+                    }}
+                    2 {La violence est le refuge de l'incompétence. **{character}** aurait mieux fait de s'abstenir. Son arme est maintenant par terre et **{target}** l'en sait gré.}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

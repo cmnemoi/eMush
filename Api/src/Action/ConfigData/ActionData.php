@@ -2495,6 +2495,22 @@ class ActionData
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
+        [
+            'name' => 'shoot_cat',
+            'action_name' => ActionEnum::SHOOT_CAT,
+            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT],
+            'target' => ActionHolderEnum::EQUIPMENT,
+            'scope' => ActionRangeEnum::PLAYER,
+            'visibilities' => ['success' => 'public', 'fail' => 'public', 'critical_success' => 'public', 'critical_fail' => 'public', 'one_shot' => 'public'],
+            'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 50, 'min_value' => 1, 'max_value' => 99],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+        ],
     ];
 
     public static function getByName(ActionEnum $name): array

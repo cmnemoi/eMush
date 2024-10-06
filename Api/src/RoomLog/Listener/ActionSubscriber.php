@@ -273,6 +273,9 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function doesCatMeow(ActionEvent $event): void
     {
+        if ($event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT) {
+            return;
+        }
         if ($event->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER)) {
             if ($this->d100Roll->isSuccessful(self::CAT_MEOW_CHANCE)) {
                 $this->createCatMeowLog($event);

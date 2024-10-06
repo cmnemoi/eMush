@@ -1244,5 +1244,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_TURBO->value, $upgradeDroneToTurbo);
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER->value, $upgradeDroneToFirefighter);
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_PILOT->value, $upgradeDroneToPilot);
+        $this->addReference(ActionEnum::PET_CAT->value, $petCat);
+        $this->addReference(ActionEnum::TAKE_CAT->value, $takeCat);
     }
 }

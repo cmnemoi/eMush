@@ -212,6 +212,9 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::MEDIC,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::MOTIVATOR,
                 actionConfigs: [
                     ActionEnum::BORING_SPEECH,

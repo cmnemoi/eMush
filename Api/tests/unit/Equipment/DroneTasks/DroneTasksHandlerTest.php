@@ -17,6 +17,7 @@ use Mush\Equipment\DroneTasks\MoveInRandomAdjacentRoomTask;
 use Mush\Equipment\DroneTasks\RepairBrokenEquipmentTask;
 use Mush\Equipment\DroneTasks\ShootHunterTask;
 use Mush\Equipment\DroneTasks\TakeoffTask;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -27,9 +28,11 @@ use Mush\Game\Service\Random\FakeD100RollService as D100Roll;
 use Mush\Game\Service\Random\FakeGetRandomIntegerService as GetRandomInteger;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayService as GetRandomElementsFromArray;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Factory\StatusFactory;
 use Mush\Status\Service\FakeStatusService as StatusService;
 use PHPUnit\Framework\TestCase;
@@ -152,6 +155,114 @@ final class DroneTasksHandlerTest extends TestCase
         self::assertEquals(93, $this->drone->getRepairSuccessRateForEquipment($this->mycoscan));
     }
 
+    public function testMultipleTasksSuccessful(): void
+    {
+        // given drone has turbo upgrade
+        $this->givenDroneHasTurboUpgrade();
+
+        // given drone is firefighter
+        $this->givenDroneIsFirefighter();
+
+        // given a fire in the room
+        $this->givenAFireInTheRoom();
+
+        // given there is an adjacent room to go
+        $this->givenAnAdjacentRoom();
+
+        // when drone acts
+        $successfulExtinguishFireTask = new ExtinguishFireTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            new InMemoryActionConfigRepository(),
+            new D100Roll(isSuccessful: true),
+        );
+
+        $successfulRepairTask = new RepairBrokenEquipmentTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            new D100Roll(isSuccessful: true),
+            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
+        );
+
+        $moveEquipmentService = \Mockery::spy(GameEquipmentServiceInterface::class);
+        $moveInRandomAdjacentRoomTask = new MoveInRandomAdjacentRoomTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            $moveEquipmentService,
+            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
+        );
+
+        $droneTasks = new DroneTasksHandler(
+            d100Roll: new D100Roll(isSuccessful: true), // turbo upgrade will always succeed
+            statusService: $this->statusService,
+            extinguishFireTask: $successfulExtinguishFireTask,
+            repairBrokenEquipmentTask: $successfulRepairTask,
+            takeoffTask: $this->takeoffTask,
+            shootHunterTask: $this->shootHunterTask,
+            landTask: $this->landTask,
+            moveInRandomAdjacentRoomTask: $moveInRandomAdjacentRoomTask,
+        );
+        $droneTasks->execute($this->drone, new \DateTime());
+
+        // then fire should be extinguished
+        self::assertFalse($this->drone->getPlace()->hasStatus(StatusEnum::FIRE));
+
+        // then equipment should be repaired
+        self::assertFalse($this->mycoscan->isBroken());
+
+        // then drone should be in lab
+        $moveEquipmentService->shouldNotHaveReceived('moveEquipmentTo');
+    }
+
+    public function testOneTaskUnavailableTheTwoOthersSuccessful(): void
+    {
+        // given drone has turbo upgrade
+        $this->givenDroneHasTurboUpgrade();
+
+        // given a fire in the room
+        $this->givenAFireInTheRoom();
+
+        // given there is an adjacent room to go
+        $this->givenAnAdjacentRoom();
+
+        // when drone acts
+        $successfulRepairTask = new RepairBrokenEquipmentTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            new D100Roll(isSuccessful: true),
+            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
+        );
+
+        $moveEquipmentService = \Mockery::spy(GameEquipmentServiceInterface::class);
+        $moveInRandomAdjacentRoomTask = new MoveInRandomAdjacentRoomTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            $moveEquipmentService,
+            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
+        );
+
+        $droneTasks = new DroneTasksHandler(
+            d100Roll: new D100Roll(isSuccessful: true), // turbo upgrade will always succeed
+            statusService: $this->statusService,
+            extinguishFireTask: $this->extinguishFireTask,
+            repairBrokenEquipmentTask: $successfulRepairTask,
+            takeoffTask: $this->takeoffTask,
+            shootHunterTask: $this->shootHunterTask,
+            landTask: $this->landTask,
+            moveInRandomAdjacentRoomTask: $moveInRandomAdjacentRoomTask,
+        );
+        $droneTasks->execute($this->drone, new \DateTime());
+
+        // then fire should not be extinguished
+        self::assertTrue($this->drone->getPlace()->hasStatus(StatusEnum::FIRE));
+
+        // then equipment should be repaired
+        self::assertFalse($this->mycoscan->isBroken());
+
+        // then drone should be in front corridor
+        $moveEquipmentService->shouldHaveReceived('moveEquipmentTo')->once();
+    }
+
     private function givenDroneInRoom(): void
     {
         $this->drone = GameEquipmentFactory::createDroneForHolder($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
@@ -187,5 +298,28 @@ final class DroneTasksHandlerTest extends TestCase
             EquipmentStatusEnum::TURBO_DRONE_UPGRADE,
             $this->drone,
         );
+    }
+
+    private function givenDroneIsFirefighter(): void
+    {
+        StatusFactory::createStatusByNameForHolder(
+            EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE,
+            $this->drone,
+        );
+    }
+
+    private function givenAFireInTheRoom(): void
+    {
+        $fireStatus = StatusFactory::createStatusByNameForHolder(
+            StatusEnum::FIRE,
+            $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY),
+        );
+        $this->statusService->persist($fireStatus);
+    }
+
+    private function givenAnAdjacentRoom(): void
+    {
+        $adjacentRoom = Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $this->daedalus);
+        Door::createFromRooms($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY), $adjacentRoom);
     }
 }

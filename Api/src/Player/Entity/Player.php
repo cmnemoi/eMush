@@ -1265,7 +1265,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function canReadDrugProperties(GameEquipment $food): bool
     {
-        return $food->isADrug() && $this->hasAnySkill([SkillEnum::NURSE, SkillEnum::POLYVALENT]);
+        return $food->isADrug() && $this->hasAnySkill([SkillEnum::NURSE, SkillEnum::POLYVALENT, SkillEnum::BIOLOGIST]);
     }
 
     private function removeDuplicateActions(array $actions): array

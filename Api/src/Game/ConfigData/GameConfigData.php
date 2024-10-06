@@ -607,6 +607,7 @@ class GameConfigData
                 SkillEnum::APPRENTICE,
                 SkillEnum::ASTROPHYSICIST,
                 SkillEnum::BACTEROPHILIAC,
+                SkillEnum::BIOLOGIST,
                 SkillEnum::BOTANIST,
                 SkillEnum::BYPASS,
                 SkillEnum::CAFFEINE_JUNKIE,

@@ -68,6 +68,8 @@ final class GameEquipmentFactory
             ->setEquipment($equipmentConfig)
             ->setName($equipmentConfig->getEquipmentName());
 
+        self::setupEquipmentId($equipment);
+
         return $equipment;
     }
 

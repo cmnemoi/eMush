@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Normalizer;
 
+use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Player\Entity\Player;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -28,23 +28,17 @@ class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
 
     public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
-        /** @var GameEquipment $patrolShip */
-        $patrolShip = $object;
+        $patrolShip = $this->patrolShip($object);
+
+        $patrolShipPlace = $patrolShip->getPlace();
         $patrolShipName = $patrolShip->getName();
+        $patrolShipArmor = $patrolShip->getChargeStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        $patrolShipCharges = $patrolShip->getChargeStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $patrolShipPilot = $patrolShipPlace->getAlivePlayers()->first() ?: null;
+        $humanPilotKey = $patrolShipPilot?->getName();
 
-        /** @var ChargeStatus $patrolShipArmor */
-        $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
-
-        /** @var ChargeStatus $patrolShipCharges */
-        $patrolShipCharges = $patrolShip->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
-
-        $patrolShipPilot = $patrolShip->getPlace()->getPlayers()->getPlayerAlive()->first();
-
-        if ($patrolShipPilot instanceof Player) {
-            $pilotKey = $patrolShipPilot->getName();
-        } else {
-            $pilotKey = null;
-        }
+        /** @var ?Drone $pilotDrone */
+        $pilotDrone = $patrolShipPlace->getEquipmentByName(ItemEnum::SUPPORT_DRONE);
 
         return [
             'id' => $patrolShip->getId(),
@@ -56,9 +50,15 @@ class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
                 language: $patrolShip->getDaedalus()->getLanguage()
             ),
             'armor' => $patrolShipArmor?->getCharge(),
-            'charges' => $patrolShipCharges?->getCharge(), // Pasiphae doesn't have charges so do not try to normalize them
-            'pilot' => $pilotKey,
+            'charges' => $patrolShipCharges?->getCharge(),
+            'pilot' => $humanPilotKey,
+            'drone' => $pilotDrone?->isPilot() ?? false,
             'isBroken' => $patrolShip->hasStatus(EquipmentStatusEnum::BROKEN),
         ];
+    }
+
+    private function patrolShip(mixed $object): GameEquipment
+    {
+        return $object instanceof GameEquipment ? $object : throw new \RuntimeException('This normalizer only supports GameEquipment');
     }
 }

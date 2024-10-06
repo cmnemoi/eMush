@@ -30,6 +30,12 @@
                     :src="getPlayerCharacterBodyByName(patrolShip.pilot)"
                     :alt="patrolShip.pilot">
             </div>
+            <div class="operator" v-if="patrolShip.drone">
+                <img
+                    class="drone-img"
+                    :src="getImgUrl('drone.png')"
+                    alt="drone">
+            </div>
             <div>
                 <div class="ship-img-container">
                     <img

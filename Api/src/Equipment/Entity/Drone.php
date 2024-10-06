@@ -161,6 +161,11 @@ class Drone extends GameItem
         return $this->hasStatus(EquipmentStatusEnum::TURBO_DRONE_UPGRADE);
     }
 
+    public function isPilot(): bool
+    {
+        return $this->hasStatus(EquipmentStatusEnum::PILOT_DRONE_UPGRADE);
+    }
+
     private function cannotExtinguish(): bool
     {
         return $this->isNotFirefighter() || $this->noFireInRoom();

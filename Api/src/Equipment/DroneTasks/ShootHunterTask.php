@@ -38,20 +38,22 @@ class ShootHunterTask extends AbstractDroneTask
             return;
         }
 
+        $patrolShip = $drone->getPilotedPatrolShip();
+        $this->removeOneChargeToPatrolShip($patrolShip, $time);
+
         $successRate = $drone->getShootHunterSuccessRate();
         if ($this->d100Roll->isAFailure($successRate)) {
             return;
         }
 
-        $this->handleShoot($drone, $time);
+        $this->handleShootDamage($drone, $time);
     }
 
-    private function handleShoot(Drone $drone, \DateTime $time): void
+    private function handleShootDamage(Drone $drone, \DateTime $time): void
     {
         $hunter = $this->getRandomHunterFrom($drone->getDaedalus());
         $damage = $this->getInflictedDamageBy($drone);
         $initialHealth = $hunter->getHealth();
-        $patrolShip = $drone->getPilotedPatrolShip();
 
         if ($initialHealth - $damage <= 0) {
             $this->dispatchDroneKillHunterEvent($drone, $hunter, $time);
@@ -60,7 +62,6 @@ class ShootHunterTask extends AbstractDroneTask
         }
 
         $this->removeHealthToHunter($damage, $hunter);
-        $this->removeOneChargeToPatrolShip($patrolShip, $time);
     }
 
     private function dispatchDroneHitHunterEvent(Drone $drone, Hunter $hunter, \DateTime $time): void

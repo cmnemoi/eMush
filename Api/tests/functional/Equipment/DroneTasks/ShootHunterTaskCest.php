@@ -185,11 +185,28 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldConsumeOnePatrolShipCharge(FunctionalTester $I): void
+    public function shouldConsumeOnePatrolShipChargeOnSuccessfulShot(FunctionalTester $I): void
     {
         $this->givenDroneIsAPilot();
 
         $this->givenOneAttackingHunter();
+
+        $this->givenPatrolShipAlwaysHits();
+
+        $this->whenIExecuteShootHunterTask();
+
+        $this->thenPatrolShipShouldHaveCharges(9, $I);
+    }
+
+    public function shouldConsumeOnePatrolShipChargeOnFailedShot(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->givenOneAttackingHunter();
+
+        $this->givenPatrolShipAlwaysMisses();
+
+        $this->givenPatrolShipDealsOnePointOfDamage();
 
         $this->whenIExecuteShootHunterTask();
 
@@ -276,6 +293,11 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
     private function givenPatrolShipDealsOnePointOfDamage(): void
     {
         $this->patrolShip->getWeaponMechanicOrThrow()->setBaseDamageRange([1 => 1, 2 => 1]);
+    }
+
+    private function givenPatrolShipAlwaysMisses(): void
+    {
+        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseAccuracy(0);
     }
 
     private function whenIExecuteShootHunterTask(): void

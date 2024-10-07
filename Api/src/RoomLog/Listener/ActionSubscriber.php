@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -274,6 +275,18 @@ final class ActionSubscriber implements EventSubscriberInterface
     private function doesCatMeow(ActionEvent $event): void
     {
         if ($event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT) {
+            if ($event->getActionResult()->getResultTag() === ActionOutputEnum::FAIL) {
+                $this->roomLogService->createLog(
+                    LogEnum::CAT_HISS,
+                    $event->getPlace(),
+                    VisibilityEnum::PUBLIC,
+                    'event_log',
+                    null,
+                    [LogParameterKeyEnum::ITEM => ItemEnum::SCHRODINGER],
+                    new \DateTime()
+                );
+            }
+
             return;
         }
         if ($event->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER)) {

@@ -40,6 +40,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         PlantLogEnum::PLANT_DEATH => PlantLogEnum::PLANT_DEATH,
         EndCauseEnum::ASPHYXIA => LogEnum::OXY_LOW_USE_CAPSULE,
         PlanetSectorEvent::ITEM_LOST => LogEnum::LOST_ITEM_IN_EXPLORATION,
+        ActionEnum::SHOOT_CAT->value => LogEnum::CAT_SHOT_DEAD,
     ];
 
     private const MOVE_EQUIPMENT_LOG_MAP = [

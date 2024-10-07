@@ -88,6 +88,7 @@ abstract class LogDeclinationEnum
             LogEnum::DRONE_REPAIRED_EQUIPMENT => [self::VERSION => 7],
             ActionLogEnum::PARTICIPATE_SUCCESS => [self::VERSION_UNINHIB => 14, self::VERSION_CRAZY => 5],
             LogEnum::CAT_MEOW => [self::VERSION => 17],
+            LogEnum::CAT_HISS => [self::VERSION => 17],
             ActionLogEnum::SHOOT_CAT_FAIL => [self::VERSION => 4],
             ActionLogEnum::SHOOT_CAT_CRITICAL_FAIL => [self::VERSION => 2],
         ];

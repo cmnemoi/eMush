@@ -1188,5 +1188,36 @@
         </target>
       </segment>
     </unit>
+    <unit id="cat_shot_dead">
+      <segment id="cat_shot_dead" state="final">
+        <source>cat_shot_dead</source>
+        <target>**{target_equipment}** a été abattu par **{character}**.</target>
+      </segment>
+    </unit>
+    <unit id="cat_hiss">
+      <segment id="cat_hiss" state="final">
+        <source>cat_hiss</source>
+        <target>:cat: **{equipment} :** {version, select,
+                    1{hsss...}
+                    2{hisssss!!}
+	                  3{rrrhhh!}
+	                  4{mrrrwwwr...}
+	                  5{grrrrwl...}
+	                  6{MMMMAOU!}
+	                  7{fffffsh!}
+	                  8{grrrrrr!!}
+	                  9{pffft!}
+	                  10{PSCHHH!! PSCHHH!!}
+	                  11{grrrrowwwl...}
+	                  12{pffff! pffff!}
+	                  13{rrrrrrrhh!}
+	                  14{tsssss...}
+	                  15{mrrrrrr... hssss!!}
+	                  16{BARK BARK!}
+	                  17{meewww...}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

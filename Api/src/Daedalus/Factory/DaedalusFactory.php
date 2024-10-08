@@ -42,7 +42,7 @@ final class DaedalusFactory
         self::setupId($daedalus);
 
         $gameConfig->setDifficultyConfig(self::getDifficultyConfig());
-        $gameConfig->setMushSkillConfigs(self::getMushSkillConfigs());
+        $gameConfig->setSkillConfigs(self::getMushSkillConfigs());
 
         return $daedalus;
     }

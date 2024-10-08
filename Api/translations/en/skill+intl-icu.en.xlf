@@ -758,7 +758,7 @@
         <target>Paranoid</target>
       </segment>
       <segment id="paranoid.description" state="translated">
-        <source>opportunist.description</source>
+        <source>paranoid.description</source>
         <target>The paranoid crewmember always believes their crewmates to be potentially dangerous, they always watch their back using their extra cameras.//:point: Starts out with 2 additional **cameras**.</target>
       </segment>
     </unit>

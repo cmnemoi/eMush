@@ -187,6 +187,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $opportunistSkillConfig */
         $opportunistSkillConfig = $this->getReference(SkillEnum::OPPORTUNIST->value);
 
+        /** @var SkillConfig $paranoidSkillConfig */
+        $paranoidSkillConfig = $this->getReference(SkillEnum::PARANOID->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -300,6 +303,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $caffeineJunkieConfig,
                 $astrophysicistSkillConfig,
                 $victimizerSkillConfig,
+                $paranoidSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($gioele);

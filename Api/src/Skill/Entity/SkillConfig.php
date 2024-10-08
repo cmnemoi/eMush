@@ -100,6 +100,11 @@ class SkillConfig
         return $this->spawnEquipmentConfig ?? throw new \RuntimeException('This skill has no spawnEquipmentConfig');
     }
 
+    public function isMushSkill(): bool
+    {
+        return $this->name->isMushSkill();
+    }
+
     public function update(self $skillConfig): void
     {
         $this->name = $skillConfig->name;

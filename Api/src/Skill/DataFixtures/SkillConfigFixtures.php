@@ -43,10 +43,8 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
             $manager->persist($skillConfig);
             $this->addReference($skillConfigDto->name->value, $skillConfig);
 
-            if ($skillConfig->getName()->isMushSkill()) {
-                $gameConfig->addMushSkillConfig($skillConfig);
-                $manager->persist($gameConfig);
-            }
+            $gameConfig->addSkillConfig($skillConfig);
+            $manager->persist($gameConfig);
         }
 
         $manager->flush();

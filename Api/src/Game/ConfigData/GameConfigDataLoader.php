@@ -51,7 +51,7 @@ class GameConfigDataLoader extends ConfigDataLoader
             $this->setGameConfigPlanetSectorConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigTitleConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigProjectConfigs($gameConfig, $gameConfigData);
-            $this->setGameConfigMushSkillConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigSkillConfigs($gameConfig, $gameConfigData);
 
             $this->entityManager->persist($gameConfig);
         }
@@ -258,19 +258,19 @@ class GameConfigDataLoader extends ConfigDataLoader
         $gameConfig->setProjectConfigs(new ArrayCollection($projectConfigs));
     }
 
-    private function setGameConfigMushSkillConfigs(GameConfig $gameConfig, array $gameConfigData): void
+    private function setGameConfigSkillConfigs(GameConfig $gameConfig, array $gameConfigData): void
     {
         $mushSkillConfigs = [];
-        foreach ($gameConfigData['mushSkillConfigs'] as $mushSkillConfigName) {
+        foreach ($gameConfigData['skillConfigs'] as $mushSkillConfigName) {
             $mushSkillConfig = $this->entityManager->getRepository(SkillConfig::class)->findOneBy(['name' => $mushSkillConfigName]);
 
             if ($mushSkillConfig === null) {
-                throw new \Exception("Mush skill config {$mushSkillConfigName} not found");
+                throw new \Exception("Skill config {$mushSkillConfigName} not found");
             }
 
             $mushSkillConfigs[] = $mushSkillConfig;
         }
 
-        $gameConfig->setMushSkillConfigs(new ArrayCollection($mushSkillConfigs));
+        $gameConfig->setSkillConfigs(new ArrayCollection($mushSkillConfigs));
     }
 }

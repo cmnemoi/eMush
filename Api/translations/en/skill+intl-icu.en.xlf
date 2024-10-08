@@ -762,5 +762,15 @@
         <target>The paranoid crewmember always believes their crewmates to be potentially dangerous, they always watch their back using their extra cameras.//:point: Starts out with 2 additional **cameras**.</target>
       </segment>
     </unit>
+    <unit id="crazy_eye">
+      <segment id="crazy_eye.name" state="translated">
+        <source>crazy_eye.name</source>
+        <target>Crazy Eye</target>
+      </segment>
+      <segment id="crazy_eye.description" state="translated">
+        <source>crazy_eye.description</source>
+        <target>There is no way to take you by surprise. You foresee all attacks from your enemies as well as those from your so-called allies.//:point: All aggressive actions targeting you cost an additional 2 :pa:.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

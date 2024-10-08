@@ -408,6 +408,12 @@ abstract class SkillConfigData
                 name: SkillEnum::PARANOID,
                 spawnEquipmentConfig: SpawnEquipmentConfigData::TWO_CAMERAS_IN_PLAYER_INVENTORY,
             ),
+            new SkillConfigDto(
+                name: SkillEnum::CRAZY_EYE,
+                modifierConfigs: [
+                    ModifierNameEnum::INCREASE_AGGRESIVE_ACTION_TO_SKILL_PLAYER_BY_2_AP,
+                ]
+            ),
         ];
     }
 

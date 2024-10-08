@@ -303,7 +303,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $caffeineJunkieConfig,
                 $astrophysicistSkillConfig,
                 $victimizerSkillConfig,
-                $paranoidSkillConfig
+                $paranoidSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($gioele);

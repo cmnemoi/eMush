@@ -350,7 +350,7 @@ class CharacterConfigData
                 SkillEnum::CAFFEINE_JUNKIE,
                 SkillEnum::ASTROPHYSICIST,
                 SkillEnum::VICTIMIZER,
-                SkillEnum::PARANOID
+                SkillEnum::PARANOID,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

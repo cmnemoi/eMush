@@ -275,7 +275,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     private function doesCatMeow(ActionEvent $event): void
     {
         if ($event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT) {
-            if ($event->getActionResult()->getResultTag() === ActionOutputEnum::FAIL) {
+            if ($event->getActionResultOrThrow()->getResultTag() === ActionOutputEnum::FAIL) {
                 $this->roomLogService->createLog(
                     LogEnum::CAT_HISS,
                     $event->getPlace(),

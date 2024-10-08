@@ -752,5 +752,15 @@
         <target>The opportunist waits for the first chance to climb the ship's hierarchy, no opportunity escapes them.//:point: +5 :pa: when you **earn a title** for the first time.</target>
       </segment>
     </unit>
+    <unit id="paranoid">
+      <segment id="paranoid.name" state="translated">
+        <source>paranoid.name</source>
+        <target>Paranoid</target>
+      </segment>
+      <segment id="paranoid.description" state="translated">
+        <source>opportunist.description</source>
+        <target>The paranoid crewmember always believes their crewmates to be potentially dangerous, they always watch their back using their extra cameras.//:point: Starts out with 2 additional **cameras**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

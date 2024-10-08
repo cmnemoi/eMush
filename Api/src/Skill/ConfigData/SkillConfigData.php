@@ -404,6 +404,10 @@ abstract class SkillConfigData
                     ModifierNameEnum::PLAYER_PLUS_5_ACTION_POINT_ON_FIRST_TITLE_ATTRIBUTION,
                 ],
             ),
+            new SkillConfigDto(
+                name: SkillEnum::PARANOID,
+                spawnEquipmentConfig: SpawnEquipmentConfigData::TWO_CAMERAS_IN_PLAYER_INVENTORY,
+            ),
         ];
     }
 

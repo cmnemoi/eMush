@@ -3558,7 +3558,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'cat_owner_modifier_for_player_set_schrodinger_cant_hurt',
-            'modifierName' => 'cat_owner_modifier',
+            'modifierName' => ModifierNameEnum::CAT_OWNER_MODIFIER . 'cat_loves_you',
             'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
@@ -3569,9 +3569,24 @@ abstract class ModifierConfigData
             'targetVariable' => ActionVariableEnum::PERCENTAGE_INJURY,
             'mode' => VariableModifierModeEnum::SET_VALUE,
             'modifierActivationRequirements' => [
-                'is_cat_owner',
             ],
             'tagConstraints' => [ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ANY_TAGS, ActionEnum::PET_CAT->value => ModifierRequirementEnum::ANY_TAGS],
+        ],
+        [
+            'name' => 'cat_owner_modifier_-4morale_on_cat_death',
+            'modifierName' => ModifierNameEnum::CAT_OWNER_MODIFIER . 'cat_death_sadness',
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => -4,
+            'targetVariable' => PlayerVariableEnum::MORAL_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [
+            ],
+            'tagConstraints' => [ItemEnum::SCHRODINGER => ModifierRequirementEnum::ANY_TAGS],
         ],
     ];
 

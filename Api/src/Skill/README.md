@@ -16,7 +16,7 @@ Skills grant players new actions, various bonuses through [modifiers](../Modifie
     |-- UseCase
 
 ## How to add a new skill?
-- Add the skill to the [SkillConfigData](./ConfigData/SkillConfigData.php).
+- Add the skill to the [SkillConfigData](./ConfigData/SkillConfigData.php) and [GameConfigData](../Game/ConfigData/GameConfigData.php#L598).
 - Configure skill modifiers in [ModifierConfigData](../Modifier/ConfigData/ModifierConfigData.php) and [SkillModifierConfigFixtures](../Modifier/DataFixtures/SkillModifierConfigFixtures.php). Please read the Modifier module [documentation](../Modifier/README.md) to see what can be implemented with modifiers, and how.
 - Configure skill points :
     - Add a new [ActionTypeEnum](../Action/Enum/ActionTypeEnum.php) for the actions which should be free when the player has the added skill points.

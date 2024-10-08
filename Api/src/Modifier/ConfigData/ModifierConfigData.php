@@ -3463,10 +3463,10 @@ abstract class ModifierConfigData
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'tagConstraints' => [
-                [ActionTypeEnum::ACTION_AGGRESSIVE->value => ModifierRequirementEnum::ALL_TAGS]
+                ActionTypeEnum::ACTION_AGGRESSIVE->value => ModifierRequirementEnum::ALL_TAGS
             ],
             'applyOnTarget' => false,
-            'modifierRange' => ModifierHolderClassEnum::TARGET_PLAYER,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
             'type' => 'variable_event_modifier',
             'modifierActivationRequirements' => [],
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,

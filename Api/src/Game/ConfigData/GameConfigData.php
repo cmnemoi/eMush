@@ -638,6 +638,7 @@ class GameConfigData
                 SkillEnum::OBSERVANT,
                 SkillEnum::OPPORTUNIST,
                 SkillEnum::OPTIMIST,
+                SkillEnum::PARANOID,
                 SkillEnum::PHAGOCYTE,
                 SkillEnum::PHYSICIST,
                 SkillEnum::PILOT,

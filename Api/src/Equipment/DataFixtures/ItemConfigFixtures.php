@@ -266,7 +266,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addEquipmentConfig($hydropot)
             ->addEquipmentConfig($oxygenCapsule)
             ->addEquipmentConfig($fuelCapsule)
-            ->addEquipmentConfig($drone);
+            ->addEquipmentConfig($drone)
+            ->addEquipmentConfig($schrodinger);
         $manager->persist($gameConfig);
 
         $manager->flush();

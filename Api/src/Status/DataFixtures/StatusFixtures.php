@@ -594,6 +594,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($catInfected);
 
+        $hasPettedCat = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_PETTED_CAT . '_default')
+        );
+        $manager->persist($hasPettedCat);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -655,7 +660,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasUsedPutsch)
             ->addStatusConfig($pariahStatus)
             ->addStatusConfig($catInfected)
-            ->addStatusConfig($catInfected)
+            ->addStatusConfig($hasPettedCat)
             ->addStatusConfig($upgradedFirefighter)
             ->addStatusConfig($pilotDroneUpgrade)
             ->addStatusConfig(statusConfig: $hasUsedOpportunistAsCommander)
@@ -723,6 +728,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE, $upgradedFirefighter);
         $this->addReference(EquipmentStatusEnum::PILOT_DRONE_UPGRADE, $pilotDroneUpgrade);
         $this->addReference(EquipmentStatusEnum::CAT_INFECTED, $catInfected);
+        $this->addReference(PlayerStatusEnum::HAS_PETTED_CAT, $hasPettedCat);
 
         $manager->flush();
     }

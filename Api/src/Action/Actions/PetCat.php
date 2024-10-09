@@ -67,12 +67,15 @@ class PetCat extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
+        $tags = $this->getActionConfig()->getActionTags();
+        $tags[] = $this->gameItemTarget()->getName();
+
         if ($this->player->hasStatus(PlayerStatusEnum::HAS_PETTED_CAT) === false) {
             $playerModifierEvent = new PlayerVariableEvent(
                 $this->player,
                 PlayerVariableEnum::MORAL_POINT,
                 $this->getOutputQuantity(),
-                $this->getActionConfig()->getActionTags(),
+                $tags,
                 new \DateTime()
             );
             $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
@@ -80,7 +83,7 @@ class PetCat extends AbstractAction
             $this->statusService->createStatusFromName(
                 PlayerStatusEnum::HAS_PETTED_CAT,
                 $this->player,
-                $this->getActionConfig()->getActionTags(),
+                $tags,
                 new \DateTime(),
             );
         }

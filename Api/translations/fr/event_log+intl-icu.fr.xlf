@@ -537,7 +537,7 @@
         <target>{target_character_gender, select,
         male {**{target_character}** a été contaminé}
         female {**{target_character}** a été contaminée}
-        other {**{target_character}** a été contaminé}} par **{character}** en prenant **Schrödinger**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        other {**{target_character}** a été contaminé}} par **{character}** en prenant **{equipment}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_mush_raid">
@@ -565,6 +565,12 @@
       <segment id="mush_convert_event" state="final">
         <source>mush_convert_event</source>
         <target>Bienvenue parmi le Mush **{target_character}**.</target>
+      </segment>
+    </unit>
+    <unit id="mush_convert_cat_event">
+      <segment id="mush_convert_cat_event" state="final">
+        <source>mush_convert_cat_event</source>
+        <target>**{equipment}** a été converti par **{target_character}**. Bienvenue parmi le Mush **{equipment}**.</target>
       </segment>
     </unit>
     <unit id="player_enter_chat">

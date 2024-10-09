@@ -91,6 +91,7 @@ class ConvertCat extends AbstractAction
             $this->gameEquipmentTarget(),
             $this->getActionConfig()->getActionTags(),
             new \DateTime(),
+            $this->player,
         );
 
         $playerModifierEvent = new PlayerVariableEvent(

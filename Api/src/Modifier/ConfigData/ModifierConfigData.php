@@ -3465,7 +3465,7 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionTypeEnum::ACTION_AGGRESSIVE->value => ModifierRequirementEnum::ALL_TAGS,
             ],
-            'applyOnTarget' => false,
+            'applyOnTarget' => true,
             'modifierRange' => ModifierHolderClassEnum::PLAYER,
             'type' => 'variable_event_modifier',
             'modifierActivationRequirements' => [],

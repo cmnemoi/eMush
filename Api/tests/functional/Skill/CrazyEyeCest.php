@@ -27,16 +27,39 @@ final class CrazyEyeCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::CRAZY_EYE, $I, $this->kuanTi);
     }
 
-    public function shouldCostThreeApHittingCrazyEyePlayer(FunctionalTester $I): void
+    public function testCrazyEyePlayerShouldNotBeAffectedByTheirSkill(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasActionPoints(3);
+        $this->whenKuanTiHitsChun();
+        $I->assertEquals(2, $this->kuanTi->getActionPoint());
+    }
+
+    public function testShouldCostThreeApHittingCrazyEyePlayer(FunctionalTester $I): void
     {
         $this->givenChunHasActionPoints(3);
         $this->whenChunHitsCrazyEyePlayer();
         $I->assertEquals(0, $this->chun->getActionPoint());
     }
 
+    private function givenKuanTiHasActionPoints(int $actionPoints): void
+    {
+        $this->kuanTi->setActionPoint($actionPoints);
+    }
+
     private function givenChunHasActionPoints(int $actionPoints): void
     {
         $this->chun->setActionPoint($actionPoints);
+    }
+
+    private function whenKuanTiHitsChun(): void
+    {
+        $this->hitAction->loadParameters(
+            actionConfig: $this->hitActionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi,
+            target: $this->chun,
+        );
+        $this->hitAction->execute();
     }
 
     private function whenChunHitsCrazyEyePlayer(): void

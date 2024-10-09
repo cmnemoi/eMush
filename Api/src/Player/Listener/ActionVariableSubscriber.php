@@ -4,6 +4,7 @@ namespace Mush\Player\Listener;
 
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -11,6 +12,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionVariableSubscriber implements EventSubscriberInterface
@@ -67,6 +69,23 @@ class ActionVariableSubscriber implements EventSubscriberInterface
                 );
 
                 $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+
+                /** @var GameItem $target */
+                $target = $event->getActionTarget();
+
+                if ($target->hasStatus(EquipmentStatusEnum::CAT_INFECTED) && $event->getAuthor()->isHuman()) {
+                    $tagsNotClumsiness = array_diff($tags, [EndCauseEnum::CLUMSINESS]);
+
+                    $playerVariableEvent = new PlayerVariableEvent(
+                        $event->getAuthor(),
+                        PlayerVariableEnum::SPORE,
+                        1,
+                        $tagsNotClumsiness,
+                        $event->getTime()
+                    );
+
+                    $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+                }
             }
         }
     }

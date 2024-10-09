@@ -665,6 +665,13 @@ class GameConfigData
                 SkillEnum::U_TURN,
                 SkillEnum::VICTIMIZER,
                 SkillEnum::WRESTLER,
+                SkillEnum::TRACKER,
+                SkillEnum::MANKIND_ONLY_HOPE,
+                SkillEnum::SHRINK,
+                SkillEnum::GREEN_THUMB,
+                SkillEnum::TECHNICIAN,
+                SkillEnum::OPPORTUNIST,
+                SkillEnum::CRAZY_EYE,
             ],
         ],
     ];

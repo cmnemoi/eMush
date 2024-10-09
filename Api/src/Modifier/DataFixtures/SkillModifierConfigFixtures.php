@@ -268,6 +268,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($opportunistModifier->getName(), $opportunistModifier);
         $manager->persist($opportunistModifier);
 
+        $crazyEyeModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::INCREASE_AGGRESIVE_ACTION_TO_SKILL_PLAYER_BY_2_AP)
+        );
+        $this->addReference($crazyEyeModifier->getName(), $crazyEyeModifier);
+        $manager->persist($crazyEyeModifier);
+
         $manager->flush();
     }
 

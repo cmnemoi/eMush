@@ -3454,6 +3454,23 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
         ],
+        [
+            'name' => ModifierNameEnum::INCREASE_AGGRESIVE_ACTION_TO_SKILL_PLAYER_BY_2_AP,
+            'modifierName' => ModifierNameEnum::CRAZY_EYE_MODIFIER,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'delta' => 2,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_AGGRESSIVE->value => ModifierRequirementEnum::ALL_TAGS,
+            ],
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'modifierActivationRequirements' => [],
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+        ],
     ];
 
     public static function getByName(string $name): array

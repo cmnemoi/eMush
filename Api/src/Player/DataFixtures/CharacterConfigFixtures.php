@@ -190,6 +190,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $paranoidSkillConfig */
         $paranoidSkillConfig = $this->getReference(SkillEnum::PARANOID->value);
 
+        /** @var SkillConfig $crazyEyeSkillConfig */
+        $crazyEyeSkillConfig = $this->getReference(SkillEnum::CRAZY_EYE->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -212,6 +215,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $shooterSkillConfig,
                 $survivalistSkillConfig,
                 $wrestlerSkillConfig,
+                $crazyEyeSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($chao);

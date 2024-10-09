@@ -780,5 +780,15 @@
         </target>
       </segment>
     </unit>
+    <unit id="crazy_eye">
+      <segment id="crazy_eye.name" state="translated">
+        <source>crazy_eye.name</source>
+        <target>Oeil fou</target>
+      </segment>
+      <segment id="crazy_eye.description" state="translated">
+        <source>crazy_eye.description</source>
+        <target>Il n'y a pas moyen de vous surprendre vous anticipez tout les mouvements de vos ennemis mais également ceux de vos prétendus alliés. //:point: Toutes les actions agressives vous ciblant coûtent 2 :pa: supplémentaires.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -47,6 +47,8 @@ final class AttackCest extends AbstractFunctionalTest
 
         $this->givenKnifeHas0ChanceToDoCriticalHit();
 
+        $this->givenKnifeHas0ChanceToOneShot();
+
         $this->givenKuanTiHasHealthPoints(10);
 
         $this->whenChunAttacksKuanTi();
@@ -59,6 +61,8 @@ final class AttackCest extends AbstractFunctionalTest
         $this->givenKnifeHas100ChanceToHit();
 
         $this->givenKnifeHas0ChanceToDoCriticalHit();
+
+        $this->givenKnifeHas0ChanceToOneShot();
 
         $this->givenKnifeInflictsOneDamage();
 
@@ -77,6 +81,8 @@ final class AttackCest extends AbstractFunctionalTest
 
         $this->givenKnifeHas100ChanceToDoCriticalHit();
 
+        $this->givenKnifeHas0ChanceToOneShot();
+
         $this->whenChunAttacksKuanTi();
 
         $this->thenKuanTiShouldHaveAnInjury($I);
@@ -87,6 +93,8 @@ final class AttackCest extends AbstractFunctionalTest
         $this->givenKnifeHas100ChanceToHit();
 
         $this->givenKnifeHas100ChanceToDoCriticalHit();
+
+        $this->givenKnifeHas0ChanceToOneShot();
 
         $this->givenKnifeInflictsOneDamage();
 
@@ -182,6 +190,11 @@ final class AttackCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
+    }
+
+    private function givenKnifeHas0ChanceToOneShot(): void
+    {
+        $this->knife->getWeaponMechanicOrThrow()->setOneShotRate(0);
     }
 
     private function whenChunAttacksKuanTi(): void

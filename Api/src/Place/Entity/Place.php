@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -525,9 +526,15 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
             ->getAllExcept($player);
     }
 
-    public function hasAnAliveShrinkExceptPlayer(Player $player): bool
+    public function hasAnAliveShrinkExceptPlayer(Player $p        $language = $daedalus->getLanguage();
+    r): bool
     {
         return $this->getAliveShrinksExceptPlayer($player)->count() > 0;
+    }
+
+    public function isChunIn(): bool
+    {
+        return $this->getPlayers()->getPlayerByName(CharacterEnum::CHUN) !== null;
     }
 
     public function hasAGuardian(): bool

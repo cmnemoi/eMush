@@ -18,6 +18,6 @@ abstract class EquipmentMechanicEnum
     /** Equipment that's only visible to owner. */
     public const string PRIVATE_EQUIPMENT = 'private_equipment';
     public const string RATION = 'ration';
-    public const string TOOL = 'tools';
+    public const string TOOL = 'tool';
     public const string WEAPON = 'weapon';
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Normalizer;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\AbstractMoveDaedalusAction;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Enum\ActionHolderEnum;
@@ -102,8 +103,9 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $biosTerminalInfos = $this->normalizeBiosTerminalInfos($terminal);
         $pilgredTerminalInfos = $this->getNormalizedPilgredTerminalInfos($terminal);
         $neronCoreInfos = $this->getNormalizedNeronCoreInfos($terminal);
+        $researchTerminalInfos = $this->getNormalizedResearchTerminalInfos($terminal);
 
-        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos, $biosTerminalInfos, $pilgredTerminalInfos, $neronCoreInfos);
+        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos, $biosTerminalInfos, $pilgredTerminalInfos, $neronCoreInfos, $researchTerminalInfos);
 
         return $normalizedTerminal;
     }
@@ -300,6 +302,45 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
                 language: $language
             ),
         ];
+    }
+
+    private function getNormalizedResearchTerminalInfos(GameEquipment $terminal): array
+    {
+        $terminalKey = $terminal->getName();
+        if ($terminalKey !== EquipmentEnum::RESEARCH_LABORATORY) {
+            return [];
+        }
+        $daedalus = $terminal->getDaedalus();
+
+        return [
+            'requirements' => $this->getFullfilledResearchRequirements($daedalus, $terminalKey),
+        ];
+    }
+
+    private function getFullfilledResearchRequirements(Daedalus $daedalus, string $terminalKey): array
+    {
+        $all_requirements = new ArrayCollection(
+            [
+                [
+                    'key' => 'chun_present',
+                    'fullfilled' => $daedalus->isChunInLaboratory(),
+                ],
+                [
+                    'key' => 'mush_dead',
+                    'fullfilled' => $daedalus->hasAnyMushDied(),
+                ],
+            ]
+        );
+
+        return $all_requirements
+            ->filter(static fn ($requirement) => $requirement['fullfilled'])
+            ->map(function ($requirement) use ($terminalKey) {
+                return $this->translationService->translate(
+                    key: $terminalKey . '.' . $requirement['key'],
+                    parameters: [],
+                    domain: 'terminal'
+                );
+            })->toArray();
     }
 
     private function getNormalizedPilgredTerminalInfos(GameEquipment $terminal): array

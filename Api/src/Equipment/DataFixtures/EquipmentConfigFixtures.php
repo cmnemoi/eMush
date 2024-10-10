@@ -173,6 +173,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($astroTerminal);
 
+        $researchLabTool = $this->createTool([
+            $accessTerminalAction,
+            $exitTerminalAction,
+        ], EquipmentEnum::RESEARCH_LABORATORY);
+        $manager->persist($researchLabTool);
+
         $researchLab = new EquipmentConfig();
         $researchLab
             ->setEquipmentName(EquipmentEnum::RESEARCH_LABORATORY)
@@ -180,6 +186,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction])
+            ->setMechanics(mechanics: [$researchLabTool])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($researchLab);
 

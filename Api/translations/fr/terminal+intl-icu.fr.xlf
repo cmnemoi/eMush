@@ -97,6 +97,20 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <target>Partager cette planète avec l'équipage.</target>
       </segment>
     </unit>
+    <unit id="research_lab">
+      <segment id="name" state="final">
+        <source>research_lab.name</source>
+        <target>Research laboratory</target>
+      </segment>
+      <segment id="tips" state="final">
+        <source>research_lab.tips</source>
+        <target>Réalisez ici des recherches bénéfiques pour tout l'équipage. Vous avez deux façons de collaborer : exploiter des objets dans le laboratoire pour débloquer des nouvelles recherches, et faire avancer les recherches déjà en cours.
+
+Pour exploiter un objet de votre inventaire, il suffit qu'il soit présent dans la pièce ou dans votre inventaire.
+
+Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir une recherche toute seule. En effet, si vous avancez une recherche plus d'une fois à la suite, l'efficacité de votre action diminuera. Le travail alterné avec un camarade est la clé !</target>
+      </segment>
+    </unit>
     <unit id="block_of_post_it">
       <segment id="name" state="final">
         <source>block_of_post_it.name</source>

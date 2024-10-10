@@ -2,6 +2,7 @@ import { AdvanceDaedalusStatus } from "@/entities/AdvanceDaedalusStatus";
 import { Planet } from "./Planet";
 
 export class TerminalInfos {
+    public requirements: string[]
     public difficulty: string|null;
     public advanceDaedalusStatus: AdvanceDaedalusStatus|null;
     public daedalusOrientation: string|null;
@@ -24,6 +25,7 @@ export class TerminalInfos {
     public isNeronInhibited: boolean|null = null;
 
     constructor() {
+        this.requirements = [];
         this.difficulty = null;
         this.advanceDaedalusStatus = null;
         this.daedalusOrientation = null;
@@ -36,6 +38,7 @@ export class TerminalInfos {
 
     public load(object: any): TerminalInfos {
         if (object) {
+            this.requirements = object.requirements;
             this.difficulty = object.difficulty;
             this.advanceDaedalusStatus = new AdvanceDaedalusStatus().load(object.advanceDaedalusStatus);
             this.daedalusOrientation = object.orientation;

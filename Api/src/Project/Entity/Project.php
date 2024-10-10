@@ -224,6 +224,11 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
         return $this->getType() === ProjectType::NERON_PROJECT;
     }
 
+    public function isResearchProject(): bool
+    {
+        return $this->getType() === ProjectType::RESEARCH;
+    }
+
     public function isPilgred(): bool
     {
         return $this->getType() === ProjectType::PILGRED;

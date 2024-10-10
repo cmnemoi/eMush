@@ -205,6 +205,12 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $player;
     }
 
+    public function getVisibleResearchProjects()
+    {
+        // # TODO filter only the ones that are possible to research
+        return $this->getResearchProjects();
+    }
+
     public function getPlaces(): Collection
     {
         return $this->places;
@@ -707,6 +713,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getAvailableNeronProjects(): Collection
     {
         return $this->projects->filter(static fn (Project $project) => $project->isAvailableNeronProject());
+    }
+
+    public function getResearchProjects(): Collection
+    {
+        return $this->projects->filter(static fn (Project $project) => $project->isResearchProject());
     }
 
     public function getProposedNeronProjects(): ProjectCollection

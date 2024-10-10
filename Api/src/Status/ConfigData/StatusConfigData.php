@@ -1643,8 +1643,6 @@ abstract class StatusConfigData
             'statusName' => PlayerStatusEnum::CAT_OWNER,
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'status_config',
-            'dischargeStrategies' => ['none'],
-            'autoRemove' => null,
             'modifierConfigs' => [
                 'cat_owner_modifier_for_player_set_schrodinger_cant_hurt',
                 'cat_owner_modifier_-4morale_on_cat_death',
@@ -1665,7 +1663,7 @@ abstract class StatusConfigData
             'statusName' => EquipmentStatusEnum::CAT_INFECTED,
             'visibility' => VisibilityEnum::MUSH,
             'type' => 'status_config',
-            'modifierConfigs' => [], // todo
+            'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
     ];

@@ -526,8 +526,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
             ->getAllExcept($player);
     }
 
-    public function hasAnAliveShrinkExceptPlayer(Player $p        $language = $daedalus->getLanguage();
-    r): bool
+    public function hasAnAliveShrinkExceptPlayer(Player $player): bool
     {
         return $this->getAliveShrinksExceptPlayer($player)->count() > 0;
     }

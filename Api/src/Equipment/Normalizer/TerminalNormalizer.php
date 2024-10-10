@@ -19,6 +19,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -96,6 +97,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'sectionTitles' => $this->normalizeTerminalSectionTitles($terminal),
             'buttons' => $this->getNormalizedTerminalButtons($terminal),
             'projects' => $this->getNormalizedTerminalProjects($terminal, $format, $context),
+            'items' => $this->getNormalizedTerminalItems($terminal, $format, $context),
         ];
 
         $astroTerminalInfos = $this->normalizeAstroTerminalInfos($terminal, $format, $context);
@@ -147,6 +149,27 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $normalizedProjects;
+    }
+
+    private function getNormalizedTerminalItems(GameEquipment $terminal, ?string $format, array $context): array
+    {
+        if ($terminal->getName() !== EquipmentEnum::RESEARCH_LABORATORY) {
+            return [];
+        }
+
+        /** @var Player $currentPlayer */
+        $currentPlayer = $context['currentPlayer'];
+
+        $playerItems = $currentPlayer->getEquipments();
+        $laboratoryItems = $terminal
+            ->getDaedalus()
+            ->getPlaceByName(RoomEnum::LABORATORY)
+            ->getEquipments()
+            ->filter(static fn (GameEquipment $equipment) => ($equipment->getClassName() === GameItem::class));
+
+        $all_items = array_merge($playerItems->toArray(), $laboratoryItems->toArray());
+
+        return $this->normalizer->normalize($all_items, $format, $context);
     }
 
     private function getNormalizedTerminalButtons(GameEquipment $terminal): array

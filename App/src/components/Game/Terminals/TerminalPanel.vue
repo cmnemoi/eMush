@@ -64,7 +64,8 @@ export default defineComponent ({
     flex-direction: column;
     width: 100%;
     max-width: 424px;
-    height: 460px;
+    height: fit-content;
+    min-height: 460px;
     margin-bottom: 2em;
     color: $deepBlue;
     background: $brightCyan;

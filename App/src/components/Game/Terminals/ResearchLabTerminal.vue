@@ -6,6 +6,11 @@
         <img :src="getImgUrl('info.png')" alt="info" />
         <p v-html="formatText(requirement)"></p>
     </div>
+    <Inventory
+        :items="terminal.items"
+        :minSlot="0"
+        class="research-inventory"
+    />
     <div class="project-container">
         <ResearchCard
             :project="project"
@@ -33,12 +38,14 @@ import { defineComponent, computed, ref } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { formatText } from "@/utils/formatText";
 import { Terminal } from "@/entities/Terminal";
+import Inventory from "@/components/Game/Inventory.vue";
 import ResearchCard from "./ResearchCard.vue";
 
 export default defineComponent({
     name: "ResearchLabTerminal",
     components: {
         ResearchCard,
+        Inventory,
     },
     props: {
         terminal: {
@@ -105,12 +112,16 @@ export default defineComponent({
     }
 }
 
+.research-inventory {
+    margin-bottom: 8px;
+}
+
 .project-container {
     display: flex;
     flex-direction: row;
     align-items: stretch;
     padding-bottom: 0.3em;
-    min-height: 276px;
+    min-height: 310px;
 }
 
 .pagination-buttons {

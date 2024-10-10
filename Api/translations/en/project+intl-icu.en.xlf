@@ -775,5 +775,427 @@
         <target>Each cycle, the Jukebox plays a different song. Each character can gain 2 :pmo: when their favorite song plays.</target>
       </segment>
     </unit>
+    <unit id="anabolics">
+      <segment id="anabolics.type" state="translated">
+        <source>anabolics.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="anabolics.name" state="translated">
+        <source>anabolics.name</source>
+        <target>Anabolics</target>
+      </segment>
+      <segment id="anabolics.description" state="translated">
+        <source>anabolics.description</source>
+        <target>Generates 4 Anabolics.</target>
+      </segment>
+      <segment id="anabolics.lore" state="translated">
+        <source>anabolics.lore</source>
+        <target>Grempf molecules stimulate the production of androgenous hormones such as testosterone. This functions on humans and animals, regardless of sex, and even plants. You heard about the mysterious migration of sequoias in Yosemite park? Well there you go.</target>
+      </segment>
+    </unit>
+    <unit id="antispore_gas">
+      <segment id="antispore_gas.type" state="translated">
+        <source>antispore_gas.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="antispore_gas.name" state="translated">
+        <source>antispore_gas.name</source>
+        <target>Antispore Gas</target>
+      </segment>
+      <segment id="antispore_gas.description" state="translated">
+        <source>antispore_gas.description</source>
+        <target>The maximum number of Mush spores generated per day is reduced by 2. Give 3 :triumph:</target>
+      </segment>
+      <segment id="antispore_gas.lore" state="translated">
+        <source>antispore_gas.lore</source>
+        <target>By injecting vanilla-flavoured components into the oxygen compressor at high pressure, it can be observed that this kills all the mushrooms in the ventilation shafts. Why not just diffuse it everywhere, help destroy our hated enemy and as a plus, the whole ship smells of vanilla.</target>
+      </segment>
+    </unit>
+    <unit id="constipaspore_serum">
+      <segment id="constipaspore_serum.type" state="translated">
+        <source>constipaspore_serum.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="constipaspore_serum.name" state="translated">
+        <source>constipaspore_serum.name</source>
+        <target>Constipaspore serum</target>
+      </segment>
+      <segment id="constipaspore_serum.description" state="translated">
+        <source>constipaspore_serum.description</source>
+        <target>All rations are infected with a serum which renders the extraction of spores much more difficult. Give 3 :triumph:</target>
+      </segment>
+      <segment id="constipaspore_serum.lore" state="translated">
+        <source>constipaspore_serum.lore</source>
+        <target>By isolating Mush aggregators, it can be seen that Brugien DNA, which was added to allow rapid spore production, has a major weakness which allows the metabolism of carriers to be slowed down. With a little help, the famous Atch Wum already managed to apply this process during the invasion of [...].</target>
+      </segment>
+    </unit>
+    <unit id="create_mycoscan">
+      <segment id="create_mycoscan.type" state="translated">
+        <source>create_mycoscan.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="create_mycoscan.name" state="translated">
+        <source>create_mycoscan.name</source>
+        <target>Create Mycoscan</target>
+      </segment>
+      <segment id="create_mycoscan.description" state="translated">
+        <source>create_mycoscan.description</source>
+        <target>Allows the detection of spores on a healthy crew member. Give 3 :triumph:</target>
+      </segment>
+      <segment id="create_mycoscan.lore" state="translated">
+        <source>create_mycoscan.lore</source>
+        <target>Finola Keegan's article "From the spore to non-life" is a seminal work in the field of Mushology. It created a branch of science dealing with aggregation organisms. Aggregators, in effect, are strains of viruses which allow the partial splitting of DNA or RNA strands in the host and extract their genetic makeup in order to alter themselves or their genetic pool [...]. This article leads directly to the creation of a costly item: The Mycoscan.</target>
+      </segment>
+    </unit>
+    <unit id="meridon_scrambler">
+      <segment id="meridon_scrambler.type" state="translated">
+        <source>meridon_scrambler.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="meridon_scrambler.name" state="translated">
+        <source>meridon_scrambler.name</source>
+        <target>Meridon Scrambler</target>
+      </segment>
+      <segment id="meridon_scrambler.description" state="translated">
+        <source>meridon_scrambler.description</source>
+        <target>Hunters have a 20% chance of firing on one of their own. Give 3 :triumph:</target>
+      </segment>
+      <segment id="meridon_scrambler.lore" state="translated">
+        <source>meridon_scrambler.lore</source>
+        <target>Gauss-Freon's theory. A powerful weapon against the incredible Mush synchronization, by working with Fourrier's harmonic resonance frequencies, you realize that this huge carcass can be transformed into a loudspeaker and cause patulic trauma in the fragile brain of the Hunter. Traumatized by the repeated bursts of this horrific sound, they appear to be disconcerted [...].</target>
+      </segment>
+    </unit>
+    <unit id="mush_hunter_zc16h">
+      <segment id="mush_hunter_zc16h.type" state="translated">
+        <source>mush_hunter_zc16h.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="mush_hunter_zc16h.name" state="translated">
+        <source>mush_hunter_zc16h.name</source>
+        <target>Mush-Hunter : ZC16H</target>
+      </segment>
+      <segment id="mush_hunter_zc16h.description" state="translated">
+        <source>mush_hunter_zc16h.description</source>
+        <target>Give 6 :triumph:</target>
+      </segment>
+      <segment id="mush_hunter_zc16h.lore" state="translated">
+        <source>mush_hunter_zc16h.lore</source>
+        <target>Some of the melanine secreted by Chun seems to be used by her liver to secrete a completely unique bacteria which has been named ZC16H. It seems that this bacteria reacts violently when placed in contact with a Mush sample. It literally digests the fungus and then reproduces at an alarming rate. We must learn what affects the treatment of the melanine, and this could be the key to creating a Mush antidote! The findings of this study could be critical and could make the whole team famous.</target>
+      </segment>
+    </unit>
+    <unit id="mushicide_soap">
+      <segment id="mushicide_soap.type" state="translated">
+        <source>mushicide_soap.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="mushicide_soap.name" state="translated">
+        <source>mushicide_soap.name</source>
+        <target>Mushicide Soap</target>
+      </segment>
+      <segment id="mushicide_soap.description" state="translated">
+        <source>mushicide_soap.description</source>
+        <target>Every shower you take will destroy one mush spore on your body. Give 3 :triumph:</target>
+      </segment>
+      <segment id="mushicide_soap.lore" state="translated">
+        <source>mushicide_soap.lore</source>
+        <target>By watching the activity of spores inserted into Chun's body, it appeared that the disintegration accelerated when in contact with the subject's adipose tissue. With a classical liposuction operation it should be possible to create a powerful anti-fungal soap. Now we just have to convince Chun.</target>
+      </segment>
+    </unit>
+    <unit id="mush_language">
+      <segment id="mush_language.type" state="translated">
+        <source>mush_language.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="mush_language.name" state="translated">
+        <source>mush_language.name</source>
+        <target>Mush Language</target>
+      </segment>
+      <segment id="mush_language.description" state="translated">
+        <source>mush_language.description</source>
+        <target>Give 6 :triumph:</target>
+      </segment>
+      <segment id="mush_language.lore" state="translated">
+        <source>mush_language.lore</source>
+        <target>An excellent thesis on the crystalline structure of the communication pheremones of Mush. Light reading, but essential for the understanding of the parasite, it deals concisely with the problem of DNA harmonics and the linguistic expression thereof.</target>
+      </segment>
+    </unit>
+    <unit id="mushovore_bacteria">
+      <segment id="mushovore_bacteria.type" state="translated">
+        <source>mushovore_bacteria.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="mushovore_bacteria.name" state="translated">
+        <source>mushovore_bacteria.name</source>
+        <target>Mushovore Bacteria</target>
+      </segment>
+      <segment id="mushovore_bacteria.description" state="translated">
+        <source>mushovore_bacteria.description</source>
+        <target>Humans can survive up to 3 mush spores before turning into Mush. Give 3 :triumph:</target>
+      </segment>
+      <segment id="mushovore_bacteria.lore" state="translated">
+        <source>mushovore_bacteria.lore</source>
+        <target>We have discovered an anomaly in Chun's pancreatic function. It seems to be producing bacteria capable of devouring mush spores. Unfortunately, the bacteria functions too slowly to hold back the plague. However, it can slow its propagation considerably.</target>
+      </segment>
+    </unit>
+    <unit id="mush_races">
+      <segment id="mush_races.type" state="translated">
+        <source>mush_races.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="mush_races.name" state="translated">
+        <source>mush_races.name</source>
+        <target>Mush Races</target>
+      </segment>
+      <segment id="mush_races.description" state="translated">
+        <source>mush_races.description</source>
+        <target>Give 6 :triumph:</target>
+      </segment>
+      <segment id="mush_races.lore" state="translated">
+        <source>mush_races.lore</source>
+        <target>Following the autopsy of a species of axolotl known as the "The Oracle of Wupperthal", certain similarities were found between one species of this vertebrate and the secretion of bacillus 764. It was shown that Mush and its non-saprophyte components led them to create a chain of Procaryotic fungi which mutated more quickly. This allowed us to see that the Mush strain that we know possesses several sub-chains which are detailed in this interesting article.</target>
+      </segment>
+    </unit>
+    <unit id="mush_reproductive_system">
+      <segment id="mush_reproductive_system.type" state="translated">
+        <source>mush_reproductive_system.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="mush_reproductive_system.name" state="translated">
+        <source>mush_reproductive_system.name</source>
+        <target>Mush Reproductive System</target>
+      </segment>
+      <segment id="mush_reproductive_system.description" state="translated">
+        <source>mush_reproductive_system.description</source>
+        <target>Give 6 :triumph:</target>
+      </segment>
+      <segment id="mush_reproductive_system.lore" state="translated">
+        <source>mush_reproductive_system.lore</source>
+        <target>A fascinating study linking chanterelle parthenogenesis in an anaerobic environment with the possibility of reproducing the Mush parasite. The findings of this report will catapult its writers to scientific stardom.</target>
+      </segment>
+    </unit>
+    <unit id="mycoalarm">
+      <segment id="mycoalarm.type" state="translated">
+        <source>mycoalarm.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="mycoalarm.name" state="translated">
+        <source>mycoalarm.name</source>
+        <target>MycoAlarm</target>
+      </segment>
+      <segment id="mycoalarm.description" state="translated">
+        <source>mycoalarm.description</source>
+        <target>Makes 5 **MycoAlarms**. Give 3 :triumph:</target>
+      </segment>
+      <segment id="mycoalarm.lore" state="translated">
+        <source>mycoalarm.lore</source>
+        <target>Toxins, spores, the smell, there are so many factors which expose the Mush, that you throw yourself into collecting all the known qualities of Mush to build the ultimate alarm. Based on the oscillation coefficient of the Alpha pheromone and the rate of toxin emission, it is theoretically possible to create a miniature alarm which will go off automatically if a Mush agent spikes someone with a spore within a monitored zone.</target>
+      </segment>
+    </unit>
+    <unit id="narcotics_distiller">
+      <segment id="narcotics_distiller.type" state="translated">
+        <source>narcotics_distiller.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="narcotics_distiller.name" state="translated">
+        <source>narcotics_distiller.name</source>
+        <target>Narcotics Distiller</target>
+      </segment>
+      <segment id="narcotics_distiller.description" state="translated">
+        <source>narcotics_distiller.description</source>
+        <target>The Distiller can be used once a day to create a drug.</target>
+      </segment>
+      <segment id="narcotics_distiller.lore" state="translated">
+        <source>narcotics_distiller.lore</source>
+        <target>Minor energy surges from the PILGRED reactor (also called RoToTo) can be captured in MZ16 batteries injected into a high-yield synthesizer in order to create complex compounds like paracetamule or ibuprophet. With this piece of kit, there's nothing to fear from space flu!</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle">
+      <segment id="natamy_rifle.type" state="translated">
+        <source>natamy_rifle.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="natamy_rifle.name" state="translated">
+        <source>natamy_rifle.name</source>
+        <target>Natamy Rifle</target>
+      </segment>
+      <segment id="natamy_rifle.description" state="translated">
+        <source>natamy_rifle.description</source>
+        <target>Transform a **Blaster** into a **Natamy Rifle**.</target>
+      </segment>
+      <segment id="natamy_rifle.lore" state="translated">
+        <source>natamy_rifle.lore</source>
+        <target>While dissecting crocodiles with lateral sphincter dysplasia, professor DipNui brought to the fore qualities of the digestive tract of the animal. You don't remember why anymore, but this led you to try out a little experiment with your blaster. It appeared that the reduction caused by the Bacillus anthracitus toxin had a devastating effect and turned Mush DNA into "Zombi" DNA, which caused frightening degradations in [...]</target>
+      </segment>
+    </unit>
+
+    <unit id="ncc_contact_lenses">
+      <segment id="ncc_contact_lenses.type" state="translated">
+        <source>ncc_contact_lenses.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="ncc_contact_lenses.name" state="translated">
+        <source>ncc_contact_lenses.name</source>
+        <target>NCC Contact Lenses</target>
+      </segment>
+      <segment id="ncc_contact_lenses.description" state="translated">
+        <source>ncc_contact_lenses.description</source>
+        <target>Creates 2 **Pairs of NCC Contact Lenses**.</target>
+      </segment>
+      <segment id="ncc_contact_lenses.lore" state="translated">
+        <source>ncc_contact_lenses.lore</source>
+        <target>Who would have thought that cats hid such secrets... When working on cornea ionisation issues during interplanetary travel, you think of injecting an auto-gamma enhancer to enhance your crewmates' vision.</target>
+      </segment>
+    </unit>
+
+    <unit id="patuline_scrambler">
+      <segment id="patuline_scrambler.type" state="translated">
+        <source>patuline_scrambler.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="patuline_scrambler.name" state="translated">
+        <source>patuline_scrambler.name</source>
+        <target>Patuline Scrambler</target>
+      </segment>
+      <segment id="patuline_scrambler.description" state="translated">
+        <source>patuline_scrambler.description</source>
+        <target>The infected can no longer communicate on the mush channel. Give 3 :triumph:</target>
+      </segment>
+      <segment id="patuline_scrambler.lore" state="translated">
+        <source>patuline_scrambler.lore</source>
+        <target>Sometimes, experiments carried out under the influence of LSD around the year 2070 led to superb articles on para-psychological experiments. Careful inspection of the last report of Professer Delopine in 2069 discussing the relationship between certain species of sheep and grasses which naturally produce this drug, you will realize that it is possible to synthesize buds of patulos which are reknowned for their anti-fungal properties.</target>
+      </segment>
+    </unit>
+
+    <unit id="perpetual_hydration">
+      <segment id="perpetual_hydration.type" state="translated">
+        <source>perpetual_hydration.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="perpetual_hydration.name" state="translated">
+        <source>perpetual_hydration.name</source>
+        <target>Perpetual Hydration</target>
+      </segment>
+      <segment id="perpetual_hydration.description" state="translated">
+        <source>perpetual_hydration.description</source>
+        <target>Give 3 :triumph:</target>
+      </segment>
+      <segment id="perpetual_hydration.lore" state="translated">
+        <source>perpetual_hydration.lore</source>
+        <target>Thanks to a series of rigorous tests, we have finally worked out how to use the rain stick! It is simply necessary to insert it into a nostril. The regular circulation of air allows a passive oxidation reaction to occur, bringing about a weak, but regular seepage. This guarantees to provide the entire water requirements of a human body for over 3200 years.</target>
+      </segment>
+    </unit>
+    <unit id="pheromodem">
+      <segment id="pheromodem.type" state="translated">
+        <source>pheromodem.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="pheromodem.name" state="translated">
+        <source>pheromodem.name</source>
+        <target>Pheromodem</target>
+      </segment>
+      <segment id="pheromodem.description" state="translated">
+        <source>pheromodem.description</source>
+        <target>The Tracker now allows the user to communicate on the mush channel. Give 3 :triumph:</target>
+      </segment>
+      <segment id="pheromodem.lore" state="translated">
+        <source>pheromodem.lore</source>
+        <target>Of all the objects created in Finola's laboratory, this one remains unfinished. By collecting all the genome data and combining it with some old research, you discover the secret of Mush communication. This is a powerful tool: by adding a pheromodem to the trackers, everyone will soon be able to throw away their antiquated walky-talky!</target>
+      </segment>
+    </unit>
+
+    <unit id="retro_fungal_serum">
+      <segment id="retro_fungal_serum.type" state="translated">
+        <source>retro_fungal_serum.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="retro_fungal_serum.name" state="translated">
+        <source>retro_fungal_serum.name</source>
+        <target>Retro-Fungal Serum</target>
+      </segment>
+      <segment id="retro_fungal_serum.description" state="translated">
+        <source>retro_fungal_serum.description</source>
+        <target>Creates **Anti-mush serum**. Give 16 :triumph:</target>
+      </segment>
+      <segment id="retro_fungal_serum.lore" state="translated">
+        <source>retro_fungal_serum.lore</source>
+        <target>An excellent study into Gershwin's correlation between fungal infection and propagation mechanics linked to quasar inflection. Once this correlation was confirmed, the idea of using a particle accelerator to synthesize a powerful retro-fungal substrate rapidly became THE solution to the Mush invasion. This study's findings are vital and will make the whole team famous.</target>
+      </segment>
+    </unit>
+
+    <unit id="spore_sucker">
+      <segment id="spore_sucker.type" state="translated">
+        <source>spore_sucker.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="spore_sucker.name" state="translated">
+        <source>spore_sucker.name</source>
+        <target>Spore Sucker</target>
+      </segment>
+      <segment id="spore_sucker.description" state="translated">
+        <source>spore_sucker.description</source>
+        <target>Produces a **Spore Extractor**.</target>
+      </segment>
+      <segment id="spore_sucker.lore" state="translated">
+        <source>spore_sucker.lore</source>
+        <target>Despite its unnerving design, you keep the faith. You know that at the price of minor skin lesions, this bad boy will get rid of the purulent fungal strands.</target>
+      </segment>
+    </unit>
+
+    <unit id="super_calculator">
+      <segment id="super_calculator.type" state="translated">
+        <source>super_calculator.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="super_calculator.name" state="translated">
+        <source>super_calculator.name</source>
+        <target>Super Calculator</target>
+      </segment>
+      <segment id="super_calculator.description" state="translated">
+        <source>super_calculator.description</source>
+        <target>Generates a piece of equipment on the Nexus which allows data to be extracted from cristallites.</target>
+      </segment>
+      <segment id="super_calculator.lore" state="translated">
+        <source>super_calculator.lore</source>
+        <target>Neron is clearly a clever individual but calculations are not its strong suit... By analysing the molecular structure of cristallite, you think you'll be able to knock something together which will be able to extract the data contained within.</target>
+      </segment>
+    </unit>
+
+    <unit id="tesla_sup2x">
+      <segment id="tesla_sup2x.type" state="translated">
+        <source>tesla_sup2x.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="tesla_sup2x.name" state="translated">
+        <source>tesla_sup2x.name</source>
+        <target>Tesla SUP2X</target>
+      </segment>
+      <segment id="tesla_sup2x.description" state="translated">
+        <source>tesla_sup2x.description</source>
+        <target>Increases the maximum payload of the Daedalus' turrets by 2.</target>
+      </segment>
+      <segment id="tesla_sup2x.lore" state="translated">
+        <source>tesla_sup2x.lore</source>
+        <target>By plunging a swizzle stick into a tesla vessel during fusion we have succeeded in doubling its fissile content production. It is now possible for us to store 50% more energy in our turrets!</target>
+      </segment>
+    </unit>
+
+    <unit id="ultra_healing_pomade">
+      <segment id="ultra_healing_pomade.type" state="translated">
+        <source>ultra_healing_pomade.type</source>
+        <target>Research</target>
+      </segment>
+      <segment id="ultra_healing_pomade.name" state="translated">
+        <source>ultra_healing_pomade.name</source>
+        <target>Ultra-Healing Pomade</target>
+      </segment>
+      <segment id="ultra_healing_pomade.description" state="translated">
+        <source>ultra_healing_pomade.description</source>
+        <target>Healing actions regenerate an additional health point.</target>
+      </segment>
+      <segment id="ultra_healing_pomade.lore" state="translated">
+        <source>ultra_healing_pomade.lore</source>
+        <target>Thanks to a few basic skills in organic chemistry you reckon you can put together a basic medikit which is much superior to the antiquated models used by the SDF.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -388,7 +388,7 @@ final class MoveCest extends AbstractFunctionalTest
 
     private function createDoorFromTo(FunctionalTester $I, string $from, string $to): Door
     {
-        $doorMechanic = $I->grabEntityFromRepository(Tool::class, ['name' => 'tools_door_default']);
+        $doorMechanic = $I->grabEntityFromRepository(Tool::class, ['name' => 'tool_door_default']);
         $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
         $doorConfig->setMechanics([$doorMechanic]);
         $door = Door::createFromRooms($this->daedalus->getPlaceByNameOrThrow($from), $this->daedalus->getPlaceByNameOrThrow($to));

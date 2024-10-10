@@ -506,6 +506,7 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
             ],
+            // TODO: complete all the eficciency values of research
             [
                 'name' => ProjectName::ANABOLICS,
                 'type' => ProjectType::RESEARCH,

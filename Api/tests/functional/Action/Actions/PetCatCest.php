@@ -46,7 +46,7 @@ final class PetCatCest extends AbstractFunctionalTest
 
         $this->whenPlayerTriesToPetCat();
 
-        $this->thenActionShouldNotBeExecutable($I);
+        $this->thenActionShouldNotBeExecutableBecauseOfGermaphobe($I);
     }
 
     public function shouldGiveThreeMoralePointsToPlayer(FunctionalTester $I): void
@@ -124,7 +124,7 @@ final class PetCatCest extends AbstractFunctionalTest
         $this->petCat->execute();
     }
 
-    private function thenActionShouldNotBeExecutable(FunctionalTester $I): void
+    private function thenActionShouldNotBeExecutableBecauseOfGermaphobe(FunctionalTester $I): void
     {
         $I->assertEquals(ActionImpossibleCauseEnum::PLAYER_IS_GERMAPHOBIC, $this->petCat->cannotExecuteReason());
     }

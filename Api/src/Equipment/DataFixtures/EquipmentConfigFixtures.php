@@ -185,7 +185,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction])
+            ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction, $participateAction])
             ->setMechanics(mechanics: [$researchLabTool])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($researchLab);

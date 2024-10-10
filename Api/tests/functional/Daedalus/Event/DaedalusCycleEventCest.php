@@ -7,15 +7,19 @@ use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -33,12 +37,14 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
+    private GameEquipmentServiceInterface $equipmentService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
     public function shouldDecreaseOxygen(FunctionalTester $I): void
@@ -508,6 +514,51 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
                 'message' => NeronMessageEnum::PATCHING_UP,
             ]
         );
+    }
+
+    public function shouldNotMetalPlatePeopleNotOnDaedalus(FunctionalTester $I): void
+    {
+        $this->setupNoIncidents();
+
+        // given the abstractfunctionaltest rooms and this patrol ship exists
+        $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_JUJUBE, $I, $this->daedalus);
+
+        // given Kuan Ti, Chun and these players in the Daedalus
+        /** @var Player $jinSu */
+        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+
+        /** @var Player $andie */
+        $andie = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ANDIE);
+
+        /** @var Player $roland */
+        $roland = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ROLAND);
+
+        // Given the players in these places
+        $jinSu->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::PATROL_SHIP_ALPHA_JUJUBE));
+        $this->kuanTi->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::PLANET));
+        $andie->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::PLANET_DEPTHS));
+        $this->equipmentService->createGameEquipmentFromName(GearItemEnum::SPACESUIT, $roland, [], new \DateTime());
+        $roland->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::SPACE));
+        $this->chun->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+
+        $alivePlayers = $this->daedalus->getPlayers()->getPlayerAliveAndInRoom();
+
+        foreach ($alivePlayers as $player) {
+            $playerEvent = new PlayerEvent(
+                $player,
+                [EventEnum::NEW_CYCLE, PlayerEvent::METAL_PLATE],
+                new \DateTime()
+            );
+            $this->eventService->callEvent($playerEvent, PlayerEvent::METAL_PLATE);
+        }
+
+        // then I should see only one metal plate
+        $I->assertCount(1, $I->grabEntitiesFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => LogEnum::METAL_PLATE,
+            ]
+        ));
     }
 
     private function setupNoIncidents(): void

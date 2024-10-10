@@ -16,7 +16,7 @@ final class RepairPilgred extends AbstractParticipateAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new ProjectType([
-            'type' => ProjectTypeEnum::PILGRED,
+            'types' => [ProjectTypeEnum::PILGRED],
             'groups' => ['visibility'],
         ]));
     }

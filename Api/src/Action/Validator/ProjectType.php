@@ -7,11 +7,12 @@ namespace Mush\Action\Validator;
 use Mush\Project\Enum\ProjectType as ProjectTypeEnum;
 
 /**
- * Prevents action if project type does not match the required one.
+ * Prevents action if project types does not match any of the required ones.
  */
 final class ProjectType extends ClassConstraint
 {
-    public string $message = 'project type does not match the required type';
+    public string $message = 'project type does not match any of the required types';
 
-    public ProjectTypeEnum $type;
+    /** @var ProjectTypeEnum[] */
+    public array $types;
 }

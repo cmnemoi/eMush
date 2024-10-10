@@ -2,7 +2,7 @@ import { AdvanceDaedalusStatus } from "@/entities/AdvanceDaedalusStatus";
 import { Planet } from "./Planet";
 
 export class TerminalInfos {
-    public requirements: string[]
+    public requirements: string[];
     public difficulty: string|null;
     public advanceDaedalusStatus: AdvanceDaedalusStatus|null;
     public daedalusOrientation: string|null;

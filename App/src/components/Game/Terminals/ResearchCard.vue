@@ -75,13 +75,13 @@ export default defineComponent({
     name: "ResearchCard",
     components: {
         Tippy,
-        ActionButton,
+        ActionButton
     },
     props: {
         project: {
             type: Project,
-            required: true,
-        },
+            required: true
+        }
     },
     computed: {
         participateAction(): Action | null {
@@ -92,27 +92,27 @@ export default defineComponent({
         },
         skillIcons() {
             return SkillIconRecord;
-        },
+        }
     },
     methods: {
         ...mapActions({
-            executeAction: "action/executeAction",
+            executeAction: "action/executeAction"
         }),
         async executeTargetAction(
             target: Project,
-            action: Action,
+            action: Action
         ): Promise<void> {
             if (!action)
                 throw new Error(
-                    `No action provided for project ${target.name}`,
+                    `No action provided for project ${target.name}`
                 );
             if (action.canExecute) {
                 await this.executeAction({ target, action });
             }
         },
         getImgUrl,
-        formatText,
-    },
+        formatText
+    }
 });
 </script>
 

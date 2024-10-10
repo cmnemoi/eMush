@@ -2,12 +2,13 @@
     <div
         class="research-info"
         v-for="requirement in terminal.infos.requirements"
+        :key="requirement"
     >
         <img :src="getImgUrl('info.png')" alt="info" />
         <p v-html="formatText(requirement)"></p>
     </div>
     <div class="inventory-container">
-        <Inventory :items="terminal.items" :minSlot="0" />
+        <Inventory :items="terminal.items" :min-slot="0" />
     </div>
     <div class="project-container">
         <ResearchCard
@@ -43,13 +44,13 @@ export default defineComponent({
     name: "ResearchLabTerminal",
     components: {
         ResearchCard,
-        Inventory,
+        Inventory
     },
     props: {
         terminal: {
             type: Terminal,
-            required: true,
-        },
+            required: true
+        }
     },
     setup(props) {
         const currentPage = ref(1);
@@ -84,9 +85,9 @@ export default defineComponent({
             nextPage,
             prevPage,
             getImgUrl,
-            formatText,
+            formatText
         };
-    },
+    }
 });
 </script>
 

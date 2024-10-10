@@ -26,7 +26,6 @@ use Mush\Modifier\Entity\ModifierHolderTrait;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Project\Collection\ProjectCollection;
@@ -186,7 +185,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
             $this
                 ->getPlayers()
                 ->map(static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer())
-                ->filter(static fn (ClosedPlayer $player) => $player->isDead() && $player->isMush())
+                ->filter(static fn (Player $player) => $player->isDead() && $player->isMush())
                 ->count();
     }
 
@@ -927,7 +926,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function isChunInLaboratory(): bool
     {
-        return $this->getPlaceByName(RoomEnum::LABORATORY)->isChunIn();
+        return $this->getPlaceByNameOrThrow(RoomEnum::LABORATORY)->isChunIn();
     }
 
     private function isExplorationChangingCycle(): bool

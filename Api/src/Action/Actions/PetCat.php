@@ -5,7 +5,9 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
@@ -53,6 +55,7 @@ class PetCat extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::INVENTORY, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus(['status' => PlayerStatusEnum::GERMAPHOBE, 'target' => HasStatus::PLAYER, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PLAYER_IS_GERMAPHOBIC]));
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

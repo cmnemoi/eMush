@@ -1096,25 +1096,14 @@ class ActionsFixtures extends Fixture
         $upgradeDroneToPilot = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPGRADE_DRONE_TO_PILOT));
         $manager->persist($upgradeDroneToPilot);
 
-        $takeCat = new ActionConfig();
-        $takeCat
-            ->setName(ActionEnum::TAKE_CAT->value)
-            ->setActionName(ActionEnum::TAKE_CAT)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setInjuryRate(20);
+        $takeCat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TAKE_CAT)); 
         $manager->persist($takeCat);
 
-        $petCat = new ActionConfig();
-        $petCat
-            ->setName(ActionEnum::PET_CAT->value)
-            ->setActionName(ActionEnum::PET_CAT)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setInjuryRate(10)
-            ->setActionCost(1)
-            ->setOutputQuantity(3);
+        $petCat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PET_CAT));
         $manager->persist($petCat);
+
+        $shootCat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_CAT));
+        $manager->persist($shootCat);
 
         $manager->flush();
 
@@ -1244,7 +1233,8 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_TURBO->value, $upgradeDroneToTurbo);
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER->value, $upgradeDroneToFirefighter);
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_PILOT->value, $upgradeDroneToPilot);
-        $this->addReference(ActionEnum::PET_CAT->value, $petCat);
         $this->addReference(ActionEnum::TAKE_CAT->value, $takeCat);
+        $this->addReference(ActionEnum::PET_CAT->value, $petCat);
+        $this->addReference(ActionEnum::SHOOT_CAT->value, $shootCat);
     }
 }

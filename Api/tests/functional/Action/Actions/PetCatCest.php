@@ -7,6 +7,7 @@ namespace Mush\tests\functional\Action\Actions;
 use Mush\Action\Actions\PetCat;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -39,13 +40,13 @@ final class PetCatCest extends AbstractFunctionalTest
         $this->givenPlayerHasCatInInventory($I);
     }
 
-    public function shouldNotBeVisibleIfPlayerIsGermaphobe(FunctionalTester $I): void
+    public function shouldNotBeExecutableIfPlayerIsGermaphobe(FunctionalTester $I): void
     {
         $this->givenPlayerIsGermaphobe();
 
         $this->whenPlayerTriesToPetCat();
 
-        $this->thenActionShouldNotBeVisible($I);
+        $this->thenActionShouldNotBeExecutable($I);
     }
 
     public function shouldGiveThreeMoralePointsToPlayer(FunctionalTester $I): void
@@ -123,9 +124,9 @@ final class PetCatCest extends AbstractFunctionalTest
         $this->petCat->execute();
     }
 
-    private function thenActionShouldNotBeVisible(FunctionalTester $I): void
+    private function thenActionShouldNotBeExecutable(FunctionalTester $I): void
     {
-        $I->assertFalse($this->petCat->isVisible());
+        $I->assertEquals(ActionImpossibleCauseEnum::PLAYER_IS_GERMAPHOBIC, $this->petCat->cannotExecuteReason());
     }
 
     private function thenPlayerShouldHaveMoralePoints(int $expectedMoralePoints, FunctionalTester $I): void

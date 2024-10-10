@@ -6,11 +6,9 @@
         <img :src="getImgUrl('info.png')" alt="info" />
         <p v-html="formatText(requirement)"></p>
     </div>
-    <Inventory
-        :items="terminal.items"
-        :minSlot="0"
-        class="research-inventory"
-    />
+    <div class="inventory-container">
+        <Inventory :items="terminal.items" :minSlot="0" />
+    </div>
     <div class="project-container">
         <ResearchCard
             :project="project"
@@ -112,8 +110,11 @@ export default defineComponent({
     }
 }
 
-.research-inventory {
+.inventory-container {
     margin-bottom: 8px;
+    padding: 0.5em 0.25em;
+    width: 100%;
+    background-color: #9fe8fc;
 }
 
 .project-container {

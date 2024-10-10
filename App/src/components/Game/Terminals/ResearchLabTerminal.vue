@@ -15,11 +15,15 @@
     </div>
     <div class="pagination-buttons">
         <button @click="prevPage" :disabled="currentPage === 1">
-            Previous
+            <img :src="getImgUrl('blue-arrow.png')" alt="arrow-left" />
         </button>
         <span>Page {{ currentPage }} / {{ totalPages }}</span>
         <button @click="nextPage" :disabled="currentPage === totalPages">
-            Next
+            <img
+                :src="getImgUrl('blue-arrow.png')"
+                alt="arrow-right"
+                class="rotate"
+            />
         </button>
     </div>
 </template>
@@ -110,14 +114,25 @@ export default defineComponent({
 }
 
 .pagination-buttons {
+    button {
+        padding: 8px;
+    }
+    span {
+        height: fit-content;
+    }
     margin-top: auto;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
 }
 
 .terminal div {
     overflow: hidden;
+}
+
+.rotate {
+    transform: rotate(180deg);
 }
 </style>
 

@@ -42,6 +42,7 @@ use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+
 use function Amp\Iterator\filter;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]

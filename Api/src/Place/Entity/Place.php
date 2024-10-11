@@ -173,9 +173,14 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $this->getPlayers()->getPlayerByName($name) ?: Player::createNull();
     }
 
+    public function getAlivePlayers(): PlayerCollection
+    {
+        return $this->getPlayers()->getPlayerAlive();
+    }
+
     public function getAlivePlayersExcept(Player $player): PlayerCollection
     {
-        return $this->getPlayers()->getPlayerAlive()->getAllExcept($player);
+        return $this->getAlivePlayers()->getAllExcept($player);
     }
 
     /** /!\ Do not use this method if you want the number of players ALIVE ! Use `$place->getNumberOfPlayersAlive()` instead. /!\ */
@@ -541,7 +546,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
 
     public function isChunIn(): bool
     {
-        return $this->getPlayers()->hasPlayerByName(CharacterEnum::CHUN);
+        return $this->getAlivePlayers()->hasPlayerByName(CharacterEnum::CHUN);
     }
 
     public function hasAGuardian(): bool

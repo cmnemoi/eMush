@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Service\TranslationService;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
@@ -23,9 +24,12 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 final class TerminalNormalizerCest extends AbstractFunctionalTest
 {
     private TerminalNormalizer $terminalNormalizer;
+    private TranslationService $translationService;
     private Project $pilgredProject;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private string $isChunPresentText;
+    private string $isAnyMushDeadText;
 
     public function _before(FunctionalTester $I): void
     {
@@ -37,7 +41,19 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
+        $this->translationService = $I->grabService(TranslationService::class);
+
         $this->pilgredProject = $this->daedalus->getPilgred();
+        $this->isChunPresentText = $this->translationService->translate(
+            key: 'research_laboratory.is_chun_present',
+            parameters: [],
+            domain: 'terminal'
+        );
+        $this->isAnyMushDeadText = $this->translationService->translate(
+            key: 'research_laboratory.mush_dead',
+            parameters: [],
+            domain: 'terminal'
+        );
     }
 
     public function testShouldNormalizePilgredTerminal(FunctionalTester $I): void
@@ -359,5 +375,56 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             ],
             actual: $normalizedTerminal['infos']
         );
+    }
+
+    public function testWhenNoRequirementThenRequirementsShouldBeEmpty(FunctionalTester $I): void
+    {
+        $this->givenChunIsNotInLab();
+        $terminal = $this->givenLabTerminal();
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+        $requirements = $normalizedTerminal['infos']['requirements'];
+        $I->assertEquals([], $requirements);
+    }
+
+    private function givenLabTerminal()
+    {
+        return $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::RESEARCH_LABORATORY,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenChunIsNotInLab()
+    {
+        $laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+        if ($laboratory->isChunIn()) {
+            $laboratory->removePlayer($this->chun);
+        }
+
+        $this->chun->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::PLANET));
+    }
+
+    private function givenKuanTiIsFocusedInResearchLab($terminal)
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+            target: $terminal
+        );
+    }
+
+    private function givenChunIsInLab()
+    {
+        $this->chun->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+    }
+
+    private function whenINormalizeTheTerminalForKuanTi($terminal)
+    {
+        return $this->terminalNormalizer->normalize($terminal, format: null, context: ['currentPlayer' => $this->kuanTi]);
     }
 }

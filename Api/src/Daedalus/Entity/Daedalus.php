@@ -26,6 +26,7 @@ use Mush\Modifier\Entity\ModifierHolderTrait;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Project\Collection\ProjectCollection;
@@ -41,6 +42,7 @@ use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use function Amp\Iterator\filter;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus')]
@@ -181,12 +183,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function deadMushCount(): int
     {
-        return
-            $this
-                ->getPlayers()
-                ->map(static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer())
-                ->filter(static fn (Player $player) => $player->isDead() && $player->isMush())
-                ->count();
+        return $this
+            ->getPlayers()
+            ->getClosedPlayers()
+            ->filter(static fn (ClosedPlayer $closedPlayer) => $closedPlayer->isMush())
+            ->count();
     }
 
     public function hasAnyMushDied(): bool

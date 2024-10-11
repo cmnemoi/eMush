@@ -29,13 +29,13 @@ final class ProjectTypeValidator extends ConstraintValidator
         /** @var Project $project */
         $project = $action->getTarget();
 
-        if (!$this->isAnyTypeMatched($project->getType(), $constraint->types)) {
+        if ($this->noTypeMatches($project->getType(), $constraint->types)) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }
 
-    private function isAnyTypeMatched(ProjectTypeEnum $type, array $types): bool
+    private function noTypeMatches(ProjectTypeEnum $type, array $types): bool
     {
-        return \in_array($type, $types, true);
+        return !\in_array($type, $types, true);
     }
 }

@@ -183,7 +183,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleMetalPlates(Daedalus $daedalus, \DateTime $date): int
     {
-        $alivePlayers = $daedalus->getPlayers()->getPlayerAliveAndInRoom();
+        $alivePlayers = $daedalus->getAlivePlayersInRoom();
 
         $metalPlatesPlayers = $this->getRandomElementsFromArray->execute(
             elements: $alivePlayers->toArray(),

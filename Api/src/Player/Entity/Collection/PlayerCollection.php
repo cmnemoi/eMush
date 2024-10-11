@@ -3,7 +3,6 @@
 namespace Mush\Player\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
 
@@ -19,10 +18,7 @@ class PlayerCollection extends ArrayCollection
 
     public function getPlayerAliveAndInRoom(): self
     {
-        $Players = $this->filter(static fn (Player $player) => $player->isAlive());
-        $Players = $Players->filter(static fn (Player $player) => $player->getPlace()->getType() === PlaceTypeEnum::ROOM);
-
-        return $Players;
+        return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isInARoom());
     }
 
     public function getPlayerDead(): self

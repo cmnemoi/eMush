@@ -227,6 +227,14 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $this;
     }
 
+    public function getItems(): Collection
+    {
+        return
+             $this
+                 ->getEquipments()
+                 ->filter(static fn (GameEquipment $equipment) => ($equipment->getClassName() === GameItem::class));
+    }
+
     public function getEquipments(): Collection
     {
         return $this->equipments;

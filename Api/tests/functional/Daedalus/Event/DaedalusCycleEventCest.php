@@ -33,7 +33,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
-    private GameEquipmentServiceInterface $equipmentService;
 
     public function _before(FunctionalTester $I)
     {

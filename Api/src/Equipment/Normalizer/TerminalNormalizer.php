@@ -167,13 +167,13 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             ->getEquipments()
             ->filter(static fn (GameEquipment $equipment) => ($equipment->getClassName() === GameItem::class));
 
-        $all_items = array_merge($playerItems->toArray(), $laboratoryItems->toArray());
-        $normalized_items = [];
-        foreach ($all_items as $item) {
-            $normalized_items[] = $this->normalizer->normalize($item, $format, $context);
+        $allItems = array_merge($playerItems->toArray(), $laboratoryItems->toArray());
+        $normalizedItems = [];
+        foreach ($allItems as $item) {
+            $normalizedItems[] = $this->normalizer->normalize($item, $format, $context);
         }
 
-        return $normalized_items;
+        return $normalizedItems;
     }
 
     private function getNormalizedTerminalButtons(GameEquipment $terminal): array
@@ -347,7 +347,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
 
     private function getFullfilledResearchRequirements(Daedalus $daedalus, string $terminalKey): array
     {
-        $all_requirements = new ArrayCollection(
+        $allRequirements = new ArrayCollection(
             [
                 [
                     'key' => 'chun_present',
@@ -360,7 +360,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             ]
         );
 
-        return $all_requirements
+        return $allRequirements
             ->filter(static fn ($requirement) => $requirement['fullfilled'])
             ->map(function ($requirement) use ($terminalKey) {
                 return $this->translationService->translate(

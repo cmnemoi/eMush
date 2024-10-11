@@ -110,7 +110,7 @@ class PlayerCollection extends ArrayCollection
         return $this->getPlayerWithStatus($status) !== null;
     }
 
-    public function getClosedPlayers(): ArrayCollection
+    public function getDeadClosedPlayers(): ArrayCollection
     {
         return $this
             ->filter(static fn (Player $player) => $player->isDead())

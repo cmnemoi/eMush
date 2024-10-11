@@ -394,11 +394,14 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     public function testWhenNoRequirementThenRequirementsShouldBeEmpty(FunctionalTester $I): void
     {
         $this->givenChunIsNotInLab();
+        
         $terminal = $this->givenLabTerminal();
+        
         $this->givenKuanTiIsFocusedInResearchLab($terminal);
-        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
-        $requirements = $normalizedTerminal['infos']['requirements'];
-        $I->assertEquals([], $requirements);
+        
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal); 
+        
+        $this->thenRequirementsAreEmpty($I);
     }
 
     public function testWhenChunIsInLabIShouldSeeThatRequirement(FunctionalTester $I): void

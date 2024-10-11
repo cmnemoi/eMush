@@ -105,9 +105,9 @@ To leave orbit, the Commander in charge must give this order from the Command Te
       <segment id="tips" state="translated">
         <source>research_laboratory.tips</source>
         <target>Here you can carry out research to benefit the entire crew. There are two ways to collaborate: use objects in the laboratory to unblock new research, or advance research that is already underway.
-
+//
 To use an object, the object must either be in the room you are in, or in your inventory.
-
+//
 A solitary person, even if they have the appropriate skills, will have difficulty successfully completing research. If you advance research more than once in a row, your efficiency will decrease. Working alternately with a crewmate is the key!
         </target>
       </segment>

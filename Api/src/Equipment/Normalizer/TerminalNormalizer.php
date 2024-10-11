@@ -164,8 +164,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $laboratoryItems = $terminal
             ->getDaedalus()
             ->getPlaceByNameOrThrow(RoomEnum::LABORATORY)
-            ->getEquipments()
-            ->filter(static fn (GameEquipment $equipment) => ($equipment->getClassName() === GameItem::class));
+            ->getItems();
 
         $allItems = array_merge($playerItems->toArray(), $laboratoryItems->toArray());
         $normalizedItems = [];

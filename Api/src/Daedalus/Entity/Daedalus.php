@@ -186,7 +186,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     {
         return $this
             ->getPlayers()
-            ->getClosedPlayers()
+            ->getDeadClosedPlayers()
             ->filter(static fn (ClosedPlayer $closedPlayer) => $closedPlayer->isMush())
             ->count();
     }

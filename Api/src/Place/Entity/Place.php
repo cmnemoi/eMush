@@ -541,7 +541,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
 
     public function isChunIn(): bool
     {
-        return $this->getPlayers()->getPlayerByName(CharacterEnum::CHUN) !== null;
+        return $this->getPlayers()->hasPlayerByName(CharacterEnum::CHUN);
     }
 
     public function hasAGuardian(): bool

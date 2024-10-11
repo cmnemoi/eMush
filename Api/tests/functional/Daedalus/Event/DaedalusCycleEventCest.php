@@ -39,7 +39,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
     public function shouldDecreaseOxygen(FunctionalTester $I): void

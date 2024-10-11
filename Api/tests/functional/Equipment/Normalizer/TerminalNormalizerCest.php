@@ -4,12 +4,21 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Equipment\Normalizer;
 
+use Mush\Action\Actions\Hide;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Service\TranslationService;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Service\PlayerService;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -25,6 +34,9 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
 {
     private TerminalNormalizer $terminalNormalizer;
     private TranslationService $translationService;
+    private PlayerService $playerService;
+    private NormalizerInterface $normalizer;
+    private Hide $hideAction;
     private Project $pilgredProject;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
@@ -35,9 +47,11 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
+        $this->normalizer = $I->grabService(NormalizerInterface::class);
         $this->terminalNormalizer = $I->grabService(TerminalNormalizer::class);
-        $this->terminalNormalizer->setNormalizer($I->grabService(NormalizerInterface::class));
-
+        $this->terminalNormalizer->setNormalizer($this->normalizer);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
+        $this->hideAction = $I->grabService(Hide::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -45,7 +59,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
 
         $this->pilgredProject = $this->daedalus->getPilgred();
         $this->isChunPresentText = $this->translationService->translate(
-            key: 'research_laboratory.is_chun_present',
+            key: 'research_laboratory.chun_present',
             parameters: [],
             domain: 'terminal'
         );
@@ -387,6 +401,151 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals([], $requirements);
     }
 
+    public function testWhenChunIsInLabIShouldSeeThatRequirement(FunctionalTester $I): void
+    {
+        $this->givenChunIsInLab();
+        $terminal = $this->givenLabTerminal();
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+        $requirements = $normalizedTerminal['infos']['requirements'];
+        $I->assertEquals([$this->isChunPresentText], $requirements);
+    }
+
+    public function testWhenAMushIsDeadIShouldSeeThatRequirement(FunctionalTester $I): void
+    {
+        $this->givenChunIsNotInLab();
+        $this->givenAMushIsDead($I);
+        $terminal = $this->givenLabTerminal();
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+        $requirements = $normalizedTerminal['infos']['requirements'];
+        $I->assertContains($this->isAnyMushDeadText, $requirements);
+    }
+
+    public function testShouldNormalizeItemsInLaboratoryAndInPlayerInventory(FunctionalTester $I)
+    {
+        $playerInventory = [
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::ITRACKIE,
+                equipmentHolder: $this->kuanTi,
+                reasons: [],
+                time: new \DateTime()
+            ),
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::FUEL_CAPSULE,
+                equipmentHolder: $this->kuanTi,
+                reasons: [],
+                time: new \DateTime()
+            ),
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::BLASTER,
+                equipmentHolder: $this->kuanTi,
+                reasons: [],
+                time: new \DateTime()
+            ),
+        ];
+        $labItems = [
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::FUEL_CAPSULE,
+                equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+                reasons: [],
+                time: new \DateTime()
+            ),
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::MUSH_SAMPLE,
+                equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+                reasons: [],
+                time: new \DateTime()
+            ),
+        ];
+        $terminal = $this->givenLabTerminal();
+        $this->givenKuanTiHasItemsInInventory($playerInventory);
+        $this->givenLabHasItems($labItems);
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+        $items = $normalizedTerminal['items'];
+        $I->assertEquals(
+            $items,
+            $this->normalizer->normalize(array_merge($playerInventory, $labItems), null, ['currentPlayer' => $this->kuanTi])
+        );
+    }
+
+    public function testShouldNotNormalizeEquipmentInTheLab(FunctionalTester $I)
+    {
+        $playerInventory = [];
+        $labItems = [
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: EquipmentEnum::CRYO_MODULE,
+                equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+                reasons: [],
+                time: new \DateTime()
+            ),
+        ];
+        $terminal = $this->givenLabTerminal();
+        $this->givenKuanTiHasItemsInInventory($playerInventory);
+        $this->givenLabHasItems($labItems);
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+        $items = $normalizedTerminal['items'];
+        $I->assertEmpty($items);
+    }
+
+    public function testShouldNormalizeHiddenItemsInLab(FunctionalTester $I)
+    {
+        $blaster = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::BLASTER,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
+        $this->givenItemIsHidden($blaster);
+        $terminal = $this->givenLabTerminal();
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+        $items = $normalizedTerminal['items'];
+        $I->assertNotEmpty($items);
+    }
+
+    private function givenItemIsHidden($blaster)
+    {
+        $hideAction = new ActionConfig();
+        $hideAction
+            ->setActionName(ActionEnum::HIDE)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setActionCost(1)
+            ->buildName(GameConfigEnum::TEST);
+        $this->hideAction->loadParameters(
+            actionConfig: $hideAction,
+            actionProvider: $blaster,
+            player: $this->chun,
+            target: $blaster
+        );
+        $this->hideAction->execute();
+        $blaster = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::BLASTER,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->addEquipment($blaster);
+    }
+
+    private function givenKuanTiHasItemsInInventory($items)
+    {
+        foreach ($items as $item) {
+            $this->kuanTi->addEquipment($item);
+        }
+    }
+
+    private function givenLabHasItems($items)
+    {
+        foreach ($items as $item) {
+            $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)->addEquipment($item);
+        }
+    }
+
     private function givenLabTerminal()
     {
         return $this->gameEquipmentService->createGameEquipmentFromName(
@@ -421,6 +580,19 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     private function givenChunIsInLab()
     {
         $this->chun->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+        if (!$this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)->isChunIn()) {
+            $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)->addPlayer($this->chun);
+        }
+    }
+
+    private function givenAMushIsDead($I)
+    {
+        $this->convertPlayerToMush($I, $this->chun);
+        $this->playerService->killPlayer(
+            player: $this->chun,
+            endReason: EndCauseEnum::EXPLORATION,
+            time: new \DateTime(),
+        );
     }
 
     private function whenINormalizeTheTerminalForKuanTi($terminal)

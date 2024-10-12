@@ -83,6 +83,14 @@ final class PlayerFactory
         return $player;
     }
 
+    public static function createPlayerInPlace(Place $place): Player
+    {
+        $player = self::createPlayer();
+        $player->setPlace($place);
+
+        return $player;
+    }
+
     public static function createPlayerForUser(User $user): Player
     {
         $characterConfig = new CharacterConfig();

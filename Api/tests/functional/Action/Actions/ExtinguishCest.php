@@ -49,6 +49,8 @@ final class ExtinguishCest extends AbstractFunctionalTest
         $this->whenILoadExtinguishAction();
 
         $this->thenExtinguishSuccessRateShouldBe100Percents($I);
+
+        $this->thenExtinguishActionConfigRateShouldRemainUnchanged($I);
     }
 
     private function givenDerekIsFirefighter(): void

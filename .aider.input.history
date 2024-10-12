@@ -1,0 +1,123 @@
+
+# 2024-10-02 20:01:37.266928
++Y
+
+# 2024-10-02 20:02:39.786016
++/add Api/src/Action/Actions/ExchangeBody.php
+
+# 2024-10-02 20:02:46.139995
++/help explain this class
+
+# 2024-10-02 20:05:23.255769
++/clear
+
+# 2024-10-02 20:05:27.145586
++/drop
+
+# 2024-10-02 20:13:51.175112
++/clear
+
+# 2024-10-02 21:22:40.129781
++write an integration test which checks if starving status prints a single log at cycle change when player has a flu
+
+# 2024-10-02 21:23:33.965171
++write the test in Api/tests/functional/Status/Event/CycleEventCest.php file
+
+# 2024-10-02 21:25:17.939190
++/run vendor/bin/codecept run functional Api/tests/functional/Status/Event/CycleEventCest.php:testStarvingStatusPrintsSingleLogWhenPlayerHasFlu
+
+# 2024-10-02 21:25:26.390344
++no
+
+# 2024-10-02 21:25:42.998780
++/undo
+
+# 2024-10-02 21:26:46.492296
++modify the test you just written to lookup for RoomLog, not monolog log. Also use the right method fro Api/src/Player/Entity/Player.php
+
+# 2024-10-02 21:27:17.536359
++no
+
+# 2024-10-04 21:31:45.610857
++/add
+
+# 2024-10-04 21:31:51.348767
++/add Makefile
+
+# 2024-10-04 21:32:45.878663
++/help Use the Makefile to create a bash script to install the project without Docker. You will install all needed dependencies : PHP, postgres, node, yarn...
+
+# 2024-10-04 21:33:21.679477
++y
+
+# 2024-10-04 21:35:11.665326
++can you write the script you propose in a file?
+
+# 2024-10-04 21:35:51.698080
++y
+
+# 2024-10-04 21:36:29.020229
++no
+
+# 2024-10-04 21:39:55.482527
++/drop
+
+# 2024-10-04 21:40:01.827400
++/add install_without_docker.sh
+
+# 2024-10-04 21:40:14.299175
++refactor all installations steps into reusable functions
+
+# 2024-10-04 21:42:50.711578
++n
+
+# 2024-10-04 21:43:02.407652
++/drop
+
+# 2024-10-04 21:43:10.969279
++/add bare_metal_uninstall.sh
+
+# 2024-10-04 21:43:17.500061
++refactor all installations steps into reusable functions
+
+# 2024-10-04 21:43:37.177350
++no
+
+# 2024-10-04 21:45:00.014294
++/drop bare_metal_uninstall.sh
+
+# 2024-10-04 21:45:07.278165
++/add bare_metal_install.sh
+
+# 2024-10-04 21:45:35.032655
++add a function to install package at an os level, which depends of the OS (Debian, MacOS, Arch)
+
+# 2024-10-04 21:46:33.207873
++no
+
+# 2024-10-04 21:49:34.117242
++/add bare_metal_uninstall.sh
+
+# 2024-10-04 21:49:42.018366
++add a function to uninstall package at an os level, which depends of the OS (Debian, MacOS, Arch)
+
+# 2024-10-04 21:52:09.890179
++create a bash script `stop.sh` to stop a php server launch with `php -S localhost:8080 -t public` and a vite server started with `vite`
+
+# 2024-10-04 21:52:25.495261
++no
+
+# 2024-10-04 21:54:04.957738
++write a `start.sh` file to start PHP built-in server and Vite server
+
+# 2024-10-04 21:54:22.726692
++no
+
+# 2024-10-04 21:59:25.317990
++write equivalent `bare_metal_install.sh` for Windows OS using powershell and chocolatey
+
+# 2024-10-04 22:00:06.772583
++y
+
+# 2024-10-04 22:00:09.390508
++no

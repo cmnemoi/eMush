@@ -30,6 +30,7 @@ class DaedalusConfigData
                 'apprentron_technician' => 14,
                 'apprentron_pilot' => 12,
                 'apprentron_astrophysicist' => 10,
+                'apprentron_biologist' => 10,
                 'apprentron_botanist' => 10,
                 'apprentron_shooter' => 10,
                 'apprentron_radio_expert' => 9,

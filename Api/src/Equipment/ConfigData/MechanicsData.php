@@ -3107,6 +3107,16 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
+            'name' => 'support_drone_blueprint_default',
+            'type' => EquipmentMechanicEnum::BLUEPRINT,
+            'craftedEquipmentName' => ItemEnum::SUPPORT_DRONE,
+            'ingredients' => [ItemEnum::METAL_SCRAPS => 4, ItemEnum::PLASTIC_SCRAPS => 1],
+            'actions' => [
+                ActionEnum::BUILD->value,
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
             'name' => 'tool_coffee_machine_default',
             'type' => 'tool',
             'craftedEquipmentName' => null,

@@ -24,6 +24,4 @@ services:
     resource: '../Actions/'
     tags: ['mush.action']
 
-  # need this for tests to work
-  Mush\Action\ConfigData\ActionDataLoader:
-    public: true
+  Mush\Action\Repository\ActionConfigRepositoryInterface: '@Mush\Action\Repository\ActionConfigRepository'

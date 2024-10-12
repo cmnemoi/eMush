@@ -171,6 +171,13 @@ class StatusConfig
         return crc32(serialize($this->toSnapshot()));
     }
 
+    protected function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     private function toSnapshot(): array
     {
         return [
@@ -180,12 +187,5 @@ class StatusConfig
             'modifierConfigs' => $this->modifierConfigs->map(static fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getName()),
             'actionConfigs' => $this->actionConfigs->map(static fn (ActionConfig $actionConfig) => $actionConfig->getName()),
         ];
-    }
-
-    private function setId(int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
     }
 }

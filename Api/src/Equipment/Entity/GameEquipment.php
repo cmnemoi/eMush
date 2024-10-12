@@ -68,7 +68,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    private int $id;
+    protected int $id;
 
     #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: StatusTarget::class, cascade: ['ALL'])]
     private Collection $statuses;
@@ -396,6 +396,11 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $actionConfig;
     }
 
+    public function hasActionByName(ActionEnum $actionName): bool
+    {
+        return $this->getActionConfigByNameOrNull($actionName) !== null;
+    }
+
     public function canPlayerReach(Player $player): bool
     {
         return $this->getPlace() === $player->getPlace();
@@ -525,6 +530,11 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     public function isADrug(): bool
     {
         return $this->hasMechanicByName(EquipmentMechanicEnum::DRUG);
+    }
+
+    public function isAPatrolShip(): bool
+    {
+        return $this->hasMechanicByName(EquipmentMechanicEnum::PATROL_SHIP) && $this->getName() !== EquipmentEnum::PASIPHAE;
     }
 
     public function getFruitProduction(): int

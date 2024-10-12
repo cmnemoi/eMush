@@ -289,6 +289,25 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($blueprintJukeboxMechanic);
         $manager->persist($blueprintJukebox);
 
+        $blueprintSupportDroneMechanic = new Blueprint();
+        $blueprintSupportDroneMechanic
+            ->setCraftedEquipmentName(ItemEnum::SUPPORT_DRONE)
+            ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 4])
+            ->addAction($buildAction)
+            ->buildName(ItemEnum::SUPPORT_DRONE . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
+
+        $blueprintSupportDrone = new ItemConfig();
+        $blueprintSupportDrone
+            ->setEquipmentName(ItemEnum::SUPPORT_DRONE . '_' . ItemEnum::BLUEPRINT)
+            ->setIsStackable(true)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
+            ->setMechanics([$blueprintSupportDroneMechanic])
+            ->setActionConfigs($actions)
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($blueprintSupportDroneMechanic);
+        $manager->persist($blueprintSupportDrone);
+
         $gameConfig
             ->addEquipmentConfig($blueprintEcholocator)
             ->addEquipmentConfig($blueprintWhiteFlag)
@@ -302,7 +321,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addEquipmentConfig($blueprintOscilloscope)
             ->addEquipmentConfig($blueprintSniperHelmet)
             ->addEquipmentConfig($blueprintSwedishSofa)
-            ->addEquipmentConfig($blueprintJukebox);
+            ->addEquipmentConfig($blueprintJukebox)
+            ->addEquipmentConfig($blueprintSupportDrone);
         $manager->persist($gameConfig);
 
         $manager->flush();

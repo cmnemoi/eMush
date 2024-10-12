@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Action\Repository\ActionConfigRepository;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -121,6 +122,10 @@ class ActionService implements ActionServiceInterface
         $actionVariableEvent = $this->eventService->computeEventModifications($actionVariableEvent, $eventName);
 
         $value = $actionVariableEvent->getRoundedQuantity();
+
+        if ($variableName === ActionVariableEnum::PERCENTAGE_SUCCESS) {
+            return $this->actionSuccessRateForPlayer($actionConfig, $player, $value);
+        }
 
         return $variable->getValueInRange($value);
     }
@@ -260,5 +265,36 @@ class ActionService implements ActionServiceInterface
         }
 
         return $event;
+    }
+
+    private function actionSuccessRateForPlayer(ActionConfig $actionConfig, Player $player, int $value): int
+    {
+        return match ($actionConfig->getActionName()) {
+            ActionEnum::EXTINGUISH => $this->getExtinguishSuccessRateForPlayer($player, $value),
+            ActionEnum::REPAIR => $this->getRepairSuccessRateForPlayer($player, $value),
+            default => $value,
+        };
+    }
+
+    private function getRepairSuccessRateForPlayer(Player $player, int $value): int
+    {
+        if ($player->hasModifierByModifierName(ModifierNameEnum::GENIUS_MODIFIER) === false) {
+            return $value;
+        }
+
+        $geniusModifier = $player->getModifiers()->getByModifierNameOrThrow(ModifierNameEnum::GENIUS_MODIFIER);
+
+        return (int) $geniusModifier->getVariableModifierConfigOrThrow()->getDelta();
+    }
+
+    private function getExtinguishSuccessRateForPlayer(Player $player, int $value): int
+    {
+        if ($player->hasModifierByModifierName(ModifierNameEnum::FIREFIGHTER_MODIFIER) === false) {
+            return $value;
+        }
+
+        $fireFighterModifier = $player->getModifiers()->getByModifierNameOrThrow(ModifierNameEnum::FIREFIGHTER_MODIFIER);
+
+        return (int) $fireFighterModifier->getVariableModifierConfigOrThrow()->getDelta();
     }
 }

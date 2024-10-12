@@ -182,6 +182,7 @@ Obvious example:
 - [Player](./src/Player/README.md) : handles players
 - [Project](./src/Project/README.md) : handles PILGRED, NERON projects and researches gameplay
 - [RoomLog](./src/RoomLog/README.md) : handles room logs showing the action / events history of a room
+- [Skill](./src/Skill/README.md) : handles skills
 - [Status](./src/Status/README.md) : handles statuses (like hungry, suicidal, etc.)
 - [User](./src/User/README.md) : handles users (mostly registering and login for now)
 
@@ -232,6 +233,8 @@ You can run all tests with
 ```
 composer test
 ```
+
+but due to the great amount of (slow integration) tests, it is recommended to only run the tests of the files or module you are working on.
 
 ## Xdebug
 

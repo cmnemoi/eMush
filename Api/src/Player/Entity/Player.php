@@ -1017,7 +1017,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function lastActionIsFromYesterdayOrLater(): bool
     {
-        return $this->lastActionDate <= new \DateTime('yesterday');
+        return $this->lastActionDate <= new \DateTime('-1 day');
     }
 
     public function lastActionIsFromTwoDaysAgoOrLater(): bool
@@ -1265,7 +1265,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function canReadDrugProperties(GameEquipment $food): bool
     {
-        return $food->isADrug() && $this->hasAnySkill([SkillEnum::NURSE, SkillEnum::POLYVALENT]);
+        return $food->isADrug() && $this->hasAnySkill([SkillEnum::NURSE, SkillEnum::POLYVALENT, SkillEnum::BIOLOGIST]);
     }
 
     private function removeDuplicateActions(array $actions): array

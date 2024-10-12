@@ -23,7 +23,6 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -74,8 +73,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
             $this->handlePatrolShipManoeuvreDamage($patrolShip, $pilot, $tags, $time);
         }
 
-        /** @var ?ChargeStatus $patrolShipArmor */
-        $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        $patrolShipArmor = $patrolShip->getChargeStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
         $isPatrolShipAlive = $patrolShipArmor?->isCharged();
         if ($isPatrolShipAlive) {
             $this->moveScrapToPatrolShipDockingPlace($patrolShip, $tags, $time, $pilot);
@@ -107,8 +105,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
     {
         $daedalus = $patrolShip->getDaedalus();
 
-        /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+        $patrolShipMechanic = $patrolShip->getPatrolShipMechanicOrThrow();
 
         $patrolShipDockingPlace = $daedalus->getPlaceByNameOrThrow($patrolShipMechanic->getDockingPlace());
 
@@ -162,8 +159,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
 
     private function inflictDamageToDaedalus(GameEquipment $patrolShip, array $tags, \DateTime $time): void
     {
-        /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+        $patrolShipMechanic = $patrolShip->getPatrolShipMechanicOrThrow();
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
             $patrolShipMechanic->getFailedManoeuvreDaedalusDamage()
         );
@@ -180,11 +176,8 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
 
     private function inflictDamageToPatrolShip(GameEquipment $patrolShip, array $tags, \DateTime $time, Player $pilot): void
     {
-        /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
-
-        /** @var ChargeStatus $patrolShipArmor */
-        $patrolShipArmor = $patrolShip->getStatusByNameOrThrow(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        $patrolShipMechanic = $patrolShip->getPatrolShipMechanicOrThrow();
+        $patrolShipArmor = $patrolShip->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
             $patrolShipMechanic->getFailedManoeuvrePatrolShipDamage()
@@ -210,8 +203,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
 
     private function inflictDamageToPlayer(Player $player, GameEquipment $patrolShip, array $tags, \DateTime $time): void
     {
-        /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+        $patrolShipMechanic = $patrolShip->getPatrolShipMechanicOrThrow();
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
             $patrolShipMechanic->getFailedManoeuvrePlayerDamage()
         );
@@ -234,8 +226,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
     {
         $daedalus = $patrolShip->getDaedalus();
 
-        /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+        $patrolShipMechanic = $patrolShip->getPatrolShipMechanicOrThrow();
 
         $placeName = \in_array(ActionEnum::LAND->value, $tags, strict: true) ? $patrolShipMechanic->getDockingPlace() : $patrolShip->getName();
 

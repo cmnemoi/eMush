@@ -81,6 +81,19 @@ final class DrugCest extends AbstractFunctionalTest
         $I->assertNotEmpty($normalizedDrug['effects']);
     }
 
+    public function shouldDisplayEffectsToBiologist(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsABiologist($I);
+
+        $normalizedDrug = $this->equipmentNormalizer->normalize(
+            $this->drug,
+            format: null,
+            context: ['currentPlayer' => $this->chun]
+        );
+
+        $I->assertNotEmpty($normalizedDrug['effects']);
+    }
+
     private function givenPlayerIsAPolyvalent(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::POLYVALENT, $I);
@@ -92,5 +105,10 @@ final class DrugCest extends AbstractFunctionalTest
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::NURSE]),
         ]);
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::NURSE, $this->chun));
+    }
+
+    private function givenPlayerIsABiologist(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::BIOLOGIST, $I);
     }
 }

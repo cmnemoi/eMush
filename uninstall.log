@@ -1,0 +1,2195 @@
+Starting uninstallation process...
+Uninstalling PostgreSQL 14...
+Running: sudo apt-get remove -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following package was automatically installed and is no longer required:
+  sysstat
+Use 'sudo apt autoremove' to remove it.
+The following packages will be REMOVED
+  postgresql-14
+0 to upgrade, 0 to newly install, 1 to remove and 8 not to upgrade.
+After this operation, 52.0 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 407015 files and directories currently installed.)
+Removing postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for postgresql-common (238) ...
+supported-versions: WARNING! Unknown distribution: pop
+ubuntu found in ID_LIKE, treating as Ubuntu
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+ERROR: no encoding defined in /usr/share/hunspell/ar.aff, ignoring
+  de_at_frami
+  de_ch_frami
+  de_de_frami
+  en_au
+  en_ca
+  en_gb
+  en_us
+  en_za
+  es_es
+  fr
+  it_it
+  pt_br
+  pt_pt
+  ru_ru
+Removing obsolete dictionary files:
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-common
+0 to upgrade, 0 to newly install, 1 to remove and 7 not to upgrade.
+After this operation, 708 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405474 files and directories currently installed.)
+Removing postgresql-common (238) ...
+Removing 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Processing triggers for man-db (2.10.2-1) ...
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 7 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  debsuryorg-archive-keyring libcommon-sense-perl libjson-perl libjson-xs-perl
+  libtypes-serialiser-perl php-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  php8.3-common php8.3-curl php8.3-intl php8.3-opcache php8.3-pgsql php8.3-xml
+0 to upgrade, 0 to newly install, 6 to remove and 7 not to upgrade.
+After this operation, 12.2 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405355 files and directories currently installed.)
+Removing php8.3-xml (8.3.12-1+ubuntu22.04.1+deb.sury.org+1) ...
+Removing php8.3-pgsql (8.3.12-1+ubuntu22.04.1+deb.sury.org+1) ...
+Removing php8.3-curl (8.3.12-1+ubuntu22.04.1+deb.sury.org+1) ...
+Removing php8.3-intl (8.3.12-1+ubuntu22.04.1+deb.sury.org+1) ...
+Removing php8.3-opcache (8.3.12-1+ubuntu22.04.1+deb.sury.org+1) ...
+Removing php8.3-common (8.3.12-1+ubuntu22.04.1+deb.sury.org+1) ...
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  debsuryorg-archive-keyring libcommon-sense-perl libjson-perl libjson-xs-perl
+  libtypes-serialiser-perl php-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 7 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  debsuryorg-archive-keyring libcommon-sense-perl libjson-perl libjson-xs-perl
+  libtypes-serialiser-perl php-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 7 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  debsuryorg-archive-keyring libcommon-sense-perl libjson-perl libjson-xs-perl
+  libtypes-serialiser-perl php-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 7 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  debsuryorg-archive-keyring libcommon-sense-perl libjson-perl libjson-xs-perl
+  libtypes-serialiser-perl php-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 7 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  debsuryorg-archive-keyring libcommon-sense-perl libjson-perl libjson-xs-perl
+  libtypes-serialiser-perl php-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 7 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  debsuryorg-archive-keyring libcommon-sense-perl libjson-perl libjson-xs-perl
+  libtypes-serialiser-perl php-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 7 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  debsuryorg-archive-keyring libcommon-sense-perl libjson-perl libjson-xs-perl
+  libtypes-serialiser-perl php-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 7 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+Starting uninstallation process...
+Uninstalling PostgreSQL 16...
+Running: sudo apt-get remove -y postgresql-16
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'postgresql-16' is not installed, so not removed
+The following package was automatically installed and is no longer required:
+  postgresql-client-14
+Use 'sudo apt autoremove' to remove it.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-common
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 739 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405372 files and directories currently installed.)
+Removing postgresql-common (264.pgdg22.04+1) ...
+Removing 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Processing triggers for man-db (2.10.2-1) ...
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+Starting uninstallation process...
+Uninstalling PostgreSQL 16...
+Running: sudo apt-get remove -y postgresql-16
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'postgresql-16' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'postgresql-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-common
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+Starting uninstallation process...
+Uninstalling PostgreSQL 16...
+Running: sudo apt-get remove -y postgresql-16
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'postgresql-16' is not installed, so not removed
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'postgresql-common' is not installed, so not removed
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-common' is not installed, so not removed
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+Starting uninstallation process...
+Uninstalling PostgreSQL 16...
+Running: sudo apt-get remove -y postgresql-16
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following package was automatically installed and is no longer required:
+  sysstat
+Use 'sudo apt autoremove' to remove it.
+The following packages will be REMOVED
+  postgresql-16
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 59.8 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 407142 files and directories currently installed.)
+Removing postgresql-16 (16.4-1.pgdg22.04+2) ...
+update-alternatives: warning: forcing reinstallation of alternative /usr/share/postgresql/16/man/man1/psql.1.gz because link group psql.1.gz is broken
+Processing triggers for postgresql-common (264.pgdg22.04+1) ...
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+ERROR: no encoding defined in /usr/share/hunspell/ar.aff, ignoring
+  de_at_frami
+  de_ch_frami
+  de_de_frami
+  en_au
+  en_ca
+  en_gb
+  en_us
+  en_za
+  es_es
+  fr
+  it_it
+  pt_br
+  pt_pt
+  ru_ru
+Removing obsolete dictionary files:
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-common
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 739 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405459 files and directories currently installed.)
+Removing postgresql-common (264.pgdg22.04+1) ...
+Removing 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Processing triggers for man-db (2.10.2-1) ...
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+Starting uninstallation process...
+Uninstalling PostgreSQL 16...
+Running: sudo apt-get remove -y postgresql-16
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'postgresql-16' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'postgresql-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+Starting uninstallation process...
+Uninstalling PostgreSQL 14...
+Running: sudo apt-get remove -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common
+  postgresql-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-14
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 52.0 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 407348 files and directories currently installed.)
+Removing postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for postgresql-common (264.pgdg22.04+1) ...
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+ERROR: no encoding defined in /usr/share/hunspell/ar.aff, ignoring
+  de_at_frami
+  de_ch_frami
+  de_de_frami
+  en_au
+  en_ca
+  en_gb
+  en_us
+  en_za
+  es_es
+  fr
+  it_it
+  pt_br
+  pt_pt
+  ru_ru
+Removing obsolete dictionary files:
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-common
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 739 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405807 files and directories currently installed.)
+Removing postgresql-common (264.pgdg22.04+1) ...
+Removing 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Processing triggers for man-db (2.10.2-1) ...
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+Starting uninstallation process...
+Uninstalling PostgreSQL 14...
+Running: sudo apt-get remove -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common
+  postgresql-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-14
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 52.0 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 407348 files and directories currently installed.)
+Removing postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for postgresql-common (264.pgdg22.04+1) ...
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+ERROR: no encoding defined in /usr/share/hunspell/ar.aff, ignoring
+  de_at_frami
+  de_ch_frami
+  de_de_frami
+  en_au
+  en_ca
+  en_gb
+  en_us
+  en_za
+  es_es
+  fr
+  it_it
+  pt_br
+  pt_pt
+  ru_ru
+Removing obsolete dictionary files:
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-common
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 739 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405807 files and directories currently installed.)
+Removing postgresql-common (264.pgdg22.04+1) ...
+Removing 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Processing triggers for man-db (2.10.2-1) ...
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+Starting uninstallation process...
+Uninstalling PostgreSQL 14...
+Running: sudo apt-get remove -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common
+  postgresql-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-14
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 52.0 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 407348 files and directories currently installed.)
+Removing postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for postgresql-common (264.pgdg22.04+1) ...
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+ERROR: no encoding defined in /usr/share/hunspell/ar.aff, ignoring
+  de_at_frami
+  de_ch_frami
+  de_de_frami
+  en_au
+  en_ca
+  en_gb
+  en_us
+  en_za
+  es_es
+  fr
+  it_it
+  pt_br
+  pt_pt
+  ru_ru
+Removing obsolete dictionary files:
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-common
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 739 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405807 files and directories currently installed.)
+Removing postgresql-common (264.pgdg22.04+1) ...
+Removing 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Processing triggers for man-db (2.10.2-1) ...
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+Starting uninstallation process...
+Uninstalling PostgreSQL 14...
+Running: sudo apt-get remove -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common
+  postgresql-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-14
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 52.0 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 407348 files and directories currently installed.)
+Removing postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for postgresql-common (264.pgdg22.04+1) ...
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+ERROR: no encoding defined in /usr/share/hunspell/ar.aff, ignoring
+  de_at_frami
+  de_ch_frami
+  de_de_frami
+  en_au
+  en_ca
+  en_gb
+  en_us
+  en_za
+  es_es
+  fr
+  it_it
+  pt_br
+  pt_pt
+  ru_ru
+Removing obsolete dictionary files:
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-common
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 739 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405807 files and directories currently installed.)
+Removing postgresql-common (264.pgdg22.04+1) ...
+Removing 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Processing triggers for man-db (2.10.2-1) ...
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+Starting uninstallation process...
+Uninstalling PostgreSQL 14...
+Running: sudo apt-get remove -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common
+  postgresql-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-14
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 52.0 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 407348 files and directories currently installed.)
+Removing postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for postgresql-common (264.pgdg22.04+1) ...
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+ERROR: no encoding defined in /usr/share/hunspell/ar.aff, ignoring
+  de_at_frami
+  de_ch_frami
+  de_de_frami
+  en_au
+  en_ca
+  en_gb
+  en_us
+  en_za
+  es_es
+  fr
+  it_it
+  pt_br
+  pt_pt
+  ru_ru
+Removing obsolete dictionary files:
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-common
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 739 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405807 files and directories currently installed.)
+Removing postgresql-common (264.pgdg22.04+1) ...
+Removing 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Processing triggers for man-db (2.10.2-1) ...
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+Starting uninstallation process...
+Uninstalling PostgreSQL 14...
+Unsupported operating system. Cannot uninstall postgresql-14.
+Removing PostgreSQL repositories...
+Unsupported operating system. Cannot uninstall postgresql-common.
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Unsupported operating system. Cannot uninstall php8.3.
+Unsupported operating system. Cannot uninstall php8.3-common.
+Unsupported operating system. Cannot uninstall php8.3-pgsql.
+Unsupported operating system. Cannot uninstall php8.3-curl.
+Unsupported operating system. Cannot uninstall php8.3-opcache.
+Unsupported operating system. Cannot uninstall php8.3-intl.
+Unsupported operating system. Cannot uninstall php8.3-xml.
+Unsupported operating system. Cannot uninstall php8.3-dom.
+Unsupported operating system. Cannot uninstall php8.3-zip.
+Uninstalling PHP dependencies...
+Unsupported operating system. Cannot uninstall ca-certificates.
+Unsupported operating system. Cannot uninstall apt-transport-https.
+Unsupported operating system. Cannot uninstall software-properties-common.
+Unsupported operating system. Cannot uninstall lsb-release.
+Unsupported operating system. Cannot uninstall openssl.
+Unsupported operating system. Cannot uninstall zip.
+Unsupported operating system. Cannot uninstall unzip.
+Uninstalling Composer...
+Running: sudo rm -rf /usr/local/bin/composer
+Uninstallation completed successfully.
+Starting uninstallation process...
+Uninstalling PostgreSQL 14...
+Running: sudo apt-get remove -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'postgresql-14' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'postgresql-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+Starting uninstallation process...
+Uninstalling PostgreSQL 14...
+Running: sudo apt-get remove -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common
+  postgresql-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-14
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 52.0 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 407348 files and directories currently installed.)
+Removing postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for postgresql-common (264.pgdg22.04+1) ...
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+ERROR: no encoding defined in /usr/share/hunspell/ar.aff, ignoring
+  de_at_frami
+  de_ch_frami
+  de_de_frami
+  en_au
+  en_ca
+  en_gb
+  en_us
+  en_za
+  es_es
+  fr
+  it_it
+  pt_br
+  pt_pt
+  ru_ru
+Removing obsolete dictionary files:
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-common
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 739 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405807 files and directories currently installed.)
+Removing postgresql-common (264.pgdg22.04+1) ...
+Removing 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Processing triggers for man-db (2.10.2-1) ...
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+Starting uninstallation process...
+Uninstalling PostgreSQL 14...
+Running: sudo apt-get remove -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common
+  postgresql-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-14
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 52.0 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 407348 files and directories currently installed.)
+Removing postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for postgresql-common (264.pgdg22.04+1) ...
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+ERROR: no encoding defined in /usr/share/hunspell/ar.aff, ignoring
+  de_at_frami
+  de_ch_frami
+  de_de_frami
+  en_au
+  en_ca
+  en_gb
+  en_us
+  en_za
+  es_es
+  fr
+  it_it
+  pt_br
+  pt_pt
+  ru_ru
+Removing obsolete dictionary files:
+Removing PostgreSQL repositories...
+Running: sudo apt-get remove -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED
+  postgresql-common
+0 to upgrade, 0 to newly install, 1 to remove and 4 not to upgrade.
+After this operation, 739 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405807 files and directories currently installed.)
+Removing postgresql-common (264.pgdg22.04+1) ...
+Removing 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Processing triggers for man-db (2.10.2-1) ...
+Removing PostgreSQL data...
+Running: sudo rm -rf /var/lib/postgresql
+Running: sudo rm -rf /etc/postgresql
+Uninstalling nvm and related tools...
+Running: rm -rf $NVM_DIR
+Running: rm -rf ~/.npm
+Running: rm -rf ~/.bower
+Uninstalling PHP 8.3 and extensions...
+Running: sudo apt-get remove -y php8.3
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-common' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-pgsql' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-curl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-opcache
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-opcache' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-intl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-intl' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-xml
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-xml' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-dom
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get remove -y php8.3-zip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package 'php8.3-zip' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Uninstalling PHP dependencies...
+Running: sudo apt-get remove -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies.
+ pop-default-settings : Depends: python3-repolib (> 1.3.9) but it is not going to be installed
+ pop-desktop : PreDepends: pop-de-gnome but it is not going to be installed
+               Depends: xorg but it is not going to be installed
+               Recommends: pop-shop but it is not going to be installed
+               Recommends: pop-transition but it is not going to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.

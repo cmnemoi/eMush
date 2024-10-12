@@ -92,4 +92,17 @@ abstract class ModifierNameEnum
     public const string PLAYER_MINUS_33_PERCENTAGE_HUNTERS = 'player_minus_33_percentage_hunters';
     public const string STRATEGURU_MODIFIER = 'strateguru_modifier';
     public const string SHRINK_MODIFIER = 'shrink_modifier';
+    public const string OPPORTUNIST_MODIFIER = 'opportunist_modifier';
+    public const string PLAYER_PLUS_5_ACTION_POINT_ON_FIRST_TITLE_ATTRIBUTION = 'player_+5_action_point_on_first_title_attribution';
+    public const string CRAZY_EYE_MODIFIER = 'crazy_eye_modifier';
+    public const string INCREASE_AGGRESIVE_ACTION_TO_SKILL_PLAYER_BY_2_AP = 'increase_aggressive_action_to_skill_player_by_2_ap';
+    public const string PLAYER_ALWAYS_SUCCEEDS_EXTINGUISH_ACTION = 'player_always_succeeds_extinguish_action';
+    public const string GENIUS_MODIFIER = 'genius_modifier';
+    public const string FIREFIGHTER_MODIFIER = 'firefighter_modifier';
+    public const string PILOT_DRONE_MODIFIER = 'pilot_drone_modifier';
+    public const string DRONE_PLUS_20_PERCENTAGE_ON_SHOOT_HUNTER = 'drone_plus_20_percentage_on_shoot_hunter';
+    public const string RADIO_EXPERT_MODIFIER_ON_SELF = 'radio_expert_modifier_on_self';
+    public const string RADIO_EXPERT_MODIFIER_ON_OTHER_PLAYER = 'radio_expert_modifier_on_other_player';
+    public const string PLAYER_X2_SIGNAL_ON_ACTION_CONTACT_SOL = 'modifier_for_player_x2_signal_on_action_contact_sol';
+    public const string PLACE_X1_5_SIGNAL_ON_ACTION_CONTACT_SOL = 'modifier_for_place_x1.5_signal_on_action_contact_sol';
 }

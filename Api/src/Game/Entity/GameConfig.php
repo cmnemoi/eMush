@@ -22,6 +22,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity(repositoryClass: GameConfigRepository::class)]
@@ -75,7 +76,7 @@ class GameConfig
     private Collection $projectConfigs;
 
     #[ORM\ManyToMany(targetEntity: SkillConfig::class)]
-    private Collection $mushSkillConfigs;
+    private Collection $skillConfigs;
 
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
@@ -93,7 +94,7 @@ class GameConfig
         $this->planetSectorConfigs = new ArrayCollection();
         $this->titleConfigs = new ArrayCollection();
         $this->projectConfigs = new ArrayCollection();
-        $this->mushSkillConfigs = new ArrayCollection();
+        $this->skillConfigs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -428,32 +429,37 @@ class GameConfig
         return $this;
     }
 
-    public function getMushSkillConfigs(): Collection
+    public function getSkillConfigs(): Collection
     {
-        return $this->mushSkillConfigs;
+        return $this->skillConfigs;
     }
 
     /**
-     * @psalm-param ArrayCollection<int<0, max>, SkillConfig> $mushSkillConfigs
+     * @psalm-param ArrayCollection<int<0, max>, SkillConfig> $skillConfigs
      *
      * @psalm-suppress NoValue
      */
-    public function setMushSkillConfigs(array|ArrayCollection $mushSkillConfigs): static
+    public function setSkillConfigs(array|ArrayCollection $skillConfigs): static
     {
-        if (\is_array($mushSkillConfigs)) {
-            $mushSkillConfigs = new ArrayCollection($mushSkillConfigs);
+        if (\is_array($skillConfigs)) {
+            $skillConfigs = new ArrayCollection($skillConfigs);
         }
 
-        $this->mushSkillConfigs = $mushSkillConfigs;
+        $this->skillConfigs = $skillConfigs;
 
         return $this;
     }
 
-    public function addMushSkillConfig(SkillConfig $mushSkillConfig): static
+    public function addSkillConfig(SkillConfig $skillConfig): static
     {
-        $this->mushSkillConfigs->add($mushSkillConfig);
+        $this->skillConfigs->add($skillConfig);
 
         return $this;
+    }
+
+    public function getMushSkillConfigs(): SkillConfigCollection
+    {
+        return (new SkillConfigCollection($this->skillConfigs->toArray()))->getAllMushSkillConfigs();
     }
 
     public function getName(): string

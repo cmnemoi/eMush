@@ -16,7 +16,7 @@ Skills grant players new actions, various bonuses through [modifiers](../Modifie
     |-- UseCase
 
 ## How to add a new skill?
-- Add the skill to the [SkillConfigData](./ConfigData/SkillConfigData.php).
+- Add the skill to the [SkillConfigData](./ConfigData/SkillConfigData.php) and [GameConfigData](../Game/ConfigData/GameConfigData.php#L598).
 - Configure skill modifiers in [ModifierConfigData](../Modifier/ConfigData/ModifierConfigData.php) and [SkillModifierConfigFixtures](../Modifier/DataFixtures/SkillModifierConfigFixtures.php). Please read the Modifier module [documentation](../Modifier/README.md) to see what can be implemented with modifiers, and how.
 - Configure skill points :
     - Add a new [ActionTypeEnum](../Action/Enum/ActionTypeEnum.php) for the actions which should be free when the player has the added skill points.
@@ -29,4 +29,4 @@ Skills grant players new actions, various bonuses through [modifiers](../Modifie
 - Add the skill to a character in [CharacterConfigData](../Player/ConfigData/CharacterConfigData.php) and [CharacterConfigFixtures](../Player/DataFixtures/CharacterConfigFixtures.php).
 - Add french translations in [skill+intl-icu.fr.xlf](../../translations/fr/skill+intl-icu.fr.xlf).
 
-If you want to implement a custom behavior which cannot be covered by the options above, you will need to check for Skill presence and implement your logic directly in the services / normalizers... Do not hesitate to contact us if you need help.
+If you want to implement a custom behavior which cannot be covered by the options above, you will need to check for Skill presence and implement your logic directly in the services / normalizers... Do not hesitate to contact us on [Discord](https://discord.com/channels/693082011484684348/746873392463872071) if you need help.

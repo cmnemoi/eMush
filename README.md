@@ -145,33 +145,37 @@ chmod go+r config/jwt/private.pem
 
 
 - In folder `Api/`
+
+  - `cp .env.dist .env`
+  - Replace all instances of `mush_eternaltwin` by `localhost` in your `.env`
+  - Install and launch eMush back-end:
+
 ```
-cp .env.dist .env
 composer update
 php bin/console mush:migrate --dev
 php -S localhost:8080 -t public
 ```
 
-Replace all instances of `mush_eternaltwin` by `localhost` in your `.env`
-     
 - In folder `App/`
+
+  - `cp .env.dist .env`
+  - Modify `.env` `VITE_APP_URL` value to `http://localhost:5173`
+  - Install and launch eMush front-end:
 ```
-cp .env.dist .env
 yarn install
 yarn serve
 ```
 
-Modify `.env` `VITE_APP_URL` value to `http://localhost:5173`
-
 - In folder `EternalTwin/`
+
+  - `cp eternaltwin.toml eternaltwin.local.toml`
+  - Modify `eternaltwin.local.toml` `uri` value to `http://localhost:5173`
+  - Install and launch Eternaltwin server:
 ```
-cp eternaltwin.toml eternaltwin.local.toml
 yarn install
 yarn etwin db create
 yarn etwin start
 ```
-
-Modify `eternaltwin.local.toml` `uri` value to `http://localhost:5173`
 
 ## Contributing
 
@@ -204,6 +208,15 @@ Access Token can be created at: https://gitlab.com/-/profile/personal_access_tok
 
 ## Troubleshooting
 
+### Eternaltwin login / website not working (Ports are not available: listen tcp 0.0.0.0:50320: bind : An attempt was made to access a socket in a way forbidden by its access permissions).
+
+Open Powershell as an administrator and run the following commands :
+```powershell
+netsh int ipv4 set dynamic tcp start=60536 num=5000
+netsh int ipv6 set dynamic tcp start=60536 num=5000
+```
+Restart your computer, then try to run `make docker-start` again.
+
 ### Use different ports
 To use different port modify the docker/docker-compose.dev.yml file
 
@@ -235,6 +248,23 @@ by `callback_uri = "http://localhost:new_port/oauth/callback"`
 
 ## License
 
-The source code of this project is licensed under [AGPL-3.0-or-later](LICENSE) License.
+The source code of this project is licensed under [AGPL-3.0-or-later](LICENSE) License. 
 
-All Motion Twin assets in `App/src/assets` are licensed under [CC-BY-NC-SA-4.0](App/src/assets/LICENSE) License.
+> Permissions of this strongest copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. When a modified version is used to provide a service over a network, the complete source code of the modified version must be made available. 
+[Choose A License](https://choosealicense.com/licenses/agpl-3.0/)
+
+All Motion Twin and eMush assets in [App/src/assets](App/src/assets) are licensed under [CC-BY-NC-SA-4.0](App/src/assets/LICENSE) License.
+
+> You are free to: 
+> * Share — copy and redistribute the material in any medium or format. 
+> * Adapt — remix, transform, and build upon the material. 
+> * The licensor cannot revoke these freedoms as long as you follow the license terms.
+> 
+> Under the following terms: 
+> 
+> * Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use. 
+> * NonCommercial — You may not use the material for commercial purposes. 
+> * ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original. 
+> * No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+> [Creative Commons](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+

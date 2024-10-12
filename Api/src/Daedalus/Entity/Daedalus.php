@@ -626,6 +626,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
+    public function hasOngoingExploration(): bool
+    {
+        return $this->exploration !== null;
+    }
+
     public function getClassName(): string
     {
         return static::class;
@@ -931,7 +936,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getPlaceByNameOrThrow(RoomEnum::LABORATORY)->isChunIn();
     }
 
-    private function isExplorationChangingCycle(): bool
+    public function isExplorationChangingCycle(): bool
     {
         return $this->getExploration()?->isChangingCycle() ?? false;
     }

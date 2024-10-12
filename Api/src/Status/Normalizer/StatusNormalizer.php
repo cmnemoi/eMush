@@ -28,36 +28,51 @@ class StatusNormalizer implements NormalizerInterface
 
     public function normalize($object, ?string $format = null, array $context = []): array
     {
-        $status = $object;
+        $status = $this->status($object);
         $statusName = $status->getName();
 
-        /** @var Player $currentPlayer */
-        $currentPlayer = $context['currentPlayer'];
+        $currentPlayer = $this->currentPlayer($context);
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        if ($this->isVisible($status->getVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget())) {
-            $normedStatus = [
-                'key' => $statusName,
-                'name' => $this->translationService->translate($statusName . '.name', [], 'status', $language),
-                'description' => $this->translationService->translate("{$statusName}.description", [], 'status', $language),
-                'isPrivate' => $status->getVisibility() === VisibilityEnum::PRIVATE,
-            ];
+        $statusNotVisible = $this->isVisible($status->getVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget()) === false;
 
-            if (
-                $status instanceof ChargeStatus
-                && $this->isVisible($status->getChargeVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget())
-            ) {
-                $normedStatus['charge'] = $status->getCharge();
-            }
-
-            if (($target = $status->getTarget()) !== null) {
-                $normedStatus['target'] = ['key' => $target->getName(), 'id' => $target->getId()];
-            }
-
-            return $normedStatus;
+        if ($statusNotVisible) {
+            return [];
         }
 
-        return [];
+        $normalizedStatus = [
+            'key' => $statusName,
+            'name' => $this->translationService->translate(
+                key: "{$statusName}.name",
+                parameters: [
+                    $currentPlayer->getLogKey() => $currentPlayer->getLogName(),
+                ],
+                domain: 'status',
+                language: $language
+            ),
+            'description' => $this->translationService->translate(
+                key: "{$statusName}.description",
+                parameters: [
+                    $currentPlayer->getLogKey() => $currentPlayer->getLogName(),
+                ],
+                domain: 'status',
+                language: $language
+            ),
+            'isPrivate' => $status->getVisibility() === VisibilityEnum::PRIVATE,
+        ];
+
+        if (
+            $status instanceof ChargeStatus
+            && $this->isVisible($status->getChargeVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget())
+        ) {
+            $normalizedStatus['charge'] = $status->getCharge();
+        }
+
+        if (($target = $status->getTarget()) !== null) {
+            $normalizedStatus['target'] = ['key' => $target->getName(), 'id' => $target->getId()];
+        }
+
+        return $normalizedStatus;
     }
 
     private function isVisible(
@@ -95,5 +110,15 @@ class StatusNormalizer implements NormalizerInterface
         }
 
         return null;
+    }
+
+    private function status(mixed $object): Status
+    {
+        return $object instanceof Status ? $object : throw new \RuntimeException('This normalizer only supports Status');
+    }
+
+    private function currentPlayer(array $context): Player
+    {
+        return $context['currentPlayer'] ?? throw new \RuntimeException('This normalizer requires a currentPlayer in the context');
     }
 }

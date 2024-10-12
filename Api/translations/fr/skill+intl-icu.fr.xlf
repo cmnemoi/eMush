@@ -758,5 +758,37 @@
         <target>À un certain degré de mégalomanie, on peut appeler ça du talent. Vous êtes expert en bataille spatiale mais tout le monde vous prend pour un fou.//:point: **50%** de chances de réduire chaque vague de Hunters de **33%**.</target>
       </segment>
     </unit>
+    <unit id="opportunist">
+      <segment id="opportunist.name" state="translated">
+        <source>opportunist.name</source>
+        <target>Arriviste</target>
+      </segment>
+      <segment id="opportunist.description" state="translated">
+        <source>opportunist.description</source>
+        <target>L'arriviste attend la première occasion pour monter dans la hiérarchie du vaisseau, aucune opportunité ne lui échappe.//:point: +5 :pa: lorsque vous **gagnez un titre** pour la première fois.
+        </target>
+      </segment>
+    </unit>
+    <unit id="paranoid">
+      <segment id="paranoid.name" state="translated">
+        <source>paranoid.name</source>
+        <target>Paranoïaque</target>
+      </segment>
+      <segment id="paranoid.description" state="translated">
+        <source>paranoid.description</source>
+        <target>Le paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce à ses caméras supplémentaires.//:point: Commence avec 2 **Caméras** supplémentaires.
+        </target>
+      </segment>
+    </unit>
+    <unit id="crazy_eye">
+      <segment id="crazy_eye.name" state="translated">
+        <source>crazy_eye.name</source>
+        <target>Oeil fou</target>
+      </segment>
+      <segment id="crazy_eye.description" state="translated">
+        <source>crazy_eye.description</source>
+        <target>Il n'y a pas moyen de vous surprendre vous anticipez tout les mouvements de vos ennemis mais également ceux de vos prétendus alliés. //:point: Toutes les actions agressives vous ciblant coûtent 2 :pa: supplémentaires.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

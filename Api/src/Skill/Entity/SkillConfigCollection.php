@@ -27,4 +27,9 @@ final class SkillConfigCollection extends ArrayCollection
     {
         return $this->filter(static fn (SkillConfig $skillConfig) => $player->hasSkill($skillConfig->getName()) === false);
     }
+
+    public function getAllMushSkillConfigs(): self
+    {
+        return $this->filter(static fn (SkillConfig $skillConfig) => $skillConfig->isMushSkill());
+    }
 }

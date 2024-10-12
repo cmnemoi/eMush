@@ -210,7 +210,7 @@ final class HasEquipmentValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getTarget' => $player2,
+                'playerTarget' => $player2,
             ]);
 
         $this->initValidator($this->constraint->message);

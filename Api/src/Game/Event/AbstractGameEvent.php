@@ -130,13 +130,6 @@ class AbstractGameEvent extends Event
         return null;
     }
 
-    public function mapMultipleLogs(array $map): array
-    {
-        $logs = array_intersect_key($map, array_flip($this->tags));
-
-        return array_values($logs);
-    }
-
     public function getModifiersByPriorities(array $priorities): ModifierCollection
     {
         $player = $this->author;

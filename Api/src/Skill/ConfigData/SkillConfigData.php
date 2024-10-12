@@ -44,6 +44,7 @@ abstract class SkillConfigData
                     ActionEnum::MAKE_SICK,
                 ],
             ),
+            new SkillConfigDto(name: SkillEnum::BIOLOGIST),
             new SkillConfigDto(
                 name: SkillEnum::BOTANIST,
                 skillPointsConfig: SkillPointsEnum::BOTANIST_POINTS,
@@ -283,10 +284,21 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::RADIO_EXPERT,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_X2_SIGNAL_ON_ACTION_CONTACT_SOL,
+                    ModifierNameEnum::PLACE_X1_5_SIGNAL_ON_ACTION_CONTACT_SOL,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::RADIO_PIRACY,
                 actionConfigs: [
                     ActionEnum::SCREW_TALKIE,
                 ],
+            ),
+            new SkillConfigDto(
+                name: SkillEnum::ROBOTICS_EXPERT,
+                spawnEquipmentConfig: SpawnEquipmentConfigData::ONE_SUPPORT_DRONE_BLUEPRINT_IN_PLAYER_INVENTORY,
             ),
             new SkillConfigDto(
                 name: SkillEnum::SABOTEUR,
@@ -397,6 +409,22 @@ abstract class SkillConfigData
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_2_MOVEMENT_POINT_ON_EVENT_ACTION_MOVEMENT_CONVERSION_FOR_SPRINTER,
                 ],
+            ),
+            new SkillConfigDto(
+                name: SkillEnum::OPPORTUNIST,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_PLUS_5_ACTION_POINT_ON_FIRST_TITLE_ATTRIBUTION,
+                ],
+            ),
+            new SkillConfigDto(
+                name: SkillEnum::PARANOID,
+                spawnEquipmentConfig: SpawnEquipmentConfigData::TWO_CAMERAS_IN_PLAYER_INVENTORY,
+            ),
+            new SkillConfigDto(
+                name: SkillEnum::CRAZY_EYE,
+                modifierConfigs: [
+                    ModifierNameEnum::INCREASE_AGGRESIVE_ACTION_TO_SKILL_PLAYER_BY_2_AP,
+                ]
             ),
         ];
     }

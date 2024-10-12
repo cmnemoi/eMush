@@ -66,11 +66,11 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($modifierMinusOneActionPointOnScan->getName(), $modifierMinusOneActionPointOnScan);
         $manager->persist($modifierMinusOneActionPointOnScan);
 
-        $modifierMinusOneActionPointOnScan = VariableEventModifierConfig::fromConfigData(
+        $modifierAlwaysSucceedExtinguish = VariableEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName('modifier_for_player_always_success_extinguish')
         );
-        $this->addReference($modifierMinusOneActionPointOnScan->getName(), $modifierMinusOneActionPointOnScan);
-        $manager->persist($modifierMinusOneActionPointOnScan);
+        $this->addReference($modifierAlwaysSucceedExtinguish->getName(), $modifierAlwaysSucceedExtinguish);
+        $manager->persist($modifierAlwaysSucceedExtinguish);
 
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_1_ACTION_POINT);
@@ -261,6 +261,30 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         );
         $this->addReference($strateguruModifier->getName(), $strateguruModifier);
         $manager->persist($strateguruModifier);
+
+        $opportunistModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_5_ACTION_POINT_ON_FIRST_TITLE_ATTRIBUTION)
+        );
+        $this->addReference($opportunistModifier->getName(), $opportunistModifier);
+        $manager->persist($opportunistModifier);
+
+        $crazyEyeModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::INCREASE_AGGRESIVE_ACTION_TO_SKILL_PLAYER_BY_2_AP)
+        );
+        $this->addReference($crazyEyeModifier->getName(), $crazyEyeModifier);
+        $manager->persist($crazyEyeModifier);
+
+        $radioExpertModifierOnSelf = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_X2_SIGNAL_ON_ACTION_CONTACT_SOL)
+        );
+        $this->addReference($radioExpertModifierOnSelf->getName(), $radioExpertModifierOnSelf);
+        $manager->persist($radioExpertModifierOnSelf);
+
+        $radioExpertModifierOnOtherPlayer = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLACE_X1_5_SIGNAL_ON_ACTION_CONTACT_SOL)
+        );
+        $this->addReference($radioExpertModifierOnOtherPlayer->getName(), $radioExpertModifierOnOtherPlayer);
+        $manager->persist($radioExpertModifierOnOtherPlayer);
 
         $manager->flush();
     }

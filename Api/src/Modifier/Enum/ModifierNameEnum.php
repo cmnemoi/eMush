@@ -105,4 +105,6 @@ abstract class ModifierNameEnum
     public const string RADIO_EXPERT_MODIFIER_ON_OTHER_PLAYER = 'radio_expert_modifier_on_other_player';
     public const string PLAYER_X2_SIGNAL_ON_ACTION_CONTACT_SOL = 'modifier_for_player_x2_signal_on_action_contact_sol';
     public const string PLACE_X1_5_SIGNAL_ON_ACTION_CONTACT_SOL = 'modifier_for_place_x1.5_signal_on_action_contact_sol';
+    public const string MEDIC_MODIFIER = 'medic_modifier';
+    public const string PLUS_2_HEALTH_POINTS_ON_HEAL = 'modifier_for_player_plus_2_health_points_on_heal';
 }

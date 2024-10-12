@@ -286,6 +286,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($radioExpertModifierOnOtherPlayer->getName(), $radioExpertModifierOnOtherPlayer);
         $manager->persist($radioExpertModifierOnOtherPlayer);
 
+        $medicModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLUS_2_HEALTH_POINTS_ON_HEAL)
+        );
+        $this->addReference($medicModifier->getName(), $medicModifier);
+        $manager->persist($medicModifier);
+
         $manager->flush();
     }
 

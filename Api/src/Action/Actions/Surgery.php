@@ -13,9 +13,9 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\CanHeal;
 use Mush\Action\Validator\HasDiseases;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\MedicalSuppliesOnReach;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -67,7 +67,7 @@ class Surgery extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::SURGERY_NOT_LYING_DOWN,
         ]));
-        $metadata->addConstraint(new CanHeal([
+        $metadata->addConstraint(new MedicalSuppliesOnReach([
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new HasDiseases([
@@ -86,9 +86,9 @@ class Surgery extends AbstractAction
     protected function checkResult(): ActionResult
     {
         $result = $this->randomService->outputCriticalChances(
-            $this->getModifiedPercentage(self::FAIL_CHANCES),
+            $this->getModifiedPercentage($this->failChances()),
             0,
-            $this->getModifiedPercentage(self::CRITICAL_SUCCESS_CHANCES, ActionVariableEnum::PERCENTAGE_CRITICAL)
+            $this->getModifiedPercentage($this->criticalChances(), ActionVariableEnum::PERCENTAGE_CRITICAL)
         );
 
         if ($result === ActionOutputEnum::FAIL) {
@@ -106,40 +106,49 @@ class Surgery extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $targetPlayer */
-        $targetPlayer = $this->target;
-        $date = new \DateTime();
-
         if ($result instanceof Fail) {
-            $this->failedSurgery($targetPlayer, $date);
+            $this->failedSurgery();
         } elseif ($result instanceof CriticalSuccess) {
-            $this->successSurgery($targetPlayer, ActionOutputEnum::CRITICAL_SUCCESS, $date);
+            $this->criticalSuccessSurgery();
         } elseif ($result instanceof Success) {
-            $this->successSurgery($targetPlayer, ActionOutputEnum::SUCCESS, $date);
+            $this->successSurgery();
         }
     }
 
-    private function successSurgery(Player $targetPlayer, string $result, \DateTime $time): void
+    private function criticalSuccessSurgery(): void
     {
         $diseaseEvent = new ApplyEffectEvent(
             $this->player,
-            $targetPlayer,
+            $this->playerTarget(),
             VisibilityEnum::PUBLIC,
-            [$this->getActionName() . '_' . $result],
-            $time
+            [$this->getActionName() . '_' . ActionOutputEnum::CRITICAL_SUCCESS],
+            new \DateTime()
         );
 
         $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
     }
 
-    private function failedSurgery(Player $targetPlayer, \DateTime $time): void
+    private function successSurgery(): void
     {
         $diseaseEvent = new ApplyEffectEvent(
             $this->player,
-            $targetPlayer,
+            $this->playerTarget(),
+            VisibilityEnum::PUBLIC,
+            [$this->getActionName() . '_' . ActionOutputEnum::SUCCESS],
+            new \DateTime()
+        );
+
+        $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
+    }
+
+    private function failedSurgery(): void
+    {
+        $diseaseEvent = new ApplyEffectEvent(
+            $this->player,
+            $this->playerTarget(),
             VisibilityEnum::PUBLIC,
             $this->getActionConfig()->getActionTags(),
-            $time
+            new \DateTime()
         );
         $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
     }
@@ -153,12 +162,22 @@ class Surgery extends AbstractAction
             quantity: $percentage,
             player: $this->player,
             tags: $this->getTags(),
-            actionTarget: $this->target
+            actionTarget: $this->playerTarget()
         );
 
         /** @var ActionVariableEvent $criticalRollEvent */
         $criticalRollEvent = $this->eventService->computeEventModifications($criticalRollEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);
 
         return $criticalRollEvent->getRoundedQuantity();
+    }
+
+    private function failChances(): int
+    {
+        return $this->getOutputQuantity();
+    }
+
+    private function criticalChances(): int
+    {
+        return $this->actionConfig->getCriticalRate();
     }
 }

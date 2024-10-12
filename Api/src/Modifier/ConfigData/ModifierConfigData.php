@@ -3521,6 +3521,24 @@ abstract class ModifierConfigData
                 ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PLUS_2_HEALTH_POINTS_ON_HEAL,
+            'modifierName' => ModifierNameEnum::MEDIC_MODIFIER,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 2,
+            'targetVariable' => 'outputQuantity',
+            'mode' => 'additive',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::HEAL->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SELF_HEAL->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

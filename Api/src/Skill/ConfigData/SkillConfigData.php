@@ -212,6 +212,15 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::MEDIC,
+                actionConfigs: [
+                    ActionEnum::SURGERY,
+                ],
+                modifierConfigs: [
+                    ModifierNameEnum::PLUS_2_HEALTH_POINTS_ON_HEAL,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::MOTIVATOR,
                 actionConfigs: [
                     ActionEnum::BORING_SPEECH,

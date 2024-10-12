@@ -199,6 +199,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $biologistSkillConfig */
         $biologistSkillConfig = $this->getReference(SkillEnum::BIOLOGIST->value);
 
+        /** @var SkillConfig $medicSkillConfig */
+        $medicSkillConfig = $this->getReference(SkillEnum::MEDIC->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -286,6 +289,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setCharacterName(CharacterEnum::FINOLA)
             ->setSkillConfigs([
                 $biologistSkillConfig,
+                $medicSkillConfig,
                 $nurseSkillConfig,
                 $diplomatSkillConfig,
             ])

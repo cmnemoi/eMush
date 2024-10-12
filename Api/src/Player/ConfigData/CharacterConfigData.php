@@ -304,6 +304,7 @@ class CharacterConfigData
                 SkillEnum::PILOT,
                 SkillEnum::SURVIVALIST,
                 SkillEnum::IT_EXPERT,
+                SkillEnum::RADIO_EXPERT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -498,6 +499,7 @@ class CharacterConfigData
                 SkillEnum::IT_EXPERT,
                 SkillEnum::NERON_ONLY_FRIEND,
                 SkillEnum::DIPLOMAT,
+                SkillEnum::RADIO_EXPERT,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,
@@ -639,6 +641,7 @@ class CharacterConfigData
             'name' => 'paola',
             'characterName' => 'paola',
             'skillConfigs' => [
+                SkillEnum::RADIO_EXPERT,
                 SkillEnum::SHOOTER,
                 SkillEnum::GUNNER,
                 SkillEnum::LOGISTICS_EXPERT,

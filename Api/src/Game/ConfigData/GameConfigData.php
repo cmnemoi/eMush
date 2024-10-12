@@ -654,6 +654,7 @@ class GameConfigData
                 SkillEnum::POLYVALENT,
                 SkillEnum::PRESENTIMENT,
                 SkillEnum::PYROMANIAC,
+                SkillEnum::RADIO_EXPERT,
                 SkillEnum::RADIO_PIRACY,
                 SkillEnum::ROBOTICS_EXPERT,
                 SkillEnum::SABOTEUR,

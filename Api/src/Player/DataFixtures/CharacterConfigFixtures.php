@@ -212,7 +212,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $polyvalentSkillConfig,
                 $confidentSkillConfig,
                 $expertSkillConfig,
-                $medicSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($andie);

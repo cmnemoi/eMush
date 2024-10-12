@@ -87,9 +87,6 @@ export default defineComponent({
         participateAction(): Action | null {
             return this.project.participateAction;
         },
-        repairPilgredAction(): Action | null {
-            return this.project.repairPilgredAction;
-        },
         skillIcons() {
             return SkillIconRecord;
         }

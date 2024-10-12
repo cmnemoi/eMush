@@ -790,5 +790,15 @@
         <target>Il n'y a pas moyen de vous surprendre vous anticipez tout les mouvements de vos ennemis mais également ceux de vos prétendus alliés. //:point: Toutes les actions agressives vous ciblant coûtent 2 :pa: supplémentaires.</target>
       </segment>
     </unit>
+    <unit id="medic">
+      <segment id="medic.name" state="translated">
+        <source>medic.name</source>
+        <target>Médecin</target>
+      </segment>
+      <segment id="medic.description" state="translated">
+        <source>medic.description</source>
+        <target>Le médecin possède une formation médicale, ce qui permet d'effectuer des soins rapides et précis. Il est également habilité à la chirurgie.//:point: Les actions **Soins** font gagner 2 :hp: supplémentaires.//:point: Peut effectuer des **Opérations**.//:point:Peut lire les **propriétés des médicaments**.//:point: +**4% de bonus** sur chacune des **Recherches** du Laboratoire.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

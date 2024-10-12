@@ -256,6 +256,7 @@ class CharacterConfigData
             'characterName' => 'finola',
             'skillConfigs' => [
                 SkillEnum::BIOLOGIST,
+                SkillEnum::MEDIC,
                 SkillEnum::NURSE,
                 SkillEnum::DIPLOMAT,
             ],

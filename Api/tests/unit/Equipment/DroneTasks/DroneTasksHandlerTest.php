@@ -64,58 +64,14 @@ final class DroneTasksHandlerTest extends TestCase
     {
         $this->statusService = new StatusService();
 
-        $this->extinguishFireTask = new ExtinguishFireTask(
-            $this->createStub(EventServiceInterface::class),
-            $this->statusService,
-            new InMemoryActionConfigRepository(),
-            new D100Roll(isSuccessful: false), // extinguish fire will always fail
-        );
+        $this->extinguishFireTask = $this->createExtinguishFireTask(false);
+        $this->repairBrokenEquipmentTask = $this->createRepairBrokenEquipmentTask(false);
+        $this->moveInRandomAdjacentRoomTask = $this->createMoveInRandomAdjacentRoomTask();
+        $this->takeoffTask = $this->createTakeoffTask();
+        $this->shootHunterTask = $this->createShootHunterTask(false);
+        $this->landTask = $this->createLandTask();
 
-        $this->repairBrokenEquipmentTask = new RepairBrokenEquipmentTask(
-            $this->createStub(EventServiceInterface::class),
-            $this->statusService,
-            new D100Roll(isSuccessful: false), // repair will always fail
-            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
-        );
-
-        $this->moveInRandomAdjacentRoomTask = new MoveInRandomAdjacentRoomTask(
-            $this->createStub(EventServiceInterface::class),
-            $this->statusService,
-            $this->createStub(GameEquipmentServiceInterface::class),
-            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
-        );
-
-        $this->takeoffTask = new TakeoffTask(
-            $this->createStub(EventServiceInterface::class),
-            $this->statusService,
-            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
-            $this->createStub(GameEquipmentServiceInterface::class),
-        );
-
-        $this->shootHunterTask = new ShootHunterTask(
-            $this->createStub(EventServiceInterface::class),
-            $this->statusService,
-            new D100Roll(isSuccessful: false),
-            $this->createStub(RandomServiceInterface::class),
-        );
-
-        $this->landTask = new LandTask(
-            $this->createStub(EventServiceInterface::class),
-            $this->statusService,
-            $this->createStub(PatrolShipManoeuvreServiceInterface::class),
-            $this->createStub(PlayerServiceInterface::class),
-        );
-
-        $this->droneTasks = new DroneTasksHandler(
-            d100Roll: new D100Roll(isSuccessful: true), // turbo upgrade will always succeed
-            statusService: $this->statusService,
-            extinguishFireTask: $this->extinguishFireTask,
-            repairBrokenEquipmentTask: $this->repairBrokenEquipmentTask,
-            takeoffTask: $this->takeoffTask,
-            shootHunterTask: $this->shootHunterTask,
-            landTask: $this->landTask,
-            moveInRandomAdjacentRoomTask: $this->moveInRandomAdjacentRoomTask,
-        );
+        $this->droneTasks = $this->createDroneTasksHandler();
 
         $this->daedalus = DaedalusFactory::createDaedalus();
         $this->givenDroneInRoom();
@@ -134,132 +90,52 @@ final class DroneTasksHandlerTest extends TestCase
 
     public function testTurboShouldNotApplyIfDroneDoesNotHaveRelevantUpgrade(): void
     {
-        // given drone has no turbo upgrade
-
-        // when drone acts
         $this->droneTasks->execute($this->drone, new \DateTime());
-
-        // then drone should fail to repair once so its success rate should be 75%
         self::assertEquals(75, $this->drone->getRepairSuccessRateForEquipment($this->mycoscan));
     }
 
     public function testTurboUpgradeAllowsDroneToActTwice(): void
     {
-        // given drone has turbo upgrade
         $this->givenDroneHasTurboUpgrade();
-
-        // when drone acts
         $this->droneTasks->execute($this->drone, new \DateTime());
-
-        // then drone should fail to repair twice so its success rate should be 93%
         self::assertEquals(93, $this->drone->getRepairSuccessRateForEquipment($this->mycoscan));
     }
 
     public function testMultipleTasksSuccessful(): void
     {
-        // given drone has turbo upgrade
         $this->givenDroneHasTurboUpgrade();
-
-        // given drone is firefighter
         $this->givenDroneIsFirefighter();
-
-        // given a fire in the room
         $this->givenAFireInTheRoom();
-
-        // given there is an adjacent room to go
         $this->givenAnAdjacentRoom();
 
-        // when drone acts
-        $successfulExtinguishFireTask = new ExtinguishFireTask(
-            $this->createStub(EventServiceInterface::class),
-            $this->statusService,
-            new InMemoryActionConfigRepository(),
-            new D100Roll(isSuccessful: true),
-        );
-
-        $successfulRepairTask = new RepairBrokenEquipmentTask(
-            $this->createStub(EventServiceInterface::class),
-            $this->statusService,
-            new D100Roll(isSuccessful: true),
-            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
-        );
-
+        $successfulExtinguishFireTask = $this->createExtinguishFireTask(true);
+        $successfulRepairTask = $this->createRepairBrokenEquipmentTask(true);
         $moveEquipmentService = \Mockery::spy(GameEquipmentServiceInterface::class);
-        $moveInRandomAdjacentRoomTask = new MoveInRandomAdjacentRoomTask(
-            $this->createStub(EventServiceInterface::class),
-            $this->statusService,
-            $moveEquipmentService,
-            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
-        );
+        $moveInRandomAdjacentRoomTask = $this->createMoveInRandomAdjacentRoomTask($moveEquipmentService);
 
-        $droneTasks = new DroneTasksHandler(
-            d100Roll: new D100Roll(isSuccessful: true), // turbo upgrade will always succeed
-            statusService: $this->statusService,
-            extinguishFireTask: $successfulExtinguishFireTask,
-            repairBrokenEquipmentTask: $successfulRepairTask,
-            takeoffTask: $this->takeoffTask,
-            shootHunterTask: $this->shootHunterTask,
-            landTask: $this->landTask,
-            moveInRandomAdjacentRoomTask: $moveInRandomAdjacentRoomTask,
-        );
+        $droneTasks = $this->createDroneTasksHandler($successfulExtinguishFireTask, $successfulRepairTask, $moveInRandomAdjacentRoomTask);
         $droneTasks->execute($this->drone, new \DateTime());
 
-        // then fire should be extinguished
         self::assertFalse($this->drone->getPlace()->hasStatus(StatusEnum::FIRE));
-
-        // then equipment should be repaired
         self::assertFalse($this->mycoscan->isBroken());
-
-        // then drone should be in lab
         $moveEquipmentService->shouldNotHaveReceived('moveEquipmentTo');
     }
 
     public function testOneTaskUnavailableTheTwoOthersSuccessful(): void
     {
-        // given drone has turbo upgrade
         $this->givenDroneHasTurboUpgrade();
-
-        // given a fire in the room
         $this->givenAFireInTheRoom();
-
-        // given there is an adjacent room to go
         $this->givenAnAdjacentRoom();
 
-        // when drone acts
-        $successfulRepairTask = new RepairBrokenEquipmentTask(
-            $this->createStub(EventServiceInterface::class),
-            $this->statusService,
-            new D100Roll(isSuccessful: true),
-            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
-        );
-
+        $successfulRepairTask = $this->createRepairBrokenEquipmentTask(true);
         $moveEquipmentService = \Mockery::spy(GameEquipmentServiceInterface::class);
-        $moveInRandomAdjacentRoomTask = new MoveInRandomAdjacentRoomTask(
-            $this->createStub(EventServiceInterface::class),
-            $this->statusService,
-            $moveEquipmentService,
-            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
-        );
+        $moveInRandomAdjacentRoomTask = $this->createMoveInRandomAdjacentRoomTask($moveEquipmentService);
 
-        $droneTasks = new DroneTasksHandler(
-            d100Roll: new D100Roll(isSuccessful: true), // turbo upgrade will always succeed
-            statusService: $this->statusService,
-            extinguishFireTask: $this->extinguishFireTask,
-            repairBrokenEquipmentTask: $successfulRepairTask,
-            takeoffTask: $this->takeoffTask,
-            shootHunterTask: $this->shootHunterTask,
-            landTask: $this->landTask,
-            moveInRandomAdjacentRoomTask: $moveInRandomAdjacentRoomTask,
-        );
+        $droneTasks = $this->createDroneTasksHandler($this->extinguishFireTask, $successfulRepairTask, $moveInRandomAdjacentRoomTask);
         $droneTasks->execute($this->drone, new \DateTime());
 
-        // then fire should not be extinguished
         self::assertTrue($this->drone->getPlace()->hasStatus(StatusEnum::FIRE));
-
-        // then equipment should be repaired
         self::assertFalse($this->mycoscan->isBroken());
-
-        // then drone should be in front corridor
         $moveEquipmentService->shouldHaveReceived('moveEquipmentTo')->once();
     }
 
@@ -321,5 +197,82 @@ final class DroneTasksHandlerTest extends TestCase
     {
         $adjacentRoom = Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $this->daedalus);
         Door::createFromRooms($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY), $adjacentRoom);
+    }
+
+    private function createDroneTasksHandler(
+        ?ExtinguishFireTask $extinguishFireTask = null,
+        ?RepairBrokenEquipmentTask $repairBrokenEquipmentTask = null,
+        ?MoveInRandomAdjacentRoomTask $moveInRandomAdjacentRoomTask = null
+    ): DroneTasksHandler {
+        return new DroneTasksHandler(
+            d100Roll: new D100Roll(isSuccessful: true),
+            statusService: $this->statusService,
+            extinguishFireTask: $extinguishFireTask ?? $this->extinguishFireTask,
+            repairBrokenEquipmentTask: $repairBrokenEquipmentTask ?? $this->repairBrokenEquipmentTask,
+            takeoffTask: $this->takeoffTask,
+            shootHunterTask: $this->shootHunterTask,
+            landTask: $this->landTask,
+            moveInRandomAdjacentRoomTask: $moveInRandomAdjacentRoomTask ?? $this->moveInRandomAdjacentRoomTask,
+        );
+    }
+
+    private function createExtinguishFireTask(bool $isSuccessful): ExtinguishFireTask
+    {
+        return new ExtinguishFireTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            new InMemoryActionConfigRepository(),
+            new D100Roll(isSuccessful: $isSuccessful),
+        );
+    }
+
+    private function createRepairBrokenEquipmentTask(bool $isSuccessful): RepairBrokenEquipmentTask
+    {
+        return new RepairBrokenEquipmentTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            new D100Roll(isSuccessful: $isSuccessful),
+            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
+        );
+    }
+
+    private function createMoveInRandomAdjacentRoomTask($equipmentService = null): MoveInRandomAdjacentRoomTask
+    {
+        return new MoveInRandomAdjacentRoomTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            $equipmentService ?: $this->createStub(GameEquipmentServiceInterface::class),
+            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
+        );
+    }
+
+    private function createTakeoffTask(): TakeoffTask
+    {
+        return new TakeoffTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
+            $this->createStub(GameEquipmentServiceInterface::class),
+        );
+    }
+
+    private function createShootHunterTask(bool $isSuccessful): ShootHunterTask
+    {
+        return new ShootHunterTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            new D100Roll(isSuccessful: $isSuccessful),
+            $this->createStub(RandomServiceInterface::class),
+        );
+    }
+
+    private function createLandTask(): LandTask
+    {
+        return new LandTask(
+            $this->createStub(EventServiceInterface::class),
+            $this->statusService,
+            $this->createStub(PatrolShipManoeuvreServiceInterface::class),
+            $this->createStub(PlayerServiceInterface::class),
+        );
     }
 }

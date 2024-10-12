@@ -173,11 +173,6 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $this->getPlayers()->getPlayerByName($name) ?: Player::createNull();
     }
 
-    public function getAlivePlayers(): PlayerCollection
-    {
-        return $this->getPlayers()->getPlayerAlive();
-    }
-
     public function getAlivePlayersExcept(Player $player): PlayerCollection
     {
         return $this->getAlivePlayers()->getAllExcept($player);

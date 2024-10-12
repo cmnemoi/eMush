@@ -23,13 +23,17 @@ node_modules
 docker/docker-compose.dev.yml
 
 .php_cs.cache
-.php-cs-fixer.cache
 
 .phpunit.result.cache
 .vscode/
 *.sql
 
 vendor/
-install_php.log
+.psalm/
 
 TODO.md
+
+# .log files
+*.log
+
+.aider*

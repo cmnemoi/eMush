@@ -20,4 +20,6 @@ interface CycleServiceInterface
     public function getNumberOfCycleElapsed(\DateTime $start, \DateTime $end, DaedalusInfo $daedalusInfo): int;
 
     public function getExplorationDateStartNextCycle(Exploration $exploration): \DateTime;
+
+    public function handleExplorationCycleChange(\DateTime $dateTime, Exploration $exploration): int;
 }

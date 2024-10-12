@@ -145,6 +145,57 @@ class CycleService implements CycleServiceInterface
         return $nextCycleStartAt->add(new \DateInterval('PT' . $exploration->getCycleLength() . 'M'));
     }
 
+    public function handleExplorationCycleChange(\DateTime $dateTime, Exploration $exploration): int
+    {
+        $closedExploration = $exploration->getClosedExploration();
+        if ($this->isDaedalusOrExplorationFinished($closedExploration)) {
+            return 0;
+        }
+
+        $dateExplorationLastCycle = $exploration->getUpdatedAt();
+        if ($dateExplorationLastCycle === null) {
+            throw new \LogicException('Exploration should have an UpdatedAt Value');
+        }
+        $dateExplorationLastCycle = clone $dateExplorationLastCycle;
+
+        $cycleElapsed = $this->getNumberOfExplorationCycleElapsed($dateExplorationLastCycle, $dateTime, $exploration);
+
+        if ($cycleElapsed > 0) {
+            $this->activateExplorationCycleChange($exploration);
+
+            try {
+                $this->entityManager->beginTransaction();
+                for ($i = 0; $i < $cycleElapsed; ++$i) {
+                    $dateExplorationLastCycle->add(new \DateInterval('PT' . $exploration->getCycleLength() . 'M'));
+                    $cycleEvent = new ExplorationEvent(
+                        $exploration,
+                        [EventEnum::NEW_CYCLE],
+                        $dateExplorationLastCycle
+                    );
+                    $this->eventService->callEvent($cycleEvent, ExplorationEvent::EXPLORATION_NEW_CYCLE);
+
+                    // Do not continue make cycle if Daedalus or exploration is finished
+                    if ($this->isDaedalusOrExplorationFinished($closedExploration)) {
+                        break;
+                    }
+                }
+                $this->deactivateExplorationCycleChange($exploration);
+                $this->entityManager->commit();
+            } catch (\Throwable $e) {
+                $this->logger->error('Error during exploration cycle change', [
+                    'exploration' => $exploration->getId(),
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
+                $this->entityManager->rollback();
+                $this->deactivateExplorationCycleChange($exploration);
+                $this->entityManager->close();
+            }
+        }
+
+        return $cycleElapsed;
+    }
+
     private function handleDaedalusCycleChange(\DateTime $dateTime, Daedalus $daedalus): int
     {
         $daedalusInfo = $daedalus->getDaedalusInfo();
@@ -196,57 +247,6 @@ class CycleService implements CycleServiceInterface
                 $this->entityManager->close();
 
                 throw $error;
-            }
-        }
-
-        return $cycleElapsed;
-    }
-
-    private function handleExplorationCycleChange(\DateTime $dateTime, Exploration $exploration): int
-    {
-        $closedExploration = $exploration->getClosedExploration();
-        if ($this->isDaedalusOrExplorationFinished($closedExploration)) {
-            return 0;
-        }
-
-        $dateExplorationLastCycle = $exploration->getUpdatedAt();
-        if ($dateExplorationLastCycle === null) {
-            throw new \LogicException('Exploration should have an UpdatedAt Value');
-        }
-        $dateExplorationLastCycle = clone $dateExplorationLastCycle;
-
-        $cycleElapsed = $this->getNumberOfExplorationCycleElapsed($dateExplorationLastCycle, $dateTime, $exploration);
-
-        if ($cycleElapsed > 0) {
-            $this->activateExplorationCycleChange($exploration);
-
-            try {
-                $this->entityManager->beginTransaction();
-                for ($i = 0; $i < $cycleElapsed; ++$i) {
-                    $dateExplorationLastCycle->add(new \DateInterval('PT' . $exploration->getCycleLength() . 'M'));
-                    $cycleEvent = new ExplorationEvent(
-                        $exploration,
-                        [EventEnum::NEW_CYCLE],
-                        $dateExplorationLastCycle
-                    );
-                    $this->eventService->callEvent($cycleEvent, ExplorationEvent::EXPLORATION_NEW_CYCLE);
-
-                    // Do not continue make cycle if Daedalus or exploration is finished
-                    if ($this->isDaedalusOrExplorationFinished($closedExploration)) {
-                        break;
-                    }
-                }
-                $this->deactivateExplorationCycleChange($exploration);
-                $this->entityManager->commit();
-            } catch (\Throwable $e) {
-                $this->logger->error('Error during exploration cycle change', [
-                    'exploration' => $exploration->getId(),
-                    'error' => $e->getMessage(),
-                    'trace' => $e->getTraceAsString(),
-                ]);
-                $this->entityManager->rollback();
-                $this->deactivateExplorationCycleChange($exploration);
-                $this->entityManager->close();
             }
         }
 

@@ -22,7 +22,7 @@ interface PlayerDiseaseServiceInterface
     public function createDiseaseFromName(
         string $diseaseName,
         Player $player,
-        array $reasons,
+        array $reasons = [],
         ?int $delayMin = null,
         ?int $delayLength = null
     ): PlayerDisease;

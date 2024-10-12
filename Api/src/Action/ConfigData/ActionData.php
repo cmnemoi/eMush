@@ -1004,8 +1004,8 @@ class ActionData
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 80, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
-            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageCritical' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
+            'outputQuantity' => ['value' => 10, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => 'self_surgery',

@@ -246,6 +246,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
+    public function isNotIn(string $placeName): bool
+    {
+        return $this->getPlace()->getName() !== $placeName;
+    }
+
     /**
      * This method returns all rooms connected to player's one by a working door.
      *
@@ -317,14 +322,19 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function hasEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
+        return $this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty() === false;
     }
 
     public function hasOperationalEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(
+        return $this->getEquipments()->filter(
             static fn (GameItem $gameItem) => $gameItem->getName() === $name && $gameItem->isOperational()
-        )->isEmpty();
+        )->isEmpty() === false;
+    }
+
+    public function doesNotHaveEquipment(string $name): bool
+    {
+        return $this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
     }
 
     public function getEquipmentByName(string $name): ?GameEquipment

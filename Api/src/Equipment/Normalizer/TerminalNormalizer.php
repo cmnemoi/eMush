@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Normalizer;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\AbstractMoveDaedalusAction;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Enum\ActionHolderEnum;
@@ -18,6 +19,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -95,6 +97,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'sectionTitles' => $this->normalizeTerminalSectionTitles($terminal),
             'buttons' => $this->getNormalizedTerminalButtons($terminal),
             'projects' => $this->getNormalizedTerminalProjects($terminal, $format, $context),
+            'items' => $this->getNormalizedTerminalItems($terminal, $format, $context),
         ];
 
         $astroTerminalInfos = $this->normalizeAstroTerminalInfos($terminal, $format, $context);
@@ -102,8 +105,9 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $biosTerminalInfos = $this->normalizeBiosTerminalInfos($terminal);
         $pilgredTerminalInfos = $this->getNormalizedPilgredTerminalInfos($terminal);
         $neronCoreInfos = $this->getNormalizedNeronCoreInfos($terminal);
+        $researchTerminalInfos = $this->getNormalizedResearchTerminalInfos($terminal);
 
-        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos, $biosTerminalInfos, $pilgredTerminalInfos, $neronCoreInfos);
+        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos, $biosTerminalInfos, $pilgredTerminalInfos, $neronCoreInfos, $researchTerminalInfos);
 
         return $normalizedTerminal;
     }
@@ -131,6 +135,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $projects = match ($terminal->getName()) {
             EquipmentEnum::PILGRED => [$terminal->getDaedalus()->getPilgred()],
             EquipmentEnum::NERON_CORE, EquipmentEnum::AUXILIARY_TERMINAL => $terminal->getDaedalus()->getProposedNeronProjects(),
+            EquipmentEnum::RESEARCH_LABORATORY => $terminal->getDaedalus()->getVisibleResearchProjects(),
             default => [],
         };
 
@@ -144,6 +149,30 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $normalizedProjects;
+    }
+
+    private function getNormalizedTerminalItems(GameEquipment $terminal, ?string $format, array $context): array
+    {
+        if ($terminal->getName() !== EquipmentEnum::RESEARCH_LABORATORY) {
+            return [];
+        }
+
+        /** @var Player $currentPlayer */
+        $currentPlayer = $context['currentPlayer'];
+
+        $playerItems = $currentPlayer->getEquipments();
+        $laboratoryItems = $terminal
+            ->getDaedalus()
+            ->getPlaceByNameOrThrow(RoomEnum::LABORATORY)
+            ->getItems();
+
+        $allItems = array_merge($playerItems->toArray(), $laboratoryItems->toArray());
+        $normalizedItems = [];
+        foreach ($allItems as $item) {
+            $normalizedItems[] = $this->normalizer->normalize($item, $format, $context);
+        }
+
+        return $normalizedItems;
     }
 
     private function getNormalizedTerminalButtons(GameEquipment $terminal): array
@@ -300,6 +329,45 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
                 language: $language
             ),
         ];
+    }
+
+    private function getNormalizedResearchTerminalInfos(GameEquipment $terminal): array
+    {
+        $terminalKey = $terminal->getName();
+        if ($terminalKey !== EquipmentEnum::RESEARCH_LABORATORY) {
+            return [];
+        }
+        $daedalus = $terminal->getDaedalus();
+
+        return [
+            'requirements' => $this->getFullfilledResearchRequirements($daedalus, $terminalKey),
+        ];
+    }
+
+    private function getFullfilledResearchRequirements(Daedalus $daedalus, string $terminalKey): array
+    {
+        $allRequirements = new ArrayCollection(
+            [
+                [
+                    'key' => 'chun_present',
+                    'fullfilled' => $daedalus->isChunInLaboratory(),
+                ],
+                [
+                    'key' => 'mush_dead',
+                    'fullfilled' => $daedalus->hasAnyMushDied(),
+                ],
+            ]
+        );
+
+        return $allRequirements
+            ->filter(static fn ($requirement) => $requirement['fullfilled'])
+            ->map(function ($requirement) use ($terminalKey) {
+                return $this->translationService->translate(
+                    key: $terminalKey . '.' . $requirement['key'],
+                    parameters: [],
+                    domain: 'terminal'
+                );
+            })->toArray();
     }
 
     private function getNormalizedPilgredTerminalInfos(GameEquipment $terminal): array

@@ -26,6 +26,7 @@ use Mush\Modifier\Entity\ModifierHolderTrait;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Project\Collection\ProjectCollection;
@@ -41,6 +42,8 @@ use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+
+use function Amp\Iterator\filter;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus')]
@@ -179,6 +182,20 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getPlayers()->getPlayerByName($name);
     }
 
+    public function deadMushCount(): int
+    {
+        return $this
+            ->getPlayers()
+            ->getDeadClosedPlayers()
+            ->filter(static fn (ClosedPlayer $closedPlayer) => $closedPlayer->isMush())
+            ->count();
+    }
+
+    public function hasAnyMushDied(): bool
+    {
+        return $this->deadMushCount() > 0;
+    }
+
     public function getAlivePlayerByNameOrThrow(string $name): Player
     {
         $player = $this->getAlivePlayers()->getPlayerByName($name);
@@ -187,6 +204,12 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         }
 
         return $player;
+    }
+
+    public function getVisibleResearchProjects()
+    {
+        // # TODO filter only the ones that are possible to research
+        return $this->getResearchProjects();
     }
 
     public function getPlaces(): Collection
@@ -698,6 +721,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->projects->filter(static fn (Project $project) => $project->isAvailableNeronProject());
     }
 
+    public function getResearchProjects(): Collection
+    {
+        return $this->projects->filter(static fn (Project $project) => $project->isResearchProject());
+    }
+
     public function getProposedNeronProjects(): ProjectCollection
     {
         return new ProjectCollection($this->projects->filter(static fn (Project $project) => $project->isProposedNeronProject())->toArray());
@@ -901,6 +929,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function hasAPariah(): bool
     {
         return $this->getAlivePlayers()->hasPlayerWithStatus(PlayerStatusEnum::PARIAH);
+    }
+
+    public function isChunInLaboratory(): bool
+    {
+        return $this->getPlaceByNameOrThrow(RoomEnum::LABORATORY)->isChunIn();
     }
 
     public function isExplorationChangingCycle(): bool

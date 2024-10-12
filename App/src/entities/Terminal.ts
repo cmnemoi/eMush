@@ -3,6 +3,7 @@ import { TerminalSectionTitles } from "@/entities/TerminalSectionTitles";
 import { TerminalInfos } from "@/entities/TerminalInfos";
 import { TerminalButtons } from "@/entities/TerminalButtons";
 import { Project } from "@/entities/Project";
+import { Item } from "./Item";
 
 export class Terminal {
     public id!: number;
@@ -14,6 +15,7 @@ export class Terminal {
     public infos!: TerminalInfos;
     public buttons!: TerminalButtons;
     public projects!: Project[];
+    public items!: Item[];
 
     public load(object: any): Terminal {
         if (object) {
@@ -21,6 +23,7 @@ export class Terminal {
             this.key = object.key;
             this.name = object.name;
             this.tips = object.tips;
+            this.items = object.items;
             if (typeof object.actions !== 'undefined') {
                 object.actions.forEach((actionObject: any) => {
                     const action = (new Action()).load(actionObject);

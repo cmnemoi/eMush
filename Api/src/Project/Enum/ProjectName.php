@@ -49,4 +49,27 @@ enum ProjectName: string
     case TRASH_LOAD = 'trash_load';
     case TURRET_EXTRA_FIRE_RATE = 'turret_extra_fire_rate';
     case WHOS_WHO = 'whos_who';
+    case ANABOLICS = 'anabolics';
+    case ANTISPORE_GAS = 'antispore_gas';
+    case CONSTIPASPORE_SERUM = 'constipaspore_serum';
+    case CREATE_MYCOSCAN = 'create_mycoscan';
+    case MERIDON_SCRAMBLER = 'meridon_scrambler';
+    case MUSH_HUNTER_ZC16H = 'mush_hunter_zc16h';
+    case MUSHICIDE_SOAP = 'mushicide_soap';
+    case MUSH_LANGUAGE = 'mush_language';
+    case MUSHOVORE_BACTERIA = 'mushovore_bacteria';
+    case MUSH_RACES = 'mush_races';
+    case MUSH_REPRODUCTIVE_SYSTEM = 'mush_reproductive_system';
+    case MYCOALARM = 'mycoalarm';
+    case NARCOTICS_DISTILLER = 'narcotics_distiller';
+    case NATAMY_RIFLE = 'natamy_rifle';
+    case NCC_CONTACT_LENSES = 'ncc_contact_lenses';
+    case PATULINE_SCRAMBLER = 'patuline_scrambler';
+    case PERPETUAL_HYDRATION = 'perpetual_hydration';
+    case PHEROMODEM = 'pheromodem';
+    case RETRO_FUNGAL_SERUM = 'retro_fungal_serum';
+    case SPORE_SUCKER = 'spore_sucker';
+    case SUPER_CALCULATOR = 'super_calculator';
+    case TESLA_SUP2X = 'tesla_sup2x';
+    case ULTRA_HEALING_POMADE = 'ultra_healing_pomade';
 }

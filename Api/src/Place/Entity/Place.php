@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -174,7 +175,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
 
     public function getAlivePlayersExcept(Player $player): PlayerCollection
     {
-        return $this->getPlayers()->getPlayerAlive()->getAllExcept($player);
+        return $this->getAlivePlayers()->getAllExcept($player);
     }
 
     public function getAlivePlayers(): PlayerCollection
@@ -229,6 +230,14 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         $this->players->removeElement($player);
 
         return $this;
+    }
+
+    public function getItems(): Collection
+    {
+        return
+             $this
+                 ->getEquipments()
+                 ->filter(static fn (GameEquipment $equipment) => ($equipment->getClassName() === GameItem::class));
     }
 
     public function getEquipments(): Collection
@@ -543,6 +552,11 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     public function hasAnAliveShrinkExceptPlayer(Player $player): bool
     {
         return $this->getAliveShrinksExceptPlayer($player)->count() > 0;
+    }
+
+    public function isChunIn(): bool
+    {
+        return $this->getAlivePlayers()->hasPlayerByName(CharacterEnum::CHUN);
     }
 
     public function hasAGuardian(): bool

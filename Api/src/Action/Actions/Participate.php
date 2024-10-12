@@ -19,7 +19,7 @@ final class Participate extends AbstractParticipateAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new ProjectType([
-            'type' => ProjectTypeEnum::NERON_PROJECT,
+            'types' => [ProjectTypeEnum::NERON_PROJECT, ProjectTypeEnum::RESEARCH],
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new HasStatus([

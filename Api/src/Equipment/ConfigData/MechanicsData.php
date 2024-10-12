@@ -3810,5 +3810,15 @@ class MechanicsData
                 'modifier_for_place_x2_maturation_time',
             ],
         ],
+        [
+            'name' => 'tool_research_lab_default',
+            'type' => EquipmentMechanicEnum::TOOL,
+            'actions' => [
+                ActionEnum::PARTICIPATE->value,
+                ActionEnum::ACCESS_TERMINAL->value,
+                ActionEnum::EXIT_TERMINAL->value,
+            ],
+            'modifierConfigs' => [],
+        ],
     ];
 }

@@ -66,6 +66,11 @@ class PlayerCollection extends ArrayCollection
         return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isInactive());
     }
 
+    public function hasPlayerByName(string $name)
+    {
+        return $this->getPlayerByName($name) !== null;
+    }
+
     public function getNumberOfHumanAndAnonymushPlayers(): int
     {
         $anoymushPlayers = $this->getPlayersWithSkill(SkillEnum::ANONYMUSH)->toArray();
@@ -108,6 +113,13 @@ class PlayerCollection extends ArrayCollection
     public function hasPlayerWithStatus(string $status): bool
     {
         return $this->getPlayerWithStatus($status) !== null;
+    }
+
+    public function getDeadClosedPlayers(): ArrayCollection
+    {
+        return $this
+            ->filter(static fn (Player $player) => $player->isDead())
+            ->map(static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer());
     }
 
     private function getPlayerWithStatus(string $status): ?Player

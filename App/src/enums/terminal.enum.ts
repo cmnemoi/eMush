@@ -5,6 +5,6 @@ export enum TerminalEnum {
     BLOCK_OF_POST_IT = "block_of_post_it",
     COMMAND_TERMINAL = "command_terminal",
     NERON_CORE_TERMINAL = "neron_core",
-    RESEARCH_LAB_TERMINAL = "research_lab",
+    RESEARCH_LAB_TERMINAL = "research_laboratory",
     PILGRED_TERMINAL = "pilgred",
 };

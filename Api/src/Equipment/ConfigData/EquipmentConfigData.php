@@ -2662,7 +2662,9 @@ class EquipmentConfigData
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                'tool_research_lab_default',
+            ],
             'initStatuses' => [],
         ],
         [

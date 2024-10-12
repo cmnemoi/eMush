@@ -168,6 +168,32 @@ final class SelfHealCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveSpore(1, $I);
     }
 
+    public function medicShouldGiveMoreHealthPoints(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsInMedlab($I);
+
+        $this->givenPlayerIsAMedic($I);
+
+        $this->givenPlayerHasHealthPoints(6);
+
+        $this->whenPlayerHealsSelf();
+
+        $this->thenPlayerShouldHaveHealthPoints(11, $I);
+    }
+
+    public function medicShouldNotGiveMoreHealthPointsOnFail(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsInMedlab($I);
+
+        $this->givenPlayerIsAMedic($I);
+
+        $this->givenPlayerHasHealthPoints(14);
+
+        $this->whenPlayerHealsSelf();
+
+        $this->thenPlayerShouldHaveHealthPoints(14, $I);
+    }
+
     private function givenPlayerIsInMedlab(FunctionalTester $I): void
     {
         $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
@@ -184,6 +210,16 @@ final class SelfHealCest extends AbstractFunctionalTest
         $this->player->setSpores($quantity);
     }
 
+    private function givenPlayerIsAMedic(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::MEDIC, $I);
+    }
+
+    private function givenPlayerHasHealthPoints(int $healthPoints): void
+    {
+        $this->player->setHealthPoint($healthPoints);
+    }
+
     private function whenPlayerHealsSelf(): void
     {
         $this->selfHealAction->loadParameters(
@@ -197,5 +233,10 @@ final class SelfHealCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveSpore(int $quantity, FunctionalTester $I): void
     {
         $I->assertEquals($quantity, $this->player->getSpores());
+    }
+
+    private function thenPlayerShouldHaveHealthPoints(int $healthPoints, FunctionalTester $I): void
+    {
+        $I->assertEquals($healthPoints, $this->player->getHealthPoint());
     }
 }

@@ -196,6 +196,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $roboticsExpertSkillConfig */
         $roboticsExpertSkillConfig = $this->getReference(SkillEnum::ROBOTICS_EXPERT->value);
 
+        /** @var SkillConfig $biologistSkillConfig */
+        $biologistSkillConfig = $this->getReference(SkillEnum::BIOLOGIST->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -282,6 +285,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(CharacterEnum::FINOLA)
             ->setCharacterName(CharacterEnum::FINOLA)
             ->setSkillConfigs([
+                $biologistSkillConfig,
                 $nurseSkillConfig,
                 $diplomatSkillConfig,
             ])
@@ -339,6 +343,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setCharacterName(CharacterEnum::IAN)
             ->setSkillConfigs([
                 $botanistSkillConfig,
+                $biologistSkillConfig,
                 $mycologistSkillConfig,
                 $firefighterSkillConfig,
                 $greenThumbSkillConfig,
@@ -396,9 +401,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(CharacterEnum::PAOLA)
             ->setCharacterName(CharacterEnum::PAOLA)
             ->setSkillConfigs([
-                $shooterSkillConfig,
-                $gunnerSkillConfig,
                 $logisticExpert,
+                $shooterSkillConfig,
+                $biologistSkillConfig,
+                $gunnerSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($paola);

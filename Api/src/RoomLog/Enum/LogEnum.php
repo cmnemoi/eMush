@@ -80,6 +80,12 @@ abstract class LogEnum
     public const string LEARNED_SKILL = 'learned_skill';
     public const string STRATEGURU_WORKED = 'strateguru_worked';
     public const string DROP_SUCCESS = 'drop_success';
+    public const string DRONE_EXTINGUISHED_FIRE = 'drone_extinguished_fire';
+    public const string DRONE_TURBO_WORKED = 'drone_turbo_worked';
+    public const string DRONE_TAKEOFF = 'drone_takeoff';
+    public const string DRONE_HIT_HUNTER = 'drone_hit_hunter';
+    public const string DRONE_KILL_HUNTER = 'drone_kill_hunter';
+    public const string DRONE_LAND = 'drone_land';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

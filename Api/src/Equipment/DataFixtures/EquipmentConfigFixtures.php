@@ -464,6 +464,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ChargeStatusConfig $patrolShipChargeStatus */
         $patrolShipChargeStatus = $this->getReference(ChargeStatusFixtures::PATROLLER_CHARGE);
 
+        /** @var ChargeStatusConfig $patrolShipArmorStatus */
+        $patrolShipArmorStatus = $this->getReference(ChargeStatusFixtures::PATROL_SHIP_ARMOR);
+
         $icarusPatrolShip = $this->createPatrolShip(
             [$takeoffAction, $landAction, $collectScrap, $takeoffToPlanetAction],
             EquipmentEnum::ICARUS,
@@ -488,6 +491,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setMechanics([$icarusPatrolShip])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($icarus);
+
+        /** @var ActionConfig $shootHunterRandomPatrolShipAction */
+        $shootHunterRandomPatrolShipAction = $this->getReference(ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value);
 
         $patrolShipMechanic = $this->createPatrolShip(
             [$takeoffAction, $landAction, $collectScrap, $takeoffToPlanetAction],
@@ -532,7 +538,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                     6 => 1,
                 ]
             )
-            ->addAction($shootHunterPatrolShipAction);
+            ->setBaseAccuracy(40)
+            ->addAction($shootHunterPatrolShipAction)
+            ->addAction($shootHunterRandomPatrolShipAction);
 
         $patrolShip = new EquipmentConfig();
         $patrolShip
@@ -542,7 +550,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsBreakable(true)
             ->setActionConfigs([$sabotage12, $examineAction, $renovateAction])
             ->setMechanics([$patrolShipMechanic, $patrolShipWeapon])
-            ->setInitStatuses([$patrolShipChargeStatus])
+            ->setInitStatuses([$patrolShipChargeStatus, $patrolShipArmorStatus])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($patrolShipMechanic);
         $manager->persist($patrolShipWeapon);

@@ -1120,5 +1120,41 @@
         <target>opportunist_worked</target>
       </segment>
     </unit>
+    <unit id="drone_extinguished_fire">
+      <segment id="drone_extinguished_fire" state="translated">
+        <source>drone_extinguished_fire</source>
+        <target>:fires: {drone} a éteint l'incendie !</target>
+      </segment>
+    </unit>
+    <unit id="drone_turbo_worked">
+      <segment id="drone_turbo_worked" state="translated">
+        <source>drone_turbo_worked</source>
+        <target>La compétence **Turbo** de {drone} a porté ses fruits...</target>
+      </segment>
+    </unit>
+    <unit id="drone_takeoff">
+      <segment id="drone_takeoff" state="translated">
+        <source>drone_takeoff</source>
+        <target>{drone} vient de décoller.</target>
+      </segment>
+    </unit>
+    <unit id="drone_hit_hunter">
+      <segment id="drone_hit_hunter" state="translated">
+        <source>drone_hit_hunter</source>
+        <target>:hunter: C'était presque ça ! {drone} a touché un **{hunter}**.</target>
+      </segment>
+    </unit>
+    <unit id="drone_kill_hunter">
+      <segment id="drone_kill_hunter" state="translated">
+        <source>drone_kill_hunter</source>
+        <target>:hunter: {drone} émet une trille de bonheur ! Un **{hunter}** de moins, *bli bli blip* !</target>
+      </segment>
+    </unit>
+    <unit id="drone_land">
+      <segment id="drone_land" state="translated">
+        <source>drone_land</source>
+        <target>Le Patrouilleur de {drone} vient d'atterrir.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

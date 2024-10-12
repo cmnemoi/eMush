@@ -99,7 +99,7 @@ final class PlantStrategyTest extends TestCase
             Place::createRoomByNameInDaedalus(RoomEnum::HYDROPONIC_GARDEN, DaedalusFactory::createDaedalus())
         );
 
-        $youngStatusConfig = new ChargeStatusConfig();
+        $youngStatusConfig = ChargeStatusConfig::createNull();
         $youngStatusConfig
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->setMaxCharge(10)

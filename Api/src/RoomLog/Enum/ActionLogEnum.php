@@ -148,6 +148,9 @@ abstract class ActionLogEnum
     public const string REINFORCE_SUCCESS = 'reinforce_success';
     public const string REINFORCE_FAIL = 'reinforce_fail';
     public const string COLLECT_SCRAP_FAIL = 'collect_scrap_fail';
+    public const string UPGRADE_DRONE_TO_TURBO_SUCCESS = 'upgrade_drone_to_turbo_success';
+    public const string UPGRADE_DRONE_TO_FIREFIGHTER_SUCCESS = 'upgrade_drone_to_firefighter_success';
+    public const string UPGRADE_DRONE_TO_PILOT_SUCCESS = 'upgrade_drone_to_pilot_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [

@@ -484,14 +484,9 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($autoWateringFiresKilled);
 
-        $droneCharges = new ChargeStatusConfig();
-        $droneCharges
-            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
-            ->setAutoRemove(false)
-            ->buildName(GameConfigEnum::DEFAULT);
+        $droneCharges = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(\sprintf('%s_%s_default', EquipmentStatusEnum::ELECTRIC_CHARGES, ItemEnum::SUPPORT_DRONE))
+        );
         $manager->persist($droneCharges);
 
         $hasChitchattedStatus = ChargeStatusConfig::fromConfigData(
@@ -546,6 +541,26 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($slimedStatus);
 
+        $turboDroneUpgrade = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(EquipmentStatusEnum::TURBO_DRONE_UPGRADE . '_default')
+        );
+        $manager->persist($turboDroneUpgrade);
+
+        $droneRepairFailedAttempts = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(EquipmentStatusEnum::DRONE_REPAIR_FAILED_ATTEMPTS . '_default')
+        );
+        $manager->persist($droneRepairFailedAttempts);
+
+        $droneExtinguishFailedAttempts = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(EquipmentStatusEnum::DRONE_EXTINGUISH_FAILED_ATTEMPTS . '_default')
+        );
+        $manager->persist($droneExtinguishFailedAttempts);
+
+        $droneShootHunterFailedAttempts = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(EquipmentStatusEnum::DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS . '_default')
+        );
+        $manager->persist($droneShootHunterFailedAttempts);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -589,7 +604,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($slimedStatus)
             ->addStatusConfig($deloggedStatus)
             ->addStatusConfig($hasUsedDelogStatus)
-            ->addStatusConfig($slimeTrapStatus);
+            ->addStatusConfig($slimeTrapStatus)
+            ->addStatusConfig($turboDroneUpgrade)
+            ->addStatusConfig($droneRepairFailedAttempts)
+            ->addStatusConfig($droneExtinguishFailedAttempts)
+            ->addStatusConfig($droneShootHunterFailedAttempts);
 
         $manager->persist($gameConfig);
 
@@ -638,6 +657,10 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference($hasUsedDelogStatus->getName(), $hasUsedDelogStatus);
         $this->addReference($slimeTrapStatus->getName(), $slimeTrapStatus);
         $this->addReference(EquipmentStatusEnum::SLIMED, $slimedStatus);
+        $this->addReference(EquipmentStatusEnum::TURBO_DRONE_UPGRADE, $turboDroneUpgrade);
+        $this->addReference(EquipmentStatusEnum::DRONE_REPAIR_FAILED_ATTEMPTS, $droneRepairFailedAttempts);
+        $this->addReference(EquipmentStatusEnum::DRONE_EXTINGUISH_FAILED_ATTEMPTS, $droneExtinguishFailedAttempts);
+        $this->addReference(EquipmentStatusEnum::DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS, $droneShootHunterFailedAttempts);
     }
 
     public function getDependencies(): array

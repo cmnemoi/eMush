@@ -833,6 +833,7 @@ class CharacterConfigData
             'name' => 'terrence',
             'characterName' => 'terrence',
             'skillConfigs' => [
+                SkillEnum::ROBOTICS_EXPERT,
                 SkillEnum::TECHNICIAN,
                 SkillEnum::PILOT,
                 SkillEnum::SHOOTER,

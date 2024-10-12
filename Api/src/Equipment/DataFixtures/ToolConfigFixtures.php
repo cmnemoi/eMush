@@ -8,6 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
@@ -151,7 +152,13 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($camera);
 
         /** @var ActionConfig $extinguishAction */
-        $extinguishAction = $this->getReference(ActionsFixtures::EXTINGUISH_DEFAULT);
+        $extinguishAction = $this->getReference(ActionEnum::EXTINGUISH->value);
+
+        $extinguisherTool = new Tool();
+        $extinguisherTool
+            ->addAction($extinguishAction)
+            ->buildName(EquipmentMechanicEnum::TOOL . '_' . ToolItemEnum::EXTINGUISHER, GameConfigEnum::DEFAULT);
+        $manager->persist($extinguisherTool);
 
         $extinguisher = new ItemConfig();
         $extinguisher
@@ -163,8 +170,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setActionConfigs([
                 $takeAction, $dropAction, $hideAction, $examineAction,
                 $dismantle325, $repair25, $sabotage25, $reportAction,
-                $extinguishAction,
             ])
+            ->setMechanics([$extinguisherTool])
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($extinguisher);

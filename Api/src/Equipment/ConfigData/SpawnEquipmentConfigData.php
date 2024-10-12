@@ -13,6 +13,7 @@ abstract class SpawnEquipmentConfigData
 {
     public const string TWO_CAMERAS_IN_PLAYER_INVENTORY = 'two_cameras_in_player_inventory';
     public const string TWO_HYDROPOTS_IN_PLAYER_INVENTORY = 'two_hydropots_in_player_inventory';
+    public const string ONE_SUPPORT_DRONE_BLUEPRINT_IN_PLAYER_INVENTORY = 'one_support_drone_blueprint_in_player_inventory';
 
     /**
      * @return SpawnEquipmentConfigDto[]
@@ -89,6 +90,11 @@ abstract class SpawnEquipmentConfigData
                 name: self::TWO_CAMERAS_IN_PLAYER_INVENTORY,
                 equipmentName: ItemEnum::CAMERA_ITEM,
                 quantity: 2,
+            ),
+            new SpawnEquipmentConfigDto(
+                name: self::ONE_SUPPORT_DRONE_BLUEPRINT_IN_PLAYER_INVENTORY,
+                equipmentName: 'support_drone_blueprint',
+                quantity: 1,
             ),
         ];
     }

@@ -44,6 +44,7 @@ abstract class SkillConfigData
                     ActionEnum::MAKE_SICK,
                 ],
             ),
+            new SkillConfigDto(name: SkillEnum::BIOLOGIST),
             new SkillConfigDto(
                 name: SkillEnum::BOTANIST,
                 skillPointsConfig: SkillPointsEnum::BOTANIST_POINTS,

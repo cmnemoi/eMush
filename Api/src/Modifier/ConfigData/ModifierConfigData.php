@@ -2812,8 +2812,8 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_player_always_success_extinguish',
-            'modifierName' => null,
-            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'modifierName' => ModifierNameEnum::FIREFIGHTER_MODIFIER,
+            'targetEvent' => self::DUMMY_EVENT,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
             'applyOnTarget' => false,
@@ -3027,8 +3027,8 @@ abstract class ModifierConfigData
         ],
         [
             'name' => ModifierNameEnum::PLAYER_ALWAYS_SUCCEEDS_REPAIR_ACTION,
-            'modifierName' => null,
-            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'modifierName' => ModifierNameEnum::GENIUS_MODIFIER,
+            'targetEvent' => self::DUMMY_EVENT,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
             'applyOnTarget' => false,

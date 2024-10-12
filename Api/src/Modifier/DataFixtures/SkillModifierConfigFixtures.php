@@ -66,11 +66,11 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($modifierMinusOneActionPointOnScan->getName(), $modifierMinusOneActionPointOnScan);
         $manager->persist($modifierMinusOneActionPointOnScan);
 
-        $modifierMinusOneActionPointOnScan = VariableEventModifierConfig::fromConfigData(
+        $modifierAlwaysSucceedExtinguish = VariableEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName('modifier_for_player_always_success_extinguish')
         );
-        $this->addReference($modifierMinusOneActionPointOnScan->getName(), $modifierMinusOneActionPointOnScan);
-        $manager->persist($modifierMinusOneActionPointOnScan);
+        $this->addReference($modifierAlwaysSucceedExtinguish->getName(), $modifierAlwaysSucceedExtinguish);
+        $manager->persist($modifierAlwaysSucceedExtinguish);
 
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_1_ACTION_POINT);

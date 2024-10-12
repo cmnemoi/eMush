@@ -1,0 +1,1298 @@
+This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)
+Thank you. Please provide your password when prompted.
+Updating system...
+Running: sudo apt-get update -yq && sudo apt-get upgrade -yq
+Hit:1 https://download.docker.com/linux/ubuntu jammy InRelease
+Get:2 https://cli.github.com/packages stable InRelease [3,917 B]
+Hit:3 https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy InRelease
+Hit:4 http://mirror.infomaniak.ch/ubuntu jammy InRelease
+Get:5 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy InRelease [24.6 kB]
+Err:2 https://cli.github.com/packages stable InRelease
+  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+Ign:6 https://releases.warp.dev/linux/deb stable InRelease
+Get:7 https://packages.microsoft.com/repos/code stable InRelease [3,590 B]
+Hit:8 http://mirror.eu-fr.kamatera.com/ubuntu jammy InRelease
+Hit:9 http://ubuntu.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:10 http://ubuntu.bhs.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:11 https://ubuntu.univ-reims.fr/ubuntu jammy InRelease
+Hit:12 https://releases.warp.dev/linux/deb stable Release
+Get:13 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy/main amd64 Packages [130 kB]
+Get:14 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy/main i386 Packages [29.6 kB]
+Get:15 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy/main Translation-en [40.3 kB]
+Get:16 https://packages.microsoft.com/repos/code stable/main amd64 Packages [18.8 kB]
+Get:17 https://packages.microsoft.com/repos/code stable/main armhf Packages [18.9 kB]
+Get:18 https://packages.microsoft.com/repos/code stable/main arm64 Packages [18.8 kB]
+Hit:20 http://apt.pop-os.org/proprietary jammy InRelease
+Hit:22 http://apt.pop-os.org/release jammy InRelease
+Hit:23 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:19 https://packagecloud.io/github/git-lfs/ubuntu jammy InRelease
+Get:24 http://apt.pop-os.org/ubuntu jammy-security InRelease [129 kB]
+Get:25 http://apt.pop-os.org/ubuntu jammy-updates InRelease [128 kB]
+Hit:26 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Fetched 541 kB in 3s (197 kB/s)
+Reading package lists...
+W: An error occurred during the signature verification. The repository is not updated and the previous index files will be used. GPG error: https://cli.github.com/packages stable InRelease: The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+W: Failed to fetch https://cli.github.com/packages/dists/stable/InRelease  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+W: Some index files failed to download. They have been ignored, or old ones used instead.
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages have been kept back:
+  libgd3 libgd3:i386 libnetplan0 netplan.io
+The following packages will be upgraded:
+  accountsservice appstream-data-pop appstream-data-pop-icons bluez bluez-cups
+  bluez-obexd code cups-browsed cups-filters cups-filters-core-drivers firefox
+  gdm3 gir1.2-accountsservice-1.0 gir1.2-gdm-1.0 gir1.2-mutter-10
+  gnome-control-center gnome-control-center-data gnome-control-center-faces
+  gnome-shell gnome-shell-common gnome-shell-extension-prefs
+  libaccountsservice0 libbluetooth3 libcupsfilters1 libfontembed1 libgdm1
+  libmutter-10-0 libnss-myhostname libnss-systemd libpam-systemd libsystemd0
+  libsystemd0:i386 libudev1 libudev1:i386 mutter-common pop-icon-theme
+  pop-launcher systemd systemd-sysv systemd-timesyncd ubuntu-drivers-common
+  udev xserver-xorg-video-amdgpu
+43 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Need to get 214 MB of archives.
+After this operation, 1,739 kB disk space will be freed.
+Get:1 http://apt.pop-os.org/release jammy/main amd64 libnss-systemd amd64 249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7 [294 kB]
+Get:2 http://apt.pop-os.org/release jammy/main amd64 libudev1 amd64 249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7 [235 kB]
+Get:3 http://apt.pop-os.org/release jammy/main i386 libudev1 i386 249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7 [239 kB]
+Get:4 http://apt.pop-os.org/ubuntu jammy-security/main amd64 bluez amd64 5.64-0ubuntu1.3 [1,106 kB]
+Get:5 http://apt.pop-os.org/release jammy/main i386 libsystemd0 i386 249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7 [498 kB]
+Get:6 http://apt.pop-os.org/release jammy/main amd64 libsystemd0 amd64 249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7 [475 kB]
+Get:7 http://apt.pop-os.org/release jammy/main amd64 systemd amd64 249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7 [4,823 kB]
+Get:8 http://apt.pop-os.org/release jammy/main amd64 udev amd64 249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7 [1,719 kB]
+Get:9 http://apt.pop-os.org/release jammy/main amd64 systemd-timesyncd amd64 249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7 [166 kB]
+Get:10 http://apt.pop-os.org/release jammy/main amd64 systemd-sysv amd64 249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7 [171 kB]
+Get:11 http://apt.pop-os.org/release jammy/main amd64 libpam-systemd amd64 249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7 [364 kB]
+Get:12 http://apt.pop-os.org/ubuntu jammy-security/main amd64 libcupsfilters1 amd64 1.28.15-0ubuntu1.3 [129 kB]
+Get:13 http://apt.pop-os.org/ubuntu jammy-security/main amd64 cups-browsed amd64 1.28.15-0ubuntu1.3 [114 kB]
+Get:14 http://apt.pop-os.org/release jammy/main amd64 ubuntu-drivers-common amd64 1:0.9.6.2~0.22.04.7pop0~1727961281~22.04~a952724 [82.1 kB]
+Get:15 http://apt.pop-os.org/ubuntu jammy-security/main amd64 libbluetooth3 amd64 5.64-0ubuntu1.3 [86.9 kB]
+Get:16 http://apt.pop-os.org/release jammy/main amd64 accountsservice amd64 22.07.5-2ubuntu1.5pop0~1727958756~22.04~31bc419 [99.3 kB]
+Get:17 http://apt.pop-os.org/release jammy/main amd64 libaccountsservice0 amd64 22.07.5-2ubuntu1.5pop0~1727958756~22.04~31bc419 [69.4 kB]
+Get:18 http://apt.pop-os.org/release jammy/main amd64 appstream-data-pop all 0.0.3~1727715771~22.04~23d51d3 [16.9 kB]
+Get:19 http://apt.pop-os.org/release jammy/main amd64 appstream-data-pop-icons all 0.0.3~1727715771~22.04~23d51d3 [167 kB]
+Get:20 http://apt.pop-os.org/ubuntu jammy-security/main amd64 bluez-cups amd64 5.64-0ubuntu1.3 [26.4 kB]
+Get:21 http://apt.pop-os.org/ubuntu jammy-security/main amd64 bluez-obexd amd64 5.64-0ubuntu1.3 [232 kB]
+Get:22 http://apt.pop-os.org/ubuntu jammy-security/main amd64 cups-filters-core-drivers amd64 1.28.15-0ubuntu1.3 [157 kB]
+Get:23 http://apt.pop-os.org/ubuntu jammy-security/main amd64 libfontembed1 amd64 1.28.15-0ubuntu1.3 [52.2 kB]
+Get:24 http://apt.pop-os.org/ubuntu jammy-security/main amd64 cups-filters amd64 1.28.15-0ubuntu1.3 [480 kB]
+Get:25 http://apt.pop-os.org/release jammy/main amd64 firefox amd64 1:131.0~1727814761~22.04~dbe9d35 [76.4 MB]
+Get:26 https://packages.microsoft.com/repos/code stable/main amd64 code amd64 1.94.0-1727878498 [108 MB]
+Get:27 http://apt.pop-os.org/release jammy/main amd64 gdm3 amd64 42.0-1ubuntu7.22.04.4pop0~1727959198~22.04~6fe7e40 [817 kB]
+Get:28 http://apt.pop-os.org/release jammy/main amd64 libgdm1 amd64 42.0-1ubuntu7.22.04.4pop0~1727959198~22.04~6fe7e40 [114 kB]
+Get:29 http://apt.pop-os.org/release jammy/main amd64 gir1.2-gdm-1.0 amd64 42.0-1ubuntu7.22.04.4pop0~1727959198~22.04~6fe7e40 [65.3 kB]
+Get:30 http://apt.pop-os.org/release jammy/main amd64 gnome-shell-extension-prefs amd64 42.9-0ubuntu2.2pop0~1727960056~22.04~84a3bea [65.0 kB]
+Get:31 http://apt.pop-os.org/release jammy/main amd64 gir1.2-mutter-10 amd64 42.9-0ubuntu9pop0~1727960749~22.04~a024e16 [184 kB]
+Get:32 http://apt.pop-os.org/release jammy/main amd64 libmutter-10-0 amd64 42.9-0ubuntu9pop0~1727960749~22.04~a024e16 [1,428 kB]
+Get:33 http://apt.pop-os.org/release jammy/main amd64 gnome-control-center-data all 1:41.7-0ubuntu0.22.04.9pop0~1727959659~22.04~a1bcd6c [2,928 kB]
+Get:34 http://apt.pop-os.org/release jammy/main amd64 gnome-control-center amd64 1:41.7-0ubuntu0.22.04.9pop0~1727959659~22.04~a1bcd6c [1,817 kB]
+Get:35 http://apt.pop-os.org/release jammy/main amd64 gnome-shell amd64 42.9-0ubuntu2.2pop0~1727960056~22.04~84a3bea [929 kB]
+Get:36 http://apt.pop-os.org/release jammy/main amd64 gnome-shell-common all 42.9-0ubuntu2.2pop0~1727960056~22.04~84a3bea [961 kB]
+Get:37 http://apt.pop-os.org/release jammy/main amd64 mutter-common all 42.9-0ubuntu9pop0~1727960749~22.04~a024e16 [556 kB]
+Get:38 http://apt.pop-os.org/release jammy/main amd64 gir1.2-accountsservice-1.0 amd64 22.07.5-2ubuntu1.5pop0~1727958756~22.04~31bc419 [15.8 kB]
+Get:39 http://apt.pop-os.org/release jammy/main amd64 gnome-control-center-faces all 1:41.7-0ubuntu0.22.04.9pop0~1727959659~22.04~a1bcd6c [1,266 kB]
+Get:40 http://apt.pop-os.org/release jammy/main amd64 libnss-myhostname amd64 249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7 [211 kB]
+Get:41 http://apt.pop-os.org/release jammy/main amd64 pop-icon-theme all 3.5.1~1727801177~22.04~1a575a8 [3,375 kB]
+Get:42 http://apt.pop-os.org/release jammy/main amd64 pop-launcher amd64 1.2.3~1727746060~22.04~476a8fb [2,720 kB]
+Get:43 http://apt.pop-os.org/ubuntu jammy-updates/main amd64 xserver-xorg-video-amdgpu amd64 22.0.0-1ubuntu0.2 [71.8 kB]
+Preconfiguring packages ...
+Fetched 214 MB in 6s (38.0 MB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 403757 files and directories currently installed.)
+Preparing to unpack .../libnss-systemd_249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7_amd64.deb ...
+Unpacking libnss-systemd:amd64 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) over (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf) ...
+Preparing to unpack .../libudev1_249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7_i386.deb ...
+De-configuring libudev1:amd64 (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf), to allow configuration of libudev1:i386 (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf) ...
+Unpacking libudev1:i386 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) over (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf) ...
+Preparing to unpack .../libudev1_249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7_amd64.deb ...
+Unpacking libudev1:amd64 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) over (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf) ...
+Setting up libudev1:amd64 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 403757 files and directories currently installed.)
+Preparing to unpack .../bluez_5.64-0ubuntu1.3_amd64.deb ...
+Unpacking bluez (5.64-0ubuntu1.3) over (5.64-0ubuntu1pop1~1674313994~22.04~579884f) ...
+Preparing to unpack .../libsystemd0_249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7_amd64.deb ...
+De-configuring libsystemd0:i386 (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf), to allow configuration of libsystemd0:amd64 (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf) ...
+Unpacking libsystemd0:amd64 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) over (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf) ...
+Preparing to unpack .../libsystemd0_249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7_i386.deb ...
+Unpacking libsystemd0:i386 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) over (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf) ...
+Preparing to unpack .../systemd_249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7_amd64.deb ...
+Unpacking systemd (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) over (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf) ...
+Setting up libsystemd0:amd64 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) ...
+Setting up systemd (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 403757 files and directories currently installed.)
+Preparing to unpack .../udev_249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7_amd64.deb ...
+Unpacking udev (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) over (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf) ...
+Setting up udev (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 403757 files and directories currently installed.)
+Preparing to unpack .../0-systemd-timesyncd_249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7_amd64.deb ...
+Unpacking systemd-timesyncd (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) over (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf) ...
+Preparing to unpack .../1-systemd-sysv_249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7_amd64.deb ...
+Unpacking systemd-sysv (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) over (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf) ...
+Preparing to unpack .../2-libpam-systemd_249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7_amd64.deb ...
+Unpacking libpam-systemd:amd64 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) over (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf) ...
+Preparing to unpack .../3-libcupsfilters1_1.28.15-0ubuntu1.3_amd64.deb ...
+Unpacking libcupsfilters1:amd64 (1.28.15-0ubuntu1.3) over (1.28.15-0ubuntu1pop1~1675905868~22.04~a59ec7b) ...
+Preparing to unpack .../4-cups-browsed_1.28.15-0ubuntu1.3_amd64.deb ...
+Unpacking cups-browsed (1.28.15-0ubuntu1.3) over (1.28.15-0ubuntu1pop1~1675905868~22.04~a59ec7b) ...
+Preparing to unpack .../5-ubuntu-drivers-common_1%3a0.9.6.2~0.22.04.7pop0~1727961281~22.04~a952724_amd64.deb ...
+Unpacking ubuntu-drivers-common (1:0.9.6.2~0.22.04.7pop0~1727961281~22.04~a952724) over (1:0.9.6.1pop0~1652303087~22.04~1aab0f9) ...
+Preparing to unpack .../6-libbluetooth3_5.64-0ubuntu1.3_amd64.deb ...
+Unpacking libbluetooth3:amd64 (5.64-0ubuntu1.3) over (5.64-0ubuntu1pop1~1674313994~22.04~579884f) ...
+Setting up libbluetooth3:amd64 (5.64-0ubuntu1.3) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 403757 files and directories currently installed.)
+Preparing to unpack .../00-accountsservice_22.07.5-2ubuntu1.5pop0~1727958756~22.04~31bc419_amd64.deb ...
+Unpacking accountsservice (22.07.5-2ubuntu1.5pop0~1727958756~22.04~31bc419) over (22.07.5-2ubuntu1.3pop1~1675994188~22.04~45e75a8) ...
+Preparing to unpack .../01-libaccountsservice0_22.07.5-2ubuntu1.5pop0~1727958756~22.04~31bc419_amd64.deb ...
+Unpacking libaccountsservice0:amd64 (22.07.5-2ubuntu1.5pop0~1727958756~22.04~31bc419) over (22.07.5-2ubuntu1.3pop1~1675994188~22.04~45e75a8) ...
+Preparing to unpack .../02-appstream-data-pop_0.0.3~1727715771~22.04~23d51d3_all.deb ...
+Unpacking appstream-data-pop (0.0.3~1727715771~22.04~23d51d3) over (0.0.3~1713548381~22.04~1074a51) ...
+Preparing to unpack .../03-appstream-data-pop-icons_0.0.3~1727715771~22.04~23d51d3_all.deb ...
+Unpacking appstream-data-pop-icons (0.0.3~1727715771~22.04~23d51d3) over (0.0.3~1713548381~22.04~1074a51) ...
+Preparing to unpack .../04-bluez-cups_5.64-0ubuntu1.3_amd64.deb ...
+Unpacking bluez-cups (5.64-0ubuntu1.3) over (5.64-0ubuntu1pop1~1674313994~22.04~579884f) ...
+Preparing to unpack .../05-bluez-obexd_5.64-0ubuntu1.3_amd64.deb ...
+Unpacking bluez-obexd (5.64-0ubuntu1.3) over (5.64-0ubuntu1pop1~1674313994~22.04~579884f) ...
+Preparing to unpack .../06-code_1.94.0-1727878498_amd64.deb ...
+Unpacking code (1.94.0-1727878498) over (1.93.1-1726079302) ...
+Preparing to unpack .../07-cups-filters-core-drivers_1.28.15-0ubuntu1.3_amd64.deb ...
+Unpacking cups-filters-core-drivers (1.28.15-0ubuntu1.3) over (1.28.15-0ubuntu1pop1~1675905868~22.04~a59ec7b) ...
+Preparing to unpack .../08-libfontembed1_1.28.15-0ubuntu1.3_amd64.deb ...
+Unpacking libfontembed1:amd64 (1.28.15-0ubuntu1.3) over (1.28.15-0ubuntu1pop1~1675905868~22.04~a59ec7b) ...
+Preparing to unpack .../09-cups-filters_1.28.15-0ubuntu1.3_amd64.deb ...
+Unpacking cups-filters (1.28.15-0ubuntu1.3) over (1.28.15-0ubuntu1pop1~1675905868~22.04~a59ec7b) ...
+Preparing to unpack .../10-firefox_1%3a131.0~1727814761~22.04~dbe9d35_amd64.deb ...
+Unpacking firefox (1:131.0~1727814761~22.04~dbe9d35) over (1:130.0.1~1726606343~22.04~44c3a30) ...
+Preparing to unpack .../11-gdm3_42.0-1ubuntu7.22.04.4pop0~1727959198~22.04~6fe7e40_amd64.deb ...
+Unpacking gdm3 (42.0-1ubuntu7.22.04.4pop0~1727959198~22.04~6fe7e40) over (42.0-1ubuntu7pop1~1675905960~22.04~7fd0bb0) ...
+Preparing to unpack .../12-libgdm1_42.0-1ubuntu7.22.04.4pop0~1727959198~22.04~6fe7e40_amd64.deb ...
+Unpacking libgdm1 (42.0-1ubuntu7.22.04.4pop0~1727959198~22.04~6fe7e40) over (42.0-1ubuntu7pop1~1675905960~22.04~7fd0bb0) ...
+Preparing to unpack .../13-gir1.2-gdm-1.0_42.0-1ubuntu7.22.04.4pop0~1727959198~22.04~6fe7e40_amd64.deb ...
+Unpacking gir1.2-gdm-1.0:amd64 (42.0-1ubuntu7.22.04.4pop0~1727959198~22.04~6fe7e40) over (42.0-1ubuntu7pop1~1675905960~22.04~7fd0bb0) ...
+Preparing to unpack .../14-gnome-shell-extension-prefs_42.9-0ubuntu2.2pop0~1727960056~22.04~84a3bea_amd64.deb ...
+Unpacking gnome-shell-extension-prefs (42.9-0ubuntu2.2pop0~1727960056~22.04~84a3bea) over (42.9-0ubuntu2.1pop0~1715266817~22.04~2c675c6) ...
+Preparing to unpack .../15-gir1.2-mutter-10_42.9-0ubuntu9pop0~1727960749~22.04~a024e16_amd64.deb ...
+Unpacking gir1.2-mutter-10:amd64 (42.9-0ubuntu9pop0~1727960749~22.04~a024e16) over (42.9-0ubuntu4pop0~1694017775~22.04~f186280) ...
+Preparing to unpack .../16-libmutter-10-0_42.9-0ubuntu9pop0~1727960749~22.04~a024e16_amd64.deb ...
+Unpacking libmutter-10-0:amd64 (42.9-0ubuntu9pop0~1727960749~22.04~a024e16) over (42.9-0ubuntu4pop0~1694017775~22.04~f186280) ...
+Preparing to unpack .../17-gnome-control-center-data_1%3a41.7-0ubuntu0.22.04.9pop0~1727959659~22.04~a1bcd6c_all.deb ...
+Unpacking gnome-control-center-data (1:41.7-0ubuntu0.22.04.9pop0~1727959659~22.04~a1bcd6c) over (1:41.4-1ubuntu12pop1~1701107237~22.04~eba04d3) ...
+Preparing to unpack .../18-gnome-control-center_1%3a41.7-0ubuntu0.22.04.9pop0~1727959659~22.04~a1bcd6c_amd64.deb ...
+Unpacking gnome-control-center (1:41.7-0ubuntu0.22.04.9pop0~1727959659~22.04~a1bcd6c) over (1:41.4-1ubuntu12pop1~1701107237~22.04~eba04d3) ...
+Preparing to unpack .../19-gnome-shell_42.9-0ubuntu2.2pop0~1727960056~22.04~84a3bea_amd64.deb ...
+Unpacking gnome-shell (42.9-0ubuntu2.2pop0~1727960056~22.04~84a3bea) over (42.9-0ubuntu2.1pop0~1715266817~22.04~2c675c6) ...
+Preparing to unpack .../20-gnome-shell-common_42.9-0ubuntu2.2pop0~1727960056~22.04~84a3bea_all.deb ...
+Unpacking gnome-shell-common (42.9-0ubuntu2.2pop0~1727960056~22.04~84a3bea) over (42.9-0ubuntu2.1pop0~1715266817~22.04~2c675c6) ...
+Preparing to unpack .../21-mutter-common_42.9-0ubuntu9pop0~1727960749~22.04~a024e16_all.deb ...
+Unpacking mutter-common (42.9-0ubuntu9pop0~1727960749~22.04~a024e16) over (42.9-0ubuntu4pop0~1694017775~22.04~f186280) ...
+Preparing to unpack .../22-gir1.2-accountsservice-1.0_22.07.5-2ubuntu1.5pop0~1727958756~22.04~31bc419_amd64.deb ...
+Unpacking gir1.2-accountsservice-1.0:amd64 (22.07.5-2ubuntu1.5pop0~1727958756~22.04~31bc419) over (22.07.5-2ubuntu1.3pop1~1675994188~22.04~45e75a8) ...
+Preparing to unpack .../23-gnome-control-center-faces_1%3a41.7-0ubuntu0.22.04.9pop0~1727959659~22.04~a1bcd6c_all.deb ...
+Unpacking gnome-control-center-faces (1:41.7-0ubuntu0.22.04.9pop0~1727959659~22.04~a1bcd6c) over (1:41.4-1ubuntu12pop1~1701107237~22.04~eba04d3) ...
+Preparing to unpack .../24-libnss-myhostname_249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7_amd64.deb ...
+Unpacking libnss-myhostname:amd64 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) over (249.11-0ubuntu3.11pop0~1704473387~22.04~3ce38bf) ...
+Preparing to unpack .../25-pop-icon-theme_3.5.1~1727801177~22.04~1a575a8_all.deb ...
+Unpacking pop-icon-theme (3.5.1~1727801177~22.04~1a575a8) over (3.5.0~1687556040~22.04~3126c6a) ...
+Preparing to unpack .../26-pop-launcher_1.2.3~1727746060~22.04~476a8fb_amd64.deb ...
+Unpacking pop-launcher (1.2.3~1727746060~22.04~476a8fb) over (1.2.3~1723669139~22.04~6a1b8b9) ...
+Preparing to unpack .../27-xserver-xorg-video-amdgpu_22.0.0-1ubuntu0.2_amd64.deb ...
+Unpacking xserver-xorg-video-amdgpu (22.0.0-1ubuntu0.2) over (22.0.0-1ubuntu0.1pop1~1677198820~22.04~2e82f80) ...
+Setting up code (1.94.0-1727878498) ...
+Setting up systemd-sysv (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) ...
+Setting up ubuntu-drivers-common (1:0.9.6.2~0.22.04.7pop0~1727961281~22.04~a952724) ...
+Setting up firefox (1:131.0~1727814761~22.04~dbe9d35) ...
+Setting up libfontembed1:amd64 (1.28.15-0ubuntu1.3) ...
+Setting up libgdm1 (42.0-1ubuntu7.22.04.4pop0~1727959198~22.04~6fe7e40) ...
+Setting up xserver-xorg-video-amdgpu (22.0.0-1ubuntu0.2) ...
+Setting up gnome-shell-common (42.9-0ubuntu2.2pop0~1727960056~22.04~84a3bea) ...
+Setting up libnss-systemd:amd64 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) ...
+Setting up libsystemd0:i386 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) ...
+Setting up bluez-obexd (5.64-0ubuntu1.3) ...
+Setting up bluez (5.64-0ubuntu1.3) ...
+Installing new version of config file /etc/bluetooth/input.conf ...
+Setting up mutter-common (42.9-0ubuntu9pop0~1727960749~22.04~a024e16) ...
+Setting up gnome-control-center-data (1:41.7-0ubuntu0.22.04.9pop0~1727959659~22.04~a1bcd6c) ...
+Setting up appstream-data-pop (0.0.3~1727715771~22.04~23d51d3) ...
+Setting up systemd-timesyncd (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) ...
+Setting up pop-icon-theme (3.5.1~1727801177~22.04~1a575a8) ...
+Setting up libnss-myhostname:amd64 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) ...
+Setting up libudev1:i386 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) ...
+Setting up bluez-cups (5.64-0ubuntu1.3) ...
+Setting up gnome-control-center-faces (1:41.7-0ubuntu0.22.04.9pop0~1727959659~22.04~a1bcd6c) ...
+Setting up pop-launcher (1.2.3~1727746060~22.04~476a8fb) ...
+Setting up libpam-systemd:amd64 (249.11-0ubuntu3.12pop0~1727961019~22.04~2b3beb7) ...
+Setting up libaccountsservice0:amd64 (22.07.5-2ubuntu1.5pop0~1727958756~22.04~31bc419) ...
+Setting up libcupsfilters1:amd64 (1.28.15-0ubuntu1.3) ...
+Setting up accountsservice (22.07.5-2ubuntu1.5pop0~1727958756~22.04~31bc419) ...
+Setting up cups-browsed (1.28.15-0ubuntu1.3) ...
+Installing new version of config file /etc/cups/cups-browsed.conf ...
+Setting up gir1.2-accountsservice-1.0:amd64 (22.07.5-2ubuntu1.5pop0~1727958756~22.04~31bc419) ...
+Setting up cups-filters-core-drivers (1.28.15-0ubuntu1.3) ...
+Setting up appstream-data-pop-icons (0.0.3~1727715771~22.04~23d51d3) ...
+Setting up cups-filters (1.28.15-0ubuntu1.3) ...
+Processing triggers for desktop-file-utils (0.26-1ubuntu3) ...
+Processing triggers for initramfs-tools (0.140ubuntu13.4pop2~1711143149~22.04~e0b5994) ...
+update-initramfs: Generating /boot/initrd.img-6.9.3-76060903-generic
+W: Possible missing firmware /lib/firmware/amdgpu/ip_discovery.bin for module amdgpu
+W: Possible missing firmware /lib/firmware/amdgpu/vega10_cap.bin for module amdgpu
+W: Possible missing firmware /lib/firmware/amdgpu/sienna_cichlid_cap.bin for module amdgpu
+W: Possible missing firmware /lib/firmware/amdgpu/navi12_cap.bin for module amdgpu
+W: Possible missing firmware /lib/firmware/amdgpu/aldebaran_cap.bin for module amdgpu
+W: Possible missing firmware /lib/firmware/amdgpu/psp_14_0_3_sos.bin for module amdgpu
+W: Possible missing firmware /lib/firmware/amdgpu/psp_14_0_2_sos.bin for module amdgpu
+W: Possible missing firmware /lib/firmware/amdgpu/gc_11_0_0_toc.bin for module amdgpu
+W: Possible missing firmware /lib/firmware/amdgpu/sienna_cichlid_mes1.bin for module amdgpu
+W: Possible missing firmware /lib/firmware/amdgpu/sienna_cichlid_mes.bin for module amdgpu
+W: Possible missing firmware /lib/firmware/amdgpu/navi10_mes.bin for module amdgpu
+W: Possible missing firmware /lib/firmware/amdgpu/gc_11_0_3_mes.bin for module amdgpu
+W: Possible missing firmware /lib/firmware/amdgpu/vcn_5_0_0.bin for module amdgpu
+W: Possible missing firmware /lib/firmware/amdgpu/smu_14_0_2.bin for module amdgpu
+kernelstub.Config    : INFO     Looking for configuration...
+kernelstub           : INFO     System information: 
+
+    OS:..................Pop!_OS 22.04
+    Root partition:....../dev/nvme0n1p3
+    Root FS UUID:........8d2f0443-d766-4e18-b664-ffc04965c6b8
+    ESP Path:............/boot/efi
+    ESP Partition:......./dev/nvme0n1p1
+    ESP Partition #:.....1
+    NVRAM entry #:.......-1
+    Boot Variable #:.....0000
+    Kernel Boot Options:.quiet loglevel=0 systemd.show_status=false splash
+    Kernel Image Path:.../boot/vmlinuz-6.9.3-76060903-generic
+    Initrd Image Path:.../boot/initrd.img-6.9.3-76060903-generic
+    Force-overwrite:.....False
+
+kernelstub.Installer : INFO     Copying Kernel into ESP
+kernelstub.Installer : INFO     Copying initrd.img into ESP
+kernelstub.Installer : INFO     Setting up loader.conf configuration
+kernelstub.Installer : INFO     Making entry file for Pop!_OS
+kernelstub.Installer : INFO     Backing up old kernel
+kernelstub.Installer : INFO     Making entry file for Pop!_OS
+Processing triggers for hicolor-icon-theme (0.17-2) ...
+Processing triggers for cups (2.4.1op1-1ubuntu4.11) ...
+Updating PPD files for cups-filters ...
+Processing triggers for gnome-menus (3.36.0-1ubuntu3) ...
+Processing triggers for libglib2.0-0:i386 (2.72.4-0ubuntu2.3) ...
+Processing triggers for libglib2.0-0:amd64 (2.72.4-0ubuntu2.3) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.8) ...
+Processing triggers for man-db (2.10.2-1) ...
+Processing triggers for appstream (0.15.2-2pop1~1686239344~22.04~e648e85) ...
+• Updating software metadata cache for the operating system.
+✔ Metadata cache was updated successfully.
+Processing triggers for dbus (1.12.20-2ubuntu4.1) ...
+Processing triggers for shared-mime-info (2.1-2) ...
+Setting up libmutter-10-0:amd64 (42.9-0ubuntu9pop0~1727960749~22.04~a024e16) ...
+Processing triggers for dbus-broker (29-4build1) ...
+Setting up gir1.2-gdm-1.0:amd64 (42.0-1ubuntu7.22.04.4pop0~1727959198~22.04~6fe7e40) ...
+Processing triggers for mailcap (3.70+nmu1ubuntu1) ...
+Setting up gnome-control-center (1:41.7-0ubuntu0.22.04.9pop0~1727959659~22.04~a1bcd6c) ...
+Setting up gir1.2-mutter-10:amd64 (42.9-0ubuntu9pop0~1727960749~22.04~a024e16) ...
+Setting up gnome-shell (42.9-0ubuntu2.2pop0~1727960056~22.04~84a3bea) ...
+Setting up gdm3 (42.0-1ubuntu7.22.04.4pop0~1727959198~22.04~6fe7e40) ...
+Setting up gnome-shell-extension-prefs (42.9-0ubuntu2.2pop0~1727960056~22.04~84a3bea) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.8) ...
+Installing PostgreSQL...
+Running: sudo apt-get install -y postgresql-15
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package postgresql-15
+This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)
+Thank you. Please provide your password when prompted.
+Updating system...
+Running: sudo apt-get update -yq && sudo apt-get upgrade -yq
+Get:1 https://cli.github.com/packages stable InRelease [3,917 B]
+Hit:2 http://mirror.infomaniak.ch/ubuntu jammy InRelease
+Hit:3 https://ubuntu.univ-reims.fr/ubuntu jammy InRelease
+Err:1 https://cli.github.com/packages stable InRelease
+  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+Hit:4 https://packages.microsoft.com/repos/code stable InRelease
+Hit:5 http://ubuntu.bhs.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:6 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:7 http://ubuntu.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:8 http://mirror.eu-fr.kamatera.com/ubuntu jammy InRelease
+Hit:9 https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy InRelease
+Hit:10 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy InRelease
+Ign:11 https://releases.warp.dev/linux/deb stable InRelease
+Hit:12 https://releases.warp.dev/linux/deb stable Release
+Hit:13 http://apt.pop-os.org/proprietary jammy InRelease
+Hit:16 http://apt.pop-os.org/release jammy InRelease
+Hit:17 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:14 https://packagecloud.io/github/git-lfs/ubuntu jammy InRelease
+Get:18 http://apt.pop-os.org/ubuntu jammy-security InRelease [129 kB]
+Get:19 http://apt.pop-os.org/ubuntu jammy-updates InRelease [128 kB]
+Hit:20 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Fetched 257 kB in 3s (102 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages have been kept back:
+  libgd3 libgd3:i386 libnetplan0 netplan.io
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Installing PostgreSQL repositories...
+Running: sudo apt-get install -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+postgresql-common is already the newest version (238).
+postgresql-common set to manually installed.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Installing PostgreSQL...
+Running: sudo apt-get install -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages will be upgraded:
+  postgresql-14
+1 to upgrade, 0 to newly install, 0 to remove and 8 not to upgrade.
+Need to get 16.4 MB of archives.
+After this operation, 7,628 kB of additional disk space will be used.
+Get:1 http://apt.postgresql.org/pub/repos/apt jammy-pgdg/main amd64 postgresql-14 amd64 14.13-1.pgdg22.04+1 [16.4 MB]
+Preconfiguring packages ...
+Fetched 16.4 MB in 0s (34.4 MB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 406859 files and directories currently installed.)
+Preparing to unpack .../postgresql-14_14.13-1.pgdg22.04+1_amd64.deb ...
+Unpacking postgresql-14 (14.13-1.pgdg22.04+1) over (14.13-0ubuntu0.22.04.1) ...
+Setting up postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for postgresql-common (238) ...
+supported-versions: WARNING! Unknown distribution: pop
+ubuntu found in ID_LIKE, treating as Ubuntu
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+ERROR: no encoding defined in /usr/share/hunspell/ar.aff, ignoring
+  de_at_frami
+  de_ch_frami
+  de_de_frami
+  en_au
+  en_ca
+  en_gb
+  en_us
+  en_za
+  es_es
+  fr
+  it_it
+  pt_br
+  pt_pt
+  ru_ru
+Removing obsolete dictionary files:
+Starting PostgreSQL...
+Running: sudo service postgresql start
+Creating users and databases...
+Installing nvm 0.39.7...
+Running: sudo apt-get install -y curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (7.81.0-1ubuntu1.18).
+0 to upgrade, 0 to newly install, 0 to remove and 8 not to upgrade.
+Running: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+=> Downloading nvm from git to '/home/cmnemoi/.nvm'
+=> * (HEAD detached at FETCH_HEAD)
+  master
+=> Compressing and cleaning up git repository
+
+=> nvm source string already in /home/cmnemoi/.bashrc
+=> bash_completion source string already in /home/cmnemoi/.bashrc
+=> Close and reopen your terminal to start using nvm or run the following to use it now:
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+Loading nvm...
+Installing Node 22...
+Running: nvm install 22
+Downloading and installing node v22.9.0...
+Now using node v22.9.0 (npm v10.8.3)
+Creating default alias: [0;32mdefault[0m [0;90m->[0m [0;32m22[0m ([0;90m->[0m [0;32mv22.9.0[0m)
+Running: nvm use 22
+Now using node v22.9.0 (npm v10.8.3)
+Installing Yarn...
+Running: cd App && npm install -g yarn
+
+added 1 package in 628ms
+This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)
+Thank you. Please provide your password when prompted.
+Updating system...
+Running: sudo apt-get update -yq && sudo apt-get upgrade -yq
+Hit:1 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:2 http://mirror.infomaniak.ch/ubuntu jammy InRelease
+Get:3 https://cli.github.com/packages stable InRelease [3,917 B]
+Hit:4 http://ubuntu.bhs.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:5 http://ubuntu.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:6 http://mirror.eu-fr.kamatera.com/ubuntu jammy InRelease
+Hit:7 https://ubuntu.univ-reims.fr/ubuntu jammy InRelease
+Hit:8 http://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+Hit:9 https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy InRelease
+Hit:10 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy InRelease
+Hit:11 https://packages.microsoft.com/repos/code stable InRelease
+Ign:12 https://releases.warp.dev/linux/deb stable InRelease
+Err:3 https://cli.github.com/packages stable InRelease
+  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+Hit:13 https://releases.warp.dev/linux/deb stable Release
+Hit:14 http://apt.pop-os.org/proprietary jammy InRelease
+Hit:15 https://packagecloud.io/github/git-lfs/ubuntu jammy InRelease
+Hit:16 http://apt.pop-os.org/release jammy InRelease
+Hit:18 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:19 http://apt.pop-os.org/ubuntu jammy-security InRelease
+Hit:20 http://apt.pop-os.org/ubuntu jammy-updates InRelease
+Hit:21 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages have been kept back:
+  libgd3 libgd3:i386 libnetplan0 netplan.io
+The following packages will be upgraded:
+  libpq5 postgresql-client-14 postgresql-client-common
+3 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Need to get 1,937 kB of archives.
+After this operation, 3,155 kB of additional disk space will be used.
+Get:1 http://apt.postgresql.org/pub/repos/apt jammy-pgdg/main amd64 libpq5 amd64 17.0-1.pgdg22.04+1 [219 kB]
+Get:2 http://apt.postgresql.org/pub/repos/apt jammy-pgdg/main amd64 postgresql-client-common all 264.pgdg22.04+1 [95.0 kB]
+Get:3 http://apt.postgresql.org/pub/repos/apt jammy-pgdg/main amd64 postgresql-client-14 amd64 14.13-1.pgdg22.04+1 [1,624 kB]
+Fetched 1,937 kB in 0s (4,091 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405109 files and directories currently installed.)
+Preparing to unpack .../libpq5_17.0-1.pgdg22.04+1_amd64.deb ...
+Unpacking libpq5:amd64 (17.0-1.pgdg22.04+1) over (16.2-1.pgdg22.04+1) ...
+Preparing to unpack .../postgresql-client-common_264.pgdg22.04+1_all.deb ...
+Unpacking postgresql-client-common (264.pgdg22.04+1) over (238) ...
+Preparing to unpack .../postgresql-client-14_14.13-1.pgdg22.04+1_amd64.deb ...
+Unpacking postgresql-client-14 (14.13-1.pgdg22.04+1) over (14.13-0ubuntu0.22.04.1) ...
+Setting up postgresql-client-common (264.pgdg22.04+1) ...
+Installing new version of config file /etc/postgresql-common/supported_versions ...
+Setting up libpq5:amd64 (17.0-1.pgdg22.04+1) ...
+Setting up postgresql-client-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.8) ...
+Processing triggers for man-db (2.10.2-1) ...
+Installing PostgreSQL repositories...
+Running: sudo apt-get install -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+The following NEW packages will be installed
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-common
+0 to upgrade, 5 to newly install, 0 to remove and 4 not to upgrade.
+Need to get 241 kB/442 kB of archives.
+After this operation, 1,276 kB of additional disk space will be used.
+Get:1 http://apt.postgresql.org/pub/repos/apt jammy-pgdg/main amd64 postgresql-common all 264.pgdg22.04+1 [241 kB]
+Preconfiguring packages ...
+Fetched 241 kB in 0s (1,251 kB/s)
+Selecting previously unselected package libjson-perl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405194 files and directories currently installed.)
+Preparing to unpack .../libjson-perl_4.04000-1_all.deb ...
+Unpacking libjson-perl (4.04000-1) ...
+Selecting previously unselected package postgresql-common.
+Preparing to unpack .../postgresql-common_264.pgdg22.04+1_all.deb ...
+Adding 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Unpacking postgresql-common (264.pgdg22.04+1) ...
+Selecting previously unselected package libcommon-sense-perl:amd64.
+Preparing to unpack .../libcommon-sense-perl_3.75-2build1_amd64.deb ...
+Unpacking libcommon-sense-perl:amd64 (3.75-2build1) ...
+Selecting previously unselected package libtypes-serialiser-perl.
+Preparing to unpack .../libtypes-serialiser-perl_1.01-1_all.deb ...
+Unpacking libtypes-serialiser-perl (1.01-1) ...
+Selecting previously unselected package libjson-xs-perl.
+Preparing to unpack .../libjson-xs-perl_4.030-1build3_amd64.deb ...
+Unpacking libjson-xs-perl (4.030-1build3) ...
+Setting up libcommon-sense-perl:amd64 (3.75-2build1) ...
+Setting up libtypes-serialiser-perl (1.01-1) ...
+Setting up libjson-perl (4.04000-1) ...
+Setting up libjson-xs-perl (4.030-1build3) ...
+Setting up postgresql-common (264.pgdg22.04+1) ...
+Replacing config file /etc/postgresql-common/createcluster.conf with new version
+Processing triggers for man-db (2.10.2-1) ...
+This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)
+Thank you. Please provide your password when prompted.
+Updating system...
+Running: sudo apt-get update -yq && sudo apt-get upgrade -yq
+Get:1 https://cli.github.com/packages stable InRelease [3,917 B]
+Hit:2 http://mirror.infomaniak.ch/ubuntu jammy InRelease
+Hit:3 http://mirror.eu-fr.kamatera.com/ubuntu jammy InRelease
+Err:1 https://cli.github.com/packages stable InRelease
+  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+Hit:4 https://ubuntu.univ-reims.fr/ubuntu jammy InRelease
+Hit:5 http://ubuntu.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:6 http://ubuntu.bhs.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:7 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:8 https://packages.microsoft.com/repos/code stable InRelease
+Hit:9 https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy InRelease
+Hit:10 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+Hit:11 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy InRelease
+Ign:12 https://releases.warp.dev/linux/deb stable InRelease
+Hit:13 https://releases.warp.dev/linux/deb stable Release
+Hit:14 http://apt.pop-os.org/proprietary jammy InRelease
+Err:10 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 7FCC7D46ACCC4CF8
+Hit:16 http://apt.pop-os.org/release jammy InRelease
+Hit:15 https://packagecloud.io/github/git-lfs/ubuntu jammy InRelease
+Hit:18 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:19 http://apt.pop-os.org/ubuntu jammy-security InRelease
+Hit:20 http://apt.pop-os.org/ubuntu jammy-updates InRelease
+Hit:21 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages have been kept back:
+  libgd3 libgd3:i386 libnetplan0 netplan.io
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Installing PostgreSQL repositories...
+Running: sudo apt-get install -y postgresql-common
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-common
+The following NEW packages will be installed
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-common postgresql-common
+Preconfiguring packages ...
+0 to upgrade, 6 to newly install, 0 to remove and 4 not to upgrade.
+Need to get 0 B/537 kB of archives.
+After this operation, 1,468 kB of additional disk space will be used.
+Selecting previously unselected package libjson-perl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 404809 files and directories currently installed.)
+Preparing to unpack .../0-libjson-perl_4.04000-1_all.deb ...
+Unpacking libjson-perl (4.04000-1) ...
+Selecting previously unselected package postgresql-client-common.
+Preparing to unpack .../1-postgresql-client-common_264.pgdg22.04+1_all.deb ...
+Unpacking postgresql-client-common (264.pgdg22.04+1) ...
+Selecting previously unselected package postgresql-common.
+Preparing to unpack .../2-postgresql-common_264.pgdg22.04+1_all.deb ...
+Adding 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Unpacking postgresql-common (264.pgdg22.04+1) ...
+Selecting previously unselected package libcommon-sense-perl:amd64.
+Preparing to unpack .../3-libcommon-sense-perl_3.75-2build1_amd64.deb ...
+Unpacking libcommon-sense-perl:amd64 (3.75-2build1) ...
+Selecting previously unselected package libtypes-serialiser-perl.
+Preparing to unpack .../4-libtypes-serialiser-perl_1.01-1_all.deb ...
+Unpacking libtypes-serialiser-perl (1.01-1) ...
+Selecting previously unselected package libjson-xs-perl.
+Preparing to unpack .../5-libjson-xs-perl_4.030-1build3_amd64.deb ...
+Unpacking libjson-xs-perl (4.030-1build3) ...
+Setting up postgresql-client-common (264.pgdg22.04+1) ...
+Setting up libcommon-sense-perl:amd64 (3.75-2build1) ...
+Setting up libtypes-serialiser-perl (1.01-1) ...
+Setting up libjson-perl (4.04000-1) ...
+Setting up libjson-xs-perl (4.030-1build3) ...
+Setting up postgresql-common (264.pgdg22.04+1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Installing PostgreSQL...
+Running: sudo apt-get install -y postgresql-16
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  postgresql-client-16 sysstat
+Suggested packages:
+  postgresql-doc-16 isag
+The following NEW packages will be installed
+  postgresql-16 postgresql-client-16 sysstat
+0 to upgrade, 3 to newly install, 0 to remove and 4 not to upgrade.
+Need to get 20.0 MB/20.5 MB of archives.
+After this operation, 70.4 MB of additional disk space will be used.
+Get:1 https://apt.postgresql.org/pub/repos/apt jammy-pgdg/main amd64 postgresql-client-16 amd64 16.4-1.pgdg22.04+2 [1,888 kB]
+Get:2 https://apt.postgresql.org/pub/repos/apt jammy-pgdg/main amd64 postgresql-16 amd64 16.4-1.pgdg22.04+2 [18.1 MB]
+Preconfiguring packages ...
+Fetched 20.0 MB in 1s (22.2 MB/s)
+Selecting previously unselected package postgresql-client-16.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405024 files and directories currently installed.)
+Preparing to unpack .../postgresql-client-16_16.4-1.pgdg22.04+2_amd64.deb ...
+Unpacking postgresql-client-16 (16.4-1.pgdg22.04+2) ...
+Selecting previously unselected package postgresql-16.
+Preparing to unpack .../postgresql-16_16.4-1.pgdg22.04+2_amd64.deb ...
+Unpacking postgresql-16 (16.4-1.pgdg22.04+2) ...
+Selecting previously unselected package sysstat.
+Preparing to unpack .../sysstat_12.5.2-2ubuntu0.2_amd64.deb ...
+Unpacking sysstat (12.5.2-2ubuntu0.2) ...
+Setting up postgresql-client-16 (16.4-1.pgdg22.04+2) ...
+update-alternatives: using /usr/share/postgresql/16/man/man1/psql.1.gz to provide /usr/share/man/man1/psql.1.gz (psql.1.gz) in auto mode
+Setting up sysstat (12.5.2-2ubuntu0.2) ...
+update-alternatives: using /usr/bin/sar.sysstat to provide /usr/bin/sar (sar) in auto mode
+Setting up postgresql-16 (16.4-1.pgdg22.04+2) ...
+Creating new PostgreSQL cluster 16/main ...
+/usr/lib/postgresql/16/bin/initdb -D /var/lib/postgresql/16/main --auth-local peer --auth-host scram-sha-256 --no-instructions
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "en_GB.UTF-8".
+The default database encoding has accordingly been set to "UTF8".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /var/lib/postgresql/16/main ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting default time zone ... Europe/Paris
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+Processing triggers for postgresql-common (264.pgdg22.04+1) ...
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+ERROR: no encoding defined in /usr/share/hunspell/ar.aff, ignoring
+  de_at_frami
+  de_ch_frami
+  de_de_frami
+  en_au
+  en_ca
+  en_gb
+  en_us
+  en_za
+  es_es
+  fr
+  it_it
+  pt_br
+  pt_pt
+  ru_ru
+Removing obsolete dictionary files:
+Processing triggers for man-db (2.10.2-1) ...
+Starting PostgreSQL...
+Running: sudo service postgresql start
+Creating users and databases...
+Installing nvm 0.39.7...
+Running: sudo apt-get install -y curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (7.81.0-1ubuntu1.18).
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+=> Downloading nvm from git to '/home/cmnemoi/.nvm'
+=> * (HEAD detached at FETCH_HEAD)
+  master
+=> Compressing and cleaning up git repository
+
+=> nvm source string already in /home/cmnemoi/.bashrc
+=> bash_completion source string already in /home/cmnemoi/.bashrc
+=> Close and reopen your terminal to start using nvm or run the following to use it now:
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+Loading nvm...
+Installing Node 22...
+Running: nvm install 22
+Downloading and installing node v22.9.0...
+Now using node v22.9.0 (npm v10.8.3)
+Creating default alias: [0;32mdefault[0m [0;90m->[0m [0;32m22[0m ([0;90m->[0m [0;32mv22.9.0[0m)
+Running: nvm use 22
+Now using node v22.9.0 (npm v10.8.3)
+Installing Yarn...
+Running: cd App && npm install -g yarn
+
+added 1 package in 608ms
+This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)
+Thank you. Please provide your password when prompted.
+Updating system...
+Running: sudo apt-get update -yq && sudo apt-get upgrade -yq
+Hit:1 http://mirror.infomaniak.ch/ubuntu jammy InRelease
+Get:2 https://cli.github.com/packages stable InRelease [3,917 B]
+Hit:3 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:4 http://mirror.eu-fr.kamatera.com/ubuntu jammy InRelease
+Hit:5 https://ubuntu.univ-reims.fr/ubuntu jammy InRelease
+Hit:6 http://ubuntu.bhs.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:7 http://ubuntu.mirrors.ovh.net/ubuntu jammy InRelease
+Err:2 https://cli.github.com/packages stable InRelease
+  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+Hit:8 https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy InRelease
+Hit:9 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy InRelease
+Ign:10 https://releases.warp.dev/linux/deb stable InRelease
+Hit:11 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+Hit:12 https://packages.microsoft.com/repos/code stable InRelease
+Hit:13 https://releases.warp.dev/linux/deb stable Release
+Hit:14 http://apt.pop-os.org/proprietary jammy InRelease
+Err:11 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 7FCC7D46ACCC4CF8
+Hit:17 http://apt.pop-os.org/release jammy InRelease
+Hit:15 https://packagecloud.io/github/git-lfs/ubuntu jammy InRelease
+Hit:18 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:19 http://apt.pop-os.org/ubuntu jammy-security InRelease
+Hit:20 http://apt.pop-os.org/ubuntu jammy-updates InRelease
+Hit:21 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages have been kept back:
+  libgd3 libgd3:i386 libnetplan0 netplan.io
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Importing the PostgreSQL repository signing key...
+Running: sudo apt-get install -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+ca-certificates is already the newest version (20240203~22.04.1).
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: sudo apt-get install -y curl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (7.81.0-1ubuntu1.18).
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Running: install
+This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)
+Thank you. Please provide your password when prompted.
+Updating system...
+Running: sudo apt-get update -yq && sudo apt-get upgrade -yq
+Get:1 https://cli.github.com/packages stable InRelease [3,917 B]
+Hit:2 http://mirror.infomaniak.ch/ubuntu jammy InRelease
+Hit:3 http://mirror.eu-fr.kamatera.com/ubuntu jammy InRelease
+Err:1 https://cli.github.com/packages stable InRelease
+  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+Hit:4 https://ubuntu.univ-reims.fr/ubuntu jammy InRelease
+Hit:5 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:6 https://packages.microsoft.com/repos/code stable InRelease
+Hit:7 http://ubuntu.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:8 http://ubuntu.bhs.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:9 https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy InRelease
+Hit:10 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy InRelease
+Ign:11 https://releases.warp.dev/linux/deb stable InRelease
+Hit:12 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+Hit:13 https://releases.warp.dev/linux/deb stable Release
+Hit:14 http://apt.pop-os.org/proprietary jammy InRelease
+Err:12 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 7FCC7D46ACCC4CF8
+Hit:16 http://apt.pop-os.org/release jammy InRelease
+Hit:18 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:15 https://packagecloud.io/github/git-lfs/ubuntu jammy InRelease
+Hit:19 http://apt.pop-os.org/ubuntu jammy-security InRelease
+Hit:20 http://apt.pop-os.org/ubuntu jammy-updates InRelease
+Hit:21 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages have been kept back:
+  libgd3 libgd3:i386 libnetplan0 netplan.io
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Installing PostgreSQL...
+Running: sudo apt-get install -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  postgresql-client-14 postgresql-common
+Suggested packages:
+  postgresql-doc-14
+The following NEW packages will be installed
+  postgresql-14 postgresql-client-14 postgresql-common
+Preconfiguring packages ...
+0 to upgrade, 3 to newly install, 0 to remove and 4 not to upgrade.
+Need to get 0 B/18.3 MB of archives.
+After this operation, 59.8 MB of additional disk space will be used.
+Selecting previously unselected package postgresql-common.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405334 files and directories currently installed.)
+Preparing to unpack .../postgresql-common_264.pgdg22.04+1_all.deb ...
+Adding 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Unpacking postgresql-common (264.pgdg22.04+1) ...
+Selecting previously unselected package postgresql-client-14.
+Preparing to unpack .../postgresql-client-14_14.13-1.pgdg22.04+1_amd64.deb ...
+Unpacking postgresql-client-14 (14.13-1.pgdg22.04+1) ...
+Selecting previously unselected package postgresql-14.
+Preparing to unpack .../postgresql-14_14.13-1.pgdg22.04+1_amd64.deb ...
+Unpacking postgresql-14 (14.13-1.pgdg22.04+1) ...
+Setting up postgresql-client-14 (14.13-1.pgdg22.04+1) ...
+Setting up postgresql-common (264.pgdg22.04+1) ...
+Setting up postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Starting PostgreSQL...
+Running: sudo service postgresql start
+Creating users and databases...
+This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)
+Thank you. Please provide your password when prompted.
+Updating system...
+Running: sudo apt-get update -yq && sudo apt-get upgrade -yq
+Get:1 https://cli.github.com/packages stable InRelease [3,917 B]
+Hit:2 http://mirror.infomaniak.ch/ubuntu jammy InRelease
+Hit:3 http://mirror.eu-fr.kamatera.com/ubuntu jammy InRelease
+Err:1 https://cli.github.com/packages stable InRelease
+  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+Hit:4 https://ubuntu.univ-reims.fr/ubuntu jammy InRelease
+Hit:5 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:6 http://ubuntu.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:7 http://ubuntu.bhs.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:8 https://packages.microsoft.com/repos/code stable InRelease
+Hit:9 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+Hit:10 https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy InRelease
+Ign:11 https://releases.warp.dev/linux/deb stable InRelease
+Hit:12 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy InRelease
+Hit:13 https://releases.warp.dev/linux/deb stable Release
+Hit:14 http://apt.pop-os.org/proprietary jammy InRelease
+Err:9 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 7FCC7D46ACCC4CF8
+Hit:16 http://apt.pop-os.org/release jammy InRelease
+Hit:18 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:15 https://packagecloud.io/github/git-lfs/ubuntu jammy InRelease
+Hit:19 http://apt.pop-os.org/ubuntu jammy-security InRelease
+Hit:20 http://apt.pop-os.org/ubuntu jammy-updates InRelease
+Hit:21 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages have been kept back:
+  libgd3 libgd3:i386 libnetplan0 netplan.io
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Installing PostgreSQL...
+Running: sudo apt-get install -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following package was automatically installed and is no longer required:
+  postgresql-client-16
+Use 'sudo apt autoremove' to remove it.
+The following additional packages will be installed:
+  postgresql-common
+The following NEW packages will be installed
+  postgresql-14 postgresql-common
+Preconfiguring packages ...
+0 to upgrade, 2 to newly install, 0 to remove and 4 not to upgrade.
+Need to get 0 B/16.7 MB of archives.
+After this operation, 52.8 MB of additional disk space will be used.
+Selecting previously unselected package postgresql-common.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405680 files and directories currently installed.)
+Preparing to unpack .../postgresql-common_264.pgdg22.04+1_all.deb ...
+Adding 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Unpacking postgresql-common (264.pgdg22.04+1) ...
+Selecting previously unselected package postgresql-14.
+Preparing to unpack .../postgresql-14_14.13-1.pgdg22.04+1_amd64.deb ...
+Unpacking postgresql-14 (14.13-1.pgdg22.04+1) ...
+Setting up postgresql-common (264.pgdg22.04+1) ...
+Setting up postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Starting PostgreSQL...
+Running: sudo service postgresql start
+Creating users and databases...
+This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)
+Thank you. Please provide your password when prompted.
+Updating system...
+Running: sudo apt-get update -yq && sudo apt-get upgrade -yq
+Hit:1 https://download.docker.com/linux/ubuntu jammy InRelease
+Get:2 https://cli.github.com/packages stable InRelease [3,917 B]
+Hit:3 http://mirror.infomaniak.ch/ubuntu jammy InRelease
+Hit:4 http://ubuntu.bhs.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:5 http://ubuntu.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:6 http://mirror.eu-fr.kamatera.com/ubuntu jammy InRelease
+Hit:7 https://packages.microsoft.com/repos/code stable InRelease
+Hit:8 https://ubuntu.univ-reims.fr/ubuntu jammy InRelease
+Hit:9 https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy InRelease
+Err:2 https://cli.github.com/packages stable InRelease
+  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+Hit:10 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy InRelease
+Hit:11 http://apt.pop-os.org/proprietary jammy InRelease
+Ign:12 https://releases.warp.dev/linux/deb stable InRelease
+Hit:13 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+Hit:14 http://apt.pop-os.org/release jammy InRelease
+Hit:15 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:16 https://releases.warp.dev/linux/deb stable Release
+Hit:17 http://apt.pop-os.org/ubuntu jammy-security InRelease
+Hit:19 http://apt.pop-os.org/ubuntu jammy-updates InRelease
+Hit:20 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Err:13 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 7FCC7D46ACCC4CF8
+Hit:18 https://packagecloud.io/github/git-lfs/ubuntu jammy InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages have been kept back:
+  libgd3 libgd3:i386 libnetplan0 netplan.io
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Installing PostgreSQL...
+Running: sudo apt-get install -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following package was automatically installed and is no longer required:
+  postgresql-client-16
+Use 'sudo apt autoremove' to remove it.
+The following additional packages will be installed:
+  postgresql-common
+The following NEW packages will be installed
+  postgresql-14 postgresql-common
+Preconfiguring packages ...
+0 to upgrade, 2 to newly install, 0 to remove and 4 not to upgrade.
+Need to get 0 B/16.7 MB of archives.
+After this operation, 52.8 MB of additional disk space will be used.
+Selecting previously unselected package postgresql-common.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405680 files and directories currently installed.)
+Preparing to unpack .../postgresql-common_264.pgdg22.04+1_all.deb ...
+Adding 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Unpacking postgresql-common (264.pgdg22.04+1) ...
+Selecting previously unselected package postgresql-14.
+Preparing to unpack .../postgresql-14_14.13-1.pgdg22.04+1_amd64.deb ...
+Unpacking postgresql-14 (14.13-1.pgdg22.04+1) ...
+Setting up postgresql-common (264.pgdg22.04+1) ...
+Setting up postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Starting PostgreSQL...
+Running: sudo service postgresql start
+Creating users and databases...
+This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)
+Thank you. Please provide your password when prompted.
+Updating system...
+Running: sudo apt-get update -yq && sudo apt-get upgrade -yq
+Get:1 https://cli.github.com/packages stable InRelease [3,917 B]
+Hit:2 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:3 http://mirror.infomaniak.ch/ubuntu jammy InRelease
+Err:1 https://cli.github.com/packages stable InRelease
+  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+Hit:4 http://ubuntu.bhs.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:5 http://ubuntu.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:6 https://ubuntu.univ-reims.fr/ubuntu jammy InRelease
+Hit:7 http://mirror.eu-fr.kamatera.com/ubuntu jammy InRelease
+Hit:8 https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy InRelease
+Hit:9 https://packages.microsoft.com/repos/code stable InRelease
+Hit:10 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy InRelease
+Ign:11 https://releases.warp.dev/linux/deb stable InRelease
+Hit:12 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+Hit:13 https://releases.warp.dev/linux/deb stable Release
+Hit:14 http://apt.pop-os.org/proprietary jammy InRelease
+Hit:16 http://apt.pop-os.org/release jammy InRelease
+Hit:15 https://packagecloud.io/github/git-lfs/ubuntu jammy InRelease
+Hit:18 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:19 http://apt.pop-os.org/ubuntu jammy-security InRelease
+Hit:20 http://apt.pop-os.org/ubuntu jammy-updates InRelease
+Hit:21 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following package was automatically installed and is no longer required:
+  postgresql-client-16
+Use 'sudo apt autoremove' to remove it.
+The following packages have been kept back:
+  libgd3 libgd3:i386 libnetplan0 netplan.io
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Installing PostgreSQL...
+Running: sudo apt-get install -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+postgresql-14 is already the newest version (14.13-1.pgdg22.04+1).
+The following package was automatically installed and is no longer required:
+  postgresql-client-16
+Use 'sudo apt autoremove' to remove it.
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Starting PostgreSQL...
+Running: sudo service postgresql start
+Creating users and databases...
+This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)
+Thank you. Please provide your password when prompted.
+Updating system...
+Running: sudo apt-get update -yq && sudo apt-get upgrade -yq
+Hit:1 http://mirror.infomaniak.ch/ubuntu jammy InRelease
+Hit:2 https://download.docker.com/linux/ubuntu jammy InRelease
+Get:3 https://cli.github.com/packages stable InRelease [3,917 B]
+Hit:4 http://mirror.eu-fr.kamatera.com/ubuntu jammy InRelease
+Hit:5 https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy InRelease
+Hit:6 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy InRelease
+Hit:7 http://ubuntu.bhs.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:8 http://ubuntu.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:9 https://ubuntu.univ-reims.fr/ubuntu jammy InRelease
+Hit:10 https://packages.microsoft.com/repos/code stable InRelease
+Err:3 https://cli.github.com/packages stable InRelease
+  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+Ign:11 https://releases.warp.dev/linux/deb stable InRelease
+Hit:12 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+Hit:13 https://releases.warp.dev/linux/deb stable Release
+Hit:14 http://apt.pop-os.org/proprietary jammy InRelease
+Hit:16 http://apt.pop-os.org/release jammy InRelease
+Err:12 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 7FCC7D46ACCC4CF8
+Hit:18 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:19 http://apt.pop-os.org/ubuntu jammy-security InRelease
+Hit:20 http://apt.pop-os.org/ubuntu jammy-updates InRelease
+Hit:15 https://packagecloud.io/github/git-lfs/ubuntu jammy InRelease
+Hit:21 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages have been kept back:
+  libgd3 libgd3:i386 libnetplan0 netplan.io
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Installing PostgreSQL...
+Running: sudo apt-get install -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following package was automatically installed and is no longer required:
+  postgresql-client-16
+Use 'sudo apt autoremove' to remove it.
+The following additional packages will be installed:
+  postgresql-common
+The following NEW packages will be installed
+  postgresql-14 postgresql-common
+Preconfiguring packages ...
+0 to upgrade, 2 to newly install, 0 to remove and 4 not to upgrade.
+Need to get 0 B/16.7 MB of archives.
+After this operation, 52.8 MB of additional disk space will be used.
+Selecting previously unselected package postgresql-common.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405680 files and directories currently installed.)
+Preparing to unpack .../postgresql-common_264.pgdg22.04+1_all.deb ...
+Adding 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Unpacking postgresql-common (264.pgdg22.04+1) ...
+Selecting previously unselected package postgresql-14.
+Preparing to unpack .../postgresql-14_14.13-1.pgdg22.04+1_amd64.deb ...
+Unpacking postgresql-14 (14.13-1.pgdg22.04+1) ...
+Setting up postgresql-common (264.pgdg22.04+1) ...
+Setting up postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Starting PostgreSQL...
+Running: sudo systemctl start postgresql
+Creating users and databases...
+This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)
+Thank you. Please provide your password when prompted.
+Updating system...
+Running: sudo apt-get update -yq && sudo apt-get upgrade -yq
+Get:1 https://cli.github.com/packages stable InRelease [3,917 B]
+Hit:2 http://mirror.infomaniak.ch/ubuntu jammy InRelease
+Hit:3 http://mirror.eu-fr.kamatera.com/ubuntu jammy InRelease
+Err:1 https://cli.github.com/packages stable InRelease
+  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+Hit:4 http://ubuntu.bhs.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:5 http://ubuntu.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:6 https://packages.microsoft.com/repos/code stable InRelease
+Hit:7 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:8 https://ubuntu.univ-reims.fr/ubuntu jammy InRelease
+Hit:9 https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy InRelease
+Ign:10 https://releases.warp.dev/linux/deb stable InRelease
+Hit:11 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy InRelease
+Hit:12 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+Hit:13 https://releases.warp.dev/linux/deb stable Release
+Hit:14 http://apt.pop-os.org/proprietary jammy InRelease
+Hit:16 http://apt.pop-os.org/release jammy InRelease
+Err:12 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 7FCC7D46ACCC4CF8
+Hit:18 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:15 https://packagecloud.io/github/git-lfs/ubuntu jammy InRelease
+Hit:19 http://apt.pop-os.org/ubuntu jammy-security InRelease
+Hit:20 http://apt.pop-os.org/ubuntu jammy-updates InRelease
+Hit:21 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages have been kept back:
+  libgd3 libgd3:i386 libnetplan0 netplan.io
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Installing PostgreSQL...
+Running: sudo apt-get install -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following package was automatically installed and is no longer required:
+  postgresql-client-16
+Use 'sudo apt autoremove' to remove it.
+The following additional packages will be installed:
+  postgresql-common
+The following NEW packages will be installed
+  postgresql-14 postgresql-common
+Preconfiguring packages ...
+0 to upgrade, 2 to newly install, 0 to remove and 4 not to upgrade.
+Need to get 0 B/16.7 MB of archives.
+After this operation, 52.8 MB of additional disk space will be used.
+Selecting previously unselected package postgresql-common.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405680 files and directories currently installed.)
+Preparing to unpack .../postgresql-common_264.pgdg22.04+1_all.deb ...
+Adding 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Unpacking postgresql-common (264.pgdg22.04+1) ...
+Selecting previously unselected package postgresql-14.
+Preparing to unpack .../postgresql-14_14.13-1.pgdg22.04+1_amd64.deb ...
+Unpacking postgresql-14 (14.13-1.pgdg22.04+1) ...
+Setting up postgresql-common (264.pgdg22.04+1) ...
+Setting up postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Creating users and databases...
+This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)
+Thank you. Please provide your password when prompted.
+Updating system...
+Running: sudo apt-get update -yq && sudo apt-get upgrade -yq
+Get:1 https://cli.github.com/packages stable InRelease [3,917 B]
+Hit:2 http://mirror.infomaniak.ch/ubuntu jammy InRelease
+Err:1 https://cli.github.com/packages stable InRelease
+  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+Hit:3 https://ubuntu.univ-reims.fr/ubuntu jammy InRelease
+Hit:4 http://ubuntu.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:5 http://ubuntu.bhs.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:6 http://mirror.eu-fr.kamatera.com/ubuntu jammy InRelease
+Hit:7 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:8 https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy InRelease
+Hit:9 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy InRelease
+Ign:10 https://releases.warp.dev/linux/deb stable InRelease
+Hit:11 https://packages.microsoft.com/repos/code stable InRelease
+Hit:12 https://releases.warp.dev/linux/deb stable Release
+Hit:13 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+Hit:14 http://apt.pop-os.org/proprietary jammy InRelease
+Hit:17 http://apt.pop-os.org/release jammy InRelease
+Hit:15 https://packagecloud.io/github/git-lfs/ubuntu jammy InRelease
+Err:13 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 7FCC7D46ACCC4CF8
+Hit:18 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:19 http://apt.pop-os.org/ubuntu jammy-security InRelease
+Hit:20 http://apt.pop-os.org/ubuntu jammy-updates InRelease
+Hit:21 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages have been kept back:
+  libgd3 libgd3:i386 libnetplan0 netplan.io
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Installing PostgreSQL...
+Running: sudo apt-get install -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following package was automatically installed and is no longer required:
+  postgresql-client-16
+Use 'sudo apt autoremove' to remove it.
+The following additional packages will be installed:
+  postgresql-common
+The following NEW packages will be installed
+  postgresql-14 postgresql-common
+Preconfiguring packages ...
+0 to upgrade, 2 to newly install, 0 to remove and 4 not to upgrade.
+Need to get 0 B/16.7 MB of archives.
+After this operation, 52.8 MB of additional disk space will be used.
+Selecting previously unselected package postgresql-common.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405680 files and directories currently installed.)
+Preparing to unpack .../postgresql-common_264.pgdg22.04+1_all.deb ...
+Adding 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Unpacking postgresql-common (264.pgdg22.04+1) ...
+Selecting previously unselected package postgresql-14.
+Preparing to unpack .../postgresql-14_14.13-1.pgdg22.04+1_amd64.deb ...
+Unpacking postgresql-14 (14.13-1.pgdg22.04+1) ...
+Setting up postgresql-common (264.pgdg22.04+1) ...
+Setting up postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Starting PostgreSQL...
+Running: sudo service postgresql start
+Creating users and databases...
+This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)
+Thank you. Please provide your password when prompted.
+Updating system...
+Running: sudo apt-get update -yq && sudo apt-get upgrade -yq
+Get:1 https://cli.github.com/packages stable InRelease [3,917 B]
+Hit:2 http://mirror.infomaniak.ch/ubuntu jammy InRelease
+Err:1 https://cli.github.com/packages stable InRelease
+  The following signatures were invalid: EXPKEYSIG 23F3D4EA75716059 GitHub CLI <opensource+cli@github.com>
+Hit:3 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:4 https://ubuntu.univ-reims.fr/ubuntu jammy InRelease
+Hit:5 http://ubuntu.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:6 http://ubuntu.bhs.mirrors.ovh.net/ubuntu jammy InRelease
+Hit:7 https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy InRelease
+Hit:8 http://mirror.eu-fr.kamatera.com/ubuntu jammy InRelease
+Hit:9 https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy InRelease
+Hit:10 https://packages.microsoft.com/repos/code stable InRelease
+Hit:11 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+Ign:12 https://releases.warp.dev/linux/deb stable InRelease
+Hit:13 https://releases.warp.dev/linux/deb stable Release
+Hit:14 http://apt.pop-os.org/proprietary jammy InRelease
+Err:11 https://apt.postgresql.org/pub/repos/apt jammy-pgdg InRelease
+  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 7FCC7D46ACCC4CF8
+Hit:17 http://apt.pop-os.org/release jammy InRelease
+Hit:18 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:19 http://apt.pop-os.org/ubuntu jammy-security InRelease
+Hit:15 https://packagecloud.io/github/git-lfs/ubuntu jammy InRelease
+Hit:20 http://apt.pop-os.org/ubuntu jammy-updates InRelease
+Hit:21 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages were automatically installed and are no longer required:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libtypes-serialiser-perl
+  postgresql-client-14 postgresql-client-16 postgresql-client-common sysstat
+Use 'sudo apt autoremove' to remove them.
+The following packages have been kept back:
+  libgd3 libgd3:i386 libnetplan0 netplan.io
+0 to upgrade, 0 to newly install, 0 to remove and 4 not to upgrade.
+Installing PostgreSQL...
+Running: sudo apt-get install -y postgresql-14
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following package was automatically installed and is no longer required:
+  postgresql-client-16
+Use 'sudo apt autoremove' to remove it.
+The following additional packages will be installed:
+  postgresql-common
+The following NEW packages will be installed
+  postgresql-14 postgresql-common
+Preconfiguring packages ...
+0 to upgrade, 2 to newly install, 0 to remove and 4 not to upgrade.
+Need to get 0 B/16.7 MB of archives.
+After this operation, 52.8 MB of additional disk space will be used.
+Selecting previously unselected package postgresql-common.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 405680 files and directories currently installed.)
+Preparing to unpack .../postgresql-common_264.pgdg22.04+1_all.deb ...
+Adding 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Unpacking postgresql-common (264.pgdg22.04+1) ...
+Selecting previously unselected package postgresql-14.
+Preparing to unpack .../postgresql-14_14.13-1.pgdg22.04+1_amd64.deb ...
+Unpacking postgresql-14 (14.13-1.pgdg22.04+1) ...
+Setting up postgresql-common (264.pgdg22.04+1) ...
+Setting up postgresql-14 (14.13-1.pgdg22.04+1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Starting PostgreSQL...
+Running: sudo service postgresql start
+Creating users and databases...

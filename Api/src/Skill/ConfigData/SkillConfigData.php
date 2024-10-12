@@ -289,6 +289,10 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::ROBOTICS_EXPERT,
+                spawnEquipmentConfig: SpawnEquipmentConfigData::ONE_SUPPORT_DRONE_BLUEPRINT_IN_PLAYER_INVENTORY,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::SABOTEUR,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_DOUBLE_PERCENTAGE_ON_SABOTAGE,

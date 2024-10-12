@@ -54,12 +54,15 @@ class SkillConfig
 
     public static function createFromDto(SkillConfigDto $dto): self
     {
-        return new self(
+        $skill = new self(
             name: $dto->name,
             skillPointsConfig: $dto->skillPointsConfig !== null ? ChargeStatusConfig::fromConfigData(
                 StatusConfigData::getByName($dto->skillPointsConfig->toString())
             ) : null,
         );
+        $skill->setId(crc32(serialize($skill)));
+
+        return $skill;
     }
 
     public function getName(): SkillEnum
@@ -112,5 +115,12 @@ class SkillConfig
         $this->modifierConfigs = $skillConfig->modifierConfigs;
         $this->actionConfigs = $skillConfig->actionConfigs;
         $this->skillPointsConfig = $skillConfig->skillPointsConfig;
+    }
+
+    private function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 }

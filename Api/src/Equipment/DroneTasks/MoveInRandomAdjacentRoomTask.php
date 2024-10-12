@@ -12,7 +12,7 @@ use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-final class MoveInRandomAdjacentRoomTask extends AbstractDroneTask
+class MoveInRandomAdjacentRoomTask extends AbstractDroneTask
 {
     public function __construct(
         protected EventServiceInterface $eventService,
@@ -23,20 +23,12 @@ final class MoveInRandomAdjacentRoomTask extends AbstractDroneTask
         parent::__construct($this->eventService, $this->statusService);
     }
 
-    public function execute(Drone $drone, \DateTime $time): void
+    protected function applyEffect(Drone $drone, \DateTime $time): void
     {
-        // If the drone is not operational, do not move it.
-        if ($drone->isNotOperational()) {
-            return;
-        }
-
-        // The drone acts, so it consumes a charge.
-        $this->removeOneDroneCharge($drone, $time);
-
-        // If there is no room to move to, execute the next task.
+        // If there is no room to move to, the task is not applicable.
         $roomToMoveTo = $this->getRoomToMoveTo($drone);
         if (!$roomToMoveTo) {
-            $this->nextTask?->execute($drone, $time);
+            $this->taskNotApplicable = true;
 
             return;
         }

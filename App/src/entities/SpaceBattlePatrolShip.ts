@@ -5,6 +5,7 @@ export class SpaceBattlePatrolShip {
     public armor: integer|null;
     public charges: integer|null;
     public pilot: string|null;
+    public drone!: boolean;
     public isBroken!: boolean;
 
     public constructor() {
@@ -21,6 +22,7 @@ export class SpaceBattlePatrolShip {
             this.armor = object.armor;
             this.charges = object.charges;
             this.pilot = object.pilot;
+            this.drone = object.drone;
             this.isBroken = object.isBroken;
         }
 

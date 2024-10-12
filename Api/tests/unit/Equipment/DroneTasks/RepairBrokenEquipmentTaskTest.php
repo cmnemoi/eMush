@@ -7,8 +7,11 @@ namespace Mush\tests\unit\Equipment\DroneTasks;
 use Codeception\PHPUnit\TestCase;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\DroneTasks\RepairBrokenEquipmentTask;
+use Mush\Equipment\Entity\Drone;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\Service\EventService;
@@ -26,6 +29,10 @@ final class RepairBrokenEquipmentTaskTest extends TestCase
 {
     private RepairBrokenEquipmentTask $task;
 
+    private Daedalus $daedalus;
+    private Drone $drone;
+    private GameEquipment $mycoscan;
+
     /**
      * @before
      */
@@ -40,40 +47,75 @@ final class RepairBrokenEquipmentTaskTest extends TestCase
             new FakeD100Roll(isSuccessful: false),
             new FakeGetRandomElementsFromArrayService(),
         );
+
+        $this->daedalus = DaedalusFactory::createDaedalus();
     }
 
     public function testShouldIncreaseDroneSuccessRateAfterAFailure(): void
     {
-        // Given a broken mycoscan in the room
-        $daedalus = DaedalusFactory::createDaedalus();
-        $lab = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $this->givenBrokenMycoscanInTheRoom();
+        $this->givenSupportDroneWithOneChargeInTheRoom();
+        $this->givenSupportDroneHasTwelveSuccessRateToRepairTheMycoscan();
 
-        $mycoscan = GameEquipmentFactory::createEquipmentByNameForHolder(
+        $this->whenIRepairTheBrokenMycoscan();
+
+        $this->thenDroneRepairSuccessRateShouldIncreaseByThreePoints();
+    }
+
+    public function testShouldDecreaseDroneChargeAfterAFailure(): void
+    {
+        $this->givenBrokenMycoscanInTheRoom();
+        $this->givenSupportDroneWithOneChargeInTheRoom();
+        $this->givenSupportDroneHasTwelveSuccessRateToRepairTheMycoscan();
+
+        $this->whenIRepairTheBrokenMycoscan();
+
+        $this->thenDroneChargeShouldDecreaseByOne();
+    }
+
+    private function givenBrokenMycoscanInTheRoom(): void
+    {
+        $lab = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+
+        $this->mycoscan = GameEquipmentFactory::createEquipmentByNameForHolder(
             EquipmentEnum::MYCOSCAN,
             $lab,
         );
         StatusFactory::createStatusByNameForHolder(
             EquipmentStatusEnum::BROKEN,
-            $mycoscan,
+            $this->mycoscan,
         );
+    }
+
+    private function givenSupportDroneWithOneChargeInTheRoom(): void
+    {
+        $lab = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+
+        $this->drone = GameEquipmentFactory::createDroneForHolder($lab);
+        $this->drone->getChargeStatus()->setCharge(1);
+    }
+
+    private function givenSupportDroneHasTwelveSuccessRateToRepairTheMycoscan(): void
+    {
         $repairAction = new ActionConfig();
         $repairAction->setActionName(ActionEnum::REPAIR);
-        $mycoscan->getEquipment()->setActionConfigs([$repairAction]);
-
-        // Given a charged support drone in the room
-        $drone = GameEquipmentFactory::createDroneForHolder($lab);
-        $chargesStatus = $drone->getChargesStatus()->setCharge(1);
-
-        // given the support drone has a 12% success rate to repair the mycoscan
         $repairAction->setSuccessRate(12);
 
-        // When I execute the repair task
-        $this->task->execute($drone, new \DateTime());
+        $this->mycoscan->getEquipment()->setActionConfigs([$repairAction]);
+    }
 
-        // Then drone repair success rate should increase by 3 points
-        self::assertSame(15, $drone->getRepairSuccessRateForEquipment($mycoscan));
+    private function whenIRepairTheBrokenMycoscan(): void
+    {
+        $this->task->execute($this->drone, new \DateTime());
+    }
 
-        // Then drone charges should decrease by 1
-        self::assertSame(0, $chargesStatus->getCharge());
+    private function thenDroneRepairSuccessRateShouldIncreaseByThreePoints(): void
+    {
+        self::assertSame(15, $this->drone->getRepairSuccessRateForEquipment($this->mycoscan));
+    }
+
+    private function thenDroneChargeShouldDecreaseByOne(): void
+    {
+        self::assertSame(0, $this->drone->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getCharge());
     }
 }

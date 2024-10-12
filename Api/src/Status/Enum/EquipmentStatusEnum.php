@@ -25,6 +25,12 @@ class EquipmentStatusEnum
     public const SINK_CHARGE = 'sink_charge';
     public const JUKEBOX_SONG = 'jukebox_song';
     public const SLIMED = 'slimed';
+    public const TURBO_DRONE_UPGRADE = 'turbo_drone_upgrade';
+    public const FIREFIGHTER_DRONE_UPGRADE = 'firefighter_drone_upgrade';
+    public const DRONE_REPAIR_FAILED_ATTEMPTS = 'drone_repair_failed_attempts';
+    public const DRONE_EXTINGUISH_FAILED_ATTEMPTS = 'drone_extinguish_failed_attempts';
+    public const PILOT_DRONE_UPGRADE = 'pilot_drone_upgrade';
+    public const DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS = 'drone_shoot_hunter_failed_attempts';
 
     public const UPDATING = 'updating';
 

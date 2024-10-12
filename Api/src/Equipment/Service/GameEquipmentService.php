@@ -199,6 +199,10 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
             return;
         }
 
+        if ($gameEquipment->hasStatus(EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE)) {
+            return;
+        }
+
         if ($gameEquipment->getEquipment()->isFireDestroyable()
             && $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {

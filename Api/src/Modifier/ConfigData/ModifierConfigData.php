@@ -3471,6 +3471,21 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
         ],
+        [
+            'name' => ModifierNameEnum::DRONE_PLUS_20_PERCENTAGE_ON_SHOOT_HUNTER,
+            'modifierName' => ModifierNameEnum::PILOT_DRONE_MODIFIER,
+            'targetEvent' => self::DUMMY_EVENT, // this modifier does not listen to any event, it is just used to store the delta and allowing configuration
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::EQUIPMENT,
+            'type' => 'variable_event_modifier',
+            'delta' => 1.2,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_DIRTINESS,
+            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

@@ -30,6 +30,10 @@ class ChargeStatusConfig extends StatusConfig
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $autoRemove = false;
 
+    /**
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     */
     public static function createNull(): self
     {
         return (new self())->setId(0);
@@ -50,6 +54,8 @@ class ChargeStatusConfig extends StatusConfig
         foreach ($configData['actionConfigs'] as $actionConfig) {
             $statusConfig->addActionConfig(ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::from($actionConfig))));
         }
+
+        $statusConfig->setId(crc32(serialize($statusConfig)));
 
         return $statusConfig;
     }
@@ -142,27 +148,5 @@ class ChargeStatusConfig extends StatusConfig
     public function getDischargeStrategies(): array
     {
         return $this->dischargeStrategies;
-    }
-
-    private function toSnapshot(): array
-    {
-        return [
-            'name' => $this->name,
-            'statusName' => $this->statusName,
-            'visibility' => $this->visibility,
-            'autoRemove' => $this->autoRemove,
-            'startCharge' => $this->startCharge,
-            'maxCharge' => $this->maxCharge,
-            'chargeVisibility' => $this->chargeVisibility,
-            'chargeStrategy' => $this->chargeStrategy,
-            'dischargeStrategies' => $this->dischargeStrategies,
-        ];
-    }
-
-    private function setId(int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
     }
 }

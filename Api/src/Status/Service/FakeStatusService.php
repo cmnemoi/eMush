@@ -14,9 +14,11 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Status\ConfigData\StatusConfigData;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\ContentStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\ContentStatus;
@@ -36,6 +38,10 @@ final class FakeStatusService implements StatusServiceInterface
 
     public function persist(Status $status): Status
     {
+        if ($status->isNull()) {
+            return $status;
+        }
+
         $this->statuses->set($status->getName(), $status);
 
         return $status;
@@ -72,7 +78,15 @@ final class FakeStatusService implements StatusServiceInterface
         ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status {
-        $status = StatusFactory::createStatusByNameForHolder($statusConfig->getName(), $holder);
+        if ($statusConfig->isNull()) {
+            return Status::createNull();
+        }
+
+        if ($statusConfig instanceof ChargeStatusConfig) {
+            $status = StatusFactory::createChargeStatusFromStatusName($statusConfig->getStatusName(), $holder);
+        } else {
+            $status = StatusFactory::createStatusByNameForHolder($statusConfig->getStatusName(), $holder);
+        }
         $this->persist($status);
 
         return $status;
@@ -86,7 +100,13 @@ final class FakeStatusService implements StatusServiceInterface
         ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status {
-        $status = StatusFactory::createStatusByNameForHolder($statusName, $holder);
+        $statusConfigData = StatusConfigData::getByStatusName($statusName);
+        if ($statusConfigData['type'] === 'charge_status_config') {
+            $status = StatusFactory::createChargeStatusFromStatusName($statusName, $holder);
+        } else {
+            $status = StatusFactory::createStatusByNameForHolder($statusName, $holder);
+        }
+
         $this->persist($status);
 
         return $status;
@@ -169,7 +189,7 @@ final class FakeStatusService implements StatusServiceInterface
         /** @var ?ChargeStatus $chargeStatus */
         $chargeStatus = $this->statuses
             ->filter(static fn (Status $chargeStatus) => $chargeStatus instanceof ChargeStatus)
-            ->filter(static fn (Status $chargeStatus) => $chargeStatus->getName() === $name && $chargeStatus->getOwner() === $holder)
+            ->filter(static fn (Status $chargeStatus) => $chargeStatus->getName() === $name && $chargeStatus->getOwner()->equals($holder))
             ->first() ?: null;
 
         if ($chargeStatus === null) {

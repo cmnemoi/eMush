@@ -274,6 +274,18 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($crazyEyeModifier->getName(), $crazyEyeModifier);
         $manager->persist($crazyEyeModifier);
 
+        $radioExpertModifierOnSelf = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_X2_SIGNAL_ON_ACTION_CONTACT_SOL)
+        );
+        $this->addReference($radioExpertModifierOnSelf->getName(), $radioExpertModifierOnSelf);
+        $manager->persist($radioExpertModifierOnSelf);
+
+        $radioExpertModifierOnOtherPlayer = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLACE_X1_5_SIGNAL_ON_ACTION_CONTACT_SOL)
+        );
+        $this->addReference($radioExpertModifierOnOtherPlayer->getName(), $radioExpertModifierOnOtherPlayer);
+        $manager->persist($radioExpertModifierOnOtherPlayer);
+
         $manager->flush();
     }
 

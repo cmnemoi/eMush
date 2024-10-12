@@ -3486,6 +3486,41 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_X2_SIGNAL_ON_ACTION_CONTACT_SOL,
+            'modifierName' => ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_SELF,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 2,
+            'targetVariable' => 'outputQuantity',
+            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS,
+                ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_OTHER_PLAYER => ModifierRequirementEnum::NONE_TAGS,
+            ],
+        ],
+        [
+            'name' => ModifierNameEnum::PLACE_X1_5_SIGNAL_ON_ACTION_CONTACT_SOL,
+            'modifierName' => ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_OTHER_PLAYER,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLACE,
+            'type' => 'variable_event_modifier',
+            'delta' => 1.5,
+            'targetVariable' => 'outputQuantity',
+            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

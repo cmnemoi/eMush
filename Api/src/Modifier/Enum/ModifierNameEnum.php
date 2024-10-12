@@ -101,4 +101,8 @@ abstract class ModifierNameEnum
     public const string FIREFIGHTER_MODIFIER = 'firefighter_modifier';
     public const string PILOT_DRONE_MODIFIER = 'pilot_drone_modifier';
     public const string DRONE_PLUS_20_PERCENTAGE_ON_SHOOT_HUNTER = 'drone_plus_20_percentage_on_shoot_hunter';
+    public const string RADIO_EXPERT_MODIFIER_ON_SELF = 'radio_expert_modifier_on_self';
+    public const string RADIO_EXPERT_MODIFIER_ON_OTHER_PLAYER = 'radio_expert_modifier_on_other_player';
+    public const string PLAYER_X2_SIGNAL_ON_ACTION_CONTACT_SOL = 'modifier_for_player_x2_signal_on_action_contact_sol';
+    public const string PLACE_X1_5_SIGNAL_ON_ACTION_CONTACT_SOL = 'modifier_for_place_x1.5_signal_on_action_contact_sol';
 }

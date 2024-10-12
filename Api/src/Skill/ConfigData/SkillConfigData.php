@@ -283,6 +283,13 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::RADIO_EXPERT,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_X2_SIGNAL_ON_ACTION_CONTACT_SOL,
+                    ModifierNameEnum::PLACE_X1_5_SIGNAL_ON_ACTION_CONTACT_SOL,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::RADIO_PIRACY,
                 actionConfigs: [
                     ActionEnum::SCREW_TALKIE,

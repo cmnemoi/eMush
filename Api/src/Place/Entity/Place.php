@@ -116,6 +116,28 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $place;
     }
 
+    public static function createPlanetPlaceForDaedalus(string $name, Daedalus $daedalus): self
+    {
+        $place = new self();
+        $place
+            ->setName($name)
+            ->setType(PlaceTypeEnum::PLANET)
+            ->setDaedalus($daedalus);
+
+        return $place;
+    }
+
+    public static function createPatrolShipPlaceForDaedalus(string $name, Daedalus $daedalus): self
+    {
+        $place = new self();
+        $place
+            ->setName($name)
+            ->setType(PlaceTypeEnum::PATROL_SHIP)
+            ->setDaedalus($daedalus);
+
+        return $place;
+    }
+
     public function getId(): int
     {
         return $this->id;

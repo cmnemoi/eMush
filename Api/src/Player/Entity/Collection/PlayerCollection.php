@@ -16,6 +16,11 @@ class PlayerCollection extends ArrayCollection
         return $this->filter(static fn (Player $player) => $player->isAlive());
     }
 
+    public function getPlayerAliveAndInRoom(): self
+    {
+        return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isInARoom());
+    }
+
     public function getPlayerDead(): self
     {
         return $this->filter(static fn (Player $player) => !$player->isAlive());

@@ -773,6 +773,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP;
     }
 
+    public function isInARoom(): bool
+    {
+        return $this->getPlace()->getType() === PlaceTypeEnum::ROOM;
+    }
+
     public function isInSpace(): bool
     {
         return $this->getPlace()->getType() === PlaceTypeEnum::SPACE;

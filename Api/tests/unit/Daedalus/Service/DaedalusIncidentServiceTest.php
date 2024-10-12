@@ -3,7 +3,6 @@
 namespace Mush\Tests\unit\Daedalus\Service;
 
 use Mockery;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Service\DaedalusIncidentService;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
@@ -19,7 +18,6 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Event\RoomEvent;
-use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -390,7 +388,55 @@ final class DaedalusIncidentServiceTest extends TestCase
         self::assertSame(0, $metalPlates);
     }
 
-    public function testShouldHandlOxygenTankBreak(): void
+    public function testShouldNotHandleMetalPlatesIfPlayerOnAPlanet(): void
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given a planet in this Daedalus
+        $planet = Place::createPlanetPlaceForDaedalus(RoomEnum::PLANET, $daedalus);
+
+        // given a player in this planet
+        PlayerFactory::createPlayerInPlace($planet);
+
+        // when we handle metal plates events
+        $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
+
+        // then we should not have any metal plates event
+        self::assertSame(0, $metalPlates);
+    }
+
+    public function testShouldNotHandleMetalPlatesIfPlayerIsInSpace(): void
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given a player in space
+        PlayerFactory::createPlayerInPlace($daedalus->getPlaceByName(RoomEnum::SPACE));
+
+        // when we handle metal plates events
+        $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
+
+        // then we should not have any metal plates event
+        self::assertSame(0, $metalPlates);
+    }
+
+    public function testShouldNotHandleMetalPlatesIfPlayerIsInPatrolShip(): void
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given a player in patrol ship
+        PlayerFactory::createPlayerInPlace(Place::createPatrolShipPlaceForDaedalus(RoomEnum::PATROL_SHIP_ALPHA_JUJUBE, $daedalus));
+
+        // when we handle metal plates events
+        $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
+
+        // then we should not have any metal plates event
+        self::assertSame(0, $metalPlates);
+    }
+
+    public function testShouldHandleOxygenTankBreak(): void
     {
         // given a Daedalus
         $daedalus = DaedalusFactory::createDaedalus();

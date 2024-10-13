@@ -250,8 +250,19 @@ by `callback_uri = "http://localhost:new_port/oauth/callback"`
 
 The source code of this project is licensed under [AGPL-3.0-or-later](LICENSE) License. 
 
-> Permissions of this strongest copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. When a modified version is used to provide a service over a network, the complete source code of the modified version must be made available. 
-[Choose A License](https://choosealicense.com/licenses/agpl-3.0/)
+> You are free to:
+> - Use — run, study, and privately modify the software.
+> - Share — copy and redistribute the material in any medium or format.
+> - Modify — remix, transform, and build upon the material.
+> 
+> Under the following terms:
+> 
+> - Source Code Provision — You must provide access to the source code of the software when you distribute it, including any modifications or derivative works.
+> - License and Copyright Notice — You must include the original copyright notice and license in any copy of the software or substantial portion of it.
+> - State Changes — You must clearly mark any changes you made to the original software.
+> - ShareAlike — If you modify and distribute the software, you must license the entire work under the AGPLv3 or a compatible license.
+> - Network Use is Distribution — Users who interact with the software via network have the right to receive the source code.
+> - No Additional Restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
 
 All Motion Twin and eMush assets in [App/src/assets](App/src/assets) are licensed under [CC-BY-NC-SA-4.0](App/src/assets/LICENSE) License.
 

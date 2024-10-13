@@ -91,7 +91,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .research-info {
     box-shadow: 0 1px 1px 0 rgba(9, 10, 97, 0.15);
     align-items: center;
@@ -147,9 +147,7 @@ export default defineComponent({
 .rotate {
     transform: rotate(180deg);
 }
-</style>
 
-<style lang="scss">
 .terminal-container {
     height: 100%;
 }

@@ -205,11 +205,6 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $this->getPlayers()->getPlayerAlive();
     }
 
-    public function getAlivePlayers(): PlayerCollection
-    {
-        return $this->getPlayers()->getPlayerAlive();
-    }
-
     /** /!\ Do not use this method if you want the number of players ALIVE ! Use `$place->getNumberOfPlayersAlive()` instead. /!\ */
     public function getNumberPlayers(): int
     {

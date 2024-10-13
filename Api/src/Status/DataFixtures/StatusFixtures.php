@@ -590,16 +590,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($catInfected);
 
-        $catOwner = StatusConfig::fromConfigData(
-            StatusConfigData::getByName(PlayerStatusEnum::CAT_OWNER . '_default')
-        );
-        $manager->persist($catOwner);
-
-        $catInfected = StatusConfig::fromConfigData(
-            StatusConfigData::getByName(EquipmentStatusEnum::CAT_INFECTED . '_default')
-        );
-        $manager->persist($catInfected);
-
         $hasPettedCat = StatusConfig::fromConfigData(
             StatusConfigData::getByName(PlayerStatusEnum::HAS_PETTED_CAT . '_default')
         );

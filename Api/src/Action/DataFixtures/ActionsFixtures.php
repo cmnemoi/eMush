@@ -110,6 +110,7 @@ class ActionsFixtures extends Fixture
     public const string CHANGE_NERON_CPU_PRIORITY = 'change_neron_cpu_priority';
     public const string TAKE_CAT = 'take_cat';
     public const string PET_CAT = 'pet_cat';
+    public const string SHOOT_CAT = 'shoot_cat';
 
     public function load(ObjectManager $manager): void
     {
@@ -1096,7 +1097,7 @@ class ActionsFixtures extends Fixture
         $upgradeDroneToPilot = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPGRADE_DRONE_TO_PILOT));
         $manager->persist($upgradeDroneToPilot);
 
-        $takeCat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TAKE_CAT)); 
+        $takeCat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TAKE_CAT));
         $manager->persist($takeCat);
 
         $petCat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PET_CAT));

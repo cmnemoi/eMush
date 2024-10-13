@@ -769,17 +769,6 @@
         </target>
       </segment>
     </unit>
-    <unit id="paranoid">
-      <segment id="paranoid.name" state="translated">
-        <source>paranoid.name</source>
-        <target>Paranoïaque</target>
-      </segment>
-      <segment id="paranoid.description" state="translated">
-        <source>paranoid.description</source>
-        <target>Le paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce à ses caméras supplémentaires.//:point: Commence avec 2 **Caméras** supplémentaires.
-        </target>
-      </segment>
-    </unit>
     <unit id="crazy_eye">
       <segment id="crazy_eye.name" state="translated">
         <source>crazy_eye.name</source>

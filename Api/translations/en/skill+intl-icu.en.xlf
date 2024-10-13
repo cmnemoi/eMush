@@ -189,18 +189,6 @@
         <target>Always ready to help.//:point: +1 :pa_heal: every day (**Heal** Action Point).//:point: Can read **properties of medicines**.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
-    <unit id="paranoid">
-      <segment id="paranoid.name" state="translated">
-        <source>paranoid.name</source>
-        <target>Paranoid</target>
-      </segment>
-      <segment id="paranoid.description" state="translated">
-        <source>paranoid.description</source>
-        <target>The Paranoid crewmember always believes their crewmates to be potentially dangerous, they always watch their back using their extra cameras.//
-:point: Starts out with 2 additional **cameras**.//
-:point: Bonus for developing certain **NERON projects**.</target>
-      </segment>
-    </unit>
     <unit id="biologist">
       <segment id="biologist.name" state="translated">
         <source>biologist.name</source>

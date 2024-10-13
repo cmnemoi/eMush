@@ -174,7 +174,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->whenIExecuteShootHunterTask();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: ':hunter: **Robo Wheatley #0** émet une trille de bonheur ! Un **Hunter** de moins, *bli bli blip* !',
+            expectedRoomLog: ':hunter: **Robo Wheatley #0** émet un trille de bonheur ! Un **Hunter** de moins, *bli bli blip* !',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->chun,
                 log: LogEnum::DRONE_KILL_HUNTER,

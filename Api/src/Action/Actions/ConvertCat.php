@@ -70,6 +70,7 @@ class ConvertCat extends AbstractAction
             'target' => GameVariableLevel::PLAYER,
             'variableName' => PlayerVariableEnum::SPORE,
             'checkMode' => GameVariableLevel::IS_MIN,
+            'value' => self::SPORE_COST,
             'groups' => [ClassConstraint::EXECUTE],
             'message' => ActionImpossibleCauseEnum::INFECT_CAT_NO_SPORE]));
     }
@@ -86,6 +87,13 @@ class ConvertCat extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
+        $this->createCatInfectedStatus();
+
+        $this->removeSporeFromPlayer();
+    }
+
+    private function createCatInfectedStatus(): void
+    {
         $this->statusService->createStatusFromName(
             EquipmentStatusEnum::CAT_INFECTED,
             $this->gameEquipmentTarget(),
@@ -93,7 +101,10 @@ class ConvertCat extends AbstractAction
             new \DateTime(),
             $this->player,
         );
+    }
 
+    private function removeSporeFromPlayer(): void
+    {
         $playerModifierEvent = new PlayerVariableEvent(
             $this->player,
             PlayerVariableEnum::SPORE,

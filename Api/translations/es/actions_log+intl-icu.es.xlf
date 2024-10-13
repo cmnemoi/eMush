@@ -799,5 +799,23 @@
         <target>collect_scrap_fail</target>
       </segment>
     </unit>
+    <unit id="upgrade_drone_to_turbo_success">
+      <segment id="upgrade_drone_to_turbo_success" state="initial">
+        <source>upgrade_drone_to_turbo_success</source>
+        <target>upgrade_drone_to_turbo_success</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_drone_to_firefighter_success">
+      <segment id="upgrade_drone_to_firefighter_success" state="initial">
+        <source>upgrade_drone_to_firefighter_success</source>
+        <target>upgrade_drone_to_firefighter_success</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_drone_to_pilot_success">
+      <segment id="upgrade_drone_to_pilot_success" state="initial">
+        <source>upgrade_drone_to_pilot_success</source>
+        <target>upgrade_drone_to_pilot_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

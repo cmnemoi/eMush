@@ -212,9 +212,9 @@
       </segment>
     </unit>
     <unit id="booby_trap_already_done">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>booby_trap_already_done.description</source>
-        <target>booby_trap_already_done.description</target>
+        <target>Los grandes hongos piensan igual. Esta estantería ya fue afectada por una trampa...</target>
       </segment>
     </unit>
     <unit id="slime_already_done">
@@ -278,15 +278,15 @@
       </segment>
     </unit>
     <unit id="target_already_outcast">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>target_already_outcast.description</source>
-        <target>target_already_outcast.description</target>
+        <target>Este tripulante es un paria, ¡ya ha recibido su castigo!</target>
       </segment>
     </unit>
     <unit id="already_outcast_onboard">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>already_outcast_onboard.description</source>
-        <target>already_outcast_onboard.description</target>
+        <target>¡Ya hay un paria a bordo!</target>
       </segment>
     </unit>
     <unit id="lonely_apprenticeship">
@@ -386,9 +386,9 @@
       </segment>
     </unit>
     <unit id="analyse_nothing_undiscovered">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>analyse_nothing_undiscovered.description</source>
-        <target>analyse_nothing_undiscovered.description</target>
+        <target>No hay más secciones de este planeta por revelar.</target>
       </segment>
     </unit>
     <unit id="no_pilgred">
@@ -464,9 +464,9 @@
       </segment>
     </unit>
     <unit id="sabotage_reinforced">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>sabotage_reinforced.description</source>
-        <target>sabotage_reinforced.description</target>
+        <target>Este equipo ha sido **reforzado**...</target>
       </segment>
     </unit>
     <unit id="bed_occupied">
@@ -494,9 +494,9 @@
       </segment>
     </unit>
     <unit id="renovate_lack_ressources">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>renovate_lack_ressources.description</source>
-        <target>renovate_lack_ressources.description</target>
+        <target>Las reparaciones de este Patrullero necesitan una *Pieza Metálica*</target>
       </segment>
     </unit>
     <unit id="surgery_not_lying_down">
@@ -530,9 +530,13 @@
       </segment>
     </unit>
     <unit id="gagged_prevent_spoken_action">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>gagged_prevent_spoken_action.description</source>
-        <target>gagged_prevent_spoken_action.description</target>
+        <target>{character_gender, select,
+            male {Es imposible decir nada hasta que no te libres de este maldito trozo de cinta americana.}
+            female {Es imposible decir nada hasta que no te libres de este maldito trozo de cinta americana.}
+            other {invalid gender input}
+            }</target>
       </segment>
     </unit>
     <unit id="screwed_talkie_already_pirated">
@@ -548,9 +552,9 @@
       </segment>
     </unit>
     <unit id="screwed_talkie_no_talkie_self">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>screwed_talkie_no_talkie_self.description</source>
-        <target>screwed_talkie_no_talkie_self.description</target>
+        <target>Necesitas tu walkie-talkie para realizar esta acción.</target>
       </segment>
     </unit>
     <unit id="update_talkie_require_neron">
@@ -560,15 +564,19 @@
       </segment>
     </unit>
     <unit id="update_talkie_require_tracker">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>update_talkie_require_tracker.description</source>
-        <target>update_talkie_require_tracker.description</target>
+        <target>Por alguna misteriosa razón, necesitas tu tracker para actualizar tu walkie-talkie</target>
       </segment>
     </unit>
     <unit id="immunized_remove_spore">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>immunized_remove_spore.description</source>
-        <target>immunized_remove_spore.description</target>
+        <target>{character_gender, select,
+            male {Eres inmune contra Mush, ¿Por qué querrías hacerte daño?}
+            female {Eres inmune contra Mush, ¿Por qué querrías hacerte daño?}
+            other {invalid gender input}
+            }</target>
       </segment>
     </unit>
     <unit id="daedalus_already_full_hull.description">
@@ -578,39 +586,39 @@
       </segment>
     </unit>
     <unit id="combustion_chambre_full">
-      <segment state="initial">
+      <segment state="translated">
         <source>combustion_chamber_full.description</source>
-        <target>combustion_chamber_full.description</target>
+        <target>La cámara de combustión está llena.</target>
       </segment>
     </unit>
     <unit id="alpha_reactor_broken">
-      <segment state="initial">
+      <segment state="translated">
         <source>alpha_reactor_broken.description</source>
-        <target>alpha_reactor_broken.description</target>
+        <target>El *Reactor Lateral Alfa* está averiado. Hay que repararlo si queremos orientar este intento de nave hacia esa dirección.</target>
       </segment>
     </unit>
     <unit id="bravo_reactor_broken">
-      <segment state="initial">
+      <segment state="translated">
         <source>bravo_reactor_broken.description</source>
-        <target>bravo_reactor_broken.description</target>
+        <target>El *Reactor Lateral Beta* está averiado. Hay que repararlo si queremos orientar este intento de nave hacia esa dirección.</target>
       </segment>
     </unit>
     <unit id="lateral_reactor_broken">
-      <segment state="initial">
+      <segment state="translated">
         <source>lateral_reactor_broken.description</source>
-        <target>lateral_reactor_broken.description</target>
+        <target>El *Reactor Lateral* está averiado. Hay que repararlo si queremos orientar este intento de nave hacia esa dirección.</target>
       </segment>
     </unit>
     <unit id="daedalus_in_orbit">
-      <segment state="initial">
+      <segment state="translated">
         <source>daedalus_in_orbit.description</source>
-        <target>daedalus_in_orbit.description</target>
+        <target>Esta acción no es posible mientras el Daedalus esté en órbita.</target>
       </segment>
     </unit>
     <unit id="cannot_go_to_this_room">
-      <segment state="initial">
+      <segment state="translated">
         <source>cannot_go_to_this_room.description</source>
-        <target>cannot_go_to_this_room.description</target>
+        <target>No puedes entrar en esta habitación.</target>
       </segment>
     </unit>
     <unit id="exploration_already_ongoing">

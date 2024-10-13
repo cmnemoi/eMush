@@ -781,5 +781,47 @@
         <target>drop_success</target>
       </segment>
     </unit>
+    <unit id="opportunist_worked">
+      <segment id="opportunist_worked" state="initial">
+        <source>opportunist_worked</source>
+        <target>opportunist_worked</target>
+      </segment>
+    </unit>
+    <unit id="drone_extinguished_fire">
+      <segment id="drone_extinguished_fire" state="initial">
+        <source>drone_extinguished_fire</source>
+        <target>drone_extinguished_fire</target>
+      </segment>
+    </unit>
+    <unit id="drone_turbo_worked">
+      <segment id="drone_turbo_worked" state="initial">
+        <source>drone_turbo_worked</source>
+        <target>drone_turbo_worked</target>
+      </segment>
+    </unit>
+    <unit id="drone_takeoff">
+      <segment id="drone_takeoff" state="initial">
+        <source>drone_takeoff</source>
+        <target>drone_takeoff</target>
+      </segment>
+    </unit>
+    <unit id="drone_hit_hunter">
+      <segment id="drone_hit_hunter" state="initial">
+        <source>drone_hit_hunter</source>
+        <target>drone_hit_hunter</target>
+      </segment>
+    </unit>
+    <unit id="drone_kill_hunter">
+      <segment id="drone_kill_hunter" state="initial">
+        <source>drone_kill_hunter</source>
+        <target>drone_kill_hunter</target>
+      </segment>
+    </unit>
+    <unit id="drone_land">
+      <segment id="drone_land" state="initial">
+        <source>drone_land</source>
+        <target>drone_land</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

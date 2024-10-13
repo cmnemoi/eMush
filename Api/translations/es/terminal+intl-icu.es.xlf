@@ -91,6 +91,24 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
         <target>astro_terminal.share_planet_button_description</target>
       </segment>
     </unit>
+    <unit id="research_laboratory">
+      <segment id="name" state="initial">
+        <source>research_laboratory.name</source>
+        <target>research_laboratory.name</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>research_laboratory.tips</source>
+        <target>research_laboratory.tips</target>
+      </segment>
+      <segment id="chun_present" state="initial">
+        <source>research_laboratory.chun_present</source>
+        <target>research_laboratory.chun_present</target>
+      </segment>
+      <segment id="mush_dead" state="initial">
+        <source>research_laboratory.mush_dead</source>
+        <target>research_laboratory.mush_dead</target>
+      </segment>
+    </unit>
     <unit id="block_of_post_it">
       <segment id="name" state="initial">
         <source>block_of_post_it.name</source>

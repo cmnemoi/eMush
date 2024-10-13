@@ -1027,7 +1027,6 @@
         <target>While dissecting crocodiles with lateral sphincter dysplasia, professor DipNui brought to the fore qualities of the digestive tract of the animal. You don't remember why anymore, but this led you to try out a little experiment with your blaster. It appeared that the reduction caused by the Bacillus anthracitus toxin had a devastating effect and turned Mush DNA into "Zombi" DNA, which caused frightening degradations in [...]</target>
       </segment>
     </unit>
-
     <unit id="ncc_contact_lenses">
       <segment id="ncc_contact_lenses.type" state="translated">
         <source>ncc_contact_lenses.type</source>
@@ -1046,7 +1045,6 @@
         <target>Who would have thought that cats hid such secrets... When working on cornea ionisation issues during interplanetary travel, you think of injecting an auto-gamma enhancer to enhance your crewmates' vision.</target>
       </segment>
     </unit>
-
     <unit id="patuline_scrambler">
       <segment id="patuline_scrambler.type" state="translated">
         <source>patuline_scrambler.type</source>
@@ -1065,7 +1063,6 @@
         <target>Sometimes, experiments carried out under the influence of LSD around the year 2070 led to superb articles on para-psychological experiments. Careful inspection of the last report of Professer Delopine in 2069 discussing the relationship between certain species of sheep and grasses which naturally produce this drug, you will realize that it is possible to synthesize buds of patulos which are reknowned for their anti-fungal properties.</target>
       </segment>
     </unit>
-
     <unit id="perpetual_hydration">
       <segment id="perpetual_hydration.type" state="translated">
         <source>perpetual_hydration.type</source>
@@ -1102,7 +1099,6 @@
         <target>Of all the objects created in Finola's laboratory, this one remains unfinished. By collecting all the genome data and combining it with some old research, you discover the secret of Mush communication. This is a powerful tool: by adding a pheromodem to the trackers, everyone will soon be able to throw away their antiquated walky-talky!</target>
       </segment>
     </unit>
-
     <unit id="retro_fungal_serum">
       <segment id="retro_fungal_serum.type" state="translated">
         <source>retro_fungal_serum.type</source>
@@ -1121,7 +1117,6 @@
         <target>An excellent study into Gershwin's correlation between fungal infection and propagation mechanics linked to quasar inflection. Once this correlation was confirmed, the idea of using a particle accelerator to synthesize a powerful retro-fungal substrate rapidly became THE solution to the Mush invasion. This study's findings are vital and will make the whole team famous.</target>
       </segment>
     </unit>
-
     <unit id="spore_sucker">
       <segment id="spore_sucker.type" state="translated">
         <source>spore_sucker.type</source>
@@ -1140,7 +1135,6 @@
         <target>Despite its unnerving design, you keep the faith. You know that at the price of minor skin lesions, this bad boy will get rid of the purulent fungal strands.</target>
       </segment>
     </unit>
-
     <unit id="super_calculator">
       <segment id="super_calculator.type" state="translated">
         <source>super_calculator.type</source>
@@ -1159,7 +1153,6 @@
         <target>Neron is clearly a clever individual but calculations are not its strong suit... By analysing the molecular structure of cristallite, you think you'll be able to knock something together which will be able to extract the data contained within.</target>
       </segment>
     </unit>
-
     <unit id="tesla_sup2x">
       <segment id="tesla_sup2x.type" state="translated">
         <source>tesla_sup2x.type</source>
@@ -1178,7 +1171,6 @@
         <target>By plunging a swizzle stick into a tesla vessel during fusion we have succeeded in doubling its fissile content production. It is now possible for us to store 50% more energy in our turrets!</target>
       </segment>
     </unit>
-
     <unit id="ultra_healing_pomade">
       <segment id="ultra_healing_pomade.type" state="translated">
         <source>ultra_healing_pomade.type</source>

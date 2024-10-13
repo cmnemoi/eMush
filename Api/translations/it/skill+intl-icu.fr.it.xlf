@@ -711,5 +711,35 @@
         <target>strateguru.description</target>
       </segment>
     </unit>
+    <unit id="opportunist">
+      <segment id="opportunist.name" state="initial">
+        <source>opportunist.name</source>
+        <target>opportunist.name</target>
+      </segment>
+      <segment id="opportunist.description" state="initial">
+        <source>opportunist.description</source>
+        <target>opportunist.description</target>
+      </segment>
+    </unit>
+    <unit id="crazy_eye">
+      <segment id="crazy_eye.name" state="initial">
+        <source>crazy_eye.name</source>
+        <target>crazy_eye.name</target>
+      </segment>
+      <segment id="crazy_eye.description" state="initial">
+        <source>crazy_eye.description</source>
+        <target>crazy_eye.description</target>
+      </segment>
+    </unit>
+    <unit id="medic">
+      <segment id="medic.name" state="initial">
+        <source>medic.name</source>
+        <target>medic.name</target>
+      </segment>
+      <segment id="medic.description" state="initial">
+        <source>medic.description</source>
+        <target>medic.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

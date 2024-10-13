@@ -1438,7 +1438,7 @@
         <source>pariah.description</source>
         <target>You have been judged by the others. A heavy burden weighs on your shoulders. They point at you, they spy on you, and they watch you closely. You are the whipping-boy. The victim.//Your **secret** actions become **covert**.//It is harder for you to do everything.</target>
       </segment>
-      <segment id="effect" state="translated">
+      <segment id="effect" state="final">
         <source>pariah.examine</source>
         <target/>
       </segment>
@@ -1610,7 +1610,7 @@
       </segment>
       <segment id="conceptor.description" state="translated">
         <source>conceptor.description</source>
-        <target>Has access to NERON's core twice per day (Free Actions).//
+        <target>Thanks to their deep familiarity with the systems aboard the Daedalus, the Designer has an easier time contributing to NERON projects than most.//
 :point: +2 :pa_core: per day (**NERON projects** Action Points) .//
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>

@@ -189,6 +189,16 @@
         <target>Always ready to help.//:point: +1 :pa_heal: every day (**Heal** Action Point).//:point: Can read **properties of medicines**.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
+    <unit id="paranoid">
+      <segment id="paranoid.name" state="translated">
+        <source>paranoid.name</source>
+        <target>Paranoid</target>
+      </segment>
+      <segment id="paranoid.description" state="translated">
+        <source>paranoid.description</source>
+        <target>The paranoid crewmember always believes their crewmates to be potentially dangerous, they always watch their back using their extra cameras.//:point: Starts out with 2 additional **cameras**.</target>
+      </segment>
+    </unit>
     <unit id="biologist">
       <segment id="biologist.name" state="translated">
         <source>biologist.name</source>
@@ -547,7 +557,7 @@
       </segment>
       <segment id="defacer.description" state="translated">
         <source>defacer.description</source>
-        <target>Your DNA allows you to modify certain peripheral data. This has potential!//:point: For **2** :pa: you can delete the log in a given room, once per day. Logging will automatically resume next cycle. </target>
+        <target>Your DNA allows you to modify certain peripheral data. This has potential!//:point: For **2** :pa: you can delete the log in a given room, once per day. Logging will automatically resume next cycle.</target>
       </segment>
     </unit>
     <unit id="u_turn">
@@ -740,16 +750,6 @@
         <target>The opportunist waits for the first chance to climb the ship's hierarchy, no opportunity escapes them.//:point: +5 :pa: when you **earn a title** for the first time.</target>
       </segment>
     </unit>
-    <unit id="paranoid">
-      <segment id="paranoid.name" state="translated">
-        <source>paranoid.name</source>
-        <target>Paranoid</target>
-      </segment>
-      <segment id="paranoid.description" state="translated">
-        <source>paranoid.description</source>
-        <target>The paranoid crewmember always believes their crewmates to be potentially dangerous, they always watch their back using their extra cameras.//:point: Starts out with 2 additional **cameras**.</target>
-      </segment>
-    </unit>
     <unit id="crazy_eye">
       <segment id="crazy_eye.name" state="translated">
         <source>crazy_eye.name</source>
@@ -758,6 +758,16 @@
       <segment id="crazy_eye.description" state="translated">
         <source>crazy_eye.description</source>
         <target>There is no way to take you by surprise. You foresee all attacks from your enemies as well as those from your so-called allies.//:point: All aggressive actions targeting you cost an additional 2 :pa:.</target>
+      </segment>
+    </unit>
+    <unit id="medic">
+      <segment id="medic.name" state="translated">
+        <source>medic.name</source>
+        <target>Medic</target>
+      </segment>
+      <segment id="medic.description" state="translated">
+        <source>medic.description</source>
+        <target>Medics have full medical training, allowing them to carry out rapid, appropriate procedures. They are also skilled in surgery.//**Heal** Actions earn an additional 2 :pv:.//Can carry out **Operations**.//Can read **properties of medicines**.//+**4% bonus** on all laboratory **Research**.</target>
       </segment>
     </unit>
   </file>

@@ -1446,7 +1446,7 @@
         <source>pariah.description</source>
         <target>On vous a jeté l'anathème. Un poids pèse sur vos épaules. On vous montre du doigt, on vous épie, on vous regarde attentivement. Vous êtes le bouc-émissaire. La victime.//Vos actions **furtives** deviennent **discrètes**.//Vos actions sont plus dures.</target>
       </segment>
-      <segment id="effect" state="translated">
+      <segment id="effect" state="final">
         <source>pariah.examine</source>
         <target/>
       </segment>

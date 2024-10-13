@@ -1404,5 +1404,38 @@ Or you simply need some fresh air.... or not.</target>
         <target>This action is dangerous. Are you sure you want to continue?</target>
       </segment>
     </unit>
+    <unit id="upgrade_drone_to_turbo">
+      <segment id="name" state="translated">
+        <source>upgrade_drone_to_turbo.name</source>
+        <target>Upgrade: Turbo</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>upgrade_drone_to_turbo.description</source>
+        <target>Allows you to add this drone://
+**80% chance of carrying out a second action in a given cycle.**</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_drone_to_firefighter">
+      <segment id="name" state="translated">
+        <source>upgrade_drone_to_firefighter.name</source>
+        <target>Upgrade: Fireman</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>upgrade_drone_to_firefighter.description</source>
+        <target>Allows you to add this drone://
+**Try to extinguish the fire in the room before you leave. Become Fireproof!**</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_drone_to_pilot">
+      <segment id="name" state="translated">
+        <source>upgrade_drone_to_pilot.name</source>
+        <target>Upgrade: Pilot</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>upgrade_drone_to_pilot.description</source>
+        <target>Allows you to add this drone://
+**Try to borrow a Patrol Ship and destroy all the Hunters before you leave. 20% targeting bonus compared to humans.**</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

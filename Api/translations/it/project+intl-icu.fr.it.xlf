@@ -775,5 +775,419 @@
         <target>beat_box.lore</target>
       </segment>
     </unit>
+    <unit id="anabolics">
+      <segment id="anabolics.type" state="initial">
+        <source>anabolics.type</source>
+        <target>anabolics.type</target>
+      </segment>
+      <segment id="anabolics.name" state="initial">
+        <source>anabolics.name</source>
+        <target>anabolics.name</target>
+      </segment>
+      <segment id="anabolics.description" state="initial">
+        <source>anabolics.description</source>
+        <target>anabolics.description</target>
+      </segment>
+      <segment id="anabolics.lore" state="initial">
+        <source>anabolics.lore</source>
+        <target>anabolics.lore</target>
+      </segment>
+    </unit>
+    <unit id="antispore_gas">
+      <segment id="antispore_gas.type" state="initial">
+        <source>antispore_gas.type</source>
+        <target>antispore_gas.type</target>
+      </segment>
+      <segment id="antispore_gas.name" state="initial">
+        <source>antispore_gas.name</source>
+        <target>antispore_gas.name</target>
+      </segment>
+      <segment id="antispore_gas.description" state="initial">
+        <source>antispore_gas.description</source>
+        <target>antispore_gas.description</target>
+      </segment>
+      <segment id="antispore_gas.lore" state="initial">
+        <source>antispore_gas.lore</source>
+        <target>antispore_gas.lore</target>
+      </segment>
+    </unit>
+    <unit id="constipaspore_serum">
+      <segment id="constipaspore_serum.type" state="initial">
+        <source>constipaspore_serum.type</source>
+        <target>constipaspore_serum.type</target>
+      </segment>
+      <segment id="constipaspore_serum.name" state="initial">
+        <source>constipaspore_serum.name</source>
+        <target>constipaspore_serum.name</target>
+      </segment>
+      <segment id="constipaspore_serum.description" state="initial">
+        <source>constipaspore_serum.description</source>
+        <target>constipaspore_serum.description</target>
+      </segment>
+      <segment id="constipaspore_serum.lore" state="initial">
+        <source>constipaspore_serum.lore</source>
+        <target>constipaspore_serum.lore</target>
+      </segment>
+    </unit>
+    <unit id="create_mycoscan">
+      <segment id="create_mycoscan.type" state="initial">
+        <source>create_mycoscan.type</source>
+        <target>create_mycoscan.type</target>
+      </segment>
+      <segment id="create_mycoscan.name" state="initial">
+        <source>create_mycoscan.name</source>
+        <target>create_mycoscan.name</target>
+      </segment>
+      <segment id="create_mycoscan.description" state="initial">
+        <source>create_mycoscan.description</source>
+        <target>create_mycoscan.description</target>
+      </segment>
+      <segment id="create_mycoscan.lore" state="initial">
+        <source>create_mycoscan.lore</source>
+        <target>create_mycoscan.lore</target>
+      </segment>
+    </unit>
+    <unit id="meridon_scrambler">
+      <segment id="meridon_scrambler.type" state="initial">
+        <source>meridon_scrambler.type</source>
+        <target>meridon_scrambler.type</target>
+      </segment>
+      <segment id="meridon_scrambler.name" state="initial">
+        <source>meridon_scrambler.name</source>
+        <target>meridon_scrambler.name</target>
+      </segment>
+      <segment id="meridon_scrambler.description" state="initial">
+        <source>meridon_scrambler.description</source>
+        <target>meridon_scrambler.description</target>
+      </segment>
+      <segment id="meridon_scrambler.lore" state="initial">
+        <source>meridon_scrambler.lore</source>
+        <target>meridon_scrambler.lore</target>
+      </segment>
+    </unit>
+    <unit id="mush_hunter_zc16h">
+      <segment id="mush_hunter_zc16h.type" state="initial">
+        <source>mush_hunter_zc16h.type</source>
+        <target>mush_hunter_zc16h.type</target>
+      </segment>
+      <segment id="mush_hunter_zc16h.name" state="initial">
+        <source>mush_hunter_zc16h.name</source>
+        <target>mush_hunter_zc16h.name</target>
+      </segment>
+      <segment id="mush_hunter_zc16h.description" state="initial">
+        <source>mush_hunter_zc16h.description</source>
+        <target>mush_hunter_zc16h.description</target>
+      </segment>
+      <segment id="mush_hunter_zc16h.lore" state="initial">
+        <source>mush_hunter_zc16h.lore</source>
+        <target>mush_hunter_zc16h.lore</target>
+      </segment>
+    </unit>
+    <unit id="mushicide_soap">
+      <segment id="mushicide_soap.type" state="initial">
+        <source>mushicide_soap.type</source>
+        <target>mushicide_soap.type</target>
+      </segment>
+      <segment id="mushicide_soap.name" state="initial">
+        <source>mushicide_soap.name</source>
+        <target>mushicide_soap.name</target>
+      </segment>
+      <segment id="mushicide_soap.description" state="initial">
+        <source>mushicide_soap.description</source>
+        <target>mushicide_soap.description</target>
+      </segment>
+      <segment id="mushicide_soap.lore" state="initial">
+        <source>mushicide_soap.lore</source>
+        <target>mushicide_soap.lore</target>
+      </segment>
+    </unit>
+    <unit id="mush_language">
+      <segment id="mush_language.type" state="initial">
+        <source>mush_language.type</source>
+        <target>mush_language.type</target>
+      </segment>
+      <segment id="mush_language.name" state="initial">
+        <source>mush_language.name</source>
+        <target>mush_language.name</target>
+      </segment>
+      <segment id="mush_language.description" state="initial">
+        <source>mush_language.description</source>
+        <target>mush_language.description</target>
+      </segment>
+      <segment id="mush_language.lore" state="initial">
+        <source>mush_language.lore</source>
+        <target>mush_language.lore</target>
+      </segment>
+    </unit>
+    <unit id="mushovore_bacteria">
+      <segment id="mushovore_bacteria.type" state="initial">
+        <source>mushovore_bacteria.type</source>
+        <target>mushovore_bacteria.type</target>
+      </segment>
+      <segment id="mushovore_bacteria.name" state="initial">
+        <source>mushovore_bacteria.name</source>
+        <target>mushovore_bacteria.name</target>
+      </segment>
+      <segment id="mushovore_bacteria.description" state="initial">
+        <source>mushovore_bacteria.description</source>
+        <target>mushovore_bacteria.description</target>
+      </segment>
+      <segment id="mushovore_bacteria.lore" state="initial">
+        <source>mushovore_bacteria.lore</source>
+        <target>mushovore_bacteria.lore</target>
+      </segment>
+    </unit>
+    <unit id="mush_races">
+      <segment id="mush_races.type" state="initial">
+        <source>mush_races.type</source>
+        <target>mush_races.type</target>
+      </segment>
+      <segment id="mush_races.name" state="initial">
+        <source>mush_races.name</source>
+        <target>mush_races.name</target>
+      </segment>
+      <segment id="mush_races.description" state="initial">
+        <source>mush_races.description</source>
+        <target>mush_races.description</target>
+      </segment>
+      <segment id="mush_races.lore" state="initial">
+        <source>mush_races.lore</source>
+        <target>mush_races.lore</target>
+      </segment>
+    </unit>
+    <unit id="mush_reproductive_system">
+      <segment id="mush_reproductive_system.type" state="initial">
+        <source>mush_reproductive_system.type</source>
+        <target>mush_reproductive_system.type</target>
+      </segment>
+      <segment id="mush_reproductive_system.name" state="initial">
+        <source>mush_reproductive_system.name</source>
+        <target>mush_reproductive_system.name</target>
+      </segment>
+      <segment id="mush_reproductive_system.description" state="initial">
+        <source>mush_reproductive_system.description</source>
+        <target>mush_reproductive_system.description</target>
+      </segment>
+      <segment id="mush_reproductive_system.lore" state="initial">
+        <source>mush_reproductive_system.lore</source>
+        <target>mush_reproductive_system.lore</target>
+      </segment>
+    </unit>
+    <unit id="mycoalarm">
+      <segment id="mycoalarm.type" state="initial">
+        <source>mycoalarm.type</source>
+        <target>mycoalarm.type</target>
+      </segment>
+      <segment id="mycoalarm.name" state="initial">
+        <source>mycoalarm.name</source>
+        <target>mycoalarm.name</target>
+      </segment>
+      <segment id="mycoalarm.description" state="initial">
+        <source>mycoalarm.description</source>
+        <target>mycoalarm.description</target>
+      </segment>
+      <segment id="mycoalarm.lore" state="initial">
+        <source>mycoalarm.lore</source>
+        <target>mycoalarm.lore</target>
+      </segment>
+    </unit>
+    <unit id="narcotics_distiller">
+      <segment id="narcotics_distiller.type" state="initial">
+        <source>narcotics_distiller.type</source>
+        <target>narcotics_distiller.type</target>
+      </segment>
+      <segment id="narcotics_distiller.name" state="initial">
+        <source>narcotics_distiller.name</source>
+        <target>narcotics_distiller.name</target>
+      </segment>
+      <segment id="narcotics_distiller.description" state="initial">
+        <source>narcotics_distiller.description</source>
+        <target>narcotics_distiller.description</target>
+      </segment>
+      <segment id="narcotics_distiller.lore" state="initial">
+        <source>narcotics_distiller.lore</source>
+        <target>narcotics_distiller.lore</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle">
+      <segment id="natamy_rifle.type" state="initial">
+        <source>natamy_rifle.type</source>
+        <target>natamy_rifle.type</target>
+      </segment>
+      <segment id="natamy_rifle.name" state="initial">
+        <source>natamy_rifle.name</source>
+        <target>natamy_rifle.name</target>
+      </segment>
+      <segment id="natamy_rifle.description" state="initial">
+        <source>natamy_rifle.description</source>
+        <target>natamy_rifle.description</target>
+      </segment>
+      <segment id="natamy_rifle.lore" state="initial">
+        <source>natamy_rifle.lore</source>
+        <target>natamy_rifle.lore</target>
+      </segment>
+    </unit>
+    <unit id="ncc_contact_lenses">
+      <segment id="ncc_contact_lenses.type" state="initial">
+        <source>ncc_contact_lenses.type</source>
+        <target>ncc_contact_lenses.type</target>
+      </segment>
+      <segment id="ncc_contact_lenses.name" state="initial">
+        <source>ncc_contact_lenses.name</source>
+        <target>ncc_contact_lenses.name</target>
+      </segment>
+      <segment id="ncc_contact_lenses.description" state="initial">
+        <source>ncc_contact_lenses.description</source>
+        <target>ncc_contact_lenses.description</target>
+      </segment>
+      <segment id="ncc_contact_lenses.lore" state="initial">
+        <source>ncc_contact_lenses.lore</source>
+        <target>ncc_contact_lenses.lore</target>
+      </segment>
+    </unit>
+    <unit id="patuline_scrambler">
+      <segment id="patuline_scrambler.type" state="initial">
+        <source>patuline_scrambler.type</source>
+        <target>patuline_scrambler.type</target>
+      </segment>
+      <segment id="patuline_scrambler.name" state="initial">
+        <source>patuline_scrambler.name</source>
+        <target>patuline_scrambler.name</target>
+      </segment>
+      <segment id="patuline_scrambler.description" state="initial">
+        <source>patuline_scrambler.description</source>
+        <target>patuline_scrambler.description</target>
+      </segment>
+      <segment id="patuline_scrambler.lore" state="initial">
+        <source>patuline_scrambler.lore</source>
+        <target>patuline_scrambler.lore</target>
+      </segment>
+    </unit>
+    <unit id="perpetual_hydration">
+      <segment id="perpetual_hydration.type" state="initial">
+        <source>perpetual_hydration.type</source>
+        <target>perpetual_hydration.type</target>
+      </segment>
+      <segment id="perpetual_hydration.name" state="initial">
+        <source>perpetual_hydration.name</source>
+        <target>perpetual_hydration.name</target>
+      </segment>
+      <segment id="perpetual_hydration.description" state="initial">
+        <source>perpetual_hydration.description</source>
+        <target>perpetual_hydration.description</target>
+      </segment>
+      <segment id="perpetual_hydration.lore" state="initial">
+        <source>perpetual_hydration.lore</source>
+        <target>perpetual_hydration.lore</target>
+      </segment>
+    </unit>
+    <unit id="pheromodem">
+      <segment id="pheromodem.type" state="initial">
+        <source>pheromodem.type</source>
+        <target>pheromodem.type</target>
+      </segment>
+      <segment id="pheromodem.name" state="initial">
+        <source>pheromodem.name</source>
+        <target>pheromodem.name</target>
+      </segment>
+      <segment id="pheromodem.description" state="initial">
+        <source>pheromodem.description</source>
+        <target>pheromodem.description</target>
+      </segment>
+      <segment id="pheromodem.lore" state="initial">
+        <source>pheromodem.lore</source>
+        <target>pheromodem.lore</target>
+      </segment>
+    </unit>
+    <unit id="retro_fungal_serum">
+      <segment id="retro_fungal_serum.type" state="initial">
+        <source>retro_fungal_serum.type</source>
+        <target>retro_fungal_serum.type</target>
+      </segment>
+      <segment id="retro_fungal_serum.name" state="initial">
+        <source>retro_fungal_serum.name</source>
+        <target>retro_fungal_serum.name</target>
+      </segment>
+      <segment id="retro_fungal_serum.description" state="initial">
+        <source>retro_fungal_serum.description</source>
+        <target>retro_fungal_serum.description</target>
+      </segment>
+      <segment id="retro_fungal_serum.lore" state="initial">
+        <source>retro_fungal_serum.lore</source>
+        <target>retro_fungal_serum.lore</target>
+      </segment>
+    </unit>
+    <unit id="spore_sucker">
+      <segment id="spore_sucker.type" state="initial">
+        <source>spore_sucker.type</source>
+        <target>spore_sucker.type</target>
+      </segment>
+      <segment id="spore_sucker.name" state="initial">
+        <source>spore_sucker.name</source>
+        <target>spore_sucker.name</target>
+      </segment>
+      <segment id="spore_sucker.description" state="initial">
+        <source>spore_sucker.description</source>
+        <target>spore_sucker.description</target>
+      </segment>
+      <segment id="spore_sucker.lore" state="initial">
+        <source>spore_sucker.lore</source>
+        <target>spore_sucker.lore</target>
+      </segment>
+    </unit>
+    <unit id="super_calculator">
+      <segment id="super_calculator.type" state="initial">
+        <source>super_calculator.type</source>
+        <target>super_calculator.type</target>
+      </segment>
+      <segment id="super_calculator.name" state="initial">
+        <source>super_calculator.name</source>
+        <target>super_calculator.name</target>
+      </segment>
+      <segment id="super_calculator.description" state="initial">
+        <source>super_calculator.description</source>
+        <target>super_calculator.description</target>
+      </segment>
+      <segment id="super_calculator.lore" state="initial">
+        <source>super_calculator.lore</source>
+        <target>super_calculator.lore</target>
+      </segment>
+    </unit>
+    <unit id="tesla_sup2x">
+      <segment id="tesla_sup2x.type" state="initial">
+        <source>tesla_sup2x.type</source>
+        <target>tesla_sup2x.type</target>
+      </segment>
+      <segment id="tesla_sup2x.name" state="initial">
+        <source>tesla_sup2x.name</source>
+        <target>tesla_sup2x.name</target>
+      </segment>
+      <segment id="tesla_sup2x.description" state="initial">
+        <source>tesla_sup2x.description</source>
+        <target>tesla_sup2x.description</target>
+      </segment>
+      <segment id="tesla_sup2x.lore" state="initial">
+        <source>tesla_sup2x.lore</source>
+        <target>tesla_sup2x.lore</target>
+      </segment>
+    </unit>
+    <unit id="ultra_healing_pomade">
+      <segment id="ultra_healing_pomade.type" state="initial">
+        <source>ultra_healing_pomade.type</source>
+        <target>ultra_healing_pomade.type</target>
+      </segment>
+      <segment id="ultra_healing_pomade.name" state="initial">
+        <source>ultra_healing_pomade.name</source>
+        <target>ultra_healing_pomade.name</target>
+      </segment>
+      <segment id="ultra_healing_pomade.description" state="initial">
+        <source>ultra_healing_pomade.description</source>
+        <target>ultra_healing_pomade.description</target>
+      </segment>
+      <segment id="ultra_healing_pomade.lore" state="initial">
+        <source>ultra_healing_pomade.lore</source>
+        <target>ultra_healing_pomade.lore</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

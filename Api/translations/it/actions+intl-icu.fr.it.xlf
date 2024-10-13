@@ -1377,5 +1377,35 @@
         <target>throw_grenade.confirmation</target>
       </segment>
     </unit>
+    <unit id="upgrade_drone_to_turbo">
+      <segment id="name" state="initial">
+        <source>upgrade_drone_to_turbo.name</source>
+        <target>upgrade_drone_to_turbo.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>upgrade_drone_to_turbo.description</source>
+        <target>upgrade_drone_to_turbo.description</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_drone_to_firefighter">
+      <segment id="name" state="initial">
+        <source>upgrade_drone_to_firefighter.name</source>
+        <target>upgrade_drone_to_firefighter.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>upgrade_drone_to_firefighter.description</source>
+        <target>upgrade_drone_to_firefighter.description</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_drone_to_pilot">
+      <segment id="name" state="initial">
+        <source>upgrade_drone_to_pilot.name</source>
+        <target>upgrade_drone_to_pilot.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>upgrade_drone_to_pilot.description</source>
+        <target>upgrade_drone_to_pilot.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

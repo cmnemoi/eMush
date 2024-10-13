@@ -160,7 +160,7 @@
       </segment>
       <segment id="pilgred.lore" state="final">
         <source>pilgred.lore</source>
-        <target />
+        <target/>
       </segment>
     </unit>
     <unit id="plasma_shield">

@@ -765,8 +765,7 @@
       </segment>
       <segment id="opportunist.description" state="translated">
         <source>opportunist.description</source>
-        <target>L'arriviste attend la première occasion pour monter dans la hiérarchie du vaisseau, aucune opportunité ne lui échappe.//:point: +5 :pa: lorsque vous **gagnez un titre** pour la première fois.
-        </target>
+        <target>L'arriviste attend la première occasion pour monter dans la hiérarchie du vaisseau, aucune opportunité ne lui échappe.//:point: +5 :pa: lorsque vous **gagnez un titre** pour la première fois.</target>
       </segment>
     </unit>
     <unit id="crazy_eye">

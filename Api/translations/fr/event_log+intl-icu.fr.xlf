@@ -1115,9 +1115,9 @@
       </segment>
     </unit>
     <unit id="opportunist_worked">
-      <segment id="opportunist_worked" state="final">
+      <segment id="opportunist_worked" state="translated">
         <source>opportunist_worked</source>
-        <target>opportunist_worked</target>
+        <target>Votre compétence **Opportuniste** a porté ses fruits...</target>
       </segment>
     </unit>
     <unit id="drone_extinguished_fire">
@@ -1147,7 +1147,7 @@
     <unit id="drone_kill_hunter">
       <segment id="drone_kill_hunter" state="translated">
         <source>drone_kill_hunter</source>
-        <target>:hunter: {drone} émet une trille de bonheur ! Un **{hunter}** de moins, *bli bli blip* !</target>
+        <target>:hunter: {drone} émet un trille de bonheur ! Un **{hunter}** de moins, *bli bli blip* !</target>
       </segment>
     </unit>
     <unit id="drone_land">

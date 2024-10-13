@@ -156,7 +156,7 @@
     <unit id="equipment_broken">
       <segment state="translated">
         <source>equipment_broken</source>
-        <target>{equipment_first_letter, select,
+        <target>:broken_equipments: {equipment_first_letter, select,
     vowel {An **{equipment}** has been broken!}
     consonant {A **{equipment}** has been broken!}
     other {invalid equipment_first_letter input}
@@ -166,7 +166,7 @@
     <unit id="equipment_destroyed">
       <segment state="translated">
         <source>equipment_destroyed</source>
-        <target>{equipment_first_letter, select,
+        <target>:broken_equipments: {equipment_first_letter, select,
     vowel {An **{equipment}** has been destroyed!}
     consonant {A **{equipment}** has been destroyed!}
     other {invalid equipment_first_letter input}
@@ -969,6 +969,48 @@
       <segment id="drop_success" state="translated">
         <source>drop_success</source>
         <target>**{character}** has dropped a **{target_equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="opportunist_worked">
+      <segment id="opportunist_worked" state="translated">
+        <source>opportunist_worked</source>
+        <target>Your **Opportunist** skill has borne fruit...</target>
+      </segment>
+    </unit>
+    <unit id="drone_extinguished_fire">
+      <segment id="drone_extinguished_fire" state="translated">
+        <source>drone_extinguished_fire</source>
+        <target>:fires: **{drone}** put out the fire!</target>
+      </segment>
+    </unit>
+    <unit id="drone_turbo_worked">
+      <segment id="drone_turbo_worked" state="translated">
+        <source>drone_turbo_worked</source>
+        <target>The **Turbo** skill of {drone} has borne fruit...</target>
+      </segment>
+    </unit>
+    <unit id="drone_takeoff">
+      <segment id="drone_takeoff" state="translated">
+        <source>drone_takeoff</source>
+        <target>{drone} has just taken off.</target>
+      </segment>
+    </unit>
+    <unit id="drone_hit_hunter">
+      <segment id="drone_hit_hunter" state="translated">
+        <source>drone_hit_hunter</source>
+        <target>:hunter: Nearly there! {drone} hit a **{hunter}**.</target>
+      </segment>
+    </unit>
+    <unit id="drone_kill_hunter">
+      <segment id="drone_kill_hunter" state="translated">
+        <source>drone_kill_hunter</source>
+        <target>:hunter: {drone} let out a shriek of delight! One **{hunter}** less, bli bli blip !</target>
+      </segment>
+    </unit>
+    <unit id="drone_land">
+      <segment id="drone_land" state="translated">
+        <source>drone_land</source>
+        <target>{drone}'s patrol ship has just landed.</target>
       </segment>
     </unit>
   </file>

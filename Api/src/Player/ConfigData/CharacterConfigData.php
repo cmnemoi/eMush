@@ -648,6 +648,7 @@ class CharacterConfigData
                 SkillEnum::LOGISTICS_EXPERT,
                 SkillEnum::SHOOTER,
                 SkillEnum::BIOLOGIST,
+                SkillEnum::REBEL,
                 SkillEnum::GUNNER,
             ],
             'maxNumberPrivateChannel' => 3,

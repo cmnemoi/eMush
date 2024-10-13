@@ -788,5 +788,15 @@
         <target>Le médecin possède une formation médicale, ce qui permet d'effectuer des soins rapides et précis. Il est également habilité à la chirurgie.//:point: Les actions **Soins** font gagner 2 :hp: supplémentaires.//:point: Peut effectuer des **Opérations**.//:point:Peut lire les **propriétés des médicaments**.//:point: +**4% de bonus** sur chacune des **Recherches** du Laboratoire.</target>
       </segment>
     </unit>
+    <unit id="rebel">
+      <segment id="rebel.name" state="translated">
+        <source>rebel.name</source>
+        <target>Rebelle</target>
+      </segment>
+      <segment id="rebel.description" state="translated">
+        <source>rebel.description</source>
+        <target>Vos liens avec la résistance anti-Mush vous permettent de comprendre et décoder les signaux rebelles bien plus rapidement que n'importe quel autre expert radio.//:point: Chances **doublées** pour contacter les bases rebelles.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

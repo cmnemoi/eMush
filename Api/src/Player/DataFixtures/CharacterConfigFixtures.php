@@ -202,6 +202,12 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $medicSkillConfig */
         $medicSkillConfig = $this->getReference(SkillEnum::MEDIC->value);
 
+        /** @var SkillConfig $radioExpertSkillConfig */
+        $radioExpertSkillConfig = $this->getReference(SkillEnum::RADIO_EXPERT->value);
+
+        /** @var SkillConfig $rebelSkillConfig */
+        $rebelSkillConfig = $this->getReference(SkillEnum::REBEL->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -405,9 +411,11 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(CharacterEnum::PAOLA)
             ->setCharacterName(CharacterEnum::PAOLA)
             ->setSkillConfigs([
+                $radioExpertSkillConfig,
                 $logisticExpert,
                 $shooterSkillConfig,
                 $biologistSkillConfig,
+                $rebelSkillConfig,
                 $gunnerSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);

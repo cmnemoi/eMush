@@ -178,6 +178,7 @@ enum ActionEnum: string
     case TOGGLE_PLASMA_SHIELD = 'toggle_plasma_shield';
     case TOGGLE_MAGNETIC_NET = 'toggle_magnetic_net';
     case TOGGLE_NERON_INHIBITION = 'toggle_neron_inhibition';
+    case DECODE_REBEL_SIGNAL = 'decode_rebel_signal';
 
     // Titles-related actions
     case COMMANDER_ORDER = 'commander_order';

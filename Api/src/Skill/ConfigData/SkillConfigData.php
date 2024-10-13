@@ -306,6 +306,12 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::REBEL,
+                modifierConfigs: [
+                    ModifierNameEnum::DOUBLE_DECODE_REBEL_SIGNAL,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::ROBOTICS_EXPERT,
                 spawnEquipmentConfig: SpawnEquipmentConfigData::ONE_SUPPORT_DRONE_BLUEPRINT_IN_PLAYER_INVENTORY,
             ),

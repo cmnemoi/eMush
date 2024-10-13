@@ -135,17 +135,4 @@ final class TortureCest extends AbstractFunctionalTest
     {
         $I->assertEquals($healthPoints, $this->kuanTi->getHealthPoint());
     }
-
-    private function thenIShouldSeeAPrivateLogForTorturerWithActions(string $actions, FunctionalTester $I): void
-    {
-        $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: "Vous vous en prenez violemment à **Kuan Ti**. Vous attrapez un annuaire qui trainait par là et vous lui mettez de grands coups avec... C'est sanguinolent, mais **Kuan Ti** finit par parler... Ses dernières actions sont {$actions}.",
-            actualRoomLogDto: new RoomLogDto(
-                player: $this->chun,
-                log: LogEnum::TORTURER_ACTIONS,
-                visibility: VisibilityEnum::PRIVATE,
-            ),
-            I: $I
-        );
-    }
 }

@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -57,6 +58,7 @@ final class ConvertCatCest extends AbstractFunctionalTest
             [
                 'place' => $this->player->getPlace()->getLogName(),
                 'log' => ActionLogEnum::PET_CAT,
+                'visibility' => VisibilityEnum::PUBLIC,
             ]
         );
     }

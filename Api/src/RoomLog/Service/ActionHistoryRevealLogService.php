@@ -63,37 +63,28 @@ final class ActionHistoryRevealLogService
         return match ($action->getActionName()) {
             ActionEnum::CHITCHAT->value => LogEnum::CONFIDENT_ACTIONS,
             ActionEnum::PREMONITION->value => LogEnum::PREMONITION_ACTION,
-            default => throw new \InvalidArgumentException("{$action->getActionName()} action does not support action reveal !."),
+            ActionEnum::TORTURE->value => LogEnum::TORTURER_ACTIONS,
+            default => throw new \InvalidArgumentException("{$action->getActionName()} action does not support action reveal!"),
         };
     }
 
-    /**
-     * @psalm-suppress MoreSpecificReturnType
-     * @psalm-suppress LessSpecificReturnStatement
-     * @psalm-suppress NullableReturnStatement
-     * @psalm-suppress InvalidNullableReturnType
-     */
+    private function player(AbstractAction $action): Player
+    {
+        return match ($action->getActionName()) {
+            ActionEnum::CHITCHAT->value => $action->playerTarget(),
+            ActionEnum::PREMONITION->value => $action->getPlayer(),
+            ActionEnum::TORTURE->value => $action->getPlayer(),
+            default => throw new \InvalidArgumentException("{$action->getActionName()} action does not support action reveal!"),
+        };
+    }
+
     private function targetPlayer(AbstractAction $action): Player
     {
         return match ($action->getActionName()) {
             ActionEnum::CHITCHAT->value => $action->getPlayer(),
-            ActionEnum::PREMONITION->value => $action->getTarget(),
-            default => throw new \InvalidArgumentException("{$action->getActionName()} action does not support action reveal !."),
-        };
-    }
-
-    /**
-     * @psalm-suppress MoreSpecificReturnType
-     * @psalm-suppress LessSpecificReturnStatement
-     * @psalm-suppress NullableReturnStatement
-     * @psalm-suppress InvalidNullableReturnType
-     */
-    private function player(AbstractAction $action): Player
-    {
-        return match ($action->getActionName()) {
-            ActionEnum::CHITCHAT->value => $action->getTarget(),
-            ActionEnum::PREMONITION->value => $action->getPlayer(),
-            default => throw new \InvalidArgumentException("{$action->getActionName()} action does not support action reveal !."),
+            ActionEnum::PREMONITION->value => $action->playerTarget(),
+            ActionEnum::TORTURE->value => $action->playerTarget(),
+            default => throw new \InvalidArgumentException("{$action->getActionName()} action does not support action reveal!"),
         };
     }
 }

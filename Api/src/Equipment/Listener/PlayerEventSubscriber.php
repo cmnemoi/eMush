@@ -50,7 +50,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $playerEquipment = $player->getEquipments();
 
-        if ($player->isExploringOrIsLostOnPlanet() || ($player->isInAPatrolShip() && $event->hasTag(EndCauseEnum::ABANDONED))) {
+        if ($player->isExploringOrIsLostOnPlanet() || $event->hasTag(EndCauseEnum::ABANDONED)) {
             foreach ($playerEquipment as $item) {
                 $destroyEvent = new EquipmentEvent(
                     $item,

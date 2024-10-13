@@ -21,7 +21,6 @@ use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -68,7 +67,6 @@ class ShootCat extends AttemptAction
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
-        // $metadata->addConstraint();
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool
@@ -104,11 +102,6 @@ class ShootCat extends AttemptAction
     protected function applyEffect(ActionResult $result): void
     {
         $player = $this->player;
-
-        /** @var GameItem $target */
-        $target = $this->gameItemTarget();
-
-        $weapon = $this->getPlayerWeapon();
 
         if ($result instanceof Success) {
             // @TODO
@@ -163,17 +156,12 @@ class ShootCat extends AttemptAction
 
     private function killCat(): void
     {
-        /** @var GameItem $target */
-        $target = $this->target;
-
         $interactEvent = new InteractWithEquipmentEvent(
-            $target,
+            $this->gameItemTarget(),
             $this->player,
             VisibilityEnum::PUBLIC,
-            $this->getActionConfig()->getActionTags(),
+            $this->getTags(),
             new \DateTime(),
         );
-
-        $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

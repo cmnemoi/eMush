@@ -73,22 +73,35 @@ class PetCat extends AbstractAction
         $tags = $this->getActionConfig()->getActionTags();
         $tags[] = $this->gameItemTarget()->getName();
 
-        if ($this->player->hasStatus(PlayerStatusEnum::HAS_PETTED_CAT) === false) {
-            $playerModifierEvent = new PlayerVariableEvent(
-                $this->player,
-                PlayerVariableEnum::MORAL_POINT,
-                $this->getOutputQuantity(),
-                $tags,
-                new \DateTime()
-            );
-            $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
-            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
-            $this->statusService->createStatusFromName(
-                PlayerStatusEnum::HAS_PETTED_CAT,
-                $this->player,
-                $tags,
-                new \DateTime(),
-            );
+        if ($this->player->hasStatus(PlayerStatusEnum::HAS_PETTED_CAT)) {
+            return; // Stop early if player has already petted cat
         }
+
+        $this->addMoraleToPlayer($tags);
+
+        $this->addHasPettedCatToPlayer($tags);
+    }
+
+    private function addMoraleToPlayer(array $tags): void
+    {
+        $playerModifierEvent = new PlayerVariableEvent(
+            $this->player,
+            PlayerVariableEnum::MORAL_POINT,
+            $this->getOutputQuantity(),
+            $tags,
+            new \DateTime()
+        );
+        $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function addHasPettedCatToPlayer(array $tags): void
+    {
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::HAS_PETTED_CAT,
+            $this->player,
+            $tags,
+            new \DateTime(),
+        );
     }
 }

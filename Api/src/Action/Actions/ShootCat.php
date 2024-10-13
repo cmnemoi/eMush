@@ -21,6 +21,7 @@ use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -163,5 +164,6 @@ class ShootCat extends AttemptAction
             $this->getTags(),
             new \DateTime(),
         );
+        $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

@@ -292,6 +292,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($medicModifier->getName(), $medicModifier);
         $manager->persist($medicModifier);
 
+        $rebelModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::DOUBLE_DECODE_REBEL_SIGNAL)
+        );
+        $this->addReference($rebelModifier->getName(), $rebelModifier);
+        $manager->persist($rebelModifier);
+
         $manager->flush();
     }
 

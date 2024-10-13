@@ -681,6 +681,7 @@ class GameConfigData
                 SkillEnum::PYROMANIAC,
                 SkillEnum::RADIO_EXPERT,
                 SkillEnum::RADIO_PIRACY,
+                SkillEnum::REBEL,
                 SkillEnum::ROBOTICS_EXPERT,
                 SkillEnum::SABOTEUR,
                 SkillEnum::SHOOTER,

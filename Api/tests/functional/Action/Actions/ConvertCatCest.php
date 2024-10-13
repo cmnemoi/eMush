@@ -7,9 +7,14 @@ namespace Mush\tests\functional\Action\Actions;
 use Mush\Action\Actions\ConvertCat;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -43,33 +48,59 @@ final class ConvertCatCest extends AbstractFunctionalTest
     {
         $this->givenPlayerIsMush($I);
 
-        $I->markTestIncomplete();
+        $this->givenPlayerHasSpore(1, $I);
+
+        $this->whenPlayerConvertsCat();
+
+        $I->seeInRepository(
+            RoomLog::class,
+            [
+                'place' => $this->player->getPlace()->getLogName(),
+                'log' => ActionLogEnum::PET_CAT,
+            ]
+        );
     }
 
     public function shouldUseOneSpore(FunctionalTester $I): void
     {
         $this->givenPlayerIsMush($I);
 
-        $I->markTestIncomplete();
+        $this->givenPlayerHasSpore(1, $I);
+
+        $this->whenPlayerConvertsCat();
+
+        $this->thenPlayerShouldHaveSpores(0, $I);
     }
 
     public function shouldNotBeExecutableIfCatAlreadyInfected(FunctionalTester $I): void
     {
         $this->givenPlayerIsMush($I);
 
-        $I->markTestIncomplete();
+        $this->givenPlayerHasSpore(1, $I);
+
+        $this->givenCatIsInfected($I);
+
+        $this->whenPlayerConvertsCat();
+
+        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::CAT_ALREADY_CONVERTED, $I);
     }
 
     public function shouldNotBeExecutableIfPlayerHasNoSpore(FunctionalTester $I): void
     {
         $this->givenPlayerIsMush($I);
 
-        $I->markTestIncomplete();
+        $this->givenPlayerHasSpore(0, $I);
+
+        $this->whenPlayerConvertsCat();
+
+        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::INFECT_CAT_NO_SPORE, $I);
     }
 
     public function shouldNotBeVisibleIfPlayerIsNotMush(FunctionalTester $I): void
     {
-        $I->markTestIncomplete();
+        $this->whenPlayerConvertsCat();
+
+        $I->assertFalse($this->convertCat->isVisible());
     }
 
     private function givenPlayerHasCatInInventory(FunctionalTester $I): void
@@ -90,5 +121,56 @@ final class ConvertCatCest extends AbstractFunctionalTest
             [],
             new \DateTime()
         );
+    }
+
+    private function givenPlayerHasSpore(int $SporeCount, FunctionalTester $I): void
+    {
+        $this->player->setSpores($SporeCount);
+    }
+
+    private function givenCatIsInfected(FunctionalTester $I): void
+    {
+        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $jinSu,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::CAT_INFECTED,
+            holder: $this->schrodinger,
+            tags: [],
+            time: new \DateTime(),
+            target: $jinSu,
+        );
+    }
+
+    private function whenPlayerTriesToConvertCat(): void
+    {
+        $this->convertCat->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->schrodinger,
+            player: $this->player,
+            target: $this->schrodinger,
+        );
+    }
+
+    private function whenPlayerConvertsCat(): void
+    {
+        $this->whenPlayerTriesToConvertCat();
+        $this->convertCat->execute();
+    }
+
+    private function thenPlayerShouldHaveSpores(int $spores, FunctionalTester $I): void
+    {
+        $I->assertEquals($spores, $this->kuanTi->getSpores());
+    }
+
+    private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
+    {
+        $I->assertEquals($message, $this->convertCat->cannotExecuteReason());
     }
 }

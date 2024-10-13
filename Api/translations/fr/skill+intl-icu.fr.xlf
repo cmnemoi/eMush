@@ -808,5 +808,15 @@
         <target>Le bourreau connait tous les circuits nerveux les plus sensibles pour arriver à faire parvenir son message le plus important... **Tu VAS parler.**//:point: Libère l'action **Torturer**.</target>
       </segment>
     </unit>
+    <unit id="ocd">
+      <segment id="ocd.name" state="translated">
+        <source>ocd.name</source>
+        <target>Méticuleuse</target>
+      </segment>
+      <segment id="ocd.description" state="translated">
+        <source>ocd.description</source>
+        <target>Vous travaillez propre, très propre, toujours plus propre, encore plus propre. Vous êtes proprement névrosé de la propreté mais ça a ses bons côtés.//:point: Vous ne vous salissez jamais accidentellement en effectuant des actions sur le vaisseau.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

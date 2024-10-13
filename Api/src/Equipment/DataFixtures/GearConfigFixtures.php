@@ -19,6 +19,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -94,7 +95,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $actions25->add($sabotage25);
         $actions25->add($reportAction);
 
-        $apronGear = $this->createGear([GearModifierConfigFixtures::APRON_MODIFIER], GearItemEnum::STAINPROOF_APRON);
+        $apronGear = $this->createGear([ModifierNameEnum::APRON_MODIFIER_FOR_PLAYER_PREVENT_DIRTY], GearItemEnum::STAINPROOF_APRON);
         $apron = new ItemConfig();
         $apron
             ->setEquipmentName(GearItemEnum::STAINPROOF_APRON)

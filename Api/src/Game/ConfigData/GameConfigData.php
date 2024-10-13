@@ -669,6 +669,7 @@ class GameConfigData
                 SkillEnum::NERON_ONLY_FRIEND,
                 SkillEnum::NURSE,
                 SkillEnum::OBSERVANT,
+                SkillEnum::OCD,
                 SkillEnum::OPPORTUNIST,
                 SkillEnum::OPTIMIST,
                 SkillEnum::PARANOID,

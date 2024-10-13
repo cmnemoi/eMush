@@ -513,8 +513,8 @@ abstract class ModifierConfigData
             'eventActivationRequirements' => [],
         ],
         [
-            'name' => 'apron_modifier_for_player_prevent_dirty',
-            'modifierName' => 'apron_modifier',
+            'name' => ModifierNameEnum::APRON_MODIFIER_FOR_PLAYER_PREVENT_DIRTY,
+            'modifierName' => ModifierNameEnum::APRON_MODIFIER,
             'targetEvent' => StatusEvent::STATUS_APPLIED,
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,

@@ -65,7 +65,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
     public function load(ObjectManager $manager): void
     {
-        $apronModifier = new EventModifierConfig(ModifierNameEnum::APRON_MODIFIER);
+        $apronModifier = new EventModifierConfig(ModifierNameEnum::APRON_MODIFIER_FOR_PLAYER_PREVENT_DIRTY);
 
         $apronModifier
             ->setTargetEvent(StatusEvent::STATUS_APPLIED)
@@ -416,7 +416,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $manager->flush();
 
-        $this->addReference(self::APRON_MODIFIER, $apronModifier);
+        $this->addReference(ModifierNameEnum::APRON_MODIFIER_FOR_PLAYER_PREVENT_DIRTY, $apronModifier);
         $this->addReference(self::ARMOR_MODIFIER, $armorModifier);
         $this->addReference(self::WRENCH_MODIFIER, $wrenchModifier);
         $this->addReference(self::GLOVES_MODIFIER, $glovesModifier);

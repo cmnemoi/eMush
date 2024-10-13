@@ -252,6 +252,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::OCD,
+                modifierConfigs: [
+                    ModifierNameEnum::APRON_MODIFIER_FOR_PLAYER_PREVENT_DIRTY,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::OPTIMIST,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_1_MORALE_POINT_ON_DAY_CHANGE,

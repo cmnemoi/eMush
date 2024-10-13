@@ -8,9 +8,15 @@ use Mush\Action\Actions\PetCat;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\MushMessageEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -23,7 +29,6 @@ final class PetCatCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
     private PetCat $petCat;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private GameItem $schrodinger;
@@ -32,7 +37,7 @@ final class PetCatCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PET_CAT->value]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PET_CAT]);
         $this->petCat = $I->grabService(PetCat::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -60,27 +65,81 @@ final class PetCatCest extends AbstractFunctionalTest
 
     public function shouldPrintPublicLog(FunctionalTester $I): void
     {
-        $I->markTestIncomplete();
+        $this->whenPlayerPetsCat();
+
+        $I->seeInRepository(
+            RoomLog::class,
+            [
+                'place' => $this->player->getPlace()->getLogName(),
+                'log' => ActionLogEnum::PET_CAT,
+            ]
+        );
     }
 
     public function shouldNotGiveMoralePointsIfAlreadyDoneOnce(FunctionalTester $I): void
     {
-        $I->markTestIncomplete();
+        $this->givenPlayerHasMoralePoints(10);
+
+        $this->givenPlayerHasAlreadyPettedCat();
+
+        $this->whenPlayerPetsCat();
+
+        $this->thenPlayerShouldHaveMoralePoints(10, $I);
     }
 
     public function shouldInfectHumanIfCatIsInfected(FunctionalTester $I): void
     {
-        $I->markTestIncomplete();
+        $this->givenCatIsInfected($I);
+
+        $this->givenPlayerHasSpores(0);
+
+        $this->actionConfig->setInjuryRate(100);
+        $I->flushToDatabase($this->actionConfig);
+
+        $this->whenPlayerPetsCat();
+
+        $this->thenPlayerShouldHaveSpores(1, $I);
     }
 
     public function shouldNotInfectMushPlayer(FunctionalTester $I): void
     {
-        $I->markTestIncomplete();
+        $this->givenCatIsInfected($I);
+
+        $this->givenPlayerHasSpores(0);
+
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        $this->actionConfig->setInjuryRate(100);
+        $I->flushToDatabase($this->actionConfig);
+
+        $this->whenPlayerPetsCat();
+
+        $this->thenPlayerShouldHaveSpores(0, $I);
     }
 
     public function shouldPrintLogInMushChannelWhenInfectingPlayer(FunctionalTester $I): void
     {
-        $I->markTestIncomplete();
+        $this->givenCatIsInfected($I);
+
+        $this->givenPlayerHasSpores(0);
+
+        $this->actionConfig->setInjuryRate(100);
+        $I->flushToDatabase($this->actionConfig);
+
+        $this->whenPlayerPetsCat();
+
+        $I->seeInRepository(
+            Message::class,
+            [
+                'channel' => $this->mushChannel,
+                'message' => MushMessageEnum::INFECT_CAT,
+            ]
+        );
     }
 
     private function givenPlayerHasCatInInventory(FunctionalTester $I): void
@@ -90,6 +149,26 @@ final class PetCatCest extends AbstractFunctionalTest
             equipmentHolder: $this->player,
             reasons: [],
             time: new \DateTime(),
+        );
+    }
+
+    private function givenCatIsInfected(FunctionalTester $I): void
+    {
+        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $jinSu,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::CAT_INFECTED,
+            holder: $this->schrodinger,
+            tags: [],
+            time: new \DateTime(),
+            target: $jinSu,
         );
     }
 
@@ -103,9 +182,24 @@ final class PetCatCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenPlayerHasAlreadyPettedCat(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::HAS_PETTED_CAT,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function givenPlayerHasMoralePoints(int $moralePoints): void
     {
         $this->player->setMoralPoint($moralePoints);
+    }
+
+    private function givenPlayerHasSpores(int $spores): void
+    {
+        $this->player->setSpores($spores);
     }
 
     private function whenPlayerTriesToPetCat(): void
@@ -132,5 +226,10 @@ final class PetCatCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveMoralePoints(int $expectedMoralePoints, FunctionalTester $I): void
     {
         $I->assertEquals($expectedMoralePoints, $this->player->getMoralPoint());
+    }
+
+    private function thenPlayerShouldHaveSpores(int $expectedSpores, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedSpores, $this->player->getSpores());
     }
 }

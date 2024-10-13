@@ -129,7 +129,7 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
             return $place;
         }
 
-        throw new \LogicException('There should always be a target on a status target');
+        throw new \LogicException("Status {$this->getName()} target class is not supported ({$this->target->getClassName()})");
     }
 
     /**
@@ -171,14 +171,14 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
             return $place;
         }
 
-        throw new \LogicException("Status {$this->getName()} has unhandled target type.");
+        throw new \LogicException("Status {$this->getName()} has unhandled target type ({$this->target->getClassName()})");
     }
 
     public function getPlayerTargetOrThrow(): Player
     {
         $target = $this->getTargetOrThrow();
 
-        return $target instanceof Player ? $target : throw new \RuntimeException("Status {$this->getName()} target is not a Player.");
+        return $target instanceof Player ? $target : throw new \RuntimeException("Status {$this->getName()} target is not a Player, but {$target->getClassName()}");
     }
 
     public function setStatusTargetOwner(StatusTarget $statusTarget): self

@@ -257,10 +257,10 @@ The source code of this project is licensed under [AGPL-3.0-or-later](LICENSE) L
 > 
 > Under the following terms:
 > 
-> - Source Code Provision — You must make the complete source code of the licensed works and modifications available under the same license, including when the software is provided as a network service.
+> - Source Code Provision — You must provide access to the source code of the software when you distribute it, including any modifications or derivative works.
 > - License and Copyright Notice — You must include the original copyright notice and license in any copy of the software or substantial portion of it.
 > - State Changes — You must clearly mark any changes you made to the original software.
-> - Same License — If you modify and distribute the software, you must license the entire work under the AGPL.
+> - ShareAlike — If you modify and distribute the software, you must license the entire work under the AGPLv3 or a compatible license.
 > - Network Use is Distribution — Users who interact with the software via network have the right to receive the source code.
 > - No Additional Restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
 

@@ -8,11 +8,9 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Player\Service\RemoveHealthFromPlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Service\ActionHistoryRevealLogService;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -26,6 +24,7 @@ final class Torture extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         private ActionHistoryRevealLogService $actionHistoryRevealLog,
+        private RemoveHealthFromPlayerServiceInterface $removeHealthFromPlayer,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -42,27 +41,20 @@ final class Torture extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $this->removeHealthToTarget();
-        $this->actionHistoryRevealLog->generate(numberOfActions: $this->missingTargetHealthPoints(), action: $this);
+        $this->removeHealthFromPlayer->execute($this->healthToRemove(), player: $this->playerTarget());
+        $this->actionHistoryRevealLog->generate(numberOfActions: $this->targetMissingHealthPoints(), action: $this);
     }
 
-    private function removeHealthToTarget(): void
-    {
-        $playerVariableEvent = new PlayerVariableEvent(
-            player: $this->playerTarget(),
-            variableName: PlayerVariableEnum::HEALTH_POINT,
-            quantity: -$this->getOutputQuantity(),
-            tags: $this->getTags(),
-            time: new \DateTime(),
-        );
-        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
-    }
-
-    private function missingTargetHealthPoints(): int
+    private function targetMissingHealthPoints(): int
     {
         $maxHealth = $this->playerTarget()->getCharacterConfig()->getMaxHealthPoint();
         $currentHealth = $this->playerTarget()->getHealthPoint();
 
         return $maxHealth - $currentHealth;
+    }
+
+    private function healthToRemove(): int
+    {
+        return $this->getOutputQuantity();
     }
 }

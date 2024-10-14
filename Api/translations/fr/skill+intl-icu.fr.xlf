@@ -789,13 +789,13 @@
       </segment>
     </unit>
     <unit id="rebel">
-      <segment id="rebel.name" state="translated">
+      <segment id="rebel.name" state="initial">
         <source>rebel.name</source>
-        <target>Rebelle</target>
+        <target>rebel.name</target>
       </segment>
-      <segment id="rebel.description" state="translated">
+      <segment id="rebel.description" state="initial">
         <source>rebel.description</source>
-        <target>Vos liens avec la résistance anti-Mush vous permettent de comprendre et décoder les signaux rebelles bien plus rapidement que n'importe quel autre expert radio.//:point: Chances **doublées** pour contacter les bases rebelles.</target>
+        <target>rebel.description</target>
       </segment>
     </unit>
   </file>

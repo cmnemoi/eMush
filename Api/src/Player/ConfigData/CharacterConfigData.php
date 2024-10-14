@@ -112,6 +112,7 @@ class CharacterConfigData
                 SkillEnum::NURSE,
                 SkillEnum::PRESENTIMENT,
                 SkillEnum::SNEAK,
+                SkillEnum::LETHARGY,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

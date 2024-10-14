@@ -197,6 +197,12 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::LETHARGY,
+                modifierConfigs: [
+                    ModifierNameEnum::DOUBLE_MAX_ACTION_POINTS,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::LOGISTICS_EXPERT,
             ),
             new SkillConfigDto(

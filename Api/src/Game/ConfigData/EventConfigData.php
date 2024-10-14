@@ -17,6 +17,7 @@ class EventConfigData
     public const string CHANGE_VALUE_PLUS_1_MAX_DAEDALUS_SPORE = 'change.value.max_daedalus_+1_spore';
     public const string CHANGE_VALUE_PLUS_1_CHARGE_MUSH_STATUS = 'change.value.max_mush_status_+1_charge';
     public const string CHANGE_VARIABLE_PLAYER_MINUS_1_SPORE = 'change.variable_player_-1_spore';
+    public const string CHANGE_VALUE_MAX_PLUS_12_MAX_ACTION_POINTS = 'change.value.max_plus_12_max_action_points';
 
     public static array $variableEventConfigData = [
         [
@@ -330,6 +331,14 @@ class EventConfigData
             'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
             'eventName' => VariableEventInterface::CHANGE_VARIABLE,
             'name' => self::CHANGE_VARIABLE_PLAYER_MINUS_1_SPORE,
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 12,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
+            'name' => self::CHANGE_VALUE_MAX_PLUS_12_MAX_ACTION_POINTS,
         ],
     ];
 

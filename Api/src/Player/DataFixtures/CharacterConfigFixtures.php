@@ -214,6 +214,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $ocdSkillConfig */
         $ocdSkillConfig = $this->getReference(SkillEnum::OCD->value);
 
+        /** @var SkillConfig $lethargySkillConfig */
+        $lethargySkillConfig = $this->getReference(SkillEnum::LETHARGY->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -254,6 +257,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $nurseSkillConfig,
                 $presentimentSkillConfig,
                 $sneakSkillConfig,
+                $lethargySkillConfig,
             ])
             ->setInitStatuses([$immunizedStatus])
             ->setStartingItems($trackerTalkieCollection);

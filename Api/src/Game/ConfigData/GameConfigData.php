@@ -353,6 +353,7 @@ class GameConfigData
                 EquipmentEnum::HYDROPONIC_INCUBATOR . '_default',
                 'jukebox_blueprint_default',
                 'support_drone_blueprint_default',
+                ItemEnum::SCHRODINGER . '_default',
             ],
             'statusConfigs' => [
                 'alien_artefact_default',
@@ -474,6 +475,9 @@ class GameConfigData
                 EquipmentStatusEnum::DRONE_EXTINGUISH_FAILED_ATTEMPTS . '_default',
                 EquipmentStatusEnum::PILOT_DRONE_UPGRADE . '_default',
                 EquipmentStatusEnum::DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS . '_default',
+                PlayerStatusEnum::CAT_OWNER . '_default',
+                PlayerStatusEnum::HAS_PETTED_CAT . '_default',
+                EquipmentStatusEnum::CAT_INFECTED . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

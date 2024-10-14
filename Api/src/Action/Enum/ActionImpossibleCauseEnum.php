@@ -112,6 +112,8 @@ abstract class ActionImpossibleCauseEnum
     public const string NO_WORKING_DOOR = 'no_working_door';
     public const string PREMONITION_INSUFFICIENT_MORALE = 'premonition_insufficient_morale';
     public const string ALREADY_A_CEASEFIRE_IN_ROOM = 'already_a_ceasefire_in_room';
-
     public const string CANNOT_GO_TO_THIS_ROOM_BECAUSE_GUARDIAN = 'cannot_go_to_this_room_because_guardian';
+    public const string CAT_ALREADY_CONVERTED = 'cat_already_converted';
+    public const string INFECT_CAT_NO_SPORE = 'infect_cat_no_spore';
+    public const string PLAYER_IS_GERMAPHOBIC = 'player_is_germaphobic';
 }

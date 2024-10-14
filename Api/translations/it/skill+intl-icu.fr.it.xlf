@@ -741,5 +741,15 @@
         <target>medic.description</target>
       </segment>
     </unit>
+    <unit id="rebel">
+      <segment id="rebel.name" state="initial">
+        <source>rebel.name</source>
+        <target>rebel.name</target>
+      </segment>
+      <segment id="rebel.description" state="initial">
+        <source>rebel.description</source>
+        <target>rebel.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

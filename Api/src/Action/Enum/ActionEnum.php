@@ -34,6 +34,7 @@ enum ActionEnum: string
     case INFECT = 'infect';
     case SABOTAGE = 'sabotage';
     case GO_BERSERK = 'go_berserk';
+    case CONVERT_CAT = 'convert_cat';
 
     // Item-enabled actions
     case READ_DOCUMENT = 'read_document';
@@ -68,6 +69,9 @@ enum ActionEnum: string
     case UPGRADE_DRONE_TO_TURBO = 'upgrade_drone_to_turbo';
     case UPGRADE_DRONE_TO_FIREFIGHTER = 'upgrade_drone_to_firefighter';
     case UPGRADE_DRONE_TO_PILOT = 'upgrade_drone_to_pilot';
+    case TAKE_CAT = 'take_cat';
+    case PET_CAT = 'pet_cat';
+    case SHOOT_CAT = 'shoot_cat';
 
     // Equipment-enabled actions
     case INSERT_FUEL = 'insert_fuel';
@@ -373,6 +377,7 @@ enum ActionEnum: string
             self::HYBRIDIZE,
             self::ULTRAHEAL,
             self::PUBLIC_BROADCAST,
+            self::TAKE_CAT,
         ]);
     }
 

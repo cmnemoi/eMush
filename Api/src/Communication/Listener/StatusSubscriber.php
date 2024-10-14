@@ -2,8 +2,11 @@
 
 namespace Mush\Communication\Listener;
 
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\MushMessageEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
+use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -17,10 +20,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class StatusSubscriber implements EventSubscriberInterface
 {
+    private MessageServiceInterface $messageService;
+
     public function __construct(
         private NeronMessageServiceInterface $neronMessageService,
         private ChannelServiceInterface $channelService,
-    ) {}
+        MessageServiceInterface $messageService
+    ) {
+        $this->messageService = $messageService;
+    }
 
     public static function getSubscribedEvents(): array
     {
@@ -32,10 +40,18 @@ final class StatusSubscriber implements EventSubscriberInterface
 
     public function onStatusApplied(StatusEvent $event): void
     {
+        $daedalusInfo = $event->getDaedalus()->getDaedalusInfo();
+
+        /** @var Channel $mushChannel */
+        $mushChannel = $this->channelService->getMushChannel($daedalusInfo);
+        $time = $event->getTime();
+        $params = $event->getLogParameters();
+
         match ($event->getStatusName()) {
             EquipmentStatusEnum::BROKEN => $this->handleBrokenStatusApplied($event),
             StatusEnum::FIRE => $this->neronMessageService->createNewFireMessage($event->getDaedalus(), $event->getTime(), $event->getTags()),
             PlayerStatusEnum::LOST => $this->channelService->updatePlayerPrivateChannels($event->getPlayerStatusHolder(), PlayerStatusEnum::LOST, $event->getTime()),
+            EquipmentStatusEnum::CAT_INFECTED => $this->messageService->createSystemMessage(MushMessageEnum::MUSH_CONVERT_CAT_EVENT, $mushChannel, $params, $time),
             default => null,
         };
     }

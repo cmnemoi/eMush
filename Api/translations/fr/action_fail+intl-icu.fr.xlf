@@ -702,5 +702,23 @@
         <target>Vous ne pouvez pas aller dans cette pièce à cause d'un gardien dans la pièce.</target>
       </segment>
     </unit>
+    <unit id="cat_already_converted">
+      <segment id="description" state="final">
+        <source>cat_already_converted.description</source>
+        <target>Ce mammifère vous a déjà rejoint... pas que cela aie amélioré son état émotionnel.</target>
+      </segment>
+    </unit>
+    <unit id="infect_cat_no_spore">
+      <segment id="description" state="final">
+        <source>infect_cat_no_spore.description</source>
+        <target>En voilà une bonne idée... Mais il va vous falloir extirper un spore avant de pouvoir l'amener à votre cause.</target>
+      </segment>
+    </unit>
+    <unit id="player_is_germaphobic">
+      <segment id="description" state="final">
+        <source>player_is_germaphobic.description</source>
+        <target>L'idée d'approcher encore plus ce nid à germes vous écoeure... Qui sait où ça a trainé?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

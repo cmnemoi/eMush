@@ -580,9 +580,16 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $pilotDroneUpgrade->setModifierConfigs([$pilotDroneModifier]);
         $manager->persist($pilotDroneUpgrade);
 
+        /** @var VariableEventModifierConfig $catOwnerModifierNiceCat */
+        $catOwnerModifierNiceCat = $this->getReference('cat_owner_modifier_for_player_set_schrodinger_cant_hurt');
+
+        /** @var VariableEventModifierConfig $catOwnerModifierSadCatDeath */
+        $catOwnerModifierSadCatDeath = $this->getReference('cat_owner_modifier_-4morale_on_cat_death');
+
         $catOwner = StatusConfig::fromConfigData(
             StatusConfigData::getByName(PlayerStatusEnum::CAT_OWNER . '_default')
         );
+        $catOwner->setModifierConfigs([$catOwnerModifierNiceCat, $catOwnerModifierSadCatDeath]);
         $manager->persist($catOwner);
 
         $catInfected = StatusConfig::fromConfigData(

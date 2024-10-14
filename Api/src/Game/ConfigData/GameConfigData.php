@@ -663,6 +663,7 @@ class GameConfigData
                 SkillEnum::INFECTOR,
                 SkillEnum::IT_EXPERT,
                 SkillEnum::LEADER,
+                SkillEnum::LETHARGY,
                 SkillEnum::LOGISTICS_EXPERT,
                 SkillEnum::MANKIND_ONLY_HOPE,
                 SkillEnum::MASSIVE_MUSHIFICATION,

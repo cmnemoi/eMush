@@ -304,6 +304,16 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($ocdModifier->getName(), $ocdModifier);
         $manager->persist($ocdModifier);
 
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VALUE_MAX_PLUS_12_MAX_ACTION_POINTS);
+
+        $lethargyModifier = DirectModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::DOUBLE_MAX_ACTION_POINTS)
+        );
+        $lethargyModifier->setTriggeredEvent($eventConfig);
+        $this->addReference($lethargyModifier->getName(), $lethargyModifier);
+        $manager->persist($lethargyModifier);
+
         $manager->flush();
     }
 

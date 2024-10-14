@@ -1437,5 +1437,35 @@ Or you simply need some fresh air.... or not.</target>
 **Try to borrow a Patrol Ship and destroy all the Hunters before you leave. 20% targeting bonus compared to humans.**</target>
       </segment>
     </unit>
+    <unit id="take_cat">
+      <segment id="name" state="initial">
+        <source>take_cat.name</source>
+        <target>take_cat.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>take_cat.description</source>
+        <target>take_cat.description</target>
+      </segment>
+    </unit>
+    <unit id="pet_cat">
+      <segment id="name" state="initial">
+        <source>pet_cat.name</source>
+        <target>pet_cat.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>pet_cat.description</source>
+        <target>pet_cat.description</target>
+      </segment>
+    </unit>
+    <unit id="convert_cat">
+      <segment id="name" state="initial">
+        <source>convert_cat.name</source>
+        <target>convert_cat.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>convert_cat.description</source>
+        <target>convert_cat.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -4139,26 +4139,6 @@ class EquipmentConfigData
             ],
             'initStatuses' => [],
         ],
-        [
-            'name' => 'schrodinger_default',
-            'equipmentName' => ItemEnum::SCHRODINGER,
-            'isBreakable' => false,
-            'isFireDestroyable' => false,
-            'isFireBreakable' => false,
-            'dismountedProducts' => [],
-            'isPersonal' => false,
-            'type' => 'item_config',
-            'isStackable' => false,
-            'actions' => [
-                'take_cat',
-                'pet_cat',
-                'drop',
-                'examine',
-                'convert_cat',
-            ],
-            'mechanics' => [],
-            'initStatuses' => [],
-        ],
     ];
 
     public static function getByEquipmentName(string $name): array

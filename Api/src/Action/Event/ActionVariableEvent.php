@@ -78,4 +78,14 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
     {
         return $this->getActionConfig()->getVariableByName($this->variableName);
     }
+
+    public function isNotAboutPercentageInjuryVariable(): bool
+    {
+        return $this->getVariableName() !== ActionVariableEnum::PERCENTAGE_INJURY;
+    }
+
+    public function getTagsWithout(string $tag): array
+    {
+        return array_diff($this->getTags(), [$tag]);
+    }
 }

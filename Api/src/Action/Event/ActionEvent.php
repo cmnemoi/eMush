@@ -7,6 +7,7 @@ use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolderInterface;
@@ -71,6 +72,11 @@ class ActionEvent extends AbstractGameEvent
     public function getActionTarget(): ?LogParameterInterface
     {
         return $this->actionTarget;
+    }
+
+    public function getItemActionTargetOrNull(): ?GameItem
+    {
+        return $this->actionTarget instanceof GameItem ? $this->actionTarget : null;
     }
 
     public function getActionParameters(): array

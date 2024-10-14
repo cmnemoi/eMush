@@ -110,5 +110,4 @@ abstract class ModifierNameEnum
     public const string CAT_OWNER_MODIFIER = 'cat_owner_modifier';
     public const string DOUBLE_DECODE_REBEL_SIGNAL = 'double_decode_rebel_signal';
     public const string REBEL_MODIFIER = 'rebel_modifier';
-    public const string CAT_OWNER_MODIFIER = 'cat_owner_modifier';
 }

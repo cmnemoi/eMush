@@ -817,41 +817,5 @@
         <target>upgrade_drone_to_pilot_success</target>
       </segment>
     </unit>
-    <unit id="take_cat">
-      <segment id="take_cat" state="initial">
-        <source>take_cat</source>
-        <target>take_cat</target>
-      </segment>
-    </unit>
-    <unit id="pet_cat">
-      <segment id="pet_cat" state="initial">
-        <source>pet_cat</source>
-        <target>pet_cat</target>
-      </segment>
-    </unit>
-    <unit id="shoot_cat_success">
-      <segment id="shoot_cat_success" state="initial">
-        <source>shoot_cat_success</source>
-        <target>shoot_cat_success</target>
-      </segment>
-    </unit>
-    <unit id="shoot_cat_critical_success">
-      <segment id="shoot_cat_critical_success" state="initial">
-        <source>shoot_cat_critical_success</source>
-        <target>shoot_cat_critical_success</target>
-      </segment>
-    </unit>
-    <unit id="shoot_cat_fail">
-      <segment id="shoot_cat_fail" state="initial">
-        <source>shoot_cat_fail</source>
-        <target>shoot_cat_fail</target>
-      </segment>
-    </unit>
-    <unit id="shoot_cat_critical_fail">
-      <segment id="shoot_cat_critical_fail" state="initial">
-        <source>shoot_critical_fail</source>
-        <target>shoot_critical_fail</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

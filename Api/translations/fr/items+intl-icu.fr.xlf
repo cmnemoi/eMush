@@ -1716,7 +1716,7 @@ Un tube épais... qu'est-ce que vous pourriez en faire...</target>
       </segment>
       <segment id="genre" state="final">
         <source>schrodinger.gender</source>
-        <target>male</target>
+        <target>name</target>
       </segment>
       <segment id="first_letter" state="final">
         <source>schrodinger.first_letter</source>

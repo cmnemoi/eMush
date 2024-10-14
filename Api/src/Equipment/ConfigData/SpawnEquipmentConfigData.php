@@ -99,6 +99,12 @@ abstract class SpawnEquipmentConfigData
                 quantity: 1,
             ),
             new SpawnEquipmentConfigDto(
+                name: 'schrodinger_in_laboratory',
+                equipmentName: ItemEnum::SCHRODINGER,
+                placeName: RoomEnum::LABORATORY,
+                quantity: 1,
+            ),
+            new SpawnEquipmentConfigDto(
                 name: self::FOUR_ANABOLICS_IN_LABORATORY,
                 equipmentName: 'anabolic',
                 placeName: RoomEnum::LABORATORY,

@@ -580,6 +580,28 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $pilotDroneUpgrade->setModifierConfigs([$pilotDroneModifier]);
         $manager->persist($pilotDroneUpgrade);
 
+        /** @var VariableEventModifierConfig $catOwnerModifierNiceCat */
+        $catOwnerModifierNiceCat = $this->getReference('cat_owner_modifier_for_player_set_schrodinger_cant_hurt');
+
+        /** @var VariableEventModifierConfig $catOwnerModifierSadCatDeath */
+        $catOwnerModifierSadCatDeath = $this->getReference('cat_owner_modifier_-4morale_on_cat_death');
+
+        $catOwner = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::CAT_OWNER . '_default')
+        );
+        $catOwner->setModifierConfigs([$catOwnerModifierNiceCat, $catOwnerModifierSadCatDeath]);
+        $manager->persist($catOwner);
+
+        $catInfected = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(EquipmentStatusEnum::CAT_INFECTED . '_default')
+        );
+        $manager->persist($catInfected);
+
+        $hasPettedCat = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_PETTED_CAT . '_default')
+        );
+        $manager->persist($hasPettedCat);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -640,11 +662,16 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasUsedMassGgedon)
             ->addStatusConfig($hasUsedPutsch)
             ->addStatusConfig($pariahStatus)
+            ->addStatusConfig($catInfected)
+            ->addStatusConfig($hasPettedCat)
             ->addStatusConfig($upgradedFirefighter)
             ->addStatusConfig($pilotDroneUpgrade)
             ->addStatusConfig(statusConfig: $hasUsedOpportunistAsCommander)
             ->addStatusConfig($hasUsedOpportunistAsNeronManager)
-            ->addStatusConfig($hasUsedOpportunistAsComManager);
+            ->addStatusConfig($hasUsedOpportunistAsComManager)
+            ->addStatusConfig($catOwner)
+            ->addStatusConfig($catInfected)
+            ->addStatusConfig($hasPettedCat);
 
         $manager->persist($gameConfig);
 
@@ -706,6 +733,9 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_READ_MAGE_BOOK, $hasReadMageBook);
         $this->addReference(EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE, $upgradedFirefighter);
         $this->addReference(EquipmentStatusEnum::PILOT_DRONE_UPGRADE, $pilotDroneUpgrade);
+        $this->addReference(PlayerStatusEnum::CAT_OWNER, $catOwner);
+        $this->addReference(EquipmentStatusEnum::CAT_INFECTED, $catInfected);
+        $this->addReference(PlayerStatusEnum::HAS_PETTED_CAT, $hasPettedCat);
 
         $manager->flush();
     }

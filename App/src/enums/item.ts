@@ -119,6 +119,7 @@ const ALIEN_STEAK = "alien_steak";
 
 // NPCs
 const SUPPORT_DRONE = "support_drone";
+const SCHRODINGER = "schrodinger";
 
 // Documents
 const DOCUMENT = "document";
@@ -438,6 +439,9 @@ export const itemEnum: {[index: string]: any} = {
     },
     [SUPPORT_DRONE] : {
         'image': getImgUrl('items/help_drone.jpg')
+    },
+    [SCHRODINGER] : {
+        'image': getImgUrl('items/body_cat.jpg')
     },
     [DOCUMENT]: {
         'image': getImgUrl('items/document.jpg')

@@ -1645,5 +1645,15 @@
         <target>Votre prochaine réparation, recherche ou projet est réussi.</target>
       </segment>
     </unit>
+    <unit id="cat_infected">
+      <segment id="name" state="translated">
+        <source>cat_infected.name</source>
+        <target>Infecté</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cat_infected.description</source>
+        <target>Votre mission est trop importante pour discriminer sur votre choix d'alliés...//Tout membre d'équipage **humain** que ce chat **griffera** se verra **contaminé par un spore.**//*Vous voyez ce message car vous faites partie du Mush.*</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

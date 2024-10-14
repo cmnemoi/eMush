@@ -118,7 +118,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(3)
             ->setStartCharge(1)
-            ->setDischargeStrategies([ActionEnum::SHOOT->value, ActionEnum::SHOOT_CAT->value])
+            ->setDischargeStrategies([ActionEnum::SHOOT->value])
             ->buildName(GameConfigEnum::DEFAULT, ItemEnum::BLASTER);
         $manager->persist($blasterCharge);
 

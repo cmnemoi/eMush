@@ -235,26 +235,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($drone);
 
-        /** @var ActionConfig $takeCatAction */
-        $takeCatAction = $this->getReference(ActionsFixtures::TAKE_CAT);
-
-        /** @var ActionConfig $petCatAction */
-        $petCatAction = $this->getReference(ActionsFixtures::PET_CAT);
-
-        /** @var ActionConfig $convertCatAction */
-        $convertCatAction = $this->getReference(ActionEnum::CONVERT_CAT->value);
-
-        $schrodinger = new ItemConfig();
-        $schrodinger
-            ->setEquipmentName(ItemEnum::SCHRODINGER)
-            ->setIsStackable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setActionConfigs([$takeCatAction, $petCatAction, $examineAction, $convertCatAction, $dropAction])
-            ->buildName(GameConfigEnum::DEFAULT);
-        $manager->persist($schrodinger);
-
-        // @TODO add coffee thermos, lunchbox, survival kit
+        // @TODO add drones, cat, coffee thermos, lunchbox, survival kit
 
         $gameConfig
             ->addEquipmentConfig($mycoAlarm)
@@ -269,8 +250,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addEquipmentConfig($hydropot)
             ->addEquipmentConfig($oxygenCapsule)
             ->addEquipmentConfig($fuelCapsule)
-            ->addEquipmentConfig($drone)
-            ->addEquipmentConfig($schrodinger);
+            ->addEquipmentConfig($drone);
         $manager->persist($gameConfig);
 
         $manager->flush();

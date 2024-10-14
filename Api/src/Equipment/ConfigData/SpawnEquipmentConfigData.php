@@ -96,12 +96,6 @@ abstract class SpawnEquipmentConfigData
                 equipmentName: 'support_drone_blueprint',
                 quantity: 1,
             ),
-            new SpawnEquipmentConfigDto(
-                name: 'schrodinger_in_laboratory',
-                equipmentName: ItemEnum::SCHRODINGER,
-                placeName: RoomEnum::LABORATORY,
-                quantity: 1,
-            ),
         ];
     }
 }

@@ -124,9 +124,4 @@ class GameItem extends GameEquipment
     {
         return \in_array($this->getName(), [ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE], true);
     }
-
-    public function isSchrodinger(): bool
-    {
-        return $this->getName() === ItemEnum::SCHRODINGER;
-    }
 }

@@ -7,8 +7,6 @@ use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -16,7 +14,6 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -26,9 +23,6 @@ final class ActionSubscriber implements EventSubscriberInterface
 {
     public const int OBSERVANT_REVEAL_CHANCE = 25;
 
-    public const int CAT_MEOW_CHANCE = 10;
-
-    /** @TODO lower this before merging */
     public function __construct(
         private D100RollServiceInterface $d100Roll,
         private RoomLogServiceInterface $roomLogService,
@@ -53,7 +47,6 @@ final class ActionSubscriber implements EventSubscriberInterface
         if ($actionName === ActionEnum::MOVE) {
             /** @var Door $door */
             $door = $actionTarget;
-            $this->doesCatMeow($event);
             $this->createExitRoomLog($player, $door);
         }
 
@@ -70,11 +63,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             throw new \LogicException('$actionResult should not be null');
         }
 
-        $actionLog = $this->roomLogService->createLogFromActionEvent($event);
-
-        if (($actionLog?->getVisibility() === VisibilityEnum::PUBLIC) || ($actionLog?->getVisibility() === VisibilityEnum::REVEALED)) {
-            $this->doesCatMeow($event);
-        }
+        $this->roomLogService->createLogFromActionEvent($event);
     }
 
     public function onPostAction(ActionEvent $event): void
@@ -97,7 +86,6 @@ final class ActionSubscriber implements EventSubscriberInterface
             /** @var Door $door */
             $door = $actionHolder;
             $this->createEnterRoomLog($player, $door);
-            $this->doesCatMeow($event);
         }
 
         match ($action->getActionName()) {
@@ -270,51 +258,5 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         $roomLog->markAsNoticed();
         $this->roomLogService->persist($roomLog);
-    }
-
-    private function doesCatMeow(ActionEvent $event): void
-    {
-        if ($event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT) {
-            if ($event->getActionResultOrThrow()->getResultTag() === ActionOutputEnum::FAIL) {
-                $this->roomLogService->createLog(
-                    LogEnum::CAT_HISS,
-                    $event->getPlace(),
-                    VisibilityEnum::PUBLIC,
-                    'event_log',
-                    null,
-                    [LogParameterKeyEnum::ITEM => ItemEnum::SCHRODINGER],
-                    new \DateTime()
-                );
-            }
-
-            return;
-        }
-        if ($event->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER)) {
-            if ($this->d100Roll->isSuccessful(self::CAT_MEOW_CHANCE)) {
-                $this->createCatMeowLog($event);
-            }
-        }
-        foreach ($event->getPlace()->getAlivePlayers() as $playerInRoom) {
-            if ($playerInRoom->hasEquipmentByName(ItemEnum::SCHRODINGER)) {
-                if ($this->d100Roll->isSuccessful(self::CAT_MEOW_CHANCE)) {
-                    $this->createCatMeowLog($event);
-                }
-
-                break;
-            }
-        }
-    }
-
-    private function createCatMeowLog(ActionEvent $event): void
-    {
-        $this->roomLogService->createLog(
-            LogEnum::CAT_MEOW,
-            $event->getPlace(),
-            VisibilityEnum::PUBLIC,
-            'event_log',
-            null,
-            [LogParameterKeyEnum::ITEM => ItemEnum::SCHRODINGER],
-            new \DateTime()
-        );
     }
 }

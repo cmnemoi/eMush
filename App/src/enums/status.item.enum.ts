@@ -15,6 +15,7 @@ export enum StatusItemNameEnum {
     HASARDOUS = "hazardous",
     DECOMPOSING = "decomposing",
     CONTAMINATED = "contaminated",
+    CAT_INFECTED = "cat_infected",
 }
 
 export const statusItemEnum: {[index: string]: any} = {
@@ -58,6 +59,9 @@ export const statusItemEnum: {[index: string]: any} = {
         'icon': getImgUrl('status/food_decaying.png')
     },
     [StatusItemNameEnum.CONTAMINATED]: {
+        'icon': getImgUrl('status/mush.png')
+    },
+    [StatusItemNameEnum.CAT_INFECTED]: {
         'icon': getImgUrl('status/mush.png')
     }
 };

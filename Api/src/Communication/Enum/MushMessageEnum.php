@@ -15,6 +15,7 @@ class MushMessageEnum
     public const INFECT_MUSH_RAID = 'infect_mush_raid';
     public const INFECT_TRAPPED_RATION = 'infect_trapped_ration';
     public const MUSH_CONVERT_EVENT = 'mush_convert_event';
+    public const MUSH_CONVERT_CAT_EVENT = 'mush_convert_cat_event';
 
     public const PLAYER_INFECTION_LOGS = [
         ActionEnum::INFECT->value => self::INFECT_ACTION,
@@ -23,5 +24,7 @@ class MushMessageEnum
         PlanetSectorEvent::MUSH_TRAP => self::INFECT_MUSH_RAID,
         ActionEnum::CONSUME->value => self::INFECT_TRAPPED_RATION,
         ActionEnum::CONSUME_DRUG->value => self::INFECT_TRAPPED_RATION,
+        ActionEnum::TAKE_CAT->value => self::INFECT_CAT,
+        ActionEnum::PET_CAT->value => self::INFECT_CAT,
     ];
 }

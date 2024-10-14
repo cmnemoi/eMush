@@ -151,13 +151,6 @@ abstract class ActionLogEnum
     public const string UPGRADE_DRONE_TO_TURBO_SUCCESS = 'upgrade_drone_to_turbo_success';
     public const string UPGRADE_DRONE_TO_FIREFIGHTER_SUCCESS = 'upgrade_drone_to_firefighter_success';
     public const string UPGRADE_DRONE_TO_PILOT_SUCCESS = 'upgrade_drone_to_pilot_success';
-    public const string TAKE_CAT = 'take_cat';
-    public const string PET_CAT = 'pet_cat';
-    public const string SHOOT_CAT_SUCCESS = 'shoot_cat_success';
-    public const string SHOOT_CAT_FAIL = 'shoot_cat_fail';
-    public const string SHOOT_CAT_CRITICAL_SUCCESS = 'shoot_cat_critical_success';
-    public const string SHOOT_CAT_CRITICAL_FAIL = 'shoot_cat_critical_fail';
-    public const string SHOOT_CAT_ONE_SHOT = 'shoot_cat_one_shot';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -528,22 +521,6 @@ abstract class ActionLogEnum
         ],
         ActionEnum::COLLECT_SCRAP->value => [
             ActionOutputEnum::FAIL => self::COLLECT_SCRAP_FAIL,
-        ],
-        ActionEnum::TAKE_CAT->value => [
-            ActionOutputEnum::SUCCESS => self::TAKE_CAT,
-        ],
-        ActionEnum::PET_CAT->value => [
-            ActionOutputEnum::SUCCESS => self::PET_CAT,
-        ],
-        ActionEnum::CONVERT_CAT->value => [
-            ActionOutputEnum::SUCCESS => self::PET_CAT,
-        ],
-        ActionEnum::SHOOT_CAT->value => [
-            ActionOutputEnum::SUCCESS => self::SHOOT_CAT_SUCCESS,
-            ActionOutputEnum::FAIL => self::SHOOT_CAT_FAIL,
-            ActionOutputEnum::CRITICAL_FAIL => self::SHOOT_CAT_CRITICAL_FAIL,
-            ActionOutputEnum::CRITICAL_SUCCESS => self::SHOOT_CAT_CRITICAL_SUCCESS,
-            ActionOutputEnum::ONE_SHOT => self::SHOOT_CAT_ONE_SHOT,
         ],
     ];
 

@@ -537,7 +537,7 @@
         <target>{target_character_gender, select,
         male {**{target_character}** a été contaminé}
         female {**{target_character}** a été contaminée}
-        other {**{target_character}** a été contaminé}} par **{character}** en prenant **{equipment}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        other {**{target_character}** a été contaminé}} par **{character}** en prenant **Schrödinger**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_mush_raid">
@@ -565,12 +565,6 @@
       <segment id="mush_convert_event" state="final">
         <source>mush_convert_event</source>
         <target>Bienvenue parmi le Mush **{target_character}**.</target>
-      </segment>
-    </unit>
-    <unit id="mush_convert_cat_event">
-      <segment id="mush_convert_cat_event" state="final">
-        <source>mush_convert_cat_event</source>
-        <target>**{equipment}** a été converti par **{target_character}**. Bienvenue parmi le Mush **{equipment}**.</target>
       </segment>
     </unit>
     <unit id="player_enter_chat">
@@ -1160,69 +1154,6 @@
       <segment id="drone_land" state="translated">
         <source>drone_land</source>
         <target>Le Patrouilleur de {drone} vient d'atterrir.</target>
-      </segment>
-    </unit>
-    <unit id="awaken_schrodinger">
-      <segment id="awaken_schrodinger" state="translated">
-        <source>awaken_schrodinger</source>
-        <target>**{target_equipment}** se réveille en même temps que **{character}** et il n'a pas l'air content.</target>
-      </segment>
-    </unit>
-    <unit id="cat_meow">
-      <segment id="cat_meow" state="final">
-        <source>cat_meow</source>
-        <target>:cat: **{equipment} :** {version, select,
-                    1{miaou}
-                    2{maouuuuu}
-	                  3{maouuuuu maouuuuu}
-	                  4{maou?}
-	                  5{mrrrrrou mroouuuuuu}
-	                  6{mrrrrr}
-	                  7{rrrrrrrrrr}
-	                  8{pfffpffpffffpfff}
-	                  9{marrrrraouuuuuuuu}
-	                  10{mrrrrouuuu}
-	                  11{maou maou}
-	                  12{mmmmmaou}
-	                  13{mrouuuuuuuuuuuuuuu}
-	                  14{pschh pschhh}
-	                  15{maaaaaaaarrrr}
-	                  16{OUAH OUAH...}
-	                  17{mrrrrrhhhhhh}
-                    other {invalid version input}
-                }
-        </target>
-      </segment>
-    </unit>
-    <unit id="cat_shot_dead">
-      <segment id="cat_shot_dead" state="final">
-        <source>cat_shot_dead</source>
-        <target>**{target_equipment}** a été abattu par **{character}**.</target>
-      </segment>
-    </unit>
-    <unit id="cat_hiss">
-      <segment id="cat_hiss" state="final">
-        <source>cat_hiss</source>
-        <target>:cat: **{equipment} :** {version, select,
-                    1{hsss...}
-                    2{hisssss!!}
-	                  3{rrrhhh!}
-	                  4{mrrrwwwr...}
-	                  5{grrrrwl...}
-	                  6{MMMMAOU!}
-	                  7{fffffsh!}
-	                  8{grrrrrr!!}
-	                  9{pffft!}
-	                  10{PSCHHH!! PSCHHH!!}
-	                  11{grrrrowwwl...}
-	                  12{pffff! pffff!}
-	                  13{rrrrrrrhh!}
-	                  14{tsssss...}
-	                  15{mrrrrrr... hssss!!}
-	                  16{BARK BARK!}
-	                  17{meewww...}
-                    other {invalid version input}
-                }</target>
       </segment>
     </unit>
   </file>

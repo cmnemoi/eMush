@@ -21,7 +21,6 @@ class MushActionFixtures extends Fixture
     public const MAKE_SICK = 'make.sick';
     public const FAKE_DISEASE = 'fake.disease';
     public const SCREW_TALKIE = 'screw.talkie';
-    public const CONVERT_CAT = 'convert.cat';
 
     public function load(ObjectManager $manager): void
     {
@@ -122,9 +121,6 @@ class MushActionFixtures extends Fixture
         );
         $manager->persist($exchangeBoodyAction);
 
-        $convertCatAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CONVERT_CAT));
-        $manager->persist($convertCatAction);
-
         $manager->flush();
 
         $this->addReference(self::EXTRACT_SPORE, $extractSporeAction);
@@ -136,6 +132,5 @@ class MushActionFixtures extends Fixture
         $this->addReference(ActionEnum::PHAGOCYTE->value, $phagocyteAction);
         $this->addReference(ActionEnum::TRAP_CLOSET->value, $trapClosetAction);
         $this->addReference(ActionEnum::EXCHANGE_BODY->value, $exchangeBoodyAction);
-        $this->addReference(ActionEnum::CONVERT_CAT->value, $convertCatAction);
     }
 }

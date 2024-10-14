@@ -1460,35 +1460,5 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet d'ajouter à ce drone ://**Tente d'emprunter un patrouilleur et de détruire tous les hunters avant de se déplacer. A un bonus de 20% en visée par rapport aux humains.**//Le Drone est capable d'évoluer, profitez-en !</target>
       </segment>
     </unit>
-    <unit id="take_cat">
-      <segment id="name" state="final">
-        <source>take_cat.name</source>
-        <target>Prendre</target>
-      </segment>
-      <segment id="description" state="final">
-        <source>take_cat.description</source>
-        <target>Soulevez ce gros matou et placez-le dans votre inventaire. Attention, il griffe!</target>
-      </segment>
-    </unit>
-    <unit id="pet_cat">
-      <segment id="name" state="final">
-        <source>pet_cat.name</source>
-        <target>Caresser</target>
-      </segment>
-      <segment id="description" state="final">
-        <source>pet_cat.description</source>
-        <target>Permet de câliner amoureusement Schrödinger. Apporte un peu de joie la première fois...</target>
-      </segment>
-    </unit>
-    <unit id="convert_cat">
-      <segment id="name" state="final">
-        <source>convert_cat.name</source>
-        <target>Caresse Infectieuse</target>
-      </segment>
-      <segment id="description" state="final">
-        <source>convert_cat.description</source>
-        <target>Permet de câliner "amoureusement" Schrödinger et d'en faire un agent du Mush.</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

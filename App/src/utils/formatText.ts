@@ -20,7 +20,7 @@ export const helpers = {
         case "pmo":
             return `<img src="${getImgUrl('moral.png')}" alt="pmo">`;
         case "triumph":
-            return `<img src="${getImgUrl('triumph.png')}" alt="triumph">`;
+            return `<img src="${getImgUrl('triumph.png')}" alt="pmo">`;
         case "ill":
             return `<img src="${getImgUrl('status/disease.png')}" alt="ill">`;
         case "pill":

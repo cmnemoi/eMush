@@ -337,12 +337,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         );
         $manager->persist($pilotDroneModifier);
 
-        $catOwnerModifierSchrodingerCantHurt = VariableEventModifierConfig::fromConfigData(ModifierConfigData::getByName('cat_owner_modifier_for_player_set_schrodinger_cant_hurt'));
-        $manager->persist($catOwnerModifierSchrodingerCantHurt);
-
-        $catOwnerModifierMoraleLossOnSchrodingerDeath = VariableEventModifierConfig::fromConfigData(ModifierConfigData::getByName('cat_owner_modifier_-4morale_on_cat_death'));
-        $manager->persist($catOwnerModifierMoraleLossOnSchrodingerDeath);
-
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -370,8 +364,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference($inactiveModifier->getName(), $inactiveModifier);
         $this->addReference($pariahModifier->getName(), $pariahModifier);
         $this->addReference($pilotDroneModifier->getName(), $pilotDroneModifier);
-        $this->addReference($catOwnerModifierSchrodingerCantHurt->getName(), $catOwnerModifierSchrodingerCantHurt);
-        $this->addReference($catOwnerModifierMoraleLossOnSchrodingerDeath->getName(), $catOwnerModifierMoraleLossOnSchrodingerDeath);
     }
 
     public function getDependencies(): array

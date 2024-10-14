@@ -83,13 +83,6 @@ class ActionEvent extends AbstractGameEvent
         return $this->actionResult;
     }
 
-    public function getActionResultOrThrow(): ActionResult
-    {
-        $actionResult = $this->actionResult;
-
-        return $actionResult instanceof ActionResult ? $actionResult : throw new \RuntimeException('Action does not have a result');
-    }
-
     public function setActionResult(ActionResult $actionResult): self
     {
         $this->actionResult = $actionResult;

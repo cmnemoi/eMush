@@ -10,7 +10,6 @@ use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionVariableSubscriber implements EventSubscriberInterface
@@ -46,12 +45,7 @@ class ActionVariableSubscriber implements EventSubscriberInterface
 
     public function onRollPercentage(ActionVariableEvent $event): void
     {
-        if ($event->isNotAboutPercentageInjuryVariable()) {
-            return;
-        }
-
-        $playerShouldBeHurt = $this->d100Roll->isSuccessful($event->getRoundedQuantity());
-        if ($playerShouldBeHurt) {
+        if ($event->shouldHurtPlayer($this->d100Roll)) {
             $this->hurtPlayer($event);
             $this->infectPlayer($event);
         }
@@ -74,10 +68,7 @@ class ActionVariableSubscriber implements EventSubscriberInterface
 
     private function infectPlayer(ActionVariableEvent $event): void
     {
-        $author = $event->getAuthor();
-        $pickedItem = $event->getItemActionTargetOrNull();
-
-        if ($pickedItem?->doesNotHaveStatus(EquipmentStatusEnum::CAT_INFECTED) || $author->isMush()) {
+        if ($event->shouldNotInfectPlayer()) {
             return;
         }
 

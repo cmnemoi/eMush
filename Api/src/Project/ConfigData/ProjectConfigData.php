@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Project\ConfigData;
 
 use Mush\Project\Enum\ProjectName;
+use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Skill\Enum\SkillEnum;
 
@@ -25,6 +26,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::FIRE_SENSOR,
@@ -35,6 +37,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::DOOR_SENSOR,
@@ -45,6 +48,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::EQUIPMENT_SENSOR,
@@ -55,6 +59,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::PLASMA_SHIELD,
@@ -67,6 +72,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::HEAT_LAMP,
@@ -77,6 +83,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::TRAIL_REDUCER,
@@ -89,6 +96,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::CHIPSET_ACCELERATION,
@@ -101,6 +109,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::DISMANTLING,
@@ -113,6 +122,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [
                     '5_metal_scraps_in_engine_room',
                 ],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::EXTRA_HYDROPONPOTS,
@@ -125,6 +135,7 @@ abstract class ProjectConfigData
                     '3_hydropots_in_hydroponic_garden',
                 ],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::AUXILIARY_TERMINAL,
@@ -138,6 +149,7 @@ abstract class ProjectConfigData
                     '1_auxiliary_terminal_in_engine_room',
                 ],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::THALASSO,
@@ -150,6 +162,7 @@ abstract class ProjectConfigData
                 'replaceEquipmentConfigs' => [
                     'replace_all_showers_by_thalasso',
                 ],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::BRIC_BROC,
@@ -160,6 +173,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::AUTO_WATERING,
@@ -170,6 +184,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::MAGNETIC_NET,
@@ -180,6 +195,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::ICARUS_ANTIGRAV_PROPELLER,
@@ -190,6 +206,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::FISSION_COFFEE_ROASTER,
@@ -200,6 +217,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::ARMOUR_CORRIDOR,
@@ -212,6 +230,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::CALL_OF_DIRTY,
@@ -224,6 +243,7 @@ abstract class ProjectConfigData
                     '1_dynarcade_in_alpha_bay_2',
                 ],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::EXTRA_DRONE,
@@ -236,6 +256,7 @@ abstract class ProjectConfigData
                     '1_support_drone_in_nexus',
                 ],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::PATROLSHIP_BLASTER_GUN,
@@ -248,6 +269,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::BAY_DOOR_XXL,
@@ -260,6 +282,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::TRASH_LOAD,
@@ -273,6 +296,7 @@ abstract class ProjectConfigData
                     '4_plastic_scraps_in_engine_room',
                 ],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::FOOD_RETAILER,
@@ -283,6 +307,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::AUTO_RETURN_ICARUS,
@@ -293,6 +318,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::RADAR_TRANS_VOID,
@@ -305,6 +331,7 @@ abstract class ProjectConfigData
                 'replaceEquipmentConfigs' => [
                     'replace_antenna_by_radar_trans_void_antenna',
                 ],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::NERON_TARGETING_ASSIST,
@@ -317,6 +344,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::WHOS_WHO,
@@ -327,6 +355,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::HYDROPONIC_INCUBATOR,
@@ -339,6 +368,7 @@ abstract class ProjectConfigData
                     '1_hydroponic_incubator_in_hydroponic_garden',
                 ],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::ICARUS_LAVATORY,
@@ -351,6 +381,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::ICARUS_LARGER_BAY,
@@ -363,6 +394,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::PATROL_SHIP_LAUNCHER,
@@ -375,6 +407,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::NERON_PROJECT_THREAD,
@@ -385,6 +418,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::TURRET_EXTRA_FIRE_RATE,
@@ -397,6 +431,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::QUANTUM_SENSORS,
@@ -409,6 +444,7 @@ abstract class ProjectConfigData
                 'replaceEquipmentConfigs' => [
                     'replace_planet_scanner_by_quantum_sensors_planet_scanner',
                 ],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::PATROLSHIP_EXTRA_AMMO,
@@ -434,6 +470,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::NOISE_REDUCER,
@@ -446,6 +483,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::APERO_KITCHEN,
@@ -458,6 +496,7 @@ abstract class ProjectConfigData
                 'replaceEquipmentConfigs' => [
                     'replace_kitchen_by_snc_kitchen',
                 ],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::FLOOR_HEATING,
@@ -470,6 +509,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::PARASITE_ELIM,
@@ -481,6 +521,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::OXY_MORE,
@@ -493,6 +534,7 @@ abstract class ProjectConfigData
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::BEAT_BOX,
@@ -505,6 +547,7 @@ abstract class ProjectConfigData
                     '1_jukebox_blueprint_in_nexus',
                 ],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::ANABOLICS,
@@ -515,6 +558,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::ANTISPORE_GAS,
@@ -525,6 +569,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::CONSTIPASPORE_SERUM,
@@ -535,6 +582,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::MERIDON_SCRAMBLER,
@@ -545,6 +595,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MUSH_PLAYER_DEAD,
+                ],
             ],
             [
                 'name' => ProjectName::MUSHICIDE_SOAP,
@@ -555,6 +608,10 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::SOAP_IN_LABORATORY,
+                    ProjectRequirementName::CHUN_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::MUSHOVORE_BACTERIA,
@@ -565,6 +622,10 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MUSH_PLAYER_DEAD,
+                    ProjectRequirementName::CHUN_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::MUSH_HUNTER_ZC16H,
@@ -575,6 +636,10 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
+                    ProjectRequirementName::CHUN_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::MUSH_LANGUAGE,
@@ -585,6 +650,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MUSH_GENOME_DISK_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::MUSH_RACES,
@@ -595,6 +663,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MUSH_PLAYER_DEAD,
+                ],
             ],
             [
                 'name' => ProjectName::MUSH_REPRODUCTIVE_SYSTEM,
@@ -605,6 +676,10 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MUSH_PLAYER_DEAD,
+                    ProjectRequirementName::MUSH_GENOME_DISK_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::MYCOALARM,
@@ -615,6 +690,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::CREATE_MYCOSCAN,
@@ -625,6 +703,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::CHUN_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::NARCOTICS_DISTILLER,
@@ -635,6 +716,7 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [],
             ],
             [
                 'name' => ProjectName::NATAMY_RIFLE,
@@ -645,6 +727,10 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::BLASTER_IN_LABORATORY,
+                    ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::NCC_CONTACT_LENSES,
@@ -655,6 +741,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::SCHRODINGER_IN_PLAYER_INVENTORY,
+                ],
             ],
             [
                 'name' => ProjectName::PATULINE_SCRAMBLER,
@@ -665,6 +754,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MUSH_PLAYER_DEAD,
+                ],
             ],
             [
                 'name' => ProjectName::PERPETUAL_HYDRATION,
@@ -675,6 +767,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::WATER_STICK_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::PHEROMODEM,
@@ -685,6 +780,10 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MUSH_PLAYER_DEAD,
+                    ProjectRequirementName::MUSH_GENOME_DISK_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::RETRO_FUNGAL_SERUM,
@@ -695,6 +794,12 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
+                    ProjectRequirementName::MUSH_PLAYER_DEAD,
+                    ProjectRequirementName::CHUN_IN_LABORATORY,
+                    ProjectRequirementName::MUSH_GENOME_DISK_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::SPORE_SUCKER,
@@ -705,6 +810,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::SUPER_CALCULATOR,
@@ -715,6 +823,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::STARMAP_FRAGMENT_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::TESLA_SUP2X,
@@ -725,6 +836,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::WATER_STICK_IN_LABORATORY,
+                ],
             ],
             [
                 'name' => ProjectName::ULTRA_HEALING_POMADE,
@@ -735,6 +849,9 @@ abstract class ProjectConfigData
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::MEDIKIT_IN_LABORATORY,
+                ],
             ],
         ];
     }

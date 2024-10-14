@@ -41,6 +41,7 @@ abstract class AbstractParticipateAction extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
+        // TODO add validator research is possible?
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new TargetProjectFinished(['groups' => ['visibility']]));
         $metadata->addConstraint(new NoEfficiency(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_EFFICIENCY]));

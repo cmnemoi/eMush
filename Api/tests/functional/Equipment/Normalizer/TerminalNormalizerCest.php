@@ -8,6 +8,7 @@ use Mush\Action\Actions\Hide;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\TranslationService;
@@ -482,6 +483,137 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertNotEmpty($items);
     }
 
+    public function testWhenNoRequirementIsMetThenShouldOnlySeeAnabolicsAndNarcoticsProject(FunctionalTester $I)
+    {
+        $this->givenChunIsNotInLab();
+
+        $terminal = $this->givenLabTerminal();
+
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+            ProjectName::ANABOLICS,
+            ProjectName::NARCOTICS_DISTILLER,
+        ]);
+    }
+
+    public function testWhenChunIsPresentShouldAddNewProjects(FunctionalTester $I)
+    {
+        $this->givenChunIsInLab();
+
+        $terminal = $this->givenLabTerminal();
+
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+            ProjectName::ANABOLICS,
+            ProjectName::CREATE_MYCOSCAN,
+            ProjectName::NARCOTICS_DISTILLER,
+        ]);
+    }
+
+    public function testWhenAMushIsDeadShouldAddNewProjects(FunctionalTester $I)
+    {
+        $this->givenChunIsNotInLab();
+
+        $this->givenAMushIsDead($I);
+
+        $terminal = $this->givenLabTerminal();
+
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+            ProjectName::ANABOLICS,
+            ProjectName::MERIDON_SCRAMBLER,
+            ProjectName::MUSH_RACES,
+            ProjectName::NARCOTICS_DISTILLER,
+            ProjectName::PATULINE_SCRAMBLER,
+        ]);
+    }
+
+    public function testWhenMedkitIsInLabShouldAddNewProject(FunctionalTester $I)
+    {
+        $this->givenChunIsNotInLab();
+
+        $this->givenLabHasEquipment([ToolItemEnum::MEDIKIT]);
+        $terminal = $this->givenLabTerminal();
+
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+            ProjectName::ANABOLICS,
+            ProjectName::NARCOTICS_DISTILLER,
+            ProjectName::ULTRA_HEALING_POMADE,
+        ]);
+    }
+
+    public function testWhenMedkitIsInPlayerInventoryShouldAlsoAddNewProject(FunctionalTester $I)
+    {
+        $this->givenChunIsNotInLab();
+
+        $terminal = $this->givenLabTerminal();
+
+        $this->givenKuanTiHasItemsInInventory([ToolItemEnum::MEDIKIT]);
+
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+            ProjectName::ANABOLICS,
+            ProjectName::NARCOTICS_DISTILLER,
+            ProjectName::ULTRA_HEALING_POMADE,
+        ]);
+    }
+
+    // TODO
+    // public function testWhenSchrodingerIsInPlayerInventoryShouldAddNewProject(FunctionalTester $I){
+
+    //     $this->givenChunIsNotInLab();
+
+    //     $terminal = $this->givenLabTerminal();
+
+    //     $this->givenKuanTiHasItemsInInventory([ItemEnum::SCHRODINGER]);
+
+    //     $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+    //     $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+    //     $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+    //         ProjectName::ANABOLICS,
+    //         ProjectName::NARCOTICS_DISTILLER,
+    //         ProjectName::NCC_CONTACT_LENSES,
+    //     ]);
+    // }
+
+    // public function testWhenSchrodingerIsInLabShouldNotAddNewProject(FunctionalTester $I){
+
+    //     $this->givenChunIsNotInLab();
+
+    //     $terminal = $this->givenLabTerminal();
+
+    //     $this->givenKuanTiHasItemsInInventory([]);
+
+    //     $this->givenLabHasEquipment([ItemEnum::SCHRODINGER]);
+
+    //     $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+    //     $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+    //     $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+    //         ProjectName::ANABOLICS,
+    //         ProjectName::NARCOTICS_DISTILLER,
+    //     ]);
+    // }
+
     private function givenItemIsHidden($itemName)
     {
         $blaster = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -602,5 +734,16 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     {
         $items = $normalizedTerminal['items'];
         $I->assertEmpty($items);
+    }
+
+    private function thenProjectsShouldBe(FunctionalTester $I, $normalizedTerminal, $expectedProjects)
+    {
+        $projects = $normalizedTerminal['projects'];
+        $actualProjectsNames = array_map(static fn ($project) => $project['key'], $projects);
+        $expectedProjectsNames = array_map(static fn ($project) => $project->value, $expectedProjects);
+        $I->assertEquals(
+            $expectedProjectsNames,
+            $actualProjectsNames,
+        );
     }
 }

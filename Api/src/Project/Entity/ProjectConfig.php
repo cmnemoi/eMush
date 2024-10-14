@@ -45,6 +45,9 @@ class ProjectConfig
     #[ORM\ManyToMany(targetEntity: ReplaceEquipmentConfig::class)]
     private Collection $replaceEquipmentConfigs;
 
+    #[ORM\ManyToMany(targetEntity: ProjectRequirement::class, fetch: 'EAGER')]
+    private Collection $requirements;
+
     public function __construct(
         ProjectName $name = ProjectName::NULL,
         ProjectType $type = ProjectType::NULL,
@@ -53,7 +56,8 @@ class ProjectConfig
         int $activationRate = 100,
         array $modifierConfigs = [],
         array $spawnEquipmentConfigs = [],
-        array $replaceEquipmentConfigs = []
+        array $replaceEquipmentConfigs = [],
+        array $requirements = [],
     ) {
         $this->name = $name;
         $this->type = $type;
@@ -63,6 +67,12 @@ class ProjectConfig
         $this->modifierConfigs = new ArrayCollection($modifierConfigs);
         $this->spawnEquipmentConfigs = new ArrayCollection($spawnEquipmentConfigs);
         $this->replaceEquipmentConfigs = new ArrayCollection($replaceEquipmentConfigs);
+        $this->requirements = new ArrayCollection($requirements);
+    }
+
+    public function getRequirements()
+    {
+        return $this->requirements;
     }
 
     public function getId(): int
@@ -120,5 +130,6 @@ class ProjectConfig
         $this->modifierConfigs = new ArrayCollection($configData['modifierConfigs']);
         $this->spawnEquipmentConfigs = new ArrayCollection($configData['spawnEquipmentConfigs']);
         $this->replaceEquipmentConfigs = new ArrayCollection($configData['replaceEquipmentConfigs']);
+        $this->requirements = new ArrayCollection($configData['requirements']);
     }
 }

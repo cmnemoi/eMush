@@ -135,7 +135,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $projects = match ($terminal->getName()) {
             EquipmentEnum::PILGRED => [$terminal->getDaedalus()->getPilgred()],
             EquipmentEnum::NERON_CORE, EquipmentEnum::AUXILIARY_TERMINAL => $terminal->getDaedalus()->getProposedNeronProjects(),
-            EquipmentEnum::RESEARCH_LABORATORY => $terminal->getDaedalus()->getVisibleResearchProjects(),
+            EquipmentEnum::RESEARCH_LABORATORY => $terminal->getDaedalus()->getVisibleResearchProjects($context),
             default => [],
         };
 

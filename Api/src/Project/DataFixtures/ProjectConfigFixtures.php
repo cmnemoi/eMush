@@ -44,6 +44,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
             ProjectModifierConfigFixtures::class,
             SpawnEquipmentConfigFixtures::class,
             ReplaceEquipmentConfigFixtures::class,
+            ProjectRequirementsFixtures::class,
         ];
     }
 
@@ -53,6 +54,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         $newProjectConfigData['modifierConfigs'] = [];
         $newProjectConfigData['spawnEquipmentConfigs'] = [];
         $newProjectConfigData['replaceEquipmentConfigs'] = [];
+        $newProjectConfigData['requirements'] = [];
 
         foreach ($projectConfigData['modifierConfigs'] as $modifierConfigName) {
             $modifierConfig = $this->getReference($modifierConfigName);
@@ -76,6 +78,14 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
                 throw new \RuntimeException("ReplaceEquipmentConfig {$replaceEquipmentConfigName} not found");
             }
             $newProjectConfigData['replaceEquipmentConfigs'][] = $replaceEquipmentConfig;
+        }
+
+        foreach ($projectConfigData['requirements'] as $projectRequirementName) {
+            $projectRequirement = $this->getReference($projectRequirementName);
+            if (!$projectRequirement) {
+                throw new \RuntimeException("ReplaceEquipmentConfig {$projectRequirementName} not found");
+            }
+            $newProjectConfigData['requirements'][] = $projectRequirement;
         }
 
         return $newProjectConfigData;

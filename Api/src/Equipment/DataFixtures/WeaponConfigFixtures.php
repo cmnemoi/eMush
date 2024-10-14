@@ -44,6 +44,9 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var ActionConfig $shootAction */
         $shootAction = $this->getReference(ActionsFixtures::SHOOT);
 
+        /** @var ActionConfig $shootCatAction */
+        $shootCatAction = $this->getReference(ActionsFixtures::SHOOT_CAT);
+
         /** @var ActionConfig $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
@@ -104,6 +107,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setCriticalFailRate(1)
             ->setOneShotRate(1)
             ->addAction($shootAction)
+            ->addAction($shootCatAction)
             ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::BLASTER, GameConfigEnum::DEFAULT);
 
         /** @var ChargeStatusConfig $blasterCharge */

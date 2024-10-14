@@ -26,6 +26,7 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class CharacterConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -423,6 +424,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var StatusConfig $antisocialStatus */
         $antisocialStatus = $this->getReference(StatusFixtures::ANTISOCIAL_STATUS);
+
+        /** @var StatusConfig $catOwnerStatus */
+        $catOwnerStatus = $this->getReference(PlayerStatusEnum::CAT_OWNER);
         $raluca = $this->buildDefaultCharacterConfig();
         $raluca
             ->setName(CharacterEnum::RALUCA)
@@ -434,7 +438,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $geniusSkillConfig,
                 $conceptorSkillConfig,
             ])
-            ->setInitStatuses([$antisocialStatus])
+            ->setInitStatuses([$antisocialStatus, $catOwnerStatus])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($raluca);
 

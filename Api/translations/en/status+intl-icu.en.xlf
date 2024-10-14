@@ -1645,5 +1645,15 @@
         <target>Your next research, project or repair is successful.</target>
       </segment>
     </unit>
+    <unit id="cat_infected">
+      <segment id="name" state="initial">
+        <source>cat_infected.name</source>
+        <target>cat_infected.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cat_infected.description</source>
+        <target>cat_infected.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

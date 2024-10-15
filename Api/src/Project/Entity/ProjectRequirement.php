@@ -17,11 +17,9 @@ class ProjectRequirement
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => ''])]
     private string $name = '';
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => ''])]
     private string $type = '';
 

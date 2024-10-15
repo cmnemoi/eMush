@@ -574,6 +574,25 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         ]);
     }
 
+    public function testWhenMedkitIsInOtherPlayerInventoryShouldNotAddNewProject(FunctionalTester $I)
+    {
+        $this->givenChunIsInLab();
+
+        $terminal = $this->givenLabTerminal();
+
+        $this->givenChunHasItemsInInventory([ToolItemEnum::MEDIKIT]);
+
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+            ProjectName::ANABOLICS,
+            ProjectName::CREATE_MYCOSCAN,
+            ProjectName::NARCOTICS_DISTILLER,
+        ]);
+    }
+
     // TODO
     // public function testWhenSchrodingerIsInPlayerInventoryShouldAddNewProject(FunctionalTester $I){
 
@@ -628,6 +647,18 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime()
         );
+    }
+
+    private function givenChunHasItemsInInventory($itemsNames)
+    {
+        foreach ($itemsNames as $itemName) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: $itemName,
+                equipmentHolder: $this->chun,
+                reasons: [],
+                time: new \DateTime()
+            );
+        }
     }
 
     private function givenKuanTiHasItemsInInventory($itemsNames)

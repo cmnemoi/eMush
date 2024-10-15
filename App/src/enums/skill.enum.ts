@@ -287,7 +287,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.OCD]: {
-        'icon': getImgUrl('skills/human/ocd.png')
+        'icon': getImgUrl('skills/human/stickler.png')
     },
 
     [SkillEnum.OPPORTUNIST]: {

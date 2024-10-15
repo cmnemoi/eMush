@@ -109,4 +109,7 @@ abstract class ModifierNameEnum
     public const string PLUS_2_HEALTH_POINTS_ON_HEAL = 'modifier_for_player_plus_2_health_points_on_heal';
     public const string DOUBLE_DECODE_REBEL_SIGNAL = 'double_decode_rebel_signal';
     public const string REBEL_MODIFIER = 'rebel_modifier';
+    public const string APRON_MODIFIER_FOR_PLAYER_PREVENT_DIRTY = 'apron_modifier_for_player_prevent_dirty';
+    public const string OCD_MODIFIER_FOR_PLAYER_PREVENT_DIRTY = 'ocd_modifier_for_player_prevent_dirty';
+    public const string OCD_MODIFIER = 'ocd_modifier';
 }

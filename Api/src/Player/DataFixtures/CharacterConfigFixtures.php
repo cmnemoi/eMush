@@ -211,6 +211,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $torturerSkillConfig */
         $torturerSkillConfig = $this->getReference(SkillEnum::TORTURER->value);
 
+        /** @var SkillConfig $ocdSkillConfig */
+        $ocdSkillConfig = $this->getReference(SkillEnum::OCD->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -302,6 +305,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $medicSkillConfig,
                 $nurseSkillConfig,
                 $diplomatSkillConfig,
+                $ocdSkillConfig,
             ])
             ->setInitStatuses([$ocdStatus]);
         $manager->persist($finola);

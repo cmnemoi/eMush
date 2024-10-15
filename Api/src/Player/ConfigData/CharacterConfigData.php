@@ -260,6 +260,7 @@ class CharacterConfigData
                 SkillEnum::MEDIC,
                 SkillEnum::NURSE,
                 SkillEnum::DIPLOMAT,
+                SkillEnum::OCD,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

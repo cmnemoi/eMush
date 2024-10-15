@@ -1156,5 +1156,14 @@
         <target>Le Patrouilleur de {drone} vient d'atterrir.</target>
       </segment>
     </unit>
+    <unit id="torturer_actions">
+      <segment id="torturer_actions" state="translated">
+        <source>torturer_actions</source>
+        <target>{quantity, select,
+        0 {Vous vous en prenez violemment à **{character}**. Sa tête part dans tout les sens... Mais apparemment rien à en tirer...}
+        1 {Vous vous en prenez violemment à **{character}**. Vous attrapez un annuaire qui trainait par là et vous lui mettez de grands coups avec... C'est sanguinolent, mais **{character}** finit par parler... Sa dernière action est {lastAction}.}
+        other {Vous vous en prenez violemment à **{character}**. Vous attrapez un annuaire qui trainait par là et vous lui mettez de grands coups avec... C'est sanguinolent, mais **{character}** finit par parler... Ses dernières actions sont {actions} et {lastAction}.}}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

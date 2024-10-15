@@ -208,6 +208,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $rebelSkillConfig */
         $rebelSkillConfig = $this->getReference(SkillEnum::REBEL->value);
 
+        /** @var SkillConfig $torturerSkillConfig */
+        $torturerSkillConfig = $this->getReference(SkillEnum::TORTURER->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -230,6 +233,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $shooterSkillConfig,
                 $survivalistSkillConfig,
                 $wrestlerSkillConfig,
+                $torturerSkillConfig,
                 $crazyEyeSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);

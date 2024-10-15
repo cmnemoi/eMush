@@ -694,6 +694,7 @@ class GameConfigData
                 SkillEnum::STRATEGURU,
                 SkillEnum::SURVIVALIST,
                 SkillEnum::TECHNICIAN,
+                SkillEnum::TORTURER,
                 SkillEnum::TRACKER,
                 SkillEnum::TRAITOR,
                 SkillEnum::TRANSFER,

@@ -22,7 +22,8 @@ class ProjectRequirement
     private string $name = '';
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    private string $type;
+    #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => ''])]
+    private string $type = '';
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => ''])]
     private string $target = '';

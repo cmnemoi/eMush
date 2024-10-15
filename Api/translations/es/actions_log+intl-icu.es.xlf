@@ -392,9 +392,9 @@
       </segment>
     </unit>
     <unit id="boring_speech">
-      <segment id="boring_speech" state="initial">
+      <segment id="boring_speech" state="translated">
         <source>boring_speech</source>
-        <target>boring_speech</target>
+        <target/>
       </segment>
     </unit>
     <unit id="make_sick">

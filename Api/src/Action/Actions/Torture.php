@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\RemoveHealthFromPlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Service\ActionHistoryRevealLogService;
@@ -47,7 +48,7 @@ final class Torture extends AbstractAction
 
     private function targetMissingHealthPoints(): int
     {
-        $maxHealth = $this->playerTarget()->getCharacterConfig()->getMaxHealthPoint();
+        $maxHealth = $this->playerTarget()->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->getMaxValueOrThrow();
         $currentHealth = $this->playerTarget()->getHealthPoint();
 
         return $maxHealth - $currentHealth;

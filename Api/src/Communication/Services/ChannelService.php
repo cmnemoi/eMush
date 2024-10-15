@@ -13,6 +13,7 @@ use Mush\Communication\Enum\CommunicationActionEnum;
 use Mush\Communication\Event\ChannelEvent;
 use Mush\Communication\Repository\ChannelPlayerRepository;
 use Mush\Communication\Repository\ChannelRepository;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -108,6 +109,11 @@ class ChannelService implements ChannelServiceInterface
         ]);
 
         return $channel instanceof Channel ? $channel : null;
+    }
+
+    public function getMushChannelOrThrow(Daedalus $daedalus): Channel
+    {
+        return $this->getMushChannel($daedalus->getDaedalusInfo()) ?? throw new \LogicException('Mush channel not found');
     }
 
     public function getInvitablePlayersToPrivateChannel(Channel $channel, Player $player): PlayerCollection

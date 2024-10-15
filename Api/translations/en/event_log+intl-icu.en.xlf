@@ -1013,5 +1013,11 @@
         <target>{drone}'s patrol ship has just landed.</target>
       </segment>
     </unit>
+    <unit id="torturer_actions">
+      <segment id="torturer_actions" state="initial">
+        <source>torturer_actions</source>
+        <target>torturer_actions</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -2,7 +2,6 @@
 
 namespace Mush\Communication\Listener;
 
-use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\MushMessageEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
@@ -40,10 +39,7 @@ final class StatusSubscriber implements EventSubscriberInterface
 
     public function onStatusApplied(StatusEvent $event): void
     {
-        $daedalusInfo = $event->getDaedalus()->getDaedalusInfo();
-
-        /** @var Channel $mushChannel */
-        $mushChannel = $this->channelService->getMushChannel($daedalusInfo);
+        $mushChannel = $this->channelService->getMushChannelOrThrow($event->getDaedalus());
         $time = $event->getTime();
         $params = $event->getLogParameters();
 

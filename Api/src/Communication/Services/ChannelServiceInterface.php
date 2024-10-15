@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\Collection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Enum\CommunicationActionEnum;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -20,6 +21,8 @@ interface ChannelServiceInterface
     public function createMushChannel($daedalusInfo): Channel;
 
     public function getMushChannel(DaedalusInfo $daedalusInfo): ?Channel;
+
+    public function getMushChannelOrThrow(Daedalus $daedalus): Channel;
 
     public function createPrivateChannel(Player $player): Channel;
 

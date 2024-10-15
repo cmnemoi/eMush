@@ -1407,5 +1407,15 @@
         <target>upgrade_drone_to_pilot.description</target>
       </segment>
     </unit>
+    <unit id="torture">
+      <segment id="name" state="initial">
+        <source>torture.name</source>
+        <target>torture.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>torture.description</source>
+        <target>torture.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

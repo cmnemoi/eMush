@@ -751,5 +751,25 @@
         <target>rebel.description</target>
       </segment>
     </unit>
+    <unit id="torturer">
+      <segment id="torturer.name" state="initial">
+        <source>torturer.name</source>
+        <target>torturer.name</target>
+      </segment>
+      <segment id="torturer.description" state="initial">
+        <source>torturer.description</source>
+        <target>torturer.description</target>
+      </segment>
+    </unit>
+    <unit id="ocd">
+      <segment id="ocd.name" state="initial">
+        <source>ocd.name</source>
+        <target>ocd.name</target>
+      </segment>
+      <segment id="ocd.description" state="initial">
+        <source>ocd.description</source>
+        <target>ocd.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

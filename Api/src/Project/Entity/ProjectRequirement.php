@@ -7,6 +7,8 @@ namespace Mush\Project\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
+use Mush\Project\Dto\ProjectRequirementConfigDto;
+use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectRequirementType;
 
 #[ORM\Entity]
@@ -27,12 +29,12 @@ class ProjectRequirement
     private string $target = '';
 
     public function __construct(
-        string $name,
-        string $type,
-        ?string $target = '',
+        ProjectRequirementName $name,
+        ProjectRequirementType $type,
+        string $target = '',
     ) {
-        $this->name = $name;
-        $this->type = $type;
+        $this->name = $name->value;
+        $this->type = $type->value;
         $this->target = $target;
     }
 
@@ -41,22 +43,11 @@ class ProjectRequirement
         return $this->name;
     }
 
-    private function getTargetOrThrow(): string
+    public function updateFromConfigData(ProjectRequirementConfigDto $configData): void
     {
-        if (null === $this->target) {
-            throw new \LogicException("Target is mandatory for {$this->name} because is of type {$this->type}");
-        }
-
-        return $this->target;
-    }
-
-    public function updateFromConfigData(array $configData): void
-    {
-        $this->name = $configData['name'];
-        $this->type = $configData['type'];
-        if (isset($configData['target'])) {
-            $this->target = $configData['target'];
-        }
+        $this->name = $configData->name->value;
+        $this->type = $configData->name->value;
+        $this->target = $configData->name->value;
     }
 
     public function isSatisfiedFor(Player $player)
@@ -65,11 +56,20 @@ class ProjectRequirement
         $laboratory = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
 
         return match ($this->type) {
-            ProjectRequirementType::CHUN_IN_LABORATORY => $laboratory->isChunIn(),
-            ProjectRequirementType::ITEM_IN_LABORATORY => $laboratory->hasEquipmentByName($this->getTargetOrThrow()) || $player->hasEquipmentByName($this->getTargetOrThrow()),
-            ProjectRequirementType::ITEM_IN_PLAYER_INVENTORY => $player->hasEquipmentByName($this->getTargetOrThrow()),
-            ProjectRequirementType::MUSH_PLAYER_DEAD => $daedalus->hasAnyMushDied(),
+            ProjectRequirementType::CHUN_IN_LABORATORY->value => $laboratory->isChunIn(),
+            ProjectRequirementType::ITEM_IN_LABORATORY->value => $laboratory->hasEquipmentByName($this->getTargetOrThrow()) || $player->hasEquipmentByName($this->getTargetOrThrow()),
+            ProjectRequirementType::ITEM_IN_PLAYER_INVENTORY->value => $player->hasEquipmentByName($this->getTargetOrThrow()),
+            ProjectRequirementType::MUSH_PLAYER_DEAD->value => $daedalus->hasAnyMushDied(),
             default => throw new \LogicException("Unknown project requirement type: {$this->type}"),
         };
+    }
+
+    private function getTargetOrThrow(): string
+    {
+        if ('' === $this->target) {
+            throw new \LogicException("Target is mandatory for {$this->name} because is of type {$this->type}");
+        }
+
+        return $this->target;
     }
 }

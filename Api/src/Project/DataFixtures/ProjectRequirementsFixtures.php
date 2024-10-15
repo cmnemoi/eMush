@@ -14,11 +14,11 @@ final class ProjectRequirementsFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        foreach (ProjectRequirementsConfigData::getAll() as $requirementConfig) {
+        foreach (ProjectRequirementsConfigData::getAll() as $requirementConfigDto) {
             $projectRequirement = new ProjectRequirement(
-                $requirementConfig['name'],
-                $requirementConfig['type'],
-                $requirementConfig['target']
+                $requirementConfigDto->name,
+                $requirementConfigDto->type,
+                $requirementConfigDto->target,
             );
             $manager->persist($projectRequirement);
             $this->addReference($projectRequirement->getName(), $projectRequirement);

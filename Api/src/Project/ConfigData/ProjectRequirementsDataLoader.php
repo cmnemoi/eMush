@@ -24,13 +24,17 @@ final class ProjectRequirementsDataLoader extends ConfigDataLoader
 
     public function loadConfigsData(): void
     {
-        foreach (ProjectRequirementsConfigData::getAll() as $projectRequirementsConfigData) {
+        foreach (ProjectRequirementsConfigData::getAll() as $projectRequirementsConfigDataDto) {
             /** @var ProjectRequirement $projectRequirementsConfig */
-            $projectRequirementsConfig = $this->projectRequirementsRepository->findOneBy(['name' => $projectRequirementsConfigData['name']]);
+            $projectRequirementsConfig = $this->projectRequirementsRepository->findOneBy(['name' => $projectRequirementsConfigDataDto->name->value]);
             if (!$projectRequirementsConfig) {
-                $projectRequirementsConfig = new ProjectRequirement(...$projectRequirementsConfigData);
+                $projectRequirementsConfig = new ProjectRequirement(
+                    $projectRequirementsConfigDataDto->name,
+                    $projectRequirementsConfigDataDto->type,
+                    $projectRequirementsConfigDataDto->target,
+                );
             } else {
-                $projectRequirementsConfig->updateFromConfigData($projectRequirementsConfigData);
+                $projectRequirementsConfig->updateFromConfigData($projectRequirementsConfigDataDto);
             }
             $this->entityManager->persist($projectRequirementsConfig);
         }

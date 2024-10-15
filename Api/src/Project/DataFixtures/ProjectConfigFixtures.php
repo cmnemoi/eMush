@@ -81,7 +81,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         }
 
         foreach ($projectConfigData['requirements'] as $projectRequirementName) {
-            $projectRequirement = $this->getReference($projectRequirementName);
+            $projectRequirement = $this->getReference($projectRequirementName->value);
             if (!$projectRequirement) {
                 throw new \RuntimeException("ReplaceEquipmentConfig {$projectRequirementName} not found");
             }

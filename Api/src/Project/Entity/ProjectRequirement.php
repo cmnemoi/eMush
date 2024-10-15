@@ -76,21 +76,12 @@ class ProjectRequirement
         $daedalus = $player->getDaedalus();
         $laboratory = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
 
-        switch ($this->type) {
-            case ProjectRequirementType::CHUN_IN_LABORATORY:
-                return $laboratory->isChunIn();
-
-            case ProjectRequirementType::ITEM_IN_LABORATORY:
-                return $laboratory->hasEquipmentByName($this->getTargetOrThrow()) || $player->hasEquipmentByName($this->getTargetOrThrow());
-
-            case ProjectRequirementType::ITEM_IN_PLAYER_INVENTORY:
-                return $player->hasEquipmentByName($this->getTargetOrThrow());
-
-            case ProjectRequirementType::MUSH_PLAYER_DEAD:
-                return $daedalus->hasAnyMushDied();
-
-            default:
-                throw new \LogicException("Unknown project requirement type: {$this->type}");
-        }
+        return match ($this->type) {
+            ProjectRequirementType::CHUN_IN_LABORATORY => $laboratory->isChunIn(),
+            ProjectRequirementType::ITEM_IN_LABORATORY => $laboratory->hasEquipmentByName($this->getTargetOrThrow()) || $player->hasEquipmentByName($this->getTargetOrThrow()),
+            ProjectRequirementType::ITEM_IN_PLAYER_INVENTORY => $player->hasEquipmentByName($this->getTargetOrThrow()),
+            ProjectRequirementType::MUSH_PLAYER_DEAD => $daedalus->hasAnyMushDied(),
+            default => throw new \LogicException("Unknown project requirement type: {$this->type}"),
+        };
     }
 }

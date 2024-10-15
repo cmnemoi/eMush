@@ -21,10 +21,10 @@
         "lexik/jwt-authentication-bundle": "^2.20.3",
         "nelmio/api-doc-bundle": "^4.25.2",
         "nelmio/cors-bundle": "^2.4",
-        "open-telemetry/api": "^1.0",
-        "open-telemetry/context": "^1.0",
-        "open-telemetry/exporter-otlp": "^1.0",
-        "open-telemetry/sdk": "^1.0",
+        "open-telemetry/api": "^1.1",
+        "open-telemetry/context": "^1.1",
+        "open-telemetry/exporter-otlp": "^1.1",
+        "open-telemetry/sdk": "^1.1",
         "open-telemetry/sem-conv": "^1.27",
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.28",
@@ -74,8 +74,9 @@
         },
         "sort-packages": true,
         "allow-plugins": {
+            "php-http/discovery": false,
             "symfony/flex": true,
-            "php-http/discovery": false
+            "tbachert/spi": true
         }
     },
     "autoload": {

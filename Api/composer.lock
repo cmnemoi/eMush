@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dce7a7a8cc66e2a5ce2fa17c5ce65f06",
+    "content-hash": "e7215e2a1be4834d97388730e571b8ae",
     "packages": [
         {
             "name": "api-platform/core",
@@ -350,6 +350,87 @@
                 }
             ],
             "time": "2022-01-17T14:14:24+00:00"
+        },
+        {
+            "name": "composer/semver",
+            "version": "3.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/semver.git",
+                "reference": "c51258e759afdb17f1fd1fe83bc12baaef6309d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/semver/zipball/c51258e759afdb17f1fd1fe83bc12baaef6309d6",
+                "reference": "c51258e759afdb17f1fd1fe83bc12baaef6309d6",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.2 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.4",
+                "symfony/phpunit-bridge": "^4.2 || ^5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\Semver\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nils Adermann",
+                    "email": "naderman@naderman.de",
+                    "homepage": "http://www.naderman.de"
+                },
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                },
+                {
+                    "name": "Rob Bast",
+                    "email": "rob.bast@gmail.com",
+                    "homepage": "http://robbast.nl"
+                }
+            ],
+            "description": "Semver library that offers utilities, version constraint parsing and validation.",
+            "keywords": [
+                "semantic",
+                "semver",
+                "validation",
+                "versioning"
+            ],
+            "support": {
+                "irc": "ircs://irc.libera.chat:6697/composer",
+                "issues": "https://github.com/composer/semver/issues",
+                "source": "https://github.com/composer/semver/tree/3.4.2"
+            },
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/composer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-07-12T11:35:52+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -3195,34 +3276,98 @@
             "time": "2024-06-24T21:25:28+00:00"
         },
         {
-            "name": "open-telemetry/api",
-            "version": "1.0.3",
+            "name": "nyholm/psr7-server",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/opentelemetry-php/api.git",
-                "reference": "87de95d926f46262885d0d390060c095af13e2e5"
+                "url": "https://github.com/Nyholm/psr7-server.git",
+                "reference": "4335801d851f554ca43fa6e7d2602141538854dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opentelemetry-php/api/zipball/87de95d926f46262885d0d390060c095af13e2e5",
-                "reference": "87de95d926f46262885d0d390060c095af13e2e5",
+                "url": "https://api.github.com/repos/Nyholm/psr7-server/zipball/4335801d851f554ca43fa6e7d2602141538854dc",
+                "reference": "4335801d851f554ca43fa6e7d2602141538854dc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.0 || ^2.0"
+            },
+            "require-dev": {
+                "nyholm/nsa": "^1.1",
+                "nyholm/psr7": "^1.3",
+                "phpunit/phpunit": "^7.0 || ^8.5 || ^9.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Nyholm\\Psr7Server\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com"
+                },
+                {
+                    "name": "Martijn van der Ven",
+                    "email": "martijn@vanderven.se"
+                }
+            ],
+            "description": "Helper classes to handle PSR-7 server requests",
+            "homepage": "http://tnyholm.se",
+            "keywords": [
+                "psr-17",
+                "psr-7"
+            ],
+            "support": {
+                "issues": "https://github.com/Nyholm/psr7-server/issues",
+                "source": "https://github.com/Nyholm/psr7-server/tree/1.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Zegnat",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nyholm",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-11-08T09:30:43+00:00"
+        },
+        {
+            "name": "open-telemetry/api",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opentelemetry-php/api.git",
+                "reference": "62f2abc4c6d4ef6ea897256520052f9c29a0241f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opentelemetry-php/api/zipball/62f2abc4c6d4ef6ea897256520052f9c29a0241f",
+                "reference": "62f2abc4c6d4ef6ea897256520052f9c29a0241f",
                 "shasum": ""
             },
             "require": {
                 "open-telemetry/context": "^1.0",
-                "php": "^7.4 || ^8.0",
+                "php": "^8.1",
                 "psr/log": "^1.1|^2.0|^3.0",
-                "symfony/polyfill-php80": "^1.26",
-                "symfony/polyfill-php81": "^1.26",
                 "symfony/polyfill-php82": "^1.26"
             },
             "conflict": {
-                "open-telemetry/sdk": "<=1.0.4"
+                "open-telemetry/sdk": "<=1.0.8"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.0.x-dev"
+                    "dev-main": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -3259,26 +3404,24 @@
                 "issues": "https://github.com/open-telemetry/opentelemetry-php/issues",
                 "source": "https://github.com/open-telemetry/opentelemetry-php"
             },
-            "time": "2024-02-06T01:32:25+00:00"
+            "time": "2024-09-24T23:58:09+00:00"
         },
         {
             "name": "open-telemetry/context",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opentelemetry-php/context.git",
-                "reference": "e9d254a7c89885e63fd2fde54e31e81aaaf52b7c"
+                "reference": "0cba875ea1953435f78aec7f1d75afa87bdbf7f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opentelemetry-php/context/zipball/e9d254a7c89885e63fd2fde54e31e81aaaf52b7c",
-                "reference": "e9d254a7c89885e63fd2fde54e31e81aaaf52b7c",
+                "url": "https://api.github.com/repos/opentelemetry-php/context/zipball/0cba875ea1953435f78aec7f1d75afa87bdbf7f3",
+                "reference": "0cba875ea1953435f78aec7f1d75afa87bdbf7f3",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.4 || ^8.0",
-                "symfony/polyfill-php80": "^1.26",
-                "symfony/polyfill-php81": "^1.26",
+                "php": "^8.1",
                 "symfony/polyfill-php82": "^1.26"
             },
             "suggest": {
@@ -3320,27 +3463,27 @@
                 "issues": "https://github.com/open-telemetry/opentelemetry-php/issues",
                 "source": "https://github.com/open-telemetry/opentelemetry-php"
             },
-            "time": "2024-01-13T05:50:44+00:00"
+            "time": "2024-08-21T00:29:20+00:00"
         },
         {
             "name": "open-telemetry/exporter-otlp",
-            "version": "1.0.4",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opentelemetry-php/exporter-otlp.git",
-                "reference": "342686bfce05867b56561a0af2fc8a4a8f27b3cc"
+                "reference": "9b6de12204f25f8ab9540b46d6e7b5151897ce18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opentelemetry-php/exporter-otlp/zipball/342686bfce05867b56561a0af2fc8a4a8f27b3cc",
-                "reference": "342686bfce05867b56561a0af2fc8a4a8f27b3cc",
+                "url": "https://api.github.com/repos/opentelemetry-php/exporter-otlp/zipball/9b6de12204f25f8ab9540b46d6e7b5151897ce18",
+                "reference": "9b6de12204f25f8ab9540b46d6e7b5151897ce18",
                 "shasum": ""
             },
             "require": {
                 "open-telemetry/api": "^1.0",
                 "open-telemetry/gen-otlp-protobuf": "^1.1",
                 "open-telemetry/sdk": "^1.0",
-                "php": "^7.4 || ^8.0",
+                "php": "^8.1",
                 "php-http/discovery": "^1.14"
             },
             "type": "library",
@@ -3384,7 +3527,7 @@
                 "issues": "https://github.com/open-telemetry/opentelemetry-php/issues",
                 "source": "https://github.com/open-telemetry/opentelemetry-php"
             },
-            "time": "2024-02-28T21:57:02+00:00"
+            "time": "2024-04-30T18:28:30+00:00"
         },
         {
             "name": "open-telemetry/gen-otlp-protobuf",
@@ -3451,43 +3594,50 @@
         },
         {
             "name": "open-telemetry/sdk",
-            "version": "1.0.8",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opentelemetry-php/sdk.git",
-                "reference": "1da4c0ca4f1a3c0fe84b81729dadec16f464fa77"
+                "reference": "be2bb8de6db9eeb11d964b3b1949f6e0f6b08e9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opentelemetry-php/sdk/zipball/1da4c0ca4f1a3c0fe84b81729dadec16f464fa77",
-                "reference": "1da4c0ca4f1a3c0fe84b81729dadec16f464fa77",
+                "url": "https://api.github.com/repos/opentelemetry-php/sdk/zipball/be2bb8de6db9eeb11d964b3b1949f6e0f6b08e9b",
+                "reference": "be2bb8de6db9eeb11d964b3b1949f6e0f6b08e9b",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "open-telemetry/api": "^1.0",
+                "nyholm/psr7-server": "^1.1",
+                "open-telemetry/api": "~1.0 || ~1.1",
                 "open-telemetry/context": "^1.0",
                 "open-telemetry/sem-conv": "^1.0",
-                "php": "^7.4 || ^8.0",
+                "php": "^8.1",
                 "php-http/discovery": "^1.14",
                 "psr/http-client": "^1.0",
                 "psr/http-client-implementation": "^1.0",
                 "psr/http-factory-implementation": "^1.0",
                 "psr/http-message": "^1.0.1|^2.0",
                 "psr/log": "^1.1|^2.0|^3.0",
+                "ramsey/uuid": "^3.0 || ^4.0",
                 "symfony/polyfill-mbstring": "^1.23",
-                "symfony/polyfill-php80": "^1.26",
-                "symfony/polyfill-php81": "^1.26",
-                "symfony/polyfill-php82": "^1.26"
+                "symfony/polyfill-php82": "^1.26",
+                "tbachert/spi": "^1.0.1"
             },
             "suggest": {
                 "ext-gmp": "To support unlimited number of synchronous metric readers",
-                "ext-mbstring": "To increase performance of string operations"
+                "ext-mbstring": "To increase performance of string operations",
+                "open-telemetry/sdk-configuration": "File-based OpenTelemetry SDK configuration"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-main": "1.0.x-dev"
+                },
+                "spi": {
+                    "OpenTelemetry\\API\\Instrumentation\\AutoInstrumentation\\HookManagerInterface": [
+                        "OpenTelemetry\\API\\Instrumentation\\AutoInstrumentation\\ExtensionHookManager"
+                    ]
                 }
             },
             "autoload": {
@@ -3530,7 +3680,7 @@
                 "issues": "https://github.com/open-telemetry/opentelemetry-php/issues",
                 "source": "https://github.com/open-telemetry/opentelemetry-php"
             },
-            "time": "2024-02-02T03:42:40+00:00"
+            "time": "2024-09-25T11:54:21+00:00"
         },
         {
             "name": "open-telemetry/sem-conv",
@@ -9232,6 +9382,58 @@
             "time": "2023-04-28T13:25:36+00:00"
         },
         {
+            "name": "tbachert/spi",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Nevay/spi.git",
+                "reference": "2ddfaf815dafb45791a61b08170de8d583c16062"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Nevay/spi/zipball/2ddfaf815dafb45791a61b08170de8d583c16062",
+                "reference": "2ddfaf815dafb45791a61b08170de8d583c16062",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "composer/semver": "^1.0 || ^2.0 || ^3.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "composer/composer": "^2.0",
+                "infection/infection": "^0.27.9",
+                "phpunit/phpunit": "^10.5",
+                "psalm/phar": "^5.18"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.2.x-dev"
+                },
+                "class": "Nevay\\SPI\\Composer\\Plugin",
+                "plugin-optional": true
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nevay\\SPI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Service provider loading facility",
+            "keywords": [
+                "service provider"
+            ],
+            "support": {
+                "issues": "https://github.com/Nevay/spi/issues",
+                "source": "https://github.com/Nevay/spi/tree/v1.0.2"
+            },
+            "time": "2024-10-04T16:36:12+00:00"
+        },
+        {
             "name": "twig/extra-bundle",
             "version": "v3.8.0",
             "source": {
@@ -10735,87 +10937,6 @@
                 }
             ],
             "time": "2024-08-27T18:44:43+00:00"
-        },
-        {
-            "name": "composer/semver",
-            "version": "3.4.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/semver.git",
-                "reference": "c51258e759afdb17f1fd1fe83bc12baaef6309d6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/composer/semver/zipball/c51258e759afdb17f1fd1fe83bc12baaef6309d6",
-                "reference": "c51258e759afdb17f1fd1fe83bc12baaef6309d6",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3.2 || ^7.0 || ^8.0"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^1.4",
-                "symfony/phpunit-bridge": "^4.2 || ^5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Composer\\Semver\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nils Adermann",
-                    "email": "naderman@naderman.de",
-                    "homepage": "http://www.naderman.de"
-                },
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be"
-                },
-                {
-                    "name": "Rob Bast",
-                    "email": "rob.bast@gmail.com",
-                    "homepage": "http://robbast.nl"
-                }
-            ],
-            "description": "Semver library that offers utilities, version constraint parsing and validation.",
-            "keywords": [
-                "semantic",
-                "semver",
-                "validation",
-                "versioning"
-            ],
-            "support": {
-                "irc": "ircs://irc.libera.chat:6697/composer",
-                "issues": "https://github.com/composer/semver/issues",
-                "source": "https://github.com/composer/semver/tree/3.4.2"
-            },
-            "funding": [
-                {
-                    "url": "https://packagist.com",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/composer",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2024-07-12T11:35:52+00:00"
         },
         {
             "name": "composer/xdebug-handler",
@@ -14978,7 +15099,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
@@ -14989,6 +15110,6 @@
         "ext-openssl": "*",
         "ext-protobuf": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

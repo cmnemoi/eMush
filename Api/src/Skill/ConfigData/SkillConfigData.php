@@ -254,7 +254,7 @@ abstract class SkillConfigData
             new SkillConfigDto(
                 name: SkillEnum::OCD,
                 modifierConfigs: [
-                    ModifierNameEnum::APRON_MODIFIER_FOR_PLAYER_PREVENT_DIRTY,
+                    ModifierNameEnum::OCD_MODIFIER_FOR_PLAYER_PREVENT_DIRTY,
                 ],
             ),
             new SkillConfigDto(

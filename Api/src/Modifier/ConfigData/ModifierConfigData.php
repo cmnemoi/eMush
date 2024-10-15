@@ -519,10 +519,9 @@ abstract class ModifierConfigData
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,
             'applyOnTarget' => true,
-            'modifierRange' => 'player',
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
             'type' => 'event_modifier',
             'replaceEvent' => true,
-            'triggeredEvent' => null,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ALL_TAGS,
@@ -3554,6 +3553,22 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::DECODE_REBEL_SIGNAL->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => ModifierNameEnum::OCD_MODIFIER_FOR_PLAYER_PREVENT_DIRTY,
+            'modifierName' => ModifierNameEnum::OCD_MODIFIER,
+            'targetEvent' => StatusEvent::STATUS_APPLIED,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => ModifierPriorityEnum::PREVENT_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'event_modifier',
+            'replaceEvent' => true,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ALL_TAGS,
+                ActionTypeEnum::ACTION_SUPER_DIRTY->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
     ];

@@ -298,6 +298,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($rebelModifier->getName(), $rebelModifier);
         $manager->persist($rebelModifier);
 
+        $ocdModifier = EventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::OCD_MODIFIER_FOR_PLAYER_PREVENT_DIRTY)
+        );
+        $this->addReference($ocdModifier->getName(), $ocdModifier);
+        $manager->persist($ocdModifier);
+
         $manager->flush();
     }
 

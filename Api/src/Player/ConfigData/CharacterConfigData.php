@@ -63,6 +63,7 @@ class CharacterConfigData
                 SkillEnum::SHOOTER,
                 SkillEnum::SURVIVALIST,
                 SkillEnum::WRESTLER,
+                SkillEnum::TORTURER,
                 SkillEnum::CRAZY_EYE,
             ],
             'maxNumberPrivateChannel' => 3,

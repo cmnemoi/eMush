@@ -381,6 +381,12 @@ abstract class SkillConfigData
                 skillPointsConfig: SkillPointsEnum::TECHNICIAN_POINTS,
             ),
             new SkillConfigDto(
+                name: SkillEnum::TORTURER,
+                actionConfigs: [
+                    ActionEnum::TORTURE,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::TRAPPER,
                 actionConfigs: [
                     ActionEnum::TRAP_CLOSET,

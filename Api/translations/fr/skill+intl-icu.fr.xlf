@@ -798,5 +798,15 @@
         <target>Vos liens avec la résistance anti-Mush vous permettent de comprendre et décoder les signaux rebelles bien plus rapidement que n'importe quel autre expert radio.//:point: Chances **doublées** pour contacter les bases rebelles.</target>
       </segment>
     </unit>
+    <unit id="torturer">
+      <segment id="torturer.name" state="translated">
+        <source>torturer.name</source>
+        <target>Bourreau</target>
+      </segment>
+      <segment id="torturer.description" state="final">
+        <source>torturer.description</source>
+        <target>Le bourreau connait tous les circuits nerveux les plus sensibles pour arriver à faire parvenir son message le plus important... **Tu VAS parler.**//:point: Libère l'action **Torturer**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

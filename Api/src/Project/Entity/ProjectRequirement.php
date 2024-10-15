@@ -23,8 +23,8 @@ class ProjectRequirement
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $type;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    private ?string $target;
+    #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => ''])]
+    private string $target = '';
 
     public function __construct(
         string $name,

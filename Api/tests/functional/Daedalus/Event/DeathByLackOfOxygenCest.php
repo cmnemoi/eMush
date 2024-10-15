@@ -29,6 +29,8 @@ final class DeathByLackOfOxygenCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
+        $this->setupNoIncidents();
+
         // given Daedalus has 1 oxygen
         $this->daedalus->setOxygen(1);
     }
@@ -157,5 +159,10 @@ final class DeathByLackOfOxygenCest extends AbstractFunctionalTest
             'log' => LogEnum::OXY_LOW_USE_CAPSULE,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
+    }
+
+    private function setupNoIncidents(): void
+    {
+        $this->daedalus->setDay(0);
     }
 }

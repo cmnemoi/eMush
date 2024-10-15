@@ -1437,5 +1437,15 @@ Or you simply need some fresh air.... or not.</target>
 **Try to borrow a Patrol Ship and destroy all the Hunters before you leave. 20% targeting bonus compared to humans.**</target>
       </segment>
     </unit>
+    <unit id="torture">
+      <segment id="name" state="initial">
+        <source>torture.name</source>
+        <target>torture.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>torture.description</source>
+        <target>torture.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

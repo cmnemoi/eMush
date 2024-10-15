@@ -132,10 +132,13 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
 
     private function getNormalizedTerminalProjects(GameEquipment $terminal, ?string $format, array $context): array
     {
+        /** @var Player $currentPlayer */
+        $currentPlayer = $context['currentPlayer'];
+
         $projects = match ($terminal->getName()) {
             EquipmentEnum::PILGRED => [$terminal->getDaedalus()->getPilgred()],
             EquipmentEnum::NERON_CORE, EquipmentEnum::AUXILIARY_TERMINAL => $terminal->getDaedalus()->getProposedNeronProjects(),
-            EquipmentEnum::RESEARCH_LABORATORY => $terminal->getDaedalus()->getVisibleResearchProjects($context),
+            EquipmentEnum::RESEARCH_LABORATORY => $terminal->getDaedalus()->getVisibleResearchProjectsForPlayer($currentPlayer),
             default => [],
         };
 

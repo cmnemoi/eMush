@@ -209,7 +209,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $player;
     }
 
-    public function getVisibleResearchProjects($context)
+    public function getVisibleResearchProjects($context): ProjectCollection
     {
         $currentPlayer = $context['currentPlayer'];
 

@@ -42,7 +42,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $equipmentPlace = $event->getPlace();
 
         // handle patrol ship destructions
-        if (EquipmentEnum::getPatrolShips()->contains($equipment->getName())) {
+        if ($equipment->hasMechanicByName(EquipmentEnum::PATROL_SHIP)) {
             foreach ($equipmentPlace->getPlayers() as $player) {
                 $this->ejectPlayer($player, $event->getTags(), $event->getTime());
             }

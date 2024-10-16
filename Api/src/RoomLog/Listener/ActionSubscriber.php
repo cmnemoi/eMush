@@ -28,7 +28,6 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public const int CAT_MEOW_CHANCE = 10;
 
-    /** @TODO lower this before merging */
     public function __construct(
         private D100RollServiceInterface $d100Roll,
         private RoomLogServiceInterface $roomLogService,

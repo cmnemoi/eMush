@@ -52,6 +52,8 @@ class DaedalusSubscriber implements EventSubscriberInterface
         // Chose alpha Mushs
         $this->daedalusService->selectAlphaMush($daedalus, $event->getTime());
 
+        $this->daedalusService->spawnMushSample($daedalus, $event->getTime());
+
         $daedalus->setFilledAt(new \DateTime());
         $daedalusInfo->setGameStatus(GameStatusEnum::CURRENT);
         $this->daedalusService->persist($daedalus);

@@ -53,6 +53,8 @@ interface DaedalusServiceInterface
 
     public function selectAlphaMush(Daedalus $daedalus, \DateTime $date): Daedalus;
 
+    public function spawnMushSample(Daedalus $daedalus, \DateTime $date): Daedalus;
+
     public function getRandomAsphyxia(Daedalus $daedalus, \DateTime $date): Daedalus;
 
     public function killRemainingPlayers(Daedalus $daedalus, array $reasons, \DateTime $date): Daedalus;

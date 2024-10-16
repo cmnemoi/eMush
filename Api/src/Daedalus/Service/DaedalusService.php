@@ -21,6 +21,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
@@ -52,6 +53,7 @@ class DaedalusService implements DaedalusServiceInterface
     private DaedalusInfoRepository $daedalusInfoRepository;
     private DaedalusRepository $daedalusRepository;
     private TitlePriorityRepositoryInterface $titlePriorityRepository;
+    private GameEquipmentService $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
@@ -64,6 +66,7 @@ class DaedalusService implements DaedalusServiceInterface
         DaedalusInfoRepository $daedalusInfoRepository,
         DaedalusRepository $daedalusRepository,
         TitlePriorityRepositoryInterface $titlePriorityRepository,
+        GameEquipmentService $gameEquipmentService,
         PlayerServiceInterface $playerService
     ) {
         $this->entityManager = $entityManager;
@@ -75,6 +78,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->daedalusInfoRepository = $daedalusInfoRepository;
         $this->daedalusRepository = $daedalusRepository;
         $this->titlePriorityRepository = $titlePriorityRepository;
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
     }
 
@@ -324,6 +328,21 @@ class DaedalusService implements DaedalusServiceInterface
                 $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
             }
         }
+
+        return $daedalus;
+    }
+
+    public function spawnMushSample(Daedalus $daedalus, \DateTime $date): Daedalus
+    {
+        $allRooms = $daedalus->getRooms();
+        $room = $this->randomService->getRandomElement($allRooms->toArray());
+        $this->gameEquipmentService->createGameEquipmentsFromName(
+            ItemEnum::MUSH_SAMPLE,
+            $room,
+            [DaedalusEvent::FULL_DAEDALUS],
+            $date,
+            1
+        );
 
         return $daedalus;
     }

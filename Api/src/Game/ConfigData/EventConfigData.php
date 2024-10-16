@@ -332,14 +332,6 @@ class EventConfigData
             'eventName' => VariableEventInterface::CHANGE_VARIABLE,
             'name' => self::CHANGE_VARIABLE_PLAYER_MINUS_1_SPORE,
         ],
-        [
-            'type' => 'variable_event_config',
-            'quantity' => 12,
-            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
-            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
-            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
-            'name' => self::CHANGE_VALUE_MAX_PLUS_12_MAX_ACTION_POINTS,
-        ],
     ];
 
     public static array $planetSectorEventConfigData = [

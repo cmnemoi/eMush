@@ -26,7 +26,6 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * upon which, if Schrodinger is infected and the player is human,
  * they will receive one spore; hence the need for a custom Take action.
  *
- * @TODO: Infect player on injury if converted
  *
  * More info : http://www.mushpedia.com/wiki/Schr%C3%B6dinger
  */

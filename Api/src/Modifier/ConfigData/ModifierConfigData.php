@@ -3603,19 +3603,6 @@ abstract class ModifierConfigData
                 ActionTypeEnum::ACTION_SUPER_DIRTY->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
-        [
-            'name' => ModifierNameEnum::DOUBLE_MAX_ACTION_POINTS,
-            'modifierName' => ModifierNameEnum::LETHARGY_MODIFIER,
-            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
-            'modifierRange' => ModifierHolderClassEnum::PLAYER,
-            'type' => 'direct_modifier',
-            'triggeredEvent' => EventConfigData::CHANGE_VALUE_MAX_PLUS_12_MAX_ACTION_POINTS,
-            'visibility' => null,
-            'modifierActivationRequirements' => [],
-            'revertOnRemove' => true,
-            'targetFilters' => [],
-            'eventActivationRequirements' => [],
-        ],
     ];
 
     public static function getByName(string $name): array

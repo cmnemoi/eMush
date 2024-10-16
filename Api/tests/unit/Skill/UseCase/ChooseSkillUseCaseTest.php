@@ -8,6 +8,7 @@ use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Exception\GameException;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
@@ -155,6 +156,7 @@ final class ChooseSkillUseCaseTest extends TestCase
     {
         $useCase = new ChooseSkillUseCase(
             new AddSkillToPlayerService(
+                $this->createStub(EventServiceInterface::class),
                 $this->createStub(GameEquipmentServiceInterface::class),
                 $this->createStub(ModifierCreationServiceInterface::class),
                 $this->playerRepository,

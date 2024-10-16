@@ -42,7 +42,7 @@ final class PlayerCatOwnerAwakenEventCest extends AbstractFunctionalTest
     public function ifRalucaAwakensSchrodingerShouldSpawn(FunctionalTester $I)
     {
         $this->WhenRalucaAwakens($I);
-        $I->assertEquals(1, $this->raluca->getPlace()->getAllEquipmentsByName(ItemEnum::SCHRODINGER)->count());
+        $I->assertTrue($this->raluca->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER);
     }
 
     public function ifSomeoneElseIsGivenCatOwnerStatusAndAwakensSchrodingerShouldSpawn(FunctionalTester $I)

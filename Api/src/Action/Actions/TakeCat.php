@@ -50,7 +50,7 @@ class TakeCat extends AbstractAction
         $tags = parent::getTags();
 
         /** @var GameItem $target */
-        $target = $this->target;
+        $target = $this->gameItemTarget();
         $tags[] = $target->getName();
         if ($target->hasStatus(EquipmentStatusEnum::HEAVY)) {
             $tags[] = EquipmentStatusEnum::HEAVY;

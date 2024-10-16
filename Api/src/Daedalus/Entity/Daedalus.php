@@ -44,8 +44,6 @@ use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
-use function Amp\Iterator\filter;
-
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus')]
 class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, StatusHolderInterface
@@ -212,10 +210,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $player;
     }
 
-    public function getVisibleResearchProjects()
+    public function getVisibleResearchProjectsForPlayer(Player $player): ProjectCollection
     {
-        // # TODO filter only the ones that are possible to research
-        return $this->getResearchProjects();
+        return $this->getResearchProjects()->filter(static fn (Project $project) => $project->isVisibleFor($player));
     }
 
     public function getPlaces(): Collection
@@ -748,9 +745,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->projects->filter(static fn (Project $project) => $project->isAvailableNeronProject());
     }
 
-    public function getResearchProjects(): Collection
+    public function getResearchProjects(): ProjectCollection
     {
-        return $this->projects->filter(static fn (Project $project) => $project->isResearchProject());
+        return new ProjectCollection($this->projects->filter(static fn (Project $project) => $project->isResearchProject())->toArray());
     }
 
     public function getProposedNeronProjects(): ProjectCollection

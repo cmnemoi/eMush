@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\NoEfficiency;
+use Mush\Action\Validator\ProjectRequirements;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\TargetProjectFinished;
 use Mush\Equipment\Enum\ReachEnum;
@@ -41,6 +42,10 @@ abstract class AbstractParticipateAction extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
+        $metadata->addConstraint(new ProjectRequirements([
+            'groups' => ['visibility'],
+            'message' => ActionImpossibleCauseEnum::REQUIREMENTS_NOT_MET,
+        ]));
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new TargetProjectFinished(['groups' => ['visibility']]));
         $metadata->addConstraint(new NoEfficiency(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_EFFICIENCY]));

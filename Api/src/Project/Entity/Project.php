@@ -83,9 +83,26 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
         return $this->id;
     }
 
+    public function getRequirements()
+    {
+        return $this->config->getRequirements();
+    }
+
     public function getConfig(): ProjectConfig
     {
         return $this->config;
+    }
+
+    public function isVisibleFor(Player $player): bool
+    {
+        $requirements = $this->config->getRequirements();
+        foreach ($requirements as $requirement) {
+            if (!$requirement->isSatisfiedFor($player)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function getName(): string

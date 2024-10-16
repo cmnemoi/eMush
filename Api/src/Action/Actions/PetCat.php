@@ -70,7 +70,7 @@ class PetCat extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $tags = $this->getActionConfig()->getActionTags();
+        $tags = $this->getTags();
         $tags[] = $this->gameItemTarget()->getName();
 
         if ($this->player->hasStatus(PlayerStatusEnum::HAS_PETTED_CAT)) {

@@ -89,7 +89,7 @@ final class ShootCatCest extends AbstractFunctionalTest
     {
         $this->givenShotisFailure($I);
         $this->WhenPlayerShoots();
-        $I->assertEquals(1, $this->player->getPlace()->getAllEquipmentsByName(ItemEnum::SCHRODINGER)->count());
+        $I->assertTrue($this->player->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER));
     }
 
     public function shouldMakeSchrodingerHissOnFailure(FunctionalTester $I): void

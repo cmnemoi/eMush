@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
@@ -396,6 +397,52 @@ final class ParticipateCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldBeExecutableIfRequirementsAreMet(FunctionalTester $I): void
+    {
+        $this->givenChunIsInLab();
+
+        $terminal = $this->givenLabTerminal();
+
+        $project = $this->daedalus->getProjectByName(ProjectName::CREATE_MYCOSCAN);
+
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $terminal,
+            player: $this->kuanTi,
+            target: $project
+        );
+
+        $this->participateAction->execute();
+
+        $I->assertEquals(
+            expected: null,
+            actual: $this->participateAction->cannotExecuteReason(),
+        );
+    }
+
+    public function shouldNotBeExecutableIfRequirementsAreNotMet(FunctionalTester $I): void
+    {
+        $this->givenChunIsNotInLab();
+
+        $terminal = $this->givenLabTerminal();
+
+        $project = $this->daedalus->getProjectByName(ProjectName::CREATE_MYCOSCAN);
+
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $terminal,
+            player: $this->kuanTi,
+            target: $project
+        );
+
+        $this->participateAction->execute();
+
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::REQUIREMENTS_NOT_MET,
+            actual: $this->participateAction->cannotExecuteReason(),
+        );
+    }
+
     public function itExpertShouldNotConsumeActionPoints(FunctionalTester $I): void
     {
         $this->givenKuanTiIsAnITExpert($I);
@@ -467,6 +514,34 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->whenKuanTriesToParticipateInProject();
 
         $this->thenKuanTiShouldHaveEfficiency(new PlayerEfficiency(9, 9), $I);
+    }
+
+    public function givenChunIsNotInLab()
+    {
+        $laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+        if ($laboratory->isChunIn()) {
+            $laboratory->removePlayer($this->chun);
+        }
+
+        $this->chun->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::PLANET));
+    }
+
+    private function givenChunIsInLab()
+    {
+        $this->chun->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+        if (!$this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)->isChunIn()) {
+            $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)->addPlayer($this->chun);
+        }
+    }
+
+    private function givenLabTerminal()
+    {
+        return $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::RESEARCH_LABORATORY,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
     }
 
     private function givenKuanTiIsAnITExpert(FunctionalTester $I): void

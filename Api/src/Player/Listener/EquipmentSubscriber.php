@@ -52,7 +52,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
         if ($equipment->getName() === ItemEnum::SCHRODINGER) {
             $alivePlayers = $event->getDaedalus()->getAlivePlayers();
             foreach ($alivePlayers as $player) {
-                // call for a morale loss of 0 for every player (shouldn't display), then a modifier on cat_owner raises it to 4 for players with the cat_owner status. Doing it this way allows potentially adding a global morale penalty if we ever want to
                 $playerVariableEvent = new PlayerVariableEvent(
                     $player,
                     PlayerVariableEnum::MORAL_POINT,

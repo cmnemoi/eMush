@@ -57,7 +57,7 @@ class ProjectRequirement
 
         return match ($this->type) {
             ProjectRequirementType::CHUN_IN_LABORATORY->value => $laboratory->isChunIn(),
-            ProjectRequirementType::ITEM_IN_LABORATORY->value => $laboratory->hasEquipmentByName($this->getTargetOrThrow()) || $player->hasEquipmentByName($this->getTargetOrThrow()),
+            ProjectRequirementType::ITEM_IN_LABORATORY->value => $player->canReachEquipmentByName($this->getTargetOrThrow()),
             ProjectRequirementType::ITEM_IN_PLAYER_INVENTORY->value => $player->hasEquipmentByName($this->getTargetOrThrow()),
             ProjectRequirementType::MUSH_PLAYER_DEAD->value => $daedalus->hasAnyMushDied(),
             default => throw new \LogicException("Unknown project requirement type: {$this->type}"),

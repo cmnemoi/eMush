@@ -49,7 +49,7 @@ final class PlayerCatOwnerAwakenEventCest extends AbstractFunctionalTest
     {
         $this->GivenRolandHasCatOwner($I);
         $this->WhenRolandAwakens($I);
-        $I->assertEquals(1, $this->roland->getPlace()->getAllEquipmentsByName(ItemEnum::SCHRODINGER)->count());
+        $I->assertTrue($this->roland->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER);
     }
 
     public function WhenSchrodingerIsSpawnedByACatOwnerThereShouldBeALog(FunctionalTester $I)

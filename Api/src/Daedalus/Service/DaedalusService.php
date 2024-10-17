@@ -21,7 +21,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentService;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
@@ -53,7 +53,7 @@ class DaedalusService implements DaedalusServiceInterface
     private DaedalusInfoRepository $daedalusInfoRepository;
     private DaedalusRepository $daedalusRepository;
     private TitlePriorityRepositoryInterface $titlePriorityRepository;
-    private GameEquipmentService $gameEquipmentService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
@@ -66,7 +66,7 @@ class DaedalusService implements DaedalusServiceInterface
         DaedalusInfoRepository $daedalusInfoRepository,
         DaedalusRepository $daedalusRepository,
         TitlePriorityRepositoryInterface $titlePriorityRepository,
-        GameEquipmentService $gameEquipmentService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService
     ) {
         $this->entityManager = $entityManager;

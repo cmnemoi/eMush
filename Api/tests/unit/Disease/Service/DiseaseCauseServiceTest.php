@@ -15,7 +15,7 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Disease\Service\DiseaseCauseService;
-use Mush\Disease\Service\PlayerDiseaseService;
+use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameConfig;
@@ -35,8 +35,8 @@ final class DiseaseCauseServiceTest extends TestCase
 {
     private DiseaseCauseService $diseaseCauseService;
 
-    /** @var Mockery\Mock|PlayerDiseaseService */
-    private PlayerDiseaseService $playerDiseaseService;
+    /** @var Mockery\Mock|PlayerDiseaseServiceInterface */
+    private PlayerDiseaseServiceInterface $playerDiseaseService;
 
     /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
@@ -49,7 +49,7 @@ final class DiseaseCauseServiceTest extends TestCase
      */
     public function before()
     {
-        $this->playerDiseaseService = \Mockery::mock(PlayerDiseaseService::class);
+        $this->playerDiseaseService = \Mockery::mock(PlayerDiseaseServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->consumableDiseaseService = \Mockery::mock(ConsumableDiseaseServiceInterface::class);
 

@@ -361,6 +361,7 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $hygienistDiseaseModifier = VariableEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::PLAYER_50_PERCENT_CHANCE_TO_PREVENT_DISEASE)
         );
+        $hygienistDiseaseModifier->setDelta(100);
         $this->addReference($hygienistDiseaseModifier->getName(), $hygienistDiseaseModifier);
         $manager->persist($hygienistDiseaseModifier);
 

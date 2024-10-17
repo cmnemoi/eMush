@@ -83,6 +83,7 @@ const THERMOSENSOR = "thermosensor";
 const OLD_T_SHIRT = "old_t_shirt";
 const BABEL_MODULE = "babel_module";
 const WHITE_FLAG = "white_flag";
+const ANABOLIC = "anabolic";
 
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
@@ -439,5 +440,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [DOCUMENT]: {
         'image': getImgUrl('items/document.jpg')
+    },
+    [ANABOLIC]: {
+        'image': getImgUrl('items/ration_6.jpg')
     }
 };

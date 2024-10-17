@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Project\ConfigData;
 
+use Mush\Equipment\ConfigData\SpawnEquipmentConfigData;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectType;
@@ -556,7 +557,9 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
-                'spawnEquipmentConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    SpawnEquipmentConfigData::FOUR_ANABOLICS_IN_LABORATORY
+                ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
             ],

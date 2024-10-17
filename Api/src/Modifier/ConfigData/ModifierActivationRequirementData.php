@@ -71,7 +71,7 @@ class ModifierActivationRequirementData
             'value' => 100,
         ],
         [
-            'name' => 'player_is_mush',
+            'name' => ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
             'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
             'activationRequirement' => PlayerStatusEnum::MUSH,
             'value' => ModifierRequirementEnum::ABSENT_STATUS,
@@ -165,6 +165,12 @@ class ModifierActivationRequirementData
             'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
             'activationRequirement' => EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
             'value' => 100,
+        ],
+        [
+            'name' => ModifierRequirementEnum::MUSH_CREW_PROPORTION_50_PERCENTS,
+            'activationRequirementName' => ModifierRequirementEnum::MUSH_CREW_PROPORTION,
+            'activationRequirement' => '',
+            'value' => 50,
         ],
     ];
 

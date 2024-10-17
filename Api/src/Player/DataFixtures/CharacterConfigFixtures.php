@@ -214,6 +214,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $ocdSkillConfig */
         $ocdSkillConfig = $this->getReference(SkillEnum::OCD->value);
 
+        /** @var SkillConfig $panicSkillConfig */
+        $panicSkillConfig = $this->getReference(SkillEnum::PANIC->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -329,10 +332,11 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setCharacterName(CharacterEnum::GIOELE)
             ->setSkillConfigs([
                 $solidSkillConfig,
+                $paranoidSkillConfig,
                 $caffeineJunkieConfig,
                 $astrophysicistSkillConfig,
+                $panicSkillConfig,
                 $victimizerSkillConfig,
-                $paranoidSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($gioele);

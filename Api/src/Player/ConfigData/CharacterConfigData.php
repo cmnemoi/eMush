@@ -353,10 +353,11 @@ class CharacterConfigData
             'characterName' => 'gioele',
             'skillConfigs' => [
                 SkillEnum::SOLID,
+                SkillEnum::PARANOID,
                 SkillEnum::CAFFEINE_JUNKIE,
                 SkillEnum::ASTROPHYSICIST,
+                SkillEnum::PANIC,
                 SkillEnum::VICTIMIZER,
-                SkillEnum::PARANOID,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

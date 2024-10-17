@@ -253,6 +253,36 @@ class AbstractFunctionalTest
         );
     }
 
+    protected function ISeeTranslatedRoomLogsInRepository(string $expectedRoomLog, RoomLogDto $actualRoomLogDto, int $number, FunctionalTester $I): void
+    {
+        $roomLogs = $I->grabEntitiesFromRepository(
+            entity: RoomLog::class,
+            params: $actualRoomLogDto->toArray(),
+        );
+        $logsCount = \count($roomLogs);
+
+        $I->assertCount(
+            expectedCount: $number,
+            haystack: $roomLogs,
+            message: "Expected {$number} RoomLogs, got {$logsCount}",
+        );
+
+        /** @var TranslationServiceInterface $translationService */
+        $translationService = $I->grabService(TranslationServiceInterface::class);
+
+        foreach ($roomLogs as $roomLog) {
+            $I->assertEquals(
+                expected: $expectedRoomLog,
+                actual: $translationService->translate(
+                    key: $roomLog->getLog(),
+                    parameters: $roomLog->getParameters(),
+                    domain: $roomLog->getType(),
+                    language: $actualRoomLogDto->player->getLanguage(),
+                )
+            );
+        }
+    }
+
     protected function addSkillToPlayer(SkillEnum $skill, FunctionalTester $I, ?Player $player = null): void
     {
         $player ??= $this->player;

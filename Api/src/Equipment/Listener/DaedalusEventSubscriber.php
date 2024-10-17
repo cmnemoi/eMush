@@ -9,6 +9,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
@@ -46,6 +47,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     public function onFullDaedalus(DaedalusEvent $event): void
     {
         $this->createRandomApprentronInStorage($event);
+        $this->spawnMushSample($event);
     }
 
     public function onTravelLaunched(DaedalusEvent $event): void
@@ -72,6 +74,19 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             equipmentHolder: $randomStorage,
             reasons: $event->getTags(),
             time: $event->getTime()
+        );
+    }
+
+    private function spawnMushSample(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $allRooms = $daedalus->getRooms();
+        $room = $this->randomService->getRandomElement($allRooms->toArray());
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            ItemEnum::MUSH_SAMPLE,
+            $room,
+            [DaedalusEvent::FULL_DAEDALUS],
+            $event->getTime()
         );
     }
 

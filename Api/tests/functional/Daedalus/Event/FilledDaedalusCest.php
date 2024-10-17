@@ -4,9 +4,11 @@ namespace Mush\Tests\functional\Daedalus\Event;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -182,5 +184,45 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
             $I->assertEquals(0, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count());
             $I->assertEquals($numberOfMush, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count());
         }
+    }
+
+    public function testWhenDaedalusIsFullShouldSpawnMushSample(FunctionalTester $I): void
+    {
+        $this->givenDaedalusIsFull($I);
+        $this->shouldSpawnMushSample($I);
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::STARTING);
+    }
+
+    private function givenDaedalusIsFull($I)
+    {
+        // is starting
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::STARTING);
+        // create all the characters
+        $characterConfig = $this->daedalus->getGameConfig()->getCharactersConfig();
+        foreach ($characterConfig as $character) {
+            if (
+                $this->player1->getName() !== $character->getCharacterName()
+                && $this->player2->getName() !== $character->getCharacterName()
+            ) {
+                $this->addPlayerByCharacter($I, $this->daedalus, $character->getCharacterName());
+            }
+        }
+        // Send daedalus full event
+        $event = new DaedalusEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusEvent::FULL_DAEDALUS);
+    }
+
+    private function shouldSpawnMushSample(FunctionalTester $I)
+    {
+        $roomWithMushSample = $this->daedalus
+            ->getRooms()
+            ->filter(static fn (Place $room) => $room->hasEquipmentByName(ItemEnum::MUSH_SAMPLE))
+            ->first();
+
+        $I->assertNotNull($roomWithMushSample);
     }
 }

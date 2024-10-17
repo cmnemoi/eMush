@@ -838,5 +838,15 @@
         <target>C'est lorsque tout va mal que vous révelez votre plein potentiel : Crier très fort et courir dans tous les sens.//:point: Vous gagnez **1** :pa: et **1** :pm: supplémentaire à chaque cycle tant que le **Mush contrôle plus de 50%** de l'équipage.</target>
       </segment>
     </unit>
+    <unit id="hygienist">
+      <segment id="hygienist.name" state="translated">
+        <source>hygienist.name</source>
+        <target>Hygiéniste</target>
+      </segment>
+      <segment id="hygienist.description" state="translated">
+        <source>hygienist.description</source>
+        <target>Certes une brute mais à cheval sur la propreté quand même. Touche-moi pas tu me salis !//:point: Vous avez 50% de chance d'être insensible aux contaminations par le Mush.//:point:  Vous avez 50% de résistance aux maladies physiques.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

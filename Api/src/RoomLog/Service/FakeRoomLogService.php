@@ -6,6 +6,7 @@ namespace Mush\RoomLog\Service;
 
 use Mush\Action\Event\ActionEvent;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\ValueObject\DaedalusDate;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\Random\D100RollServiceInterface;
@@ -110,11 +111,6 @@ final class FakeRoomLogService implements RoomLogServiceInterface
         return null;
     }
 
-    public function findOneByOrThrow(array $parameters): RoomLog
-    {
-        return $this->roomLogs[$parameters['id']] ?? throw new \RuntimeException("Log {$parameters['log']} not found in daedalus {$parameters['place']->getDaedalus()->getId()} for given parameters");
-    }
-
     public function findAllByPlayerAndLogKey(Player $player, string $logKey): RoomLogCollection
     {
         $logs = [];
@@ -148,6 +144,23 @@ final class FakeRoomLogService implements RoomLogServiceInterface
         }
 
         throw new \RuntimeException("Log {$logKey} not found in daedalus {$daedalus->getId()}");
+    }
+
+    public function findOneByPlaceAndDaedalusDateOrThrow(string $logKey, Place $place, DaedalusDate $date): RoomLog
+    {
+        foreach ($this->roomLogs as $roomLog) {
+            if (
+                $roomLog->getLog() === $logKey
+                && $roomLog->getDaedalusInfo() === $place->getDaedalus()->getDaedalusInfo()
+                && $roomLog->getPlace() === $place->getName()
+                && $roomLog->getDay() === $date->day
+                && $roomLog->getCycle() === $date->cycle
+            ) {
+                return $roomLog;
+            }
+        }
+
+        throw new \RuntimeException("Log was not found for given parameters: {$logKey} {$place->getName()} {$date->day} {$date->cycle}");
     }
 
     private function getVisibility(?Player $player, string $visibility): string

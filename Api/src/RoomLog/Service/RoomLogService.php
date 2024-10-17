@@ -9,6 +9,7 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Communication\Enum\NeronPersonalitiesEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Daedalus\ValueObject\DaedalusDate;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -201,9 +202,22 @@ class RoomLogService implements RoomLogServiceInterface
         }
     }
 
-    public function findOneByOrThrow(array $parameters): RoomLog
+    public function findOneByPlaceAndDaedalusDateOrThrow(string $logKey, Place $place, DaedalusDate $date): RoomLog
     {
-        return $this->repository->findOneBy($parameters) ?? throw new \RuntimeException("Log {$parameters['log']} not found in daedalus {$parameters['place']->getDaedalus()->getId()} for given parameters");
+        $parameters = [
+            'log' => $logKey,
+            'daedalusInfo' => $place->getDaedalus()->getId(),
+            'place' => $place->getName(),
+            'day' => $date->day,
+            'cycle' => $date->cycle,
+        ];
+
+        $roomLog = $this->repository->findOneBy($parameters);
+        if (!$roomLog) {
+            throw new \RuntimeException("Log was not found for given parameters: {$this->parametersToString($parameters)}");
+        }
+
+        return $roomLog;
     }
 
     public function findAllByDaedalusPlaceAndCycle(Daedalus $daedalus, Place $place, int $cycle): RoomLogCollection
@@ -384,5 +398,17 @@ class RoomLogService implements RoomLogServiceInterface
             [$observant->getLogKey() => $observant->getLogName()],
             new \DateTime(),
         );
+    }
+
+    private function parametersToString(array $parameters): string
+    {
+        if (\array_key_exists('daedalusInfo', $parameters)) {
+            $parameters['daedalusInfo'] = $parameters['daedalusInfo']->getId();
+        }
+        if (\array_key_exists('playerInfo', $parameters)) {
+            $parameters['playerInfo'] = $parameters['playerInfo']->getId();
+        }
+
+        return json_encode($parameters);
     }
 }

@@ -153,11 +153,13 @@ class StatusSubscriber implements EventSubscriberInterface
 
     private function hideDeloggedLog(StatusEvent $event): void
     {
-        $deloggedLog = $this->roomLogService->findOneByOrThrow([
-            'cycle' => $event->getDaedalus()->getCycle() - 1,
-            'place' => $event->getPlaceOrThrow()->getName(),
-            'log' => LogEnum::DELOGGED,
-        ]);
+        $daedalus = $event->getDaedalus();
+
+        $deloggedLog = $this->roomLogService->findOneByPlaceAndDaedalusDateOrThrow(
+            logKey: LogEnum::DELOGGED,
+            place: $event->getPlaceOrThrow(),
+            date: $daedalus->getPreviousGameDate(),
+        );
 
         $deloggedLog->hide();
         $this->roomLogService->persist($deloggedLog);

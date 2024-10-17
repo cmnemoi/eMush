@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Daedalus\ValueObject\DaedalusDate;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -53,6 +54,8 @@ final class DelogCest extends AbstractFunctionalTest
 
         $this->givenPlayerIsMush();
         $this->addSkillToPlayer(SkillEnum::DEFACER, $I);
+
+        $this->givenDaedalusIsAtDate(new DaedalusDate(1, 1), $I);
     }
 
     public function shouldHideAllLogsInTheRoom(FunctionalTester $I): void
@@ -127,7 +130,7 @@ final class DelogCest extends AbstractFunctionalTest
 
         $this->givenACyclePasses();
 
-        $roomLog = $I->grabEntityFromRepository(RoomLog::class, ['log' => LogEnum::DELOGGED, 'cycle' => 0]);
+        $roomLog = $I->grabEntityFromRepository(RoomLog::class, ['log' => LogEnum::DELOGGED, 'day' => 1, 'cycle' => 1]);
 
         $this->thenLogShouldBeHidden($roomLog, $I);
     }
@@ -139,6 +142,19 @@ final class DelogCest extends AbstractFunctionalTest
         $this->whenACyclePasses();
 
         $this->thenIShouldSeePrivateGainActionPointLog($I);
+    }
+
+    public function shouldHideDeloggedLogAtCycleOne(FunctionalTester $I): void
+    {
+        $this->givenDaedalusIsAtDate(new DaedalusDate(1, 8), $I);
+
+        $this->givenPlayerUseDelogAction();
+
+        $this->whenACyclePasses();
+
+        $roomLog = $I->grabEntityFromRepository(RoomLog::class, ['log' => LogEnum::DELOGGED, 'day' => 1, 'cycle' => 8]);
+
+        $this->thenLogShouldBeHidden($roomLog, $I);
     }
 
     private function givenPlayerIsMush(): void
@@ -186,6 +202,12 @@ final class DelogCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
         $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+    }
+
+    private function givenDaedalusIsAtDate(DaedalusDate $date, FunctionalTester $I): void
+    {
+        $this->daedalus->setGameDate($date);
+        $I->haveInRepository($this->daedalus);
     }
 
     private function whenPlayerUseDelogAction(): void

@@ -46,8 +46,8 @@ class ProjectRequirement
     public function updateFromConfigData(ProjectRequirementConfigDto $configData): void
     {
         $this->name = $configData->name->value;
-        $this->type = $configData->name->value;
-        $this->target = $configData->name->value;
+        $this->type = $configData->type->value;
+        $this->target = $configData->target;
     }
 
     public function isSatisfiedFor(Player $player)

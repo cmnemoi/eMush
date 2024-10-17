@@ -677,6 +677,7 @@ class GameConfigData
                 SkillEnum::OCD,
                 SkillEnum::OPPORTUNIST,
                 SkillEnum::OPTIMIST,
+                SkillEnum::PANIC,
                 SkillEnum::PARANOID,
                 SkillEnum::PHAGOCYTE,
                 SkillEnum::PHYSICIST,

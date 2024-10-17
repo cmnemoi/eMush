@@ -1246,5 +1246,11 @@
         <target>Votre compétence **Léthargie** a porté ses fruits...</target>
       </segment>
     </unit>
+    <unit id="panic_worked">
+      <segment id="panic_worked" state="final">
+        <source>panic_worked</source>
+        <target>Votre compétence **Panique** a porté ses fruits...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

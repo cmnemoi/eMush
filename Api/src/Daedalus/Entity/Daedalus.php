@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
+use Mush\Daedalus\ValueObject\DaedalusDate;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\SpaceCoordinates;
 use Mush\Exploration\Enum\SpaceOrientationEnum;
@@ -524,6 +525,27 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         $this->day = $day;
 
         return $this;
+    }
+
+    public function getGameDate(): DaedalusDate
+    {
+        return new DaedalusDate($this->day, $this->cycle);
+    }
+
+    public function setGameDate(DaedalusDate $gameDate): static
+    {
+        $this->day = $gameDate->day;
+        $this->cycle = $gameDate->cycle;
+
+        return $this;
+    }
+
+    public function getPreviousGameDate(): DaedalusDate
+    {
+        $day = $this->cycle === 1 ? $this->day - 1 : $this->day;
+        $cycle = $this->cycle === 1 ? 8 : $this->cycle - 1;
+
+        return new DaedalusDate($day, $cycle);
     }
 
     public function getFilledAt(): ?\DateTime

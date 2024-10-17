@@ -6,7 +6,7 @@ namespace Mush\Player\Service;
 
 use Mush\Player\Entity\Player;
 
-interface RaisePlayerVariableMaximumServiceInterface
+interface ChangePlayerVariableMaximumServiceInterface
 {
     public function execute(
         Player $player,

@@ -6,6 +6,7 @@ namespace Mush\Tests\unit\Skill\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Factory\GameModifierFactory;
@@ -42,6 +43,7 @@ final class DeletePlayerSkillServiceTest extends TestCase
         $this->player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
 
         $this->deletePlayerSkillService = new DeletePlayerSkillService(
+            $this->createStub(EventServiceInterface::class),
             $this->modifierCreationService,
             $this->skillRepository
         );

@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace Mush\Skill\Service;
 
-use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Event\SkillDeletedEvent;
 use Mush\Skill\Repository\SkillRepositoryInterface;
 
 final class DeletePlayerSkillService
 {
     public function __construct(
+        private EventServiceInterface $eventService,
         private ModifierCreationServiceInterface $modifierCreationService,
         private SkillRepositoryInterface $skillRepository
     ) {}
@@ -25,6 +27,7 @@ final class DeletePlayerSkillService
 
         $this->deleteSkillModifiers($skill);
         $this->skillRepository->delete($skill);
+        $this->dispatchSkillDeletedEvent($skill);
     }
 
     private function deleteSkillModifiers(Skill $skill): void
@@ -32,7 +35,6 @@ final class DeletePlayerSkillService
         $player = $skill->getPlayer();
         $now = new \DateTime();
 
-        /** @var AbstractModifierConfig $modifierConfig */
         foreach ($skill->getAllModifierConfigs() as $modifierConfig) {
             $modifierHolder = match ($modifierConfig->getModifierRange()) {
                 ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER => $player,
@@ -49,5 +51,13 @@ final class DeletePlayerSkillService
                 time: $now
             );
         }
+    }
+
+    private function dispatchSkillDeletedEvent(Skill $skill): void
+    {
+        $this->eventService->callEvent(
+            new SkillDeletedEvent($skill),
+            SkillDeletedEvent::class,
+        );
     }
 }

@@ -20,6 +20,7 @@ use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -75,6 +76,9 @@ final class DaedalusServiceTest extends TestCase
     /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
 
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
+
     private DaedalusService $service;
 
     /**
@@ -90,6 +94,7 @@ final class DaedalusServiceTest extends TestCase
         $this->localizationConfigRepository = \Mockery::mock(LocalizationConfigRepository::class);
         $this->daedalusInfoRepository = \Mockery::mock(DaedalusInfoRepository::class);
         $this->daedalusRepository = \Mockery::mock(DaedalusRepository::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->service = new DaedalusService(
@@ -102,6 +107,7 @@ final class DaedalusServiceTest extends TestCase
             $this->daedalusInfoRepository,
             $this->daedalusRepository,
             $this->createStub(TitlePriorityRepositoryInterface::class),
+            $this->gameEquipmentService,
             $this->playerService,
         );
     }

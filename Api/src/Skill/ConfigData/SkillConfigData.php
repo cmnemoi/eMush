@@ -198,6 +198,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::LETHARGY,
+                modifierConfigs: [
+                    ModifierNameEnum::PLUS_1_ACTION_POINT_IF_SLEEPING_FOR_5_CYCLES_AND_MORE,
+                ]
             ),
             new SkillConfigDto(
                 name: SkillEnum::LOGISTICS_EXPERT,

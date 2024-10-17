@@ -39,4 +39,6 @@ interface StatusHolderInterface
     public function notEquals(self $statusHolder): bool;
 
     public function getPlace(): Place;
+
+    public function getChargeStatusByName(string $name): ?ChargeStatus;
 }

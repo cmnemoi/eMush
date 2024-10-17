@@ -561,6 +561,21 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($droneShootHunterFailedAttempts);
 
+        /** @var VariableEventModifierConfig $lyingDownModifier */
+        $lyingDownModifier = $this->getReference(StatusModifierConfigFixtures::LYING_DOWN_MODIFIER);
+
+        /** @var ActionConfig $getUpAction */
+        $getUpAction = $this->getReference(ActionEnum::GET_UP->value);
+
+        $lyingDown = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::LYING_DOWN . '_default')
+        );
+        $lyingDown
+            ->setModifierConfigs([$lyingDownModifier])
+            ->setActionConfigs([$getUpAction]);
+
+        $manager->persist($lyingDown);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -608,7 +623,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($turboDroneUpgrade)
             ->addStatusConfig($droneRepairFailedAttempts)
             ->addStatusConfig($droneExtinguishFailedAttempts)
-            ->addStatusConfig($droneShootHunterFailedAttempts);
+            ->addStatusConfig($droneShootHunterFailedAttempts)
+            ->addStatusConfig($lyingDown);
 
         $manager->persist($gameConfig);
 
@@ -661,6 +677,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(EquipmentStatusEnum::DRONE_REPAIR_FAILED_ATTEMPTS, $droneRepairFailedAttempts);
         $this->addReference(EquipmentStatusEnum::DRONE_EXTINGUISH_FAILED_ATTEMPTS, $droneExtinguishFailedAttempts);
         $this->addReference(EquipmentStatusEnum::DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS, $droneShootHunterFailedAttempts);
+        $this->addReference(PlayerStatusEnum::LYING_DOWN . '_default', $lyingDown);
     }
 
     public function getDependencies(): array

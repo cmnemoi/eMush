@@ -9,6 +9,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\Entity\VariableEventConfig;
+use Mush\Modifier\ConfigData\ModifierActivationRequirementData;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
@@ -303,6 +304,23 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         );
         $this->addReference($ocdModifier->getName(), $ocdModifier);
         $manager->persist($ocdModifier);
+
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_1_ACTION_POINT);
+
+        $modifierRequirement = ModifierActivationRequirement::fromConfigData(
+            ModifierActivationRequirementData::getByName(ModifierRequirementEnum::LYING_DOWN_STATUS_CHARGE_REACHES_4)
+        );
+        $manager->persist($modifierRequirement);
+
+        $lethargyModifier = TriggerEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLUS_1_ACTION_POINT_IF_SLEEPING_FOR_5_CYCLES_AND_MORE)
+        );
+        $lethargyModifier
+            ->setTriggeredEvent($eventConfig)
+            ->addModifierRequirement($modifierRequirement);
+        $this->addReference($lethargyModifier->getName(), $lethargyModifier);
+        $manager->persist($lethargyModifier);
 
         $manager->flush();
     }

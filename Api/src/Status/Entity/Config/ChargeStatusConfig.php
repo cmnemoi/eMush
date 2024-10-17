@@ -3,9 +3,6 @@
 namespace Mush\Status\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\ConfigData\ActionData;
-use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
@@ -50,10 +47,6 @@ class ChargeStatusConfig extends StatusConfig
             ->setAutoRemove($configData['autoRemove'])
             ->setName($configData['name'])
             ->setStatusName($configData['statusName']);
-
-        foreach ($configData['actionConfigs'] as $actionConfig) {
-            $statusConfig->addActionConfig(ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::from($actionConfig))));
-        }
 
         $statusConfig->setId(crc32(serialize($statusConfig)));
 

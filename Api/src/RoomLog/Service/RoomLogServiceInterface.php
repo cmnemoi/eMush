@@ -4,6 +4,7 @@ namespace Mush\RoomLog\Service;
 
 use Mush\Action\Event\ActionEvent;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\ValueObject\DaedalusDate;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
@@ -39,7 +40,7 @@ interface RoomLogServiceInterface
 
     public function markAllRoomLogsAsReadForPlayer(Player $player): void;
 
-    public function findOneByOrThrow(array $parameters): RoomLog;
+    public function findOneByPlaceAndDaedalusDateOrThrow(string $logKey, Place $place, DaedalusDate $date): RoomLog;
 
     public function findAllByDaedalusPlaceAndCycle(Daedalus $daedalus, Place $place, int $cycle): RoomLogCollection;
 }

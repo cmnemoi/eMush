@@ -29,29 +29,29 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
     #[ORM\ManyToOne(targetEntity: DaedalusInfo::class)]
     private DaedalusInfo $daedalusInfo;
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $place;
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
+    private string $place = '';
 
     #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]
     private ?PlayerInfo $playerInfo;
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $visibility;
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
+    private string $visibility = '';
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $log;
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
+    private string $log = '';
 
-    #[ORM\Column(type: 'array', nullable: false)]
-    private array $parameters;
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $parameters = [];
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $type;
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
+    private string $type = '';
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $day;
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $day = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $cycle;
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $cycle = 0;
 
     #[ORM\ManyToMany(targetEntity: Player::class)]
     #[ORM\JoinTable(name: 'room_log_readers')]

@@ -6,7 +6,7 @@ namespace Mush\Skill\Event;
 
 use Mush\Skill\Enum\SkillEnum;
 
-final class SkillCreatedEvent extends AbstractSkillEvent
+final class SkillDeletedEvent extends AbstractSkillEvent
 {
     public function isNotAboutLethargy(): bool
     {

@@ -12,6 +12,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -23,6 +24,7 @@ use Mush\Tests\RoomLogDto;
  */
 final class LethargyCest extends AbstractFunctionalTest
 {
+    private DeletePlayerSkillService $deletePlayerSkill;
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
@@ -30,6 +32,7 @@ final class LethargyCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
+        $this->deletePlayerSkill = $I->grabService(DeletePlayerSkillService::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -44,6 +47,13 @@ final class LethargyCest extends AbstractFunctionalTest
     public function shouldNotDoubleMaximumPointsOfOtherPlayers(FunctionalTester $I): void
     {
         $this->thenKuanTiMaxActionPointsShouldBe(12, $I);
+    }
+
+    public function shouldRevertMaximumPlayerActionPointsWhenSkillIsDeleted(FunctionalTester $I): void
+    {
+        $this->whenIDeleteChunLethargySkill();
+
+        $this->thenChunMaxActionPointsShouldBe(12, $I);
     }
 
     public function shouldGiveOneExtraActionPointIfSleepingForFourCyclesAndMore(FunctionalTester $I): void
@@ -153,6 +163,11 @@ final class LethargyCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
         $this->eventService->callEvent($playerCycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+    }
+
+    private function whenIDeleteChunLethargySkill(): void
+    {
+        $this->deletePlayerSkill->execute(SkillEnum::LETHARGY, $this->chun);
     }
 
     private function thenChunMaxActionPointsShouldBe(int $maxActionPoints, FunctionalTester $I): void

@@ -9,7 +9,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerVariableEvent;
 
-final class RaisePlayerVariableMaximumService implements RaisePlayerVariableMaximumServiceInterface
+final class ChangePlayerVariableMaximumService implements ChangePlayerVariableMaximumServiceInterface
 {
     public function __construct(private EventServiceInterface $eventService) {}
 

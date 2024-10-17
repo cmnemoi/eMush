@@ -3605,7 +3605,7 @@ abstract class ModifierConfigData
             ],
         ],
         [
-            'name' => ModifierNameEnum::PLUS_1_ACTION_POINT_IF_SLEEPING_FOR_5_CYCLES_AND_MORE,
+            'name' => ModifierNameEnum::PLUS_1_ACTION_POINT_IF_SLEEPING_FOR_4_CYCLES_AND_MORE,
             'modifierName' => ModifierNameEnum::LETHARGY_MODIFIER,
             'targetEvent' => StatusCycleEvent::STATUS_NEW_CYCLE,
             'strategy' => ModifierStrategyEnum::ADD_EVENT,

@@ -207,4 +207,14 @@ class DiseaseConfig implements LogParameterInterface
 
         return $this;
     }
+
+    public function isPhysicalDisease(): bool
+    {
+        return $this->type === MedicalConditionTypeEnum::DISEASE;
+    }
+
+    public function isNotAnInjury(): bool
+    {
+        return $this->type !== MedicalConditionTypeEnum::INJURY;
+    }
 }

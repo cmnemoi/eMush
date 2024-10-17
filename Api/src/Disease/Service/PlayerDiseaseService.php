@@ -9,11 +9,11 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
-use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Repository\PlayerDiseaseRepositoryInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
@@ -21,6 +21,7 @@ use Mush\Skill\Enum\SkillEnum;
 final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 {
     public function __construct(
+        private D100RollServiceInterface $d100Roll,
         private EventServiceInterface $eventService,
         private RandomServiceInterface $randomService,
         private PlayerDiseaseRepositoryInterface $playerDiseaseRepository,
@@ -67,10 +68,11 @@ final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
     ): PlayerDisease {
         $diseaseConfig = $this->findDiseaseConfigByNameAndDaedalus($diseaseName, $player->getDaedalus());
 
-        if ($player->isMush() && $diseaseConfig->getType() !== MedicalConditionTypeEnum::INJURY) {
+        if ($player->shouldNotCatchDisease($diseaseConfig, $this->d100Roll)) {
             $dummyDisease = new PlayerDisease();
-            $dummyDisease->setPlayer($player);
-            $dummyDisease->setDiseaseConfig($diseaseConfig);
+            $dummyDisease
+                ->setPlayer($player)
+                ->setDiseaseConfig($diseaseConfig);
 
             return $dummyDisease;
         }

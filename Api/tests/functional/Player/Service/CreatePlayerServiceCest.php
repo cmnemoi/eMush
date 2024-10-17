@@ -10,6 +10,7 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -54,6 +55,7 @@ class CreatePlayerServiceCest
 
         $equipmentConfigs = new ArrayCollection();
         $equipmentConfigs->add($I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'apprentron_technician_default']));
+        $equipmentConfigs->add($I->grabEntityFromRepository(ItemConfig::class, ['name' => 'mush_sample_default']));
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [

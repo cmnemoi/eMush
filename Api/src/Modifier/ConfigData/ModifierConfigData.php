@@ -3661,6 +3661,21 @@ abstract class ModifierConfigData
             'targetFilters' => [],
             'eventActivationRequirements' => [],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_50_PERCENT_CHANCE_TO_PREVENT_DISEASE,
+            'modifierName' => ModifierNameEnum::HYGIENIST_DISEASE_MODIFIER,
+            'targetEvent' => self::DUMMY_EVENT,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 50,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

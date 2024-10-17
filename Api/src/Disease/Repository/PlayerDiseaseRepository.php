@@ -6,8 +6,8 @@ namespace Mush\Disease\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Persistence\ManagerRegistry;
 use Mush\Disease\Entity\PlayerDisease;
-use Symfony\Bridge\Doctrine\ManagerRegistry;
 
 /**
  * @template-extends ServiceEntityRepository<PlayerDisease>

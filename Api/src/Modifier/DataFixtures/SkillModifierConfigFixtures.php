@@ -358,6 +358,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
             ->addModifierRequirement($playerIsMushRequirement);
         $this->addReference($panicMovementPointModifier->getName(), $panicMovementPointModifier);
 
+        $hygienistDiseaseModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_50_PERCENT_CHANCE_TO_PREVENT_DISEASE)
+        );
+        $this->addReference($hygienistDiseaseModifier->getName(), $hygienistDiseaseModifier);
+        $manager->persist($hygienistDiseaseModifier);
+
         $manager->flush();
     }
 

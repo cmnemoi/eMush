@@ -119,4 +119,6 @@ abstract class ModifierNameEnum
     public const string PANIC_ACTION_POINT_MODIFIER = 'panic_action_point_modifier';
     public const string PLUS_1_MOVEMENT_POINT_IF_MUSH_CONTROLS_MORE_THAN_50_PERCENTS_OF_CREW = 'plus_1_movement_point_if_mush_controls_more_than_50_percents_of_crew';
     public const string PANIC_MOVEMENT_POINT_MODIFIER = 'panic_movement_point_modifier';
+    public const string PLAYER_50_PERCENT_CHANCE_TO_PREVENT_DISEASE = 'player_50_percent_chance_to_prevent_disease';
+    public const string HYGIENIST_DISEASE_MODIFIER = 'hygienist_disease_modifier';
 }

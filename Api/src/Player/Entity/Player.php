@@ -45,6 +45,7 @@ use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Entity\ModifierHolderTrait;
 use Mush\Modifier\Entity\ModifierProviderInterface;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -1221,7 +1222,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function shouldNotCatchDisease(DiseaseConfig $diseaseConfig, D100RollServiceInterface $d100Roll): bool
     {
-        $hygienistResistsDisease = $diseaseConfig->isPhysicalDisease() && $this->hasSkill(SkillEnum::HYGIENIST) && $d100Roll->isSuccessful(50);
+        $hygienistResistsDisease = $diseaseConfig->isPhysicalDisease() && $this->hasSkill(SkillEnum::HYGIENIST) && $d100Roll->isSuccessful($this->hygienistBonus());
         $mushResistsDisease = $this->isMush() && $diseaseConfig->isNotAnInjury();
 
         return $hygienistResistsDisease || $mushResistsDisease;
@@ -1308,5 +1309,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
 
         return $actions;
+    }
+
+    private function hygienistBonus(): int
+    {
+        return (int) $this
+            ->getModifiers()
+            ->getModifierByModifierNameOrThrow(ModifierNameEnum::HYGIENIST_DISEASE_MODIFIER)
+            ->getVariableModifierConfigOrThrow()
+            ->getDelta();
     }
 }

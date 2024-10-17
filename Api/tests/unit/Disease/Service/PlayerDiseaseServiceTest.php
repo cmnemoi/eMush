@@ -23,6 +23,10 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\FakeD100RollService as D100Roll;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\ConfigData\ModifierConfigData;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Skill\Entity\Skill;
@@ -330,6 +334,12 @@ final class PlayerDiseaseServiceTest extends TestCase
     {
         $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
         Skill::createByNameForPlayer(SkillEnum::HYGIENIST, $player);
+        new GameModifier(
+            holder: $player,
+            modifierConfig: VariableEventModifierConfig::fromConfigData(
+                ModifierConfigData::getByName(ModifierNameEnum::PLAYER_50_PERCENT_CHANCE_TO_PREVENT_DISEASE)
+            )
+        );
 
         return $player;
     }

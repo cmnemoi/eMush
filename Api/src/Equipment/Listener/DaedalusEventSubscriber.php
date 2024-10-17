@@ -82,12 +82,11 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
         $allRooms = $daedalus->getRooms();
         $room = $this->randomService->getRandomElement($allRooms->toArray());
-        $this->gameEquipmentService->createGameEquipmentsFromName(
+        $this->gameEquipmentService->createGameEquipmentFromName(
             ItemEnum::MUSH_SAMPLE,
             $room,
             [DaedalusEvent::FULL_DAEDALUS],
-            $event->getTime(),
-            1
+            $event->getTime()
         );
     }
 

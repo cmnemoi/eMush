@@ -112,4 +112,6 @@ abstract class ModifierNameEnum
     public const string APRON_MODIFIER_FOR_PLAYER_PREVENT_DIRTY = 'apron_modifier_for_player_prevent_dirty';
     public const string OCD_MODIFIER_FOR_PLAYER_PREVENT_DIRTY = 'ocd_modifier_for_player_prevent_dirty';
     public const string OCD_MODIFIER = 'ocd_modifier';
+    public const string PLAYER_50_PERCENT_CHANCE_TO_PREVENT_DISEASE = 'player_50_percent_chance_to_prevent_disease';
+    public const string HYGIENIST_DISEASE_MODIFIER = 'hygienist_disease_modifier';
 }

@@ -18,9 +18,4 @@ services:
     resource: '../SymptomHandler/'
     tags: [ 'mush.disease.symptom_handler' ]
 
-  Mush\Disease\ConfigData\ConsumableDiseaseConfigDataLoader:
-    public: true
-  Mush\Disease\ConfigData\DiseaseCauseConfigDataLoader:
-    public: true
-  Mush\Disease\ConfigData\DiseaseConfigDataLoader:
-    public: true
+  Mush\Disease\Repository\PlayerDiseaseRepositoryInterface: '@Mush\Disease\Repository\PlayerDiseaseRepository'

@@ -179,6 +179,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::HYGIENIST,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_50_PERCENT_CHANCE_TO_PREVENT_DISEASE,
+                ]
             ),
             new SkillConfigDto(
                 name: SkillEnum::INFECTOR,

@@ -46,7 +46,7 @@ final class MushCrewProportionRequirementTest extends TestCase
 
         $result = $this->whenICheckTheRequirementForCrewMushProportion($this->requirement);
 
-        self::assertTrue($result);
+        $this->thenRequirementShouldBeVerified($result);
     }
 
     public function testShouldReturnFalseIfRequiredProportionOfMushCrewIsNotMet(): void
@@ -59,7 +59,7 @@ final class MushCrewProportionRequirementTest extends TestCase
 
         $result = $this->whenICheckTheRequirementForCrewMushProportion($this->requirement);
 
-        self::assertFalse($result);
+        $this->thenRequirementShouldNotBeVerified($result);
     }
 
     private function givenAHumanPlayer(): Player

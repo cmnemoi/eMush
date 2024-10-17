@@ -314,7 +314,7 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $manager->persist($modifierRequirement);
 
         $lethargyModifier = TriggerEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::PLUS_1_ACTION_POINT_IF_SLEEPING_FOR_5_CYCLES_AND_MORE)
+            ModifierConfigData::getByName(ModifierNameEnum::PLUS_1_ACTION_POINT_IF_SLEEPING_FOR_4_CYCLES_AND_MORE)
         );
         $lethargyModifier
             ->setTriggeredEvent($eventConfig)

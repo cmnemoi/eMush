@@ -818,5 +818,15 @@
         <target>Vous travaillez propre, très propre, toujours plus propre, encore plus propre. Vous êtes proprement névrosé de la propreté mais ça a ses bons côtés.//:point: Vous ne vous salissez jamais accidentellement en effectuant des actions sur le vaisseau.</target>
       </segment>
     </unit>
+    <unit id="lethargy">
+      <segment id="lethargy.name" state="translated">
+        <source>lethargy.name</source>
+        <target>Léthargie</target>
+      </segment>
+      <segment id="lethargy.description" state="translated">
+        <source>lethargy.description</source>
+        <target>Vous n'êtes reveillé que 4 heures par jour, mais en si peu de temps, vous accomplissez des miracles !//:point: Si vous restez allongé pendant **4 cycles** au moins, vous gagnez **1** :pa: supplémentaire par cycle.//:point: La capacité maximum de votre jauge de :pa: est doublée.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

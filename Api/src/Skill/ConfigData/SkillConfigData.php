@@ -178,6 +178,9 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::HYGIENIST,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::INFECTOR,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_1_INFECTION,

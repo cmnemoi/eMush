@@ -21,6 +21,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Equipment\Entity\Door;
@@ -37,6 +38,7 @@ use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TitleEnum;
+use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -1215,6 +1217,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function isTheOnlyGuardianInTheRoom(): bool
     {
         return $this->getPlace()->getAlivePlayersExcept($this)->hasPlayerWithStatus(PlayerStatusEnum::GUARDIAN) === false;
+    }
+
+    public function shouldNotCatchDisease(DiseaseConfig $diseaseConfig, D100RollServiceInterface $d100Roll): bool
+    {
+        $hygienistResistsDisease = $diseaseConfig->isPhysicalDisease() && $this->hasSkill(SkillEnum::HYGIENIST) && $d100Roll->isSuccessful(50);
+        $mushResistsDisease = $this->isMush() && $diseaseConfig->isNotAnInjury();
+
+        return $hygienistResistsDisease || $mushResistsDisease;
     }
 
     private function getMinEfficiencyForProject(Project $project): int

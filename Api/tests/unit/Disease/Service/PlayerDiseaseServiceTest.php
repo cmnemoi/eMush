@@ -5,11 +5,15 @@ namespace Mush\Tests\unit\Disease\Service;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
+use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\InjuryEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Repository\InMemoryPlayerDiseaseRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
@@ -17,8 +21,12 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\Random\FakeD100RollService as D100Roll;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Factory\PlayerFactory;
+use Mush\Skill\Entity\Skill;
+use Mush\Skill\Enum\SkillEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -46,6 +54,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $this->playerDiseaseRepository = new InMemoryPlayerDiseaseRepository();
 
         $this->playerDiseaseService = new PlayerDiseaseService(
+            d100Roll: new D100Roll(isSuccessful: true),
             eventService: $this->eventService,
             randomService: $this->randomService,
             playerDiseaseRepository: $this->playerDiseaseRepository,
@@ -271,5 +280,79 @@ final class PlayerDiseaseServiceTest extends TestCase
 
         $savedDisease = $this->playerDiseaseRepository->findByIdOrThrow($diseasePlayer->getId());
         self::assertSame(0, $savedDisease->getResistancePoint());
+    }
+
+    public function testHygienistShouldPreventPhysicialDiseaseCreation(): void
+    {
+        $daedalus = $this->givenADaedalusWithDisease(DiseaseEnum::ACID_REFLUX);
+
+        $player = $this->givenPlayerWithHygienistSkill($daedalus);
+
+        $this->whenDiseaseIsCreatedForPlayer(DiseaseEnum::ACID_REFLUX, $player);
+
+        $this->thenPlayerShouldNotHaveDisease($player, DiseaseEnum::ACID_REFLUX);
+    }
+
+    public function testHygienistShouldNotPreventDisorderCreation(): void
+    {
+        $daedalus = $this->givenADaedalusWithDisorder(DisorderEnum::AGORAPHOBIA);
+
+        $player = $this->givenPlayerWithHygienistSkill($daedalus);
+
+        $this->whenDiseaseIsCreatedForPlayer(DisorderEnum::AGORAPHOBIA, $player);
+
+        $this->thenPlayerShouldHaveDisease($player, DisorderEnum::AGORAPHOBIA);
+    }
+
+    private function givenADaedalusWithDisease(string $diseaseName): Daedalus
+    {
+        $daedalus = DaedalusFactory::createDaedalus();
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setDiseaseName($diseaseName);
+        $daedalus->getGameConfig()->addDiseaseConfig($diseaseConfig);
+
+        return $daedalus;
+    }
+
+    private function givenADaedalusWithDisorder(string $disorderName): Daedalus
+    {
+        $daedalus = DaedalusFactory::createDaedalus();
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setDiseaseName($disorderName)
+            ->setType(MedicalConditionTypeEnum::DISORDER);
+        $daedalus->getGameConfig()->addDiseaseConfig($diseaseConfig);
+
+        return $daedalus;
+    }
+
+    private function givenPlayerWithHygienistSkill(Daedalus $daedalus): Player
+    {
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        Skill::createByNameForPlayer(SkillEnum::HYGIENIST, $player);
+
+        return $player;
+    }
+
+    private function whenDiseaseIsCreatedForPlayer(string $diseaseName, Player $player): void
+    {
+        $this->eventService->shouldIgnoreMissing();
+        $this->randomService->shouldIgnoreMissing();
+
+        $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: $diseaseName,
+            player: $player,
+            reasons: [],
+        );
+    }
+
+    private function thenPlayerShouldNotHaveDisease(Player $player, string $diseaseName): void
+    {
+        self::assertNull($player->getMedicalConditionByName($diseaseName));
+    }
+
+    private function thenPlayerShouldHaveDisease(Player $player, string $diseaseName): void
+    {
+        self::assertNotNull($player->getMedicalConditionByName($diseaseName));
     }
 }

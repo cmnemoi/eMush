@@ -660,6 +660,7 @@ class GameConfigData
                 SkillEnum::GREEN_THUMB,
                 SkillEnum::GUNNER,
                 SkillEnum::HARD_BOILED,
+                SkillEnum::HYGIENIST,
                 SkillEnum::INFECTOR,
                 SkillEnum::IT_EXPERT,
                 SkillEnum::LEADER,

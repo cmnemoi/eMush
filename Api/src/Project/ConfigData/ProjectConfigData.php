@@ -558,7 +558,7 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
-                    SpawnEquipmentConfigData::FOUR_ANABOLICS_IN_LABORATORY
+                    SpawnEquipmentConfigData::FOUR_ANABOLICS_IN_LABORATORY,
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],

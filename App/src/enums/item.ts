@@ -442,6 +442,6 @@ export const itemEnum: {[index: string]: any} = {
         'image': getImgUrl('items/document.jpg')
     },
     [ANABOLIC]: {
-        'image': getImgUrl('items/ration_6.jpg')
+        'image': getImgUrl('items/anabolic.jpg')
     }
 };

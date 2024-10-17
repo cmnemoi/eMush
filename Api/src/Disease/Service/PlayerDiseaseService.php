@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Disease\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
@@ -10,40 +11,31 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
+use Mush\Disease\Repository\PlayerDiseaseRepositoryInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
 
-class PlayerDiseaseService implements PlayerDiseaseServiceInterface
+final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 {
-    private EntityManagerInterface $entityManager;
-    private RandomServiceInterface $randomService;
-    private EventServiceInterface $eventService;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        RandomServiceInterface $randomService,
-        EventServiceInterface $eventService
-    ) {
-        $this->entityManager = $entityManager;
-        $this->randomService = $randomService;
-        $this->eventService = $eventService;
-    }
+        private EventServiceInterface $eventService,
+        private RandomServiceInterface $randomService,
+        private PlayerDiseaseRepositoryInterface $playerDiseaseRepository,
+    ) {}
 
     public function persist(PlayerDisease $playerDisease): PlayerDisease
     {
-        $this->entityManager->persist($playerDisease);
-        $this->entityManager->flush();
+        $this->playerDiseaseRepository->save($playerDisease);
 
         return $playerDisease;
     }
 
     public function delete(PlayerDisease $playerDisease): void
     {
-        $this->entityManager->remove($playerDisease);
-        $this->entityManager->flush();
+        $this->playerDiseaseRepository->delete($playerDisease);
     }
 
     public function removePlayerDisease(

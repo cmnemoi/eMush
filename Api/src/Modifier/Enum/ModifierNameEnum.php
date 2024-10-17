@@ -113,6 +113,6 @@ abstract class ModifierNameEnum
     public const string APRON_MODIFIER_FOR_PLAYER_PREVENT_DIRTY = 'apron_modifier_for_player_prevent_dirty';
     public const string OCD_MODIFIER_FOR_PLAYER_PREVENT_DIRTY = 'ocd_modifier_for_player_prevent_dirty';
     public const string OCD_MODIFIER = 'ocd_modifier';
-    public const string DOUBLE_MAX_ACTION_POINTS = 'double_max_action_points';
     public const string LETHARGY_MODIFIER = 'lethargy_modifier';
+    public const string PLUS_1_ACTION_POINT_IF_SLEEPING_FOR_5_CYCLES_AND_MORE = 'plus_1_action_point_if_sleeping_for_5_cycles_and_more';
 }

@@ -45,14 +45,19 @@ final class StatusFactory
         return new ChargeStatus($holder, $statusConfig);
     }
 
-    public static function createChargeStatusFromStatusName(string $name, StatusHolderInterface $holder): ChargeStatus
+    public static function createChargeStatusFromStatusName(string $name, StatusHolderInterface $holder, ?int $charge = null): ChargeStatus
     {
         $statusData = StatusConfigData::getByStatusName($name);
         $statusConfig = ChargeStatusConfig::fromConfigData($statusData);
 
         self::setupStatusConfigId($statusConfig);
 
-        return new ChargeStatus($holder, $statusConfig);
+        $status = new ChargeStatus($holder, $statusConfig);
+        if ($charge !== null) {
+            $status->setCharge($charge);
+        }
+
+        return $status;
     }
 
     public static function createAttemptStatusForHolderAndAction(StatusHolderInterface $holder, string $action): Attempt

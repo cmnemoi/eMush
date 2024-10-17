@@ -166,6 +166,12 @@ class ModifierActivationRequirementData
             'activationRequirement' => EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
             'value' => 100,
         ],
+        [
+            'name' => ModifierRequirementEnum::LYING_DOWN_STATUS_CHARGE_REACHES_4,
+            'activationRequirementName' => ModifierRequirementEnum::STATUS_CHARGE_REACHES,
+            'activationRequirement' => PlayerStatusEnum::LYING_DOWN,
+            'value' => 4,
+        ],
     ];
 
     public static function getByName(string $name): array

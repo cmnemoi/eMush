@@ -818,5 +818,15 @@
         <target>Vous travaillez propre, très propre, toujours plus propre, encore plus propre. Vous êtes proprement névrosé de la propreté mais ça a ses bons côtés.//:point: Vous ne vous salissez jamais accidentellement en effectuant des actions sur le vaisseau.</target>
       </segment>
     </unit>
+    <unit id="hygienist">
+      <segment id="hygienist.name" state="translated">
+        <source>hygienist.name</source>
+        <target>Hygiéniste</target>
+      </segment>
+      <segment id="hygienist.description" state="translated">
+        <source>hygienist.description</source>
+        <target>Certes une brute mais à cheval sur la propreté quand même. Touche-moi pas tu me salis !//:point: Vous avez 50% de chance d'être insensible aux contaminations par le Mush.//:point:  Vous avez 50% de résistance aux maladies physiques.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

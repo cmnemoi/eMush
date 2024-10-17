@@ -818,5 +818,15 @@
         <target>Vous travaillez propre, très propre, toujours plus propre, encore plus propre. Vous êtes proprement névrosé de la propreté mais ça a ses bons côtés.//:point: Vous ne vous salissez jamais accidentellement en effectuant des actions sur le vaisseau.</target>
       </segment>
     </unit>
+    <unit id="panic">
+      <segment id="panic.name" state="translated">
+        <source>panic.name</source>
+        <target>Panique</target>
+      </segment>
+      <segment id="panic.description" state="translated">
+        <source>panic.description</source>
+        <target>C'est lorsque tout va mal que vous révelez votre plein potentiel : Crier très fort et courir dans tous les sens.//:point: Vous gagnez **1** :pa: et **1** :pm: supplémentaire à chaque cycle tant que le **Mush contrôle plus de 50%** de l'équipage.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

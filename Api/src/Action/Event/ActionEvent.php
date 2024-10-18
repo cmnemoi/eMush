@@ -14,7 +14,9 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Entity\Skill;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class ActionEvent extends AbstractGameEvent
 {
@@ -130,5 +132,19 @@ class ActionEvent extends AbstractGameEvent
 
         return $this->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)
             && ($authorInteractsWithRoomEquipment || $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap);
+    }
+
+    public function shouldCreateParfumeAntiqueImmunizedStatus(): bool
+    {
+        return $this->author->hasSkill(SkillEnum::ANTIQUE_PERFUME) && $this->hasTag(ActionEnum::TAKE_SHOWER->value);
+    }
+
+    public function shouldRemoveTargetLyingDownStatus(): bool
+    {
+        $actionTarget = $this->getActionTarget();
+        $isPlayerLaidDown = $actionTarget instanceof Player && $actionTarget->hasStatus(PlayerStatusEnum::LYING_DOWN);
+        $actionShouldRemoveLaidDownStatus = $this->hasAnyTag(ActionEnum::getForceGetUpActions());
+
+        return $isPlayerLaidDown && $actionShouldRemoveLaidDownStatus;
     }
 }

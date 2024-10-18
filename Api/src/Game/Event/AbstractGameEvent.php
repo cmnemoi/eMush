@@ -119,6 +119,11 @@ class AbstractGameEvent extends Event
         return \count(array_intersect($tags, $this->tags)) === \count($tags);
     }
 
+    public function doesNotHaveTag(string $tag): bool
+    {
+        return $this->hasTag($tag) === false;
+    }
+
     public function mapLog(array $map): ?string
     {
         $logs = array_intersect_key($map, array_flip($this->tags));

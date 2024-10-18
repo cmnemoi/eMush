@@ -478,6 +478,7 @@ class GameConfigData
                 PlayerStatusEnum::CAT_OWNER . '_default',
                 PlayerStatusEnum::HAS_PETTED_CAT . '_default',
                 EquipmentStatusEnum::CAT_INFECTED . '_default',
+                PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -631,6 +632,7 @@ class GameConfigData
             ],
             'skillConfigs' => [
                 SkillEnum::ANONYMUSH,
+                SkillEnum::ANTIQUE_PERFUME,
                 SkillEnum::APPRENTICE,
                 SkillEnum::ASTROPHYSICIST,
                 SkillEnum::BACTEROPHILIAC,

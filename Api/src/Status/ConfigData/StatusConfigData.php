@@ -1666,6 +1666,22 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED . '_default',
+            'statusName' => PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+            'maxCharge' => 2,
+            'startCharge' => 2,
+            'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
+            'autoRemove' => true,
+            'modifierConfigs' => [
+                'modifier_for_player_set_0spore_on_change.variable',
+            ],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

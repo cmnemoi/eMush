@@ -63,12 +63,10 @@ abstract class PlayerStatusEnum
     public const string PARIAH = 'pariah';
     public const string SLIME_TRAP = 'slime_trap';
     public const string HAS_READ_MAGE_BOOK = 'has_read_mage_book';
-
     public const string HAS_USED_OPPORTUNIST_AS_COMMANDER = 'has_used_opportunist_as_commander';
-
     public const string HAS_USED_OPPORTUNIST_AS_NERON_MANAGER = 'has_used_opportunist_as_neron_manager';
-
     public const string HAS_USED_OPPORTUNIST_AS_COM_MANAGER = 'has_used_opportunist_as_com_manager';
     public const string CAT_OWNER = 'cat_owner';
     public const string HAS_PETTED_CAT = 'has_petted_cat';
+    public const string ANTIQUE_PERFUME_IMMUNIZED = 'antique_perfume_immunized';
 }

@@ -3676,6 +3676,24 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
         ],
+        [
+            'name' => ModifierNameEnum::PREVENT_MUSH_INFECTIONS_RANDOM_50,
+            'modifierName' => ModifierNameEnum::HYGIENIST_MUSH_INFECTIONS_MODIFIER,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => ModifierPriorityEnum::PREVENT_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [
+                ModifierRequirementEnum::RANDOM_50,
+                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
+            ],
+            'tagConstraints' => [
+                PlayerVariableEnum::SPORE => ModifierRequirementEnum::ALL_TAGS,
+                VariableEventInterface::GAIN => ModifierRequirementEnum::ALL_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

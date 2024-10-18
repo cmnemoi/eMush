@@ -37,6 +37,7 @@ namespace Mush\Modifier\Enum;
 abstract class ModifierRequirementEnum
 {
     public const string RANDOM = 'random';
+    public const string RANDOM_50 = 'random_50';
     public const string PLAYER_IN_ROOM = 'player_in_room';
     public const string ALONE = 'alone';
     public const string NOT_ALONE = 'not_alone';

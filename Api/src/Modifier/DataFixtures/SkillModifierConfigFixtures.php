@@ -365,6 +365,20 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($hygienistDiseaseModifier->getName(), $hygienistDiseaseModifier);
         $manager->persist($hygienistDiseaseModifier);
 
+        $playerNotMushRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
+        $playerNotMushRequirement
+            ->setActivationRequirement(PlayerStatusEnum::MUSH)
+            ->setValue(ModifierRequirementEnum::ABSENT_STATUS)
+            ->buildName();
+        $manager->persist($playerNotMushRequirement);
+
+        $hygienistMushInfectionsModifier = EventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PREVENT_MUSH_INFECTIONS_RANDOM_50)
+        );
+        $hygienistMushInfectionsModifier->addModifierRequirement($playerNotMushRequirement);
+        $this->addReference($hygienistMushInfectionsModifier->getName(), $hygienistMushInfectionsModifier);
+        $manager->persist($hygienistMushInfectionsModifier);
+
         $manager->flush();
     }
 

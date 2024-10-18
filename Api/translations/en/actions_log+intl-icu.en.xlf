@@ -688,7 +688,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="shoot_critical_success">
       <segment id="shoot_critical_success" state="translated">
         <source>shoot_critical_success</source>
-        <target>version, select,
+        <target>{version, select,
     1 {Premeditated or not, **{character}** took out their weapon and opened fire on **{target_character}**.}
     other {Premeditated or not, **{character}** took out their weapon and opened fire on **{target_character}**.}
 }</target>

@@ -14,6 +14,7 @@ abstract class SpawnEquipmentConfigData
     public const string TWO_CAMERAS_IN_PLAYER_INVENTORY = 'two_cameras_in_player_inventory';
     public const string TWO_HYDROPOTS_IN_PLAYER_INVENTORY = 'two_hydropots_in_player_inventory';
     public const string ONE_SUPPORT_DRONE_BLUEPRINT_IN_PLAYER_INVENTORY = 'one_support_drone_blueprint_in_player_inventory';
+    public const string FOUR_ANABOLICS_IN_LABORATORY = 'four_anabolics_in_laboratory';
 
     /**
      * @return SpawnEquipmentConfigDto[]
@@ -95,6 +96,12 @@ abstract class SpawnEquipmentConfigData
                 name: self::ONE_SUPPORT_DRONE_BLUEPRINT_IN_PLAYER_INVENTORY,
                 equipmentName: 'support_drone_blueprint',
                 quantity: 1,
+            ),
+            new SpawnEquipmentConfigDto(
+                name: self::FOUR_ANABOLICS_IN_LABORATORY,
+                equipmentName: 'anabolic',
+                placeName: RoomEnum::LABORATORY,
+                quantity: 4,
             ),
         ];
     }

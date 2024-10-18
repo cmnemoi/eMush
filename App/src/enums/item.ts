@@ -83,6 +83,7 @@ const THERMOSENSOR = "thermosensor";
 const OLD_T_SHIRT = "old_t_shirt";
 const BABEL_MODULE = "babel_module";
 const WHITE_FLAG = "white_flag";
+const ANABOLIC = "anabolic";
 const MUSH_SAMPLE = "mush_sample";
 
 const ITRACKIE = "itrackie";
@@ -440,6 +441,9 @@ export const itemEnum: {[index: string]: any} = {
     },
     [DOCUMENT]: {
         'image': getImgUrl('items/document.jpg')
+    },
+    [ANABOLIC]: {
+        'image': getImgUrl('items/anabolic.jpg')
     },
     [MUSH_SAMPLE]: {
         'image': getImgUrl('items/mush_sample.jpg')

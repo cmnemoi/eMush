@@ -34,6 +34,10 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         // given I have the equipment creation places in this Daedalus
         $places = [];
         foreach ($example['creationPlaces'] as $creationPlace) {
+            // if room already exists dont create it twice
+            if ($this->daedalus->getPlaceByName($creationPlace) !== null) {
+                continue;
+            }
             $places[] = $this->createExtraPlace(placeName: $creationPlace, I: $I, daedalus: $this->daedalus);
         }
 
@@ -43,7 +47,6 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
             author: $this->chun,
             I: $I
         );
-
         // then the places should contain the equipment in the expected quantity
         foreach ($places as $place) {
             $I->assertCount(
@@ -135,6 +138,12 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'equipment' => 'blueprint',
                 'quantity' => 1,
                 'creationPlaces' => [RoomEnum::NEXUS],
+            ],
+            [
+                'project' => ProjectName::ANABOLICS->value,
+                'equipment' => 'anabolic',
+                'quantity' => 4,
+                'creationPlaces' => [RoomEnum::LABORATORY],
             ],
         ];
     }

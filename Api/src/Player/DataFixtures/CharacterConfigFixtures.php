@@ -214,6 +214,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $ocdSkillConfig */
         $ocdSkillConfig = $this->getReference(SkillEnum::OCD->value);
 
+        /** @var SkillConfig $antiquePerfumeSkillConfig */
+        $antiquePerfumeSkillConfig = $this->getReference(SkillEnum::ANTIQUE_PERFUME->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -319,6 +322,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $pilotSkillConfig,
                 $survivalistSkillConfig,
                 $itExpertSkillConfig,
+                $radioExpertSkillConfig,
+                $antiquePerfumeSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($frieda);

@@ -561,6 +561,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($droneShootHunterFailedAttempts);
 
+        $antiquePerfumeImmunized = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED . '_default')
+        );
+        $manager->persist($antiquePerfumeImmunized);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -608,7 +613,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($turboDroneUpgrade)
             ->addStatusConfig($droneRepairFailedAttempts)
             ->addStatusConfig($droneExtinguishFailedAttempts)
-            ->addStatusConfig($droneShootHunterFailedAttempts);
+            ->addStatusConfig($droneShootHunterFailedAttempts)
+            ->addStatusConfig($antiquePerfumeImmunized);
 
         $manager->persist($gameConfig);
 
@@ -661,6 +667,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(EquipmentStatusEnum::DRONE_REPAIR_FAILED_ATTEMPTS, $droneRepairFailedAttempts);
         $this->addReference(EquipmentStatusEnum::DRONE_EXTINGUISH_FAILED_ATTEMPTS, $droneExtinguishFailedAttempts);
         $this->addReference(EquipmentStatusEnum::DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS, $droneShootHunterFailedAttempts);
+        $this->addReference(PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED, $antiquePerfumeImmunized);
     }
 
     public function getDependencies(): array

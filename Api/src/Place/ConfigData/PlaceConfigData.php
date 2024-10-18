@@ -48,7 +48,7 @@ class PlaceConfigData
             'type' => 'room',
             'doors' => ['rear_corridor_nexus'],
             'items' => [],
-            'equipments' => ['neron_core', 'bios_terminal', 'calculator'],
+            'equipments' => ['neron_core', 'bios_terminal'],
         ],
         [
             'name' => 'medlab_default',

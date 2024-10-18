@@ -825,7 +825,7 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
-                    SpawnEquipmentConfigData::ONE_CALCULATOR_IN_NEXUS
+                    SpawnEquipmentConfigData::ONE_CALCULATOR_IN_NEXUS,
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [

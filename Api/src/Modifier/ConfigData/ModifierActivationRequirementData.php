@@ -71,7 +71,7 @@ class ModifierActivationRequirementData
             'value' => 100,
         ],
         [
-            'name' => 'player_is_mush',
+            'name' => ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
             'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
             'activationRequirement' => PlayerStatusEnum::MUSH,
             'value' => ModifierRequirementEnum::ABSENT_STATUS,

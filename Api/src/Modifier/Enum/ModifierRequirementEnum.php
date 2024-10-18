@@ -37,6 +37,7 @@ namespace Mush\Modifier\Enum;
 abstract class ModifierRequirementEnum
 {
     public const string RANDOM = 'random';
+    public const string RANDOM_50 = 'random_50';
     public const string PLAYER_IN_ROOM = 'player_in_room';
     public const string ALONE = 'alone';
     public const string NOT_ALONE = 'not_alone';
@@ -47,6 +48,7 @@ abstract class ModifierRequirementEnum
     public const string EVEN = 'even';
     public const string PLAYER_EQUIPMENT = 'player_equipment';
     public const string HOLDER_HAS_STATUS = 'status';
+    public const string PLAYER_IS_NOT_MUSH = 'player_is_not_mush';
     public const string HOLDER_NAME = 'holder_name';
     public const string ANY_TAGS = 'any_tags';
     public const string NONE_TAGS = 'none_tags';

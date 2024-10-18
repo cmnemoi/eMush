@@ -38,28 +38,19 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
+        $this->ejectPlayersFromPatrolship($event);
+
+        $this->HandleSchrodingerDeathMoraleLoss($event);
+    }
+
+    private function ejectPlayersFromPatrolship(EquipmentEvent $event): void
+    {
         $equipment = $event->getGameEquipment();
         $equipmentPlace = $event->getPlace();
 
-        // handle patrol ship destructions
         if ($equipment->hasMechanicByName(EquipmentEnum::PATROL_SHIP)) {
             foreach ($equipmentPlace->getPlayers() as $player) {
                 $this->ejectPlayer($player, $event->getTags(), $event->getTime());
-            }
-        }
-
-        // handle morale loss on Schrodinger
-        if ($equipment->getName() === ItemEnum::SCHRODINGER) {
-            $alivePlayers = $event->getDaedalus()->getAlivePlayers();
-            foreach ($alivePlayers as $player) {
-                $playerVariableEvent = new PlayerVariableEvent(
-                    $player,
-                    PlayerVariableEnum::MORAL_POINT,
-                    self::GLOBAL_MORALE_LOSS_SCHRODINGER_DEATH,
-                    [ItemEnum::SCHRODINGER],
-                    new \DateTime(),
-                );
-                $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
             }
         }
     }
@@ -76,6 +67,25 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 endReason: EndCauseEnum::mapEndCause($tags),
                 time: $time
             );
+        }
+    }
+
+    private function HandleSchrodingerDeathMoraleLoss(EquipmentEvent $event): void
+    {
+        $equipment = $event->getGameEquipment();
+
+        if ($equipment->isSchrodinger()) {
+            $alivePlayers = $event->getDaedalus()->getAlivePlayers();
+            foreach ($alivePlayers as $player) {
+                $playerVariableEvent = new PlayerVariableEvent(
+                    $player,
+                    PlayerVariableEnum::MORAL_POINT,
+                    self::GLOBAL_MORALE_LOSS_SCHRODINGER_DEATH,
+                    [ItemEnum::SCHRODINGER],
+                    new \DateTime(),
+                );
+                $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+            }
         }
     }
 }

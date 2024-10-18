@@ -13,6 +13,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -54,9 +55,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         $playerEquipment = $player->getEquipments();
 
         if ($player->isExploringOrIsLostOnPlanet()) {
-            foreach ($playerEquipment as $item) {
-                $this->deleteEquipment->execute($item, tags: $event->getTags(), time: $event->getTime());
-            }
+            $this->destroyPlayerItems($player);
 
             return;
         }
@@ -68,6 +67,13 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
                 tags: $event->getTags(),
                 time: $event->getTime(),
             );
+        }
+    }
+
+    private function destroyPlayerItems(Player $player): void
+    {
+        foreach ($player->getEquipments() as $item) {
+            $this->deleteEquipment->execute($item, tags: $event->getTags(), time: $event->getTime());
         }
     }
 

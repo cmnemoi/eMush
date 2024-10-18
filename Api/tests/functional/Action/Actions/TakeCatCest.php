@@ -64,7 +64,6 @@ final class TakeCatCest extends AbstractFunctionalTest
         $this->givenPlayerHasSpores(0);
 
         $this->actionConfig->setInjuryRate(100);
-        $I->flushToDatabase($this->actionConfig);
 
         $this->whenPlayerTakesCat();
 
@@ -77,15 +76,9 @@ final class TakeCatCest extends AbstractFunctionalTest
 
         $this->givenPlayerHasSpores(0);
 
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::MUSH,
-            holder: $this->player,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->givenPlayerIsMush();
 
         $this->actionConfig->setInjuryRate(100);
-        $I->flushToDatabase($this->actionConfig);
 
         $this->whenPlayerTakesCat();
 
@@ -99,7 +92,6 @@ final class TakeCatCest extends AbstractFunctionalTest
         $this->givenPlayerHasSpores(0);
 
         $this->actionConfig->setInjuryRate(100);
-        $I->flushToDatabase($this->actionConfig);
 
         $this->whenPlayerTakesCat();
 
@@ -139,6 +131,16 @@ final class TakeCatCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
             target: $jinSu,
+        );
+    }
+
+    private function givenPlayerIsMush(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
         );
     }
 

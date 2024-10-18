@@ -14,6 +14,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -45,8 +46,8 @@ final class ShootCatCest extends AbstractFunctionalTest
 
     public function shouldPrintShootPublicLog(FunctionalTester $I): void
     {
-        $this->givenShotisSuccessful($I);
-        $this->WhenPlayerShoots();
+        $this->givenShotIsSuccessful($I);
+        $this->whenPlayerShoots();
         $I->seeInRepository(
             RoomLog::class,
             [
@@ -59,7 +60,7 @@ final class ShootCatCest extends AbstractFunctionalTest
 
     public function shouldPrintSchrodingerShotDeathPublicLog(FunctionalTester $I): void
     {
-        $this->givenShotisSuccessful($I);
+        $this->givenShotIsSuccessful($I);
         $this->WhenPlayerShoots();
         $I->seeInRepository(
             RoomLog::class,
@@ -73,29 +74,29 @@ final class ShootCatCest extends AbstractFunctionalTest
 
     public function shouldUseOneBlasterCharge(FunctionalTester $I): void
     {
-        $this->GivenBlasterHasCharges(2, $I);
-        $this->WhenPlayerShoots();
+        $this->givenBlasterHasCharges(2, $I);
+        $this->whenPlayerShoots();
         $I->assertEquals(1, $this->blaster->getChargeStatusByNameOrThrow('electric_charges')->getCharge());
     }
 
     public function shouldKillSchrodingerOnSuccess(FunctionalTester $I): void
     {
-        $this->givenShotisSuccessful($I);
-        $this->WhenPlayerShoots();
+        $this->givenShotIsSuccessful($I);
+        $this->whenPlayerShoots();
         $I->assertFalse($this->player->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER));
     }
 
     public function shouldNotKillSchrodingerOnFailure(FunctionalTester $I): void
     {
-        $this->givenShotisFailure($I);
-        $this->WhenPlayerShoots();
+        $this->givenShotIsFailure($I);
+        $this->whenPlayerShoots();
         $I->assertTrue($this->player->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER));
     }
 
     public function shouldMakeSchrodingerHissOnFailure(FunctionalTester $I): void
     {
-        $this->givenShotisFailure($I);
-        $this->WhenPlayerShoots();
+        $this->givenShotIsFailure($I);
+        $this->whenPlayerShoots();
         $I->seeInRepository(
             RoomLog::class,
             [
@@ -126,13 +127,13 @@ final class ShootCatCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenShotisSuccessful(FunctionalTester $I): void
+    private function givenShotIsSuccessful(FunctionalTester $I): void
     {
         $this->actionConfig->setSuccessRate(100);
         $I->flushToDatabase($this->actionConfig);
     }
 
-    private function givenShotisFailure(FunctionalTester $I): void
+    private function givenShotIsFailure(FunctionalTester $I): void
     {
         $this->actionConfig->setSuccessRate(0);
         $I->flushToDatabase($this->actionConfig);
@@ -140,10 +141,10 @@ final class ShootCatCest extends AbstractFunctionalTest
 
     private function givenBlasterHasCharges(int $blasterCharges, FunctionalTester $I): void
     {
-        $this->blaster->getChargeStatusByNameOrThrow('electric_charges')->setCharge($blasterCharges);
+        $this->blaster->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->setCharge($blasterCharges);
     }
 
-    private function WhenPlayerTriesToShootCat(): void
+    private function whenPlayerTriesToShootCat(): void
     {
         $this->shootCat->loadParameters(
             actionConfig: $this->actionConfig,
@@ -153,7 +154,7 @@ final class ShootCatCest extends AbstractFunctionalTest
         );
     }
 
-    private function WhenPlayerShoots(): void
+    private function whenPlayerShoots(): void
     {
         $this->whenPlayerTriesToShootCat();
         $this->shootCat->execute();

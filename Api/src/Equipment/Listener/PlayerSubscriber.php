@@ -33,15 +33,19 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onNewPlayer(PlayerEvent $event): void
     {
-        $player = $event->getPlayer();
-        if ($player->hasStatus(PlayerStatusEnum::CAT_OWNER)) {
+        $this->handleCreateSchrodinger($event);
+    }
+
+    public function handleCreateSchrodinger(PlayerEvent $event): void
+    {
+        if ($event->getPlayer()->hasStatus(PlayerStatusEnum::CAT_OWNER)) {
             $this->gameEquipmentService->createGameEquipmentFromName(
                 ItemEnum::SCHRODINGER,
-                $player->getPlace(),
+                $event->getPlayer()->getPlace(),
                 [EquipmentEventReason::AWAKEN_SCHRODINGER],
                 $event->getTime(),
                 VisibilityEnum::PUBLIC,
-                $player
+                $event->getPlayer()
             );
         }
     }

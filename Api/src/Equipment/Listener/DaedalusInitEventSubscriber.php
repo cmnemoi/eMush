@@ -4,6 +4,7 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,7 +25,7 @@ class DaedalusInitEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusInitEvent::NEW_DAEDALUS => ['onNewDaedalus', -100], // this can only be done once room have been created
+            DaedalusInitEvent::NEW_DAEDALUS => ['onNewDaedalus', EventPriorityEnum::VERY_LOW], // this can only be done once room have been created
         ];
     }
 

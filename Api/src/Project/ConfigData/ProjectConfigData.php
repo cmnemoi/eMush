@@ -824,7 +824,9 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
-                'spawnEquipmentConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    SpawnEquipmentConfigData::ONE_CALCULATOR_IN_NEXUS
+                ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
                     ProjectRequirementName::STARMAP_FRAGMENT_IN_LABORATORY,

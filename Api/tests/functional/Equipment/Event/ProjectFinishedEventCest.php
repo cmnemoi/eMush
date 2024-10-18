@@ -145,6 +145,12 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'quantity' => 4,
                 'creationPlaces' => [RoomEnum::LABORATORY],
             ],
+            [
+                'project' => ProjectName::SUPER_CALCULATOR->value,
+                'equipment' => 'calculator',
+                'quantity' => 1,
+                'creationPlaces' => [RoomEnum::NEXUS],
+            ],
         ];
     }
 

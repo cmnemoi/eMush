@@ -158,9 +158,9 @@
         <source>get_up.name</source>
         <target>Levantarse</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>get_up.description</source>
-        <target>get_up.description</target>
+        <target>Deja este pequeño nido acogedor y enfréntate al mundo cruel.</target>
       </segment>
     </unit>
     <unit id="hide">
@@ -168,9 +168,9 @@
         <source>hide.name</source>
         <target>Esconder</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hide.description</source>
-        <target>hide.description</target>
+        <target>Esconde de tus compañeros un objeto en esta habitación.</target>
       </segment>
     </unit>
     <unit id="hit">
@@ -178,15 +178,15 @@
         <source>hit.name</source>
         <target>Golpear</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hit.description</source>
-        <target>hit.description</target>
+        <target>Comienza una conversación de manera violenta.</target>
       </segment>
     </unit>
     <unit id="hyperfreeze">
-      <segment id="hyperfreeze" state="initial">
+      <segment id="hyperfreeze" state="translated">
         <source>hyperfreeze.name</source>
-        <target>hyperfreeze.name</target>
+        <target>Hipercongelar</target>
       </segment>
       <segment id="description" state="initial">
         <source>hyperfreeze.description</source>

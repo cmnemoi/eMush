@@ -634,9 +634,9 @@
       </segment>
     </unit>
     <unit id="cycle_limit">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cycle_limit.description</source>
-        <target>cycle_limit.description</target>
+        <target>Esta acción solo se puede realizar una vez por ciclo. Estará disponible de nuevo el ciclo siguiente.</target>
       </segment>
     </unit>
     <unit id="no_working_door">

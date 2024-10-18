@@ -25,6 +25,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -603,6 +604,11 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     public function shouldBeNormalizedAsItem(): bool
     {
         return \in_array($this->getName(), [EquipmentEnum::TABULATRIX], true);
+    }
+
+    public function isSchrodinger(): bool
+    {
+        return $this->getName() === ItemEnum::SCHRODINGER;
     }
 
     private function canProduceFruit(): bool

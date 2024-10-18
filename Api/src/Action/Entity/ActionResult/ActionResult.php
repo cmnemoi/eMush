@@ -106,6 +106,11 @@ abstract class ActionResult
         return $this instanceof CriticalSuccess;
     }
 
+    public function isACriticalFail(): bool
+    {
+        return $this instanceof CriticalFail;
+    }
+
     public function isNotACriticalSuccess(): bool
     {
         return $this instanceof CriticalSuccess === false;

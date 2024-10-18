@@ -25,7 +25,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class ActionSubscriber implements EventSubscriberInterface
 {
     public const int OBSERVANT_REVEAL_CHANCE = 25;
-    public const int CAT_MEOW_CHANCE = 10;
+    public const int CAT_MEOW_CHANCE = 100;
 
     public function __construct(
         private D100RollServiceInterface $d100Roll,
@@ -51,7 +51,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         if ($actionName === ActionEnum::MOVE) {
             /** @var Door $door */
             $door = $actionTarget;
-            $this->doesCatMeow($event);
+            $this->handleCatNoises($event);
             $this->createExitRoomLog($player, $door);
         }
 
@@ -70,8 +70,8 @@ final class ActionSubscriber implements EventSubscriberInterface
 
         $actionLog = $this->roomLogService->createLogFromActionEvent($event);
 
-        if (($actionLog?->getVisibility() === VisibilityEnum::PUBLIC) || ($actionLog?->getVisibility() === VisibilityEnum::REVEALED)) {
-            $this->doesCatMeow($event);
+        if ($actionLog?->IsPublicOrRevealed()) {
+            $this->handleCatNoises($event);
         }
     }
 
@@ -95,7 +95,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             /** @var Door $door */
             $door = $actionHolder;
             $this->createEnterRoomLog($player, $door);
-            $this->doesCatMeow($event);
+            $this->handleCatNoises($event);
         }
 
         match ($action->getActionName()) {
@@ -270,43 +270,65 @@ final class ActionSubscriber implements EventSubscriberInterface
         $this->roomLogService->persist($roomLog);
     }
 
-    private function doesCatMeow(ActionEvent $event): void
+    private function handleCatNoises(ActionEvent $event): void
     {
-        if ($event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT) {
-            if ($event->getActionResultOrThrow()->getResultTag() === ActionOutputEnum::FAIL) {
-                $this->roomLogService->createLog(
-                    LogEnum::CAT_HISS,
-                    $event->getPlace(),
-                    VisibilityEnum::PUBLIC,
-                    'event_log',
-                    null,
-                    [LogParameterKeyEnum::ITEM => ItemEnum::SCHRODINGER],
-                    new \DateTime()
-                );
-            }
+        if ($this->ShotAtCatAndFailed($event)) {
+            $this->createCatHissLog($event);
 
             return;
         }
-        if ($event->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER)) {
+        if ($this->ShotAtCatAndSucceeded($event)) {
+            // A dead cat shouldn't make noise.
+            return;
+        }
+        if ($this->SchrodingerInRoomOrPlayerInventory($event)) {
             if ($this->d100Roll->isSuccessful(self::CAT_MEOW_CHANCE)) {
                 $this->createCatMeowLog($event);
             }
         }
+    }
+
+    private function ShotAtCatAndFailed(ActionEvent $event): bool
+    {
+        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && ($event->getActionResultOrThrow()->getResultTag() === ActionOutputEnum::FAIL);
+    }
+
+    private function ShotAtCatAndSucceeded(ActionEvent $event): bool
+    {
+        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && ($event->getActionResultOrThrow()->getResultTag() === ActionOutputEnum::SUCCESS);
+    }
+
+    private function SchrodingerInRoomOrPlayerInventory(ActionEvent $event): bool
+    {
+        if ($event->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER)) {
+            return true;
+        }
         foreach ($event->getPlace()->getAlivePlayers() as $playerInRoom) {
             if ($playerInRoom->hasEquipmentByName(ItemEnum::SCHRODINGER)) {
-                if ($this->d100Roll->isSuccessful(self::CAT_MEOW_CHANCE)) {
-                    $this->createCatMeowLog($event);
-                }
-
-                break;
+                return true;
             }
         }
+
+        return false;
     }
 
     private function createCatMeowLog(ActionEvent $event): void
     {
         $this->roomLogService->createLog(
             LogEnum::CAT_MEOW,
+            $event->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'event_log',
+            null,
+            [LogParameterKeyEnum::ITEM => ItemEnum::SCHRODINGER],
+            new \DateTime()
+        );
+    }
+
+    private function createCatHissLog(ActionEvent $event): void
+    {
+        $this->roomLogService->createLog(
+            LogEnum::CAT_HISS,
             $event->getPlace(),
             VisibilityEnum::PUBLIC,
             'event_log',

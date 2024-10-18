@@ -41,20 +41,20 @@ final class PlayerCatOwnerAwakenEventCest extends AbstractFunctionalTest
 
     public function ifRalucaAwakensSchrodingerShouldSpawn(FunctionalTester $I)
     {
-        $this->WhenRalucaAwakens($I);
-        $I->assertTrue($this->raluca->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER);
+        $this->whenRalucaAwakens($I);
+        $I->assertTrue($this->raluca->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER));
     }
 
     public function ifSomeoneElseIsGivenCatOwnerStatusAndAwakensSchrodingerShouldSpawn(FunctionalTester $I)
     {
-        $this->GivenRolandHasCatOwner($I);
-        $this->WhenRolandAwakens($I);
-        $I->assertTrue($this->roland->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER);
+        $this->givenRolandHasCatOwner($I);
+        $this->whenRolandAwakens($I);
+        $I->assertTrue($this->roland->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER));
     }
 
-    public function WhenSchrodingerIsSpawnedByACatOwnerThereShouldBeALog(FunctionalTester $I)
+    public function whenSchrodingerIsSpawnedByACatOwnerThereShouldBeALog(FunctionalTester $I)
     {
-        $this->WhenRalucaAwakens($I);
+        $this->whenRalucaAwakens($I);
         $I->seeInRepository(
             RoomLog::class,
             [
@@ -65,14 +65,14 @@ final class PlayerCatOwnerAwakenEventCest extends AbstractFunctionalTest
         );
     }
 
-    private function GivenRolandHasCatOwner($I)
+    private function givenRolandHasCatOwner($I)
     {
         $charactersConfig = $this->daedalus->getGameConfig()->getCharactersConfig();
         $charactersConfig->getCharacter(CharacterEnum::ROLAND)->setInitStatuses([$this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::CAT_OWNER, $this->daedalus)]);
         $this->daedalus->getGameConfig()->setCharactersConfig($charactersConfig);
     }
 
-    private function WhenRalucaAwakens(FunctionalTester $I)
+    private function whenRalucaAwakens(FunctionalTester $I)
     {
         $user = new User();
         $user
@@ -83,7 +83,7 @@ final class PlayerCatOwnerAwakenEventCest extends AbstractFunctionalTest
         $this->raluca = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::RALUCA);
     }
 
-    private function WhenRolandAwakens(FunctionalTester $I)
+    private function whenRolandAwakens(FunctionalTester $I)
     {
         $user = new User();
         $user

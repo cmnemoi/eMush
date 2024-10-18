@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  * to the player committing the action, if they haven't
  * done it before.
  *
- * @TODO: Infect player on injury if converted, can't cuddle if germaphobic, can't cuddle if ailurophobic, can't cuddle if allergic
+ * @TODO: can't cuddle if ailurophobic, can't cuddle if allergic
  *
  * More info : http://www.mushpedia.com/wiki/Schr%C3%B6dinger
  */

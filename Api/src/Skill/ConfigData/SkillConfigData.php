@@ -23,6 +23,9 @@ abstract class SkillConfigData
     {
         return [
             new SkillConfigDto(
+                name: SkillEnum::ANTIQUE_PERFUME,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::APPRENTICE,
                 actionConfigs: [
                     ActionEnum::LEARN,

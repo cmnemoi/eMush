@@ -309,6 +309,7 @@ class CharacterConfigData
                 SkillEnum::SURVIVALIST,
                 SkillEnum::IT_EXPERT,
                 SkillEnum::RADIO_EXPERT,
+                SkillEnum::ANTIQUE_PERFUME,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

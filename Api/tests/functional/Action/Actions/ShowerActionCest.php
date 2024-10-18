@@ -39,6 +39,7 @@ final class ShowerActionCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private GameEquipment $shower;
 
     public function _before(FunctionalTester $I): void
     {
@@ -50,6 +51,12 @@ final class ShowerActionCest extends AbstractFunctionalTest
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->shower = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::SHOWER,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
     }
 
     public function testShower(FunctionalTester $I): void
@@ -482,5 +489,35 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $I->assertEquals($expectedKTHealthPoint, $this->kuanTi->getHealthPoint());
         $I->assertEquals($expectedKTMoralePoint, $this->kuanTi->getMoralPoint());
         $I->assertEquals($expectedKTMovementPoint, $this->kuanTi->getMovementPoint());
+    }
+
+    public function shouldMakeAntiquePerfumePlayerImmunized(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasAntiquePerfumeSkill($I);
+
+        $this->whenPlayerTakesShower();
+
+        $this->thenPlayerShouldBeImmunized($I);
+    }
+
+    private function givenPlayerHasAntiquePerfumeSkill(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::ANTIQUE_PERFUME, $I);
+    }
+
+    private function whenPlayerTakesShower(): void
+    {
+        $this->showerAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->shower,
+            player: $this->player,
+            target: $this->shower
+        );
+        $this->showerAction->execute();
+    }
+
+    private function thenPlayerShouldBeImmunized(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED));
     }
 }

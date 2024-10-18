@@ -151,6 +151,12 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'quantity' => 1,
                 'creationPlaces' => [RoomEnum::NEXUS],
             ],
+            [
+                'project' => ProjectName::RETRO_FUNGAL_SERUM->value,
+                'equipment' => 'retro_fungal_serum',
+                'quantity' => 1,
+                'creationPlaces' => [RoomEnum::LABORATORY],
+            ],
         ];
     }
 

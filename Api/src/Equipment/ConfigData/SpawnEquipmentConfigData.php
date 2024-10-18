@@ -15,6 +15,7 @@ abstract class SpawnEquipmentConfigData
     public const string TWO_HYDROPOTS_IN_PLAYER_INVENTORY = 'two_hydropots_in_player_inventory';
     public const string ONE_SUPPORT_DRONE_BLUEPRINT_IN_PLAYER_INVENTORY = 'one_support_drone_blueprint_in_player_inventory';
     public const string FOUR_ANABOLICS_IN_LABORATORY = 'four_anabolics_in_laboratory';
+    public const string ONE_RETRO_FUNGAL_SERUM_IN_LABORATORY = 'one_retrofungal_serum_in_laboratory';
     public const string ONE_CALCULATOR_IN_NEXUS = 'one_calculator_in_nexus';
 
     /**
@@ -108,6 +109,12 @@ abstract class SpawnEquipmentConfigData
                 name: self::ONE_CALCULATOR_IN_NEXUS,
                 equipmentName: 'calculator',
                 placeName: RoomEnum::NEXUS,
+                quantity: 1,
+            ),
+            new SpawnEquipmentConfigDto(
+                name: self::ONE_RETRO_FUNGAL_SERUM_IN_LABORATORY,
+                equipmentName: 'retro_fungal_serum',
+                placeName: RoomEnum::LABORATORY,
                 quantity: 1,
             ),
         ];

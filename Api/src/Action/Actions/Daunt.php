@@ -11,6 +11,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\RemoveActionPointsFromPlayerServiceInterface;
+use Mush\Player\Service\RemoveMovementPointsFromPlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -23,6 +24,7 @@ final class Daunt extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         private RemoveActionPointsFromPlayerServiceInterface $removeActionPointsFromPlayer,
+        private RemoveMovementPointsFromPlayerServiceInterface $removeMovementPointsFromPlayer,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -39,8 +41,22 @@ final class Daunt extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
+        $this->removeActionPointsFromTarget();
+        $this->removeMovementPointsFromTarget();
+    }
+
+    private function removeActionPointsFromTarget(): void
+    {
         $this->removeActionPointsFromPlayer->execute(
             quantity: $this->actionPointsMalus(),
+            player: $this->playerTarget()
+        );
+    }
+
+    private function removeMovementPointsFromTarget(): void
+    {
+        $this->removeMovementPointsFromPlayer->execute(
+            quantity: $this->movementPointsMalus(),
             player: $this->playerTarget()
         );
     }
@@ -48,5 +64,10 @@ final class Daunt extends AbstractAction
     private function actionPointsMalus(): int
     {
         return $this->getOutputQuantity();
+    }
+
+    private function movementPointsMalus(): int
+    {
+        return 2 * $this->getOutputQuantity();
     }
 }

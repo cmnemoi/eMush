@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
@@ -21,6 +22,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\DeadPlayerInfoRepository;
 use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\Player\Repository\PlayerRepository;
@@ -214,5 +216,35 @@ final class PlayerServiceTest extends TestCase
 
         self::assertSame(GameStatusEnum::CLOSED, $playerInfo->getGameStatus());
         self::assertSame($closedPlayer->getMessage(), $message);
+    }
+
+    public function testShouldKillPlayerAtZeroMoraleAtCycleChange(): void
+    {
+        $player = $this->givenPlayerWithMorale(0);
+
+        $this->whenIHandleNewCycleForPlayer($player);
+
+        $this->thenPlayerShouldBeDead($player);
+    }
+
+    private function givenPlayerWithMorale(int $morale): Player
+    {
+        $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
+        $player->setMoralPoint($morale);
+
+        return $player;
+    }
+
+    private function whenIHandleNewCycleForPlayer(Player $player): void
+    {
+        $this->entityManager->shouldIgnoreMissing();
+        $this->eventService->shouldIgnoreMissing();
+
+        $this->service->handleNewCycle($player, new \DateTime());
+    }
+
+    private function thenPlayerShouldBeDead(Player $player): void
+    {
+        self::assertTrue($player->isDead());
     }
 }

@@ -7,6 +7,7 @@ namespace Mush\tests\functional\Action\Actions;
 use Mush\Action\Actions\Daunt;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
@@ -66,6 +67,15 @@ final class DauntCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldBeAvailableOncePerDay(FunctionalTester $I): void
+    {
+        $this->givenChunDauntsKuanTi();
+
+        $this->whenChunTriesToDauntKuanTiAgain();
+
+        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DAILY_LIMIT, $I);
+    }
+
     private function givenKuanTiHasActionPoints(int $actionPoints): void
     {
         $this->kuanTi->setActionPoint($actionPoints);
@@ -74,6 +84,11 @@ final class DauntCest extends AbstractFunctionalTest
     private function givenKuanTiHasMovementPoints(int $movementPoints): void
     {
         $this->kuanTi->setMovementPoint($movementPoints);
+    }
+
+    private function givenChunDauntsKuanTi(): void
+    {
+        $this->whenChunDauntsKuanTi();
     }
 
     private function whenChunDauntsKuanTi(): void
@@ -87,6 +102,16 @@ final class DauntCest extends AbstractFunctionalTest
         $this->dauntAction->execute();
     }
 
+    private function whenChunTriesToDauntKuanTiAgain(): void
+    {
+        $this->dauntAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->chun,
+            player: $this->chun,
+            target: $this->kuanTi
+        );
+    }
+
     private function thenKuanTiShouldHaveActionPoints(int $actionPoints, FunctionalTester $I): void
     {
         $I->assertEquals($actionPoints, $this->kuanTi->getActionPoint());
@@ -95,5 +120,10 @@ final class DauntCest extends AbstractFunctionalTest
     private function thenKuanTiShouldHaveMovementPoints(int $movementPoints, FunctionalTester $I): void
     {
         $I->assertEquals($movementPoints, $this->kuanTi->getMovementPoint());
+    }
+
+    private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
+    {
+        $I->assertEquals($message, $this->dauntAction->cannotExecuteReason());
     }
 }

@@ -7,12 +7,18 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\HasStatus;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\RemoveActionPointsFromPlayerServiceInterface;
 use Mush\Player\Service\RemoveMovementPointsFromPlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Daunt extends AbstractAction
@@ -25,8 +31,22 @@ final class Daunt extends AbstractAction
         ValidatorInterface $validator,
         private RemoveActionPointsFromPlayerServiceInterface $removeActionPointsFromPlayer,
         private RemoveMovementPointsFromPlayerServiceInterface $removeMovementPointsFromPlayer,
+        private StatusServiceInterface $statusService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(
+            new HasStatus([
+                'status' => PlayerStatusEnum::HAS_DAUNTED,
+                'target' => HasStatus::PLAYER,
+                'contain' => false,
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::DAILY_LIMIT,
+            ])
+        );
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool
@@ -43,13 +63,15 @@ final class Daunt extends AbstractAction
     {
         $this->removeActionPointsFromTarget();
         $this->removeMovementPointsFromTarget();
+        $this->createHasDauntedStatusForPlayer();
     }
 
     private function removeActionPointsFromTarget(): void
     {
         $this->removeActionPointsFromPlayer->execute(
             quantity: $this->actionPointsMalus(),
-            player: $this->playerTarget()
+            player: $this->playerTarget(),
+            tags: $this->getTags(),
         );
     }
 
@@ -57,7 +79,18 @@ final class Daunt extends AbstractAction
     {
         $this->removeMovementPointsFromPlayer->execute(
             quantity: $this->movementPointsMalus(),
-            player: $this->playerTarget()
+            player: $this->playerTarget(),
+            tags: $this->getTags(),
+        );
+    }
+
+    private function createHasDauntedStatusForPlayer(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::HAS_DAUNTED,
+            holder: $this->player,
+            tags: $this->getTags(),
+            time: new \DateTime(),
         );
     }
 

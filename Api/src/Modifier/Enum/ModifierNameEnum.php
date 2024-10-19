@@ -112,4 +112,6 @@ abstract class ModifierNameEnum
     public const string APRON_MODIFIER_FOR_PLAYER_PREVENT_DIRTY = 'apron_modifier_for_player_prevent_dirty';
     public const string OCD_MODIFIER_FOR_PLAYER_PREVENT_DIRTY = 'ocd_modifier_for_player_prevent_dirty';
     public const string OCD_MODIFIER = 'ocd_modifier';
+    public const string PLAYER_MINUS_10_PERCENTAGE_ON_ACTIONS = 'player_minus_10_percentage_on_actions';
+    public const string POLYMATH_MODIFIER_ON_ACTIONS = 'polymath_modifier_on_actions';
 }

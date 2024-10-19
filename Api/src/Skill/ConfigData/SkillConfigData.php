@@ -282,6 +282,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::POLYMATH,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_MINUS_10_PERCENTAGE_ON_ACTIONS,
+                ],
             ),
             new SkillConfigDto(
                 name: SkillEnum::POLYVALENT,

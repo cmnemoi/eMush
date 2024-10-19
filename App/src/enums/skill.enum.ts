@@ -99,7 +99,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.ANTIQUE_PERFUME]: {
-        'icon': getImgUrl('skills/human/antique_perfume.png')
+        'icon': getImgUrl('skills/human/antic_perfume.png')
     },
 
     [SkillEnum.APPRENTICE]: {

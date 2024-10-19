@@ -818,5 +818,15 @@
         <target>Vous travaillez propre, très propre, toujours plus propre, encore plus propre. Vous êtes proprement névrosé de la propreté mais ça a ses bons côtés.//:point: Vous ne vous salissez jamais accidentellement en effectuant des actions sur le vaisseau.</target>
       </segment>
     </unit>
+    <unit id="antique_perfume">
+      <segment id="antique_perfume.name" state="translated">
+        <source>antique_perfume.name</source>
+        <target>Parfum antique</target>
+      </segment>
+      <segment id="antique_perfume.description" state="translated">
+        <source>antique_perfume.description</source>
+        <target>Ah cha il chavait faire de frai parfums chez fraigonard en mille neuf chent quatreving douche...//:point: A chaque **douche**, vous gagnez une immunité de **2** cycles contre les **infections Mush**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

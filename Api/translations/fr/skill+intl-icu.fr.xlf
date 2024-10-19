@@ -818,5 +818,15 @@
         <target>Vous travaillez propre, très propre, toujours plus propre, encore plus propre. Vous êtes proprement névrosé de la propreté mais ça a ses bons côtés.//:point: Vous ne vous salissez jamais accidentellement en effectuant des actions sur le vaisseau.</target>
       </segment>
     </unit>
+    <unit id="self_sacrifice">
+      <segment id="self_sacrifice.name" state="translated">
+        <source>self_sacrifice.name</source>
+        <target>Abnégation</target>
+      </segment>
+      <segment id="self_sacrifice.description" state="translated">
+        <source>self_sacrifice.description</source>
+        <target>Certaines personnes particulièrement résilientes peuvent souffrir l'insupportable. Mais le prix est grand.//:point: Si votre moral tombe à 0, vous ne mourrez pas, mais vous perdez **1** :hp: par cycle.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

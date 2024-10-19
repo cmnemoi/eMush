@@ -214,6 +214,7 @@ class CharacterConfigData
                 SkillEnum::OBSERVANT,
                 SkillEnum::TECHNICIAN,
                 SkillEnum::IT_EXPERT,
+                SkillEnum::POLYMATH,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

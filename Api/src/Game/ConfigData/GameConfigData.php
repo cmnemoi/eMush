@@ -693,6 +693,7 @@ class GameConfigData
                 SkillEnum::PHYSICIST,
                 SkillEnum::PILOT,
                 SkillEnum::POLITICIAN,
+                SkillEnum::POLYMATH,
                 SkillEnum::POLYVALENT,
                 SkillEnum::PRESENTIMENT,
                 SkillEnum::PYROMANIAC,

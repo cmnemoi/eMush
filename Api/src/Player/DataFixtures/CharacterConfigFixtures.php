@@ -236,6 +236,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $metalworkerSkillConfig */
         $metalworkerSkillConfig = $this->getReference(SkillEnum::METALWORKER->value);
 
+        /** @var SkillConfig $polymathSkillConfig */
+        $polymathSkillConfig = $this->getReference(SkillEnum::POLYMATH->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -314,6 +317,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $observantSkillConfig,
                 $technicianSkillConfig,
                 $itExpertSkillConfig,
+                $polymathSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection)
             ->setInitDiseases(new ArrayCollection([$chronicVertigo]));

@@ -26,6 +26,7 @@ use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\User\Entity\User;
 
 final class PlayerService implements PlayerServiceInterface
@@ -37,6 +38,7 @@ final class PlayerService implements PlayerServiceInterface
     public const int CYCLE_SATIETY_CHANGE = -1;
     public const int DAY_HEALTH_CHANGE = 1;
     public const int DAY_MORAL_CHANGE = -2;
+    public const int SELF_SACRIFICE_HEALTH_LOSS = -1;
 
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
@@ -247,42 +249,11 @@ final class PlayerService implements PlayerServiceInterface
             return $player;
         }
 
-        if ($player->getMoralPoint() === 0) {
-            $this->killPlayer(
-                player: $player,
-                endReason: EndCauseEnum::DEPRESSION,
-                time: $date,
-            );
-
-            return $player;
+        if ($player->hasZeroMoralPoint()) {
+            return $this->handleZeroMoralPointEffects($player, $date);
         }
 
-        $playerVariableEvent = new PlayerVariableEvent(
-            $player,
-            PlayerVariableEnum::ACTION_POINT,
-            self::CYCLE_ACTION_CHANGE,
-            [EventEnum::NEW_CYCLE, self::BASE_PLAYER_CYCLE_CHANGE],
-            $date
-        );
-        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
-
-        $playerVariableEvent = new PlayerVariableEvent(
-            $player,
-            PlayerVariableEnum::MOVEMENT_POINT,
-            self::CYCLE_MOVEMENT_CHANGE,
-            [EventEnum::NEW_CYCLE, self::BASE_PLAYER_CYCLE_CHANGE],
-            $date
-        );
-        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
-
-        $playerVariableEvent = new PlayerVariableEvent(
-            $player,
-            PlayerVariableEnum::SATIETY,
-            self::CYCLE_SATIETY_CHANGE,
-            [EventEnum::NEW_CYCLE, self::BASE_PLAYER_CYCLE_CHANGE],
-            $date
-        );
-        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+        $this->applyCycleChangesPointsGain($player, $date);
 
         if ($player->isActive()) {
             $this->handleTriumphChange($player, $date);
@@ -340,6 +311,53 @@ final class PlayerService implements PlayerServiceInterface
         }
 
         return $player;
+    }
+
+    private function handleZeroMoralPointEffects(Player $player, \DateTime $date): Player
+    {
+        if ($player->hasSkill(SkillEnum::SELF_SACRIFICE)) {
+            $this->applySelfSacrifice($player, $date);
+        } else {
+            $this->killPlayer(
+                player: $player,
+                endReason: EndCauseEnum::DEPRESSION,
+                time: $date,
+            );
+        }
+
+        return $player;
+    }
+
+    private function applySelfSacrifice(Player $player, \DateTime $date): void
+    {
+        $playerVariableEvent = new PlayerVariableEvent(
+            player: $player,
+            variableName: PlayerVariableEnum::HEALTH_POINT,
+            quantity: self::SELF_SACRIFICE_HEALTH_LOSS,
+            tags: [EventEnum::NEW_CYCLE, SkillEnum::SELF_SACRIFICE->toString()],
+            time: $date
+        );
+        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function applyCycleChangesPointsGain(Player $player, \DateTime $date): void
+    {
+        $changes = [
+            PlayerVariableEnum::ACTION_POINT => self::CYCLE_ACTION_CHANGE,
+            PlayerVariableEnum::MOVEMENT_POINT => self::CYCLE_MOVEMENT_CHANGE,
+            PlayerVariableEnum::SATIETY => self::CYCLE_SATIETY_CHANGE,
+        ];
+
+        foreach ($changes as $variableName => $quantity) {
+            $playerVariableEvent = new PlayerVariableEvent(
+                $player,
+                $variableName,
+                $quantity,
+                [EventEnum::NEW_CYCLE, self::BASE_PLAYER_CYCLE_CHANGE],
+                $date
+            );
+            $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+        }
     }
 
     private function handleTriumphChange(Player $player, \DateTime $date): void

@@ -905,7 +905,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>janice.description</source>
-        <target>A Digital Psychologist and one-woman enigma machine.</target>
+        <target>A Digital Psychologist and one-woman enigma solver.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>janice.employment</source>

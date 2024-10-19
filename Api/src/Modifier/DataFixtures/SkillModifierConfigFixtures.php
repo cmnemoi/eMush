@@ -379,6 +379,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($hygienistMushInfectionsModifier->getName(), $hygienistMushInfectionsModifier);
         $manager->persist($hygienistMushInfectionsModifier);
 
+        $polymathActionsModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_MINUS_10_PERCENTAGE_ON_ACTIONS)
+        );
+        $this->addReference($polymathActionsModifier->getName(), $polymathActionsModifier);
+        $manager->persist($polymathActionsModifier);
+
         $manager->flush();
     }
 

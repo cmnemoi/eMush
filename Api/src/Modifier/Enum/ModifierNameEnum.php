@@ -123,4 +123,6 @@ abstract class ModifierNameEnum
     public const string HYGIENIST_DISEASE_MODIFIER = 'hygienist_disease_modifier';
     public const string PREVENT_MUSH_INFECTIONS_RANDOM_50 = 'prevent_mush_infections';
     public const string HYGIENIST_MUSH_INFECTIONS_MODIFIER = 'hygienist_mush_infections_modifier';
+    public const string PLAYER_MINUS_10_PERCENTAGE_ON_ACTIONS = 'player_minus_10_percentage_on_actions';
+    public const string POLYMATH_MODIFIER_ON_ACTIONS = 'polymath_modifier_on_actions';
 }

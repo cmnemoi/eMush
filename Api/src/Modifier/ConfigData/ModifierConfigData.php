@@ -3694,6 +3694,21 @@ abstract class ModifierConfigData
                 VariableEventInterface::GAIN => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_MINUS_10_PERCENTAGE_ON_ACTIONS,
+            'modifierName' => ModifierNameEnum::POLYMATH_MODIFIER_ON_ACTIONS,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 0.9,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
+            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

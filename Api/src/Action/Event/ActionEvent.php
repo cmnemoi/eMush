@@ -75,6 +75,11 @@ class ActionEvent extends AbstractGameEvent
         return $this->actionTarget;
     }
 
+    public function getPlayerActionTarget(): Player
+    {
+        return $this->getActionTarget() instanceof Player ? $this->getActionTarget() : throw new \LogicException('Action target is not a player');
+    }
+
     public function getActionParameters(): array
     {
         return $this->actionParameters;
@@ -136,7 +141,7 @@ class ActionEvent extends AbstractGameEvent
 
     public function shouldCreateParfumeAntiqueImmunizedStatus(): bool
     {
-        return $this->author->hasSkill(SkillEnum::ANTIQUE_PERFUME) && $this->hasTag(ActionEnum::TAKE_SHOWER->value);
+        return $this->author?->hasSkill(SkillEnum::ANTIQUE_PERFUME) && $this->hasTag(ActionEnum::TAKE_SHOWER->value);
     }
 
     public function shouldRemoveTargetLyingDownStatus(): bool

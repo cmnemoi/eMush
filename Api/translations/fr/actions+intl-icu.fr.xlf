@@ -1510,5 +1510,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Le vaccin anti-Mush injecte un retro-fongique puissant qui annule tout les effets du Mush sur un sujet infecté.</target>
       </segment>
     </unit>
+    <unit id="daunt">
+      <segment id="daunt" state="final">
+        <source>daunt.name</source>
+        <target>Intimider</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>daunt.description</source>
+        <target>**Journalier**. Permet d'intimider un joueur pour lui imposer vos idées.//:point: Fait perdre 2 :pa: et 4 :pm: à la cible.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

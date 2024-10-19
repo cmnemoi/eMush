@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Mush\Player\Listener;
 
+use Mush\Action\Enum\ActionEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerRepositoryInterface;
+use Mush\RoomLog\Service\RoomLogService;
 use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -22,7 +25,8 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     public function __construct(
         private DeletePlayerSkillService $deletePlayerSkill,
         private EventServiceInterface $eventService,
-        private PlayerRepositoryInterface $playerRepository
+        private PlayerRepositoryInterface $playerRepository,
+        private RoomLogService $roomLogService
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -68,6 +72,11 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayerStatusHolder();
 
+        if ($event->hasTag(ActionEnum::CURE->value)) {
+            $this->createPlayerVaccinatedLog($event);
+            $player->removeAllHumanSkills();
+        }
+
         if ($player->isAlive()) {
             $this->markPlayerAsHuman($player);
         }
@@ -85,5 +94,19 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     {
         $player->getPlayerInfo()->getClosedPlayer()->setIsMush(false);
         $this->playerRepository->save($player);
+    }
+
+    private function createPlayerVaccinatedLog(StatusEvent $event)
+    {
+        $player = $event->getPlayerStatusHolder();
+        $this->roomLogService->createLog(
+            'player_vaccinated',
+            $player->getPlace(),
+            VisibilityEnum::PRIVATE,
+            'event_log',
+            $player,
+            [],
+            $event->getTime()
+        );
     }
 }

@@ -7,9 +7,12 @@ namespace Mush\tests\functional\Action\Actions;
 use Mush\Action\Actions\Daunt;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -45,6 +48,22 @@ final class DauntCest extends AbstractFunctionalTest
         $this->whenChunDauntsKuanTi();
 
         $this->thenKuanTiShouldHaveMovementPoints(0, $I);
+    }
+
+    public function shouldPrintPublicLog(FunctionalTester $I): void
+    {
+        $this->whenChunDauntsKuanTi();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: '**Chun** attrape **Kuan Ti** dans un coin et se met à lui hurler dessus...',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: ActionLogEnum::DAUNT_SUCCESS,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
     }
 
     private function givenKuanTiHasActionPoints(int $actionPoints): void

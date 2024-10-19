@@ -509,6 +509,7 @@ class CharacterConfigData
                 SkillEnum::NERON_ONLY_FRIEND,
                 SkillEnum::DIPLOMAT,
                 SkillEnum::RADIO_EXPERT,
+                SkillEnum::SELF_SACRIFICE,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

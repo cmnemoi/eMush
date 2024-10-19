@@ -77,7 +77,9 @@ class ActionEvent extends AbstractGameEvent
 
     public function getPlayerActionTarget(): Player
     {
-        return $this->getActionTarget() instanceof Player ? $this->getActionTarget() : throw new \LogicException('Action target is not a player');
+        $player = $this->getActionTarget();
+
+        return $player instanceof Player ? $player : throw new \LogicException('Action target is not a player');
     }
 
     public function getActionParameters(): array

@@ -227,7 +227,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.INTIMIDATING]: {
-        'icon': getImgUrl('skills/human/intimidating.png')
+        'icon': getImgUrl('skills/human/daunting.png')
     },
 
     [SkillEnum.IT_EXPERT]: {

@@ -657,6 +657,7 @@ class GameConfigData
                 SkillEnum::GUNNER,
                 SkillEnum::HARD_BOILED,
                 SkillEnum::INFECTOR,
+                SkillEnum::INTIMIDATING,
                 SkillEnum::IT_EXPERT,
                 SkillEnum::LEADER,
                 SkillEnum::LOGISTICS_EXPERT,

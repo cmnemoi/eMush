@@ -214,6 +214,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $ocdSkillConfig */
         $ocdSkillConfig = $this->getReference(SkillEnum::OCD->value);
 
+        /** @var SkillConfig $intimidatingSkillConfig */
+        $intimidatingSkillConfig = $this->getReference(SkillEnum::INTIMIDATING->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -238,6 +241,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $wrestlerSkillConfig,
                 $torturerSkillConfig,
                 $crazyEyeSkillConfig,
+                $intimidatingSkillConfig,
             ])
             ->setStartingItems($trackerTalkieCollection);
         $manager->persist($chao);

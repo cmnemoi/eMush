@@ -281,6 +281,9 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::POLYMATH,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::POLYVALENT,
             ),
             new SkillConfigDto(

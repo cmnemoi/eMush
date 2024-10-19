@@ -25,7 +25,7 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $manager->persist($conceptorPointsModifier);
 
         $conceptorPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::CONCEPTOR_POINTS->value)
+            StatusConfigData::getByName(SkillPointsEnum::CONCEPTOR_POINTS->toString())
         );
         $conceptorPoints->setModifierConfigs([$conceptorPointsModifier]);
         $manager->persist($conceptorPoints);
@@ -36,7 +36,7 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $manager->persist($shooterPointsModifier);
 
         $shooterPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::SHOOTER_POINTS->value)
+            StatusConfigData::getByName(SkillPointsEnum::SHOOTER_POINTS->toString())
         );
         $shooterPoints->setModifierConfigs([$shooterPointsModifier]);
         $manager->persist($shooterPoints);
@@ -47,7 +47,7 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $manager->persist($technicianPointsModifier);
 
         $technicianPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::TECHNICIAN_POINTS->value)
+            StatusConfigData::getByName(SkillPointsEnum::TECHNICIAN_POINTS->toString())
         );
         $technicianPoints->setModifierConfigs([$technicianPointsModifier]);
         $manager->persist($technicianPoints);
@@ -58,7 +58,7 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $manager->persist($itExpertPointsModifier);
 
         $itExpertPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::IT_EXPERT_POINTS->value)
+            StatusConfigData::getByName(SkillPointsEnum::IT_EXPERT_POINTS->toString())
         );
         $itExpertPoints->setModifierConfigs([$itExpertPointsModifier]);
         $manager->persist($itExpertPoints);
@@ -69,7 +69,7 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $manager->persist($botanistModifier);
 
         $botanistPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::BOTANIST_POINTS->value)
+            StatusConfigData::getByName(SkillPointsEnum::BOTANIST_POINTS->toString())
         );
         $botanistPoints->setModifierConfigs([$botanistModifier]);
         $manager->persist($botanistPoints);
@@ -80,7 +80,7 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $manager->persist($pilgredPointsModifier);
 
         $pilgredPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::PILGRED_POINTS->value)
+            StatusConfigData::getByName(SkillPointsEnum::PILGRED_POINTS->toString())
         );
         $pilgredPoints->setModifierConfigs([$pilgredPointsModifier]);
         $manager->persist($pilgredPoints);
@@ -91,7 +91,7 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $manager->persist($nursePointsModifier);
 
         $nursePoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::NURSE_POINTS->value)
+            StatusConfigData::getByName(SkillPointsEnum::NURSE_POINTS->toString())
         );
         $nursePoints->setModifierConfigs([$nursePointsModifier]);
         $manager->persist($nursePoints);
@@ -102,7 +102,7 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $manager->persist($sporePointsModifier);
 
         $sporePoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::SPORE_POINTS->value)
+            StatusConfigData::getByName(SkillPointsEnum::SPORE_POINTS->toString())
         );
         $sporePoints->setModifierConfigs([$sporePointsModifier]);
         $manager->persist($sporePoints);
@@ -113,10 +113,20 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $manager->persist($chefPointsModifier);
 
         $chefPoints = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(SkillPointsEnum::CHEF_POINTS->value)
+            StatusConfigData::getByName(SkillPointsEnum::CHEF_POINTS->toString())
         );
         $chefPoints->setModifierConfigs([$chefPointsModifier]);
         $manager->persist($chefPoints);
+
+        $polymathItPointsModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_POLYMATH_IT_POINTS)
+        );
+        $manager->persist($polymathItPointsModifier);
+
+        $polymathItPoints = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(SkillPointsEnum::POLYMATH_IT_POINTS->toString())
+        );
+        $manager->persist($polymathItPoints);
 
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
@@ -129,7 +139,8 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
             ->addStatusConfig($pilgredPoints)
             ->addStatusConfig($nursePoints)
             ->addStatusConfig($sporePoints)
-            ->addStatusConfig($chefPoints);
+            ->addStatusConfig($chefPoints)
+            ->addStatusConfig($polymathItPoints);
 
         $manager->persist($gameConfig);
 
@@ -144,6 +155,7 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $this->addReference($nursePoints->getName(), $nursePoints);
         $this->addReference($sporePoints->getName(), $sporePoints);
         $this->addReference($chefPoints->getName(), $chefPoints);
+        $this->addReference($polymathItPoints->getName(), $polymathItPoints);
     }
 
     public function getDependencies(): array

@@ -449,7 +449,7 @@ final class ParticipateCest extends AbstractFunctionalTest
 
         $this->givenKuanTiHasTenActionPoints();
 
-        $this->whenKuanToParticipatesInProject($I);
+        $this->whenKuanToParticipatesInProject();
 
         $this->thenKuanTiShouldHaveTenActionPoints($I);
     }
@@ -460,18 +460,16 @@ final class ParticipateCest extends AbstractFunctionalTest
 
         $this->givenPlayerHasFourITPoints($I);
 
-        $this->whenKuanToParticipatesInProject($I);
+        $this->whenKuanToParticipatesInProject();
 
         $this->thenKuanTiShouldHaveITPoints(3, $I);
     }
 
-    public function itExpertConceptorShouldUseOneCorePoint(FunctionalTester $I): void
+    public function itExpertConceptorShouldUseOneITPoint(FunctionalTester $I): void
     {
         $this->givenKuanTiIsAnITExpertConceptor($I);
 
-        $this->givenPlayerHasFourCorePoints($I);
-
-        $this->whenKuanToParticipatesInProject($I);
+        $this->whenKuanToParticipatesInProject();
 
         $this->thenKuanTiShouldHaveCorePoints(3, $I);
     }
@@ -480,11 +478,27 @@ final class ParticipateCest extends AbstractFunctionalTest
     {
         $this->givenKuanTiIsAnITExpertConceptor($I);
 
-        $this->givenPlayerHasFourITPoints($I);
-
-        $this->whenKuanToParticipatesInProject($I);
+        $this->whenKuanToParticipatesInProject();
 
         $this->thenKuanTiShouldHaveITPoints(4, $I);
+    }
+
+    public function polymathItExpertShouldUseOneITPoint(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsAPolymathItExpert($I);
+
+        $this->whenKuanToParticipatesInProject();
+
+        $this->thenKuanTiShouldHaveITPoints(3, $I);
+    }
+
+    public function polymathItExpertShouldNotUsePolymathITPoint(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsAPolymathItExpert($I);
+
+        $this->whenKuanToParticipatesInProject();
+
+        $this->thenKuanTiShouldHavePolymathITPoints(2, $I);
     }
 
     public function playerWithGeniusIdeaStatusShouldFinishProjectImmediately(FunctionalTester $I): void
@@ -560,6 +574,16 @@ final class ParticipateCest extends AbstractFunctionalTest
         ]);
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::IT_EXPERT, $this->kuanTi));
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::CONCEPTOR, $this->kuanTi));
+    }
+
+    private function givenKuanTiIsAPolymathItExpert(FunctionalTester $I): void
+    {
+        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::IT_EXPERT]),
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::POLYMATH]),
+        ]);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::IT_EXPERT, $this->kuanTi));
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::POLYMATH, $this->kuanTi));
     }
 
     private function givenKuanTiHasTenActionPoints(): void
@@ -654,6 +678,14 @@ final class ParticipateCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: $corePoints,
             actual: $this->kuanTi->getSkillByNameOrThrow(SkillEnum::CONCEPTOR)->getSkillPoints(),
+        );
+    }
+
+    private function thenKuanTiShouldHavePolymathITPoints(int $polymathITPoints, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $polymathITPoints,
+            actual: $this->kuanTi->getSkillByNameOrThrow(SkillEnum::POLYMATH)->getSkillPoints(),
         );
     }
 

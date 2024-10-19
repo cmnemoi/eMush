@@ -152,6 +152,7 @@ enum SkillEnum: string
             self::NURSE => 'heal',
             self::TECHNICIAN => 'engineer',
             self::SHOOTER => 'shoot',
+            self::POLYMATH => 'computer',
             default => '',
         };
     }
@@ -168,6 +169,7 @@ enum SkillEnum: string
                 self::NURSE => [ActionTypeEnum::ACTION_HEAL],
                 self::TECHNICIAN => [ActionTypeEnum::ACTION_TECHNICIAN],
                 self::SHOOTER => [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER],
+                self::POLYMATH => [ActionTypeEnum::ACTION_IT],
                 default => [],
             }
         );

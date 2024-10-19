@@ -10,7 +10,7 @@ use Mush\Player\Normalizer\SelectableCharacterNormalizer;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Proxies\__CG__\Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Entity\SkillConfig;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**

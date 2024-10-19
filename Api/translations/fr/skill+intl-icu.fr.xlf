@@ -818,5 +818,15 @@
         <target>Vous travaillez propre, très propre, toujours plus propre, encore plus propre. Vous êtes proprement névrosé de la propreté mais ça a ses bons côtés.//:point: Vous ne vous salissez jamais accidentellement en effectuant des actions sur le vaisseau.</target>
       </segment>
     </unit>
+    <unit id="intimidating">
+      <segment id="intimidating.name" state="translated">
+        <source>intimidating.name</source>
+        <target>Intimidant</target>
+      </segment>
+      <segment id="intimidating.description" state="translated">
+        <source>intimidating.description</source>
+        <target>Parfois la proie s'échappe seulement parce qu'elle en a l'occasion.//:point: **Journalier**. Pour **1** :pa:, Permet d'intimider un joueur. Celui-ci perd **2** :pa: et **4** :pm:.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

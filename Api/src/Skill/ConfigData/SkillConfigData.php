@@ -194,6 +194,12 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::INTIMIDATING,
+                actionConfigs: [
+                    ActionEnum::DAUNT,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::IT_EXPERT,
                 modifierConfigs: [
                     ModifierNameEnum::DOUBLE_HACK_CHANCE,

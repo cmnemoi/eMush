@@ -664,6 +664,7 @@ class GameConfigData
                 SkillEnum::HARD_BOILED,
                 SkillEnum::HYGIENIST,
                 SkillEnum::INFECTOR,
+                SkillEnum::INTIMIDATING,
                 SkillEnum::IT_EXPERT,
                 SkillEnum::LEADER,
                 SkillEnum::LETHARGY,

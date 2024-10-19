@@ -1645,5 +1645,15 @@
         <target>Votre prochaine réparation, recherche ou projet est réussi.</target>
       </segment>
     </unit>
+    <unit id="antique_perfume_immunized">
+      <segment id="name" state="translated">
+        <source>antique_perfume_immunized.name</source>
+        <target>Immunisée</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>antique_perfume_immunized.description</source>
+        <target>L'immunisée ne peut pas être contaminée par le Mush. Pratique quand on ne sait plus à qui faire confiance.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

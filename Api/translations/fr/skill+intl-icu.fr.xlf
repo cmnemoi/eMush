@@ -858,5 +858,15 @@
         <target>Ah cha il chavait faire de frai parfums chez fraigonard en mille neuf chent quatreving douche...//:point: A chaque **douche**, vous gagnez une immunité de **2** cycles contre les **infections Mush**.</target>
       </segment>
     </unit>
+    <unit id="self_sacrifice">
+      <segment id="self_sacrifice.name" state="translated">
+        <source>self_sacrifice.name</source>
+        <target>Abnégation</target>
+      </segment>
+      <segment id="self_sacrifice.description" state="translated">
+        <source>self_sacrifice.description</source>
+        <target>Certaines personnes particulièrement résilientes peuvent souffrir l'insupportable. Mais le prix est grand.//:point: Si votre moral tombe à 0, vous ne mourrez pas, mais vous perdez **1** :hp: par cycle.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

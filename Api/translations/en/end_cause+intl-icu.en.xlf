@@ -260,7 +260,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>exploration_lost.short_name</source>
-        <target>Your crewmates can't be bothered coming to get you...</target>
+        <target>Your crewmates found you, but something else found you first!</target>
       </segment>
       <segment id="category" state="translated">
         <source>exploration_lost.category</source>

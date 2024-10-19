@@ -1724,6 +1724,22 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => SkillPointsEnum::POLYMATH_IT_POINTS->value,
+            'statusName' => SkillPointsEnum::POLYMATH_IT_POINTS->value,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SKILL_POINTS_INCREMENT,
+            'maxCharge' => 2,
+            'startCharge' => 2,
+            'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_POLYMATH_IT_POINTS],
+            'autoRemove' => false,
+            'modifierConfigs' => [
+                ModifierNameEnum::SKILL_POINT_POLYMATH_IT_POINTS,
+            ],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

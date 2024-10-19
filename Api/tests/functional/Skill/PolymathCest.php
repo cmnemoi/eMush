@@ -7,8 +7,6 @@ namespace Mush\tests\functional\Action\Actions;
 use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionVariableEnum;
-use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;

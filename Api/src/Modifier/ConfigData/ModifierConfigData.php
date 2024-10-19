@@ -3709,6 +3709,26 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
         ],
+        [
+            'name' => ModifierNameEnum::SKILL_POINT_POLYMATH_IT_POINTS,
+            'modifierName' => ModifierNameEnum::SKILL_POINT_POLYMATH_IT_POINTS,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'visibility' => null,
+            'delta' => 0,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_IT->value => ModifierRequirementEnum::ANY_TAGS,
+                ModifierNameEnum::SKILL_POINT_IT_EXPERT => ModifierRequirementEnum::NONE_TAGS,
+                ModifierNameEnum::SKILL_POINT_CORE => ModifierRequirementEnum::NONE_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

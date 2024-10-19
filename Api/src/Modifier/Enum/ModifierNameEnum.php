@@ -125,4 +125,5 @@ abstract class ModifierNameEnum
     public const string HYGIENIST_MUSH_INFECTIONS_MODIFIER = 'hygienist_mush_infections_modifier';
     public const string PLAYER_MINUS_10_PERCENTAGE_ON_ACTIONS = 'player_minus_10_percentage_on_actions';
     public const string POLYMATH_MODIFIER_ON_ACTIONS = 'polymath_modifier_on_actions';
+    public const string SKILL_POINT_POLYMATH_IT_POINTS = 'skill_point_polymath_it_points';
 }

@@ -328,6 +328,9 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::SELF_SACRIFICE,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::SHOOTER,
                 skillPointsConfig: SkillPointsEnum::SHOOTER_POINTS,
             ),

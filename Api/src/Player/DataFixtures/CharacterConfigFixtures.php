@@ -214,6 +214,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $ocdSkillConfig */
         $ocdSkillConfig = $this->getReference(SkillEnum::OCD->value);
 
+        /** @var SkillConfig $selfSacrificeSkillConfig */
+        $selfSacrificeSkillConfig = $this->getReference(SkillEnum::SELF_SACRIFICE->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -380,6 +383,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $itExpertSkillConfig,
                 $neronOnlyFriendSkillConfig,
                 $diplomatSkillConfig,
+                $radioExpertSkillConfig,
+                $selfSacrificeSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($janice);

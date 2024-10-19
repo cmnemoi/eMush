@@ -479,6 +479,7 @@ class GameConfigData
                 PlayerStatusEnum::HAS_PETTED_CAT . '_default',
                 EquipmentStatusEnum::CAT_INFECTED . '_default',
                 PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED . '_default',
+                PlayerStatusEnum::HAS_DAUNTED . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

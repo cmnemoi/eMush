@@ -38,9 +38,23 @@ final class DauntCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveActionPoints(0, $I);
     }
 
+    public function shouldRemoveMovementPointsToTarget(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasMovementPoints(4);
+
+        $this->whenChunDauntsKuanTi();
+
+        $this->thenKuanTiShouldHaveMovementPoints(0, $I);
+    }
+
     private function givenKuanTiHasActionPoints(int $actionPoints): void
     {
         $this->kuanTi->setActionPoint($actionPoints);
+    }
+
+    private function givenKuanTiHasMovementPoints(int $movementPoints): void
+    {
+        $this->kuanTi->setMovementPoint($movementPoints);
     }
 
     private function whenChunDauntsKuanTi(): void
@@ -57,5 +71,10 @@ final class DauntCest extends AbstractFunctionalTest
     private function thenKuanTiShouldHaveActionPoints(int $actionPoints, FunctionalTester $I): void
     {
         $I->assertEquals($actionPoints, $this->kuanTi->getActionPoint());
+    }
+
+    private function thenKuanTiShouldHaveMovementPoints(int $movementPoints, FunctionalTester $I): void
+    {
+        $I->assertEquals($movementPoints, $this->kuanTi->getMovementPoint());
     }
 }

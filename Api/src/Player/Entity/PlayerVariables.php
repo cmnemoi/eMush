@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Player\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -61,6 +63,14 @@ class PlayerVariables extends GameVariableCollection
             0
         );
 
-        parent::__construct([$actionVariable, $movementVariable, $moralVariable, $healthVariable, $satietyVariable, $sporeVariable]);
+        $privateChannelsVariable = new GameVariable(
+            variableCollection: $this,
+            name: PlayerVariableEnum::PRIVATE_CHANNELS,
+            initValue: 0,
+            maxValue: $characterConfig->getMaxNumberPrivateChannel(),
+            minValue: 0
+        );
+
+        parent::__construct([$actionVariable, $movementVariable, $moralVariable, $healthVariable, $satietyVariable, $sporeVariable, $privateChannelsVariable]);
     }
 }

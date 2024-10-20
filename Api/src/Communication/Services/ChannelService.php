@@ -22,6 +22,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -115,7 +116,7 @@ class ChannelService implements ChannelServiceInterface
         $playersWithChannelsSlots = $this->channelPlayerRepository->findAvailablePlayerForPrivateChannel(
             $channel,
             $player->getDaedalus(),
-            $player->getPlayerInfo()->getCharacterConfig()->getMaxNumberPrivateChannel()
+            $player->getVariableValueByName(PlayerVariableEnum::PRIVATE_CHANNELS)
         );
 
         $availablePlayers = new PlayerCollection();

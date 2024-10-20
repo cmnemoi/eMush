@@ -818,5 +818,15 @@
         <target>Vous travaillez propre, très propre, toujours plus propre, encore plus propre. Vous êtes proprement névrosé de la propreté mais ça a ses bons côtés.//:point: Vous ne vous salissez jamais accidentellement en effectuant des actions sur le vaisseau.</target>
       </segment>
     </unit>
+    <unit id="metalworker">
+      <segment id="metalworker.name" state="translated">
+        <source>metalworker.name</source>
+        <target>Métalo</target>
+      </segment>
+      <segment id="metalworker.description" state="translated">
+        <source>metalworker.description</source>
+        <target>Vous, on peut dire que vous êtes vraiment quelqu'un de productif !//:point: **Jounalier** : Si vous vous trouvez dans un **Stockage**, pour **0** :pa:, vous avez une chance de trouver des débris voir mieux.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

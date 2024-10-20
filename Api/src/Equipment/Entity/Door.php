@@ -27,8 +27,9 @@ class Door extends GameEquipment
     {
         $door = new self($room1);
         $door
-            ->setName($door->buildName())
-            ->addRoom($room2);
+            ->addRoom($room1)
+            ->addRoom($room2)
+            ->setName($door->buildName());
 
         return $door;
     }

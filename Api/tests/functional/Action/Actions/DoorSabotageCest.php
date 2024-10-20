@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Mush\tests\functional\Action\Actions;
+
 use Mush\Action\Actions\DoorSabotage;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -15,6 +16,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class DoorSabotageCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
@@ -32,6 +36,13 @@ final class DoorSabotageCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::DOORMAN, $I);
     }
 
+    public function shouldNotBeVisibleIfNoOperationalDoorInRoom(FunctionalTester $I): void
+    {
+        $this->whenPlayerSabotagesDoor();
+
+        $this->thenActionShouldNotBeVisible($I);
+    }
+
     public function shouldBreakRandomDoor(FunctionalTester $I): void
     {
         $this->givenSomeDoorsInRoom($I);
@@ -42,9 +53,9 @@ final class DoorSabotageCest extends AbstractFunctionalTest
     }
 
     private function givenSomeDoorsInRoom(FunctionalTester $I): void
-    {   
+    {
         $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
-        
+
         $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
         $door = Door::createFromRooms($frontCorridor, $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
         $door->setEquipment($doorConfig);
@@ -74,6 +85,11 @@ final class DoorSabotageCest extends AbstractFunctionalTest
             player: $this->player,
         );
         $this->doorSabotage->execute();
+    }
+
+    private function thenActionShouldNotBeVisible(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->doorSabotage->isVisible());
     }
 
     private function thenOneDoorShouldBeBroken(FunctionalTester $I): void

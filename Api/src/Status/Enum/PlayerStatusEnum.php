@@ -71,4 +71,5 @@ abstract class PlayerStatusEnum
     public const string ANTIQUE_PERFUME_IMMUNIZED = 'antique_perfume_immunized';
     public const string HAS_DAUNTED = 'has_daunted';
     public const string HAS_GEN_METAL = 'has_gen_metal';
+    public const string HAS_SABOTAGED_DOOR = 'has_sabotaged_door';
 }

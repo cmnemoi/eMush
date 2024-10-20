@@ -481,6 +481,7 @@ class GameConfigData
                 PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED . '_default',
                 PlayerStatusEnum::HAS_DAUNTED . '_default',
                 PlayerStatusEnum::HAS_GEN_METAL . '_default',
+                PlayerStatusEnum::HAS_SABOTAGED_DOOR . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

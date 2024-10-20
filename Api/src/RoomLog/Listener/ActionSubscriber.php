@@ -70,7 +70,7 @@ final class ActionSubscriber implements EventSubscriberInterface
 
         $actionLog = $this->roomLogService->createLogFromActionEvent($event);
 
-        if ($actionLog?->IsPublicOrRevealed()) {
+        if ($actionLog?->isPublicOrRevealed()) {
             $this->handleCatNoises($event);
         }
     }
@@ -272,33 +272,31 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function handleCatNoises(ActionEvent $event): void
     {
-        if ($this->ShotAtCatAndFailed($event)) {
+        if ($this->shotAtCatAndFailed($event)) {
             $this->createCatHissLog($event);
 
             return;
         }
-        if ($this->ShotAtCatAndSucceeded($event)) {
+        if ($this->shotAtCatAndSucceeded($event)) {
             // A dead cat shouldn't make noise.
             return;
         }
-        if ($this->SchrodingerInRoomOrPlayerInventory($event)) {
-            if ($this->d100Roll->isSuccessful(self::CAT_MEOW_CHANCE)) {
+        if ($this->schrodingerInRoomOrPlayerInventory($event) && $this->d100Roll->isSuccessful(self::CAT_MEOW_CHANCE)) {
                 $this->createCatMeowLog($event);
-            }
         }
     }
 
-    private function ShotAtCatAndFailed(ActionEvent $event): bool
+    private function shotAtCatAndFailed(ActionEvent $event): bool
     {
-        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && ($event->getActionResultOrThrow()->getResultTag() === ActionOutputEnum::FAIL);
+        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && $event->getActionResultOrThrow()->getResultTag() === ActionOutputEnum::FAIL;
     }
 
-    private function ShotAtCatAndSucceeded(ActionEvent $event): bool
+    private function shotAtCatAndSucceeded(ActionEvent $event): bool
     {
-        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && ($event->getActionResultOrThrow()->getResultTag() === ActionOutputEnum::SUCCESS);
+        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && $event->getActionResultOrThrow()->getResultTag() === ActionOutputEnum::SUCCESS;
     }
 
-    private function SchrodingerInRoomOrPlayerInventory(ActionEvent $event): bool
+    private function schrodingerInRoomOrPlayerInventory(ActionEvent $event): bool
     {
         if ($event->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER)) {
             return true;

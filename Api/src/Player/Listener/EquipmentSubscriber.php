@@ -40,7 +40,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $this->ejectPlayersFromPatrolship($event);
 
-        $this->HandleSchrodingerDeathMoraleLoss($event);
+        $this->handleSchrodingerDeathMoraleLoss($event);
     }
 
     private function ejectPlayersFromPatrolship(EquipmentEvent $event): void
@@ -70,7 +70,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function HandleSchrodingerDeathMoraleLoss(EquipmentEvent $event): void
+    private function handleSchrodingerDeathMoraleLoss(EquipmentEvent $event): void
     {
         $equipment = $event->getGameEquipment();
 

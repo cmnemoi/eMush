@@ -1097,6 +1097,9 @@ class ActionsFixtures extends Fixture
         $torture = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TORTURE));
         $manager->persist($torture);
 
+        $doorSabotage = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::DOOR_SABOTAGE));
+        $manager->persist($doorSabotage);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1226,5 +1229,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER->value, $upgradeDroneToFirefighter);
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_PILOT->value, $upgradeDroneToPilot);
         $this->addReference(ActionEnum::TORTURE->value, $torture);
+        $this->addReference(ActionEnum::DOOR_SABOTAGE->value, $doorSabotage);
     }
 }

@@ -254,6 +254,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getPlace()->getName() !== $placeName;
     }
 
+    public function isNotInAny(array $placeNames): bool
+    {
+        return \in_array($this->getPlace()->getName(), $placeNames, true) === false;
+    }
+
     /**
      * This method returns all rooms connected to player's one by a working door.
      *

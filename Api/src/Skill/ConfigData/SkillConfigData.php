@@ -244,6 +244,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::METALWORKER,
+                actionConfigs: [
+                    ActionEnum::GEN_METAL,
+                ],
             ),
             new SkillConfigDto(
                 name: SkillEnum::MOTIVATOR,

@@ -159,6 +159,8 @@ abstract class ActionLogEnum
     public const string SHOOT_CAT_CRITICAL_FAIL = 'shoot_cat_critical_fail';
     public const string SHOOT_CAT_ONE_SHOT = 'shoot_cat_one_shot';
     public const string DAUNT_SUCCESS = 'daunt_success';
+    public const string GEN_METAL_SUCCESS = 'gen_metal_success';
+    public const string GEN_METAL_FAIL = 'gen_metal_fail';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -548,6 +550,10 @@ abstract class ActionLogEnum
         ],
         ActionEnum::DAUNT->value => [
             ActionOutputEnum::SUCCESS => self::DAUNT_SUCCESS,
+        ],
+        ActionEnum::GEN_METAL->value => [
+            ActionOutputEnum::SUCCESS => self::GEN_METAL_SUCCESS,
+            ActionOutputEnum::FAIL => self::GEN_METAL_FAIL,
         ],
     ];
 

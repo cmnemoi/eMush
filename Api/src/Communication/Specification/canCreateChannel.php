@@ -4,6 +4,7 @@ namespace Mush\Communication\Specification;
 
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 
 class canCreateChannel implements SpecificationInterface
 {
@@ -21,7 +22,7 @@ class canCreateChannel implements SpecificationInterface
                 return false;
             }
             $channels = $this->channelService->getPlayerChannels($candidate, true);
-            if ($channels->count() < $candidate->getPlayerInfo()->getCharacterConfig()->getMaxNumberPrivateChannel()) {
+            if ($channels->count() < $candidate->getVariableValueByName(PlayerVariableEnum::PRIVATE_CHANNELS)) {
                 return true;
             }
         }

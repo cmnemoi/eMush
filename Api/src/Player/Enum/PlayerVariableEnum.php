@@ -11,6 +11,7 @@ abstract class PlayerVariableEnum
     public const string SATIETY = 'satiety';
     public const string TRIUMPH = 'triumph';
     public const string SPORE = 'spore';
+    public const string PRIVATE_CHANNELS = 'privateChannels';
 
     public static function getCappedPlayerVariables(): array
     {

@@ -1437,5 +1437,15 @@ Or you simply need some fresh air.... or not.</target>
 **Try to borrow a Patrol Ship and destroy all the Hunters before you leave. 20% targeting bonus compared to humans.**</target>
       </segment>
     </unit>
+    <unit id="cure">
+      <segment id="cure" state="translated">
+        <source>cure.name</source>
+        <target>Innoculate</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cure.description</source>
+        <target>The anti-Mush vaccine injects a powerful retro-fungal compound which removes all Mush symptoms in the target.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

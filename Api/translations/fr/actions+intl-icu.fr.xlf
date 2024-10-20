@@ -1470,5 +1470,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Torturez un équipier pour obtenir la vérité. Il perdra 1 :hp: puis révélera une action récente par :hp: manquant.</target>
       </segment>
     </unit>
+    <unit id="cure">
+      <segment id="cure" state="translated">
+        <source>cure.name</source>
+        <target>Vacciner</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cure.description</source>
+        <target>Le vaccin anti-Mush injecte un retro-fongique puissant qui annule tout les effets du Mush sur un sujet infecté.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -10,6 +10,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerRepositoryInterface;
+use Mush\RoomLog\Service\RoomLogService;
 use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -22,7 +23,8 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     public function __construct(
         private DeletePlayerSkillService $deletePlayerSkill,
         private EventServiceInterface $eventService,
-        private PlayerRepositoryInterface $playerRepository
+        private PlayerRepositoryInterface $playerRepository,
+        private RoomLogService $roomLogService
     ) {}
 
     public static function getSubscribedEvents(): array

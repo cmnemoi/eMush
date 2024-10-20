@@ -1013,5 +1013,11 @@
         <target>{drone}'s patrol ship has just landed.</target>
       </segment>
     </unit>
+    <unit id="player_vaccinated">
+      <segment id="player_vaccinated" state="translated">
+        <source>player_vaccinated</source>
+        <target>You start to vomit. You feel strange. As if your senses have been muted, as if you don't exist any more. You suddenly feel very alone. You feel anxious again that the end is nigh, you feel true fear again. You are no longer Mush...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

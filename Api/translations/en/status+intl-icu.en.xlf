@@ -1645,7 +1645,6 @@
         <target>Your next research, project or repair is successful.</target>
       </segment>
     </unit>
-        </unit>
     <unit id="cat_infected">
       <segment id="name" state="translated">
         <source>cat_infected.name</source>

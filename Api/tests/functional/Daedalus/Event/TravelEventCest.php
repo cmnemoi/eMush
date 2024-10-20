@@ -15,6 +15,8 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
@@ -49,6 +51,7 @@ final class TravelEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private ExplorationServiceInterface $explorationService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
@@ -56,6 +59,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->explorationService = $I->grabService(ExplorationServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
@@ -430,6 +434,23 @@ final class TravelEventCest extends AbstractFunctionalTest
         );
     }
 
+    public function testTravelWhenExploringWithRope(FunctionalTester $I): void
+    {
+        // given an exploration is ongoing
+        $this->createExplorationWithRope($I);
+
+        // when travel is launched
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [ActionEnum::LEAVE_ORBIT->value],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+
+        // then the exploration is deleted
+        $I->assertNull($this->daedalus->getExploration());
+    }
+
     private function createExploration(FunctionalTester $I)
     {
         // given there is Icarus Bay on this Daedalus
@@ -483,6 +504,78 @@ final class TravelEventCest extends AbstractFunctionalTest
             holder: $this->daedalus,
             tags: [],
             time: new \DateTime(),
+        );
+
+        // given there is an exploration with an explorator
+        $this->explorationService->createExploration(
+            players: new PlayerCollection([$this->player]),
+            explorationShip: $this->icarus,
+            numberOfSectorsToVisit: 2,
+            reasons: ['test'],
+        );
+    }
+
+    private function createExplorationWithRope(FunctionalTester $I)
+    {
+        // given there is Icarus Bay on this Daedalus
+        $icarusBay = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
+
+        // given player is in Icarus Bay
+        $this->player->changePlace($icarusBay);
+
+        // given there is the Icarus ship in Icarus Bay
+        /** @var EquipmentConfig $icarusConfig */
+        $icarusConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::ICARUS]);
+        $this->icarus = new GameEquipment($icarusBay);
+        $this->icarus
+            ->setName(EquipmentEnum::ICARUS)
+            ->setEquipment($icarusConfig);
+        $I->haveInRepository($this->icarus);
+
+        // given a planet with oxygen is found
+        $planetName = new PlanetName();
+        $planetName->setFirstSyllable(1);
+        $planetName->setFourthSyllable(1);
+        $I->haveInRepository($planetName);
+
+        $this->planet = new Planet($this->player);
+        $this->planet
+            ->setName($planetName)
+            ->setSize(3);
+        $I->haveInRepository($this->planet);
+
+        $desertSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::DESERT . '_default']);
+        $desertSector = new PlanetSector($desertSectorConfig, $this->planet);
+        $I->haveInRepository($desertSector);
+
+        $seismicSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::SEISMIC_ACTIVITY . '_default']);
+        $seismicSector = new PlanetSector($seismicSectorConfig, $this->planet);
+        $I->haveInRepository($seismicSector);
+
+        $oxygenSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::OXYGEN . '_default']);
+        $oxygenSector = new PlanetSector($oxygenSectorConfig, $this->planet);
+        $I->haveInRepository($oxygenSector);
+
+        $hydroCarbonSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::HYDROCARBON . '_default']);
+        $hydroCarbonSector = new PlanetSector($hydroCarbonSectorConfig, $this->planet);
+        $I->haveInRepository($hydroCarbonSector);
+
+        $this->planet->setSectors(new ArrayCollection([$desertSector, $seismicSector, $oxygenSector, $hydroCarbonSector]));
+
+        // given the Daedalus is in orbit around the planet
+        $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::IN_ORBIT,
+            holder: $this->daedalus,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given the player has a rope
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::ROPE,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime()
         );
 
         // given there is an exploration with an explorator

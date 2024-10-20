@@ -17,6 +17,9 @@ interface GameEquipmentServiceInterface
 {
     public function persist(GameEquipment $equipment): GameEquipment;
 
+    /**
+     * @deprecated DO NOT USE THIS METHOD !!! Use DeleteEquipmentService instead !!!
+     */
     public function delete(GameEquipment $equipment): void;
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection;

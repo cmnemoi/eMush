@@ -14,10 +14,11 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class ChannelPlayerRepositoryCest
+final class ChannelPlayerRepositoryCest
 {
     private FunctionalTester $tester;
 
@@ -60,6 +61,7 @@ class ChannelPlayerRepositoryCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
         ]);
+        $player->setPlayerVariables($characterConfig);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);
@@ -70,18 +72,18 @@ class ChannelPlayerRepositoryCest
         $player2 = $I->have(Player::class, [
             'daedalus' => $daedalus2,
         ]);
+        $player2->setPlayerVariables($characterConfig);
         $player2Info = new PlayerInfo($player2, $user, $characterConfig);
 
         $I->haveInRepository($player2Info);
         $player2->setPlayerInfo($player2Info);
         $I->refreshEntities($player2);
 
-        $channel1 = $this->createPrivateChannel([$player2Info], $daedalus);
+        $channel1 = $this->createPrivateChannel([$playerInfo], $daedalus);
 
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus, 3);
+        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus);
 
-        $I->assertCount(1, $players);
-        $I->assertContains($playerInfo, $players);
+        $I->assertCount(0, $players);
     }
 
     public function testFindAvailablePlayerForPrivateChannelWithDeadPlayer(FunctionalTester $I)
@@ -107,6 +109,7 @@ class ChannelPlayerRepositoryCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
         ]);
+        $player->setPlayerVariables($characterConfig);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);
@@ -126,7 +129,7 @@ class ChannelPlayerRepositoryCest
 
         $channel1 = $this->createPrivateChannel([], $daedalus);
 
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus, 3);
+        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus);
 
         $I->assertCount(1, $players);
         $I->assertContains($playerInfo, $players);
@@ -155,6 +158,7 @@ class ChannelPlayerRepositoryCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
         ]);
+        $player->setPlayerVariables($characterConfig);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);
@@ -165,6 +169,7 @@ class ChannelPlayerRepositoryCest
         $player2 = $I->have(Player::class, [
             'daedalus' => $daedalus,
         ]);
+        $player2->setPlayerVariables($characterConfig);
         $player2Info = new PlayerInfo($player2, $user, $characterConfig);
 
         $I->haveInRepository($player2Info);
@@ -173,14 +178,14 @@ class ChannelPlayerRepositoryCest
 
         $channel1 = $this->createPrivateChannel([], $daedalus);
 
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus, 3);
+        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus);
 
         $I->assertCount(2, $players);
         $I->assertContains($playerInfo, $players);
         $I->assertContains($player2Info, $players);
 
         $channel2 = $this->createPrivateChannel([$playerInfo], $daedalus);
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel2, $daedalus, 3);
+        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel2, $daedalus);
 
         $I->assertCount(1, $players);
         $I->assertContains($player2Info, $players);
@@ -209,6 +214,8 @@ class ChannelPlayerRepositoryCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player->getVariableByName(PlayerVariableEnum::PRIVATE_CHANNELS)->setMaxValue(1);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);
@@ -219,6 +226,7 @@ class ChannelPlayerRepositoryCest
         $player2 = $I->have(Player::class, [
             'daedalus' => $daedalus,
         ]);
+        $player2->setPlayerVariables($characterConfig);
         $player2Info = new PlayerInfo($player2, $user, $characterConfig);
 
         $I->haveInRepository($player2Info);
@@ -226,25 +234,18 @@ class ChannelPlayerRepositoryCest
         $I->refreshEntities($player2);
 
         $channel1 = $this->createPrivateChannel([], $daedalus);
+
+        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus);
+
+        $I->assertCount(2, $players);
+        $I->assertContains($playerInfo, $players);
+        $I->assertContains($player2Info, $players);
+
         $channel2 = $this->createPrivateChannel([$playerInfo], $daedalus);
-
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus, 1);
+        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel2, $daedalus);
 
         $I->assertCount(1, $players);
         $I->assertContains($player2Info, $players);
-
-        $channel3 = $this->createPrivateChannel([$playerInfo, $player2Info], $daedalus);
-
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus, 2);
-        $I->assertCount(1, $players);
-        $I->assertContains($player2Info, $players);
-
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel2, $daedalus, 2);
-        $I->assertCount(1, $players);
-        $I->assertContains($player2Info, $players);
-
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel3, $daedalus, 2);
-        $I->assertCount(0, $players);
     }
 
     private function createPrivateChannel(array $users, Daedalus $daedalus): Channel

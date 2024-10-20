@@ -17,6 +17,7 @@ class EventConfigData
     public const string CHANGE_VALUE_PLUS_1_MAX_DAEDALUS_SPORE = 'change.value.max_daedalus_+1_spore';
     public const string CHANGE_VALUE_PLUS_1_CHARGE_MUSH_STATUS = 'change.value.max_mush_status_+1_charge';
     public const string CHANGE_VARIABLE_PLAYER_MINUS_1_SPORE = 'change.variable_player_-1_spore';
+    public const string CHANGE_VALUE_PLUS_2_MAX_PRIVATE_CHANNELS = 'change.value.max_private_channels_+2';
 
     public static array $variableEventConfigData = [
         [
@@ -330,6 +331,14 @@ class EventConfigData
             'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
             'eventName' => VariableEventInterface::CHANGE_VARIABLE,
             'name' => self::CHANGE_VARIABLE_PLAYER_MINUS_1_SPORE,
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 2,
+            'targetVariable' => PlayerVariableEnum::PRIVATE_CHANNELS,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
+            'name' => self::CHANGE_VALUE_PLUS_2_MAX_PRIVATE_CHANNELS,
         ],
     ];
 

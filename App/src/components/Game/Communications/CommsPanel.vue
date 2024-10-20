@@ -1,5 +1,5 @@
 <template>
-    <div id="comms-panel" :class="{toomany: channels.length > 8}" >
+    <div id="comms-panel">
         <Tippy tag="div" class="cycle-time">
             <img :src="getImgUrl('comms/calendar.png')">
             <span>{{ calendar?.dayName }} {{ calendar?.day }} - <br />{{ calendar?.cycleName }} {{ calendar?.cycle }}</span>
@@ -205,14 +205,6 @@ export default defineComponent ({
                 opacity: 1;
             }
         }
-    }
-
-    &.toomany .tabs {
-        flex-wrap: wrap;
-        padding-bottom: 0.8em;
-        gap:.5em 0;
-
-        &:deep(.tab::after) { @include corner-bezel(4.5px); }
     }
 
     @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) { width: 100%; }

@@ -116,6 +116,12 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $daedalusInfo->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -555,6 +561,12 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
+
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
 
         $mushChannel = new Channel();
         $mushChannel

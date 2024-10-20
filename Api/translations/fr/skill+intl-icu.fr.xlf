@@ -818,5 +818,15 @@
         <target>Vous travaillez propre, très propre, toujours plus propre, encore plus propre. Vous êtes proprement névrosé de la propreté mais ça a ses bons côtés.//:point: Vous ne vous salissez jamais accidentellement en effectuant des actions sur le vaisseau.</target>
       </segment>
     </unit>
+    <unit id="nimble_fingers">
+      <segment id="nimble_fingers.name" state="translated">
+        <source>nimble_fingers.name</source>
+        <target>Doigts de fée</target>
+      </segment>
+      <segment id="nimble_fingers.description" state="translated">
+        <source>nimble_fingers.description</source>
+        <target>Avec un petit peu d'aide de vos rhizomes vous pouvez faire des choses merveilleuses. Comme manipuler des caméras par exemple...//:point: Vos actions **Installer** et **Retirer** sont **discrètes** sur les caméras.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

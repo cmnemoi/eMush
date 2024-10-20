@@ -1381,7 +1381,7 @@
     </unit>
     <unit id="shoot_cat_critical_fail">
       <segment id="shoot_cat_critical_fail" state="final">
-        <source>shoot_critical_fail</source>
+        <source>shoot_cat_critical_fail</source>
         <target>{version, select,
                     1 {{character_gender, select,
                         male {Le tour de magie de **{character}** est décidément raté, il retourne son arme contre lui par mégarde.}

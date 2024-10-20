@@ -1074,5 +1074,47 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>**{character}** has been hammering away at this poor {target_drone}. It's for the best though. {target_drone} has been upgraded to **Pilot**.</target>
       </segment>
     </unit>
+    <unit id="take_cat">
+      <segment id="take_cat" state="final">
+        <source>take_cat</source>
+        <target>**{character}** has picked up **{target_equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="pet_cat">
+      <segment id="pet_cat" state="final">
+        <source>pet_cat</source>
+        <target>**{character}** gave **{target_equipment}** a big cuddle, much to his displeasure, but in any case it always makes people feel better.</target>
+      </segment>
+    </unit>
+    <unit id="shoot_cat_success">
+      <segment id="shoot_cat_success" state="final">
+        <source>shoot_cat_success</source>
+        <target>Premeditated or not, **{character}** took out their weapon and opened fire on **{target_equipment}**.</target>
+      </segment>
+    </unit>
+        <unit id="shoot_cat_critical_success">
+      <segment id="shoot_cat_critical_success" state="final">
+        <source>shoot_cat_critical_success</source>
+        <target>Premeditated or not, **{character}** took out their weapon and opened fire on **{target_equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="shoot_cat_fail">
+      <segment id="shoot_cat_fail" state="final">
+        <source>shoot_cat_fail</source>
+        <target>{version, select,
+    1 {Premeditated or not, **{character}** took out their weapon and opened fire on **{target_character}**.}
+    other {Premeditated or not, **{character}** took out their weapon and opened fire on **{target_character}**.}
+    }</target>
+      </segment>
+    </unit>
+    <unit id="shoot_cat_critical_fail">
+      <segment id="shoot_cat_critical_fail" state="final">
+        <source>shoot_cat_critical_fail</source>
+        <target>{version, select,
+    1 {When firing at **{target_character}**, **{character}** got burnt with their weapon. Spectacular work.}
+    other {When firing at **{target_character}**, **{character}** got burnt with their weapon. Spectacular work.}
+}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

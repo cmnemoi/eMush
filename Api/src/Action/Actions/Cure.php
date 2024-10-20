@@ -70,12 +70,12 @@ class Cure extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         /** @var Player $target */
-        $target = $this->target;
+        $target = $this->playerTarget();
 
         $this->statusService->removeStatus(
             PlayerStatusEnum::MUSH,
             $target,
-            $this->getActionConfig()->getActionTags(),
+            $this->getTags(),
             new \DateTime(),
         );
 
@@ -90,7 +90,7 @@ class Cure extends AbstractAction
             $serum,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getActionConfig()->getActionTags(),
+            $this->getTags(),
             new \DateTime()
         );
 

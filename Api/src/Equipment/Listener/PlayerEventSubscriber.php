@@ -6,14 +6,11 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventPriorityEnum;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -55,7 +52,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         $playerEquipment = $player->getEquipments();
 
         if ($player->isExploringOrIsLostOnPlanet()) {
-            $this->destroyPlayerItems($player);
+            $this->destroyPlayerItems($event);
 
             return;
         }
@@ -70,8 +67,9 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function destroyPlayerItems(Player $player): void
+    private function destroyPlayerItems(PlayerEvent $event): void
     {
+        $player = $event->getPlayer();
         foreach ($player->getEquipments() as $item) {
             $this->deleteEquipment->execute($item, tags: $event->getTags(), time: $event->getTime());
         }

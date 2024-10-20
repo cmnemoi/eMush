@@ -652,6 +652,7 @@ class GameConfigData
                 SkillEnum::DETACHED_CREWMEMBER,
                 SkillEnum::DETERMINED,
                 SkillEnum::DEVOTION,
+                SkillEnum::DOORMAN,
                 SkillEnum::DIPLOMAT,
                 SkillEnum::DISHEARTENING_CONTACT,
                 SkillEnum::EXPERT,

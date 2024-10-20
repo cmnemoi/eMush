@@ -389,6 +389,11 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $this->getDoors()->filter(static fn (Door $door) => $door->isOperational());
     }
 
+    public function getBrokenDoors(): Collection
+    {
+        return $this->getDoors()->filter(static fn (Door $door) => $door->isBroken());
+    }
+
     /**
      * @return Collection<array-key, GameEquipment>
      */

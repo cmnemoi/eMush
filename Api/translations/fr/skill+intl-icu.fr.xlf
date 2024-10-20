@@ -818,5 +818,15 @@
         <target>Vous travaillez propre, très propre, toujours plus propre, encore plus propre. Vous êtes proprement névrosé de la propreté mais ça a ses bons côtés.//:point: Vous ne vous salissez jamais accidentellement en effectuant des actions sur le vaisseau.</target>
       </segment>
     </unit>
+    <unit id="doorman">
+      <segment id="doorman.name" state="translated">
+        <source>doorman.name</source>
+        <target>Portier</target>
+      </segment>
+      <segment id="doorman.description" state="translated">
+        <source>doorman.description</source>
+        <target>Certaines coulemelles rampantes peuvent imiter cet effet désagréable du riz soufflé proactif. Et ça tombe bien le Mush vous a émis leur génotype.//:point: Chaque jour, vous pouvez **saboter** une **Porte** gratuitement.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

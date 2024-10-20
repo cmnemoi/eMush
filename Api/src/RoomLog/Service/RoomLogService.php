@@ -247,6 +247,10 @@ class RoomLogService implements RoomLogServiceInterface
             return VisibilityEnum::HIDDEN;
         }
 
+        if ($this->pariahShouldApplyToLog($roomLog) || $this->isCameraManipulationLogWithNumbleFingers($roomLog)) {
+            $visibility = VisibilityEnum::SECRET;
+        }
+
         if ($this->observantRevealsLog($player, $visibility)) {
             $this->createObservantNoticeSomethingLog($player);
             $roomLog->markAsNoticed();
@@ -254,11 +258,7 @@ class RoomLogService implements RoomLogServiceInterface
             return VisibilityEnum::REVEALED;
         }
 
-        if ($visibility === VisibilityEnum::COVERT && $player->hasStatus(PlayerStatusEnum::PARIAH)) {
-            $visibility = VisibilityEnum::SECRET;
-        }
-
-        if ($this->shouldRevealSecretLog($roomLog, $visibility) || $this->shouldRevealCovertLog($player, $visibility)) {
+        if ($this->shouldRevealLog($roomLog, $visibility)) {
             return VisibilityEnum::REVEALED;
         }
 
@@ -361,6 +361,23 @@ class RoomLogService implements RoomLogServiceInterface
         };
     }
 
+    private function shouldRevealLog(RoomLog $roomLog, string $visibility): bool
+    {
+        $player = $roomLog->getPlayerInfo()?->getPlayer();
+        if ($player === null) {
+            throw new \LogicException('RoomLog should have a player');
+        }
+
+        return $this->shouldRevealSecretLog($roomLog, $visibility) && $this->shouldRevealCovertLog($player, $visibility);
+    }
+
+    private function isCameraManipulationLogWithNumbleFingers(RoomLog $roomLog): bool
+    {
+        $player = $roomLog->getPlayerInfo()?->getPlayer();
+
+        return $player?->hasSkill(SkillEnum::NIMBLE_FINGERS) && $roomLog->isCameraManipulationLog();
+    }
+
     private function shouldRevealCovertLog(Player $player, string $visibility): bool
     {
         $place = $player->getPlace();
@@ -376,7 +393,7 @@ class RoomLogService implements RoomLogServiceInterface
         $placeHasAWitness = $place?->getNumberOfPlayersAlive() > 1;
         $placeHasAFunctionalCamera = $place?->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
 
-        return $visibility === VisibilityEnum::SECRET && ($placeHasAWitness || ($placeHasAFunctionalCamera && $roomLog->isSabotageCameraLog() === false));
+        return $visibility === VisibilityEnum::SECRET && ($placeHasAWitness || ($placeHasAFunctionalCamera && $roomLog->shoulBeRevealedByCamera()));
     }
 
     private function observantRevealsLog(Player $player, string $visibility): bool
@@ -385,6 +402,14 @@ class RoomLogService implements RoomLogServiceInterface
         $observantDetectedCovertAction = $visibility === VisibilityEnum::COVERT && $this->randomService->isSuccessful(self::OBSERVANT_REVEAL_CHANCE);
 
         return $observantInRoom && $observantDetectedCovertAction;
+    }
+
+    private function pariahShouldApplyToLog(RoomLog $roomLog): bool
+    {
+        $player = $roomLog->getPlayerInfo()?->getPlayer();
+        $visibility = $roomLog->getVisibility();
+
+        return $visibility === VisibilityEnum::COVERT && $player?->hasStatus(PlayerStatusEnum::PARIAH);
     }
 
     private function createObservantNoticeSomethingLog(Player $player): void

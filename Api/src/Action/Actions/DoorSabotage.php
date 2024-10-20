@@ -10,12 +10,14 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\OperationalDoorInRoom;
 use Mush\Equipment\Entity\Door;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -36,12 +38,19 @@ final class DoorSabotage extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(
+        $metadata->addConstraints([
             new OperationalDoorInRoom([
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::SABOTAGE_NO_DOOR,
-            ])
-        );
+            ]),
+            new HasStatus([
+                'status' => PlayerStatusEnum::HAS_SABOTAGED_DOOR,
+                'target' => HasStatus::PLAYER,
+                'contain' => false,
+                'groups' => ['execute'],
+                'message' => ActionImpossibleCauseEnum::DAILY_LIMIT,
+            ]),
+        ]);
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool
@@ -57,6 +66,7 @@ final class DoorSabotage extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $this->breakRandomDoor();
+        $this->createHasSabotagedDoorStatusForPlayer();
     }
 
     private function breakRandomDoor(): void
@@ -77,5 +87,15 @@ final class DoorSabotage extends AbstractAction
         }
 
         return $this->randomService->getRandomElement($doors->toArray());
+    }
+
+    private function createHasSabotagedDoorStatusForPlayer(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::HAS_SABOTAGED_DOOR,
+            holder: $this->player,
+            tags: $this->getTags(),
+            time: new \DateTime(),
+        );
     }
 }

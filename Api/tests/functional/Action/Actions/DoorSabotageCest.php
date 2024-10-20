@@ -74,6 +74,17 @@ final class DoorSabotageCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldBeAvailableOncePerDay(FunctionalTester $I): void
+    {
+        $this->givenSomeDoorsInRoom($I);
+
+        $this->givenPlayerSabotagedDoor();
+
+        $this->whenPlayerSabotagesDoor();
+
+        $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::DAILY_LIMIT);
+    }
+
     private function givenSomeDoorsInRoom(FunctionalTester $I): void
     {
         $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
@@ -97,6 +108,16 @@ final class DoorSabotageCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
+    }
+
+    private function givenPlayerSabotagedDoor(): void
+    {
+        $this->doorSabotage->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->player,
+            player: $this->player,
+        );
+        $this->doorSabotage->execute();
     }
 
     private function whenPlayerSabotagesDoor(): void

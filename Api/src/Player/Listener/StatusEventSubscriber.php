@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Player\Listener;
 
-use Mush\Action\Enum\ActionEnum;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -72,10 +70,6 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayerStatusHolder();
 
-        if ($event->hasTag(ActionEnum::CURE->value)) {
-            $this->createPlayerVaccinatedLog($event);
-        }
-
         if ($player->isAlive()) {
             $this->markPlayerAsHuman($player);
         }
@@ -93,19 +87,5 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     {
         $player->getPlayerInfo()->getClosedPlayer()->setIsMush(false);
         $this->playerRepository->save($player);
-    }
-
-    private function createPlayerVaccinatedLog(StatusEvent $event)
-    {
-        $player = $event->getPlayerStatusHolder();
-        $this->roomLogService->createLog(
-            'player_vaccinated',
-            $player->getPlace(),
-            VisibilityEnum::PRIVATE,
-            'event_log',
-            $player,
-            [],
-            $event->getTime()
-        );
     }
 }

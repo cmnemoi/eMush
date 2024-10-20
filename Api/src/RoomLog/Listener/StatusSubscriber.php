@@ -4,6 +4,7 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Equipment\Entity\Door;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
@@ -11,6 +12,7 @@ use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\ChargeStatusEvent;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -71,6 +73,7 @@ class StatusSubscriber implements EventSubscriberInterface
         $statusName = $event->getStatusName();
         match ($statusName) {
             PlaceStatusEnum::DELOGGED->toString() => $this->handleDeloggedPlace(event: $event),
+            PlayerStatusEnum::MUSH => $this->handlePlayerVaccinated(event: $event),
             default => null,
         };
 
@@ -179,5 +182,19 @@ class StatusSubscriber implements EventSubscriberInterface
             $log->resetVisibility();
             $this->roomLogService->persist($log);
         }
+    }
+
+    private function handlePlayerVaccinated(StatusEvent $event)
+    {
+        $player = $event->getPlayerStatusHolder();
+        $this->roomLogService->createLog(
+            'player_vaccinated',
+            $player->getPlace(),
+            VisibilityEnum::PRIVATE,
+            'event_log',
+            $player,
+            [],
+            $event->getTime()
+        );
     }
 }

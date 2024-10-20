@@ -25,7 +25,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class ActionSubscriber implements EventSubscriberInterface
 {
     public const int OBSERVANT_REVEAL_CHANCE = 25;
-    public const int CAT_MEOW_CHANCE = 100;
+    public const int CAT_MEOW_CHANCE = 10;
 
     public function __construct(
         private D100RollServiceInterface $d100Roll,

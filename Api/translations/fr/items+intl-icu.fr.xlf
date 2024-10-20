@@ -1716,7 +1716,7 @@ Un tube épais... qu'est-ce que vous pourriez en faire...</target>
       </segment>
       <segment id="genre" state="final">
         <source>schrodinger.gender</source>
-        <target>male</target>
+        <target>name</target>
       </segment>
       <segment id="first_letter" state="final">
         <source>schrodinger.first_letter</source>
@@ -1729,7 +1729,7 @@ Un tube épais... qu'est-ce que vous pourriez en faire...</target>
       <segment id="examine" state="final">
         <source>schrodinger.examine</source>
         <target>Schrödinger est un chat un peu grincheux mais tout à fait soyeux.
-"Un beau chat, fort doux et charmant. Quand il miaule, on l'entend à peine, Tant son timbre est tendre et discret." C'est le chat de Raluca.</target>
+"Un beau chat, fort doux et charmant. Quand il miaule, on l'entend à peine, tant son timbre est tendre et discret." C'est le chat de Raluca.</target>
       </segment>
     </unit>
     <unit id="support_drone">

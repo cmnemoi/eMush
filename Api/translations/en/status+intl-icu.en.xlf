@@ -1645,5 +1645,15 @@
         <target>Your next research, project or repair is successful.</target>
       </segment>
     </unit>
+    <unit id="cat_infected">
+      <segment id="name" state="translated">
+        <source>cat_infected.name</source>
+        <target>Infected</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cat_infected.description</source>
+        <target>Your mission is way too important to pick and choose your allies.//Every **human** crewmember **clawed** by this cat will see their **contamination level go up by one**.//*You can see this message because you are one of the Mush.*</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

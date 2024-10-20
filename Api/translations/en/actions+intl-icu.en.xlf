@@ -1447,5 +1447,35 @@ Or you simply need some fresh air.... or not.</target>
         <target>The anti-Mush vaccine injects a powerful retro-fungal compound which removes all Mush symptoms in the target.</target>
       </segment>
     </unit>
+     <unit id="take_cat">
+      <segment id="name" state="final">
+        <source>take_cat.name</source>
+        <target>Pick up</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>take_cat.description</source>
+        <target>Lift that beast up and place it in your inventory. Careful, kitty's got claws!</target>
+      </segment>
+    </unit>
+    <unit id="pet_cat">
+      <segment id="name" state="final">
+        <source>pet_cat.name</source>
+        <target>Caress</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>pet_cat.description</source>
+        <target>Allows you to cuddle with Schrödinger lovingly. Brings a bit of joy the first time...</target>
+      </segment>
+    </unit>
+    <unit id="convert_cat">
+      <segment id="name" state="final">
+        <source>convert_cat.name</source>
+        <target>Caresse Infectieuse</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>convert_cat.description</source>
+        <target>PAllows you to cuddle with Schrödinger "lovingly" and make it an agent of Mush.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

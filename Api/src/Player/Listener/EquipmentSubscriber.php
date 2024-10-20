@@ -4,15 +4,20 @@ namespace Mush\Player\Listener;
 
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
+    public const int GLOBAL_MORALE_LOSS_SCHRODINGER_DEATH = 0;
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
 
@@ -33,16 +38,20 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $patrolShip = $event->getGameEquipment();
-        $patrolShipPlace = $event->getPlace();
+        $this->ejectPlayersFromPatrolship($event);
 
-        // only handle patrol ship destructions
-        if (!EquipmentEnum::getPatrolShips()->contains($patrolShip->getName())) {
-            return;
-        }
+        $this->handleSchrodingerDeathMoraleLoss($event);
+    }
 
-        foreach ($patrolShipPlace->getPlayers() as $player) {
-            $this->ejectPlayer($player, $event->getTags(), $event->getTime());
+    private function ejectPlayersFromPatrolship(EquipmentEvent $event): void
+    {
+        $equipment = $event->getGameEquipment();
+        $equipmentPlace = $event->getPlace();
+
+        if ($equipment->hasMechanicByName(EquipmentEnum::PATROL_SHIP)) {
+            foreach ($equipmentPlace->getPlayers() as $player) {
+                $this->ejectPlayer($player, $event->getTags(), $event->getTime());
+            }
         }
     }
 
@@ -58,6 +67,25 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 endReason: EndCauseEnum::mapEndCause($tags),
                 time: $time
             );
+        }
+    }
+
+    private function handleSchrodingerDeathMoraleLoss(EquipmentEvent $event): void
+    {
+        $equipment = $event->getGameEquipment();
+
+        if ($equipment->isSchrodinger()) {
+            $alivePlayers = $event->getDaedalus()->getAlivePlayers();
+            foreach ($alivePlayers as $player) {
+                $playerVariableEvent = new PlayerVariableEvent(
+                    $player,
+                    PlayerVariableEnum::MORAL_POINT,
+                    self::GLOBAL_MORALE_LOSS_SCHRODINGER_DEATH,
+                    [ItemEnum::SCHRODINGER],
+                    new \DateTime(),
+                );
+                $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+            }
         }
     }
 }

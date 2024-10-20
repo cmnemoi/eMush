@@ -7,6 +7,8 @@ use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -14,6 +16,7 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -22,6 +25,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class ActionSubscriber implements EventSubscriberInterface
 {
     public const int OBSERVANT_REVEAL_CHANCE = 25;
+    public const int CAT_MEOW_CHANCE = 10;
 
     public function __construct(
         private D100RollServiceInterface $d100Roll,
@@ -47,6 +51,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         if ($actionName === ActionEnum::MOVE) {
             /** @var Door $door */
             $door = $actionTarget;
+            $this->handleCatNoises($event);
             $this->createExitRoomLog($player, $door);
         }
 
@@ -63,7 +68,11 @@ final class ActionSubscriber implements EventSubscriberInterface
             throw new \LogicException('$actionResult should not be null');
         }
 
-        $this->roomLogService->createLogFromActionEvent($event);
+        $actionLog = $this->roomLogService->createLogFromActionEvent($event);
+
+        if ($actionLog?->isPublicOrRevealed()) {
+            $this->handleCatNoises($event);
+        }
     }
 
     public function onPostAction(ActionEvent $event): void
@@ -86,6 +95,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             /** @var Door $door */
             $door = $actionHolder;
             $this->createEnterRoomLog($player, $door);
+            $this->handleCatNoises($event);
         }
 
         match ($action->getActionName()) {
@@ -258,5 +268,71 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         $roomLog->markAsNoticed();
         $this->roomLogService->persist($roomLog);
+    }
+
+    private function handleCatNoises(ActionEvent $event): void
+    {
+        if ($this->shotAtCatAndFailed($event)) {
+            $this->createCatHissLog($event);
+
+            return;
+        }
+        if ($this->shotAtCatAndSucceeded($event)) {
+            // A dead cat shouldn't make noise.
+            return;
+        }
+        if ($this->schrodingerInRoomOrPlayerInventory($event) && $this->d100Roll->isSuccessful(self::CAT_MEOW_CHANCE)) {
+            $this->createCatMeowLog($event);
+        }
+    }
+
+    private function shotAtCatAndFailed(ActionEvent $event): bool
+    {
+        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && $event->getActionResultOrThrow()->getResultTag() === ActionOutputEnum::FAIL;
+    }
+
+    private function shotAtCatAndSucceeded(ActionEvent $event): bool
+    {
+        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && $event->getActionResultOrThrow()->getResultTag() === ActionOutputEnum::SUCCESS;
+    }
+
+    private function schrodingerInRoomOrPlayerInventory(ActionEvent $event): bool
+    {
+        if ($event->getPlace()->hasEquipmentByName(ItemEnum::SCHRODINGER)) {
+            return true;
+        }
+        foreach ($event->getPlace()->getAlivePlayers() as $playerInRoom) {
+            if ($playerInRoom->hasEquipmentByName(ItemEnum::SCHRODINGER)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function createCatMeowLog(ActionEvent $event): void
+    {
+        $this->roomLogService->createLog(
+            LogEnum::CAT_MEOW,
+            $event->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'event_log',
+            null,
+            [LogParameterKeyEnum::ITEM => ItemEnum::SCHRODINGER],
+            new \DateTime()
+        );
+    }
+
+    private function createCatHissLog(ActionEvent $event): void
+    {
+        $this->roomLogService->createLog(
+            LogEnum::CAT_HISS,
+            $event->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'event_log',
+            null,
+            [LogParameterKeyEnum::ITEM => ItemEnum::SCHRODINGER],
+            new \DateTime()
+        );
     }
 }

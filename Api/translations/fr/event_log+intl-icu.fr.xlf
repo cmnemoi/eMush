@@ -1234,5 +1234,11 @@
         other {Vous vous en prenez violemment à **{character}**. Vous attrapez un annuaire qui trainait par là et vous lui mettez de grands coups avec... C'est sanguinolent, mais **{character}** finit par parler... Ses dernières actions sont {actions} et {lastAction}.}}</target>
       </segment>
     </unit>
+    <unit id="player_vaccinated">
+      <segment id="player_vaccinated" state="translated">
+        <source>player_vaccinated</source>
+        <target>Vous vomissez. Vous vous sentez étrange. Comme si on vous coupait de vos sensations, comme si vous n'étiez plus rien. Vous vous sentez seul. Vous retrouvez l'angoisse de la fin qui viendra, vous retrouvez l'émotion de la peur. Vous ne faites plus partie du Mush...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

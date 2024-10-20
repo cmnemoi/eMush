@@ -3,6 +3,7 @@
 namespace Mush\Player\Listener;
 
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -15,24 +16,15 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class RoomSubscriber implements EventSubscriberInterface
+final class RoomSubscriber implements EventSubscriberInterface
 {
-    private RandomServiceInterface $randomService;
-    private EventServiceInterface $eventService;
-    private PlayerServiceInterface $playerService;
-    private GameEquipmentService $gameEquipmentService;
-
     public function __construct(
-        PlayerServiceInterface $playerService,
-        RandomServiceInterface $randomService,
-        EventServiceInterface $eventService,
-        GameEquipmentService $gameEquipmentService
-    ) {
-        $this->playerService = $playerService;
-        $this->randomService = $randomService;
-        $this->eventService = $eventService;
-        $this->gameEquipmentService = $gameEquipmentService;
-    }
+        private DeleteEquipmentServiceInterface $deleteEquipment,
+        private EventServiceInterface $eventService,
+        private GameEquipmentService $gameEquipmentService,
+        private PlayerServiceInterface $playerService,
+        private RandomServiceInterface $randomService,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -96,7 +88,7 @@ class RoomSubscriber implements EventSubscriberInterface
 
             /** @var GameEquipment $gameEquipment */
             foreach ($gameEquipments as $gameEquipment) {
-                $this->gameEquipmentService->delete($gameEquipment);
+                $this->deleteEquipment->execute($gameEquipment, tags: $event->getTags(), time: $event->getTime());
             }
 
             $this->playerService->delete($player);

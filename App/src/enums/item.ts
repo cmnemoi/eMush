@@ -85,6 +85,7 @@ const BABEL_MODULE = "babel_module";
 const WHITE_FLAG = "white_flag";
 const ANABOLIC = "anabolic";
 const MUSH_SAMPLE = "mush_sample";
+const RETRO_FUNGAL_SERUM = "retro_fungal_serum";
 
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
@@ -451,5 +452,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [MUSH_SAMPLE]: {
         'image': getImgUrl('items/mush_sample.jpg')
+    },
+    [RETRO_FUNGAL_SERUM]: {
+        'image': getImgUrl('items/retro_fungal_serum.jpg')
     }
 };

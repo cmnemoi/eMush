@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -23,6 +22,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
     private EventServiceInterface $eventService;
 
     public function __construct(
+        private DeleteEquipmentServiceInterface $deleteEquipment,
         private GameEquipmentServiceInterface $gameEquipmentService,
         private GetRandomIntegerServiceInterface $getRandomInteger,
         EventServiceInterface $eventService,
@@ -33,7 +33,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
+            PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', EventPriorityEnum::NORMAL],
         ];
     }
 
@@ -52,7 +52,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         $playerEquipment = $player->getEquipments();
 
         if ($player->isExploringOrIsLostOnPlanet() || $event->hasTag(EndCauseEnum::ABANDONED)) {
-            $this->DestroyPlayerEquipment($player);
+            $this->destroyPlayerItems($event);
 
             return;
         }
@@ -67,18 +67,11 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function DestroyPlayerEquipment(Player $player): void
+    private function destroyPlayerItems(PlayerEvent $event): void
     {
-        $playerEquipment = $player->getEquipments();
-        foreach ($playerEquipment as $item) {
-            $destroyEvent = new EquipmentEvent(
-                $item,
-                false,
-                VisibilityEnum::HIDDEN,
-                [],
-                new \DateTime(),
-            );
-            $this->eventService->callEvent($destroyEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $player = $event->getPlayer();
+        foreach ($player->getEquipments() as $item) {
+            $this->deleteEquipment->execute($item, tags: $event->getTags(), time: $event->getTime());
         }
     }
 

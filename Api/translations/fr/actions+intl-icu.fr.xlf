@@ -1470,5 +1470,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>torture.description</target>
       </segment>
     </unit>
+    <unit id="cure">
+      <segment id="cure" state="initial">
+        <source>cure.name</source>
+        <target>cure.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cure.description</source>
+        <target>cure.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -187,11 +187,13 @@ class StatusSubscriber implements EventSubscriberInterface
 
     private function handleMushStatusRemoved(StatusEvent $event)
     {
-        if($event->hasTag(ActionEnum::CURE->value))
-           $this->handlePlayerVaccinated($event);
+        if ($event->hasTag(ActionEnum::CURE->value)) {
+            $this->handlePlayerVaccinated($event);
+        }
     }
 
-    private function handlePlayerVaccinated(StatusEvent $event){
+    private function handlePlayerVaccinated(StatusEvent $event)
+    {
         $player = $event->getPlayerStatusHolder();
         $this->roomLogService->createLog(
             'player_vaccinated',
@@ -203,5 +205,4 @@ class StatusSubscriber implements EventSubscriberInterface
             $event->getTime()
         );
     }
-
 }

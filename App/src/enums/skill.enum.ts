@@ -178,6 +178,10 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/mush/disheartening_contact.png')
     },
 
+    [SkillEnum.DOORMAN]: {
+        'icon': getImgUrl('skills/mush/doorman.png')
+    },
+
     [SkillEnum.EXPERT]: {
         'icon': getImgUrl('skills/human/expert.png')
     },

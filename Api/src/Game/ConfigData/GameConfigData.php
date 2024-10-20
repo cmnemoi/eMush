@@ -673,6 +673,7 @@ class GameConfigData
                 SkillEnum::MANKIND_ONLY_HOPE,
                 SkillEnum::MASSIVE_MUSHIFICATION,
                 SkillEnum::MEDIC,
+                SkillEnum::METALWORKER,
                 SkillEnum::MOTIVATOR,
                 SkillEnum::MYCELIUM_SPIRIT,
                 SkillEnum::MYCOLOGIST,

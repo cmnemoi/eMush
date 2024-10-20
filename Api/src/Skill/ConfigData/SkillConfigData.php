@@ -243,6 +243,9 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::METALWORKER,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::MOTIVATOR,
                 actionConfigs: [
                     ActionEnum::BORING_SPEECH,

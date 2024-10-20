@@ -829,5 +829,11 @@
         <target>torturer_actions</target>
       </segment>
     </unit>
+    <unit id="player_vaccinated">
+      <segment id="player_vaccinated" state="initial">
+        <source>player_vaccinated</source>
+        <target>player_vaccinated</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

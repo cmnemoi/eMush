@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -18,6 +19,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
     public const int NB_ORGANIC_WASTE_MAX = 4;
 
     public function __construct(
+        private DeleteEquipmentServiceInterface $deleteEquipment,
         private GameEquipmentServiceInterface $gameEquipmentService,
         private GetRandomIntegerServiceInterface $getRandomInteger,
     ) {}
@@ -25,7 +27,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
+            PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', EventPriorityEnum::NORMAL],
         ];
     }
 
@@ -44,7 +46,9 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         $playerEquipment = $player->getEquipments();
 
         if ($player->isExploringOrIsLostOnPlanet()) {
-            $playerEquipment->map(fn (GameEquipment $gameEquipment) => $this->gameEquipmentService->delete($gameEquipment));
+            foreach ($playerEquipment as $item) {
+                $this->deleteEquipment->execute($item, tags: $event->getTags(), time: $event->getTime());
+            }
 
             return;
         }

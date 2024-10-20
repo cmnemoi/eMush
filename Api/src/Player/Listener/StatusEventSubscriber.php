@@ -74,7 +74,6 @@ final class StatusEventSubscriber implements EventSubscriberInterface
 
         if ($event->hasTag(ActionEnum::CURE->value)) {
             $this->createPlayerVaccinatedLog($event);
-            $player->removeAllHumanSkills();
         }
 
         if ($player->isAlive()) {

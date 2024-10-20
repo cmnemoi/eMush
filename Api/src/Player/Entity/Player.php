@@ -557,13 +557,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->hasSkill($skillName) === false;
     }
 
-    public function removeAllHumanSkills()
-    {
-        foreach ($this->getHumanSkills() as $skill) {
-            $this->removeSkill($skill);
-        }
-    }
-
     public function getSelectableHumanSkills(): SkillConfigCollection
     {
         if ($this->hasFilledTheirHumanSkillSlots()) {

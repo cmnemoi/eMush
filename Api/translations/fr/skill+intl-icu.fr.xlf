@@ -818,5 +818,15 @@
         <target>Vous travaillez propre, très propre, toujours plus propre, encore plus propre. Vous êtes proprement névrosé de la propreté mais ça a ses bons côtés.//:point: Vous ne vous salissez jamais accidentellement en effectuant des actions sur le vaisseau.</target>
       </segment>
     </unit>
+    <unit id="polymath">
+      <segment id="polymath.name" state="translated">
+        <source>polymath.name</source>
+        <target>Polymathe</target>
+      </segment>
+      <segment id="polymath.description" state="translated">
+        <source>polymath.description</source>
+        <target>La connaissance est en mouvement, l'état n'est déjà plus.//:point: **+2** canaux privés accessibles.//:point: **+1** :pa_comp: par jour.//:point: **-10%** à toutes vos tentatives d'action.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

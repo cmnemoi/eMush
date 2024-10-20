@@ -3,7 +3,6 @@
 namespace Mush\Communication\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
@@ -12,6 +11,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Enum\PlayerVariableEnum;
 
 /**
  * @template-extends ServiceEntityRepository<ChannelPlayer>
@@ -23,46 +23,89 @@ class ChannelPlayerRepository extends ServiceEntityRepository
         parent::__construct($registry, ChannelPlayer::class);
     }
 
-    public function findAvailablePlayerForPrivateChannel(Channel $channel, Daedalus $daedalus, int $maxChannel): array
+    public function findAvailablePlayerForPrivateChannel(Channel $channel, Daedalus $daedalus): array
     {
-        // Sub-query that gets all players that have more than $maxChannel private channel open
-        $subQuery = $this->createQueryBuilder('sub_query');
-        $subQuery
-            ->select('IDENTITY(sub_query.participant)')
-            ->join('sub_query.channel', 'channel')
-            ->where($subQuery->expr()->eq('channel.scope', ':private'))
-            ->andHaving($subQuery->expr()->gte('COUNT(channel.id)', ':maxChannel'))
-            ->groupBy('sub_query.participant');
-
-        // Sub-query2 that gets all players that are already in this channel
-        $subQuery2 = $this->createQueryBuilder('sub_query_2');
-        $subQuery2
-            ->select('sub_2_player.id')
-            ->join('sub_query_2.participant', 'sub_2_player')
-            ->where($subQuery2->expr()->eq('sub_query_2.channel', ':currentChannel'));
+        $playersWithAvailablePrivateChannel = $this->playersWithAvailablePrivateChannel($daedalus->getId());
 
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
         $queryBuilder
             ->select('playerInfo')
             ->from(PlayerInfo::class, 'playerInfo')
-            ->leftJoin(Player::class, 'game_player', Join::WITH, 'playerInfo.player = game_player')
-            ->where($queryBuilder->expr()->eq('game_player.daedalus', ':daedalus'))
+            ->join(Player::class, 'player', 'WITH', 'playerInfo.player = player')
+            ->where('player.id IN (:playerIds)') // only players with available private channels should be able to join a channel
             ->andWhere($queryBuilder->expr()->notIn(
                 'playerInfo.id',
-                $subQuery->getDQL()
-            ))
-            ->andWhere($queryBuilder->expr()->notIn(
-                'playerInfo.id',
-                $subQuery2->getDQL()
+                $this->playersAlreadyInChannelDQLQuery()
             ))
             ->andWhere($queryBuilder->expr()->eq('playerInfo.gameStatus', ':gameStatus'))
-            ->setParameter('private', ChannelScopeEnum::PRIVATE)
             ->setParameter('currentChannel', $channel)
-            ->setParameter('maxChannel', $maxChannel)
-            ->setParameter('daedalus', $daedalus)
+            ->setParameter('playerIds', $playersWithAvailablePrivateChannel)
             ->setParameter('gameStatus', GameStatusEnum::CURRENT); // only alive players should be able to join a channel
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    private function playersWithAvailablePrivateChannel(int $daedalusId): array
+    {
+        $query = <<<'SQL'
+            WITH player_open_channels AS (
+                SELECT player.id AS player_id, COUNT(channel.*) AS number_of_open_private_channels
+                FROM daedalus
+                INNER JOIN player
+                    ON player.daedalus_id = daedalus.id
+                INNER JOIN communication_channel_player AS channel_player
+                    ON channel_player.participant_id = player.id
+                INNER JOIN communication_channel channel
+                    ON channel.id = channel_player.channel_id
+                WHERE daedalus.id = :daedalusId
+                AND channel.scope = :scope
+                GROUP BY player.id
+            ),
+
+            player_max_channels AS (
+                SELECT player.id AS player_id, game_variable.max_value AS player_max_private_channels
+                FROM daedalus
+                INNER JOIN player
+                    ON player.daedalus_id = daedalus.id
+                INNER JOIN game_variable_collection
+                    ON game_variable_collection.id = player.player_variables_id
+                INNER JOIN game_variable
+                    ON game_variable.game_variable_collection_id = game_variable_collection.id
+                WHERE daedalus.id = :daedalusId
+                AND game_variable.name = :privateChannels
+            )
+
+            SELECT player.id
+            FROM player
+            LEFT JOIN player_open_channels
+            ON player.id = player_open_channels.player_id
+            LEFT JOIN player_max_channels
+            ON player.id = player_max_channels.player_id
+            WHERE COALESCE(player_open_channels.number_of_open_private_channels, 0) < player_max_channels.player_max_private_channels;
+        SQL;
+
+        $connection = $this->getEntityManager()->getConnection();
+
+        return $connection->executeQuery(
+            sql: $query,
+            params: [
+                'daedalusId' => $daedalusId,
+                'scope' => ChannelScopeEnum::PRIVATE,
+                'privateChannels' => PlayerVariableEnum::PRIVATE_CHANNELS,
+            ]
+        )->fetchFirstColumn();
+    }
+
+    private function playersAlreadyInChannelDQLQuery(): string
+    {
+        $queryBuilder = $this->createQueryBuilder('players_already_in_channel');
+
+        $queryBuilder
+            ->select('sub_2_player.id')
+            ->join('players_already_in_channel.participant', 'sub_2_player')
+            ->where($queryBuilder->expr()->eq('players_already_in_channel.channel', ':currentChannel'));
+
+        return $queryBuilder->getDQL();
     }
 }

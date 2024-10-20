@@ -3729,6 +3729,18 @@ abstract class ModifierConfigData
                 ModifierNameEnum::SKILL_POINT_CORE => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PLUS_2_MAX_PRIVATE_CHANNELS,
+            'modifierName' => ModifierNameEnum::POLYMATH_MODIFIER_ON_MAX_PRIVATE_CHANNELS,
+            'revertOnRemove' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'direct_modifier',
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'triggeredEvent' => EventConfigData::CHANGE_VALUE_PLUS_2_MAX_PRIVATE_CHANNELS,
+            'modifierActivationRequirements' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

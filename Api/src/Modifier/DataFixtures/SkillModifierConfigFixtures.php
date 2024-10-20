@@ -385,6 +385,16 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($polymathActionsModifier->getName(), $polymathActionsModifier);
         $manager->persist($polymathActionsModifier);
 
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VALUE_PLUS_2_MAX_PRIVATE_CHANNELS);
+
+        $polymathMaxPrivateChannelsModifier = DirectModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLUS_2_MAX_PRIVATE_CHANNELS)
+        );
+        $polymathMaxPrivateChannelsModifier->setTriggeredEvent($eventConfig);
+        $this->addReference($polymathMaxPrivateChannelsModifier->getName(), $polymathMaxPrivateChannelsModifier);
+        $manager->persist($polymathMaxPrivateChannelsModifier);
+
         $manager->flush();
     }
 

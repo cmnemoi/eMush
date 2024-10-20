@@ -4,6 +4,7 @@ namespace Mush\Communication\Listener;
 
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Daedalus\Event\DaedalusInitEvent;
+use Mush\Game\Enum\EventPriorityEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusInitSubscriber implements EventSubscriberInterface
@@ -19,7 +20,7 @@ class DaedalusInitSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusInitEvent::NEW_DAEDALUS => 'onDaedalusNew',
+            DaedalusInitEvent::NEW_DAEDALUS => ['onDaedalusNew', EventPriorityEnum::HIGH],
         ];
     }
 

@@ -655,5 +655,23 @@
         <target>You can't go into this room because there's a guardian in the room.</target>
       </segment>
     </unit>
+        <unit id="cat_already_converted">
+      <segment id="description" state="final">
+        <source>cat_already_converted.description</source>
+        <target>This animal has already joined your cause... Not that it improved its temper.</target>
+      </segment>
+    </unit>
+    <unit id="infect_cat_no_spore">
+      <segment id="description" state="final">
+        <source>infect_cat_no_spore.description</source>
+        <target>Now here's a clever idea... Though you'll need a spore before you can spike it.</target>
+      </segment>
+    </unit>
+    <unit id="player_is_germaphobic">
+      <segment id="description" state="final">
+        <source>player_is_germaphobic.description</source>
+        <target>The thought of getting any closer to this walking pile of germs disgusts you... Who knows where that thing has been?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

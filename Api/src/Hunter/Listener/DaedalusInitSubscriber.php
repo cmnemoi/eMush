@@ -3,6 +3,7 @@
 namespace Mush\Hunter\Listener;
 
 use Mush\Daedalus\Event\DaedalusInitEvent;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -20,7 +21,7 @@ class DaedalusInitSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusInitEvent::NEW_DAEDALUS => ['onNewDaedalus', -10], // do this after space creation
+            DaedalusInitEvent::NEW_DAEDALUS => ['onNewDaedalus', EventPriorityEnum::LOW], // do this after space creation
         ];
     }
 

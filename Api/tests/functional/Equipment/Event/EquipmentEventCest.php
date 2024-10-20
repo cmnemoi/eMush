@@ -4,6 +4,8 @@ namespace Mush\Tests\functional\Equipment\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -58,6 +60,12 @@ class EquipmentEventCest
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
+
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);

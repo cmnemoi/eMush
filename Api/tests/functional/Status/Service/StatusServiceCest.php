@@ -388,6 +388,12 @@ final class StatusServiceCest extends AbstractFunctionalTest
             ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -454,6 +460,12 @@ final class StatusServiceCest extends AbstractFunctionalTest
             ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
+
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);

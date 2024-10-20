@@ -86,6 +86,10 @@ abstract class LogEnum
     public const string DRONE_HIT_HUNTER = 'drone_hit_hunter';
     public const string DRONE_KILL_HUNTER = 'drone_kill_hunter';
     public const string DRONE_LAND = 'drone_land';
+    public const string AWAKEN_SCHRODINGER = 'awaken_schrodinger';
+    public const string CAT_MEOW = 'cat_meow';
+    public const string CAT_HISS = 'cat_hiss';
+    public const string CAT_SHOT_DEAD = 'cat_shot_dead';
     public const string TORTURER_ACTIONS = 'torturer_actions';
 
     public const string VALUE = 'value';

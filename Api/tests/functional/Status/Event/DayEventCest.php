@@ -3,6 +3,8 @@
 namespace Mush\Tests\functional\Status\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
@@ -62,6 +64,12 @@ class DayEventCest
         $daedalus = $I->have(Daedalus::class);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
+
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);

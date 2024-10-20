@@ -120,6 +120,12 @@ final class PrivateChannelAuthorizationCest
             ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
+
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($privateChannel)
@@ -245,6 +251,12 @@ final class PrivateChannelAuthorizationCest
             ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
+
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
 
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
@@ -399,6 +411,12 @@ final class PrivateChannelAuthorizationCest
             ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
+
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($privateChannel)
@@ -543,6 +561,12 @@ final class PrivateChannelAuthorizationCest
             ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
+
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
 
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
@@ -723,6 +747,12 @@ final class PrivateChannelAuthorizationCest
             ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
+
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+        $I->haveInRepository($mushChannel);
 
         $channelPlayer = new ChannelPlayer();
         $channelPlayer

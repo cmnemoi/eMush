@@ -8,10 +8,12 @@ use Mush\Communication\Enum\MushMessageEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Services\NeronMessageServiceInterface;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -79,6 +81,11 @@ class PlayerSubscriber implements EventSubscriberInterface
         $key = $event->mapLog(MushMessageEnum::PLAYER_INFECTION_LOGS);
         if ($key === null) {
             return;
+        }
+        if ($key === MushMessageEnum::INFECT_CAT) {
+            $mush = $player->getEquipmentByNameOrThrow(ItemEnum::SCHRODINGER)->getStatusByNameOrThrow(EquipmentStatusEnum::CAT_INFECTED)->getPlayerTargetOrThrow();
+            $params['item'] = ItemEnum::SCHRODINGER;
+            $params[$mush->getLogKey()] = $mush->getLogName();
         }
 
         $daedalusInfo = $player->getDaedalusInfo();

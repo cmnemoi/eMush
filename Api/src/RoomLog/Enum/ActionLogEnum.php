@@ -161,6 +161,7 @@ abstract class ActionLogEnum
     public const string DAUNT_SUCCESS = 'daunt_success';
     public const string GEN_METAL_SUCCESS = 'gen_metal_success';
     public const string GEN_METAL_FAIL = 'gen_metal_fail';
+    public const string DOOR_SABOTAGE_SUCCESS = 'door_sabotage_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -554,6 +555,9 @@ abstract class ActionLogEnum
         ActionEnum::GEN_METAL->value => [
             ActionOutputEnum::SUCCESS => self::GEN_METAL_SUCCESS,
             ActionOutputEnum::FAIL => self::GEN_METAL_FAIL,
+        ],
+        ActionEnum::DOOR_SABOTAGE->value => [
+            ActionOutputEnum::SUCCESS => self::DOOR_SABOTAGE_SUCCESS,
         ],
     ];
 

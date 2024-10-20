@@ -7,14 +7,18 @@ namespace Mush\tests\functional\Action\Actions;
 use Mush\Action\Actions\DoorSabotage;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -34,13 +38,14 @@ final class DoorSabotageCest extends AbstractFunctionalTest
 
         $this->givenPlayerIsMush();
         $this->addSkillToPlayer(SkillEnum::DOORMAN, $I);
+        $this->player2->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::SPACE));
     }
 
-    public function shouldNotBeVisibleIfNoOperationalDoorInRoom(FunctionalTester $I): void
+    public function shouldNotBeExecutableIfNoOperationalDoorInRoom(FunctionalTester $I): void
     {
         $this->whenPlayerSabotagesDoor();
 
-        $this->thenActionShouldNotBeVisible($I);
+        $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::SABOTAGE_NO_DOOR);
     }
 
     public function shouldBreakRandomDoor(FunctionalTester $I): void
@@ -50,6 +55,23 @@ final class DoorSabotageCest extends AbstractFunctionalTest
         $this->whenPlayerSabotagesDoor();
 
         $this->thenOneDoorShouldBeBroken($I);
+    }
+
+    public function shouldPrintSecretLogOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenSomeDoorsInRoom($I);
+
+        $this->whenPlayerSabotagesDoor();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: ":mush: Étrange, **Chun** s'affaire sur une **Porte** qui émet une petite fumée...",
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: ActionLogEnum::DOOR_SABOTAGE_SUCCESS,
+                visibility: VisibilityEnum::SECRET,
+            ),
+            I: $I
+        );
     }
 
     private function givenSomeDoorsInRoom(FunctionalTester $I): void
@@ -87,9 +109,9 @@ final class DoorSabotageCest extends AbstractFunctionalTest
         $this->doorSabotage->execute();
     }
 
-    private function thenActionShouldNotBeVisible(FunctionalTester $I): void
+    private function thenActionShouldNotBeExecutableWithMessage(FunctionalTester $I, string $message): void
     {
-        $I->assertFalse($this->doorSabotage->isVisible());
+        $I->assertEquals($message, $this->doorSabotage->cannotExecuteReason());
     }
 
     private function thenOneDoorShouldBeBroken(FunctionalTester $I): void

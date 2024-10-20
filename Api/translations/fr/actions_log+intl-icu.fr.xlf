@@ -1342,5 +1342,11 @@
         <target>**{character}** s'acharne un peu sur ce pauvre {target_drone}. Mais c'est pour son bien. {target_drone} reçoit l'amélioration **Pilote**.</target>
       </segment>
     </unit>
+    <unit id="door_sabotage_success">
+      <segment id="door_sabotage_success" state="final">
+        <source>door_sabotage_success</source>
+        <target>:mush: Étrange, **{character}** s'affaire sur une **Porte** qui émet une petite fumée...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -7,6 +7,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\OperationalDoorInRoom;
@@ -37,7 +38,8 @@ final class DoorSabotage extends AbstractAction
     {
         $metadata->addConstraint(
             new OperationalDoorInRoom([
-                'groups' => [ClassConstraint::VISIBILITY],
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::SABOTAGE_NO_DOOR,
             ])
         );
     }

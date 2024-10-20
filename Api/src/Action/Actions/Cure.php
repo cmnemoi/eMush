@@ -69,7 +69,6 @@ class Cure extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $target */
         $target = $this->playerTarget();
 
         $this->statusService->removeStatus(

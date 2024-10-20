@@ -151,6 +151,8 @@ abstract class ActionLogEnum
     public const string UPGRADE_DRONE_TO_TURBO_SUCCESS = 'upgrade_drone_to_turbo_success';
     public const string UPGRADE_DRONE_TO_FIREFIGHTER_SUCCESS = 'upgrade_drone_to_firefighter_success';
     public const string UPGRADE_DRONE_TO_PILOT_SUCCESS = 'upgrade_drone_to_pilot_success';
+    public const string GEN_METAL_SUCCESS = 'gen_metal_success';
+    public const string GEN_METAL_FAIL = 'gen_metal_fail';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -521,6 +523,10 @@ abstract class ActionLogEnum
         ],
         ActionEnum::COLLECT_SCRAP->value => [
             ActionOutputEnum::FAIL => self::COLLECT_SCRAP_FAIL,
+        ],
+        ActionEnum::GEN_METAL->value => [
+            ActionOutputEnum::SUCCESS => self::GEN_METAL_SUCCESS,
+            ActionOutputEnum::FAIL => self::GEN_METAL_FAIL,
         ],
     ];
 

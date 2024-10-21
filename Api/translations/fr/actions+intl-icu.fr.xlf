@@ -1540,5 +1540,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>**Journalier** : Permet de saboter une porte au hasard dans la pièce.</target>
       </segment>
     </unit>
+    <unit id="give_nightmare">
+      <segment id="give_nightmare" state="final">
+        <source>give_nightmare.name</source>
+        <target>Créer un cauchemar</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>give_nightmare.description</source>
+        <target>Permet d'infliger des terreurs nocturnes à un membre d'équipage allongé, ce qui le privera de ses bonus de repos.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

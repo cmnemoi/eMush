@@ -36,7 +36,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>heavy.description</source>
-        <target>Cet objet est particulièrement lourd.</target>
+        <target>Cet objet est particulièrement lourd. Se déplacer avec vous coûtera 2 :pm: de plus.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>heavy.examine</source>
@@ -1170,7 +1170,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>burdened.description</source>
-        <target>Vous portez des objets particulièrement lourds. Vos mouvements vous coûtent plus cher.</target>
+        <target>Vous portez des objets particulièrement lourds. Vos mouvements vous coûtent 2 :pm: de plus.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>burdened.examine</source>

@@ -587,7 +587,7 @@
       </segment>
       <segment id="victimizer.description" state="translated">
         <source>victimizer.description</source>
-        <target>Certain well-targeted remarks can have unexpected results.//:point: For **1** :pa: you can accuse a crewmate, penalizing them with the **Pariah** status.//:point: Their actions become 20% likely to be successful.//:point: Their covert actions become secret.//:point: The Pariah status remains for as long as the Victimizer is alive, or until the pariah dies or becomes inactive.</target>
+        <target>Certain well-targeted remarks can have unexpected results.//:point: For **1** :pa: you can accuse a crewmate, penalizing them with the **Pariah** status.//:point: Their actions become 20% less likely to be successful.//:point: Their covert actions become secret.//:point: The Pariah status remains for as long as the Victimizer is alive, or until the pariah dies or becomes inactive.</target>
       </segment>
     </unit>
     <unit id="frugivore">

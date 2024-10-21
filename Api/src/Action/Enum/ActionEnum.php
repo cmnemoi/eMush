@@ -155,7 +155,6 @@ enum ActionEnum: string
     case SLIME_OBJECT = 'slime_object';
     case EXCHANGE_BODY = 'exchange_body';
     case DOOR_SABOTAGE = 'door_sabotage';
-    case DEFACE = 'deface';
     case DELOG = 'delog';
     case MAKE_SICK = 'make_sick';
     case SCREW_TALKIE = 'screw_talkie';
@@ -163,6 +162,7 @@ enum ActionEnum: string
     case NERON_DEPRESS = 'neron_depress';
     case MASS_GGEDON = 'mass_ggeddon';
     case SLIME_TRAP = 'slime_trap';
+    case GIVE_NIGHTMARE = 'give_nightmare';
 
     // Terminal related actions
     case EXIT_TERMINAL = 'exit_terminal';

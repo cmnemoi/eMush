@@ -242,6 +242,12 @@ abstract class SkillConfigData
                 name: SkillEnum::NERON_ONLY_FRIEND,
             ),
             new SkillConfigDto(
+                name: SkillEnum::NIGHTMARISH,
+                actionConfigs: [
+                    ActionEnum::GIVE_NIGHTMARE,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::NURSE,
                 skillPointsConfig: SkillPointsEnum::NURSE_POINTS,
             ),

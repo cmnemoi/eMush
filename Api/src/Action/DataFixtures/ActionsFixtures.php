@@ -1109,6 +1109,9 @@ class ActionsFixtures extends Fixture
         $torture = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TORTURE));
         $manager->persist($torture);
 
+        $giveNightmare = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GIVE_NIGHTMARE));
+        $manager->persist($giveNightmare);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1241,5 +1244,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::PET_CAT->value, $petCat);
         $this->addReference(ActionEnum::SHOOT_CAT->value, $shootCat);
         $this->addReference(ActionEnum::TORTURE->value, $torture);
+        $this->addReference(ActionEnum::GIVE_NIGHTMARE->value, $giveNightmare);
     }
 }

@@ -1657,13 +1657,22 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
-
         [
             'name' => EquipmentStatusEnum::CAT_INFECTED . '_default',
             'statusName' => EquipmentStatusEnum::CAT_INFECTED,
             'visibility' => VisibilityEnum::MUSH,
             'type' => 'status_config',
             'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlayerStatusEnum::FITFUL_SLEEP . '_default',
+            'statusName' => PlayerStatusEnum::FITFUL_SLEEP,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [
+                ModifierNameEnum::FITFUL_SLEEP_MINUS_ONE_ACTION_POINT,
+            ],
             'actionConfigs' => [],
         ],
     ];

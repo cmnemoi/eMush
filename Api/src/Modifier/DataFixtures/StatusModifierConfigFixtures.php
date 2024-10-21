@@ -343,6 +343,14 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $catOwnerModifierMoraleLossOnSchrodingerDeath = VariableEventModifierConfig::fromConfigData(ModifierConfigData::getByName('cat_owner_modifier_-4morale_on_cat_death'));
         $manager->persist($catOwnerModifierMoraleLossOnSchrodingerDeath);
 
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::ACTION_REDUCE_1);
+        $fitfulSleepModifier = TriggerEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::FITFUL_SLEEP_MINUS_ONE_ACTION_POINT)
+        );
+        $fitfulSleepModifier->setTriggeredEvent($eventConfig);
+        $manager->persist($fitfulSleepModifier);
+
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -372,6 +380,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference($pilotDroneModifier->getName(), $pilotDroneModifier);
         $this->addReference($catOwnerModifierSchrodingerCantHurt->getName(), $catOwnerModifierSchrodingerCantHurt);
         $this->addReference($catOwnerModifierMoraleLossOnSchrodingerDeath->getName(), $catOwnerModifierMoraleLossOnSchrodingerDeath);
+        $this->addReference($fitfulSleepModifier->getName(), $fitfulSleepModifier);
     }
 
     public function getDependencies(): array

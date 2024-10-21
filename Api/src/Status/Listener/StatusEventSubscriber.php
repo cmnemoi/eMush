@@ -63,55 +63,36 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     {
         $statusHolder = $event->getStatusHolder();
 
-        switch ($event->getStatusName()) {
-            case DaedalusStatusEnum::TRAVELING:
-                $daedalusEvent = new DaedalusEvent(
-                    $event->getDaedalus(),
-                    $event->getTags(),
-                    $event->getTime()
-                );
-                $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
-
-                break;
-
-            case EquipmentStatusEnum::BROKEN:
-                $this->repairScrewedTalkie($event->getStatus(), $event->getTags(), $event->getTime());
-                $this->handleRepairGravity($statusHolder, $event->getTags(), $event->getTime());
-
-                break;
-
-            case PlayerStatusEnum::SLIME_TRAP:
-                $this->statusService->createStatusFromName(
-                    PlayerStatusEnum::DIRTY,
-                    $statusHolder,
-                    $event->getTags(),
-                    $event->getTime()
-                );
-
-                break;
-
-            case EquipmentStatusEnum::SLIMED:
-                $this->statusService->createStatusFromName(
-                    statusName: EquipmentStatusEnum::BROKEN,
-                    holder: $statusHolder,
-                    tags: $event->getTags(),
-                    time: $event->getTime()
-                );
-
-                break;
-
-            case PlayerStatusEnum::MUSH:
-                $this->statusService->removeStatus(
-                    PlayerStatusEnum::HAS_READ_MAGE_BOOK,
-                    $statusHolder,
-                    $event->getTags(),
-                    $event->getTime(),
-                );
-
-                break;
-
-            default:
-        }
+        match ($event->getStatusName()) {
+            DaedalusStatusEnum::TRAVELING => $this->dispatchTravelFinishedEvent($event),
+            EquipmentStatusEnum::BROKEN => $this->handleEquipmentRepaired($event),
+            PlayerStatusEnum::SLIME_TRAP => $this->statusService->createStatusFromName(
+                PlayerStatusEnum::DIRTY,
+                $statusHolder,
+                $event->getTags(),
+                $event->getTime()
+            ),
+            EquipmentStatusEnum::SLIMED => $this->statusService->createStatusFromName(
+                statusName: EquipmentStatusEnum::BROKEN,
+                holder: $statusHolder,
+                tags: $event->getTags(),
+                time: $event->getTime()
+            ),
+            PlayerStatusEnum::MUSH => $this->statusService->removeStatus(
+                PlayerStatusEnum::HAS_READ_MAGE_BOOK,
+                $statusHolder,
+                $event->getTags(),
+                $event->getTime(),
+            ),
+            PlayerStatusEnum::LYING_DOWN => $this->statusService->removeStatus(
+                PlayerStatusEnum::FITFUL_SLEEP,
+                $statusHolder,
+                $event->getTags(),
+                $event->getTime(),
+                VisibilityEnum::PUBLIC,
+            ),
+            default => null,
+        };
     }
 
     private function handleBrokenEquipment(
@@ -187,6 +168,41 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         }
     }
 
+    private function handleMushStatusApplied(StatusEvent $event): void
+    {
+        $this->statusService->removeStatus(
+            PlayerStatusEnum::STARVING,
+            $event->getPlayerStatusHolder(),
+            $event->getTags(),
+            $event->getTime()
+        );
+
+        if ($event->hasTag(ActionEnum::EXCHANGE_BODY->value)) {
+            $this->statusService->removeStatus(
+                statusName: PlayerStatusEnum::HAS_READ_MAGE_BOOK,
+                holder: $event->getPlayerStatusHolder(),
+                tags: $event->getTags(),
+                time: $event->getTime(),
+            );
+        }
+    }
+
+    private function dispatchTravelFinishedEvent(StatusEvent $event): void
+    {
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $event->getDaedalus(),
+            tags: $event->getTags(),
+            time: $event->getTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+    }
+
+    private function handleEquipmentRepaired(StatusEvent $event): void
+    {
+        $this->repairScrewedTalkie($event->getStatus(), $event->getTags(), $event->getTime());
+        $this->handleRepairGravity($event->getStatusHolder(), $event->getTags(), $event->getTime());
+    }
+
     private function repairScrewedTalkie(
         Status $brokenStatus,
         array $tags,
@@ -217,9 +233,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         array $tags,
         \DateTime $time
     ): void {
-        if ($statusHolder instanceof GameEquipment
-            && $statusHolder->getName() === EquipmentEnum::GRAVITY_SIMULATOR
-        ) {
+        if ($statusHolder->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
             $daedalus = $statusHolder->getDaedalus();
 
             $this->statusService->removeStatus(
@@ -234,25 +248,6 @@ final class StatusEventSubscriber implements EventSubscriberInterface
                 $daedalus,
                 $tags,
                 $time
-            );
-        }
-    }
-
-    private function handleMushStatusApplied(StatusEvent $event): void
-    {
-        $this->statusService->removeStatus(
-            PlayerStatusEnum::STARVING,
-            $event->getPlayerStatusHolder(),
-            $event->getTags(),
-            $event->getTime()
-        );
-
-        if ($event->hasTag(ActionEnum::EXCHANGE_BODY->value)) {
-            $this->statusService->removeStatus(
-                statusName: PlayerStatusEnum::HAS_READ_MAGE_BOOK,
-                holder: $event->getPlayerStatusHolder(),
-                tags: $event->getTags(),
-                time: $event->getTime(),
             );
         }
     }

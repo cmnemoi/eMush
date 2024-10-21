@@ -47,7 +47,7 @@ final class DoorSabotage extends AbstractAction
                 'status' => PlayerStatusEnum::HAS_SABOTAGED_DOOR,
                 'target' => HasStatus::PLAYER,
                 'contain' => false,
-                'groups' => [ClassContraint::EXECUTE],
+                'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::DAILY_LIMIT,
             ]),
         ]);

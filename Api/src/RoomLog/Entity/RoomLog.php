@@ -250,7 +250,7 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
         $this->setVisibility(VisibilityEnum::HIDDEN);
     }
 
-    public function shoulBeRevealedByCamera(): bool
+    public function shouldBeRevealedByCamera(): bool
     {
         return $this->isNotSabotageCameraLog() && $this->isNotRemoveCameraLog();
     }
@@ -258,14 +258,6 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
     public function isCameraManipulationLog(): bool
     {
         return $this->log === ActionLogEnum::INSTALL_CAMERA || $this->log === ActionLogEnum::REMOVE_CAMERA;
-    }
-
-    public function isNotSabotageCameraLog(): bool
-    {
-        $isSabotageLog = \in_array($this->log, [ActionLogEnum::SABOTAGE_SUCCESS, ActionLogEnum::SABOTAGE_FAIL], true);
-        $sabotagedEquipmentIsCamera = $this->getParameters()['target_equipment'] === EquipmentEnum::CAMERA_EQUIPMENT;
-
-        return ($isSabotageLog && $sabotagedEquipmentIsCamera) === false;
     }
 
     public function resetVisibility(): void
@@ -276,5 +268,13 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
     private function isNotRemoveCameraLog(): bool
     {
         return $this->log !== ActionLogEnum::REMOVE_CAMERA;
+    }
+
+    private function isNotSabotageCameraLog(): bool
+    {
+        $isSabotageLog = \in_array($this->log, [ActionLogEnum::SABOTAGE_SUCCESS, ActionLogEnum::SABOTAGE_FAIL], true);
+        $sabotagedEquipmentIsCamera = $this->getParameters()['target_equipment'] === EquipmentEnum::CAMERA_EQUIPMENT;
+
+        return ($isSabotageLog && $sabotagedEquipmentIsCamera) === false;
     }
 }

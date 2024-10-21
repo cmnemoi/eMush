@@ -478,6 +478,7 @@ class GameConfigData
                 PlayerStatusEnum::CAT_OWNER . '_default',
                 PlayerStatusEnum::HAS_PETTED_CAT . '_default',
                 EquipmentStatusEnum::CAT_INFECTED . '_default',
+                PlayerStatusEnum::FITFUL_SLEEP . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

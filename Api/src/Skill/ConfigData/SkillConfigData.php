@@ -285,6 +285,9 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::NINJA,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::NURSE,
                 skillPointsConfig: SkillPointsEnum::NURSE_POINTS,
             ),

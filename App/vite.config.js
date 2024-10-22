@@ -16,13 +16,11 @@ export default defineConfig({
     vue(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.ico", "apple-touch-icon.png", "masked-icon.svg"],
+      includeAssets: ["favicon.ico", "apple-touch-icon-180x180.png"],
       manifest: {
-        name: "eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace",
-        short_name: "eMush",
-        description: "Vous allez vous réveiller sur le vaisseau spatial Daedalus avec 15 autres joueurs. Seul problème : deux d'entre eux sont infectés par un parasite, le Mush ! 🍄 Luttez pour votre survie dans la plus grande épopée de space opera de l'Humanité, depuis tous vos appareils !",
-        theme_color: "#ffffff",
-        icons: [
+        "name": "eMush",
+        "short_name": "eMush",
+        "icons": [
           {
             "src": "pwa-64x64.png",
             "sizes": "64x64",
@@ -39,12 +37,24 @@ export default defineConfig({
             "type": "image/png"
           },
           {
-            "src": "maskable-icon-512x512.png",
-            "sizes": "512x512",
+            "src": "pwa-maskable-192x192.png",
+            "sizes": "192x192",
             "type": "image/png",
             "purpose": "maskable"
+          },
+          {
+            "src": "pwa-maskable-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable",
           }
-        ]
+        ],
+        "start_url": "/",
+        "display": "standalone",
+        "background_color": "#FFFFFF",
+        "theme_color": "#FFFFFF",
+        "description": "eMush: explorations, exploits, and betrayals in space!  Dive into a thrilling space opera that combines survival, social deduction, and role-playing in a unique multiplayer experience, with games lasting a few days, from all your devices!",
+        "orientation": "portrait",
       },
       workbox: {
         cleanupOutdatedCaches: false,

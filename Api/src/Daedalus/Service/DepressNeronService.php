@@ -20,7 +20,13 @@ class DepressNeronService
     ) {
     }
 
-    public function changeNeronCpuPriority(Neron $neron, Player $player, array $tags): void
+    public function execute(Neron $neron, Player $player, array $tags): void
+    {
+        $this->changeNeronCpuPriority($neron, $player, $tags);
+        $this->changeCrewLock($neron);
+    }
+
+    private function changeNeronCpuPriority(Neron $neron, Player $player, array $tags): void
     {
         $this->neronService->changeCpuPriority(
             $neron,
@@ -30,7 +36,7 @@ class DepressNeronService
         );
     }
 
-    public function changeCrewLock(Neron $neron): void
+    private function changeCrewLock(Neron $neron): void
     {
         $this->changeNeronCrewLock->execute($neron, $this->randomCrewLock($neron));
     }

@@ -1121,6 +1121,9 @@ class ActionsFixtures extends Fixture
         $giveNightmare = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GIVE_NIGHTMARE));
         $manager->persist($giveNightmare);
 
+        $neronDepress = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::NERON_DEPRESS));
+        $manager->persist($neronDepress);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);

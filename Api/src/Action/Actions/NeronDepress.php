@@ -40,8 +40,7 @@ final class NeronDepress extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $neron = $this->neron();
-        $this->depressNeronService->changeNeronCpuPriority($neron, $this->player, $this->getTags());
-        $this->depressNeronService->changeCrewLock($neron);
+        $this->depressNeronService->execute($neron, $this->player, $this->getTags());
     }
 
     private function neron(): Neron

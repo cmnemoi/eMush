@@ -670,6 +670,7 @@ class GameConfigData
                 SkillEnum::MOTIVATOR,
                 SkillEnum::MYCELIUM_SPIRIT,
                 SkillEnum::MYCOLOGIST,
+                SkillEnum::NERON_DEPRESSION,
                 SkillEnum::NERON_ONLY_FRIEND,
                 SkillEnum::NURSE,
                 SkillEnum::OBSERVANT,

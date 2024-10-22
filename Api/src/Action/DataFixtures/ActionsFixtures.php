@@ -1109,6 +1109,9 @@ class ActionsFixtures extends Fixture
         $torture = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TORTURE));
         $manager->persist($torture);
 
+        $neronDepress = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::NERON_DEPRESS));
+        $manager->persist($neronDepress);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);

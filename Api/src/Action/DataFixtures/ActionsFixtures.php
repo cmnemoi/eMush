@@ -1260,5 +1260,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::GEN_METAL->value, $genMetal);
         $this->addReference(ActionEnum::DOOR_SABOTAGE->value, $doorSabotage);
         $this->addReference(ActionEnum::GIVE_NIGHTMARE->value, $giveNightmare);
+        $this->addReference(ActionEnum::NERON_DEPRESS->value, $neronDepress);
     }
 }

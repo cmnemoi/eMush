@@ -596,6 +596,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasSabotagedDoor);
 
+        $neronDepression = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(DaedalusStatusEnum::NERON_DEPRESSION . '_default')
+        );
+        $manager->persist($neronDepression);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -644,6 +649,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($droneRepairFailedAttempts)
             ->addStatusConfig($droneExtinguishFailedAttempts)
             ->addStatusConfig($droneShootHunterFailedAttempts)
+            ->addStatusConfig($neronDepression)
             ->addStatusConfig($hasSabotagedDoor)
             ->addStatusConfig($hasGenMetal)
             ->addStatusConfig($lyingDown)
@@ -706,6 +712,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_DAUNTED, $hasDaunted);
         $this->addReference(PlayerStatusEnum::HAS_GEN_METAL, $hasGenMetal);
         $this->addReference(PlayerStatusEnum::HAS_SABOTAGED_DOOR, $hasSabotagedDoor);
+        $this->addReference(DaedalusStatusEnum::NERON_DEPRESSION, $neronDepression);
     }
 
     public function getDependencies(): array

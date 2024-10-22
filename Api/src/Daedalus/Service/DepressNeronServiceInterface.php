@@ -9,5 +9,5 @@ use Mush\Player\Entity\Player;
 
 interface DepressNeronServiceInterface
 {
-    public function execute(Neron $neron, Player $player, array $tags): void;
+    public function execute(Neron $neron, ?Player $author = null, array $tags = [], \DateTime $time = new \DateTime()): void;
 }

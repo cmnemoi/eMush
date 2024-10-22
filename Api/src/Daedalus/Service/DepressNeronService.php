@@ -11,7 +11,7 @@ use Mush\Daedalus\UseCase\ChangeNeronCrewLockUseCase;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 
-class DepressNeronService
+class DepressNeronService implements DepressNeronServiceInterface
 {
     public function __construct(
         private NeronServiceInterface $neronService,

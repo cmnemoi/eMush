@@ -9,7 +9,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Daedalus\Service\DepressNeronService;
+use Mush\Daedalus\Service\DepressNeronServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -22,7 +22,7 @@ final class NeronDepress extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        private DepressNeronService $depressNeronService,
+        private DepressNeronServiceInterface $depressNeronService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }

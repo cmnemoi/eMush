@@ -11,22 +11,22 @@ use Mush\Daedalus\UseCase\ChangeNeronCrewLockUseCase;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 
-class DepressNeronService implements DepressNeronServiceInterface
+final class DepressNeronService implements DepressNeronServiceInterface
 {
     public function __construct(
-        private NeronServiceInterface $neronService,
         private ChangeNeronCrewLockUseCase $changeNeronCrewLock,
+        private NeronServiceInterface $neronService,
         private RandomServiceInterface $randomService,
-    ) {
-    }
+    ) {}
 
-    public function execute(Neron $neron, Player $player, array $tags): void
+    public function execute(Neron $neron, ?Player $author = null, array $tags = [], \DateTime $time = new \DateTime()): void
     {
-        $this->changeNeronCpuPriority($neron, $player, $tags);
+        $this->changeNeronCpuPriority($neron, $author, $tags);
         $this->changeCrewLock($neron);
+        $this->changeInhibition($neron);
     }
 
-    private function changeNeronCpuPriority(Neron $neron, Player $player, array $tags): void
+    private function changeNeronCpuPriority(Neron $neron, ?Player $player, array $tags): void
     {
         $this->neronService->changeCpuPriority(
             $neron,
@@ -39,6 +39,15 @@ class DepressNeronService implements DepressNeronServiceInterface
     private function changeCrewLock(Neron $neron): void
     {
         $this->changeNeronCrewLock->execute($neron, $this->randomCrewLock($neron));
+    }
+
+    private function changeInhibition(Neron $neron): void
+    {
+        if ($neron->isInhibited()) {
+            return;
+        }
+
+        $this->neronService->toggleInhibition($neron);
     }
 
     private function randomCpuPriority(Neron $neron): string

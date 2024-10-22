@@ -8,10 +8,9 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Daedalus\Entity\Neron;
-use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -40,17 +39,16 @@ final class NeronDepress extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $neron = $this->neron();
-        $this->statusService->createStatusFromName(
-            DaedalusStatusEnum::NERON_DEPRESSION,
-            $neron,
-            $this->getTags(),
-            new \DateTime(),
-        );
+        $this->createNeronDepressionStatus();
     }
 
-    private function neron(): Neron
+    private function createNeronDepressionStatus(): void
     {
-        return $this->player->getDaedalus()->getNeron();
+        $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::NERON_DEPRESSION,
+            holder: $this->player->getDaedalus(),
+            tags: $this->getTags(),
+            time: new \DateTime(),
+        );
     }
 }

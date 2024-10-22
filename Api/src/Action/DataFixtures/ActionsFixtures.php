@@ -1244,5 +1244,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::PET_CAT->value, $petCat);
         $this->addReference(ActionEnum::SHOOT_CAT->value, $shootCat);
         $this->addReference(ActionEnum::TORTURE->value, $torture);
+        $this->addReference(ActionEnum::NERON_DEPRESS->value, $neronDepress);
     }
 }

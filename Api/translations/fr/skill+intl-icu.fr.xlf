@@ -818,5 +818,15 @@
         <target>Vous travaillez propre, très propre, toujours plus propre, encore plus propre. Vous êtes proprement névrosé de la propreté mais ça a ses bons côtés.//:point: Vous ne vous salissez jamais accidentellement en effectuant des actions sur le vaisseau.</target>
       </segment>
     </unit>
+    <unit id="neron_depression">
+      <segment id="neron_depression.name" state="translated">
+        <source>neron_depression.name</source>
+        <target>Dépression de NERON</target>
+      </segment>
+      <segment id="neron_depression.description" state="translated">
+        <source>neron_depression.description</source>
+        <target>Quand NERON se sent mal, c'est tout le Daedalus qui vomit.//:point: Pour **3** :pa:, vous pouvez embrouiller NERON au prochain cycle, ce qui modifie aléatoirement ses réglages.//:point: Ne fonctionne pas sur l'entrave DMZ si elle est bloquée.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

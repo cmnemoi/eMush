@@ -1510,5 +1510,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Le vaccin anti-Mush injecte un retro-fongique puissant qui annule tout les effets du Mush sur un sujet infecté.</target>
       </segment>
     </unit>
+    <unit id="neron_depress">
+      <segment id="neron_depress" state="translated">
+        <source>neron_depress.name</source>
+        <target>Dépression de NERON</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>neron_depress.description</source>
+        <target>Permet de déprimer NERON ce qui va le dérégler complètement au prochain cycle.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

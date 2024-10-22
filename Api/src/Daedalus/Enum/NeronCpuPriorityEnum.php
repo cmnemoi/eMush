@@ -28,4 +28,9 @@ abstract class NeronCpuPriorityEnum
             self::PROJECTS,
         ];
     }
+
+    public static function getAllExcept(string $cpuPriority): array
+    {
+        return array_diff(self::getAll(), [$cpuPriority]);
+    }
 }

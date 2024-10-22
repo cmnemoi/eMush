@@ -26,4 +26,18 @@ enum NeronCrewLockEnum: string
             self::PILOTING,
         ];
     }
+
+    /** @return array<NeronCrewLockEnum> */
+    public static function getAllExcept(self $value): array
+    {
+        $valuesAsString = array_map(static fn (NeronCrewLockEnum $value) => $value->toString(), self::getValues());
+        $valuesExcept = array_diff($valuesAsString, [$value->toString()]);
+
+        return array_map(static fn (string $value) => self::from($value), $valuesExcept);
+    }
+
+    public function toString(): string
+    {
+        return $this->value;
+    }
 }

@@ -928,5 +928,15 @@
         <target>Les lépiotes du Mush peuvent remodeler les ondes de ces pauvres humains. Avec quelques modifications, elles peuvent empêcher un humain de se reposer.//:point: Pour **0** :pa:, vous pouvez **déclencher des cauchemars** chez un joueur allongé. Celui-ci ne bénéficiera plus des bonus du sommeil.</target>
       </segment>
     </unit>
+    <unit id="ninja">
+      <segment id="ninja.name" state="translated">
+        <source>ninja.name</source>
+        <target>Ninja</target>
+      </segment>
+      <segment id="ninja.description" state="translated">
+        <source>ninja.description</source>
+        <target>Grâce à votre myéline survoltée, votre vitesse de déplacement est incroyable.//:point: Vos attaques de **corps-à-corps** deviennent des actions **anonymes**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

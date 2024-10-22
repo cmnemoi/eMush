@@ -9,9 +9,10 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Daedalus\Service\DepressNeronServiceInterface;
+use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class NeronDepress extends AbstractAction
@@ -22,7 +23,7 @@ final class NeronDepress extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        private DepressNeronServiceInterface $depressNeronService,
+        private StatusServiceInterface $statusService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -40,7 +41,12 @@ final class NeronDepress extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $neron = $this->neron();
-        $this->depressNeronService->execute($neron, $this->player, $this->getTags());
+        $this->statusService->createStatusFromName(
+            DaedalusStatusEnum::NERON_DEPRESSION,
+            $neron,
+            $this->getTags(),
+            new \DateTime(),
+        );
     }
 
     private function neron(): Neron

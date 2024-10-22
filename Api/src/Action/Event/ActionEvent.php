@@ -14,6 +14,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Entity\Skill;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 
 class ActionEvent extends AbstractGameEvent
@@ -130,5 +131,10 @@ class ActionEvent extends AbstractGameEvent
 
         return $this->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)
             && ($authorInteractsWithRoomEquipment || $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap);
+    }
+
+    public function shouldBeAnonymous(): bool
+    {
+        return $this->getActionName() === ActionEnum::HIT && $this->author?->hasSkill(SkillEnum::NINJA);
     }
 }

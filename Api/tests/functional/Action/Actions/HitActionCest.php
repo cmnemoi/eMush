@@ -8,8 +8,11 @@ use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -246,6 +249,26 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveMoreOrEqualThanHealthPoint(9, $I);
     }
 
+    public function ninjaLogShouldBeAnonymous(FunctionalTester $I): void
+    {
+        $this->givenHitActionHasSuccessRate(100);
+
+        $this->givenChunIsANinja($I);
+
+        $this->whenChunHitsKuanTi();
+
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => ActionLogEnum::HIT_SUCCESS,
+            ]
+        );
+
+        $character = $roomLog->getParameters()['character'];
+
+        $I->assertEquals($character, CharacterEnum::SOMEONE);
+    }
+
     private function givenChunHasInactiveStatus(): void
     {
         $this->statusService->createStatusFromName(
@@ -309,6 +332,11 @@ final class HitActionCest extends AbstractFunctionalTest
     private function givenHitActionHasCriticalSuccessRate(int $criticalSuccessRate): void
     {
         $this->action->setCriticalRate($criticalSuccessRate);
+    }
+
+    private function givenChunIsANinja(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::NINJA, $I);
     }
 
     private function whenKuanTiTriesToHitChun(): void

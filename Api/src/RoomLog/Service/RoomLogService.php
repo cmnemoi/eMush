@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Entity\Planet;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -32,7 +33,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
-class RoomLogService implements RoomLogServiceInterface
+final class RoomLogService implements RoomLogServiceInterface
 {
     public const int OBSERVANT_REVEAL_CHANCE = 25;
 
@@ -273,7 +274,7 @@ class RoomLogService implements RoomLogServiceInterface
         $player = $event->getAuthor();
 
         $parameters = [];
-        $parameters[$player->getLogKey()] = $player->getLogName();
+        $parameters[$player->getLogKey()] = $event->shouldBeAnonymous() ? CharacterEnum::SOMEONE : $player->getLogName();
 
         if (($quantity = $actionResult?->getQuantity()) !== null) {
             $parameters['quantity'] = $quantity;

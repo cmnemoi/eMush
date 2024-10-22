@@ -937,5 +937,15 @@
         <target>https://cmnemoi.github.io/archive_aide_aux_bolets/janice-premiers-pas.html</target>
       </segment>
     </unit>
+    <unit id="Someone">
+      <segment id="name" state="final">
+        <source>someone.name</source>
+        <target>Quelqu'un</target>
+      </segment>
+      <segment id="fullname" state="final">
+        <source>someone.fullname</source>
+        <target>Quelqu'un</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

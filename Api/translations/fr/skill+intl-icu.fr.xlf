@@ -818,5 +818,15 @@
         <target>Vous travaillez propre, très propre, toujours plus propre, encore plus propre. Vous êtes proprement névrosé de la propreté mais ça a ses bons côtés.//:point: Vous ne vous salissez jamais accidentellement en effectuant des actions sur le vaisseau.</target>
       </segment>
     </unit>
+    <unit id="ninja">
+      <segment id="ninja.name" state="translated">
+        <source>ninja.name</source>
+        <target>Ninja</target>
+      </segment>
+      <segment id="ninja.description" state="translated">
+        <source>ninja.description</source>
+        <target>Grâce à votre myéline survoltée, votre vitesse de déplacement est incroyable.//:point: Vos attaques de **corps-à-corps** deviennent des actions **anonymes**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -7,6 +7,7 @@ use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Exploration\Entity\Planet;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolderInterface;
@@ -80,6 +81,11 @@ class ActionEvent extends AbstractGameEvent
         $player = $this->getActionTarget();
 
         return $player instanceof Player ? $player : throw new \LogicException('Action target is not a player');
+    }
+
+    public function getActionTargetAsPlanet(): Planet
+    {
+        return $this->actionTarget instanceof Planet ? $this->actionTarget : throw new \RuntimeException('Action target is not a planet');
     }
 
     public function getActionParameters(): array

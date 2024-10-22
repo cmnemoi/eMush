@@ -285,7 +285,8 @@ final class RoomLogService implements RoomLogServiceInterface
             $parameters[$key] = $actionParameter->getLogName();
 
             if (str_contains($key, 'planet')) {
-                $parameters[$key] = $this->translatePlanetName($actionParameter, $player);
+                $planet = $event->getActionTargetAsPlanet();
+                $parameters[$key] = $this->translatePlanetName($planet, $player);
             }
         }
         if (($equipment = $actionResult?->getEquipment()) !== null) {

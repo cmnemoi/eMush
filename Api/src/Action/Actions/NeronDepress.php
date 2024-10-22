@@ -9,12 +9,8 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
-use Mush\Daedalus\Enum\NeronCrewLockEnum;
-use Mush\Daedalus\Service\NeronServiceInterface;
-use Mush\Daedalus\UseCase\ChangeNeronCrewLockUseCase;
+use Mush\Daedalus\Service\DepressNeronService;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -26,9 +22,7 @@ final class NeronDepress extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        private ChangeNeronCrewLockUseCase $changeNeronCrewLock,
-        private NeronServiceInterface $neronService,
-        private RandomServiceInterface $randomService,
+        private DepressNeronService $depressNeronService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -45,41 +39,9 @@ final class NeronDepress extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $this->changeNeronCpuPriority();
-        $this->changeCrewLock();
-    }
-
-    private function changeNeronCpuPriority(): void
-    {
-        $this->neronService->changeCpuPriority(
-            $this->neron(),
-            $this->randomCpuPriority(),
-            $this->getTags(),
-            $this->player,
-        );
-    }
-
-    private function changeCrewLock(): void
-    {
-        $this->changeNeronCrewLock->execute($this->neron(), $this->randomCrewLock());
-    }
-
-    private function randomCpuPriority(): string
-    {
         $neron = $this->neron();
-        $currentPriority = $neron->getCpuPriority();
-        $candidatePriorities = NeronCpuPriorityEnum::getAllExcept($currentPriority);
-
-        return $this->randomService->getRandomElement($candidatePriorities);
-    }
-
-    private function randomCrewLock(): NeronCrewLockEnum
-    {
-        $neron = $this->neron();
-        $currentLock = $neron->getCrewLock();
-        $candidateLocks = NeronCrewLockEnum::getAllExcept($currentLock);
-
-        return $this->randomService->getRandomElement($candidateLocks);
+        $this->depressNeronService->changeNeronCpuPriority($neron, $this->player, $this->getTags());
+        $this->depressNeronService->changeCrewLock($neron);
     }
 
     private function neron(): Neron

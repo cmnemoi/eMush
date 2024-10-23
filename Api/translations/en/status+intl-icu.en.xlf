@@ -1086,7 +1086,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>commander.description</source>
-        <target>Chooses the destination of the Daedalus. They are also the only person capable of setting the ship in motion.</target>
+        <target>Can access the **Command Terminal** to move the Daedalus across the stars. // Once per day, can **send a mission** to a crew member, who will receive 3 :pa: upon accepting it.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>commander.examine</source>

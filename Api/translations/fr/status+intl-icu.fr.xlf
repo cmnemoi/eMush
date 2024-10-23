@@ -1086,7 +1086,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>commander.description</source>
-        <target>Décide de l'orientation du Daedalus. Il est aussi le seul à pouvoir enclencher la séquence de voyage.</target>
+        <target>Peut accéder au **terminal de commandement** pour déplacer le Daedalus. // Peut **envoyer une mission** par jour à un membre de l'équipage, qui recevra 3 :pa: s'il l'accepte.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>commander.examine</source>

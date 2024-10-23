@@ -1257,7 +1257,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="description" state="translated">
         <source>commander_order.description</source>
-        <target>Allows you to delegate a mission to one of your subordinates. They will be allocated :pa::pm: to complete the mission if they accept. You can only use this action once per day. This action is made available to you again should the subordinate refuse.</target>
+        <target>Allows you to delegate a mission to one of your subordinates. They will be allocated 3 :pa: to complete the mission if they accept. You can only use this action once per day. This action is made available to you again should the subordinate refuse.</target>
       </segment>
     </unit>
     <unit id="print_ze_list">

@@ -51,7 +51,7 @@ Currently, you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
       </segment>
       <segment id="commander.desc" state="translated">
         <source>commander.desc</source>
-        <target>Chooses the destination of the Daedalus. They are also the only person capable of setting the ship in motion.</target>
+        <target>Can access the **Command Terminal** to move the Daedalus across the stars. // Once per day, can **send a mission** to a crew member, who will receive 3 :pa: upon accepting it.</target>
       </segment>
       <segment id="neron_manager.name" state="translated">
         <source>neron_manager.name</source>

@@ -21,6 +21,10 @@ class ClosedExploration
     #[ORM\Column(type: 'integer')]
     private int $id;
 
+    #[ORM\Version]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 1])]
+    private int $version = 1;
+
     #[ORM\OneToOne(targetEntity: Exploration::class, mappedBy: 'closedExploration')]
     private ?Exploration $exploration;
 

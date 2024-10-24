@@ -320,13 +320,13 @@ final class PlayerService implements PlayerServiceInterface
 
     public function killPlayer(Player $player, string $endReason, \DateTime $time = new \DateTime(), ?Player $author = null): Player
     {
-        if ($player->isDead()) {
-            throw new \LogicException('Player is already dead');
-        }
-
         $this->entityManager->beginTransaction();
 
         try {
+            if ($player->isDead()) {
+                return $player;
+            }
+
             $this->markPlayerAsDead($player, $endReason, $time);
             $this->removePlayerTitles($player);
             $this->createClosedPlayer($player, $endReason, $time);

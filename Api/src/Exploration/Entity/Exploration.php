@@ -28,6 +28,10 @@ class Exploration
     #[ORM\Column(type: 'integer')]
     private int $id;
 
+    #[ORM\Version]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 1])]
+    private int $version = 1;
+
     #[ORM\OneToOne(targetEntity: ClosedExploration::class, inversedBy: 'exploration', cascade: ['persist'])]
     private ClosedExploration $closedExploration;
 

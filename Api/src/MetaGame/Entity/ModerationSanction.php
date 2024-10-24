@@ -19,6 +19,10 @@ class ModerationSanction
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
+    #[ORM\Version]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 1])]
+    private int $version = 1;
+
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'moderationSanctions')]
     private User $user;
 

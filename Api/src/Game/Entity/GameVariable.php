@@ -27,6 +27,10 @@ class GameVariable
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
+    #[ORM\Version]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 1])]
+    private int $version = 1;
+
     public function __construct(
         ?GameVariableCollection $variableCollection,
         string $name,

@@ -1393,5 +1393,11 @@
                 }</target>
       </segment>
     </unit>
+    <unit id="daunt_success">
+      <segment id="daunt_success" state="final">
+        <source>daunt_success</source>
+        <target>**{character}** attrape **{target_character}** dans un coin et se met à lui hurler dessus...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -868,5 +868,15 @@
         <target>Certaines personnes particulièrement résilientes peuvent souffrir l'insupportable. Mais le prix est grand.//:point: Si votre moral tombe à 0, vous ne mourrez pas, mais vous perdez **1** :hp: par cycle.</target>
       </segment>
     </unit>
+    <unit id="intimidating">
+      <segment id="intimidating.name" state="translated">
+        <source>intimidating.name</source>
+        <target>Intimidant</target>
+      </segment>
+      <segment id="intimidating.description" state="translated">
+        <source>intimidating.description</source>
+        <target>Parfois la proie s'échappe seulement parce qu'elle en a l'occasion.//:point: **Journalier**. Pour **1** :pa:, Permet d'intimider un joueur. Celui-ci perd **2** :pa: et **4** :pm:.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

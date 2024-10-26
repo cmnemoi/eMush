@@ -581,6 +581,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($antiquePerfumeImmunized);
 
+        $hasDaunted = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_DAUNTED . '_default')
+        );
+        $manager->persist($hasDaunted);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -630,7 +635,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($droneExtinguishFailedAttempts)
             ->addStatusConfig($droneShootHunterFailedAttempts)
             ->addStatusConfig($lyingDown)
-            ->addStatusConfig($antiquePerfumeImmunized);
+            ->addStatusConfig($antiquePerfumeImmunized)
+            ->addStatusConfig($hasDaunted);
 
         $manager->persist($gameConfig);
 
@@ -685,6 +691,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(EquipmentStatusEnum::DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS, $droneShootHunterFailedAttempts);
         $this->addReference(PlayerStatusEnum::LYING_DOWN . '_default', $lyingDown);
         $this->addReference(PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED, $antiquePerfumeImmunized);
+        $this->addReference(PlayerStatusEnum::HAS_DAUNTED, $hasDaunted);
     }
 
     public function getDependencies(): array

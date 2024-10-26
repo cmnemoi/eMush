@@ -3661,6 +3661,39 @@ abstract class ModifierConfigData
             'targetFilters' => [],
             'eventActivationRequirements' => [],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_50_PERCENT_CHANCE_TO_PREVENT_DISEASE,
+            'modifierName' => ModifierNameEnum::HYGIENIST_DISEASE_MODIFIER,
+            'targetEvent' => self::DUMMY_EVENT,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 50,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
+        [
+            'name' => ModifierNameEnum::PREVENT_MUSH_INFECTIONS_RANDOM_50,
+            'modifierName' => ModifierNameEnum::HYGIENIST_MUSH_INFECTIONS_MODIFIER,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => ModifierPriorityEnum::PREVENT_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [
+                ModifierRequirementEnum::RANDOM_50,
+                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
+            ],
+            'tagConstraints' => [
+                PlayerVariableEnum::SPORE => ModifierRequirementEnum::ALL_TAGS,
+                VariableEventInterface::GAIN => ModifierRequirementEnum::ALL_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

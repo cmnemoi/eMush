@@ -161,6 +161,7 @@ class CharacterConfigData
                 SkillEnum::SHOOTER,
                 SkillEnum::WRESTLER,
                 SkillEnum::FIREFIGHTER,
+                SkillEnum::HYGIENIST,
                 SkillEnum::MOTIVATOR,
             ],
             'maxNumberPrivateChannel' => 3,

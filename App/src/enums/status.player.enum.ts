@@ -31,6 +31,7 @@ export enum StatusPlayerNameEnum {
     GUARDIAN = "guardian",
     GENIUS_IDEA = "genius_idea",
     PARIAH = "pariah",
+    ANTIQUE_PERFUME_IMMUNIZED = "antique_perfume_immunized",
 };
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -123,5 +124,8 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [StatusPlayerNameEnum.PARIAH]: {
         'icon': getImgUrl('status/unsociable.png')
+    },
+    [StatusPlayerNameEnum.ANTIQUE_PERFUME_IMMUNIZED]: {
+        'icon': getImgUrl('status/immune.png')
     }
 };

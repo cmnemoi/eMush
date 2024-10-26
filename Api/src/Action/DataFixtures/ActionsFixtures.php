@@ -1115,6 +1115,9 @@ class ActionsFixtures extends Fixture
         $genMetal = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GEN_METAL));
         $manager->persist($genMetal);
 
+        $doorSabotage = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::DOOR_SABOTAGE));
+        $manager->persist($doorSabotage);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1249,5 +1252,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::TORTURE->value, $torture);
         $this->addReference(ActionEnum::DAUNT->value, $daunt);
         $this->addReference(ActionEnum::GEN_METAL->value, $genMetal);
+        $this->addReference(ActionEnum::DOOR_SABOTAGE->value, $doorSabotage);
     }
 }

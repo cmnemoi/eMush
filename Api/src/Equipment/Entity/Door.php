@@ -26,12 +26,10 @@ class Door extends GameEquipment
     public static function createFromRooms(Place $room1, Place $room2): self
     {
         $door = new self($room1);
-        $room1->addDoor($door);
-
-        $door->addRoom($room2);
-        $room2->addDoor($door);
-
-        $door->setName($door->buildName());
+        $door
+            ->addRoom($room1)
+            ->addRoom($room2)
+            ->setName($door->buildName());
 
         return $door;
     }

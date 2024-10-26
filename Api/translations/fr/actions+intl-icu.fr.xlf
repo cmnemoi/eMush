@@ -1530,5 +1530,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de fouiner les stockages pour trouver des débris, ou des choses **vraiment** utiles.</target>
       </segment>
     </unit>
+    <unit id="door_sabotage">
+      <segment id="door_sabotage" state="final">
+        <source>door_sabotage.name</source>
+        <target>Saboter : Porte</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>door_sabotage.description</source>
+        <target>**Journalier** : Permet de saboter une porte au hasard dans la pièce.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

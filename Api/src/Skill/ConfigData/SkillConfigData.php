@@ -121,6 +121,12 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::DOORMAN,
+                actionConfigs: [
+                    ActionEnum::DOOR_SABOTAGE,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::EXPERT,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_PLUS_20_PERCENTAGE_ON_ACTIONS,

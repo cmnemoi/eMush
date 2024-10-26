@@ -19,7 +19,7 @@ class PlayerDisease
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    private ?int $id = null;
+    private ?int $id = 0;
 
     #[ORM\ManyToOne(targetEntity: DiseaseConfig::class)]
     private DiseaseConfig $diseaseConfig;
@@ -48,6 +48,11 @@ class PlayerDisease
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getIdOrThrow(): int
+    {
+        return $this->id ?? throw new \RuntimeException('PlayerDisease should have an id');
     }
 
     public function getDiseaseConfig(): DiseaseConfig

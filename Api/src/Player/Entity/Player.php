@@ -21,6 +21,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Equipment\Entity\Door;
@@ -37,12 +38,14 @@ use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TitleEnum;
+use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Entity\ModifierHolderTrait;
 use Mush\Modifier\Entity\ModifierProviderInterface;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -1217,6 +1220,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getPlace()->getAlivePlayersExcept($this)->hasPlayerWithStatus(PlayerStatusEnum::GUARDIAN) === false;
     }
 
+    public function shouldNotCatchDisease(DiseaseConfig $diseaseConfig, D100RollServiceInterface $d100Roll): bool
+    {
+        $hygienistResistsDisease = $diseaseConfig->isPhysicalDisease() && $this->hasSkill(SkillEnum::HYGIENIST) && $d100Roll->isSuccessful($this->hygienistBonus());
+        $mushResistsDisease = $this->isMush() && $diseaseConfig->isNotAnInjury();
+
+        return $hygienistResistsDisease || $mushResistsDisease;
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {
@@ -1298,5 +1309,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
 
         return $actions;
+    }
+
+    private function hygienistBonus(): int
+    {
+        return (int) $this
+            ->getModifiers()
+            ->getModifierByModifierNameOrThrow(ModifierNameEnum::HYGIENIST_DISEASE_MODIFIER)
+            ->getVariableModifierConfigOrThrow()
+            ->getDelta();
     }
 }

@@ -173,10 +173,9 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
 
-        $currentCycleLogs = $this->roomLogService->findAllByDaedalusPlaceAndCycle(
-            daedalus: $daedalus,
+        $currentCycleLogs = $this->roomLogService->findAllByPlaceAndDaedalusDate(
             place: $event->getPlaceOrThrow(),
-            cycle: $daedalus->getCycle()
+            date: $daedalus->getGameDate(),
         );
 
         foreach ($currentCycleLogs as $log) {

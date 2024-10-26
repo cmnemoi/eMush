@@ -206,7 +206,7 @@ class RoomLogService implements RoomLogServiceInterface
     {
         $parameters = [
             'log' => $logKey,
-            'daedalusInfo' => $place->getDaedalus()->getId(),
+            'daedalusInfo' => $place->getDaedalus()->getDaedalusInfo()->getId(),
             'place' => $place->getName(),
             'day' => $date->day,
             'cycle' => $date->cycle,
@@ -220,12 +220,13 @@ class RoomLogService implements RoomLogServiceInterface
         return $roomLog;
     }
 
-    public function findAllByDaedalusPlaceAndCycle(Daedalus $daedalus, Place $place, int $cycle): RoomLogCollection
+    public function findAllByPlaceAndDaedalusDate(Place $place, DaedalusDate $date): RoomLogCollection
     {
         $logs = $this->repository->findBy([
-            'daedalusInfo' => $daedalus->getDaedalusInfo(),
+            'daedalusInfo' => $place->getDaedalus()->getDaedalusInfo(),
             'place' => $place->getName(),
-            'cycle' => $cycle,
+            'day' => $date->day,
+            'cycle' => $date->cycle,
         ]);
 
         return new RoomLogCollection($logs);

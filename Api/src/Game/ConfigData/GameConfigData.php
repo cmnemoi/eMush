@@ -480,6 +480,7 @@ class GameConfigData
                 EquipmentStatusEnum::CAT_INFECTED . '_default',
                 PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED . '_default',
                 PlayerStatusEnum::HAS_DAUNTED . '_default',
+                PlayerStatusEnum::HAS_GEN_METAL . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -673,6 +674,7 @@ class GameConfigData
                 SkillEnum::MANKIND_ONLY_HOPE,
                 SkillEnum::MASSIVE_MUSHIFICATION,
                 SkillEnum::MEDIC,
+                SkillEnum::METALWORKER,
                 SkillEnum::MOTIVATOR,
                 SkillEnum::MYCELIUM_SPIRIT,
                 SkillEnum::MYCOLOGIST,

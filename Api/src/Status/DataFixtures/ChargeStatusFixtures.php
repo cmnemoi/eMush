@@ -586,6 +586,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasDaunted);
 
+        $hasGenMetal = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_GEN_METAL . '_default')
+        );
+        $manager->persist($hasGenMetal);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -634,6 +639,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($droneRepairFailedAttempts)
             ->addStatusConfig($droneExtinguishFailedAttempts)
             ->addStatusConfig($droneShootHunterFailedAttempts)
+            ->addStatusConfig($hasGenMetal)
             ->addStatusConfig($lyingDown)
             ->addStatusConfig($antiquePerfumeImmunized)
             ->addStatusConfig($hasDaunted);
@@ -692,6 +698,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::LYING_DOWN . '_default', $lyingDown);
         $this->addReference(PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED, $antiquePerfumeImmunized);
         $this->addReference(PlayerStatusEnum::HAS_DAUNTED, $hasDaunted);
+        $this->addReference(PlayerStatusEnum::HAS_GEN_METAL, $hasGenMetal);
     }
 
     public function getDependencies(): array

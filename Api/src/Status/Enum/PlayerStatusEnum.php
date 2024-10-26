@@ -70,4 +70,5 @@ abstract class PlayerStatusEnum
     public const string HAS_PETTED_CAT = 'has_petted_cat';
     public const string ANTIQUE_PERFUME_IMMUNIZED = 'antique_perfume_immunized';
     public const string HAS_DAUNTED = 'has_daunted';
+    public const string HAS_GEN_METAL = 'has_gen_metal';
 }

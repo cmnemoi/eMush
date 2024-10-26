@@ -2543,6 +2543,22 @@ class ActionData
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'outputQuantity' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
         ],
+        [
+            'name' => ActionEnum::GEN_METAL->value,
+            'action_name' => ActionEnum::GEN_METAL,
+            'types' => [],
+            'target' => ActionHolderEnum::PLAYER,
+            'scope' => ActionRangeEnum::SELF,
+            'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => VisibilityEnum::PRIVATE],
+            'actionPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 10, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 50, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 75, 'min_value' => 1, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+        ],
     ];
 
     public static function getByName(ActionEnum $name): array

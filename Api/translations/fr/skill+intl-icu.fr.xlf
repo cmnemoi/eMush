@@ -878,5 +878,15 @@
         <target>Parfois la proie s'échappe seulement parce qu'elle en a l'occasion.//:point: **Journalier**. Pour **1** :pa:, Permet d'intimider un joueur. Celui-ci perd **2** :pa: et **4** :pm:.</target>
       </segment>
     </unit>
+    <unit id="metalworker">
+      <segment id="metalworker.name" state="translated">
+        <source>metalworker.name</source>
+        <target>Métalo</target>
+      </segment>
+      <segment id="metalworker.description" state="translated">
+        <source>metalworker.description</source>
+        <target>Vous, on peut dire que vous êtes vraiment quelqu'un de productif !//:point: **Jounalier** : Si vous vous trouvez dans un **Stockage**, pour **0** :pa:, vous avez une chance de trouver des débris voir mieux.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

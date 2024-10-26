@@ -11,7 +11,7 @@
                 >
                     {{ $t("moderation.report.choosePlayer") }}
                 </option>
-                <option v-for="player in reportablePlayers" :key="player.key" :value="player.key">
+                <option v-for="player in reportablePlayers" :key="player.key" :value="player.id">
                     {{ $t(player.name) }}
                 </option>
             </select>

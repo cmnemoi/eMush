@@ -1240,5 +1240,11 @@
         <target>Vous vomissez. Vous vous sentez étrange. Comme si on vous coupait de vos sensations, comme si vous n'étiez plus rien. Vous vous sentez seul. Vous retrouvez l'angoisse de la fin qui viendra, vous retrouvez l'émotion de la peur. Vous ne faites plus partie du Mush...</target>
       </segment>
     </unit>
+    <unit id="lethargy_worked">
+      <segment id="lethargy_worked" state="translated">
+        <source>lethargy_worked</source>
+        <target>Votre compétence **Léthargie** a porté ses fruits...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

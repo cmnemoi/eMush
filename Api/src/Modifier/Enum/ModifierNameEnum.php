@@ -115,4 +115,8 @@ abstract class ModifierNameEnum
     public const string OCD_MODIFIER = 'ocd_modifier';
     public const string LETHARGY_MODIFIER = 'lethargy_modifier';
     public const string PLUS_1_ACTION_POINT_IF_SLEEPING_FOR_4_CYCLES_AND_MORE = 'PLUS_1_ACTION_POINT_IF_SLEEPING_FOR_4_CYCLES_AND_MORE';
+    public const string PLUS_1_ACTION_POINT_IF_MUSH_CONTROLS_MORE_THAN_50_PERCENTS_OF_CREW = 'plus_1_action_point_if_mush_controls_more_than_50_percents_of_crew';
+    public const string PANIC_ACTION_POINT_MODIFIER = 'panic_action_point_modifier';
+    public const string PLUS_1_MOVEMENT_POINT_IF_MUSH_CONTROLS_MORE_THAN_50_PERCENTS_OF_CREW = 'plus_1_movement_point_if_mush_controls_more_than_50_percents_of_crew';
+    public const string PANIC_MOVEMENT_POINT_MODIFIER = 'panic_movement_point_modifier';
 }

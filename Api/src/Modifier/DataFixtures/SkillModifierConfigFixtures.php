@@ -322,6 +322,42 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($lethargyModifier->getName(), $lethargyModifier);
         $manager->persist($lethargyModifier);
 
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_1_ACTION_POINT);
+
+        $mushCrewProportionRequirement = ModifierActivationRequirement::fromConfigData(
+            ModifierActivationRequirementData::getByName(ModifierRequirementEnum::MUSH_CREW_PROPORTION_50_PERCENTS)
+        );
+        $manager->persist($mushCrewProportionRequirement);
+
+        $playerIsMushRequirement = ModifierActivationRequirement::fromConfigData(
+            ModifierActivationRequirementData::getByName(ModifierRequirementEnum::PLAYER_IS_NOT_MUSH)
+        );
+        $manager->persist($playerIsMushRequirement);
+
+        $panicActionPointModifier = TriggerEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLUS_1_ACTION_POINT_IF_MUSH_CONTROLS_MORE_THAN_50_PERCENTS_OF_CREW)
+        );
+        $panicActionPointModifier
+            ->setTriggeredEvent($eventConfig)
+            ->addModifierRequirement($mushCrewProportionRequirement)
+            ->addModifierRequirement($playerIsMushRequirement);
+        $this->addReference($panicActionPointModifier->getName(), $panicActionPointModifier);
+        $manager->persist($panicActionPointModifier);
+
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_1_MOVEMENT_POINT);
+        $panicMovementPointModifier = TriggerEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLUS_1_MOVEMENT_POINT_IF_MUSH_CONTROLS_MORE_THAN_50_PERCENTS_OF_CREW)
+        );
+        $manager->persist($panicMovementPointModifier);
+
+        $panicMovementPointModifier
+            ->setTriggeredEvent($eventConfig)
+            ->addModifierRequirement($mushCrewProportionRequirement)
+            ->addModifierRequirement($playerIsMushRequirement);
+        $this->addReference($panicMovementPointModifier->getName(), $panicMovementPointModifier);
+
         $manager->flush();
     }
 

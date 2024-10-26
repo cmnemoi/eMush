@@ -828,5 +828,15 @@
         <target>Vous n'êtes reveillé que 4 heures par jour, mais en si peu de temps, vous accomplissez des miracles !//:point: Si vous restez allongé pendant **4 cycles** au moins, vous gagnez **1** :pa: supplémentaire par cycle.//:point: La capacité maximum de votre jauge de :pa: est doublée.</target>
       </segment>
     </unit>
+    <unit id="panic">
+      <segment id="panic.name" state="translated">
+        <source>panic.name</source>
+        <target>Panique</target>
+      </segment>
+      <segment id="panic.description" state="translated">
+        <source>panic.description</source>
+        <target>C'est lorsque tout va mal que vous révelez votre plein potentiel : Crier très fort et courir dans tous les sens.//:point: Vous gagnez **1** :pa: et **1** :pm: supplémentaire à chaque cycle tant que le **Mush contrôle plus de 50%** de l'équipage.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

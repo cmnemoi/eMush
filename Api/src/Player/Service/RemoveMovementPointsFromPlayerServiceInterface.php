@@ -7,7 +7,7 @@ namespace Mush\Player\Service;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 
-interface RemoveHealthFromPlayerServiceInterface
+interface RemoveMovementPointsFromPlayerServiceInterface
 {
     public function execute(
         int $quantity,

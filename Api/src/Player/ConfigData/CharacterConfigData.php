@@ -65,6 +65,7 @@ class CharacterConfigData
                 SkillEnum::WRESTLER,
                 SkillEnum::TORTURER,
                 SkillEnum::CRAZY_EYE,
+                SkillEnum::INTIMIDATING,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

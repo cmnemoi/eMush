@@ -42,5 +42,5 @@ interface RoomLogServiceInterface
 
     public function findOneByPlaceAndDaedalusDateOrThrow(string $logKey, Place $place, DaedalusDate $date): RoomLog;
 
-    public function findAllByDaedalusPlaceAndCycle(Daedalus $daedalus, Place $place, int $cycle): RoomLogCollection;
+    public function findAllByPlaceAndDaedalusDate(Place $place, DaedalusDate $date): RoomLogCollection;
 }

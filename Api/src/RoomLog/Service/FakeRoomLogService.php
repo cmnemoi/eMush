@@ -123,11 +123,16 @@ final class FakeRoomLogService implements RoomLogServiceInterface
         return new RoomLogCollection($logs);
     }
 
-    public function findAllByDaedalusPlaceAndCycle(Daedalus $daedalus, Place $place, int $cycle): RoomLogCollection
+    public function findAllByPlaceAndDaedalusDate(Place $place, DaedalusDate $date): RoomLogCollection
     {
         $logs = new RoomLogCollection();
         foreach ($this->roomLogs as $roomLog) {
-            if ($roomLog->getDaedalus() === $daedalus && $roomLog->getPlace() === $place->getName() && $roomLog->getCycle() === $cycle) {
+            if (
+                $roomLog->getDaedalus() === $place->getDaedalus()
+                && $roomLog->getPlace() === $place->getName()
+                && $roomLog->getCycle() === $date->cycle
+                && $roomLog->getDay() === $date->day
+            ) {
                 $logs->add($roomLog);
             }
         }

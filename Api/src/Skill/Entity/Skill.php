@@ -196,6 +196,9 @@ class Skill implements ActionProviderInterface, ModifierProviderInterface
         return $this->getNameAsString();
     }
 
+    /**
+     * @return ArrayCollection<array-key, AbstractModifierConfig>
+     */
     public function getAllModifierConfigs(): ArrayCollection
     {
         return $this->skillConfig->getModifierConfigs();

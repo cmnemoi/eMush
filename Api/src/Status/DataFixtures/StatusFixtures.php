@@ -57,7 +57,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
     public const string IMMUNIZED_STATUS = 'immunized_status';
     public const string INACTIVE_STATUS = 'inactive_status';
     public const string LOST_STATUS = 'lost_status';
-    public const string LYING_DOWN_STATUS = 'lying_down_status';
     public const string MULTI_TEAMSTER_STATUS = 'multi_teamster_status';
     public const string OUTCAST_STATUS = 'outcast_status';
     public const string PACIFIST_STATUS = 'pacifist_status';
@@ -335,17 +334,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([$lostModifier])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($lost);
-
-        /** @var VariableEventModifierConfig $lyingDownModifier */
-        $lyingDownModifier = $this->getReference(StatusModifierConfigFixtures::LYING_DOWN_MODIFIER);
-
-        $lyingDown = new StatusConfig();
-        $lyingDown
-            ->setStatusName(PlayerStatusEnum::LYING_DOWN)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs([$lyingDownModifier])
-            ->buildName(GameConfigEnum::DEFAULT);
-        $manager->persist($lyingDown);
 
         $multiTeamster = new StatusConfig();
         $multiTeamster
@@ -635,7 +623,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($immunized)
             ->addStatusConfig($inactive)
             ->addStatusConfig($lost)
-            ->addStatusConfig($lyingDown)
             ->addStatusConfig($multiTeamster)
             ->addStatusConfig($outcast)
             ->addStatusConfig($pacifist)
@@ -706,7 +693,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::IMMUNIZED_STATUS, $immunized);
         $this->addReference(self::INACTIVE_STATUS, $inactive);
         $this->addReference(self::LOST_STATUS, $lost);
-        $this->addReference(self::LYING_DOWN_STATUS, $lyingDown);
         $this->addReference(self::MULTI_TEAMSTER_STATUS, $multiTeamster);
         $this->addReference(self::OUTCAST_STATUS, $outcast);
         $this->addReference(self::PACIFIST_STATUS, $pacifist);

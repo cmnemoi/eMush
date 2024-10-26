@@ -6,12 +6,14 @@ namespace Mush\Skill\Service;
 
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Exception\GameException;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Event\SkillCreatedEvent;
 use Mush\Skill\Repository\SkillConfigRepositoryInterface;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -21,6 +23,7 @@ use Mush\Status\Service\StatusServiceInterface;
 class AddSkillToPlayerService
 {
     public function __construct(
+        private EventServiceInterface $eventService,
         private GameEquipmentServiceInterface $gameEquipmentService,
         private ModifierCreationServiceInterface $modifierCreationService,
         private PlayerRepositoryInterface $playerRepository,
@@ -37,6 +40,8 @@ class AddSkillToPlayerService
         $this->createSkillModifiers($skill);
         $this->createSkillPoints($skill);
         $this->createSkillItems($skill);
+
+        $this->dispatchSkillCreatedEvent($skill);
     }
 
     private function checkPlayerDoesNotHaveSkill(SkillEnum $skill, Player $player): void
@@ -94,6 +99,14 @@ class AddSkillToPlayerService
             reasons: [],
             time: new \DateTime(),
             quantity: $spawnEquipmentConfig->getQuantity()
+        );
+    }
+
+    private function dispatchSkillCreatedEvent(Skill $skill): void
+    {
+        $this->eventService->callEvent(
+            new SkillCreatedEvent($skill),
+            SkillCreatedEvent::class,
         );
     }
 }

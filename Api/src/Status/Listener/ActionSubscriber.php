@@ -2,10 +2,8 @@
 
 namespace Mush\Status\Listener;
 
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Game\Enum\EventPriorityEnum;
-use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -66,15 +64,28 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public function onPostAction(ActionEvent $event): void
     {
-        $actionTarget = $event->getActionTarget();
+        $this->handleAntiquePerfumeBonus($event);
+        $this->removeLyingDownStatusFromTargetPlayer($event);
+    }
 
-        $isPlayerLaidDown = $actionTarget instanceof Player && $actionTarget->hasStatus(PlayerStatusEnum::LYING_DOWN);
-        $actionShouldRemoveLaidDownStatus = \in_array($event->getActionConfig()->getActionName()->value, ActionEnum::getForceGetUpActions(), true);
+    private function handleAntiquePerfumeBonus(ActionEvent $event): void
+    {
+        if ($event->shouldCreateParfumeAntiqueImmunizedStatus()) {
+            $this->statusService->createStatusFromName(
+                statusName: PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED,
+                holder: $event->getAuthor(),
+                tags: $event->getTags(),
+                time: $event->getTime(),
+            );
+        }
+    }
 
-        if ($isPlayerLaidDown && $actionShouldRemoveLaidDownStatus) {
+    private function removeLyingDownStatusFromTargetPlayer(ActionEvent $event): void
+    {
+        if ($event->shouldRemoveTargetLyingDownStatus()) {
             $this->statusService->removeStatus(
                 statusName: PlayerStatusEnum::LYING_DOWN,
-                holder: $actionTarget,
+                holder: $event->getPlayerActionTarget(),
                 tags: $event->getTags(),
                 time: $event->getTime()
             );

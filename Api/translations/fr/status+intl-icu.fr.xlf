@@ -1655,5 +1655,15 @@
         <target>Votre mission est trop importante pour discriminer sur votre choix d'alliés...//Tout membre d'équipage **humain** que ce chat **griffera** se verra **contaminé par un spore.**//*Vous voyez ce message car vous faites partie du Mush.*</target>
       </segment>
     </unit>
+    <unit id="antique_perfume_immunized">
+      <segment id="name" state="translated">
+        <source>antique_perfume_immunized.name</source>
+        <target>Immunisée</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>antique_perfume_immunized.description</source>
+        <target>L'immunisée ne peut pas être contaminée par le Mush. Pratique quand on ne sait plus à qui faire confiance.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

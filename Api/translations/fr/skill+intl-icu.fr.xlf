@@ -848,5 +848,15 @@
         <target>Certes une brute mais à cheval sur la propreté quand même. Touche-moi pas tu me salis !//:point: Vous avez **50%** de chances d'être insensible aux contaminations par le Mush.//:point: Vous avez **50%** de résistance aux maladies physiques.</target>
       </segment>
     </unit>
+    <unit id="antique_perfume">
+      <segment id="antique_perfume.name" state="translated">
+        <source>antique_perfume.name</source>
+        <target>Parfum antique</target>
+      </segment>
+      <segment id="antique_perfume.description" state="translated">
+        <source>antique_perfume.description</source>
+        <target>Ah cha il chavait faire de frai parfums chez fraigonard en mille neuf chent quatreving douche...//:point: A chaque **douche**, vous gagnez une immunité de **2** cycles contre les **infections Mush**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

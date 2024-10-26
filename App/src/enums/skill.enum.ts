@@ -259,7 +259,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.METALWORKER]: {
-        'icon': getImgUrl('skills/human/metalworker.png')
+        'icon': getImgUrl('skills/human/metaliciste.png')
     },
 
     [SkillEnum.MOTIVATOR]: {

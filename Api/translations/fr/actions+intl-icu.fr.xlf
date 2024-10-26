@@ -1520,5 +1520,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>**Journalier**. Permet d'intimider un joueur pour lui imposer vos idées.//:point: Fait perdre 2 :pa: et 4 :pm: à la cible.</target>
       </segment>
     </unit>
+    <unit id="gen_metal">
+      <segment id="gen_metal" state="final">
+        <source>gen_metal.name</source>
+        <target>Fouiner</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>gen_metal.description</source>
+        <target>Permet de fouiner les stockages pour trouver des débris, ou des choses **vraiment** utiles.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

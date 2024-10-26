@@ -628,6 +628,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
+    public function hasZeroMoralPoint(): bool
+    {
+        return $this->getMoralPoint() === 0;
+    }
+
     public function getActionPoint(): int
     {
         return $this->playerVariables->getValueByName(PlayerVariableEnum::ACTION_POINT);

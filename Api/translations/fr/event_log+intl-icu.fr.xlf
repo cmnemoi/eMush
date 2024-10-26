@@ -1252,5 +1252,14 @@
         <target>Votre compétence **Panique** a porté ses fruits...</target>
       </segment>
     </unit>
+    <unit id="self_sacrifice_worked">
+      <segment id="self_sacrifice_worked" state="final">
+        <source>self_sacrifice_worked</source>
+        <target>{target_character_gender, select,
+        female {Votre compétence **Abnégation** a porté ses fruits, vous n'êtes pas morte...}
+        other {Votre compétence **Abnégation** a porté ses fruits, vous n'êtes pas mort...}
+        }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

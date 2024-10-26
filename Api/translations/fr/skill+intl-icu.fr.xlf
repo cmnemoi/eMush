@@ -888,5 +888,15 @@
         <target>Vous, on peut dire que vous êtes vraiment quelqu'un de productif !//:point: **Jounalier** : Si vous vous trouvez dans un **Stockage**, pour **0** :pa:, vous avez une chance de trouver des débris voir mieux.</target>
       </segment>
     </unit>
+    <unit id="doorman">
+      <segment id="doorman.name" state="translated">
+        <source>doorman.name</source>
+        <target>Portier</target>
+      </segment>
+      <segment id="doorman.description" state="translated">
+        <source>doorman.description</source>
+        <target>Certaines coulemelles rampantes peuvent imiter cet effet désagréable du riz soufflé proactif. Et ça tombe bien le Mush vous a émis leur génotype.//:point: Chaque jour, vous pouvez **saboter** une **Porte** gratuitement.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

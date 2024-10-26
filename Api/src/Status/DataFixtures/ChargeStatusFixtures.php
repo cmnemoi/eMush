@@ -591,6 +591,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasGenMetal);
 
+        $hasSabotagedDoor = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_SABOTAGED_DOOR . '_default')
+        );
+        $manager->persist($hasSabotagedDoor);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -639,6 +644,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($droneRepairFailedAttempts)
             ->addStatusConfig($droneExtinguishFailedAttempts)
             ->addStatusConfig($droneShootHunterFailedAttempts)
+            ->addStatusConfig($hasSabotagedDoor)
             ->addStatusConfig($hasGenMetal)
             ->addStatusConfig($lyingDown)
             ->addStatusConfig($antiquePerfumeImmunized)
@@ -699,6 +705,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED, $antiquePerfumeImmunized);
         $this->addReference(PlayerStatusEnum::HAS_DAUNTED, $hasDaunted);
         $this->addReference(PlayerStatusEnum::HAS_GEN_METAL, $hasGenMetal);
+        $this->addReference(PlayerStatusEnum::HAS_SABOTAGED_DOOR, $hasSabotagedDoor);
     }
 
     public function getDependencies(): array

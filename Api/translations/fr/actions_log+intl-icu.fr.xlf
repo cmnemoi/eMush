@@ -1411,5 +1411,11 @@
         <target>Vous retournez toutes ces piles de machins inutiles mais rien à faire, rien de vraiment intéressant...</target>
       </segment>
     </unit>
+    <unit id="door_sabotage_success">
+      <segment id="door_sabotage_success" state="final">
+        <source>door_sabotage_success</source>
+        <target>:mush: Étrange, **{character}** s'affaire sur une **Porte** qui émet une petite fumée...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

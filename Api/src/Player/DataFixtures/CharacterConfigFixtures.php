@@ -227,6 +227,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $antiquePerfumeSkillConfig */
         $antiquePerfumeSkillConfig = $this->getReference(SkillEnum::ANTIQUE_PERFUME->value);
 
+        /** @var SkillConfig $selfSacrificeSkillConfig */
+        $selfSacrificeSkillConfig = $this->getReference(SkillEnum::SELF_SACRIFICE->value);
+
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
@@ -398,6 +401,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $itExpertSkillConfig,
                 $neronOnlyFriendSkillConfig,
                 $diplomatSkillConfig,
+                $radioExpertSkillConfig,
+                $selfSacrificeSkillConfig,
             ])
             ->setStartingItems($iTrackieCollection);
         $manager->persist($janice);

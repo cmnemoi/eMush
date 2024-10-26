@@ -359,7 +359,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.SELF_SACRIFICE]: {
-        'icon': getImgUrl('skills/human/self_sacrifice.png')
+        'icon': getImgUrl('skills/human/abnegation.png')
     },
 
     [SkillEnum.SLIMETRAP]: {

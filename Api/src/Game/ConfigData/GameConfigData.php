@@ -694,6 +694,7 @@ class GameConfigData
                 SkillEnum::REBEL,
                 SkillEnum::ROBOTICS_EXPERT,
                 SkillEnum::SABOTEUR,
+                SkillEnum::SELF_SACRIFICE,
                 SkillEnum::SHOOTER,
                 SkillEnum::SHRINK,
                 SkillEnum::SLIMETRAP,

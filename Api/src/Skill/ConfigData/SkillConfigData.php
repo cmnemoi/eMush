@@ -270,6 +270,13 @@ abstract class SkillConfigData
                 ]
             ),
             new SkillConfigDto(
+                name: SkillEnum::PANIC,
+                modifierConfigs: [
+                    ModifierNameEnum::PLUS_1_ACTION_POINT_IF_MUSH_CONTROLS_MORE_THAN_50_PERCENTS_OF_CREW,
+                    ModifierNameEnum::PLUS_1_MOVEMENT_POINT_IF_MUSH_CONTROLS_MORE_THAN_50_PERCENTS_OF_CREW,
+                ]
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::PHAGOCYTE,
                 actionConfigs: [
                     ActionEnum::PHAGOCYTE,

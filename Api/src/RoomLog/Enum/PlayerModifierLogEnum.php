@@ -32,6 +32,7 @@ abstract class PlayerModifierLogEnum
     public const string COLD_BLOODED_WORKED = 'cold_blooded_worked';
     public const string OPPORTUNIST_WORKED = 'opportunist_worked';
     public const string LETHARGY_WORKED = 'lethargy_worked';
+    public const string PANIC_WORKED = 'panic_worked';
     public const string GAIN = 'gain';
     public const string LOSS = 'loss';
     public const string VISIBILITY = 'visibility';
@@ -67,6 +68,8 @@ abstract class PlayerModifierLogEnum
             ModifierNameEnum::COLD_BLOODED_MODIFIER => self::COLD_BLOODED_WORKED,
             ModifierNameEnum::OPPORTUNIST_MODIFIER => self::OPPORTUNIST_WORKED,
             ModifierNameEnum::LETHARGY_MODIFIER => self::LETHARGY_WORKED,
+            ModifierNameEnum::PANIC_ACTION_POINT_MODIFIER => self::PANIC_WORKED,
+            ModifierNameEnum::PANIC_MOVEMENT_POINT_MODIFIER => self::PANIC_WORKED,
         ],
         self::VISIBILITY => [
             ModifierNameEnum::STARVING => VisibilityEnum::PRIVATE,
@@ -81,6 +84,8 @@ abstract class PlayerModifierLogEnum
             ModifierNameEnum::COLD_BLOODED_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::OPPORTUNIST_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::LETHARGY_MODIFIER => VisibilityEnum::PRIVATE,
+            ModifierNameEnum::PANIC_ACTION_POINT_MODIFIER => VisibilityEnum::PRIVATE,
+            ModifierNameEnum::PANIC_MOVEMENT_POINT_MODIFIER => VisibilityEnum::PRIVATE,
         ],
     ];
 }

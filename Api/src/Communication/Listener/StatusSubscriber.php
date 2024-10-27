@@ -55,6 +55,12 @@ final class StatusSubscriber implements EventSubscriberInterface
     public function onStatusRemoved(StatusEvent $event): void
     {
         match ($event->getStatusName()) {
+            DaedalusStatusEnum::NERON_DEPRESSION => $this->neronMessageService->createNeronMessage(
+                messageKey: NeronMessageEnum::NERON_DEPRESSION,
+                daedalus: $event->getDaedalus(),
+                parameters: [],
+                dateTime: $event->getTime()
+            ),
             DaedalusStatusEnum::NO_GRAVITY_REPAIRED => $this->neronMessageService->createNeronMessage(
                 messageKey: NeronMessageEnum::RESTART_GRAVITY,
                 daedalus: $event->getDaedalus(),

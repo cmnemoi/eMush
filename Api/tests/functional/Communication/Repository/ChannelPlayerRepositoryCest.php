@@ -37,7 +37,6 @@ final class ChannelPlayerRepositoryCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->tester = $I;
         $this->channelRepository = $I->grabService(ChannelPlayerRepository::class);
 
         // Setup game config
@@ -135,9 +134,9 @@ final class ChannelPlayerRepositoryCest
         $I->haveInRepository($this->player);
     }
 
-    private function whenSearchingForAvailablePlayers(array $initialUsers): array
+    private function whenSearchingForAvailablePlayers(array $initialUsers, FunctionalTester $I): array
     {
-        $channel = $this->createPrivateChannel($initialUsers, $this->daedalus);
+        $channel = $this->createPrivateChannel($initialUsers, $this->daedalus, $I);
         return $this->channelRepository->findAvailablePlayerForPrivateChannel($channel, $this->daedalus);
     }
 
@@ -171,13 +170,13 @@ final class ChannelPlayerRepositoryCest
         $I->assertContains($this->player2Info, $players);
     }
 
-    private function createPrivateChannel(array $users, Daedalus $daedalus): Channel
+    private function createPrivateChannel(array $users, Daedalus $daedalus, FunctionalTester $I): Channel
     {
         $privateChannel = new Channel();
         $privateChannel->setDaedalus($daedalus->getDaedalusInfo());
         $privateChannel->setScope(ChannelScopeEnum::PRIVATE);
 
-        $this->tester->haveInRepository($privateChannel);
+        $I->haveInRepository($privateChannel);
 
         /** @var PlayerInfo $user */
         foreach ($users as $user) {
@@ -185,7 +184,7 @@ final class ChannelPlayerRepositoryCest
             $participant
                 ->setParticipant($user)
                 ->setChannel($privateChannel);
-            $this->tester->haveInRepository($participant);
+            $I->haveInRepository($participant);
         }
 
         return $privateChannel;

@@ -90,7 +90,7 @@ final class ExtractSporeCest extends AbstractFunctionalTest
 
         $this->givenKuanTiExtractedTwoSpores();
 
-        $this->givenKuanTiExtractedTwoSpores();
+        $this->whenKuanTiTriesToExtractSpore();
 
         $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT);
     }

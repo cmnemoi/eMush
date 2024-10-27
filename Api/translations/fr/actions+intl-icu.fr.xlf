@@ -1550,5 +1550,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet d'infliger des terreurs nocturnes à un membre d'équipage allongé, ce qui le privera de ses bonus de repos.</target>
       </segment>
     </unit>
+    <unit id="neron_depress">
+      <segment id="neron_depress" state="translated">
+        <source>neron_depress.name</source>
+        <target>Dépression de NERON</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>neron_depress.description</source>
+        <target>Permet de déprimer NERON ce qui va le dérégler complètement au prochain cycle.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

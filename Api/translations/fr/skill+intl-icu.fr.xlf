@@ -938,5 +938,15 @@
         <target>Grâce à votre myéline survoltée, votre vitesse de déplacement est incroyable.//:point: Vos attaques de **corps-à-corps** deviennent des actions **anonymes**.</target>
       </segment>
     </unit>
+    <unit id="neron_depression">
+      <segment id="neron_depression.name" state="translated">
+        <source>neron_depression.name</source>
+        <target>Dépression de NERON</target>
+      </segment>
+      <segment id="neron_depression.description" state="translated">
+        <source>neron_depression.description</source>
+        <target>Quand NERON se sent mal, c'est tout le Daedalus qui vomit.//:point: Pour **3** :pa:, vous pouvez embrouiller NERON au prochain cycle, ce qui modifie aléatoirement ses réglages.//:point: Ne fonctionne pas sur l'entrave DMZ si elle est bloquée.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

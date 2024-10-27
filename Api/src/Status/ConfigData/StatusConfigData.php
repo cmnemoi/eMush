@@ -1749,6 +1749,20 @@ abstract class StatusConfigData
             ],
             'actionConfigs' => [],
         ],
+        [
+            'name' => DaedalusStatusEnum::NERON_DEPRESSION . '_default',
+            'statusName' => DaedalusStatusEnum::NERON_DEPRESSION,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+            'maxCharge' => null,
+            'startCharge' => 1,
+            'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
+            'autoRemove' => true,
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

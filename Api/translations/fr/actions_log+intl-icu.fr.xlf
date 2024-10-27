@@ -1423,5 +1423,11 @@
         <target>:mush: **{character}** se rapproche de **{target_character}**... Après {character_gender, select, female {qu'elle s'en est éloignée} other {qu'il s'en est éloigné}}, celui-ci semble avoir un sommeil tourmenté...</target>
       </segment>
     </unit>
+    <unit id="neron_depress_success">
+      <segment id="neron_depress_success" state="final">
+        <source>neron_depress_success</source>
+        <target>:mush: **{character}** a l'air en grande discussion avec... NERON. Mais que peuvent-ils bien se dire ces deux-là ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

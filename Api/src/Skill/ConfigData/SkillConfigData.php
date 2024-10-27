@@ -273,6 +273,12 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
+                name: SkillEnum::NERON_DEPRESSION,
+                actionConfigs: [
+                    ActionEnum::NERON_DEPRESS,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::NERON_ONLY_FRIEND,
             ),
             new SkillConfigDto(

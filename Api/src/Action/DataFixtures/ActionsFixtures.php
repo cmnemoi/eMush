@@ -1121,6 +1121,9 @@ class ActionsFixtures extends Fixture
         $giveNightmare = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GIVE_NIGHTMARE));
         $manager->persist($giveNightmare);
 
+        $neronDepress = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::NERON_DEPRESS));
+        $manager->persist($neronDepress);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1257,5 +1260,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::GEN_METAL->value, $genMetal);
         $this->addReference(ActionEnum::DOOR_SABOTAGE->value, $doorSabotage);
         $this->addReference(ActionEnum::GIVE_NIGHTMARE->value, $giveNightmare);
+        $this->addReference(ActionEnum::NERON_DEPRESS->value, $neronDepress);
     }
 }

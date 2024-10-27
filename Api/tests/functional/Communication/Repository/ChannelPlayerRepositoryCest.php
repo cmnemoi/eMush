@@ -14,246 +14,169 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class ChannelPlayerRepositoryCest
+final class ChannelPlayerRepositoryCest
 {
-    private FunctionalTester $tester;
-
     private ChannelPlayerRepository $channelRepository;
+
+    private GameConfig $gameConfig;
+    private Daedalus $daedalus;
+    private Daedalus $daedalus2;
+    private DaedalusInfo $daedalusInfo;
+    private DaedalusInfo $daedalus2Info;
+    private User $user;
+    private CharacterConfig $characterConfig;
+    private Player $player;
+    private Player $player2;
+    private PlayerInfo $playerInfo;
+    private PlayerInfo $player2Info;
 
     public function _before(FunctionalTester $I)
     {
-        $this->tester = $I;
-
         $this->channelRepository = $I->grabService(ChannelPlayerRepository::class);
+
+        // Setup game config
+        $this->gameConfig = $I->have(GameConfig::class);
+
+        // Setup daedaluses
+        $this->daedalus = $I->have(Daedalus::class);
+        $this->daedalus2 = $I->have(Daedalus::class, ['name' => 'daedalus_']);
+
+        // Setup localization
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
+        // Setup daedalus infos
+        $this->daedalusInfo = new DaedalusInfo($this->daedalus, $this->gameConfig, $localizationConfig);
+        $this->daedalusInfo->setName('daedalus');
+        $I->haveInRepository($this->daedalusInfo);
+
+        $this->daedalus2Info = new DaedalusInfo($this->daedalus2, $this->gameConfig, $localizationConfig);
+        $this->daedalus2Info->setName('daedalus2');
+        $I->haveInRepository($this->daedalus2Info);
+
+        // Setup user and character config
+        $this->user = $I->have(User::class);
+        $this->characterConfig = $I->have(CharacterConfig::class);
+
+        // Setup players
+        $this->player = $I->have(Player::class, ['daedalus' => $this->daedalus]);
+        $this->player->setPlayerVariables($this->characterConfig);
+        $this->playerInfo = new PlayerInfo($this->player, $this->user, $this->characterConfig);
+        $I->haveInRepository($this->playerInfo);
+        $this->player->setPlayerInfo($this->playerInfo);
+        $I->haveInRepository($this->player);
+
+        $this->player2 = $I->have(Player::class, ['daedalus' => $this->daedalus]);
+        $this->player2->setPlayerVariables($this->characterConfig);
+        $this->player2Info = new PlayerInfo($this->player2, $this->user, $this->characterConfig);
+        $I->haveInRepository($this->player2Info);
+        $this->player2->setPlayerInfo($this->player2Info);
+        $I->haveInRepository($this->player2);
     }
 
-    public function testFindAvailablePlayerForPrivateChannelDifferentDaedalus(FunctionalTester $I)
+    public function testFindAvailablePlayerForPrivateChannelDifferentDaedalus(FunctionalTester $I): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $this->givenPlayer2IsInDifferentDaedalus($I);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $players = $this->whenSearchingForAvailablePlayers([$this->playerInfo], $I);
 
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo->setName('daedalus');
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Daedalus $daedalus2 */
-        $daedalus2 = $I->have(Daedalus::class, ['name' => 'daedalus_']);
-        $daedalus2Info = new DaedalusInfo($daedalus2, $gameConfig, $localizationConfig);
-        $daedalusInfo->setName('daedalus2');
-        $I->haveInRepository($daedalus2Info);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-        ]);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        /** @var Player $player2 */
-        $player2 = $I->have(Player::class, [
-            'daedalus' => $daedalus2,
-        ]);
-        $player2Info = new PlayerInfo($player2, $user, $characterConfig);
-
-        $I->haveInRepository($player2Info);
-        $player2->setPlayerInfo($player2Info);
-        $I->refreshEntities($player2);
-
-        $channel1 = $this->createPrivateChannel([$player2Info], $daedalus);
-
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus, 3);
-
-        $I->assertCount(1, $players);
-        $I->assertContains($playerInfo, $players);
+        $this->thenNoPlayersShouldBeAvailable($players, $I);
     }
 
-    public function testFindAvailablePlayerForPrivateChannelWithDeadPlayer(FunctionalTester $I)
+    public function testFindAvailablePlayerForPrivateChannelWithDeadPlayer(FunctionalTester $I): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $this->givenPlayer2IsDead($I);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $players = $this->whenSearchingForAvailablePlayers([], $I);
 
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-        ]);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        /** @var Player $player2 */
-        $player2 = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-        ]);
-        $player2Info = new PlayerInfo($player2, $user, $characterConfig);
-        $player2Info->setGameStatus(GameStatusEnum::FINISHED);
-
-        $I->haveInRepository($player2Info);
-        $player2->setPlayerInfo($player2Info);
-        $I->refreshEntities($player2);
-
-        $channel1 = $this->createPrivateChannel([], $daedalus);
-
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus, 3);
-
-        $I->assertCount(1, $players);
-        $I->assertContains($playerInfo, $players);
+        $this->thenOnlyLivingPlayerShouldBeAvailable($players, $I);
     }
 
-    public function testFindAvailablePlayerForPrivateChannelEmptyChannels(FunctionalTester $I)
+    public function testFindAvailablePlayerForPrivateChannelEmptyChannels(FunctionalTester $I): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $players = $this->whenSearchingForAvailablePlayers([], $I);
+        $this->thenAllPlayersShouldBeAvailable($players, $I);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-        ]);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        /** @var Player $player2 */
-        $player2 = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-        ]);
-        $player2Info = new PlayerInfo($player2, $user, $characterConfig);
-
-        $I->haveInRepository($player2Info);
-        $player2->setPlayerInfo($player2Info);
-        $I->refreshEntities($player2);
-
-        $channel1 = $this->createPrivateChannel([], $daedalus);
-
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus, 3);
-
-        $I->assertCount(2, $players);
-        $I->assertContains($playerInfo, $players);
-        $I->assertContains($player2Info, $players);
-
-        $channel2 = $this->createPrivateChannel([$playerInfo], $daedalus);
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel2, $daedalus, 3);
-
-        $I->assertCount(1, $players);
-        $I->assertContains($player2Info, $players);
+        $players = $this->whenSearchingForAvailablePlayers([$this->playerInfo], $I);
+        $this->thenOnlyOtherPlayerShouldBeAvailable($players, $I);
     }
 
-    public function testFindAvailablePlayerForPrivateChannelMaxChannel(FunctionalTester $I)
+    public function testFindAvailablePlayerForPrivateChannelMaxChannel(FunctionalTester $I): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $this->givenPlayer1HasMaxOnePrivateChannel($I);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $players = $this->whenSearchingForAvailablePlayers([], $I);
+        $this->thenAllPlayersShouldBeAvailable($players, $I);
 
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
+        $players = $this->whenSearchingForAvailablePlayers([$this->playerInfo], $I);
+        $this->thenOnlyPlayer2ShouldBeAvailable($players, $I);
+    }
 
-        /** @var User $user */
-        $user = $I->have(User::class);
+    private function givenPlayer2IsInDifferentDaedalus(FunctionalTester $I): void
+    {
+        $this->player2->setDaedalus($this->daedalus2);
+        $I->haveInRepository($this->player2);
+    }
 
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
+    private function givenPlayer2IsDead(FunctionalTester $I): void
+    {
+        $this->player2Info->setGameStatus(GameStatusEnum::FINISHED);
+        $I->haveInRepository($this->player2Info);
+    }
 
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-        ]);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+    private function givenPlayer1HasMaxOnePrivateChannel(FunctionalTester $I): void
+    {
+        $this->player->getVariableByName(PlayerVariableEnum::PRIVATE_CHANNELS)->setMaxValue(1);
+        $I->haveInRepository($this->player);
+    }
 
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+    private function whenSearchingForAvailablePlayers(array $initialUsers, FunctionalTester $I): array
+    {
+        $channel = $this->createPrivateChannel($initialUsers, $this->daedalus, $I);
 
-        /** @var Player $player2 */
-        $player2 = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-        ]);
-        $player2Info = new PlayerInfo($player2, $user, $characterConfig);
+        return $this->channelRepository->findAvailablePlayerForPrivateChannel($channel, $this->daedalus);
+    }
 
-        $I->haveInRepository($player2Info);
-        $player2->setPlayerInfo($player2Info);
-        $I->refreshEntities($player2);
-
-        $channel1 = $this->createPrivateChannel([], $daedalus);
-        $channel2 = $this->createPrivateChannel([$playerInfo], $daedalus);
-
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus, 1);
-
-        $I->assertCount(1, $players);
-        $I->assertContains($player2Info, $players);
-
-        $channel3 = $this->createPrivateChannel([$playerInfo, $player2Info], $daedalus);
-
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus, 2);
-        $I->assertCount(1, $players);
-        $I->assertContains($player2Info, $players);
-
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel2, $daedalus, 2);
-        $I->assertCount(1, $players);
-        $I->assertContains($player2Info, $players);
-
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel3, $daedalus, 2);
+    private function thenNoPlayersShouldBeAvailable(array $players, FunctionalTester $I): void
+    {
         $I->assertCount(0, $players);
     }
 
-    private function createPrivateChannel(array $users, Daedalus $daedalus): Channel
+    private function thenOnlyLivingPlayerShouldBeAvailable(array $players, FunctionalTester $I): void
+    {
+        $I->assertCount(1, $players);
+        $I->assertContains($this->playerInfo, $players);
+    }
+
+    private function thenAllPlayersShouldBeAvailable(array $players, FunctionalTester $I): void
+    {
+        $I->assertCount(2, $players);
+        $I->assertContains($this->playerInfo, $players);
+        $I->assertContains($this->player2Info, $players);
+    }
+
+    private function thenOnlyOtherPlayerShouldBeAvailable(array $players, FunctionalTester $I): void
+    {
+        $I->assertCount(1, $players);
+        $I->assertContains($this->player2Info, $players);
+    }
+
+    private function thenOnlyPlayer2ShouldBeAvailable(array $players, FunctionalTester $I): void
+    {
+        $I->assertCount(1, $players);
+        $I->assertContains($this->player2Info, $players);
+    }
+
+    private function createPrivateChannel(array $users, Daedalus $daedalus, FunctionalTester $I): Channel
     {
         $privateChannel = new Channel();
         $privateChannel->setDaedalus($daedalus->getDaedalusInfo());
         $privateChannel->setScope(ChannelScopeEnum::PRIVATE);
 
-        $this->tester->haveInRepository($privateChannel);
+        $I->haveInRepository($privateChannel);
 
         /** @var PlayerInfo $user */
         foreach ($users as $user) {
@@ -261,7 +184,7 @@ class ChannelPlayerRepositoryCest
             $participant
                 ->setParticipant($user)
                 ->setChannel($privateChannel);
-            $this->tester->haveInRepository($participant);
+            $I->haveInRepository($participant);
         }
 
         return $privateChannel;

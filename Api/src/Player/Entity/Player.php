@@ -710,6 +710,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
+    public function getMaxPrivateChannels(): int
+    {
+        return $this->getVariableByName(PlayerVariableEnum::PRIVATE_CHANNELS)->getMaxValueOrThrow();
+    }
+
     public function getPlanets(): Collection
     {
         return $this->planets;

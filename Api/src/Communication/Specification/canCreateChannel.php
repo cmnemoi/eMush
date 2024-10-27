@@ -16,16 +16,16 @@ class canCreateChannel implements SpecificationInterface
 
     public function isSatisfied($candidate): bool
     {
-        if ($candidate instanceof Player) {
-            if (!$candidate->isAlive()) {
-                return false;
-            }
-            $channels = $this->channelService->getPlayerChannels($candidate, true);
-            if ($channels->count() < $candidate->getPlayerInfo()->getCharacterConfig()->getMaxNumberPrivateChannel()) {
-                return true;
-            }
+        if (!$candidate instanceof Player) {
+            return false;
         }
 
-        return false;
+        if ($candidate->isDead()) {
+            return false;
+        }
+
+        $channels = $this->channelService->getPlayerChannels($candidate, true);
+
+        return $channels->count() < $candidate->getMaxPrivateChannels();
     }
 }

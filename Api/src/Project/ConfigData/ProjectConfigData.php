@@ -750,7 +750,9 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
-                'spawnEquipmentConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    SpawnEquipmentConfigData::TWO_NCC_LENSES_IN_LABORATORY,
+                ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
                     ProjectRequirementName::SCHRODINGER_IN_PLAYER_INVENTORY,

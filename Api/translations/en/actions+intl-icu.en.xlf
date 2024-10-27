@@ -1257,7 +1257,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="description" state="translated">
         <source>commander_order.description</source>
-        <target>Allows you to delegate a mission to one of your subordinates. They will be allocated :pa::pm: to complete the mission if they accept. You can only use this action once per day. This action is made available to you again should the subordinate refuse.</target>
+        <target>Allows you to delegate a mission to one of your subordinates. They will be allocated 3 :pa: to complete the mission if they accept. // You can only use this action once per day. // This action is made available to you again should the subordinate refuse.</target>
       </segment>
     </unit>
     <unit id="print_ze_list">
@@ -1437,17 +1437,7 @@ Or you simply need some fresh air.... or not.</target>
 **Try to borrow a Patrol Ship and destroy all the Hunters before you leave. 20% targeting bonus compared to humans.**</target>
       </segment>
     </unit>
-    <unit id="cure">
-      <segment id="cure" state="translated">
-        <source>cure.name</source>
-        <target>Innoculate</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>cure.description</source>
-        <target>The anti-Mush vaccine injects a powerful retro-fungal compound which removes all Mush symptoms in the target.</target>
-      </segment>
-    </unit>
-     <unit id="take_cat">
+    <unit id="take_cat">
       <segment id="name" state="final">
         <source>take_cat.name</source>
         <target>Pick up</target>
@@ -1475,6 +1465,97 @@ Or you simply need some fresh air.... or not.</target>
       <segment id="description" state="final">
         <source>convert_cat.description</source>
         <target>PAllows you to cuddle with Schrödinger "lovingly" and make it an agent of Mush.</target>
+      </segment>
+    </unit>
+    <unit id="torture">
+      <segment id="name" state="translated">
+        <source>torture.name</source>
+        <target>Torture</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>torture.description</source>
+        <target>Torture a crewmate to get to the truth. They will use 1 :hp: and reveal one action for every :hp: missing.</target>
+      </segment>
+    </unit>
+    <unit id="cure">
+      <segment id="cure" state="translated">
+        <source>cure.name</source>
+        <target>Innoculate</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cure.description</source>
+        <target>The anti-Mush vaccine injects a powerful retro-fungal compound which removes all Mush symptoms in the target.</target>
+      </segment>
+    </unit>
+    <unit id="daunt">
+      <segment id="daunt" state="translated">
+        <source>daunt.name</source>
+        <target>Intimidate</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>daunt.description</source>
+        <target>**Daily**. Allows you to intimidate a player in order to make them more receptive to your ideas.
+//:point: Causes the target to lose 2 :pa: and 4:pm:.</target>
+      </segment>
+    </unit>
+    <unit id="gen_metal">
+      <segment id="gen_metal" state="translated">
+        <source>gen_metal.name</source>
+        <target>Snoop</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>gen_metal.description</source>
+        <target>Allows you to snoop in the stockrooms for scrap, or other **really** useful things.</target>
+      </segment>
+    </unit>
+    <unit id="door_sabotage">
+      <segment id="door_sabotage" state="translated">
+        <source>door_sabotage.name</source>
+        <target>Sabotage: Door</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>door_sabotage.description</source>
+        <target>**Daily**: Allows you to sabotage a random door in the room.</target>
+      </segment>
+    </unit>
+    <unit id="give_nightmare">
+      <segment id="give_nightmare" state="translated">
+        <source>give_nightmare.name</source>
+        <target>Give nightmares</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>give_nightmare.description</source>
+        <target>Allows you to give any crew member who is lying down night terrors, thus depriving them of their rest bonus.</target>
+      </segment>
+    </unit>
+    <unit id="neron_depress">
+      <segment id="neron_depress" state="translated">
+        <source>neron_depress.name</source>
+        <target>Depress NERON</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>neron_depress.description</source>
+        <target>Depresses NERON, which will completely derail it in the next cycle.</target>
+      </segment>
+    </unit>
+    <unit id="search_for_mush_genome">
+      <segment id="search_for_mush_genome" state="translated">
+        <source>search_for_mush_genome.name</source>
+        <target>Download the Mush genome</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>search_for_mush_genome.description</source>
+        <target>The Daedalus had to leave much earlier than expected.//Use the weak link you have left with Xyloph to create a **disquette of the Mush genome**, which may enable you to create a cure.</target>
+      </segment>
+    </unit>
+    <unit id="participate_research">
+      <segment id="name" state="translated">
+        <source>participate_research.name</source>
+        <target>Participate</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>participate_research.description</source>
+        <target>Advance Research.</target>
       </segment>
     </unit>
   </file>

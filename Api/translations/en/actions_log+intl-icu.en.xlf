@@ -1092,7 +1092,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>Premeditated or not, **{character}** took out their weapon and opened fire on **{target_equipment}**.</target>
       </segment>
     </unit>
-        <unit id="shoot_cat_critical_success">
+    <unit id="shoot_cat_critical_success">
       <segment id="shoot_cat_critical_success" state="final">
         <source>shoot_cat_critical_success</source>
         <target>Premeditated or not, **{character}** took out their weapon and opened fire on **{target_equipment}**.</target>
@@ -1114,6 +1114,54 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     1 {When firing at **{target_character}**, **{character}** got burnt with their weapon. Spectacular work.}
     other {When firing at **{target_character}**, **{character}** got burnt with their weapon. Spectacular work.}
 }</target>
+      </segment>
+    </unit>
+    <unit id="daunt_success">
+      <segment id="daunt_success" state="translated">
+        <source>daunt_success</source>
+        <target>**{character}** pulls **{target_character}** into a corner and starts yelling at them...</target>
+      </segment>
+    </unit>
+    <unit id="gen_metal_success">
+      <segment id="gen_metal_success" state="translated">
+        <source>gen_metal_success</source>
+        <target>**{character}** emerges from {character_gender, select, female {her} other {his}} pile of debris looking delighted, {character_gender, select, female {she} other {he}} has made a find! And {equipment_first_letter, select, vowel {an **{equipment}**} other {a **{equipment}**}}!</target>
+      </segment>
+    </unit>
+    <unit id="gen_metal_fail">
+      <segment id="gen_metal_fail" state="translated">
+        <source>gen_metal_fail</source>
+        <target>You turn all these useless machines upside down and inside out, but there's really nothing interesting there...</target>
+      </segment>
+    </unit>
+    <unit id="door_sabotage_success">
+      <segment id="door_sabotage_success" state="translated">
+        <source>door_sabotage_success</source>
+        <target>Strange, **{character}** is busying around their **Door** which is giving off smoke...</target>
+      </segment>
+    </unit>
+    <unit id="give_nightmare_success">
+      <segment id="give_nightmare_success" state="translated">
+        <source>give_nightmare_success</source>
+        <target>:mush: **{character}** is getting closer to **{target_character}**... After {character_gender, select, female {that she moved away} other {that he moved away}}, this one seems to have a tormented sleep...</target>
+      </segment>
+    </unit>
+    <unit id="neron_depress_success">
+      <segment id="neron_depress_success" state="translated">
+        <source>neron_depress_success</source>
+        <target>:mush: **{character}** seems to be deep in conversation with... NERON. But what on earth could this two have to talk about?</target>
+      </segment>
+    </unit>
+    <unit id="search_for_mush_genome_fail">
+      <segment id="search_for_mush_genome_fail" state="translated">
+        <source>search_for_mush_genome_fail</source>
+        <target>Access to Xyloph database denied. Nothing to show for it... Bloody coward admin.</target>
+      </segment>
+    </unit>
+    <unit id="search_for_mush_genome_success">
+      <segment id="search_for_mush_genome_success" state="translated">
+        <source>search_for_mush_genome_success</source>
+        <target>Access to Xyloph database accepted. This disk contains crucial information on the Mush genome gathered by Ian Soulton just before the Daedalus left.</target>
       </segment>
     </unit>
   </file>

@@ -36,7 +36,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>heavy.description</source>
-        <target>This object is particularly heavy.</target>
+        <target>This object is particularly heavy. Moving it around will cost 2 :pm: more.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>heavy.examine</source>
@@ -1086,7 +1086,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>commander.description</source>
-        <target>Chooses the destination of the Daedalus. They are also the only person capable of setting the ship in motion.</target>
+        <target>The Commander can access the **Command Terminal** to move the Daedalus across the stars. // Once per day, they can **send a mission** to a crew member, who will receive 3 :pa: upon accepting it.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>commander.examine</source>
@@ -1100,7 +1100,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>communications_officer.description</source>
-        <target>The Communications officer can start to contact others once contact with Sol has been re-established.</target>
+        <target>The Communications officer can access the **Communications Terminal** to re-establish contact with the rebel network of Sol. // They can create **General Announcements**, which will be sent to all crew members. // They are also able to **access the communications channels without a talkie**.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>communications_officer.examine</source>
@@ -1114,7 +1114,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>neron_administrator.description</source>
-        <target>The NERON Administrator can access NERON's BIOS. They also have privileged access to the daily operations systems.</target>
+        <target>The NERON Administrator can access **NERON's BIOS** to tweak some of the ship's parameters. // They can also **talk as NERON on the public channel** by typing */neron* at the start of their message.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>neron_administrator.examine</source>
@@ -1170,7 +1170,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>burdened.description</source>
-        <target>You are carrying particularly heavy objects. Your movements will cost you more.</target>
+        <target>You are carrying particularly heavy objects. Your movements will cost you 2 :pm: more.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>burdened.examine</source>
@@ -1296,7 +1296,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>germaphobe.description</source>
-        <target>You lose one morale (:pmo:) point for every cycle you remain dirty. You're also banned from stroking the cat.</target>
+        <target>You lose one morale (:pmo:) point for every cycle you remain dirty. You are also unable to pet the cat.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>germaphobe.examine</source>
@@ -1440,7 +1440,7 @@
       </segment>
       <segment id="effect" state="final">
         <source>pariah.examine</source>
-        <target/>
+        <target>&lt;target/&gt;</target>
       </segment>
     </unit>
     <unit id="pacifist">
@@ -1653,6 +1653,16 @@
       <segment id="description" state="translated">
         <source>cat_infected.description</source>
         <target>Your mission is way too important to pick and choose your allies.//Every **human** crewmember **clawed** by this cat will see their **contamination level go up by one**.//*You can see this message because you are one of the Mush.*</target>
+      </segment>
+    </unit>
+    <unit id="antique_perfume_immunized">
+      <segment id="name" state="translated">
+        <source>antique_perfume_immunized.name</source>
+        <target>Immunized</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>antique_perfume_immunized.description</source>
+        <target>The immunized cannot be infected by mush. Practical when you're not sure who to trust...</target>
       </segment>
     </unit>
   </file>

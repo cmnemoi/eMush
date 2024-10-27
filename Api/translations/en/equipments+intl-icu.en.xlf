@@ -299,8 +299,8 @@ Fuel reserve for a diesel engine. Sublime technology with a very particular purp
       </segment>
       <segment id="examine" state="translated">
         <source>command_terminal.examine</source>
-        <target>The Command Terminal is uniquely available to the Commander. Access Forbidden.
-Allows the Commander to do his duty. The Piloting module contains loads of tools to make the daily running of the Daedalus simpler.</target>
+        <target>The Command Terminal is uniquely available to the Commander. Access Forbidden. // 
+Allows the Commander to move the Daedalus. // The Piloting module contains loads of tools to make the daily running of the Daedalus simpler.</target>
       </segment>
     </unit>
     <unit id="communication_center">

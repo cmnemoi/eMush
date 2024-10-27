@@ -260,7 +260,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>exploration_lost.short_name</source>
-        <target>Your crewmates can't be bothered coming to get you...</target>
+        <target>Your crewmates found you, but something else found you first!</target>
       </segment>
       <segment id="category" state="translated">
         <source>exploration_lost.category</source>
@@ -268,7 +268,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>exploration_lost.description</source>
-        <target>We won't lie to each other. You got lost. And unfortunately, your teammates had no way of finding you. So actually you died, forgotten by all.</target>
+        <target>Let's not lie to one other. You got lost. And unfortunately, your teammates had no way of finding you. So finally you died, forgotten by all.</target>
       </segment>
     </unit>
     <unit id="electrocuted">

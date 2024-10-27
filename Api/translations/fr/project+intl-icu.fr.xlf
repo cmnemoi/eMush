@@ -804,7 +804,7 @@
       </segment>
       <segment id="antispore_gas.description" state="translated">
         <source>antispore_gas.description</source>
-        <target>Le maximum de spores journaliers des mush est réduit de deux points. Accorde 3 :triumph:</target>
+        <target>Le maximum de spores journalier des Mush est réduit de deux points.</target>
       </segment>
       <segment id="antispore_gas.lore" state="translated">
         <source>antispore_gas.lore</source>
@@ -822,7 +822,7 @@
       </segment>
       <segment id="constipaspore_serum.description" state="translated">
         <source>constipaspore_serum.description</source>
-        <target>Augmente le coût des création de Spore de 2. Accorde 3 :triumph:</target>
+        <target>Augmente le coût de la création de spores de 2.</target>
       </segment>
       <segment id="constipaspore_serum.lore" state="translated">
         <source>constipaspore_serum.lore</source>
@@ -840,7 +840,7 @@
       </segment>
       <segment id="create_mycoscan.description" state="translated">
         <source>create_mycoscan.description</source>
-        <target>Permet de détecter la présence de spores sur un membre d'équipage sain. Accorde 3 :triumph:</target>
+        <target>Permet de détecter la présence de spores sur un membre d'équipage sain.</target>
       </segment>
       <segment id="create_mycoscan.lore" state="translated">
         <source>create_mycoscan.lore</source>
@@ -858,7 +858,7 @@
       </segment>
       <segment id="meridon_scrambler.description" state="translated">
         <source>meridon_scrambler.description</source>
-        <target>Les Hunters ont 20% de chance, à chaque tir, de cibler un des leurs. Accorde 3 :triumph:</target>
+        <target>Les Hunters ont 20% de chance, à chaque tir, de cibler un des leurs.</target>
       </segment>
       <segment id="meridon_scrambler.lore" state="translated">
         <source>meridon_scrambler.lore</source>
@@ -876,7 +876,7 @@
       </segment>
       <segment id="mush_hunter_zc16h.description" state="translated">
         <source>mush_hunter_zc16h.description</source>
-        <target>Accorde 6 :triumph:</target>
+        <target>Le résultat de cette étude exceptionnelle peut être capital. Il rendra tout l'équipage célèbre.</target>
       </segment>
       <segment id="mush_hunter_zc16h.lore" state="translated">
         <source>mush_hunter_zc16h.lore</source>
@@ -912,7 +912,7 @@
       </segment>
       <segment id="mush_language.description" state="translated">
         <source>mush_language.description</source>
-        <target>Accorde 6 :triumph:</target>
+        <target>Le résultat de cette étude exceptionnelle peut être capital. Il rendra tout l'équipage célèbre.</target>
       </segment>
       <segment id="mush_language.lore" state="translated">
         <source>mush_language.lore</source>
@@ -930,7 +930,7 @@
       </segment>
       <segment id="mushovore_bacteria.description" state="translated">
         <source>mushovore_bacteria.description</source>
-        <target>Les humains peuvent supporter jusqu'à 3 spores avant de se transformer en mush. Accorde 3 :triumph:</target>
+        <target>Les humains peuvent supporter jusqu'à 3 spores avant de se transformer en Mush.</target>
       </segment>
       <segment id="mushovore_bacteria.lore" state="translated">
         <source>mushovore_bacteria.lore</source>
@@ -948,7 +948,7 @@
       </segment>
       <segment id="mush_races.description" state="translated">
         <source>mush_races.description</source>
-        <target>Accorde 6 :triumph:</target>
+        <target>Le résultat de cette étude exceptionnelle peut être capital. Il rendra tout l'équipage célèbre.</target>
       </segment>
       <segment id="mush_races.lore" state="translated">
         <source>mush_races.lore</source>
@@ -966,7 +966,7 @@
       </segment>
       <segment id="mush_reproductive_system.description" state="translated">
         <source>mush_reproductive_system.description</source>
-        <target>Accorde 6 :triumph:</target>
+        <target>Le résultat de cette étude exceptionnelle peut être capital. Il rendra tout l'équipage célèbre.</target>
       </segment>
       <segment id="mush_reproductive_system.lore" state="translated">
         <source>mush_reproductive_system.lore</source>
@@ -984,7 +984,7 @@
       </segment>
       <segment id="mycoalarm.description" state="translated">
         <source>mycoalarm.description</source>
-        <target>Génère 5 **Myco-Alarmes**. Accorde 3 :triumph:</target>
+        <target>Génère 5 **Myco-Alarmes**.</target>
       </segment>
       <segment id="mycoalarm.lore" state="translated">
         <source>mycoalarm.lore</source>
@@ -1056,7 +1056,7 @@
       </segment>
       <segment id="patuline_scrambler.description" state="translated">
         <source>patuline_scrambler.description</source>
-        <target>"Les infectés ne peuvent plus communiquer sur le canal Mush. Accorde 3 :triumph:"</target>
+        <target>Les infectés ne peuvent plus communiquer sur le canal Mush.</target>
       </segment>
       <segment id="patuline_scrambler.lore" state="translated">
         <source>patuline_scrambler.lore</source>
@@ -1074,7 +1074,7 @@
       </segment>
       <segment id="perpetual_hydration.description" state="translated">
         <source>perpetual_hydration.description</source>
-        <target>Accorde 3 :triumph:</target>
+        <target>Le résultat de cette étude exceptionnelle peut être capital. Il rendra tout l'équipage célèbre.</target>
       </segment>
       <segment id="perpetual_hydration.lore" state="translated">
         <source>perpetual_hydration.lore</source>
@@ -1092,7 +1092,7 @@
       </segment>
       <segment id="pheromodem.description" state="translated">
         <source>pheromodem.description</source>
-        <target>"Le Tracker permet désormais de communiquer sur le canal mush. Accorde 3 :triumph:"</target>
+        <target>L'Itrackie permet désormais de communiquer sur le canal Mush.</target>
       </segment>
       <segment id="pheromodem.lore" state="translated">
         <source>pheromodem.lore</source>
@@ -1110,7 +1110,7 @@
       </segment>
       <segment id="retro_fungal_serum.description" state="translated">
         <source>retro_fungal_serum.description</source>
-        <target>"Génère un **Serum Anti-mush**. Accorde 16 :triumph:"</target>
+        <target>Génère un **Sérum anti-Mush**.</target>
       </segment>
       <segment id="retro_fungal_serum.lore" state="translated">
         <source>retro_fungal_serum.lore</source>

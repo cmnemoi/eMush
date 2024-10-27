@@ -96,11 +96,11 @@
       </segment>
       <segment id="chun_present" state="translated">
         <source>research_laboratory.chun_present</source>
-        <target>**Chun** est présent. Cela signifie que des types spéciaux de recherche sont possibles.</target>
+        <target>**Chun** est présente. Cela veut dire que de recherches particulières sont possibles grâce à sa présence.</target>
       </segment>
       <segment id="mush_dead" state="translated">
         <source>research_laboratory.mush_dead</source>
-        <target>Un **membre d'équipage infecté** est mort et sert désormais d'échantillon.</target>
+        <target>Un **parasité** est mort et sert maintenant d'échantillon.</target>
       </segment>
     </unit>
     <unit id="block_of_post_it">

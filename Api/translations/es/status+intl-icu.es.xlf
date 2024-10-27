@@ -1629,5 +1629,25 @@
         <target>genius_idea.description</target>
       </segment>
     </unit>
+    <unit id="cat_infected">
+      <segment id="name" state="initial">
+        <source>cat_infected.name</source>
+        <target>cat_infected.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cat_infected.description</source>
+        <target>cat_infected.description</target>
+      </segment>
+    </unit>
+    <unit id="antique_perfume_immunized">
+      <segment id="name" state="initial">
+        <source>antique_perfume_immunized.name</source>
+        <target>antique_perfume_immunized.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>antique_perfume_immunized.description</source>
+        <target>antique_perfume_immunized.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -767,5 +767,15 @@
         <target>janice.tutorial</target>
       </segment>
     </unit>
+    <unit id="Someone">
+      <segment id="name" state="initial">
+        <source>someone.name</source>
+        <target>someone.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>someone.fullname</source>
+        <target>someone.fullname</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -1361,7 +1361,7 @@
         <target>L'oeil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
       </segment>
     </unit>
-        <unit id="shoot_cat_critical_success">
+    <unit id="shoot_cat_critical_success">
       <segment id="shoot_cat_critical_success" state="final">
         <source>shoot_cat_critical_success</source>
         <target>L'oeil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
@@ -1430,13 +1430,13 @@
       </segment>
     </unit>
     <unit id="search_for_mush_genome_fail">
-      <segment id="search_for_mush_genome_fail" state="final">
+      <segment id="search_for_mush_genome_fail" state="translated">
         <source>search_for_mush_genome_fail</source>
         <target>Accès à la base de données de Xyloph refusée. Rien à en tirer... Saleté d'admin de daube.</target>
       </segment>
     </unit>
     <unit id="search_for_mush_genome_success">
-      <segment id="search_for_mush_genome_success" state="final">
+      <segment id="search_for_mush_genome_success" state="translated">
         <source>search_for_mush_genome_success</source>
         <target>Accès à la base de données de Xyloph acceptée. Ce disque regroupe des informations cruciales sur le génome Mush rassemblée par Ian Soulton juste avant le départ du Daedalus.</target>
       </segment>

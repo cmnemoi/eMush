@@ -28,14 +28,21 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
 
     private function createResearchCompletedLog(ProjectEvent $event): void
     {
+        if (!$event->shouldPrintResearchCompletedLog()) {
+            return;
+        }
+
+        $project = $event->getProject();
+        $author = $event->getAuthor();
+
         $this->roomLogService->createLog(
             logKey: LogEnum::RESEARCH_COMPLETED,
-            place: $event->getAuthor()->getPlace(),
+            place: $author->getPlace(),
             visibility: VisibilityEnum::PUBLIC,
             type: 'event_log',
-            player: $event->getAuthor(),
+            player: $author,
             parameters: [
-                $event->getProject()->getLogKey() => $event->getProject()->getLogName(),
+                $project->getLogKey() => $project->getLogName(),
             ]
         );
     }

@@ -158,9 +158,9 @@
         <source>get_up.name</source>
         <target>Levantarse</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>get_up.description</source>
-        <target>get_up.description</target>
+        <target>Deja este pequeño nido acogedor y enfréntate al mundo cruel.</target>
       </segment>
     </unit>
     <unit id="hide">
@@ -168,9 +168,9 @@
         <source>hide.name</source>
         <target>Esconder</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hide.description</source>
-        <target>hide.description</target>
+        <target>Esconde de tus compañeros un objeto en esta habitación.</target>
       </segment>
     </unit>
     <unit id="hit">
@@ -178,15 +178,15 @@
         <source>hit.name</source>
         <target>Golpear</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hit.description</source>
-        <target>hit.description</target>
+        <target>Comienza una conversación de manera violenta.</target>
       </segment>
     </unit>
     <unit id="hyperfreeze">
-      <segment id="hyperfreeze" state="initial">
+      <segment id="hyperfreeze" state="translated">
         <source>hyperfreeze.name</source>
-        <target>hyperfreeze.name</target>
+        <target>Hipercongelar</target>
       </segment>
       <segment id="description" state="initial">
         <source>hyperfreeze.description</source>
@@ -218,9 +218,9 @@
         <source>move.name</source>
         <target>move.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>move.description</source>
-        <target>move.description</target>
+        <target>Cambia de habitación.</target>
       </segment>
     </unit>
     <unit id="read_book">
@@ -244,9 +244,9 @@
       </segment>
     </unit>
     <unit id="repair">
-      <segment id="repair" state="initial">
+      <segment id="repair" state="translated">
         <source>repair.name</source>
-        <target>repair.name</target>
+        <target>Reparar</target>
       </segment>
       <segment id="description" state="initial">
         <source>repair.description</source>
@@ -254,13 +254,13 @@
       </segment>
     </unit>
     <unit id="search">
-      <segment id="search" state="initial">
+      <segment id="search" state="translated">
         <source>search.name</source>
-        <target>search.name</target>
+        <target>Hurgar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>search.description</source>
-        <target>search.description</target>
+        <target>Te permite hurgar por objetos ocultos en la habitación.</target>
       </segment>
     </unit>
     <unit id="rejuvenate">
@@ -284,9 +284,9 @@
       </segment>
     </unit>
     <unit id="shred">
-      <segment id="shred" state="initial">
+      <segment id="shred" state="translated">
         <source>shred.name</source>
-        <target>shred.name</target>
+        <target>Despedazar</target>
       </segment>
       <segment id="description" state="initial">
         <source>shred.description</source>
@@ -334,13 +334,13 @@
       </segment>
     </unit>
     <unit id="write">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>write.name</source>
-        <target>write.name</target>
+        <target>Escribir</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>write.description</source>
-        <target>write.description</target>
+        <target>Puedes escribir un mensaje, tal vez alguien lo lea...</target>
       </segment>
     </unit>
     <unit id="insert_oxygen">
@@ -384,19 +384,19 @@
       </segment>
     </unit>
     <unit id="sabotage">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>sabotage.name</source>
-        <target>sabotage.name</target>
+        <target>Sabotear</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>sabotage.description</source>
-        <target>sabotage.description</target>
+        <target>Rompe el equipo seleccionado.</target>
       </segment>
     </unit>
     <unit id="take_shower">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>take_shower.name</source>
-        <target>take_shower.name</target>
+        <target>Lavarse</target>
       </segment>
       <segment id="description" state="initial">
         <source>take_shower.description</source>
@@ -404,9 +404,9 @@
       </segment>
     </unit>
     <unit id="wash_in_sink">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>wash_in_sink.name</source>
-        <target>wash_in_sink.name</target>
+        <target>Lavarse</target>
       </segment>
       <segment id="description" state="initial">
         <source>wash_in_sink.description</source>
@@ -424,9 +424,9 @@
       </segment>
     </unit>
     <unit id="heal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>heal.name</source>
-        <target>heal.name</target>
+        <target>Curar</target>
       </segment>
       <segment id="description" state="initial">
         <source>heal.description</source>
@@ -1405,6 +1405,126 @@
       <segment id="description" state="initial">
         <source>upgrade_drone_to_pilot.description</source>
         <target>upgrade_drone_to_pilot.description</target>
+      </segment>
+    </unit>
+    <unit id="take_cat">
+      <segment id="name" state="initial">
+        <source>take_cat.name</source>
+        <target>take_cat.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>take_cat.description</source>
+        <target>take_cat.description</target>
+      </segment>
+    </unit>
+    <unit id="pet_cat">
+      <segment id="name" state="initial">
+        <source>pet_cat.name</source>
+        <target>pet_cat.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>pet_cat.description</source>
+        <target>pet_cat.description</target>
+      </segment>
+    </unit>
+    <unit id="convert_cat">
+      <segment id="name" state="initial">
+        <source>convert_cat.name</source>
+        <target>convert_cat.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>convert_cat.description</source>
+        <target>convert_cat.description</target>
+      </segment>
+    </unit>
+    <unit id="torture">
+      <segment id="name" state="initial">
+        <source>torture.name</source>
+        <target>torture.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>torture.description</source>
+        <target>torture.description</target>
+      </segment>
+    </unit>
+    <unit id="cure">
+      <segment id="cure" state="initial">
+        <source>cure.name</source>
+        <target>cure.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cure.description</source>
+        <target>cure.description</target>
+      </segment>
+    </unit>
+    <unit id="daunt">
+      <segment id="daunt" state="initial">
+        <source>daunt.name</source>
+        <target>daunt.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>daunt.description</source>
+        <target>daunt.description</target>
+      </segment>
+    </unit>
+    <unit id="gen_metal">
+      <segment id="gen_metal" state="initial">
+        <source>gen_metal.name</source>
+        <target>gen_metal.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>gen_metal.description</source>
+        <target>gen_metal.description</target>
+      </segment>
+    </unit>
+    <unit id="door_sabotage">
+      <segment id="door_sabotage" state="initial">
+        <source>door_sabotage.name</source>
+        <target>door_sabotage.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>door_sabotage.description</source>
+        <target>door_sabotage.description</target>
+      </segment>
+    </unit>
+    <unit id="give_nightmare">
+      <segment id="give_nightmare" state="initial">
+        <source>give_nightmare.name</source>
+        <target>give_nightmare.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>give_nightmare.description</source>
+        <target>give_nightmare.description</target>
+      </segment>
+    </unit>
+    <unit id="neron_depress">
+      <segment id="neron_depress" state="initial">
+        <source>neron_depress.name</source>
+        <target>neron_depress.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>neron_depress.description</source>
+        <target>neron_depress.description</target>
+      </segment>
+    </unit>
+    <unit id="search_for_mush_genome">
+      <segment id="search_for_mush_genome" state="initial">
+        <source>search_for_mush_genome.name</source>
+        <target>search_for_mush_genome.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>search_for_mush_genome.description</source>
+        <target>search_for_mush_genome.description</target>
+      </segment>
+    </unit>
+    <unit id="participate_research">
+      <segment id="name" state="initial">
+        <source>participate_research.name</source>
+        <target>participate_research.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>participate_research.description</source>
+        <target>participate_research.description</target>
       </segment>
     </unit>
   </file>

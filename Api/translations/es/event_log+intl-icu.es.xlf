@@ -439,6 +439,12 @@
         <target>mush_convert_event</target>
       </segment>
     </unit>
+    <unit id="mush_convert_cat_event">
+      <segment id="mush_convert_cat_event" state="initial">
+        <source>mush_convert_cat_event</source>
+        <target>mush_convert_cat_event</target>
+      </segment>
+    </unit>
     <unit id="player_enter_chat">
       <segment id="player_enter_chat" state="initial">
         <source>player_enter_chat</source>
@@ -821,6 +827,66 @@
       <segment id="drone_land" state="initial">
         <source>drone_land</source>
         <target>drone_land</target>
+      </segment>
+    </unit>
+    <unit id="awaken_schrodinger">
+      <segment id="awaken_schrodinger" state="initial">
+        <source>awaken_schrodinger</source>
+        <target>awaken_schrodinger</target>
+      </segment>
+    </unit>
+    <unit id="cat_meow">
+      <segment id="cat_meow" state="initial">
+        <source>cat_meow</source>
+        <target>cat_meow</target>
+      </segment>
+    </unit>
+    <unit id="cat_shot_dead">
+      <segment id="cat_shot_dead" state="initial">
+        <source>cat_shot_dead</source>
+        <target>cat_shot_dead</target>
+      </segment>
+    </unit>
+    <unit id="cat_hiss">
+      <segment id="cat_hiss" state="initial">
+        <source>cat_hiss</source>
+        <target>cat_hiss</target>
+      </segment>
+    </unit>
+    <unit id="torturer_actions">
+      <segment id="torturer_actions" state="initial">
+        <source>torturer_actions</source>
+        <target>torturer_actions</target>
+      </segment>
+    </unit>
+    <unit id="player_vaccinated">
+      <segment id="player_vaccinated" state="initial">
+        <source>player_vaccinated</source>
+        <target>player_vaccinated</target>
+      </segment>
+    </unit>
+    <unit id="lethargy_worked">
+      <segment id="lethargy_worked" state="initial">
+        <source>lethargy_worked</source>
+        <target>lethargy_worked</target>
+      </segment>
+    </unit>
+    <unit id="panic_worked">
+      <segment id="panic_worked" state="initial">
+        <source>panic_worked</source>
+        <target>panic_worked</target>
+      </segment>
+    </unit>
+    <unit id="self_sacrifice_worked">
+      <segment id="self_sacrifice_worked" state="initial">
+        <source>self_sacrifice_worked</source>
+        <target>self_sacrifice_worked</target>
+      </segment>
+    </unit>
+    <unit id="research_completed">
+      <segment id="research_completed" state="initial">
+        <source>research_completed</source>
+        <target>research_completed</target>
       </segment>
     </unit>
   </file>

@@ -634,9 +634,9 @@
       </segment>
     </unit>
     <unit id="cycle_limit">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cycle_limit.description</source>
-        <target>cycle_limit.description</target>
+        <target>Esta acción solo se puede realizar una vez por ciclo. Estará disponible de nuevo el ciclo siguiente.</target>
       </segment>
     </unit>
     <unit id="no_working_door">
@@ -661,6 +661,24 @@
       <segment id="description" state="initial">
         <source>cannot_go_to_this_room_because_guardian.description</source>
         <target>cannot_go_to_this_room_because_guardian.description</target>
+      </segment>
+    </unit>
+    <unit id="cat_already_converted">
+      <segment id="description" state="initial">
+        <source>cat_already_converted.description</source>
+        <target>cat_already_converted.description</target>
+      </segment>
+    </unit>
+    <unit id="infect_cat_no_spore">
+      <segment id="description" state="initial">
+        <source>infect_cat_no_spore.description</source>
+        <target>infect_cat_no_spore.description</target>
+      </segment>
+    </unit>
+    <unit id="player_is_germaphobic">
+      <segment id="description" state="initial">
+        <source>player_is_germaphobic.description</source>
+        <target>player_is_germaphobic.description</target>
       </segment>
     </unit>
   </file>

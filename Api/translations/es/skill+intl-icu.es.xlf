@@ -741,5 +741,165 @@
         <target>medic.description</target>
       </segment>
     </unit>
+    <unit id="rebel">
+      <segment id="rebel.name" state="initial">
+        <source>rebel.name</source>
+        <target>rebel.name</target>
+      </segment>
+      <segment id="rebel.description" state="initial">
+        <source>rebel.description</source>
+        <target>rebel.description</target>
+      </segment>
+    </unit>
+    <unit id="torturer">
+      <segment id="torturer.name" state="initial">
+        <source>torturer.name</source>
+        <target>torturer.name</target>
+      </segment>
+      <segment id="torturer.description" state="initial">
+        <source>torturer.description</source>
+        <target>torturer.description</target>
+      </segment>
+    </unit>
+    <unit id="ocd">
+      <segment id="ocd.name" state="initial">
+        <source>ocd.name</source>
+        <target>ocd.name</target>
+      </segment>
+      <segment id="ocd.description" state="initial">
+        <source>ocd.description</source>
+        <target>ocd.description</target>
+      </segment>
+    </unit>
+    <unit id="lethargy">
+      <segment id="lethargy.name" state="initial">
+        <source>lethargy.name</source>
+        <target>lethargy.name</target>
+      </segment>
+      <segment id="lethargy.description" state="initial">
+        <source>lethargy.description</source>
+        <target>lethargy.description</target>
+      </segment>
+    </unit>
+    <unit id="panic">
+      <segment id="panic.name" state="initial">
+        <source>panic.name</source>
+        <target>panic.name</target>
+      </segment>
+      <segment id="panic.description" state="initial">
+        <source>panic.description</source>
+        <target>panic.description</target>
+      </segment>
+    </unit>
+    <unit id="hygienist">
+      <segment id="hygienist.name" state="initial">
+        <source>hygienist.name</source>
+        <target>hygienist.name</target>
+      </segment>
+      <segment id="hygienist.description" state="initial">
+        <source>hygienist.description</source>
+        <target>hygienist.description</target>
+      </segment>
+    </unit>
+    <unit id="antique_perfume">
+      <segment id="antique_perfume.name" state="initial">
+        <source>antique_perfume.name</source>
+        <target>antique_perfume.name</target>
+      </segment>
+      <segment id="antique_perfume.description" state="initial">
+        <source>antique_perfume.description</source>
+        <target>antique_perfume.description</target>
+      </segment>
+    </unit>
+    <unit id="self_sacrifice">
+      <segment id="self_sacrifice.name" state="initial">
+        <source>self_sacrifice.name</source>
+        <target>self_sacrifice.name</target>
+      </segment>
+      <segment id="self_sacrifice.description" state="initial">
+        <source>self_sacrifice.description</source>
+        <target>self_sacrifice.description</target>
+      </segment>
+    </unit>
+    <unit id="intimidating">
+      <segment id="intimidating.name" state="initial">
+        <source>intimidating.name</source>
+        <target>intimidating.name</target>
+      </segment>
+      <segment id="intimidating.description" state="initial">
+        <source>intimidating.description</source>
+        <target>intimidating.description</target>
+      </segment>
+    </unit>
+    <unit id="metalworker">
+      <segment id="metalworker.name" state="initial">
+        <source>metalworker.name</source>
+        <target>metalworker.name</target>
+      </segment>
+      <segment id="metalworker.description" state="initial">
+        <source>metalworker.description</source>
+        <target>metalworker.description</target>
+      </segment>
+    </unit>
+    <unit id="doorman">
+      <segment id="doorman.name" state="initial">
+        <source>doorman.name</source>
+        <target>doorman.name</target>
+      </segment>
+      <segment id="doorman.description" state="initial">
+        <source>doorman.description</source>
+        <target>doorman.description</target>
+      </segment>
+    </unit>
+    <unit id="nimble_fingers">
+      <segment id="nimble_fingers.name" state="initial">
+        <source>nimble_fingers.name</source>
+        <target>nimble_fingers.name</target>
+      </segment>
+      <segment id="nimble_fingers.description" state="initial">
+        <source>nimble_fingers.description</source>
+        <target>nimble_fingers.description</target>
+      </segment>
+    </unit>
+    <unit id="polymath">
+      <segment id="polymath.name" state="initial">
+        <source>polymath.name</source>
+        <target>polymath.name</target>
+      </segment>
+      <segment id="polymath.description" state="initial">
+        <source>polymath.description</source>
+        <target>polymath.description</target>
+      </segment>
+    </unit>
+    <unit id="nightmarish">
+      <segment id="nightmarish.name" state="initial">
+        <source>nightmarish.name</source>
+        <target>nightmarish.name</target>
+      </segment>
+      <segment id="nightmarish.description" state="initial">
+        <source>nightmarish.description</source>
+        <target>nightmarish.description</target>
+      </segment>
+    </unit>
+    <unit id="ninja">
+      <segment id="ninja.name" state="initial">
+        <source>ninja.name</source>
+        <target>ninja.name</target>
+      </segment>
+      <segment id="ninja.description" state="initial">
+        <source>ninja.description</source>
+        <target>ninja.description</target>
+      </segment>
+    </unit>
+    <unit id="neron_depression">
+      <segment id="neron_depression.name" state="initial">
+        <source>neron_depression.name</source>
+        <target>neron_depression.name</target>
+      </segment>
+      <segment id="neron_depression.description" state="initial">
+        <source>neron_depression.description</source>
+        <target>neron_depression.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

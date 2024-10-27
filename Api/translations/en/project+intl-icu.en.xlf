@@ -804,7 +804,7 @@
       </segment>
       <segment id="antispore_gas.description" state="translated">
         <source>antispore_gas.description</source>
-        <target>The maximum number of Mush spores generated per day is reduced by 2. Give 3 :triumph:</target>
+        <target>The maximum number of Mush spores generated per day is reduced by 2.</target>
       </segment>
       <segment id="antispore_gas.lore" state="translated">
         <source>antispore_gas.lore</source>
@@ -822,7 +822,7 @@
       </segment>
       <segment id="constipaspore_serum.description" state="translated">
         <source>constipaspore_serum.description</source>
-        <target>All rations are infected with a serum which renders the extraction of spores much more difficult. Give 3 :triumph:</target>
+        <target>All rations are infected with a serum which renders the extraction of spores much more difficult.</target>
       </segment>
       <segment id="constipaspore_serum.lore" state="translated">
         <source>constipaspore_serum.lore</source>
@@ -840,7 +840,7 @@
       </segment>
       <segment id="create_mycoscan.description" state="translated">
         <source>create_mycoscan.description</source>
-        <target>Allows the detection of spores on a healthy crew member. Give 3 :triumph:</target>
+        <target>Allows the detection of spores on a healthy crew member.</target>
       </segment>
       <segment id="create_mycoscan.lore" state="translated">
         <source>create_mycoscan.lore</source>
@@ -858,7 +858,7 @@
       </segment>
       <segment id="meridon_scrambler.description" state="translated">
         <source>meridon_scrambler.description</source>
-        <target>Hunters have a 20% chance of firing on one of their own. Give 3 :triumph:</target>
+        <target>Hunters have a 20% chance of firing on one of their own.</target>
       </segment>
       <segment id="meridon_scrambler.lore" state="translated">
         <source>meridon_scrambler.lore</source>
@@ -876,7 +876,7 @@
       </segment>
       <segment id="mush_hunter_zc16h.description" state="translated">
         <source>mush_hunter_zc16h.description</source>
-        <target>Give 6 :triumph:</target>
+        <target>The findings of this study could be critical and could make the whole team famous.</target>
       </segment>
       <segment id="mush_hunter_zc16h.lore" state="translated">
         <source>mush_hunter_zc16h.lore</source>
@@ -912,7 +912,7 @@
       </segment>
       <segment id="mush_language.description" state="translated">
         <source>mush_language.description</source>
-        <target>Give 6 :triumph:</target>
+        <target>The findings of this study could be critical and could make the whole team famous.</target>
       </segment>
       <segment id="mush_language.lore" state="translated">
         <source>mush_language.lore</source>
@@ -930,7 +930,7 @@
       </segment>
       <segment id="mushovore_bacteria.description" state="translated">
         <source>mushovore_bacteria.description</source>
-        <target>Humans can survive up to 3 mush spores before turning into Mush. Give 3 :triumph:</target>
+        <target>Humans can survive up to 3 mush spores before turning into Mush.</target>
       </segment>
       <segment id="mushovore_bacteria.lore" state="translated">
         <source>mushovore_bacteria.lore</source>
@@ -948,7 +948,7 @@
       </segment>
       <segment id="mush_races.description" state="translated">
         <source>mush_races.description</source>
-        <target>Give 6 :triumph:</target>
+        <target>The findings of this study could be critical and could make the whole team famous.</target>
       </segment>
       <segment id="mush_races.lore" state="translated">
         <source>mush_races.lore</source>
@@ -966,7 +966,7 @@
       </segment>
       <segment id="mush_reproductive_system.description" state="translated">
         <source>mush_reproductive_system.description</source>
-        <target>Give 6 :triumph:</target>
+        <target>The findings of this study could be critical and could make the whole team famous.</target>
       </segment>
       <segment id="mush_reproductive_system.lore" state="translated">
         <source>mush_reproductive_system.lore</source>
@@ -984,7 +984,7 @@
       </segment>
       <segment id="mycoalarm.description" state="translated">
         <source>mycoalarm.description</source>
-        <target>Makes 5 **MycoAlarms**. Give 3 :triumph:</target>
+        <target>Makes 5 **MycoAlarms**.</target>
       </segment>
       <segment id="mycoalarm.lore" state="translated">
         <source>mycoalarm.lore</source>
@@ -1056,7 +1056,7 @@
       </segment>
       <segment id="patuline_scrambler.description" state="translated">
         <source>patuline_scrambler.description</source>
-        <target>The infected can no longer communicate on the mush channel. Give 3 :triumph:</target>
+        <target>The infected can no longer communicate on the Mush channel.</target>
       </segment>
       <segment id="patuline_scrambler.lore" state="translated">
         <source>patuline_scrambler.lore</source>
@@ -1074,7 +1074,7 @@
       </segment>
       <segment id="perpetual_hydration.description" state="translated">
         <source>perpetual_hydration.description</source>
-        <target>Give 3 :triumph:</target>
+        <target>The findings of this study could be critical and could make the whole team famous.</target>
       </segment>
       <segment id="perpetual_hydration.lore" state="translated">
         <source>perpetual_hydration.lore</source>
@@ -1092,7 +1092,7 @@
       </segment>
       <segment id="pheromodem.description" state="translated">
         <source>pheromodem.description</source>
-        <target>The Tracker now allows the user to communicate on the mush channel. Give 3 :triumph:</target>
+        <target>The Itrackie now allows the user to communicate on the Mush channel.</target>
       </segment>
       <segment id="pheromodem.lore" state="translated">
         <source>pheromodem.lore</source>
@@ -1110,7 +1110,7 @@
       </segment>
       <segment id="retro_fungal_serum.description" state="translated">
         <source>retro_fungal_serum.description</source>
-        <target>Creates **Anti-mush serum**. Give 16 :triumph:</target>
+        <target>Creates **Anti-Mush serum**.</target>
       </segment>
       <segment id="retro_fungal_serum.lore" state="translated">
         <source>retro_fungal_serum.lore</source>

@@ -655,7 +655,7 @@
         <target>You can't go into this room because there's a guardian in the room.</target>
       </segment>
     </unit>
-        <unit id="cat_already_converted">
+    <unit id="cat_already_converted">
       <segment id="description" state="final">
         <source>cat_already_converted.description</source>
         <target>This animal has already joined your cause... Not that it improved its temper.</target>

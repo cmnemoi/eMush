@@ -64,4 +64,9 @@ final class ProjectEvent extends AbstractGameEvent
             'time' => $this->time,
         ];
     }
+
+    public function shouldPrintResearchCompletedLog(): bool
+    {
+        return $this->project->isResearchProject() && $this->project->isFinished();
+    }
 }

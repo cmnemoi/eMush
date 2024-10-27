@@ -905,7 +905,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>janice.description</source>
-        <target>A Digital Psychologist and one-woman enigma machine.</target>
+        <target>A Digital Psychologist and one-woman enigma solver.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>janice.employment</source>
@@ -935,6 +935,16 @@
       <segment id="tutorial" state="translated">
         <source>janice.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Janice_Kent</target>
+      </segment>
+    </unit>
+    <unit id="Someone">
+      <segment id="name" state="translated">
+        <source>someone.name</source>
+        <target>Someone</target>
+      </segment>
+      <segment id="fullname" state="translated">
+        <source>someone.fullname</source>
+        <target>Someone</target>
       </segment>
     </unit>
   </file>

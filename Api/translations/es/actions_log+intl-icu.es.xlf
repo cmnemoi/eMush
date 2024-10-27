@@ -392,9 +392,9 @@
       </segment>
     </unit>
     <unit id="boring_speech">
-      <segment id="boring_speech" state="initial">
+      <segment id="boring_speech" state="translated">
         <source>boring_speech</source>
-        <target>boring_speech</target>
+        <target/>
       </segment>
     </unit>
     <unit id="make_sick">
@@ -815,6 +815,90 @@
       <segment id="upgrade_drone_to_pilot_success" state="initial">
         <source>upgrade_drone_to_pilot_success</source>
         <target>upgrade_drone_to_pilot_success</target>
+      </segment>
+    </unit>
+    <unit id="take_cat">
+      <segment id="take_cat" state="initial">
+        <source>take_cat</source>
+        <target>take_cat</target>
+      </segment>
+    </unit>
+    <unit id="pet_cat">
+      <segment id="pet_cat" state="initial">
+        <source>pet_cat</source>
+        <target>pet_cat</target>
+      </segment>
+    </unit>
+    <unit id="shoot_cat_success">
+      <segment id="shoot_cat_success" state="initial">
+        <source>shoot_cat_success</source>
+        <target>shoot_cat_success</target>
+      </segment>
+    </unit>
+    <unit id="shoot_cat_critical_success">
+      <segment id="shoot_cat_critical_success" state="initial">
+        <source>shoot_cat_critical_success</source>
+        <target>shoot_cat_critical_success</target>
+      </segment>
+    </unit>
+    <unit id="shoot_cat_fail">
+      <segment id="shoot_cat_fail" state="initial">
+        <source>shoot_cat_fail</source>
+        <target>shoot_cat_fail</target>
+      </segment>
+    </unit>
+    <unit id="shoot_cat_critical_fail">
+      <segment id="shoot_cat_critical_fail" state="initial">
+        <source>shoot_cat_critical_fail</source>
+        <target>shoot_cat_critical_fail</target>
+      </segment>
+    </unit>
+    <unit id="daunt_success">
+      <segment id="daunt_success" state="initial">
+        <source>daunt_success</source>
+        <target>daunt_success</target>
+      </segment>
+    </unit>
+    <unit id="gen_metal_success">
+      <segment id="gen_metal_success" state="initial">
+        <source>gen_metal_success</source>
+        <target>gen_metal_success</target>
+      </segment>
+    </unit>
+    <unit id="gen_metal_fail">
+      <segment id="gen_metal_fail" state="initial">
+        <source>gen_metal_fail</source>
+        <target>gen_metal_fail</target>
+      </segment>
+    </unit>
+    <unit id="door_sabotage_success">
+      <segment id="door_sabotage_success" state="initial">
+        <source>door_sabotage_success</source>
+        <target>door_sabotage_success</target>
+      </segment>
+    </unit>
+    <unit id="give_nightmare_success">
+      <segment id="give_nightmare_success" state="initial">
+        <source>give_nightmare_success</source>
+        <target>give_nightmare_success</target>
+      </segment>
+    </unit>
+    <unit id="neron_depress_success">
+      <segment id="neron_depress_success" state="initial">
+        <source>neron_depress_success</source>
+        <target>neron_depress_success</target>
+      </segment>
+    </unit>
+    <unit id="search_for_mush_genome_fail">
+      <segment id="search_for_mush_genome_fail" state="initial">
+        <source>search_for_mush_genome_fail</source>
+        <target>search_for_mush_genome_fail</target>
+      </segment>
+    </unit>
+    <unit id="search_for_mush_genome_success">
+      <segment id="search_for_mush_genome_success" state="initial">
+        <source>search_for_mush_genome_success</source>
+        <target>search_for_mush_genome_success</target>
       </segment>
     </unit>
   </file>

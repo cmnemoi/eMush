@@ -1527,7 +1527,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="final">
         <source>gen_metal.description</source>
-        <target>Permet de fouiner les stockages pour trouver des débris, ou des choses **vraiment** utiles.</target>
+        <target>Permet de fouiner les stockages pour trouver des débris ou des choses **vraiment** utiles.</target>
       </segment>
     </unit>
     <unit id="door_sabotage">
@@ -1571,11 +1571,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="participate_research">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>participate_research.name</source>
         <target>Participer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>participate_research.description</source>
         <target>Avance la Recherche.</target>
       </segment>

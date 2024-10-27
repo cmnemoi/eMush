@@ -42,6 +42,10 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
         $author = $event->getAuthor();
         $project = $event->getProject();
 
+        if ($project->isResearchProject()) {
+            return;
+        }
+
         $this->neronMessageService->createNeronMessage(
             messageKey: $project->isPilgred() ? NeronMessageEnum::REPAIRED_PILGRED : NeronMessageEnum::NEW_PROJECT,
             daedalus: $event->getDaedalus(),

@@ -36,6 +36,7 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         $this->participateAction = $I->grabService(ParticipateResearch::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->actionConfig->setDirtyRate(0);
     }
 
     public function shouldBeExecutableIfRequirementsAreMet(FunctionalTester $I): void

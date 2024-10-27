@@ -507,7 +507,7 @@
         <target>Welcome to Mush, **{target_character}**.</target>
       </segment>
     </unit>
-        <unit id="mush_convert_cat_event">
+    <unit id="mush_convert_cat_event">
       <segment id="mush_convert_cat_event" state="translated">
         <source>mush_convert_cat_event</source>
         <target>**{equipment}** has been converted by **{target_character}**. Welcome to Mush, **{equipment}**.</target>
@@ -1019,16 +1019,10 @@
         <target>{drone}'s patrol ship has just landed.</target>
       </segment>
     </unit>
-    <unit id="player_vaccinated">
-      <segment id="player_vaccinated" state="translated">
-        <source>player_vaccinated</source>
-        <target>You start to vomit. You feel strange. As if your senses have been muted, as if you don't exist any more. You suddenly feel very alone. You feel anxious again that the end is nigh, you feel true fear again. You are no longer Mush...</target>
-      </segment>
-    </unit>
     <unit id="awaken_schrodinger">
       <segment id="awaken_schrodinger" state="translated">
         <source>awaken_schrodinger</source>
-        <target>**{target_equipment}** woke up at the same time as **{character}** and he doesn't look happy. </target>
+        <target>**{target_equipment}** woke up at the same time as **{character}** and he doesn't look happy.</target>
       </segment>
     </unit>
     <unit id="cat_meow">
@@ -1053,8 +1047,7 @@
 	                  16{rrrrrrrrrr}
 	                  17{woof?}
                     other {invalid version input}
-                }
-        </target>
+                }</target>
       </segment>
     </unit>
     <unit id="cat_shot_dead">
@@ -1086,6 +1079,48 @@
 	                  17{meewww...}
                     other {invalid version input}
                 }</target>
+      </segment>
+    </unit>
+    <unit id="torturer_actions">
+      <segment id="torturer_actions" state="translated">
+        <source>torturer_actions</source>
+        <target>{quantity, select,
+        0 {You violently attack **{character}**. Their head goes all over the place... But nothing to show for it...}
+        1 {You violently attack **{character}**. You grab a directory that was lying around and smashed them around the head with it him with it... It's a bit bloody, but in the end **{character}** told you everything... Their last action is {lastAction}.}
+        other {You violently attack **{character}**. You grab a directory that was lying around and smashed them around the head with it him with it... It's a bit bloody, but in the end **{character}** told you everything... Their last actions are {actions} and {lastAction}.}}</target>
+      </segment>
+    </unit>
+    <unit id="player_vaccinated">
+      <segment id="player_vaccinated" state="translated">
+        <source>player_vaccinated</source>
+        <target>You start to vomit. You feel strange. As if your senses have been muted, as if you don't exist any more. You suddenly feel very alone. You feel anxious again that the end is nigh, you feel true fear again. You are no longer Mush...</target>
+      </segment>
+    </unit>
+    <unit id="lethargy_worked">
+      <segment id="lethargy_worked" state="translated">
+        <source>lethargy_worked</source>
+        <target>Your **Lethargy** skill has borne fruit...</target>
+      </segment>
+    </unit>
+    <unit id="panic_worked">
+      <segment id="panic_worked" state="translated">
+        <source>panic_worked</source>
+        <target>Your **Panic** skill has borne fruit...</target>
+      </segment>
+    </unit>
+    <unit id="self_sacrifice_worked">
+      <segment id="self_sacrifice_worked" state="translated">
+        <source>self_sacrifice_worked</source>
+        <target>{target_character_gender, select,
+        female {Your **Abnegation** skill has borne fruit, you're not dead...}
+        other {Your **Abnegation** skill has borne fruit, you're not dead...}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="research_completed">
+      <segment id="research_completed" state="translated">
+        <source>research_completed</source>
+        <target>Research has advanced. The **{project}** article has been published and immediate applications are ready. </target>
       </segment>
     </unit>
   </file>

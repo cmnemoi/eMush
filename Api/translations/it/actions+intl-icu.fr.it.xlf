@@ -1407,5 +1407,125 @@
         <target>upgrade_drone_to_pilot.description</target>
       </segment>
     </unit>
+    <unit id="take_cat">
+      <segment id="name" state="initial">
+        <source>take_cat.name</source>
+        <target>take_cat.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>take_cat.description</source>
+        <target>take_cat.description</target>
+      </segment>
+    </unit>
+    <unit id="pet_cat">
+      <segment id="name" state="initial">
+        <source>pet_cat.name</source>
+        <target>pet_cat.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>pet_cat.description</source>
+        <target>pet_cat.description</target>
+      </segment>
+    </unit>
+    <unit id="convert_cat">
+      <segment id="name" state="initial">
+        <source>convert_cat.name</source>
+        <target>convert_cat.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>convert_cat.description</source>
+        <target>convert_cat.description</target>
+      </segment>
+    </unit>
+    <unit id="torture">
+      <segment id="name" state="initial">
+        <source>torture.name</source>
+        <target>torture.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>torture.description</source>
+        <target>torture.description</target>
+      </segment>
+    </unit>
+    <unit id="cure">
+      <segment id="cure" state="initial">
+        <source>cure.name</source>
+        <target>cure.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cure.description</source>
+        <target>cure.description</target>
+      </segment>
+    </unit>
+    <unit id="daunt">
+      <segment id="daunt" state="initial">
+        <source>daunt.name</source>
+        <target>daunt.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>daunt.description</source>
+        <target>daunt.description</target>
+      </segment>
+    </unit>
+    <unit id="gen_metal">
+      <segment id="gen_metal" state="initial">
+        <source>gen_metal.name</source>
+        <target>gen_metal.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>gen_metal.description</source>
+        <target>gen_metal.description</target>
+      </segment>
+    </unit>
+    <unit id="door_sabotage">
+      <segment id="door_sabotage" state="initial">
+        <source>door_sabotage.name</source>
+        <target>door_sabotage.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>door_sabotage.description</source>
+        <target>door_sabotage.description</target>
+      </segment>
+    </unit>
+    <unit id="give_nightmare">
+      <segment id="give_nightmare" state="initial">
+        <source>give_nightmare.name</source>
+        <target>give_nightmare.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>give_nightmare.description</source>
+        <target>give_nightmare.description</target>
+      </segment>
+    </unit>
+    <unit id="neron_depress">
+      <segment id="neron_depress" state="initial">
+        <source>neron_depress.name</source>
+        <target>neron_depress.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>neron_depress.description</source>
+        <target>neron_depress.description</target>
+      </segment>
+    </unit>
+    <unit id="search_for_mush_genome">
+      <segment id="search_for_mush_genome" state="initial">
+        <source>search_for_mush_genome.name</source>
+        <target>search_for_mush_genome.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>search_for_mush_genome.description</source>
+        <target>search_for_mush_genome.description</target>
+      </segment>
+    </unit>
+    <unit id="participate_research">
+      <segment id="name" state="initial">
+        <source>participate_research.name</source>
+        <target>participate_research.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>participate_research.description</source>
+        <target>participate_research.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

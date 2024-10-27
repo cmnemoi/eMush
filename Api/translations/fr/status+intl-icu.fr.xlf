@@ -36,7 +36,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>heavy.description</source>
-        <target>Cet objet est particulièrement lourd.</target>
+        <target>Cet objet est particulièrement lourd. Se déplacer avec vous coûtera 2 :pm: de plus.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>heavy.examine</source>
@@ -1086,7 +1086,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>commander.description</source>
-        <target>Décide de l'orientation du Daedalus. Il est aussi le seul à pouvoir enclencher la séquence de voyage.</target>
+        <target>Le Commandant peut accéder au **terminal de commandement** pour déplacer le Daedalus. // Il peut **envoyer une mission** par jour à un membre de l'équipage, qui recevra 3 :pa: s'il l'accepte.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>commander.examine</source>
@@ -1100,7 +1100,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>communications_officer.description</source>
-        <target>Le Responsable de Communication peut engager des opérations de prises de contact une fois que le contact avec Sol est rétabli.</target>
+        <target>Le Responsable de Communication peut accéder au **Centre de Communication** pour rétablir le contact avec le réseau rebelle de Sol. // Il peut créer des **Annonces Générales**, qui sont envoyées à tout les membres de l'équipage. // Il peut également **accéder aux canaux de communication sans porter un talkie**.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>communications_officer.examine</source>
@@ -1114,7 +1114,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>neron_administrator.description</source>
-        <target>L'Administrateur de NERON peut accéder au BIOS de NERON. Il a également des accès privilégiés aux programmes de gestion du quotidien.</target>
+        <target>L'Administrateur de NERON peut accéder au **BIOS de NERON** pour changer certains paramètres du Daedalus. // Il peut également **parler en tant que NERON** sur le canal public en écrivant */neron* au début de leur message.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>neron_administrator.examine</source>
@@ -1170,7 +1170,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>burdened.description</source>
-        <target>Vous portez des objets particulièrement lourds. Vos mouvements vous coûtent plus cher.</target>
+        <target>Vous portez des objets particulièrement lourds. Vos mouvements vous coûtent 2 :pm: de plus.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>burdened.examine</source>
@@ -1448,7 +1448,7 @@
       </segment>
       <segment id="effect" state="final">
         <source>pariah.examine</source>
-        <target/>
+        <target>&lt;target/&gt;</target>
       </segment>
     </unit>
     <unit id="pacifist">

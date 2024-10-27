@@ -587,7 +587,7 @@
       </segment>
       <segment id="victimizer.description" state="translated">
         <source>victimizer.description</source>
-        <target>Certain well-targeted remarks can have unexpected results.//:point: For **1** :pa: you can accuse a crewmate, penalizing them with the **Pariah** status.//:point: Their actions become 20% likely to be successful.//:point: Their covert actions become secret.//:point: The Pariah status remains for as long as the Victimizer is alive, or until the pariah dies or becomes inactive.</target>
+        <target>Certain well-targeted remarks can have unexpected results.//:point: For **1** :pa: you can accuse a crewmate, penalizing them with the **Pariah** status.//:point: Their actions become 20% less likely to be successful.//:point: Their covert actions become secret.//:point: The Pariah status remains for as long as the Victimizer is alive, or until the pariah dies or becomes inactive.</target>
       </segment>
     </unit>
     <unit id="frugivore">
@@ -768,6 +768,166 @@
       <segment id="medic.description" state="translated">
         <source>medic.description</source>
         <target>Medics have full medical training, allowing them to carry out rapid, appropriate procedures. They are also skilled in surgery.//**Heal** Actions earn an additional 2 :pv:.//Can carry out **Operations**.//Can read **properties of medicines**.//+**4% bonus** on all laboratory **Research**.</target>
+      </segment>
+    </unit>
+    <unit id="rebel">
+      <segment id="rebel.name" state="translated">
+        <source>rebel.name</source>
+        <target>Rebel</target>
+      </segment>
+      <segment id="rebel.description" state="translated">
+        <source>rebel.description</source>
+        <target>Your links to the anti-Mush resistance allow you to understand and decode rebel transmissions much quicker than any other radio expert.//:point: **Doubles** your chances of contacting a rebel base.</target>
+      </segment>
+    </unit>
+    <unit id="torturer">
+      <segment id="torturer.name" state="translated">
+        <source>torturer.name</source>
+        <target>Torturer</target>
+      </segment>
+      <segment id="torturer.description" state="translated">
+        <source>torturer.description</source>
+        <target>The torturer knows all the pressure points and most sensitive areas with which they can convey their most important message... **You WILL talk.**//:point: Grants the **Torture** Action.</target>
+      </segment>
+    </unit>
+    <unit id="ocd">
+      <segment id="ocd.name" state="translated">
+        <source>ocd.name</source>
+        <target>OCD</target>
+      </segment>
+      <segment id="ocd.description" state="translated">
+        <source>ocd.description</source>
+        <target>Your work is clean, very clean, getting cleaner, ever cleaner. You are genuinely obsessed by cleanliness, but this has its advantages.//:point: You will never make a mess carrying out any tasks aboard the ship.</target>
+      </segment>
+    </unit>
+    <unit id="lethargy">
+      <segment id="lethargy.name" state="translated">
+        <source>lethargy.name</source>
+        <target>Lethargy</target>
+      </segment>
+      <segment id="lethargy.description" state="translated">
+        <source>lethargy.description</source>
+        <target>You're only awake for 4h per day, but even in that short time, you can achieve miracles!//:point: If you remain lying down for at least **4 cycles**, you earn an additional **1** :pa: per cycle. This bonus is lost if you get up.//:point: The maximum capacity of your :pa: gauge is **doubled**.</target>
+      </segment>
+    </unit>
+    <unit id="panic">
+      <segment id="panic.name" state="translated">
+        <source>panic.name</source>
+        <target>Panic</target>
+      </segment>
+      <segment id="panic.description" state="translated">
+        <source>panic.description</source>
+        <target>It's when everything is going wrong that you realize your true talent: Screaming loudly and running around like a crazy person.//:point: You earn an additional **1** :pa: and **1** :pm: every cycle while **Mush controls more than 50%** of the crew.</target>
+      </segment>
+    </unit>
+    <unit id="hygienist">
+      <segment id="hygienist.name" state="translated">
+        <source>hygienist.name</source>
+        <target>Hygienist</target>
+      </segment>
+      <segment id="hygienist.description" state="translated">
+        <source>hygienist.description</source>
+        <target>By being brutal, you became a clean radical. Don't touch me you dirty!//:point: You have a 50% chance of resisting Mush contamination attempts.//:point: You have a 50% chance of resisting physical illnesses.</target>
+      </segment>
+    </unit>
+    <unit id="antique_perfume">
+      <segment id="antique_perfume.name" state="translated">
+        <source>antique_perfume.name</source>
+        <target>Antique Perfume</target>
+      </segment>
+      <segment id="antique_perfume.description" state="translated">
+        <source>antique_perfume.description</source>
+        <target>Ah yesh they knew how to make real perfumesh in Fraigonard'sh boutiquesh in Nineteen Shixty Shixsh...//:point: With each **shower**, you gain **2** cycles of immunity against **Mush infections**.</target>
+      </segment>
+    </unit>
+    <unit id="self_sacrifice">
+      <segment id="self_sacrifice.name" state="translated">
+        <source>self_sacrifice.name</source>
+        <target>Self-sacrifice</target>
+      </segment>
+      <segment id="self_sacrifice.description" state="translated">
+        <source>self_sacrifice.description</source>
+        <target>Certain particularly resilient people can withstand the unthinkable, but this comes at a cost.//:point: If your morale drops to 0, you won't die, but you will lose **1** :hp: per cycle.</target>
+      </segment>
+    </unit>
+    <unit id="intimidating">
+      <segment id="intimidating.name" state="translated">
+        <source>intimidating.name</source>
+        <target>Intimidating</target>
+      </segment>
+      <segment id="intimidating.description" state="translated">
+        <source>intimidating.description</source>
+        <target>Sometimes the prey only escapes because it has the opportunity.//:point: **Daily**: For **1** :pa:, you can intimidate a crew member. They will lose **2** :pa: and **4** :pm:.</target>
+      </segment>
+    </unit>
+    <unit id="metalworker">
+      <segment id="metalworker.name" state="translated">
+        <source>metalworker.name</source>
+        <target>Metalworker</target>
+      </segment>
+      <segment id="metalworker.description" state="translated">
+        <source>metalworker.description</source>
+        <target>It seems pretty clear that you're a really productive person.//:point: **Daily**: If you find yourself in a **storage**, you have a chance of finding scraps or better for **0** :pa:. </target>
+      </segment>
+    </unit>
+    <unit id="doorman">
+      <segment id="doorman.name" state="translated">
+        <source>doorman.name</source>
+        <target>Doorman</target>
+      </segment>
+      <segment id="doorman.description" state="translated">
+        <source>doorman.description</source>
+        <target>Some rampant macrolepiota can imitate the unpleasant effects of proactive puffed rice. That works out well fo you as the Mush has given you its genotype.//:point: Once per day, you can **sabotage** a **Door** for free.</target>
+      </segment>
+    </unit>
+    <unit id="nimble_fingers">
+      <segment id="nimble_fingers.name" state="translated">
+        <source>nimble_fingers.name</source>
+        <target>Nimble fingers</target>
+      </segment>
+      <segment id="nimble_fingers.description" state="translated">
+        <source>nimble_fingers.description</source>
+        <target>With a little bit of help from your rhizomes, you can do some wonderful things. Manipulating cameras for example...//:point: Your **Install** and **Remove** actions are now **covert** on cameras.</target>
+      </segment>
+    </unit>
+    <unit id="polymath">
+      <segment id="polymath.name" state="translated">
+        <source>polymath.name</source>
+        <target>Polymath</target>
+      </segment>
+      <segment id="polymath.description" state="translated">
+        <source>polymath.description</source>
+        <target>Knowledge is always moving, state is overrated.//:point: **+2** private channels accessible.//:point: **+1** :pa_comp: per day.//:point: **-10%** to all your action attempts.</target>
+      </segment>
+    </unit>
+    <unit id="nightmarish">
+      <segment id="nightmarish.name" state="translated">
+        <source>nightmarish.name</source>
+        <target>Nightmarish</target>
+      </segment>
+      <segment id="nightmarish.description" state="translated">
+        <source>nightmarish.description</source>
+        <target>Mush macrolepiota can affect the brainwaves of the poor human beasts. With a few modifications, they can stop humans from resting.//:point: For **0** :pa:, you can **invoke nightmares** in a resting player. That player won't receive their sleep bonus.</target>
+      </segment>
+    </unit>
+    <unit id="ninja">
+      <segment id="ninja.name" state="translated">
+        <source>ninja.name</source>
+        <target>Ninja</target>
+      </segment>
+      <segment id="ninja.description" state="translated">
+        <source>ninja.description</source>
+        <target>Thanks to your overcharged myelin, your speed of movement is incredible.//:point: Your **hand-to-hand** attacks are now **anonymous** actions. </target>
+      </segment>
+    </unit>
+    <unit id="neron_depression">
+      <segment id="neron_depression.name" state="translated">
+        <source>neron_depression.name</source>
+        <target>NERON depression</target>
+      </segment>
+      <segment id="neron_depression.description" state="translated">
+        <source>neron_depression.description</source>
+        <target>When NERON feels sick, it's the whole Daedalus that vomits.//:point: For **3** :pa:, you can confuse NERON which will randomly change its settings next cycle.//:point: Doesn't work on the DMZ if it's blocked.</target>
       </segment>
     </unit>
   </file>

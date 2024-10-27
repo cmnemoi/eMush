@@ -6,8 +6,10 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ExtractSpore;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -44,7 +46,7 @@ final class ExtractSporeCest extends AbstractFunctionalTest
         );
     }
 
-    public function testApronDoesNotPreventDirtyStatusToAppear(FunctionalTester $I): void
+    public function apronDoesNotPreventDirtyStatusToAppear(FunctionalTester $I): void
     {
         // given Kuan Ti has an apron
         $this->gameEquipmentService->createGameEquipmentFromName(
@@ -80,5 +82,50 @@ final class ExtractSporeCest extends AbstractFunctionalTest
 
         // then action should cost 0 action points
         $I->assertEquals(0, $this->extractSporeAction->getActionPointCost());
+    }
+
+    public function antisporeGasShouldLimitSporeExtraction(FunctionalTester $I): void
+    {
+        $this->givenAntisporeGasIsCompleted($I);
+
+        $this->givenKuanTiExtractedTwoSpores();
+
+        $this->givenKuanTiExtractedTwoSpores();
+
+        $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT);
+    }
+
+    private function givenAntisporeGasIsCompleted(FunctionalTester $I): void
+    {
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::ANTISPORE_GAS),
+            author: $this->chun,
+            I: $I
+        );
+    }
+
+    private function givenKuanTiExtractedTwoSpores(): void
+    {
+        $this->extractSporeAction->loadParameters(
+            actionConfig: $this->extractSporeActionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi
+        );
+        $this->extractSporeAction->execute();
+        $this->extractSporeAction->execute();
+    }
+
+    private function whenKuanTiTriesToExtractSpore(): void
+    {
+        $this->extractSporeAction->loadParameters(
+            actionConfig: $this->extractSporeActionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi
+        );
+    }
+
+    private function thenActionShouldNotBeExecutableWithMessage(FunctionalTester $I, string $message): void
+    {
+        $I->assertEquals($message, $this->extractSporeAction->cannotExecuteReason());
     }
 }

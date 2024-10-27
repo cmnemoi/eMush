@@ -3788,6 +3788,18 @@ abstract class ModifierConfigData
                 ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::DAEDALUS_MINUS_2_MAX_SPORES,
+            'modifierName' => ModifierNameEnum::ANTISPORE_GAS_MODIFIER,
+            'revertOnRemove' => true,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'direct_modifier',
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'triggeredEvent' => EventConfigData::CHANGE_VALUE_MINUS_2_MAX_DAEDALUS_SPORES,
+            'modifierActivationRequirements' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

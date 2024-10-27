@@ -131,4 +131,6 @@ abstract class ModifierNameEnum
     public const string FITFUL_SLEEP_MINUS_ONE_ACTION_POINT = 'fitful_sleep_for_player_-1actionPoint_on_new_cycle';
     public const string PLAYER_PLUS_1_MAX_SPORES = 'player_plus_1_max_spores';
     public const string MUSHOVORE_BACTERIA_MODIFIER = 'mushovore_bacteria_modifier';
+    public const string DAEDALUS_MINUS_2_MAX_SPORES = 'daedalus_-2max_spores';
+    public const string ANTISPORE_GAS_MODIFIER = 'antispore_gas_modifier';
 }

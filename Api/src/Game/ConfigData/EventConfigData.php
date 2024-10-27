@@ -20,6 +20,7 @@ class EventConfigData
     public const string CHANGE_VARIABLE_PLAYER_PLUS_1_MOVEMENT_POINT = 'change.variable_player_+1_movementPoint';
     public const string CHANGE_VALUE_PLUS_2_MAX_PRIVATE_CHANNELS = 'change.value.max_private_channels_+2';
     public const string CHANGE_VALUE_PLUS_1_MAX_PLAYER_SPORE = 'change.value.max_player_+1_spore';
+    public const string CHANGE_VALUE_MINUS_2_MAX_DAEDALUS_SPORES = 'change.value.max_daedalus_-2_spores';
 
     public static array $variableEventConfigData = [
         [
@@ -357,6 +358,14 @@ class EventConfigData
             'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
             'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
             'name' => self::CHANGE_VALUE_PLUS_1_MAX_PLAYER_SPORE,
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => -2,
+            'targetVariable' => DaedalusVariableEnum::SPORE,
+            'variableHolderClass' => ModifierHolderClassEnum::DAEDALUS,
+            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
+            'name' => self::CHANGE_VALUE_MINUS_2_MAX_DAEDALUS_SPORES,
         ],
     ];
 

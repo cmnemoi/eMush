@@ -613,6 +613,7 @@ class GameConfigData
                 ProjectName::OXY_MORE,
                 ProjectName::BEAT_BOX,
                 ProjectName::ANABOLICS,
+                ProjectName::CREATE_MYCOSCAN,
                 ProjectName::MUSH_HUNTER_ZC16H,
                 ProjectName::MUSH_LANGUAGE,
                 ProjectName::MUSH_RACES,

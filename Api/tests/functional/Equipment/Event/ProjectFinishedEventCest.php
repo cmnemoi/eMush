@@ -7,7 +7,9 @@ namespace Mush\Tests\functional\Equipment\Event;
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Enum\ProjectName;
@@ -35,10 +37,11 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         $places = [];
         foreach ($example['creationPlaces'] as $creationPlace) {
             // if room already exists dont create it twice
-            if ($this->daedalus->getPlaceByName($creationPlace) !== null) {
-                continue;
+            if ($this->daedalus->getPlaceByName($creationPlace)) {
+                $places[] = $this->daedalus->getPlaceByNameOrThrow($creationPlace);
+            } else {
+                $places[] = $this->createExtraPlace(placeName: $creationPlace, I: $I, daedalus: $this->daedalus);
             }
-            $places[] = $this->createExtraPlace(placeName: $creationPlace, I: $I, daedalus: $this->daedalus);
         }
 
         // when I finish the project
@@ -47,6 +50,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
             author: $this->chun,
             I: $I
         );
+
         // then the places should contain the equipment in the expected quantity
         foreach ($places as $place) {
             $I->assertCount(
@@ -141,19 +145,25 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
             ],
             [
                 'project' => ProjectName::ANABOLICS->value,
-                'equipment' => 'anabolic',
+                'equipment' => GameRationEnum::ANABOLIC,
                 'quantity' => 4,
                 'creationPlaces' => [RoomEnum::LABORATORY],
             ],
             [
                 'project' => ProjectName::SUPER_CALCULATOR->value,
-                'equipment' => 'calculator',
+                'equipment' => EquipmentEnum::CALCULATOR,
                 'quantity' => 1,
                 'creationPlaces' => [RoomEnum::NEXUS],
             ],
             [
                 'project' => ProjectName::RETRO_FUNGAL_SERUM->value,
-                'equipment' => 'retro_fungal_serum',
+                'equipment' => ToolItemEnum::RETRO_FUNGAL_SERUM,
+                'quantity' => 1,
+                'creationPlaces' => [RoomEnum::LABORATORY],
+            ],
+            [
+                'project' => ProjectName::CREATE_MYCOSCAN->value,
+                'equipment' => EquipmentEnum::MYCOSCAN,
                 'quantity' => 1,
                 'creationPlaces' => [RoomEnum::LABORATORY],
             ],

@@ -6,7 +6,9 @@ namespace Mush\Equipment\ConfigData;
 
 use Mush\Equipment\Entity\Dto\SpawnEquipmentConfigDto;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Place\Enum\RoomEnum;
 
 abstract class SpawnEquipmentConfigData
@@ -17,6 +19,7 @@ abstract class SpawnEquipmentConfigData
     public const string FOUR_ANABOLICS_IN_LABORATORY = 'four_anabolics_in_laboratory';
     public const string ONE_RETRO_FUNGAL_SERUM_IN_LABORATORY = 'one_retrofungal_serum_in_laboratory';
     public const string ONE_CALCULATOR_IN_NEXUS = 'one_calculator_in_nexus';
+    public const string ONE_MYCOSCAN_IN_LABORATORY = 'one_mycoscan_in_laboratory';
 
     /**
      * @return SpawnEquipmentConfigDto[]
@@ -107,19 +110,25 @@ abstract class SpawnEquipmentConfigData
             ),
             new SpawnEquipmentConfigDto(
                 name: self::FOUR_ANABOLICS_IN_LABORATORY,
-                equipmentName: 'anabolic',
+                equipmentName: GameRationEnum::ANABOLIC,
                 placeName: RoomEnum::LABORATORY,
                 quantity: 4,
             ),
             new SpawnEquipmentConfigDto(
                 name: self::ONE_CALCULATOR_IN_NEXUS,
-                equipmentName: 'calculator',
+                equipmentName: EquipmentEnum::CALCULATOR,
                 placeName: RoomEnum::NEXUS,
                 quantity: 1,
             ),
             new SpawnEquipmentConfigDto(
                 name: self::ONE_RETRO_FUNGAL_SERUM_IN_LABORATORY,
-                equipmentName: 'retro_fungal_serum',
+                equipmentName: ToolItemEnum::RETRO_FUNGAL_SERUM,
+                placeName: RoomEnum::LABORATORY,
+                quantity: 1,
+            ),
+            new SpawnEquipmentConfigDto(
+                name: self::ONE_MYCOSCAN_IN_LABORATORY,
+                equipmentName: EquipmentEnum::MYCOSCAN,
                 placeName: RoomEnum::LABORATORY,
                 quantity: 1,
             ),

@@ -7,6 +7,7 @@ use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Exploration\Entity\Planet;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolderInterface;
@@ -82,6 +83,11 @@ class ActionEvent extends AbstractGameEvent
         return $player instanceof Player ? $player : throw new \LogicException('Action target is not a player');
     }
 
+    public function getActionTargetAsPlanet(): Planet
+    {
+        return $this->actionTarget instanceof Planet ? $this->actionTarget : throw new \RuntimeException('Action target is not a planet');
+    }
+
     public function getActionParameters(): array
     {
         return $this->actionParameters;
@@ -139,6 +145,11 @@ class ActionEvent extends AbstractGameEvent
 
         return $this->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)
             && ($authorInteractsWithRoomEquipment || $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap);
+    }
+
+    public function shouldBeAnonymous(): bool
+    {
+        return $this->getActionName() === ActionEnum::HIT && $this->author?->hasSkill(SkillEnum::NINJA);
     }
 
     public function shouldCreateParfumeAntiqueImmunizedStatus(): bool

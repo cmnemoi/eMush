@@ -279,6 +279,12 @@ abstract class SkillConfigData
                 name: SkillEnum::NIMBLE_FINGERS,
             ),
             new SkillConfigDto(
+                name: SkillEnum::NIGHTMARISH,
+                actionConfigs: [
+                    ActionEnum::GIVE_NIGHTMARE,
+                ],
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::NURSE,
                 skillPointsConfig: SkillPointsEnum::NURSE_POINTS,
             ),

@@ -1417,5 +1417,11 @@
         <target>:mush: Étrange, **{character}** s'affaire sur une **Porte** qui émet une petite fumée...</target>
       </segment>
     </unit>
+    <unit id="give_nightmare_success">
+      <segment id="give_nightmare_success" state="final">
+        <source>give_nightmare_success</source>
+        <target>:mush: **{character}** se rapproche de **{target_character}**... Après {character_gender, select, female {qu'elle s'en est éloignée} other {qu'il s'en est éloigné}}, celui-ci semble avoir un sommeil tourmenté...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

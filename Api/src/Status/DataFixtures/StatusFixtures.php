@@ -590,6 +590,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasPettedCat);
 
+        /** @var VariableEventModifierConfig $fitfulSleepModifier */
+        $fitfulSleepModifier = $this->getReference(ModifierNameEnum::FITFUL_SLEEP_MINUS_ONE_ACTION_POINT);
+        $fitfulSleep = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::FITFUL_SLEEP . '_default')
+        );
+        $fitfulSleep->setModifierConfigs([$fitfulSleepModifier]);
+        $manager->persist($fitfulSleep);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -658,7 +666,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasUsedOpportunistAsComManager)
             ->addStatusConfig($catOwner)
             ->addStatusConfig($catInfected)
-            ->addStatusConfig($hasPettedCat);
+            ->addStatusConfig($hasPettedCat)
+            ->addStatusConfig($fitfulSleep);
 
         $manager->persist($gameConfig);
 
@@ -722,6 +731,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::CAT_OWNER, $catOwner);
         $this->addReference(EquipmentStatusEnum::CAT_INFECTED, $catInfected);
         $this->addReference(PlayerStatusEnum::HAS_PETTED_CAT, $hasPettedCat);
+        $this->addReference(PlayerStatusEnum::FITFUL_SLEEP, $fitfulSleep);
 
         $manager->flush();
     }

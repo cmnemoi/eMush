@@ -1429,5 +1429,17 @@
         <target>:mush: **{character}** a l'air en grande discussion avec... NERON. Mais que peuvent-ils bien se dire ces deux-là ?</target>
       </segment>
     </unit>
+    <unit id="search_for_mush_genome_fail">
+      <segment id="search_for_mush_genome_fail" state="final">
+        <source>search_for_mush_genome_fail</source>
+        <target>Accès à la base de données de Xyloph refusée. Rien à en tirer... Saleté d'admin de daube.</target>
+      </segment>
+    </unit>
+    <unit id="search_for_mush_genome_success">
+      <segment id="search_for_mush_genome_success" state="final">
+        <source>search_for_mush_genome_success</source>
+        <target>Accès à la base de données de Xyloph acceptée. Ce disque regroupe des informations cruciales sur le génome Mush rassemblée par Ian Soulton juste avant le départ du Daedalus.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

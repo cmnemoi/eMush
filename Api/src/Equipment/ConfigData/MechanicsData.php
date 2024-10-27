@@ -10,8 +10,10 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Skill\Enum\SkillEnum;
 
 /** @codeCoverageIgnore */
-class MechanicsData
+abstract class MechanicsData
 {
+    public const string TOOL_COMMS_CENTER = 'tool_comms_center_default';
+
     public static array $dataArray = [
         [
             'name' => 'document_default',
@@ -1844,6 +1846,13 @@ class MechanicsData
                 ActionEnum::EXIT_TERMINAL->value,
             ],
             'modifierConfigs' => [],
+        ],
+        [
+            'name' => self::TOOL_COMMS_CENTER,
+            'type' => EquipmentMechanicEnum::TOOL,
+            'actions' => [
+                ActionEnum::SEARCH_FOR_MUSH_GENOME->value,
+            ],
         ],
     ];
 }

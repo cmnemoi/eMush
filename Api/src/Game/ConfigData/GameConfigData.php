@@ -482,6 +482,7 @@ class GameConfigData
                 PlayerStatusEnum::HAS_DAUNTED . '_default',
                 PlayerStatusEnum::HAS_GEN_METAL . '_default',
                 PlayerStatusEnum::HAS_SABOTAGED_DOOR . '_default',
+                PlayerStatusEnum::FITFUL_SLEEP . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -682,6 +683,7 @@ class GameConfigData
                 SkillEnum::MYCOLOGIST,
                 SkillEnum::NERON_ONLY_FRIEND,
                 SkillEnum::NIMBLE_FINGERS,
+                SkillEnum::NIGHTMARISH,
                 SkillEnum::NURSE,
                 SkillEnum::OBSERVANT,
                 SkillEnum::OCD,

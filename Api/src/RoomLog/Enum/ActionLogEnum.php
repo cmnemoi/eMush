@@ -162,6 +162,7 @@ abstract class ActionLogEnum
     public const string GEN_METAL_SUCCESS = 'gen_metal_success';
     public const string GEN_METAL_FAIL = 'gen_metal_fail';
     public const string DOOR_SABOTAGE_SUCCESS = 'door_sabotage_success';
+    public const string GIVE_NIGHTMARE_SUCCESS = 'give_nightmare_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -558,6 +559,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::DOOR_SABOTAGE->value => [
             ActionOutputEnum::SUCCESS => self::DOOR_SABOTAGE_SUCCESS,
+        ],
+        ActionEnum::GIVE_NIGHTMARE->value => [
+            ActionOutputEnum::SUCCESS => self::GIVE_NIGHTMARE_SUCCESS,
         ],
     ];
 

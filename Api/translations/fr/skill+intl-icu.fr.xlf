@@ -918,5 +918,15 @@
         <target>La connaissance est en mouvement, l'état n'est déjà plus.//:point: **+2** canaux privés accessibles.//:point: **+1** :pa_comp: par jour.//:point: **-10%** à toutes vos tentatives d'action.</target>
       </segment>
     </unit>
+    <unit id="nightmarish">
+      <segment id="nightmarish.name" state="translated">
+        <source>nightmarish.name</source>
+        <target>Cauchemardesque</target>
+      </segment>
+      <segment id="nightmarish.description" state="translated">
+        <source>nightmarish.description</source>
+        <target>Les lépiotes du Mush peuvent remodeler les ondes de ces pauvres humains. Avec quelques modifications, elles peuvent empêcher un humain de se reposer.//:point: Pour **0** :pa:, vous pouvez **déclencher des cauchemars** chez un joueur allongé. Celui-ci ne bénéficiera plus des bonus du sommeil.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -13,8 +13,11 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\TitleEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -52,6 +55,44 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
         $this->whenPlayerSearchesForMushGenome();
 
         $this->thenPlaceShouldHaveMushGenomeDisk($I);
+    }
+
+    public function shouldPrintPrivateLogOnFail(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsCommsOfficer();
+
+        $this->givenActionSuccessRateIs(0);
+
+        $this->whenPlayerSearchesForMushGenome();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'Accès à la base de données de Xyloph refusée. Rien à en tirer... Saleté d\'admin de daube.',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player,
+                log: ActionLogEnum::SEARCH_FOR_MUSH_GENOME_FAIL,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I,
+        );
+    }
+
+    public function shouldPrintPrivateLogOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsCommsOfficer();
+
+        $this->givenActionSuccessRateIs(100);
+
+        $this->whenPlayerSearchesForMushGenome();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'Accès à la base de données de Xyloph acceptée. Ce disque regroupe des informations cruciales sur le génome Mush rassemblée par Ian Soulton juste avant le départ du Daedalus.',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player,
+                log: ActionLogEnum::SEARCH_FOR_MUSH_GENOME_SUCCESS,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I,
+        );
     }
 
     private function givenPlaceHasCommsCenter(): void

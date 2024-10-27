@@ -164,6 +164,8 @@ abstract class ActionLogEnum
     public const string DOOR_SABOTAGE_SUCCESS = 'door_sabotage_success';
     public const string GIVE_NIGHTMARE_SUCCESS = 'give_nightmare_success';
     public const string NERON_DEPRESS_SUCCESS = 'neron_depress_success';
+    public const string SEARCH_FOR_MUSH_GENOME_SUCCESS = 'search_for_mush_genome_success';
+    public const string SEARCH_FOR_MUSH_GENOME_FAIL = 'search_for_mush_genome_fail';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -566,6 +568,10 @@ abstract class ActionLogEnum
         ],
         ActionEnum::NERON_DEPRESS->value => [
             ActionOutputEnum::SUCCESS => self::NERON_DEPRESS_SUCCESS,
+        ],
+        ActionEnum::SEARCH_FOR_MUSH_GENOME->value => [
+            ActionOutputEnum::SUCCESS => self::SEARCH_FOR_MUSH_GENOME_SUCCESS,
+            ActionOutputEnum::FAIL => self::SEARCH_FOR_MUSH_GENOME_FAIL,
         ],
     ];
 

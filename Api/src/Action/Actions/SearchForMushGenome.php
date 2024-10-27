@@ -7,6 +7,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -20,10 +21,11 @@ final class SearchForMushGenome extends AbstractAction
 
     public function __construct(
         EventServiceInterface $eventService,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         private GameEquipmentServiceInterface $gameEquipmentService,
-        ValidatorInterface $validator
     ) {
-        parent::__construct($eventService, null, $validator);
+        parent::__construct($eventService, $actionService, $validator);
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

@@ -180,6 +180,12 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'quantity' => 2,
                 'creationPlaces' => [RoomEnum::LABORATORY],
             ],
+            [
+                'project' => ProjectName::SPORE_SUCKER->value,
+                'equipment' => ToolItemEnum::SPORE_SUCKER,
+                'quantity' => 1,
+                'creationPlaces' => [RoomEnum::LABORATORY],
+            ],
         ];
     }
 

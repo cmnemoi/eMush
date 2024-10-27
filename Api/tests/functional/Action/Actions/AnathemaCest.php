@@ -14,7 +14,6 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
@@ -35,7 +34,6 @@ final class AnathemaCest extends AbstractFunctionalTest
     private ActionConfig $attemptActionConfig;
     private Hit $attemptAction;
 
-    private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
 
@@ -48,7 +46,6 @@ final class AnathemaCest extends AbstractFunctionalTest
         $this->attemptAction = $I->grabService(Hit::class);
         $this->attemptActionConfig->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::COVERT);
 
-        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 

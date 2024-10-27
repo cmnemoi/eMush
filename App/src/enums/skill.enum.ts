@@ -282,6 +282,10 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/human/neron_only_friend.png')
     },
 
+    [SkillEnum.NIMBLE_FINGERS]: {
+        'icon': getImgUrl('skills/mush/nimble_fingers.png')
+    },
+
     [SkillEnum.NURSE]: {
         'icon': getImgUrl('skills/human/first_aid.png')
     },

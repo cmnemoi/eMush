@@ -276,6 +276,9 @@ abstract class SkillConfigData
                 name: SkillEnum::NERON_ONLY_FRIEND,
             ),
             new SkillConfigDto(
+                name: SkillEnum::NIMBLE_FINGERS,
+            ),
+            new SkillConfigDto(
                 name: SkillEnum::NURSE,
                 skillPointsConfig: SkillPointsEnum::NURSE_POINTS,
             ),

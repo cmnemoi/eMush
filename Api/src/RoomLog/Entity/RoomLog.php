@@ -15,6 +15,8 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 #[ORM\Entity(repositoryClass: RoomLogRepository::class)]
 class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
@@ -110,6 +112,11 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
         $this->playerInfo = $playerInfo;
 
         return $this;
+    }
+
+    public function getPlayerOrThrow(): Player
+    {
+        return $this->playerInfo?->getPlayer() ?? throw new \RuntimeException('RoomLog should have a player');
     }
 
     public function getVisibility(): string
@@ -255,16 +262,57 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
         $this->setVisibility(VisibilityEnum::HIDDEN);
     }
 
-    public function isSabotageCameraLog(): bool
+    public function shouldBeSecretForPlayer(): bool
+    {
+        return $this->isAlreadySecret()
+            || $this->isSecretBecausePlayerIsAPariah()
+            || $this->isSecretBecauseNimbleFingersIsInUse();
+    }
+
+    public function shouldBeRevealedByCamera(): bool
+    {
+        return $this->isNotSabotageCameraLog() && $this->isNotRemoveCameraLog();
+    }
+
+    public function isNotSabotageCameraLog(): bool
     {
         $isSabotageLog = \in_array($this->log, [ActionLogEnum::SABOTAGE_SUCCESS, ActionLogEnum::SABOTAGE_FAIL], true);
         $sabotagedEquipmentIsCamera = $this->getParameters()['target_equipment'] === EquipmentEnum::CAMERA_EQUIPMENT;
 
-        return $isSabotageLog && $sabotagedEquipmentIsCamera;
+        return ($isSabotageLog && $sabotagedEquipmentIsCamera) === false;
     }
 
     public function resetVisibility(): void
     {
         $this->setVisibility($this->baseVisibility);
+    }
+
+    private function isNotRemoveCameraLog(): bool
+    {
+        return $this->log !== ActionLogEnum::REMOVE_CAMERA;
+    }
+
+    private function isAlreadySecret(): bool
+    {
+        return $this->baseVisibility === VisibilityEnum::SECRET;
+    }
+
+    private function isSecretBecausePlayerIsAPariah(): bool
+    {
+        $player = $this->getPlayerOrThrow();
+
+        return $this->baseVisibility === VisibilityEnum::COVERT && $player->hasStatus(PlayerStatusEnum::PARIAH);
+    }
+
+    private function isSecretBecauseNimbleFingersIsInUse(): bool
+    {
+        $player = $this->getPlayerOrThrow();
+
+        return $this->isCameraManipulationLog() && $player->hasSkill(SkillEnum::NIMBLE_FINGERS);
+    }
+
+    private function isCameraManipulationLog(): bool
+    {
+        return $this->log === ActionLogEnum::INSTALL_CAMERA || $this->log === ActionLogEnum::REMOVE_CAMERA;
     }
 }

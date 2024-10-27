@@ -684,6 +684,7 @@ class GameConfigData
                 SkillEnum::NERON_ONLY_FRIEND,
                 SkillEnum::NIMBLE_FINGERS,
                 SkillEnum::NIGHTMARISH,
+                SkillEnum::NINJA,
                 SkillEnum::NURSE,
                 SkillEnum::OBSERVANT,
                 SkillEnum::OCD,

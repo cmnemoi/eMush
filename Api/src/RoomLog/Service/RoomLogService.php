@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Entity\Planet;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -274,7 +275,7 @@ final class RoomLogService implements RoomLogServiceInterface
         $player = $event->getAuthor();
 
         $parameters = [];
-        $parameters[$player->getLogKey()] = $player->getLogName();
+        $parameters[$player->getLogKey()] = $event->shouldBeAnonymous() ? CharacterEnum::SOMEONE : $player->getLogName();
 
         if (($quantity = $actionResult?->getQuantity()) !== null) {
             $parameters['quantity'] = $quantity;
@@ -283,17 +284,9 @@ final class RoomLogService implements RoomLogServiceInterface
             $key = 'target_' . $actionParameter->getLogKey();
             $parameters[$key] = $actionParameter->getLogName();
 
-            // we need to translate planet name before logging it, as it is saved in database as an array of numbers (basically)
             if (str_contains($key, 'planet')) {
-                /** @var Planet $planet */
-                $planet = $actionParameter;
-
-                $parameters[$key] = $this->translationService->translate(
-                    key: 'planet_name',
-                    parameters: $planet->getName()->toArray(),
-                    domain: 'planet',
-                    language: $player->getDaedalus()->getLanguage()
-                );
+                $planet = $event->getActionTargetAsPlanet();
+                $parameters[$key] = $this->translatePlanetName($planet, $player);
             }
         }
         if (($equipment = $actionResult?->getEquipment()) !== null) {
@@ -306,6 +299,16 @@ final class RoomLogService implements RoomLogServiceInterface
         }
 
         return $parameters;
+    }
+
+    private function translatePlanetName(Planet $planet, Player $player): string
+    {
+        return $this->translationService->translate(
+            key: 'planet_name',
+            parameters: $planet->getName()->toArray(),
+            domain: 'planet',
+            language: $player->getDaedalus()->getLanguage()
+        );
     }
 
     private function createExamineLog(Player $player, ?LogParameterInterface $actionParameter): RoomLog

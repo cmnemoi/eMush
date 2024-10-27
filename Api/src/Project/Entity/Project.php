@@ -313,7 +313,7 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
         $lastAdvancedProject = match ($this->getType()) {
             ProjectType::NERON_PROJECT => $this->daedalus->getAdvancedNeronProjects()->getLastAdvancedProject(),
             ProjectType::RESEARCH => $this->daedalus->getAdvancedResearchProjects()->getLastAdvancedProject(),
-            default => false,
+            default => self::createNull(),
         };
 
         return $this->equals($lastAdvancedProject);

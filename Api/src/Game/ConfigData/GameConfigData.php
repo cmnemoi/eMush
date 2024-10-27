@@ -613,6 +613,7 @@ class GameConfigData
                 ProjectName::OXY_MORE,
                 ProjectName::BEAT_BOX,
                 ProjectName::ANABOLICS,
+                ProjectName::ANTISPORE_GAS,
                 ProjectName::CREATE_MYCOSCAN,
                 ProjectName::NARCOTICS_DISTILLER,
                 ProjectName::MUSH_HUNTER_ZC16H,

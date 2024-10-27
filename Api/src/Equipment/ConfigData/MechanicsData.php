@@ -1841,7 +1841,7 @@ abstract class MechanicsData
             'name' => 'tool_research_lab_default',
             'type' => EquipmentMechanicEnum::TOOL,
             'actions' => [
-                ActionEnum::PARTICIPATE->value,
+                ActionEnum::PARTICIPATE_RESEARCH->value,
                 ActionEnum::ACCESS_TERMINAL->value,
                 ActionEnum::EXIT_TERMINAL->value,
             ],

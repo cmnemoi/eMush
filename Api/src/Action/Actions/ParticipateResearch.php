@@ -6,27 +6,28 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\ProjectType;
 use Mush\Project\Enum\ProjectType as ProjectTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-final class Participate extends AbstractParticipateAction
+final class ParticipateResearch extends AbstractParticipateAction
 {
-    protected ActionEnum $name = ActionEnum::PARTICIPATE;
+    protected ActionEnum $name = ActionEnum::PARTICIPATE_RESEARCH;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new ProjectType([
-            'types' => [ProjectTypeEnum::NERON_PROJECT],
-            'groups' => ['visibility'],
+            'types' => [ProjectTypeEnum::RESEARCH],
+            'groups' => [ClassConstraint::VISIBILITY],
         ]));
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::DIRTY,
             'target' => HasStatus::PLAYER,
             'contain' => false,
-            'groups' => ['execute'],
+            'groups' => [ClassConstraint::EXECUTE],
             'message' => ActionImpossibleCauseEnum::DIRTY_RESTRICTION,
         ]));
     }

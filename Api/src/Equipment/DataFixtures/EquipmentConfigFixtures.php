@@ -180,9 +180,13 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($astroTerminal);
 
+        /** @var ActionConfig $participateResearchAction */
+        $participateResearchAction = $this->getReference(ActionEnum::PARTICIPATE_RESEARCH->value);
+
         $researchLabTool = $this->createTool([
             $accessTerminalAction,
             $exitTerminalAction,
+            $participateResearchAction,
         ], EquipmentEnum::RESEARCH_LABORATORY);
         $manager->persist($researchLabTool);
 

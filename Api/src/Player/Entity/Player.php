@@ -309,7 +309,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
             ->filter(static fn (GameEquipment $equipment) => $equipment->hasMechanicByName(EquipmentMechanicEnum::RATION));
 
         $hiddenByPlayerFood = $this->getPlace()->getEquipments()
-            ->filter(static fn (GameEquipment $equipment) => $equipment->getStatusByName(EquipmentStatusEnum::HIDDEN)?->getTarget()->equals($this))
+            ->filter(fn (GameEquipment $equipment) => $equipment->getStatusByName(EquipmentStatusEnum::HIDDEN)?->getTarget()->equals($this))
             ->filter(static fn (GameEquipment $equipment) => $equipment->hasMechanicByName(EquipmentMechanicEnum::RATION));
 
         return $playerFood->count() > 0 || $placeFood->count() > 0 || $hiddenByPlayerFood->count() > 0;

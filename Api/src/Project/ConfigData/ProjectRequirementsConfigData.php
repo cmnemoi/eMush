@@ -70,6 +70,10 @@ abstract class ProjectRequirementsConfigData
                 ProjectRequirementType::ITEM_IN_PLAYER_INVENTORY,
                 ItemEnum::SCHRODINGER
             ),
+            new ProjectRequirementConfigDto(
+                name: ProjectRequirementName::FOOD_IN_LABORATORY,
+                type: ProjectRequirementType::FOOD_IN_LABORATORY,
+            )
         ];
     }
 }

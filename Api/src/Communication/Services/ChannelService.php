@@ -121,7 +121,6 @@ class ChannelService implements ChannelServiceInterface
         $playersWithChannelsSlots = $this->channelPlayerRepository->findAvailablePlayerForPrivateChannel(
             $channel,
             $player->getDaedalus(),
-            $player->getPlayerInfo()->getCharacterConfig()->getMaxNumberPrivateChannel()
         );
 
         $availablePlayers = new PlayerCollection();

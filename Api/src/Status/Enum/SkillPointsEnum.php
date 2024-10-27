@@ -19,6 +19,7 @@ enum SkillPointsEnum: string
     case SHOOTER_POINTS = 'shooter_points';
     case SPORE_POINTS = 'spore_points';
     case TECHNICIAN_POINTS = 'technician_points';
+    case POLYMATH_IT_POINTS = 'polymath_it_points';
     case NULL = '';
 
     public static function fromSkill(Skill $skill): self
@@ -32,6 +33,7 @@ enum SkillPointsEnum: string
             SkillEnum::PHYSICIST => self::PILGRED_POINTS,
             SkillEnum::SHOOTER => self::SHOOTER_POINTS,
             SkillEnum::TECHNICIAN => self::TECHNICIAN_POINTS,
+            SkillEnum::POLYMATH => self::POLYMATH_IT_POINTS,
             default => self::NULL,
         };
     }

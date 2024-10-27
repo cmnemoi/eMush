@@ -4,7 +4,6 @@ namespace Mush\Player\Listener;
 
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -15,9 +14,10 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class EquipmentSubscriber implements EventSubscriberInterface
+final class EquipmentSubscriber implements EventSubscriberInterface
 {
     public const int GLOBAL_MORALE_LOSS_SCHRODINGER_DEATH = 0;
+
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
 
@@ -81,7 +81,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                     $player,
                     PlayerVariableEnum::MORAL_POINT,
                     self::GLOBAL_MORALE_LOSS_SCHRODINGER_DEATH,
-                    [ItemEnum::SCHRODINGER],
+                    $event->getTags(),
                     new \DateTime(),
                 );
                 $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);

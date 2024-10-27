@@ -3570,7 +3570,10 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::SET_VALUE,
             'modifierActivationRequirements' => [
             ],
-            'tagConstraints' => [ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ANY_TAGS, ActionEnum::PET_CAT->value => ModifierRequirementEnum::ANY_TAGS],
+            'tagConstraints' => [
+                ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::PET_CAT->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
         ],
         [
             'name' => 'cat_owner_modifier_-4morale_on_cat_death',
@@ -3586,7 +3589,9 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::ADDITIVE,
             'modifierActivationRequirements' => [
             ],
-            'tagConstraints' => [ItemEnum::SCHRODINGER => ModifierRequirementEnum::ANY_TAGS],
+            'tagConstraints' => [
+                'cat_death' => ModifierRequirementEnum::ANY_TAGS,
+            ],
         ],
         [
             'name' => ModifierNameEnum::OCD_MODIFIER_FOR_PLAYER_PREVENT_DIRTY,

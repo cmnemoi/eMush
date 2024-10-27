@@ -38,6 +38,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ShootCat extends AttemptAction
 {
+    private const string CAT_DEATH_TAG = 'cat_death';
     protected ActionEnum $name = ActionEnum::SHOOT_CAT;
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
@@ -164,6 +165,8 @@ class ShootCat extends AttemptAction
             $this->getTags(),
             new \DateTime(),
         );
+        $interactEvent->addTag(self::CAT_DEATH_TAG);
+
         $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

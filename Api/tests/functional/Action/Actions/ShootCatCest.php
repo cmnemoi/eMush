@@ -15,6 +15,7 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -107,6 +108,19 @@ final class ShootCatCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldMakeCatOwnerLoseMoralPoints(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsCatOwner($I);
+
+        $this->givenPlayerHasMoralPoint(10, $I);
+
+        $this->givenShotIsSuccessful($I);
+
+        $this->whenPlayerShoots();
+
+        $I->assertEquals(6, $this->player->getMoralPoint());
+    }
+
     private function givenCatIsInShelf(FunctionalTester $I): void
     {
         $this->schrodinger = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -142,6 +156,21 @@ final class ShootCatCest extends AbstractFunctionalTest
     private function givenBlasterHasCharges(int $blasterCharges, FunctionalTester $I): void
     {
         $this->blaster->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->setCharge($blasterCharges);
+    }
+
+    private function givenPlayerIsCatOwner(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::CAT_OWNER,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenPlayerHasMoralPoint(int $moralPoint, FunctionalTester $I): void
+    {
+        $this->player->setMoralPoint($moralPoint);
     }
 
     private function whenPlayerTriesToShootCat(): void

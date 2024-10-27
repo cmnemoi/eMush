@@ -78,6 +78,7 @@ final class DaedalusNormalizerTest extends TestCase
         $daedalus->shouldReceive('isPilgredFinished')->andReturn(false);
         $daedalus->shouldReceive('hasFinishedProject')->with(ProjectName::PLASMA_SHIELD)->andReturn(false);
         $daedalus->shouldReceive('getFinishedNeronProjects')->andReturn(new ArrayCollection());
+        $daedalus->shouldReceive('getFinishedResearchProjects')->andReturn(new ArrayCollection());
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());
         $daedalus->setPlaces(new ArrayCollection());
@@ -291,6 +292,7 @@ final class DaedalusNormalizerTest extends TestCase
             ],
             'projects' => [
                 'neronProjects' => [],
+                'researchProjects' => [],
             ],
         ];
 
@@ -300,7 +302,7 @@ final class DaedalusNormalizerTest extends TestCase
 
     public function testShouldNormalizeFinishedPilgred(): void
     {
-        // given I have a finishedP ILGRED project
+        // given I have a finished PILGRED project
         $pilgred = ProjectFactory::createPilgredProject();
         $pilgred->makeProgressAndUpdateParticipationDate(100);
         $daedalus = $pilgred->getDaedalus();
@@ -368,6 +370,45 @@ final class DaedalusNormalizerTest extends TestCase
                 'description' => '',
             ],
             actual: $data['projects']['neronProjects'][0],
+        );
+    }
+
+    public function testShouldNormalizeFinishedResearchProjects(): void
+    {
+        // given I have 2 finished research projects
+        $daedalus = DaedalusFactory::createDaedalus();
+        $projects = [
+            ProjectFactory::createDummyResearchForDaedalus($daedalus),
+            ProjectFactory::createDummyResearchForDaedalus($daedalus),
+        ];
+        array_map(static fn ($project) => $project->makeProgressAndUpdateParticipationDate(100), $projects);
+
+        // setup
+        ProjectFactory::createPilgredProjectForDaedalus($daedalus);
+        ProjectFactory::createPlasmaShieldProjectForDaedalus($daedalus);
+        $this->planetService->shouldIgnoreMissing();
+        $this->translationService->shouldIgnoreMissing();
+        $this->cycleService->shouldReceive('getDateStartNextCycle')->andReturn(new \DateTime());
+        $this->projectNormalizer->shouldReceive('normalize')->andReturn([
+            'type' => 'Res.',
+            'key' => '',
+            'name' => '',
+            'description' => '',
+        ]);
+
+        // when I normalize the daedalus
+        $data = $this->normalizer->normalize($daedalus);
+
+        // then I should have 2 normalized research projects in the data
+        self::assertCount(2, $data['projects']['researchProjects']);
+        self::assertEquals(
+            expected: [
+                'type' => 'Res.',
+                'key' => '',
+                'name' => '',
+                'description' => '',
+            ],
+            actual: $data['projects']['researchProjects'][0],
         );
     }
 }

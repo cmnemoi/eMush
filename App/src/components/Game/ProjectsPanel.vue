@@ -1,4 +1,7 @@
 <template>
+    <ul class="research">
+        <DaedalusProjectCard v-for="project in projects.researchProjects" :key="project.key" :project="project" />
+    </ul>
     <ul class="projects">
         <DaedalusProjectCard v-for="project in projects.neronProjects" :key="project.key" :project="project" />
     </ul>
@@ -24,6 +27,7 @@ type DaedalusProject = {
 type DaedalusProjects = {
     pilgred: DaedalusProject|undefined;
     neronProjects: DaedalusProject[];
+    researchProjects: DaedalusProject[];
 }
 
 export default defineComponent ({
@@ -45,7 +49,7 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-.projects {
+.research {
     flex-direction: row;
     flex-wrap: wrap;
     margin-top: 28px;
@@ -67,7 +71,12 @@ export default defineComponent ({
 }
 
 .pilgred {
-    @extend .projects;
+    @extend .research;
+    margin-top: 0;
+}
+
+.projects {
+    @extend .research;
     margin-top: 0;
 }
 </style>

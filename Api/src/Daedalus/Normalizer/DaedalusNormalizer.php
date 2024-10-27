@@ -172,6 +172,10 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             fn (Project $project) => $this->normalizer->normalize($project, $format, $context),
         )->toArray();
 
+        $normalizedProjects['researchProjects'] = $daedalus->getFinishedResearchProjects()->map(
+            fn (Project $project) => $this->normalizer->normalize($project, $format, $context),
+        )->toArray();
+
         return $normalizedProjects;
     }
 

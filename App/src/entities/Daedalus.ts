@@ -15,6 +15,7 @@ type DaedalusProject = {
 type DaedalusProjects = {
     pilgred: DaedalusProject|undefined;
     neronProjects: DaedalusProject[];
+    researchProjects: DaedalusProject[];
 }
 
 export class Daedalus {

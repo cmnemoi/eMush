@@ -37,11 +37,15 @@ export class Project {
             this.isLastAdvancedProject = object.isLastAdvancedProject;
             const repairPilgredActionData = object.actions.filter((action: any) => action.key === ActionEnum.REPAIR_PILGRED)[0];
             const participateActionData = object.actions.filter((action: any) => action.key === ActionEnum.PARTICIPATE)[0];
+            const participateResearchActionData = object.actions.filter((action: any) => action.key === ActionEnum.PARTICIPATE_RESEARCH)[0];
             if (repairPilgredActionData) {
                 this.repairPilgredAction = new Action().load(repairPilgredActionData);
             }
             if (participateActionData) {
                 this.participateAction = new Action().load(participateActionData);
+            }
+            if (participateResearchActionData) {
+                this.participateAction = new Action().load(participateResearchActionData);
             }
         }
         return this;

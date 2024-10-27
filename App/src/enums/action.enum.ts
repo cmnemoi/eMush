@@ -11,6 +11,7 @@ export enum ActionEnum {
     LEAVE_ORBIT = "leave_orbit",
     LEARN = "learn",
     PARTICIPATE = "participate",
+    PARTICIPATE_RESEARCH = "participate_research",
     REPAIR_PILGRED = "repair_pilgred",
     REJECT_MISSION = "reject_mission",
     RETURN_TO_SOL = "return_to_sol",

@@ -212,7 +212,10 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getVisibleResearchProjectsForPlayer(Player $player): ProjectCollection
     {
-        return $this->getResearchProjects()->filter(static fn (Project $project) => $project->isVisibleFor($player));
+        return $this
+            ->getResearchProjects()
+            ->filter(static fn (Project $project) => $project->isNotFinished())
+            ->filter(static fn (Project $project) => $project->isVisibleFor($player));
     }
 
     public function getPlaces(): Collection

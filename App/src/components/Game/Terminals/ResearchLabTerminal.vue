@@ -17,7 +17,7 @@
             :key="project.id"
         />
     </div>
-    <div class="pagination-buttons">
+    <div class="pagination-buttons" v-if="totalPages > 1">
         <button @click="prevPage" :disabled="currentPage === 1">
             <img :src="getImgUrl('blue-arrow.png')" alt="arrow-left" />
         </button>

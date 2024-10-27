@@ -236,6 +236,11 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
         return $this->progress >= 100;
     }
 
+    public function isNotFinished(): bool
+    {
+        return $this->progress < 100;
+    }
+
     public function isNeronProject(): bool
     {
         return $this->getType() === ProjectType::NERON_PROJECT;

@@ -45,13 +45,7 @@
                 <p v-html="formatText(project.efficiencyTooltipText)"></p>
             </template>
         </Tippy>
-        <div class="repair-pilgred-action" v-if="repairPilgredAction">
-            <ActionButton
-                :action="repairPilgredAction"
-                @click="executeTargetAction(project, repairPilgredAction)"
-            />
-        </div>
-        <div class="neron-project-action" v-else-if="participateAction">
+        <div class="participate-action" v-if="participateAction">
             <ActionButton
                 :action="participateAction"
                 @click="executeTargetAction(project, participateAction)"

@@ -20,7 +20,6 @@ use Mush\User\Entity\User;
 
 final class ChannelPlayerRepositoryCest
 {
-    private FunctionalTester $tester;
     private ChannelPlayerRepository $channelRepository;
 
     private GameConfig $gameConfig;
@@ -81,38 +80,38 @@ final class ChannelPlayerRepositoryCest
     public function testFindAvailablePlayerForPrivateChannelDifferentDaedalus(FunctionalTester $I): void
     {
         $this->givenPlayer2IsInDifferentDaedalus($I);
-        
-        $players = $this->whenSearchingForAvailablePlayers([$this->playerInfo]);
-        
+
+        $players = $this->whenSearchingForAvailablePlayers([$this->playerInfo], $I);
+
         $this->thenNoPlayersShouldBeAvailable($players, $I);
     }
 
     public function testFindAvailablePlayerForPrivateChannelWithDeadPlayer(FunctionalTester $I): void
     {
         $this->givenPlayer2IsDead($I);
-        
-        $players = $this->whenSearchingForAvailablePlayers([]);
-        
+
+        $players = $this->whenSearchingForAvailablePlayers([], $I);
+
         $this->thenOnlyLivingPlayerShouldBeAvailable($players, $I);
     }
 
     public function testFindAvailablePlayerForPrivateChannelEmptyChannels(FunctionalTester $I): void
     {
-        $players = $this->whenSearchingForAvailablePlayers([]);
+        $players = $this->whenSearchingForAvailablePlayers([], $I);
         $this->thenAllPlayersShouldBeAvailable($players, $I);
 
-        $players = $this->whenSearchingForAvailablePlayers([$this->playerInfo]);
+        $players = $this->whenSearchingForAvailablePlayers([$this->playerInfo], $I);
         $this->thenOnlyOtherPlayerShouldBeAvailable($players, $I);
     }
 
     public function testFindAvailablePlayerForPrivateChannelMaxChannel(FunctionalTester $I): void
     {
         $this->givenPlayer1HasMaxOnePrivateChannel($I);
-        
-        $players = $this->whenSearchingForAvailablePlayers([]);
+
+        $players = $this->whenSearchingForAvailablePlayers([], $I);
         $this->thenAllPlayersShouldBeAvailable($players, $I);
 
-        $players = $this->whenSearchingForAvailablePlayers([$this->playerInfo]);
+        $players = $this->whenSearchingForAvailablePlayers([$this->playerInfo], $I);
         $this->thenOnlyPlayer2ShouldBeAvailable($players, $I);
     }
 
@@ -137,6 +136,7 @@ final class ChannelPlayerRepositoryCest
     private function whenSearchingForAvailablePlayers(array $initialUsers, FunctionalTester $I): array
     {
         $channel = $this->createPrivateChannel($initialUsers, $this->daedalus, $I);
+
         return $this->channelRepository->findAvailablePlayerForPrivateChannel($channel, $this->daedalus);
     }
 

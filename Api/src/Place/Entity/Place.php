@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
@@ -263,6 +264,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
                  ->filter(static fn (GameEquipment $equipment) => ($equipment->getClassName() === GameItem::class));
     }
 
+    /** @return Collection<int, GameEquipment> */
     public function getEquipments(): Collection
     {
         return $this->equipments;
@@ -363,6 +365,17 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     public function getAllEquipmentsByName(string $name): Collection
     {
         return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name);
+    }
+
+    public function hasFood(): bool
+    {
+        foreach ($this->getEquipments() as $equipment) {
+            if ($equipment->hasMechanicByName(EquipmentMechanicEnum::RATION)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

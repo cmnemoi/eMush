@@ -56,7 +56,6 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         $this->participateAction->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
-            actionProvider: $this->terminal,
             player: $this->kuanTi,
             target: $project
         );
@@ -77,7 +76,6 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
 
         $this->participateAction->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $this->terminal,
             actionProvider: $this->terminal,
             player: $this->kuanTi,
             target: $project
@@ -117,8 +115,6 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
 
     public function playerWithGeniusIdeaStatusShouldLoseStatusAfterParticipating(FunctionalTester $I): void
     {
-        $this->givenKuanTiIsFocusedOnLabTerminal($this->terminal);
-
         $this->givenKuanTiHasGeniusIdeaStatus();
 
         $this->whenKuanTiParticipatesToResearch(ProjectName::ANABOLICS);
@@ -232,5 +228,4 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
     {
         $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::GENIUS_IDEA));
     }
-
 }

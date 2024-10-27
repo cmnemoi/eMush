@@ -29,6 +29,7 @@ use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
@@ -297,6 +298,21 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function canReachEquipmentByName(string $gameEquipmentName): bool
     {
         return $this->hasEquipmentByName($gameEquipmentName) || $this->getPlace()->hasEquipmentByName($gameEquipmentName);
+    }
+
+    public function canReachFood(): bool
+    {
+        $playerFood = $this->items->filter(static fn (GameItem $item) => $item->hasMechanicByName(EquipmentMechanicEnum::RATION));
+
+        $placeFood = $this->getPlace()->getEquipments()
+            ->filter(static fn (GameEquipment $equipment) => $equipment->doesNotHaveStatus(EquipmentStatusEnum::HIDDEN))
+            ->filter(static fn (GameEquipment $equipment) => $equipment->hasMechanicByName(EquipmentMechanicEnum::RATION));
+
+        $hiddenByPlayerFood = $this->getPlace()->getEquipments()
+            ->filter(static fn (GameEquipment $equipment) => $equipment->getStatusByName(EquipmentStatusEnum::HIDDEN)?->getTarget()->equals($this))
+            ->filter(static fn (GameEquipment $equipment) => $equipment->hasMechanicByName(EquipmentMechanicEnum::RATION));
+
+        return $playerFood->count() > 0 || $placeFood->count() > 0 || $hiddenByPlayerFood->count() > 0;
     }
 
     public function getEquipments(): Collection

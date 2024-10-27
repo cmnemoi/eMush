@@ -1560,5 +1560,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de déprimer NERON ce qui va le dérégler complètement au prochain cycle.</target>
       </segment>
     </unit>
+    <unit id="search_for_mush_genome">
+      <segment id="search_for_mush_genome" state="translated">
+        <source>search_for_mush_genome.name</source>
+        <target>Téléverser le génome Mush</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>search_for_mush_genome.description</source>
+        <target>Le Daedalus a dû partir bien plus tôt que prévu.//Utilisez le faible lien qu'il vous reste avec Xyloph pour créer une **disquette du génome Mush**, qui vous permettra peut être de créer un remède.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

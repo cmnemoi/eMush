@@ -3810,6 +3810,23 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
         ],
+        [
+            'name' => ModifierNameEnum::PLUS_2_ACTION_POINTS_ON_EXTRACT_SPORE,
+            'modifierName' => ModifierNameEnum::CONSTIPASPORE_SERUM_MODIFIER,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'delta' => 2,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::EXTRACT_SPORE->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

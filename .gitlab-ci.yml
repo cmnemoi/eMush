@@ -78,7 +78,7 @@ api-test-1:
     - job: build-front
       optional: true
   script:
-    - php vendor/bin/codecept run --shard 1/3
+    - php vendor/bin/codecept run --shard 1/5
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["Api/**/*.php", "Api/**/*.xlf"]
@@ -94,7 +94,7 @@ api-test-2:
     - job: build-front
       optional: true
   script:
-    - php vendor/bin/codecept run --shard 2/3
+    - php vendor/bin/codecept run --shard 2/5
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["Api/**/*.php", "Api/**/*.xlf"]
@@ -110,11 +110,43 @@ api-test-3:
     - job: build-front
       optional: true
   script:
-    - php vendor/bin/codecept run --shard 3/3
+    - php vendor/bin/codecept run --shard 3/5
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["Api/**/*.php", "Api/**/*.xlf"]
-    
+
+api-test-4:
+  <<: *php_with_db_template
+  stage: test
+  tags:
+    - saas-linux-large-amd64
+  needs: 
+    - job: check
+      optional: true
+    - job: build-front
+      optional: true
+  script:
+    - php vendor/bin/codecept run --shard 4/5
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["Api/**/*.php", "Api/**/*.xlf"]
+
+api-test-5:
+  <<: *php_with_db_template
+  stage: test
+  tags:
+    - saas-linux-large-amd64
+  needs: 
+    - job: check
+      optional: true
+    - job: build-front
+      optional: true
+  script:
+    - php vendor/bin/codecept run --shard 5/5
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["Api/**/*.php", "Api/**/*.xlf"]
+
 api-lint:
   <<: *php_template
   stage: test

@@ -121,6 +121,17 @@ final class ShootCatCest extends AbstractFunctionalTest
         $I->assertEquals(6, $this->player->getMoralPoint());
     }
 
+    public function shouldNotRemoveMoraleToNonCatOwner(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasMoralPoint(10, $I);
+
+        $this->givenShotIsSuccessful($I);
+
+        $this->whenPlayerShoots();
+
+        $I->assertEquals(10, $this->player->getMoralPoint());
+    }
+
     private function givenCatIsInShelf(FunctionalTester $I): void
     {
         $this->schrodinger = $this->gameEquipmentService->createGameEquipmentFromName(

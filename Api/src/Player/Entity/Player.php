@@ -149,6 +149,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[OrderBy(['createdAt' => Order::Descending->value])]
     private Collection $receivedMissions;
 
+    #[ORM\OneToMany(mappedBy: 'subordinate', targetEntity: ComManagerAnnouncement::class, orphanRemoval: true)]
+    #[OrderBy(['createdAt' => Order::Descending->value])]
+    private Collection $receivedAnnouncements;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -161,6 +165,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->favoriteMessages = new ArrayCollection();
         $this->lastActionDate = new \DateTime();
         $this->receivedMissions = new ArrayCollection();
+        $this->receivedAnnouncements = new ArrayCollection();
     }
 
     public static function createNull(): self
@@ -1247,6 +1252,23 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function hasPendingMissions(): bool
     {
         return $this->receivedMissions->filter(static fn (CommanderMission $mission) => $mission->isPending())->count() > 0;
+    }
+
+    public function addReceivedAnnouncement(ComManagerAnnouncement $announcement): static
+    {
+        $this->receivedAnnouncements->add($announcement);
+
+        return $this;
+    }
+
+    public function getReceivedAnnouncements(): ArrayCollection
+    {
+        return new ArrayCollection($this->receivedAnnouncements->toArray());
+    }
+
+    public function hasPendingAnnouncements(): bool
+    {
+        return $this->receivedAnnouncements->filter(static fn (ComManagerAnnouncement $announcement) => $announcement->isPending())->count() > 0;
     }
 
     public function hasMeansOfCommunication(): bool

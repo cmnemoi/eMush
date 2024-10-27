@@ -191,6 +191,7 @@ enum ActionEnum: string
 
     // Titles-related actions
     case COMMANDER_ORDER = 'commander_order';
+    case COM_MANAGER_ANNOUNCEMENT = 'com_manager_announcement';
 
     public function toString(): string
     {

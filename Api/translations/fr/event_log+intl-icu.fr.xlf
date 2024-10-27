@@ -1261,5 +1261,11 @@
         }</target>
       </segment>
     </unit>
+    <unit id="research_completed">
+      <segment id="research_completed" state="final">
+        <source>research_completed</source>
+        <target>La Recherche a progressé. L'article **{project}** a été publié et ses applications immédiates sont prêtes.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

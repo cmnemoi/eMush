@@ -310,7 +310,11 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
 
     public function isLastProjectAdvanced(): bool
     {
-        $lastAdvancedProject = $this->daedalus->getAdvancedNeronProjects()->getLastAdvancedProject();
+        $lastAdvancedProject = match ($this->getType()) {
+            ProjectType::NERON_PROJECT => $this->daedalus->getAdvancedNeronProjects()->getLastAdvancedProject(),
+            ProjectType::RESEARCH => $this->daedalus->getAdvancedResearchProjects()->getLastAdvancedProject(),
+            default => self::createNull(),
+        };
 
         return $this->equals($lastAdvancedProject);
     }

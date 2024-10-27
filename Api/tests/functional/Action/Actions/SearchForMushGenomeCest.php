@@ -95,6 +95,19 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldNotBeVisibleIfGenomeDiskAlreadyFound(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsCommsOfficer();
+
+        $this->givenActionSuccessRateIs(100);
+
+        $this->givenPlayerSearchesForMushGenome();
+
+        $this->whenPlayerTriesToSearchForMushGenomeAgain();
+
+        $this->thenActionShouldNotBeVisible($I);
+    }
+
     private function givenPlaceHasCommsCenter(): void
     {
         $this->commsCenter = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -115,6 +128,11 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
         $this->actionConfig->setSuccessRate($successRate);
     }
 
+    private function givenPlayerSearchesForMushGenome(): void
+    {
+        $this->whenPlayerSearchesForMushGenome();
+    }
+
     private function whenPlayerSearchesForMushGenome(): void
     {
         $this->searchForMushGenome->loadParameters(
@@ -126,6 +144,16 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
         $this->searchForMushGenome->execute();
     }
 
+    private function whenPlayerTriesToSearchForMushGenomeAgain(): void
+    {
+        $this->searchForMushGenome->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commsCenter,
+            player: $this->player,
+            target: $this->commsCenter,
+        );
+    }
+
     private function thenPlaceShouldHaveMushGenomeDisk(FunctionalTester $I): void
     {
         $I->assertTrue($this->player->getPlace()->hasEquipmentByName(ItemEnum::MUSH_GENOME_DISK));
@@ -134,5 +162,10 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
     private function thenActionShouldNotBeExecutableWithMessage(FunctionalTester $I, string $message): void
     {
         $I->assertEquals($message, $this->searchForMushGenome->cannotExecuteReason());
+    }
+
+    private function thenActionShouldNotBeVisible(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->searchForMushGenome->isVisible());
     }
 }

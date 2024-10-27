@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasNeededTitleForTerminal;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
@@ -18,6 +19,8 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -31,6 +34,7 @@ final class SearchForMushGenome extends AttemptAction
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
         private GameEquipmentServiceInterface $gameEquipmentService,
+        private StatusServiceInterface $statusService,
     ) {
         parent::__construct($eventService, $actionService, $validator, $randomService);
     }
@@ -47,6 +51,12 @@ final class SearchForMushGenome extends AttemptAction
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::TERMINAL_ROLE_RESTRICTED,
             ]),
+            new HasStatus([
+                'status' => DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND,
+                'target' => HasStatus::DAEDALUS,
+                'contain' => false,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
         ]);
     }
 
@@ -62,6 +72,7 @@ final class SearchForMushGenome extends AttemptAction
         }
 
         $this->createMushGenomeDisk();
+        $this->createFoundMushGenomeDiskStatus();
     }
 
     private function createMushGenomeDisk(): void
@@ -71,6 +82,16 @@ final class SearchForMushGenome extends AttemptAction
             equipmentHolder: $this->player->getPlace(),
             reasons: $this->getTags(),
             time: new \DateTime()
+        );
+    }
+
+    private function createFoundMushGenomeDiskStatus(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND,
+            holder: $this->player->getDaedalus(),
+            tags: $this->getTags(),
+            time: new \DateTime(),
         );
     }
 }

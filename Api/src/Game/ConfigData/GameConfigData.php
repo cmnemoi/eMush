@@ -484,6 +484,7 @@ class GameConfigData
                 PlayerStatusEnum::HAS_SABOTAGED_DOOR . '_default',
                 PlayerStatusEnum::FITFUL_SLEEP . '_default',
                 DaedalusStatusEnum::NERON_DEPRESSION . '_default',
+                DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

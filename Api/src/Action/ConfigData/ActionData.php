@@ -2619,7 +2619,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 3, 'min_value' => 1, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 1, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],

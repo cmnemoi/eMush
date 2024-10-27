@@ -81,79 +81,92 @@ final class ChannelPlayerRepositoryCest
 
     public function testFindAvailablePlayerForPrivateChannelDifferentDaedalus(FunctionalTester $I): void
     {
-        // Given player2 is in a different daedalus
-        $this->player2->setDaedalus($this->daedalus2);
-        $I->haveInRepository($this->player2);
-
-        // When creating a channel and searching for available players
-        $channel = $this->createPrivateChannel([$this->playerInfo], $this->daedalus);
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel, $this->daedalus);
-
-        // Then no players should be available
-        $I->assertCount(0, $players);
+        $this->givenPlayer2IsInDifferentDaedalus($I);
+        
+        $players = $this->whenSearchingForAvailablePlayers([$this->playerInfo]);
+        
+        $this->thenNoPlayersShouldBeAvailable($players, $I);
     }
 
     public function testFindAvailablePlayerForPrivateChannelWithDeadPlayer(FunctionalTester $I): void
     {
-        // Given player2 is dead
-        $this->player2Info->setGameStatus(GameStatusEnum::FINISHED);
-        $I->haveInRepository($this->player2Info);
-
-        // When creating a channel and searching for available players
-        $channel = $this->createPrivateChannel([], $this->daedalus);
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel, $this->daedalus);
-
-        // Then only the living player should be available
-        $I->assertCount(1, $players);
-        $I->assertContains($this->playerInfo, $players);
+        $this->givenPlayer2IsDead($I);
+        
+        $players = $this->whenSearchingForAvailablePlayers([]);
+        
+        $this->thenOnlyLivingPlayerShouldBeAvailable($players, $I);
     }
 
     public function testFindAvailablePlayerForPrivateChannelEmptyChannels(FunctionalTester $I): void
     {
-        // Given an empty channel
-        $channel1 = $this->createPrivateChannel([], $this->daedalus);
+        $players = $this->whenSearchingForAvailablePlayers([]);
+        $this->thenAllPlayersShouldBeAvailable($players, $I);
 
-        // When searching for available players
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $this->daedalus);
-
-        // Then all players should be available
-        $I->assertCount(2, $players);
-        $I->assertContains($this->playerInfo, $players);
-        $I->assertContains($this->player2Info, $players);
-
-        // Given a channel with one player
-        $channel2 = $this->createPrivateChannel([$this->playerInfo], $this->daedalus);
-
-        // When searching for available players
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel2, $this->daedalus);
-
-        // Then only the other player should be available
-        $I->assertCount(1, $players);
-        $I->assertContains($this->player2Info, $players);
+        $players = $this->whenSearchingForAvailablePlayers([$this->playerInfo]);
+        $this->thenOnlyOtherPlayerShouldBeAvailable($players, $I);
     }
 
     public function testFindAvailablePlayerForPrivateChannelMaxChannel(FunctionalTester $I): void
     {
-        // Given player1 has max 1 private channel
+        $this->givenPlayer1HasMaxOnePrivateChannel($I);
+        
+        $players = $this->whenSearchingForAvailablePlayers([]);
+        $this->thenAllPlayersShouldBeAvailable($players, $I);
+
+        $players = $this->whenSearchingForAvailablePlayers([$this->playerInfo]);
+        $this->thenOnlyPlayer2ShouldBeAvailable($players, $I);
+    }
+
+    private function givenPlayer2IsInDifferentDaedalus(FunctionalTester $I): void
+    {
+        $this->player2->setDaedalus($this->daedalus2);
+        $I->haveInRepository($this->player2);
+    }
+
+    private function givenPlayer2IsDead(FunctionalTester $I): void
+    {
+        $this->player2Info->setGameStatus(GameStatusEnum::FINISHED);
+        $I->haveInRepository($this->player2Info);
+    }
+
+    private function givenPlayer1HasMaxOnePrivateChannel(FunctionalTester $I): void
+    {
         $this->player->getVariableByName(PlayerVariableEnum::PRIVATE_CHANNELS)->setMaxValue(1);
         $I->haveInRepository($this->player);
+    }
 
-        // When searching in an empty channel
-        $channel1 = $this->createPrivateChannel([], $this->daedalus);
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $this->daedalus);
+    private function whenSearchingForAvailablePlayers(array $initialUsers): array
+    {
+        $channel = $this->createPrivateChannel($initialUsers, $this->daedalus);
+        return $this->channelRepository->findAvailablePlayerForPrivateChannel($channel, $this->daedalus);
+    }
 
-        // Then all players should be available
+    private function thenNoPlayersShouldBeAvailable(array $players, FunctionalTester $I): void
+    {
+        $I->assertCount(0, $players);
+    }
+
+    private function thenOnlyLivingPlayerShouldBeAvailable(array $players, FunctionalTester $I): void
+    {
+        $I->assertCount(1, $players);
+        $I->assertContains($this->playerInfo, $players);
+    }
+
+    private function thenAllPlayersShouldBeAvailable(array $players, FunctionalTester $I): void
+    {
         $I->assertCount(2, $players);
         $I->assertContains($this->playerInfo, $players);
         $I->assertContains($this->player2Info, $players);
+    }
 
-        // Given player1 is in a channel
-        $channel2 = $this->createPrivateChannel([$this->playerInfo], $this->daedalus);
+    private function thenOnlyOtherPlayerShouldBeAvailable(array $players, FunctionalTester $I): void
+    {
+        $I->assertCount(1, $players);
+        $I->assertContains($this->player2Info, $players);
+    }
 
-        // When searching for available players
-        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel2, $this->daedalus);
-
-        // Then only player2 should be available
+    private function thenOnlyPlayer2ShouldBeAvailable(array $players, FunctionalTester $I): void
+    {
         $I->assertCount(1, $players);
         $I->assertContains($this->player2Info, $players);
     }

@@ -124,6 +124,7 @@ const SCHRODINGER = "schrodinger";
 
 // Documents
 const DOCUMENT = "document";
+const MUSH_GENOME_DISK = "mush_genome_disk";
 
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
@@ -455,5 +456,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [RETRO_FUNGAL_SERUM]: {
         'image': getImgUrl('items/retro_fungal_serum.jpg')
+    },
+    [MUSH_GENOME_DISK]: {
+        'image': getImgUrl('items/mush_floppy_disk.jpg')
     }
 };

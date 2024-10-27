@@ -47,4 +47,11 @@ final class ProjectCollection extends ArrayCollection
             ->filter(static fn (Project $project) => $project->isProposedNeronProject())
             ->filter(static fn (Project $project) => $project->hasBeenAdvanced());
     }
+
+    public function getAdvancedResearchProjects(): self
+    {
+        return $this
+            ->filter(static fn (Project $project) => $project->isResearchProject())
+            ->filter(static fn (Project $project) => $project->hasBeenAdvanced());
+    }
 }

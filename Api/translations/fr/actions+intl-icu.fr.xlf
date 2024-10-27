@@ -1570,5 +1570,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Le Daedalus a dû partir bien plus tôt que prévu.//Utilisez le faible lien qu'il vous reste avec Xyloph pour créer une **disquette du génome Mush**, qui vous permettra peut être de créer un remède.</target>
       </segment>
     </unit>
+    <unit id="participate_research">
+      <segment id="name" state="final">
+        <source>participate_research.name</source>
+        <target>Participer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>participate_research.description</source>
+        <target>Avance la Recherche.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

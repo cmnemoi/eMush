@@ -106,6 +106,7 @@ enum ActionEnum: string
     case TAKEOFF_TO_PLANET = 'takeoff_to_planet';
     case TAKEOFF_TO_PLANET_PATROL_SHIP = 'takeoff_to_planet_patrol_ship';
     case SHOWER = 'shower';
+    case SEARCH_FOR_MUSH_GENOME = 'search_for_mush_genome';
 
     // Permanent Player Actions
     case UNGAG = 'ungag';

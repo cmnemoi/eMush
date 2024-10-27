@@ -100,6 +100,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($door);
 
+        /** @var ActionConfig $searchForMushGenome */
+        $searchForMushGenome = $this->getReference(ActionEnum::SEARCH_FOR_MUSH_GENOME->value);
+
+        $commsCenterTool = $this->createTool([$searchForMushGenome], EquipmentEnum::COMMUNICATION_CENTER);
+        $manager->persist($commsCenterTool);
+
         $comsCenter = new EquipmentConfig();
         $comsCenter
             ->setEquipmentName(EquipmentEnum::COMMUNICATION_CENTER)
@@ -107,6 +113,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction])
+            ->setMechanics([$commsCenterTool])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($comsCenter);
 

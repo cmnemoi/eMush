@@ -1124,6 +1124,9 @@ class ActionsFixtures extends Fixture
         $neronDepress = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::NERON_DEPRESS));
         $manager->persist($neronDepress);
 
+        $searchForMushGenome = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SEARCH_FOR_MUSH_GENOME));
+        $manager->persist($searchForMushGenome);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1261,5 +1264,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::DOOR_SABOTAGE->value, $doorSabotage);
         $this->addReference(ActionEnum::GIVE_NIGHTMARE->value, $giveNightmare);
         $this->addReference(ActionEnum::NERON_DEPRESS->value, $neronDepress);
+        $this->addReference(ActionEnum::SEARCH_FOR_MUSH_GENOME->value, $searchForMushGenome);
     }
 }

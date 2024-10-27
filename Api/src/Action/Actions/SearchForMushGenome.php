@@ -40,6 +40,11 @@ final class SearchForMushGenome extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
+        $this->createMushGenomeDisk();
+    }
+
+    private function createMushGenomeDisk(): void
+    {
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::MUSH_GENOME_DISK,
             equipmentHolder: $this->player->getPlace(),

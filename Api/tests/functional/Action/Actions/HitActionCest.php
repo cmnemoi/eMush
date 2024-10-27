@@ -253,6 +253,8 @@ final class HitActionCest extends AbstractFunctionalTest
     {
         $this->givenHitActionHasSuccessRate(100);
 
+        $this->givenHitActionHasCriticalSuccessRate(0);
+
         $this->givenChunIsANinja($I);
 
         $this->whenChunHitsKuanTi();

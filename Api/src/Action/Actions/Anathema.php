@@ -49,8 +49,8 @@ final class Anathema extends AbstractAction
                 'message' => ActionImpossibleCauseEnum::ALREADY_OUTCAST_ONBOARD,
             ]),
             new PreMush([
-                'groups' => ['execute'], 
-                'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE])
+                'groups' => ['execute'],
+                'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]),
         ]);
     }
 

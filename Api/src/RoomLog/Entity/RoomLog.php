@@ -255,7 +255,7 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
         $this->setVisibility(VisibilityEnum::HIDDEN);
     }
 
-    public function shoulBeRevealedByCamera(): bool
+    public function shouldBeRevealedByCamera(): bool
     {
         return $this->isNotSabotageCameraLog() && $this->isNotRemoveCameraLog();
     }

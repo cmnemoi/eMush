@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\RoomLog\Service;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
@@ -27,12 +29,11 @@ use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
-class RoomLogService implements RoomLogServiceInterface
+final class RoomLogService implements RoomLogServiceInterface
 {
     public const int OBSERVANT_REVEAL_CHANCE = 25;
 
@@ -247,7 +248,7 @@ class RoomLogService implements RoomLogServiceInterface
             return VisibilityEnum::HIDDEN;
         }
 
-        if ($this->pariahShouldApplyToLog($roomLog) || $this->isCameraManipulationLogWithNumbleFingers($roomLog)) {
+        if ($this->pariahShouldApplyToLog($roomLog, $visibility) || $this->isCameraManipulationLogWithNumbleFingers($roomLog)) {
             $visibility = VisibilityEnum::SECRET;
         }
 
@@ -338,11 +339,8 @@ class RoomLogService implements RoomLogServiceInterface
 
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array
     {
-        /** @var null|ChargeStatus $electricCharges * */
-        $electricCharges = $patrolShip->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
-
-        /** @var null|ChargeStatus $patrolShipArmor * */
-        $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        $electricCharges = $patrolShip->getChargeStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $patrolShipArmor = $patrolShip->getChargeStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
         return [
             'charges' => $electricCharges?->getCharge(),
@@ -368,7 +366,7 @@ class RoomLogService implements RoomLogServiceInterface
             throw new \LogicException('RoomLog should have a player');
         }
 
-        return $this->shouldRevealSecretLog($roomLog, $visibility) && $this->shouldRevealCovertLog($player, $visibility);
+        return $this->shouldRevealSecretLog($roomLog, $visibility) || $this->shouldRevealCovertLog($player, $visibility);
     }
 
     private function isCameraManipulationLogWithNumbleFingers(RoomLog $roomLog): bool
@@ -393,7 +391,14 @@ class RoomLogService implements RoomLogServiceInterface
         $placeHasAWitness = $place?->getNumberOfPlayersAlive() > 1;
         $placeHasAFunctionalCamera = $place?->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
 
-        return $visibility === VisibilityEnum::SECRET && ($placeHasAWitness || ($placeHasAFunctionalCamera && $roomLog->shoulBeRevealedByCamera()));
+        return $visibility === VisibilityEnum::SECRET
+        && (
+            $placeHasAWitness
+            || (
+                $placeHasAFunctionalCamera
+                && $roomLog->shouldBeRevealedByCamera()
+            )
+        );
     }
 
     private function observantRevealsLog(Player $player, string $visibility): bool
@@ -404,10 +409,9 @@ class RoomLogService implements RoomLogServiceInterface
         return $observantInRoom && $observantDetectedCovertAction;
     }
 
-    private function pariahShouldApplyToLog(RoomLog $roomLog): bool
+    private function pariahShouldApplyToLog(RoomLog $roomLog, string $visibility): bool
     {
         $player = $roomLog->getPlayerInfo()?->getPlayer();
-        $visibility = $roomLog->getVisibility();
 
         return $visibility === VisibilityEnum::COVERT && $player?->hasStatus(PlayerStatusEnum::PARIAH);
     }

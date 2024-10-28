@@ -129,6 +129,8 @@ const MUSH_SAMPLE = "mush_sample";
 const MYCO_ALARM = "myco_alarm";
 const NCC_LENSES = "ncc_lenses";
 const RETRO_FUNGAL_SERUM = "retro_fungal_serum";
+const SUPER_SOAPER = "super_soaper";
+
 
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
@@ -469,5 +471,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [MYCO_ALARM]: {
         'image': getImgUrl('items/myco_alarm.jpg')
+    },
+    [SUPER_SOAPER]: {
+        'image': getImgUrl('items/super_soap.jpg')
     }
 };

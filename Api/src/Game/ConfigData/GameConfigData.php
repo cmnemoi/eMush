@@ -621,6 +621,7 @@ class GameConfigData
                 ProjectName::MUSH_LANGUAGE,
                 ProjectName::MUSH_RACES,
                 ProjectName::MUSH_REPRODUCTIVE_SYSTEM,
+                ProjectName::MUSHICIDE_SOAP,
                 ProjectName::MUSHOVORE_BACTERIA,
                 ProjectName::MYCOALARM,
                 ProjectName::NCC_CONTACT_LENSES,

@@ -616,7 +616,9 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
-                'spawnEquipmentConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    SpawnEquipmentConfigData::ONE_SUPER_SOAPER_IN_LABORATORY,
+                ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
                     ProjectRequirementName::SOAP_IN_LABORATORY,

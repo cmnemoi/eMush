@@ -450,6 +450,12 @@ final class ProjectModifierConfigFixtures extends Fixture
         $this->manager->persist($antisporeGasModifier);
         $this->addReference($antisporeGasModifier->getName(), $antisporeGasModifier);
 
+        $ultraHealingPomadeModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLUS_1_HEALTH_POINTS_ON_HEAL)
+        );
+        $this->manager->persist($ultraHealingPomadeModifier);
+        $this->addReference($ultraHealingPomadeModifier->getName(), $ultraHealingPomadeModifier);
+
         $this->manager->flush();
     }
 

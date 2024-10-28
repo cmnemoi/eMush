@@ -25,6 +25,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
@@ -333,6 +334,17 @@ final class HealCest extends AbstractFunctionalTest
         $this->thenTargetShouldHaveHealthPoints(14, $I);
     }
 
+    public function ultraHealingPomadeShouldGiveMoreHealthPoints(FunctionalTester $I): void
+    {
+        $this->givenUltraHealingPomadeIsCompleted($I);
+
+        $this->givenTargetHasHealthPoints(6);
+
+        $this->whenPlayerHeal();
+
+        $this->thenTargetShouldHaveHealthPoints(10, $I);
+    }
+
     private function givenPlayerIsANurse(FunctionalTester $I): void
     {
         $this->player->getCharacterConfig()->setSkillConfigs([
@@ -382,6 +394,15 @@ final class HealCest extends AbstractFunctionalTest
     private function givenTargetHasHealthPoints(int $healthPoints): void
     {
         $this->player2->setHealthPoint($healthPoints);
+    }
+
+    private function givenUltraHealingPomadeIsCompleted(FunctionalTester $I): void
+    {
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::ULTRA_HEALING_POMADE),
+            author: $this->player,
+            I: $I,
+        );
     }
 
     private function whenPlayerHeal(): void

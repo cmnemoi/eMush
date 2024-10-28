@@ -291,6 +291,14 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($oscilloscope);
 
+        $superSoaperGear = $this->createGear(
+            [
+                GearModifierConfigFixtures::SOAP_MODIFIER,
+                ModifierNameEnum::MINUS_1_SPORE_ON_TAKE_SHOWER,
+            ],
+            GearItemEnum::SUPER_SOAPER
+        );
+
         $superSoaper = new ItemConfig();
         $superSoaper
             ->setEquipmentName(GearItemEnum::SUPER_SOAPER)
@@ -298,6 +306,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setActionConfigs($actions)
+            ->setMechanics([$superSoaperGear])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($superSoaper);
 

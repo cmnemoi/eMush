@@ -2261,7 +2261,9 @@ class EquipmentConfigData
                 'hide',
                 'examine',
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                MechanicsData::GEAR_SUPER_SOAPER,
+            ],
             'initStatuses' => [],
         ],
         [

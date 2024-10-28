@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Skill\Enum\SkillEnum;
 
@@ -14,6 +15,7 @@ abstract class MechanicsData
 {
     public const string TOOL_COMMS_CENTER = 'tool_comms_center_default';
     public const string TOOL_CALCULATOR = 'tool_calculator_default';
+    public const string GEAR_SUPER_SOAPER = 'gear_super_soaper_default';
 
     public static array $dataArray = [
         [
@@ -1865,6 +1867,15 @@ abstract class MechanicsData
                 ActionEnum::COMPUTE_EDEN->value,
             ],
             'modifierConfigs' => [],
+        ],
+        [
+            'name' => self::GEAR_SUPER_SOAPER,
+            'type' => EquipmentMechanicEnum::GEAR,
+            'actions' => [],
+            'modifierConfigs' => [
+                'modifier_for_player_-1actionPoint_on_shower',
+                ModifierNameEnum::MINUS_1_SPORE_ON_TAKE_SHOWER,
+            ],
         ],
     ];
 }

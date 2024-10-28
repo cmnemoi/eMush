@@ -45,7 +45,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Event\StatusEvent;
 
 /** @codeCoverageIgnore */
@@ -3612,7 +3611,7 @@ abstract class ModifierConfigData
         [
             'name' => ModifierNameEnum::PLUS_1_ACTION_POINT_IF_SLEEPING_FOR_4_CYCLES_AND_MORE,
             'modifierName' => ModifierNameEnum::LETHARGY_MODIFIER,
-            'targetEvent' => StatusCycleEvent::STATUS_NEW_CYCLE,
+            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,

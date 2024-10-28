@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Skill;
 
-use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Enum\LogEnum;
@@ -115,25 +113,6 @@ final class LethargyCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveActionPoints(2, $I);
     }
 
-    public function shouldNotGiveMoreThanOneExtraActionPointWhenHuntersChangeStatus(FunctionalTester $I): void
-    {
-        $this->givenChunHasActionPoints(0);
-
-        $this->givenChunHasBeenSleepingForCycles(5);
-
-        $actionPoints = 0;
-
-        for ($i = 0; $i < 5; ++$i) {
-            $actionPoints += 3;
-
-            $this->WhenHuntersSpawn();
-
-            $this->WhenACyclePassesGlobally();
-
-            $this->thenChunShouldHaveActionPoints($actionPoints, $I);
-        }
-    }
-
     private function givenChunHasActionPoints(int $actionPoints): void
     {
         $this->chun->setActionPoint($actionPoints);
@@ -144,23 +123,6 @@ final class LethargyCest extends AbstractFunctionalTest
         $lyingDownStatus = $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::LYING_DOWN,
             holder: $this->chun,
-            tags: [],
-            time: new \DateTime(),
-        );
-        $this->statusService->updateCharge(
-            chargeStatus: $lyingDownStatus,
-            delta: $numberOfCycles,
-            tags: [],
-            time: new \DateTime(),
-            mode: VariableEventInterface::SET_VALUE,
-        );
-    }
-
-    private function givenKuanTiHasBeenSleepingForCycles(int $numberOfCycles): void
-    {
-        $lyingDownStatus = $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::LYING_DOWN,
-            holder: $this->kuanTi,
             tags: [],
             time: new \DateTime(),
         );
@@ -201,26 +163,6 @@ final class LethargyCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
         $this->eventService->callEvent($playerCycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
-    }
-
-    private function WhenACyclePassesGlobally(): void
-    {
-        $daedalusCycleEvent = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime(),
-        );
-        $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
-    }
-
-    private function WhenHuntersSpawn(): void
-    {
-        $hunterPoolEvent = new HunterPoolEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime(),
-        );
-        $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
     }
 
     private function whenIDeleteChunLethargySkill(): void

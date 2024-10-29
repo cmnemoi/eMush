@@ -330,10 +330,8 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         );
         $manager->persist($mushCrewProportionRequirement);
 
-        $playerIsMushRequirement = ModifierActivationRequirement::fromConfigData(
-            ModifierActivationRequirementData::getByName(ModifierRequirementEnum::PLAYER_IS_NOT_MUSH)
-        );
-        $manager->persist($playerIsMushRequirement);
+        /** @var ModifierActivationRequirement $playerIsNotMushRequirement */
+        $playerIsNotMushRequirement = $this->getReference(ModifierRequirementEnum::PLAYER_IS_NOT_MUSH);
 
         $panicActionPointModifier = TriggerEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::PLUS_1_ACTION_POINT_IF_MUSH_CONTROLS_MORE_THAN_50_PERCENTS_OF_CREW)
@@ -341,7 +339,7 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $panicActionPointModifier
             ->setTriggeredEvent($eventConfig)
             ->addModifierRequirement($mushCrewProportionRequirement)
-            ->addModifierRequirement($playerIsMushRequirement);
+            ->addModifierRequirement($playerIsNotMushRequirement);
         $this->addReference($panicActionPointModifier->getName(), $panicActionPointModifier);
         $manager->persist($panicActionPointModifier);
 
@@ -355,7 +353,7 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $panicMovementPointModifier
             ->setTriggeredEvent($eventConfig)
             ->addModifierRequirement($mushCrewProportionRequirement)
-            ->addModifierRequirement($playerIsMushRequirement);
+            ->addModifierRequirement($playerIsNotMushRequirement);
         $this->addReference($panicMovementPointModifier->getName(), $panicMovementPointModifier);
 
         $hygienistDiseaseModifier = VariableEventModifierConfig::fromConfigData(
@@ -402,6 +400,7 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
     {
         return [
             DiseaseModifierConfigFixtures::class,
+            ProjectModifierConfigFixtures::class,
         ];
     }
 }

@@ -129,4 +129,6 @@ abstract class ModifierNameEnum
     public const string PLUS_2_MAX_PRIVATE_CHANNELS = 'plus_2_max_private_channels';
     public const string POLYMATH_MODIFIER_ON_MAX_PRIVATE_CHANNELS = 'polymath_modifier_on_max_private_channels';
     public const string FITFUL_SLEEP_MINUS_ONE_ACTION_POINT = 'fitful_sleep_for_player_-1actionPoint_on_new_cycle';
+    public const string PLAYER_PLUS_1_MAX_SPORES = 'player_plus_1_max_spores';
+    public const string MUSHOVORE_BACTERIA_MODIFIER = 'mushovore_bacteria_modifier';
 }

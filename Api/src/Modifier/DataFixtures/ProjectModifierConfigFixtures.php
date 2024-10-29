@@ -14,12 +14,14 @@ use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Event\ExplorationEvent;
+use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
+use Mush\Modifier\ConfigData\ModifierActivationRequirementData;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
@@ -421,6 +423,23 @@ final class ProjectModifierConfigFixtures extends Fixture
         );
         $this->manager->persist($patulineScramblerModifier);
         $this->addReference($patulineScramblerModifier->getName(), $patulineScramblerModifier);
+
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VALUE_PLUS_1_MAX_PLAYER_SPORE);
+        $playerIsNotMushRequirement = ModifierActivationRequirement::fromConfigData(
+            ModifierActivationRequirementData::getByName(ModifierRequirementEnum::PLAYER_IS_NOT_MUSH)
+        );
+        $this->manager->persist($playerIsNotMushRequirement);
+        $this->addReference(ModifierRequirementEnum::PLAYER_IS_NOT_MUSH, $playerIsNotMushRequirement);
+
+        $mushovoreBacteriaModifier = DirectModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_1_MAX_SPORES)
+        );
+        $mushovoreBacteriaModifier
+            ->setTriggeredEvent($eventConfig)
+            ->addEventActivationRequirement($playerIsNotMushRequirement);
+        $this->manager->persist($mushovoreBacteriaModifier);
+        $this->addReference($mushovoreBacteriaModifier->getName(), $mushovoreBacteriaModifier);
 
         $this->manager->flush();
     }

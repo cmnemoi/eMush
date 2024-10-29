@@ -12,8 +12,9 @@ use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
+use Mush\Player\Event\PlayerEvent;
+use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -73,13 +74,26 @@ final class InfectCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveHealthPoints(6, $I);
     }
 
+    public function mushovoreBacteriaShouldPreventPlayersToTurnMushAtThreeSpores(FunctionalTester $I): void
+    {
+        $this->givenMushovoreBacteriaIsCompleted($I);
+
+        $this->givenPlayerHasSpores(2);
+
+        $this->whenKuanTiInfectsPlayer();
+
+        $this->thenPlayerShouldBeHuman($I);
+    }
+
     private function givenKuanTiIsMush(): void
     {
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::MUSH,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime(),
+        $this->eventService->callEvent(
+            event: new PlayerEvent(
+                player: $this->kuanTi,
+                tags: [],
+                time: new \DateTime(),
+            ),
+            name: PlayerEvent::CONVERSION_PLAYER,
         );
         $this->kuanTi->setSpores(2);
     }
@@ -107,6 +121,20 @@ final class InfectCest extends AbstractFunctionalTest
     private function givenPlayerHasHealthPoints(int $healthPoints): void
     {
         $this->player->setHealthPoint($healthPoints);
+    }
+
+    private function givenMushovoreBacteriaIsCompleted(FunctionalTester $I): void
+    {
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::MUSHOVORE_BACTERIA),
+            author: $this->player,
+            I: $I
+        );
+    }
+
+    private function givenPlayerHasSpores(int $spores): void
+    {
+        $this->player->setSpores($spores);
     }
 
     private function whenKuanTiTriesToInfect(): void
@@ -150,5 +178,10 @@ final class InfectCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveHealthPoints(int $healthPoints, FunctionalTester $I): void
     {
         $I->assertEquals($healthPoints, $this->player->getHealthPoint());
+    }
+
+    private function thenPlayerShouldBeHuman(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->player->isHuman());
     }
 }

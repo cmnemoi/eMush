@@ -3774,6 +3774,20 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
         ],
+        [
+            'name' => ModifierNameEnum::PLAYER_PLUS_1_MAX_SPORES,
+            'modifierName' => ModifierNameEnum::MUSHOVORE_BACTERIA_MODIFIER,
+            'revertOnRemove' => true,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'direct_modifier',
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'triggeredEvent' => EventConfigData::CHANGE_VALUE_PLUS_1_MAX_PLAYER_SPORE,
+            'modifierActivationRequirements' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [
+                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

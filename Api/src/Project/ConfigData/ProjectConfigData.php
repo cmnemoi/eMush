@@ -6,6 +6,7 @@ namespace Mush\Project\ConfigData;
 
 use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Equipment\ConfigData\SpawnEquipmentConfigData;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectType;
@@ -623,7 +624,9 @@ abstract class ProjectConfigData
                 'efficiency' => 12,
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    ModifierNameEnum::PLAYER_PLUS_1_MAX_SPORES,
+                ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [

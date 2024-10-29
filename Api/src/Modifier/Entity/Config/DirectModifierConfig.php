@@ -45,7 +45,6 @@ class DirectModifierConfig extends AbstractModifierConfig
         $directModifierConfig = new self($configData['name']);
         $directModifierConfig
             ->setRevertOnRemove($configData['revertOnRemove'])
-            ->setModifierActivationRequirements($configData['modifierActivationRequirements'])
             ->setModifierRange($configData['modifierRange'])
             ->setModifierStrategy($configData['strategy']);
 

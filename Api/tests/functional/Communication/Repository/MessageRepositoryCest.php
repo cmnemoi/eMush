@@ -19,14 +19,10 @@ use Mush\User\Entity\User;
 
 class MessageRepositoryCest
 {
-    private FunctionalTester $tester;
-
     private MessageRepository $messageRepository;
 
     public function _before(FunctionalTester $I)
     {
-        $this->tester = $I;
-
         $this->messageRepository = $I->grabService(MessageRepository::class);
     }
 
@@ -76,8 +72,8 @@ class MessageRepositoryCest
         $player2->setPlayerInfo($player2Info);
         $I->refreshEntities($player2);
 
-        $channel1 = $this->createPrivateChannel([$playerInfo, $player2Info], $daedalus);
-        $channel2 = $this->createPrivateChannel([$playerInfo, $player2Info], $daedalus);
+        $channel1 = $this->createPrivateChannel([$playerInfo, $player2Info], $daedalus, $I);
+        $channel2 = $this->createPrivateChannel([$playerInfo, $player2Info], $daedalus, $I);
 
         $currentTime = new \DateTime();
 
@@ -167,7 +163,7 @@ class MessageRepositoryCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $channel1 = $this->createPrivateChannel([$playerInfo], $daedalus);
+        $channel1 = $this->createPrivateChannel([$playerInfo], $daedalus, $I);
 
         $currentTime = new \DateTime();
 
@@ -199,13 +195,13 @@ class MessageRepositoryCest
         $I->assertNotContains($message2, $result);
     }
 
-    private function createPrivateChannel(array $users, Daedalus $daedalus): Channel
+    private function createPrivateChannel(array $users, Daedalus $daedalus, FunctionalTester $I): Channel
     {
         $privateChannel = new Channel();
         $privateChannel->setDaedalus($daedalus->getDaedalusInfo());
         $privateChannel->setScope(ChannelScopeEnum::PRIVATE);
 
-        $this->tester->haveInRepository($privateChannel);
+        $I->haveInRepository($privateChannel);
 
         /** @var PlayerInfo $user */
         foreach ($users as $user) {
@@ -213,7 +209,7 @@ class MessageRepositoryCest
             $participant
                 ->setParticipant($user)
                 ->setChannel($privateChannel);
-            $this->tester->haveInRepository($participant);
+            $I->haveInRepository($participant);
         }
 
         return $privateChannel;

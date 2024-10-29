@@ -1,12 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Player\Voter;
 
 use Mush\Player\Entity\ClosedPlayer;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class ClosedPlayerVoter extends Voter
+/**
+ * @extends Voter<string, ClosedPlayer>
+ */
+final class ClosedPlayerVoter extends Voter
 {
     public const DAEDALUS_IS_FINISHED = 'DAEDALUS_IS_FINISHED';
 

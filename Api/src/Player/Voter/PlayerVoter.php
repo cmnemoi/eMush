@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Player\Voter;
 
 use Mush\Player\Entity\Player;
@@ -7,7 +9,10 @@ use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class PlayerVoter extends Voter
+/**
+ * @extends Voter<string, Player>
+ */
+final class PlayerVoter extends Voter
 {
     public const PLAYER_VIEW = 'player_view';
     public const PLAYER_CREATE = 'player_create';

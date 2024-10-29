@@ -1,12 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\MetaGame\Voter;
 
 use Mush\MetaGame\Entity\News;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class NewsVoter extends Voter
+/**
+ * @extends Voter<string, News>
+ */
+final class NewsVoter extends Voter
 {
     public const NEWS_IS_PUBLISHED = 'NEWS_IS_PUBLISHED';
 

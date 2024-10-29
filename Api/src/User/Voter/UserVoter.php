@@ -7,7 +7,10 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
-class UserVoter extends Voter
+/**
+ * @extends Voter<string, User>
+ */
+final class UserVoter extends Voter
 {
     public const string EDIT_USER_ROLE = 'EDIT_USER_ROLE';
     public const string HAS_ACCEPTED_RULES = 'HAS_ACCEPTED_RULES';

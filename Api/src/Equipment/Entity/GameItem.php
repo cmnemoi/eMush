@@ -28,6 +28,11 @@ class GameItem extends GameEquipment
         }
     }
 
+    public static function createNull(): self
+    {
+        return new self(Place::createNull());
+    }
+
     public function getHolder(): EquipmentHolderInterface
     {
         $player = $this->player;

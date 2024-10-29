@@ -95,9 +95,9 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
     public function shouldNotInfectPlayer(): bool
     {
         $author = $this->getAuthor();
-        $pickedItem = $this->getItemActionTargetOrNull();
+        $pickedItem = $this->getItemActionTarget();
 
-        return $pickedItem?->doesNotHaveStatus(EquipmentStatusEnum::CAT_INFECTED) || $author->isMush();
+        return $pickedItem->doesNotHaveStatus(EquipmentStatusEnum::CAT_INFECTED) || $author->isMush();
     }
 
     private function isAboutPercentageInjuryVariable(): bool
@@ -105,10 +105,10 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
         return $this->getVariableName() === ActionVariableEnum::PERCENTAGE_INJURY;
     }
 
-    private function getItemActionTargetOrNull(): ?GameItem
+    private function getItemActionTarget(): GameItem
     {
         $actionTarget = $this->getActionTarget();
 
-        return $actionTarget instanceof GameItem ? $actionTarget : null;
+        return $actionTarget instanceof GameItem ? $actionTarget : GameItem::createNull();
     }
 }

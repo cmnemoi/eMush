@@ -133,8 +133,6 @@ class PlayerController extends AbstractGameController
      *
      * @Security(name="Bearer")
      *
-     * @ParamConverter("playerCreateRequest", converter="PlayerCreateRequestConverter")
-     *
      * @Rest\Post(path="")
      *
      * @Rest\View()

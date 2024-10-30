@@ -5,11 +5,13 @@ namespace Mush\Player\ParamConverter;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Player\Entity\Dto\PlayerCreateRequest;
 use Mush\User\Service\UserServiceInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class PlayerCreateRequestConverter implements ParamConverterInterface
+#[AutoconfigureTag('controller.argument_value_resolver', ['priority' => 150])]
+final class PlayerCreateRequestConverter implements ValueResolverInterface
 {
     private DaedalusServiceInterface $daedalusService;
     private UserServiceInterface $userService;
@@ -22,7 +24,24 @@ class PlayerCreateRequestConverter implements ParamConverterInterface
         $this->userService = $userService;
     }
 
-    public function apply(Request $request, ParamConverter $configuration)
+    public function resolve(Request $request, ArgumentMetadata $argument): iterable
+    {
+        if ($this->supports($argument)) {
+            return $this->apply($request);
+        }
+
+        return [];
+    }
+
+    public function supports(ArgumentMetadata $argument): bool
+    {
+        return PlayerCreateRequest::class === $argument->getType();
+    }
+
+    /**
+     * @return array<int, PlayerCreateRequest>
+     */
+    private function apply(Request $request): array
     {
         $user = null;
         $daedalus = null;
@@ -42,13 +61,6 @@ class PlayerCreateRequestConverter implements ParamConverterInterface
             ->setDaedalus($daedalus)
             ->setUser($user);
 
-        $request->attributes->set($configuration->getName(), $playerRequest);
-
-        return true;
-    }
-
-    public function supports(ParamConverter $configuration)
-    {
-        return PlayerCreateRequest::class === $configuration->getClass();
+        return [$playerRequest];
     }
 }

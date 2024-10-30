@@ -21,10 +21,6 @@ services:
     resource: '../Controller/'
     tags: ['controller.service_arguments']
 
-  Mush\Daedalus\ParamConverter\DaedalusCreateRequestConverter:
-    tags:
-      - { name: 'request.param_converter', converter: DaedalusCreateRequestConverter }
-
   Mush\Daedalus\Normalizer\ClosedDaedalusNormalizer:
     tags:
       - { name: 'serializer.normalizer', priority: 64 }

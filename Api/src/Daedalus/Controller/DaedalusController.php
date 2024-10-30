@@ -24,7 +24,6 @@ use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -169,8 +168,6 @@ class DaedalusController extends AbstractGameController
      * @OA\Tag (name="Daedalus")
      *
      * @Security (name="Bearer")
-     *
-     * @ParamConverter("daedalusCreateRequest", converter="DaedalusCreateRequestConverter")
      *
      * @Rest\Post(path="/create-daedalus", requirements={"id"="\d+"})
      */

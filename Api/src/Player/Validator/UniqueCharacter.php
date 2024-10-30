@@ -13,7 +13,7 @@ class UniqueCharacter extends Constraint
 
     public string $message = 'This character already exist in this daedalus';
 
-    public function getTargets()
+    public function getTargets(): array|string
     {
         return self::CLASS_CONSTRAINT;
     }

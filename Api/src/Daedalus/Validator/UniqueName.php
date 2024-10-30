@@ -13,7 +13,7 @@ class UniqueName extends Constraint
 
     public string $message = 'There is already a daedalus with this name';
 
-    public function getTargets()
+    public function getTargets(): array|string
     {
         return self::CLASS_CONSTRAINT;
     }

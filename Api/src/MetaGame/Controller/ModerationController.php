@@ -23,11 +23,11 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Class ModerationController.
@@ -840,9 +840,8 @@ final class ModerationController extends AbstractFOSRestController
      * @Rest\Get(path="/{id}/active-bans-and-warnings")
      *
      * @Rest\View()
-     *
-     * @IsGranted("IS_REQUEST_USER", subject="user", message="You cannot access other player's sanctions!")
      */
+    #[IsGranted('IS_REQUEST_USER', subject: 'user', message: 'You cannot access other player\'s sanctions!')]
     public function getUserActiveBansAndWarnings(User $user): View
     {
         $warnings = $this->moderationSanctionRepository->findAllUserActiveBansAndWarnings($user);

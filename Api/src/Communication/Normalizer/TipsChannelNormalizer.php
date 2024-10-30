@@ -30,7 +30,7 @@ final class TipsChannelNormalizer implements NormalizerInterface, NormalizerAwar
         ];
     }
 
-    public function normalize(mixed $object, ?string $format = null, array $context = [])
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var Channel $channel */
         $channel = $object;

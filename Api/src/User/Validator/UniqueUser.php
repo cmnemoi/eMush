@@ -13,7 +13,7 @@ class UniqueUser extends Constraint
 
     public string $message = 'This user already have a character on this Daedalus';
 
-    public function getTargets()
+    public function getTargets(): array|string
     {
         return self::CLASS_CONSTRAINT;
     }

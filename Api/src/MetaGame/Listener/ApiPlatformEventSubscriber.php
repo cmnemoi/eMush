@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Listener;
 
-use ApiPlatform\Core\EventListener\EventPriorities;
 use Mush\MetaGame\Entity\News;
 use Mush\MetaGame\UseCase\MarkLatestNewsAsUnreadForAllUsersUseCase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -16,10 +15,10 @@ final class ApiPlatformEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(private MarkLatestNewsAsUnreadForAllUsersUseCase $markLatestNewsAsUnreadForAllUsers) {}
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::VIEW => ['onPostWrite', EventPriorities::POST_WRITE],
+            KernelEvents::VIEW => ['onPostWrite', 31],
         ];
     }
 

@@ -29,9 +29,7 @@ class StatusNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Status::class => true,
-            'object' => false,
-            '*' => false,
+            Status::class => false,
         ];
     }
 

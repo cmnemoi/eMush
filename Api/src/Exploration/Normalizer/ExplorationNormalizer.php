@@ -38,9 +38,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Exploration::class => true,
-            'object' => false,
-            '*' => false,
+            Exploration::class => false,
         ];
     }
 

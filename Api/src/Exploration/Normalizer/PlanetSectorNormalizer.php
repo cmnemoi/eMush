@@ -30,9 +30,7 @@ final class PlanetSectorNormalizer implements NormalizerInterface, NormalizerAwa
     public function getSupportedTypes(?string $format): array
     {
         return [
-            PlanetSector::class => true,
-            'object' => false,
-            '*' => false,
+            PlanetSector::class => false,
         ];
     }
 

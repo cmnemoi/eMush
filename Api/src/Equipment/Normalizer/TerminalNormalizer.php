@@ -54,9 +54,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     public function getSupportedTypes(?string $format): array
     {
         return [
-            GameEquipment::class => true,
-            'object' => false,
-            '*' => false,
+            GameEquipment::class => false,
         ];
     }
 

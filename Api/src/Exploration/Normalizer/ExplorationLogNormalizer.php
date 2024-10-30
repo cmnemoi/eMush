@@ -25,9 +25,7 @@ final class ExplorationLogNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            ExplorationLog::class => true,
-            'object' => false,
-            '*' => false,
+            ExplorationLog::class => false,
         ];
     }
 

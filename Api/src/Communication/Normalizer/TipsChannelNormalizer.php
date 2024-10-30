@@ -26,9 +26,7 @@ final class TipsChannelNormalizer implements NormalizerInterface, NormalizerAwar
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Channel::class => true,
-            'object' => false,
-            '*' => false,
+            Channel::class => false,
         ];
     }
 

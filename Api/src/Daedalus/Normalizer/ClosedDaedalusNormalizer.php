@@ -28,9 +28,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
     public function getSupportedTypes(?string $format): array
     {
         return [
-            ClosedDaedalus::class => true,
-            'object' => false,
-            '*' => false,
+            ClosedDaedalus::class => false,
         ];
     }
 

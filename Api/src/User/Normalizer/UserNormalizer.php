@@ -30,9 +30,7 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            User::class => true,
-            'object' => false,
-            '*' => false,
+            User::class => false,
         ];
     }
 

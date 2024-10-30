@@ -86,9 +86,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Player::class => true,
-            'object' => false,
-            '*' => false,
+            Player::class => false,
         ];
     }
 

@@ -36,9 +36,7 @@ final class ModerationSanctionNormalizer implements NormalizerInterface, Normali
     public function getSupportedTypes(?string $format): array
     {
         return [
-            ModerationSanction::class => true,
-            'object' => false,
-            '*' => false,
+            ModerationSanction::class => false,
         ];
     }
 

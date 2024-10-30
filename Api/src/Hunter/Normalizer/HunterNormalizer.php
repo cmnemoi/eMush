@@ -29,9 +29,7 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Hunter::class => true,
-            'object' => false,
-            '*' => false,
+            Hunter::class => false,
         ];
     }
 

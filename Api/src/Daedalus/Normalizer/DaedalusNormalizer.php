@@ -40,9 +40,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Daedalus::class => true,
-            'object' => false,
-            '*' => false,
+            Daedalus::class => false,
         ];
     }
 

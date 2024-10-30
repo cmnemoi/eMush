@@ -28,9 +28,7 @@ final class ClosedExplorationNormalizer implements NormalizerInterface, Normaliz
     public function getSupportedTypes(?string $format): array
     {
         return [
-            ClosedExploration::class => true,
-            'object' => false,
-            '*' => false,
+            ClosedExploration::class => false,
         ];
     }
 

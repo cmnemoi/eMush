@@ -23,9 +23,7 @@ final readonly class ModerationRoomLogNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            RoomLog::class => true,
-            'object' => false,
-            '*' => false,
+            RoomLog::class => false,
         ];
     }
 

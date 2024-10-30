@@ -24,9 +24,7 @@ class AlertNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Alert::class => true,
-            'object' => false,
-            '*' => false,
+            Alert::class => false,
         ];
     }
 

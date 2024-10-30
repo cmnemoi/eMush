@@ -35,6 +35,13 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
         return $data instanceof PlayerInfo;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            PlayerInfo::class => true,
+        ];
+    }
+
     public function normalize(mixed $object, ?string $format = null, array $context = []): ?array
     {
         $context[self::ALREADY_CALLED] = true;

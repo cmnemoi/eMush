@@ -12,6 +12,13 @@ final readonly class CommanderMissionNormalizer implements NormalizerInterface
 {
     public function __construct(private TranslationServiceInterface $translationService) {}
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            CommanderMission::class => true,
+        ];
+    }
+
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof CommanderMission;

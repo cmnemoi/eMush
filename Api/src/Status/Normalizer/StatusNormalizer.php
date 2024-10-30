@@ -26,6 +26,13 @@ class StatusNormalizer implements NormalizerInterface
         return $data instanceof Status;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Status::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         $status = $this->status($object);

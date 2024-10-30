@@ -25,6 +25,13 @@ final class ClosedExplorationNormalizer implements NormalizerInterface, Normaliz
         $this->translationService = $translationService;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            ClosedExploration::class => true,
+        ];
+    }
+
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         // Make sure we're not called twice

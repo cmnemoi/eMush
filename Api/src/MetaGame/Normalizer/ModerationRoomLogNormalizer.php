@@ -20,6 +20,13 @@ final readonly class ModerationRoomLogNormalizer implements NormalizerInterface
         return $data instanceof RoomLog && \in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            RoomLog::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var RoomLog $roomLog */

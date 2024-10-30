@@ -27,6 +27,13 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
         return $data instanceof User;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            User::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var User $user */

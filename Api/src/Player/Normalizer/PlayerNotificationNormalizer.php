@@ -19,6 +19,13 @@ final class PlayerNotificationNormalizer implements NormalizerInterface
         return $data instanceof PlayerNotification;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            PlayerNotification::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         $notification = $this->playerNotification($object);

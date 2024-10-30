@@ -25,6 +25,13 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         $this->translationService = $translationService;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            ClosedDaedalus::class => true,
+        ];
+    }
+
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         // Make sure we're not called twice

@@ -30,6 +30,13 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
         return $data instanceof Project;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Project::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Project $project */

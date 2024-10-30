@@ -35,6 +35,13 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         return $data instanceof Player && $data !== $currentPlayer;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Player::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Player $player */

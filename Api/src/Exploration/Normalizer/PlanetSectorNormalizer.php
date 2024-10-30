@@ -27,6 +27,13 @@ final class PlanetSectorNormalizer implements NormalizerInterface, NormalizerAwa
         return $data instanceof PlanetSector;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            PlanetSector::class => true,
+        ];
+    }
+
     public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var PlanetSector $planetSector */

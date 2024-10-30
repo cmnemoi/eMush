@@ -37,6 +37,13 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
         return $data instanceof Planet;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Planet::class => true,
+        ];
+    }
+
     public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */

@@ -24,6 +24,13 @@ class DiseaseNormalizer implements NormalizerInterface
         return $data instanceof PlayerDisease;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            PlayerDisease::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = [])
     {
         /** @var Player $currentPlayer */

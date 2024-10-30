@@ -23,6 +23,13 @@ class RoomLogNormalizer implements NormalizerInterface
         return $data instanceof RoomLogCollection && !\in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            RoomLogCollection::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var RoomLogCollection $logCollection */

@@ -29,6 +29,13 @@ class ChannelNormalizer implements NormalizerInterface
             && $data->isNotTipsChannel();
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Channel::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         return $this->normalizeForCurrentPlayer($object, $context);

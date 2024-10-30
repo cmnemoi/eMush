@@ -41,6 +41,13 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
         return $data instanceof ClosedPlayer;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            ClosedPlayer::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var ClosedPlayer $closedPlayer */

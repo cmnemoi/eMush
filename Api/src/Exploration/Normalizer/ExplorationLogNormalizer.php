@@ -22,6 +22,13 @@ final class ExplorationLogNormalizer implements NormalizerInterface
         return $data instanceof ExplorationLog;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            ExplorationLog::class => true,
+        ];
+    }
+
     public function normalize(mixed $object, ?string $format = null, array $context = []): ?array
     {
         /** @var ExplorationLog $explorationLog */

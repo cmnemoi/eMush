@@ -40,7 +40,7 @@ final class ModerationSanctionNormalizer implements NormalizerInterface, Normali
         ];
     }
 
-    public function normalize($object, ?string $format = null, array $context = []): mixed
+    public function normalize($object, ?string $format = null, array $context = []): ?array
     {
         /** @var ModerationSanction $moderationSanction */
         $moderationSanction = $object;
@@ -63,6 +63,7 @@ final class ModerationSanctionNormalizer implements NormalizerInterface, Normali
             return null;
         }
 
+        /** @var array<string, mixed> $result */
         return $this->normalizer->normalize($moderationSanction, $format, $context);
     }
 

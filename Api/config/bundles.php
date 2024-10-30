@@ -8,7 +8,6 @@ use FOS\RestBundle\FOSRestBundle;
 use Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Nelmio\CorsBundle\NelmioCorsBundle;
-use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
@@ -29,5 +28,4 @@ return [
     MonologBundle::class => ['all' => true],
     NelmioCorsBundle::class => ['all' => true],
     ApiPlatformBundle::class => ['all' => true],
-    SensioFrameworkExtraBundle::class => ['all' => true],
 ];

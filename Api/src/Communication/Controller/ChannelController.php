@@ -25,7 +25,6 @@ use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -414,8 +413,6 @@ class ChannelController extends AbstractGameController
      *          )
      *      )
      *    )
-     *
-     * @ParamConverter("messageCreate", converter="MessageCreateParamConverter")
      *
      * @Security(name="Bearer")
      *

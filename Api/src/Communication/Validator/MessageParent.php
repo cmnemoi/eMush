@@ -13,7 +13,7 @@ class MessageParent extends Constraint
 
     public string $message = 'Cannot set a parent message for non public channel';
 
-    public function getTargets()
+    public function getTargets(): array|string
     {
         return self::CLASS_CONSTRAINT;
     }

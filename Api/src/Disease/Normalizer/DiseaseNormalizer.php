@@ -31,7 +31,7 @@ class DiseaseNormalizer implements NormalizerInterface
         ];
     }
 
-    public function normalize($object, ?string $format = null, array $context = [])
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];

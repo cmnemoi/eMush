@@ -1,16 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Communication\ParamConverter;
 
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class MessageCreateParamConverter implements ParamConverterInterface
+#[AutoconfigureTag('controller.argument_value_resolver', ['priority' => 150])]
+final class MessageCreateParamConverter implements ValueResolverInterface
 {
     private const int TIME_LIMIT = 48;
 
@@ -25,7 +29,24 @@ class MessageCreateParamConverter implements ParamConverterInterface
         $this->playerService = $playerService;
     }
 
-    public function apply(Request $request, ParamConverter $configuration)
+    public function resolve(Request $request, ArgumentMetadata $argument): iterable
+    {
+        if ($this->supports($argument)) {
+            return $this->apply($request);
+        }
+
+        return [];
+    }
+
+    public function supports(ArgumentMetadata $argument): bool
+    {
+        return CreateMessage::class === $argument->getType();
+    }
+
+    /**
+     * @return array<int, CreateMessage>
+     */
+    private function apply(Request $request): array
     {
         $message = $request->request->get('message');
         $parent = $request->request->get('parent');
@@ -55,13 +76,6 @@ class MessageCreateParamConverter implements ParamConverterInterface
             ->setPlayer($player)
             ->setTimeLimit(new \DateInterval(\sprintf('PT%dH', $timeLimit)));
 
-        $request->attributes->set($configuration->getName(), $messageCreate);
-
-        return true;
-    }
-
-    public function supports(ParamConverter $configuration)
-    {
-        return CreateMessage::class === $configuration->getClass();
+        return [$messageCreate];
     }
 }

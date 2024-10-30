@@ -10,9 +10,9 @@ use FOS\RestBundle\View\View;
 use Mush\MetaGame\UseCase\ResetRulesAcceptanceForAllUsersUseCase;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Class for actions that can be performed by admins.
@@ -34,10 +34,9 @@ final class ResetRulesAcceptanceController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Rest\Put(path="")
      */
+    #[IsGranted('ROLE_ADMIN')]
     public function resetRulesAcceptanceEndpoint(): View
     {
         $this->resetRulesAcceptanceForAllUsersUseCase->execute();

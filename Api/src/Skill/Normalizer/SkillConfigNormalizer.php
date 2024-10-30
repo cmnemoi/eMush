@@ -19,6 +19,13 @@ final class SkillConfigNormalizer implements NormalizerInterface
         return $data instanceof SkillConfig;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            SkillConfig::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         $character = $this->character($context);

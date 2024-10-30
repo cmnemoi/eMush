@@ -31,6 +31,8 @@ final class DaedalusWidgetServiceTest extends TestCase
     /** @var AlertServiceInterface|Mockery\Mock */
     private AlertServiceInterface $alertService;
 
+    private DaedalusWidgetService $service;
+
     /**
      * @before
      */

@@ -24,6 +24,8 @@ final class ReadBookActionTest extends AbstractActionTest
 {
     private AddSkillToPlayerService $addSkillToPlayerService;
 
+    private PlayerServiceInterface $playerService;
+
     /**
      * @before
      */

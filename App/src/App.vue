@@ -2,6 +2,7 @@
     <div class="main-container">
         <Spinner :loading="userLoading || playerLoading || configLoading || adminLoading"/>
         <ToastContainer />
+        <Hud />
         <Banner />
         <MaintenancePage v-if="gameInMaintenance && !userIsAdmin"/>
         <router-view v-else/>
@@ -29,6 +30,7 @@ import { defineComponent } from "vue";
 import ToastContainer from "./components/ToastContainer.vue";
 import PlayerNotificationPopUp from "@/components/Game/PlayerNotificationPopUp.vue";
 import UserService from "@/services/user.service";
+import Hud from "@/components/Hud.vue";
 
 export default defineComponent({
     name: 'App',
@@ -53,7 +55,8 @@ export default defineComponent({
         Thanks,
         MaintenancePage,
         ToastContainer,
-        PlayerNotificationPopUp
+        PlayerNotificationPopUp,
+        Hud
     },
     computed: {
         ...mapGetters({

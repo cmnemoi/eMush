@@ -31,7 +31,7 @@ class SpaceBattleTurretNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            GameEquipment::class => false,
+            GameEquipment::class => true,
         ];
     }
 

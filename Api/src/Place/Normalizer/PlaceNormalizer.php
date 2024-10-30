@@ -37,7 +37,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Place::class => false,
+            Place::class => true,
         ];
     }
 

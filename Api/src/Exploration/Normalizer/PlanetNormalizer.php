@@ -40,7 +40,7 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Planet::class => false,
+            Planet::class => true,
         ];
     }
 

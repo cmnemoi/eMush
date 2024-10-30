@@ -38,7 +38,7 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
     public function getSupportedTypes(?string $format): array
     {
         return [
-            PlayerInfo::class => false,
+            PlayerInfo::class => true,
         ];
     }
 

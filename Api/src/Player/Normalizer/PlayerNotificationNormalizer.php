@@ -22,7 +22,7 @@ final class PlayerNotificationNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            PlayerNotification::class => false,
+            PlayerNotification::class => true,
         ];
     }
 

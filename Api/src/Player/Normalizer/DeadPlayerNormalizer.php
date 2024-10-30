@@ -26,7 +26,7 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Player::class => false,
+            Player::class => true,
         ];
     }
 

@@ -25,7 +25,7 @@ class MessageNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Message::class => false,
+            Message::class => true,
         ];
     }
 

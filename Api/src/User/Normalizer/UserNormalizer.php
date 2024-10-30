@@ -30,7 +30,7 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            User::class => false,
+            User::class => true,
         ];
     }
 

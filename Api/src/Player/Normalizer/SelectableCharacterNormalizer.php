@@ -25,7 +25,7 @@ final class SelectableCharacterNormalizer implements NormalizerInterface, Normal
     public function getSupportedTypes(?string $format): array
     {
         return [
-            CharacterConfig::class => false,
+            CharacterConfig::class => true,
         ];
     }
 

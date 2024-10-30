@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Game\Listener;
 
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
+use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Gedmo\Timestampable\Mapping\Event\TimestampableAdapter;
 use Mush\Game\Entity\TimestampableCancelInterface;
@@ -14,7 +16,9 @@ use Mush\Game\Entity\TimestampableCancelInterface;
  *
  * @psalm-suppress InvalidExtendClass
  */
-class TimestampableListener extends \Gedmo\Timestampable\TimestampableListener
+#[AsDoctrineListener(event: Events::loadClassMetadata)]
+#[AsDoctrineListener(event: Events::onFlush)]
+final class TimestampableListener extends \Gedmo\Timestampable\TimestampableListener
 {
     protected function updateField($object, $eventAdapter, $meta, $field)
     {

@@ -16,6 +16,8 @@ final readonly class ContactablePlayerNormalizer implements NormalizerInterface
     {
         return [
             Player::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

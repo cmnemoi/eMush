@@ -29,6 +29,8 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
     {
         return [
             ClosedDaedalus::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

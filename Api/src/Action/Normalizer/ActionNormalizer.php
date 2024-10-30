@@ -67,6 +67,8 @@ class ActionNormalizer implements NormalizerInterface
     {
         return [
             Action::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

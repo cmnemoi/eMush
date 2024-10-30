@@ -45,6 +45,8 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
     {
         return [
             ClosedPlayer::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

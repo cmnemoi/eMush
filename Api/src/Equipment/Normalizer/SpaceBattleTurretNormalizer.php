@@ -32,6 +32,8 @@ class SpaceBattleTurretNormalizer implements NormalizerInterface
     {
         return [
             GameEquipment::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

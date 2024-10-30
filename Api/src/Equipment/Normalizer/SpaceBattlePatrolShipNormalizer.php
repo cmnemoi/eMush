@@ -30,6 +30,8 @@ class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
     {
         return [
             GameEquipment::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

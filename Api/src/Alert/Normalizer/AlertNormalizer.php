@@ -25,6 +25,8 @@ class AlertNormalizer implements NormalizerInterface
     {
         return [
             Alert::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

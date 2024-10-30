@@ -26,6 +26,8 @@ class MessageNormalizer implements NormalizerInterface
     {
         return [
             Message::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

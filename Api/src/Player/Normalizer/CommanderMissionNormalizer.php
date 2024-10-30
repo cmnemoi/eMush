@@ -16,6 +16,8 @@ final readonly class CommanderMissionNormalizer implements NormalizerInterface
     {
         return [
             CommanderMission::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

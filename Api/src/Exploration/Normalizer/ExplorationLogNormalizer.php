@@ -26,6 +26,8 @@ final class ExplorationLogNormalizer implements NormalizerInterface
     {
         return [
             ExplorationLog::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

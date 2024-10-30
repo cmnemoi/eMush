@@ -39,6 +39,8 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
     {
         return [
             PlayerInfo::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

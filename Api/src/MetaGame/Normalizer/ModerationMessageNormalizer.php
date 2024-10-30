@@ -22,6 +22,8 @@ final readonly class ModerationMessageNormalizer implements NormalizerInterface
     {
         return [
             Message::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

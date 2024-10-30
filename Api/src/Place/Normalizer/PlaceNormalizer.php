@@ -38,6 +38,8 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     {
         return [
             Place::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

@@ -29,6 +29,8 @@ final class ClosedExplorationNormalizer implements NormalizerInterface, Normaliz
     {
         return [
             ClosedExploration::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

@@ -26,6 +26,8 @@ final class SelectableCharacterNormalizer implements NormalizerInterface, Normal
     {
         return [
             CharacterConfig::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

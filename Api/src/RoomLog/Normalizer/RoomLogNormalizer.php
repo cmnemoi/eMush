@@ -27,6 +27,8 @@ class RoomLogNormalizer implements NormalizerInterface
     {
         return [
             RoomLogCollection::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

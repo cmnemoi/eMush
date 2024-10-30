@@ -87,6 +87,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     {
         return [
             Player::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

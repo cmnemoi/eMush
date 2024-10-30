@@ -39,6 +39,8 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
     {
         return [
             Exploration::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

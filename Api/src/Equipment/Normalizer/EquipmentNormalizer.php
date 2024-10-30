@@ -53,6 +53,8 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
     {
         return [
             GameEquipment::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

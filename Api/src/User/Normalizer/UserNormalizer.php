@@ -31,6 +31,8 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
     {
         return [
             User::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

@@ -28,6 +28,8 @@ class DiseaseNormalizer implements NormalizerInterface
     {
         return [
             PlayerDisease::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

@@ -37,6 +37,8 @@ final class ModerationSanctionNormalizer implements NormalizerInterface, Normali
     {
         return [
             ModerationSanction::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

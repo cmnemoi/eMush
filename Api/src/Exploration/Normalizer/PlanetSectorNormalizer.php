@@ -31,6 +31,8 @@ final class PlanetSectorNormalizer implements NormalizerInterface, NormalizerAwa
     {
         return [
             PlanetSector::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

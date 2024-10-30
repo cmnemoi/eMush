@@ -41,6 +41,8 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
     {
         return [
             Planet::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

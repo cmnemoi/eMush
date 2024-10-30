@@ -27,6 +27,8 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
     {
         return [
             Player::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

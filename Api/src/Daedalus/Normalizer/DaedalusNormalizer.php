@@ -41,6 +41,8 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     {
         return [
             Daedalus::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

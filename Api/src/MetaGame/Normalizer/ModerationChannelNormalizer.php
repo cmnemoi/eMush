@@ -23,6 +23,8 @@ final readonly class ModerationChannelNormalizer implements NormalizerInterface
     {
         return [
             Channel::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

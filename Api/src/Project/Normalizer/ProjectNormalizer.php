@@ -34,6 +34,8 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
     {
         return [
             Project::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

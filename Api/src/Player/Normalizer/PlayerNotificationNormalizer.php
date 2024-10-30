@@ -23,6 +23,8 @@ final class PlayerNotificationNormalizer implements NormalizerInterface
     {
         return [
             PlayerNotification::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

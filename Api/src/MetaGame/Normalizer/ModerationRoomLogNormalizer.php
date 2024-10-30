@@ -24,6 +24,8 @@ final readonly class ModerationRoomLogNormalizer implements NormalizerInterface
     {
         return [
             RoomLog::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

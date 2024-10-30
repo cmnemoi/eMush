@@ -30,6 +30,8 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
     {
         return [
             Hunter::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

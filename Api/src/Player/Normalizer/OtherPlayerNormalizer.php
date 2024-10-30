@@ -39,6 +39,8 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
     {
         return [
             Player::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

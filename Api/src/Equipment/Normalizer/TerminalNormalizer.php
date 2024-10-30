@@ -55,6 +55,8 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     {
         return [
             GameEquipment::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

@@ -30,6 +30,8 @@ class StatusNormalizer implements NormalizerInterface
     {
         return [
             Status::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

@@ -27,6 +27,8 @@ final class TipsChannelNormalizer implements NormalizerInterface, NormalizerAwar
     {
         return [
             Channel::class => true,
+            'object' => false,
+            '*' => false,
         ];
     }
 

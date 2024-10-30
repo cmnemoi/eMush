@@ -51,6 +51,13 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         return $data instanceof GameEquipment;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            GameEquipment::class => true,
+        ];
+    }
+
     public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */

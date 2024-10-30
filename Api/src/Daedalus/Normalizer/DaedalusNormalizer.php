@@ -37,6 +37,13 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $this->planetService = $planetService;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Daedalus::class => true,
+        ];
+    }
+
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         // This group is used to differentiate the normalizer for in-game Daedalus and Daedalus in the admin panel

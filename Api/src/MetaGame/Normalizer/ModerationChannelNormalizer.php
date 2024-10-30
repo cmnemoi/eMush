@@ -19,6 +19,13 @@ final readonly class ModerationChannelNormalizer implements NormalizerInterface
         return $data instanceof Channel && \in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Channel::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         return $this->normalizeForModerators($object);

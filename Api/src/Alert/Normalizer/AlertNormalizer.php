@@ -21,6 +21,13 @@ class AlertNormalizer implements NormalizerInterface
         $this->translationService = $translationService;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Alert::class => true,
+        ];
+    }
+
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Alert;

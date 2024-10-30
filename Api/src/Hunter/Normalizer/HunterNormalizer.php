@@ -26,6 +26,13 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
         $this->translationService = $translationService;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Hunter::class => true,
+        ];
+    }
+
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Hunter && !$data->isInPool();

@@ -12,6 +12,13 @@ final readonly class ContactablePlayerNormalizer implements NormalizerInterface
 {
     public function __construct(private TranslationServiceInterface $translationService) {}
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Player::class => true,
+        ];
+    }
+
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Player && \array_key_exists('currentPlayer', $context) === false;

@@ -26,6 +26,13 @@ class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
         return $data instanceof GameEquipment && EquipmentEnum::getPatrolShips()->contains($data->getName());
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            GameEquipment::class => true,
+        ];
+    }
+
     public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         $patrolShip = $this->patrolShip($object);

@@ -49,6 +49,13 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         return $data instanceof GameEquipment;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            GameEquipment::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var GameEquipment $equipment */

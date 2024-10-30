@@ -12,7 +12,10 @@ use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class MessageVoter extends Voter
+/**
+ * @extends Voter<string, Message>
+ */
+final class MessageVoter extends Voter
 {
     public const VIEW = 'view';
     public const CREATE = 'create';

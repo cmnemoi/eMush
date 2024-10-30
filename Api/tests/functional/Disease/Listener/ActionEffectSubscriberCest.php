@@ -30,14 +30,10 @@ use Mush\User\Entity\User;
 
 class ActionEffectSubscriberCest
 {
-    private FunctionalTester $tester;
-
     private ActionEffectSubscriber $subscriber;
 
     public function _before(FunctionalTester $I)
     {
-        $this->tester = $I;
-
         $this->subscriber = $I->grabService(ActionEffectSubscriber::class);
     }
 
@@ -78,7 +74,7 @@ class ActionEffectSubscriberCest
         $I->refreshEntities($player);
 
         $gameItem = $this->createRation($I);
-        $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', true);
+        $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', true, $I);
 
         $gameConfig->addDiseaseConfig($diseaseConfig);
 
@@ -137,7 +133,7 @@ class ActionEffectSubscriberCest
         $I->refreshEntities($player);
 
         $gameItem = $this->createRation($I);
-        $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', false);
+        $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', false, $I);
 
         $gameConfig->addDiseaseConfig($diseaseConfig);
 
@@ -297,20 +293,21 @@ class ActionEffectSubscriberCest
         Daedalus $daedalus,
         string $rationName,
         string $diseaseName,
-        bool $delayed = false,
+        bool $delayed,
+        FunctionalTester $I
     ): DiseaseConfig {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName($diseaseName)
             ->buildName(GameConfigEnum::TEST);
-        $this->tester->haveInRepository($diseaseConfig);
+        $I->haveInRepository($diseaseConfig);
 
         $consumableDisease = new ConsumableDisease();
         $consumableDisease
             ->setName($rationName)
             ->setDaedalus($daedalus);
 
-        $this->tester->haveInRepository($consumableDisease);
+        $I->haveInRepository($consumableDisease);
 
         $consumableAttribute = new ConsumableDiseaseAttribute();
         $consumableAttribute
@@ -324,7 +321,7 @@ class ActionEffectSubscriberCest
                 ->setDelayLength(10);
         }
 
-        $this->tester->haveInRepository($consumableAttribute);
+        $I->haveInRepository($consumableAttribute);
 
         return $diseaseConfig;
     }

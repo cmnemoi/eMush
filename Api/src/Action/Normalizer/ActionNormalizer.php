@@ -63,6 +63,13 @@ class ActionNormalizer implements NormalizerInterface
         return $data instanceof Action && empty($context['groups']);
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Action::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var ActionConfig $actionConfig */

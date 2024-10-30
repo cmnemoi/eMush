@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Exploration\Voter;
 
 use Mush\Exploration\Entity\ClosedExploration;
@@ -10,7 +12,10 @@ use Mush\User\Service\UserServiceInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class ClosedExplorationVoter extends Voter
+/**
+ * @extends Voter<string, ClosedExploration>
+ */
+final class ClosedExplorationVoter extends Voter
 {
     public const DAEDALUS_IS_FINISHED = 'DAEDALUS_IS_FINISHED';
     public const IS_AN_EXPLORATOR = 'IS_AN_EXPLORATOR';

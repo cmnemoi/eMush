@@ -23,7 +23,14 @@ final class TipsChannelNormalizer implements NormalizerInterface, NormalizerAwar
         return $data instanceof Channel && $data->isTipsChannel();
     }
 
-    public function normalize(mixed $object, ?string $format = null, array $context = [])
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Channel::class => true,
+        ];
+    }
+
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var Channel $channel */
         $channel = $object;

@@ -12,7 +12,10 @@ use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class ChannelVoter extends Voter
+/**
+ * @extends Voter<string, Channel>
+ */
+final class ChannelVoter extends Voter
 {
     public const string VIEW = 'view';
     public const string POST = 'post';

@@ -28,6 +28,13 @@ class SpaceBattleTurretNormalizer implements NormalizerInterface
         return $data instanceof GameEquipment && $data->getName() === EquipmentEnum::TURRET_COMMAND;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            GameEquipment::class => true,
+        ];
+    }
+
     public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var GameEquipment $turret */

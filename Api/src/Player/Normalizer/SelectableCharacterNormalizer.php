@@ -22,6 +22,13 @@ final class SelectableCharacterNormalizer implements NormalizerInterface, Normal
         return $data instanceof CharacterConfig && \array_key_exists('daedalus', $context);
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            CharacterConfig::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         $character = $this->selectableCharacter($object);

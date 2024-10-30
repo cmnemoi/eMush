@@ -18,6 +18,13 @@ final readonly class ModerationMessageNormalizer implements NormalizerInterface
         return $data instanceof Message && \in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Message::class => true,
+        ];
+    }
+
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Message $message */

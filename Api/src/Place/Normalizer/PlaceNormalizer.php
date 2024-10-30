@@ -34,6 +34,13 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         $this->translationService = $translationService;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Place::class => true,
+        ];
+    }
+
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Place;

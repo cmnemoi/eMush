@@ -25,9 +25,16 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
         private readonly TranslationServiceInterface $translationService
     ) {}
 
-    public function supportsNormalization($data, ?string $format = null): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Project;
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Project::class => true,
+        ];
     }
 
     public function normalize($object, ?string $format = null, array $context = []): array

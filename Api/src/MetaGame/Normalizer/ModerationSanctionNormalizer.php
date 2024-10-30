@@ -33,7 +33,20 @@ final class ModerationSanctionNormalizer implements NormalizerInterface, Normali
         return $data instanceof ModerationSanction;
     }
 
-    public function normalize($object, ?string $format = null, array $context = []): mixed
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            ModerationSanction::class => true,
+        ];
+    }
+
+    /**
+     * @psalm-suppress InvalidReturnType
+     * @psalm-suppress InvalidReturnStatement, InvalidReturnType
+     *
+     * @param mixed $object
+     */
+    public function normalize($object, ?string $format = null, array $context = []): ?array
     {
         /** @var ModerationSanction $moderationSanction */
         $moderationSanction = $object;

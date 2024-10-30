@@ -35,6 +35,13 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
         return $data instanceof Exploration;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Exploration::class => true,
+        ];
+    }
+
     public function normalize(mixed $object, ?string $format = null, array $context = []): ?array
     {
         /** @var Player $currentPlayer */

@@ -19,10 +19,10 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Service\StatusServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Class for actions that can be performed by admins.
@@ -46,10 +46,9 @@ final class AdminActionsController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Rest\Post(path="/create-all-projects-for-on-going-daedaluses")
      */
+    #[IsGranted('ROLE_ADMIN')]
     public function createAllProjectsForDaedalusesEndpoint(): View
     {
         /** @var array<int, Daedalus> $onGoingDaedaluses */
@@ -72,10 +71,9 @@ final class AdminActionsController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Rest\Post(path="/create-equipment-for-on-going-daedaluses")
      */
+    #[IsGranted('ROLE_ADMIN')]
     public function createEquipmentForDaedalusesEndpoint(Request $request): View
     {
         $dto = new CreateEquipmentForDaedalusesDto(...$request->toArray());
@@ -107,10 +105,9 @@ final class AdminActionsController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Rest\Post(path="/create-all-players-init-statuses")
      */
+    #[IsGranted('ROLE_ADMIN')]
     public function createAllPlayersInitStatusesEndpoint(): View
     {
         $ongoingDaedaluses = $this->daedalusRepository->findNonFinishedDaedaluses();
@@ -143,10 +140,9 @@ final class AdminActionsController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Rest\Delete(path="/delete-all-statuses-by-name/{name}", requirements={"name"="^[a-zA-Z_]+$"})
      */
+    #[IsGranted('ROLE_ADMIN')]
     public function deleteAllStatusesByNameEndpoint(string $name): View
     {
         $this->statusService->deleteAllStatusesByName($name);
@@ -161,10 +157,9 @@ final class AdminActionsController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Rest\Put(path="/propose-new-neron-projects-for-on-going-daedaluses")
      */
+    #[IsGranted('ROLE_ADMIN')]
     public function proposeNewNeronProjectsForDaedalusesEndpoint(): View
     {
         /** @var Daedalus $daedalus */

@@ -205,17 +205,9 @@ class ActionEvent extends AbstractGameEvent
 
     public function shouldMakeMycoAlarmRing(): bool
     {
-        $place = $this->getAuthor()->getPlace();
+        $action = $this->getActionName();
+        $place = $this->getPlace();
 
-        return $place->hasOperationalEquipmentByName(ItemEnum::MYCO_ALARM) && $this->hasAnyTag([
-            ActionEnum::CONVERT_CAT->toString(),
-            ActionEnum::GO_BERSERK->toString(),
-            ActionEnum::INFECT->toString(),
-            ActionEnum::MIX_RATION_SPORE->toString(),
-            ActionEnum::TRAP_CLOSET->toString(),
-            ActionEnum::EXCHANGE_BODY->toString(),
-            ActionEnum::GIVE_NIGHTMARE->toString(),
-            ActionEnum::MAKE_SICK->toString(),
-        ]);
+        return $place->hasOperationalEquipmentByName(ItemEnum::MYCO_ALARM) && $action->isDetectedByMycoAlarm();
     }
 }

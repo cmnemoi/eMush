@@ -199,6 +199,13 @@ class ActionEvent extends AbstractGameEvent
 
     public function actionResultDoesNotHaveContent(): bool
     {
-        return $this->getActionResult()->doesNotHaveContent();
+        return $this->getActionResult()?->doesNotHaveContent() ?? false;
+    }
+
+    public function shouldMakeMycoAlarmRing(): bool
+    {
+        return $this->hasAnyTag([
+            ActionEnum::CONVERT_CAT->toString(),
+        ]);
     }
 }

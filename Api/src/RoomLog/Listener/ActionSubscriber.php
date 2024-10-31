@@ -54,15 +54,16 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public function onPostAction(ActionEvent $event): void
     {
-        $this->handlePlayerWakeUpLog($event);
-        $this->handleObservantNoticedSomethingLog($event);
-        $this->handleContentLog($event);
-
         match ($event->getActionName()) {
             ActionEnum::LAND => $this->handleLandActionLog($event),
             ActionEnum::MOVE => $this->handleEnterActionLog($event),
             default => null,
         };
+
+        $this->handlePlayerWakeUpLog($event);
+        $this->handleContentLog($event);
+        $this->handleObservantNoticedSomethingLog($event);
+        $this->handleMycoAlarmLog($event);
     }
 
     private function createForceGetUpLog(Player $player): void
@@ -81,60 +82,6 @@ final class ActionSubscriber implements EventSubscriberInterface
     private function handleLandActionLog(ActionEvent $event): void
     {
         $this->createLandActionLog($event);
-    }
-
-    private function createLandActionLog(ActionEvent $event): void
-    {
-        $actionResult = $event->getActionResultOrThrow();
-        $player = $event->getAuthor();
-
-        $this->roomLogService->createLog(
-            $actionResult->isACriticalSuccess() ? ActionLogEnum::LAND_SUCCESS : ActionLogEnum::LAND_NO_PILOT,
-            $player->getPlace(),
-            VisibilityEnum::PUBLIC,
-            'actions_log',
-            $player,
-            [$player->getLogKey() => $player->getLogName()],
-            new \DateTime('now')
-        );
-    }
-
-    private function createEnterRoomLog(ActionEvent $event): void
-    {
-        $door = $event->getDoorActionTargetOrThrow();
-        $player = $event->getPlayerActionTargetOrThrow();
-
-        $this->roomLogService->createLog(
-            ActionLogEnum::ENTER_ROOM,
-            $player->getPlace(),
-            VisibilityEnum::PUBLIC,
-            'actions_log',
-            $player,
-            [
-                $player->getLogKey() => $player->getLogName(),
-                ...$this->getEnterLogParameters($player, $door),
-            ],
-            new \DateTime('now')
-        );
-    }
-
-    private function createExitRoomLog(ActionEvent $event): void
-    {
-        $door = $event->getDoorActionTargetOrThrow();
-        $player = $event->getPlayerActionTargetOrThrow();
-
-        $this->roomLogService->createLog(
-            ActionLogEnum::EXIT_ROOM,
-            $player->getPlace(),
-            VisibilityEnum::PUBLIC,
-            'actions_log',
-            $player,
-            [
-                $player->getLogKey() => $player->getLogName(),
-                ...$this->getExitLogParameters($player, $door),
-            ],
-            new \DateTime('now')
-        );
     }
 
     private function handleContentLog(ActionEvent $event): void
@@ -157,6 +104,107 @@ final class ActionSubscriber implements EventSubscriberInterface
         );
     }
 
+    private function handleEnterActionLog(ActionEvent $event): void
+    {
+        $this->createEnterRoomLog($event);
+        $this->handleCatNoises($event);
+    }
+
+    private function handleExitActionLog(ActionEvent $event): void
+    {
+        $this->handleCatNoises($event);
+        $this->createExitRoomLog($event);
+    }
+
+    private function handlePlayerWakeUpLog(ActionEvent $event): void
+    {
+        if ($event->shouldMakePlayerWakeUp()) {
+            $player = $event->getPlayerActionTargetOrThrow();
+            $this->createForceGetUpLog($player);
+        }
+    }
+
+    private function handleObservantNoticedSomethingLog(ActionEvent $event): void
+    {
+        $player = $event->getAuthor();
+
+        if ($event->shouldCreateLogNoticedLog($this->d100Roll) && ($unnoticedSecretRevealedLog = $this->getUnnoticedSecretRevealedLog($player))) {
+            $this->createObservantNoticeSomethingLog($player);
+            $this->markLogAsNoticed($unnoticedSecretRevealedLog);
+        }
+    }
+
+    private function handleMycoAlarmLog(ActionEvent $event): void
+    {
+        if ($event->shouldMakeMycoAlarmRing()) {
+            $this->createMycoAlarmRingLog($event);
+        }
+    }
+
+    private function createLandActionLog(ActionEvent $event): void
+    {
+        $actionResult = $event->getActionResultOrThrow();
+        $player = $event->getAuthor();
+
+        $this->roomLogService->createLog(
+            $actionResult->isACriticalSuccess() ? ActionLogEnum::LAND_SUCCESS : ActionLogEnum::LAND_NO_PILOT,
+            $player->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'actions_log',
+            $player,
+            [$player->getLogKey() => $player->getLogName()],
+            $event->getTime()
+        );
+    }
+
+    private function createEnterRoomLog(ActionEvent $event): void
+    {
+        $actionName = $event->getActionName();
+        if ($actionName !== ActionEnum::MOVE) {
+            return;
+        }
+
+        $door = $event->getDoorActionTargetOrThrow();
+        $player = $event->getPlayerActionTargetOrThrow();
+
+        $this->roomLogService->createLog(
+            ActionLogEnum::ENTER_ROOM,
+            $player->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'actions_log',
+            $player,
+            [
+                $player->getLogKey() => $player->getLogName(),
+                ...$this->getEnterLogParameters($player, $door),
+            ],
+            $event->getTime()
+        );
+    }
+
+    private function createExitRoomLog(ActionEvent $event): void
+    {
+        $actionName = $event->getActionName();
+        if ($actionName !== ActionEnum::MOVE) {
+            return;
+        }
+
+        $door = $event->getDoorActionTargetOrThrow();
+        $player = $event->getPlayerActionTargetOrThrow();
+
+        $this->roomLogService->createLog(
+            ActionLogEnum::EXIT_ROOM,
+            $player->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'actions_log',
+            $player,
+            [
+                $player->getLogKey() => $player->getLogName(),
+                ...$this->getExitLogParameters($player, $door),
+            ],
+            $event->getTime()
+        );
+    }
+
     private function createTakeoffActionLog(ActionEvent $event): void
     {
         $actionResult = $event->getActionResultOrThrow();
@@ -169,7 +217,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             'actions_log',
             $player,
             [$player->getLogKey() => $player->getLogName()],
-            new \DateTime('now')
+            $event->getTime()
         );
     }
 
@@ -259,7 +307,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             'event_log',
             null,
             [LogParameterKeyEnum::ITEM => ItemEnum::SCHRODINGER],
-            new \DateTime()
+            $event->getTime()
         );
     }
 
@@ -272,38 +320,8 @@ final class ActionSubscriber implements EventSubscriberInterface
             'event_log',
             null,
             [LogParameterKeyEnum::ITEM => ItemEnum::SCHRODINGER],
-            new \DateTime()
+            $event->getTime()
         );
-    }
-
-    private function handleEnterActionLog(ActionEvent $event): void
-    {
-        $this->createEnterRoomLog($event);
-        $this->handleCatNoises($event);
-    }
-
-    private function handleExitActionLog(ActionEvent $event): void
-    {
-        $this->handleCatNoises($event);
-        $this->createExitRoomLog($event);
-    }
-
-    private function handlePlayerWakeUpLog(ActionEvent $event): void
-    {
-        if ($event->shouldMakePlayerWakeUp()) {
-            $player = $event->getPlayerActionTargetOrThrow();
-            $this->createForceGetUpLog($player);
-        }
-    }
-
-    private function handleObservantNoticedSomethingLog(ActionEvent $event): void
-    {
-        $player = $event->getAuthor();
-
-        if ($event->shouldCreateLogNoticedLog($this->d100Roll) && ($unnoticedSecretRevealedLog = $this->getUnnoticedSecretRevealedLog($player))) {
-            $this->createObservantNoticeSomethingLog($player);
-            $this->markLogAsNoticed($unnoticedSecretRevealedLog);
-        }
     }
 
     private function createObservantNoticeSomethingLog(Player $player): void
@@ -334,5 +352,20 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         $roomLog->markAsNoticed();
         $this->roomLogService->persist($roomLog);
+    }
+
+    private function createMycoAlarmRingLog(ActionEvent $event): void
+    {
+        $player = $event->getAuthor();
+
+        $this->roomLogService->createLog(
+            LogEnum::MYCO_ALARM_RING,
+            $player->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'event_log',
+            $player,
+            [],
+            $event->getTime()
+        );
     }
 }

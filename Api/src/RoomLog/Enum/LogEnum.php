@@ -93,6 +93,7 @@ abstract class LogEnum
     public const string TORTURER_ACTIONS = 'torturer_actions';
     public const string LETHARGY_WORKED = 'lethargy_worked';
     public const string RESEARCH_COMPLETED = 'research_completed';
+    public const string MYCO_ALARM_RING = 'myco_alarm_ring';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

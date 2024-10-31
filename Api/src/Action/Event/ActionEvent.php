@@ -211,6 +211,7 @@ class ActionEvent extends AbstractGameEvent
             ActionEnum::CONVERT_CAT->toString(),
             ActionEnum::GO_BERSERK->toString(),
             ActionEnum::INFECT->toString(),
+            ActionEnum::MIX_RATION_SPORE->toString(),
         ]);
     }
 }

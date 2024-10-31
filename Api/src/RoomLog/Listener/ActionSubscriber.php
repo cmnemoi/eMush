@@ -2,13 +2,11 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -19,7 +17,6 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ActionSubscriber implements EventSubscriberInterface
@@ -81,13 +78,9 @@ final class ActionSubscriber implements EventSubscriberInterface
         $actionHolder = $event->getActionTarget();
         $player = $event->getAuthor();
 
-        /** @var ActionResult $actionResult */
-        $actionResult = $event->getActionResult();
+        $actionResult = $event->getActionResultOrThrow();
 
-        if ($actionHolder instanceof Player
-            && \in_array($action->getActionName()->value, ActionEnum::getForceGetUpActions(), true)
-            && $actionHolder->hasStatus(PlayerStatusEnum::LYING_DOWN)
-        ) {
+        if ($event->shouldMakePlayerWakeUp()) {
             $this->createForceGetUpLog($actionHolder);
         }
 
@@ -288,12 +281,12 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function shotAtCatAndFailed(ActionEvent $event): bool
     {
-        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && $event->getActionResultOrThrow()->getResultTag() === ActionOutputEnum::FAIL;
+        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && $event->getActionResultOrThrow()->isAFail();
     }
 
     private function shotAtCatAndSucceeded(ActionEvent $event): bool
     {
-        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && $event->getActionResultOrThrow()->getResultTag() === ActionOutputEnum::SUCCESS;
+        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && $event->getActionResultOrThrow()->isASuccess();
     }
 
     private function schrodingerInRoomOrPlayerInventory(ActionEvent $event): bool

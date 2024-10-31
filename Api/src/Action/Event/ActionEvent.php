@@ -76,11 +76,18 @@ class ActionEvent extends AbstractGameEvent
         return $this->actionTarget;
     }
 
-    public function getPlayerActionTarget(): Player
+    public function getPlayerActionTargetOrThrow(): Player
     {
         $player = $this->getActionTarget();
 
         return $player instanceof Player ? $player : throw new \LogicException('Action target is not a player');
+    }
+
+    public function getPlayerActionTarget(): Player
+    {
+        $player = $this->getActionTarget();
+
+        return $player instanceof Player ? $player : Player::createNull();
     }
 
     public function getActionTargetAsPlanet(): Planet
@@ -164,5 +171,12 @@ class ActionEvent extends AbstractGameEvent
         $actionShouldRemoveLaidDownStatus = $this->hasAnyTag(ActionEnum::getForceGetUpActions());
 
         return $isPlayerLaidDown && $actionShouldRemoveLaidDownStatus;
+    }
+
+    public function shouldMakePlayerWakeUp(): bool
+    {
+        $player = $this->getPlayerActionTarget();
+
+        return $player->hasStatus(PlayerStatusEnum::LYING_DOWN) && $this->hasAnyTag(ActionEnum::getForceGetUpActions());
     }
 }

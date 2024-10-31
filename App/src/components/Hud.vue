@@ -44,7 +44,7 @@ const settings = ref([
 
 const languages = [
     { code: 'en', name: 'English' },
-    { code: 'fr', name: 'French' },
+    { code: 'fr', name: 'French' }
 ];
 
 const togglePanel = () => {

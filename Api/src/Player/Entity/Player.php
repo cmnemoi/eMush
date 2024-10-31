@@ -1245,7 +1245,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function getMinEfficiencyForProject(Project $project): int
     {
-        return 100;
         if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {
             return 100;
         }

@@ -214,6 +214,7 @@ class ActionEvent extends AbstractGameEvent
             ActionEnum::MIX_RATION_SPORE->toString(),
             ActionEnum::TRAP_CLOSET->toString(),
             ActionEnum::EXCHANGE_BODY->toString(),
+            ActionEnum::GIVE_NIGHTMARE->toString(),
         ]);
     }
 }

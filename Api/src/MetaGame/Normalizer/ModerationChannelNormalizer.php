@@ -22,7 +22,7 @@ final readonly class ModerationChannelNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Channel::class => true,
+            Channel::class => false,
         ];
     }
 

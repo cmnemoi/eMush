@@ -44,7 +44,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
     public function getSupportedTypes(?string $format): array
     {
         return [
-            ClosedPlayer::class => true,
+            ClosedPlayer::class => false,
         ];
     }
 

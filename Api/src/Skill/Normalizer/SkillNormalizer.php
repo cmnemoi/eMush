@@ -20,7 +20,7 @@ final class SkillNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Skill::class => true,
+            Skill::class => false,
         ];
     }
 

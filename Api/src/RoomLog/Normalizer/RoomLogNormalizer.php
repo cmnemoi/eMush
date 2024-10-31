@@ -26,7 +26,7 @@ class RoomLogNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            RoomLogCollection::class => true,
+            RoomLogCollection::class => false,
         ];
     }
 

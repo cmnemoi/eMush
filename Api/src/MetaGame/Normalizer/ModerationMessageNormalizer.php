@@ -21,7 +21,7 @@ final readonly class ModerationMessageNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Message::class => true,
+            Message::class => false,
         ];
     }
 

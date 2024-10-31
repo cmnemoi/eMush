@@ -15,7 +15,7 @@ final readonly class ContactablePlayerNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Player::class => true,
+            Player::class => false,
         ];
     }
 

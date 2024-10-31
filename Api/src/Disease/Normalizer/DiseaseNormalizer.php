@@ -27,7 +27,7 @@ class DiseaseNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            PlayerDisease::class => true,
+            PlayerDisease::class => false,
         ];
     }
 

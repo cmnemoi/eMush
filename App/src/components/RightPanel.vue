@@ -1,24 +1,6 @@
 <template>
     <div v-if="isPanelOpen" class="panel-overlay" @click="closePanel"></div>
     <div class="side-panel" :class="{ 'panel-open': isPanelOpen }">
-        <div class="panel-header">
-            <h2>Notifications</h2>
-            <button class="close-button" @click="$emit('close-panel')">×</button>
-        </div>
-
-        <div class="settings-section">
-            <h3>Settings</h3>
-            <div class="settings-list">
-                <div v-for="setting in settings" :key="setting.name" class="setting-item">
-                    <div class="setting-label">
-                        <svg class="icon-small" viewBox="0 0 24 24" v-html="setting.icon"></svg>
-                        <span>{{ setting.name }}</span>
-                    </div>
-                    <div class="toggle" :class="{ 'toggle-active': setting.enabled }" @click="toggleSetting(setting)"></div>
-                </div>
-            </div>
-        </div>
-
         <div class="language-selector">
             <div
                 v-for="lang in languages"

@@ -299,11 +299,12 @@ const props = defineProps({
   color: white;
   font-size: 1.5rem;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity 0.2s;
+  margin-left: auto;
 }
 
 .panel-button:hover {

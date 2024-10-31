@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="right-section">
-            <button class="panel-button" @click="togglePanel">
+            <button class="panel-button" @click="$emit('toggle-panel')">
                 <span class="panel-icon">☰</span>
             </button>
         </div>

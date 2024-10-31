@@ -629,6 +629,7 @@ class GameConfigData
                 ProjectName::RETRO_FUNGAL_SERUM,
                 ProjectName::SPORE_SUCKER,
                 ProjectName::SUPER_CALCULATOR,
+                ProjectName::TESLA_SUP2X,
                 ProjectName::ULTRA_HEALING_POMADE,
             ],
             'skillConfigs' => [

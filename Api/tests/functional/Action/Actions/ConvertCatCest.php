@@ -209,6 +209,7 @@ final class ConvertCatCest extends AbstractFunctionalTest
                 player: $this->player,
                 log: LogEnum::MYCO_ALARM_RING,
                 visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
             ),
             I: $I,
         );

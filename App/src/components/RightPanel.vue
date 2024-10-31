@@ -1,6 +1,12 @@
 <template>
     <div v-if="isPanelOpen" class="panel-overlay" @click="closePanel"></div>
     <div class="side-panel" :class="{ 'panel-open': isPanelOpen }">
+        <div class="panel-header">
+            <div class="username-container">
+                {{ username }}
+            </div>
+            <button class="close-button" @click="$emit('close-panel')">×</button>
+        </div>
         <div class="language-selector">
             <div
                 v-for="lang in languages"
@@ -23,6 +29,7 @@ const props = defineProps({
     settings: Array,
     languages: Array,
     currentLanguage: String,
+    username: String,
     toggleSetting: Function,
     selectLanguage: Function,
     closePanel: Function
@@ -165,12 +172,20 @@ const props = defineProps({
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+  padding: 0.5rem;
+  background-color: #fe7d00;
+}
+
+.username-container {
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .close-button {
   background: none;
   border: none;
-  color: white;
+  color: #feb500;
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0.5rem;

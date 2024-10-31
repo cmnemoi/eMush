@@ -13,6 +13,7 @@
             :settings="settings"
             :languages="languages"
             :current-language="currentLanguage"
+            :username="username"
             @toggle-setting="toggleSetting"
             @select-language="selectLanguage"
             @close-panel="closePanel"

@@ -7,6 +7,7 @@ namespace Mush\Equipment\ConfigData;
 use Mush\Equipment\Entity\Dto\ReplaceEquipmentConfigDto;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Place\Enum\RoomEnum;
 
 abstract class ReplaceEquipmentConfigData
 {
@@ -42,6 +43,7 @@ abstract class ReplaceEquipmentConfigData
                 name: self::REPLACE_1_LABORATORY_BY_NATAMY_RIFLE,
                 equipmentName: ItemEnum::NATAMY_RIFLE,
                 replaceEquipmentName: ItemEnum::BLASTER,
+                placeName: RoomEnum::LABORATORY,
             ),
         ];
     }

@@ -21,7 +21,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ActionSubscriber implements EventSubscriberInterface
 {
-    public const int OBSERVANT_REVEAL_CHANCE = 25;
     public const int CAT_MEOW_CHANCE = 10;
 
     public function __construct(
@@ -60,16 +59,7 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public function onResultAction(ActionEvent $event): void
     {
-        $actionResult = $event->getActionResult();
-        if ($actionResult === null) {
-            throw new \LogicException('$actionResult should not be null');
-        }
-
-        $actionLog = $this->roomLogService->createLogFromActionEvent($event);
-
-        if ($actionLog?->isPublicOrRevealed()) {
-            $this->handleCatNoises($event);
-        }
+        $this->handleCatNoises($event);
     }
 
     public function onPostAction(ActionEvent $event): void
@@ -260,6 +250,11 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function handleCatNoises(ActionEvent $event): void
     {
+        $actionLog = $this->roomLogService->createLogFromActionEvent($event);
+        if ($actionLog?->isNotPublicOrRevealed()) {
+            return;
+        }
+
         if ($this->shotAtCatAndFailed($event)) {
             $this->createCatHissLog($event);
 

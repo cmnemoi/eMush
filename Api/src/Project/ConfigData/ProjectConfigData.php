@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Project\ConfigData;
 
+use Mush\Equipment\ConfigData\ReplaceEquipmentConfigData;
 use Mush\Equipment\ConfigData\SpawnEquipmentConfigData;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
@@ -731,7 +732,9 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
-                'replaceEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [
+                    ReplaceEquipmentConfigData::REPLACE_1_LABORATORY_BY_NATAMY_RIFLE,
+                ],
                 'requirements' => [
                     ProjectRequirementName::BLASTER_IN_LABORATORY,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,

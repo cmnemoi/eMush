@@ -188,6 +188,11 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'equipmentToRemove' => EquipmentEnum::KITCHEN,
                 'equipmentToAdd' => EquipmentEnum::SNC_KITCHEN,
             ],
+            [
+                'project' => ProjectName::NATAMY_RIFLE->value,
+                'equipmentToRemove' => ItemEnum::BLASTER,
+                'equipmentToAdd' => ItemEnum::NATAMY_RIFLE,
+            ],
         ];
     }
 }

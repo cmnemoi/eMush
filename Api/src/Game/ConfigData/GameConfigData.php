@@ -619,6 +619,7 @@ class GameConfigData
                 ProjectName::MUSH_LANGUAGE,
                 ProjectName::MUSH_RACES,
                 ProjectName::MUSH_REPRODUCTIVE_SYSTEM,
+                ProjectName::NATAMY_RIFLE,
                 ProjectName::RETRO_FUNGAL_SERUM,
             ],
             'skillConfigs' => [

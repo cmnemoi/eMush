@@ -6,9 +6,12 @@ namespace Mush\Equipment\ConfigData;
 
 use Mush\Equipment\Entity\Dto\ReplaceEquipmentConfigDto;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 
 abstract class ReplaceEquipmentConfigData
 {
+    public const REPLACE_1_LABORATORY_BY_NATAMY_RIFLE = 'replace_1_laboratory_by_natamy_rifle';
+
     /**
      * @return ReplaceEquipmentConfigDto[]
      */
@@ -34,6 +37,11 @@ abstract class ReplaceEquipmentConfigData
                 name: 'replace_kitchen_by_snc_kitchen',
                 equipmentName: EquipmentEnum::SNC_KITCHEN,
                 replaceEquipmentName: EquipmentEnum::KITCHEN,
+            ),
+            new ReplaceEquipmentConfigDto(
+                name: self::REPLACE_1_LABORATORY_BY_NATAMY_RIFLE,
+                equipmentName: ItemEnum::NATAMY_RIFLE,
+                replaceEquipmentName: ItemEnum::BLASTER,
             ),
         ];
     }

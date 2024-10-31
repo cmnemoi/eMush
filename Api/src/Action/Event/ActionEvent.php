@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\Planet;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\Random\D100RollServiceInterface;
@@ -204,9 +205,12 @@ class ActionEvent extends AbstractGameEvent
 
     public function shouldMakeMycoAlarmRing(): bool
     {
-        return $this->hasAnyTag([
+        $place = $this->getAuthor()->getPlace();
+
+        return $place->hasOperationalEquipmentByName(ItemEnum::MYCO_ALARM) && $this->hasAnyTag([
             ActionEnum::CONVERT_CAT->toString(),
             ActionEnum::GO_BERSERK->toString(),
+            ActionEnum::INFECT->toString(),
         ]);
     }
 }

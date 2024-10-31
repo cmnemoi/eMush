@@ -107,11 +107,13 @@ final class ConvertCatCest extends AbstractFunctionalTest
         $I->assertFalse($this->convertCat->isVisible());
     }
 
-    public function shouldMakeMycoAlarmRing(FunctionalTester $I): void
+    public function shouldMakeMycoAlarmInRoomRing(FunctionalTester $I): void
     {
         $this->givenPlayerIsMush($I);
 
         $this->givenPlayerHasSpore(1, $I);
+
+        $this->givenMycoAlarmInRoom();
 
         $this->whenPlayerConvertsCat();
 
@@ -160,6 +162,16 @@ final class ConvertCatCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
             target: $jinSu,
+        );
+    }
+
+    private function givenMycoAlarmInRoom(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::MYCO_ALARM,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
         );
     }
 

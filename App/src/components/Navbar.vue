@@ -20,7 +20,7 @@ const props = defineProps({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .hud {
   min-height: 100vh;
   background-color: transparent;

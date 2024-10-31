@@ -15,7 +15,7 @@
                 :class="{ 'active': currentLanguage === lang.code }"
                 @click="selectLanguage(lang.code)"
             >
-                {{ lang.code.toUpperCase() }}
+                <div class="flag-icon" v-html="flags[lang.code]"></div>
             </div>
         </div>
     </div>
@@ -23,6 +23,7 @@
 
 <script setup>
 import { defineProps } from 'vue';
+import { flags } from '../assets/flags.js';
 
 const props = defineProps({
     isPanelOpen: Boolean,
@@ -268,16 +269,26 @@ const props = defineProps({
 }
 
 .language-flag {
-  width: 24px;
+  width: 32px;
   height: 24px;
   background-color: #2a2a2a;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.625rem;
   cursor: pointer;
   transition: background-color 0.2s;
+  padding: 2px;
+}
+
+.flag-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.flag-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .language-flag:hover {

@@ -153,10 +153,11 @@ final class PrintZeList extends AbstractAction
 
     private function selectedPlayers(): array
     {
-        $players = $this->player->getDaedalus()->getPlayers()->toArray();
+        $selectedAlphaMush = $this->selectedAlphaMush();
+        $players = $this->player->getDaedalus()->getPlayers()->getAllExcept($selectedAlphaMush)->toArray();
         $randomPlayers = $this->randomService->getRandomElements($players, $this->numberOfNames() - 1);
 
-        $selectedPlayers = [$this->selectedAlphaMush(), ...$randomPlayers];
+        $selectedPlayers = [$selectedAlphaMush, ...$randomPlayers];
         shuffle($selectedPlayers);
 
         return $selectedPlayers;
@@ -166,12 +167,6 @@ final class PrintZeList extends AbstractAction
     {
         $players = $this->player->getDaedalus()->getPlayers();
         $alphaMushs = $players->filter(static fn (Player $player) => $player->isAlphaMush());
-
-        // Temporary condition during the alpha as on-going ships do not have alpha mushes
-        // Can be removed safely when all ships started after September 1, 2024 are finished
-        if ($alphaMushs->isEmpty()) {
-            return $this->randomService->getRandomElement($players->getMushPlayer()->toArray());
-        }
 
         return $this->randomService->getRandomElement($alphaMushs->toArray());
     }

@@ -697,7 +697,9 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
-                'spawnEquipmentConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    SpawnEquipmentConfigData::FIVE_MYCOALARMS_IN_LABORATORY,
+                ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,

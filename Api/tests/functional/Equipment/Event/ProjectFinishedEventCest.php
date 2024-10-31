@@ -186,6 +186,12 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'quantity' => 1,
                 'creationPlaces' => [RoomEnum::LABORATORY],
             ],
+            [
+                'project' => ProjectName::MYCOALARM->value,
+                'equipment' => ItemEnum::MYCO_ALARM,
+                'quantity' => 5,
+                'creationPlaces' => [RoomEnum::LABORATORY],
+            ],
         ];
     }
 

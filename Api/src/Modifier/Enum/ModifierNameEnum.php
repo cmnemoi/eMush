@@ -136,4 +136,6 @@ abstract class ModifierNameEnum
     public const string PLUS_1_HEALTH_POINTS_ON_HEAL = 'plus_1_health_points_on_heal';
     public const string ULTRA_HEALING_POMADE_MODIFIER = 'ultra_healing_pomade_modifier';
     public const string PLASTENITE_ARMOR_MODIFIER = 'plastenite_armor_modifier';
+    public const string TURRET_MAX_CHARGES_PLUS_4 = 'turret_max_charge_+4';
+    public const string TESLA_SUP2X_MODIFIER = 'tesla_sup2x_modifier';
 }

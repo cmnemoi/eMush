@@ -858,7 +858,9 @@ abstract class ProjectConfigData
                 'efficiency' => 12,
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    ModifierNameEnum::TURRET_MAX_CHARGES_PLUS_4,
+                ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [

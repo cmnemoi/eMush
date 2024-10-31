@@ -144,7 +144,7 @@ final class PrintZeList extends AbstractAction
             parameters: [
                 'firstPlayers' => implode(', ', array_map(static fn (string $name) => $name, $translatedFirstPlayers)),
                 'lastPlayer' => $translatedLastPlayer,
-                'quantity' => \count($this->selectedPlayers()),
+                'quantity' => \count($selectedPlayers),
             ],
             domain: 'event_log',
             language: $this->player->getLanguage(),

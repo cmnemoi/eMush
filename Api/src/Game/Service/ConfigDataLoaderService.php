@@ -25,6 +25,15 @@ use Mush\Equipment\ConfigData\PlantDataLoader;
 use Mush\Equipment\ConfigData\RationDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
+use Mush\Equipment\ConfigData\WeaponEffect\BreakWeaponEffectConfigDataLoader;
+use Mush\Equipment\ConfigData\WeaponEffect\DropWeaponEffectConfigDataLoader;
+use Mush\Equipment\ConfigData\WeaponEffect\InflictInjuryWeaponEffectConfigDataLoader;
+use Mush\Equipment\ConfigData\WeaponEffect\InflictRandomInjuryWeaponEffectConfigDataLoader;
+use Mush\Equipment\ConfigData\WeaponEffect\ModifyDamageWeaponEffectConfigDataLoader;
+use Mush\Equipment\ConfigData\WeaponEffect\ModifyMaxDamageWeaponEffectConfigDataLoader;
+use Mush\Equipment\ConfigData\WeaponEffect\OneShotWeaponEffectConfigDataLoader;
+use Mush\Equipment\ConfigData\WeaponEffect\RemoveActionPointsWeaponEffectConfigDataLoader;
+use Mush\Equipment\ConfigData\WeaponEventConfigDataLoader;
 use Mush\Exploration\ConfigData\PlanetSectorConfigDataLoader;
 use Mush\Exploration\ConfigData\PlanetSectorEventConfigDataLoader;
 use Mush\Game\ConfigData\ConfigDataLoader;
@@ -49,6 +58,9 @@ use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
 use Mush\Status\ConfigData\ContentStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigDataLoader;
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class ConfigDataLoaderService
 {
     private ArrayCollection $dataLoaders;
@@ -76,6 +88,15 @@ class ConfigDataLoaderService
         PlantDataLoader $plantDataLoader,
         RationDataLoader $rationDataLoader,
         ToolDataLoader $toolDataLoader,
+        WeaponEventConfigDataLoader $weaponEventConfigDataLoader,
+        BreakWeaponEffectConfigDataLoader $breakWeaponEffectConfigDataLoader,
+        DropWeaponEffectConfigDataLoader $dropWeaponEffectConfigDataLoader,
+        OneShotWeaponEffectConfigDataLoader $oneShotWeaponEffectConfigDataLoader,
+        ModifyDamageWeaponEffectConfigDataLoader $modifyDamageWeaponEffectConfigDataLoader,
+        ModifyMaxDamageWeaponEffectConfigDataLoader $modifyMaxDamageWeaponEffectConfigDataLoader,
+        RemoveActionPointsWeaponEffectConfigDataLoader $removeActionPointsWeaponEffectConfigDataLoader,
+        InflictInjuryWeaponEffectConfigDataLoader $inflictInjuryWeaponEffectConfigDataLoader,
+        InflictRandomInjuryWeaponEffectConfigDataLoader $inflictRandomInjuryWeaponEffectConfigDataLoader,
         WeaponDataLoader $weaponDataLoader,
         PatrolShipDataLoader $patrolShipDataLoader,
         ItemConfigDataLoader $itemConfigDataLoader,
@@ -126,6 +147,15 @@ class ConfigDataLoaderService
                 $rationDataLoader,
                 $toolDataLoader,
                 $patrolShipDataLoader,
+                $weaponEventConfigDataLoader,
+                $breakWeaponEffectConfigDataLoader,
+                $dropWeaponEffectConfigDataLoader,
+                $oneShotWeaponEffectConfigDataLoader,
+                $modifyDamageWeaponEffectConfigDataLoader,
+                $modifyMaxDamageWeaponEffectConfigDataLoader,
+                $removeActionPointsWeaponEffectConfigDataLoader,
+                $inflictInjuryWeaponEffectConfigDataLoader,
+                $inflictRandomInjuryWeaponEffectConfigDataLoader,
                 $weaponDataLoader,
                 $equipmentConfigDataLoader,
                 $itemConfigDataLoader,

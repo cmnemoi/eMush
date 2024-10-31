@@ -2,6 +2,7 @@
 
 namespace Mush\Game\ConfigData;
 
+use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
@@ -90,6 +91,7 @@ class GameConfigData
                 'critical_success_blaster_default',
                 'exploration_default',
                 'alien_fight_default',
+                DiseaseCauseEnum::RANDOM_INJURY . '_default',
             ],
             'diseaseConfigs' => [
                 'food_poisoning_default',
@@ -641,6 +643,7 @@ class GameConfigData
                 ProjectName::MUSHOVORE_BACTERIA,
                 ProjectName::MYCOALARM,
                 ProjectName::NARCOTICS_DISTILLER,
+                ProjectName::NATAMY_RIFLE,
                 ProjectName::NCC_CONTACT_LENSES,
                 ProjectName::PATULINE_SCRAMBLER,
                 ProjectName::PERPETUAL_HYDRATION,

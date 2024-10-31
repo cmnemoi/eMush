@@ -3,6 +3,7 @@
 namespace Mush\Tests;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\NoResultException;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -235,22 +236,29 @@ class AbstractFunctionalTest
 
     protected function ISeeTranslatedRoomLogInRepository(string $expectedRoomLog, RoomLogDto $actualRoomLogDto, FunctionalTester $I): void
     {
-        $roomLog = $I->grabEntityFromRepository(
-            entity: RoomLog::class,
-            params: $actualRoomLogDto->toArray(),
-        );
+        try {
+            $roomLog = $I->grabEntityFromRepository(
+                entity: RoomLog::class,
+                params: $actualRoomLogDto->toArray(),
+            );
+        } catch (NoResultException $e) {
+            $I->fail("Room log {$actualRoomLogDto->log} not found!");
+        }
 
         /** @var TranslationServiceInterface $translationService */
         $translationService = $I->grabService(TranslationServiceInterface::class);
 
+        $actualRoomLog = $translationService->translate(
+            key: $roomLog->getLog(),
+            parameters: $roomLog->getParameters(),
+            domain: $roomLog->getType(),
+            language: $actualRoomLogDto->player->getLanguage(),
+        );
+
         $I->assertEquals(
             expected: $expectedRoomLog,
-            actual: $translationService->translate(
-                key: $roomLog->getLog(),
-                parameters: $roomLog->getParameters(),
-                domain: $roomLog->getType(),
-                language: $actualRoomLogDto->player->getLanguage(),
-            )
+            actual: $actualRoomLog,
+            message: "{$actualRoomLogDto->log} should be translated to {$expectedRoomLog}, found {$roomLog->getLog()} instead."
         );
     }
 
@@ -279,7 +287,7 @@ class AbstractFunctionalTest
                     parameters: $roomLog->getParameters(),
                     domain: $roomLog->getType(),
                     language: $actualRoomLogDto->player->getLanguage(),
-                )
+                ),
             );
         }
     }

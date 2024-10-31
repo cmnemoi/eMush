@@ -57,4 +57,10 @@ final class PlayerInfoRepository extends ServiceEntityRepository implements Play
             'gameStatus' => $gameStatus,
         ]);
     }
+
+    public function save(PlayerInfo $playerInfo): void
+    {
+        $this->getEntityManager()->persist($playerInfo);
+        $this->getEntityManager()->flush();
+    }
 }

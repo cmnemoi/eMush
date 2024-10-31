@@ -119,8 +119,7 @@ abstract class AbstractAction
             return new Error($reason);
         }
 
-        $result = $this->checkResult();
-        $result->setVisibility($this->actionConfig->getVisibility($result->getName()));
+        $result = $this->getActionResult();
 
         $preActionEvent = new ActionEvent(
             actionConfig: $this->actionConfig,
@@ -179,6 +178,16 @@ abstract class AbstractAction
     public function getActionProvider(): ActionProviderInterface
     {
         return $this->actionProvider;
+    }
+
+    public function getGameEquipmentActionProvider(): GameEquipment
+    {
+        return $this->actionProvider instanceof GameEquipment ? $this->actionProvider : throw new \InvalidArgumentException('Action provider is not a GameEquipment.');
+    }
+
+    public function itemActionProvider(): GameItem
+    {
+        return $this->actionProvider instanceof GameItem ? $this->actionProvider : throw new \InvalidArgumentException('Action provider is not a GameItem.');
     }
 
     public function getActionPointCost(): int
@@ -284,4 +293,16 @@ abstract class AbstractAction
     abstract protected function checkResult(): ActionResult;
 
     abstract protected function applyEffect(ActionResult $result): void;
+
+    private function getActionResult(): ActionResult
+    {
+        $result = $this->checkResult();
+
+        $result->setActionProvider($this->actionProvider);
+        $result->setPlayer($this->player);
+        $result->setTarget($this->target);
+        $result->setVisibility($this->actionConfig->getVisibility($result->getName()));
+
+        return $result;
+    }
 }

@@ -7,6 +7,7 @@ use Mush\Equipment\Enum\ContainerContentEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Skill\Enum\SkillEnum;
@@ -936,6 +937,24 @@ abstract class MechanicsData
         [
             'name' => 'weapon_blaster_default',
             'type' => 'weapon',
+            'damageSpread' => [2, 3],
+            'successfulEventKeys' => [
+                WeaponEventEnum::BLASTER_SUCCESSFUL_SHOT->value => 75,
+                WeaponEventEnum::BLASTER_TARGET_HEADSHOT->value => 1,
+                WeaponEventEnum::BLASTER_TARGET_RANDOM_INJURY->value => 2,
+                WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_MAX_DAMAGE_20_RANDOM_INJURY_TO_TARGET->value => 2,
+                WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_DAMAGED_EARS->value => 2,
+                WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_DAMAGE_TARGET_30_TORN_TONGUE_TARGET_30_BURST_NOSE_TARGET_30_OPEN_AIR_BRAIN_TARGET_30_HEAD_TRAUMA->value => 1,
+                WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_REMOVE_2_AP->value => 1,
+            ],
+            'failedEventKeys' => [
+                WeaponEventEnum::BLASTER_FAILED_SHOT->value => 90,
+                WeaponEventEnum::BLASTER_BREAK_WEAPON->value => 2,
+                WeaponEventEnum::BLASTER_SHOOTER_DROP_WEAPON->value => 2,
+                WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_SHOOTER_DROP_WEAPON_SHOOTER_RANDOM_INJURY->value => 2,
+                WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_BREAK_WEAPON->value => 1,
+                WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP->value => 1,
+            ],
             'baseAccuracy' => 50.0,
             'baseDamageRange' => [2 => 45, 3 => 45, 4 => 5, 5 => 5],
             'expeditionBonus' => 1.0,
@@ -951,6 +970,9 @@ abstract class MechanicsData
         [
             'name' => 'weapon_knife_default',
             'type' => 'weapon',
+            'damageSpread' => [],
+            'successfulEventKeys' => [],
+            'failedEventKeys' => [],
             'baseAccuracy' => 60.0,
             'baseDamageRange' => [1 => 25, 2 => 25, 3 => 25, 4 => 12, 5 => 12],
             'expeditionBonus' => 1.0,
@@ -965,6 +987,9 @@ abstract class MechanicsData
         [
             'name' => 'weapon_grenade_default',
             'type' => 'weapon',
+            'damageSpread' => [],
+            'successfulEventKeys' => [],
+            'failedEventKeys' => [],
             'baseAccuracy' => 100.0,
             'baseDamageRange' => [
                 2 => 1,
@@ -987,6 +1012,9 @@ abstract class MechanicsData
         [
             'name' => 'weapon_natamy_rifle_default',
             'type' => 'weapon',
+            'damageSpread' => [],
+            'successfulEventKeys' => [],
+            'failedEventKeys' => [],
             'baseAccuracy' => 50.0,
             'baseDamageRange' => [2 => 12],
             'expeditionBonus' => 1.0,
@@ -999,6 +1027,9 @@ abstract class MechanicsData
         [
             'name' => 'weapon_old_faithful_default',
             'type' => 'weapon',
+            'damageSpread' => [],
+            'successfulEventKeys' => [],
+            'failedEventKeys' => [],
             'baseAccuracy' => 50.0,
             'baseDamageRange' => [2 => 3],
             'expeditionBonus' => 2.0,
@@ -1011,6 +1042,9 @@ abstract class MechanicsData
         [
             'name' => 'weapon_lizaro_jungle_default',
             'type' => 'weapon',
+            'damageSpread' => [],
+            'successfulEventKeys' => [],
+            'failedEventKeys' => [],
             'baseAccuracy' => 99.0,
             'baseDamageRange' => [3 => 5],
             'expeditionBonus' => 1.0,
@@ -1023,6 +1057,9 @@ abstract class MechanicsData
         [
             'name' => 'weapon_rocket_launcher_default',
             'type' => 'weapon',
+            'damageSpread' => [],
+            'successfulEventKeys' => [],
+            'failedEventKeys' => [],
             'baseAccuracy' => 50.0,
             'baseDamageRange' => [0 => 8],
             'expeditionBonus' => 3.0,
@@ -1258,6 +1295,9 @@ abstract class MechanicsData
         [
             'name' => 'weapon_turret_default',
             'type' => 'weapon',
+            'damageSpread' => [],
+            'successfulEventKeys' => [],
+            'failedEventKeys' => [],
             'baseAccuracy' => 30,
             'baseDamageRange' => [2 => 1, 3 => 1, 4 => 1],
             'expeditionBonus' => 0,
@@ -1273,6 +1313,9 @@ abstract class MechanicsData
         [
             'name' => 'weapon_patrol_ship_default',
             'type' => 'weapon',
+            'damageSpread' => [],
+            'successfulEventKeys' => [],
+            'failedEventKeys' => [],
             'baseAccuracy' => 40,
             'baseDamageRange' => [3 => 1, 4 => 1, 5 => 1, 6 => 1],
             'expeditionBonus' => 0,
@@ -2012,4 +2055,9 @@ abstract class MechanicsData
             'modifierConfigs' => [],
         ],
     ];
+
+    public static function getByName(string $name): array
+    {
+        return current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
+    }
 }

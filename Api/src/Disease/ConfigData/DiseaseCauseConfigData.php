@@ -2,6 +2,9 @@
 
 namespace Mush\Disease\ConfigData;
 
+use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Enum\InjuryEnum;
+
 /** @codeCoverageIgnore */
 class DiseaseCauseConfigData
 {
@@ -277,5 +280,46 @@ class DiseaseCauseConfigData
                 'slight_nausea' => 1,
             ],
         ],
+        [
+            'name' => DiseaseCauseEnum::RANDOM_INJURY . '_default',
+            'causeName' => DiseaseCauseEnum::RANDOM_INJURY,
+            'diseases' => [
+                InjuryEnum::BURNS_50_OF_BODY => 1,
+                InjuryEnum::BURNS_90_OF_BODY => 1,
+                InjuryEnum::BROKEN_FINGER => 1,
+                InjuryEnum::BROKEN_FOOT => 1,
+                InjuryEnum::BROKEN_LEG => 1,
+                InjuryEnum::BROKEN_RIBS => 1,
+                InjuryEnum::BROKEN_SHOULDER => 1,
+                InjuryEnum::BRUISED_SHOULDER => 1,
+                InjuryEnum::BURNT_ARMS => 1,
+                InjuryEnum::BURNT_HAND => 1,
+                InjuryEnum::BURST_NOSE => 1,
+                InjuryEnum::BUSTED_ARM_JOINT => 1,
+                InjuryEnum::BUSTED_SHOULDER => 1,
+                InjuryEnum::CRITICAL_HAEMORRHAGE => 1,
+                InjuryEnum::HAEMORRHAGE => 1,
+                InjuryEnum::MINOR_HAEMORRHAGE => 1,
+                InjuryEnum::DAMAGED_EARS => 1,
+                InjuryEnum::DESTROYED_EARS => 1,
+                InjuryEnum::DYSFUNCTIONAL_LIVER => 1,
+                InjuryEnum::HEAD_TRAUMA => 1,
+                InjuryEnum::IMPLANTED_BULLET => 1,
+                InjuryEnum::INNER_EAR_DAMAGED => 1,
+                InjuryEnum::MASHED_FOOT => 1,
+                InjuryEnum::MASHED_HAND => 1,
+                InjuryEnum::MISSING_FINGER => 1,
+                InjuryEnum::OPEN_AIR_BRAIN => 1,
+                InjuryEnum::PUNCTURED_LUNG => 1,
+                InjuryEnum::MASHED_ARMS => 1,
+                InjuryEnum::MASHED_LEGS => 1,
+                InjuryEnum::TORN_TONGUE => 1,
+            ],
+        ],
     ];
+
+    public static function getByName(string $name): array
+    {
+        return current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
+    }
 }

@@ -3,9 +3,23 @@
 namespace Mush\Game\ConfigData;
 
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Disease\Enum\InjuryEnum;
+use Mush\Equipment\Entity\Dto\WeaponEffect\BreakWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEffect\DropWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEffect\InflictInjuryWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEffect\InflictRandomInjuryWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEffect\ModifyDamageWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEffect\ModifyMaxDamageWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEffect\OneShotWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEffect\RemoveActionPointsWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEventConfigDto;
+use Mush\Equipment\Enum\WeaponEffectEnum;
+use Mush\Equipment\Enum\WeaponEventEnum;
+use Mush\Equipment\Enum\WeaponEventType;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -761,12 +775,299 @@ class EventConfigData
         ],
     ];
 
-    // Use that once all constructors are refactored
-    public static function getAllEventConfig(): array
+    /** @return WeaponEventConfigDto[] */
+    public static function weaponEventConfigData(): array
     {
-        return array_merge(
-            self::$variableEventConfigData,
-            self::$planetSectorEventConfigData,
+        return [
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BLASTER_SUCCESSFUL_SHOT->toString(),
+                eventName: WeaponEventEnum::BLASTER_SUCCESSFUL_SHOT->toString(),
+                eventType: WeaponEventType::NORMAL,
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BLASTER_FAILED_SHOT->toString(),
+                eventName: WeaponEventEnum::BLASTER_FAILED_SHOT->toString(),
+                eventType: WeaponEventType::MISS,
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BLASTER_BREAK_WEAPON->toString(),
+                eventName: WeaponEventEnum::BLASTER_BREAK_WEAPON->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::BREAK_WEAPON->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BLASTER_SHOOTER_DROP_WEAPON->toString(),
+                eventName: WeaponEventEnum::BLASTER_SHOOTER_DROP_WEAPON->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::DROP_WEAPON->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_SHOOTER_DROP_WEAPON_SHOOTER_RANDOM_INJURY->toString(),
+                eventName: WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_SHOOTER_DROP_WEAPON_SHOOTER_RANDOM_INJURY->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::REMOVE_ONE_ACTION_POINT_TO_SHOOTER->toString(),
+                    WeaponEffectEnum::DROP_WEAPON->toString(),
+                    WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_SHOOTER->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP->toString(),
+                eventName: WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::REMOVE_ONE_ACTION_POINT_TO_SHOOTER->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_BREAK_WEAPON->toString(),
+                eventName: WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_BREAK_WEAPON->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::REMOVE_ONE_ACTION_POINT_TO_SHOOTER->toString(),
+                    WeaponEffectEnum::BREAK_WEAPON->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_DAMAGED_EARS->toString(),
+                eventName: WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_DAMAGED_EARS->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::ADD_ONE_DAMAGE->toString(),
+                    WeaponEffectEnum::INFLICT_MASHED_EAR_INJURY_TO_TARGET->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_DAMAGE_TARGET_30_TORN_TONGUE_TARGET_30_BURST_NOSE_TARGET_30_OPEN_AIR_BRAIN_TARGET_30_HEAD_TRAUMA->toString(),
+                eventName: WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_DAMAGE_TARGET_30_TORN_TONGUE_TARGET_30_BURST_NOSE_TARGET_30_OPEN_AIR_BRAIN_TARGET_30_HEAD_TRAUMA->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::ADD_TWO_DAMAGE->toString(),
+                    WeaponEffectEnum::INFLICT_TORN_TONGUE_INJURY_TO_TARGET_30_PERCENTS->toString(),
+                    WeaponEffectEnum::INFLICT_BURST_NOSE_INJURY_TO_TARGET_30_PERCENTS->toString(),
+                    WeaponEffectEnum::INFLICT_OPEN_AIR_BRAIN_INJURY_TO_TARGET_30_PERCENTS->toString(),
+                    WeaponEffectEnum::INFLICT_HEAD_TRAUMA_INJURY_TO_TARGET_30_PERCENTS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_MAX_DAMAGE_20_RANDOM_INJURY_TO_TARGET->toString(),
+                eventName: WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_MAX_DAMAGE_20_RANDOM_INJURY_TO_TARGET->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::ADD_TWO_MAX_DAMAGE->toString(),
+                    WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_TARGET_20_PERCENTS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_REMOVE_2_AP->toString(),
+                eventName: WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_REMOVE_2_AP->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::ADD_ONE_DAMAGE->toString(),
+                    WeaponEffectEnum::REMOVE_TWO_ACTION_POINTS_TO_TARGET->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BLASTER_TARGET_HEADSHOT->toString(),
+                eventName: WeaponEventEnum::BLASTER_TARGET_HEADSHOT->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::BLASTER_ONE_SHOT->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BLASTER_TARGET_RANDOM_INJURY->toString(),
+                eventName: WeaponEventEnum::BLASTER_TARGET_RANDOM_INJURY->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_TARGET->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_TARGET_HEADSHOT->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_TARGET_HEADSHOT->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::NATAMY_RIFLE_ONE_SHOT->toString(),
+                ]
+            ),
+        ];
+    }
+
+    /** @return RemoveActionPointsWeaponEffectConfigDto[] */
+    public static function removeActionPointsWeaponEffectConfigData(): array
+    {
+        return [
+            new RemoveActionPointsWeaponEffectConfigDto(
+                name: WeaponEffectEnum::REMOVE_ONE_ACTION_POINT_TO_SHOOTER->toString(),
+                eventName: WeaponEffectEnum::REMOVE_ACTION_POINTS->toString(),
+                quantity: 1,
+                toShooter: true,
+            ),
+            new RemoveActionPointsWeaponEffectConfigDto(
+                name: WeaponEffectEnum::REMOVE_TWO_ACTION_POINTS_TO_TARGET->toString(),
+                eventName: WeaponEffectEnum::REMOVE_ACTION_POINTS->toString(),
+                quantity: 2,
+            ),
+        ];
+    }
+
+    /** @return ModifyDamageWeaponEffectConfigDto[] */
+    public static function modifyDamageWeaponEffectConfigData(): array
+    {
+        return [
+            new ModifyDamageWeaponEffectConfigDto(
+                name: WeaponEffectEnum::ADD_ONE_DAMAGE->toString(),
+                eventName: WeaponEffectEnum::MODIFY_DAMAGE->toString(),
+                quantity: 1,
+            ),
+            new ModifyDamageWeaponEffectConfigDto(
+                name: WeaponEffectEnum::ADD_TWO_DAMAGE->toString(),
+                eventName: WeaponEffectEnum::MODIFY_DAMAGE->toString(),
+                quantity: 2,
+            ),
+        ];
+    }
+
+    /** @return OneShotWeaponEffectConfigDto[] */
+    public static function oneShotWeaponEffectConfigData(): array
+    {
+        return [
+            new OneShotWeaponEffectConfigDto(
+                name: WeaponEffectEnum::BLASTER_ONE_SHOT->toString(),
+                eventName: WeaponEffectEnum::ONE_SHOT->toString(),
+                endCause: EndCauseEnum::BEHEADED,
+            ),
+            new OneShotWeaponEffectConfigDto(
+                name: WeaponEffectEnum::NATAMY_RIFLE_ONE_SHOT->toString(),
+                eventName: WeaponEffectEnum::ONE_SHOT->toString(),
+                endCause: EndCauseEnum::BEHEADED,
+            ),
+        ];
+    }
+
+    /** @return InflictRandomInjuryWeaponEffectConfigDto[] */
+    public static function inflictRandomInjuryWeaponEffectConfigData(): array
+    {
+        return [
+            new InflictRandomInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_SHOOTER->toString(),
+                eventName: WeaponEffectEnum::INFLICT_RANDOM_INJURY->toString(),
+                toShooter: true,
+            ),
+            new InflictRandomInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_TARGET->toString(),
+                eventName: WeaponEffectEnum::INFLICT_RANDOM_INJURY->toString(),
+            ),
+            new InflictRandomInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_TARGET_20_PERCENTS->toString(),
+                eventName: WeaponEffectEnum::INFLICT_RANDOM_INJURY->toString(),
+            ),
+        ];
+    }
+
+    /** @return InflictInjuryWeaponEffectConfigDto[] */
+    public static function inflictInjuryWeaponEffectConfigData(): array
+    {
+        return [
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_MASHED_EAR_INJURY_TO_TARGET->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::DAMAGED_EARS,
+                triggerRate: 100,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_TORN_TONGUE_INJURY_TO_TARGET_30_PERCENTS->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::TORN_TONGUE,
+                triggerRate: 30,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_BURST_NOSE_INJURY_TO_TARGET_30_PERCENTS->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::BURST_NOSE,
+                triggerRate: 30,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_OPEN_AIR_BRAIN_INJURY_TO_TARGET_30_PERCENTS->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::OPEN_AIR_BRAIN,
+                triggerRate: 30,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_HEAD_TRAUMA_INJURY_TO_TARGET_30_PERCENTS->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::HEAD_TRAUMA,
+                triggerRate: 30,
+            ),
+        ];
+    }
+
+    /** @return ModifyMaxDamageWeaponEffectConfigDto[] */
+    public static function modifyMaxDamageWeaponEffectConfigData(): array
+    {
+        return [
+            new ModifyMaxDamageWeaponEffectConfigDto(
+                name: WeaponEffectEnum::ADD_TWO_MAX_DAMAGE->toString(),
+                eventName: WeaponEffectEnum::MODIFY_MAX_DAMAGE->toString(),
+                quantity: 2,
+            ),
+        ];
+    }
+
+    /** @return BreakWeaponEffectConfigDto[] */
+    public static function breakWeaponEffectConfigData(): array
+    {
+        return [
+            new BreakWeaponEffectConfigDto(
+                name: WeaponEffectEnum::BREAK_WEAPON->toString(),
+                eventName: WeaponEffectEnum::BREAK_WEAPON->toString(),
+            ),
+        ];
+    }
+
+    /** @return DropWeaponEffectConfigDto[] */
+    public static function dropWeaponEffectConfigData(): array
+    {
+        return [
+            new DropWeaponEffectConfigDto(
+                name: WeaponEffectEnum::DROP_WEAPON->toString(),
+                eventName: WeaponEffectEnum::DROP_WEAPON->toString(),
+            ),
+        ];
+    }
+
+    public static function getWeaponEventConfigByName(string $name): WeaponEventConfigDto
+    {
+        try {
+            return current(array_filter(self::weaponEventConfigData(), static fn (WeaponEventConfigDto $dto) => $dto->name === $name));
+        } catch (\Throwable $e) {
+            throw new \RuntimeException("WeaponEventConfig not found for name {$name}");
+        }
+    }
+
+    public static function getWeaponEffectConfigDataByName(WeaponEffectEnum $name): mixed
+    {
+        $weaponEffectConfigData = array_merge(
+            self::breakWeaponEffectConfigData(),
+            self::dropWeaponEffectConfigData(),
+            self::inflictInjuryWeaponEffectConfigData(),
+            self::inflictRandomInjuryWeaponEffectConfigData(),
+            self::modifyDamageWeaponEffectConfigData(),
+            self::modifyMaxDamageWeaponEffectConfigData(),
+            self::oneShotWeaponEffectConfigData(),
+            self::removeActionPointsWeaponEffectConfigData(),
         );
+
+        $result = current(array_filter($weaponEffectConfigData, static fn ($dto) => $dto->name === $name->toString()));
+        if (!$result) {
+            throw new \RuntimeException("WeaponEffectConfig not found for name {$name->toString()}");
+        }
+
+        return $result;
     }
 }

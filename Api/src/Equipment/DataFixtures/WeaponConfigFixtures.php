@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -96,6 +97,13 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $blasterMechanic = new Weapon();
         $blasterMechanic
             ->setBaseAccuracy(50)
+            ->setDamageSpread([2, 3])
+            ->setSuccessfulEventKeys([
+                WeaponEventEnum::BLASTER_SUCCESSFUL_SHOT->toString() => 1,
+            ])
+            ->setFailedEventKeys([
+                WeaponEventEnum::BLASTER_FAILED_SHOT->toString() => 1,
+            ])
             ->setBaseDamageRange([
                 2 => 45,
                 3 => 45,
@@ -202,10 +210,11 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $natamyMechanic = new Weapon();
         $natamyMechanic
+            ->setDamageSpread([2, 4])
             ->setBaseAccuracy(50)
             ->setBaseDamageRange([2 => 12])
             ->setExpeditionBonus(1)
-            ->addAction($attackAction)
+            ->addAction($shootAction)
             ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::NATAMY_RIFLE, GameConfigEnum::DEFAULT);
 
         $natamy = new ItemConfig();

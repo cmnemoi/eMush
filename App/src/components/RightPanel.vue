@@ -173,24 +173,29 @@ const props = defineProps({
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  padding: 0.5rem;
+  padding: 0.75rem 1rem;
   background-color: #fe7d00;
+  border-radius: 4px;
 }
 
 .username-container {
   color: white;
   font-weight: bold;
   text-transform: uppercase;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
 }
 
 .close-button {
   background: none;
   border: none;
   color: #feb500;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   cursor: pointer;
-  padding: 0.5rem;
-  transition: opacity 0.2s;
+  padding: 0 0.5rem;
+  margin-left: 1rem;
+  line-height: 1;
+  transition: all 0.2s ease;
 }
 
 .close-button:hover {

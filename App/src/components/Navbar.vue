@@ -1,19 +1,5 @@
 <template>
     <div class="nav-bar">
-        <div class="left-section">
-            <div class="character-list">
-                <div
-                    v-for="i in 4"
-                    :key="i"
-                    class="character-avatar"
-                >
-                    <div class="avatar-inner"></div>
-                </div>
-                <div class="character-add">
-                    <span>+</span>
-                </div>
-            </div>
-        </div>
         <div class="right-section">
             <button class="panel-button" @click="$emit(isPanelOpen ? 'close-panel' : 'toggle-panel')">
                 <span class="panel-icon">☰</span>
@@ -49,7 +35,7 @@ const props = defineProps({
   align-items: center;
   background-color: #000000;
   padding: 0.25rem 1rem;
-  height: 40px;
+  height: 32px;
   position: fixed;
   top: 0;
   left: 0;

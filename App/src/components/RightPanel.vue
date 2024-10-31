@@ -264,21 +264,26 @@ const props = defineProps({
 
 .language-selector {
   display: flex;
-  gap: 0.5rem;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
   margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: #2a2a2a;
+  border-radius: 8px;
 }
 
 .language-flag {
-  width: 32px;
-  height: 24px;
-  background-color: #2a2a2a;
+  width: 40px;
+  height: 30px;
+  background-color: #1a1a1a;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.2s;
-  padding: 2px;
+  transition: all 0.2s ease;
+  padding: 3px;
 }
 
 .flag-icon {

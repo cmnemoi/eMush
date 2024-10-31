@@ -14,6 +14,11 @@
                 </div>
             </div>
         </div>
+        <div class="right-section">
+            <button class="panel-button" @click="togglePanel">
+                <span class="panel-icon">☰</span>
+            </button>
+        </div>
     </div>
 </template>
 
@@ -286,5 +291,26 @@ const props = defineProps({
 
 .language-flag.active {
   background-color: #3b82f6;
+}
+
+.panel-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.panel-button:hover {
+  opacity: 0.8;
+}
+
+.panel-icon {
+  font-size: 1.25rem;
 }
 </style>

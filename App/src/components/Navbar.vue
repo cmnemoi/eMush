@@ -1,8 +1,8 @@
 <template>
     <div class="nav-bar">
         <div class="right-section">
-            <button class="panel-button" @click="$emit(isPanelOpen ? 'close-panel' : 'toggle-panel')">
-                <span class="panel-icon">☰</span>
+            <button class="username-button" @click="$emit(isPanelOpen ? 'close-panel' : 'toggle-panel')">
+                {{ username }}
             </button>
         </div>
     </div>
@@ -279,25 +279,20 @@ const props = defineProps({
   background-color: #3b82f6;
 }
 
-.panel-button {
-  background: none;
+.username-button {
+  background-color: #ff6b00;
   border: none;
   color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
   padding: 0.5rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.2s;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
   margin-left: auto;
 }
 
-.panel-button:hover {
-  opacity: 0.8;
-}
-
-.panel-icon {
-  font-size: 1.25rem;
+.username-button:hover {
+  background-color: #ff8533;
 }
 </style>

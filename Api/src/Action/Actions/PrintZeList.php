@@ -144,7 +144,7 @@ final class PrintZeList extends AbstractAction
             parameters: [
                 'firstPlayers' => implode(', ', array_map(static fn (string $name) => $name, $translatedFirstPlayers)),
                 'lastPlayer' => $translatedLastPlayer,
-                'quantity' => \count($this->selectedPlayers()),
+                'quantity' => \count($selectedPlayers) + 1,
             ],
             domain: 'event_log',
             language: $this->player->getLanguage(),
@@ -153,10 +153,9 @@ final class PrintZeList extends AbstractAction
 
     private function selectedPlayers(): array
     {
-        $players = $this->player->getDaedalus()->getPlayers()->toArray();
-        $randomPlayers = $this->randomService->getRandomElements($players, $this->numberOfNames() - 1);
+        $selectedAlphaMush = $this->selectedAlphaMush();
 
-        $selectedPlayers = [$this->selectedAlphaMush(), ...$randomPlayers];
+        $selectedPlayers = [$selectedAlphaMush, ...$this->randomPlayersWithout($selectedAlphaMush)];
         shuffle($selectedPlayers);
 
         return $selectedPlayers;
@@ -167,13 +166,14 @@ final class PrintZeList extends AbstractAction
         $players = $this->player->getDaedalus()->getPlayers();
         $alphaMushs = $players->filter(static fn (Player $player) => $player->isAlphaMush());
 
-        // Temporary condition during the alpha as on-going ships do not have alpha mushes
-        // Can be removed safely when all ships started after September 1, 2024 are finished
-        if ($alphaMushs->isEmpty()) {
-            return $this->randomService->getRandomElement($players->getMushPlayer()->toArray());
-        }
-
         return $this->randomService->getRandomElement($alphaMushs->toArray());
+    }
+
+    private function randomPlayersWithout(Player $selectedAlphaMush): array
+    {
+        $players = $this->player->getDaedalus()->getPlayers()->getAllExcept($selectedAlphaMush)->toArray();
+
+        return $this->randomService->getRandomElements($players, $this->numberOfNames() - 1);
     }
 
     private function numberOfDaysElapsed(): int

@@ -55,7 +55,6 @@ final class PrintZeListCest extends AbstractFunctionalTest
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->givenSomeExtraPlayersAreCreated($I);
         $this->givenATabulatrixInTheRoom();
         $this->givenKuanTiIsAlphaMush();
     }
@@ -96,6 +95,19 @@ final class PrintZeListCest extends AbstractFunctionalTest
 
     public function zeListShouldContainEightNamesAtDayOne(FunctionalTester $I): void
     {
+        $this->givenSomeExtraPlayersAreCreated(
+            players: [
+                CharacterEnum::CHAO,
+                CharacterEnum::TERRENCE,
+                CharacterEnum::JANICE,
+                CharacterEnum::ELEESHA,
+                CharacterEnum::STEPHEN,
+                CharacterEnum::FINOLA,
+                CharacterEnum::RALUCA,
+            ],
+            I: $I
+        );
+
         $this->givenChunIsATracker();
 
         $this->whenChunPrintsZeList();
@@ -105,6 +117,19 @@ final class PrintZeListCest extends AbstractFunctionalTest
 
     public function zeListShouldContainThreeNamesAtDaySix(FunctionalTester $I): void
     {
+        $this->givenSomeExtraPlayersAreCreated(
+            players: [
+                CharacterEnum::CHAO,
+                CharacterEnum::TERRENCE,
+                CharacterEnum::JANICE,
+                CharacterEnum::ELEESHA,
+                CharacterEnum::STEPHEN,
+                CharacterEnum::FINOLA,
+                CharacterEnum::RALUCA,
+            ],
+            I: $I
+        );
+
         $this->givenDaedalusHasBeenCreatedDaysAgo(5);
 
         $this->givenChunIsATracker();
@@ -116,6 +141,19 @@ final class PrintZeListCest extends AbstractFunctionalTest
 
     public function zeListShouldContainAtLeastOneAlphaMush(FunctionalTester $I): void
     {
+        $this->givenSomeExtraPlayersAreCreated(
+            players: [
+                CharacterEnum::CHAO,
+                CharacterEnum::TERRENCE,
+                CharacterEnum::JANICE,
+                CharacterEnum::ELEESHA,
+                CharacterEnum::STEPHEN,
+                CharacterEnum::FINOLA,
+                CharacterEnum::RALUCA,
+            ],
+            I: $I
+        );
+
         $this->givenDaedalusHasBeenCreatedDaysAgo(8);
 
         $this->givenChunIsATracker();
@@ -167,9 +205,17 @@ final class PrintZeListCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenSomeExtraPlayersAreCreated(FunctionalTester $I): void
+    public function shouldNotPrintAlphaMushTwice(FunctionalTester $I): void
     {
-        $players = [CharacterEnum::CHAO, CharacterEnum::TERRENCE, CharacterEnum::JANICE, CharacterEnum::ELEESHA, CharacterEnum::STEPHEN, CharacterEnum::FINOLA, CharacterEnum::RALUCA];
+        $this->givenChunIsATracker();
+
+        $this->whenChunPrintsZeList();
+
+        $this->thenZeListShouldContainNumberOfNames(2, $I);
+    }
+
+    private function givenSomeExtraPlayersAreCreated(array $players, FunctionalTester $I): void
+    {
         foreach ($players as $player) {
             $this->addPlayerByCharacter($I, $this->daedalus, $player);
         }

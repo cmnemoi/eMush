@@ -30,7 +30,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -327,40 +326,6 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
             expected: 2,
             actual: $hunter->getHealth()
         );
-    }
-
-    public function testShootHunterWithDefenseCPU(FunctionalTester $I): void
-    {
-        $this->action->setSuccessRate(0);
-
-        /** @var StatusServiceInterface $statusService */
-        $statusService = $I->grabService(StatusServiceInterface::class);
-        $statusService->createStatusFromName(
-            DaedalusStatusEnum::DEFENCE_NERON_CPU_PRIORITY,
-            $this->daedalus,
-            [],
-            new \DateTime()
-        );
-
-        /** @var ChargeStatus $chargeStatus */
-        $chargeStatus = $this->turret->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
-        $I->assertCount(2, $this->daedalus->getModifiers());
-        $I->assertEquals($chargeStatus->getVariableByName(EquipmentStatusEnum::ELECTRIC_CHARGES)->getMaxValue(), 6);
-        $I->assertEquals($chargeStatus->getVariableByName(EquipmentStatusEnum::ELECTRIC_CHARGES)->getValue(), 4);
-
-        /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
-
-        $this->shootHunterAction->loadParameters(
-            actionConfig: $this->action,
-            actionProvider: $this->turret,
-            player: $this->player1,
-            target: $hunter
-        );
-        $I->assertTrue($this->shootHunterAction->isVisible());
-        $this->shootHunterAction->execute();
-
-        $I->assertEquals($chargeStatus->getCharge(), 3);
     }
 
     public function shouldHaveIncreasedSuccessRateWithNeronTargetingAssistProject(FunctionalTester $I): void

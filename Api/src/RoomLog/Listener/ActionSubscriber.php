@@ -93,15 +93,12 @@ final class ActionSubscriber implements EventSubscriberInterface
             default => null,
         };
 
-        $content = $actionResult->getContent();
-        if ($content !== null) {
-            $this->createContentLog($event, $content);
-        }
-
         if ($event->shouldCreateLogNoticedLog($this->d100Roll) && ($unnoticedSecretRevealedLog = $this->getUnnoticedSecretRevealedLog($player))) {
             $this->createObservantNoticeSomethingLog($player);
             $this->markLogAsNoticed($unnoticedSecretRevealedLog);
         }
+
+        $this->createContentLog($event, $actionResult->getContent());
     }
 
     private function createForceGetUpLog(Player $player): void
@@ -164,8 +161,13 @@ final class ActionSubscriber implements EventSubscriberInterface
         );
     }
 
-    private function createContentLog(ActionEvent $event, string $content): void
+    private function createContentLog(ActionEvent $event): void
     {
+        if ($event->actionResultDoesNotHaveContent()) {
+            return;
+        }
+
+        $actionResult = $event->getActionResultOrThrow();
         $player = $event->getAuthor();
 
         $this->roomLogService->createLog(
@@ -174,7 +176,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             VisibilityEnum::PRIVATE,
             'actions_log',
             $player,
-            [$player->getLogKey() => $player->getLogName(), 'content' => $content],
+            [$player->getLogKey() => $player->getLogName(), 'content' => $actionResult->getContentOrThrow()],
             new \DateTime('now')
         );
     }

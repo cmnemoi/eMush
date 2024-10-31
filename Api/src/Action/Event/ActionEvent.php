@@ -196,4 +196,9 @@ class ActionEvent extends AbstractGameEvent
 
         return $player->getPlace()->hasAlivePlayerWithSkill(SkillEnum::OBSERVANT) && $d100Roll->isSuccessful(self::OBSERVANT_REVEAL_CHANCE);
     }
+
+    public function actionResultDoesNotHaveContent(): bool
+    {
+        return $this->getActionResult()->doesNotHaveContent();
+    }
 }

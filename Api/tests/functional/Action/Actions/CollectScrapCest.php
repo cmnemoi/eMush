@@ -328,7 +328,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
         );
         $this->eventService->callEvent($hunterEvent, HunterPoolEvent::UNPOOL_HUNTERS);
         $I->assertNotEmpty($this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::ASTEROID));
-        $I->assertEmpty($this->daedalus->getAttackingHunters()->getAllHuntersExcept(HunterEnum::ASTEROID));
+        $I->assertEmpty($this->daedalus->getAttackingHunters()->getAllExceptType(HunterEnum::ASTEROID));
 
         // when player collects scrap
         $this->collectScrapAction->loadParameters(

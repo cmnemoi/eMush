@@ -99,7 +99,7 @@ final class CollectScrap extends AbstractAction
             $this->moveScrapToPatrolShipPlace($scrap, $patrolShipPlace);
         }
 
-        if ($daedalus->getAttackingHunters()->getAllHuntersExcept(HunterEnum::ASTEROID)->count() > 0) {
+        if ($daedalus->getAttackingHunters()->getAllExceptType(HunterEnum::ASTEROID)->count() > 0) {
             $this->damagePatrolShip($patrolShipMechanic, $patrolShipPlace);
             $this->damagePlayer($patrolShipMechanic, $patrolShipPlace);
         }

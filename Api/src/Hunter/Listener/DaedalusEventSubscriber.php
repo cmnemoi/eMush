@@ -66,7 +66,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         }
         $this->hunterService->persist($huntersToPutInPool->toArray());
 
-        $huntersToDelete = $daedalus->getAttackingHunters()->getAllHuntersExcept(HunterEnum::TRAX);
+        $huntersToDelete = $daedalus->getAttackingHunters()->getAllExceptType(HunterEnum::TRAX);
         $this->hunterService->delete($huntersToDelete->toArray());
     }
 

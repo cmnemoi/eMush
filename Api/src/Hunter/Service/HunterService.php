@@ -29,6 +29,7 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -389,11 +390,14 @@ final class HunterService implements HunterServiceInterface
         $selectedTarget = new HunterTarget($hunter);
         $hunter->setTarget($selectedTarget);
 
+        $this->handleMeridonScrambler($hunter);
+
         $targetProbabilities = $hunter->getHunterConfig()->getTargetProbabilities();
 
         // First, try to aim at one patrol ship in battle
+        $daedalus = $hunter->getDaedalus();
         $patrolShips = EquipmentEnum::getPatrolShips()
-            ->map(fn (string $patrolShip) => $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShip, $hunter->getDaedalus())->first())
+            ->map(fn (string $patrolShip) => $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShip, $daedalus)->first())
             ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment);
         $patrolShipsInBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
@@ -496,5 +500,24 @@ final class HunterService implements HunterServiceInterface
         );
 
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function handleMeridonScrambler(Hunter $hunter): void
+    {
+        $hunterTarget = $hunter->getTargetOrThrow();
+        $daedalus = $hunter->getDaedalus();
+        $meridonScrambler = $daedalus->getProjectByName(ProjectName::MERIDON_SCRAMBLER);
+
+        if ($meridonScrambler->isFinished() && $this->randomService->isSuccessful($meridonScrambler->getActivationRate())) {
+            $attackingHunters = $daedalus->getAttackingHunters()->getAllExcept($hunter);
+            if ($attackingHunters->isEmpty()) {
+                return;
+            }
+
+            $randomHunter = $this->randomService->getRandomElement($attackingHunters->toArray());
+            $hunterTarget->setTargetEntity($randomHunter);
+
+            return;
+        }
     }
 }

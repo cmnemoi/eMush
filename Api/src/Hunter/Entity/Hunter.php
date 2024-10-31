@@ -27,7 +27,7 @@ use Mush\Status\Enum\HunterStatusEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter')]
-class Hunter implements GameVariableHolderInterface, LogParameterInterface, StatusHolderInterface, ActionHolderInterface
+class Hunter implements GameVariableHolderInterface, LogParameterInterface, StatusHolderInterface, ActionHolderInterface, HunterTargetEntityInterface
 {
     use TargetStatusTrait;
 
@@ -93,6 +93,15 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
 
     public function getTarget(): ?HunterTarget
     {
+        return $this->target;
+    }
+
+    public function getTargetOrThrow(): HunterTarget
+    {
+        if ($this->target === null) {
+            throw new \RuntimeException('Hunter has no target');
+        }
+
         return $this->target;
     }
 
@@ -289,5 +298,20 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     public function getDamageRange(): ProbaCollection
     {
         return $this->getHunterConfig()->getDamageRange();
+    }
+
+    public function isInAPatrolShip(): false
+    {
+        return false;
+    }
+
+    public function isInSpace(): false
+    {
+        return false;
+    }
+
+    public function isInSpaceBattle(): bool
+    {
+        return $this->isInPool() === false;
     }
 }

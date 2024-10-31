@@ -23,7 +23,7 @@ class HunterCollection extends ArrayCollection
     /**
      * Returns a `HunterCollection` with all hunters except the specified type.
      */
-    public function getAllHuntersExcept(string $type): self
+    public function getAllExceptType(string $type): self
     {
         return $this->filter(static fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() !== $type));
     }
@@ -65,5 +65,10 @@ class HunterCollection extends ArrayCollection
         $this->map(static fn (Hunter $hunter) => $probaCollection->setElementProbability($hunter->getId(), $hunter->getHunterConfig()->getDrawWeight()));
 
         return $probaCollection;
+    }
+
+    public function getAllExcept(Hunter $hunter): self
+    {
+        return $this->filter(static fn (Hunter $hunterToFilter) => $hunterToFilter->notEquals($hunter));
     }
 }

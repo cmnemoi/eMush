@@ -72,7 +72,8 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
         if ($replaceEquipmentConfig->shouldReplaceInSpecificPlace()) {
             return $this->gameEquipmentService->findEquipmentByNameAndPlace(
                 name: $replaceEquipmentConfig->getReplacedEquipmentName(),
-                place: $daedalus->getPlaceByNameOrThrow($replaceEquipmentConfig->getPlaceName())
+                place: $daedalus->getPlaceByNameOrThrow($replaceEquipmentConfig->getPlaceName()),
+                quantity: $replaceEquipmentConfig->getQuantity()
             );
         }
 

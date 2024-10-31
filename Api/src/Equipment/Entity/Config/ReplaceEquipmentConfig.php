@@ -27,16 +27,21 @@ class ReplaceEquipmentConfig
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
     private string $placeName;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 1])]
+    private int $quantity;
+
     public function __construct(
         string $name = '',
         string $equipmentName = '',
         string $replacedEquipmentName = '',
         string $placeName = '',
+        int $quantity = 1,
     ) {
         $this->name = $name;
         $this->equipmentName = $equipmentName;
         $this->replacedEquipmentName = $replacedEquipmentName;
         $this->placeName = $placeName;
+        $this->quantity = $quantity;
     }
 
     public function getName(): string
@@ -59,6 +64,11 @@ class ReplaceEquipmentConfig
         return $this->placeName;
     }
 
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
     public function shouldReplaceInSpecificPlace(): bool
     {
         return $this->placeName !== '';
@@ -70,6 +80,7 @@ class ReplaceEquipmentConfig
         $this->equipmentName = $dto->equipmentName;
         $this->replacedEquipmentName = $dto->replaceEquipmentName;
         $this->placeName = $dto->placeName;
+        $this->quantity = $dto->quantity;
 
         return $this;
     }

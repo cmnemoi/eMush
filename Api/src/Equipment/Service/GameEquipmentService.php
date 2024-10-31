@@ -101,9 +101,9 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
         return new ArrayCollection($this->repository->findBy(['owner' => $player]));
     }
 
-    public function findEquipmentByNameAndPlace(string $name, Place $place): ArrayCollection
+    public function findEquipmentByNameAndPlace(string $name, Place $place, int $quantity): ArrayCollection
     {
-        return new ArrayCollection($this->repository->findEquipmentByNameAndPlace($name, $place));
+        return new ArrayCollection($this->repository->findEquipmentByNameAndPlace($name, $place, $quantity));
     }
 
     public function createGameEquipmentFromName(

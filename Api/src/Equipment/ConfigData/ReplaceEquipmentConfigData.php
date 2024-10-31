@@ -44,6 +44,7 @@ abstract class ReplaceEquipmentConfigData
                 equipmentName: ItemEnum::NATAMY_RIFLE,
                 replaceEquipmentName: ItemEnum::BLASTER,
                 placeName: RoomEnum::LABORATORY,
+                quantity: 1,
             ),
         ];
     }

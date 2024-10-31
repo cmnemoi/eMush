@@ -129,7 +129,7 @@ class GameEquipmentRepository extends ServiceEntityRepository implements GameEqu
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function findEquipmentByNameAndPlace(string $name, Place $place): array
+    public function findEquipmentByNameAndPlace(string $name, Place $place, int $limit): array
     {
         $queryBuilder = $this->createQueryBuilder('equipment');
 
@@ -138,7 +138,8 @@ class GameEquipmentRepository extends ServiceEntityRepository implements GameEqu
             ->where('equipment_place = :place')
             ->andWhere('equipment.name = :name')
             ->setParameter('place', $place)
-            ->setParameter('name', $name);
+            ->setParameter('name', $name)
+            ->setMaxResults($limit);
 
         return $queryBuilder->getQuery()->getResult();
     }

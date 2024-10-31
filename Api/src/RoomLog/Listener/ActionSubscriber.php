@@ -169,7 +169,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         }
 
         $door = $event->getDoorActionTargetOrThrow();
-        $player = $event->getPlayerActionTargetOrThrow();
+        $player = $event->getAuthor();
 
         $this->roomLogService->createLog(
             ActionLogEnum::ENTER_ROOM,
@@ -193,7 +193,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         }
 
         $door = $event->getDoorActionTargetOrThrow();
-        $player = $event->getPlayerActionTargetOrThrow();
+        $player = $event->getAuthor();
 
         $this->roomLogService->createLog(
             ActionLogEnum::EXIT_ROOM,

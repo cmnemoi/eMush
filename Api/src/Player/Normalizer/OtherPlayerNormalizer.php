@@ -38,7 +38,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Player::class => true,
+            Player::class => false,
         ];
     }
 

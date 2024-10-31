@@ -15,7 +15,7 @@ final readonly class CommanderMissionNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            CommanderMission::class => true,
+            CommanderMission::class => false,
         ];
     }
 

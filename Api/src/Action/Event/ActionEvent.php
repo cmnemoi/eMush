@@ -206,6 +206,7 @@ class ActionEvent extends AbstractGameEvent
     {
         return $this->hasAnyTag([
             ActionEnum::CONVERT_CAT->toString(),
+            ActionEnum::GO_BERSERK->toString(),
         ]);
     }
 }

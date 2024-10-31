@@ -60,7 +60,7 @@ const props = defineProps({
 .left-section, .right-section {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  margin-left: auto;
 }
 
 .character-list {

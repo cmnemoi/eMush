@@ -459,10 +459,18 @@ final class ProjectModifierConfigFixtures extends Fixture
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_TURRET_MAX_CHARGE_4);
 
+        $holderNameTurretActivationRequirement = ModifierActivationRequirement::fromConfigData(
+            ModifierActivationRequirementData::getByName('holder_name_turret')
+        );
+        $this->manager->persist($holderNameTurretActivationRequirement);
+        $this->addReference($holderNameTurretActivationRequirement->getName(), $holderNameTurretActivationRequirement);
+
         $teslaSup2XMaxChargesModifier = DirectModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::TURRET_MAX_CHARGES_PLUS_4)
         );
-        $teslaSup2XMaxChargesModifier->setTriggeredEvent($eventConfig);
+        $teslaSup2XMaxChargesModifier
+            ->setTriggeredEvent($eventConfig)
+            ->addEventActivationRequirement($holderNameTurretActivationRequirement);
         $this->manager->persist($teslaSup2XMaxChargesModifier);
         $this->addReference($teslaSup2XMaxChargesModifier->getName(), $teslaSup2XMaxChargesModifier);
 

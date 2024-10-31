@@ -7,11 +7,9 @@ namespace Mush\tests\functional\Project;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -42,7 +40,7 @@ final class TeslaSup2xCest extends AbstractFunctionalTest
         $this->thenTurretShouldHaveMaxCharges(8, $I);
     }
 
-    public function shouldNotDoubleOtherEquipmentMaxCharges(FunctionalTester $I): void
+    public function shouldNotChangeOtherEquipmentMaxCharges(FunctionalTester $I): void
     {
         $this->givenBlasterHasMaxCharges(3);
 
@@ -56,6 +54,15 @@ final class TeslaSup2xCest extends AbstractFunctionalTest
         $this->whenTeslaSup2xIsActivated($I);
 
         $this->thenTurretShouldHaveCharges(8, $I);
+    }
+
+    public function shouldNotChangeOtherEquipmentCharges(FunctionalTester $I): void
+    {
+        $this->givenBlasterHasCharges(3);
+
+        $this->whenTeslaSup2xIsActivated($I);
+
+        $this->thenBlasterShouldHaveCharges(3, $I);
     }
 
     private function givenTurretInRoom(): void
@@ -88,6 +95,11 @@ final class TeslaSup2xCest extends AbstractFunctionalTest
         // nothing to do
     }
 
+    private function givenBlasterHasCharges(int $charges): void
+    {
+        // nothing to do
+    }
+
     private function whenTeslaSup2xIsActivated(FunctionalTester $I): void
     {
         $this->finishProject(
@@ -113,5 +125,11 @@ final class TeslaSup2xCest extends AbstractFunctionalTest
     {
         $chargeStatus = $this->blaster->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
         $I->assertEquals($charges, $chargeStatus->getMaxChargeOrThrow());
+    }
+
+    private function thenBlasterShouldHaveCharges(int $charges, FunctionalTester $I): void
+    {
+        $chargeStatus = $this->blaster->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $I->assertEquals($charges, $chargeStatus->getCharge());
     }
 }

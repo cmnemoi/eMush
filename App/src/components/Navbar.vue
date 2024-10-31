@@ -60,15 +60,24 @@ const props = defineProps({
 
 .character-list {
   display: flex;
-  gap: 4px;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
 }
 
 .character-avatar {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background-color: #1e90ff;
   padding: 2px;
+  transition: transform 0.2s ease;
+}
+
+.character-avatar:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .avatar-inner {
@@ -79,8 +88,8 @@ const props = defineProps({
 }
 
 .character-add {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.2);
   display: flex;
@@ -88,6 +97,12 @@ const props = defineProps({
   justify-content: center;
   font-size: 1.25rem;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.character-add:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
 }
 
 .points {

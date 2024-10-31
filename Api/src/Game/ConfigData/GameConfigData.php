@@ -614,6 +614,7 @@ class GameConfigData
                 ProjectName::BEAT_BOX,
                 ProjectName::ANABOLICS,
                 ProjectName::CREATE_MYCOSCAN,
+                ProjectName::PERPETUAL_HYDRATION,
                 ProjectName::MUSH_HUNTER_ZC16H,
                 ProjectName::MUSH_LANGUAGE,
                 ProjectName::MUSH_RACES,

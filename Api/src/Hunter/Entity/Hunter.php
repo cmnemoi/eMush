@@ -13,10 +13,12 @@ use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
@@ -298,6 +300,18 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     public function getDamageRange(): ProbaCollection
     {
         return $this->getHunterConfig()->getDamageRange();
+    }
+
+    public function aimAtDaedalus(): void
+    {
+        $this->setTarget(new HunterTarget($this));
+    }
+
+    public function isScrambled(D100RollServiceInterface $d100Roll): bool
+    {
+        $meridonScrambler = $this->getDaedalus()->getProjectByName(ProjectName::MERIDON_SCRAMBLER);
+
+        return $meridonScrambler->isFinished() && $d100Roll->isSuccessful($meridonScrambler->getActivationRate());
     }
 
     public function isInAPatrolShip(): false

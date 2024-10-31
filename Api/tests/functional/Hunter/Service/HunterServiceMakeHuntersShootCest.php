@@ -663,6 +663,10 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $project = new Project($projectConfig, $daedalus);
         $I->haveInRepository($project);
 
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::MERIDON_SCRAMBLER]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+
         $this->daedalus->addProject($project);
 
         /** @var GameConfig $gameConfig */

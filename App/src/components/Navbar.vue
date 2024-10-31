@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="right-section">
-            <button class="panel-button" @click="$emit('toggle-panel')">
+            <button class="panel-button" @click="$emit(isPanelOpen ? 'close-panel' : 'toggle-panel')">
                 <span class="panel-icon">☰</span>
             </button>
         </div>

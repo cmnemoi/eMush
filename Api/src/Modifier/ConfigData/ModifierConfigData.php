@@ -3806,7 +3806,7 @@ abstract class ModifierConfigData
             'type' => 'direct_modifier',
             'targetFilters' => [],
             'eventActivationRequirements' => ['holder_name_turret'],
-            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_TURRET_MAX_CHARGE_4,
+            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_TURRET_CHARGE_4,
             'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
         ],

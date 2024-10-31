@@ -6,31 +6,35 @@ namespace Mush\tests\functional\Project;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Event\VariableEventInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class TeslaSup2xCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
     private GameEquipment $turret;
+    private GameEquipment $blaster;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenTurretInRoom();
+        $this->givenBlasterInRoom();
     }
 
     public function shouldDoubleMaxTurretCharges(FunctionalTester $I): void
-    {   
+    {
         $this->givenTurretHasMaxCharges(4);
 
         $this->whenTeslaSup2xIsActivated($I);
@@ -38,7 +42,16 @@ final class TeslaSup2xCest extends AbstractFunctionalTest
         $this->thenTurretShouldHaveMaxCharges(8, $I);
     }
 
-    public function shouldLoadTurretChargeToMax(FunctionalTester $I): void
+    public function shouldNotDoubleOtherEquipmentMaxCharges(FunctionalTester $I): void
+    {
+        $this->givenBlasterHasMaxCharges(3);
+
+        $this->whenTeslaSup2xIsActivated($I);
+
+        $this->thenBlasterShouldHaveMaxCharges(3, $I);
+    }
+
+    public function shouldLoadTurretChargesToMax(FunctionalTester $I): void
     {
         $this->whenTeslaSup2xIsActivated($I);
 
@@ -55,8 +68,23 @@ final class TeslaSup2xCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenBlasterInRoom(): void
+    {
+        $this->blaster = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::BLASTER,
+            equipmentHolder: $this->kuanTi,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function givenTurretHasMaxCharges(int $charges): void
-    {   
+    {
+        // nothing to do
+    }
+
+    private function givenBlasterHasMaxCharges(int $charges): void
+    {
         // nothing to do
     }
 
@@ -70,7 +98,7 @@ final class TeslaSup2xCest extends AbstractFunctionalTest
     }
 
     private function thenTurretShouldHaveMaxCharges(int $charges, FunctionalTester $I): void
-    {   
+    {
         $chargeStatus = $this->turret->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
         $I->assertEquals($charges, $chargeStatus->getMaxChargeOrThrow());
     }
@@ -79,5 +107,11 @@ final class TeslaSup2xCest extends AbstractFunctionalTest
     {
         $chargeStatus = $this->turret->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
         $I->assertEquals($charges, $chargeStatus->getCharge());
+    }
+
+    private function thenBlasterShouldHaveMaxCharges(int $charges, FunctionalTester $I): void
+    {
+        $chargeStatus = $this->blaster->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $I->assertEquals($charges, $chargeStatus->getMaxChargeOrThrow());
     }
 }

@@ -466,6 +466,17 @@ final class ProjectModifierConfigFixtures extends Fixture
         $this->manager->persist($teslaSup2XMaxChargesModifier);
         $this->addReference($teslaSup2XMaxChargesModifier->getName(), $teslaSup2XMaxChargesModifier);
 
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_TURRET_CHARGE_4);
+
+        $teslaSup2XChargesModifier = DirectModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::TURRET_CHARGES_PLUS_4)
+        );
+        $teslaSup2XChargesModifier
+            ->setTriggeredEvent($eventConfig);
+        $this->manager->persist($teslaSup2XChargesModifier);
+        $this->addReference($teslaSup2XChargesModifier->getName(), $teslaSup2XChargesModifier);
+
         $this->manager->flush();
     }
 

@@ -860,6 +860,7 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [
                     ModifierNameEnum::TURRET_MAX_CHARGES_PLUS_4,
+                    ModifierNameEnum::TURRET_CHARGES_PLUS_4,
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],

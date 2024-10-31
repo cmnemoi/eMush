@@ -2056,7 +2056,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => ModifierNameEnum::TURRET_MAX_CHARGES_PLUS_4,
-            'modifierName' => ModifierNameEnum::TURRET_MAX_CHARGES_PLUS_4,
+            'modifierName' => ModifierNameEnum::TESLA_SUP2X_TURRET_MAX_CHARGES_MODIFIER,
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
             'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
             'type' => 'direct_modifier',
@@ -2065,25 +2065,6 @@ abstract class ModifierConfigData
             'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_TURRET_MAX_CHARGE_4,
             'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
-        ],
-        [
-            'name' => 'modifier_for_daedalus_random50_+1_charge_turret_on_recharge',
-            'modifierName' => null,
-            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
-            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
-            'applyOnTarget' => false,
-            'modifierRange' => 'daedalus',
-            'type' => 'variable_event_modifier',
-            'visibility' => null,
-            'delta' => 1.0,
-            'targetVariable' => EquipmentStatusEnum::ELECTRIC_CHARGES,
-            'mode' => 'additive',
-            'modifierActivationRequirements' => ['random_50'],
-            'tagConstraints' => [
-                EquipmentEnum::TURRET_COMMAND => ModifierRequirementEnum::ALL_TAGS,
-                VariableEventInterface::GAIN => ModifierRequirementEnum::ALL_TAGS,
-            ],
         ],
         [
             'name' => 'rope_modifier_for_player_prevent_change.variable_if_reason_accident_and_variable_healthPoint',
@@ -3816,6 +3797,18 @@ abstract class ModifierConfigData
                 ActionEnum::HEAL->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::SELF_HEAL->value => ModifierRequirementEnum::ANY_TAGS,
             ],
+        ],
+        [
+            'name' => ModifierNameEnum::TURRET_CHARGES_PLUS_4,
+            'modifierName' => ModifierNameEnum::TESLA_SUP2X_TURRET_CHARGES_MODIFIER,
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => ['holder_name_turret'],
+            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_TURRET_MAX_CHARGE_4,
+            'modifierActivationRequirements' => [],
+            'revertOnRemove' => true,
         ],
     ];
 

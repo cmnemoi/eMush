@@ -285,7 +285,7 @@ const props = defineProps({
   color: white;
   font-weight: bold;
   text-transform: uppercase;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 1rem;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;

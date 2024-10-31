@@ -154,10 +154,8 @@ final class PrintZeList extends AbstractAction
     private function selectedPlayers(): array
     {
         $selectedAlphaMush = $this->selectedAlphaMush();
-        $players = $this->player->getDaedalus()->getPlayers()->getAllExcept($selectedAlphaMush)->toArray();
-        $randomPlayers = $this->randomService->getRandomElements($players, $this->numberOfNames() - 1);
 
-        $selectedPlayers = [$selectedAlphaMush, ...$randomPlayers];
+        $selectedPlayers = [$selectedAlphaMush, ...$this->randomPlayersWithout($selectedAlphaMush)];
         shuffle($selectedPlayers);
 
         return $selectedPlayers;
@@ -169,6 +167,13 @@ final class PrintZeList extends AbstractAction
         $alphaMushs = $players->filter(static fn (Player $player) => $player->isAlphaMush());
 
         return $this->randomService->getRandomElement($alphaMushs->toArray());
+    }
+
+    private function randomPlayersWithout(Player $selectedAlphaMush): array
+    {
+        $players = $this->player->getDaedalus()->getPlayers()->getAllExcept($selectedAlphaMush)->toArray();
+
+        return $this->randomService->getRandomElements($players, $this->numberOfNames() - 1);
     }
 
     private function numberOfDaysElapsed(): int

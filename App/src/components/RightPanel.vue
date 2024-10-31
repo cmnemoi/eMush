@@ -3,7 +3,7 @@
     <div class="side-panel" :class="{ 'panel-open': isPanelOpen }">
         <div class="panel-header">
             <h2>Notifications</h2>
-            <button class="close-button" @click="closePanel">×</button>
+            <button class="close-button" @click="$emit('close-panel')">×</button>
         </div>
 
         <div class="settings-section">

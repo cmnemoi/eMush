@@ -131,9 +131,9 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
         return $this;
     }
 
-    public function isNotPublicOrRevealed(): bool
+    public function isPublicOrRevealed(): bool
     {
-        return $this->getVisibility() !== VisibilityEnum::PUBLIC && $this->getVisibility() !== VisibilityEnum::REVEALED;
+        return $this->getVisibility() === VisibilityEnum::PUBLIC || $this->getVisibility() === VisibilityEnum::REVEALED;
     }
 
     public function getLog(): string

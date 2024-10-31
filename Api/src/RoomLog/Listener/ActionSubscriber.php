@@ -49,7 +49,11 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public function onResultAction(ActionEvent $event): void
     {
-        $this->handleCatNoises($event);
+        $actionLog = $this->roomLogService->createLogFromActionEvent($event);
+
+        if ($actionLog?->isPublicOrRevealed()) {
+            $this->handleCatNoises($event);
+        }
     }
 
     public function onPostAction(ActionEvent $event): void
@@ -255,11 +259,6 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function handleCatNoises(ActionEvent $event): void
     {
-        $actionLog = $this->roomLogService->createLogFromActionEvent($event);
-        if ($actionLog?->isNotPublicOrRevealed()) {
-            return;
-        }
-
         if ($this->shotAtCatAndFailed($event)) {
             $this->createCatHissLog($event);
 

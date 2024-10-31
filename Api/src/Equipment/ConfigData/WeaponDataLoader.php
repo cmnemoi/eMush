@@ -16,20 +16,14 @@ class WeaponDataLoader extends MechanicsDataLoader
             $weapon = $this->mechanicsRepository->findOneBy(['name' => $weaponData['name']]);
 
             if ($weapon === null) {
-                $weapon = new Weapon();
+                $weapon = Weapon::fromConfigData($weaponData);
             } elseif (!$weapon instanceof Weapon) {
                 $this->entityManager->remove($weapon);
-                $weapon = new Weapon();
+                $this->entityManager->flush();
+                $weapon = Weapon::fromConfigData($weaponData);
             }
 
-            $weapon
-                ->setName($weaponData['name'])
-                ->setBaseAccuracy($weaponData['baseAccuracy'])
-                ->setBaseDamageRange($weaponData['baseDamageRange'])
-                ->setExpeditionBonus($weaponData['expeditionBonus'])
-                ->setCriticalSuccessRate($weaponData['criticalSuccessRate'])
-                ->setCriticalFailRate($weaponData['criticalFailRate'])
-                ->setOneShotRate($weaponData['oneShotRate']);
+            $weapon->updateFromConfigData($weaponData);
             $this->setMechanicsActions($weapon, $weaponData);
 
             $this->entityManager->persist($weapon);

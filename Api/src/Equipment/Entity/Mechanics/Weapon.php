@@ -4,6 +4,7 @@ namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\ValueObject\DamageSpread;
 use Mush\Game\Entity\Collection\ProbaCollection;
 
 #[ORM\Entity]
@@ -27,10 +28,50 @@ class Weapon extends Tool
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $oneShotRate = 0;
 
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $successfulEventKeys = [];
+
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $failedEventKeys = [];
+
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $damageSpread = [];
+
     public function __construct()
     {
         parent::__construct();
         $this->baseDamageRange = [];
+    }
+
+    public static function fromConfigData(array $configData): self
+    {
+        $weapon = new self();
+        $weapon
+            ->setName($configData['name'])
+            ->setBaseAccuracy($configData['baseAccuracy'])
+            ->setBaseDamageRange($configData['baseDamageRange'])
+            ->setCriticalSuccessRate($configData['criticalSuccessRate'])
+            ->setCriticalFailRate($configData['criticalFailRate'])
+            ->setOneShotRate($configData['oneShotRate'])
+            ->setSuccessfulEventKeys($configData['successfulEventKeys'])
+            ->setFailedEventKeys($configData['failedEventKeys'])
+            ->setDamageSpread($configData['damageSpread']);
+
+        return $weapon;
+    }
+
+    public function updateFromConfigData(array $configData): void
+    {
+        $this->setName($configData['name']);
+        $this->baseAccuracy = $configData['baseAccuracy'];
+        $this->baseDamageRange = $configData['baseDamageRange'];
+        $this->expeditionBonus = $configData['expeditionBonus'];
+        $this->criticalSuccessRate = $configData['criticalSuccessRate'];
+        $this->criticalFailRate = $configData['criticalFailRate'];
+        $this->oneShotRate = $configData['oneShotRate'];
+        $this->successfulEventKeys = $configData['successfulEventKeys'];
+        $this->failedEventKeys = $configData['failedEventKeys'];
+        $this->damageSpread = $configData['damageSpread'];
     }
 
     public function getMechanics(): array
@@ -109,6 +150,42 @@ class Weapon extends Tool
     public function setOneShotRate(int $oneShotRate): self
     {
         $this->oneShotRate = $oneShotRate;
+
+        return $this;
+    }
+
+    public function getSuccessfulEventKeys(): ProbaCollection
+    {
+        return new ProbaCollection($this->successfulEventKeys);
+    }
+
+    public function setSuccessfulEventKeys(array $successfulEventKeys): self
+    {
+        $this->successfulEventKeys = $successfulEventKeys;
+
+        return $this;
+    }
+
+    public function getFailedEventKeys(): ProbaCollection
+    {
+        return new ProbaCollection($this->failedEventKeys);
+    }
+
+    public function setFailedEventKeys(array $failedEventKeys): self
+    {
+        $this->failedEventKeys = $failedEventKeys;
+
+        return $this;
+    }
+
+    public function getDamageSpread(): DamageSpread
+    {
+        return DamageSpread::fromArray($this->damageSpread);
+    }
+
+    public function setDamageSpread(array $damageSpread): self
+    {
+        $this->damageSpread = $damageSpread;
 
         return $this;
     }

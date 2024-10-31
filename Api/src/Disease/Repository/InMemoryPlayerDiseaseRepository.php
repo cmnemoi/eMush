@@ -21,6 +21,7 @@ final class InMemoryPlayerDiseaseRepository implements PlayerDiseaseRepositoryIn
 
     public function delete(PlayerDisease $playerDisease): void
     {
+        $playerDisease->getPlayer()->removeMedicalCondition($playerDisease);
         unset($this->diseases[$playerDisease->getIdOrThrow()]);
     }
 
@@ -37,6 +38,11 @@ final class InMemoryPlayerDiseaseRepository implements PlayerDiseaseRepositoryIn
     public function findByIdOrNull(int $id): ?PlayerDisease
     {
         return $this->diseases[$id] ?? null;
+    }
+
+    public function count(): int
+    {
+        return \count($this->diseases);
     }
 
     private function setDiseaseId(PlayerDisease $playerDisease): void

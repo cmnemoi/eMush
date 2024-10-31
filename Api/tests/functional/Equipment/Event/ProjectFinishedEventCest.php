@@ -64,7 +64,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
     #[DataProvider(methodName: 'shouldReplaceEquipmentWhenProjectIsFinishedDataProvider')]
     public function shouldReplaceEquipmentWhenProjectIsFinished(FunctionalTester $I, Example $example): void
     {
-        $room = $this->player->getPlace();
+        $room = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
 
         // given I have the equipment to replace in the room
         $this->gameEquipmentService->createGameEquipmentFromName(
@@ -90,6 +90,64 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         $I->assertCount(
             expectedCount: 1,
             haystack: $room->getAllEquipmentsByName($example['equipmentToAdd'])
+        );
+    }
+
+    #[DataProvider(methodName: 'shouldReplaceEquipmentOnlyInSpecifiedPlaceAndQuantityDataProvider')]
+    public function shouldReplaceEquipmentOnlyInSpecifiedPlaceAndQuantity(FunctionalTester $I, Example $example): void
+    {
+        $room = $this->daedalus->getPlaceByNameOrThrow($example['place']);
+
+        // given I have the equipment to replace in the lab twice
+        for ($i = 0; $i < 2; ++$i) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: $example['equipmentToRemove'],
+                equipmentHolder: $room,
+                reasons: [],
+                time: new \DateTime()
+            );
+        }
+
+        // given I have it in space as well
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: $example['equipmentToRemove'],
+            equipmentHolder: $this->daedalus->getSpace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // when project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::from($example['project'])),
+            author: $this->chun,
+            I: $I
+        );
+
+        // then the lab should one piece of equipment to remove
+        $I->assertCount(
+            expectedCount: 1,
+            haystack: $room->getAllEquipmentsByName($example['equipmentToRemove']),
+            message: 'Lab should contain one piece of equipment to remove'
+        );
+
+        // but the lab should contain the equipment to add
+        $I->assertCount(
+            expectedCount: 1,
+            haystack: $room->getAllEquipmentsByName($example['equipmentToAdd']),
+            message: 'Lab should contain the equipment to add'
+        );
+
+        // space should still contain the equipment to remove
+        $I->assertCount(
+            expectedCount: 1,
+            haystack: $this->daedalus->getSpace()->getAllEquipmentsByName($example['equipmentToRemove']),
+            message: 'Space should still contain the equipment to remove'
+        );
+
+        // and not the equipment to add
+        $I->assertTrue(
+            condition: $this->daedalus->getSpace()->getAllEquipmentsByName($example['equipmentToAdd'])->isEmpty(),
+            message: 'Space should not contain the equipment to add'
         );
     }
 
@@ -217,6 +275,24 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'project' => ProjectName::MUSHICIDE_SOAP->value,
                 'equipmentToRemove' => GearItemEnum::SOAP,
                 'equipmentToAdd' => GearItemEnum::SUPER_SOAPER,
+            ],
+            [
+                'project' => ProjectName::NATAMY_RIFLE->value,
+                'equipmentToRemove' => ItemEnum::BLASTER,
+                'equipmentToAdd' => ItemEnum::NATAMY_RIFLE,
+            ],
+        ];
+    }
+
+    private function shouldReplaceEquipmentOnlyInSpecifiedPlaceAndQuantityDataProvider(): array
+    {
+        return [
+            [
+                'project' => ProjectName::NATAMY_RIFLE->value,
+                'equipmentToRemove' => ItemEnum::BLASTER,
+                'equipmentToAdd' => ItemEnum::NATAMY_RIFLE,
+                'place' => RoomEnum::LABORATORY,
+                'quantity' => 1,
             ],
         ];
     }

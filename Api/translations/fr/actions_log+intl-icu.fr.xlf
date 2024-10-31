@@ -908,68 +908,6 @@
                 }</target>
       </segment>
     </unit>
-    <unit id="shoot_success">
-      <segment id="shoot_success" state="translated">
-        <source>shoot_success</source>
-        <target>{version, select,
-                    1 {**{target_character}** se prend un tir bien ajusté de **{character}**}
-                    2 {Il n'y a qu'un battement de cil entre le coup de feu de **{character}** et l'impact sur **{target_character}**.}
-                    3 {Prémédité ou pas, **{character}** sort son arme et tire abondamment sur **{target_character}**.}
-                    4 {{target_character_gender, select,
-                        male {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonné pour quelques minutes.}
-                        female {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonnée pour quelques minutes.}
-                        other {invalid gender input}
-                    }}
-                    5 {**{character}** dégaine sans hésitation et fait feu sur **{target_character}**.}
-                    6 {**{character}** se retourne subitement et tire sur **{target_character}**.}
-                    other {invalid version input}
-                }</target>
-      </segment>
-    </unit>
-    <unit id="shoot_fail">
-      <segment id="shoot_fail" state="translated">
-        <source>shoot_fail</source>
-        <target>{version, select,
-                    1 {Clic...clic...**{character}** a raté une occasion...}
-                    2 {**{character}** bute sur un poney imaginaire et tombe en arrière !}
-                    3 {Clic...clic... l'arme de **{character}** est enrayée.}
-                    4 {**{character}** a fait feu sur **{target_character}** mais n'est hélas juste pas capable de viser correctement...}
-                    other {invalid version input}
-                }</target>
-      </segment>
-    </unit>
-    <unit id="shoot_critical_success">
-      <segment id="shoot_critical_success" state="translated">
-        <source>shoot_critical_success</source>
-        <target>{version, select,
-                    1 {**{target_character}** se prend un tir bien ajusté de **{character}**}
-                    2 {Il n'y a qu'un battement de cil entre le coup de feu de **{character}** et l'impact sur **{target_character}**.}
-                    3 {Prémédité ou pas, **{character}** sort son arme et tire abondamment sur **{target_character}**.}
-                    4 {{target_character_gender, select,
-                        male {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonné pour quelques minutes.}
-                        female {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonnée pour quelques minutes.}
-                        other {invalid gender input}
-                    }}
-                    5 {**{character}** dégaine sans hésitation et fait feu sur **{target_character}**.}
-                    6 {**{character}** se retourne subitement et tire sur **{target_character}**.}
-                    other {invalid version input}
-                }</target>
-      </segment>
-    </unit>
-    <unit id="shoot_critical_fail">
-      <segment id="shoot_critical_fail" state="translated">
-        <source>shoot_critical_fail</source>
-        <target>{version, select,
-                    1 {{character_gender, select,
-                        male {Le tour de magie de **{character}** est décidément raté, il retourne son arme contre lui par mégarde.}
-                        female {Le tour de magie de **{character}** est décidément raté, elle retourne son arme contre elle par mégarde.}
-                        other {invalid gender input}
-                    }}
-                    2 {La violence est le refuge de l'incompétence. **{character}** aurait mieux fait de s'abstenir. Son arme est maintenant par terre et **{target_character}** l'en sait gré.}
-                    other {invalid version input}
-                }</target>
-      </segment>
-    </unit>
     <unit id="suicide_success">
       <segment id="suicide_success" state="translated">
         <source>suicide_success</source>

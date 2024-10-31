@@ -90,9 +90,6 @@ abstract class ActionLogEnum
     public const string ATTACK_ONE_SHOT = 'attack_one_shot';
     public const string SHOOT_SUCCESS = 'shoot_success';
     public const string SHOOT_FAIL = 'shoot_fail';
-    public const string SHOOT_CRITICAL_SUCCESS = 'shoot_critical_success';
-    public const string SHOOT_CRITICAL_FAIL = 'shoot_critical_fail';
-    public const string SHOOT_ONE_SHOT = 'shoot_one_shot';
     public const string SHOOT_HUNTER_SUCCESS = 'shoot_hunter_success';
     public const string SHOOT_HUNTER_FAIL = 'shoot_hunter_fail';
     public const string TAKEOFF_SUCCESS = 'takeoff_success';
@@ -373,9 +370,6 @@ abstract class ActionLogEnum
         ActionEnum::SHOOT->value => [
             ActionOutputEnum::SUCCESS => self::SHOOT_SUCCESS,
             ActionOutputEnum::FAIL => self::SHOOT_FAIL,
-            ActionOutputEnum::CRITICAL_FAIL => self::SHOOT_CRITICAL_FAIL,
-            ActionOutputEnum::CRITICAL_SUCCESS => self::SHOOT_CRITICAL_SUCCESS,
-            ActionOutputEnum::ONE_SHOT => self::SHOOT_ONE_SHOT,
         ],
         ActionEnum::SUICIDE->value => [
             ActionOutputEnum::SUCCESS => self::SUICIDE_SUCCESS,

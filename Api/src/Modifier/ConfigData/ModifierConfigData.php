@@ -15,6 +15,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\WeaponEventType;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
@@ -547,6 +548,7 @@ abstract class ModifierConfigData
                 ActionEnum::ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
                 PlanetSectorEvent::FIGHT => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::CRITICAL_SUCCESS => ModifierRequirementEnum::NONE_TAGS,
+                WeaponEventType::CRITIC->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [

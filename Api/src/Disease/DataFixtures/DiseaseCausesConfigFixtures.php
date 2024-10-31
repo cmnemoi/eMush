@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Disease\ConfigData\DiseaseCauseConfigData;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
@@ -377,6 +378,9 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($diseaseCauseExploration);
 
+        $diseaseCauseRandomInjury = DiseaseCauseConfig::fromConfigData(DiseaseCauseConfigData::getByName(DiseaseCauseEnum::RANDOM_INJURY . '_default'));
+        $manager->persist($diseaseCauseRandomInjury);
+
         $gameConfig
             ->addDiseaseCauseConfig($diseaseCauseAlienFruit)
             ->addDiseaseCauseConfig($diseaseCausePerishedFood)
@@ -394,7 +398,8 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
             ->addDiseaseCauseConfig($diseaseCauseCriticalFailBlaster)
             ->addDiseaseCauseConfig($diseaseCauseCriticalSuccessBlaster)
             ->addDiseaseCauseConfig($alienFight)
-            ->addDiseaseCauseConfig($diseaseCauseExploration);
+            ->addDiseaseCauseConfig($diseaseCauseExploration)
+            ->addDiseaseCauseConfig($diseaseCauseRandomInjury);
 
         $manager->persist($gameConfig);
 

@@ -753,7 +753,9 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
-                'replaceEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [
+                    ReplaceEquipmentConfigData::REPLACE_1_LABORATORY_BY_NATAMY_RIFLE,
+                ],
                 'requirements' => [
                     ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::BLASTER_IN_LABORATORY,

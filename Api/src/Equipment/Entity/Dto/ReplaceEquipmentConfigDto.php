@@ -12,6 +12,8 @@ final readonly class ReplaceEquipmentConfigDto
         public string $name,
         public string $equipmentName,
         public string $replaceEquipmentName,
+        public string $placeName = '',
+        public int $quantity = 1,
     ) {}
 
     public function toEntity(): ReplaceEquipmentConfig
@@ -20,6 +22,8 @@ final readonly class ReplaceEquipmentConfigDto
             name: $this->name,
             equipmentName: $this->equipmentName,
             replacedEquipmentName: $this->replaceEquipmentName,
+            placeName: $this->placeName,
+            quantity: $this->quantity,
         );
     }
 }

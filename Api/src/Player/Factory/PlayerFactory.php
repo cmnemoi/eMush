@@ -116,6 +116,8 @@ final class PlayerFactory
     private static function setPlayerId(Player $player, int $id): void
     {
         (new \ReflectionClass($player))->getProperty('id')->setValue($player, $id);
+        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
+        (new \ReflectionClass($closedPlayer))->getProperty('id')->setValue($closedPlayer, $id);
     }
 
     private static function addCharacterConfigSkillConfigs(CharacterConfig $characterConfig): void

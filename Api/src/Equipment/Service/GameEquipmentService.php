@@ -25,6 +25,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\ContentStatus;
@@ -98,6 +99,11 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
     public function findByOwner(Player $player): ArrayCollection
     {
         return new ArrayCollection($this->repository->findBy(['owner' => $player]));
+    }
+
+    public function findEquipmentByNameAndPlace(string $name, Place $place, int $quantity): ArrayCollection
+    {
+        return new ArrayCollection($this->repository->findEquipmentByNameAndPlace($name, $place, $quantity));
     }
 
     public function createGameEquipmentFromName(

@@ -7,10 +7,13 @@ namespace Mush\Equipment\ConfigData;
 use Mush\Equipment\Entity\Dto\ReplaceEquipmentConfigDto;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Place\Enum\RoomEnum;
 
 abstract class ReplaceEquipmentConfigData
 {
     public const string REPLACE_SOAP_BY_SUPER_SOAP = 'replace_soap_by_super_soap';
+    public const string REPLACE_1_LABORATORY_BY_NATAMY_RIFLE = 'replace_1_laboratory_by_natamy_rifle';
 
     /**
      * @return ReplaceEquipmentConfigDto[]
@@ -42,6 +45,13 @@ abstract class ReplaceEquipmentConfigData
                 name: self::REPLACE_SOAP_BY_SUPER_SOAP,
                 equipmentName: GearItemEnum::SUPER_SOAPER,
                 replaceEquipmentName: GearItemEnum::SOAP,
+            ),
+            new ReplaceEquipmentConfigDto(
+                name: self::REPLACE_1_LABORATORY_BY_NATAMY_RIFLE,
+                equipmentName: ItemEnum::NATAMY_RIFLE,
+                replaceEquipmentName: ItemEnum::BLASTER,
+                placeName: RoomEnum::LABORATORY,
+                quantity: 1,
             ),
         ];
     }

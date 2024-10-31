@@ -484,6 +484,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
+    public function removeMedicalCondition(PlayerDisease $playerDisease): static
+    {
+        $this->medicalConditions->removeElement($playerDisease);
+
+        return $this;
+    }
+
     public function getAllModifiers(): ModifierCollection
     {
         $allModifiers = $this->getModifiers();

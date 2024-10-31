@@ -75,19 +75,16 @@ final class ActionSubscriber implements EventSubscriberInterface
     public function onPostAction(ActionEvent $event): void
     {
         $action = $event->getActionConfig();
-        $actionHolder = $event->getActionTarget();
         $player = $event->getAuthor();
 
         $actionResult = $event->getActionResultOrThrow();
 
         if ($event->shouldMakePlayerWakeUp()) {
-            $this->createForceGetUpLog($actionHolder);
+            $this->createForceGetUpLog($event->getPlayerActionTargetOrThrow());
         }
 
         if ($action->getActionName() === ActionEnum::MOVE) {
-            /** @var Door $door */
-            $door = $actionHolder;
-            $this->createEnterRoomLog($player, $door);
+            $this->createEnterRoomLog($player, $event->getDoorActionTargetOrThrow());
             $this->handleCatNoises($event);
         }
 
@@ -101,11 +98,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             $this->createContentLog($event, $content);
         }
 
-        if (
-            $player->getPlace()->hasAlivePlayerWithSkill(SkillEnum::OBSERVANT)
-            && $this->d100Roll->isSuccessful(self::OBSERVANT_REVEAL_CHANCE)
-            && ($unnoticedSecretRevealedLog = $this->getUnnoticedSecretRevealedLog($player))
-        ) {
+        if ($event->shouldCreateLogNoticedLog($this->d100Roll) && ($unnoticedSecretRevealedLog = $this->getUnnoticedSecretRevealedLog($player))) {
             $this->createObservantNoticeSomethingLog($player);
             $this->markLogAsNoticed($unnoticedSecretRevealedLog);
         }

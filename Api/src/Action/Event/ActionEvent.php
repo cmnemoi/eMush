@@ -6,9 +6,11 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Exploration\Entity\Planet;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
@@ -25,6 +27,7 @@ class ActionEvent extends AbstractGameEvent
     public const string POST_ACTION = 'post.action';
     public const string RESULT_ACTION = 'result.action';
     public const string EXECUTE_ACTION = 'execute.action';
+    private const OBSERVANT_REVEAL_CHANCE = 25;
 
     private ActionConfig $actionConfig;
     private ActionProviderInterface $actionProvider;
@@ -93,6 +96,13 @@ class ActionEvent extends AbstractGameEvent
     public function getActionTargetAsPlanet(): Planet
     {
         return $this->actionTarget instanceof Planet ? $this->actionTarget : throw new \RuntimeException('Action target is not a planet');
+    }
+
+    public function getDoorActionTargetOrThrow(): Door
+    {
+        $door = $this->getActionTarget();
+
+        return $door instanceof Door ? $door : throw new \RuntimeException('Action target is not a door');
     }
 
     public function getActionParameters(): array
@@ -178,5 +188,12 @@ class ActionEvent extends AbstractGameEvent
         $player = $this->getPlayerActionTarget();
 
         return $player->hasStatus(PlayerStatusEnum::LYING_DOWN) && $this->hasAnyTag(ActionEnum::getForceGetUpActions());
+    }
+
+    public function shouldCreateLogNoticedLog(D100RollServiceInterface $d100Roll): bool
+    {
+        $player = $this->getAuthor();
+
+        return $player->getPlace()->hasAlivePlayerWithSkill(SkillEnum::OBSERVANT) && $d100Roll->isSuccessful(self::OBSERVANT_REVEAL_CHANCE);
     }
 }

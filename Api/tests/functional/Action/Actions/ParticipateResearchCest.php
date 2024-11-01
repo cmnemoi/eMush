@@ -27,6 +27,7 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
     private ParticipateResearch $participateAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private GameEquipment $terminal;
 
     public function _before(FunctionalTester $I): void
     {
@@ -37,21 +38,25 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->actionConfig->setDirtyRate(0);
+        $this->terminal = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::RESEARCH_LABORATORY,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
     }
 
     public function shouldBeExecutableIfRequirementsAreMet(FunctionalTester $I): void
     {
         $this->givenChunIsInLab();
 
-        $terminal = $this->givenLabTerminal();
-
-        $this->givenKuanTiIsFocusedOnLabTerminal($terminal);
+        $this->givenKuanTiIsFocusedOnLabTerminal($this->terminal);
 
         $project = $this->daedalus->getProjectByName(ProjectName::CREATE_MYCOSCAN);
 
         $this->participateAction->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $terminal,
+            actionProvider: $this->terminal,
             player: $this->kuanTi,
             target: $project
         );
@@ -68,15 +73,13 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
     {
         $this->givenChunIsNotInLab();
 
-        $terminal = $this->givenLabTerminal();
-
-        $this->givenKuanTiIsFocusedOnLabTerminal($terminal);
+        $this->givenKuanTiIsFocusedOnLabTerminal($this->terminal);
 
         $project = $this->daedalus->getProjectByName(ProjectName::CREATE_MYCOSCAN);
 
         $this->participateAction->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $terminal,
+            actionProvider: $this->terminal,
             player: $this->kuanTi,
             target: $project
         );
@@ -87,6 +90,17 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
             expected: ActionImpossibleCauseEnum::REQUIREMENTS_NOT_MET,
             actual: $this->participateAction->cannotExecuteReason(),
         );
+    }
+
+    public function playerWithGeniusIdeaStatusShouldLoseStatusAfterParticipating(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsFocusedOnLabTerminal($this->terminal);
+
+        $this->givenKuanTiHasGeniusIdeaStatus();
+
+        $this->whenKuanTiParticipatesToResearch(ProjectName::ANABOLICS);
+
+        $this->thenKuanTiDoesNotHaveGeniusIdeaStatus($I);
     }
 
     private function givenChunIsNotInLab()
@@ -107,16 +121,6 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         }
     }
 
-    private function givenLabTerminal()
-    {
-        return $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::RESEARCH_LABORATORY,
-            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
-            reasons: [],
-            time: new \DateTime()
-        );
-    }
-
     private function givenKuanTiIsFocusedOnLabTerminal(GameEquipment $terminal): void
     {
         $this->statusService->createStatusFromName(
@@ -126,5 +130,33 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
             time: new \DateTime(),
             target: $terminal,
         );
+    }
+
+    private function givenKuanTiHasGeniusIdeaStatus(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::GENIUS_IDEA,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function whenKuanTiParticipatesToResearch(ProjectName $projectName): void
+    {
+        $project = $this->daedalus->getProjectByName($projectName);
+
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->kuanTi,
+            target: $project
+        );
+        $this->participateAction->execute();
+    }
+
+    private function thenKuanTiDoesNotHaveGeniusIdeaStatus(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::GENIUS_IDEA));
     }
 }

@@ -55,13 +55,13 @@ final class GenMetal extends AttemptAction
                 'places' => RoomEnum::getStorages(),
                 'groups' => [ClassConstraint::VISIBILITY],
             ]),
-            new HasStatus([
-                'status' => PlayerStatusEnum::HAS_GEN_METAL,
-                'contain' => false,
-                'target' => HasStatus::PLAYER,
-                'groups' => [ClassConstraint::EXECUTE],
-                'message' => ActionImpossibleCauseEnum::DAILY_LIMIT,
-            ]),
+            // new HasStatus([
+            //     'status' => PlayerStatusEnum::HAS_GEN_METAL,
+            //     'contain' => false,
+            //     'target' => HasStatus::PLAYER,
+            //     'groups' => [ClassConstraint::EXECUTE],
+            //     'message' => ActionImpossibleCauseEnum::DAILY_LIMIT,
+            // ]),
         ]);
     }
 

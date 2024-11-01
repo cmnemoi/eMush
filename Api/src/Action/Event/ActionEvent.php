@@ -210,4 +210,9 @@ class ActionEvent extends AbstractGameEvent
 
         return $place->hasOperationalEquipmentByName(ItemEnum::MYCO_ALARM) && $action->isDetectedByMycoAlarm();
     }
+
+    public function shouldTriggerAttemptHandling(): bool
+    {
+        return $this->getActionConfig()->getSuccessRate() < 100 || $this->getActionConfig()->getActionCost() > 0;
+    }
 }

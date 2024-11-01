@@ -1343,6 +1343,7 @@ abstract class StatusConfigData
             'dischargeStrategies' => [
                 ActionEnum::REPAIR->value,
                 ActionEnum::PARTICIPATE->value,
+                ActionEnum::PARTICIPATE_RESEARCH->value,
             ],
             'autoRemove' => true,
             'modifierConfigs' => [

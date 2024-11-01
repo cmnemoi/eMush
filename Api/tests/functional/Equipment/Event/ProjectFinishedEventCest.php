@@ -167,6 +167,12 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'quantity' => 1,
                 'creationPlaces' => [RoomEnum::LABORATORY],
             ],
+            [
+                'project' => ProjectName::NARCOTICS_DISTILLER->value,
+                'equipment' => EquipmentEnum::NARCOTIC_DISTILLER,
+                'quantity' => 1,
+                'creationPlaces' => [RoomEnum::LABORATORY],
+            ],
         ];
     }
 

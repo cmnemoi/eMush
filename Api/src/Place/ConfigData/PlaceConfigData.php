@@ -2,7 +2,9 @@
 
 namespace Mush\Place\ConfigData;
 
+use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 
@@ -55,8 +57,23 @@ class PlaceConfigData
             'placeName' => 'medlab',
             'type' => 'room',
             'doors' => ['medlab_central_bravo_turret', 'medlab_laboratory', 'front_corridor_medlab'],
-            'items' => ['bandage', 'bandage'],
-            'equipments' => ['surgery_plot', 'narcotic_distiller', 'bed'],
+            'items' => [
+                ToolItemEnum::BANDAGE,
+                ToolItemEnum::BANDAGE,
+                GameDrugEnum::BACTA,
+                GameDrugEnum::BETAPROPYL,
+                GameDrugEnum::EUFURYLATE,
+                GameDrugEnum::NEWKE,
+                GameDrugEnum::PHUXX,
+                GameDrugEnum::PINQ,
+                GameDrugEnum::PYMP,
+                GameDrugEnum::ROSEBUD,
+                GameDrugEnum::SOMA,
+                GameDrugEnum::SPYCE,
+                GameDrugEnum::TWINOID,
+                GameDrugEnum::XENOX,
+            ],
+            'equipments' => ['surgery_plot', 'bed'],
         ],
         [
             'name' => 'laboratory_default',

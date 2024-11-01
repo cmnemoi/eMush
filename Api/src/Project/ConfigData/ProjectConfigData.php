@@ -723,7 +723,9 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
-                'spawnEquipmentConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    SpawnEquipmentConfigData::ONE_NARCOTICS_DISTILLER_IN_LABORATORY,
+                ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
             ],

@@ -2,7 +2,7 @@
 
 namespace Mush\Equipment\Enum;
 
-class GameDrugEnum
+abstract class GameDrugEnum
 {
     public const BACTA = 'bacta';
     public const BETAPROPYL = 'betapropyl';

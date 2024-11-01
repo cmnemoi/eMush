@@ -53,12 +53,12 @@
             <div class="row" :class="{ active: moderationSanction.isActive, inactive: !moderationSanction.isActive }">
                 <div class="cell double">
                     <strong>{{ isReport() ? $t('moderation.sanctionDetail.reportDate') : $t('moderation.sanctionDetail.startDate') }}</strong>
-                    {{ moderationSanction?.startDateGivenLocale(currentLocale) }}
+                    {{ moderationSanction?.startDate.toLocaleDateString(currentLocale, { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "numeric" }) }}
                 </div>
                 <div class="cell double" v-if="!isReport()">
                     <div class="cell double">
                         <strong>{{ $t('moderation.sanctionDetail.endDate') }}</strong>
-                        {{ moderationSanction?.endDateGivenLocale(currentLocale) }}
+                        {{ moderationSanction?.endDate.toLocaleDateString(currentLocale, { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "numeric" }) }}
                     </div>
                 </div>
             </div>

@@ -1399,12 +1399,6 @@
         <target>**{character}** attrape **{target_character}** dans un coin et se met à lui hurler dessus...</target>
       </segment>
     </unit>
-    <unit id="gen_metal_success">
-      <segment id="gen_metal_success" state="final">
-        <source>gen_metal_success</source>
-        <target>**{character}** ressort de son tas de débris l'air ravi, {character_gender, select, female {elle} other {il}} a fait une trouvaille ! Et hop, {equipment_gender, select, female {une **{equipment}**} other {un **{equipment}**}} !</target>
-      </segment>
-    </unit>
     <unit id="gen_metal_fail">
       <segment id="gen_metal_fail" state="final">
         <source>gen_metal_fail</source>

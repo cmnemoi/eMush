@@ -66,7 +66,8 @@ interface SanctionListData {
     reasonFilter: string,
     isActiveFilter: boolean,
     showModal: boolean,
-    selectedSanction: any
+    showDetailPopup: boolean,
+    selectedSanction: ModerationSanction
 }
 
 export default defineComponent({
@@ -129,8 +130,9 @@ export default defineComponent({
             typeFilter: '',
             reasonFilter: '',
             isActiveFilter: false,
+            showModal: false,
             showDetailPopup: false,
-            selectedSanction: {}
+            selectedSanction: new ModerationSanction()
         };
     },
     methods: {
@@ -233,15 +235,13 @@ export default defineComponent({
         {
             try {
                 const result = await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'closed_players', String(closedPlayerId)));
-                const closedPlayer = new ClosedPlayer();
-                closedPlayer.load(result.data);
-
+                const closedPlayer = (new ClosedPlayer()).load(result.data);
                 return closedPlayer.closedDaedalusId;
             } catch (error) {
                 throw error;
             }
         },
-        goToSanctionEvidence(sanction: any)
+        async goToSanctionEvidence(sanction: any)
         {
             const sanctionEvidence = sanction.sanctionEvidence;
             const evidenceClass = sanctionEvidence.className;
@@ -253,7 +253,7 @@ export default defineComponent({
             ) {
                 router.push({ name: 'ModerationViewPlayerDetail', params: { playerId: sanction.playerId } });
             } else if (evidenceClass === 'closedPlayer') {
-                const closedDaedalusId = this.getClosedDaedalusId(sanctionEvidence.id);
+                const closedDaedalusId = await this.getClosedDaedalusId(sanctionEvidence.id);
                 router.push({ name: 'TheEnd', params: { closedDaedalusId } });
             }
         }

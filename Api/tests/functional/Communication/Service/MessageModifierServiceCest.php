@@ -59,7 +59,7 @@ final class MessageModifierServiceCest extends AbstractFunctionalTest
             ->setDay(1)->setCycle(1);
         $I->haveInRepository($message);
 
-        // when applying paranoia effects
+        // when applying patuline scrambler effects
         $message = $this->messageModifierService->applyModifierEffects(
             message: $message,
             player: $this->chun,

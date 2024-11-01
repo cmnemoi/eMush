@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -414,6 +415,12 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $this->manager->persist($setChargesToMaximumPatrolshipExtraAmmoModifierForAlpha2Wallis);
         $this->addReference($setChargesToMaximumPatrolshipExtraAmmoModifierForAlpha2Wallis->getName(), $setChargesToMaximumPatrolshipExtraAmmoModifierForAlpha2Wallis);
+
+        $patulineScramblerModifier = EventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION)
+        );
+        $this->manager->persist($patulineScramblerModifier);
+        $this->addReference($patulineScramblerModifier->getName(), $patulineScramblerModifier);
 
         $this->manager->flush();
     }

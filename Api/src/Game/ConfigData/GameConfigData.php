@@ -614,11 +614,12 @@ class GameConfigData
                 ProjectName::BEAT_BOX,
                 ProjectName::ANABOLICS,
                 ProjectName::CREATE_MYCOSCAN,
-                ProjectName::PERPETUAL_HYDRATION,
                 ProjectName::MUSH_HUNTER_ZC16H,
                 ProjectName::MUSH_LANGUAGE,
                 ProjectName::MUSH_RACES,
                 ProjectName::MUSH_REPRODUCTIVE_SYSTEM,
+                ProjectName::PATULINE_SCRAMBLER,
+                ProjectName::PERPETUAL_HYDRATION,
                 ProjectName::RETRO_FUNGAL_SERUM,
             ],
             'skillConfigs' => [

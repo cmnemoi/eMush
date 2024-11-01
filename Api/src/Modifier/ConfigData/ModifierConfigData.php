@@ -3762,6 +3762,18 @@ abstract class ModifierConfigData
             'targetFilters' => [],
             'eventActivationRequirements' => [],
         ],
+        [
+            'name' => MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION,
+            'modifierName' => MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION,
+            'targetEvent' => MessageEvent::NEW_MESSAGE,
+            'strategy' => ModifierStrategyEnum::MESSAGE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'type' => 'event_modifier',
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

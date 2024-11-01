@@ -58,7 +58,13 @@ If the job has been done properly, the Daedalus will put itself into a planet's 
       </segment>
       <segment id="orientation" state="translated">
         <source>command_terminal.orientation</source>
-        <target>The Daedalus is currently heading to : **{orientation}**.</target>
+        <target>{orientation, select,
+                  north {West :left::left::left: **North** :right::right::right: East}
+                  south {East :left::left::left: **South** :right::right::right: West}
+                  east {North :left::left::left: **East** :right::right::right: South}
+                  west {South :left::left::left: **West** :right::right::right: North}
+                  other {The Daedalus is currently heading towards : **{orientation}**.}
+        }</target>
       </segment>
     </unit>
     <unit id="astro_terminal">

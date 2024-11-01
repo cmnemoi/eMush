@@ -190,4 +190,8 @@ section {
     margin-top: 0.6em;
 }
 
+.daedalus-current-orientation {
+    text-align: center;
+}
+
 </style>

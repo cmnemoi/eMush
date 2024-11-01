@@ -932,7 +932,7 @@ class ActionData
             'action_name' => ActionEnum::PUBLIC_BROADCAST,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
-            'scope' => ActionRangeEnum::ROOM,
+            'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
             'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

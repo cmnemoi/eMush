@@ -52,7 +52,13 @@
       </segment>
       <segment id="orientation" state="final">
         <source>command_terminal.orientation</source>
-        <target>Le Daedalus pointe actuellement vers : **{orientation}**.</target>
+        <target>{orientation, select,
+                  north {Ouest :left::left::left: **Nord** :right::right::right: Est}
+                  south {Est :left::left::left: **Sud** :right::right::right: Ouest}
+                  east {Nord :left::left::left: **Est** :right::right::right: Sud}
+                  west {Sud :left::left::left: **Ouest** :right::right::right: Nord}
+                  other {Le Daedalus pointe actuellement vers : **{orientation}**.}
+        }</target>
       </segment>
     </unit>
     <unit id="astro_terminal">

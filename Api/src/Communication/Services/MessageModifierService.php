@@ -45,6 +45,7 @@ final class MessageModifierService implements MessageModifierServiceInterface
             MessageModificationEnum::PARANOIA_DENIAL => $this->applyParanoiaDenial($message, $player),
             MessageModificationEnum::DEAF_LISTEN => $message->setMessage($this->applyDeafListenEffect()),
             MessageModificationEnum::DEAF_SPEAK => $message->setMessage($this->applyDeafSpeakEffect($messageContent)),
+            MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION => $this->applyPatulineScramblerEffect($message),
             default => $message,
         };
     }
@@ -93,6 +94,17 @@ final class MessageModifierService implements MessageModifierServiceInterface
 
         $message
             ->setMessage($messageContent);
+
+        return $message;
+    }
+
+    private function applyPatulineScramblerEffect(Message $message): Message
+    {
+        // generate a random string
+        $randomString = $this->generateRandomString($this->randomService->random(1, 100));
+
+        // replace the message with the random string
+        $message->setMessage($randomString);
 
         return $message;
     }
@@ -218,5 +230,17 @@ final class MessageModifierService implements MessageModifierServiceInterface
         }
 
         return $parameters;
+    }
+
+    private function generateRandomString(int $length): string
+    {
+        $characters = 'abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+
+        for ($i = 0; $i < $length; ++$i) {
+            $randomString .= $characters[$this->randomService->random(0, \strlen($characters) - 1)];
+        }
+
+        return $randomString;
     }
 }

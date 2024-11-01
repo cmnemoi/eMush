@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Project\ConfigData;
 
+use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Equipment\ConfigData\SpawnEquipmentConfigData;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
@@ -756,7 +757,9 @@ abstract class ProjectConfigData
                 'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION,
+                ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [

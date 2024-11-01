@@ -48,6 +48,28 @@ final class MessageModifierServiceCest extends AbstractFunctionalTest
         // then I should not have any errors
     }
 
+    public function shouldApplyPatulineScramblerModifier(FunctionalTester $I): void
+    {
+        // given a message
+        $message = new Message();
+        $message
+            ->setChannel($this->publicChannel)
+            ->setAuthor($this->chun->getPlayerInfo())
+            ->setMessage('Hello, World!')
+            ->setDay(1)->setCycle(1);
+        $I->haveInRepository($message);
+
+        // when applying patuline scrambler effects
+        $message = $this->messageModifierService->applyModifierEffects(
+            message: $message,
+            player: $this->chun,
+            effectName: MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION
+        );
+
+        // then I should have the message modified
+        $I->assertNotEquals('Hello, World!', $message->getMessage());
+    }
+
     private function applyModifierEffectsProvider(): array
     {
         return [
@@ -65,6 +87,9 @@ final class MessageModifierServiceCest extends AbstractFunctionalTest
             ],
             [
                 'effectName' => MessageModificationEnum::DEAF_SPEAK,
+            ],
+            [
+                'effectName' => MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION,
             ],
         ];
     }

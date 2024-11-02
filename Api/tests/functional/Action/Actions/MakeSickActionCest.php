@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,6 +18,8 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -29,19 +33,34 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 use Mush\User\Entity\User;
 
-class MakeSickActionCest
+/**
+ * @internal
+ */
+final class MakeSickActionCest extends AbstractFunctionalTest
 {
+    private ActionConfig $actionConfig;
     private MakeSick $makeSickAction;
+
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::MAKE_SICK->value]);
         $this->makeSickAction = $I->grabService(MakeSick::class);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->addSkillToPlayer(SkillEnum::BACTEROPHILIAC, $I);
     }
 
     public function testMakeSick(FunctionalTester $I)
@@ -156,5 +175,49 @@ class MakeSickActionCest
             'status' => DiseaseStatusEnum::INCUBATING,
             'diseaseConfig' => $diseaseConfig,
         ]);
+    }
+
+    public function shouldMakeMycoAlarmRing(FunctionalTester $I): void
+    {
+        $this->givenMycoAlarmInRoom();
+
+        $this->whenChunMakesSickKuanTi();
+
+        $this->thenMycoAlarmPrintsPublicLog($I);
+    }
+
+    private function givenMycoAlarmInRoom(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::MYCO_ALARM,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function whenChunMakesSickKuanTi(): void
+    {
+        $this->makeSickAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->chun,
+            player: $this->chun,
+            target: $this->kuanTi,
+        );
+        $this->makeSickAction->execute();
+    }
+
+    private function thenMycoAlarmPrintsPublicLog(FunctionalTester $I): void
+    {
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player,
+                log: LogEnum::MYCO_ALARM_RING,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
     }
 }

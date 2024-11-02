@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
@@ -34,7 +36,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  *
  * More info : http://www.mushpedia.com/wiki/Schr%C3%B6dinger
  */
-class ConvertCat extends AbstractAction
+final class ConvertCat extends AbstractAction
 {
     private const int SPORE_COST = 1;
     protected ActionEnum $name = ActionEnum::CONVERT_CAT;

@@ -15,11 +15,13 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -105,6 +107,19 @@ final class ConvertCatCest extends AbstractFunctionalTest
         $I->assertFalse($this->convertCat->isVisible());
     }
 
+    public function shouldMakeMycoAlarmInRoomRing(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsMush($I);
+
+        $this->givenPlayerHasSpore(1, $I);
+
+        $this->givenMycoAlarmInRoom();
+
+        $this->whenPlayerConvertsCat();
+
+        $this->thenMycoAlarmPrintsPublicLog($I);
+    }
+
     private function givenPlayerHasCatInInventory(FunctionalTester $I): void
     {
         $this->schrodinger = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -150,6 +165,16 @@ final class ConvertCatCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenMycoAlarmInRoom(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::MYCO_ALARM,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function whenPlayerTriesToConvertCat(): void
     {
         $this->convertCat->loadParameters(
@@ -174,5 +199,19 @@ final class ConvertCatCest extends AbstractFunctionalTest
     private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
     {
         $I->assertEquals($message, $this->convertCat->cannotExecuteReason());
+    }
+
+    private function thenMycoAlarmPrintsPublicLog(FunctionalTester $I): void
+    {
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player,
+                log: LogEnum::MYCO_ALARM_RING,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
     }
 }

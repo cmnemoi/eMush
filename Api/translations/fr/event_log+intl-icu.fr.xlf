@@ -1266,5 +1266,11 @@
         <target>La Recherche a progressé. L'article **{project}** a été publié et ses applications immédiates sont prêtes.</target>
       </segment>
     </unit>
+    <unit id="myco_alarm_ring">
+      <segment id="myco_alarm_ring" state="translated">
+        <source>myco_alarm_ring</source>
+        <target>DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

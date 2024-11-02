@@ -79,6 +79,11 @@ abstract class ActionResult
         return $this->content;
     }
 
+    public function getContentOrThrow(): string
+    {
+        return $this->content ?? throw new \RuntimeException('Content is not set');
+    }
+
     public function getDetails(): array
     {
         return $this->details;
@@ -119,5 +124,10 @@ abstract class ActionResult
     public function getResultTag(): string
     {
         return $this->isASuccess() ? ActionOutputEnum::SUCCESS : ActionOutputEnum::FAIL;
+    }
+
+    public function doesNotHaveContent(): bool
+    {
+        return $this->getContent() === null;
     }
 }

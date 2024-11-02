@@ -83,10 +83,6 @@ const THERMOSENSOR = "thermosensor";
 const OLD_T_SHIRT = "old_t_shirt";
 const BABEL_MODULE = "babel_module";
 const WHITE_FLAG = "white_flag";
-const ANABOLIC = "anabolic";
-const MUSH_SAMPLE = "mush_sample";
-const RETRO_FUNGAL_SERUM = "retro_fungal_serum";
-const NCC_LENSES = "ncc_lenses";
 
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
@@ -126,6 +122,13 @@ const SCHRODINGER = "schrodinger";
 // Documents
 const DOCUMENT = "document";
 const MUSH_GENOME_DISK = "mush_genome_disk";
+
+// Research
+const ANABOLIC = "anabolic";
+const MUSH_SAMPLE = "mush_sample";
+const MYCO_ALARM = "myco_alarm";
+const NCC_LENSES = "ncc_lenses";
+const RETRO_FUNGAL_SERUM = "retro_fungal_serum";
 
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
@@ -463,5 +466,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [NCC_LENSES]: {
         'image': getImgUrl('items/ncc_lens.jpg')
+    },
+    [MYCO_ALARM]: {
+        'image': getImgUrl('items/myco_alarm.jpg')
     }
 };

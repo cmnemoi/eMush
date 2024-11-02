@@ -9,15 +9,20 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\ChannelPlayer;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 use Mush\User\Entity\User;
 
 /**
@@ -29,6 +34,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private ExchangeBody $exchangeBody;
 
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
     private Player $source;
@@ -43,6 +49,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::EXCHANGE_BODY]);
         $this->exchangeBody = $I->grabService(ExchangeBody::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->source = $this->player;
         $this->target = $this->player2;
@@ -211,6 +218,17 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->thenTargetPlayerShouldNotHaveUsedMageBookStatus($I);
     }
 
+    public function shouldMakeMycoAlarmRing(FunctionalTester $I): void
+    {
+        $this->givenSourcePlayerHasSpores(1);
+
+        $this->givenMycoAlarmInRoom();
+
+        $this->whenSourceExchangesBodyWithTarget();
+
+        $this->thenMycoAlarmPrintsPublicLog($I);
+    }
+
     private function givenTargetPlayerIsMush(): void
     {
         $this->eventService->callEvent(
@@ -266,6 +284,16 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
             statusName: PlayerStatusEnum::HAS_READ_MAGE_BOOK,
             holder: $this->target,
             tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenMycoAlarmInRoom(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::MYCO_ALARM,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
             time: new \DateTime(),
         );
     }
@@ -391,5 +419,19 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private function thenTargetPlayerShouldNotHaveUsedMageBookStatus(FunctionalTester $I): void
     {
         $I->assertFalse($this->target->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK));
+    }
+
+    private function thenMycoAlarmPrintsPublicLog(FunctionalTester $I): void
+    {
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player,
+                log: LogEnum::MYCO_ALARM_RING,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
     }
 }

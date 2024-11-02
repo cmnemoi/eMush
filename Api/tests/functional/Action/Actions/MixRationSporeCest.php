@@ -9,12 +9,16 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -96,6 +100,19 @@ final class MixRationSporeCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeVisible($I);
     }
 
+    public function shouldMakeMycoAlarmRing(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasASpore();
+
+        $this->givenKuanTiHasFungalKitchenSkill($I);
+
+        $this->givenMycoAlarmInRoom();
+
+        $this->whenKuanTiMixesRationWithSpore();
+
+        $this->thenMycoAlarmPrintsPublicLog($I);
+    }
+
     private function givenKuanTiHasFungalKitchenSkill(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::FUNGAL_KITCHEN, $I, $this->kuanTi);
@@ -127,6 +144,16 @@ final class MixRationSporeCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenMycoAlarmInRoom(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::MYCO_ALARM,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function thenActionShouldNotBeVisible(FunctionalTester $I): void
     {
         $I->assertFalse($this->mixRationSpore->isVisible());
@@ -147,5 +174,19 @@ final class MixRationSporeCest extends AbstractFunctionalTest
     private function thenKuanTiShouldHaveSpore(int $spores, FunctionalTester $I): void
     {
         $I->assertEquals($spores, $this->kuanTi->getSpores());
+    }
+
+    private function thenMycoAlarmPrintsPublicLog(FunctionalTester $I): void
+    {
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player,
+                log: LogEnum::MYCO_ALARM_RING,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
     }
 }

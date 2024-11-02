@@ -211,6 +211,21 @@ enum ActionEnum: string
         ]))->contains($this);
     }
 
+    public function isDetectedByMycoAlarm(): bool
+    {
+        return \in_array($this, [
+            self::CONVERT_CAT,
+            self::EXCHANGE_BODY,
+            self::GIVE_NIGHTMARE,
+            self::GO_BERSERK,
+            self::INFECT,
+            self::MAKE_SICK,
+            self::MIX_RATION_SPORE,
+            self::SCREW_TALKIE,
+            self::TRAP_CLOSET,
+        ], true);
+    }
+
     public static function getPermanentItemActions(): array
     {
         return [

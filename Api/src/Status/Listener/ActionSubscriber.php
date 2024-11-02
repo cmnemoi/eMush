@@ -85,7 +85,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         if ($event->shouldRemoveTargetLyingDownStatus()) {
             $this->statusService->removeStatus(
                 statusName: PlayerStatusEnum::LYING_DOWN,
-                holder: $event->getPlayerActionTarget(),
+                holder: $event->getPlayerActionTargetOrThrow(),
                 tags: $event->getTags(),
                 time: $event->getTime()
             );

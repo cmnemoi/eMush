@@ -7,11 +7,14 @@ namespace Mush\tests\functional\Action\Actions;
 use Mush\Action\Actions\GiveNightmare;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -27,6 +30,7 @@ final class GiveNightmareCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private GiveNightmare $giveNightmare;
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
@@ -35,6 +39,7 @@ final class GiveNightmareCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::GIVE_NIGHTMARE->value]);
         $this->giveNightmare = $I->grabService(GiveNightmare::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::NIGHTMARISH, $I);
@@ -97,6 +102,17 @@ final class GiveNightmareCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveActionPoints(2, $I);
     }
 
+    public function shouldMakeMycoAlarmRing(FunctionalTester $I): void
+    {
+        $this->givenMycoAlarmInRoom();
+
+        $this->givenKuanTiIsSleeping();
+
+        $this->whenChunGivesNightmareToKuanTi();
+
+        $this->thenMycoAlarmPrintsPublicLog($I);
+    }
+
     private function givenKuanTiIsSleeping(): void
     {
         $this->statusService->createStatusFromName(
@@ -129,6 +145,16 @@ final class GiveNightmareCest extends AbstractFunctionalTest
             statusName: PlayerStatusEnum::LYING_DOWN,
             holder: $this->kuanTi,
             tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenMycoAlarmInRoom(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::MYCO_ALARM,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
             time: new \DateTime(),
         );
     }
@@ -169,5 +195,19 @@ final class GiveNightmareCest extends AbstractFunctionalTest
     private function thenKuanTiShouldHaveActionPoints(int $expectedActionPoints, FunctionalTester $I): void
     {
         $I->assertEquals($expectedActionPoints, $this->kuanTi->getActionPoint());
+    }
+
+    private function thenMycoAlarmPrintsPublicLog(FunctionalTester $I): void
+    {
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player,
+                log: LogEnum::MYCO_ALARM_RING,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
     }
 }

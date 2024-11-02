@@ -9,15 +9,19 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Service\PlayerDiseaseService;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -27,8 +31,8 @@ final class InfectCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private Infect $infect;
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerDiseaseService $playerDiseaseService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
@@ -37,8 +41,8 @@ final class InfectCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::INFECT->value]);
         $this->infect = $I->grabService(Infect::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseService::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenKuanTiIsMush();
     }
@@ -83,6 +87,15 @@ final class InfectCest extends AbstractFunctionalTest
         $this->whenKuanTiInfectsPlayer();
 
         $this->thenPlayerShouldBeHuman($I);
+    }
+
+    public function shouldMakeMycoAlarmRing(FunctionalTester $I): void
+    {
+        $this->givenMycoAlarmInRoom();
+
+        $this->whenKuanTiInfectsPlayer();
+
+        $this->thenMycoAlarmPrintsPublicLog($I);
     }
 
     private function givenKuanTiIsMush(): void
@@ -137,6 +150,16 @@ final class InfectCest extends AbstractFunctionalTest
         $this->player->setSpores($spores);
     }
 
+    private function givenMycoAlarmInRoom(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::MYCO_ALARM,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function whenKuanTiTriesToInfect(): void
     {
         $this->infect->loadParameters(
@@ -183,5 +206,19 @@ final class InfectCest extends AbstractFunctionalTest
     private function thenPlayerShouldBeHuman(FunctionalTester $I): void
     {
         $I->assertTrue($this->player->isHuman());
+    }
+
+    private function thenMycoAlarmPrintsPublicLog(FunctionalTester $I): void
+    {
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player,
+                log: LogEnum::MYCO_ALARM_RING,
+                visibility: VisibilityEnum::PUBLIC,
+                inPlayerRoom: false,
+            ),
+            I: $I,
+        );
     }
 }

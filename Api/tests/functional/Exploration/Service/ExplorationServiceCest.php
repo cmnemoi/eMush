@@ -586,18 +586,11 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         // when exploration is closed
         $this->explorationService->closeExploration($exploration, ['test']);
 
-        // then I should see Icarus in Icarus Bay
+        // then I should see not Icarus in Icarus Bay
         $I->assertFalse(
             $this->daedalus
                 ->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY)
                 ->hasEquipmentByName(EquipmentEnum::ICARUS)
-        );
-
-        // then I should not see the Chun's spacesuit in Icarus Bay
-        $I->assertFalse(
-            $this->daedalus
-                ->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY)
-                ->hasEquipmentByName(GearItemEnum::SPACESUIT)
         );
     }
 

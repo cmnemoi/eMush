@@ -1441,5 +1441,17 @@
         <target>Accès à la base de données de Xyloph acceptée. Ce disque regroupe des informations cruciales sur le génome Mush rassemblée par Ian Soulton juste avant le départ du Daedalus.</target>
       </segment>
     </unit>
+    <unit id="compute_eden_success">
+      <segment id="compute_eden_success" state="translated">
+        <source>compute_eden_success</source>
+        <target>**{character}** se prend la tête mais rien n'y fait, aucun moyen de trianguler les données... Soudain une secousse fait tomber une carte mère sur le sommet de son crâne et son regard s'illumine ! Il fallait penser autrement ! **{character}** découvre les coordonnées du système des Edénistes.</target>
+      </segment>
+    </unit>
+    <unit id="compute_eden_fail">
+      <segment id="compute_eden_fail" state="translated">
+        <source>compute_eden_fail</source>
+        <target>Vous vous prenez la tête mais rien n'y fait, aucun moyen de trianguler les données...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

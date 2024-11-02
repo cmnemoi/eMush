@@ -1130,6 +1130,9 @@ class ActionsFixtures extends Fixture
         $participateResearch = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PARTICIPATE_RESEARCH));
         $manager->persist($participateResearch);
 
+        $computeEden = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::COMPUTE_EDEN));
+        $manager->persist($computeEden);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1269,5 +1272,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::NERON_DEPRESS->value, $neronDepress);
         $this->addReference(ActionEnum::SEARCH_FOR_MUSH_GENOME->value, $searchForMushGenome);
         $this->addReference(ActionEnum::PARTICIPATE_RESEARCH->value, $participateResearch);
+        $this->addReference(ActionEnum::COMPUTE_EDEN->value, $computeEden);
     }
 }

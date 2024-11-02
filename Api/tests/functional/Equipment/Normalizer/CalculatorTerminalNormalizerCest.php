@@ -66,7 +66,9 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
         $this->whenINormalizeTerminalForPlayer();
 
         $I->assertEquals(
-            expected: [ActionEnum::EXIT_TERMINAL->toString()],
+            expected: [
+                ActionEnum::EXIT_TERMINAL->toString(),
+            ],
             actual: array_map(static fn ($action) => $action['key'], $this->normalizedTerminal['actions'])
         );
     }
@@ -112,6 +114,18 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: 'Le calcul des coordonnées d\'Eden a été achevé avec succès. Les coordonnées ont transférés vers NERON : consultez votre ***Commandant*** pour plus d\'informations.',
             actual: $this->normalizedTerminal['infos']['edenComputed']
+        );
+    }
+
+    public function shouldNormalizeComputeActionWithAtLeastOneStarmapFragment(FunctionalTester $I): void
+    {
+        $this->givenAStarmapFragmentInRoom();
+
+        $this->whenINormalizeTerminalForPlayer();
+
+        $I->assertContains(
+            needle: ActionEnum::COMPUTE_EDEN->toString(),
+            haystack: array_map(static fn ($action) => $action['key'], $this->normalizedTerminal['actions'])
         );
     }
 

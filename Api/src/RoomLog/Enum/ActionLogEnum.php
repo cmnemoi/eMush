@@ -167,6 +167,8 @@ abstract class ActionLogEnum
     public const string SEARCH_FOR_MUSH_GENOME_SUCCESS = 'search_for_mush_genome_success';
     public const string SEARCH_FOR_MUSH_GENOME_FAIL = 'search_for_mush_genome_fail';
     public const string PARTICIPATE_RESEARCH_SUCCESS = 'participate_research_success';
+    public const string COMPUTE_EDEN_SUCCESS = 'compute_eden_success';
+    public const string COMPUTE_EDEN_FAIL = 'compute_eden_fail';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -576,6 +578,10 @@ abstract class ActionLogEnum
         ],
         ActionEnum::PARTICIPATE_RESEARCH->value => [
             ActionOutputEnum::SUCCESS => self::PARTICIPATE_RESEARCH_SUCCESS,
+        ],
+        ActionEnum::COMPUTE_EDEN->value => [
+            ActionOutputEnum::SUCCESS => self::COMPUTE_EDEN_SUCCESS,
+            ActionOutputEnum::FAIL => self::COMPUTE_EDEN_FAIL,
         ],
     ];
 

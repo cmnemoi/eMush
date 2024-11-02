@@ -35,6 +35,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
@@ -309,6 +310,14 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     public function doesNotHaveEquipmentByName(string $name): bool
     {
         return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->isEmpty();
+    }
+
+    public function doesNotHaveVisibleEquipmentByName(string $name): bool
+    {
+        return $this
+            ->getAllEquipmentsByName($name)
+            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->doesNotHaveStatus(EquipmentStatusEnum::HIDDEN))
+            ->isEmpty();
     }
 
     public function getEquipmentByName(string $name): ?GameEquipment

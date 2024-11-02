@@ -217,7 +217,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($pilgred);
 
-        $calculatorTool = $this->createTool([$accessTerminalAction, $exitTerminalAction], EquipmentEnum::CALCULATOR);
+        /** @var ActionConfig $computeEdenAction */
+        $computeEdenAction = $this->getReference(ActionEnum::COMPUTE_EDEN->toString());
+
+        $calculatorTool = $this->createTool([$accessTerminalAction, $exitTerminalAction, $computeEdenAction], EquipmentEnum::CALCULATOR);
         $manager->persist($calculatorTool);
 
         $calculator = new EquipmentConfig();

@@ -1861,6 +1861,7 @@ abstract class MechanicsData
             'actions' => [
                 ActionEnum::ACCESS_TERMINAL->value,
                 ActionEnum::EXIT_TERMINAL->value,
+                ActionEnum::COMPUTE_EDEN->value,
             ],
             'modifierConfigs' => [],
         ],

@@ -185,6 +185,7 @@ enum ActionEnum: string
     case TOGGLE_NERON_INHIBITION = 'toggle_neron_inhibition';
     case DECODE_REBEL_SIGNAL = 'decode_rebel_signal';
     case PARTICIPATE_RESEARCH = 'participate_research';
+    case COMPUTE_EDEN = 'compute_eden';
 
     // Titles-related actions
     case COMMANDER_ORDER = 'commander_order';

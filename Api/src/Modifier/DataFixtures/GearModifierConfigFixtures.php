@@ -79,22 +79,9 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($apronModifier);
 
-        $armorModifier = new VariableEventModifierConfig('modifier_for_target_player_+1healthPoint_on_injury');
-        $armorModifier
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-            ->setTagConstraints([
-                ActionEnum::HIT->value => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
-                PlanetSectorEvent::FIGHT => ModifierRequirementEnum::ANY_TAGS,
-                ActionOutputEnum::CRITICAL_SUCCESS => ModifierRequirementEnum::NONE_TAGS,
-            ])
-            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setApplyWhenTargeted(true)
-            ->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER);
+        $armorModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_for_target_player_+1healthPoint_on_injury')
+        );
         $manager->persist($armorModifier);
 
         $wrenchModifier = new VariableEventModifierConfig('modifier_for_player_x1.5percentageSuccess_on_roll.technician');

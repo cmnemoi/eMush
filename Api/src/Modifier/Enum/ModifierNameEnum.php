@@ -135,4 +135,5 @@ abstract class ModifierNameEnum
     public const string ANTISPORE_GAS_MODIFIER = 'antispore_gas_modifier';
     public const string PLUS_1_HEALTH_POINTS_ON_HEAL = 'plus_1_health_points_on_heal';
     public const string ULTRA_HEALING_POMADE_MODIFIER = 'ultra_healing_pomade_modifier';
+    public const string PLASTENITE_ARMOR_MODIFIER = 'plastenite_armor_modifier';
 }

@@ -530,7 +530,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_target_player_+1healthPoint_on_injury',
-            'modifierName' => null,
+            'modifierName' => ModifierNameEnum::PLASTENITE_ARMOR_MODIFIER,
             'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
@@ -547,6 +547,7 @@ abstract class ModifierConfigData
                 ActionEnum::ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
                 PlanetSectorEvent::FIGHT => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::CRITICAL_SUCCESS => ModifierRequirementEnum::NONE_TAGS,
+                VariableEventInterface::GAIN => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [

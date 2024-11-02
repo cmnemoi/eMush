@@ -366,14 +366,26 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
 
         $infos = [];
 
-        // nothing to compute if there is no starmap fragment
+        $daedalus = $terminal->getDaedalus();
+
+        // no starmap fragment case
         $place = $terminal->getPlace();
         if ($place->doesNotHaveEquipmentByName(ItemEnum::STARMAP_FRAGMENT)) {
             $infos['nothingToCompute'] = $this->translationService->translate(
                 key: $terminalKey . '.nothing_to_compute',
                 parameters: [],
                 domain: 'terminal',
-                language: $terminal->getDaedalus()->getLanguage()
+                language: $daedalus->getLanguage()
+            );
+        }
+
+        // eden computed case
+        if ($daedalus->hasStatus(DaedalusStatusEnum::EDEN_COMPUTED)) {
+            $infos['edenComputed'] = $this->translationService->translate(
+                key: $terminalKey . '.eden_computed',
+                parameters: [],
+                domain: 'terminal',
+                language: $daedalus->getLanguage()
             );
         }
 

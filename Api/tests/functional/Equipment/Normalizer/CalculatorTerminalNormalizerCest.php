@@ -10,6 +10,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -102,6 +103,18 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldNormalizeEdenComputedInfoIfEdenIsComputed(FunctionalTester $I): void
+    {
+        $this->givenEdenCoordinatesAreComputed();
+
+        $this->whenINormalizeTerminalForPlayer();
+
+        $I->assertEquals(
+            expected: 'Le calcul des coordonnées d\'Eden a été achevé avec succès. Les coordonnées ont transférés vers NERON : consultez votre ***Commandant*** pour plus d\'informations.',
+            actual: $this->normalizedTerminal['infos']['edenComputed']
+        );
+    }
+
     private function givenCalcualtorInRoom(): void
     {
         $this->calculator = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -129,6 +142,16 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
             equipmentName: ItemEnum::STARMAP_FRAGMENT,
             equipmentHolder: $this->player->getPlace(),
             reasons: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenEdenCoordinatesAreComputed(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::EDEN_COMPUTED,
+            holder: $this->player->getDaedalus(),
+            tags: [],
             time: new \DateTime()
         );
     }

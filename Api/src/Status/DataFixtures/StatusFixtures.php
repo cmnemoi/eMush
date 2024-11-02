@@ -603,6 +603,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($mushGenomeDiskFound);
 
+        $edenComputed = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(DaedalusStatusEnum::EDEN_COMPUTED . '_default')
+        );
+        $manager->persist($edenComputed);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -673,7 +678,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($catInfected)
             ->addStatusConfig($hasPettedCat)
             ->addStatusConfig($fitfulSleep)
-            ->addStatusConfig($mushGenomeDiskFound);
+            ->addStatusConfig($mushGenomeDiskFound)
+            ->addStatusConfig($edenComputed);
 
         $manager->persist($gameConfig);
 
@@ -739,6 +745,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_PETTED_CAT, $hasPettedCat);
         $this->addReference(PlayerStatusEnum::FITFUL_SLEEP, $fitfulSleep);
         $this->addReference(DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND, $mushGenomeDiskFound);
+        $this->addReference(DaedalusStatusEnum::EDEN_COMPUTED, $edenComputed);
 
         $manager->flush();
     }

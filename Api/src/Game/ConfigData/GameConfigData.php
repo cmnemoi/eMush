@@ -485,6 +485,7 @@ class GameConfigData
                 PlayerStatusEnum::FITFUL_SLEEP . '_default',
                 DaedalusStatusEnum::NERON_DEPRESSION . '_default',
                 DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND . '_default',
+                DaedalusStatusEnum::EDEN_COMPUTED . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

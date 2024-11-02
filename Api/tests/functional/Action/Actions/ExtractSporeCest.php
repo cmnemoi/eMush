@@ -106,6 +106,21 @@ final class ExtractSporeCest extends AbstractFunctionalTest
         $this->thenActionShouldCostActionPoints(4, $I);
     }
 
+    public function fertileShouldMakeTheActionFreeEvenWithConstipasporeSerum(FunctionalTester $I): void
+    {
+        $this->givenActionCostActionPoints(2, $I);
+
+        $this->givenConstipasporeSerumIsCompleted($I);
+
+        // given Kuan Ti has Fertile skill
+        $this->addSkillToPlayer(SkillEnum::FERTILE, $I, $this->kuanTi);
+
+        $this->whenKuanTiTriesToExtractSpore();
+
+        // then action should cost 0 action points
+        $I->assertEquals(0, $this->extractSporeAction->getActionPointCost());
+    }
+
     private function givenAntisporeGasIsCompleted(FunctionalTester $I): void
     {
         $this->finishProject(

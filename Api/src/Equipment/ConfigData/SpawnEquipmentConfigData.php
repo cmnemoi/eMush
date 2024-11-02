@@ -7,6 +7,7 @@ namespace Mush\Equipment\ConfigData;
 use Mush\Equipment\Entity\Dto\SpawnEquipmentConfigDto;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -21,6 +22,7 @@ abstract class SpawnEquipmentConfigData
     public const string ONE_CALCULATOR_IN_NEXUS = 'one_calculator_in_nexus';
     public const string ONE_MYCOSCAN_IN_LABORATORY = 'one_mycoscan_in_laboratory';
     public const string ONE_NARCOTICS_DISTILLER_IN_LABORATORY = 'one_narcotics_distiller_in_laboratory';
+    public const string TWO_NCC_LENSES_IN_LABORATORY = 'two_ncc_lenses_in_laboratory';
 
     /**
      * @return SpawnEquipmentConfigDto[]
@@ -138,6 +140,12 @@ abstract class SpawnEquipmentConfigData
                 equipmentName: EquipmentEnum::NARCOTIC_DISTILLER,
                 placeName: RoomEnum::LABORATORY,
                 quantity: 1,
+            ),
+            new SpawnEquipmentConfigDto(
+                name: self::TWO_NCC_LENSES_IN_LABORATORY,
+                equipmentName: GearItemEnum::NCC_LENS,
+                placeName: RoomEnum::LABORATORY,
+                quantity: 2,
             ),
         ];
     }

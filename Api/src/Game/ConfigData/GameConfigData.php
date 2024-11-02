@@ -620,6 +620,7 @@ class GameConfigData
                 ProjectName::MUSH_RACES,
                 ProjectName::MUSH_REPRODUCTIVE_SYSTEM,
                 ProjectName::MUSHOVORE_BACTERIA,
+                ProjectName::NCC_CONTACT_LENSES,
                 ProjectName::PATULINE_SCRAMBLER,
                 ProjectName::PERPETUAL_HYDRATION,
                 ProjectName::RETRO_FUNGAL_SERUM,

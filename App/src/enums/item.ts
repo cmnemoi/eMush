@@ -86,6 +86,7 @@ const WHITE_FLAG = "white_flag";
 const ANABOLIC = "anabolic";
 const MUSH_SAMPLE = "mush_sample";
 const RETRO_FUNGAL_SERUM = "retro_fungal_serum";
+const NCC_LENSES = "ncc_lenses";
 
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
@@ -459,5 +460,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [MUSH_GENOME_DISK]: {
         'image': getImgUrl('items/mush_floppy_disk.jpg')
+    },
+    [NCC_LENSES]: {
+        'image': getImgUrl('items/ncc_lens.jpg')
     }
 };

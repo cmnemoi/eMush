@@ -8,6 +8,7 @@ use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -171,6 +172,12 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'project' => ProjectName::NARCOTICS_DISTILLER->value,
                 'equipment' => EquipmentEnum::NARCOTIC_DISTILLER,
                 'quantity' => 1,
+                'creationPlaces' => [RoomEnum::LABORATORY],
+            ],
+            [
+                'project' => ProjectName::NCC_CONTACT_LENSES->value,
+                'equipment' => GearItemEnum::NCC_LENS,
+                'quantity' => 2,
                 'creationPlaces' => [RoomEnum::LABORATORY],
             ],
         ];

@@ -11,11 +11,15 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\ProjectFinished;
+use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class TravelToEden extends AbstractAction
@@ -25,6 +29,16 @@ final class TravelToEden extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
+            new Reach([
+                'reach' => ReachEnum::ROOM,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
+            new HasStatus([
+                'status' => PlayerStatusEnum::FOCUSED,
+                'target' => HasStatus::PLAYER,
+                'statusTargetName' => EquipmentEnum::COMMAND_TERMINAL,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
             new ProjectFinished([
                 'project' => ProjectName::PILGRED,
                 'mode' => 'allow',

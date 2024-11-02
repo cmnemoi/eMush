@@ -95,6 +95,17 @@ final class ExtractSporeCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT);
     }
 
+    public function constipasporeSerumShouldIncreaseActionCost(FunctionalTester $I): void
+    {
+        $this->givenActionCostActionPoints(2, $I);
+
+        $this->givenConstipasporeSerumIsCompleted($I);
+
+        $this->whenKuanTiTriesToExtractSpore();
+
+        $this->thenActionShouldCostActionPoints(4, $I);
+    }
+
     private function givenAntisporeGasIsCompleted(FunctionalTester $I): void
     {
         $this->finishProject(
@@ -127,17 +138,6 @@ final class ExtractSporeCest extends AbstractFunctionalTest
     private function thenActionShouldNotBeExecutableWithMessage(FunctionalTester $I, string $message): void
     {
         $I->assertEquals($message, $this->extractSporeAction->cannotExecuteReason());
-    }
-
-    public function constipasporeSerumShouldIncreaseActionCost(FunctionalTester $I): void
-    {
-        $this->givenActionCostActionPoints(2, $I);
-
-        $this->givenConstipasporeSerumIsCompleted($I);
-
-        $this->whenKuanTiTriesToExtractSpore();
-
-        $this->thenActionShouldCostActionPoints(4, $I);
     }
 
     private function givenActionCostActionPoints(int $actionPoints, FunctionalTester $I): void

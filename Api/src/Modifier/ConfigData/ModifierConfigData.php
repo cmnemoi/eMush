@@ -530,7 +530,7 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_target_player_+1healthPoint_on_injury',
-            'modifierName' => null,
+            'modifierName' => ModifierNameEnum::PLASTENITE_ARMOR_MODIFIER,
             'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,

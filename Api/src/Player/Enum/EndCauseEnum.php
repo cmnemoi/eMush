@@ -103,6 +103,7 @@ abstract class EndCauseEnum
         PlanetSectorEvent::PLANET_SECTOR_EVENT => self::EXPLORATION,
         ActionEnum::RETURN_TO_SOL->value => self::SOL_RETURN,
         PlayerStatusEnum::STARVING => self::STARVATION,
+        ActionEnum::TRAVEL_TO_EDEN->value => self::EDEN,
     ];
 
     public static function getAll(): array

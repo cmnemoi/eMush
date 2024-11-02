@@ -720,5 +720,11 @@
         <target>L'idée d'approcher encore plus ce nid à germes vous écoeure... Qui sait où ça a trainé?</target>
       </segment>
     </unit>
+    <unit id="eden_not_computed">
+      <segment id="description" state="final">
+        <source>eden_not_computed.description</source>
+        <target>Les coordonnées d'Eden n'ont pas été calculées.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

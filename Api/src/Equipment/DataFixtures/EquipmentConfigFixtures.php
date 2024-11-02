@@ -292,6 +292,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $returnToSolAction */
         $returnToSolAction = $this->getReference(ActionEnum::RETURN_TO_SOL->value);
 
+        /** @var ActionConfig $travelToEdenAction */
+        $travelToEdenAction = $this->getReference(ActionEnum::TRAVEL_TO_EDEN->value);
+
         $toolCommandTerminal = $this->createTool([
             $hackAction,
             $exitTerminalAction,
@@ -301,6 +304,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             $leaveOrbitAction,
             $accessTerminalAction,
             $returnToSolAction,
+            $travelToEdenAction,
         ], EquipmentEnum::COMMAND_TERMINAL);
         $manager->persist($toolCommandTerminal);
         $commandTerminal = new EquipmentConfig();

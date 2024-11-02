@@ -73,9 +73,23 @@ final class TravelToEdenCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldNotBeExecutableIfEdenCoordinatesAreNotComputed(FunctionalTester $I): void
+    {
+        $this->givenPilgredIsFinished();
+
+        $this->whenChunTriesToTravelToEden();
+
+        $this->thenActionShouldNotBeExecutable(
+            message: ActionImpossibleCauseEnum::EDEN_NOT_COMPUTED,
+            I: $I
+        );
+    }
+
     public function shouldKillPlayers(FunctionalTester $I): void
     {
         $this->givenPilgredIsFinished();
+
+        $this->givenEdenCoordinatesAreComputed();
 
         $this->whenChunTravelsToEden();
 
@@ -86,6 +100,8 @@ final class TravelToEdenCest extends AbstractFunctionalTest
     {
         $this->givenPilgredIsFinished();
 
+        $this->givenEdenCoordinatesAreComputed();
+
         $this->whenChunTravelsToEden();
 
         $this->thenAllPlayersShouldHaveSolReturnEndCause($I);
@@ -94,6 +110,8 @@ final class TravelToEdenCest extends AbstractFunctionalTest
     public function shouldNotPrintPublicDeathLogs(FunctionalTester $I): void
     {
         $this->givenPilgredIsFinished();
+
+        $this->givenEdenCoordinatesAreComputed();
 
         $this->whenChunTravelsToEden();
 
@@ -104,6 +122,8 @@ final class TravelToEdenCest extends AbstractFunctionalTest
     {
         $this->givenPilgredIsFinished();
 
+        $this->givenEdenCoordinatesAreComputed();
+
         $this->whenChunTravelsToEden();
 
         $this->thenGameShouldBeFinished($I);
@@ -112,6 +132,8 @@ final class TravelToEdenCest extends AbstractFunctionalTest
     public function shouldNotCreateDeathAnnouncements(FunctionalTester $I): void
     {
         $this->givenPilgredIsFinished();
+
+        $this->givenEdenCoordinatesAreComputed();
 
         $this->whenChunTravelsToEden();
 
@@ -122,6 +144,8 @@ final class TravelToEdenCest extends AbstractFunctionalTest
     {
         $this->givenPilgredIsFinished();
 
+        $this->givenEdenCoordinatesAreComputed();
+
         $this->whenChunTravelsToEden();
 
         $this->thenPlayersShouldNotLoseMoralePoints($I);
@@ -130,6 +154,8 @@ final class TravelToEdenCest extends AbstractFunctionalTest
     public function shouldNotTriggerTraumaDiseases(FunctionalTester $I): void
     {
         $this->givenPilgredIsFinished();
+
+        $this->givenEdenCoordinatesAreComputed();
 
         $this->whenChunTravelsToEden();
 
@@ -140,6 +166,16 @@ final class TravelToEdenCest extends AbstractFunctionalTest
     {
         $pilgred = $this->daedalus->getPilgred();
         $pilgred->makeProgressAndUpdateParticipationDate(100);
+    }
+
+    private function givenEdenCoordinatesAreComputed(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::EDEN_COMPUTED,
+            holder: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
     }
 
     private function whenChunTriesToTravelToEden(): void
@@ -223,16 +259,6 @@ final class TravelToEdenCest extends AbstractFunctionalTest
             params: [
                 'log' => LogEnum::TRAUMA_DISEASE,
             ]
-        );
-    }
-
-    private function givenEdenCoordinatesAreComputed(): void
-    {
-        $this->statusService->createStatusFromName(
-            statusName: DaedalusStatusEnum::EDEN_COMPUTED,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime()
         );
     }
 }

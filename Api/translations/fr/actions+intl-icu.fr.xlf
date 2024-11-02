@@ -1590,5 +1590,19 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>L'extraction des données du Cristalite peut vous apprendre beaucoup de choses sur les Edenistes.</target>
       </segment>
     </unit>
+    <unit id="travel_to_eden">
+      <segment id="name" state="translated">
+        <source>travel_to_eden.name</source>
+        <target>Voyager vers Eden</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>travel_to_eden.description</source>
+        <target>Un nouvel espoir, un nouvel Eden. Et la promesse d'un recommencement.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>travel_to_eden.confirmation</source>
+        <target>Cette action est irrémédiable, êtes-vous sûr de vouloir continuer ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

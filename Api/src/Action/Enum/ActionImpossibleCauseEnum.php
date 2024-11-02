@@ -117,4 +117,5 @@ abstract class ActionImpossibleCauseEnum
     public const string CAT_ALREADY_CONVERTED = 'cat_already_converted';
     public const string INFECT_CAT_NO_SPORE = 'infect_cat_no_spore';
     public const string PLAYER_IS_GERMAPHOBIC = 'player_is_germaphobic';
+    public const string EDEN_NOT_COMPUTED = 'eden_not_computed';
 }

@@ -1764,6 +1764,7 @@ abstract class MechanicsData
                 ActionEnum::TURN_DAEDALUS_LEFT->value,
                 ActionEnum::TURN_DAEDALUS_RIGHT->value,
                 ActionEnum::LEAVE_ORBIT->value,
+                ActionEnum::TRAVEL_TO_EDEN->value,
             ],
         ],
         [

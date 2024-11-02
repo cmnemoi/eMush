@@ -99,7 +99,7 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 'to_a_new_eden_title' => 'Vers un nouvel Eden',
-                'to_a_new_eden_description' => 'Le cristalite contient dees coordonnées polaires qui se rapportent au centre du nuage de Magellan... Mais elles pointent hors de celui-ci, il va nous falloir une sacré propulsion...',
+                'to_a_new_eden_description' => 'Le cristalite contient des coordonnées polaires qui se rapportent au centre du nuage de Magellan... Mais elles pointent hors de celui-ci, il va nous falloir une sacré propulsion...',
             ],
             actual: $this->normalizedTerminal['sectionTitles']
         );

@@ -628,6 +628,7 @@ class GameConfigData
                 ProjectName::PERPETUAL_HYDRATION,
                 ProjectName::RETRO_FUNGAL_SERUM,
                 ProjectName::SPORE_SUCKER,
+                ProjectName::SUPER_CALCULATOR,
                 ProjectName::ULTRA_HEALING_POMADE,
             ],
             'skillConfigs' => [

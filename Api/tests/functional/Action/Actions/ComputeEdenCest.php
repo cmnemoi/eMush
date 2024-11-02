@@ -64,6 +64,19 @@ final class ComputeEdenCest extends AbstractFunctionalTest
         $this->thenActionIsNotVisible($I);
     }
 
+    public function shouldNotBeVisibleIfEdenIsAlreadyComputed(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCalculator();
+
+        $this->givenStarmapFragmentsInRoom(number: 3);
+
+        $this->givenEdenCoordinatesAreComputed();
+
+        $this->whenPlayerTriesToComputeEden();
+
+        $this->thenActionIsNotVisible($I);
+    }
+
     public function shouldNotBeExecutableIfThereAreLessThanThreeStarmapFragmentsInTheRoom(FunctionalTester $I): void
     {
         $this->givenPlayerIsFocusedOnCalculator();
@@ -179,6 +192,16 @@ final class ComputeEdenCest extends AbstractFunctionalTest
     private function givenActionSuccessRateIs(int $successRate): void
     {
         $this->actionConfig->setSuccessRate($successRate);
+    }
+
+    private function givenEdenCoordinatesAreComputed(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::EDEN_COMPUTED,
+            holder: $this->player->getDaedalus(),
+            tags: [],
+            time: new \DateTime()
+        );
     }
 
     private function whenPlayerTriesToComputeEden(): void

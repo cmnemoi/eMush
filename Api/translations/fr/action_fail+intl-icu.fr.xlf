@@ -431,7 +431,7 @@
     <unit id="not_enough_map_fragments">
       <segment id="description" state="final">
         <source>not_enough_map_fragments.description</source>
-        <target>Ces morceaux de carte stellaire est intéressant, peut-être qu'avec un peu plus d'exemplaires, vous pourriez en apprendre plus sur leur origine.</target>
+        <target>Ces morceaux de carte stellaire sont intéressants, peut-être qu'avec un peu plus d'exemplaires, vous pourriez en apprendre plus sur leur origine.</target>
       </segment>
     </unit>
     <unit id="no_direction_picked">

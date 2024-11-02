@@ -58,6 +58,12 @@ final class ComputeEden extends AttemptAction
                 'statusTargetName' => EquipmentEnum::CALCULATOR,
                 'groups' => [ClassConstraint::VISIBILITY],
             ]),
+            new HasStatus([
+                'status' => DaedalusStatusEnum::EDEN_COMPUTED,
+                'target' => HasStatus::DAEDALUS,
+                'contain' => false,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
             new NoStarmapFragment([
                 'groups' => [ClassConstraint::VISIBILITY],
             ]),

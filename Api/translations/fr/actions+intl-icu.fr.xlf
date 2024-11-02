@@ -1580,5 +1580,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Avance la Recherche.</target>
       </segment>
     </unit>
+    <unit id="compute_eden">
+      <segment id="name" state="translated">
+        <source>compute_eden.name</source>
+        <target>Calculer</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>compute_eden.description</source>
+        <target>L'extraction des données du Cristalite peut vous apprendre beaucoup de choses sur les Edenistes.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -23,6 +23,8 @@ export class TerminalInfos {
     public isMagneticNetActive: boolean|null = null;
     public neronInhibitionToggles: {key: string, name: string}[]|null = null;
     public isNeronInhibited: boolean|null = null;
+    public nothingToCompute: string|null = null;
+    public edenComputed: string|null = null;
 
     constructor() {
         this.requirements = [];
@@ -59,6 +61,8 @@ export class TerminalInfos {
             this.isMagneticNetActive = object.isMagneticNetActive;
             this.neronInhibitionToggles = object.neronInhibitionToggles;
             this.isNeronInhibited = object.isNeronInhibited;
+            this.nothingToCompute = object.nothingToCompute;
+            this.edenComputed = object.edenComputed;
         }
         return this;
     }

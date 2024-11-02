@@ -306,7 +306,7 @@
       </segment>
       <segment id="to_a_new_eden_description" state="final">
         <source>calculator.to_a_new_eden_description</source>
-        <target>Le cristalite contient dees coordonnées polaires qui se rapportent au centre du nuage de Magellan... Mais elles pointent hors de celui-ci, il va nous falloir une sacré propulsion...</target>
+        <target>Le cristalite contient des coordonnées polaires qui se rapportent au centre du nuage de Magellan... Mais elles pointent hors de celui-ci, il va nous falloir une sacrée propulsion...</target>
       </segment>
       <segment id="nothing_to_compute" state="final">
         <source>calculator.nothing_to_compute</source>

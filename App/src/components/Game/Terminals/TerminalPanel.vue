@@ -9,6 +9,7 @@
             <BiosTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.BIOS_TERMINAL)" :terminal="player.terminal" />
             <ProjectsTerminal v-else-if="player.isFocusedOnProjectsTerminal() || player.isFocusedOnPilgredTerminal()" :terminal="player.terminal" />
             <ResearchLabTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.RESEARCH_LAB_TERMINAL)" :terminal="player.terminal" />
+            <CalculatorTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.CALCULATOR)" :terminal="player.terminal" />
         </div>
         <TerminalExitButton :terminal="player.terminal" />
     </div>
@@ -27,6 +28,7 @@ import { defineComponent } from "vue";
 import { TerminalEnum } from "@/enums/terminal.enum";
 import { Player } from "@/entities/Player";
 import { getImgUrl } from "@/utils/getImgUrl";
+import CalculatorTerminal from "./CalculatorTerminal.vue";
 
 export default defineComponent ({
     name: "TerminalPanel",
@@ -38,7 +40,8 @@ export default defineComponent ({
         BlockOfPostItTerminal,
         BiosTerminal,
         ProjectsTerminal,
-        ResearchLabTerminal
+        ResearchLabTerminal,
+        CalculatorTerminal
     },
     props: {
         player: {

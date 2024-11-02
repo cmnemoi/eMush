@@ -51,6 +51,8 @@ final class TeslaSup2xCest extends AbstractFunctionalTest
 
     public function shouldLoadTurretChargesToMax(FunctionalTester $I): void
     {
+        $this->givenTurretHasCharges(0);
+
         $this->whenTeslaSup2xIsActivated($I);
 
         $this->thenTurretShouldHaveCharges(8, $I);
@@ -87,17 +89,29 @@ final class TeslaSup2xCest extends AbstractFunctionalTest
 
     private function givenTurretHasMaxCharges(int $charges): void
     {
-        // nothing to do
+        $chargeStatus = $this->turret->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $chargeStatusVariable = $chargeStatus->getVariableByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $chargeStatusVariable->setMaxValue($charges);
     }
 
     private function givenBlasterHasMaxCharges(int $charges): void
     {
-        // nothing to do
+        $chargeStatus = $this->blaster->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $chargeStatusVariable = $chargeStatus->getVariableByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $chargeStatusVariable->setMaxValue($charges);
     }
 
     private function givenBlasterHasCharges(int $charges): void
     {
-        // nothing to do
+        $chargeStatus = $this->blaster->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $chargeStatusVariable = $chargeStatus->getVariableByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $chargeStatusVariable->setValue($charges);
+    }
+
+    private function givenTurretHasCharges(int $charges): void
+    {
+        $chargeStatus = $this->turret->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $chargeStatus->setCharge($charges);
     }
 
     private function whenTeslaSup2xIsActivated(FunctionalTester $I): void

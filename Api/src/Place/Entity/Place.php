@@ -306,6 +306,11 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         )->isEmpty();
     }
 
+    public function doesNotHaveEquipmentByName(string $name): bool
+    {
+        return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->isEmpty();
+    }
+
     public function getEquipmentByName(string $name): ?GameEquipment
     {
         return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first() ?: null;

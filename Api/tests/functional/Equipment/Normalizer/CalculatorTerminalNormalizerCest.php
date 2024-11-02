@@ -7,6 +7,7 @@ namespace Mush\tests\functional\Equipment\Normalizer;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -69,6 +70,25 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldNormalizeNothingToComputeInfoWithoutStarmapFragment(FunctionalTester $I): void
+    {
+        $this->whenINormalizeTerminalForPlayer();
+
+        $I->assertEquals(
+            expected: 'Rien à calculer pour le moment.',
+            actual: $this->normalizedTerminal['infos']['nothingToCompute']
+        );
+    }
+
+    public function shouldNotNormalizeNothingToComputeInfoWithStarmapFragment(FunctionalTester $I): void
+    {
+        $this->givenAStarmapFragmentInRoom();
+
+        $this->whenINormalizeTerminalForPlayer();
+
+        $I->assertArrayNotHasKey('nothingToCompute', $this->normalizedTerminal['infos']);
+    }
+
     public function shouldNormalizeSectionTitles(FunctionalTester $I): void
     {
         $this->whenINormalizeTerminalForPlayer();
@@ -100,6 +120,16 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
             target: $this->calculator
+        );
+    }
+
+    private function givenAStarmapFragmentInRoom(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::STARMAP_FRAGMENT,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
         );
     }
 

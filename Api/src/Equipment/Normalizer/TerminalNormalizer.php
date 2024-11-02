@@ -15,6 +15,7 @@ use Mush\Daedalus\Enum\NeronCrewLockEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\DifficultyEnum;
@@ -113,8 +114,17 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $pilgredTerminalInfos = $this->getNormalizedPilgredTerminalInfos($terminal);
         $neronCoreInfos = $this->getNormalizedNeronCoreInfos($terminal);
         $researchTerminalInfos = $this->getNormalizedResearchTerminalInfos($terminal);
+        $calculatorInfos = $this->getNormalizedCalculatorInfos($terminal);
 
-        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos, $biosTerminalInfos, $pilgredTerminalInfos, $neronCoreInfos, $researchTerminalInfos);
+        $normalizedTerminal['infos'] = array_merge(
+            $astroTerminalInfos,
+            $commandTerminalInfos,
+            $biosTerminalInfos,
+            $pilgredTerminalInfos,
+            $neronCoreInfos,
+            $researchTerminalInfos,
+            $calculatorInfos
+        );
 
         return $normalizedTerminal;
     }
@@ -345,6 +355,29 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         return [
             'requirements' => $this->getFullfilledResearchRequirements($daedalus, $terminalKey),
         ];
+    }
+
+    private function getNormalizedCalculatorInfos(GameEquipment $terminal): array
+    {
+        $terminalKey = $terminal->getName();
+        if ($terminalKey !== EquipmentEnum::CALCULATOR) {
+            return [];
+        }
+
+        $infos = [];
+
+        // nothing to compute if there is no starmap fragment
+        $place = $terminal->getPlace();
+        if ($place->doesNotHaveEquipmentByName(ItemEnum::STARMAP_FRAGMENT)) {
+            $infos['nothingToCompute'] = $this->translationService->translate(
+                key: $terminalKey . '.nothing_to_compute',
+                parameters: [],
+                domain: 'terminal',
+                language: $terminal->getDaedalus()->getLanguage()
+            );
+        }
+
+        return $infos;
     }
 
     private function getFullfilledResearchRequirements(Daedalus $daedalus, string $terminalKey): array

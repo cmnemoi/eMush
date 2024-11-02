@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Player\Event;
 
 use Mush\Game\Entity\GameVariable;
@@ -39,15 +41,7 @@ class PlayerVariableEvent extends PlayerEvent implements VariableEventInterface
     public function setQuantity(float $quantity): self
     {
         // this event quantity should never change sign
-        if (
-            $quantity !== 0.
-            && $this->quantity !== 0.
-            && abs($this->quantity) / $this->quantity !== abs($quantity) / $quantity
-        ) {
-            $this->quantity = 0;
-        } else {
-            $this->quantity = $quantity;
-        }
+        $this->quantity = $this->hasSignChanged($quantity) ? 0 : $quantity;
 
         $this->addTagsFromQuantity();
 
@@ -91,5 +85,19 @@ class PlayerVariableEvent extends PlayerEvent implements VariableEventInterface
                 unset($this->tags[$key]);
             }
         }
+    }
+
+    private function hasSignChanged(float $newQuantity): bool
+    {
+        if ($newQuantity === 0. || $this->quantity === 0.) {
+            return true;
+        }
+
+        return $this->sign($newQuantity) !== $this->sign($this->quantity);
+    }
+
+    private function sign(float $number): int
+    {
+        return $number <=> 0;
     }
 }

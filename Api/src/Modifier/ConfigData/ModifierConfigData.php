@@ -547,7 +547,6 @@ abstract class ModifierConfigData
                 ActionEnum::ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
                 PlanetSectorEvent::FIGHT => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::CRITICAL_SUCCESS => ModifierRequirementEnum::NONE_TAGS,
-                VariableEventInterface::GAIN => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [

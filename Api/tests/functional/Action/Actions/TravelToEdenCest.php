@@ -65,60 +65,113 @@ final class TravelToEdenCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableIfPilgredIsNotFinished(FunctionalTester $I): void
     {
-        // given Pilgred is not finished (default)
+        $this->whenChunTriesToTravelToEden();
 
-        // when Chun tries to execute TravelToEden action
-        $this->travelToEdenAction->loadParameters(
-            actionConfig: $this->actionConfig,
-            actionProvider: $this->commandTerminal,
-            player: $this->chun,
-            target: $this->commandTerminal
-        );
-
-        // then the action should not be executable
-        $I->assertEquals(
-            expected: ActionImpossibleCauseEnum::NO_PILGRED,
-            actual: $this->travelToEdenAction->cannotExecuteReason(),
+        $this->thenActionShouldNotBeExecutable(
+            message: ActionImpossibleCauseEnum::NO_PILGRED,
+            I: $I
         );
     }
 
     public function shouldKillPlayers(FunctionalTester $I): void
     {
-        // given Pilgred is finished
+        $this->givenPilgredIsFinished();
+
+        $this->whenChunTravelsToEden();
+
+        $this->thenAllPlayersShouldBeDead($I);
+    }
+
+    public function shouldKillPlayersWithSolReturnEndCause(FunctionalTester $I): void
+    {
+        $this->givenPilgredIsFinished();
+
+        $this->whenChunTravelsToEden();
+
+        $this->thenAllPlayersShouldHaveSolReturnEndCause($I);
+    }
+
+    public function shouldNotPrintPublicDeathLogs(FunctionalTester $I): void
+    {
+        $this->givenPilgredIsFinished();
+
+        $this->whenChunTravelsToEden();
+
+        $this->thenNoPublicDeathLogsShouldExist($I);
+    }
+
+    public function shouldFinishTheGame(FunctionalTester $I): void
+    {
+        $this->givenPilgredIsFinished();
+
+        $this->whenChunTravelsToEden();
+
+        $this->thenGameShouldBeFinished($I);
+    }
+
+    public function shouldNotCreateDeathAnnouncements(FunctionalTester $I): void
+    {
+        $this->givenPilgredIsFinished();
+
+        $this->whenChunTravelsToEden();
+
+        $this->thenNoDeathAnnouncementsShouldExist($I);
+    }
+
+    public function shouldNotMakeLoseMoralePoints(FunctionalTester $I): void
+    {
+        $this->givenPilgredIsFinished();
+
+        $this->whenChunTravelsToEden();
+
+        $this->thenPlayersShouldNotLoseMoralePoints($I);
+    }
+
+    public function shouldNotTriggerTraumaDiseases(FunctionalTester $I): void
+    {
+        $this->givenPilgredIsFinished();
+
+        $this->whenChunTravelsToEden();
+
+        $this->thenNoTraumaDiseasesShouldBeTriggered($I);
+    }
+
+    private function givenPilgredIsFinished(): void
+    {
         $pilgred = $this->daedalus->getPilgred();
         $pilgred->makeProgressAndUpdateParticipationDate(100);
+    }
 
-        // when Chun executes TravelToEden action
+    private function whenChunTriesToTravelToEden(): void
+    {
         $this->travelToEdenAction->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $this->commandTerminal,
             player: $this->chun,
             target: $this->commandTerminal
         );
-        $this->travelToEdenAction->execute();
+    }
 
-        // then all Daedalus players should be dead
+    private function whenChunTravelsToEden(): void
+    {
+        $this->whenChunTriesToTravelToEden();
+        $this->travelToEdenAction->execute();
+    }
+
+    private function thenActionShouldNotBeExecutable(string $message, FunctionalTester $I): void
+    {
+        $I->assertEquals($message, $this->travelToEdenAction->cannotExecuteReason());
+    }
+
+    private function thenAllPlayersShouldBeDead(FunctionalTester $I): void
+    {
         foreach ($this->players as $player) {
             $I->assertFalse($player->isAlive());
         }
     }
 
-    public function shouldKillPlayersWithSolReturnEndCause(FunctionalTester $I): void
+    private function thenAllPlayersShouldHaveSolReturnEndCause(FunctionalTester $I): void
     {
-        // given Pilgred is finished
-        $pilgred = $this->daedalus->getPilgred();
-        $pilgred->makeProgressAndUpdateParticipationDate(100);
-
-        // when Chun executes TravelToEden action
-        $this->travelToEdenAction->loadParameters(
-            actionConfig: $this->actionConfig,
-            actionProvider: $this->commandTerminal,
-            player: $this->chun,
-            target: $this->commandTerminal
-        );
-        $this->travelToEdenAction->execute();
-
-        // then all Daedalus players should be dead with Sol Return end cause
         foreach ($this->players as $player) {
             $I->assertEquals(
                 expected: EndCauseEnum::SOL_RETURN,
@@ -127,22 +180,8 @@ final class TravelToEdenCest extends AbstractFunctionalTest
         }
     }
 
-    public function shouldNotPrintPublicDeathLogs(FunctionalTester $I): void
+    private function thenNoPublicDeathLogsShouldExist(FunctionalTester $I): void
     {
-        // given Pilgred is finished
-        $pilgred = $this->daedalus->getPilgred();
-        $pilgred->makeProgressAndUpdateParticipationDate(100);
-
-        // when Chun executes TravelToEden action
-        $this->travelToEdenAction->loadParameters(
-            actionConfig: $this->actionConfig,
-            actionProvider: $this->commandTerminal,
-            player: $this->chun,
-            target: $this->commandTerminal
-        );
-        $this->travelToEdenAction->execute();
-
-        // then no public death logs should be printed
         $I->cantSeeInRepository(
             entity: RoomLog::class,
             params: [
@@ -152,41 +191,13 @@ final class TravelToEdenCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldFinishTheGame(FunctionalTester $I): void
+    private function thenGameShouldBeFinished(FunctionalTester $I): void
     {
-        // given Pilgred is finished
-        $pilgred = $this->daedalus->getPilgred();
-        $pilgred->makeProgressAndUpdateParticipationDate(100);
-
-        // when Chun executes TravelToEden action
-        $this->travelToEdenAction->loadParameters(
-            actionConfig: $this->actionConfig,
-            actionProvider: $this->commandTerminal,
-            player: $this->chun,
-            target: $this->commandTerminal
-        );
-        $this->travelToEdenAction->execute();
-
-        // then the game should be finished
         $I->assertTrue($this->daedalus->getDaedalusInfo()->isDaedalusFinished());
     }
 
-    public function shouldNotCreateDeathAnnouncements(FunctionalTester $I): void
+    private function thenNoDeathAnnouncementsShouldExist(FunctionalTester $I): void
     {
-        // given Pilgred is finished
-        $pilgred = $this->daedalus->getPilgred();
-        $pilgred->makeProgressAndUpdateParticipationDate(100);
-
-        // when Chun executes TravelToEden action
-        $this->travelToEdenAction->loadParameters(
-            actionConfig: $this->actionConfig,
-            actionProvider: $this->commandTerminal,
-            player: $this->chun,
-            target: $this->commandTerminal
-        );
-        $this->travelToEdenAction->execute();
-
-        // then no death announcements should be created
         $I->cantSeeInRepository(
             entity: Message::class,
             params: [
@@ -195,22 +206,8 @@ final class TravelToEdenCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNotMakeLoseMoralePoints(FunctionalTester $I): void
+    private function thenPlayersShouldNotLoseMoralePoints(FunctionalTester $I): void
     {
-        // given Pilgred is finished
-        $pilgred = $this->daedalus->getPilgred();
-        $pilgred->makeProgressAndUpdateParticipationDate(100);
-
-        // when Chun executes TravelToEden action
-        $this->travelToEdenAction->loadParameters(
-            actionConfig: $this->actionConfig,
-            actionProvider: $this->commandTerminal,
-            player: $this->chun,
-            target: $this->commandTerminal
-        );
-        $this->travelToEdenAction->execute();
-
-        // then no player should lose morale points
         foreach ($this->players as $player) {
             $I->assertEquals(
                 expected: $player->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint(),
@@ -219,22 +216,8 @@ final class TravelToEdenCest extends AbstractFunctionalTest
         }
     }
 
-    public function shouldNotTriggerTraumaDiseases(FunctionalTester $I): void
+    private function thenNoTraumaDiseasesShouldBeTriggered(FunctionalTester $I): void
     {
-        // given Pilgred is finished
-        $pilgred = $this->daedalus->getPilgred();
-        $pilgred->makeProgressAndUpdateParticipationDate(100);
-
-        // when Chun executes TravelToEden action
-        $this->travelToEdenAction->loadParameters(
-            actionConfig: $this->actionConfig,
-            actionProvider: $this->commandTerminal,
-            player: $this->chun,
-            target: $this->commandTerminal
-        );
-        $this->travelToEdenAction->execute();
-
-        // then no trauma diseases should be triggered
         $I->cantSeeInRepository(
             entity: RoomLog::class,
             params: [

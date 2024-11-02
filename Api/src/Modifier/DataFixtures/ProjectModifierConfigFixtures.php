@@ -441,6 +441,15 @@ final class ProjectModifierConfigFixtures extends Fixture
         $this->manager->persist($mushovoreBacteriaModifier);
         $this->addReference($mushovoreBacteriaModifier->getName(), $mushovoreBacteriaModifier);
 
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VALUE_MINUS_2_MAX_DAEDALUS_SPORES);
+        $antisporeGasModifier = DirectModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::DAEDALUS_MINUS_2_MAX_SPORES)
+        );
+        $antisporeGasModifier->setTriggeredEvent($eventConfig);
+        $this->manager->persist($antisporeGasModifier);
+        $this->addReference($antisporeGasModifier->getName(), $antisporeGasModifier);
+
         $this->manager->flush();
     }
 

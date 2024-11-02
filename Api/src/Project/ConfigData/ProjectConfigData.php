@@ -571,7 +571,9 @@ abstract class ProjectConfigData
                 'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    ModifierNameEnum::DAEDALUS_MINUS_2_MAX_SPORES,
+                ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [

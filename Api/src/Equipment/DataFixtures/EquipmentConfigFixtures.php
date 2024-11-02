@@ -217,6 +217,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($pilgred);
 
+        $calculatorTool = $this->createTool([$accessTerminalAction, $exitTerminalAction], EquipmentEnum::CALCULATOR);
+        $manager->persist($calculatorTool);
+
         $calculator = new EquipmentConfig();
         $calculator
             ->setEquipmentName(EquipmentEnum::CALCULATOR)
@@ -224,6 +227,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction])
+            ->setMechanics([$calculatorTool])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($calculator);
 

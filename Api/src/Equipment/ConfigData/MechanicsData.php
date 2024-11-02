@@ -13,6 +13,7 @@ use Mush\Skill\Enum\SkillEnum;
 abstract class MechanicsData
 {
     public const string TOOL_COMMS_CENTER = 'tool_comms_center_default';
+    public const string TOOL_CALCULATOR = 'tool_calculator_default';
 
     public static array $dataArray = [
         [
@@ -1853,6 +1854,15 @@ abstract class MechanicsData
             'actions' => [
                 ActionEnum::SEARCH_FOR_MUSH_GENOME->value,
             ],
+        ],
+        [
+            'name' => self::TOOL_CALCULATOR,
+            'type' => EquipmentMechanicEnum::TOOL,
+            'actions' => [
+                ActionEnum::ACCESS_TERMINAL->value,
+                ActionEnum::EXIT_TERMINAL->value,
+            ],
+            'modifierConfigs' => [],
         ],
     ];
 }

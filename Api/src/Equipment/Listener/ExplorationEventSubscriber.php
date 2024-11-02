@@ -41,8 +41,8 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
         $daedalus = $event->getDaedalus();
         $exploration = $event->getExploration();
 
-        // All explorators are dead, all equipment stay on the planet! Unless Daedalus has the Auto Return Icarus project.
-        if ($exploration->allExploratorsAreDead() && $daedalus->doesNotHaveAutoReturnIcarusProject()) {
+        // No one can pilot the Icarus back, all equipment stay on the planet! Unless Daedalus has the Auto Return Icarus project.
+        if ($exploration->allExploratorsAreDeadOrLost() && $daedalus->doesNotHaveAutoReturnIcarusProject()) {
             return;
         }
 

@@ -67,6 +67,13 @@ final class ComputeEden extends AttemptAction
             new NoStarmapFragment([
                 'groups' => [ClassConstraint::VISIBILITY],
             ]),
+            new HasStatus([
+                'status' => PlayerStatusEnum::DIRTY,
+                'target' => HasStatus::PLAYER,
+                'contain' => false,
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::DIRTY_RESTRICTION,
+            ]),
             new HasEquipment([
                 'equipments' => [ItemEnum::STARMAP_FRAGMENT],
                 'number' => 3,

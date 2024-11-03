@@ -88,6 +88,19 @@ final class ComputeEdenCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::NOT_ENOUGH_MAP_FRAGMENTS, $I);
     }
 
+    public function shouldNotBeExecutableIfPlayerIsDirty(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCalculator();
+
+        $this->givenStarmapFragmentsInRoom(number: 3);
+
+        $this->givenPlayerIsDirty();
+
+        $this->whenPlayerTriesToComputeEden();
+
+        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DIRTY_RESTRICTION, $I);
+    }
+
     public function shouldCreateEdenComputedStatusOnSuccess(FunctionalTester $I): void
     {
         $this->givenPlayerIsFocusedOnCalculator();
@@ -199,6 +212,16 @@ final class ComputeEdenCest extends AbstractFunctionalTest
         $this->statusService->createStatusFromName(
             statusName: DaedalusStatusEnum::EDEN_COMPUTED,
             holder: $this->player->getDaedalus(),
+            tags: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenPlayerIsDirty(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::DIRTY,
+            holder: $this->player,
             tags: [],
             time: new \DateTime()
         );

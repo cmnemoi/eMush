@@ -118,15 +118,22 @@ add_user_to_docker_group() {
 }
 
 setup-git-hooks() {
+    cd Api
     chmod +x hooks/pre-commit
     chmod +x hooks/pre-push
     git config core.hooksPath hooks
+    cd ..
 }
 
 setup-env-variables() {
-    cp ./Api/.env.dist ./Api/.env.local
-    cp ./Api/.env.test ./Api/.env.test.local
-    cp ./App/.env.bare-metal ./App/.env
+    cd Api
+    cp .env.dist .env.local
+    cp .env.test .env.test.local
+    cd ..
+    cd App
+    cp .env.bare-metal .env
+    cd ..
+    cd Eternaltwin
     cp ./Eternaltwin/etwin.bare-metal.toml.example ./Eternaltwin/etwin.local.toml
 }
 

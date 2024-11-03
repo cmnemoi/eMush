@@ -112,14 +112,14 @@ gitpod-watch:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml up --no-recreate --remove-orphans
 
 bare-metal-install: setup-git-hooks
-	chmod +x unix_like_install.sh
-	chmod +x unix_like_uninstall.sh
+	chmod +x install.sh
+	chmod +x uninstall.sh
 	chmod +x start.sh
 	chmod +x stop.sh
-	bash unix_like_install.sh
+	bash install.sh
 
 uninstall:
-	bash unix_like_uninstall.sh
+	bash uninstall.sh
 
 start:
 	bash start.sh

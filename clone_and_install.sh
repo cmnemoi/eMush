@@ -26,7 +26,7 @@ clone_repository() {
 # Function to launch the install script
 launch_install_script() {
     echo "Launching install script..."
-    make bare-metal-install
+    source ./install.sh
 }
 
 

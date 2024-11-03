@@ -9,7 +9,7 @@
 
 ### eMush Api
 
-A REST Api developed using [Symfony 6.2](https://symfony.com/doc/6.2/index.html) that manages the eMush game.
+A REST Api developed using [Symfony 6.4](https://symfony.com/doc/6.4/index.html) that manages the eMush game.
 
 Please read [API.md](./Api/README.md) for details on the API architecture.
 

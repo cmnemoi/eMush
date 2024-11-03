@@ -12,8 +12,10 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\GrenadeInhibit;
 use Mush\Action\Validator\NumberPlayersAliveInRoom;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
@@ -42,6 +44,10 @@ final class ThrowGrenade extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
+            new Reach([
+                'reach' => ReachEnum::ROOM,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
             new NumberPlayersAliveInRoom([
                 'mode' => NumberPlayersAliveInRoom::EQUAL,
                 'number' => 1,

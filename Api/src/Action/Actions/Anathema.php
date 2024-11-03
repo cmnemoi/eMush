@@ -13,6 +13,8 @@ use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NoPariahOnBoard;
 use Mush\Action\Validator\PreMush;
+use Mush\Action\Validator\Reach;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -37,6 +39,10 @@ final class Anathema extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
+            new Reach([
+                'reach' => ReachEnum::ROOM,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
             new HasStatus([
                 'status' => PlayerStatusEnum::PARIAH,
                 'target' => HasStatus::PARAMETER,

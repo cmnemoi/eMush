@@ -9,7 +9,10 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\GameVariableLevel;
+use Mush\Action\Validator\Reach;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -33,7 +36,11 @@ final class Premonition extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(
+        $metadata->addConstraints([
+            new Reach([
+                'reach' => ReachEnum::ROOM,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
             new GameVariableLevel([
                 'variableName' => PlayerVariableEnum::MORAL_POINT,
                 'checkMode' => GameVariableLevel::EQUALS,
@@ -41,8 +48,8 @@ final class Premonition extends AbstractAction
                 'value' => 1,
                 'groups' => ['execute'],
                 'message' => ActionImpossibleCauseEnum::PREMONITION_INSUFFICIENT_MORALE,
-            ])
-        );
+            ]),
+        ]);
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

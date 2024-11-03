@@ -29,7 +29,7 @@ If you don't want to go through the installation process, you can use the projec
 
 This will create a new workspace in the cloud with all the dependencies installed and the project ready to run with your prefered IDE. You need a Gitpod account to use this feature.
 
-### Installing with Docker
+### Installing with Docker (recommended)
 
 #### Windows Users:
 
@@ -39,11 +39,11 @@ Docker Desktop for Windows can be downloaded [here](https://docs.docker.com/desk
 
 WSL2 should be installed by default on recent Windows 10+ versions. Try running `wsl --set-default-version 2` in a Powershell terminal. If it doesn't work, follow the instructions [here](https://learn.microsoft.com/fr-fr/windows/wsl/install-manual).
 
-Install [Debian](https://apps.microsoft.com/detail/9msvkqc78pk6) with WSL2 : `wsl --install -d Debian`
+Install [Ubuntu](https://apps.microsoft.com/detail/9msvkqc78pk6) with WSL2 : `wsl --install -d Ubuntu`
 
-Then launch it : `wsl -d Debian`
+Then launch it : `wsl -d Ubuntu`
 
-After configuring your Debian account, you can install the project following the instructions below.
+After configuring your Ubuntuaccount, you can install the project following the instructions below.
 
 #### Install build tools and Docker
 
@@ -58,9 +58,9 @@ apt install build-essential curl git -y
 
 ```bash
 install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 chmod a+r /etc/apt/keyrings/docker.asc
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 apt update -y
@@ -108,74 +108,26 @@ You should land in a fully working Daedalus!
 
 ### Installing without Docker
 
-TODO : write a Bash and a Powershell script because I hate typing multiple commands to install a project
+If you don't want to use Docker, here are two installation scripts. 
 
-- Clone repository https://gitlab.com/eternaltwin/mush/mush.git
+#### Unix-like OS (Linux, MacOS)
 
-- Install NVM and yarn https://github.com/coreybutler/nvm-windows/releases
-```
-nvm install latest
-nvm use latest
-npm install -g yarn
-```
-	
-- Download the last version of PHP https://windows.php.net/download#php-8.3
-   - Add the folder containing php.exe to PATH
-   - Add in your php.ini
-```
-activate extension=pdo_pgsql
-activate extension=intl
-```
+Run this command in your terminal:
 
-- Download Composer https://getcomposer.org/download/
-  - Add the folder containing composer.bat to PATH
-
-- Download and install Postgresql https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
-  - Create new user identified by mysql with password password
-  - Create database mush with user mysql as owner
-  - Create database etwin.dev with user mysql as owner
-
-- Create the JWT certificates (https://github.com/lexik/LexikJWTAuthenticationBundle):
 ```bash
-openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
-openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
-chmod go+r config/jwt/private.pem
-```
-  - Use `mush` as passphrase or update the `.env` with your passphrase
-
-
-- In folder `Api/`
-
-  - `cp .env.dist .env`
-  - Replace all instances of `mush_eternaltwin` by `localhost` in your `.env`
-  - Install and launch eMush back-end:
-
-```
-composer update
-php bin/console mush:migrate --dev
-php -S localhost:8080 -t public
+sudo curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/chore/install-scripts/clone_and_install.sh?ref_type=heads | bash
 ```
 
-- In folder `App/`
+#### Windows
 
-  - `cp .env.dist .env`
-  - Modify `.env` `VITE_APP_URL` value to `http://localhost:5173`
-  - Install and launch eMush front-end:
-```
-yarn install
-yarn serve
+Run those commands in your Powershell terminal:
+
+```powershell
+Invoke-WebRequest -Uri "https://gitlab.com/eternaltwin/mush/mush/-/raw/chore/install-scripts/clone_and_install.ps1?ref_type=heads" -OutFile "clone_and_install.ps1"
+.\clone_and_install.ps1
 ```
 
-- In folder `EternalTwin/`
-
-  - `cp eternaltwin.toml eternaltwin.local.toml`
-  - Modify `eternaltwin.local.toml` `uri` value to `http://localhost:5173`
-  - Install and launch Eternaltwin server:
-```
-yarn install
-yarn etwin db create
-yarn etwin start
-```
+The command for Windows being highly experimental or if you don't trust the scripts, you may find legacy install instructions in the [wiki](https://gitlab.com/eternaltwin/mush/mush/-/wikis/Legacy-Windows-Install-Instructions).
 
 ## Contributing
 

@@ -38,18 +38,20 @@ final class NeronCrewLockValidator extends ConstraintValidator
         $restrictedTerminals = $this->getRestrictedTerminals($crewLock);
 
         if (
-            $player->hasSkill($skillNeeded) === false
-            && $this->isTerminalRestricted($terminal, $restrictedTerminals)
+            $player->hasAnySkill($skillNeeded) === false
+            && $restrictedTerminals->contains($terminal->getName())
         ) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }
 
-    private function getSkillNeeded(string $crewLock): SkillEnum
+    /** @return array<SkillEnum> */
+    private function getSkillNeeded(string $crewLock): array
     {
         return match ($crewLock) {
-            NeronCrewLockEnum::PILOTING->value => SkillEnum::PILOT,
-            NeronCrewLockEnum::PROJECTS->value => SkillEnum::CONCEPTOR,
+            NeronCrewLockEnum::PILOTING->value => [SkillEnum::PILOT],
+            NeronCrewLockEnum::PROJECTS->value => [SkillEnum::CONCEPTOR],
+            NeronCrewLockEnum::RESEARCH->value => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
             default => SkillEnum::NULL,
         };
     }
@@ -59,12 +61,8 @@ final class NeronCrewLockValidator extends ConstraintValidator
         return match ($crewLock) {
             NeronCrewLockEnum::PILOTING->value => EquipmentEnum::getPilotingCrewLockRestrictedTerminals(),
             NeronCrewLockEnum::PROJECTS->value => EquipmentEnum::getNeronProjectTerminals(),
+            NeronCrewLockEnum::RESEARCH->value => EquipmentEnum::getResearchProjectTerminals(),
             default => new ArrayCollection(),
         };
-    }
-
-    private function isTerminalRestricted(GameEquipment $terminal, ArrayCollection $restrictedTerminals): bool
-    {
-        return $restrictedTerminals->contains($terminal->getName());
     }
 }

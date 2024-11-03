@@ -14,6 +14,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -112,6 +113,21 @@ final class ComputeEdenCest extends AbstractFunctionalTest
         $this->whenPlayerTriesToComputeEden();
 
         $this->thenDaedalusShouldHaveEdenComputedStatus($I);
+    }
+
+    public function itExpertShouldUseOneITPoint(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCalculator();
+
+        $this->givenStarmapFragmentsInRoom(number: 3);
+
+        $this->givenPlayerIsAnITExpert($I);
+
+        $this->givenPlayerHasFourITPoints($I);
+
+        $this->whenPlayerTriesToComputeEden();
+
+        $this->thenPlayerShouldHaveITPoints(3, $I);
     }
 
     public function shouldCreatePublicLogOnSuccess(FunctionalTester $I): void
@@ -227,6 +243,19 @@ final class ComputeEdenCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenPlayerIsAnITExpert(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::IT_EXPERT, $I);
+    }
+
+    private function givenPlayerHasFourITPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: 4,
+            actual: $this->player->getSkillByNameOrThrow(SkillEnum::IT_EXPERT)->getSkillPoints(),
+        );
+    }
+
     private function whenPlayerTriesToComputeEden(): void
     {
         $this->computeEden->loadParameters(
@@ -256,5 +285,13 @@ final class ComputeEdenCest extends AbstractFunctionalTest
     private function thenDaedalusShouldNotHaveEdenComputedStatus(FunctionalTester $I): void
     {
         $I->assertFalse($this->daedalus->hasStatus(DaedalusStatusEnum::EDEN_COMPUTED));
+    }
+
+    private function thenPlayerShouldHaveITPoints(int $itPoints, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $itPoints,
+            actual: $this->player->getSkillByNameOrThrow(SkillEnum::IT_EXPERT)->getSkillPoints(),
+        );
     }
 }

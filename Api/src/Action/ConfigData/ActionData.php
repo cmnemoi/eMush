@@ -2642,7 +2642,7 @@ class ActionData
         [
             'name' => ActionEnum::COMPUTE_EDEN->value,
             'action_name' => ActionEnum::COMPUTE_EDEN,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_IT],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => VisibilityEnum::PRIVATE],

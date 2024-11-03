@@ -19,17 +19,6 @@ run_command() {
     eval "$1" >> install.log
 }
 
-# Function to check for sudo permissions
-check_sudo() {
-    log_message "This script requires sudo permissions to install dependencies. Note: you should probably not run random scripts from the Internet without checking the code first. Do you want to continue? (y/n)."
-    read -r response
-    if [ "$response" != "y" ]; then
-        log_message "Exiting..."
-        exit 1
-    fi
-    log_message "Thank you. Please provide your password when prompted."
-}
-
 # Function to clean previous PID file
 clean_pid_file() {
     if [ -f "./server_pids" ]; then
@@ -272,7 +261,6 @@ launch_project() {
 
 # Main installation process
 main() {
-    check_sudo
     update_system
     install_postgres
     install_frontend

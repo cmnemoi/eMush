@@ -29,7 +29,6 @@ launch_install_script() {
     source ./install.sh
 }
 
-
 run() {
     check_required_commands
     clone_repository

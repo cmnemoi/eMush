@@ -83,8 +83,8 @@ install_docker() {
     log_message "Installing Docker..."
     run_command "install -m 0755 -d /etc/apt/keyrings"
     run_command "sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc"
-    run_command "chmod a+r /etc/apt/keyrings/docker.asc"
-    run_command "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo \"$VERSION_CODENAME\") stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"
+    run_command "sudo chmod a+r /etc/apt/keyrings/docker.asc"
+    run_command "sudo echo \"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo \"$VERSION_CODENAME\") stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"
     run_command "sleep 5"
     update_system
     install_package "docker-ce"

@@ -35,6 +35,8 @@ This will create a new workspace in the cloud with all the dependencies installe
 
 Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_docker_install.sh?ref_type=heads | bash` in your terminal.
 
+If you enconter any issue, refer to detailed Docker installation instructions [here](https://gitlab.com/eternaltwin/mush/mush/-/wikis/Docker-install-detailed-instructions) and ask for help on [Discord](https://discord.com/channels/693082011484684348/746873392463872071).
+
 #### MacOS
 
 - Install `git` and `make` ;

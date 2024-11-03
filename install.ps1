@@ -11,14 +11,33 @@ $LOG_FILE = "install.log"
 function Log-Message {
     param([string]$message)
     Write-Host $message
-    Add-Content -Path $LOG_FILE -Value $message
+    Add-Content -Path $LOG_FILE -Value "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss'): $message"
 }
 
 # Function to run commands with logging
 function Run-Command {
     param([string]$command)
     Log-Message "Running: $command"
-    Invoke-Expression $command *>&1 | Tee-Object -Append -FilePath $LOG_FILE
+    try {
+        Invoke-Expression $command *>&1 | Tee-Object -Append -FilePath $LOG_FILE
+        if ($LASTEXITCODE -ne 0) {
+            throw "Command failed with exit code $LASTEXITCODE"
+        }
+    }
+    catch {
+        Log-Message "Error executing command: $_"
+        throw
+    }
+}
+
+# Function to check Windows version and compatibility
+function Check-SystemCompatibility {
+    $os = Get-WmiObject -Class Win32_OperatingSystem
+    if (-not $os.Caption.Contains("Windows")) {
+        Log-Message "This script is only compatible with Windows operating systems."
+        exit 1
+    }
+    Log-Message "Running on: $($os.Caption)"
 }
 
 # Function to check for admin permissions
@@ -31,12 +50,22 @@ function Check-Admin {
     }
 }
 
+# Function to update system
+function Update-System {
+    Log-Message "Updating system packages..."
+    Run-Command "choco upgrade all -y"
+}
+
 # Function to install Chocolatey
 function Install-Chocolatey {
-    Log-Message "Installing Chocolatey..."
-    Set-ExecutionPolicy Bypass -Scope Process -Force
-    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+    if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
+        Log-Message "Installing Chocolatey..."
+        Set-ExecutionPolicy Bypass -Scope Process -Force
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+        Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+    } else {
+        Log-Message "Chocolatey is already installed"
+    }
 }
 
 # Function to install and setup PostgreSQL
@@ -49,10 +78,27 @@ function Install-Postgres {
 
     Log-Message "Creating users and databases..."
     $env:PGPASSWORD = "password"
-    Run-Command "psql -U postgres -c `"CREATE USER `"mysql`" WITH PASSWORD 'password' CREATEDB LOGIN;`""
-    Run-Command "psql -U postgres -c `"CREATE DATABASE `"etwin.dev`" WITH OWNER `"mysql`";`""
-    Run-Command "psql -U postgres -c `"GRANT ALL PRIVILEGES ON DATABASE `"etwin.dev`" TO `"mysql`";`""
-    Run-Command "psql -U postgres -c `"ALTER SCHEMA public OWNER TO `"mysql`";`""
+    
+    # Create users and databases matching install.sh
+    $queries = @"
+CREATE USER "mysql" WITH PASSWORD 'password';
+CREATE DATABASE "mush" WITH OWNER "mysql";
+GRANT ALL PRIVILEGES ON DATABASE "mush" TO "mysql";
+
+CREATE USER "etwin.dev" WITH PASSWORD 'password';
+CREATE DATABASE "etwin.dev" WITH OWNER "etwin.dev";
+GRANT ALL PRIVILEGES ON DATABASE "etwin.dev" TO "etwin.dev";
+
+\c etwin.dev
+ALTER SCHEMA public OWNER TO "etwin.dev";
+GRANT ALL ON SCHEMA public TO "etwin.dev";
+"@
+    
+    $queries -split "`n" | ForEach-Object {
+        if ($_.Trim()) {
+            Run-Command "psql -U postgres -c `"$_`""
+        }
+    }
 }
 
 # Function to install front-end dependencies
@@ -75,36 +121,54 @@ function Install-Frontend {
 # Function to install Eternaltwin server
 function Install-Eternaltwin {
     Log-Message "Setup Eternaltwin env variables..."
-    Run-Command "Copy-Item -Path EternalTwin\etwin.bare-metal.toml.example -Destination EternalTwin\etwin.toml"
+    Run-Command "Copy-Item -Path Eternaltwin\eternaltwin.bare-metal.toml -Destination Eternaltwin\eternaltwin.local.toml"
 
     Log-Message "Installing Eternaltwin server dependencies..."
-    Set-Location EternalTwin
+    Set-Location Eternaltwin
     Run-Command "yarn set version latest"
     Run-Command "yarn install"
+    
+    Log-Message "Installing Eternaltwin server..."
+    Run-Command "yarn etwin db reset"
+    Run-Command "yarn etwin db sync"
     Set-Location ..
 }
 
 # Function to install back-end dependencies
 function Install-Backend {
-    Log-Message "Installing PHP $PHP_VERSION..."
+    Log-Message "Installing PHP $PHP_VERSION and extensions..."
     Run-Command "choco install php --version=$PHP_VERSION -y"
+    
+    # Install PHP extensions
+    $extensions = @(
+        "php-pgsql",
+        "php-curl",
+        "php-opcache",
+        "php-intl",
+        "php-xml",
+        "php-dom",
+        "php-zip",
+        "php-mbstring"
+    )
+    
+    foreach ($ext in $extensions) {
+        Run-Command "choco install $ext -y"
+    }
 
     Log-Message "Installing Composer..."
-    Run-Command "choco install composer --version=$COMPOSER_VERSION -y"
+    Run-Command "choco install composer -y"
 
     Log-Message "Creating JWT certificates..."
     Set-Location Api
     Run-Command "openssl genpkey -pass pass:mush -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096"
     Run-Command "openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout"
     Run-Command "icacls config\jwt\private.pem /grant Everyone:R"
-    Set-Location ..
 
     Log-Message "Setup back-end env variables..."
-    Run-Command "Copy-Item -Path Api\.env.bare-metal -Destination Api\.env.local"
-    Run-Command "Copy-Item -Path Api\.env.bare-metal.test -Destination Api\.env.test.local"
+    Run-Command "Copy-Item -Path .env.bare-metal -Destination .env.local"
+    Run-Command "Copy-Item -Path .env.bare-metal.test -Destination .env.test.local"
 
     Log-Message "Installing back-end dependencies..."
-    Set-Location Api
     Run-Command "composer install"
     Run-Command "composer reset"
     Set-Location ..
@@ -112,28 +176,7 @@ function Install-Backend {
 
 # Function to launch the project
 function Launch-Project {
-    Log-Message "Starting back-end server..."
-    Start-Process powershell -ArgumentList "-Command php -S localhost:8080 -t Api/public"
-
-    Log-Message "Starting front-end server..."
-    Set-Location App
-    Start-Process powershell -ArgumentList "-Command yarn dev"
-    Set-Location ..
-
-    Log-Message "Starting Eternaltwin server..."
-    Set-Location EternalTwin
-    Run-Command "yarn etwin start"
-    Start-Process powershell -ArgumentList "-Command yarn etwin start"
-    Start-Sleep -Seconds 10
-    Set-Location ..
-
-    Log-Message "Create Eternaltwin accounts..."
-    Run-Command "php Api\bin\console mush:create-crew"
-
-    Log-Message "Filling a Daedalus with players..."
-    Run-Command "php Api\bin\console mush:fill-daedalus"
-
-    Log-Message "Project installed successfully! You can access it at http://localhost:5173"
+    Log-Message "Project installed successfully! You can access it by running make start."
     Log-Message "Use the following credentials to login:"
     Log-Message "Username: chun"
     Log-Message "Password: 1234567891"
@@ -141,13 +184,21 @@ function Launch-Project {
 
 # Main installation process
 function Main {
-    Check-Admin
-    Install-Chocolatey
-    Install-Postgres
-    Install-Frontend
-    Install-Eternaltwin
-    Install-Backend
-    Launch-Project
+    try {
+        Check-Admin
+        Check-SystemCompatibility
+        Install-Chocolatey
+        Update-System
+        Install-Postgres
+        Install-Frontend
+        Install-Eternaltwin
+        Install-Backend
+        Launch-Project
+    }
+    catch {
+        Log-Message "Installation failed: $_"
+        exit 1
+    }
 }
 
 # Run the main installation process

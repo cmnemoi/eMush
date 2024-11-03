@@ -12,9 +12,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\OperationalDoorInRoom;
-use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -41,10 +39,6 @@ final class DoorSabotage extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
-            new Reach([
-                'reach' => ReachEnum::ROOM,
-                'groups' => [ClassConstraint::VISIBILITY],
-            ]),
             new OperationalDoorInRoom([
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::SABOTAGE_NO_DOOR,

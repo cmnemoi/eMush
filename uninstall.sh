@@ -110,6 +110,7 @@ uninstall_php() {
     uninstall_package "php${PHP_VERSION}-xml"
     uninstall_package "php${PHP_VERSION}-dom"
     uninstall_package "php${PHP_VERSION}-zip"
+    uninstall_package "php${PHP_VERSION}-mbstring"
 
     log_message "Remove PHP repositories..."
     run_command "sudo rm -rf /etc/apt/sources.list.d/php.list"

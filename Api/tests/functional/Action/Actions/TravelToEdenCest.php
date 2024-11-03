@@ -45,22 +45,8 @@ final class TravelToEdenCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        // given I have a command terminal in Chun's room
-        $this->commandTerminal = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::COMMAND_TERMINAL,
-            equipmentHolder: $this->chun->getPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
-
-        // given Chun is focused on terminal
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::FOCUSED,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime(),
-            target: $this->commandTerminal,
-        );
+        $this->createCommandTerminal();
+        $this->focusChunOnTerminal();
     }
 
     public function shouldNotBeExecutableIfPilgredIsNotFinished(FunctionalTester $I): void
@@ -160,6 +146,27 @@ final class TravelToEdenCest extends AbstractFunctionalTest
         $this->whenChunTravelsToEden();
 
         $this->thenNoTraumaDiseasesShouldBeTriggered($I);
+    }
+
+    private function createCommandTerminal(): void
+    {
+        $this->commandTerminal = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::COMMAND_TERMINAL,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function focusChunOnTerminal(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->commandTerminal,
+        );
     }
 
     private function givenPilgredIsFinished(): void

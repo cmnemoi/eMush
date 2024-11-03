@@ -22,10 +22,7 @@ run_docker_commands() {
 }
 
 # Try local commands first
-if command -v vendor/bin/php-cs-fixer >/dev/null 2>&1 && \
-   command -v vendor/bin/psalm >/dev/null 2>&1 && \
-   command -v vendor/bin/phpmd >/dev/null 2>&1 && \
-   command -v yarn >/dev/null 2>&1; then
+if command -v php >/dev/null 2>&1 && command -v yarn >/dev/null 2>&1; then
     run_local_commands || exit 1
 else
     run_docker_commands || exit 1

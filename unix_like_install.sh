@@ -242,6 +242,7 @@ install_backend() {
     install_package "php${PHP_VERSION}-xml"
     install_package "php${PHP_VERSION}-dom"
     install_package "php${PHP_VERSION}-zip"
+    install_package "php${PHP_VERSION}-mbstring"
 
     log_message "Installing Composer..."
     run_command "curl -sS https://getcomposer.org/installer | php"

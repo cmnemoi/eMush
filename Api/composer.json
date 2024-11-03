@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-intl": "*",
+        "ext-mbstring": "*",
         "ext-openssl": "*",
         "api-platform/core": "^2.7.18",
         "composer/package-versions-deprecated": "^1.11.99.5",

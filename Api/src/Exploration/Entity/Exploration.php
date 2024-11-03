@@ -224,8 +224,7 @@ class Exploration
     public function allExploratorsAreDeadOrLost(): bool
     {
         return $this
-            ->getExplorators()
-            ->getPlayerAlive()
+            ->getAliveExplorators()
             ->filter(static fn (Player $player) => $player->doesNotHaveStatus(PlayerStatusEnum::LOST))
             ->isEmpty();
     }

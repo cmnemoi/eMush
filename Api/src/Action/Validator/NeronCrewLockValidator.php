@@ -7,7 +7,6 @@ namespace Mush\Action\Validator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Symfony\Component\HttpFoundation\File\Exception\UnexpectedTypeException;
@@ -30,9 +29,8 @@ final class NeronCrewLockValidator extends ConstraintValidator
 
         $player = $action->getPlayer();
 
-        /** @var GameEquipment $terminal */
-        $terminal = $action->getTarget();
-        $crewLock = $player->getDaedalus()->getNeron()->getCrewLock()->value;
+        $terminal = $action->gameEquipmentTarget();
+        $crewLock = $player->getDaedalus()->getNeron()->getCrewLock()->toString();
 
         $skillNeeded = $this->getSkillNeeded($crewLock);
         $restrictedTerminals = $this->getRestrictedTerminals($crewLock);
@@ -45,14 +43,14 @@ final class NeronCrewLockValidator extends ConstraintValidator
         }
     }
 
-    /** @return array<SkillEnum> */
+    /** @return list<SkillEnum> */
     private function getSkillNeeded(string $crewLock): array
     {
         return match ($crewLock) {
             NeronCrewLockEnum::PILOTING->value => [SkillEnum::PILOT],
             NeronCrewLockEnum::PROJECTS->value => [SkillEnum::CONCEPTOR],
             NeronCrewLockEnum::RESEARCH->value => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
-            default => SkillEnum::NULL,
+            default => [],
         };
     }
 

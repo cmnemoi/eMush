@@ -194,7 +194,7 @@
       </segment>
       <segment id="crew_lock.description" state="translated">
         <source>bios_terminal.crew_lock_description</source>
-        <target>:point: Verrouillage Pilotage : Les non-pilotes ne sont pas autorisés à piloter un Patrouilleur/Icarus.//:point: Verrouillage Projet : les non-concepteurs ne sont pas autorisés à participer au développement des projets.</target>
+        <target>:point: Verrouillage Pilotage : Les non-pilotes ne sont pas autorisés à piloter un Patrouilleur/Icarus.//:point: Verrouillage Projet : les non-concepteurs ne sont pas autorisés à participer au développement des projets.//:point: Verrouillage Recherche : les non-biologistes et non-médecins ne sont pas autorisés à participer à la Recherche scientifique.</target>
       </segment>
       <segment id="crew_lock.projects" state="translated">
         <source>bios_terminal.crew_lock_projects</source>
@@ -203,6 +203,10 @@
       <segment id="crew_lock.piloting" state="translated">
         <source>bios_terminal.crew_lock_piloting</source>
         <target>Pilotage</target>
+      </segment>
+      <segment id="crew_lock.research" state="translated">
+        <source>bios_terminal.crew_lock_research</source>
+        <target>Recherche</target>
       </segment>
       <segment id="plasma_shield.name" state="translated">
         <source>bios_terminal.plasma_shield_name</source>

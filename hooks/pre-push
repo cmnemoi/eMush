@@ -1,5 +1,29 @@
 #!/bin/sh
 
+# Check if php-cs-fixer is available
+if ! command -v vendor/bin/php-cs-fixer >/dev/null 2>&1; then
+    echo "Error: php-cs-fixer not found. Please install it using composer."
+    exit 1
+fi
+
+# Check if psalm is available
+if ! command -v vendor/bin/psalm >/dev/null 2>&1; then
+    echo "Error: psalm not found. Please install it using composer."
+    exit 1
+fi
+
+# Check if phpmd is available
+if ! command -v vendor/bin/phpmd >/dev/null 2>&1; then
+    echo "Error: phpmd not found. Please install it using composer."
+    exit 1
+fi
+
+# Check if yarn is available
+if ! command -v yarn >/dev/null 2>&1; then
+    echo "Error: yarn not found. Please install it using 'npm install -g yarn'"
+    exit 1
+fi
+
 cd Api
 vendor/bin/php-cs-fixer check --diff || exit 1
 vendor/bin/psalm || exit 1

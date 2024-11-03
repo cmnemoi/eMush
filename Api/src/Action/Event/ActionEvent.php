@@ -52,10 +52,7 @@ class ActionEvent extends AbstractGameEvent
 
         parent::__construct($tags, new \DateTime());
 
-        // add this tag to handle burdened malus deleted by solid skill
-        if ($player->hasSkill(SkillEnum::SOLID)) {
-            $this->addTag(SkillEnum::SOLID->toString());
-        }
+        $player->getSkills()->map(fn (Skill $skill) => $this->addTag($skill->getNameAsString()));
     }
 
     public function getAuthor(): Player

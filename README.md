@@ -33,7 +33,7 @@ This will create a new workspace in the cloud with all the dependencies installe
 
 #### GNU/Linux (Debian and Arch-based distributions)
 
-Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_docker_install.sh?ref_type=heads | sudo bash` in your terminal.
+Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_docker_install.sh?ref_type=heads | bash` in your terminal.
 
 #### MacOS
 
@@ -58,7 +58,7 @@ You need to install `git` and `curl` to run the installation scripts.
 
 #### Unix-like OS (Debian-based, Arch-based GNU/Linux OS, MacOS)
 
-Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_install.sh?ref_type=heads | sudo bash` in your terminal.
+Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_install.sh?ref_type=heads | bash` in your terminal.
 
 #### Windows (highly experimental)
 

@@ -21,13 +21,20 @@ run_command() {
 
 # Function to check for sudo permissions
 check_sudo() {
-    log_message "This script requires sudo permissions to install dependencies. Do you want to continue? (y/n)"
+    log_message "This script requires sudo permissions to install dependencies. Note: you should probably not run random scripts from the Internet without checking the code first. Do you want to continue? (y/n)."
     read -r response
     if [ "$response" != "y" ]; then
         log_message "Exiting..."
         exit 1
     fi
     log_message "Thank you. Please provide your password when prompted."
+}
+
+# Function to clean previous PID file
+clean_pid_file() {
+    if [ -f "./server_pids" ]; then
+        rm ./server_pids
+    fi
 }
 
 # Function to detect OS
@@ -80,7 +87,7 @@ update_system() {
     case $os_type in
         debian)
             log_message "Updating system..."
-            run_command "sudo apt-get update -yq && sudo apt-get upgrade -yq"
+            run_command "sudo apt-get update -y && sudo apt-get upgrade -y"
             ;;
         arch)
             log_message "Updating system..."
@@ -91,7 +98,7 @@ update_system() {
             run_command "brew update && brew upgrade"
             ;;
         *)
-            log_message "Unsupported operating system. Cannot update system."
+            log_message "Unsupported operating system. Currently only Debian-based, Arch-based and macOS are supported."
             exit 1
             ;;
     esac
@@ -100,27 +107,57 @@ update_system() {
 # Function to install and setup PostgreSQL
 install_postgres() {
     log_message "Installing PostgreSQL..."
-    install_package "postgresql-${POSTGRES_VERSION}"
-
-    log_message "Starting PostgreSQL..."
     case $(detect_os) in
         debian)
+            install_package "postgresql-${POSTGRES_VERSION}"
+            install_package "postgresql-client-common"
+            install_package "postgresql-client-${POSTGRES_VERSION}"
+            
+            # Create cluster if it doesn't exist
+            if [ ! -d "/var/lib/postgresql/${POSTGRES_VERSION}/main" ]; then
+                log_message "Creating PostgreSQL cluster..."
+                run_command "sudo pg_createcluster ${POSTGRES_VERSION} main"
+            fi
             run_command "sudo service postgresql start"
             ;;
         arch)
+            install_package "postgresql"
+            if [ ! -d "/var/lib/postgres/data" ]; then
+                log_message "Initializing PostgreSQL database..."
+                run_command "sudo -u postgres initdb -D '/var/lib/postgres/data'"
+            fi
             run_command "sudo systemctl start postgresql"
             ;;
         macos)
+            install_package "postgresql@${POSTGRES_VERSION}"
             run_command "brew services start postgresql@${POSTGRES_VERSION}"
             ;;
     esac
 
+    # Wait for PostgreSQL to start
+    log_message "Waiting for PostgreSQL to start..."
+    sleep 5
+
+    # Verify PostgreSQL is running
+    if ! pg_isready; then
+        log_message "Error: PostgreSQL failed to start"
+        exit 1
+    fi
+
     log_message "Creating users and databases..."
+        
     sudo -u postgres psql -v ON_ERROR_STOP=1 --username "postgres" <<-EOSQL
-        CREATE USER "mysql" WITH PASSWORD 'password' CREATEDB LOGIN;
-        CREATE DATABASE "etwin.dev" WITH OWNER "mysql";
-        GRANT ALL PRIVILEGES ON DATABASE "etwin.dev" TO "mysql";
-        ALTER SCHEMA public OWNER TO "mysql";
+        CREATE USER "mysql" WITH PASSWORD 'password';
+        CREATE DATABASE "mush" WITH OWNER "mysql";
+        GRANT ALL PRIVILEGES ON DATABASE "mush" TO "mysql";
+    
+        CREATE USER "etwin.dev" WITH PASSWORD 'password';
+        CREATE DATABASE "etwin.dev" WITH OWNER "etwin.dev";
+        GRANT ALL PRIVILEGES ON DATABASE "etwin.dev" TO "etwin.dev";
+        
+        \c etwin.dev
+        ALTER SCHEMA public OWNER TO "etwin.dev";
+        GRANT ALL ON SCHEMA public TO "etwin.dev";
 EOSQL
 }
 
@@ -153,10 +190,13 @@ install_frontend() {
 # Function to install Eternaltwin server
 install_eternaltwin() {
     log_message "Setup Eternaltwin env variables..."
-    run_command "cd Eternaltwin && cp eternaltwin.bare-metal.toml etwin.toml"
+    run_command "cd Eternaltwin && cp eternaltwin.bare-metal.toml eternaltwin.local.toml"
 
     log_message "Installing Eternaltwin server dependencies..."
     run_command "yarn set version latest && yarn install"
+
+    log_message "Installing Eternaltwin server..."
+    run_command "yarn etwin db reset && yarn etwin db sync"
 
     run_command "cd .."
 }
@@ -175,9 +215,12 @@ install_backend() {
     log_message "Setup PHP repositories..."
     case $(detect_os) in
         debian)
-            run_command "curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x"
-            run_command "sudo sh -c 'echo \"deb https://packages.sury.org/php/ $(lsb_release -sc) main\" > /etc/apt/sources.list.d/php.list'"
-            run_command "sudo apt-get update -yq && sudo apt-get upgrade -yq"
+            #if OS is Debian, we need to add the PHP repository
+            if [ "$(lsb_release -si)" == "Debian" ]; then
+                run_command "curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x"
+                run_command "sudo sh -c 'echo \"deb https://packages.sury.org/php/ $(lsb_release -sc) main\" > /etc/apt/sources.list.d/php.list'"
+                run_command "sudo apt-get update -y && sudo apt-get upgrade -y"
+            fi
             ;;
         arch)
             # PHP is available in the official repositories for Arch Linux
@@ -210,8 +253,8 @@ install_backend() {
     run_command "chmod go+r config/jwt/private.pem"
 
     log_message "Setup back-end env variables..."
-    run_command "cp .env.bare-metal .env"
-    run_command "cp .env.bare-metal.test .env.test"
+    run_command "cp .env.bare-metal .env.local"
+    run_command "cp .env.bare-metal.test .env.test.local"
 
     log_message "Installing back-end dependencies..."
     run_command "composer install"
@@ -220,26 +263,7 @@ install_backend() {
 
 # Function to launch the project
 launch_project() {
-    log_message "Starting back-end server..."
-    run_command "php -S localhost:8080 -t Api/public > /dev/null 2>&1 &"
-
-    log_message "Starting front-end server..."
-    run_command "cd App && yarn dev > /dev/null 2>&1 &"
-    run_command "cd .."
-
-    log_message "Starting Eternaltwin server..."
-    run_command "cd Eternaltwin && yarn etwin db create"
-    run_command "yarn etwin start > /dev/null 2>&1 &"
-    run_command "cd .."
-    sleep 10
-
-    log_message "Create Eternaltwin accounts..."
-    run_command "php Api/bin/console mush:create-crew"
-
-    log_message "Filling a Daedalus with players..."
-    run_command "php Api/bin/console mush:fill-daedalus"
-
-    log_message "Project installed successfully! You can access it at http://localhost:5173"
+    log_message "Project installed successfully! You can access it by running make start."
     log_message "Use the following credentials to login:"
     log_message "Username: chun"
     log_message "Password: 1234567891"

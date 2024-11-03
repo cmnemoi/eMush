@@ -36,4 +36,6 @@ TODO.md
 # .log files
 *.log
 
+server_pids
+
 .aider*

@@ -5,34 +5,45 @@ log_message() {
     echo "$1"
 }
 
-# Stop PHP server
-stop_php_server() {
-    log_message "Stopping PHP server..."
-    pkill -f "php -S localhost:8080"
-    if [ $? -eq 0 ]; then
-        log_message "PHP server stopped successfully."
-    else
-        log_message "No PHP server was running or failed to stop."
-    fi
+# Function to read PID from server_pids
+get_pid() {
+    local server=$1
+    local pid=$(grep "^$server:" ./server_pids | cut -d':' -f2)
+    echo $pid
 }
 
-# Stop Vite server
-stop_vite_server() {
-    log_message "Stopping Vite server..."
-    pkill -f "yarn dev"
-    if [ $? -eq 0 ]; then
-        log_message "Vite server stopped successfully."
+# Stop a server by PID
+stop_server() {
+    local server=$1
+    local pid=$(get_pid $server)
+    
+    if [ ! -z "$pid" ]; then
+        log_message "Stopping $server server (PID: $pid)..."
+        if kill -9 $pid 2>/dev/null; then
+            log_message "$server server stopped successfully."
+        else
+            log_message "$server server was not running (PID $pid not found)."
+        fi
     else
-        log_message "No Vite server was running or failed to stop."
+        log_message "No PID found for $server server."
     fi
 }
 
 # Main function
 main() {
-    stop_php_server
-    stop_vite_server
+    # Check if PID file exists
+    if [ ! -f "./server_pids" ]; then
+        log_message "Error: server_pids not found!"
+        exit 1
+    fi
+
+    # Stop each server
+    stop_server "php"
+    stop_server "vite"
+    stop_server "eternaltwin"
+    
     log_message "Project stopped successfully."
-    log_message "To start the servers again, run ./start.sh"
+    log_message "To start the servers again, run make start."
 }
 
 # Run the main function

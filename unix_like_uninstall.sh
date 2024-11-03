@@ -112,7 +112,7 @@ uninstall_php() {
     uninstall_package "php${PHP_VERSION}-zip"
 
     log_message "Remove PHP repositories..."
-    run_command "sudo rm -rf /etc/apt/sources.list.d/sury"
+    run_command "sudo rm -rf /etc/apt/sources.list.d/php.list"
 
     log_message "Uninstalling Composer..."
     run_command "sudo rm -rf /usr/local/bin/composer"

@@ -5,12 +5,12 @@ store = "Postgres"
 host = "localhost"
 port = 5432
 name = "etwin.dev"
-user = "mysql"
+user = "etwin.dev"
 password = "password"
 
 [seed.app.emush_dev]
 display_name = "eMush"
-uri = "http://localhost/"
+uri = "http://localhost:5173/"
 oauth_callback = "http://localhost:8080/oauth/callback"
 secret = "dev_secret"
 

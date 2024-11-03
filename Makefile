@@ -72,7 +72,7 @@ reset-eternaltwin-database:
 
 setup-env-variables:
 	cp ./Api/.env.dist ./Api/.env.local
-	cp ./App/.env.test ./Api/env.test.local
+	cp ./Api/.env.test ./Api/.env.test.local
 	cp ./App/.env.dist ./App/.env
 	cp ./Eternaltwin/eternaltwin.toml ./Eternaltwin/eternaltwin.local.toml
 

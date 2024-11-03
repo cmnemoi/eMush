@@ -115,7 +115,7 @@ If you don't want to use Docker, here are two installation scripts.
 Run this command in your terminal:
 
 ```bash
-sudo curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/chore/install-scripts/clone_and_install.sh?ref_type=heads | bash
+sudo curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_install.sh?ref_type=heads | bash
 ```
 
 #### Windows
@@ -123,7 +123,7 @@ sudo curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/chore/install-scri
 Run those commands in your Powershell terminal:
 
 ```powershell
-Invoke-WebRequest -Uri "https://gitlab.com/eternaltwin/mush/mush/-/raw/chore/install-scripts/clone_and_install.ps1?ref_type=heads" -OutFile "clone_and_install.ps1"
+Invoke-WebRequest -Uri "https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_install.ps1?ref_type=heads" -OutFile "clone_and_install.ps1"
 .\clone_and_install.ps1
 ```
 

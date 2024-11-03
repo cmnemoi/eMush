@@ -89,7 +89,7 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
 
         $this->whenINormalizeTerminalForPlayer();
 
-        $I->assertArrayNotHasKey('nothingToCompute', $this->normalizedTerminal['infos']);
+        $I->assertNull($this->normalizedTerminal['infos']['nothingToCompute']);
     }
 
     public function shouldNormalizeSectionTitles(FunctionalTester $I): void

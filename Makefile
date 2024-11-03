@@ -71,7 +71,8 @@ reset-eternaltwin-database:
 	docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn etwin db sync
 
 setup-env-variables:
-	cp ./Api/.env.dist ./Api/.env
+	cp ./Api/.env.dist ./Api/.env.local
+	cp ./App/.env.test ./Api/env.test.local
 	cp ./App/.env.dist ./App/.env
 	cp ./Eternaltwin/eternaltwin.toml ./Eternaltwin/eternaltwin.local.toml
 

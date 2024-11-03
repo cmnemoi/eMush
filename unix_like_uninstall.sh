@@ -7,6 +7,17 @@ POSTGRES_VERSION=14
 PHP_VERSION=8.3
 LOG_FILE="uninstall.log"
 
+# Function to check for sudo permissions
+check_sudo() {
+    log_message "This script requires sudo permissions to install dependencies. Note: you should probably not run random scripts from the Internet without checking the code first. Do you want to continue? (y/n)."
+    read -r response
+    if [ "$response" != "y" ]; then
+        log_message "Exiting..."
+        exit 1
+    fi
+    log_message "Thank you. Please provide your password when prompted."
+}
+
 # Logging function
 log_message() {
     echo "$1"
@@ -46,7 +57,7 @@ uninstall_package() {
             run_command "sudo apt-get remove -y $package_name"
             ;;
         arch)
-            run_command "sudo pacman -R --noconfirm $package_name"
+            run_command "sudo pacman -Rf --noconfirm $package_name"
             ;;
         macos)
             if command -v brew &> /dev/null; then
@@ -56,7 +67,7 @@ uninstall_package() {
             fi
             ;;
         *)
-            log_message "Unsupported operating system. Cannot uninstall $package_name."
+            log_message "Unsupported operating system. Currently only Debian-based, Arch-based and macOS are supported."
             ;;
     esac
 }
@@ -66,9 +77,13 @@ uninstall_package() {
 uninstall_postgres() {
     log_message "Uninstalling PostgreSQL ${POSTGRES_VERSION}..."
     uninstall_package "postgresql-${POSTGRES_VERSION}"
+    uninstall_package "postgresql-client-common"
+    uninstall_package "postgresql-client-${POSTGRES_VERSION}"
+
     
     log_message "Removing PostgreSQL repositories..."
     uninstall_package "postgresql-common"
+    run_command "sudo rm -rf /etc/apt/sources.list.d/pgdg.list"
     
     log_message "Removing PostgreSQL data..."
     run_command "sudo rm -rf /var/lib/postgresql"
@@ -96,28 +111,34 @@ uninstall_php() {
     uninstall_package "php${PHP_VERSION}-dom"
     uninstall_package "php${PHP_VERSION}-zip"
 
-    log_message "Uninstalling PHP dependencies..."
-    uninstall_package "ca-certificates"
-    uninstall_package "apt-transport-https"
-    uninstall_package "software-properties-common"
-    uninstall_package "lsb-release"
-    uninstall_package "openssl"
-    uninstall_package "zip"
-    uninstall_package "unzip"
+    log_message "Remove PHP repositories..."
+    run_command "sudo rm -rf /etc/apt/sources.list.d/sury"
 
     log_message "Uninstalling Composer..."
     run_command "sudo rm -rf /usr/local/bin/composer"
 }
 
 autoremove() {
-    if $(detect_os) == "debian"; then
-        log_message "Running: sudo apt-get autoremove -y"
-        run_command "sudo apt-get autoremove -y"
-    fi
+    local os_type=$(detect_os)
+    case $os_type in
+        debian)
+            log_message "Running: sudo apt-get autoremove -y"
+            run_command "sudo apt-get autoremove -y"
+            ;;
+        macos)
+            log_message "Running: brew cleanup"
+            run_command "brew cleanup"
+            ;;
+        *)
+            # Do nothing
+            ;;
+    esac
 }
 
 # Main uninstallation process
 main() {
+    check_sudo
+    
     log_message "Starting uninstallation process..."
     
     uninstall_postgres

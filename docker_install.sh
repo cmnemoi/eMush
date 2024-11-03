@@ -155,9 +155,9 @@ install-eternaltwin() {
 }
 
 setup-JWT-certificates() {
-    openssl genpkey -pass pass:mush -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
-    openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout
-    chmod go+r config/jwt/private.pem
+    docker compose -f docker/docker-compose.yml run -T -u dev mush_php openssl genpkey -pass pass:mush -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+	docker compose -f docker/docker-compose.yml run -T -u dev mush_php openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+	docker compose -f docker/docker-compose.yml run -T -u dev mush_php chmod go+r config/jwt/private.pem
 }
 
 reset-eternaltwin-database() {

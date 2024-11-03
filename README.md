@@ -39,7 +39,7 @@ Docker Desktop for Windows can be downloaded [here](https://docs.docker.com/desk
 
 WSL2 should be installed by default on recent Windows 10+ versions. Try running `wsl --set-default-version 2` in a Powershell terminal. If it doesn't work, follow the instructions [here](https://learn.microsoft.com/fr-fr/windows/wsl/install-manual).
 
-Install [Ubuntu](https://apps.microsoft.com/detail/9msvkqc78pk6) with WSL2 : `wsl --install -d Ubuntu`
+Install [Ubuntu](https://apps.microsoft.com/detail/9pdxgncfsczv) with WSL2 : `wsl --install -d Ubuntu`
 
 Then launch it : `wsl -d Ubuntu`
 

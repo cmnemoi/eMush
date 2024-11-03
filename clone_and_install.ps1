@@ -20,7 +20,6 @@ function Clone-Repository {
     Write-Host "Cloning eMush repository..."
     git clone https://gitlab.com/eternaltwin/mush/mush.git
     Set-Location mush
-    git checkout chore/install-scripts # temporary checkout for testing
 }
 
 # Function to launch the install script

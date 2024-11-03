@@ -364,38 +364,52 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             return [];
         }
 
-        $infos = [];
         $daedalus = $terminal->getDaedalus();
-
-        $this->addNothingToComputeInfo($terminal, $terminalKey, $infos);
-        $this->addEdenComputedInfo($daedalus, $terminalKey, $infos);
+        
+        $infos = [];
+        
+        if ($nothingToCompute = $this->getNothingToComputeInfo($terminal, $terminalKey)) {
+            $infos = array_merge($infos, $nothingToCompute);
+        }
+        
+        if ($edenComputed = $this->getEdenComputedInfo($daedalus, $terminalKey)) {
+            $infos = array_merge($infos, $edenComputed);
+        }
 
         return $infos;
     }
 
-    private function addNothingToComputeInfo(GameEquipment $terminal, string $terminalKey, array &$infos): void
+    private function getNothingToComputeInfo(GameEquipment $terminal, string $terminalKey): ?array
     {
         $place = $terminal->getPlace();
         if ($place->doesNotHaveEquipmentByName(ItemEnum::STARMAP_FRAGMENT)) {
-            $infos['nothingToCompute'] = $this->translationService->translate(
-                key: $terminalKey . '.nothing_to_compute',
-                parameters: [],
-                domain: 'terminal',
-                language: $terminal->getDaedalus()->getLanguage()
-            );
+            return [
+                'nothingToCompute' => $this->translationService->translate(
+                    key: $terminalKey . '.nothing_to_compute',
+                    parameters: [],
+                    domain: 'terminal',
+                    language: $terminal->getDaedalus()->getLanguage()
+                )
+            ];
         }
+        
+        return null;
     }
 
-    private function addEdenComputedInfo(Daedalus $daedalus, string $terminalKey, array &$infos): void
+    private function getEdenComputedInfo(Daedalus $daedalus, string $terminalKey): ?array
     {
         if ($daedalus->hasStatus(DaedalusStatusEnum::EDEN_COMPUTED)) {
-            $infos['edenComputed'] = $this->translationService->translate(
-                key: $terminalKey . '.eden_computed',
-                parameters: [],
-                domain: 'terminal',
-                language: $daedalus->getLanguage()
-            );
+            return [
+                'edenComputed' => $this->translationService->translate(
+                    key: $terminalKey . '.eden_computed',
+                    parameters: [],
+                    domain: 'terminal',
+                    language: $daedalus->getLanguage()
+                )
+            ];
         }
+        
+        return null;
     }
 
     private function getFullfilledResearchRequirements(Daedalus $daedalus, string $terminalKey): array

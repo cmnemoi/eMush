@@ -117,10 +117,80 @@ add_user_to_docker_group() {
     fi
 }
 
+setup-git-hooks() {
+    chmod +x hooks/pre-commit
+    chmod +x hooks/pre-push
+    git config core.hooksPath hooks
+}
+
+setup-env-variables() {
+    cp ./Api/.env.dist ./Api/.env.local
+    cp ./Api/.env.test ./Api/.env.test.local
+    cp ./App/.env.bare-metal ./App/.env
+    cp ./Eternaltwin/etwin.bare-metal.toml.example ./Eternaltwin/etwin.local.toml
+}
+
+build-docker-images() {
+    docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml build
+    docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_front chown -R node:node /www
+    docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_eternaltwin chown -R node:node /www
+    docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_php chown -R dev:dev /www
+    docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-start --remove-orphans
+}
+
+install-api() {
+    docker compose -f docker/docker-compose.yml run -u dev mush_php composer install &&\
+    docker compose -f docker/docker-compose.yml run -u dev mush_php ./reset.sh --init
+}
+
+install-front() {
+    docker compose -f docker/docker-compose.yml run -u node mush_front yarn install &&\
+    docker compose -f docker/docker-compose.yml run -u node mush_front ./reset.sh
+}
+
+install-eternaltwin() {
+    docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn install
+    docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn etwin db reset
+    docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn etwin db sync
+}
+
+setup-JWT-certificates() {
+    openssl genpkey -pass pass:mush -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+    openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+    chmod go+r config/jwt/private.pem
+}
+
+reset-eternaltwin-database() {
+    docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn etwin db reset
+    docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn etwin db sync
+}
+
+start-docker-containers() {
+    docker compose -f docker/docker-compose.yml up -d --no-recreate --remove-orphans
+}
+
+sleep-ten-seconds() {
+    sleep 10
+}
+
+fill-daedalus() {
+    docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:fill-daedalus
+}
+
 # Function to install project
 install_project() {
     log_message "Installing project..."
-    make install
+    setup-git-hooks
+    setup-env-variables
+    build-docker-images
+    install-api
+    install-front
+    install-eternaltwin
+    setup-JWT-certificates
+    reset-eternaltwin-database
+    start-docker-containers
+    sleep-ten-seconds
+    fill-daedalus
 }
 
 run() {

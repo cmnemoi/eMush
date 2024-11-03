@@ -314,7 +314,7 @@
       </segment>
       <segment id="eden_computed" state="final">
         <source>calculator.eden_computed</source>
-        <target>Le calcul des coordonnées d'Eden a été achevé avec succès. Les coordonnées ont transférés vers NERON : consultez votre ***Commandant*** pour plus d'informations.</target>
+        <target>Le calcul des coordonnées d'Eden a été achevé avec succès. Les coordonnées ont été transférées vers NERON : consultez votre ***Commandant*** pour plus d'informations.</target>
       </segment>
     </unit>
   </file>

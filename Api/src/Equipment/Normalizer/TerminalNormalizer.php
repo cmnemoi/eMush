@@ -365,21 +365,29 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         $infos = [];
-
         $daedalus = $terminal->getDaedalus();
 
-        // no starmap fragment case
+        $this->addNothingToComputeInfo($terminal, $terminalKey, $infos);
+        $this->addEdenComputedInfo($daedalus, $terminalKey, $infos);
+
+        return $infos;
+    }
+
+    private function addNothingToComputeInfo(GameEquipment $terminal, string $terminalKey, array &$infos): void
+    {
         $place = $terminal->getPlace();
         if ($place->doesNotHaveEquipmentByName(ItemEnum::STARMAP_FRAGMENT)) {
             $infos['nothingToCompute'] = $this->translationService->translate(
                 key: $terminalKey . '.nothing_to_compute',
                 parameters: [],
                 domain: 'terminal',
-                language: $daedalus->getLanguage()
+                language: $terminal->getDaedalus()->getLanguage()
             );
         }
+    }
 
-        // eden computed case
+    private function addEdenComputedInfo(Daedalus $daedalus, string $terminalKey, array &$infos): void
+    {
         if ($daedalus->hasStatus(DaedalusStatusEnum::EDEN_COMPUTED)) {
             $infos['edenComputed'] = $this->translationService->translate(
                 key: $terminalKey . '.eden_computed',
@@ -388,8 +396,6 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
                 language: $daedalus->getLanguage()
             );
         }
-
-        return $infos;
     }
 
     private function getFullfilledResearchRequirements(Daedalus $daedalus, string $terminalKey): array

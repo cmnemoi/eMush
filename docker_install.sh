@@ -127,7 +127,7 @@ setup-env-variables() {
     cp ./Api/.env.dist ./Api/.env.local
     cp ./Api/.env.test ./Api/.env.test.local
     cp ./App/.env.bare-metal ./App/.env
-    cp ./Eternaltwin/eteraltwin.toml ./Eternaltwin/eternaltwin.local.toml
+    cp ./Eternaltwin/eternaltwin.toml ./Eternaltwin/eternaltwin.local.toml
 }
 
 build-docker-images() {

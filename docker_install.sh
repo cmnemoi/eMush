@@ -126,7 +126,7 @@ setup-git-hooks() {
 setup-env-variables() {
     cp ./Api/.env.dist ./Api/.env.local
     cp ./Api/.env.test ./Api/.env.test.local
-    cp ./App/.env.bare-metal ./App/.env
+    cp ./App/.env ./App/.env
     cp ./Eternaltwin/eternaltwin.toml ./Eternaltwin/eternaltwin.local.toml
 }
 
@@ -191,6 +191,10 @@ install_project() {
     start-docker-containers
     sleep-ten-seconds
     fill-daedalus
+    echo "Installation completed successfully ! You can access it at http://localhost/."
+    echo "Use the following credentials to login:"
+    echo "username: andie"
+    echo "password: 1234567891"
 }
 
 run() {

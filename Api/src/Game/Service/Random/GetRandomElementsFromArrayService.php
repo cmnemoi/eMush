@@ -24,7 +24,7 @@ final readonly class GetRandomElementsFromArrayService implements GetRandomEleme
             $keysNotPicked = array_values(array_diff(array_keys($elements), array_keys($result)));
 
             $key = $keysNotPicked[$this->getRandomInteger(0, \count($keysNotPicked) - 1)];
-            $result[$key] = $elements[$key];
+            $result[$i] = $elements[$key];
         }
 
         return new ArrayCollection($result);

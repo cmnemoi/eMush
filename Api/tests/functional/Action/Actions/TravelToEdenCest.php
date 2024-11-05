@@ -39,7 +39,7 @@ final class TravelToEdenCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::RETURN_TO_SOL]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TRAVEL_TO_EDEN]);
         $this->travelToEdenAction = $I->grabService(TravelToEden::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -51,6 +51,8 @@ final class TravelToEdenCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableIfPilgredIsNotFinished(FunctionalTester $I): void
     {
+        $this->givenEdenCoordinatesAreComputed();
+
         $this->whenChunTriesToTravelToEden();
 
         $this->thenActionShouldNotBeExecutable(
@@ -82,7 +84,7 @@ final class TravelToEdenCest extends AbstractFunctionalTest
         $this->thenAllPlayersShouldBeDead($I);
     }
 
-    public function shouldKillPlayersWithSolReturnEndCause(FunctionalTester $I): void
+    public function shouldKillPlayersWithEdenEndCause(FunctionalTester $I): void
     {
         $this->givenPilgredIsFinished();
 
@@ -90,7 +92,7 @@ final class TravelToEdenCest extends AbstractFunctionalTest
 
         $this->whenChunTravelsToEden();
 
-        $this->thenAllPlayersShouldHaveSolReturnEndCause($I);
+        $this->thenAllPlayersShouldHaveEdenEndCause($I);
     }
 
     public function shouldNotPrintPublicDeathLogs(FunctionalTester $I): void
@@ -213,11 +215,11 @@ final class TravelToEdenCest extends AbstractFunctionalTest
         }
     }
 
-    private function thenAllPlayersShouldHaveSolReturnEndCause(FunctionalTester $I): void
+    private function thenAllPlayersShouldHaveEdenEndCause(FunctionalTester $I): void
     {
         foreach ($this->players as $player) {
             $I->assertEquals(
-                expected: EndCauseEnum::SOL_RETURN,
+                expected: EndCauseEnum::EDEN,
                 actual: $player->getPlayerInfo()->getClosedPlayer()->getEndCause(),
             );
         }

@@ -24,7 +24,7 @@ export default class MushTiledObject {
     ) {
 
         if (tiledObj.gid === undefined){
-            throw new Error(obj.tiledObj.name + "gid is not defined");
+            throw new Error(tiledObj.name + "gid is not defined");
         }
 
         this.tiledObj = tiledObj;
@@ -61,7 +61,7 @@ export default class MushTiledObject {
         //to correctly place them in phaser we need the cartesian coordinates
         const cart_coords = this.getObjectCartesianCoordinates();
 
-        const textureProperties = new mushTextureProperties('');
+        const textureProperties = new mushTextureProperties();
         textureProperties.setTexturesProperties(this.tiledObj, this.tileset);
 
         const frame = this.tiledObj.name;
@@ -163,8 +163,8 @@ export default class MushTiledObject {
     getObjectIsoSize(): IsometricCoordinates
     {
         return new IsometricCoordinates(
-            this.getCustomPropertyByName('isoSizeX'),
-            this.getCustomPropertyByName('isoSizeY')
+            this.getCustomPropertyNumberByName('isoSizeX'),
+            this.getCustomPropertyNumberByName('isoSizeY')
         );
     }
 
@@ -181,9 +181,9 @@ export default class MushTiledObject {
         return false;
     }
 
-    getCustomPropertyByName(property: string): number
+    getCustomPropertyNumberByName(property: string): number
     {
-        const existingKeys = ['depth', 'isoSizeX', 'isoSizeY', 'isoShiftHitboxX', 'isoShiftHitboxY', 'gameEquipment'];
+        const existingKeys = ['depth', 'isoSizeX', 'isoSizeY', 'isoShiftHitboxX', 'isoShiftHitboxY'];
         if (existingKeys.includes(property)) {
             for (let i = 0; i < this.tiledObj.properties.length; i++) {
                 if (this.tiledObj.properties[i].name === property) {
@@ -192,6 +192,19 @@ export default class MushTiledObject {
             }
         }
         return 0;
+    }
+
+    getCustomPropertyByName(property: string): string
+    {
+        const existingKeys = ['gameEquipment'];
+        if (existingKeys.includes(property)) {
+            for (let i = 0; i < this.tiledObj.properties.length; i++) {
+                if (this.tiledObj.properties[i].name === property) {
+                    return this.tiledObj.properties[i].value;
+                }
+            }
+        }
+        return '';
     }
 
     getInteractionInformations(): InteractionInformation | null
@@ -275,8 +288,8 @@ export default class MushTiledObject {
 
         const isoSize = this.getObjectIsoSize();
         const isoShift = new IsometricCoordinates(
-            this.getCustomPropertyByName('isoShiftHitboxX'),
-            this.getCustomPropertyByName('isoShiftHitboxY')
+            this.getCustomPropertyNumberByName('isoShiftHitboxX'),
+            this.getCustomPropertyNumberByName('isoShiftHitboxY')
         );
 
         const CartCoords = (new IsometricCoordinates(this.tiledObj.x + isoShift.x, this.tiledObj.y + isoShift.y)).toCartesianCoordinates();

@@ -108,7 +108,7 @@ export default class MushTiledMap {
                 const newObject = obj.createPhaserObject(this.scene, objEntity, group);
 
                 // some equipment have depth already fixed (stuff on the wall, doors, flat things on the ground)
-                const fixedDepth = obj.getCustomPropertyByName('depth');
+                const fixedDepth = obj.getCustomPropertyNumberByName('depth');
                 const isCollision = obj.isCustomPropertyByName('collides');
 
                 if (fixedDepth !== 0) {

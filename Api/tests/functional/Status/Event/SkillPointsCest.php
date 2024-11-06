@@ -40,24 +40,6 @@ final class SkillPointsCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveIncreasedSkillPoints($I, $skillPoints);
     }
 
-    public function shouldPrintPrivateLog(FunctionalTester $I): void
-    {
-        $this->givenPlayerHasZeroSkillPoints(SkillPointsEnum::BOTANIST_POINTS);
-
-        $this->whenADayPasses();
-
-        $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: ':mush: **Chun** is giving off a few of his botanist points.',
-            actualRoomLogDto: new RoomLogDto(
-                player: $this->chun,
-                log: LogEnum::GAIN_BOTANIST_POINT,
-                visibility: VisibilityEnum::PRIVATE,
-                inPlayerRoom: false,
-            ),
-            I: $I,
-        );
-    }
-
     private function givenPlayerHasZeroSkillPoints(Example $skillPoints): void
     {
         /** @var ChargeStatus $skillPointsStatus */
@@ -110,26 +92,6 @@ final class SkillPointsCest extends AbstractFunctionalTest
     {
         return SkillPointsEnum::getAll()->map(static fn (SkillPointsEnum $skillPoints) => [
             'name' => $skillPoints->toString(),
-        ])->toArray();
-    }
-
-    private function skillPointsLogIncrementDataProvider(): array
-    {
-        return SkillPointsEnum::getAll()->map(static fn (SkillPointsEnum $skillPoints) => [
-            'name' => $skillPoints->toString(),
-            'logIncrement' => match ($skillPoints->toString()) {
-                SkillPointsEnum::BOTANIST_POINTS => 2,
-                SkillPointsEnum::CHEF_POINTS => 4,
-                SkillPointsEnum::CONCEPTOR_POINTS => 2,
-                SkillPointsEnum::IT_EXPERT_POINTS => 2,
-                SkillPointsEnum::PILGRED_POINTS => 1,
-                SkillPointsEnum::SHOOTER_POINTS => 2,
-                SkillPointsEnum::TECHNICIAN_POINTS => 1,
-                SkillPointsEnum::NURSE_POINTS => 1,
-                SkillPointsEnum::SPORE_POINTS => 1,
-                SkillPointsEnum::POLYMATH_IT_POINTS => 1,
-                default => throw new \LogicException("Please define the increment for {$skillPoints}"),
-            },
         ])->toArray();
     }
 }

@@ -433,7 +433,6 @@ class GameConfigData
                 'exploration_fuel_default',
                 'following_hunters_default',
                 'astronavigation_neron_cpu_priority_default',
-                'defence_neron_cpu_priority_default',
                 'changed_cpu_priority_default',
                 'electric_charges_support_drone_default',
                 DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
@@ -629,6 +628,7 @@ class GameConfigData
                 ProjectName::RETRO_FUNGAL_SERUM,
                 ProjectName::SPORE_SUCKER,
                 ProjectName::SUPER_CALCULATOR,
+                ProjectName::TESLA_SUP2X,
                 ProjectName::ULTRA_HEALING_POMADE,
             ],
             'skillConfigs' => [

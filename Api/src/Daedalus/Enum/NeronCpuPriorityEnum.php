@@ -11,12 +11,10 @@ abstract class NeronCpuPriorityEnum
 {
     public const string NONE = 'none';
     public const string ASTRONAVIGATION = 'astronavigation';
-    public const string DEFENCE = 'defence';
     public const string PROJECTS = 'projects';
 
     public static array $statusMap = [
         self::ASTRONAVIGATION => DaedalusStatusEnum::ASTRONAVIGATION_NERON_CPU_PRIORITY,
-        self::DEFENCE => DaedalusStatusEnum::DEFENCE_NERON_CPU_PRIORITY,
     ];
 
     public static function getAll(): array
@@ -24,7 +22,6 @@ abstract class NeronCpuPriorityEnum
         return [
             self::NONE,
             self::ASTRONAVIGATION,
-            self::DEFENCE,
             self::PROJECTS,
         ];
     }

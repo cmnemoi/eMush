@@ -360,7 +360,6 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 'availableCpuPriorities' => [
                     ['key' => 'none', 'name' => 'Aucune'],
                     ['key' => 'astronavigation', 'name' => 'Astronavigation'],
-                    ['key' => 'defence', 'name' => 'Système de défense'],
                     ['key' => 'projects', 'name' => 'Projets'],
                 ],
                 'currentCpuPriority' => 'none',

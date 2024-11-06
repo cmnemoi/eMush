@@ -1129,17 +1129,6 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => 'defence_neron_cpu_priority_default',
-            'statusName' => 'defence_neron_cpu_priority',
-            'visibility' => VisibilityEnum::HIDDEN,
-            'type' => 'status_config',
-            'modifierConfigs' => [
-                'modifier_for_daedalus_random50_+1_charge_turret_on_recharge',
-                'modifier_for_daedalus_increase_turret_max_charges',
-            ],
-            'actionConfigs' => [],
-        ],
-        [
             'name' => 'changed_cpu_priority_default',
             'statusName' => 'changed_cpu_priority',
             'visibility' => 'hidden',

@@ -455,25 +455,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($astronavigationNeronCpuPriority);
 
-        /** @var VariableEventModifierConfig $increasedMaxCharge */
-        $increasedMaxCharge = $this->getReference(StatusModifierConfigFixtures::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE);
-
-        /** @var VariableEventModifierConfig $increasedRechargeRate */
-        $increasedRechargeRate = $this->getReference(StatusModifierConfigFixtures::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE);
-
-        /** @var array<int, VariableEventModifierConfig> $modifierConfigs */
-        $defenceModifierConfigs = [
-            $increasedRechargeRate,
-            $increasedMaxCharge,
-        ];
-        $defenceCpuPriority = new StatusConfig();
-        $defenceCpuPriority
-            ->setStatusName(DaedalusStatusEnum::DEFENCE_NERON_CPU_PRIORITY)
-            ->setModifierConfigs($defenceModifierConfigs)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::DEFAULT);
-        $manager->persist($defenceCpuPriority);
-
         $mushTrapped = new StatusConfig();
         $mushTrapped
             ->setStatusName(PlaceStatusEnum::MUSH_TRAPPED->value)
@@ -653,7 +634,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($screwedTalkie)
             ->addStatusConfig($inOrbit)
             ->addStatusConfig($astronavigationNeronCpuPriority)
-            ->addStatusConfig($defenceCpuPriority)
             ->addStatusConfig($mushTrapped)
             ->addStatusConfig($jukeboxSongStatus)
             ->addStatusConfig($hasLearnedSkill)

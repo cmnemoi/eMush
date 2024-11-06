@@ -18,7 +18,6 @@ use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\ConfigData\ModifierConfigData;
-use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
@@ -56,8 +55,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION = 'astronavigation_neron_cpu_priority_modifier_plus_1_section';
     public const string ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT = 'astronavigation_neron_cpu_priority_modifier_minus_1_action_point';
 
-    public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE = 'defence_neron_cpu_priority_modifier_increased_turret_max_charge';
-    public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE = 'defence_neron_cpu_priority_modifier_increased_recharge_rate';
     public const string IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE = 'immunized_modifier_set_0_spores_on_change_variable';
 
     public function load(ObjectManager $manager): void
@@ -289,28 +286,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setName('modifier_requirement_name_turret_test');
         $manager->persist($modifierRequirementNameTurret);
 
-        $defenceCpuPriorityIncreaseTurretMaxCharge = new DirectModifierConfig('defenceCpuPriorityIncreaseTurretMaxCharge');
-        $defenceCpuPriorityIncreaseTurretMaxCharge
-            ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
-            ->setEventActivationRequirements([$modifierRequirementNameTurret])
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
-        $manager->persist($defenceCpuPriorityIncreaseTurretMaxCharge);
-
-        $defenceCpuPriorityIncreaseTurretRecharge = new VariableEventModifierConfig('defenceCpuPriorityIncreaseTurretRecharge');
-        $defenceCpuPriorityIncreaseTurretRecharge
-            ->setTargetVariable(EquipmentStatusEnum::ELECTRIC_CHARGES)
-            ->setDelta(1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([
-                EquipmentEnum::TURRET_COMMAND => ModifierRequirementEnum::ALL_TAGS,
-                VariableEventInterface::GAIN => ModifierRequirementEnum::ALL_TAGS,
-            ])
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
-        $manager->persist($defenceCpuPriorityIncreaseTurretRecharge);
-
         $immunizedModifierSet0SporesOnChangeVariable = new VariableEventModifierConfig('immunizedModifierSet0SporesOnChangeVariable');
         $immunizedModifierSet0SporesOnChangeVariable
             ->setTargetVariable(PlayerVariableEnum::SPORE)
@@ -371,8 +346,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION, $astronavigationNeronCpuPriorityModifierPlus1Section);
         $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT, $astronavigationNeronCpuPriorityModifierMinus1ActionPoint);
-        $this->addReference(self::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE, $defenceCpuPriorityIncreaseTurretMaxCharge);
-        $this->addReference(self::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE, $defenceCpuPriorityIncreaseTurretRecharge);
 
         $this->addReference(self::IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE, $immunizedModifierSet0SporesOnChangeVariable);
         $this->addReference($inactiveModifier->getName(), $inactiveModifier);

@@ -456,6 +456,35 @@ final class ProjectModifierConfigFixtures extends Fixture
         $this->manager->persist($ultraHealingPomadeModifier);
         $this->addReference($ultraHealingPomadeModifier->getName(), $ultraHealingPomadeModifier);
 
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_TURRET_MAX_CHARGE_4);
+
+        $holderNameTurretActivationRequirement = ModifierActivationRequirement::fromConfigData(
+            ModifierActivationRequirementData::getByName('holder_name_turret')
+        );
+        $this->manager->persist($holderNameTurretActivationRequirement);
+        $this->addReference($holderNameTurretActivationRequirement->getName(), $holderNameTurretActivationRequirement);
+
+        $teslaSup2XMaxChargesModifier = DirectModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::TURRET_MAX_CHARGES_PLUS_4)
+        );
+        $teslaSup2XMaxChargesModifier
+            ->setTriggeredEvent($eventConfig)
+            ->addEventActivationRequirement($holderNameTurretActivationRequirement);
+        $this->manager->persist($teslaSup2XMaxChargesModifier);
+        $this->addReference($teslaSup2XMaxChargesModifier->getName(), $teslaSup2XMaxChargesModifier);
+
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_TURRET_CHARGE_8);
+
+        $teslaSup2XChargesModifier = DirectModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::TURRET_CHARGES_PLUS_8)
+        );
+        $teslaSup2XChargesModifier
+            ->setTriggeredEvent($eventConfig);
+        $this->manager->persist($teslaSup2XChargesModifier);
+        $this->addReference($teslaSup2XChargesModifier->getName(), $teslaSup2XChargesModifier);
+
         $this->manager->flush();
     }
 

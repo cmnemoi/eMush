@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\functional\Equipment\Normalizer;
+namespace Mush\tests\functional\Equipment\Normalizer;
 
 use Mush\Action\Actions\Hide;
 use Mush\Action\Enum\ActionEnum;
@@ -593,45 +593,44 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         ]);
     }
 
-    // TODO
-    // public function testWhenSchrodingerIsInPlayerInventoryShouldAddNewProject(FunctionalTester $I){
+    public function testWhenSchrodingerIsInPlayerInventoryShouldAddNewProject(FunctionalTester $I)
+    {
+        $this->givenChunIsNotInLab();
 
-    //     $this->givenChunIsNotInLab();
+        $terminal = $this->givenLabTerminal();
 
-    //     $terminal = $this->givenLabTerminal();
+        $this->givenKuanTiHasItemsInInventory([ItemEnum::SCHRODINGER]);
 
-    //     $this->givenKuanTiHasItemsInInventory([ItemEnum::SCHRODINGER]);
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
 
-    //     $this->givenKuanTiIsFocusedInResearchLab($terminal);
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
 
-    //     $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+            ProjectName::ANABOLICS,
+            ProjectName::NARCOTICS_DISTILLER,
+            ProjectName::NCC_CONTACT_LENSES,
+        ]);
+    }
 
-    //     $this->thenProjectsShouldBe($I, $normalizedTerminal, [
-    //         ProjectName::ANABOLICS,
-    //         ProjectName::NARCOTICS_DISTILLER,
-    //         ProjectName::NCC_CONTACT_LENSES,
-    //     ]);
-    // }
+    public function testWhenSchrodingerIsInLabShouldNotAddNewProject(FunctionalTester $I)
+    {
+        $this->givenChunIsNotInLab();
 
-    // public function testWhenSchrodingerIsInLabShouldNotAddNewProject(FunctionalTester $I){
+        $terminal = $this->givenLabTerminal();
 
-    //     $this->givenChunIsNotInLab();
+        $this->givenKuanTiHasItemsInInventory([]);
 
-    //     $terminal = $this->givenLabTerminal();
+        $this->givenLabHasEquipment([ItemEnum::SCHRODINGER]);
 
-    //     $this->givenKuanTiHasItemsInInventory([]);
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
 
-    //     $this->givenLabHasEquipment([ItemEnum::SCHRODINGER]);
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
 
-    //     $this->givenKuanTiIsFocusedInResearchLab($terminal);
-
-    //     $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
-
-    //     $this->thenProjectsShouldBe($I, $normalizedTerminal, [
-    //         ProjectName::ANABOLICS,
-    //         ProjectName::NARCOTICS_DISTILLER,
-    //     ]);
-    // }
+        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+            ProjectName::ANABOLICS,
+            ProjectName::NARCOTICS_DISTILLER,
+        ]);
+    }
 
     private function givenItemIsHidden($itemName)
     {

@@ -291,5 +291,31 @@
         <target>Il n'y a plus de projets à faire aboutir.</target>
       </segment>
     </unit>
+    <unit id="calculator">
+      <segment id="name" state="final">
+        <source>calculator.name</source>
+        <target>Calculateur</target>
+      </segment>
+      <segment id="tips" state="final">
+        <source>calculator.tips</source>
+        <target>Ce module permet d'effectuer des calculs savants et/ou sans intérêt. Mais parfois la science réserve de bien belles surprises...</target>
+      </segment>
+      <segment id="to_a_new_eden_title" state="final">
+        <source>calculator.to_a_new_eden_title</source>
+        <target>Vers un nouvel Eden</target>
+      </segment>
+      <segment id="to_a_new_eden_description" state="final">
+        <source>calculator.to_a_new_eden_description</source>
+        <target>Le cristalite contient des coordonnées polaires qui se rapportent au centre du nuage de Magellan... Mais elles pointent hors de celui-ci, il va nous falloir une sacrée propulsion...</target>
+      </segment>
+      <segment id="nothing_to_compute" state="final">
+        <source>calculator.nothing_to_compute</source>
+        <target>Rien à calculer pour le moment.</target>
+      </segment>
+      <segment id="eden_computed" state="final">
+        <source>calculator.eden_computed</source>
+        <target>Le calcul des coordonnées d'Eden a été achevé avec succès. Les coordonnées ont été transférées vers NERON : consultez votre ***Commandant*** pour plus d'informations.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

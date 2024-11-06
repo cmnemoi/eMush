@@ -15,6 +15,7 @@ use Mush\Daedalus\Enum\NeronCrewLockEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\DifficultyEnum;
@@ -113,8 +114,17 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $pilgredTerminalInfos = $this->getNormalizedPilgredTerminalInfos($terminal);
         $neronCoreInfos = $this->getNormalizedNeronCoreInfos($terminal);
         $researchTerminalInfos = $this->getNormalizedResearchTerminalInfos($terminal);
+        $calculatorInfos = $this->getNormalizedCalculatorInfos($terminal);
 
-        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos, $biosTerminalInfos, $pilgredTerminalInfos, $neronCoreInfos, $researchTerminalInfos);
+        $normalizedTerminal['infos'] = array_merge(
+            $astroTerminalInfos,
+            $commandTerminalInfos,
+            $biosTerminalInfos,
+            $pilgredTerminalInfos,
+            $neronCoreInfos,
+            $researchTerminalInfos,
+            $calculatorInfos
+        );
 
         return $normalizedTerminal;
     }
@@ -345,6 +355,46 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         return [
             'requirements' => $this->getFullfilledResearchRequirements($daedalus, $terminalKey),
         ];
+    }
+
+    private function getNormalizedCalculatorInfos(GameEquipment $terminal): array
+    {
+        $terminalKey = $terminal->getName();
+        if ($terminalKey !== EquipmentEnum::CALCULATOR) {
+            return [];
+        }
+
+        $infos = [];
+        $infos['nothingToCompute'] = $this->getNothingToComputeInfo($terminal);
+        $infos['edenComputed'] = $this->getEdenComputedInfo($terminal);
+
+        return $infos;
+    }
+
+    private function getNothingToComputeInfo(GameEquipment $terminal): ?string
+    {
+        $place = $terminal->getPlace();
+        $terminalKey = $terminal->getName();
+
+        return $place->doesNotHaveEquipmentByName(ItemEnum::STARMAP_FRAGMENT) ? $this->translationService->translate(
+            key: $terminalKey . '.nothing_to_compute',
+            parameters: [],
+            domain: 'terminal',
+            language: $terminal->getDaedalus()->getLanguage()
+        ) : null;
+    }
+
+    private function getEdenComputedInfo(GameEquipment $terminal): ?string
+    {
+        $daedalus = $terminal->getDaedalus();
+        $terminalKey = $terminal->getName();
+
+        return $daedalus->hasStatus(DaedalusStatusEnum::EDEN_COMPUTED) ? $this->translationService->translate(
+            key: $terminalKey . '.eden_computed',
+            parameters: [],
+            domain: 'terminal',
+            language: $daedalus->getLanguage()
+        ) : null;
     }
 
     private function getFullfilledResearchRequirements(Daedalus $daedalus, string $terminalKey): array

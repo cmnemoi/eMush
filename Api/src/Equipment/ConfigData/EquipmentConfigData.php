@@ -2705,7 +2705,9 @@ class EquipmentConfigData
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                MechanicsData::TOOL_CALCULATOR,
+            ],
             'initStatuses' => [],
         ],
         [

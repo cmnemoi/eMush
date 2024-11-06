@@ -74,6 +74,10 @@ class EquipmentEnum
             'neron_inhibition_name',
             'neron_inhibition_description',
         ],
+        self::CALCULATOR => [
+            'to_a_new_eden_title',
+            'to_a_new_eden_description',
+        ],
     ];
 
     public static array $terminalButtonsMap = [

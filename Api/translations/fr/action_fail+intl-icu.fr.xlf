@@ -431,7 +431,7 @@
     <unit id="not_enough_map_fragments">
       <segment id="description" state="final">
         <source>not_enough_map_fragments.description</source>
-        <target>Ce morceau de carte stellaire est intéressant, peut-être qu'avec un peu plus d'exemplaires, vous pourriez en apprendre plus sur leur origine.</target>
+        <target>Ces morceaux de carte stellaire sont intéressants, peut-être qu'avec un peu plus d'exemplaires, vous pourriez en apprendre plus sur leur origine.</target>
       </segment>
     </unit>
     <unit id="no_direction_picked">
@@ -718,6 +718,12 @@
       <segment id="description" state="final">
         <source>player_is_germaphobic.description</source>
         <target>L'idée d'approcher encore plus ce nid à germes vous écoeure... Qui sait où ça a trainé?</target>
+      </segment>
+    </unit>
+    <unit id="eden_not_computed">
+      <segment id="description" state="final">
+        <source>eden_not_computed.description</source>
+        <target>Les coordonnées d'Eden n'ont pas été calculées.</target>
       </segment>
     </unit>
   </file>

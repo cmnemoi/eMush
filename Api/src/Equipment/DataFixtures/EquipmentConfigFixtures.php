@@ -217,6 +217,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($pilgred);
 
+        /** @var ActionConfig $computeEdenAction */
+        $computeEdenAction = $this->getReference(ActionEnum::COMPUTE_EDEN->toString());
+
+        $calculatorTool = $this->createTool([$accessTerminalAction, $exitTerminalAction, $computeEdenAction], EquipmentEnum::CALCULATOR);
+        $manager->persist($calculatorTool);
+
         $calculator = new EquipmentConfig();
         $calculator
             ->setEquipmentName(EquipmentEnum::CALCULATOR)
@@ -224,6 +230,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction])
+            ->setMechanics([$calculatorTool])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($calculator);
 
@@ -285,6 +292,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $returnToSolAction */
         $returnToSolAction = $this->getReference(ActionEnum::RETURN_TO_SOL->value);
 
+        /** @var ActionConfig $travelToEdenAction */
+        $travelToEdenAction = $this->getReference(ActionEnum::TRAVEL_TO_EDEN->value);
+
         $toolCommandTerminal = $this->createTool([
             $hackAction,
             $exitTerminalAction,
@@ -294,6 +304,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             $leaveOrbitAction,
             $accessTerminalAction,
             $returnToSolAction,
+            $travelToEdenAction,
         ], EquipmentEnum::COMMAND_TERMINAL);
         $manager->persist($toolCommandTerminal);
         $commandTerminal = new EquipmentConfig();

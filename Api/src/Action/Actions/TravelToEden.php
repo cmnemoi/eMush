@@ -18,12 +18,13 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-final class ReturnToSol extends AbstractAction
+final class TravelToEden extends AbstractAction
 {
-    protected ActionEnum $name = ActionEnum::RETURN_TO_SOL;
+    protected ActionEnum $name = ActionEnum::TRAVEL_TO_EDEN;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -43,6 +44,12 @@ final class ReturnToSol extends AbstractAction
                 'mode' => 'allow',
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::NO_PILGRED,
+            ]),
+            new HasStatus([
+                'status' => DaedalusStatusEnum::EDEN_COMPUTED,
+                'target' => HasStatus::DAEDALUS,
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::EDEN_NOT_COMPUTED,
             ]),
         ]);
     }
@@ -64,7 +71,9 @@ final class ReturnToSol extends AbstractAction
 
     private function finishDaedalus(): void
     {
-        $daedalusEvent = new DaedalusEvent($this->player->getDaedalus(), $this->getActionConfig()->getActionTags(), new \DateTime());
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
+        $this->eventService->callEvent(
+            event: new DaedalusEvent($this->player->getDaedalus(), $this->getTags(), new \DateTime()),
+            name: DaedalusEvent::FINISH_DAEDALUS
+        );
     }
 }

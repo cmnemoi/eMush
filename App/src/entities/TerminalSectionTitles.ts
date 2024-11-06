@@ -15,6 +15,8 @@ export class TerminalSectionTitles {
     public magneticNetDescription: string|null = null;
     public neronInhibitionName: string|null = null;
     public neronInhibitionDescription: string|null = null;
+    public toANewEdenTitle: string|null = null;
+    public toANewEdenDescription: string|null = null;
 
     public load(object: any): TerminalSectionTitles {
         if (object) {
@@ -34,6 +36,8 @@ export class TerminalSectionTitles {
             this.magneticNetDescription = object['magnetic_net_description'];
             this.neronInhibitionName = object['neron_inhibition_name'];
             this.neronInhibitionDescription = object['neron_inhibition_description'];
+            this.toANewEdenTitle = object['to_a_new_eden_title'];
+            this.toANewEdenDescription = object['to_a_new_eden_description'];
         }
         return this;
     }

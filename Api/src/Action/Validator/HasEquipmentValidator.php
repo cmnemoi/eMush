@@ -8,6 +8,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\LogicException;
@@ -66,23 +67,14 @@ class HasEquipmentValidator extends ConstraintValidator
 
     private function canReachEquipment(Player $player, string $equipmentName, HasEquipment $constraint): bool
     {
-        $reach = $constraint->reach;
-
-        switch ($reach) {
-            case ReachEnum::INVENTORY:
-                return $this->canReachEquipmentInInventory($player, $equipmentName, $constraint);
-
-            case ReachEnum::SHELVE:
-                return $this->canReachEquipmentInShelf($player, $equipmentName, $constraint);
-
-            case ReachEnum::ROOM:
-                return $this->canReachEquipmentInRoom($player, $equipmentName, $constraint);
-
-            case ReachEnum::DAEDALUS:
-                return $this->canReachEquipmentInDaedalus($player, $equipmentName, $constraint);
-        }
-
-        return true;
+        return match ($constraint->reach) {
+            ReachEnum::INVENTORY => $this->canReachEquipmentInInventory($player, $equipmentName, $constraint),
+            ReachEnum::SHELVE => $this->canReachEquipmentInShelf($player, $equipmentName, $constraint),
+            ReachEnum::ROOM => $this->canReachEquipmentInRoom($player, $equipmentName, $constraint),
+            ReachEnum::DAEDALUS => $this->canReachEquipmentInDaedalus($player, $equipmentName, $constraint),
+            ReachEnum::SHELVE_NOT_HIDDEN => $this->canReachEquipmentInShelfNotHidden($player, $equipmentName, $constraint),
+            default => throw new LogicException("Unsupported reach {$constraint->reach}"),
+        };
     }
 
     private function canReachEquipmentInInventory(Player $player, string $equipmentName, HasEquipment $constraint): bool
@@ -136,6 +128,24 @@ class HasEquipmentValidator extends ConstraintValidator
         $number = $constraint->number;
 
         $equipments = $this->gameEquipmentService->findByNameAndDaedalus($equipmentName, $player->getDaedalus());
+        if ($checkIfOperational) {
+            return !$equipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+        }
+
+        return $equipments->count() >= $number;
+    }
+
+    private function canReachEquipmentInShelfNotHidden(Player $player, string $equipmentName, HasEquipment $constraint): bool
+    {
+        $checkIfOperational = $constraint->checkIfOperational;
+        $number = $constraint->number;
+
+        $equipments = $player
+            ->getPlace()
+            ->getEquipments()
+            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName)
+            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->doesNotHaveStatus(EquipmentStatusEnum::HIDDEN));
+
         if ($checkIfOperational) {
             return !$equipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
         }

@@ -485,6 +485,7 @@ class GameConfigData
                 PlayerStatusEnum::FITFUL_SLEEP . '_default',
                 DaedalusStatusEnum::NERON_DEPRESSION . '_default',
                 DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND . '_default',
+                DaedalusStatusEnum::EDEN_COMPUTED . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -627,6 +628,7 @@ class GameConfigData
                 ProjectName::PERPETUAL_HYDRATION,
                 ProjectName::RETRO_FUNGAL_SERUM,
                 ProjectName::SPORE_SUCKER,
+                ProjectName::SUPER_CALCULATOR,
                 ProjectName::ULTRA_HEALING_POMADE,
             ],
             'skillConfigs' => [

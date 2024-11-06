@@ -1772,6 +1772,14 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => DaedalusStatusEnum::EDEN_COMPUTED . '_default',
+            'statusName' => DaedalusStatusEnum::EDEN_COMPUTED,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

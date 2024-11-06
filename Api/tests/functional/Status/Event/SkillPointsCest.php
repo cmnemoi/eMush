@@ -40,13 +40,6 @@ final class SkillPointsCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveIncreasedSkillPoints($I, $skillPoints);
     }
 
-    private function skillPointsDataProvider(): array
-    {
-        return SkillPointsEnum::getAll()->map(static fn (SkillPointsEnum $skillPoints) => [
-            'name' => $skillPoints->toString(),
-        ])->toArray();
-    }
-
     private function givenPlayerHasZeroSkillPoints(Example $skillPoints): void
     {
         /** @var ChargeStatus $skillPointsStatus */
@@ -91,7 +84,14 @@ final class SkillPointsCest extends AbstractFunctionalTest
             SkillPointsEnum::NURSE_POINTS => 1,
             SkillPointsEnum::SPORE_POINTS => 1,
             SkillPointsEnum::POLYMATH_IT_POINTS => 1,
-            default => 0,
+            default => throw new \LogicException("Please define the increment for {$skillPoints}"),
         };
+    }
+
+    private function skillPointsDataProvider(): array
+    {
+        return SkillPointsEnum::getAll()->map(static fn (SkillPointsEnum $skillPoints) => [
+            'name' => $skillPoints->toString(),
+        ])->toArray();
     }
 }

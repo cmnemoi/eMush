@@ -238,4 +238,9 @@ final class FakeStatusService implements StatusServiceInterface
     {
         return $this->statuses->get($name) ?: null;
     }
+
+    public function clearRepository(): void
+    {
+        $this->statuses->clear();
+    }
 }

@@ -235,15 +235,30 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
 
     public function targetShouldNotGainSkillPointsAfterTransfer(FunctionalTester $I): void
     {
-        $this->addSkillToPlayer(SkillEnum::SHOOTER, $I, $this->target);
+        $this->givenTargetPlayerHasShooterSkill($I);
 
+        $this->whenSourceExchangesBodyWithTargetAndNewDayOccurs();
+
+        $this->thenTargetPlayerShouldNotGainSkillPoints($I);
+    }
+
+    private function givenTargetPlayerHasShooterSkill(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::SHOOTER, $I, $this->target);
+    }
+
+    private function whenSourceExchangesBodyWithTargetAndNewDayOccurs(): void
+    {
         $this->whenSourceExchangesBodyWithTarget();
 
         $this->eventService->callEvent(
             event: new PlayerCycleEvent($this->target, [EventEnum::NEW_DAY], new \DateTime()),
             name: PlayerCycleEvent::PLAYER_NEW_CYCLE
         );
+    }
 
+    private function thenTargetPlayerShouldNotGainSkillPoints(FunctionalTester $I): void
+    {
         $I->dontSeeInRepository(
             entity: RoomLog::class,
             params: [

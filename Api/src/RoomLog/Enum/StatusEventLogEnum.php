@@ -30,6 +30,7 @@ abstract class StatusEventLogEnum
     public const string PLAYER_WAKE_UP = 'player_wake_up';
     public const string CEASEFIRE_END = 'ceasefire_end';
     public const string SOILED_BY_MASS_GGEDON = 'soiled_by_mass_ggedon';
+    public const string GAIN_CHEF_POINT = 'gain_chef_point';
 
     public const string VALUE = 'value';
     public const string VISIBILITY = 'visibility';
@@ -73,6 +74,9 @@ abstract class StatusEventLogEnum
                 SkillPointsEnum::PILGRED_POINTS->value => self::GAIN_PILGRED_POINT,
                 SkillPointsEnum::SHOOTER_POINTS->value => self::GAIN_SHOOT_POINT,
                 SkillPointsEnum::TECHNICIAN_POINTS->value => self::GAIN_TECHNICIAN_POINT,
+                SkillPointsEnum::POLYMATH_IT_POINTS->value => self::GAIN_IT_EXPERT_POINT,
+                SkillPointsEnum::CHEF_POINTS->value => self::GAIN_CHEF_POINT,
+                SkillPointsEnum::SPORE_POINTS->value => '',
             ],
             self::VISIBILITY => [
                 SkillPointsEnum::BOTANIST_POINTS->value => VisibilityEnum::PRIVATE,
@@ -82,6 +86,9 @@ abstract class StatusEventLogEnum
                 SkillPointsEnum::PILGRED_POINTS->value => VisibilityEnum::PRIVATE,
                 SkillPointsEnum::SHOOTER_POINTS->value => VisibilityEnum::PRIVATE,
                 SkillPointsEnum::TECHNICIAN_POINTS->value => VisibilityEnum::PRIVATE,
+                SkillPointsEnum::POLYMATH_IT_POINTS->value => VisibilityEnum::PRIVATE,
+                SkillPointsEnum::CHEF_POINTS->value => VisibilityEnum::PRIVATE,
+                SkillPointsEnum::SPORE_POINTS->value => VisibilityEnum::HIDDEN,
             ],
         ],
         self::LOSS => [

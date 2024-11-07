@@ -11,11 +11,15 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
+use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -227,6 +231,25 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->whenSourceExchangesBodyWithTarget();
 
         $this->thenMycoAlarmPrintsPublicLog($I);
+    }
+
+    public function targetShouldNotGainSkillPointsAfterTransfer(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::SHOOTER, $I, $this->target);
+
+        $this->whenSourceExchangesBodyWithTarget();
+
+        $this->eventService->callEvent(
+            event: new PlayerCycleEvent($this->target, [EventEnum::NEW_DAY], new \DateTime()),
+            name: PlayerCycleEvent::PLAYER_NEW_CYCLE
+        );
+
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => StatusEventLogEnum::GAIN_SHOOT_POINT,
+            ]
+        );
     }
 
     private function givenTargetPlayerIsMush(): void

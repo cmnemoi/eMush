@@ -343,6 +343,7 @@ abstract class SkillConfigData
                 name: SkillEnum::POLYMATH,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_MINUS_10_PERCENTAGE_ON_ACTIONS,
+                    ModifierNameEnum::PLUS_2_MAX_PRIVATE_CHANNELS,
                 ],
                 skillPointsConfig: SkillPointsEnum::POLYMATH_IT_POINTS,
             ),

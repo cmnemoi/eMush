@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Service;
 
+use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -292,17 +293,21 @@ final class PlayerService implements PlayerServiceInterface
 
     public function killPlayer(Player $player, string $endReason, \DateTime $time = new \DateTime(), ?Player $author = null): Player
     {
-        if ($player->isDead()) {
-            throw new \LogicException('Player is already dead');
-        }
-
         $this->entityManager->beginTransaction();
 
         try {
+            $this->entityManager->lock($player, LockMode::PESSIMISTIC_WRITE);
+            $this->entityManager->refresh($player);
+
+            if ($player->isDead()) {
+                throw new \RuntimeException('Player is already dead');
+            }
+
             $this->markPlayerAsDead($player, $endReason, $time);
             $this->removePlayerTitles($player);
             $this->createClosedPlayer($player, $endReason, $time);
             $this->dispatchPlayerDeathEvent($player, $endReason, $time, $author);
+            $this->entityManager->flush();
             $this->entityManager->commit();
         } catch (\Throwable $e) {
             $this->entityManager->rollback();

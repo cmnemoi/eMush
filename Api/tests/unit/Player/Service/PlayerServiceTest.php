@@ -177,8 +177,10 @@ final class PlayerServiceTest extends TestCase
         $closedPlayer = $playerInfo->getClosedPlayer();
 
         $this->entityManager->shouldReceive('beginTransaction')->once();
+        $this->entityManager->shouldReceive('lock')->once();
+        $this->entityManager->shouldReceive('refresh')->once();
         $this->entityManager->shouldReceive('persist')->times(3);
-        $this->entityManager->shouldReceive('flush')->times(3);
+        $this->entityManager->shouldReceive('flush')->times(4);
         $this->entityManager->shouldReceive('commit')->once();
 
         $this->eventService->shouldReceive('callEvent')->once();

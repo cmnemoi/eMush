@@ -210,6 +210,7 @@ enum ActionEnum: string
             self::TOGGLE_PLASMA_SHIELD,
             self::ACCEPT_MISSION,
             self::REJECT_MISSION,
+            self::EXIT_TERMINAL,
         ]))->contains($this);
     }
 

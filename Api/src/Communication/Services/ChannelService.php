@@ -15,9 +15,6 @@ use Mush\Communication\Repository\ChannelPlayerRepository;
 use Mush\Communication\Repository\ChannelRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -190,16 +187,7 @@ class ChannelService implements ChannelServiceInterface
 
     public function canPlayerCommunicate(Player $player): bool
     {
-        if ($player->hasOperationalEquipmentByName(ItemEnum::ITRACKIE)
-            || $player->hasOperationalEquipmentByName(ItemEnum::WALKIE_TALKIE)
-            || $player->hasStatus(PlayerStatusEnum::BRAINSYNC)
-            || $player->getPlace()->hasOperationalEquipmentByName(EquipmentEnum::COMMUNICATION_CENTER)
-            || $player->hasTitle(TitleEnum::COM_MANAGER)
-        ) {
-            return true;
-        }
-
-        return false;
+        return $player->hasMeansOfCommunication();
     }
 
     public function canPlayerWhisper(Player $player, Player $otherPlayer): bool

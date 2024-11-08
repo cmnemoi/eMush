@@ -17,14 +17,13 @@ use Mush\Communication\Services\ChannelService;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -164,7 +163,7 @@ final class ChannelServiceTest extends TestCase
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
-        $place = new Place();
+        $place = Place::createNull();
 
         $talkie = new GameItem($player);
         $talkie->setName(ItemEnum::WALKIE_TALKIE);
@@ -181,7 +180,7 @@ final class ChannelServiceTest extends TestCase
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
-        $place = new Place();
+        $place = Place::createNull();
 
         $talkie = new GameItem($place);
         $talkie->setName(ItemEnum::WALKIE_TALKIE);
@@ -193,15 +192,12 @@ final class ChannelServiceTest extends TestCase
         self::assertFalse($canPlayerCommunicate);
     }
 
-    public function testPlayerCanCommunicateWithCommCenter()
+    public function testPlayerCanCommunicateOnBridge()
     {
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
-        $place = new Place();
-
-        $commCenter = new GameEquipment($place);
-        $commCenter->setName(EquipmentEnum::COMMUNICATION_CENTER);
+        $place = Place::createRoomByName(RoomEnum::BRIDGE);
 
         $player->setPlace($place);
 
@@ -215,7 +211,7 @@ final class ChannelServiceTest extends TestCase
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
-        $place = new Place();
+        $place = Place::createNull();
 
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(PlayerStatusEnum::BRAINSYNC);
@@ -232,7 +228,7 @@ final class ChannelServiceTest extends TestCase
     public function testCanPlayerWhisperInChannel()
     {
         $channel = new Channel();
-        $place = new Place();
+        $place = Place::createNull();
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -257,7 +253,7 @@ final class ChannelServiceTest extends TestCase
     public function testPlayerCanWhisperInChannelThroughOtherPlayer()
     {
         $channel = new Channel();
-        $place = new Place();
+        $place = Place::createNull();
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -278,7 +274,7 @@ final class ChannelServiceTest extends TestCase
         $player3Info = new PlayerInfo($player3, new User(), new CharacterConfig());
         $item3 = new GameItem($player3);
         $item3->setName(ItemEnum::ITRACKIE);
-        $player3->setPlace(new Place());
+        $player3->setPlace(Place::createNull());
         $channelPlayer3 = new ChannelPlayer();
         $channelPlayer3->setChannel($channel)->setParticipant($player3Info);
 
@@ -292,11 +288,11 @@ final class ChannelServiceTest extends TestCase
     public function testPlayerCannotWhisperInChannel()
     {
         $channel = new Channel();
-        $place = new Place();
+        $place = Place::createNull();
         $place->setName('place');
-        $place2 = new Place();
+        $place2 = Place::createNull();
         $place2->setName('place2');
-        $place3 = new Place();
+        $place3 = Place::createNull();
         $place3->setName('place3');
 
         $player = new Player();
@@ -326,7 +322,7 @@ final class ChannelServiceTest extends TestCase
 
     public function testPlayerCanWhisper()
     {
-        $place = new Place();
+        $place = Place::createNull();
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -337,7 +333,7 @@ final class ChannelServiceTest extends TestCase
         $player2->setPlace($place);
 
         $player3 = new Player();
-        $player3->setPlace(new Place());
+        $player3->setPlace(Place::createNull());
 
         self::assertTrue($this->service->canPlayerWhisper($player, $player2));
         self::assertFalse($this->service->canPlayerWhisper($player, $player3));
@@ -348,8 +344,8 @@ final class ChannelServiceTest extends TestCase
         $channel = new Channel();
         $channel->setScope(ChannelScopeEnum::PRIVATE);
 
-        $place = new Place();
-        $place2 = new Place();
+        $place = Place::createNull();
+        $place2 = Place::createNull();
 
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME->value;
@@ -397,7 +393,7 @@ final class ChannelServiceTest extends TestCase
         $channel = new Channel();
         $channel->setScope(ChannelScopeEnum::PRIVATE);
 
-        $place = new Place();
+        $place = Place::createNull();
 
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME->value;
@@ -442,8 +438,8 @@ final class ChannelServiceTest extends TestCase
     {
         $channel = new Channel();
         $channel->setScope(ChannelScopeEnum::PRIVATE);
-        $place = new Place();
-        $place2 = new Place();
+        $place = Place::createNull();
+        $place2 = Place::createNull();
 
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME->value;
@@ -488,8 +484,8 @@ final class ChannelServiceTest extends TestCase
     {
         $channel = new Channel();
         $channel->setScope(ChannelScopeEnum::PRIVATE);
-        $place = new Place();
-        $place2 = new Place();
+        $place = Place::createNull();
+        $place2 = Place::createNull();
 
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME->value;
@@ -541,7 +537,7 @@ final class ChannelServiceTest extends TestCase
 
     public function testUpdatePlayerPrivateChannelPlayerNoPrivateChannels()
     {
-        $place = new Place();
+        $place = Place::createNull();
 
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME->value;
@@ -566,7 +562,7 @@ final class ChannelServiceTest extends TestCase
         $channel = new Channel();
         $channel->setScope(ChannelScopeEnum::PRIVATE);
 
-        $place = new Place();
+        $place = Place::createNull();
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -590,7 +586,7 @@ final class ChannelServiceTest extends TestCase
 
         $channel2 = new Channel();
 
-        $place = new Place();
+        $place = Place::createNull();
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -614,7 +610,7 @@ final class ChannelServiceTest extends TestCase
 
         $channel2 = new Channel();
 
-        $place = new Place();
+        $place = Place::createNull();
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -686,7 +682,7 @@ final class ChannelServiceTest extends TestCase
         $channel = new Channel();
         $channel->setScope(ChannelScopeEnum::PUBLIC);
 
-        $place = new Place();
+        $place = Place::createNull();
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -713,7 +709,7 @@ final class ChannelServiceTest extends TestCase
         $channel = new Channel();
         $channel->setScope(ChannelScopeEnum::PRIVATE);
 
-        $place = new Place();
+        $place = Place::createNull();
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());

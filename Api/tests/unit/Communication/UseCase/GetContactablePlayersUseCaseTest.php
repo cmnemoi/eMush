@@ -7,7 +7,6 @@ namespace Mush\Tests\unit\Communication\UseCase;
 use Mush\Communication\UseCase\GetContactablePlayersUseCase;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\Enum\CharacterEnum;
@@ -114,7 +113,7 @@ final class GetContactablePlayersUseCaseTest extends TestCase
         self::assertContains($paola, $contactablePlayers->toArray());
     }
 
-    public function testShouldReturnPlayersInCommsCenterRoom(): void
+    public function testShouldReturnPlayersOnBridge(): void
     {
         // given JS has a talkie
         GameEquipmentFactory::createItemByNameForHolder(ItemEnum::WALKIE_TALKIE, $this->jinSu);
@@ -122,12 +121,9 @@ final class GetContactablePlayersUseCaseTest extends TestCase
         // given Paola
         $paola = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::PAOLA, $this->daedalus);
 
-        // given Paola is in front corridor
-        $frontCorridor = Place::createRoomByNameInDaedalus(RoomEnum::FRONT_CORRIDOR, $this->daedalus);
+        // given Paola is on bridge
+        $frontCorridor = Place::createRoomByNameInDaedalus(RoomEnum::BRIDGE, $this->daedalus);
         $paola->changePlace($frontCorridor);
-
-        // given there is a comms center in the room
-        GameEquipmentFactory::createEquipmentByNameForHolder(EquipmentEnum::COMMUNICATION_CENTER, $frontCorridor);
 
         // when I call use case on Jin Su
         $contactablePlayers = $this->useCase->execute($this->jinSu);

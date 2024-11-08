@@ -28,7 +28,6 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
@@ -1205,7 +1204,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->hasOperationalEquipmentByName(ItemEnum::WALKIE_TALKIE)
             || $this->hasOperationalEquipmentByName(ItemEnum::ITRACKIE)
             || $this->hasStatus(PlayerStatusEnum::BRAINSYNC)
-            || $this->getPlace()->hasOperationalEquipmentByName(EquipmentEnum::COMMUNICATION_CENTER)
+            || $this->getPlace()->getName() === RoomEnum::BRIDGE
             || $this->hasTitle(TitleEnum::COM_MANAGER);
     }
 

@@ -154,12 +154,14 @@ final class DaedalusServiceTest extends TestCase
                 )
             )
             ->once();
+        $this->entityManager->shouldReceive('beginTransaction')->once();
         $this->entityManager
             ->shouldReceive('persist')
             ->once();
         $this->entityManager
             ->shouldReceive('flush')
             ->once();
+        $this->entityManager->shouldReceive('commit')->once();
 
         $daedalus = $this->service->createDaedalus($gameConfig, 'name', LanguageEnum::FRENCH);
 

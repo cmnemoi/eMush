@@ -177,35 +177,43 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function createDaedalus(GameConfig $gameConfig, string $name, string $language): Daedalus
     {
-        $daedalus = new Daedalus();
+        $this->entityManager->beginTransaction();
 
-        $daedalusConfig = $gameConfig->getDaedalusConfig();
+        try {
+            $daedalus = new Daedalus();
+            $daedalusConfig = $gameConfig->getDaedalusConfig();
+            $daedalus
+                ->setCycle(0)
+                ->setDaedalusVariables($daedalusConfig);
 
-        $daedalus
-            ->setCycle(0)
-            ->setDaedalusVariables($daedalusConfig);
+            $localizationConfig = $this->localizationConfigRepository->findByLanguage($language);
+            if ($localizationConfig === null) {
+                throw new \Exception('there is no localizationConfig for this language');
+            }
 
-        $localizationConfig = $this->localizationConfigRepository->findByLanguage($language);
-        if ($localizationConfig === null) {
-            throw new \Exception('there is no localizationConfig for this language');
+            $neron = new Neron();
+            $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+            $daedalusInfo
+                ->setName($name)
+                ->setNeron($neron);
+            $this->persistDaedalusInfo($daedalusInfo);
+
+            $daedalus = $this->addTitlePrioritiesToDaedalus($daedalus);
+
+            $daedalusEvent = new DaedalusInitEvent(
+                $daedalus,
+                $daedalusConfig,
+                [EventEnum::CREATE_DAEDALUS],
+                new \DateTime()
+            );
+            $this->eventService->callEvent($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
+            $this->entityManager->commit();
+        } catch (\Throwable $throwable) {
+            $this->entityManager->rollback();
+            $this->entityManager->close();
+
+            throw $throwable;
         }
-
-        $neron = new Neron();
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo
-            ->setName($name)
-            ->setNeron($neron);
-        $this->persistDaedalusInfo($daedalusInfo);
-
-        $daedalus = $this->addTitlePrioritiesToDaedalus($daedalus);
-
-        $daedalusEvent = new DaedalusInitEvent(
-            $daedalus,
-            $daedalusConfig,
-            [EventEnum::CREATE_DAEDALUS],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
 
         return $daedalus;
     }

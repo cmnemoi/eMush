@@ -9,6 +9,15 @@
             {{ $t('admin.actions.equipment.create') }}
         </button>
     </div>
+    <div class="flex-row">
+        <Input :label="$t('admin.actions.equipment.name')" type="text" v-model="createDaedalusEquipmentDto.equipmentName" />
+        <Input :label="$t('admin.actions.equipment.quantity')" type="number" v-model="createDaedalusEquipmentDto.quantity" />
+        <Input :label="$t('admin.actions.equipment.place')" type="text" v-model="createDaedalusEquipmentDto.place" />
+        <Input :label="$t('admin.actions.equipment.daedalus')" type="number" v-model="createDaedalusEquipmentDto.daedalus" />
+        <button class="action-button" @click="createEquipmentForDaedalus(createDaedalusEquipmentDto)">
+            {{ $t('admin.actions.equipment.createForDaedalus') }}
+        </button>
+    </div>
     <h2>{{ $t('admin.actions.projects.title') }}</h2>
     <div class="flex-row">
         <button class="action-button" @click="createProjects">
@@ -49,6 +58,10 @@ interface CreateEquipmentDto {
     place: string;
 }
 
+interface CreateDaedalusEquipmentDto extends CreateEquipmentDto {
+    daedalus: number;
+}
+
 interface DeleteAllStatusesDto {
     statusName: string;
 }
@@ -63,7 +76,14 @@ export default defineComponent ({
             createEquipmentDto: {
                 equipmentName: 'metal_scraps',
                 quantity: 1,
-                place: 'laboratory'
+                place: 'laboratory',
+                daedalus: null
+            },
+            createDaedalusEquipmentDto: {
+                equipmentName: 'metal_scraps',
+                quantity: 1,
+                place: 'laboratory',
+                daedalus: 1
             },
             deleteAllStatusesDto: {
                 statusName: 'mush'
@@ -73,6 +93,7 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             createEquipmentForOnGoingDaedaluses: 'adminActions/createEquipmentForOnGoingDaedaluses',
+            createEquipmentForDaedalus: 'adminActions/createEquipmentForDaedalus',
             createProjects: 'adminActions/createProjectsForOnGoingDaedaluses',
             createStatuses: 'adminActions/createPlayersAllInitStatusesForOnGoingDaedaluses',
             deleteAllStatusesByName: 'adminActions/deleteAllStatusesByName',
@@ -81,6 +102,9 @@ export default defineComponent ({
         }),
         createEquipment(createEquipmentDto: CreateEquipmentDto) {
             this.createEquipmentForOnGoingDaedaluses(createEquipmentDto);
+        },
+        createDaedalusEquipment(createEquipmentDto: CreateDaedalusEquipmentDto) {
+            this.createEquipmentForDaedalus(createEquipmentDto);
         },
         deleteAllStatuses(deleteAllStatusesDto: DeleteAllStatusesDto) {
             this.deleteAllStatusesByName(deleteAllStatusesDto);

@@ -207,7 +207,9 @@
 				"create": "Créer de l'équipement pour les vaisseaux en cours",
 				"name": "Nom de l'équipement",
 				"quantity": "Quantité",
-				"place": "Salle où créer l'équipement"
+				"place": "Salle où créer l'équipement",
+				"daedalus": "Identifiant du Daedalus",
+				"createForDaedalus": "Créer de l'équipement pour le Daedalus"
 			},
 			"projects": {
 				"title": "Projets",

@@ -12,7 +12,9 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasSkill;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
@@ -41,6 +43,10 @@ final class SlimeObject extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
+            new Reach([
+                'reach' => ReachEnum::ROOM,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
             new HasSkill([
                 'skill' => SkillEnum::GREEN_JELLY,
                 'groups' => [ClassConstraint::VISIBILITY],

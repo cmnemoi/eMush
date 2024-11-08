@@ -12,6 +12,7 @@ use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasSkill;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -44,6 +45,10 @@ final class Reinforce extends AttemptAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
+            new Reach([
+                'reach' => ReachEnum::ROOM,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
             new HasSkill([
                 'skill' => SkillEnum::TECHNICIAN,
                 'groups' => [ClassConstraint::VISIBILITY],

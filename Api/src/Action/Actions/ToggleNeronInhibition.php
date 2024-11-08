@@ -8,10 +8,13 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -33,14 +36,18 @@ final class ToggleNeronInhibition extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(
+        $metadata->addConstraints([
+            new Reach([
+                'reach' => ReachEnum::ROOM,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
             new HasStatus([
                 'status' => PlayerStatusEnum::FOCUSED,
                 'target' => HasStatus::PLAYER,
                 'statusTargetName' => EquipmentEnum::BIOS_TERMINAL,
                 'groups' => ['visibility'],
-            ])
-        );
+            ]),
+        ]);
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

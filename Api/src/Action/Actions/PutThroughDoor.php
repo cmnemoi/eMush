@@ -13,9 +13,12 @@ use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\OperationalDoorInRoom;
 use Mush\Action\Validator\PlaceType;
+use Mush\Action\Validator\Reach;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -40,9 +43,13 @@ final class PutThroughDoor extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
+            new Reach([
+                'reach' => ReachEnum::ROOM,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
             new PlaceType([
                 'groups' => [ClassConstraint::VISIBILITY],
-                'type' => 'room',
+                'type' => PlaceTypeEnum::ROOM,
             ]),
             new HasStatus([
                 'status' => PlaceStatusEnum::CEASEFIRE->toString(),

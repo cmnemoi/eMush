@@ -931,7 +931,6 @@ export default defineComponent ({
             this.roomName = room;
         },
         displayMe(): void {
-            console.log(this.playerRoom);
             const myCoord = RoomsEnum[this.playerRoom.key];
             this.me.left = myCoord.A.x + Math.round(Math.random() * (myCoord.B.x - 6 - myCoord.A.x) );
             this.me.top = myCoord.A.y + Math.round(Math.random() * (myCoord.C.y - 6 - myCoord.B.y));

@@ -73,14 +73,14 @@ final class ExitTerminalCest extends AbstractFunctionalTest
 
     public function shouldBeExecutableIfPlayerNotInTerminalRoom(FunctionalTester $I): void
     {
-        $this->givenPlayerIsNotInTerminalRoom($I);
+        $this->givenPlayerIsNotInTerminalRoom();
 
         $this->whenPlayerExitsTerminal();
 
         $this->thenPlayerIsNotFocusedOnTerminal($I);
     }
 
-    private function givenPlayerIsNotInTerminalRoom(FunctionalTester $I): void
+    private function givenPlayerIsNotInTerminalRoom(): void
     {
         $this->player->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
     }

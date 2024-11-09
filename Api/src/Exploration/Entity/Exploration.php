@@ -221,9 +221,12 @@ class Exploration
         return $this->getExplorators()->getPlayerAlive()->count() > 0;
     }
 
-    public function allExploratorsAreDead(): bool
+    public function allExploratorsAreDeadOrLost(): bool
     {
-        return $this->getExplorators()->getPlayerAlive()->count() === 0;
+        return $this
+            ->getAliveExplorators()
+            ->filter(static fn (Player $player) => $player->doesNotHaveStatus(PlayerStatusEnum::LOST))
+            ->isEmpty();
     }
 
     public function hasAPilotAlive(): bool

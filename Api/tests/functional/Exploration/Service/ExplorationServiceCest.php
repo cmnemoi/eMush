@@ -548,6 +548,52 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         );
     }
 
+    public function closeExplorationShouldNotReturnPlanetEquipmentInDaedalusIfEveryoneIsLost(FunctionalTester $I): void
+    {
+        // given a planet with 1 desert sector
+        $planet = $this->createPlanet([PlanetSectorEnum::DESERT], $I);
+
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $planet,
+            explorators: new PlayerCollection([$this->chun]),
+        );
+
+        // given I have some steaks on the planet
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameRationEnum::ALIEN_STEAK,
+            equipmentHolder: $this->daedalus->getPlanetPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when exploration is closed
+        $this->explorationService->closeExploration($exploration, ['test']);
+
+        // then I should see not Icarus in Icarus Bay
+        $I->assertFalse(
+            $this->daedalus
+                ->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY)
+                ->hasEquipmentByName(EquipmentEnum::ICARUS)
+        );
+    }
+
     public function closeExplorationShouldNotGetPlayerDirtyWithIcarusLavatoryProject(FunctionalTester $I): void
     {
         // given Icarus Lavatory project is finished

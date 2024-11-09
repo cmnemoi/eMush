@@ -12,6 +12,7 @@ abstract class NeronCpuPriorityEnum
     public const string NONE = 'none';
     public const string ASTRONAVIGATION = 'astronavigation';
     public const string PROJECTS = 'projects';
+    public const string RESEARCH = 'research';
 
     public static array $statusMap = [
         self::ASTRONAVIGATION => DaedalusStatusEnum::ASTRONAVIGATION_NERON_CPU_PRIORITY,
@@ -23,6 +24,7 @@ abstract class NeronCpuPriorityEnum
             self::NONE,
             self::ASTRONAVIGATION,
             self::PROJECTS,
+            self::RESEARCH,
         ];
     }
 

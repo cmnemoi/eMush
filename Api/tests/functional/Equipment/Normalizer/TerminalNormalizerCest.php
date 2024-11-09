@@ -335,7 +335,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 'cpu_priority_name' => 'Priorité CPU',
-                'cpu_priority_description' => 'Contrôle la répartition des tranches CPU. Soit elle rend les projets plus faciles à réaliser, soit elle accroît le nombre de GeoDonnées fournies par les analyses de planètes, soit les CPU sont en mode paresseux et ne favorisent rien du tout.//Cette propriété ne peut être changée qu\'*une fois par jour et par personne* pour ne pas entraîner une surcharge cognitive de NERON.',
+                'cpu_priority_description' => 'Contrôle la répartition des tranches CPU. Soit elle rend les projets ou recherches plus faciles à réaliser, soit elle accroît le nombre de GeoDonnées fournies par les analyses de planètes, soit les CPU sont en mode paresseux et ne favorisent rien du tout.//Cette propriété ne peut être changée qu\'*une fois par jour et par personne* pour ne pas entraîner une surcharge cognitive de NERON.',
                 'crew_lock_name' => 'Verrou équipage',
                 'crew_lock_description' => ':point: Verrouillage Pilotage : Les non-pilotes ne sont pas autorisés à piloter un Patrouilleur/Icarus.//:point: Verrouillage Projet : les non-concepteurs ne sont pas autorisés à participer au développement des projets.',
                 'plasma_shield_name' => 'Bouclier Plasma',
@@ -361,6 +361,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                     ['key' => 'none', 'name' => 'Aucune'],
                     ['key' => 'astronavigation', 'name' => 'Astronavigation'],
                     ['key' => 'projects', 'name' => 'Projets'],
+                    ['key' => 'research', 'name' => 'Recherche'],
                 ],
                 'currentCpuPriority' => 'none',
                 'crewLocks' => [

@@ -8,6 +8,8 @@ use Mush\Action\Actions\ParticipateResearch;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
+use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
@@ -16,6 +18,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
+use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -29,6 +32,7 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private ParticipateResearch $participateAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private NeronServiceInterface $neronService;
     private StatusServiceInterface $statusService;
     private GameEquipment $terminal;
 
@@ -39,6 +43,7 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PARTICIPATE_RESEARCH->value]);
         $this->participateAction = $I->grabService(ParticipateResearch::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->actionConfig->setDirtyRate(0);
 
@@ -120,6 +125,29 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         $this->whenKuanTiParticipatesToResearch(ProjectName::ANABOLICS);
 
         $this->thenKuanTiDoesNotHaveGeniusIdeaStatus($I);
+    }
+
+    public function shouldPutEfficiencyToFiveSevenPercentsWithCpuPriority(FunctionalTester $I): void
+    {
+        $reasearchProject = $this->daedalus->getProjectByName(ProjectName::RETRO_FUNGAL_SERUM);
+
+        // given CPU priority is set to research
+        $this->neronService->changeCpuPriority(
+            neron: $this->daedalus->getNeron(),
+            cpuPriority: NeronCpuPriorityEnum::RESEARCH,
+        );
+
+        // when Chun participates in the project with CPU priority
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $reasearchProject
+        );
+        $this->participateAction->execute();
+
+        // then Chun's efficiency should be reduced 2-3%
+        $I->assertEquals(new PlayerEfficiency(2, 3), $this->chun->getEfficiencyForProject($reasearchProject));
     }
 
     private function givenChunIsNotInLab()

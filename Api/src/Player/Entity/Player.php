@@ -1291,6 +1291,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::PROJECTS) && $project->isNeronProject()) {
             return $efficiency + Project::CPU_PRIORITY_BONUS;
         }
+        if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::RESEARCH) && $project->isResearchProject()) {
+            return $efficiency + Project::CPU_PRIORITY_BONUS;
+        }
 
         return $efficiency;
     }

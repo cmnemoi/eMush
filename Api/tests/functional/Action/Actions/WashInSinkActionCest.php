@@ -8,7 +8,9 @@ use Mush\Action\Actions\WashInSink;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -29,6 +31,8 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
+    private GameEquipment $kitchen;
+
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
@@ -38,6 +42,13 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        $this->kitchen = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::KITCHEN,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
     }
 
     public function testHumanWashInSink(FunctionalTester $I)
@@ -119,5 +130,96 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
             expected: ActionImpossibleCauseEnum::DAILY_LIMIT,
             actual: $this->washInSinkAction->cannotExecuteReason()
         );
+    }
+
+    public function shouldRemoveHumanSporeWithSuperSoap(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasSpores(2);
+
+        $this->givenPlayerHasSuperSoap();
+
+        $this->whenPlayerWashesInSink();
+
+        $this->thenPlayerShouldHaveSpores(1, $I);
+    }
+
+    public function shouldNotRemoveMushSporeWithSuperSoap(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasSpores(2);
+
+        $this->givenPlayerHasSuperSoap();
+
+        $this->givenPlayerIsMush();
+
+        $this->whenPlayerWashesInSink();
+
+        $this->thenPlayerShouldHaveSpores(2, $I);
+    }
+
+    public function shouldCostOneLessActionPointWithSuperSoap(FunctionalTester $I): void
+    {
+        $this->givenActionCostIs(2);
+
+        $this->givenPlayerHasSuperSoap();
+
+        $this->whenPlayerTriesToWashInSink();
+
+        $this->thenActionCostShouldBe(1, $I);
+    }
+
+    private function givenPlayerHasSpores(int $spores): void
+    {
+        $this->player->setSpores($spores);
+    }
+
+    private function givenPlayerHasSuperSoap(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SUPER_SOAPER,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenPlayerIsMush(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function whenPlayerTriesToWashInSink(): void
+    {
+        $this->washInSinkAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->kitchen,
+            player: $this->player,
+            target: $this->kitchen
+        );
+    }
+
+    private function givenActionCostIs(int $actionCost): void
+    {
+        $this->actionConfig->setActionCost($actionCost);
+    }
+
+    private function whenPlayerWashesInSink(): void
+    {
+        $this->whenPlayerTriesToWashInSink();
+        $this->washInSinkAction->execute();
+    }
+
+    private function thenPlayerShouldHaveSpores(int $spores, FunctionalTester $I): void
+    {
+        $I->assertEquals($spores, $this->player->getSpores());
+    }
+
+    private function thenActionCostShouldBe(int $actionCost, FunctionalTester $I): void
+    {
+        $I->assertEquals($actionCost, $this->washInSinkAction->getActionPointCost());
     }
 }

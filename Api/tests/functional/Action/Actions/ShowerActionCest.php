@@ -525,6 +525,17 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveSpores(2, $I);
     }
 
+    public function shouldCostOneLessActionPointWithSuperSoap(FunctionalTester $I): void
+    {
+        $this->givenActionCostIs(2);
+
+        $this->givenPlayerHasSuperSoap();
+
+        $this->whenPlayerTriesToTakeShower();
+
+        $this->thenActionCostShouldBe(1, $I);
+    }
+
     private function givenPlayerHasAntiquePerfumeSkill(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::ANTIQUE_PERFUME, $I);
@@ -555,7 +566,12 @@ final class ShowerActionCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenPlayerTakesShower(): void
+    private function givenActionCostIs(int $actionCost): void
+    {
+        $this->action->setActionCost($actionCost);
+    }
+
+    private function whenPlayerTriesToTakeShower(): void
     {
         $this->showerAction->loadParameters(
             actionConfig: $this->action,
@@ -563,6 +579,11 @@ final class ShowerActionCest extends AbstractFunctionalTest
             player: $this->player,
             target: $this->shower
         );
+    }
+
+    private function whenPlayerTakesShower(): void
+    {
+        $this->whenPlayerTriesToTakeShower();
         $this->showerAction->execute();
     }
 
@@ -574,5 +595,10 @@ final class ShowerActionCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveSpores(int $spores, FunctionalTester $I): void
     {
         $I->assertEquals($spores, $this->player->getSpores());
+    }
+
+    private function thenActionCostShouldBe(int $actionCost, FunctionalTester $I): void
+    {
+        $I->assertEquals($actionCost, $this->showerAction->getActionPointCost());
     }
 }

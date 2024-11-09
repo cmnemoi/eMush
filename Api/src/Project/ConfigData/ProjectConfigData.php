@@ -601,7 +601,7 @@ abstract class ProjectConfigData
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 3,
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
-                'activationRate' => 100,
+                'activationRate' => 20,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],

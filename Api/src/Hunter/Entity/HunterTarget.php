@@ -27,6 +27,9 @@ class HunterTarget
     #[ORM\ManyToOne(targetEntity: Player::class)]
     private ?Player $player = null;
 
+    #[ORM\ManyToOne(targetEntity: Hunter::class)]
+    private ?Hunter $hunter = null;
+
     public function __construct(Hunter $hunter)
     {
         $this->setTargetEntity($hunter->getDaedalus());
@@ -39,10 +42,10 @@ class HunterTarget
 
     public function getTargetEntity(): HunterTargetEntityInterface
     {
-        $target = $this->daedalus ?? $this->patrolShip ?? $this->player;
+        $target = $this->daedalus ?? $this->patrolShip ?? $this->player ?? $this->hunter;
 
         if ($target === null) {
-            throw new \Exception('Hunter target type should be a Daedalus, GameEquipment or Player instance, got null.');
+            throw new \Exception('Hunter target type should be a Daedalus, GameEquipment, Player or Hunter instance, got null.');
         }
 
         return $target;
@@ -70,8 +73,13 @@ class HunterTarget
 
                 break;
 
+            case $target instanceof Hunter:
+                $this->hunter = $target;
+
+                break;
+
             default:
-                throw new \Exception('Hunter target type should be a Daedalus, GameEquipment or Player instance, got a ' . \get_class($target) . '.');
+                throw new \Exception('Hunter target type should be a Daedalus, GameEquipment, Player or Hunter instance, got a ' . \get_class($target) . '.');
         }
 
         return $this;
@@ -91,6 +99,10 @@ class HunterTarget
             return HunterTargetEnum::PLAYER;
         }
 
+        if ($this->hunter !== null) {
+            return HunterTargetEnum::HUNTER;
+        }
+
         throw new \Exception('Hunter target type should be a Daedalus, GameEquipment or Player instance, got null.');
     }
 
@@ -104,5 +116,6 @@ class HunterTarget
         $this->daedalus = null;
         $this->patrolShip = null;
         $this->player = null;
+        $this->hunter = null;
     }
 }

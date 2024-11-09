@@ -15,6 +15,7 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
@@ -39,6 +40,7 @@ use Mush\Status\Service\StatusService;
 final class HunterService implements HunterServiceInterface
 {
     public function __construct(
+        private D100RollServiceInterface $d100Roll,
         private EntityManagerInterface $entityManager,
         private EventServiceInterface $eventService,
         private GameEquipmentServiceInterface $gameEquipmentService,
@@ -385,36 +387,37 @@ final class HunterService implements HunterServiceInterface
 
     private function selectHunterTarget(Hunter $hunter): void
     {
-        // by default, aim at Daedalus
-        $selectedTarget = new HunterTarget($hunter);
-        $hunter->setTarget($selectedTarget);
+        // aim at Daedalus by default
+        $hunter->aimAtDaedalus();
 
-        $targetProbabilities = $hunter->getHunterConfig()->getTargetProbabilities();
+        // apply meridon scrambler
+        if ($hunter->isScrambled($this->d100Roll)) {
+            $this->applyMeridonScrambler($hunter);
 
-        // First, try to aim at one patrol ship in battle
-        $patrolShips = EquipmentEnum::getPatrolShips()
-            ->map(fn (string $patrolShip) => $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShip, $hunter->getDaedalus())->first())
-            ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment);
-        $patrolShipsInBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
-
-        if (!$patrolShipsInBattle->isEmpty()) {
-            $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::PATROL_SHIP);
-            if ($this->randomService->isSuccessful($successRate)) {
-                $patrolShip = $this->randomService->getRandomElement($patrolShipsInBattle->toArray());
-                $selectedTarget->setTargetEntity($patrolShip);
-
-                return;
-            }
+            return;
         }
 
-        // If we fail to aim at a patrol ship, try to aim at a player in battle
+        $daedalus = $hunter->getDaedalus();
+        $targetProbabilities = $hunter->getHunterConfig()->getTargetProbabilities();
+
+        // Try to aim at one patrol ship in battle
+        $patrolShipsInBattle = $this->patrolShipsInBattle($daedalus);
+        $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::PATROL_SHIP);
+        $hunterTarget = $hunter->getTargetOrThrow();
+
+        if (!$patrolShipsInBattle->isEmpty() && $this->randomService->isSuccessful($successRate)) {
+            $patrolShip = $this->randomService->getRandomElement($patrolShipsInBattle->toArray());
+            $hunterTarget->setTargetEntity($patrolShip);
+
+            return;
+        }
+
+        // Try to aim at a player in battle
         $playersInBattle = $hunter->getDaedalus()->getAlivePlayersInSpaceBattle();
-        if (!$playersInBattle->isEmpty()) {
-            $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::PLAYER);
-            if ($this->randomService->isSuccessful($successRate)) {
-                $player = $this->randomService->getRandomElement($playersInBattle->toArray());
-                $selectedTarget->setTargetEntity($player);
-            }
+        $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::PLAYER);
+        if (!$playersInBattle->isEmpty() && $this->randomService->isSuccessful($successRate)) {
+            $player = $this->randomService->getRandomElement($playersInBattle->toArray());
+            $hunterTarget->setTargetEntity($player);
         }
     }
 
@@ -496,5 +499,26 @@ final class HunterService implements HunterServiceInterface
         );
 
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function applyMeridonScrambler(Hunter $hunter): void
+    {
+        $hunterTarget = $hunter->getTargetOrThrow();
+        $daedalus = $hunter->getDaedalus();
+
+        $attackingHunters = $daedalus->getAttackingHunters()->getAllExcept($hunter);
+        if ($attackingHunters->isEmpty()) {
+            return;
+        }
+
+        $randomHunter = $this->randomService->getRandomElement($attackingHunters->toArray());
+        $hunterTarget->setTargetEntity($randomHunter);
+    }
+
+    private function patrolShipsInBattle(Daedalus $daedalus): ArrayCollection
+    {
+        return EquipmentEnum::getPatrolShips()
+            ->map(fn (string $patrolShip) => $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShip, $daedalus)->first())
+            ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment && $patrolShip->isInSpaceBattle());
     }
 }

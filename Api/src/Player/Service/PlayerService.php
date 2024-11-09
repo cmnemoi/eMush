@@ -12,6 +12,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\ClosedPlayer;
@@ -334,7 +335,7 @@ final class PlayerService implements PlayerServiceInterface
             player: $player,
             variableName: PlayerVariableEnum::HEALTH_POINT,
             quantity: self::SELF_SACRIFICE_HEALTH_LOSS,
-            tags: [EventEnum::NEW_CYCLE, SkillEnum::SELF_SACRIFICE->toString()],
+            tags: [EventEnum::NEW_CYCLE, ModifierNameEnum::SELF_SACRIFICE_MODIFIER],
             time: $date
         );
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);

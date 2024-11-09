@@ -392,7 +392,7 @@ final class HunterService implements HunterServiceInterface
 
         // apply meridon scrambler
         if ($hunter->isScrambled($this->d100Roll)) {
-            $this->handleMeridonScrambler($hunter);
+            $this->applyMeridonScrambler($hunter);
 
             return;
         }
@@ -501,7 +501,7 @@ final class HunterService implements HunterServiceInterface
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function handleMeridonScrambler(Hunter $hunter): void
+    private function applyMeridonScrambler(Hunter $hunter): void
     {
         $hunterTarget = $hunter->getTargetOrThrow();
         $daedalus = $hunter->getDaedalus();

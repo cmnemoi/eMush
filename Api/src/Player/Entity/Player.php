@@ -299,6 +299,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->hasEquipmentByName($gameEquipmentName) || $this->getPlace()->hasEquipmentByName($gameEquipmentName);
     }
 
+    public function canReachFood(): bool
+    {
+        $playerFood = $this->items->filter(static fn (GameItem $item) => $item->isARation());
+        $placeFood = $this->getPlace()->getEquipments()->filter(static fn (GameEquipment $equipment) => $equipment->isARation());
+
+        return $playerFood->count() > 0 || $placeFood->count() > 0;
+    }
+
     public function getEquipments(): Collection
     {
         return $this->items;

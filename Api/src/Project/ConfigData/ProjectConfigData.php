@@ -586,11 +586,14 @@ abstract class ProjectConfigData
                 'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    ModifierNameEnum::PLUS_2_ACTION_POINTS_ON_EXTRACT_SPORE,
+                ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
+                    ProjectRequirementName::FOOD_IN_LABORATORY,
                 ],
             ],
             [

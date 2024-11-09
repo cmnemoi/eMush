@@ -60,6 +60,7 @@ class ProjectRequirement
             ProjectRequirementType::ITEM_IN_LABORATORY->value => $player->canReachEquipmentByName($this->getTargetOrThrow()),
             ProjectRequirementType::ITEM_IN_PLAYER_INVENTORY->value => $player->hasEquipmentByName($this->getTargetOrThrow()),
             ProjectRequirementType::MUSH_PLAYER_DEAD->value => $daedalus->hasAnyMushDied(),
+            ProjectRequirementType::FOOD_IN_LABORATORY->value => $player->canReachFood(),
             default => throw new \LogicException("Unknown project requirement type: {$this->type}"),
         };
     }

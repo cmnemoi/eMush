@@ -485,6 +485,12 @@ final class ProjectModifierConfigFixtures extends Fixture
         $this->manager->persist($teslaSup2XChargesModifier);
         $this->addReference($teslaSup2XChargesModifier->getName(), $teslaSup2XChargesModifier);
 
+        $constipasporeSerumModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLUS_2_ACTION_POINTS_ON_EXTRACT_SPORE)
+        );
+        $this->manager->persist($constipasporeSerumModifier);
+        $this->addReference($constipasporeSerumModifier->getName(), $constipasporeSerumModifier);
+
         $this->manager->flush();
     }
 

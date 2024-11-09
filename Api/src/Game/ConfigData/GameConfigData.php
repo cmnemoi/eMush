@@ -614,6 +614,7 @@ class GameConfigData
                 ProjectName::BEAT_BOX,
                 ProjectName::ANABOLICS,
                 ProjectName::ANTISPORE_GAS,
+                ProjectName::CONSTIPASPORE_SERUM,
                 ProjectName::CREATE_MYCOSCAN,
                 ProjectName::NARCOTICS_DISTILLER,
                 ProjectName::MUSH_HUNTER_ZC16H,

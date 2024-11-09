@@ -311,7 +311,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     {
         $meridonScrambler = $this->getDaedalus()->getProjectByName(ProjectName::MERIDON_SCRAMBLER);
 
-        return $meridonScrambler->isFinished() && $d100Roll->isSuccessful($meridonScrambler->getActivationRate());
+        return $this->isSimpleHunter() && $meridonScrambler->isFinished() && $d100Roll->isSuccessful($meridonScrambler->getActivationRate());
     }
 
     public function isInAPatrolShip(): false
@@ -327,5 +327,10 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     public function isInSpaceBattle(): bool
     {
         return $this->isInPool() === false;
+    }
+
+    private function isSimpleHunter(): bool
+    {
+        return $this->getHunterConfig()->getHunterName() === HunterEnum::HUNTER;
     }
 }

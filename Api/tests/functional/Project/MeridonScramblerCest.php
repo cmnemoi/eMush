@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Project;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Project\Enum\ProjectName;
 use Mush\Tests\AbstractFunctionalTest;
@@ -51,6 +54,20 @@ final class MeridonScramblerCest extends AbstractFunctionalTest
         $this->thenHuntersShouldNotAimAtOtherHunter($I);
     }
 
+    #[DataProvider('specialHuntersDataProvider')]
+    public function shouldNotApplyToSpecialHunters(FunctionalTester $I, Example $example): void
+    {
+        $this->givenAttackingSpecialHunter($example['hunter'], 2, $I);
+
+        $this->givenMeridonScramblerHas100PercentsActivationRate();
+
+        $this->givenMeridonScramblerIsFinished($I);
+
+        $this->whenCyclePasses();
+
+        $this->thenHuntersShouldNotAimAtOtherHunter($I);
+    }
+
     private function givenAttackingHunters(int $numberOfHunters): void
     {
         $this->daedalus->setHunterPoints($numberOfHunters * 10);
@@ -82,6 +99,13 @@ final class MeridonScramblerCest extends AbstractFunctionalTest
         $reflection->getProperty('activationRate')->setValue($config, 100);
     }
 
+    private function givenAttackingSpecialHunter(string $hunterName, int $numberOfHunters, FunctionalTester $I): void
+    {
+        for ($i = 0; $i < $numberOfHunters; ++$i) {
+            $this->createHunterFromName($hunterName, $I);
+        }
+    }
+
     private function whenCyclePasses(): void
     {
         $this->eventService->callEvent(
@@ -106,5 +130,23 @@ final class MeridonScramblerCest extends AbstractFunctionalTest
         foreach ($this->daedalus->getAttackingHunters() as $hunter) {
             $I->assertNotEquals(expected: Hunter::class, actual: $hunter->getTargetEntityOrThrow()::class);
         }
+    }
+
+    private function createHunterFromName(string $hunterName, FunctionalTester $I): void
+    {
+        $hunterConfig = $this->daedalus->getGameConfig()->getHunterConfigs()->getByNameOrThrow($hunterName);
+
+        $hunter = new Hunter($hunterConfig, $this->daedalus);
+        $hunter->setHunterVariables($hunterConfig);
+        $this->daedalus->addHunter($hunter);
+
+        $I->haveInRepository($hunter);
+    }
+
+    private function specialHuntersDataProvider(): array
+    {
+        return HunterEnum::getAdvancedHunters()->map(static fn (string $hunterName) => [
+            'hunter' => $hunterName,
+        ])->toArray();
     }
 }

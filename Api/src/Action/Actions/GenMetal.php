@@ -16,6 +16,7 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -69,21 +70,13 @@ final class GenMetal extends AttemptAction
         return $target === null;
     }
 
-    protected function checkResult(): ActionResult
-    {
-        $result = parent::checkResult();
-        if ($result->isAFail()) {
-            return $result;
-        }
-
-        $item = $this->createRandomItem();
-
-        return $result->setEquipment($item);
-    }
-
     protected function applyEffect(ActionResult $result): void
     {
         $this->createHasGeneratedMetalStatus();
+
+        if ($result->isASuccess()) {
+            $this->createRandomItem();
+        }
     }
 
     private function createRandomItem(): GameEquipment
@@ -93,6 +86,8 @@ final class GenMetal extends AttemptAction
             equipmentHolder: $this->player,
             reasons: $this->getTags(),
             time: new \DateTime(),
+            visibility: VisibilityEnum::PUBLIC,
+            author: $this->player,
         );
     }
 

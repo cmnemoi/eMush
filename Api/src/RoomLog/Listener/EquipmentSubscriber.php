@@ -32,6 +32,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         LogEnum::FOUND_ITEM_IN_EXPLORATION => LogEnum::FOUND_ITEM_IN_EXPLORATION,
         ActionEnum::PRINT_ZE_LIST->value => LogEnum::TABULATRIX_PRINTS,
         EquipmentEventReason::AWAKEN_SCHRODINGER => LogEnum::AWAKEN_SCHRODINGER,
+        ActionEnum::GEN_METAL->value => ActionLogEnum::GEN_METAL_SUCCESS,
     ];
 
     private const DESTRUCTION_LOG_MAP = [

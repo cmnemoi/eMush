@@ -25,6 +25,7 @@ abstract class SpawnEquipmentConfigData
     public const string TWO_NCC_LENSES_IN_LABORATORY = 'two_ncc_lenses_in_laboratory';
     public const string ONE_SPORE_SUCKER_IN_LABORATORY = 'one_spore_sucker_in_laboratory';
     public const string FIVE_MYCOALARMS_IN_LABORATORY = 'five_mycoalarms_in_laboratory';
+    public const string ONE_SUPER_SOAPER_IN_LABORATORY = 'one_super_soaper_in_laboratory';
 
     /**
      * @return SpawnEquipmentConfigDto[]
@@ -160,6 +161,12 @@ abstract class SpawnEquipmentConfigData
                 equipmentName: ItemEnum::MYCO_ALARM,
                 placeName: RoomEnum::LABORATORY,
                 quantity: 5,
+            ),
+            new SpawnEquipmentConfigDto(
+                name: self::ONE_SUPER_SOAPER_IN_LABORATORY,
+                equipmentName: GearItemEnum::SUPER_SOAPER,
+                placeName: RoomEnum::LABORATORY,
+                quantity: 1,
             ),
         ];
     }

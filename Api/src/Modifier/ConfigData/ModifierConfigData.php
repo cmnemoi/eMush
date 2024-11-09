@@ -3827,6 +3827,28 @@ abstract class ModifierConfigData
                 ActionEnum::EXTRACT_SPORE->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::MINUS_1_SPORE_ON_TAKE_SHOWER,
+            'modifierName' => ModifierNameEnum::SUPER_SOAPER_MODIFIER,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
+            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_MINUS_1_SPORE,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'modifierActivationRequirements' => [
+                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
+            ],
+            'tagConstraints' => [
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

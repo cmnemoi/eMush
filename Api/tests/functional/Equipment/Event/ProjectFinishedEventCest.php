@@ -192,6 +192,12 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'quantity' => 5,
                 'creationPlaces' => [RoomEnum::LABORATORY],
             ],
+            [
+                'project' => ProjectName::MUSHICIDE_SOAP->value,
+                'equipment' => GearItemEnum::SUPER_SOAPER,
+                'quantity' => 1,
+                'creationPlaces' => [RoomEnum::LABORATORY],
+            ],
         ];
     }
 

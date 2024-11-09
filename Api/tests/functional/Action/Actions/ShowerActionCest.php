@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
@@ -500,12 +501,77 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $this->thenPlayerShouldBeImmunized($I);
     }
 
+    public function shouldRemoveHumanSporeWithSuperSoap(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasSpores(2);
+
+        $this->givenPlayerHasSuperSoap();
+
+        $this->whenPlayerTakesShower();
+
+        $this->thenPlayerShouldHaveSpores(1, $I);
+    }
+
+    public function shouldNotRemoveMushSporeWithSuperSoap(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasSpores(2);
+
+        $this->givenPlayerHasSuperSoap();
+
+        $this->givenPlayerIsMush();
+
+        $this->whenPlayerTakesShower();
+
+        $this->thenPlayerShouldHaveSpores(2, $I);
+    }
+
+    public function shouldCostOneLessActionPointWithSuperSoap(FunctionalTester $I): void
+    {
+        $this->givenActionCostIs(2);
+
+        $this->givenPlayerHasSuperSoap();
+
+        $this->whenPlayerTriesToTakeShower();
+
+        $this->thenActionCostShouldBe(1, $I);
+    }
+
     private function givenPlayerHasAntiquePerfumeSkill(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::ANTIQUE_PERFUME, $I);
     }
 
-    private function whenPlayerTakesShower(): void
+    private function givenPlayerHasSpores(int $spores): void
+    {
+        $this->player->setSpores(2);
+    }
+
+    private function givenPlayerHasSuperSoap(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SUPER_SOAPER,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenPlayerIsMush(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenActionCostIs(int $actionCost): void
+    {
+        $this->action->setActionCost($actionCost);
+    }
+
+    private function whenPlayerTriesToTakeShower(): void
     {
         $this->showerAction->loadParameters(
             actionConfig: $this->action,
@@ -513,11 +579,26 @@ final class ShowerActionCest extends AbstractFunctionalTest
             player: $this->player,
             target: $this->shower
         );
+    }
+
+    private function whenPlayerTakesShower(): void
+    {
+        $this->whenPlayerTriesToTakeShower();
         $this->showerAction->execute();
     }
 
     private function thenPlayerShouldBeImmunized(FunctionalTester $I): void
     {
         $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED));
+    }
+
+    private function thenPlayerShouldHaveSpores(int $spores, FunctionalTester $I): void
+    {
+        $I->assertEquals($spores, $this->player->getSpores());
+    }
+
+    private function thenActionCostShouldBe(int $actionCost, FunctionalTester $I): void
+    {
+        $I->assertEquals($actionCost, $this->showerAction->getActionPointCost());
     }
 }

@@ -13,9 +13,11 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
+use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
@@ -401,6 +403,20 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
         $manager->persist($thalassoMovementPointModifier);
 
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_MINUS_1_SPORE);
+
+        /** @var ModifierActivationRequirement $notMushRequirement */
+        $notMushRequirement = $this->getReference(ModifierRequirementEnum::PLAYER_IS_NOT_MUSH);
+
+        $superSoaperModifier = TriggerEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::MINUS_1_SPORE_ON_TAKE_SHOWER)
+        );
+        $superSoaperModifier
+            ->setTriggeredEvent($eventConfig)
+            ->addModifierRequirement($notMushRequirement);
+        $manager->persist($superSoaperModifier);
+
         $manager->flush();
 
         $this->addReference(ModifierNameEnum::APRON_MODIFIER_FOR_PLAYER_PREVENT_DIRTY, $apronModifier);
@@ -428,6 +444,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER, $thalassoHealthPointModifier);
         $this->addReference(ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER, $thalassoMoralePointModifier);
         $this->addReference(ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER, $thalassoMovementPointModifier);
+        $this->addReference($superSoaperModifier->getName(), $superSoaperModifier);
     }
 
     public function getDependencies(): array

@@ -127,8 +127,9 @@ final class MeridonScramblerCest extends AbstractFunctionalTest
 
     private function thenHuntersShouldNotAimAtOtherHunter(FunctionalTester $I): void
     {
+        /** @var Hunter $hunter */
         foreach ($this->daedalus->getAttackingHunters() as $hunter) {
-            $I->assertNotEquals(expected: Hunter::class, actual: $hunter->getTargetEntityOrThrow()::class);
+            $I->assertNotEquals(expected: Hunter::class, actual: $hunter->getTarget()?->getTargetEntity()?->getClassName());
         }
     }
 

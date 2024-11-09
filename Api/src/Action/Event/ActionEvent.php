@@ -172,7 +172,11 @@ class ActionEvent extends AbstractGameEvent
 
     public function shouldCreateParfumeAntiqueImmunizedStatus(): bool
     {
-        return $this->author?->hasSkill(SkillEnum::ANTIQUE_PERFUME) && $this->hasTag(ActionEnum::TAKE_SHOWER->value);
+        return $this->author?->hasSkill(SkillEnum::ANTIQUE_PERFUME)
+            && $this->hasAnyTag([
+                ActionEnum::TAKE_SHOWER->toString(),
+                ActionEnum::WASH_IN_SINK->toString(),
+            ]);
     }
 
     public function shouldRemoveTargetLyingDownStatus(): bool

@@ -15,6 +15,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -167,6 +168,15 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
         $this->thenActionCostShouldBe(1, $I);
     }
 
+    public function shouldMakeAntiquePerfumePlayerImmunized(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasAntiquePerfumeSkill($I);
+
+        $this->whenPlayerWashesInSink();
+
+        $this->thenPlayerShouldBeImmunized($I);
+    }
+
     private function givenPlayerHasSpores(int $spores): void
     {
         $this->player->setSpores($spores);
@@ -190,6 +200,11 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime()
         );
+    }
+
+    private function givenPlayerHasAntiquePerfumeSkill(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::ANTIQUE_PERFUME, $I);
     }
 
     private function whenPlayerTriesToWashInSink(): void
@@ -221,5 +236,10 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
     private function thenActionCostShouldBe(int $actionCost, FunctionalTester $I): void
     {
         $I->assertEquals($actionCost, $this->washInSinkAction->getActionPointCost());
+    }
+
+    private function thenPlayerShouldBeImmunized(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED));
     }
 }

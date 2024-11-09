@@ -7,7 +7,6 @@ namespace Mush\tests\functional\Action\Actions;
 use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -20,15 +19,11 @@ final class PolymathCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private Hit $attemptAction;
 
-    private EventServiceInterface $eventService;
-
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HIT]);
         $this->attemptAction = $I->grabService(Hit::class);
-
-        $this->eventService = $I->grabService(EventServiceInterface::class);
 
         $this->givenPlayerIsAPolymath($I);
     }
@@ -40,6 +35,11 @@ final class PolymathCest extends AbstractFunctionalTest
         $this->whenPlayerAttemptsAction();
 
         $this->thenSuccessRateShouldBe(54, $I);
+    }
+
+    public function shouldIncreaseMaxPrivateChannels(FunctionalTester $I): void
+    {
+        $I->assertEquals(5, $this->player->getMaxPrivateChannels());
     }
 
     private function givenPlayerIsAPolymath(FunctionalTester $I): void

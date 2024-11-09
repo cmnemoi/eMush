@@ -1,6 +1,6 @@
 <template>
-    <div class="ship-panel">
-        <div v-if="! loading" class="ship-panel-content">
+    <div class="ship-panel" v-if="player">
+        <div v-if="!loading" class="ship-panel-content">
             <p class="room">
                 <span class="room-name">{{ room.name }}</span>
                 <Statuses :statuses="room.statuses" type="room" />
@@ -14,8 +14,6 @@
             />
             <MiniMap
                 v-if="isMinimapOpen"
-                :my-position="room"
-                :minimap="player.daedalus.minimap"
                 @mousedown.stop
                 @touchstart.stop
             />
@@ -52,8 +50,8 @@ import { mapActions, mapState, mapGetters } from "vuex";
 import PhaserShip from "@/components/Game/Ship/PhaserShip.vue";
 import { defineComponent } from "vue";
 import SpaceBattleView from "@/components/Game/SpaceBattleView.vue";
-import { player } from "@/store/player.module";
 import { Hunter } from "@/entities/Hunter";
+import { player } from "@/store/player.module";
 
 export default defineComponent ({
     name: "ShipPanel",
@@ -68,7 +66,6 @@ export default defineComponent ({
         SpaceBattleView
     },
     props: {
-        room: Room,
         player: Player
     },
     computed: {
@@ -77,6 +74,14 @@ export default defineComponent ({
             selectedTarget: 'room/selectedTarget',
             isMinimapAvailable: 'daedalus/isMinimapAvailable'
         }),
+        room(): Room {
+            const room = this.player?.room;
+            if (!room) {
+                throw new Error("Player room is not defined");
+            }
+
+            return room;
+        },
         targetPanel() {
             return this.selectedTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
         },

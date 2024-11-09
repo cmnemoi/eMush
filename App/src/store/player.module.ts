@@ -81,7 +81,6 @@ const actions: ActionTree<any, any> = {
             const player = store.getters['player/player'];
             await Promise.all([
                 playerIsNull ? Promise.resolve() : (player.isAlive() ? this.dispatch("daedalus/loadAlerts", { daedalus: player.daedalus }) : Promise.resolve()),
-                playerIsNull ? Promise.resolve() : (player.isAlive() ? this.dispatch("daedalus/loadMinimap", { player }) : Promise.resolve()),
                 PlayerService.loadPlayer(playerId).then(async (player: Player | null) => {
                     commit('updatePlayer', player);
                     if (player === null) {
@@ -93,7 +92,7 @@ const actions: ActionTree<any, any> = {
 
                     await Promise.all([
                         playerIsNull ? this.dispatch("daedalus/loadAlerts", { daedalus: player.daedalus }) : Promise.resolve(),
-                        playerIsNull ? this.dispatch("daedalus/loadMinimap", { player }) : Promise.resolve(),
+                        this.dispatch("daedalus/loadMinimap", { player }),
                         this.dispatch("room/loadRoom", { room: player?.room })
                     ]);
                     if (player?.spaceBattle) {

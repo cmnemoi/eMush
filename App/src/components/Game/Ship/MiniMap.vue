@@ -885,18 +885,17 @@ import { RoomsEnum } from '@/enums/room.enum';
 import { DoorsEnum } from '@/enums/doors.enum';
 import { Minimap } from "@/entities/Minimap";
 import { mapGetters } from "vuex";
+import { Player } from "@/entities/Player";
+import { Room } from "@/entities/Room";
 
 export default defineComponent ({
     name: "MiniMap",
-    props: {
-        myPosition: Object
-    },
     computed: {
-        ...mapGetters('daedalus', [
-            'daedalus',
-            'minimap',
-            'loadingMinimap'
-        ]),
+        ...mapGetters({
+            daedalus: 'daedalus/daedalus',
+            minimap: 'daedalus/minimap',
+            player: 'player/player'
+        }),
         mapClass(): string {
             if (this.daedalus.hasActivePlasmaShield()) {
                 return 'map-with-blue-halo';
@@ -904,6 +903,14 @@ export default defineComponent ({
                 return 'map-with-red-halo';
             }
             return 'map';
+        },
+        playerRoom(): Room {
+            const room = this.player.room;
+            if (!room) {
+                throw new Error('Room is not defined');
+            }
+
+            return room;
         }
     },
     data() {
@@ -924,31 +931,34 @@ export default defineComponent ({
             this.roomName = room;
         },
         displayMe(): void {
-            const myCoord = RoomsEnum[this.myPosition?.key];
+            const myCoord = RoomsEnum[this.playerRoom.key];
             this.me.left = myCoord.A.x + Math.round(Math.random() * (myCoord.B.x - 6 - myCoord.A.x) );
             this.me.top = myCoord.A.y + Math.round(Math.random() * (myCoord.C.y - 6 - myCoord.B.y));
         },
         displayOther(): void
         {
-            if (this.minimap){
-                this.playersPoints = [];
-                const roomsWithPlayers = this.minimap.filter((room: Minimap) => room.players_count > 0);
-                roomsWithPlayers.forEach((room: Minimap) => {
-                    const roomCoord = RoomsEnum[room.name];
-                    let i = 0;
-                    if (room.name === this.myPosition?.key) {
-                        i++;
-                    }
-                    while ( i < room.players_count ){
-                        const left = roomCoord.A.x + Math.round(Math.random() * (roomCoord.B.x - 4 - roomCoord.A.x));
-                        const top = roomCoord.A.y + Math.round(Math.random() * (roomCoord.C.y - 4 - roomCoord.B.y));
-                        const name = room.actopi.length > 0 ? room.actopi[i].initials : '';
-                        const color = room.actopi.length > 0 ? room.actopi[i].color : '#f88';
-                        this.playersPoints.push( { left, top, name, color });
-                        i++;
-                    }
-                });
+            if (!this.minimap) {
+                return;
             }
+
+            this.playersPoints = [];
+            const roomsWithPlayers = this.minimap.filter((room: Minimap) => room.players_count > 0);
+            roomsWithPlayers.forEach((room: Minimap) => {
+                const roomCoord = RoomsEnum[room.name];
+                let i = 0;
+                if (room.name === this.playerRoom
+                    .key) {
+                    i++;
+                }
+                while ( i < room.players_count ){
+                    const left = roomCoord.A.x + Math.round(Math.random() * (roomCoord.B.x - 4 - roomCoord.A.x));
+                    const top = roomCoord.A.y + Math.round(Math.random() * (roomCoord.C.y - 4 - roomCoord.B.y));
+                    const name = room.actopi.length > 0 ? room.actopi[i].initials : '';
+                    const color = room.actopi.length > 0 ? room.actopi[i].color : '#f88';
+                    this.playersPoints.push( { left, top, name, color });
+                    i++;
+                }
+            });
         },
         displayPlayerInitials(room: string): void {
             const roomPlayers = this.minimap.find((rooms: Minimap) => rooms.name === room).actopi;

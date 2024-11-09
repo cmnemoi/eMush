@@ -70,4 +70,34 @@ final class ExitTerminalCest extends AbstractFunctionalTest
         // then player is not focused on command terminal anymore
         $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::FOCUSED));
     }
+
+    public function shouldBeExecutableIfPlayerNotInTerminalRoom(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsNotInTerminalRoom();
+
+        $this->whenPlayerExitsTerminal();
+
+        $this->thenPlayerIsNotFocusedOnTerminal($I);
+    }
+
+    private function givenPlayerIsNotInTerminalRoom(): void
+    {
+        $this->player->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+    }
+
+    private function whenPlayerExitsTerminal(): void
+    {
+        $this->exitTerminal->loadParameters(
+            actionConfig: $this->exitTerminalConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->exitTerminal->execute();
+    }
+
+    private function thenPlayerIsNotFocusedOnTerminal(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::FOCUSED));
+    }
 }

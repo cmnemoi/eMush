@@ -124,6 +124,13 @@ class EquipmentEnum
         ]);
     }
 
+    public static function getResearchProjectTerminals(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::RESEARCH_LABORATORY,
+        ]);
+    }
+
     public static function getTerminals(): ArrayCollection
     {
         return new ArrayCollection([

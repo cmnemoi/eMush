@@ -1278,5 +1278,11 @@
         <target>**{character}** ressort de son tas de débris l'air ravi, {character_gender, select, female {elle} other {il}} a fait une trouvaille ! Et hop, {target_equipment_gender, select, female {une **{target_equipment}**} other {un **{target_equipment}**}} !</target>
       </segment>
     </unit>
+    <unit id="gain_it_chef_point">
+      <segment state="translated">
+        <source>gain_it_chef_point</source>
+        <target>Vous avez gagné {quantity} :pa_cook:.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

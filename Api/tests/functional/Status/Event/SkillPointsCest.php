@@ -9,6 +9,8 @@ use Codeception\Example;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -38,6 +40,21 @@ final class SkillPointsCest extends AbstractFunctionalTest
         $this->whenADayPasses();
 
         $this->thenPlayerShouldHaveIncreasedSkillPoints($I, $skillPoints);
+    }
+
+    #[DataProvider('skillPointsDataProvider')]
+    public function shouldPrintPrivateLogOnGain(FunctionalTester $I, Example $skillPoints): void
+    {
+        $this->givenPlayerHasZeroSkillPoints($skillPoints);
+
+        $this->whenADayPasses();
+
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][$skillPoints['name']],
+            ],
+        );
     }
 
     private function givenPlayerHasZeroSkillPoints(Example $skillPoints): void

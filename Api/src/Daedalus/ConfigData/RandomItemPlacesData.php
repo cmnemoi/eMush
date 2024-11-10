@@ -17,6 +17,7 @@ class RandomItemPlacesData
                 GearItemEnum::PLASTENITE_ARMOR,
                 ItemEnum::CAMERA_ITEM,
                 ItemEnum::CAMERA_ITEM,
+                ItemEnum::CAMERA_ITEM,
                 GearItemEnum::ADJUSTABLE_WRENCH,
                 ItemEnum::KNIFE,
                 ToolItemEnum::EXTINGUISHER,

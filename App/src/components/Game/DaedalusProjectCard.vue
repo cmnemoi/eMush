@@ -1,6 +1,6 @@
 <template>
     <Tippy tag="li" class="project-card">
-        <span v-html="formatText(project.type)"></span>
+        <span v-html="formatText(project.translatedType)"></span>
         <img :src="getProjectImage(project)" :alt="project.name">
         <template #content>
             <h1 v-html="formatText(project.name)"/>
@@ -18,14 +18,7 @@ import { PropType, defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { formatText } from "@/utils/formatText";
 import { Tippy } from "vue-tippy";
-
-type DaedalusProject = {
-    type: string;
-    key: string;
-    name: string;
-    description: string;
-    lore: string;
-}
+import { DaedalusProject } from "@/entities/Daedalus";
 
 export default defineComponent ({
     name: "DaedalusProjectCard",
@@ -38,7 +31,7 @@ export default defineComponent ({
     },
     methods: {
         getProjectImage(project: DaedalusProject): string {
-            const folder = project.type === 'Res.' ? 'researches' : 'projects';
+            const folder = project.type === 'research' ? 'researches' : 'projects';
             return getImgUrl(`${folder}/${project.key}.png`);
         },
         formatText

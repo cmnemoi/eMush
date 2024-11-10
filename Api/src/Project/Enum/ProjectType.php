@@ -10,4 +10,9 @@ enum ProjectType: string
     case NERON_PROJECT = 'neron_project';
     case PILGRED = 'pilgred';
     case RESEARCH = 'research';
+
+    public function toString(): string
+    {
+        return $this->value;
+    }
 }

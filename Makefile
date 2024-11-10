@@ -10,7 +10,7 @@ bash-api-root:
 	docker exec -it mush_php bash
 
 bash-eternaltwin:
-	docker exec -it eternaltwin bash
+	docker exec -it musheternaltwin bash
 
 bash-front:
 	docker exec -it mush_front bash
@@ -21,7 +21,7 @@ bash-mysql:
 build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml build
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_front chown -R node:node /www
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root eternaltwin chown -R node:node /www
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root musheternaltwin chown -R node:node /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_php chown -R dev:dev /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-start --remove-orphans
 
@@ -53,9 +53,9 @@ install-api:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php ./reset.sh --init
 
 install-eternaltwin:
-	docker compose -f docker/docker-compose.yml run -u node eternaltwin yarn install
-	docker compose -f docker/docker-compose.yml run -u node eternaltwin yarn etwin db reset
-	docker compose -f docker/docker-compose.yml run -u node eternaltwin yarn etwin db sync
+	docker compose -f docker/docker-compose.yml run -u node musheternaltwin yarn install
+	docker compose -f docker/docker-compose.yml run -u node musheternaltwin yarn etwin db reset
+	docker compose -f docker/docker-compose.yml run -u node musheternaltwin yarn etwin db sync
 
 install-front:
 	docker compose -f docker/docker-compose.yml run -u node mush_front yarn install &&\
@@ -67,8 +67,8 @@ remove-all: #Warning, it will remove EVERY container, images, volumes and networ
 reset-dependencies: install-api install-front install-eternaltwin
 
 reset-eternaltwin-database: 
-	docker compose -f docker/docker-compose.yml run -u node eternaltwin yarn etwin db reset
-	docker compose -f docker/docker-compose.yml run -u node eternaltwin yarn etwin db sync
+	docker compose -f docker/docker-compose.yml run -u node musheternaltwin yarn etwin db reset
+	docker compose -f docker/docker-compose.yml run -u node musheternaltwin yarn etwin db sync
 
 setup-env-variables:
 	cp ./Api/.env.dist ./Api/.env
@@ -93,7 +93,7 @@ gitpod-install: setup-git-hooks gitpod-setup-env-variables gitpod-build install-
 gitpod-build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml build
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root mush_front chown -R node:node /www
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root eternaltwin chown -R node:node /www
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root musheternaltwin chown -R node:node /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root mush_php chown -R dev:dev /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml up --no-start
 

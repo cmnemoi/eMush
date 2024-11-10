@@ -60,7 +60,7 @@ services:
       - CHOKIDAR_INTERVAL=100
       - YOUR_APP_WEB_HTTP_PORT=8080
 
-  eternaltwin:
+  musheternaltwin:
     container_name: eternaltwin
     build:
       context: ./Eternaltwin

@@ -45,17 +45,21 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
     {
         $project = $event->getProject();
 
-        if ($project->isNeronProject() || $project->isPilgred()) {
+        if ($project->isNeronOrPilgred()) {
             $this->createProjectFinishedNeronAnnouncement($event);
         }
 
         if ($project->isPatulineScrambler()) {
             $this->scrambleMushChannelMessages($event);
         }
+
+        if ($project->isPheromodem()) {
+            $this->addHumanPlayersToMushChannel($event);
+        }
     }
 
     private function createProjectFinishedNeronAnnouncement(ProjectEvent $event): void
-    {
+    {   
         $author = $event->getAuthor();
         $project = $event->getProject();
 
@@ -87,6 +91,15 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
                 effectName: MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION,
             );
             $this->messageService->save($message);
+        }
+    }
+
+    private function addHumanPlayersToMushChannel(ProjectEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+
+        foreach ($daedalus->getAlivePlayers()->getHumanPlayer() as $player) {
+            $this->channelService->addPlayerToMushChannel($player);
         }
     }
 }

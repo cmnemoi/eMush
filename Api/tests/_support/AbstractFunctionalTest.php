@@ -20,6 +20,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -37,7 +38,7 @@ use Symfony\Component\Uid\Uuid;
 class AbstractFunctionalTest
 {
     protected Daedalus $daedalus;
-    protected ArrayCollection $players;
+    protected PlayerCollection $players;
     protected Player $player;
     protected Player $player1;
     protected Player $player2;
@@ -114,9 +115,9 @@ class AbstractFunctionalTest
         return $daedalus;
     }
 
-    protected function createPlayers(FunctionalTester $I, Daedalus $daedalus): ArrayCollection
+    protected function createPlayers(FunctionalTester $I, Daedalus $daedalus): PlayerCollection
     {
-        $players = new ArrayCollection([]);
+        $players = new PlayerCollection([]);
         $characterNames = [CharacterEnum::CHUN, CharacterEnum::KUAN_TI];
 
         foreach ($characterNames as $characterName) {

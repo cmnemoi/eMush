@@ -628,6 +628,7 @@ class GameConfigData
                 ProjectName::NCC_CONTACT_LENSES,
                 ProjectName::PATULINE_SCRAMBLER,
                 ProjectName::PERPETUAL_HYDRATION,
+                ProjectName::PHEROMODEM,
                 ProjectName::RETRO_FUNGAL_SERUM,
                 ProjectName::SPORE_SUCKER,
                 ProjectName::SUPER_CALCULATOR,

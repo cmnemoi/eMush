@@ -598,7 +598,7 @@
 		}
 	},
 	"charSelection": {
-		"selectLanguage": "Select a language to join a ship 👉",
+		"selectLanguage": "Select a language to join a game 👉",
 		"shipNotFound": "No ship was found. One should be created in the incoming hour!",
 		"startGame": "Start the game",
 		"youChoose": "You choose ",

@@ -158,7 +158,7 @@
         <source>pilgred.description</source>
         <target>Réparer PILGRED vous permettra d'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.</target>
       </segment>
-      <segment id="pilgred.lore" state="final">
+      <segment id="pilgred.lore" state="translated">
         <source>pilgred.lore</source>
         <target/>
       </segment>
@@ -262,9 +262,9 @@
         <source>thalasso.name</source>
         <target>Thalasso</target>
       </segment>
-      <segment id="thalasso.description" state="final">
+      <segment id="thalasso.description" state="translated">
         <source>thalasso.description</source>
-        <target>Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU +1 :pmo: OU +2 :pm:.</target>
+        <target>Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU + 1 :pmo: OU + 2:pm:.</target>
       </segment>
       <segment id="thalasso.lore" state="translated">
         <source>thalasso.lore</source>
@@ -280,9 +280,9 @@
         <source>bric_broc.name</source>
         <target>Rafistolage Général</target>
       </segment>
-      <segment id="bric_broc.description" state="final">
+      <segment id="bric_broc.description" state="translated">
         <source>bric_broc.description</source>
-        <target>À chaque cycle, le Daedalus a 15% de chances de ne pas partir en miette...</target>
+        <target>À chaque cycle, le Daedalus a 15% de chances de ne pas partir en miette... ce qui évite les pépins spontanés.</target>
       </segment>
       <segment id="bric_broc.lore" state="translated">
         <source>bric_broc.lore</source>
@@ -352,9 +352,9 @@
         <source>armour_corridor.name</source>
         <target>Coursives blindées</target>
       </segment>
-      <segment id="armour_corridor.description" state="final">
+      <segment id="armour_corridor.description" state="translated">
         <source>armour_corridor.description</source>
-        <target>Chaque attaque subie par le Daedalus est diminuée d'un point.</target>
+        <target>Les dégâts de chaque attaque subie par la coque du Daedalus sont diminués d'un point.</target>
       </segment>
       <segment id="armour_corridor.lore" state="translated">
         <source>armour_corridor.lore</source>
@@ -786,7 +786,7 @@
       </segment>
       <segment id="anabolics.description" state="translated">
         <source>anabolics.description</source>
-        <target>Génère 4 Anabolisants.</target>
+        <target>Génère 4 Anabolisants, qui peuvent être consommés pour donner 8 :pm: .</target>
       </segment>
       <segment id="anabolics.lore" state="translated">
         <source>anabolics.lore</source>
@@ -822,7 +822,7 @@
       </segment>
       <segment id="constipaspore_serum.description" state="translated">
         <source>constipaspore_serum.description</source>
-        <target>Augmente le coût de la création de spores de 2.</target>
+        <target>Augmente le coût de la création de spores de 2 :pa:.</target>
       </segment>
       <segment id="constipaspore_serum.lore" state="translated">
         <source>constipaspore_serum.lore</source>

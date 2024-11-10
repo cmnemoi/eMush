@@ -6,7 +6,7 @@
         <source>nothing_to_report.name</source>
         <target>Nothing to report</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>nothing_to_report.description</source>
         <target>The zone has been explored, nothing to report.{always_successful_thanks_to_skill}{fight_prevented_by_item}</target>
       </segment>
@@ -94,9 +94,9 @@
         <source>nothing_to_report.cristal_field_description</source>
         <target>A loud scream. A moment of panic. Then nothing...</target>
       </segment>
-      <segment id="mountain_description" state="final">
+      <segment id="mountain_description" state="translated">
         <source>nothing_to_report.mountain_description</source>
-        <target>A loud scream. A moment of panic. Then nothing...</target>
+        <target>A loud scream resonates. Panic rises. Then nothing...</target>
       </segment>
     </unit>
     <unit id="tired">
@@ -257,7 +257,7 @@
         <source>fuel.mountain_description</source>
         <target>{character} springs off blocks of carbonite the size of your fist, cool!</target>
       </segment>
-      <segment id="wreck_description" state="final">
+      <segment id="wreck_description" state="translated">
         <source>fuel.wreck_description</source>
         <target>By siphoning the wreck's tank, you manage to recover {quantity} units of fuel.</target>
       </segment>
@@ -303,13 +303,13 @@
       </segment>
     </unit>
     <unit id="fight_prevented_by_item">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>fight_prevented_by_item</source>
         <target>Combat avoided because the expedition team has {equipment}</target>
       </segment>
     </unit>
     <unit id="skill_reduced_damage_for_player">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>skill_reduced_damage_for_player</source>
         <target>{character} suffers {quantity} less damage thanks to their skill: {skill}</target>
       </segment>
@@ -391,7 +391,7 @@
         <source>fight.ruins_description</source>
         <target>A gigantic shadow suddenly appears over the expedition crew... And it's not a cloud...</target>
       </segment>
-      <segment id="wreck_description" state="final">
+      <segment id="wreck_description" state="translated">
         <source>fight.wreck_description</source>
         <target>It would appear that the pilot of the vessel is still alive! It's quite apparent that they don't consider you their saviour...</target>
       </segment>
@@ -439,7 +439,7 @@
         <source>harvest.name</source>
         <target>Harvest</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>harvest.description</source>
         <target>You have earned {quantity, plural, one {# Alien fruit} other {# Alien fruits}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}{fight_prevented_by_skill}</target>
       </segment>

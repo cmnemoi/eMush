@@ -20,7 +20,7 @@
       </segment>
     </unit>
     <unit id="auto_watering">
-      <segment id="auto_watering.type" state="final">
+      <segment id="auto_watering.type" state="translated">
         <source>auto_watering.type</source>
         <target>Project</target>
       </segment>
@@ -38,7 +38,7 @@
       </segment>
     </unit>
     <unit id="dismantling">
-      <segment id="dismantling.type" state="final">
+      <segment id="dismantling.type" state="translated">
         <source>dismantling.type</source>
         <target>Project</target>
       </segment>
@@ -50,9 +50,9 @@
         <source>dismantling.description</source>
         <target>Generates 5 pieces of scrap metal in the Engine Room.</target>
       </segment>
-      <segment id="dismantling.lore" state="final">
+      <segment id="dismantling.lore" state="translated">
         <source>dismantling.lore</source>
-        <target>By dismantling all of Raluca's failed PILGRED experiments, you are able to recover a stack of used metal which can then be used to patch up the hull or repair patrol ships!</target>
+        <target>By dismantling all of Raluca's failed PILGRED experiments, you are able to upcycle a stack of used metal which can then be used to patch up the hull or repair patrol ships!</target>
       </segment>
     </unit>
     <unit id="door_sensor">
@@ -76,7 +76,7 @@
     <unit id="equipment_sensor">
       <segment id="equipment_sensor.type" state="translated">
         <source>equipment_sensor.type</source>
-        <target>Projet</target>
+        <target>Project</target>
       </segment>
       <segment id="equipment_sensor.name" state="translated">
         <source>equipment_sensor.name</source>
@@ -104,9 +104,9 @@
         <source>fire_sensor.description</source>
         <target>Fires are reported on your PDA.</target>
       </segment>
-      <segment id="fire_sensor.lore" state="final">
+      <segment id="fire_sensor.lore" state="translated">
         <source>fire_sensor.lore</source>
-        <target>After spending several hours convincing NERON that fire could be detrimental to its own well-being, it gave in and allocates more CPU power to the task... it still seems pretty annoyed though.</target>
+        <target>After spending several hours convincing NERON that fire could be detrimental to its own well-being, it gave in and allocated more CPU power to the task... it still seems pretty annoyed though.</target>
       </segment>
     </unit>
     <unit id="heat_lamp">
@@ -136,7 +136,7 @@
         <source>parasite_elim.name</source>
         <target>Nano-Ladybugs</target>
       </segment>
-      <segment id="parasite_elim.description" state="final">
+      <segment id="parasite_elim.description" state="translated">
         <source>parasite_elim.description</source>
         <target>Growth duration of young plants in the garden will be reduced by 4.</target>
       </segment>
@@ -158,7 +158,7 @@
         <source>pilgred.description</source>
         <target>Repairing PILGRED gives you access to new space routes, including the route to Earth.</target>
       </segment>
-      <segment id="pilgred.lore" state="final">
+      <segment id="pilgred.lore" state="translated">
         <source>pilgred.lore</source>
         <target>&lt;target/&gt;</target>
       </segment>
@@ -280,9 +280,9 @@
         <source>bric_broc.name</source>
         <target>General Patching Up</target>
       </segment>
-      <segment id="bric_broc.description" state="final">
+      <segment id="bric_broc.description" state="translated">
         <source>bric_broc.description</source>
-        <target>Every cycle, the Daedalus has a 15% chance of not falling apart...</target>
+        <target>Every cycle, the Daedalus has a 15% chance of not falling apart... which prevents unexpected breakage.</target>
       </segment>
       <segment id="bric_broc.lore" state="translated">
         <source>bric_broc.lore</source>
@@ -352,9 +352,9 @@
         <source>armour_corridor.name</source>
         <target>Armored Corridors</target>
       </segment>
-      <segment id="armour_corridor.description" state="final">
+      <segment id="armour_corridor.description" state="translated">
         <source>armour_corridor.description</source>
-        <target>All attack damage sustained by the Daedalus is reduced by one point.</target>
+        <target>All attack damage sustained by the Daedalus's hull is reduced by one.</target>
       </segment>
       <segment id="armour_corridor.lore" state="translated">
         <source>armour_corridor.lore</source>
@@ -370,7 +370,7 @@
         <source>call_of_dirty.name</source>
         <target>Call of Dirty</target>
       </segment>
-      <segment id="call_of_dirty.description" state="final">
+      <segment id="call_of_dirty.description" state="translated">
         <source>call_of_dirty.description</source>
         <target>Now available in Alpha Bay 2. Lets you unwind a little at the expense of a few contusions. Winning restores your morale.</target>
       </segment>
@@ -786,7 +786,7 @@
       </segment>
       <segment id="anabolics.description" state="translated">
         <source>anabolics.description</source>
-        <target>Generates 4 Anabolics.</target>
+        <target>Creates 4 Anabolics, which can be consumed for 8 :pm: .</target>
       </segment>
       <segment id="anabolics.lore" state="translated">
         <source>anabolics.lore</source>
@@ -822,7 +822,7 @@
       </segment>
       <segment id="constipaspore_serum.description" state="translated">
         <source>constipaspore_serum.description</source>
-        <target>All rations are infected with a serum which renders the extraction of spores much more difficult.</target>
+        <target>Extracting a spore costs 2 :pa: more.</target>
       </segment>
       <segment id="constipaspore_serum.lore" state="translated">
         <source>constipaspore_serum.lore</source>

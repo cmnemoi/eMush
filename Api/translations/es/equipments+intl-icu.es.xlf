@@ -424,7 +424,7 @@ Lo mejor para atravesar las paredes.</target>
         <source>emergency_reactor.gender</source>
         <target>Male</target>
       </segment>
-      <segment id="first_letter" state="final">
+      <segment id="first_letter" state="translated">
         <source>emergency_reactor.first_letter</source>
         <target>consonant</target>
       </segment>

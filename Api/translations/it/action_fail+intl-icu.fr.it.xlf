@@ -673,5 +673,11 @@
         <target>player_is_germaphobic.description</target>
       </segment>
     </unit>
+    <unit id="eden_not_computed">
+      <segment id="description" state="initial">
+        <source>eden_not_computed.description</source>
+        <target>eden_not_computed.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -2,41 +2,41 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="actions.ext">
     <unit id="build">
-      <segment id="build" state="final">
+      <segment id="build" state="translated">
         <source>build.name</source>
         <target>Assembler</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>build.description</source>
         <target>Assemble un objet à partir d'autres objets.</target>
       </segment>
     </unit>
     <unit id="coffee">
-      <segment id="coffee" state="final">
+      <segment id="coffee" state="translated">
         <source>coffee.name</source>
         <target>Café !</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>coffee.description</source>
         <target>Un bon café et ça repart !</target>
       </segment>
     </unit>
     <unit id="dispense">
-      <segment id="dispense" state="final">
+      <segment id="dispense" state="translated">
         <source>dispense.name</source>
         <target>Distiller</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>dispense.description</source>
         <target>Permet de distiller une nouvelle petite gourmandise.</target>
       </segment>
     </unit>
     <unit id="do_the_thing">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>do_the_thing.name</source>
         <target>Le faire</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>do_the_thing.description</source>
         <target>Permet de le faire.</target>
       </segment>
@@ -50,63 +50,63 @@
       </segment>
     </unit>
     <unit id="check_spore_level">
-      <segment id="check_spore_level" state="final">
+      <segment id="check_spore_level" state="translated">
         <source>check_spore_level.name</source>
         <target>Vérifier</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>check_spore_level.description</source>
         <target>Permet de vérifier son propre niveau d'infection par des spores de Mush.</target>
       </segment>
     </unit>
     <unit id="consume">
-      <segment id="consume" state="final">
+      <segment id="consume" state="translated">
         <source>consume.name</source>
         <target>Consommer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>consume.description</source>
         <target>Dévorer un délicieux repas. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entameront pas votre moral. Les autres denrées peuvent réserver des surprises.</target>
       </segment>
     </unit>
     <unit id="consume_drug">
-      <segment id="consume_drug" state="final">
+      <segment id="consume_drug" state="translated">
         <source>consume_drug.name</source>
         <target>Consommer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>consume_drug.description</source>
         <target>Avaler une délicieuse pilule. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entameront pas votre moral. Les autres denrées peuvent réserver des surprises.</target>
       </segment>
     </unit>
     <unit id="eat_spore">
-      <segment id="eat_spore" state="final">
+      <segment id="eat_spore" state="translated">
         <source>eat_spore.name</source>
         <target>Phagocyter</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>eat_spore.description</source>
         <target>Consommer un spore pour vous apporter 4 :pa: et 4 :hp:.</target>
       </segment>
     </unit>
     <unit id="cook">
-      <segment id="cook" state="final">
+      <segment id="cook" state="translated">
         <source>cook.name</source>
         <target>Cuisiner</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>cook.description</source>
         <target>Assaisonner la chose pour en faire quelque chose qui ne provoque pas un renvoi instantané.</target>
       </segment>
     </unit>
     <unit id="disassemble">
-      <segment id="disassemble" state="final">
+      <segment id="disassemble" state="translated">
         <source>disassemble.name</source>
         <target>Démonter</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>disassemble.description</source>
-        <target>Permet de désassembler un objet pour récupérer tout ou partie des composants.</target>
+        <target>Permet de désassembler un objet pour récupérer tous ou une partie de ses composants.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>disassemble.confirmation</source>
@@ -118,41 +118,41 @@
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>drop.name</source>
         <target>Lâcher</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>drop.description</source>
-        <target>Pose un objet dans la pièce ou vous vous trouvez.</target>
+        <target>Pose un objet dans la pièce où vous vous trouvez.</target>
       </segment>
     </unit>
     <unit id="express_cook">
-      <segment id="express_cook" state="final">
+      <segment id="express_cook" state="translated">
         <source>express_cook.name</source>
         <target>Cuisine Express</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>express_cook.description</source>
         <target>Dégrader suffisamment la nourriture tout en la réchauffant pour la rendre comestible.</target>
       </segment>
     </unit>
     <unit id="extract_spore">
-      <segment id="extract_spore" state="final">
+      <segment id="extract_spore" state="translated">
         <source>extract_spore.name</source>
         <target>Extirper un spore</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>extract_spore.description</source>
         <target>Extirpez-vous un spore pour ensuite contaminer un coéquipier (mais avant ça, repérez les caméras).</target>
       </segment>
     </unit>
     <unit id="flirt">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>flirt.name</source>
         <target>Fleureter</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>flirt.description</source>
         <target>Permet de fleureter avec quelqu'un, cela lui permettra de le faire avec vous. Cette action est **irrémédiable**.</target>
       </segment>
@@ -166,121 +166,121 @@
       </segment>
     </unit>
     <unit id="get_up">
-      <segment id="get_up" state="final">
+      <segment id="get_up" state="translated">
         <source>get_up.name</source>
         <target>Se lever</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>get_up.description</source>
         <target>Quitter ce petit nid douillet pour affronter le monde cruel.</target>
       </segment>
     </unit>
     <unit id="hide">
-      <segment id="hide" state="final">
+      <segment id="hide" state="translated">
         <source>hide.name</source>
         <target>Cacher</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>hide.description</source>
-        <target>Cache un objet du regard de vos équipier dans la salle.</target>
+        <target>Cache un objet du regard de vos équipiers dans la salle.</target>
       </segment>
     </unit>
     <unit id="hit">
-      <segment id="hit" state="final">
+      <segment id="hit" state="translated">
         <source>hit.name</source>
         <target>Frapper</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>hit.description</source>
         <target>Engager la conversation de façon musclée.</target>
       </segment>
     </unit>
     <unit id="hyperfreeze">
-      <segment id="hyperfreeze" state="final">
+      <segment id="hyperfreeze" state="translated">
         <source>hyperfreeze.name</source>
         <target>Hypergeler</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>hyperfreeze.description</source>
         <target>Transforme une denrée périssable en une non-périssable.</target>
       </segment>
     </unit>
     <unit id="infect">
-      <segment id="infect" state="final">
+      <segment id="infect" state="translated">
         <source>infect.name</source>
         <target>Poinçonner</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>infect.description</source>
         <target>Poinçonner une personne avec un spore permets de l'infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</target>
       </segment>
     </unit>
     <unit id="lie_down">
-      <segment id="lie_down" state="final">
+      <segment id="lie_down" state="translated">
         <source>lie_down.name</source>
         <target>S'allonger</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>lie_down.description</source>
         <target>Pour vous détendre ou parler, rien de tel que de s'allonger un peu. S'allonger permet à chaque cycle passé de gagner 1 :pa: et 1 :pmo: si un psy est présent.</target>
       </segment>
     </unit>
     <unit id="move">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>move.name</source>
         <target>Se déplacer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>move.description</source>
         <target>Changez de pièce.</target>
       </segment>
     </unit>
     <unit id="read_book">
-      <segment id="read_book" state="final">
+      <segment id="read_book" state="translated">
         <source>read_book.name</source>
         <target>Consulter</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>read_book.description</source>
         <target>La curiosité est certes un vilain défaut, mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
       </segment>
     </unit>
     <unit id="read_document">
-      <segment id="read_document" state="final">
+      <segment id="read_document" state="translated">
         <source>read_document.name</source>
         <target>Consulter</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>read_document.description</source>
         <target>La curiosité est certes un vilain défaut, mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
       </segment>
     </unit>
     <unit id="repair">
-      <segment id="repair" state="final">
+      <segment id="repair" state="translated">
         <source>repair.name</source>
         <target>Réparer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>repair.description</source>
         <target>Un objet ou un équipement endommagé est remis en état.</target>
       </segment>
     </unit>
     <unit id="search">
-      <segment id="search" state="final">
+      <segment id="search" state="translated">
         <source>search.name</source>
         <target>Fouiller</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>search.description</source>
         <target>Permet de retrouver un objet caché à l'endroit où vous vous trouvez.</target>
       </segment>
     </unit>
     <unit id="rejuvenate">
-      <segment id="rejuvenate" state="final">
+      <segment id="rejuvenate" state="translated">
         <source>rejuvenate.name</source>
         <target>Restaurer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>rejuvenate.description</source>
         <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:.
 //
@@ -300,111 +300,111 @@ Merci de nous aider !</target>
       </segment>
     </unit>
     <unit id="shred">
-      <segment id="shred" state="final">
+      <segment id="shred" state="translated">
         <source>shred.name</source>
         <target>Déchirer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>shred.description</source>
         <target>Ces maudits papiers pullulent partout. Sus à l'envahisseur !</target>
       </segment>
     </unit>
     <unit id="take">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>take.name</source>
         <target>Prendre</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>take.description</source>
-        <target>Prends un objet dans la pièce courante et le place dans votre inventaire.</target>
+        <target>Prend un objet dans la pièce courante et le place dans votre inventaire.</target>
       </segment>
     </unit>
     <unit id="transplant">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>transplant.name</source>
         <target>Semer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>transplant.description</source>
         <target>Sacrifie un fruit pour créer un nouveau plant.</target>
       </segment>
     </unit>
     <unit id="treat_plant">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>treat_plant.name</source>
         <target>Traiter</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>treat_plant.description</source>
         <target>Permet de soigner les maladies des plantes.</target>
       </segment>
     </unit>
     <unit id="water_plant">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>water_plant.name</source>
         <target>Arroser</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>water_plant.description</source>
         <target>Permet d'étancher la soif de vos plantations.</target>
       </segment>
     </unit>
     <unit id="write">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>write.name</source>
         <target>Écrire</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>write.description</source>
         <target>Vous pouvez écrire un message que peut-être quelqu'un lira...</target>
       </segment>
     </unit>
     <unit id="insert_oxygen">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>insert_oxygen.name</source>
         <target>Insérer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>insert_oxygen.description</source>
         <target>Injecte l'oxygène dans un réservoir.</target>
       </segment>
     </unit>
     <unit id="retrieve_oxygen">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>retrieve_oxygen.name</source>
         <target>Récupérer une capsule d'oxygène</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>retrieve_oxygen.description</source>
         <target>Fantastique, le système d'Oxy Rev vous permet d'enlever de l'oxygène des réservoirs. Attention à bien fermer la vanne et à vous laver les mains.</target>
       </segment>
     </unit>
     <unit id="insert_fuel">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>insert_fuel.name</source>
         <target>Insérer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>insert_fuel.description</source>
         <target>Injecte le Fuel dans un Réservoir.</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>retrieve_fuel.name</source>
         <target>Récupérer une capsule de fuel</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>retrieve_fuel.description</source>
         <target>Permet de récupérer une capsule de fuel du moteur.</target>
       </segment>
     </unit>
     <unit id="sabotage">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>sabotage.name</source>
         <target>Saboter</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>sabotage.description</source>
         <target>Casse l'équipement ciblé.</target>
       </segment>
@@ -420,11 +420,11 @@ Merci de nous aider !</target>
       </segment>
     </unit>
     <unit id="wash_in_sink">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>wash_in_sink.name</source>
         <target>Se laver</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>wash_in_sink.description</source>
         <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution : la dou... Ça sera plutôt l'évier finalement.
 //
@@ -433,321 +433,321 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="extinguish">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>extinguish.name</source>
         <target>Éteindre</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>extinguish.description</source>
         <target>Avec un peu d'adresse, vous arriverez à vous débarrasser du feu. Faites attention à ne pas vous brûler.</target>
       </segment>
     </unit>
     <unit id="heal">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>heal.name</source>
         <target>Soigner</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>heal.description</source>
         <target>Rend des Points de Vie ( :hp: ) à la cible. Si celle-ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
       </segment>
     </unit>
     <unit id="self_heal">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>self_heal.name</source>
         <target>Se soigner</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>self_heal.description</source>
         <target>Vous rend des Points de Vie (:hp:) . Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
       </segment>
     </unit>
     <unit id="ultraheal">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>ultraheal.name</source>
         <target>Appliquer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>ultraheal.description</source>
         <target>Permet de guérir de toutes ses blessures.</target>
       </segment>
     </unit>
     <unit id="use_bandage">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>use_bandage.name</source>
         <target>Se soigner</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>use_bandage.description</source>
         <target>Permet de soigner vos petits bobos.</target>
       </segment>
     </unit>
     <unit id="comfort">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>comfort.name</source>
         <target>Réconforter</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>comfort.description</source>
         <target>Vous savez écouter votre prochain, ce qui lui remonte le moral.</target>
       </segment>
     </unit>
     <unit id="open">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>open.name</source>
         <target>Ouvrir</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>open.description</source>
         <target>L'ouverture de capsule spatiale est un art délicat et plein de surprise. Pire, dans certains systèmes, l'ouverture délicate de ces précieux œufs est considérée comme une drogue dure et peut vous faire rejeter au ban de la société.</target>
       </segment>
     </unit>
     <unit id="strengthen_hull">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>strengthen_hull.name</source>
         <target>Renforcer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>strengthen_hull.description</source>
         <target>Permet de faire des réparations sur la coque du Daedalus.</target>
       </segment>
     </unit>
     <unit id="spread_fire">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>spread_fire.name</source>
         <target>Mettre le feu</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>spread_fire.description</source>
         <target>Permet de satisfaire un des besoins de NERON... et vos intérêts.</target>
       </segment>
     </unit>
     <unit id="install_camera">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>install_camera.name</source>
         <target>Installer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>install_camera.description</source>
         <target>Cette action permet d'installer un matériel pour le rendre fonctionnel.</target>
       </segment>
     </unit>
     <unit id="remove_camera">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>remove_camera.name</source>
         <target>Enlever</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>remove_camera.description</source>
         <target>Cette action permet d'enlever un matériel pour le rendre inopérant ou le déplacer.</target>
       </segment>
     </unit>
     <unit id="examine">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>examine.name</source>
         <target>Examiner</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>examine.description</source>
         <target>Qu'est-ce donc que cette petite chose ?</target>
       </segment>
     </unit>
     <unit id="remove_spore">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>remove_spore.name</source>
         <target>Extraire spore</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>remove_spore.description</source>
         <target>Permet d'ôter des vilaines pustules suspectées de vous contaminer.</target>
       </segment>
     </unit>
     <unit id="report_equipment">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>report_equipment.name</source>
         <target>Signaler</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>report_equipment.description</source>
         <target>Permet de faire remonter l'information et ainsi vous faire remarquer au passage.</target>
       </segment>
     </unit>
     <unit id="report_fire">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>report_fire.name</source>
         <target>Signaler : Incendie</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>report_fire.description</source>
         <target>Oui, faire part à vos collègues de cet incendie est une bonne idée.</target>
       </segment>
     </unit>
     <unit id="try_kube">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>try_kube.name</source>
         <target>Tenter le kube</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>try_kube.description</source>
         <target>Tenter le Kube qui rend fou. Bien peu arrivent à le résoudre en moins de 26 mouvements.</target>
       </segment>
     </unit>
     <unit id="public_broadcast">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>public_broadcast.name</source>
         <target>Projection publique</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>public_broadcast.description</source>
         <target>Rien de tel qu'un bon film Alien pour se remonter le moral. Par contre, personne ne parle le Twingon et on n'a pas les sous-titres.</target>
       </segment>
     </unit>
     <unit id="extinguish_manually">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>extinguish_manually.name</source>
         <target>Éteindre manuellement</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>extinguish_manually.description</source>
         <target>C'est fou ce qu'on peut faire avec de la poussière, des draps ou un chat crevé... Faites attention à ne pas vous brûler.</target>
       </segment>
     </unit>
     <unit id="motivational_speech">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>motivational_speech.name</source>
         <target>Discours enflammé</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>motivational_speech.description</source>
         <target>Chaque autre équipier présent dans la salle regagne 2 :pmo:.</target>
       </segment>
     </unit>
     <unit id="boring_speech">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>boring_speech.name</source>
         <target>Discours barbant</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>boring_speech.description</source>
         <target>Chaque autre équipier présent dans la salle regagne 3 :pm:.</target>
       </segment>
     </unit>
     <unit id="make_sick">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>make_sick.name</source>
         <target>Rendre malade</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>make_sick.description</source>
         <target>Permet de rendre malade un de vos camarades.</target>
       </segment>
     </unit>
     <unit id="fake_disease">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>fake_disease.name</source>
         <target>Hypocondrie</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>fake_disease.description</source>
         <target>Permet de simuler une maladie bénigne. Vos coéquipiers n'y verront que du feu... mais votre corps aussi risque de tomber dans le panneau.</target>
       </segment>
     </unit>
     <unit id="surgery">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>surgery.name</source>
         <target>Chirurgie</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>surgery.description</source>
         <target>Effectuer un acte chirurgical n'est jamais anodin, mais parfois nécessaire.</target>
       </segment>
     </unit>
     <unit id="self_surgery">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>self_surgery.name</source>
         <target>Chirurgie-Auto</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>self_surgery.description</source>
         <target>Permet d'effectuer une chirurgie sur vous-même.</target>
       </segment>
     </unit>
     <unit id="gag">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>gag.name</source>
         <target>Bâillonner</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>gag.description</source>
         <target>Bâillonner un membre d'équipage pour le bien de tous.</target>
       </segment>
     </unit>
     <unit id="ungag">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>ungag.name</source>
         <target>Debâillonner</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>ungag.description</source>
         <target>Vous vous débâillonnez vous-même si vous en avez la possibilité. Vengeance !</target>
       </segment>
     </unit>
     <unit id="screw_talkie">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>screw_talkie.name</source>
         <target>Pirater</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>screw_talkie.description</source>
         <target>Permet de casser le talkie-walkie d'un membre d'équipage, puis de se faire passer pour lui jusqu'à ce qu'il le répare.</target>
       </segment>
     </unit>
     <unit id="update_talkie">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>update_talkie.name</source>
         <target>Mettre à jour</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>update_talkie.description</source>
         <target>Génial, une nouvelle version du logiciel est disponible. Attention, l'installation peut durer quelques cycles et vous empêcher de communiquer avec le reste de l'équipage.</target>
       </segment>
     </unit>
     <unit id="attack">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>attack.name</source>
         <target>Attaquer : Couteau</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>attack.description</source>
         <target>Vous avez une arme de corps à corps et vous avez envie de vous en servir ?</target>
       </segment>
     </unit>
     <unit id="shoot">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>shoot.name</source>
         <target>Tirer : Blaster</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>shoot.description</source>
         <target>Tirer sur quelqu'un pour le blesser, le tuer ou plus si affinité. Attention, jeux de mains, jeux de vilains !</target>
       </segment>
     </unit>
     <unit id="suicide">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>suicide.name</source>
         <target>Se suicider</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>suicide.description</source>
         <target>Vous avez accompli votre mission ici-bas, il est temps d'aller coder ailleurs.</target>
       </segment>
     </unit>
     <unit id="auto_destroy">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>auto_destroy.name</source>
         <target>Détruire le vaisseau</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>auto_destroy.description</source>
         <target>Ce vaisseau est rempli d'anomalies génétiques : une solution drastique s'impose.
         //
@@ -755,11 +755,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="kill_player">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>kill_player.name</source>
         <target>Mettre en quarantaine</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>kill_player.description</source>
         <target>Ordonner à NERON de mettre ce joueur en quarantaine.
         //
@@ -773,41 +773,41 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="action_aggressive">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>action_aggressive.name</source>
         <target>Action agressive</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>action_aggressive.description</source>
         <target>Cette action est **Agressive**. Elle peut subir des restrictions.</target>
       </segment>
     </unit>
     <unit id="covert">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>covert.name</source>
         <target>Action furtive</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>covert.description</source>
         <target>Cette action est **Furtive**. Elle sera révélée par les Caméras.</target>
       </segment>
     </unit>
     <unit id="secret">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>secret.name</source>
         <target>Action discrète</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>secret.description</source>
         <target>Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.</target>
       </segment>
     </unit>
     <unit id="play_arcade">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>play_arcade.name</source>
         <target>Une partie !</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>play_arcade.description</source>
         <target>Permet de se défouler un peu en tabassant des Spaces PewPewz. C'est si bon... par contre la difficulté est... mortelle !</target>
       </segment>
@@ -817,71 +817,71 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="shoot_hunter">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>shoot_hunter.name</source>
         <target>Tirer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>shoot_hunter.description</source>
         <target>Tire une charge de Telsatron sur un vaisseau ennemi.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_turret">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>shoot_hunter_turret.name</source>
         <target>Tirer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>shoot_hunter_turret.description</source>
         <target>Tire une charge de Teslatron sur un vaisseau ennemi.</target>
       </segment>
     </unit>
     <unit id="shoot_random_hunter">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>shoot_random_hunter.name</source>
         <target>Tirer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>shoot_random_hunter.description</source>
         <target>Tire une charge de Telsatron sur un vaisseau ennemi.</target>
       </segment>
     </unit>
     <unit id="takeoff">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>takeoff.name</source>
         <target>Décoller</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>takeoff.description</source>
         <target>Monter dans un patrouilleur et apparaître dans le cadran correspondant.</target>
       </segment>
     </unit>
     <unit id="access_terminal">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>access_terminal.name</source>
         <target>Accéder</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>access_terminal.description</source>
         <target>Vous permet d'accéder aux services proposés par ce terminal.</target>
       </segment>
     </unit>
     <unit id="land">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>land.name</source>
         <target>Atterrir</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>land.description</source>
         <target>Rentrer dans la baie de lancement de ce patrouilleur.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_patrol_ship">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>shoot_hunter_patrol_ship.name</source>
         <target>Tirer sur un ennemi</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>shoot_hunter_patrol_ship.description</source>
         <target>Tire une charge de Teslatron sur un ennemi.
         //
@@ -889,11 +889,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="shoot_random_hunter_patrol_ship">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>shoot_random_hunter_patrol_ship.name</source>
         <target>Tirer sur un ennemi</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>shoot_random_hunter_patrol_ship.description</source>
         <target>Tire une charge de Teslatron sur un ennemi.
         //
@@ -901,21 +901,21 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="collect_scrap">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>collect_scrap.name</source>
         <target>Rapatrier des débris</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>collect_scrap.description</source>
         <target>Tiens, il y a quelque chose qui traine dans le vide inter-sidéral. Heureusement, avec le Pasiphae, on peut le ramasser. Le Pasiphae, un vaisseau qu'il est bien à piloter.</target>
       </segment>
     </unit>
     <unit id="renovate">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>renovate.name</source>
         <target>Rénover</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>renovate.description</source>
         <target>Remettre à neuf un patrouilleur peut changer le cours des batailles futures.
         //
@@ -923,11 +923,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="auto_eject">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>auto_eject.name</source>
         <target>Auto-Ejection</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>auto_eject.description</source>
         <target>Vous avez perdu cette bataille, mais pas la guerre !
         //
@@ -939,57 +939,57 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="insert_fuel_chamber">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>insert_fuel_chamber.name</source>
         <target>Insérer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>insert_fuel_chamber.description</source>
         <target>Injecte le fuel dans la Chambre de Combustion du moteur.</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel_chamber">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>retrieve_fuel_chamber.name</source>
         <target>Récupérer une capsule</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>retrieve_fuel_chamber.description</source>
         <target>Permet de récupérer une capsule de fuel qui peut servir à remplir les réservoirs auxiliaires.</target>
       </segment>
     </unit>
     <unit id="check_fuel_chamber_level">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>check_fuel_chamber_level.name</source>
         <target>Vérifier</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>check_fuel_chamber_level.description</source>
-        <target>Vérifier quelle quantité de Fuel est disponible dans la chambre.</target>
+        <target>Vérifier quelle quantité de fuel est disponible dans la chambre.</target>
       </segment>
     </unit>
     <unit id="hack">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>hack.name</source>
         <target>Forcer l'accès</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>hack.description</source>
         <target>Permet de tenter de forcer l'accès à ce terminal grâce à votre Bidouilleur.</target>
       </segment>
     </unit>
     <unit id="exit_terminal">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>exit_terminal.name</source>
         <target>Quitter</target>
       </segment>
     </unit>
     <unit id="advance_daedalus">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>advance_daedalus.name</source>
         <target>Voyager</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>advance_daedalus.description</source>
         <target>Lance l'allumage des moteurs pour un déplacement lié à la quantité de carburant prêt.</target>
       </segment>
@@ -1003,51 +1003,51 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="scan">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>scan.name</source>
         <target>Scanner</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>scan.description</source>
         <target>Permet de changer les planètes disponibles comme choix pour le prochain voyage.</target>
       </segment>
     </unit>
     <unit id="analyze_planet">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>analyze_planet.name</source>
         <target>Analyse</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>analyze_planet.description</source>
         <target>Analyser la planète en profondeur pour aider les missions d'exploration.</target>
       </segment>
     </unit>
     <unit id="turn_daedalus_left">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>turn_daedalus_left.name</source>
         <target>Orienter à gauche</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>turn_daedalus_left.description</source>
         <target>Permet de changer le cap du vaisseau.</target>
       </segment>
     </unit>
     <unit id="turn_daedalus_right">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>turn_daedalus_right.name</source>
         <target>Orienter à droite</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>turn_daedalus_right.description</source>
         <target>Permet de changer le cap du vaisseau.</target>
       </segment>
     </unit>
     <unit id="delete_planet">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>delete_planet.name</source>
         <target>Effacer ce scan</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>delete_planet.description</source>
         <target>Permet d'effacer une planète scannée de votre espace de travail.</target>
       </segment>
@@ -1057,11 +1057,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="leave_orbit">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>leave_orbit.name</source>
         <target>Quitter l'orbite</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>leave_orbit.description</source>
         <target>Lance l'allumage des moteurs pour un déplacement lié à la quantité de carburant prêt.</target>
       </segment>
@@ -1075,11 +1075,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="takeoff_to_planet">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>takeoff_to_planet.name</source>
         <target>Décoller : {planet}</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>takeoff_to_planet.description</source>
         <target>Décoller avec le vaisseau d'exploration Icarus pour aller sur une planète.</target>
       </segment>
@@ -1093,11 +1093,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="takeoff_to_planet_patrol_ship">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>takeoff_to_planet_patrol_ship.name</source>
         <target>Atterrir : {planet}</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>takeoff_to_planet_patrol_ship.description</source>
         <target>Vous pouvez atterir sur une planète avec un patrouilleur... *À vos risques et périls...*</target>
       </segment>
@@ -1111,25 +1111,25 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="repair_pilgred">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>repair_pilgred.name</source>
         <target>Participer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>repair_pilgred.description</source>
         <target>Réparer PILGRED vous permettra de revenir sur Sol.</target>
       </segment>
     </unit>
     <unit id="return_to_sol">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>return_to_sol.name</source>
         <target>Rentrer sur Sol</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>return_to_sol.description</source>
         <target>Après tout ce temps, peut-être serait-il temps de voir ce qu'il se passe sur Sol.</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>return_to_sol.confirmation</source>
         <target>{character_gender, select,
                 male {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
@@ -1139,41 +1139,41 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="participate">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>participate.name</source>
         <target>Participer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>participate.description</source>
         <target>Avance le Projet en fonction de vos capacités.</target>
       </segment>
     </unit>
     <unit id="trap_closet">
-      <segment id="trap_closet" state="final">
+      <segment id="trap_closet" state="translated">
         <source>trap_closet.name</source>
         <target>Piéger pièce</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>trap_closet.description</source>
         <target>Permet de piéger la pièce, toutes les interactions avec les objets et équipements de la pièce déclencheront le piège.</target>
       </segment>
     </unit>
     <unit id="chitchat">
-      <segment id="chitchat" state="final">
+      <segment id="chitchat" state="translated">
         <source>chitchat.name</source>
         <target>Papoter</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>chitchat.description</source>
         <target>Révèle une partie de vos dernières actions au joueur en échange d'une oreille attentive.</target>
       </segment>
     </unit>
     <unit id="graft">
-      <segment id="graft" state="final">
+      <segment id="graft" state="translated">
         <source>graft.name</source>
         <target>Greffer : {equipment}</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>graft.description</source>
         <target>Sacrifie un fruit et une plante pour créer un nouveau plant. Celle-ci démarre en tant que jeune pousse. Des conditions d'hygiène optimales sont requises.</target>
       </segment>
@@ -1183,11 +1183,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="learn">
-      <segment id="learn" state="final">
+      <segment id="learn" state="translated">
         <source>learn.name</source>
         <target>Apprentissage</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>learn.description</source>
         <target>Permet d'apprendre une compétence parmi celles qui sont présentes dans la pièce.</target>
       </segment>
@@ -1197,31 +1197,31 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="put_through_door">
-      <segment id="put_through_door" state="final">
+      <segment id="put_through_door" state="translated">
         <source>put_through_door.name</source>
         <target>Mettre à la porte</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>put_through_door.description</source>
         <target>Faites lui bouffer les gonds !//:point: Coûte 1 :pa: de moins sur les inactifs.</target>
       </segment>
     </unit>
     <unit id="become_genius">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>become_genius.name</source>
         <target>Coup de génie</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>become_genius.description</source>
-        <target>Votre prochaine réparation, projet ou recherche est automatiquement réussie. Cette action est **unique**.</target>
+        <target>Votre prochaine réparation, recherche ou projet est automatiquement réussi. Cette action est **unique**.</target>
       </segment>
     </unit>
     <unit id="premonition">
-      <segment id="premonition" state="final">
+      <segment id="premonition" state="translated">
         <source>premonition.name</source>
         <target>Prémonition</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>premonition.description</source>
         <target>Permet de voir la dernière action effectuée par la cible.</target>
       </segment>
@@ -1231,11 +1231,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="ceasefire">
-      <segment id="ceasefire" state="final">
+      <segment id="ceasefire" state="translated">
         <source>ceasefire.name</source>
         <target>Cessez-le-feu</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>ceasefire.description</source>
         <target>Aucune personne ne peut effectuer d'action agressive dans cette pièce jusqu'à ce que vous la quittiez.</target>
       </segment>
@@ -1245,83 +1245,83 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="guard">
-      <segment id="guard" state="final">
+      <segment id="guard" state="translated">
         <source>guard.name</source>
         <target>Garder</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>guard.description</source>
         <target>Permet d'obliger les équipiers entrant à repartir d'où ils viennent. L'action prend fin dès que vous vous déplacez.</target>
       </segment>
     </unit>
     <unit id="exchange_body">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>exchange_body.name</source>
         <target>Se transférer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>exchange_body.description</source>
         <target>Permet d'échanger votre corps avec la cible. Cette action est irrémédiable. Vos compétences seront remises à zéro. **Les scores de :triumph: seront échangés**.</target>
       </segment>
     </unit>
     <unit id="accept_mission">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>accept_mission.name</source>
         <target>:online: Oui + {outputQuantity} :pa:</target>
       </segment>
     </unit>
     <unit id="reject_mission">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>reject_mission.name</source>
         <target>:offline: Non</target>
       </segment>
     </unit>
     <unit id="commander_order">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>commander_order.name</source>
         <target>Donner une mission</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>commander_order.description</source>
-        <target>Permet de donner une mission à un de vos subalternes. Celui-ci se verra octroyer des :pa::pm: pour l'accomplir s'il l'accepte. Vous ne pouvez utiliser cette action qu'une fois par jour. Cette action est restituée si votre subalterne la refuse.</target>
+        <target>Permet de donner une mission à un de vos subalternes. Celui-ci se verra octroyer 3 :pa: pour l'accomplir s'il l'accepte. // Vous ne pouvez utiliser cette action qu'une fois par jour. // Cette action est restituée si votre subalterne la refuse.</target>
       </segment>
     </unit>
     <unit id="print_ze_list">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>print_ze_list.name</source>
         <target>Imprimer LA liste</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>print_ze_list.description</source>
         <target>Vous permet de récupérer une liste que vous avez créée avant le départ du Daedalus. Cette liste contient des noms de personnes potentiellement infectées. À chaque jour, cette liste s'affine d'un nom. Cette liste contient actuellement {numberOfNames, select, 1 {**1** nom} other{**{numberOfNames}** noms}}.</target>
       </segment>
     </unit>
     <unit id="depress">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>depress.name</source>
         <target>Déprimer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>depress.description</source>
         <target>Permet de faire perdre 2 :pmo: à la cible.</target>
       </segment>
     </unit>
     <unit id="delog">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>delog.name</source>
         <target>Effacer les logs</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>delog.description</source>
         <target>Les logs de cette pièce vont être effacés et cette pièce ne les retrouvera qu'au prochain cycle.</target>
       </segment>
     </unit>
     <unit id="run_home">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>run_home.name</source>
         <target>MAISON !</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>run_home.description</source>
         <target>Cette expédition, vous ne la sentez pas. Allez hop, cassos.</target>
       </segment>
@@ -1331,11 +1331,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="putsch">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>putsch.name</source>
         <target>Putsch !</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>putsch.description</source>
         <target>**Unique** : NERON vous considérera comme le chef absolu à partir du prochain cycle.</target>
       </segment>
@@ -1345,13 +1345,13 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="anathema">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>anathema.name</source>
         <target>Anathème</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>anathema.description</source>
-        <target>Permet de jeter l'anathème ce qui lui confère le statut Paria.//Le Paria souffre de malus importants.</target>
+        <target>Permet de jeter l'anathème sur cet équipier, ce qui lui confère le statut Paria.//Le Paria souffre de malus importants.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>anathema.confirmation</source>
@@ -1359,41 +1359,41 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="mix_ration_spore">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>mix_ration_spore.name</source>
         <target>Contaminer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>mix_ration_spore.description</source>
         <target>Permet de mettre un spore dans une denrée ingérable.</target>
       </segment>
     </unit>
     <unit id="slime_trap">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>slime_trap.name</source>
         <target>Moisifier</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>slime_trap.description</source>
         <target>Permet de provoquer un état de salissure dans quelques cycles.</target>
       </segment>
     </unit>
     <unit id="slime_object">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>slime_object.name</source>
         <target>Engluer</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>slime_object.description</source>
         <target>L'objet ciblé deviendra cassé d'ici 1 à {outputQuantity} cycles.</target>
       </segment>
     </unit>
     <unit id="mass_ggeddon">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>mass_ggeddon.name</source>
         <target>Moisification de masse</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>mass_ggeddon.description</source>
         <target>Inflige une perte de 2 :pa: et le status sale à tout l'équipage.</target>
       </segment>
@@ -1403,11 +1403,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="reinforce">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>reinforce.name</source>
         <target>Blinder</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>reinforce.description</source>
         <target>Permet de blinder un objet démontable pour qu'il ne le soit plus. Protège également contre les sabotages.//Consomme 1 **Débris métallique**.</target>
       </segment>
@@ -1461,31 +1461,31 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="take_cat">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>take_cat.name</source>
         <target>Prendre</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>take_cat.description</source>
         <target>Soulevez ce gros matou et placez-le dans votre inventaire. Attention, il griffe!</target>
       </segment>
     </unit>
     <unit id="pet_cat">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>pet_cat.name</source>
         <target>Caresser</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>pet_cat.description</source>
         <target>Permet de câliner amoureusement Schrödinger. Apporte un peu de joie la première fois...</target>
       </segment>
     </unit>
     <unit id="convert_cat">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>convert_cat.name</source>
         <target>Caresse Infectieuse</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>convert_cat.description</source>
         <target>Permet de câliner "amoureusement" Schrödinger et d'en faire un agent du Mush.</target>
       </segment>
@@ -1511,41 +1511,41 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="daunt">
-      <segment id="daunt" state="final">
+      <segment id="daunt" state="translated">
         <source>daunt.name</source>
         <target>Intimider</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>daunt.description</source>
         <target>**Journalier**. Permet d'intimider un joueur pour lui imposer vos idées.//:point: Fait perdre 2 :pa: et 4 :pm: à la cible.</target>
       </segment>
     </unit>
     <unit id="gen_metal">
-      <segment id="gen_metal" state="final">
+      <segment id="gen_metal" state="translated">
         <source>gen_metal.name</source>
         <target>Fouiner</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>gen_metal.description</source>
         <target>Permet de fouiner les stockages pour trouver des débris ou des choses **vraiment** utiles.</target>
       </segment>
     </unit>
     <unit id="door_sabotage">
-      <segment id="door_sabotage" state="final">
+      <segment id="door_sabotage" state="translated">
         <source>door_sabotage.name</source>
         <target>Saboter : Porte</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>door_sabotage.description</source>
         <target>**Journalier** : Permet de saboter une porte au hasard dans la pièce.</target>
       </segment>
     </unit>
     <unit id="give_nightmare">
-      <segment id="give_nightmare" state="final">
+      <segment id="give_nightmare" state="translated">
         <source>give_nightmare.name</source>
         <target>Créer un cauchemar</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>give_nightmare.description</source>
         <target>Permet d'infliger des terreurs nocturnes à un membre d'équipage allongé, ce qui le privera de ses bonus de repos.</target>
       </segment>

@@ -8,7 +8,7 @@
       </segment>
     </unit>
     <unit id="change.variable.decrease_on_player.new.cycle">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>change.variable.decrease_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Each cycle, lose **{quantity}** {emote}.}
@@ -59,7 +59,7 @@
       </segment>
     </unit>
     <unit id="roll.percentage_increase_cycle_disease">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>roll.percentage_increase_cycle_disease.description</source>
         <target>{quantity, select,
                     100 {Every cycle, fall ill.}
@@ -86,7 +86,7 @@
       </segment>
     </unit>
     <unit id="dirtiness_on_player.new.cycle">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>dirtiness_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Every cycle, makes you dirty.}

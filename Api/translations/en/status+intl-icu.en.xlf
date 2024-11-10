@@ -1438,7 +1438,7 @@
         <source>pariah.description</source>
         <target>You have been judged by the others. A heavy burden weighs on your shoulders. They point at you, they spy on you, and they watch you closely. You are the whipping-boy. The victim.//Your **secret** actions become **covert**.//It is harder for you to do everything.</target>
       </segment>
-      <segment id="effect" state="final">
+      <segment id="effect" state="translated">
         <source>pariah.examine</source>
         <target>&lt;target/&gt;</target>
       </segment>
@@ -1504,7 +1504,7 @@
         <source>starving_warning.name</source>
         <target>Starving</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>starving_warning.description</source>
         <target>You are seriously **hungry**. You must find something to eat. Each cycle spent without eating will cost you 1 :hp:.</target>
       </segment>
@@ -1564,13 +1564,13 @@
         <source>pilot.name</source>
         <target>Pilot</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>pilot.description</source>
-        <target>An expert in manoeuvring the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.
+        <target>An expert in maneuvering the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.
 //
-:point: **Doubled** chance of Patroller hit.
+:point: **Doubled** hit chance of Patroller shots.
 //
-:point: **Never misses** landings and take-offs.
+:point: **Never fails** landings and take-offs.
 //
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -1593,13 +1593,13 @@
         <source>technician.name</source>
         <target>Technician</target>
       </segment>
-      <segment id="technician.description" state="final">
+      <segment id="technician.description" state="translated">
         <source>technician.description</source>
         <target>Qualified to repair materials, equipment and the hull of the Daedalus.//
 :point: +1 :pa_eng: per day (**Repair** Action Point).//
 :point: Can **Dismantle** objects.//
-:point: Chances to perform successful **Repairs** doubled.//
-:point: Chances to perform successful **Renovations** doubled.//
+:point: Odds of performing successful **Repairs** doubled.//
+:point: Odds of performing successful **Renovations** doubled.//
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>

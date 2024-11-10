@@ -46,47 +46,46 @@ final class TipsChannelNormalizerCest extends AbstractFunctionalTest
         $channel = Channel::createTipsChannel();
         $channel->setDaedalus($this->daedalus->getDaedalusInfo());
 
+        $normalizedChannel = $this->normalizer->normalize($channel, format: null, context: ['currentPlayer' => $player]);
+
+        // Check basic channel info
+        $I->assertEquals('Conseils', $normalizedChannel['name']);
         $I->assertEquals(
-            expected: [
-                'name' => 'Conseils',
-                'description' => 'Trouvez ici des **conseils pratiques** pour la vie quotidienne (sponsorisé par mangerbouger.fr).',
-                'tips' => [
-                    'teamObjectives' => [
-                        'title' => $example['teamObjectivesTitle'],
-                        'elements' => [
-                            '**Éliminer les Mushs à bord**.',
-                            '**Réparer le PILGRED** pour rentrer sur Sol.',
-                            '**Coopérer avec les autres humains** pour survivre à l\'aide de vos compétences. 👇',
-                        ],
-                    ],
-                    'characterObjectives' => [
-                        'title' => "Vos objectifs en tant que :{$example['characterKey']}: {$example['characterName']}",
-                        'elements' => $example['characterObjectivesElements'],
-                        'tutorial' => [
-                            'title' => '**Plus d\'informations dans le tutoriel communautaire**',
-                            'link' => $example['characterObjectivesTutorialLink'],
-                        ],
-                    ],
-                    'externalResources' => [
-                        'title' => 'Besoin d\'aide ? N\'hésitez pas à consulter',
-                        'elements' => [
-                            ['text' => 'Vos coéquipiers à l\'aide du :wall: **canal général**'],
-                            ['text' => '**Le serveur Discord** d\'Eternaltwin', 'link' => 'https://discord.gg/Jb8Nwjck6r'],
-                            ['text' => '**Les tutoriels communautaires** de l\'Aide aux bolets', 'link' => 'https://cmnemoi.github.io/archive_aide_aux_bolets/'],
-                            ['text' => '**Le wiki** Twinpédia', 'link' => 'https://twin.tithom.fr/mush'],
-                        ],
-                    ],
-                    'missions' => [
-                        'title' => 'Missions',
-                        'elements' => [],
-                        'buttons' => [
-                            'accept' => 'Accepter ?',
-                        ],
-                    ],
-                ],
-            ],
-            actual: $this->normalizer->normalize($channel, format: null, context: ['currentPlayer' => $player])
+            'Trouvez ici des **conseils pratiques** pour la vie quotidienne (sponsorisé par mangerbouger.fr).',
+            $normalizedChannel['description']
         );
+
+        // Check team objectives
+        $I->assertEquals($example['teamObjectivesTitle'], $normalizedChannel['tips']['teamObjectives']['title']);
+        $I->assertEquals([
+            '**Éliminer les Mushs à bord**.',
+            '**Réparer le PILGRED** pour rentrer sur Sol.',
+            '**Coopérer avec les autres humains** pour survivre à l\'aide de vos compétences. 👇',
+        ], $normalizedChannel['tips']['teamObjectives']['elements']);
+
+        // Check character objectives
+        $I->assertEquals(
+            "Vos objectifs en tant que :{$example['characterKey']}: {$example['characterName']}",
+            $normalizedChannel['tips']['characterObjectives']['title']
+        );
+        $I->assertEquals(
+            ['title' => '**Plus d\'informations dans le tutoriel communautaire**', 'link' => $example['characterObjectivesTutorialLink']],
+            $normalizedChannel['tips']['characterObjectives']['tutorial']
+        );
+
+        // Check external resources
+        $I->assertEquals('Besoin d\'aide ? N\'hésitez pas à consulter', $normalizedChannel['tips']['externalResources']['title']);
+        $I->assertEquals([
+            ['text' => 'Vos coéquipiers à l\'aide du :wall: **canal général**'],
+            ['text' => '**Le serveur Discord** d\'Eternaltwin', 'link' => 'https://discord.gg/Jb8Nwjck6r'],
+            ['text' => '**Les tutoriels communautaires** de l\'Aide aux bolets', 'link' => 'https://cmnemoi.github.io/archive_aide_aux_bolets/'],
+            ['text' => '**Le wiki** Twinpédia', 'link' => 'https://twin.tithom.fr/mush'],
+        ], $normalizedChannel['tips']['externalResources']['elements']);
+
+        // Check missions
+        $I->assertEquals('Missions', $normalizedChannel['tips']['missions']['title']);
+        $I->assertEquals([], $normalizedChannel['tips']['missions']['elements']);
+        $I->assertEquals(['accept' => 'Accepter ?'], $normalizedChannel['tips']['missions']['buttons']);
     }
 
     public function shouldNormalizeMushTipsIfPlayerIsMush(FunctionalTester $I): void

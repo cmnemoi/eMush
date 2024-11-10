@@ -40,7 +40,7 @@
       </segment>
     </unit>
     <unit id="mission_rejected">
-      <segment state="final">
+      <segment state="translated">
         <source>mission_rejected.description</source>
         <target>Votre mission "{missionContent}" a été refusée.</target>
       </segment>

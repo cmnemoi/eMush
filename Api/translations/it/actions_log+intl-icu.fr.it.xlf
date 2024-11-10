@@ -859,12 +859,6 @@
         <target>daunt_success</target>
       </segment>
     </unit>
-    <unit id="gen_metal_success">
-      <segment id="gen_metal_success" state="initial">
-        <source>gen_metal_success</source>
-        <target>gen_metal_success</target>
-      </segment>
-    </unit>
     <unit id="gen_metal_fail">
       <segment id="gen_metal_fail" state="initial">
         <source>gen_metal_fail</source>
@@ -899,6 +893,18 @@
       <segment id="search_for_mush_genome_success" state="initial">
         <source>search_for_mush_genome_success</source>
         <target>search_for_mush_genome_success</target>
+      </segment>
+    </unit>
+    <unit id="compute_eden_success">
+      <segment id="compute_eden_success" state="initial">
+        <source>compute_eden_success</source>
+        <target>compute_eden_success</target>
+      </segment>
+    </unit>
+    <unit id="compute_eden_fail">
+      <segment id="compute_eden_fail" state="initial">
+        <source>compute_eden_fail</source>
+        <target>compute_eden_fail</target>
       </segment>
     </unit>
   </file>

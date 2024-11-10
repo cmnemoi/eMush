@@ -63,8 +63,7 @@ If the job has been done properly, the Daedalus will put itself into a planet's 
                   south {East :left::left::left: **South** :right::right::right: West}
                   east {North :left::left::left: **East** :right::right::right: South}
                   west {South :left::left::left: **West** :right::right::right: North}
-                  other {The Daedalus is currently heading towards : **{orientation}**.}
-        }</target>
+                  other {The Daedalus is currently heading towards : **{orientation}**.}</target>
       </segment>
     </unit>
     <unit id="astro_terminal">
@@ -143,7 +142,7 @@ A solitary person, even if they have the appropriate skills, will have difficult
         other {Exploration takes place automatically. Every # minutes, a new step takes place. Once you've left, there is no turning back.}
         }</target>
       </segment>
-      <segment id="recolted_infos" state="final">
+      <segment id="recolted_infos" state="translated">
         <source>exploration.recolted_infos</source>
         <target>Obtained info...</target>
       </segment>
@@ -171,7 +170,7 @@ A solitary person, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.name</source>
         <target>BIOS Terminal</target>
       </segment>
-      <segment id="tips" state="final">
+      <segment id="tips" state="translated">
         <source>bios_terminal.tips</source>
         <target>You are accessing NERON's BIOS. Only the administrator can modify its settings.</target>
       </segment>
@@ -179,7 +178,7 @@ A solitary person, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.cpu_priority_name</source>
         <target>CPU Priority</target>
       </segment>
-      <segment id="cpu_priority.description" state="final">
+      <segment id="cpu_priority.description" state="translated">
         <source>bios_terminal.cpu_priority_description</source>
         <target>Controls the allocation of CPU timeslots. This either makes research or NERON projects easier to progress, increases the amount of GeoData provided by planetary analysis, or puts the CPU in 'CBA' Mode (lazy) where it doesn't do much at all. This attribute can only be changed **once per day per person** to ensure no cognitive overload is sustained by NERON.</target>
       </segment>
@@ -195,6 +194,10 @@ A solitary person, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.cpu_priority_pilgred</source>
         <target>PILGRED</target>
       </segment>
+      <segment id="cpu_priority.research" state="translated">
+        <source>bios_terminal.cpu_priority_research</source>
+        <target>Research</target>
+      </segment>
       <segment id="cpu_priority.projects" state="translated">
         <source>bios_terminal.cpu_priority_projects</source>
         <target>Projects</target>
@@ -207,9 +210,9 @@ A solitary person, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.crew_lock_name</source>
         <target>Crew lock</target>
       </segment>
-      <segment id="crew_lock.description" state="final">
+      <segment id="crew_lock.description" state="translated">
         <source>bios_terminal.crew_lock_description</source>
-        <target>:point: Piloting lock: Non-pilots are not authorized to pilot a Patrol Craft/Icarus.//:point: Projects lock: Non-designers are not authorized to participate in project development.</target>
+        <target>:point: Piloting lock: Non-pilots are not authorized to pilot a Patrol Craft/Icarus.//:point: Projects lock: Non-designers are not authorized to participate in project development.//:point: Research lock: non-biologists and non-medics are not allowed to take part in scientific research.</target>
       </segment>
       <segment id="crew_lock.projects" state="translated">
         <source>bios_terminal.crew_lock_projects</source>
@@ -219,6 +222,10 @@ A solitary person, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.crew_lock_piloting</source>
         <target>Piloting</target>
       </segment>
+      <segment id="crew_lock.research" state="translated">
+        <source>bios_terminal.crew_lock_research</source>
+        <target>Research</target>
+      </segment>
       <segment id="plasma_shield.name" state="translated">
         <source>bios_terminal.plasma_shield_name</source>
         <target>Plasma Shield</target>
@@ -227,11 +234,11 @@ A solitary person, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.plasma_shield_description</source>
         <target>Activates the plasma shield.</target>
       </segment>
-      <segment id="plasma_shield.toggle_activate" state="final">
+      <segment id="plasma_shield.toggle_activate" state="translated">
         <source>bios_terminal.plasma_shield_toggle_activate</source>
         <target>Active</target>
       </segment>
-      <segment id="plasma_shield.toggle_deactivate" state="final">
+      <segment id="plasma_shield.toggle_deactivate" state="translated">
         <source>bios_terminal.plasma_shield_toggle_deactivate</source>
         <target>Inactive</target>
       </segment>
@@ -239,15 +246,15 @@ A solitary person, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.magnetic_net_name</source>
         <target>Magnetic Net</target>
       </segment>
-      <segment id="magnetic_net.description" state="final">
+      <segment id="magnetic_net.description" state="translated">
         <source>bios_terminal.magnetic_net_description</source>
         <target>Activates the magnetic net which allows the crew to leave the Patrol Craft to their doom. Or otherwise...</target>
       </segment>
-      <segment id="magnetic_net.toggle_active" state="final">
+      <segment id="magnetic_net.toggle_active" state="translated">
         <source>bios_terminal.magnetic_net_toggle_active</source>
         <target>Yes</target>
       </segment>
-      <segment id="magnetic_net.toggle_inactive" state="final">
+      <segment id="magnetic_net.toggle_inactive" state="translated">
         <source>bios_terminal.magnetic_net_toggle_inactive</source>
         <target>No</target>
       </segment>
@@ -320,6 +327,32 @@ That's not all: only one project per set can be brought to fruition. **When a pr
       <segment id="no_proposed_neron_projects_description" state="translated">
         <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
         <target>There are no more projects to be completed.</target>
+      </segment>
+    </unit>
+    <unit id="calculator">
+      <segment id="name" state="translated">
+        <source>calculator.name</source>
+        <target>Calculator</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>calculator.tips</source>
+        <target>This module lets you carry out scientific calculations of greater/lesser value. However, science sometimes holds glorious surprises...</target>
+      </segment>
+      <segment id="to_a_new_eden_title" state="translated">
+        <source>calculator.to_a_new_eden_title</source>
+        <target>To a new Eden</target>
+      </segment>
+      <segment id="to_a_new_eden_description" state="translated">
+        <source>calculator.to_a_new_eden_description</source>
+        <target>The cristalite contains polar coordinates corresponding to the centre on the Magellan nebula... However, to get us out of here, we'll need a hell of a propulsion system...</target>
+      </segment>
+      <segment id="nothing_to_compute" state="translated">
+        <source>calculator.nothing_to_compute</source>
+        <target>Nothing to compute at the moment.</target>
+      </segment>
+      <segment id="eden_computed" state="translated">
+        <source>calculator.eden_computed</source>
+        <target>The calculation of the coordinates of Eden has been successfully completed. The coordinates have been forwarded to NERON. Consult your ***Commander*** for more information.</target>
       </segment>
     </unit>
   </file>

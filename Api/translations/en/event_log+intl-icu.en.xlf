@@ -274,7 +274,7 @@
       </segment>
     </unit>
     <unit id="disease_cured_drug">
-      <segment state="final">
+      <segment state="translated">
         <source>disease_cured_drug</source>
         <target>{character_gender, select,
                     male {**{target_character}** is relieved. He has managed to cure himself of his disease ({disease}).}
@@ -616,19 +616,19 @@
       </segment>
     </unit>
     <unit id="liquid_map_helped">
-      <segment id="liquid_map_helped" state="final">
+      <segment id="liquid_map_helped" state="translated">
         <source>liquid_map_helped</source>
         <target>The liquid map was a great help to **{character}**.</target>
       </segment>
     </unit>
     <unit id="get_up_bed_broken">
-      <segment id="get_up_bed_broken" state="final">
+      <segment id="get_up_bed_broken" state="translated">
         <source>get_up_bed_broken</source>
         <target>This **{target_equipment}** seems even more uncomfortable than usual; how is this possible ?! **{character}** does a few spins before finally getting up.</target>
       </segment>
     </unit>
     <unit id="help_disabled">
-      <segment id="help_disabled" state="final">
+      <segment id="help_disabled" state="translated">
         <source>help_disabled</source>
         <target>**{character}** helped **{target_character}** to get out of the room, brotherly help is a beautiful thing.</target>
       </segment>
@@ -640,7 +640,7 @@
       </segment>
     </unit>
     <unit id="daily_morale_loss">
-      <segment id="daily_morale_loss" state="final">
+      <segment id="daily_morale_loss" state="translated">
         <source>daily_morale_loss</source>
         <target>You made it through another day... Your morale is slowly diminishing.</target>
       </segment>
@@ -743,9 +743,9 @@
       </segment>
     </unit>
     <unit id="lost_on_planet">
-      <segment state="final">
+      <segment state="translated">
         <source>lost_on_planet</source>
-        <target>You feel lonely and abandoned... Does no one think of you up there?</target>
+        <target>You feel lonely and abandoned... Is no one thinking of you up there?</target>
       </segment>
     </unit>
     <unit id="logistic_log">
@@ -755,7 +755,7 @@
       </segment>
     </unit>
     <unit id="drone">
-      <segment state="final">
+      <segment state="translated">
         <source>drone</source>
         <target>**Robo {drone_nickname, select,
         1 {Betty}
@@ -1026,7 +1026,7 @@
       </segment>
     </unit>
     <unit id="cat_meow">
-      <segment id="cat_meow" state="final">
+      <segment id="cat_meow" state="translated">
         <source>cat_meow</source>
         <target>:cat: **{equipment} :** {version, select,
                     1{beep beep}
@@ -1051,13 +1051,13 @@
       </segment>
     </unit>
     <unit id="cat_shot_dead">
-      <segment id="cat_shot_dead" state="final">
+      <segment id="cat_shot_dead" state="translated">
         <source>cat_shot_dead</source>
         <target>**{target_equipment}** has been killed by **{character}**.</target>
       </segment>
     </unit>
     <unit id="cat_hiss">
-      <segment id="cat_hiss" state="final">
+      <segment id="cat_hiss" state="translated">
         <source>cat_hiss</source>
         <target>:cat: **{equipment} :** {version, select,
                     1{hsss...}
@@ -1121,6 +1121,24 @@
       <segment id="research_completed" state="translated">
         <source>research_completed</source>
         <target>Research has advanced. The **{project}** article has been published and immediate applications are ready. </target>
+      </segment>
+    </unit>
+    <unit id="myco_alarm_ring">
+      <segment id="myco_alarm_ring" state="translated">
+        <source>myco_alarm_ring</source>
+        <target>BBBRRRRIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!! </target>
+      </segment>
+    </unit>
+    <unit id="gen_metal_success">
+      <segment id="gen_metal_success" state="translated">
+        <source>gen_metal_success</source>
+        <target>**{character}** emerges from {character_gender, select, female {her} other {his}} pile of debris looking delighted, {character_gender, select, female {she} other {he}} has made a find! And {equipment_first_letter, select, vowel {an **{equipment}**} other {a **{equipment}**}}!</target>
+      </segment>
+    </unit>
+    <unit id="gain_it_chef_point">
+      <segment state="translated">
+        <source>gain_it_chef_point</source>
+        <target>You have earned {quantity} :pa_cook:.</target>
       </segment>
     </unit>
   </file>

@@ -170,6 +170,10 @@
         <source>bios_terminal.cpu_priority_pilgred</source>
         <target>bios_terminal.cpu_priority_none</target>
       </segment>
+      <segment id="cpu_priority.research" state="initial">
+        <source>bios_terminal.cpu_priority_research</source>
+        <target>bios_terminal.cpu_priority_research</target>
+      </segment>
       <segment id="cpu_priority.projects" state="initial">
         <source>bios_terminal.cpu_priority_projects</source>
         <target>bios_terminal.cpu_priority_projects</target>
@@ -193,6 +197,10 @@
       <segment id="crew_lock.piloting" state="initial">
         <source>bios_terminal.crew_lock_piloting</source>
         <target>bios_terminal.crew_lock_piloting</target>
+      </segment>
+      <segment id="crew_lock.research" state="initial">
+        <source>bios_terminal.crew_lock_research</source>
+        <target>bios_terminal.crew_lock_research</target>
       </segment>
       <segment id="plasma_shield.name" state="initial">
         <source>bios_terminal.plasma_shield_name</source>
@@ -283,6 +291,32 @@
       <segment id="no_proposed_neron_projects_description" state="initial">
         <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
         <target>auxiliary_terminal.no_proposed_neron_projects_description</target>
+      </segment>
+    </unit>
+    <unit id="calculator">
+      <segment id="name" state="initial">
+        <source>calculator.name</source>
+        <target>calculator.name</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>calculator.tips</source>
+        <target>calculator.tips</target>
+      </segment>
+      <segment id="to_a_new_eden_title" state="initial">
+        <source>calculator.to_a_new_eden_title</source>
+        <target>calculator.to_a_new_eden_title</target>
+      </segment>
+      <segment id="to_a_new_eden_description" state="initial">
+        <source>calculator.to_a_new_eden_description</source>
+        <target>calculator.to_a_new_eden_description</target>
+      </segment>
+      <segment id="nothing_to_compute" state="initial">
+        <source>calculator.nothing_to_compute</source>
+        <target>calculator.nothing_to_compute</target>
+      </segment>
+      <segment id="eden_computed" state="initial">
+        <source>calculator.eden_computed</source>
+        <target>calculator.eden_computed</target>
       </segment>
     </unit>
   </file>

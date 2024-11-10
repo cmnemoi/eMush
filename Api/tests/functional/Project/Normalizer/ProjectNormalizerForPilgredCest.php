@@ -82,10 +82,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
                     [
                         'key' => 'physicist',
                         'name' => 'Physicien',
-                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
-                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
-                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
-                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
+                        'description' => "Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques quantiques et de l'essence même des cordes qui composent notre Univers est son atout. Il possède des avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d'action de **réparation de PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON** et **réparer PILGRED**.",
                     ],
                     [
                         'key' => 'technician',
@@ -96,7 +93,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
         :point: Peut **Renforcer** des objets.//
         :point: Chances de réussites doublées pour les **Réparations**.//
         :point: Chances de réussites doublées pour les **Rénovations**.//
-        :point: Bonus pour développer certains **Projets NERON**.',
+        :point: Bonus pour développer certains **Projets NERON** et **réparer PILGRED**.',
                     ],
                 ],
                 'isLastAdvancedProject' => false,

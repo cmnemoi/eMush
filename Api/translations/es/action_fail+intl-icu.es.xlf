@@ -580,7 +580,7 @@
       </segment>
     </unit>
     <unit id="daedalus_already_full_hull.description">
-      <segment state="final">
+      <segment state="translated">
         <source>daedalus_already_full_hull.description</source>
         <target>El casco de la nave no necesita reparación.</target>
       </segment>
@@ -679,6 +679,12 @@
       <segment id="description" state="initial">
         <source>player_is_germaphobic.description</source>
         <target>player_is_germaphobic.description</target>
+      </segment>
+    </unit>
+    <unit id="eden_not_computed">
+      <segment id="description" state="initial">
+        <source>eden_not_computed.description</source>
+        <target>eden_not_computed.description</target>
       </segment>
     </unit>
   </file>

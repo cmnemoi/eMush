@@ -549,7 +549,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorName' => 'Vie intelligente',
                 'eventName' => 'Provision',
                 'eventDescription' => 'Alors que l\'expédition progresse tranquillement vous tombez nez à nez avec un être étrange. Impossible de communiquer avec lui mais avant de partir, il vous donne un sac qui contient du gibier alien.',
-                'eventOutcome' => 'Vous gagnez 2 Steaks aliens.////Probabilité de combat annulée Drapeau blanc',
+                'eventOutcome' => 'Vous gagnez 2 Steaks aliens.////Probabilité de combat annulée par Drapeau blanc',
             ],
             actual: $normalizedExplorationLog,
         );
@@ -857,7 +857,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorName' => 'Vergers',
                 'eventName' => 'Récolte',
                 'eventDescription' => 'Plusieurs arbustes touffus attirent votre attention, dans l\'un d\'entre eux se trouve de curieux fruits…',
-                'eventOutcome' => 'Vous gagnez 2 Fruits aliens.////+ 1 car l\'expédition dispose de la compétence : Botaniste',
+                'eventOutcome' => 'Vous gagnez 2 Fruits aliens.////+ 1 obtenu car l\'expédition dispose de la compétence : Botaniste',
             ],
             actual: $normalizedExplorationLog,
         );
@@ -958,7 +958,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorName' => 'Ruminants',
                 'eventName' => 'Provision',
                 'eventDescription' => 'Vous chassez avec succès un Chab Chab... Vous récupérez de la viande alien.',
-                'eventOutcome' => 'Vous gagnez 6 Steaks aliens.////+ 2 car l\'expédition dispose de la compétence : Survie',
+                'eventOutcome' => 'Vous gagnez 6 Steaks aliens.////+ 2 obtenus car l\'expédition dispose de la compétence : Survie',
             ],
             actual: $normalizedExplorationLog,
         );
@@ -1304,7 +1304,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // then exploration log is normalized as expected
         $firstVersion = 'Vous avez trouvé des traces de pas humaines !!! En les suivant vous tombez sur Chun. Quelle déception…';
-        $secondVersion = 'Alors que vous vous apprétiez à quitter la zone, vous entendez des cris derrière vous. Il s\'agit de Chun qui court après vous en hurlant depuis plus d\'une heure. Ses vêtements sont tout déchirés !';
+        $secondVersion = 'Alors que vous vous apprêtiez à quitter la zone, vous entendez des cris derrière vous. Il s\'agit de Chun qui court après vous en hurlant depuis plus d\'une heure. Ses vêtements sont tout déchirés !';
 
         $I->assertEquals(expected: 'Perdu', actual: $normalizedExplorationLog['planetSectorName']);
         $I->assertEquals(expected: 'Retrouvaille', actual: $normalizedExplorationLog['eventName']);

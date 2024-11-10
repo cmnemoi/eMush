@@ -59,7 +59,7 @@
 			"sol_return": "Daedalus returned to Sol",
 			"eden": "Daedalus has settled on Eden",
 			"daedalus_destroyed": "Daedalus destroyed",
-			"killed_by_neron": "Crew assassinated by NERON",
+			"killed_by_neron": "Contaminated crew assassinated by NERON",
 			"super_nova": "Supernova"
 		}
 	},
@@ -73,7 +73,7 @@
 		"discoveredSuperNova": "Discovered Supernova Award",
 		"specialSuperNova": "Special Nova Award",
 		"normalSuperNova": "Prize Nova",
-		"numberOfHuntersKilled": "Hunters defeated",
+		"numberOfHuntersKilled": "Hunters shot down",
 		"amountOfMushPlayers": "Number of Mushs",
 		"endCause": {
 			"sol_return": "The Daedalus returned to Sol!",
@@ -82,7 +82,7 @@
 			"killed_by_neron": "On the way to the infinite void!",
 			"super_nova": "Death by impish administrator!",
 			"alien_abducted": "You have been abducted.",
-			"assassinated": "Assassinated by a crewmate!",
+			"assassinated": "Murdered by a crewmate!",
 			"depression": "You put an end to it all...",
 			"asphyxia": "Dead on the Daedalus through lack of oxygen!",
 			"abandoned": "Abandoned by the Daedalus to take your chances alone!",
@@ -90,25 +90,25 @@
 			"self_extracted": "Your guts needed some fresh air!",
 			"exploration": "Killed in an accident in an alien world!",
 			"exploration_combat": "Destroyed by an alien with a headache!",
-			"exploration_lost": "Your crewmates found you, but something else found you first!",
+			"exploration_lost": "Something found you before your crewmates did!",
 			"electrocuted": "Electrocuted by this old piece of junk!",
 			"injury": "Injured to death!",
 			"burnt": "Burnt out by an untimely fire!",
-			"clumsiness": "So badly in fact that you've achieved nothing at all...",
-			"space_battle": "Death present in an annihilated device!",
-			"space_asphyxiated": "Dead left in outer space!",
+			"clumsiness": "So badly injured a straw broke your back...",
+			"space_battle": "Died from your vessel exploding in a spacecraft shoot-out!",
+			"space_asphyxiated": "Died left behind in outer space!",
 			"beheaded": "Beheaded by a coward!",
 			"starvation": "Starved to death!",
 			"quarantine": "Quarantined by NERON",
 			"black_bite": "Succumbed to an alien disease!",
 			"metal_plate": "Another victim claimed by the old Daed-shed!",
 			"rocketed": "Scattered by an inquisitive missile!",
-			"bled": "Drained of blood!",
+			"bled": "Bled out!",
 			"infection": "Succumbed to a massive infection!",
 			"mankarog": "Killed by a crafty Mankarog!",
 			"no_infirmerie": "Death lost in infinite space!",
 			"suicide": "Suicide with panache!",
-			"patrol_ship_explosion": "A failed manoeuvre!"
+			"patrol_ship_explosion": "A failed maneuver!"
 		}
 	},
 	"userBanner": {
@@ -166,7 +166,7 @@
 		"reason": "Reason",
 		"like": "Like",
 		"notyet": "You will be notified when the end game ranking is published.",
-		"endgame": "Validate and continue"
+		"endgame": "Confirm and continue"
 	},
 	"alerts": "Alerts:",
 	"downloading": "Downloading...",
@@ -207,7 +207,9 @@
 				"create": "Create equipment for ongoing Daedaluses",
 				"name": "Equipment name",
 				"quantity": "Quantity",
-				"place": "Room in which to create equipment"
+				"place": "Room in which to create equipment",
+				"daedalus": "Daedalus identifier",
+				"createForDaedalus": "Creating equipment for the Daedalus"
 			},
 			"projects": {
 				"title": "Projects",

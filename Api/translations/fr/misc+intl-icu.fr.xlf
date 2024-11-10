@@ -2,81 +2,81 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="misc.ext">
     <unit id="delayed_disease_info">
-      <segment id="satiety_point" state="final">
+      <segment id="satiety_point" state="translated">
         <source>satiety_point</source>
         <target>:pa_cook:</target>
       </segment>
-      <segment id="action_point" state="final">
+      <segment id="action_point" state="translated">
         <source>action_point</source>
         <target>:pa:</target>
       </segment>
-      <segment id="movement_point" state="final">
+      <segment id="movement_point" state="translated">
         <source>movement_point</source>
         <target>:pm:</target>
       </segment>
-      <segment id="health_point" state="final">
+      <segment id="health_point" state="translated">
         <source>health_point</source>
         <target>:hp:</target>
       </segment>
-      <segment id="moral_point" state="final">
+      <segment id="moral_point" state="translated">
         <source>moral_point</source>
         <target>:pmo:</target>
       </segment>
-      <segment id="ration_data" state="final">
+      <segment id="ration_data" state="translated">
         <source>ration_data</source>
         <target>Données sur les effets :</target>
       </segment>
-      <segment id="delayed_disease_info_with_range" state="final">
+      <segment id="delayed_disease_info_with_range" state="translated">
         <source>delayed_disease_info_with_range</source>
         <target>{ quantity } % de chances de provoquer la maladie { diseaseName } dans un délai de {start} à {end} cycles</target>
       </segment>
-      <segment id="delayed_disease_info" state="final">
+      <segment id="delayed_disease_info" state="translated">
         <source>delayed_disease_info</source>
         <target>{ quantity } % de chances de provoquer la maladie { diseaseName } dans un délai de {start} cycles</target>
       </segment>
-      <segment id="disease_info" state="final">
+      <segment id="disease_info" state="translated">
         <source>disease_info</source>
         <target>{ quantity } %  de chances de provoquer la maladie {diseaseName}</target>
       </segment>
-      <segment id="delayed_cure_info_with_range" state="final">
+      <segment id="delayed_cure_info_with_range" state="translated">
         <source>delayed_cure_info_with_range</source>
         <target>Guérit la maladie {diseaseName} dans un délai de {start} à {end} cycles</target>
       </segment>
-      <segment id="delayed_cure_info" state="final">
+      <segment id="delayed_cure_info" state="translated">
         <source>delayed_cure_info</source>
         <target>Guérit la maladie {diseaseName} dans un délai de {start} cycles</target>
       </segment>
-      <segment id="cure_info" state="final">
+      <segment id="cure_info" state="translated">
         <source>cure_info</source>
         <target>Guérit la maladie {diseaseName}</target>
       </segment>
     </unit>
     <unit id="orientation">
-      <segment id="north" state="final">
+      <segment id="north" state="translated">
         <source>north</source>
         <target>Nord</target>
       </segment>
-      <segment id="south" state="final">
+      <segment id="south" state="translated">
         <source>south</source>
         <target>Sud</target>
       </segment>
-      <segment id="east" state="final">
+      <segment id="east" state="translated">
         <source>east</source>
         <target>Est</target>
       </segment>
-      <segment id="west" state="final">
+      <segment id="west" state="translated">
         <source>west</source>
         <target>Ouest</target>
       </segment>
     </unit>
     <unit id="here">
-      <segment id="here" state="final">
+      <segment id="here" state="translated">
         <source>here</source>
         <target>ici</target>
       </segment>
     </unit>
     <unit id="estimated_duration">
-      <segment id="estimated_duration" state="final">
+      <segment id="estimated_duration" state="translated">
         <source>estimated_duration</source>
         <target>{isExplorationFinished, select,
         true {Expédition déjà terminée.}
@@ -102,25 +102,25 @@
       </segment>
     </unit>
     <unit id="plant_effects">
-      <segment id="plant_data" state="final">
+      <segment id="plant_data" state="translated">
         <source>plant_data</source>
         <target>Données sur la plante :</target>
       </segment>
-      <segment id="fruit_productivity" state="final">
+      <segment id="fruit_productivity" state="translated">
         <source>fruit_productivity</source>
         <target>Productivité Fruit : {quantity} / jour</target>
       </segment>
-      <segment id="o2_productivity" state="final">
+      <segment id="o2_productivity" state="translated">
         <source>o2_productivity</source>
         <target>Productivité O2 : {quantity} / jour</target>
       </segment>
-      <segment id="maturity_info" state="final">
+      <segment id="maturity_info" state="translated">
         <source>maturity_info</source>
         <target>Ce plant arrivera à maturité dans {quantity} cycles</target>
       </segment>
     </unit>
     <unit id="exploration_archive">
-      <segment id="exploration_archive" state="final">
+      <segment id="exploration_archive" state="translated">
         <source>exploration_archive</source>
         <target>l'archive de l'expédition</target>
       </segment>

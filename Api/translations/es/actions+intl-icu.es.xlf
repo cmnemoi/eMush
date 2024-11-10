@@ -1527,5 +1527,29 @@
         <target>participate_research.description</target>
       </segment>
     </unit>
+    <unit id="compute_eden">
+      <segment id="name" state="initial">
+        <source>compute_eden.name</source>
+        <target>compute_eden.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>compute_eden.description</source>
+        <target>compute_eden.description</target>
+      </segment>
+    </unit>
+    <unit id="travel_to_eden">
+      <segment id="name" state="initial">
+        <source>travel_to_eden.name</source>
+        <target>travel_to_eden.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>travel_to_eden.description</source>
+        <target>travel_to_eden.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>travel_to_eden.confirmation</source>
+        <target>travel_to_eden.confirmation</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

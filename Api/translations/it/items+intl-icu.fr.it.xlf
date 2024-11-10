@@ -835,34 +835,34 @@
         <target>sniper_helmet.examine</target>
       </segment>
     </unit>
-    <unit id="lenses">
+    <unit id="ncc_lenses">
       <segment id="name" state="initial">
-        <source>lenses.name</source>
-        <target>lenses.name</target>
+        <source>ncc_lenses.name</source>
+        <target>ncc_lenses.name</target>
       </segment>
       <segment id="short_name" state="initial">
-        <source>lenses.short_name</source>
-        <target>lenses.short_name</target>
+        <source>ncc_lenses.short_name</source>
+        <target>ncc_lenses.short_name</target>
       </segment>
       <segment id="plural_name" state="initial">
-        <source>lenses.plural_name</source>
-        <target>lenses.plural_name</target>
+        <source>ncc_lenses.plural_name</source>
+        <target>ncc_lenses.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>lenses.gender</source>
-        <target>lenses.gender</target>
+        <source>ncc_lenses.gender</source>
+        <target>ncc_lenses.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
-        <source>lenses.first_letter</source>
-        <target>lenses.first_letter</target>
+        <source>ncc_lenses.first_letter</source>
+        <target>ncc_lenses.first_letter</target>
       </segment>
       <segment id="description" state="initial">
-        <source>lenses.description</source>
-        <target>lenses.description</target>
+        <source>ncc_lenses.description</source>
+        <target>ncc_lenses.description</target>
       </segment>
       <segment id="examine" state="initial">
-        <source>lenses.examine</source>
-        <target>lenses.examine</target>
+        <source>ncc_lenses.examine</source>
+        <target>ncc_lenses.examine</target>
       </segment>
     </unit>
     <unit id="oscilloscope">

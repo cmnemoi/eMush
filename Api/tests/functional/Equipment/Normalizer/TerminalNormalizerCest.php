@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Equipment\Normalizer;
 
-use Mush\Action\Actions\Hide;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -34,7 +33,6 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     private TranslationService $translationService;
     private PlayerService $playerService;
     private NormalizerInterface $normalizer;
-    private Hide $hideAction;
     private Project $pilgredProject;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
@@ -49,7 +47,6 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->terminalNormalizer = $I->grabService(TerminalNormalizer::class);
         $this->terminalNormalizer->setNormalizer($this->normalizer);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
-        $this->hideAction = $I->grabService(Hide::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -183,7 +180,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(expected: EquipmentEnum::NERON_CORE, actual: $normalizedTerminal['key']);
         $I->assertEquals(expected: 'Cœur de NERON', actual: $normalizedTerminal['name']);
         $I->assertEquals(
-            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
+            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : un seul projet par set peut être mené à fin. **Lorsqu'un projet est complété, les deux autres sont désactivés de manière permanente.** Discutez entre vous pour déterminer lequel servira le vaisseau au mieux!",
             actual: $normalizedTerminal['tips']
         );
         $I->assertEquals(
@@ -224,7 +221,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(expected: EquipmentEnum::NERON_CORE, actual: $normalizedTerminal['key']);
         $I->assertEquals(expected: 'Cœur de NERON', actual: $normalizedTerminal['name']);
         $I->assertEquals(
-            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
+            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : un seul projet par set peut être mené à fin. **Lorsqu'un projet est complété, les deux autres sont désactivés de manière permanente.** Discutez entre vous pour déterminer lequel servira le vaisseau au mieux!",
             actual: $normalizedTerminal['tips']
         );
         $I->assertEquals(
@@ -271,7 +268,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(expected: EquipmentEnum::AUXILIARY_TERMINAL, actual: $normalizedTerminal['key']);
         $I->assertEquals(expected: 'Cœur de NERON auxiliaire', actual: $normalizedTerminal['name']);
         $I->assertEquals(
-            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
+            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : un seul projet par set peut être mené à fin. **Lorsqu'un projet est complété, les deux autres sont désactivés de manière permanente.** Discutez entre vous pour déterminer lequel servira le vaisseau au mieux!",
             actual: $normalizedTerminal['tips']
         );
         $I->assertEquals(

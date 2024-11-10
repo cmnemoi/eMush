@@ -782,7 +782,7 @@ Thanks to its fabulous liquid ceramic coating, this awesome object will save you
         <source>antigrav_scooter.gender</source>
         <target>female</target>
       </segment>
-      <segment id="first_letter" state="final">
+      <segment id="first_letter" state="translated">
         <source>antigrav_scooter.first_letter</source>
         <target>vowel</target>
       </segment>
@@ -865,38 +865,34 @@ On every even cycle, you earn extra 1 :pm: during :pa:-:pm: conversion.</target>
 The aiming helmet is a valuable aid in the fog, in the dark, or simply if you don't know how to use a weapon.</target>
       </segment>
     </unit>
-    <unit id="lenses">
+    <unit id="ncc_lenses">
       <segment id="name" state="translated">
-        <source>lenses.name</source>
+        <source>ncc_lenses.name</source>
         <target>Lenses</target>
       </segment>
       <segment id="short_name" state="translated">
-        <source>lenses.short_name</source>
+        <source>ncc_lenses.short_name</source>
         <target>Lenses</target>
       </segment>
       <segment id="plural_name" state="translated">
-        <source>lenses.plural_name</source>
+        <source>ncc_lenses.plural_name</source>
         <target>Lenses</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>lenses.gender</source>
+        <source>ncc_lenses.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
-        <source>lenses.first_letter</source>
+        <source>ncc_lenses.first_letter</source>
         <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
-        <source>lenses.description</source>
-        <target>These lenses help you to see better
-    +10% for all shooting actions.</target>
+        <source>ncc_lenses.description</source>
+        <target>These lenses help you to see better.//+10% for all shooting actions.</target>
       </segment>
       <segment id="examine" state="translated">
-        <source>lenses.examine</source>
-        <target>These lenses help you to see better
-    +10% for all shooting actions.
-
-These ultra-sophisticated lenses were developed using advanced feline technology, and make you a more efficient predator.</target>
+        <source>ncc_lenses.examine</source>
+        <target>These lenses help you to see better.//+10% for all shooting actions.//These ultra-sophisticated lenses were developed using advanced feline technology, and make you a more efficient predator.</target>
       </segment>
     </unit>
     <unit id="oscilloscope">
@@ -1265,9 +1261,9 @@ The Echolocator is a powerful tool for expedition troops in hostile areas. Unfor
         <source>rope.description</source>
         <target>On expeditions, the rope allows you to get out of a dead-end.//Expedition : Removes possibility of personal damage which could happen in "Seismic", "Caverns" and "Mountains" areas, but does not prevent sudden deaths.</target>
       </segment>
-      <segment id="examine" state="final">
+      <segment id="examine" state="translated">
         <source>rope.examine</source>
-        <target>On expeditions, the rope allows you to get out of an dead-end.//Expedition : Removes possibility of personal damage which could happen in "Seismic", "Caverns" and "Mountains" areas, but does not prevent sudden deaths.//Looking at the probability statistics of what one would conceivably find aboard the Daedalus, the rope got zero. However...</target>
+        <target>On expeditions, the rope allows you to get out of a dead-end.//Expedition: Prevents personal damage which could happen in "Seismic", "Caverns" and "Mountains" sectors, but does not prevent sudden deaths.//Looking at the probability statistics of what one would conceivably find aboard the Daedalus, the rope got zero. However...</target>
       </segment>
     </unit>
     <unit id="thermosensor">
@@ -2016,13 +2012,13 @@ It doesn't look dead yet.</target>
       </segment>
       <segment id="description" state="translated">
         <source>magellan_liquid_map.description</source>
-        <target>A beautiful map which clearly displays all the info you might need on any of the planets in the Magellan system.
-When this is on ther Bridge, the Liquid Map will reveal one or two sectors of a discovered planet</target>
+        <target>A beautiful map which clearly displays all the info you might need on any of the planets in the Magellan system. //
+While this is on the Bridge, the Liquid Map will reveal one to two sectors of any newly discovered planet.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>magellan_liquid_map.examine</source>
-        <target>A beautiful map which clearly displays all the info you might need on any of the planets in the Magellan system.
-When this is on the Bridge, the Liquid Map will reveal one or two sectors of a discovered planet
+        <target>A beautiful map which clearly displays all the info you might need on any of the planets in the Magellan system. //
+While this is on the Bridge, the Liquid Map will reveal one to two sectors of any newly discovered planet. //
 You get the feeling that this thing is trying to speak to you. You must be dreaming.</target>
       </segment>
     </unit>
@@ -2229,7 +2225,7 @@ Who decided to bring this thing on board... It reminds you of the nonsense touri
 //
 Expedition: +2 added to the strength of your team during combats.</target>
       </segment>
-      <segment id="examine" state="final">
+      <segment id="examine" state="translated">
         <source>old_faithful.examine</source>
         <target>The machine gun is an extremely heavy weapon. Certain international laws prohibit its use against humans. When you see it, you'll know why. Some call it 'Old Painless' but that depends which end you're at...
 //
@@ -2259,7 +2255,7 @@ The F.R.A.K.U. automatic assault rifle, is better known as the "lead spitter". I
         <source>lizaro_jungle.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>lizaro_jungle.description</source>
         <target>The ultimate in precision rifles.
 //
@@ -2727,7 +2723,7 @@ If you take care of this plant it will repay you with Oxygen and delicious Creep
       </segment>
     </unit>
     <unit id="cactax">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>cactax.name</source>
         <target>{age, select,
        young {Young }
@@ -2964,9 +2960,12 @@ A place to put a plant in the hydroponic garden.</target>
       </segment>
     </unit>
     <unit id="peniraft">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>peniraft.name</source>
-        <target>Peniraft</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Peniraft</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>peniraft.short_name</source>
@@ -3019,7 +3018,7 @@ A place to put a plant in the hydroponic garden.</target>
       </segment>
     </unit>
     <unit id="mycopia">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>mycopia.name</source>
         <target>{age, select,
        young {Young }
@@ -3049,7 +3048,7 @@ If you take care of this plant it will repay you with Oxygen and delicious Caleb
       </segment>
     </unit>
     <unit id="asperagunk">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>asperagunk.name</source>
         <target>{age, select,
        young {Young }
@@ -3314,11 +3313,11 @@ Non-perishable
         <source>coffee.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>coffee.description</source>
         <target>The fundamental fuel for all Daedalus crewmembers.</target>
       </segment>
-      <segment id="examine" state="final">
+      <segment id="examine" state="translated">
         <source>coffee.examine</source>
         <target>The fundamental fuel for all Daedalus crewmembers.</target>
       </segment>

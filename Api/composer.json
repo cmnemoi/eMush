@@ -74,8 +74,9 @@
         },
         "sort-packages": true,
         "allow-plugins": {
+            "php-http/discovery": false,
             "symfony/flex": true,
-            "php-http/discovery": false
+            "tbachert/spi": true
         }
     },
     "autoload": {

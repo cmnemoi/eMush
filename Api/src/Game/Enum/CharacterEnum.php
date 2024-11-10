@@ -25,6 +25,7 @@ abstract class CharacterEnum
     public const string NERON = 'neron';
     public const string null = '';
     public const string SOMEONE = 'someone';
+    public const string MUSH = 'mush';
 
     public static array $characterColorMap = [
         self::ANDIE => '#DDDDDD',

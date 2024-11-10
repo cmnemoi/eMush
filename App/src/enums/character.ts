@@ -22,6 +22,7 @@ export enum CharacterEnum {
     NERON = "neron",
     FEMALE_ADMIN = "female_admin",
     MALE_ADMIN = "male_admin",
+    MUSH = "mush",
 }
 
 export interface CharacterInfos {
@@ -174,5 +175,11 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
         'name': 'Admin',
         'head': getImgUrl('char/head/lambda_m.png'),
         'body': getImgUrl('char/body/lambda_m.png')
+    },
+    [CharacterEnum.MUSH]: {
+        'name': 'Mush',
+        'completeName': 'Mush',
+        'head': getImgUrl('status/berzerk.png'),
+        'body': getImgUrl('char/body/mush.png')
     }
 };

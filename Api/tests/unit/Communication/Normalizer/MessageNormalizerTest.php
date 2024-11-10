@@ -4,6 +4,7 @@ namespace Mush\Tests\unit\Communication\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
+use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\DiseaseMessagesEnum;
 use Mush\Communication\Enum\MessageModificationEnum;
@@ -68,7 +69,7 @@ final class MessageNormalizerTest extends TestCase
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
-        $playerConfig->setName('name');
+        $playerConfig->setName('name')->setCharacterName('name');
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), $playerConfig);
@@ -78,6 +79,7 @@ final class MessageNormalizerTest extends TestCase
         $message = new Message();
         $message
             ->setAuthor($playerInfo)
+            ->setChannel(new Channel())
             ->setMessage('message')
             ->setCreatedAt($createdAt);
 
@@ -120,7 +122,7 @@ final class MessageNormalizerTest extends TestCase
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
-        $playerConfig->setName('name');
+        $playerConfig->setName('name')->setCharacterName('name');
 
         $neron = new Neron();
         $neron->setDaedalusInfo($daedalusInfo);
@@ -131,6 +133,7 @@ final class MessageNormalizerTest extends TestCase
         $message
             ->setNeron($neron)
             ->setMessage('message')
+            ->setChannel(new Channel())
             ->setCreatedAt($createdAt)
             ->setTranslationParameters([
                 'player' => CharacterEnum::ANDIE,
@@ -180,13 +183,13 @@ final class MessageNormalizerTest extends TestCase
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
-        $playerConfig->setName('name');
+        $playerConfig->setName('name')->setCharacterName('name');
 
         $neron = new Neron();
         $neron->setDaedalusInfo($daedalusInfo);
 
         $playerConfig = new CharacterConfig();
-        $playerConfig->setName('name');
+        $playerConfig->setName('name')->setCharacterName('name');
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), $playerConfig);
@@ -196,6 +199,7 @@ final class MessageNormalizerTest extends TestCase
         $playerMessage = new Message();
         $playerMessage
             ->setAuthor($playerInfo)
+            ->setChannel(new Channel())
             ->setMessage('message child')
             ->setCreatedAt($createdAt);
 
@@ -203,6 +207,7 @@ final class MessageNormalizerTest extends TestCase
         $neronMessage
             ->setNeron($neron)
             ->setMessage('message parent')
+            ->setChannel(new Channel())
             ->setCreatedAt($createdAt)
             ->setChild(new ArrayCollection([$playerMessage]));
 
@@ -262,7 +267,7 @@ final class MessageNormalizerTest extends TestCase
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
-        $playerConfig->setName('name');
+        $playerConfig->setName('name')->setCharacterName('name');
 
         $player = new Player();
         $player
@@ -288,6 +293,7 @@ final class MessageNormalizerTest extends TestCase
         $message
             ->setAuthor($otherPlayerInfo)
             ->setMessage('modified message')
+            ->setChannel(new Channel())
             ->setCreatedAt($createdAt)
             ->setTranslationParameters([
                 DiseaseMessagesEnum::MODIFICATION_CAUSE => MessageModificationEnum::PARANOIA_MESSAGES,

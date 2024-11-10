@@ -110,8 +110,8 @@ final class OpenTelemetry
         $uuidRegex = '/\/[a-f0-9]{8}-([a-f0-9]{4}-){3}[a-f0-9]{12}/';
 
         // replace id and uuid with templated values
-        $templatedRequestUri = preg_replace($idRegex, '/:id', $request->getRequestUri());
-        $templatedRequestUri = preg_replace($uuidRegex, '/:uuid', $templatedRequestUri);
+        $templatedRequestUri = preg_replace($uuidRegex, '/:uuid', $request->getRequestUri());
+        $templatedRequestUri = preg_replace($idRegex, '/:id', $templatedRequestUri);
 
         // remove query string
         return explode('?', $templatedRequestUri)[0];

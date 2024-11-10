@@ -59,7 +59,7 @@
 			"sol_return": "Daedalus rentré sur Sol",
 			"eden": "Daedalus s'est installé sur Eden",
 			"daedalus_destroyed": "Daedalus détruit",
-			"killed_by_neron": "Equipage assassiné par NERON",
+			"killed_by_neron": "Équipage contaminé assassiné par NERON",
 			"super_nova": "Super Nova"
 		}
 	},
@@ -95,7 +95,7 @@
 			"injury": "Blessé à mort !",
 			"burnt": "Calciné par un incendie inopportun !",
 			"clumsiness": "Tellement mal en point qu'un rien vous a achevé...",
-			"space_battle": "Mort présent dans un appareil annihilé !",
+			"space_battle": "Mort dans l'explosion de votre vaisseau suite à des tirs ennemis!",
 			"space_asphyxiated": "Mort abandonné dans l'espace intersidéral !",
 			"beheaded": "Décapité par un fâcheux !",
 			"starvation": "Mort de faim !",
@@ -598,7 +598,7 @@
 		}
 	},
 	"charSelection": {
-		"selectLanguage": "Sélectionnez une langue pour rejoindre un vaisseau 👉",
+		"selectLanguage": "Sélectionnez une langue pour rejoindre une partie 👉",
 		"shipNotFound": "Aucun vaisseau n'a été trouvé. Un nouveau devrait être créé dans l'heure !",
 		"startGame": "Démarrer la partie",
 		"youChoose": "Vous avez choisi ",

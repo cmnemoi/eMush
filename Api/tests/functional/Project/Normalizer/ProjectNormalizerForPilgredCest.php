@@ -135,7 +135,8 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
         // then I should get the normalized project
         $I->assertEquals(
             expected: [
-                'type' => 'PILGRED',
+                'type' => 'pilgred',
+                'translatedType' => 'PILGRED',
                 'key' => 'pilgred',
                 'name' => 'PILGRED',
                 'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',

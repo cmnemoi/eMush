@@ -827,7 +827,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>stephen.tips</source>
-        <target>**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau./**Éliminez les Mushs confirmés* en utilisant vos compétences Solide et Tireur.//**Copiez une compétence précieuse** en utilisant Apprentissage, en fonction des besoins de l'équipage.</target>
+        <target>**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Éliminer les Mushs découverts** avec vos compétences Robuste et Tireur.//**Copier une compétence importante** avec votre Apprentissage, selon les besoins de l'équipage.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>stephen.tutorial</source>

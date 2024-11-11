@@ -7,6 +7,7 @@ import { CharacterEnum, characterEnum } from '@/enums/character';
 import { statusPlayerEnum, StatusPlayerNameEnum } from '@/enums/status.player.enum';
 import { statusItemEnum, StatusItemNameEnum } from '@/enums/status.item.enum';
 import { titleEnum, TitleEnum } from '@/enums/title.enum';
+import { EmoteEnum, EmoteIcons } from '@/enums/emotes.enum';
 
 export const helpers = {
     computeImageHtml(key: string): string {
@@ -111,6 +112,13 @@ export const helpers = {
         }
 
         return `<img src="${titleEnum[key].image}" alt="${key}">`;
+    },
+    computeEmoteHtmlByKey(key: string): string {
+        if (!EmoteIcons[key]) {
+            throw Error(`Unexpected key for replaced image: ${key}`);
+        }
+
+        return `<img src="${EmoteIcons[key]}" alt="${key}">`;
     }
 };
 
@@ -173,6 +181,9 @@ export function formatText(text: string|null): string {
     });
     Object.values(TitleEnum).forEach((title: string) => {
         formattedText = formattedText.replaceAll(new RegExp(`:${title}:`, 'g'), helpers.computeTitleImageHtmlByKey(title));
+    });
+    Object.values(EmoteEnum).forEach((emote: string) => {
+        formattedText = formattedText.replaceAll(new RegExp(`:${emote}:`, 'g'), helpers.computeEmoteHtmlByKey(emote));
     });
 
     return formattedText;

@@ -9,7 +9,18 @@ export enum EmoteEnum{
     MONEY = 'money',
     PIOUZ = 'pink_bird',
     AGREE = 'plus_1',
-    RAINBOW = 'rainbow'
+    RAINBOW = 'rainbow',
+    SOL = 'sol',
+    EDEN = 'eden',
+    EDENMUSH = 'eden_mush',
+    NEWGIF = 'anim_new',
+    BOOK = 'book',
+    COFFEE = 'coffee',
+    EXTINGUISHER = 'extinguisher',
+    GRENADE = 'grenade',
+    RATION = 'ration',
+    SOLDIER = 'soldier',
+    SURVIVAL = 'survival'
 }
 
 export const EmoteIcons: {[index: string]: string} = {
@@ -21,7 +32,18 @@ export const EmoteIcons: {[index: string]: string} = {
     [EmoteEnum.MONEY]: getImgUrl('emotes/money.png'),
     [EmoteEnum.PIOUZ]: getImgUrl('emotes/piou.gif'),
     [EmoteEnum.AGREE]: getImgUrl('emotes/Plus1.png'),
-    [EmoteEnum.RAINBOW]: getImgUrl('emotes/rainbow.gif')
+    [EmoteEnum.RAINBOW]: getImgUrl('emotes/rainbow.gif'),
+    [EmoteEnum.SOL]: getImgUrl('ui_icons/sol.png'),
+    [EmoteEnum.EDEN]: getImgUrl('ui_icons/eden1.png'),
+    [EmoteEnum.EDENMUSH]: getImgUrl('ui_icons/eden2.png'),
+    [EmoteEnum.NEWGIF]: getImgUrl('ui_icons/anim_new.gif'),
+    [EmoteEnum.BOOK]: getImgUrl('ui_icons/book.png'),
+    [EmoteEnum.COFFEE]: getImgUrl('ui_icons/coffee.png'),
+    [EmoteEnum.EXTINGUISHER]: getImgUrl('ui_icons/extinguisher.png'),
+    [EmoteEnum.GRENADE]: getImgUrl('ui_icons/grenade.png'),
+    [EmoteEnum.RATION]: getImgUrl('ui_icons/ration.png'),
+    [EmoteEnum.SOLDIER]: getImgUrl('ui_icons/soldier.png'),
+    [EmoteEnum.SURVIVAL]: getImgUrl('ui_icons/survival.png')
 
 };
 

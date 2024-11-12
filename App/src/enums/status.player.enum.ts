@@ -123,7 +123,7 @@ export const statusPlayerEnum: {[index: string]: any} = {
         'icon': getImgUrl('status/genius_idea.png')
     },
     [StatusPlayerNameEnum.PARIAH]: {
-        'icon': getImgUrl('status/unsociable.png')
+        'icon': getImgUrl('status/hammer.png')
     },
     [StatusPlayerNameEnum.ANTIQUE_PERFUME_IMMUNIZED]: {
         'icon': getImgUrl('status/immune.png')

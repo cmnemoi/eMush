@@ -20,7 +20,9 @@ export enum EmoteEnum{
     GRENADE = 'grenade',
     RATION = 'ration',
     SOLDIER = 'soldier',
-    SURVIVAL = 'survival'
+    SURVIVAL = 'survival',
+    READY = 'ready',
+    INGAME = 'in_game',
 }
 
 export const EmoteIcons: {[index: string]: string} = {
@@ -43,7 +45,9 @@ export const EmoteIcons: {[index: string]: string} = {
     [EmoteEnum.GRENADE]: getImgUrl('ui_icons/grenade.png'),
     [EmoteEnum.RATION]: getImgUrl('ui_icons/ration.png'),
     [EmoteEnum.SOLDIER]: getImgUrl('ui_icons/soldier.png'),
-    [EmoteEnum.SURVIVAL]: getImgUrl('ui_icons/survival.png')
+    [EmoteEnum.SURVIVAL]: getImgUrl('ui_icons/survival.png'),
+    [EmoteEnum.READY]: getImgUrl('ready.png'),
+    [EmoteEnum.INGAME]: getImgUrl('in_game.png')
 
 };
 

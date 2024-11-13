@@ -172,7 +172,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'project' => ProjectName::NARCOTICS_DISTILLER->value,
                 'equipment' => EquipmentEnum::NARCOTIC_DISTILLER,
                 'quantity' => 1,
-                'creationPlaces' => [RoomEnum::LABORATORY],
+                'creationPlaces' => [RoomEnum::MEDLAB],
             ],
             [
                 'project' => ProjectName::NCC_CONTACT_LENSES->value,

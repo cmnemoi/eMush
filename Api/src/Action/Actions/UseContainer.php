@@ -10,7 +10,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\ContainerContentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -23,9 +22,13 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class OpenCapsule extends AbstractAction
+/**
+ * Class implementing the "Use" action on containers.
+ * This action is granted by Survival Kit, Lunchbox, Coffee Thermos, Christmas Gifts.
+ */
+class UseContainer extends AbstractAction
 {
-    protected ActionEnum $name = ActionEnum::OPEN;
+    protected ActionEnum $name = ActionEnum::USE_CONTAINER;
 
     protected RandomServiceInterface $randomService;
     protected GameEquipmentServiceInterface $gameEquipmentService;
@@ -79,11 +82,10 @@ class OpenCapsule extends AbstractAction
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        // Get the content
-        $contentName = $this->randomService->getSingleRandomElementFromProbaCollection(new ProbaCollection(ContainerContentEnum::SPACE_CAPSULE_CONTENT));
+        // $contentName = $this->randomService->getSingleRandomElementFromProbaCollection(new ProbaCollection(self::$capsuleContent));
 
-        if (!\is_string($contentName)) {
-            throw new \Exception('capsule content should not be empty');
+        /*if (!\is_string($contentName)) {
+            throw new \Exception('container content should not be empty');
         }
 
         $this->gameEquipmentService->createGameEquipmentFromName(
@@ -92,6 +94,6 @@ class OpenCapsule extends AbstractAction
             $this->getActionConfig()->getActionTags(),
             new \DateTime(),
             VisibilityEnum::PUBLIC
-        );
+        );*/
     }
 }

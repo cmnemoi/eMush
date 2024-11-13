@@ -20,4 +20,5 @@ abstract class EquipmentMechanicEnum
     public const string RATION = 'ration';
     public const string TOOL = 'tool';
     public const string WEAPON = 'weapon';
+    public const string CONTAINER = 'container';
 }

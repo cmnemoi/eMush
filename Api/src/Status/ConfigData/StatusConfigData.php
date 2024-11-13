@@ -1769,6 +1769,20 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => 'electric_charges_coffee_thermos_default',
+            'statusName' => 'electric_charges',
+            'visibility' => 'public',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => 'public',
+            'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
+            'maxCharge' => 4,
+            'startCharge' => 4,
+            'dischargeStrategies' => [ActionEnum::USE_CONTAINER],
+            'autoRemove' => false,
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

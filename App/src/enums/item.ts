@@ -84,6 +84,10 @@ const OLD_T_SHIRT = "old_t_shirt";
 const BABEL_MODULE = "babel_module";
 const WHITE_FLAG = "white_flag";
 
+//containers
+const XMAS_GIFT = "xmas_gift";
+const COFFEE_THERMOS = "coffee_thermos";
+
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
 const WALKIE_TALKIE = "walkie_talkie";
@@ -474,5 +478,11 @@ export const itemEnum: {[index: string]: any} = {
     },
     [SUPER_SOAPER]: {
         'image': getImgUrl('items/super_soap.jpg')
+    },
+    [XMAS_GIFT]:{
+        'image': getImgUrl('items/gift.jpg')
+    },
+    [COFFEE_THERMOS]:{
+        'image': getImgUrl('items/coffee_thermos.jpg')
     }
 };

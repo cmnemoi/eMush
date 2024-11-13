@@ -354,6 +354,8 @@ class GameConfigData
                 'jukebox_blueprint_default',
                 'support_drone_blueprint_default',
                 ItemEnum::SCHRODINGER . '_default',
+                ItemEnum::XMAS_GIFT . '_default',
+                ItemEnum::COFFEE_THERMOS . '_default',
             ],
             'statusConfigs' => [
                 'alien_artefact_default',

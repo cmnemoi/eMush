@@ -4166,6 +4166,44 @@ class EquipmentConfigData
             'mechanics' => [],
             'initStatuses' => [],
         ],
+        [
+            'name' => 'xmas_gift_default',
+            'equipmentName' => ItemEnum::XMAS_GIFT,
+            'isBreakable' => false,
+            'isFireDestroyable' => false,
+            'isFireBreakable' => false,
+            'dismountedProducts' => [],
+            'isPersonal' => false, // @TODO True, currently on false for testing purposes
+            'type' => 'container_config',
+            'isStackable' => false,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => ['container_xmas_gift_default'],
+            'initStatuses' => [],
+        ],
+        [
+            'name' => 'coffee_thermos_default',
+            'equipmentName' => ItemEnum::COFFEE_THERMOS,
+            'isBreakable' => false,
+            'isFireDestroyable' => false,
+            'isFireBreakable' => false,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'container_config',
+            'isStackable' => false,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => ['container_coffee_thermos_default'],
+            'initStatuses' => ['electric_charges_coffee_thermos_default'],
+        ],
     ];
 
     public static function getByEquipmentName(string $name): array

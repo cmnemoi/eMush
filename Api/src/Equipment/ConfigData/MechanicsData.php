@@ -3,6 +3,7 @@
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\ContainerContentEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -1876,6 +1877,22 @@ abstract class MechanicsData
                 'modifier_for_player_-1actionPoint_on_shower',
                 ModifierNameEnum::MINUS_1_SPORE_ON_TAKE_SHOWER,
             ],
+        ],
+        [
+            'name' => 'container_xmas_gift_default',
+            'type' => EquipmentMechanicEnum::CONTAINER,
+            'actions' => [
+                'use_container',
+            ],
+            'containerContents' => ContainerContentEnum::XMAS_GIFT_CONTENT,
+        ],
+        [
+            'name' => 'container_coffee_thermos_default',
+            'type' => EquipmentMechanicEnum::CONTAINER,
+            'actions' => [
+                'use_container',
+            ],
+            'containerContents' => ContainerContentEnum::COFFEE_THERMOS_CONTENT,
         ],
     ];
 }

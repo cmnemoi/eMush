@@ -733,7 +733,7 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
-                    SpawnEquipmentConfigData::ONE_NARCOTICS_DISTILLER_IN_LABORATORY,
+                    SpawnEquipmentConfigData::ONE_NARCOTICS_DISTILLER_IN_MEDLAB,
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],

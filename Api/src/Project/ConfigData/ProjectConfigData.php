@@ -578,6 +578,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                 ],
             ],
@@ -593,6 +594,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                     ProjectRequirementName::FOOD_IN_LABORATORY,
                 ],
@@ -622,6 +624,7 @@ abstract class ProjectConfigData
                     ReplaceEquipmentConfigData::REPLACE_SOAP_BY_SUPER_SOAP,
                 ],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::SOAP_IN_LABORATORY,
                     ProjectRequirementName::CHUN_IN_LABORATORY,
                 ],
@@ -638,6 +641,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                     ProjectRequirementName::CHUN_IN_LABORATORY,
                 ],
@@ -708,6 +712,7 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                 ],
             ],
@@ -723,6 +728,7 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::CHUN_IN_LABORATORY,
                 ],
             ],
@@ -749,6 +755,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::BLASTER_IN_LABORATORY,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                 ],
@@ -780,6 +787,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                 ],
             ],
@@ -806,6 +814,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                     ProjectRequirementName::MUSH_GENOME_DISK_IN_LABORATORY,
                 ],
@@ -822,6 +831,7 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                     ProjectRequirementName::CHUN_IN_LABORATORY,
@@ -840,6 +850,7 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                 ],
             ],

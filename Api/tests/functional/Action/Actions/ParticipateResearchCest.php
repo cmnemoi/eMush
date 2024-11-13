@@ -15,6 +15,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
@@ -56,6 +57,8 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
     {
         $this->givenChunIsInLab();
 
+        $this->givenGameHasStarted();
+
         $project = $this->daedalus->getProjectByName(ProjectName::CREATE_MYCOSCAN);
 
         $this->participateAction->loadParameters(
@@ -73,9 +76,37 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNotBeExecutableIfRequirementsAreNotMet(FunctionalTester $I): void
+    public function shouldNotBeExecutableIfGameStartedRequirementIsNotMet(FunctionalTester $I): void
+    {
+        $this->givenChunIsInLab();
+
+        $project = $this->daedalus->getProjectByName(ProjectName::CREATE_MYCOSCAN);
+
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->kuanTi,
+            target: $project
+        );
+
+        $this->participateAction->execute();
+
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::REQUIREMENTS_NOT_MET,
+            actual: $this->participateAction->cannotExecuteReason(),
+        );
+
+        $I->assertEquals(
+            $this->daedalus->getDaedalusInfo()->getGameStatus(),
+            GameStatusEnum::STANDBY
+        );
+    }
+
+    public function shouldNotBeExecutableIfChunRequirementIsNotMet(FunctionalTester $I): void
     {
         $this->givenChunIsNotInLab();
+
+        $this->givenGameHasStarted();
 
         $project = $this->daedalus->getProjectByName(ProjectName::CREATE_MYCOSCAN);
 
@@ -98,6 +129,8 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
     {
         $project = $this->daedalus->getProjectByName(ProjectName::CONSTIPASPORE_SERUM);
 
+        $this->givenGameHasStarted();
+
         $this->givenMushSampleInLaboratory();
 
         $this->whenKuanTiTriesToParticipateInProject($project);
@@ -108,6 +141,8 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
     public function shouldBeExecutableIfFoodRequirementIsMet(FunctionalTester $I): void
     {
         $project = $this->daedalus->getProjectByName(ProjectName::CONSTIPASPORE_SERUM);
+
+        $this->givenGameHasStarted();
 
         $this->givenMushSampleInLaboratory();
 
@@ -166,6 +201,11 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         if (!$this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)->isChunIn()) {
             $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)->addPlayer($this->chun);
         }
+    }
+
+    private function givenGameHasStarted(): void
+    {
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
     }
 
     private function givenLabTerminal(): void

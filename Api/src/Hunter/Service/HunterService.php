@@ -22,8 +22,10 @@ use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
+use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Hunter\Event\HunterVariableEvent;
 use Mush\Hunter\Event\StrateguruWorkedEvent;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
@@ -374,6 +376,11 @@ final class HunterService implements HunterServiceInterface
 
                 break;
 
+            case $hunterTarget instanceof Hunter:
+                $this->shootAtHunter($hunter);
+
+                break;
+
             default:
                 throw new \Exception("Unknown hunter target {$hunter->getTarget()?->getType()}");
         }
@@ -499,6 +506,21 @@ final class HunterService implements HunterServiceInterface
         );
 
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function shootAtHunter(Hunter $hunter): void
+    {
+        /** @var Hunter $hunter */
+        $hunter = $hunter->getTargetEntityOrThrow();
+
+        $hunterVariableEvent = new HunterVariableEvent(
+            hunter: $hunter,
+            variableName: HunterVariableEnum::HEALTH,
+            quantity: -$this->getHunterDamage($hunter),
+            tags: [HunterEvent::HUNTER_SHOT],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
     private function applyMeridonScrambler(Hunter $hunter): void

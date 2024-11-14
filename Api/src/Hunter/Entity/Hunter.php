@@ -50,7 +50,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     #[ORM\OneToMany(mappedBy: 'hunter', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
 
-    #[ORM\OneToOne(targetEntity: HunterTarget::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\OneToOne(targetEntity: HunterTarget::class)]
     private ?HunterTarget $target;
 
     #[ORM\Column(type: 'boolean')]

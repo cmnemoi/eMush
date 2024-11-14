@@ -209,6 +209,27 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         );
     }
 
+    public function testMakeHuntersShootHunter(FunctionalTester $I)
+    {
+        // given hunter targets a hunter
+        $target = new HunterTarget($this->hunter);
+        $target->setTargetEntity($this->hunter);
+        $this->hunter->setTarget($target);
+        $I->haveInRepository($this->hunter);
+
+        // when hunter shoots
+        $hunters = $this->daedalus->getAttackingHunters();
+        $this->hunterService->makeHuntersShoot($hunters);
+
+        $I->assertTrue($this->player2->isInAPatrolShip());
+
+        // then hunter health is reduced
+        $I->assertLessThan(
+            expected: $this->hunter->getHunterConfig()->getInitialHealth(),
+            actual: $this->hunter->getHealth(),
+        );
+    }
+
     public function testMakeHuntersDoNotShootEntitiesNotInBattle(FunctionalTester $I): void
     {
         // given hunter has a 100% chance to target a player, but the player is in laboratory (not in battle)

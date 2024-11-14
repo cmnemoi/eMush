@@ -36,13 +36,13 @@ final class DeleteHunterTargetCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->hunterService = $I->grabService(HunterServiceInterface::class);
 
-        $this->givenOneHunterIsAttacking();
-
         $this->givenAPatrolShipInBattle($I);
     }
 
     public function shouldWorkWhenHunterAimsAtAPatrolShip(FunctionalTester $I): void
     {
+        $this->givenHuntersAreAttacking(number: 1);
+
         $this->givenHunterIsAimingAtAPatrolShip($I);
 
         // when patrol ship is destroyed
@@ -59,8 +59,28 @@ final class DeleteHunterTargetCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(entity: GameEquipment::class);
     }
 
-    private function givenOneHunterIsAttacking(): void
+    public function shouldWorkWhenHunterAimsAtHunter(FunctionalTester $I): void
     {
+        $this->givenHuntersAreAttacking(number: 2);
+
+        $this->givenHunterIsAimingAtHunter($I);
+
+        // when hunter is deleted
+        $attackedHunter = $this->daedalus
+            ->getAttackingHunters()
+            ->filter(fn (Hunter $hunter) => $hunter->notEquals($this->hunter))
+            ->first();
+        $attackedHunterId = $attackedHunter->getId();
+
+        $this->hunterService->delete([$attackedHunter]);
+
+        // then hunter should be properly deleted
+        $I->dontSeeInRepository(Hunter::class, ['id' => $attackedHunterId]);
+    }
+
+    private function givenHuntersAreAttacking(int $number): void
+    {
+        $this->daedalus->setHunterPoints($number * 10);
         $this->hunterService->unpoolHunters(
             $this->daedalus,
             tags: [],
@@ -85,6 +105,25 @@ final class DeleteHunterTargetCest extends AbstractFunctionalTest
     {
         $hunterTarget = new HunterTarget($this->hunter);
         $I->haveInRepository($hunterTarget);
+
         $hunterTarget->setTargetEntity($this->patrolShip);
+
+        $this->hunter->setTarget($hunterTarget);
+        $I->haveInRepository($this->hunter);
+    }
+
+    private function givenHunterIsAimingAtHunter(FunctionalTester $I): void
+    {
+        $attackedHunter = $this->daedalus
+            ->getAttackingHunters()
+            ->filter(fn (Hunter $hunter) => $hunter->notEquals($this->hunter))
+            ->first();
+
+        $hunterTarget = new HunterTarget($this->hunter);
+        $I->haveInRepository($hunterTarget);
+        $hunterTarget->setTargetEntity($attackedHunter);
+
+        $this->hunter->setTarget($hunterTarget);
+        $I->haveInRepository($this->hunter);
     }
 }

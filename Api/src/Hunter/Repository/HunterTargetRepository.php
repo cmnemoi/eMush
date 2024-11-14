@@ -12,11 +12,16 @@ use Mush\Hunter\Entity\HunterTarget;
 /**
  * @template-extends ServiceEntityRepository<HunterTarget>
  */
-final class HunterTargetRepository extends ServiceEntityRepository
+final class HunterTargetRepository extends ServiceEntityRepository implements HunterTargetRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, HunterTarget::class);
+    }
+
+    public function findAllBy(array $criteria): array
+    {
+        return $this->findBy($criteria);
     }
 
     /** @return HunterTarget[] */

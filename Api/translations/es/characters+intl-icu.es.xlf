@@ -284,9 +284,9 @@
         <source>frieda.description</source>
         <target>frieda.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>frieda.employment</source>
-        <target>frieda.employment</target>
+        <target/>
       </segment>
       <segment id="abstract" state="initial">
         <source>frieda.abstract</source>
@@ -348,9 +348,9 @@
       </segment>
     </unit>
     <unit id="Hua">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hua.name</source>
-        <target>hua.name</target>
+        <target/>
       </segment>
       <segment id="fullname" state="initial">
         <source>hua.fullname</source>

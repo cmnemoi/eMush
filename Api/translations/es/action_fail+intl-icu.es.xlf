@@ -618,13 +618,13 @@
     <unit id="cannot_go_to_this_room">
       <segment state="translated">
         <source>cannot_go_to_this_room.description</source>
-        <target>No puedes entrar en esta habitación.</target>
+        <target>No puedes entrar en esta sala.</target>
       </segment>
     </unit>
     <unit id="exploration_already_ongoing">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_already_ongoing.description</source>
-        <target>exploration_already_ongoing.description</target>
+        <target/>
       </segment>
     </unit>
     <unit id="no_efficiency">

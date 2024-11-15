@@ -170,7 +170,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>hide.description</source>
-        <target>Esconde de tus compañeros un objeto en esta habitación.</target>
+        <target>Esconde de tus compañeros un objeto en esta sala.</target>
       </segment>
     </unit>
     <unit id="hit">
@@ -220,7 +220,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>move.description</source>
-        <target>Cambia de habitación.</target>
+        <target>Cambia de sala.</target>
       </segment>
     </unit>
     <unit id="read_book">
@@ -260,7 +260,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>search.description</source>
-        <target>Te permite hurgar por objetos ocultos en la habitación.</target>
+        <target>Te permite hurgar por objetos ocultos en la sala.</target>
       </segment>
     </unit>
     <unit id="rejuvenate">

@@ -64,7 +64,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>hidden.description</source>
-        <target>Este objeto está oculto. Solo tú puedes verlo. ¡Advertencia!, un objeto oculto puede ser descubierto por otro jugador si buscan en la habitación.</target>
+        <target>Este objeto está oculto. Solo tú puedes verlo. ¡Advertencia!, un objeto oculto puede ser descubierto por otro jugador si buscan en la sala.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>hidden.examine</source>

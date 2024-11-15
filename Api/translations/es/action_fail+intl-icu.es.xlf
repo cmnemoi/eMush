@@ -640,9 +640,9 @@
       </segment>
     </unit>
     <unit id="no_working_door">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>no_working_door.description</source>
-        <target>no_working_door.description</target>
+        <target>No hay puertas funcionales en esta sala.</target>
       </segment>
     </unit>
     <unit id="premonition_insufficient_morale">

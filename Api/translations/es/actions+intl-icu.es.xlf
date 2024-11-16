@@ -435,9 +435,9 @@ Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas 
         <source>heal.name</source>
         <target>Curar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>heal.description</source>
-        <target>heal.description</target>
+        <target>Te devuelve puntos de vida (:hp:). Si estás enfermo, le quita un punto de enfermedad a uno de tus males.</target>
       </segment>
     </unit>
     <unit id="self_heal">
@@ -445,35 +445,35 @@ Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas 
         <source>self_heal.name</source>
         <target>self_heal</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>self_heal.description</source>
-        <target>self_heal.description</target>
+        <target>Te devuelve puntos de vida (:hp:). Si estás enfermo, le quita un punto de enfermedad a uno de tus males.</target>
       </segment>
     </unit>
     <unit id="ultraheal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>ultraheal.name</source>
-        <target>ultraheal.name</target>
+        <target>Aplicar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ultraheal.description</source>
-        <target>ultraheal.description</target>
+        <target>Sana todas tus heridas.</target>
       </segment>
     </unit>
     <unit id="use_bandage">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>use_bandage.name</source>
-        <target>use_bandage.name</target>
+        <target>Usar vendaje</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>use_bandage.description</source>
-        <target>use_bandage.description</target>
+        <target>Permite curar tus heridas menores.</target>
       </segment>
     </unit>
     <unit id="comfort">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>comfort.name</source>
-        <target>comfort.name</target>
+        <target>Reconfortar</target>
       </segment>
       <segment id="description" state="initial">
         <source>comfort.description</source>
@@ -481,43 +481,43 @@ Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas 
       </segment>
     </unit>
     <unit id="open">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>open.name</source>
-        <target>open.name</target>
+        <target>Abrir</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>open.description</source>
-        <target>open.description</target>
+        <target>Abrir una cápsula es algo delicado y puede traerte sorpresas. Peor aún, hay quienes se vuelve adictos a ello y no vuelven nunca a la normalidad.</target>
       </segment>
     </unit>
     <unit id="strengthen_hull">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>strengthen_hull.name</source>
-        <target>strengthen_hull.name</target>
+        <target>Reforzar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>strengthen_hull.description</source>
-        <target>strengthen_hull.description</target>
+        <target>Permite hacer reparaciones en el casco de la nave.</target>
       </segment>
     </unit>
     <unit id="spread_fire">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>spread_fire.name</source>
-        <target>spread_fire.name</target>
+        <target>Prender fuego</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>spread_fire.description</source>
-        <target>spread_fire.description</target>
+        <target>Permite satisfacer una de las necesidades de NERON... y tus intereses.</target>
       </segment>
     </unit>
     <unit id="install_camera">
       <segment id="name" state="translated">
         <source>install_camera.name</source>
-        <target>install_camera</target>
+        <target>Instalar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>install_camera.description</source>
-        <target>install_camera.description</target>
+        <target>Permite instalar un equipo para hacerlo útil.</target>
       </segment>
     </unit>
     <unit id="remove_camera">

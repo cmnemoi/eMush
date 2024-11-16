@@ -2,43 +2,43 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="characters.ext">
     <unit id="Neron">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>neron.name</source>
-        <target>neron.name</target>
+        <target>Neron</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>neron.fullname</source>
-        <target>neron.fullname</target>
+        <target>Neron</target>
       </segment>
     </unit>
     <unit id="Andie">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>andie.name</source>
-        <target>andie.name</target>
+        <target>Andie</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>andie.fullname</source>
-        <target>andie.fullname</target>
+        <target>Andie Graham</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>andie.initials</source>
-        <target>andie.initials</target>
+        <target>AG</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>andie.age</source>
-        <target>andie.age</target>
+        <target>24 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>andie.description</source>
-        <target>andie.description</target>
+        <target>Lamesuelas de la Federación</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>andie.employment</source>
-        <target>andie.employment</target>
+        <target>Sub-teniente de la FDS</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>andie.abstract</source>
-        <target>andie.abstract</target>
+        <target>Andie Graham, sub-teniente de la FDS, sigue sin saber que el Daedalus ha cortado sus lazos con la FDS. Aún cree que está en una misión por el bien de la Federación y participa activamente en el éxito de la misma. Al enterarse de que su ídolo, el sargento Derek Hogan, es parte de la tripulación del Daedelus, Andie solicita un lugar a bordo. El conjunto de habilidades variadas que posee le vuelven esencial para el éxito de la misión.</target>
       </segment>
       <segment id="biography" state="translated">
         <source>andie.biography</source>
@@ -50,43 +50,43 @@
 - 3154: Después de completar sus estudios, Andie decide convertirse en piloto, por lo que se une a la división aérea de la federación y aprueba su certificado con gran éxito. **Andie pide que se le asigne a Xyloph-17*** y pronto Kim Jin Su nota su talento. Derek no le reconoce.
 - 3154: Lejos de sospechar los problemas que acechan en las sombras y todavía pensando en servir ardientemente a la federación, Andie aborda el Daedalus.</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>andie.tips</source>
-        <target>andie.tips</target>
+        <target>**Participa en investigaciones** en el Laboratorio para ralentizar a los Mushs gracias a tu habilidad Polivalente.//**Elimina hunters** con los Patrulleros ubicados en las plataformas para proteger la nave.//**Participa en expediciones** a planetas con el Ícaro ubicado en la Plataforma Icarus, despegando con tu habilidad Piloto y haciendolos más seguros con Polivalente.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>andie.tutorial</source>
-        <target>andie.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Andie_Graham</target>
       </segment>
     </unit>
     <unit id="Chao">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>chao.name</source>
-        <target>chao.name</target>
+        <target>Chao</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>chao.fullname</source>
-        <target>chao.fullname</target>
+        <target>Wang Chao</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>chao.initials</source>
-        <target>chao.initials</target>
+        <target>CW</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>chao.age</source>
-        <target>chao.age</target>
+        <target>34 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>chao.description</source>
-        <target>chao.description</target>
+        <target>Jefe de seguridad del Daedalus</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>chao.employment</source>
-        <target>chao.employment</target>
+        <target>Jefe de seguridad</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>chao.abstract</source>
-        <target>chao.abstract</target>
+        <target>A Wang Chao se le asigna el puesto de jefe de seguridad de la tripulación. Su personalidad caótica lo convierte en una amenaza tanto para sus aliados como para sus enemigos. A pesar de los errores que cometió en su juventud, Chao logró ganarse la confianza de su equipo organizando el convoy de evacuación de emergencia del Daedalus y protegiéndolos con éxito contra los exmiembros de la FDS.</target>
       </segment>
       <segment id="biography" state="translated">
         <source>chao.biography</source>
@@ -99,43 +99,43 @@
 - 3153: El jefe del proyecto Daedalus, Kim Jin Su, encarga extraoficialmente a ***Chao y Derek de secuestrar a Finola Keegan***, una eminencia de la investigación anti-mush que se negó a unirse a su alianza. Derek Hogan desaparece durante la operación en circunstancias misteriosas, pero la misión es un éxito. Finola es abordada y se congela criogénicamente en Xyloph-17.
 - 3154: Cuando se entera de que el nuevo directivo enviado por la Federación ha sido infectado por el Mush, Chao ***lo elimina sin el consentimiento de sus compañeros***. Este hecho provocó un retroceso en sus relaciones con la Federación, quienes habían ordenado a los operarios de la FDS de ese sitio a suspender el proyecto. Chao se niega a cumplir la orden y ayuda a los miembros restantes de su equipo a organizar una salida sorpresa del Daedalus.</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>chao.tips</source>
-        <target>chao.tips</target>
+        <target>**Investiga para identificar Mushs** con tus compañeros humanos en canales privados.//**Tortura a compañeros sospechosos** para identificar acciones Mush con tu habilidad Torturador.//**Participa en expediciones** para recolectar más recursos con tu habilidad Superviviente.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>chao.tutorial</source>
-        <target>chao.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Wang_Chao</target>
       </segment>
     </unit>
     <unit id="Chun">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>chun.name</source>
-        <target>chun.name</target>
+        <target>Chun</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>chun.fullname</source>
-        <target>chun.fullname</target>
+        <target>Zhong Chun</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>chun.initials</source>
-        <target>chun.initials</target>
+        <target>CZ</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>chun.age</source>
-        <target>chun.age</target>
+        <target>33 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>chun.description</source>
-        <target>chun.description</target>
+        <target>Última esperanza de la humanidad</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>chun.employment</source>
-        <target>chun.employment</target>
+        <target>Agente de mantenimiento</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>chun.abstract</source>
-        <target>chun.abstract</target>
+        <target>Siendo la única superviviente del equipo médico de Tamina, Chun fue llevada a bordo del Daedalus para someterse a varios análisis. Criogenizada por la Federación durante más de nueve años para garantizar su silencio y luego acosada por los periodistas, Chun nunca ha conocido una vida normal. Sin embargo, es la clave para la supervivencia de la especie humana; Zhong Chun debe sobrevivir a toda costa.</target>
       </segment>
       <segment id="biography" state="initial">
         <source>chun.biography</source>
@@ -151,33 +151,33 @@
       </segment>
     </unit>
     <unit id="Derek">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>derek.name</source>
-        <target>derek.name</target>
+        <target>Derek</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>derek.fullname</source>
-        <target>derek.fullname</target>
+        <target>Derek Hogan</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>derek.initials</source>
-        <target>derek.initials</target>
+        <target>DH</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>derek.age</source>
-        <target>derek.age</target>
+        <target>39 años recién cumplidos</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>derek.description</source>
-        <target>derek.description</target>
+        <target>Un verdadero héroe a pesar de todo.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>derek.employment</source>
-        <target>derek.employment</target>
+        <target>Ex sargento de la FDS</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>derek.abstract</source>
-        <target>derek.abstract</target>
+        <target>Derek Hogan está asignado a la seguridad del Daedalus. Robusto y seguro de sí mismo, será un miembro importante para el éxito de esta misión extrema. Su pasado es una sucesión de acontecimientos, cada uno más increíble que el anterior. Derek lo ha experimentado todo, los campos de batalla de Sol, las misiones suicidas de Tau-Ceti... Sin embargo, siempre está buscando un alma gemela. Desde su apresurada salida de su hogar, Derek ha dedicado su existencia a las mujeres, pero sin éxito alguno.</target>
       </segment>
       <segment id="biography" state="initial">
         <source>derek.biography</source>
@@ -193,21 +193,21 @@
       </segment>
     </unit>
     <unit id="Eleesha">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>eleesha.name</source>
-        <target>eleesha.name</target>
+        <target>Eleesha</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>eleesha.fullname</source>
-        <target>eleesha.fullname</target>
+        <target>Eleesha Williams</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>eleesha.initials</source>
-        <target>eleesha.initials</target>
+        <target>EW</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>eleesha.age</source>
-        <target>eleesha.age</target>
+        <target>30 años</target>
       </segment>
       <segment id="description" state="translated">
         <source>eleesha.description</source>
@@ -217,9 +217,9 @@
         <source>eleesha.employment</source>
         <target>Reportera de renombre</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>eleesha.abstract</source>
-        <target>eleesha.abstract</target>
+        <target>Eleesha es periodista de investigación en SNC (Sol News Channel). Obtuvo registros médicos de varios líderes políticos y financieros de la Federación, demostrando su infección Mush. Después de que su informe fuera bajado del aire, Eleesha huye a Júpiter por temor a ser eliminada. Ella revela todo esto al equipo del Daedalus y obtiene un empleo como mecánico.</target>
       </segment>
       <segment id="biography" state="initial">
         <source>eleesha.biography</source>
@@ -235,29 +235,29 @@
       </segment>
     </unit>
     <unit id="Finola">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>finola.name</source>
-        <target>finola.name</target>
+        <target>Finola</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>finola.fullname</source>
-        <target>finola.fullname</target>
+        <target>Finola Keegan</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>finola.initials</source>
-        <target>finola.initials</target>
+        <target>FK</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>finola.age</source>
-        <target>finola.age</target>
+        <target>30 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>finola.description</source>
-        <target>finola.description</target>
+        <target>Bióloga de renombre internacional y pionera del estudio Mush</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>finola.employment</source>
-        <target>finola.employment</target>
+        <target>Bióloga</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>finola.abstract</source>
@@ -277,25 +277,25 @@
       </segment>
     </unit>
     <unit id="Frieda">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>frieda.name</source>
-        <target>frieda.name</target>
+        <target>Frieda</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>frieda.fullname</source>
-        <target>frieda.fullname</target>
+        <target>Frieda Bergmann</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>frieda.initials</source>
-        <target>frieda.initials</target>
+        <target>FB</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>frieda.age</source>
-        <target>frieda.age</target>
+        <target>66 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>frieda.description</source>
-        <target>frieda.description</target>
+        <target>Astrofísica milenaria</target>
       </segment>
       <segment id="employment" state="translated">
         <source>frieda.employment</source>
@@ -319,29 +319,29 @@
       </segment>
     </unit>
     <unit id="Gioele">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>gioele.name</source>
-        <target>gioele.name</target>
+        <target>Gioele</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>gioele.fullname</source>
-        <target>gioele.fullname</target>
+        <target>Gioele Rinaldo</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>gioele.initials</source>
-        <target>gioele.initials</target>
+        <target>GR</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>gioele.age</source>
-        <target>gioele.age</target>
+        <target>55 años</target>
       </segment>
       <segment id="description" state="initial">
         <source>gioele.description</source>
         <target>gioele.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>gioele.employment</source>
-        <target>gioele.employment</target>
+        <target>Magnate constructor de naves de gran escala</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>gioele.abstract</source>

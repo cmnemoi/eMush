@@ -145,4 +145,5 @@ abstract class ModifierNameEnum
     public const string MINUS_1_SPORE_ON_TAKE_SHOWER = 'minus_1_spore_on_take_shower';
     public const string SUPER_SOAPER_MODIFIER = 'super_soaper_modifier';
     public const string SELF_SACRIFICE_MODIFIER = 'self_sacrifice_modifier';
+    public const string IMMUNIZED_MODIFIER = 'immunized_modifier';
 }

@@ -286,15 +286,13 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setName('modifier_requirement_name_turret_test');
         $manager->persist($modifierRequirementNameTurret);
 
-        $immunizedModifierSet0SporesOnChangeVariable = new VariableEventModifierConfig('immunizedModifierSet0SporesOnChangeVariable');
-        $immunizedModifierSet0SporesOnChangeVariable
-            ->setTargetVariable(PlayerVariableEnum::SPORE)
-            ->setDelta(0)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
-            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-            ->setApplyWhenTargeted(true)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        /** @var ModifierActivationRequirement $playerIsNotMushRequirement */
+        $playerIsNotMushRequirement = $this->getReference(ModifierRequirementEnum::PLAYER_IS_NOT_MUSH);
+
+        $immunizedModifierSet0SporesOnChangeVariable = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_for_player_set_0spore_on_change.variable')
+        );
+        $immunizedModifierSet0SporesOnChangeVariable->addModifierRequirement($playerIsNotMushRequirement);
         $manager->persist($immunizedModifierSet0SporesOnChangeVariable);
 
         $inactiveModifier = VariableEventModifierConfig::fromConfigData(

@@ -206,11 +206,11 @@
     <unit id="lie_down">
       <segment id="lie_down" state="translated">
         <source>lie_down.name</source>
-        <target>Acostarse</target>
+        <target>Recostarse</target>
       </segment>
       <segment id="description" state="translated">
         <source>lie_down.description</source>
-        <target>Para relajarse o conversar, no hay nada como acostarse un poco. Acostarse permite que cada ciclo que pase ganes 1 :pa: y 1 :pmo: si hay un Psicólogo presente.</target>
+        <target>Para relajarse o conversar, nada mejor que un momento de tranquilidad. Recostarse permite ganar en cada ciclo que pase 1 :pa: y 1 :pmo: si hay un *Psicólogo* presente.</target>
       </segment>
     </unit>
     <unit id="move">
@@ -264,23 +264,27 @@
       </segment>
     </unit>
     <unit id="rejuvenate">
-      <segment id="rejuvenate" state="initial">
+      <segment id="rejuvenate" state="translated">
         <source>rejuvenate.name</source>
-        <target>rejuvenate.name</target>
+        <target>Restaurar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>rejuvenate.description</source>
-        <target>rejuvenate.description</target>
+        <target>Te permite recuperar todos tus :pa:, :pm:, :hp: and :pmo:. 
+//
+Disponible solo durante el alpha. 
+//
+¡Gracias por tu ayuda!</target>
       </segment>
     </unit>
     <unit id="reset_skill_points">
-      <segment id="reset_skill_points" state="initial">
+      <segment id="reset_skill_points" state="translated">
         <source>reset_skill_points.name</source>
-        <target>reset_skill_points.name</target>
+        <target>Reiniciar puntos de habilidad</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>reset_skill_points.description</source>
-        <target>reset_skill_points.description</target>
+        <target>Permite recuperar tus puntos de habilidad.</target>
       </segment>
     </unit>
     <unit id="shred">
@@ -288,49 +292,49 @@
         <source>shred.name</source>
         <target>Despedazar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>shred.description</source>
-        <target>shred.description</target>
+        <target>Estos malditos papeles están por todas partes. ¡Deshazte de ellos!</target>
       </segment>
     </unit>
     <unit id="take">
       <segment id="name" state="translated">
         <source>take.name</source>
-        <target>take</target>
+        <target>Tomar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>take.description</source>
-        <target>take.description</target>
+        <target>Toma un objeto de esta sala y colócalo en tu inventario.</target>
       </segment>
     </unit>
     <unit id="transplant">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>transplant.name</source>
-        <target>transplant.name</target>
+        <target>Sembrar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>transplant.description</source>
-        <target>transplant.description</target>
+        <target>Sacrifica una fruta para crear una nueva planta.</target>
       </segment>
     </unit>
     <unit id="treat_plant">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>treat_plant.name</source>
-        <target>treat_plant.name</target>
+        <target>Tratar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>treat_plant.description</source>
-        <target>treat_plant.description</target>
+        <target>Cura las enfermedades de la planta.</target>
       </segment>
     </unit>
     <unit id="water_plant">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>water_plant.name</source>
-        <target>water_plant.name</target>
+        <target>Regar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>water_plant.description</source>
-        <target>water_plant.description</target>
+        <target>Calma la sed de tu planta.</target>
       </segment>
     </unit>
     <unit id="write">
@@ -346,31 +350,32 @@
     <unit id="insert_oxygen">
       <segment id="name" state="translated">
         <source>insert_oxygen.name</source>
-        <target>insert_oxygen</target>
+        <target>Insertar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>insert_oxygen.description</source>
-        <target>insert_oxygen.description</target>
+        <target>Inserta oxígeno en el tanque.</target>
       </segment>
     </unit>
     <unit id="retrieve_oxygen">
       <segment id="name" state="translated">
         <source>retrieve_oxygen.name</source>
-        <target>retrieve_oxygen</target>
+        <target>Sacar cápsula de oxígeno</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>retrieve_oxygen.description</source>
-        <target>retrieve_oxygen.description</target>
+        <target>Fantástico, el sistema Oxy Rev te permite sacar oxígeno de los tanques. Recuerda cerrar bien las válvulas y lavarte bien las manos.
+Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas presentes* en la sala, incluso de *tu bando*.</target>
       </segment>
     </unit>
     <unit id="insert_fuel">
       <segment id="name" state="translated">
         <source>insert_fuel.name</source>
-        <target>insert_fuel</target>
+        <target>Insertar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>insert_fuel.description</source>
-        <target>insert_fuel.description</target>
+        <target>Inserta combustible en la Cámara de Combustión del motor</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel">

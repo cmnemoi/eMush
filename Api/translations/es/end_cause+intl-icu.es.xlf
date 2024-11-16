@@ -330,279 +330,279 @@
         <source>clumsiness.name</source>
         <target>Muerto en circunstancias funestas</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>clumsiness.short_name</source>
-        <target>clumsiness.short_name</target>
+        <target>Tan torpe que la cosa más simple acabó contigo</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>clumsiness.category</source>
-        <target>clumsiness.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>clumsiness.description</source>
-        <target>clumsiness.description</target>
+        <target>Lo que sea que hiciste, lo hiciste muy mal. Terriblemente mal. Tan mal que acabaste lastimándote y no un poco. Que pena.</target>
       </segment>
     </unit>
     <unit id="space_battle">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>space_battle.name</source>
-        <target>space_battle.name</target>
+        <target>Combate espacial</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>space_battle.short_name</source>
-        <target>space_battle.short_name</target>
+        <target>¡Muerto dentro de un patrullero destruido!</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>space_battle.category</source>
-        <target>space_battle.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>space_battle.description</source>
-        <target>space_battle.description</target>
+        <target>Has perecido en el campo de batalla. Estuviste muy cerca, pero ese último hunter era muy hábil.</target>
       </segment>
     </unit>
     <unit id="space_asphyxiated">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>space_asphyxiated.name</source>
-        <target>space_asphyxiated.name</target>
+        <target>En el espacio sin poder respirar...</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>space_asphyxiated.short_name</source>
-        <target>space_asphyxiated.short_name</target>
+        <target>¡Abandonado muerto en el espacio exterior!</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>space_asphyxiated.category</source>
-        <target>space_asphyxiated.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>space_asphyxiated.description</source>
-        <target>space_asphyxiated.description</target>
+        <target>Por alguna coincidencia desconocida, te hallaste en el espacio sin forma alguna de poder respirar. La próxima vez sal cubierto. Que pena.</target>
       </segment>
     </unit>
     <unit id="beheaded">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>beheaded.name</source>
-        <target>beheaded.name</target>
+        <target>Decapitado</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>beheaded.short_name</source>
-        <target>beheaded.short_name</target>
+        <target>¡Decapitado por un cobarde!</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>beheaded.category</source>
-        <target>beheaded.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>beheaded.description</source>
-        <target>beheaded.description</target>
+        <target>A diferencia del jinete sin cabeza, tú no regresarás de la muerte. Tu asesino no falló.</target>
       </segment>
     </unit>
     <unit id="starvation">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>starvation.name</source>
-        <target>starvation.name</target>
+        <target>Hambre</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>starvation.short_name</source>
-        <target>starvation.short_name</target>
+        <target>¡Muerto de hambre!</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>starvation.category</source>
-        <target>starvation.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>starvation.description</source>
-        <target>starvation.description</target>
+        <target>No hay nada más que comer... o tal vez te olvidaste de esta necesidad humana básica.</target>
       </segment>
     </unit>
     <unit id="quarantine">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>quarantine.name</source>
-        <target>quarantine.name</target>
+        <target>Puesto en cuarentena por NERON</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>quarantine.short_name</source>
-        <target>quarantine.short_name</target>
+        <target>Puesto en cuarentena por NERON</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>quarantine.category</source>
-        <target>quarantine.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>quarantine.description</source>
-        <target>quarantine.description</target>
+        <target>Has cometido una pena mayor dentro del juego y NERON ha decidido ponerte en cuarentena. No lo vuelvas a hacer.</target>
       </segment>
     </unit>
     <unit id="black_bite">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>black_bite.name</source>
-        <target>black_bite.name</target>
+        <target>Mordedura negra</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>black_bite.short_name</source>
-        <target>black_bite.short_name</target>
+        <target>¡Sucumbiste a una enfermedad alienígena!</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>black_bite.category</source>
-        <target>black_bite.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>black_bite.description</source>
-        <target>black_bite.description</target>
+        <target>Has sucumbido a la enfermedad Mordedura Negra</target>
       </segment>
     </unit>
     <unit id="metal_plate">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>metal_plate.name</source>
-        <target>metal_plate.name</target>
+        <target>Impactado por una placa de metal</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>metal_plate.short_name</source>
-        <target>metal_plate.short_name</target>
+        <target>¡Otra víctima de esta chatarra voladora!</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>metal_plate.category</source>
-        <target>metal_plate.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>metal_plate.description</source>
-        <target>metal_plate.description</target>
+        <target>El Daedalus es un bote de basura volador... Tú sabías que no debiste haberte quedado parado debajo de esa placa de metal suelta...</target>
       </segment>
     </unit>
     <unit id="rocketed">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>rocketed.name</source>
-        <target>rocketed.name</target>
+        <target>Impactado por un misil</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>rocketed.short_name</source>
-        <target>rocketed.short_name</target>
+        <target>¡Echo papilla por un misil curioso!</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>rocketed.category</source>
-        <target>rocketed.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>rocketed.description</source>
-        <target>rocketed.description</target>
+        <target>No, no moriste ahogado comiendo una ensalada. Fuiste golpeado por un proyectil de alta velocidad. Lleno de explosivos y tecnología. En resumen, tus restos quedaron desperdigados por todos lados.</target>
       </segment>
     </unit>
     <unit id="bled">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>bled.name</source>
-        <target>bled.name</target>
+        <target>Desangrado</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>bled.short_name</source>
-        <target>bled.short_name</target>
+        <target>¡Has perdido toda tu sangre!</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>bled.category</source>
-        <target>bled.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>bled.description</source>
-        <target>bled.description</target>
+        <target>Has perdido toda tu sangre. Pereces con cansancio...</target>
       </segment>
     </unit>
     <unit id="infection">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>infection.name</source>
-        <target>infection.name</target>
+        <target>Septicemia</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>infection.short_name</source>
-        <target>infection.short_name</target>
+        <target>¡Sucumbiste a una infección generalizada!</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>infection.category</source>
-        <target>infection.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>infection.description</source>
-        <target>infection.description</target>
+        <target>Tu condición empeoró... por mucho. Así es como mueres por un shock séptico severo.</target>
       </segment>
     </unit>
     <unit id="mankarog">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mankarog.name</source>
-        <target>mankarog.name</target>
+        <target>Aventurero demasiado curioso</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>mankarog.short_name</source>
-        <target>mankarog.short_name</target>
+        <target>¡Muerto por un Mankarog molesto!</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>mankarog.category</source>
-        <target>mankarog.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mankarog.description</source>
-        <target>mankarog.description</target>
+        <target>A veces la historia es sórdida, a veces es cruel, a veces es triste. Y a veces es gloriosa. El relato de tus aventuras puede o no ser parte de la historia... En cualquier caso, has fallecido, ¡es oficial! </target>
       </segment>
     </unit>
     <unit id="no_infirmerie">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>no_infirmerie.name</source>
-        <target>no_infirmerie.name</target>
+        <target>Enfermería no disponible</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>no_infirmerie.short_name</source>
-        <target>no_infirmerie.short_name</target>
+        <target>¡Muerto perdido en el espacio infinito!</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>no_infirmerie.category</source>
-        <target>no_infirmerie.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>no_infirmerie.description</source>
-        <target>no_infirmerie.description</target>
+        <target>La causa de tu muerte se perdió en el limbo del universo...</target>
       </segment>
     </unit>
     <unit id="suicide">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>suicide.name</source>
-        <target>suicide.name</target>
+        <target>Suicidio</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>suicide.short_name</source>
-        <target>suicide.short_name</target>
+        <target>¡Suicidio con estilo!</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>suicide.category</source>
-        <target>suicide.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>suicide.description</source>
-        <target>suicide.description</target>
+        <target>¡Tienes bugs que corregir en otro universo!</target>
       </segment>
     </unit>
     <unit id="patrol_ship_explosion">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_explosion.name</source>
-        <target>patrol_ship_explosion.name</target>
+        <target>Patrullero destruido</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_explosion.short_name</source>
-        <target>patrol_ship_explosion.short_name</target>
+        <target>¡Una maniobra fallida!</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>patrol_ship_explosion.category</source>
-        <target>patrol_ship_explosion.category</target>
+        <target>¡Has muerto!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>patrol_ship_explosion.description</source>
-        <target>patrol_ship_explosion.description</target>
+        <target>Tu monoplaza se pulverizó con el Daedalus. Mala suerte.</target>
       </segment>
     </unit>
     <unit id="still_living">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>still_living.name</source>
-        <target>still_living.name</target>
+        <target>Aún no</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>still_living.description</source>
-        <target>still_living.description</target>
+        <target>Este jugador aún vive</target>
       </segment>
     </unit>
   </file>

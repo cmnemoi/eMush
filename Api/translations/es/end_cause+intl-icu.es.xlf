@@ -16,13 +16,13 @@
       </segment>
       <segment id="description" state="translated">
         <source>sol_return.description</source>
-        <target>Has decidido intentar regresar a Sol. Tu loca aventura en el Daedalus termina aquí. ¿Será que ahora eres una legenda?</target>
+        <target>Has decidido intentar regresar a Sol. Tu loca aventura en el Daedalus termina aquí. ¿Será que ahora eres una leyenda?</target>
       </segment>
     </unit>
     <unit id="eden">
       <segment id="name" state="translated">
         <source>eden.name</source>
-        <target>El Daedalus se asentó en Edén</target>
+        <target>El Daedalus aterrizó en Edén</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>eden.short_name</source>
@@ -44,7 +44,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>daedalus_destroyed.short_name</source>
-        <target>¡Tu cuerpo flota alrededor de los restos pulverizados del Daedalus!</target>
+        <target>¡Tu cadáver flota alrededor de los restos pulverizados del Daedalus!</target>
       </segment>
       <segment id="category" state="translated">
         <source>daedalus_destroyed.category</source>
@@ -106,7 +106,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>alien_abducted.description</source>
-        <target>Vas a contribuir al avance científico de otra civilización. ¡Buen trabajo!</target>
+        <target>Vas a contribuir al avance científico de otra civilización. ¡Bien hecho!</target>
       </segment>
     </unit>
     <unit id="assassinated">

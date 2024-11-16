@@ -22,13 +22,13 @@
       </segment>
     </unit>
     <unit id="dispense">
-      <segment id="dispense" state="initial">
+      <segment id="dispense" state="translated">
         <source>dispense.name</source>
-        <target>dispense.name</target>
+        <target>Dispensar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>dispense.description</source>
-        <target>dispense.description</target>
+        <target>Permite extraer un pequeño y nuevo regalito.</target>
       </segment>
     </unit>
     <unit id="do_the_thing">
@@ -36,23 +36,23 @@
         <source>do_the_thing.name</source>
         <target>Hacerlo</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>do_the_thing.description</source>
-        <target>do_the_thing.description</target>
+        <target>Te permite hacerlo.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>do_the_thing.confirmation</source>
-        <target>do_the_thing.confirmation</target>
+        <target>Esta acción solo se puede realizar una vez al día. ¿Estás seguro de querer continuar?</target>
       </segment>
     </unit>
     <unit id="check_spore_level">
       <segment id="check_spore_level" state="translated">
         <source>check_spore_level.name</source>
-        <target>check_spore_level</target>
+        <target>Verificar nivel de infección</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>check_spore_level.description</source>
-        <target>check_spore_level.description</target>
+        <target>Te permite comprobar tu propio nivel de infección en número de esporas de Mush.</target>
       </segment>
     </unit>
     <unit id="consume">
@@ -62,17 +62,17 @@
       </segment>
       <segment id="description" state="translated">
         <source>consume.description</source>
-        <target>Date un gustito llenándote la panza. Casi siempre te da :pa::pm:. Las *raciones cocinadas* te subirán el ánimo. Los otros alimentos o sustancias pueden guardar alguna sorpresa.</target>
+        <target>Date un gustito llenándote la panza. Comer y beber puede darte :pa::pm:. Las *raciones cocinadas* no afectarán tu nivel de ánimo. Los otros alimentos o sustancias pueden guardar alguna sorpresa.</target>
       </segment>
     </unit>
     <unit id="consume_drug">
       <segment id="consume_drug" state="translated">
         <source>consume_drug.name</source>
-        <target>consume_drug</target>
+        <target>Comer</target>
       </segment>
       <segment id="description" state="translated">
         <source>consume_drug.description</source>
-        <target>Toma una buena pastilla. Casi siempre te da :pa::pm:. Las *raciones cocinadas* te subirán el ánimo. Los otros alimentos o sustancias pueden guardar alguna sorpresa.</target>
+        <target>Toma una buena pastilla. Puede darte :pa::pm: y curar o mejorar una enfermedad que padezcas.</target>
       </segment>
     </unit>
     <unit id="eat_spore">
@@ -82,7 +82,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>eat_spore.description</source>
-        <target>Comer una espora te hará recuperar 4 :pa: et 4 :hp:.</target>
+        <target>Comer una espora te hará recuperar 4 :pa: y 4 :hp:.</target>
       </segment>
     </unit>
     <unit id="cook">
@@ -104,9 +104,9 @@
         <source>disassemble.description</source>
         <target>Desarma un objeto para reutilizar todos o algunos de sus componentes.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>disassemble.confirmation</source>
-        <target>disassemble.confirmation</target>
+        <target>Desarmar este objeto no es algo común. Este objeto no puede volver a ser armado. ¿Quieres hacerlo de todas maneras?</target>
       </segment>
     </unit>
     <unit id="drop">
@@ -134,23 +134,23 @@
         <source>extract_spore.name</source>
         <target>Extirpar una espora</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>extract_spore.description</source>
-        <target>extract_spore.description</target>
+        <target>Extirpa una espora para poder infectar a un compañero (pero antes de eso, ten cuidado con las cámaras)</target>
       </segment>
     </unit>
     <unit id="flirt">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>flirt.name</source>
-        <target>flirt.name</target>
+        <target>Flirtear</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>flirt.description</source>
-        <target>flirt.description</target>
+        <target>Permite flirtear con alguien, esta acción te permitirá hacerlo con esa persona. Esta acción es **irreversible**.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>flirt.confirmation</source>
-        <target>flirt.confirmation</target>
+        <target>Esta acción es irreversible. ¿Quieres continuar de todas maneras?</target>
       </segment>
     </unit>
     <unit id="get_up">
@@ -188,35 +188,35 @@
         <source>hyperfreeze.name</source>
         <target>Hipercongelar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hyperfreeze.description</source>
-        <target>hyperfreeze.description</target>
+        <target>Cambia un alimento perecible a no perecible.</target>
       </segment>
     </unit>
     <unit id="infect">
-      <segment id="infect" state="initial">
+      <segment id="infect" state="translated">
         <source>infect.name</source>
-        <target>infect.name</target>
+        <target>Picar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>infect.description</source>
-        <target>infect.description</target>
+        <target>Picar a alguien con una espora permite infectarle. Para hacer esto, debes tener esporas encima. Después de tres infecciones, el personaje habrá completado su viaje hacia el Mush.</target>
       </segment>
     </unit>
     <unit id="lie_down">
       <segment id="lie_down" state="translated">
         <source>lie_down.name</source>
-        <target>lie_down</target>
+        <target>Acostarse</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lie_down.description</source>
-        <target>lie_down.description</target>
+        <target>Para relajarse o conversar, no hay nada como acostarse un poco. Acostarse permite que cada ciclo que pase ganes 1 :pa: y 1 :pmo: si hay un Psicólogo presente.</target>
       </segment>
     </unit>
     <unit id="move">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>move.name</source>
-        <target>move.name</target>
+        <target>Moverse</target>
       </segment>
       <segment id="description" state="translated">
         <source>move.description</source>
@@ -226,21 +226,21 @@
     <unit id="read_book">
       <segment id="read_book" state="translated">
         <source>read_book.name</source>
-        <target>read_book</target>
+        <target>Leer</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>read_book.description</source>
-        <target>read_book.description</target>
+        <target>La curiosidad mató al gato, pero... ¿Un documento secreto? Podría ser inútil o indispensable, ¿Quién sabe lo que podría contener?</target>
       </segment>
     </unit>
     <unit id="read_document">
       <segment id="read_document" state="translated">
         <source>read_document.name</source>
-        <target>read_document</target>
+        <target>Leer</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>read_document.description</source>
-        <target>read_document.description</target>
+        <target>La curiosidad mató al gato, pero... ¿Un documento secreto? Podría ser inútil o indispensable, ¿Quién sabe lo que podría contener?</target>
       </segment>
     </unit>
     <unit id="repair">
@@ -248,9 +248,9 @@
         <source>repair.name</source>
         <target>Reparar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>repair.description</source>
-        <target>repair.description</target>
+        <target>Repara un objeto dañado para que vuelva a ser útil.</target>
       </segment>
     </unit>
     <unit id="search">

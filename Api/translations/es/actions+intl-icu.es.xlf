@@ -42,7 +42,7 @@
       </segment>
       <segment id="confirmation" state="translated">
         <source>do_the_thing.confirmation</source>
-        <target>Esta acción solo se puede realizar una vez al día. ¿Estás seguro de querer continuar?</target>
+        <target>Esta acción solo se puede realizar una vez al día. ¿Quieres continuar de todas maneras?</target>
       </segment>
     </unit>
     <unit id="check_spore_level">
@@ -200,7 +200,9 @@
       </segment>
       <segment id="description" state="translated">
         <source>infect.description</source>
-        <target>Picar a alguien con una espora permite infectarle. Para hacer esto, debes tener esporas encima. Después de tres infecciones, el personaje habrá completado su viaje hacia el Mush.</target>
+        <target>Picar a una persona con una espora causará una *Infección*. Para hacer esto, debes tener las esporas contigo. Al cabo de tres infecciones, el personaje habrá terminado su proceso de mushificación.
+Esta acción es *Furtiva*. Será revelada por las *Cámaras*.
+Esta acción es *Agresiva*. Puede tener restricciones.</target>
       </segment>
     </unit>
     <unit id="lie_down">
@@ -383,9 +385,9 @@ Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas 
         <source>retrieve_fuel.name</source>
         <target>retrieve_fuel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>retrieve_fuel.description</source>
-        <target>retrieve_fuel.description</target>
+        <target>Permite recuperar una cápsula de combustible del motor.</target>
       </segment>
     </unit>
     <unit id="sabotage">
@@ -403,9 +405,9 @@ Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas 
         <source>take_shower.name</source>
         <target>Lavarse</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>take_shower.description</source>
-        <target>take_shower.description</target>
+        <target>Cuando la mugre se hace gruesa y apesta, solo hay una solución.</target>
       </segment>
     </unit>
     <unit id="wash_in_sink">
@@ -419,13 +421,13 @@ Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas 
       </segment>
     </unit>
     <unit id="extinguish">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>extinguish.name</source>
-        <target>extinguish.name</target>
+        <target>Apagar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>extinguish.description</source>
-        <target>extinguish.description</target>
+        <target>Con un poco de habilidad podrás detener el fuego. Ten cuidado.</target>
       </segment>
     </unit>
     <unit id="heal">

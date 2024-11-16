@@ -202,7 +202,7 @@
     <unit id="daily_spore_limit">
       <segment id="description" state="translated">
         <source>daily_spore_limit.description</source>
-        <target>Los *Mush* en su conjuto no pueden producir más de *$amount esporas* por día.</target>
+        <target>Los *Mush* en su conjunto no pueden producir más de **{quantity} esporas** por día.</target>
       </segment>
     </unit>
     <unit id="personal_spore_limit">

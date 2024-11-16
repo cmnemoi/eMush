@@ -94,7 +94,7 @@
     <unit id="dmz_core_peace">
       <segment id="description" state="translated">
         <source>dmz_core_peace.description</source>
-        <target>:neron: [ Trabs DMZ-CorePeace ]...Ok.  ¿Qué te lleva a hacer algo tan terrible? Malo, malo, malo. ¡Detonador desactivado!</target>
+        <target>:neron: [ Traba DMZ-CorePeace ]...Ok.  ¿Qué te lleva a hacer algo tan terrible? Malo, malo, malo. ¡Detonador desactivado!</target>
       </segment>
     </unit>
     <unit id="daedalus_traveling">
@@ -106,7 +106,7 @@
     <unit id="broken_equipment">
       <segment id="description" state="translated">
         <source>broken_equipment.description</source>
-        <target>No puede realizar esta acción aquí ya que el equipo requerido está roto.</target>
+        <target>No puedes realizar esta acción aquí, ya que el equipo requerido está roto.</target>
       </segment>
     </unit>
     <unit id="dirty_restriction">
@@ -184,13 +184,13 @@
     <unit id="flirt_already_flirted">
       <segment id="description" state="translated">
         <source>flirt_already_flirted.description</source>
-        <target>Ya estás bastante relacionada con esta persona.</target>
+        <target>Tu relación con esta persona ya es lo suficientemente alta.</target>
       </segment>
     </unit>
     <unit id="flirt_antisocial">
       <segment id="description" state="translated">
         <source>flirt_antisocial.description</source>
-        <target>No estás interesada en este tipo de interacción social...</target>
+        <target>No tienes interés por este tipo de interacción social...</target>
       </segment>
     </unit>
     <unit id="flirt_same_family">

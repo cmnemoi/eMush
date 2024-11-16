@@ -267,8 +267,8 @@ Tras varias sesiones con psicoanalístas, se creó una interfaz a la que solo un
       </segment>
       <segment id="examine" state="translated">
         <source>combustion_chamber.examine</source>
-        <target>Se encuentra en la sala de motores. Inyecta combustible en los reactores para el desplazamiento de la nave.
-Los conductos están obstruidos. Hay que traer cápsulas de combustible desde los almacenes.</target>
+        <target>La cámara de combustión se encuentra en la sala de máquinas. Sirve para abastecer de combustible a los reactores durante el viaje.
+Reserva de combustible para un motor diésel. Una tecnología sublime con un fin muy particular. Los canales de transferencia de combustible ya no funcionan, el líquido debe ser trasladado desde las boquillas del depósito hasta la cámara de combustión. Los diseñadores bien podrían haberlo alimentado con carbón...</target>
       </segment>
     </unit>
     <unit id="command_terminal">
@@ -294,22 +294,22 @@ Los conductos están obstruidos. Hay que traer cápsulas de combustible desde lo
       </segment>
       <segment id="examine" state="translated">
         <source>command_terminal.examine</source>
-        <target>Módulo exclusivo para el Comandante. Prohibido para personal no autorizado.
-Posee los instrumentos de navegación para que el comandante pilotee el Daedalus.</target>
+        <target>La Terminal de Comando lo utiliza únicamente el comandante. Acceso prohibido. // 
+Permite al Comandante mover el Daedalus. // El módulo de pilotaje cuenta con numerosas herramientas que facilitan la gestión diaria del Daedalus.</target>
       </segment>
     </unit>
     <unit id="communication_center">
       <segment id="name" state="translated">
         <source>communication_center.name</source>
-        <target>Centro de comunicación</target>
+        <target>Centro de Comunicación</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>communication_center.short_name</source>
-        <target>Centro de comunicación</target>
+        <target>Centro de Comunicación</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>communication_center.plural_name</source>
-        <target>Centros de comunicación</target>
+        <target>Centros de Comunicación</target>
       </segment>
       <segment id="genre" state="translated">
         <source>communication_center.gender</source>
@@ -348,8 +348,8 @@ Reúne los datos de los diferentes radares y establece comunicaciones con unidad
       </segment>
       <segment id="examine" state="translated">
         <source>cryo_module.examine</source>
-        <target>Contiene los cuerpos de tus compañeros aún inanimados.
-Pasaste ahí largos períodos de sueño. Mejor no repetirlo.</target>
+        <target>El Módulo Cryo® contiene los cuerpos de tus compañeros aún inanimados. 
+El módulo de criogenización te contuvo durante tu largo sueño. Depende de ti no volver allí.</target>
       </segment>
     </unit>
     <unit id="door">
@@ -375,8 +375,8 @@ Pasaste ahí largos períodos de sueño. Mejor no repetirlo.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>door.examine</source>
-        <target>Las puertas del Daedalus son frágiles y tienen la mala costumbre de quedarse bloqueadas... En caso de problemas, contactar con un técnico.
-Lo mejor para atravesar las paredes.</target>
+        <target>Las puertas del Daedalus son frágiles y tienen la mala costumbre de quedarse bloqueadas... En caso de rompimiento, contactar con un técnico.
+Sea lo que sea de lo que estén hechas, sin importar su densidad o condición, una puerta siempre lleva hacia algún lado.</target>
       </segment>
     </unit>
     <unit id="dynarcade">
@@ -565,7 +565,7 @@ Además sirve para hacer barbacoas.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>reactor_lateral_alpha.examine</source>
-        <target>Localizado en la Sala de Motores, el reactor lateral permite girar al Daedalus en el sentido contrario de las manecillas del reloj (*hacia la izquierda*).
+        <target>Localizado en la Sala de Motores, el reactor lateral permite girar al Daedalus en el sentido contrario de las manecillas del reloj ("hacia la izquierda").
 //
 También sirve para hacer barbacoas.</target>
       </segment>
@@ -593,7 +593,7 @@ También sirve para hacer barbacoas.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>reactor_lateral_bravo.examine</source>
-        <target>Localizado en la Sala de Motores, este reactor lateral permite girar el Daedalus en el sentido de las manecillas del reloj (*hacia la derecha*).
+        <target>Localizado en la Sala de Motores, el reactor lateral permite girar el Daedalus en el sentido de las manecillas del reloj ("hacia la derecha").
 //
 También sirve para hacer barbacoas.</target>
       </segment>
@@ -621,8 +621,7 @@ También sirve para hacer barbacoas.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>mycoscan.examine</source>
-        <target>Sirve para encontrar rastros de la espora Mush en los organismos.
-Prototipo de detector de huellas Mush.</target>
+        <target>Permite encontrar rastros de esporas de Mush en organismos. Prototipo de detector de rastros de Mush, desarrollado originalmente por Finola y luego perfeccionado durante el proyecto de Magallanes.</target>
       </segment>
     </unit>
     <unit id="narcotic_distiller">

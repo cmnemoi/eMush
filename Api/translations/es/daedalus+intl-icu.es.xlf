@@ -75,27 +75,29 @@ Un **ciclo dura 3 horas**. ¡En cada Ciclo acumulas más :pm::pa:, indispensable
       </segment>
     </unit>
     <unit id="calendar.name">
-      <segment state="initial">
+      <segment state="translated">
         <source>calendar.name</source>
-        <target>calendar.name</target>
+        <target>Tiempo del juego</target>
       </segment>
     </unit>
     <unit id="calendar.description">
-      <segment state="initial">
+      <segment state="translated">
         <source>calendar.description</source>
-        <target>calendar.description</target>
+        <target>Los días en el juego corresponden a los días en la vida real.
+//
+Un **Ciclo dura 3 horas**. Cada nuevo ciclo, recibes :pa: y :pm:, ¡los cuales son útiles para realizar distintas acciones!</target>
       </segment>
     </unit>
     <unit id="cycle.name">
-      <segment state="initial">
+      <segment state="translated">
         <source>cycle.name</source>
-        <target>cycle.name</target>
+        <target>Ciclo</target>
       </segment>
     </unit>
     <unit id="day.name">
-      <segment state="initial">
+      <segment state="translated">
         <source>day.name</source>
-        <target>day.name</target>
+        <target>Día</target>
       </segment>
     </unit>
   </file>

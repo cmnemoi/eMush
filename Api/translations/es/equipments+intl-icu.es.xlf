@@ -241,8 +241,7 @@ Tras varias sesiones con psicoanalístas, se creó una interfaz a la que solo un
       </segment>
       <segment id="examine" state="translated">
         <source>coffee_machine.examine</source>
-        <target>Esta fantástica máquina produce un delicioso café colombiano a una velocidad inigualable. Por desgracia, consume más energía que una central nuclear. Sin el reactor PILGRED tendrás que conformarte con beber café cada 24 horas.
-Una mágica manera de sentirte mejor.</target>
+        <target>Esta fantástica cafetera produce Arábica puro casi a la velocidad de la luz. Lamentablemente, consume tanta energía como una central nuclear y, a falta del reactor PILGRED, tendrás que conformarte con un café cada 24 horas. La cafetera es la mejor amiga del hombre. Después de los gatos.</target>
       </segment>
     </unit>
     <unit id="combustion_chamber">
@@ -544,55 +543,59 @@ Además sirve para hacer barbacoas.</target>
       </segment>
     </unit>
     <unit id="reactor_lateral_alpha">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>reactor_lateral_alpha.name</source>
-        <target>reactor_lateral_alpha.name</target>
+        <target>Reactor Lateral Alfa</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>reactor_lateral_alpha.short_name</source>
-        <target>reactor_lateral_alpha.short_name</target>
+        <target>Reactor Lateral</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>reactor_lateral_alpha.plural_name</source>
-        <target>reactor_lateral_alpha.plural_name</target>
+        <target>Reactores Laterales</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>reactor_lateral_alpha.gender</source>
-        <target>reactor_lateral_alpha.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>reactor_lateral_alpha.first_letter</source>
-        <target>reactor_lateral_alpha.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>reactor_lateral_alpha.examine</source>
-        <target>reactor_lateral_alpha.examine</target>
+        <target>Localizado en la Sala de Motores, el reactor lateral permite girar al Daedalus en el sentido contrario de las manecillas del reloj (*hacia la izquierda*).
+//
+También sirve para hacer barbacoas.</target>
       </segment>
     </unit>
     <unit id="reactor_lateral_bravo">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>reactor_lateral_bravo.name</source>
-        <target>reactor_lateral_bravo.name</target>
+        <target>Reactor Lateral Beta</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>reactor_lateral_bravo.short_name</source>
-        <target>reactor_lateral_bravo.short_name</target>
+        <target>Reactor Lateral</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>reactor_lateral_bravo.plural_name</source>
-        <target>reactor_lateral_bravo.plural_name</target>
+        <target>Reactores Laterales</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>reactor_lateral_bravo.gender</source>
-        <target>reactor_lateral_bravo.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>reactor_lateral_bravo.first_letter</source>
-        <target>reactor_lateral_bravo.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>reactor_lateral_bravo.examine</source>
-        <target>reactor_lateral_bravo.examine</target>
+        <target>Localizado en la Sala de Motores, este reactor lateral permite girar el Daedalus en el sentido de las manecillas del reloj (*hacia la derecha*).
+//
+También sirve para hacer barbacoas.</target>
       </segment>
     </unit>
     <unit id="mycoscan">
@@ -761,29 +764,35 @@ No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_bravo_epicure">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_bravo_epicure.name</source>
-        <target>patrol_ship_bravo_epicure.name</target>
+        <target>Patrullero Espacial Epicuro</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_bravo_epicure.short_name</source>
-        <target>patrol_ship_bravo_epicure.short_name</target>
+        <target>Patrullero</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_bravo_epicure.plural_name</source>
-        <target>patrol_ship_bravo_epicure.plural_name</target>
+        <target>Patrulleros</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_bravo_epicure.gender</source>
-        <target>patrol_ship_bravo_epicure.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_bravo_epicure.first_letter</source>
-        <target>patrol_ship_bravo_epicure.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_bravo_epicure.examine</source>
-        <target>patrol_ship_bravo_epicure.examine</target>
+        <target>Patrullero Espacial Epicuro
+//
+Cargas del patrullero restantes: {charges}.   
+//
+Blindaje del patrullero: {armor}.
+//
+Ya no está tan nuevo y brillante, pero sigue funcionando.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_jujube">
@@ -845,55 +854,67 @@ No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_beta_planton">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_bravo_planton.name</source>
-        <target>patrol_ship_bravo_planton.name</target>
+        <target>Patrullero Espacial Platón</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_bravo_planton.short_name</source>
-        <target>patrol_ship_bravo_planton.short_name</target>
+        <target>Patrullero</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_bravo_planton.plural_name</source>
-        <target>patrol_ship_bravo_planton.plural_name</target>
+        <target>Patrulleros</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_bravo_planton.gender</source>
-        <target>patrol_ship_bravo_planton.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_bravo_planton.first_letter</source>
-        <target>patrol_ship_bravo_planton.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_bravo_planton.examine</source>
-        <target>patrol_ship_bravo_planton.examine</target>
+        <target>Patrullero Espacial Platón
+//
+Cargas del patrullero restantes: {charges}.   
+//
+Blindaje del patrullero: {armor}.
+//
+Ya no está tan nuevo y brillante, pero sigue funcionando.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_beta_socrate">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_bravo_socrate.name</source>
-        <target>patrol_ship_bravo_socrate.name</target>
+        <target>Patrullero Espacial Sócrates</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_bravo_socrate.short_name</source>
-        <target>patrol_ship_bravo_socrate.short_name</target>
+        <target>Patrullero</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_bravo_socrate.plural_name</source>
-        <target>patrol_ship_bravo_socrate.plural_name</target>
+        <target>Patrulleros</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_bravo_socrate.gender</source>
-        <target>patrol_ship_bravo_socrate.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_bravo_socrate.first_letter</source>
-        <target>patrol_ship_bravo_socrate.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_bravo_socrate.examine</source>
-        <target>patrol_ship_bravo_socrate.examine</target>
+        <target>Patrullero Espacial Sócrates
+//
+Cargas del patrullero restantes: {charges}.   
+//
+Blindaje del patrullero: {armor}.
+//
+Ya no está tan nuevo y brillante, pero sigue funcionando.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_tamarin">
@@ -981,29 +1002,33 @@ Para los nostálgicos, empieza cada escaneo con el sonido característico de los
       </segment>
     </unit>
     <unit id="quantum_sensors_planet_scanner">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>quantum_sensors_planet_scanner.name</source>
-        <target>quantum_sensors_planet_scanner.name</target>
+        <target>Escáner de Planetas</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>quantum_sensors_planet_scanner.short_name</source>
-        <target>quantum_sensors_planet_scanner.short_name</target>
+        <target>Escáner de Planetas</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>quantum_sensors_planet_scanner.plural_name</source>
-        <target>quantum_sensors_planet_scanner.plural_name</target>
+        <target>Escáneres de Planetas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>quantum_sensors_planet_scanner.gender</source>
-        <target>quantum_sensors_planet_scanner.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>quantum_sensors_planet_scanner.first_letter</source>
-        <target>quantum_sensors_planet_scanner.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>quantum_sensors_planet_scanner.examine</source>
-        <target>quantum_sensors_planet_scanner.examine</target>
+        <target>Mejora enormemente el rendimiento de la Terminal Astro.
+//
++30% de probabilidad de encontrar un planeta.
+//
+Una música suena cuando lo enciendes. Los ingenieros responsables de este objeto eran muy excéntricos... Quién pensaría que Verdi podría haber inspirado esta calculadora...</target>
       </segment>
     </unit>
     <unit id="research_laboratory">
@@ -1288,33 +1313,35 @@ Puesto de pilotaje del Patrullero."</target>
       </segment>
     </unit>
     <unit id="tabulatrix">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>tabulatrix.name</source>
-        <target>tabulatrix.name</target>
+        <target>Tabuladora</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>tabulatrix.short_name</source>
-        <target>tabulatrix.short_name</target>
+        <target>Tabuladora</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>tabulatrix.plural_name</source>
-        <target>tabulatrix.plural_name</target>
+        <target>Tabuladoras</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>tabulatrix.gender</source>
-        <target>tabulatrix.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>tabulatrix.first_letter</source>
-        <target>tabulatrix.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>tabulatrix.description</source>
-        <target>tabulatrix.description</target>
+        <target>La tabuladora permite a NERON de proporcionarte de documentos escritos.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>tabulatrix.examine</source>
-        <target>tabulatrix.examine</target>
+        <target>La tabuladora permite a NERON de proporcionarte documentos escritos.
+//
+Una máquina casi autónoma, sacada directamente de la mente de los más grandes escritores de ciencia ficción, que puede imprimir símbolos en papel cuando se insertan tarjetas perforadas. Ciertas señales cifradas solo pueden decodificarse utilizando esta máquina prehistórica.</target>
       </segment>
     </unit>
   </file>

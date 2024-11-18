@@ -88,7 +88,7 @@
     <unit id="heal_no_injury">
       <segment id="description" state="translated">
         <source>heal_no_injury.description</source>
-        <target>Esta acción requiere que estés recostado.</target>
+        <target>No tienes heridas, pero eso se puede arreglar...</target>
       </segment>
     </unit>
     <unit id="dmz_core_peace">
@@ -538,7 +538,7 @@
     <unit id="screwed_talkie_already_pirated">
       <segment id="description" state="translated">
         <source>screwed_talkie_already_pirated.description</source>
-        <target>No se puede hackear más de un talkie a la vez.</target>
+        <target>No se puede hackear más de un walkie-talkie a la vez.</target>
       </segment>
     </unit>
     <unit id="screwed_talkie_no_talkie">
@@ -674,9 +674,9 @@
       </segment>
     </unit>
     <unit id="eden_not_computed">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>eden_not_computed.description</source>
-        <target>eden_not_computed.description</target>
+        <target>Las coordenadas del Edén aún no han sido calculadas.</target>
       </segment>
     </unit>
   </file>

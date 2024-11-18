@@ -193,15 +193,15 @@ Tras varias sesiones con psicoanalistas, se creó una interfaz a la que solo uno
     <unit id="calculator">
       <segment id="name" state="translated">
         <source>calculator.name</source>
-        <target>Computador</target>
+        <target>Supercalculadora</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>calculator.short_name</source>
-        <target>Computador</target>
+        <target>Supercalculadora</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>calculator.plural_name</source>
-        <target>Computadoras</target>
+        <target>Supercalculadoras</target>
       </segment>
       <segment id="genre" state="translated">
         <source>calculator.gender</source>
@@ -241,7 +241,8 @@ Tras varias sesiones con psicoanalistas, se creó una interfaz a la que solo uno
       </segment>
       <segment id="examine" state="translated">
         <source>coffee_machine.examine</source>
-        <target>Esta fantástica cafetera produce Arábica puro casi a la velocidad de la luz. Lamentablemente, consume tanta energía como una central nuclear y, a falta del reactor PILGRED, tendrás que conformarte con un café cada 24 horas. La cafetera es la mejor amiga del hombre. Después de los gatos.</target>
+        <target>Esta fantástica máquina produce un delicioso café colombiano a una velocidad inigualable. Por desgracia, consume más energía que una central nuclear. Sin el reactor PILGRED tendrás que conformarte con beber café cada 24 horas.
+Una mágica manera de sentirte mejor.</target>
       </segment>
     </unit>
     <unit id="combustion_chamber">

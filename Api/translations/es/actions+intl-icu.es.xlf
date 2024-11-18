@@ -880,57 +880,63 @@ El resultado es mejor con misiles.</target>
       </segment>
     </unit>
     <unit id="shoot_random_hunter_patrol_ship">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>shoot_random_hunter_patrol_ship.name</source>
-        <target>shoot_random_hunter_patrol_ship.name</target>
+        <target>Disparar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>shoot_random_hunter_patrol_ship.description</source>
-        <target>shoot_random_hunter_patrol_ship.description</target>
+        <target>Dispara una carga de Teslatron a una nave enemiga.
+//
+El resultado es mejor con misiles.</target>
       </segment>
     </unit>
     <unit id="collect_scrap">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>collect_scrap.name</source>
-        <target>collect_scrap.name</target>
+        <target>Traer chatarra</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>collect_scrap.description</source>
-        <target>collect_scrap.description</target>
+        <target>¡Mira! Algo flota en el espacio sideral. Afortunadamente, puede recogerse con el Pasiphae.</target>
       </segment>
     </unit>
     <unit id="renovate">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>renovate.name</source>
-        <target>renovate.name</target>
+        <target>Renovar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>renovate.description</source>
-        <target>renovate.description</target>
+        <target>Renovar un patrullero puede definir una batalla próxima.
+//
+Requiere una *Pieza metálica*</target>
       </segment>
     </unit>
     <unit id="auto_eject">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>auto_eject.name</source>
-        <target>auto_eject.name</target>
+        <target>Auto-Eyección</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>auto_eject.description</source>
-        <target>auto_eject.description</target>
+        <target>Para cuando hayas perdido la batalla, ¡pero no la guerra!
+//
+O si simplemente quieres un poco de aire fresco... ¿aire?</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>auto_eject.confirmation</source>
-        <target>auto_eject.confirmation</target>
+        <target>La auto-eyección es arriesgada. Es más, tu patrullero quedará destruido. ¿Todavía quieres hacerlo?</target>
       </segment>
     </unit>
     <unit id="insert_fuel_chamber">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>insert_fuel_chamber.name</source>
-        <target>insert_fuel_chamber.name</target>
+        <target>Insertar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>insert_fuel_chamber.description</source>
-        <target>insert_fuel_chamber.description</target>
+        <target>Inyecta el combustible en la Cámara de Combustión del motor.</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel_chamber">

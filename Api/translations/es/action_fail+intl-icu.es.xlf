@@ -586,7 +586,7 @@
     <unit id="alpha_reactor_broken">
       <segment state="translated">
         <source>alpha_reactor_broken.description</source>
-        <target>El *Reactor Lateral Alfa* está averiado. Hay que repararlo si queremos orientar este intento de nave hacia esa dirección.</target>
+        <target>El *Reactor Lateral Alpha* está averiado. Hay que repararlo si queremos orientar este intento de nave hacia esa dirección.</target>
       </segment>
     </unit>
     <unit id="bravo_reactor_broken">

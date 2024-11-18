@@ -85,7 +85,7 @@ Escanea el espacio en busca de nuevos planetas. Sus datos están reservados a lo
     <unit id="auxiliary_terminal">
       <segment id="name" state="translated">
         <source>auxiliary_terminal.name</source>
-        <target>Nucleo de NERON</target>
+        <target>Núcleo de NERON</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>auxiliary_terminal.short_name</source>
@@ -187,7 +187,7 @@ Modificar sus programas permite mejorar a NERON.</target>
       <segment id="examine" state="translated">
         <source>bios_terminal.examine</source>
         <target>Permite al Admin. de NERON cambiar ciertos comportamientos de la Inteligencia Artificial.
-Tras varias sesiones con psicoanalístas, se creó una interfaz a la que solo unos pocos privilegiados pueden acceder.</target>
+Tras varias sesiones con psicoanalistas, se creó una interfaz a la que solo unos pocos privilegiados pueden acceder.</target>
       </segment>
     </unit>
     <unit id="calculator">
@@ -545,7 +545,7 @@ Además sirve para hacer barbacoas.</target>
     <unit id="reactor_lateral_alpha">
       <segment id="name" state="translated">
         <source>reactor_lateral_alpha.name</source>
-        <target>Reactor Lateral Alfa</target>
+        <target>Reactor Lateral Alpha</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>reactor_lateral_alpha.short_name</source>

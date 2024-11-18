@@ -2,129 +2,129 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="skill.ext">
     <unit id="botanist">
-      <segment id="botanist.name" state="initial">
+      <segment id="botanist.name" state="translated">
         <source>botanist.name</source>
-        <target>botanist.name</target>
+        <target>Botánico</target>
       </segment>
-      <segment id="botanist.description" state="initial">
+      <segment id="botanist.description" state="translated">
         <source>botanist.description</source>
-        <target>botanist.description</target>
+        <target>El botánico sabe distinguir las propiedades de los vegetales. Es el más eficiente en el mantenimiento del jardín.</target>
       </segment>
     </unit>
     <unit id="firefighter">
-      <segment id="firefighter.name" state="initial">
+      <segment id="firefighter.name" state="translated">
         <source>firefighter.name</source>
-        <target>firefighter.name</target>
+        <target>Bombero</target>
       </segment>
-      <segment id="firefighter.description" state="initial">
+      <segment id="firefighter.description" state="translated">
         <source>firefighter.description</source>
-        <target>firefighter.description</target>
+        <target>El bombero sabe bien cómo usar un extintor, aunque a veces puede arreglárselas sin él.</target>
       </segment>
     </unit>
     <unit id="pilot">
-      <segment id="pilot.name" state="initial">
+      <segment id="pilot.name" state="translated">
         <source>pilot.name</source>
-        <target>pilot.name</target>
+        <target>Piloto</target>
       </segment>
-      <segment id="pilot.description" state="initial">
+      <segment id="pilot.description" state="translated">
         <source>pilot.description</source>
-        <target>pilot.description</target>
+        <target>El piloto es un experto en maniobrar las naves Icarus, Pasiphae y Patrullero. Su dominio del espacio es impresionante.</target>
       </segment>
     </unit>
     <unit id="radio_expert">
-      <segment id="radio_expert.name" state="initial">
+      <segment id="radio_expert.name" state="translated">
         <source>radio_expert.name</source>
-        <target>radio_expert.name</target>
+        <target>Experto en comunicaciones</target>
       </segment>
-      <segment id="radio_expert.description" state="initial">
+      <segment id="radio_expert.description" state="translated">
         <source>radio_expert.description</source>
-        <target>radio_expert.description</target>
+        <target>El experto en radio sabe decodificar las ondas espaciales para enviar mensajes hacia el otro lado del universo.</target>
       </segment>
     </unit>
     <unit id="robotics_expert">
-      <segment id="robotics_expert.name" state="initial">
+      <segment id="robotics_expert.name" state="translated">
         <source>robotics_expert.name</source>
-        <target>robotics_expert.name</target>
+        <target>Ing. Robótico</target>
       </segment>
-      <segment id="robotics_expert.description" state="initial">
+      <segment id="robotics_expert.description" state="translated">
         <source>robotics_expert.description</source>
-        <target>robotics_expert.description</target>
+        <target>El experto en robótica puede crear y controlar los drones como mejor le parezca.</target>
       </segment>
     </unit>
     <unit id="physicist">
-      <segment id="physicist.name" state="initial">
+      <segment id="physicist.name" state="translated">
         <source>physicist.name</source>
-        <target>physicist.name</target>
+        <target>Físico</target>
       </segment>
-      <segment id="physicist.description" state="initial">
+      <segment id="physicist.description" state="translated">
         <source>physicist.description</source>
-        <target>physicist.description</target>
+        <target>Conoce la mecánica que mueven al universo. Tiene notables ventajas en la reparación de PILGRED.</target>
       </segment>
     </unit>
     <unit id="technician">
-      <segment id="technician.name" state="initial">
+      <segment id="technician.name" state="translated">
         <source>technician.name</source>
-        <target>technician.name</target>
+        <target>Técnico</target>
       </segment>
-      <segment id="technician.description" state="initial">
+      <segment id="technician.description" state="translated">
         <source>technician.description</source>
-        <target>technician.description</target>
+        <target>El técnico está habilitado para reparar materiales, equipos y el casco del Daedalus.</target>
       </segment>
     </unit>
     <unit id="astrophysicist">
-      <segment id="astrophysicist.name" state="initial">
+      <segment id="astrophysicist.name" state="translated">
         <source>astrophysicist.name</source>
-        <target>astrophysicist.name</target>
+        <target>Astrofísico</target>
       </segment>
-      <segment id="astrophysicist.description" state="initial">
+      <segment id="astrophysicist.description" state="translated">
         <source>astrophysicist.description</source>
-        <target>astrophysicist.description</target>
+        <target>El astrofísico está habilitado para usar el scanner para detectar planetas o conocer su composición.</target>
       </segment>
     </unit>
     <unit id="computer">
-      <segment id="it_expert.name" state="initial">
+      <segment id="it_expert.name" state="translated">
         <source>it_expert.name</source>
-        <target>it_expert.name</target>
+        <target>Informático</target>
       </segment>
-      <segment id="it_expert.description" state="initial">
+      <segment id="it_expert.description" state="translated">
         <source>it_expert.description</source>
-        <target>it_expert.description</target>
+        <target>El informático encuentra su felicidad frente a una pantalla. Domina a la perfección los terminales del Nexus, de navegación y de comunicación.</target>
       </segment>
     </unit>
     <unit id="conceptor">
-      <segment id="conceptor.name" state="initial">
+      <segment id="conceptor.name" state="translated">
         <source>conceptor.name</source>
-        <target>conceptor.name</target>
+        <target>Artífice</target>
       </segment>
-      <segment id="conceptor.description" state="initial">
+      <segment id="conceptor.description" state="translated">
         <source>conceptor.description</source>
-        <target>conceptor.description</target>
+        <target>El artífice cuenta con 2 acciones gratuitas para usar el núcleo de NERON.</target>
       </segment>
     </unit>
     <unit id="creative">
-      <segment id="creative.name" state="initial">
+      <segment id="creative.name" state="translated">
         <source>creative.name</source>
-        <target>creative.name</target>
+        <target>Creativo</target>
       </segment>
-      <segment id="creative.description" state="initial">
+      <segment id="creative.description" state="translated">
         <source>creative.description</source>
-        <target>creative.description</target>
+        <target>Hay que saber darle la vuelta a los problemas.</target>
       </segment>
     </unit>
     <unit id="shrink">
-      <segment id="shrink.name" state="initial">
+      <segment id="shrink.name" state="translated">
         <source>shrink.name</source>
-        <target>shrink.name</target>
+        <target>Psicólogo</target>
       </segment>
-      <segment id="shrink.description" state="initial">
+      <segment id="shrink.description" state="translated">
         <source>shrink.description</source>
-        <target>shrink.description</target>
+        <target>Se encarga del bienestar psicológico del equipo. Mantiene la moral alta y cuida los trastornos mentales.</target>
       </segment>
     </unit>
     <unit id="caffeine_junkie">
-      <segment id="caffeine_junkie.name" state="initial">
+      <segment id="caffeine_junkie.name" state="translated">
         <source>caffeine_junkie.name</source>
-        <target>caffeine_junkie.name</target>
+        <target>Cafeinómano</target>
       </segment>
       <segment id="caffeine_junkie.description" state="initial">
         <source>caffeine_junkie.description</source>

@@ -126,9 +126,9 @@
         <source>caffeine_junkie.name</source>
         <target>Cafeinómano</target>
       </segment>
-      <segment id="caffeine_junkie.description" state="initial">
+      <segment id="caffeine_junkie.description" state="translated">
         <source>caffeine_junkie.description</source>
-        <target>caffeine_junkie.description</target>
+        <target>El cafeinómano trabaja 2 veces mejor que sus compañeros mientras tenga acceso a la cafetera.</target>
       </segment>
     </unit>
     <unit id="shooter">

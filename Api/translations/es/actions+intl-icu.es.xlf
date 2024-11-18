@@ -818,39 +818,39 @@ Ya sea por una mutación genética incomprensible o por pura locura homicida, un
       </segment>
     </unit>
     <unit id="shoot_hunter_turret">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>shoot_hunter_turret.name</source>
-        <target>shoot_hunter_turret.name</target>
+        <target>Disparar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>shoot_hunter_turret.description</source>
-        <target>shoot_hunter_turret.description</target>
+        <target>Dispara una carga de Teslatron a una nave enemiga.</target>
       </segment>
     </unit>
     <unit id="shoot_random_hunter">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>shoot_random_hunter.name</source>
-        <target>shoot_random_hunter.name</target>
+        <target>Disparar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>shoot_random_hunter.description</source>
-        <target>shoot_random_hunter.description</target>
+        <target>Dispara una carga de Teslatron a una nave enemiga.</target>
       </segment>
     </unit>
     <unit id="takeoff">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>takeoff.name</source>
-        <target>takeoff.name</target>
+        <target>Despegar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>takeoff.description</source>
-        <target>takeoff.description</target>
+        <target>Sube a un patrullero y aparece en cuadrante correspondiente.</target>
       </segment>
     </unit>
     <unit id="access_terminal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>access_terminal.name</source>
-        <target>access_terminal.name</target>
+        <target>Acceder</target>
       </segment>
       <segment id="description" state="initial">
         <source>access_terminal.description</source>
@@ -858,13 +858,13 @@ Ya sea por una mutación genética incomprensible o por pura locura homicida, un
       </segment>
     </unit>
     <unit id="land">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>land.name</source>
-        <target>land.name</target>
+        <target>Aterrizar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>land.description</source>
-        <target>land.description</target>
+        <target>Vuelve a la plataforma de despegue del patrullero.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_patrol_ship">

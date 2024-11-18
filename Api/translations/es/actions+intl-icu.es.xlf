@@ -852,9 +852,9 @@ Ya sea por una mutación genética incomprensible o por pura locura homicida, un
         <source>access_terminal.name</source>
         <target>Acceder</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>access_terminal.description</source>
-        <target>access_terminal.description</target>
+        <target>Accede a los servicios disponibles de esta terminal.</target>
       </segment>
     </unit>
     <unit id="land">
@@ -872,9 +872,11 @@ Ya sea por una mutación genética incomprensible o por pura locura homicida, un
         <source>shoot_hunter_patrol_ship.name</source>
         <target>Disparar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>shoot_hunter_patrol_ship.description</source>
-        <target>shoot_hunter_patrol_ship.description</target>
+        <target>Dispara una carga de Teslatron a una nave enemiga.
+//
+El resultado es mejor con misiles.</target>
       </segment>
     </unit>
     <unit id="shoot_random_hunter_patrol_ship">

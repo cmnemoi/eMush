@@ -960,53 +960,53 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
       </segment>
     </unit>
     <unit id="hack">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hack.name</source>
-        <target>hack.name</target>
+        <target>Hackear</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hack.description</source>
-        <target>hack.description</target>
+        <target>Intenta forzar el acceso a esta terminal usando el kit de hackeo.</target>
       </segment>
     </unit>
     <unit id="exit_terminal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>exit_terminal.name</source>
-        <target>exit_terminal.name</target>
+        <target>Salir</target>
       </segment>
     </unit>
     <unit id="advance_daedalus">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>advance_daedalus.name</source>
-        <target>advance_daedalus.name</target>
+        <target>Arrancar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>advance_daedalus.description</source>
-        <target>advance_daedalus.description</target>
+        <target>Enciende los motores para un desplazamiento que dependerá de la cantidad de combustible que haya en la cámara de combustión.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>advance_daedalus.confirmation</source>
-        <target>advance_daedalus.confirmation</target>
+        <target>Esta acción puede tener consecuencias graves. ¿Quieres continuar de todas formas?</target>
       </segment>
     </unit>
     <unit id="scan">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>scan.name</source>
-        <target>scan.name</target>
+        <target>Escanear</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>scan.description</source>
-        <target>scan.description</target>
+        <target>Permite buscar un planeta para elegir tu próximo viaje.</target>
       </segment>
     </unit>
     <unit id="analyze_planet">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>analyze_planet.name</source>
-        <target>analyze_planet.name</target>
+        <target>Analizar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>analyze_planet.description</source>
-        <target>analyze_planet.description</target>
+        <target>Realiza un análisis exhaustivo del planeta para conocer sus propiedades.</target>
       </segment>
     </unit>
     <unit id="turn_daedalus_left">
@@ -1014,53 +1014,53 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
         <source>turn_daedalus_left.name</source>
         <target>turn_daedalus_left.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>turn_daedalus_left.description</source>
-        <target>turn_daedalus_left.description</target>
+        <target>Permite cambiar la orientación de la nave.</target>
       </segment>
     </unit>
     <unit id="turn_daedalus_right">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>turn_daedalus_right.name</source>
-        <target>turn_daedalus_right.name</target>
+        <target>Girar a la derecha</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>turn_daedalus_right.description</source>
-        <target>turn_daedalus_right.description</target>
+        <target>Permite cambiar la orientación de la nave.</target>
       </segment>
     </unit>
     <unit id="delete_planet">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>delete_planet.name</source>
-        <target>delete_planet.name</target>
+        <target>Borrar planeta</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>delete_planet.description</source>
-        <target>delete_planet.description</target>
+        <target>Permite borrar un planeta escaneado de tu espacio de trabajo.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>delete_planet.confirmation</source>
-        <target>delete_planet.confirmation</target>
+        <target>Borrar un planeta de tu espacio de trabajo es irreversible. ¿Quieres continuar de todas maneras?</target>
       </segment>
     </unit>
     <unit id="leave_orbit">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>leave_orbit.name</source>
-        <target>leave_orbit.name</target>
+        <target>Salir de órbita</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>leave_orbit.description</source>
-        <target>leave_orbit.description</target>
+        <target>Enciende los motores para un desplazamiento que dependerá de la cantidad de combustible que haya en la cámara de combustión.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>leave_orbit.confirmation</source>
-        <target>leave_orbit.confirmation</target>
+        <target>Esta acción puede tener consecuencias graves. ¿Quieres continuar de todas formas?</target>
       </segment>
     </unit>
     <unit id="takeoff_to_planet">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>takeoff_to_planet.name</source>
-        <target>takeoff_to_planet.name</target>
+        <target>Despegar: {planet}</target>
       </segment>
       <segment id="description" state="initial">
         <source>takeoff_to_planet.description</source>

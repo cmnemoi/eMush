@@ -74,6 +74,10 @@ abstract class ProjectRequirementsConfigData
                 name: ProjectRequirementName::FOOD_IN_LABORATORY,
                 type: ProjectRequirementType::FOOD_IN_LABORATORY,
             ),
+            new ProjectRequirementConfigDto(
+                name: ProjectRequirementName::GAME_STARTED,
+                type: ProjectRequirementType::GAME_STARTED,
+            ),
         ];
     }
 }

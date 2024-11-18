@@ -10,6 +10,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\TranslationService;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\EndCauseEnum;
@@ -63,6 +64,8 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             parameters: [],
             domain: 'terminal'
         );
+
+        $this->givenGameHasStarted();
     }
 
     public function testShouldNormalizePilgredTerminal(FunctionalTester $I): void
@@ -628,6 +631,11 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             ProjectName::ANABOLICS,
             ProjectName::NARCOTICS_DISTILLER,
         ]);
+    }
+
+    private function givenGameHasStarted(): void
+    {
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
     }
 
     private function givenItemIsHidden($itemName)

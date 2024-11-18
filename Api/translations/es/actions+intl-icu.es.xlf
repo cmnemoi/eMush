@@ -136,7 +136,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>extract_spore.description</source>
-        <target>Extirpa una espora para poder infectar a un compañero (pero antes de eso, ten cuidado con las cámaras)</target>
+        <target>Extírpate una espora para poder infectar a un compañero (pero antes de eso, ten cuidado con las cámaras)</target>
       </segment>
     </unit>
     <unit id="flirt">
@@ -415,9 +415,12 @@ Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas 
         <source>wash_in_sink.name</source>
         <target>Lavarse</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>wash_in_sink.description</source>
-        <target>wash_in_sink.description</target>
+        <target>Cuando la mugre se hace gruesa y apesta, solo hay una solución.
+//
+Esta acción solo está disponible una vez por día para toda la tripulación.
+Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
       </segment>
     </unit>
     <unit id="extinguish">
@@ -475,9 +478,9 @@ Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas 
         <source>comfort.name</source>
         <target>Reconfortar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>comfort.description</source>
-        <target>comfort.description</target>
+        <target>Tú sí sabes cómo subirle el ánimo a un compañero.</target>
       </segment>
     </unit>
     <unit id="open">
@@ -523,101 +526,101 @@ Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas 
     <unit id="remove_camera">
       <segment id="name" state="translated">
         <source>remove_camera.name</source>
-        <target>remove_camera</target>
+        <target>Sacar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>remove_camera.description</source>
-        <target>remove_camera.description</target>
+        <target>Permite sacar un objeto para impedir que funcione o para desplazarlo.</target>
       </segment>
     </unit>
     <unit id="examine">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>examine.name</source>
-        <target>examine.name</target>
+        <target>Examinar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>examine.description</source>
-        <target>examine.description</target>
+        <target>¿Qué será esto?</target>
       </segment>
     </unit>
     <unit id="remove_spore">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>remove_spore.name</source>
-        <target>remove_spore.name</target>
+        <target>Extraer espora</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>remove_spore.description</source>
-        <target>remove_spore.description</target>
+        <target>Permite removerte una asquerosa espora con la que has sido contaminado.</target>
       </segment>
     </unit>
     <unit id="report_equipment">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>report_equipment.name</source>
-        <target>report_equipment.name</target>
+        <target>Señalar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>report_equipment.description</source>
-        <target>report_equipment.description</target>
+        <target>Permite transmitir una información a la tripulación para que tenga notoriedad.</target>
       </segment>
     </unit>
     <unit id="report_fire">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>report_fire.name</source>
-        <target>report_fire.name</target>
+        <target>Señalar: Incendio</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>report_fire.description</source>
-        <target>report_fire.description</target>
+        <target>Sí, avisar a tus compañeros sería una buena idea.</target>
       </segment>
     </unit>
     <unit id="try_kube">
       <segment id="name" state="translated">
         <source>try_kube.name</source>
-        <target>try_kube</target>
+        <target>Probar el Kube</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>try_kube.description</source>
-        <target>try_kube.description</target>
+        <target>Prueba resolver el Kube. Muy pocos llegaron a resolverlo en menos de 26 movimientos.</target>
       </segment>
     </unit>
     <unit id="public_broadcast">
       <segment id="name" state="translated">
         <source>public_broadcast.name</source>
-        <target>public_broadcast</target>
+        <target>Proyección pública</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>public_broadcast.description</source>
-        <target>public_broadcast.description</target>
+        <target>Nada mejor que una buena película alien para subir ese ánimo. Sin embargo, nadie habla Twingon y no tenemos subtítulos.</target>
       </segment>
     </unit>
     <unit id="extinguish_manually">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>extinguish_manually.name</source>
-        <target>extinguish_manually.name</target>
+        <target>Apagar manualmente</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>extinguish_manually.description</source>
-        <target>extinguish_manually.description</target>
+        <target>Ahora sabes que todo, o casi todo, puede servir para apagar un fuego... Ten cuidado, no te vayas a quemar.</target>
       </segment>
     </unit>
     <unit id="motivational_speech">
       <segment id="name" state="translated">
         <source>motivational_speech.name</source>
-        <target>motivational_speech</target>
+        <target>Discurso apasionado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>motivational_speech.description</source>
-        <target>motivational_speech.description</target>
+        <target>Los demás tripulantes en la sala ganan 2 :pmo:.</target>
       </segment>
     </unit>
     <unit id="boring_speech">
       <segment id="name" state="translated">
         <source>boring_speech.name</source>
-        <target>boring_speech</target>
+        <target>Discurso aburrido</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>boring_speech.description</source>
-        <target>boring_speech.description</target>
+        <target>Los demás tripulantes en la sala ganan 3 :pm:.</target>
       </segment>
     </unit>
     <unit id="make_sick">

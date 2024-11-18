@@ -2,13 +2,13 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="disease.ext">
     <unit id="acid_reflux">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>acid_reflux.name</source>
-        <target>acid_reflux.name</target>
+        <target>Reflujo gastroesofágico</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>acid_reflux.description</source>
-        <target>acid_reflux.description</target>
+        <target>Devuelves tu comida, es irritante y doloroso...</target>
       </segment>
     </unit>
     <unit id="food_poisoning">
@@ -22,9 +22,9 @@
       </segment>
     </unit>
     <unit id="gastroenteritis">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>gastroenteritis.name</source>
-        <target>gastroenteritis.name</target>
+        <target>Gastroenteritis</target>
       </segment>
       <segment id="description" state="initial">
         <source>gastroenteritis.description</source>
@@ -32,13 +32,13 @@
       </segment>
     </unit>
     <unit id="tapeworm">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>tapeworm.name</source>
-        <target>tapeworm.name</target>
+        <target>Lombriz solitaria</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>tapeworm.description</source>
-        <target>tapeworm.description</target>
+        <target>Tienes hambre, mucha hambre, hambre todo el tiempo... ¡Come algo maldita sea!</target>
       </segment>
     </unit>
     <unit id="black_bite">
@@ -46,9 +46,9 @@
         <source>black_bite.name</source>
         <target>Mordida negra</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>black_bite.description</source>
-        <target>black_bite.description</target>
+        <target>Es relativamente benigno pero persistente, la Mordida Negra es un síndrome reciente que poca gente conoce.</target>
       </segment>
     </unit>
     <unit id="cat_allergy">
@@ -56,9 +56,9 @@
         <source>cat_allergy.name</source>
         <target>cat_allergy.description</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cat_allergy.description</source>
-        <target>cat_allergy.description</target>
+        <target>La simple vista de un gato provoca estornudos implacables y urticaria. El contacto podría resultar mortal...</target>
       </segment>
     </unit>
     <unit id="cold">
@@ -66,9 +66,9 @@
         <source>cold.name</source>
         <target>Resfrío</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cold.description</source>
-        <target>cold.description</target>
+        <target>¡No salgas sin pañuelos!</target>
       </segment>
     </unit>
     <unit id="extreme_tinnitus">
@@ -136,9 +136,9 @@
         <source>quincks_oedema.name</source>
         <target>quincks_oedema.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>quincks_oedema.description</source>
-        <target>quincks_oedema.description</target>
+        <target>Debes haberte acercado demasiado a uno de tus alergenos...</target>
       </segment>
     </unit>
     <unit id="rejuvenation">

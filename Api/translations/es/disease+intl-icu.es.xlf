@@ -76,9 +76,9 @@
         <source>extreme_tinnitus.name</source>
         <target>Zumbido extremo</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>extreme_tinnitus.description</source>
-        <target>extreme_tinnitus.description</target>
+        <target>Oyes un silbido constantemente, eso puede agotarte rápidamente. </target>
       </segment>
     </unit>
     <unit id="flu">
@@ -86,19 +86,19 @@
         <source>flu.name</source>
         <target>Gripe</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>flu.description</source>
-        <target>flu.description</target>
+        <target>Variante severa de la gripe de los ponis... Te pones irritable, autoritario, te duele la cabeza, nariz tapada, calambres. No dejes que avance, puede ser fatal.</target>
       </segment>
     </unit>
     <unit id="fungic_infection">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>fungic_infection.name</source>
-        <target>fungic_infection.name</target>
+        <target>Infección fúngica</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>fungic_infection.description</source>
-        <target>fungic_infection.description</target>
+        <target>Qué es esta cosa horrible... Deberías tratarla rápidamente... Pica, supura, apesta...</target>
       </segment>
     </unit>
     <unit id="junkbumpkinitis">
@@ -126,9 +126,9 @@
         <source>mush_allergy.name</source>
         <target>Alergia al Mush</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mush_allergy.description</source>
-        <target>mush_allergy.description</target>
+        <target>El contacto con los Mushs te provocan erupciones feas y dolorosas</target>
       </segment>
     </unit>
     <unit id="quincks_oedema">
@@ -152,9 +152,9 @@
       </segment>
     </unit>
     <unit id="rubella">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>rubella.name</source>
-        <target>rubella.name</target>
+        <target>Rubeola</target>
       </segment>
       <segment id="description" state="initial">
         <source>rubella.description</source>
@@ -162,9 +162,9 @@
       </segment>
     </unit>
     <unit id="sepsis">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>sepsis.name</source>
-        <target>sepsis.name</target>
+        <target>Septicemia</target>
       </segment>
       <segment id="description" state="initial">
         <source>sepsis.description</source>
@@ -202,9 +202,9 @@
       </segment>
     </unit>
     <unit id="smallpox">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>smallpox.name</source>
-        <target>smallpox.name</target>
+        <target>Viruela</target>
       </segment>
       <segment id="description" state="initial">
         <source>smallpox.description</source>
@@ -212,9 +212,9 @@
       </segment>
     </unit>
     <unit id="space_rabies">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>space_rabies.name</source>
-        <target>space_rabies.name</target>
+        <target>Rabia espacial</target>
       </segment>
       <segment id="description" state="initial">
         <source>space_rabies.description</source>
@@ -222,9 +222,9 @@
       </segment>
     </unit>
     <unit id="syphilis">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>syphilis.name</source>
-        <target>syphilis.name</target>
+        <target>Sífilis</target>
       </segment>
       <segment id="description" state="initial">
         <source>syphilis.description</source>

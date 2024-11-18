@@ -106,7 +106,7 @@
       </segment>
       <segment id="confirmation" state="translated">
         <source>disassemble.confirmation</source>
-        <target>Desarmar este objeto no es algo común. Este objeto no puede volver a ser armado. ¿Quieres hacerlo de todas maneras?</target>
+        <target>Desarmar este objeto puede tener consecuencias. El objeto no podrá ser armado de nuevo. ¿Quieres hacerlo de todas maneras?</target>
       </segment>
     </unit>
     <unit id="drop">

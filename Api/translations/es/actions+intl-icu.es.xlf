@@ -940,19 +940,19 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel_chamber">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>retrieve_fuel_chamber.name</source>
-        <target>retrieve_fuel_chamber.name</target>
+        <target>Tomar cápsula</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>retrieve_fuel_chamber.description</source>
-        <target>retrieve_fuel_chamber.description</target>
+        <target>Permite recuperar una cápsula de combustible que sirve para llenar tanques auxiliares.</target>
       </segment>
     </unit>
     <unit id="check_fuel_chamber_level">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>check_fuel_chamber_level.name</source>
-        <target>check_fuel_chamber_level.name</target>
+        <target>Verificar combustible</target>
       </segment>
       <segment id="description" state="initial">
         <source>check_fuel_chamber_level.description</source>

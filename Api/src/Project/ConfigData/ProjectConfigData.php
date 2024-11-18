@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Project\ConfigData;
 
 use Mush\Communication\Enum\MessageModificationEnum;
+use Mush\Equipment\ConfigData\ReplaceEquipmentConfigData;
 use Mush\Equipment\ConfigData\SpawnEquipmentConfigData;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Project\Enum\ProjectName;
@@ -616,10 +617,10 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
-                'spawnEquipmentConfigs' => [
-                    SpawnEquipmentConfigData::ONE_SUPER_SOAPER_IN_LABORATORY,
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [
+                    ReplaceEquipmentConfigData::REPLACE_SOAP_BY_SUPER_SOAP,
                 ],
-                'replaceEquipmentConfigs' => [],
                 'requirements' => [
                     ProjectRequirementName::SOAP_IN_LABORATORY,
                     ProjectRequirementName::CHUN_IN_LABORATORY,

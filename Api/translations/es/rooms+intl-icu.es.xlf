@@ -194,9 +194,9 @@
         <source>front_alpha_turret.enter_loc_prep</source>
         <target>desde el</target>
       </segment>
-      <segment id="exit_loc_prep" state="initial">
+      <segment id="exit_loc_prep" state="translated">
         <source>front_alpha_turret.exit_loc_prep</source>
-        <target>front_alpha_turret.exit_loc_prep</target>
+        <target>hacia el</target>
       </segment>
     </unit>
     <unit id="centre_alpha_turret">
@@ -212,9 +212,9 @@
         <source>centre_alpha_turret.enter_loc_prep</source>
         <target>desde el</target>
       </segment>
-      <segment id="exit_loc_prep" state="initial">
+      <segment id="exit_loc_prep" state="translated">
         <source>centre_alpha_turret.exit_loc_prep</source>
-        <target>centre_alpha_turret.exit_loc_prep</target>
+        <target>hacia el</target>
       </segment>
     </unit>
     <unit id="rear_alpha_turret">

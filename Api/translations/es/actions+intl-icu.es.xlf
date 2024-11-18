@@ -626,171 +626,177 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
     <unit id="make_sick">
       <segment id="name" state="translated">
         <source>make_sick.name</source>
-        <target>make_sick</target>
+        <target>Enfermar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>make_sick.description</source>
-        <target>make_sick.description</target>
+        <target>Provoca una enfermedad en un tripulante.</target>
       </segment>
     </unit>
     <unit id="fake_disease">
       <segment id="name" state="translated">
         <source>fake_disease.name</source>
-        <target>fake_disease</target>
+        <target>Hipocondría</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>fake_disease.description</source>
-        <target>fake_disease.description</target>
+        <target>Te permite simular una enfermedad benigna. Tus compañeros de equipo no lo notarán... pero tu cuerpo también podría caer en la trampa.</target>
       </segment>
     </unit>
     <unit id="surgery">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>surgery.name</source>
-        <target>surgery.name</target>
+        <target>Cirugía</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>surgery.description</source>
-        <target>surgery.description</target>
+        <target>Realiza una operación quirúrgica que, a pesar de sus riesgos, puede ser necesaria.</target>
       </segment>
     </unit>
     <unit id="self_surgery">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>self_surgery.name</source>
-        <target>self_surgery.name</target>
+        <target>Auto-cirugía</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>self_surgery.description</source>
-        <target>self_surgery.description</target>
+        <target>Realiza una operación quirúrgica en ti.</target>
       </segment>
     </unit>
     <unit id="gag">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>gag.name</source>
-        <target>gag.name</target>
+        <target>Amordazar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>gag.description</source>
-        <target>gag.description</target>
+        <target>Amordaza a un compañero por el bien de todos.</target>
       </segment>
     </unit>
     <unit id="ungag">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>ungag.name</source>
-        <target>ungag.name</target>
+        <target>Desamordazar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ungag.description</source>
-        <target>ungag.description</target>
+        <target>Quítate la mordaza si puedes ¡y véngate!</target>
       </segment>
     </unit>
     <unit id="screw_talkie">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>screw_talkie.name</source>
-        <target>screw_talkie.name</target>
+        <target>Piratear</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>screw_talkie.description</source>
-        <target>screw_talkie.description</target>
+        <target>Altera el walkie-talkie de un tripulante para hacerte pasar por este hasta que lo use.</target>
       </segment>
     </unit>
     <unit id="update_talkie">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>update_talkie.name</source>
-        <target>update_talkie.name</target>
+        <target>Actualizar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>update_talkie.description</source>
-        <target>update_talkie.description</target>
+        <target>Genial, una nueva versión del software está disponible. Advertencia, la instalación puede tomar algunos ciclos para prevenirte de comunicarte con el resto de la tripulación.</target>
       </segment>
     </unit>
     <unit id="attack">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>attack.name</source>
-        <target>attack.name</target>
+        <target>Atacar: Cuchillo</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>attack.description</source>
-        <target>attack.description</target>
+        <target>Tienes un arma de lucha cuerpo a cuerpo, ¿quieres usarla?</target>
       </segment>
     </unit>
     <unit id="shoot">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>shoot.name</source>
-        <target>shoot.name</target>
+        <target>Disparar: Blaster</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>shoot.description</source>
-        <target>shoot.description</target>
+        <target>Dispara a alguien para herir o matar. ¡Cuidado, juego de manos es de villanos!</target>
       </segment>
     </unit>
     <unit id="suicide">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>suicide.name</source>
-        <target>suicide.name</target>
+        <target>Suicidarte</target>
       </segment>
       <segment id="description" state="translated">
         <source>suicide.description</source>
-        <target>suicide.short_name</target>
+        <target>Has cumplido tu misión aquí, hora de ir a codificar a otro lado.</target>
       </segment>
     </unit>
     <unit id="auto_destroy">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>auto_destroy.name</source>
-        <target>auto_destroy.name</target>
+        <target>Destruir la nave</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>auto_destroy.description</source>
-        <target>auto_destroy.description</target>
+        <target>Esta nave está llena de anomalías genéticas: una solución drástica es requerida.
+//
+**Advertencia**, esta acción destruirá la nave **inmediatamente**!</target>
       </segment>
     </unit>
     <unit id="kill_player">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>kill_player.name</source>
-        <target>kill_player.name</target>
+        <target>Poner en cuarentena</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>kill_player.description</source>
-        <target>kill_player.description</target>
+        <target>Ordena a NERON a poner a este jugador en cuarentena.
+//
+Ya sea por una mutación genética incomprensible o por pura locura homicida, una cosa es segura: este jugador es muy peligroso como para dejarlo libre.
+//
+**Advertencia**, esta acción matará este jugador**inmediatamente**! </target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>kill_player.confirmation</source>
-        <target>kill_player.confirmation</target>
+        <target>Esta acción es irreversible. ¿Estás seguro de querer continuar?</target>
       </segment>
     </unit>
     <unit id="action_aggressive">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>action_aggressive.name</source>
-        <target>action_aggressive.name</target>
+        <target>Acción agresiva</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>action_aggressive.description</source>
-        <target>action_aggressive.description</target>
+        <target>Esta acción es **Agresiva**. Puede tener restricciones.</target>
       </segment>
     </unit>
     <unit id="covert">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>covert.name</source>
-        <target>covert.name</target>
+        <target>Acción furtiva</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>covert.description</source>
-        <target>covert.description</target>
+        <target>Esta acción es **Furtiva**. Será revelada por las cámaras.</target>
       </segment>
     </unit>
     <unit id="secret">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>secret.name</source>
-        <target>secret.name</target>
+        <target>Esta acción es secreta</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>secret.description</source>
-        <target>secret.description</target>
+        <target>Esta acción es **Secreta**. Será revelada por las cámaras y tus compañeros, incluso los de tu bando.</target>
       </segment>
     </unit>
     <unit id="play_arcade">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>play_arcade.name</source>
-        <target>play_arcade.name</target>
+        <target>¡Jugar una partida!</target>
       </segment>
       <segment id="description" state="initial">
         <source>play_arcade.description</source>
@@ -802,13 +808,13 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>shoot_hunter.name</source>
-        <target>shoot_hunter.name</target>
+        <target>Disparar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>shoot_hunter.description</source>
-        <target>shoot_hunter.description</target>
+        <target>Dispara una carga de Teslatron a una nave enemiga.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_turret">

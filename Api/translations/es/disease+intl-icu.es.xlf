@@ -132,9 +132,9 @@
       </segment>
     </unit>
     <unit id="quincks_oedema">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>quincks_oedema.name</source>
-        <target>quincks_oedema.name</target>
+        <target>Angioedema</target>
       </segment>
       <segment id="description" state="translated">
         <source>quincks_oedema.description</source>

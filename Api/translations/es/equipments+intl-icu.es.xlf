@@ -268,7 +268,7 @@ Una mágica manera de sentirte mejor.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>combustion_chamber.examine</source>
-        <target>La cámara de combustión se encuentra en la sala de máquinas. Sirve para abastecer de combustible a los reactores durante el viaje.
+        <target>La cámara de combustión se encuentra en la sala de motores. Sirve para abastecer de combustible a los reactores durante el viaje.
 Reserva de combustible para un motor diésel. Una tecnología sublime con un fin muy particular. Los canales de transferencia de combustible ya no funcionan, el líquido debe ser trasladado desde las boquillas del depósito hasta la cámara de combustión. Los diseñadores bien podrían haberlo alimentado con carbón...</target>
       </segment>
     </unit>
@@ -729,23 +729,27 @@ Reserva de oxígeno del Daedalus, manipular con precaución. NO VACIARLO.</targe
       </segment>
       <segment id="examine" state="translated">
         <source>pasiphae.examine</source>
-        <target>Con cómodos asientos de cuero y 5 velocidades.
-Blindaje del aparato: {armor}
-No es tan nuevo pero cumple su función.</target>
+        <target>Pasiphae
+        //
+        Con cómodos asientos de cuero y 5 velocidades.
+        //
+        Blindaje del aparato: {armor}. 
+        //
+        No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_2_wallis">
       <segment id="name" state="translated">
         <source>patrol_ship_alpha_2_wallis.name</source>
-        <target>Patrullero Wallis</target>
+        <target>Patrullero Espacial Wallis</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_2_wallis.short_name</source>
-        <target>Patrullero Wallis</target>
+        <target>Patrullero</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_2_wallis.plural_name</source>
-        <target>Patrulleros Wallis</target>
+        <target>Patrulleros</target>
       </segment>
       <segment id="genre" state="translated">
         <source>patrol_ship_alpha_2_wallis.gender</source>
@@ -757,10 +761,15 @@ No es tan nuevo pero cumple su función.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>patrol_ship_alpha_2_wallis.examine</source>
-        <target>Con cómodos asientos de cuero y 5 velocidades.
-Cargas del aparato: 10.
-Blindaje del aparato: 10.
-No es tan nuevo pero cumple su función.</target>
+        <target>Patrullero Espacial Wallis
+        //
+        Con cómodos asientos de cuero y 5 velocidades.
+        //
+        Cargas del aparato: {charges}. 
+        //
+        Blindaje del aparato: {armor}. 
+        //
+        No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_bravo_epicure">
@@ -787,26 +796,28 @@ No es tan nuevo pero cumple su función.</target>
       <segment id="examine" state="translated">
         <source>patrol_ship_bravo_epicure.examine</source>
         <target>Patrullero Espacial Epicuro
-//
-Cargas del patrullero restantes: {charges}.   
-//
-Blindaje del patrullero: {armor}.
-//
-Ya no está tan nuevo y brillante, pero sigue funcionando.</target>
+        //
+        Con cómodos asientos de cuero y 5 velocidades.
+        //
+        Cargas del aparato: {charges}. 
+        //
+        Blindaje del aparato: {armor}. 
+        //
+        No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_jujube">
       <segment id="name" state="translated">
         <source>patrol_ship_alpha_jujube.name</source>
-        <target>Patrullero Jujube</target>
+        <target>Patrullero Espacial Jujube</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_jujube.short_name</source>
-        <target>Patrullero Jujube</target>
+        <target>Patrullero</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_jujube.plural_name</source>
-        <target>Patrulleros Jujube</target>
+        <target>Patrulleros</target>
       </segment>
       <segment id="genre" state="translated">
         <source>patrol_ship_alpha_jujube.gender</source>
@@ -818,24 +829,29 @@ Ya no está tan nuevo y brillante, pero sigue funcionando.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>patrol_ship_alpha_jujube.examine</source>
-        <target>Con cómodos asientos de cuero y 5 velocidades.
-Cargas del aparato: 10.
-Blindaje del aparato: 10.
-No es tan nuevo pero cumple su función.</target>
+        <target>Patrullero Espacial Jujube
+        //
+        Con cómodos asientos de cuero y 5 velocidades.
+        //
+        Cargas del aparato: {charges}. 
+        //
+        Blindaje del aparato: {armor}. 
+        //
+        No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_longane">
       <segment id="name" state="translated">
         <source>patrol_ship_alpha_longane.name</source>
-        <target>Patrullero Longane</target>
+        <target>Patrullero Espacial Longane</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_longane.short_name</source>
-        <target>Patrullero Longane</target>
+        <target>Patrullero</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_longane.plural_name</source>
-        <target>Patrulleros Longane</target>
+        <target>Patrulleros</target>
       </segment>
       <segment id="genre" state="translated">
         <source>patrol_ship_alpha_longane.gender</source>
@@ -847,10 +863,15 @@ No es tan nuevo pero cumple su función.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>patrol_ship_alpha_longane.examine</source>
-        <target>Con cómodos asientos de cuero y 5 velocidades.
-Cargas del aparato: 10.
-Blindaje del aparato: 10.
-No es tan nuevo pero cumple su función.</target>
+        <target>Patrullero Espacial Longane
+        //
+        Con cómodos asientos de cuero y 5 velocidades.
+        //
+        Cargas del aparato: {charges}. 
+        //
+        Blindaje del aparato: {armor}. 
+        //
+        No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_beta_planton">
@@ -876,13 +897,15 @@ No es tan nuevo pero cumple su función.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>patrol_ship_bravo_planton.examine</source>
-        <target>Patrullero Espacial Platón
-//
-Cargas del patrullero restantes: {charges}.   
-//
-Blindaje del patrullero: {armor}.
-//
-Ya no está tan nuevo y brillante, pero sigue funcionando.</target>
+        <target>Patrullero Espacial Wallis
+        //
+        Con cómodos asientos de cuero y 5 velocidades.
+        //
+        Cargas del aparato: {charges}. 
+        //
+        Blindaje del aparato: {armor}. 
+        //
+        No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_beta_socrate">
@@ -908,27 +931,29 @@ Ya no está tan nuevo y brillante, pero sigue funcionando.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>patrol_ship_bravo_socrate.examine</source>
-        <target>Patrullero Espacial Sócrates
-//
-Cargas del patrullero restantes: {charges}.   
-//
-Blindaje del patrullero: {armor}.
-//
-Ya no está tan nuevo y brillante, pero sigue funcionando.</target>
+        <target>Patrullero Espacial Wallis
+        //
+        Con cómodos asientos de cuero y 5 velocidades.
+        //
+        Cargas del aparato: {charges}. 
+        //
+        Blindaje del aparato: {armor}. 
+        //
+        No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_tamarin">
       <segment id="name" state="translated">
         <source>patrol_ship_alpha_tamarin.name</source>
-        <target>Patrullero Tamarindo</target>
+        <target>Patrullero Espacial Tamarindo</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_tamarin.short_name</source>
-        <target>Patrullero Tamarindo</target>
+        <target>Patrullero</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_tamarin.plural_name</source>
-        <target>Patrulleros Tamarindo</target>
+        <target>Patrulleros</target>
       </segment>
       <segment id="genre" state="translated">
         <source>patrol_ship_alpha_tamarin.gender</source>
@@ -940,10 +965,15 @@ Ya no está tan nuevo y brillante, pero sigue funcionando.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>patrol_ship_alpha_tamarin.examine</source>
-        <target>Con cómodos asientos de cuero y 5 velocidades.
-Cargas del aparato: 10.
-Blindaje del aparato: 10.
-No es tan nuevo pero cumple su función.</target>
+        <target>Patrullero Espacial Wallis
+        //
+        Con cómodos asientos de cuero y 5 velocidades.
+        //
+        Cargas del aparato: {charges}. 
+        //
+        Blindaje del aparato: {armor}. 
+        //
+        No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="pilgred">

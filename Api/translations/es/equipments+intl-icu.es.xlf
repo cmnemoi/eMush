@@ -979,11 +979,11 @@ Reserva de oxígeno del Daedalus, manipular con precaución. NO VACIARLO.</targe
     <unit id="pilgred">
       <segment id="name" state="translated">
         <source>pilgred.name</source>
-        <target>Pilgred</target>
+        <target>PILGRED</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>pilgred.short_name</source>
-        <target>Pilgred</target>
+        <target>PILGRED</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>pilgred.plural_name</source>
@@ -1139,7 +1139,7 @@ Mente limpia en cuerpo limpio.</target>
       <segment id="examine" state="translated">
         <source>swedish_sofa.examine</source>
         <target>Un magnífico sofá de cuero genuino, cosido a mano. Diseñado en Suecia pero hecho en un planeta de esclavos.
-Lo único que te hacer sentir como en casa...</target>
+Lo único que te hace sentir como en casa...</target>
       </segment>
     </unit>
     <unit id="surgery_plot">
@@ -1300,7 +1300,7 @@ La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la t
       </segment>
       <segment id="examine" state="translated">
         <source>camera_equipment.examine</source>
-        <target>Es un dispositivo de vigilancia muy útil para espiar ver lo que hacen tus compañeros.
+        <target>Es un dispositivo de vigilancia muy útil para --espiar-- ver lo que hacen tus compañeros.
 En su presencia, las acciones discretas y furtivas efectuadas son reveladas.
 Cuando hay una en una sala, todo se registra en el historial y aparece públicamente. No funciona cuando está en tu inventario personal.</target>
       </segment>
@@ -1365,7 +1365,7 @@ Puesto de pilotaje del Patrullero."</target>
       </segment>
       <segment id="description" state="translated">
         <source>tabulatrix.description</source>
-        <target>La tabuladora permite a NERON de proporcionarte de documentos escritos.</target>
+        <target>La tabuladora permite a NERON entregarte documentos escritos.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>tabulatrix.examine</source>

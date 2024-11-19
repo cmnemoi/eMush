@@ -27,6 +27,7 @@ use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Hunter\Event\HunterVariableEvent;
 use Mush\Hunter\Event\StrateguruWorkedEvent;
+use Mush\Hunter\Repository\HunterRepositoryInterface;
 use Mush\Hunter\Repository\HunterTargetRepositoryInterface;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
@@ -47,6 +48,7 @@ final class HunterService implements HunterServiceInterface
         private EntityManagerInterface $entityManager,
         private EventServiceInterface $eventService,
         private GameEquipmentServiceInterface $gameEquipmentService,
+        private HunterRepositoryInterface $hunterRepository,
         private HunterTargetRepositoryInterface $hunterTargetRepository,
         private RandomServiceInterface $randomService,
         private StatusService $statusService,
@@ -62,11 +64,6 @@ final class HunterService implements HunterServiceInterface
             $this->entityManager->remove($entity);
         }
         $this->entityManager->flush();
-    }
-
-    public function findById(int $id): ?Hunter
-    {
-        return $this->entityManager->getRepository(Hunter::class)->find($id);
     }
 
     public function killHunter(Hunter $hunter, array $reasons, ?Player $author = null): void
@@ -554,6 +551,10 @@ final class HunterService implements HunterServiceInterface
     {
         $hunterTargets = $this->hunterTargetRepository->findAllBy(['hunter' => $hunter]);
 
-        array_map(static fn (HunterTarget $hunterTarget) => $hunterTarget->reset(), $hunterTargets);
+        foreach ($hunterTargets as $hunterTarget) {
+            $owner = $this->hunterRepository->findOneByTargetOrThrow($hunterTarget);
+            $owner->resetTarget();
+            $this->hunterRepository->save($owner);
+        }
     }
 }

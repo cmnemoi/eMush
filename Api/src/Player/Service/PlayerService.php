@@ -102,6 +102,11 @@ final class PlayerService implements PlayerServiceInterface
         $daedalus->removePlayer($player);
         $this->entityManager->persist($daedalus);
 
+        $this->eventService->callEvent(
+            event: new PlayerEvent(player: $player, tags: [], time: new \DateTime()),
+            name: PlayerEvent::DELETE_PLAYER
+        );
+
         $this->entityManager->remove($player);
         $this->entityManager->flush();
 

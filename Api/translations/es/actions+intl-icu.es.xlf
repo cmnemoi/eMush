@@ -1062,9 +1062,9 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
         <source>takeoff_to_planet.name</source>
         <target>Despegar: {planet}</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>takeoff_to_planet.description</source>
-        <target>takeoff_to_planet.description</target>
+        <target>Despega la nave de exploración Icarus para aterrizar en un planeta.</target>
       </segment>
       <segment id="confirmation" state="initial">
         <source>takeoff_to_planet.confirmation</source>

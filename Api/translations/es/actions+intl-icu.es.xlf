@@ -1066,39 +1066,39 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
         <source>takeoff_to_planet.description</source>
         <target>Despega la nave de exploración Icarus para aterrizar en un planeta.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>takeoff_to_planet.confirmation</source>
-        <target>takeoff_to_planet.confirmation</target>
+        <target>¡Atención! La exploración requiere preparación, el planeta podría no tener una atmósfera respirable o estar habitado por seres hostiles ¿Deseas continuar?</target>
       </segment>
     </unit>
     <unit id="takeoff_to_planet_patrol_ship">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>takeoff_to_planet_patrol_ship.name</source>
-        <target>takeoff_to_planet_patrol_ship.name</target>
+        <target>Aterrizar: {planet}</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>takeoff_to_planet_patrol_ship.description</source>
-        <target>takeoff_to_planet_patrol_ship.description</target>
+        <target>Puedes aterrizar en un planeta con un patrullero... *Con los riesgos que eso pueda representar*</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>takeoff_to_planet_patrol_ship.confirmation</source>
-        <target>takeoff_to_planet_patrol_ship.confirmation</target>
+        <target>¡Atención! La exploración requiere preparación, el planeta podría no tener una atmósfera respirable o estar habitado por seres hostiles ¿Deseas continuar?</target>
       </segment>
     </unit>
     <unit id="repair_pilgred">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>repair_pilgred.name</source>
-        <target>repair_pilgred.name</target>
+        <target>Participar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>repair_pilgred.description</source>
-        <target>repair_pilgred.description</target>
+        <target>Reparar el PILGRED te permitirá volver a Sol.</target>
       </segment>
     </unit>
     <unit id="return_to_sol">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>return_to_sol.name</source>
-        <target>return_to_sol.name</target>
+        <target>Viajar a Sol</target>
       </segment>
       <segment id="description" state="initial">
         <source>return_to_sol.description</source>

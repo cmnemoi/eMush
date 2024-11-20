@@ -54,7 +54,7 @@
     <unit id="cat_allergy">
       <segment id="name" state="translated">
         <source>cat_allergy.name</source>
-        <target>cat_allergy.description</target>
+        <target>Alergia a los gatos</target>
       </segment>
       <segment id="description" state="translated">
         <source>cat_allergy.description</source>

@@ -156,9 +156,9 @@
         <source>rubella.name</source>
         <target>Rubeola</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>rubella.description</source>
-        <target>rubella.description</target>
+        <target>Dolor de cabeza, pústulas secas, fatiga extrema. Deberías poder superarlo.</target>
       </segment>
     </unit>
     <unit id="sepsis">
@@ -166,9 +166,9 @@
         <source>sepsis.name</source>
         <target>Septicemia</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>sepsis.description</source>
-        <target>sepsis.description</target>
+        <target>Sufres una grave infección. No es fácil volver a ponerse de pie. Probablemente no sobrevivirás...</target>
       </segment>
     </unit>
     <unit id="sinus_storm">
@@ -182,9 +182,9 @@
       </segment>
     </unit>
     <unit id="skin_inflammation">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>skin_inflammation.name</source>
-        <target>skin_inflammation.name</target>
+        <target>Erupción cutánea</target>
       </segment>
       <segment id="description" state="initial">
         <source>skin_inflammation.description</source>

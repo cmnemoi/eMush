@@ -97,7 +97,7 @@ export default defineComponent ({
         }
 
         h1.header::before {
-            content:  url("/src/assets/images/planet.png");
+            content:  url("/src/assets/images/ui_icons/planet.png");
             padding-right: 0.25em;
         }
     }

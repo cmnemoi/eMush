@@ -24,7 +24,7 @@
                                 </ul>
                             </li>
                             <li class="iconLife">
-                                <p><img :src="getImgUrl('lp.png')" alt="lp">{{ player.healthPoint.quantity }}</p>
+                                <p><img :src="getImgUrl('ui_icons/player_variables/hp.png')" alt="hp">{{ player.healthPoint.quantity }}</p>
                             </li>
                             <template #content>
                                 <h1 v-html="formatContent(player.healthPoint.name)" />
@@ -40,7 +40,7 @@
                                 </ul>
                             </li>
                             <li class="iconMorale">
-                                <p><img :src="getImgUrl('moral.png')" alt="mp">{{ player.moralPoint.quantity }}</p>
+                                <p><img :src="getImgUrl('ui_icons/player_variables/moral.png')" alt="mp">{{ player.moralPoint.quantity }}</p>
                             </li>
                             <template #content>
                                 <h1 v-html="formatContent(player.moralPoint.name)" />

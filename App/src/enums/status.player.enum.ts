@@ -32,6 +32,9 @@ export enum StatusPlayerNameEnum {
     GENIUS_IDEA = "genius_idea",
     PARIAH = "pariah",
     ANTIQUE_PERFUME_IMMUNIZED = "antique_perfume_immunized",
+    ILL = 'ill',
+    INJURY = 'injury',
+    DISORDER = 'disorder',
 };
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -127,5 +130,14 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [StatusPlayerNameEnum.ANTIQUE_PERFUME_IMMUNIZED]: {
         'icon': getImgUrl('status/immune.png')
+    },
+    [StatusPlayerNameEnum.ILL]: {
+        'icon': getImgUrl('status/disease.png')
+    },
+    [StatusPlayerNameEnum.INJURY]: {
+        'icon': getImgUrl('status/injury.png')
+    },
+    [StatusPlayerNameEnum.DISORDER]: {
+        'icon': getImgUrl('status/disorder.png')
     }
 };

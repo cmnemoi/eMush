@@ -1234,13 +1234,13 @@
       </segment>
     </unit>
     <unit id="first_time">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>first_time.name</source>
-        <target>first_time.name</target>
+        <target>Primera vez</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>first_time.description</source>
-        <target>first_time.description</target>
+        <target>Nunca lo has hecho. La primera vez que lo hagas con otro tripulante, tu moral se subirá al máximo.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>first_time.examine</source>
@@ -1308,9 +1308,9 @@
         <source>guardian.name</source>
         <target>guardian.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>guardian.description</source>
-        <target>guardian.description</target>
+        <target>Cuando un guardián está en la sala, los visitantes **solo** pueden ir al lugar de donde vienen.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>guardian.examine</source>
@@ -1318,9 +1318,9 @@
       </segment>
     </unit>
     <unit id="highly_inactive">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>highly_inactive.name</source>
-        <target>highly_inactive.name</target>
+        <target>Gran inactivo</target>
       </segment>
       <segment id="description" state="initial">
         <source>highly_inactive.description</source>

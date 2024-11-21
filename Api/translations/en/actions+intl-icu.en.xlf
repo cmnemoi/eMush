@@ -1464,7 +1464,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="description" state="translated">
         <source>convert_cat.description</source>
-        <target>PAllows you to cuddle with Schrödinger "lovingly" and make it an agent of Mush.</target>
+        <target>Allows you to cuddle with Schrödinger "lovingly" and make it an agent of Mush.</target>
       </segment>
     </unit>
     <unit id="torture">

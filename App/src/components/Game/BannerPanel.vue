@@ -34,7 +34,7 @@
                         </template>
                     </Tippy>
                     <Tippy tag="li">
-                        <span>{{ daedalus.fuel.quantity }} <img :src="getImgUrl('fuel.png')"></span>
+                        <span>{{ daedalus.fuel.quantity }} <img :src="getImgUrl('ui_icons/fuel.png')"></span>
                         <template #content>
                             <h1 v-html="formatContent(daedalus.fuel.name)" />
                             <p v-html="formatContent(daedalus.fuel.description)" />
@@ -59,7 +59,7 @@
                         </template>
                     </Tippy>
                     <Tippy tag="li">
-                        <span>{{ player.triumph?.quantity }} <img :src="getImgUrl('triumph.png')"></span>
+                        <span>{{ player.triumph?.quantity }} <img :src="getImgUrl('ui_icons/player_variables/triumph.png')"></span>
                         <template #content>
                             <h1 v-html="player?.triumph?.name" />
                             <p v-html="player?.triumph?.description" />

@@ -42,7 +42,7 @@
                             <h1 v-html="formatText(terminal.buttons.sharePlanet.name)" />
                             <p v-html="formatText(terminal.buttons.sharePlanet.description)" />
                         </template>
-                        <img :src="getImgUrl('planet.png')">
+                        <img :src="getImgUrl('ui_icons/planet.png')">
                     </Tippy>
                     <Tippy
                         v-if="deleteAction(planet)"

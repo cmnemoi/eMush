@@ -11,8 +11,6 @@ interface HunterServiceInterface
 {
     public function delete(array $entities): void;
 
-    public function findById(int $id): ?Hunter;
-
     public function makeHuntersShoot(HunterCollection $attackingHunters): void;
 
     public function killHunter(Hunter $hunter, array $reasons, ?Player $author = null): void;

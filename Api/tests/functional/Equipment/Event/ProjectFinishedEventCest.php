@@ -172,7 +172,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'project' => ProjectName::NARCOTICS_DISTILLER->value,
                 'equipment' => EquipmentEnum::NARCOTIC_DISTILLER,
                 'quantity' => 1,
-                'creationPlaces' => [RoomEnum::LABORATORY],
+                'creationPlaces' => [RoomEnum::MEDLAB],
             ],
             [
                 'project' => ProjectName::NCC_CONTACT_LENSES->value,
@@ -190,12 +190,6 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'project' => ProjectName::MYCOALARM->value,
                 'equipment' => ItemEnum::MYCO_ALARM,
                 'quantity' => 5,
-                'creationPlaces' => [RoomEnum::LABORATORY],
-            ],
-            [
-                'project' => ProjectName::MUSHICIDE_SOAP->value,
-                'equipment' => GearItemEnum::SUPER_SOAPER,
-                'quantity' => 1,
                 'creationPlaces' => [RoomEnum::LABORATORY],
             ],
         ];
@@ -218,6 +212,11 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'project' => ProjectName::APERO_KITCHEN->value,
                 'equipmentToRemove' => EquipmentEnum::KITCHEN,
                 'equipmentToAdd' => EquipmentEnum::SNC_KITCHEN,
+            ],
+            [
+                'project' => ProjectName::MUSHICIDE_SOAP->value,
+                'equipmentToRemove' => GearItemEnum::SOAP,
+                'equipmentToAdd' => GearItemEnum::SUPER_SOAPER,
             ],
         ];
     }

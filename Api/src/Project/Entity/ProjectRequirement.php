@@ -56,6 +56,7 @@ class ProjectRequirement
         $laboratory = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
 
         return match ($this->type) {
+            ProjectRequirementType::GAME_STARTED->value => $daedalus->getDaedalusInfo()->isDaedalusStarted(),
             ProjectRequirementType::CHUN_IN_LABORATORY->value => $laboratory->isChunIn(),
             ProjectRequirementType::ITEM_IN_LABORATORY->value => $player->canReachEquipmentByName($this->getTargetOrThrow()),
             ProjectRequirementType::ITEM_IN_PLAYER_INVENTORY->value => $player->hasEquipmentByName($this->getTargetOrThrow()),

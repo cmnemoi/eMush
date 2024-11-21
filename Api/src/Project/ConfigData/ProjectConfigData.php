@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Project\ConfigData;
 
 use Mush\Communication\Enum\MessageModificationEnum;
+use Mush\Equipment\ConfigData\ReplaceEquipmentConfigData;
 use Mush\Equipment\ConfigData\SpawnEquipmentConfigData;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Project\Enum\ProjectName;
@@ -577,6 +578,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                 ],
             ],
@@ -592,6 +594,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                     ProjectRequirementName::FOOD_IN_LABORATORY,
                 ],
@@ -616,11 +619,12 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
-                'spawnEquipmentConfigs' => [
-                    SpawnEquipmentConfigData::ONE_SUPER_SOAPER_IN_LABORATORY,
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [
+                    ReplaceEquipmentConfigData::REPLACE_SOAP_BY_SUPER_SOAP,
                 ],
-                'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::SOAP_IN_LABORATORY,
                     ProjectRequirementName::CHUN_IN_LABORATORY,
                 ],
@@ -637,6 +641,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                     ProjectRequirementName::CHUN_IN_LABORATORY,
                 ],
@@ -707,6 +712,7 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                 ],
             ],
@@ -722,6 +728,7 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::CHUN_IN_LABORATORY,
                 ],
             ],
@@ -733,7 +740,7 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
-                    SpawnEquipmentConfigData::ONE_NARCOTICS_DISTILLER_IN_LABORATORY,
+                    SpawnEquipmentConfigData::ONE_NARCOTICS_DISTILLER_IN_MEDLAB,
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
@@ -748,6 +755,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::BLASTER_IN_LABORATORY,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                 ],
@@ -779,6 +787,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                 ],
             ],
@@ -805,6 +814,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                     ProjectRequirementName::MUSH_GENOME_DISK_IN_LABORATORY,
                 ],
@@ -821,6 +831,7 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                     ProjectRequirementName::CHUN_IN_LABORATORY,
@@ -839,6 +850,7 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
+                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                 ],
             ],

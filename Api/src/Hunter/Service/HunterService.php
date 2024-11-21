@@ -22,9 +22,13 @@ use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
+use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Hunter\Event\HunterVariableEvent;
 use Mush\Hunter\Event\StrateguruWorkedEvent;
+use Mush\Hunter\Repository\HunterRepositoryInterface;
+use Mush\Hunter\Repository\HunterTargetRepositoryInterface;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Entity\Player;
@@ -44,6 +48,8 @@ final class HunterService implements HunterServiceInterface
         private EntityManagerInterface $entityManager,
         private EventServiceInterface $eventService,
         private GameEquipmentServiceInterface $gameEquipmentService,
+        private HunterRepositoryInterface $hunterRepository,
+        private HunterTargetRepositoryInterface $hunterTargetRepository,
         private RandomServiceInterface $randomService,
         private StatusService $statusService,
     ) {}
@@ -51,14 +57,13 @@ final class HunterService implements HunterServiceInterface
     public function delete(array $entities): void
     {
         foreach ($entities as $entity) {
+            if ($entity instanceof Hunter) {
+                $this->removeTargetsInvolvingHunter($entity);
+            }
+
             $this->entityManager->remove($entity);
         }
         $this->entityManager->flush();
-    }
-
-    public function findById(int $id): ?Hunter
-    {
-        return $this->entityManager->getRepository(Hunter::class)->find($id);
     }
 
     public function killHunter(Hunter $hunter, array $reasons, ?Player $author = null): void
@@ -374,6 +379,11 @@ final class HunterService implements HunterServiceInterface
 
                 break;
 
+            case $hunterTarget instanceof Hunter:
+                $this->shootAtHunter($hunter);
+
+                break;
+
             default:
                 throw new \Exception("Unknown hunter target {$hunter->getTarget()?->getType()}");
         }
@@ -501,6 +511,21 @@ final class HunterService implements HunterServiceInterface
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
+    private function shootAtHunter(Hunter $hunter): void
+    {
+        /** @var Hunter $hunter */
+        $hunter = $hunter->getTargetEntityOrThrow();
+
+        $hunterVariableEvent = new HunterVariableEvent(
+            hunter: $hunter,
+            variableName: HunterVariableEnum::HEALTH,
+            quantity: -$this->getHunterDamage($hunter),
+            tags: [HunterEvent::HUNTER_SHOT],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
     private function applyMeridonScrambler(Hunter $hunter): void
     {
         $hunterTarget = $hunter->getTargetOrThrow();
@@ -520,5 +545,16 @@ final class HunterService implements HunterServiceInterface
         return EquipmentEnum::getPatrolShips()
             ->map(fn (string $patrolShip) => $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShip, $daedalus)->first())
             ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment && $patrolShip->isInSpaceBattle());
+    }
+
+    private function removeTargetsInvolvingHunter(Hunter $hunter): void
+    {
+        $hunterTargets = $this->hunterTargetRepository->findAllBy(['hunter' => $hunter]);
+
+        foreach ($hunterTargets as $hunterTarget) {
+            $owner = $this->hunterRepository->findOneByTargetOrThrow($hunterTarget);
+            $owner->resetTarget();
+            $this->hunterRepository->save($owner);
+        }
     }
 }

@@ -53,9 +53,7 @@ class HunterTarget
 
     public function setTargetEntity(HunterTargetEntityInterface $target): self
     {
-        $this->daedalus = null;
-        $this->patrolShip = null;
-        $this->player = null;
+        $this->reset();
 
         switch (true) {
             case $target instanceof Daedalus:

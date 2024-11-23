@@ -96,7 +96,10 @@
     <unit id="drop">
       <segment id="drop" state="translated">
         <source>drop</source>
-        <target>**{character}** has dropped a **{target_equipment}**.</target>
+        <target>{target_equipment_gender, select,
+                        name {**{character}** has dropped **{target_equipment}**.}
+                        other {**{character}** has dropped a **{target_equipment}**.}
+                }</target>
       </segment>
     </unit>
     <unit id="express_cook_success">
@@ -327,7 +330,11 @@
     <unit id="take">
       <segment id="take" state="translated">
         <source>take</source>
-        <target>**{character}** has picked up the **{target_equipment}**.</target>
+        <target>
+{target_equipment_gender, select,
+                       name {**{character}** has picked up **{target_equipment}**.}
+                        other {**{character}** has picked up the **{target_equipment}**.}
+                }</target>
       </segment>
     </unit>
     <unit id="hybridize_success">
@@ -912,7 +919,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="takeoff_to_planet_patrol_ship_success">
       <segment id="takeoff_to_planet_patrol_ship_success" state="translated">
         <source>takeoff_to_planet_patrol_ship_success</source>
-        <target>**{character}** made {target_equipment} landing on the planet.</target>
+        <target>**{character}** landed {target_equipment} on the planet.</target>
       </segment>
     </unit>
     <unit id="change_neron_cpu_priority_success">

@@ -67,6 +67,8 @@ abstract class CharacterEnum
             self::STEPHEN,
             self::TERRENCE,
             self::CHUN,
+            self::SOMEONE,
+            self::NERON,
         ];
     }
 
@@ -83,6 +85,8 @@ abstract class CharacterEnum
             self::KUAN_TI,
             self::ROLAND,
             self::STEPHEN,
+            self::SOMEONE,
+            self::NERON,
         ], true);
     }
 
@@ -92,5 +96,20 @@ abstract class CharacterEnum
             self::PAOLA,
             self::GIOELE,
         ], true);
+    }
+
+    public static function exists(string $character): bool
+    {
+        return \in_array($character, self::getAll(), true);
+    }
+
+    public static function doesNotExist(string $character): bool
+    {
+        return self::exists($character) === false;
+    }
+
+    public static function gender(string $character): string
+    {
+        return self::isMale($character) ? 'male' : 'female';
     }
 }

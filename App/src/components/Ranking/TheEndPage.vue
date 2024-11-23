@@ -702,15 +702,6 @@ h2 {
         list-style: disc inside url("/src/assets/images/ui_icons/point.png");
     }
 
-    /*
-    li {
-        display: initial;
-        float: left;
-        margin-bottom: 1em;
-        list-style: disc inside url("/src/assets/images/ui_icons/point2.png");
-    }
-    */
-
     button {
         position: absolute;
         right: 0;

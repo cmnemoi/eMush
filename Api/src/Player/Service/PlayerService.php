@@ -182,8 +182,8 @@ final class PlayerService implements PlayerServiceInterface
 
             // Only keep players that are not source player and that are in same daedalus
             if ($likedPlayer
-                && $likedPlayer->getId() !== $player->getId()
-                && $likedPlayer->getDaedalus()->getId() === $player->getDaedalus()->getId()
+                && $likedPlayer->notEquals($player)
+                && $likedPlayer->getDaedalus()->equals($player->getDaedalus())
             ) {
                 $likedClosedPlayer = $likedPlayer->getPlayerInfo()->getClosedPlayer();
                 $likedClosedPlayer->addLike();
@@ -401,8 +401,8 @@ final class PlayerService implements PlayerServiceInterface
             ->setPlayerVariables($characterConfig);
 
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-        $this->persistPlayerInfo($playerInfo);
 
+        $this->persistPlayerInfo($playerInfo);
         $this->persist($player);
 
         return $player;

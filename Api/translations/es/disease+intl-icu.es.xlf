@@ -142,13 +142,13 @@
       </segment>
     </unit>
     <unit id="rejuvenation">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>rejuvenation.name</source>
-        <target>rejuvenation.name</target>
+        <target>Verdidermis</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>rejuvenation.description</source>
-        <target>rejuvenation.description</target>
+        <target>Tu cuerpo emite luces verdes pulsantes, lo cual realmente no favorece un sueño reparador...</target>
       </segment>
     </unit>
     <unit id="rubella">
@@ -176,9 +176,9 @@
         <source>sinus_storm.name</source>
         <target>sinus_storm.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>sinus_storm.description</source>
-        <target>sinus_storm.description</target>
+        <target>Tus senos nasales, arden, se congelan y te hacen perder la cabeza. Es fuerte y no desaparece...</target>
       </segment>
     </unit>
     <unit id="skin_inflammation">
@@ -186,9 +186,9 @@
         <source>skin_inflammation.name</source>
         <target>Erupción cutánea</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>skin_inflammation.description</source>
-        <target>skin_inflammation.description</target>
+        <target>Cualquiera que sea la fuente, no te importa, pica ahí y es muy doloroso.</target>
       </segment>
     </unit>
     <unit id="slight_nausea">
@@ -206,9 +206,9 @@
         <source>smallpox.name</source>
         <target>Viruela</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>smallpox.description</source>
-        <target>smallpox.description</target>
+        <target>Una enfermedad que desapareció de Sol pero aparentemente se encuentra en otros lugares. Ese aspecto apetitoso debería convencerte de tratarla...</target>
       </segment>
     </unit>
     <unit id="space_rabies">
@@ -216,9 +216,9 @@
         <source>space_rabies.name</source>
         <target>Rabia espacial</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>space_rabies.description</source>
-        <target>space_rabies.description</target>
+        <target>Tienes rabia. Tienes tendencias violentas pero será la enfermedad lo que termine matándote.</target>
       </segment>
     </unit>
     <unit id="syphilis">
@@ -226,45 +226,45 @@
         <source>syphilis.name</source>
         <target>Sífilis</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>syphilis.description</source>
-        <target>syphilis.description</target>
+        <target>La enfermedad venérea por excelencia, tu aspecto aterrador y los rumores que te rodean no tardaran en cansarte. Que buen Don Juan de todos modos...</target>
       </segment>
     </unit>
     <unit id="vitamin_deficiency">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>vitamin_deficiency.name</source>
-        <target>vitamin_deficiency.name</target>
+        <target>Deficiencia de vitaminas</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>vitamin_deficiency.description</source>
-        <target>vitamin_deficiency.description</target>
+        <target>Deficiencia de vitaminas, minerales, oligoelementos y otros, no estas en buena condición...</target>
       </segment>
     </unit>
     <unit id="agoraphobia">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>agoraphobia.name</source>
-        <target>agoraphobia.name</target>
+        <target>Agorafobia</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>agoraphobia.description</source>
-        <target>agoraphobia.description</target>
+        <target>Te aterran las multitudes y los espacios abiertos, además tienes mareos incontrolables... En el espacio no te ayudará...</target>
       </segment>
     </unit>
     <unit id="ailurophobia">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>ailurophobia.name</source>
-        <target>ailurophobia.name</target>
+        <target>Ailurofobia</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ailurophobia.description</source>
-        <target>ailurophobia.description</target>
+        <target>Tienes una fobia terrible a los gatos. La mera visión de ellos te pone a la defensiva.</target>
       </segment>
     </unit>
     <unit id="chronic_migraine">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>chronic_migraine.name</source>
-        <target>chronic_migraine.name</target>
+        <target>Migraña crónica</target>
       </segment>
       <segment id="description" state="initial">
         <source>chronic_migraine.description</source>
@@ -272,9 +272,9 @@
       </segment>
     </unit>
     <unit id="chronic_vertigo">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>chronic_vertigo.name</source>
-        <target>chronic_vertigo.name</target>
+        <target>Vértigo crónico</target>
       </segment>
       <segment id="description" state="initial">
         <source>chronic_vertigo.description</source>

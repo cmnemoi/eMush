@@ -6,7 +6,8 @@ import { formatText, helpers } from './formatText';
 describe('formatText', () => {
 
     beforeEach(() => {
-        sinon.stub(helpers, "computeImageHtml").returns("<img/>");
+        sinon.stub(helpers, "computeEmoteHtmlByKey").returns("<img/>");
+        sinon.stub(helpers, "computeUiIconHtmlByKey").returns("<img/>");
         sinon.stub(helpers, "computeCharacterImageHtmlByKey").returns("<img/>");
         sinon.stub(helpers, "computeAlertImageHtmlByKey").returns("<img/>");
         sinon.stub(helpers, "computeItemStatusImageHtmlByKey").returns("<img/>");
@@ -15,7 +16,8 @@ describe('formatText', () => {
     });
 
     afterEach(() => {
-        (helpers.computeImageHtml as any).restore();
+        (helpers.computeEmoteHtmlByKey as any).restore();
+        (helpers.computeUiIconHtmlByKey as any).restore();
         (helpers.computeCharacterImageHtmlByKey as any).restore();
         (helpers.computeAlertImageHtmlByKey as any).restore();
         (helpers.computeItemStatusImageHtmlByKey as any).restore();

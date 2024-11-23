@@ -12,12 +12,6 @@ import { UiIconEnum, UiIconIcons } from '@/enums/ui_icon.enum';
 import { SkillPointEnum, skillPointEnum } from '@/enums/skill.point.enum';
 
 export const helpers = {
-    computeImageHtml(key: string): string {
-        switch(key) {
-        default:
-            throw Error(`Unexpected key for replaced image: ${key}`);
-        }
-    },
     computeCharacterImageHtmlByKey(key: string): string {
         if (!characterEnum[key]) {
             throw Error(`Unexpected key for replaced image: ${key}`);

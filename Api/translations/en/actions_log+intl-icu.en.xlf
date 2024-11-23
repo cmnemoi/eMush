@@ -96,8 +96,8 @@
     <unit id="drop">
       <segment id="drop" state="translated">
         <source>drop</source>
-        <target>{target_equipment_gender, select,
-                        name {**{character}** has dropped **{target_equipment}**.}
+        <target>{target_equipment, select,
+                        Schrödinger {**{character}** has dropped **{target_equipment}**.}
                         other {**{character}** has dropped a **{target_equipment}**.}
                 }</target>
       </segment>
@@ -330,11 +330,7 @@
     <unit id="take">
       <segment id="take" state="translated">
         <source>take</source>
-        <target>
-{target_equipment_gender, select,
-                       name {**{character}** has picked up **{target_equipment}**.}
-                        other {**{character}** has picked up the **{target_equipment}**.}
-                }</target>
+        <target>**{character}** has picked up the **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="hybridize_success">

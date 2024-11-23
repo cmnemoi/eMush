@@ -125,15 +125,11 @@ final class PlayerServiceTest extends TestCase
         $gameConfig
             ->setCharactersConfig($this->charactersConfigs);
 
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->times(2);
-        $this->entityManager
-            ->shouldReceive('flush')
-            ->times(2);
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->once();
+        $this->entityManager->shouldReceive('persist')->times(3);
+        $this->entityManager->shouldReceive('flush')->times(4);
+        $this->entityManager->shouldReceive('beginTransaction')->once();
+        $this->entityManager->shouldReceive('commit')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $player = $this->service->createPlayer($daedalus, $user, 'character');
 

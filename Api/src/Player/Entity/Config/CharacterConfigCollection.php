@@ -17,4 +17,15 @@ class CharacterConfigCollection extends ArrayCollection
 
         return $character === false ? null : $character;
     }
+
+    public function getByNameOrThrow(string $name): CharacterConfig
+    {
+        $character = $this->getCharacter($name);
+
+        if ($character === null) {
+            throw new \LogicException("Character {$name} not available");
+        }
+
+        return $character;
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Mush\Disease\Listener;
 
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -120,14 +121,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
         $characterConfig = $player->getPlayerInfo()->getCharacterConfig();
         $reasons = $event->getTags();
 
-        $initDiseases = $characterConfig->getInitDiseases();
-        // get diseases name from initDiseases configs with a closure
-        $initDiseases = array_map(
-            static function ($diseaseConfig) {
-                return $diseaseConfig->getDiseaseName();
-            },
-            $initDiseases->toArray()
-        );
+        $initDiseases = $characterConfig->getInitDiseases()->map(static fn (DiseaseConfig $diseaseConfig) => $diseaseConfig->getDiseaseName());
 
         foreach ($initDiseases as $diseaseName) {
             $this->playerDiseaseService->createDiseaseFromName(

@@ -484,6 +484,26 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertNotEmpty($items);
     }
 
+    public function shouldNotNormalizePlacePersonalItems(FunctionalTester $I): void
+    {
+        $terminal = $this->givenLabTerminal();
+
+        $this->givenKuanTiHasItemsInInventory([ItemEnum::WALKIE_TALKIE]);
+
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->kuanTi->getEquipmentByNameOrThrow(ItemEnum::WALKIE_TALKIE),
+            newHolder: $terminal->getPlace(),
+        );
+
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+        $items = $normalizedTerminal['items'];
+
+        $I->assertEmpty($items);
+    }
+
     public function testWhenNoRequirementIsMetThenShouldOnlySeeAnabolicsAndNarcoticsProject(FunctionalTester $I)
     {
         $this->givenChunIsNotInLab();

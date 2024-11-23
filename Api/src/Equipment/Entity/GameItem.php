@@ -134,4 +134,9 @@ class GameItem extends GameEquipment
     {
         return $this->getName() === ItemEnum::SCHRODINGER;
     }
+
+    public function isPersonal(): bool
+    {
+        return $this->equipment->isPersonal();
+    }
 }

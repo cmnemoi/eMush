@@ -20,7 +20,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -181,12 +180,9 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $currentPlayer = $context['currentPlayer'];
 
         $playerItems = $currentPlayer->getEquipments();
-        $laboratoryItems = $terminal
-            ->getDaedalus()
-            ->getPlaceByNameOrThrow(RoomEnum::LABORATORY)
-            ->getItems();
+        $placeItems = $terminal->getPlace()->getNonPersonalItems();
 
-        $allItems = array_merge($playerItems->toArray(), $laboratoryItems->toArray());
+        $allItems = array_merge($playerItems->toArray(), $placeItems->toArray());
         $normalizedItems = [];
         foreach ($allItems as $item) {
             $normalizedItems[] = $this->normalizer->normalize($item, $format, $context);

@@ -30,7 +30,7 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
 
         $diseases = $diseaseCausesConfig->getDiseases();
 
-        foreach (GameFruitEnum::getAlienFruits() as $fruitName) {
+        foreach (GameFruitEnum::getAlienFruits()->filter(static fn (string $fruitName) => $fruitName !== GameFruitEnum::JUMPKIN) as $fruitName) {
             $alienFruitDiseasesConfig = new ConsumableDiseaseConfig();
             $alienFruitDiseasesConfig
                 ->setCauseName($fruitName)

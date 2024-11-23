@@ -52,23 +52,25 @@ abstract class CharacterEnum
     {
         return [
             self::ANDIE,
+            self::CHAO,
+            self::CHUN,
             self::DEREK,
             self::ELEESHA,
+            self::FINOLA,
             self::FRIEDA,
             self::GIOELE,
+            self::HUA,
             self::IAN,
             self::JANICE,
-            self::HUA,
             self::JIN_SU,
             self::KUAN_TI,
+            self::NERON,
             self::PAOLA,
             self::RALUCA,
             self::ROLAND,
+            self::SOMEONE,
             self::STEPHEN,
             self::TERRENCE,
-            self::CHUN,
-            self::SOMEONE,
-            self::NERON,
         ];
     }
 

@@ -13,13 +13,16 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class ChannelRepositoryCest
+final class ChannelRepositoryCest
 {
     private ChannelRepository $channelRepository;
 
@@ -40,6 +43,9 @@ class ChannelRepositoryCest
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
+
+        $pheromodemProject = new Project($I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PHEROMODEM]), $daedalus);
+        $I->haveInRepository($pheromodemProject);
 
         $publicChannel = new Channel();
         $publicChannel
@@ -105,6 +111,9 @@ class ChannelRepositoryCest
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
+
+        $pheromodemProject = new Project($I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PHEROMODEM]), $daedalus);
+        $I->haveInRepository($pheromodemProject);
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus]);
@@ -193,6 +202,12 @@ class ChannelRepositoryCest
         $daedalus2Info = new DaedalusInfo($daedalus2, $gameConfig, $localizationConfig);
         $daedalusInfo->setName('daedalus2');
         $I->haveInRepository($daedalus2Info);
+
+        $pheromodemProject = new Project($I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PHEROMODEM]), $daedalus);
+        $I->haveInRepository($pheromodemProject);
+
+        $pheromodemProject2 = new Project($I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PHEROMODEM]), $daedalus2);
+        $I->haveInRepository($pheromodemProject2);
 
         $publicChannel1 = new Channel();
         $publicChannel1

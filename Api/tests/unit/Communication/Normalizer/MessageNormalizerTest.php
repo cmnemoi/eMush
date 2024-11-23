@@ -20,6 +20,8 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Service\Random\FakeGetRandomIntegerService;
+use Mush\Game\Service\Random\RandomString;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -47,6 +49,7 @@ final class MessageNormalizerTest extends TestCase
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->normalizer = new MessageNormalizer(
+            new RandomString(new FakeGetRandomIntegerService(result: 0)),
             $this->translationService,
         );
     }

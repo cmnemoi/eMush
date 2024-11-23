@@ -4,18 +4,17 @@ namespace Mush\Communication\Normalizer;
 
 use Mush\Communication\Entity\Message;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Service\Random\RandomStringInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class MessageNormalizer implements NormalizerInterface
 {
-    private TranslationServiceInterface $translationService;
-
-    public function __construct(TranslationServiceInterface $translationService)
-    {
-        $this->translationService = $translationService;
-    }
+    public function __construct(
+        private RandomStringInterface $randomString,
+        private TranslationServiceInterface $translationService
+    ) {}
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
@@ -41,7 +40,7 @@ class MessageNormalizer implements NormalizerInterface
             'id' => $message->getId(),
             'character' => $this->translatedMessageAuthor($message, $currentPlayer),
             'message' => $this->translatedMessageText($message, $currentPlayer),
-            'date' => $this->getMessageDate($message->getCreatedAtOrThrow(), $language),
+            'date' => $this->translatedMessageDate($message->getCreatedAtOrThrow(), $language),
             'child' => $childMessages,
             'isUnread' => $message->isUnreadBy($currentPlayer),
         ];
@@ -51,6 +50,10 @@ class MessageNormalizer implements NormalizerInterface
     {
         $language = $currentPlayer->getLanguage();
         $translationParameters = $message->getTranslationParameters();
+
+        if ($currentPlayer->isHuman() && $message->isInMushChannel()) {
+            $translationParameters = $this->scrambleCharacterNames($translationParameters);
+        }
 
         if ($message->getAuthor()) {
             return $message->getMessage();
@@ -95,18 +98,17 @@ class MessageNormalizer implements NormalizerInterface
 
     private function messageAuthor(Message $message, Player $currentPlayer): ?string
     {
-        $channel = $message->getChannel();
         if ($message->getNeron()) {
             return CharacterEnum::NERON;
         }
         if ($message->getAuthor()) {
-            return $currentPlayer->isHuman() && $channel->isMushChannel() ? CharacterEnum::MUSH : $message->getAuthorAsPlayerOrThrow()->getLogName();
+            return $currentPlayer->isHuman() && $message->isInMushChannel() ? CharacterEnum::MUSH : $message->getAuthorAsPlayerOrThrow()->getLogName();
         }
 
         return null;
     }
 
-    private function getMessageDate(\DateTime $dateTime, string $language): string
+    private function translatedMessageDate(\DateTime $dateTime, string $language): string
     {
         $dateInterval = $dateTime->diff(new \DateTime());
 
@@ -125,6 +127,18 @@ class MessageNormalizer implements NormalizerInterface
         }
 
         return $this->translationService->translate('message_date.less_minute', [], 'chat', $language);
+    }
+
+    private function scrambleCharacterNames(array $translationParameters): array
+    {
+        if (\array_key_exists('character', $translationParameters)) {
+            $translationParameters['character'] = $this->randomString->generate(minLength: 3, maxLength: 8);
+        }
+        if (\array_key_exists('target_character', $translationParameters)) {
+            $translationParameters['target_character'] = $this->randomString->generate(minLength: 3, maxLength: 8);
+        }
+
+        return $translationParameters;
     }
 
     private function message(mixed $object): Message

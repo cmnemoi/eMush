@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Player\Entity\Player;
+use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Exception\ProgressShouldBePositive;
 use Mush\Project\Factory\ProjectFactory;
@@ -274,6 +275,11 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
     public function isFinishedNeronProject(): bool
     {
         return $this->isNeronProject() && $this->isFinished();
+    }
+
+    public function isPatulineScrambler(): bool
+    {
+        return $this->getName() === ProjectName::PATULINE_SCRAMBLER->toString();
     }
 
     public function getActions(Player $activePlayer, ?ActionHolderEnum $actionTarget = null): Collection

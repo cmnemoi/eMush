@@ -72,4 +72,9 @@ enum ProjectName: string
     case SUPER_CALCULATOR = 'super_calculator';
     case TESLA_SUP2X = 'tesla_sup2x';
     case ULTRA_HEALING_POMADE = 'ultra_healing_pomade';
+
+    public function toString(): string
+    {
+        return $this->value;
+    }
 }

@@ -10,6 +10,8 @@ use Mush\Player\Entity\Player;
 
 interface MessageServiceInterface
 {
+    public function save(Message $message): void;
+
     public function getMessageById(int $messageId): ?Message;
 
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message;

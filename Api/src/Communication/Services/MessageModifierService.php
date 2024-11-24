@@ -109,7 +109,7 @@ final class MessageModifierService implements MessageModifierServiceInterface
         $randomString = $this->generateRandomString($this->randomService->random(1, 100));
 
         // replace the message with the random string
-        $message->setMessage($randomString);
+        $message->setMessage(message: $randomString);
 
         return $message;
     }

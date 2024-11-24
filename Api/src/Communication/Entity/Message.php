@@ -125,6 +125,11 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
         return $this;
     }
 
+    public function isNotInMushChannel(): bool
+    {
+        return $this->channel->isMushChannel() === false;
+    }
+
     public function getTranslationParameters(): array
     {
         return $this->translationParameters;

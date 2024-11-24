@@ -30,6 +30,12 @@ class MessageService implements MessageServiceInterface
         $this->messageRepository = $messageRepository;
     }
 
+    public function save(Message $message): void
+    {
+        $this->entityManager->persist($message);
+        $this->entityManager->flush();
+    }
+
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message
     {
         $messageContent = trim($createMessage->getMessage());

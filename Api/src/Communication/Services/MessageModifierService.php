@@ -100,6 +100,11 @@ final class MessageModifierService implements MessageModifierServiceInterface
 
     private function applyPatulineScramblerEffect(Message $message): Message
     {
+        // if message is not in Mush channel, do nothing
+        if ($message->isNotInMushChannel()) {
+            return $message;
+        }
+
         // generate a random string
         $randomString = $this->generateRandomString($this->randomService->random(1, 100));
 

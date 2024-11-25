@@ -286,9 +286,9 @@
         <source>coprolalia.name</source>
         <target>pre_coprolalia</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>coprolalia.description</source>
-        <target>coprolalia.description</target>
+        <target>Lanzas series de insultos de la nada. Al principio es un poco impactante.</target>
       </segment>
     </unit>
     <unit id="crabism">
@@ -376,19 +376,19 @@
         <source>burns_90_of_body.name</source>
         <target>burns_90_of_body.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>burns_90_of_body.description</source>
-        <target>burns_90_of_body.description</target>
+        <target>Tu cuerpo esta muy gravemente quemado y en riesgo de septicemia.</target>
       </segment>
     </unit>
     <unit id="broken_finger">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>broken_finger.name</source>
-        <target>broken_finger.name</target>
+        <target>Dedo roto</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>broken_finger.description</source>
-        <target>broken_finger.description</target>
+        <target>Uno de los dedos de tu mano dominante está roto.</target>
       </segment>
     </unit>
     <unit id="broken_foot">
@@ -402,13 +402,13 @@
       </segment>
     </unit>
     <unit id="broken_leg">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>broken_leg.name</source>
-        <target>broken_leg.name</target>
+        <target>Pierna rota</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>broken_leg.description</source>
-        <target>broken_leg.description</target>
+        <target>Tu pierna ha sufrido múltiples fracturas que son incapacitantes...</target>
       </segment>
     </unit>
     <unit id="broken_ribs">

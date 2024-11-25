@@ -633,11 +633,34 @@ final class RoomLogServiceTest extends TestCase
             ->andReturn($roomLogs->toArray());
         $this->entityManager->shouldReceive('beginTransaction')->once();
         $this->entityManager->shouldReceive('persist')->times(3);
-        $this->entityManager->shouldReceive('flush')->once();
+        $this->entityManager->shouldReceive('flush')->times(3);
         $this->entityManager->shouldReceive('commit')->once();
 
         // when I call markAllRoomLogsAsReadForPlayer
         $this->service->markAllRoomLogsAsReadForPlayer($player);
+
+        // then all player room logs should be marked as read
+        $roomLogs->map(function (RoomLog $roomLog) use ($player) {
+            $this->assertTrue($roomLog->isReadBy($player));
+        });
+    }
+
+    public function testMarkRoomLogAsReadForPlayer(): void
+    {
+        // given a player
+        $player = new Player();
+        (new \ReflectionProperty($player, 'id'))->setValue($player, 1);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
+        // given 1 unread room log
+        $roomLogs = $this->roomLogFactory($playerInfo, number: 1);
+
+        // given universe is setup so that everything works
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+
+        // when I call markRoomLogAsReadForPlayer
+        $this->service->markRoomLogAsReadForPlayer($roomLogs->get(0), $player);
 
         // then all player room logs should be marked as read
         $roomLogs->map(function (RoomLog $roomLog) use ($player) {

@@ -181,6 +181,7 @@ final class RoomLogService implements RoomLogServiceInterface
         try {
             $roomLog->addReader($player)->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the log because this would change the order of the messages
             $this->entityManager->persist($roomLog);
+            $this->entityManager->flush();
         } catch (UniqueConstraintViolationException $e) {
             // ignore as this is probably due to a race condition
         }
@@ -193,7 +194,6 @@ final class RoomLogService implements RoomLogServiceInterface
         try {
             $this->entityManager->beginTransaction();
             $unreadLogs->map(fn (RoomLog $roomLog) => $this->markRoomLogAsReadForPlayer($roomLog, $player));
-            $this->entityManager->flush();
             $this->entityManager->commit();
         } catch (\Throwable $e) {
             $this->entityManager->rollback();

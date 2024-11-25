@@ -172,9 +172,9 @@
       </segment>
     </unit>
     <unit id="sinus_storm">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>sinus_storm.name</source>
-        <target>sinus_storm.name</target>
+        <target>Tormenta sinusal</target>
       </segment>
       <segment id="description" state="translated">
         <source>sinus_storm.description</source>
@@ -284,7 +284,7 @@
     <unit id="coprolalia">
       <segment id="name" state="translated">
         <source>coprolalia.name</source>
-        <target>pre_coprolalia</target>
+        <target>Coprolalia</target>
       </segment>
       <segment id="description" state="translated">
         <source>coprolalia.description</source>
@@ -366,9 +366,9 @@
         <source>burns_50_of_body.name</source>
         <target>burns_50_of_body.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>burns_50_of_body.description</source>
-        <target>burns_50_of_body.description</target>
+        <target>La parte delantera de tu cuerpo ha sufrido quemaduras. Eso es bastante doloroso.</target>
       </segment>
     </unit>
     <unit id="burns_90_of_body">
@@ -392,13 +392,13 @@
       </segment>
     </unit>
     <unit id="broken_foot">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>broken_foot.name</source>
-        <target>broken_foot.name</target>
+        <target>Pie roto</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>broken_foot.description</source>
-        <target>broken_foot.description</target>
+        <target>Tu pie está roto.</target>
       </segment>
     </unit>
     <unit id="broken_leg">
@@ -412,23 +412,23 @@
       </segment>
     </unit>
     <unit id="broken_ribs">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>broken_ribs.name</source>
-        <target>broken_ribs.name</target>
+        <target>Costillas rotas</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>broken_ribs.description</source>
-        <target>broken_ribs.description</target>
+        <target>Tus costillas están rotas, lo que ocasiona dolor al ponerse de pie.</target>
       </segment>
     </unit>
     <unit id="broken_shoulder">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>broken_shoulder.name</source>
-        <target>broken_shoulder.name</target>
+        <target>Hombro roto</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>broken_shoulder.description</source>
-        <target>broken_shoulder.description</target>
+        <target>Tu hombro está roto y dislocado. Imposible transportar objetos pesados...</target>
       </segment>
     </unit>
     <unit id="bruised_shoulder">
@@ -446,19 +446,19 @@
         <source>burnt_arms.name</source>
         <target>Brazos quemados</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>burnt_arms.description</source>
-        <target>burnt_arms.description</target>
+        <target>Tus brazos se han quemado tanto que tomar el más pequeño objeto es tortura.</target>
       </segment>
     </unit>
     <unit id="burnt_hand">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>burnt_hand.name</source>
-        <target>burnt_hand.name</target>
+        <target>Mano quemada</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>burnt_hand.description</source>
-        <target>burnt_hand.description</target>
+        <target>Tu mano está quemada.</target>
       </segment>
     </unit>
     <unit id="burst_nose">
@@ -476,9 +476,9 @@
         <source>busted_arm_joint.name</source>
         <target>Articulatión rota de brazo fuerte</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>busted_arm_joint.description</source>
-        <target>busted_arm_joint.description</target>
+        <target>Hacer girar tu brazo colgante puede ser jocoso pero solo eso.</target>
       </segment>
     </unit>
     <unit id="busted_shoulder">
@@ -492,13 +492,13 @@
       </segment>
     </unit>
     <unit id="critical_haemorrhage">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>critical_haemorrhage.name</source>
-        <target>critical_haemorrhage.name</target>
+        <target>Hemorragia crítica</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>critical_haemorrhage.description</source>
-        <target>critical_haemorrhage.description</target>
+        <target>Tienes una hemorragia en una arteria mayor que requiere cirugía mayor. ¡Buena suerte!</target>
       </segment>
     </unit>
     <unit id="damaged_ears">
@@ -522,13 +522,13 @@
       </segment>
     </unit>
     <unit id="dysfunctional_liver">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>dysfunctional_liver.name</source>
-        <target>dysfunctional_liver.name</target>
+        <target>Hígado disfuncional</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>dysfunctional_liver.description</source>
-        <target>dysfunctional_liver.description</target>
+        <target>Aún puedes vivir con tu hígado destruido pero ¿Por cuánto tiempo y en que condiciones?</target>
       </segment>
     </unit>
     <unit id="haemorrhage">
@@ -536,9 +536,9 @@
         <source>haemorrhage.name</source>
         <target>Hemorragia</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>haemorrhage.description</source>
-        <target>haemorrhage.description</target>
+        <target>Tienes una hemorragia: Necesitas cirugía.</target>
       </segment>
     </unit>
     <unit id="head_trauma">
@@ -556,9 +556,9 @@
         <source>implanted_bullet.name</source>
         <target>Bala errante</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>implanted_bullet.description</source>
-        <target>implanted_bullet.description</target>
+        <target>Una bala se pasea por tu cuerpo, no es tan doloroso pero no sabemos cuál será su próximo destino.</target>
       </segment>
     </unit>
     <unit id="inner_ear_damaged">
@@ -566,49 +566,49 @@
         <source>inner_ear_damaged.name</source>
         <target>inner_ear_damaged.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>inner_ear_damaged.description</source>
-        <target>inner_ear_damaged.description</target>
+        <target>El oído interno ya no parece funcionar correctamente. Puedes experimentar mareos, sordera parcial o vómitos cuando viajas.</target>
       </segment>
     </unit>
     <unit id="mashed_foot">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mashed_foot.name</source>
-        <target>mashed_foot.name</target>
+        <target>Pie destruido</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mashed_foot.description</source>
-        <target>mashed_foot.description</target>
+        <target>Tu pie ya no es digno de ser nombrado como tal...</target>
       </segment>
     </unit>
     <unit id="mashed_hand">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mashed_hand.name</source>
-        <target>mashed_hand.name</target>
+        <target>Mano destruida</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mashed_hand.description</source>
-        <target>mashed_hand.description</target>
+        <target>Tu mano ya no será de ninguna ayuda.</target>
       </segment>
     </unit>
     <unit id="minor_haemorrhage">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>minor_haemorrhage.name</source>
-        <target>minor_haemorrhage.name</target>
+        <target>Hemorragia menor</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>minor_haemorrhage.description</source>
-        <target>minor_haemorrhage.description</target>
+        <target>Tienes una hemorragia en una arteria menor que un doctor puede contener. Ten cuidado de no dejarlo ignorado.</target>
       </segment>
     </unit>
     <unit id="missing_finger">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>missing_finger.name</source>
-        <target>missing_finger.name</target>
+        <target>Dedo faltante</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>missing_finger.description</source>
-        <target>missing_finger.description</target>
+        <target>Solo puedes contar hasta 4 en tu mano dominante.</target>
       </segment>
     </unit>
     <unit id="open_air_brain">
@@ -616,9 +616,9 @@
         <source>open_air_brain.name</source>
         <target>Cerebro al aire libre</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>open_air_brain.description</source>
-        <target>open_air_brain.description</target>
+        <target>Falta una pieza de tu cráneo. En varias circunstancias, no sería un error decir que esto puede ser un problema.</target>
       </segment>
     </unit>
     <unit id="punctured_lung">
@@ -626,29 +626,29 @@
         <source>punctured_lung.name</source>
         <target>Pulmón con agujero</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>punctured_lung.description</source>
-        <target>punctured_lung.description</target>
+        <target>Respiras corto, hay sangre en tus pulmones... No te queda mucho tiempo de vida.</target>
       </segment>
     </unit>
     <unit id="mashed_arms">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mashed_arms.name</source>
-        <target>mashed_arms.name</target>
+        <target>Brazos inutilizables</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mashed_arms.description</source>
-        <target>mashed_arms.description</target>
+        <target>Tus brazos son completamente inútiles.</target>
       </segment>
     </unit>
     <unit id="mashed_legs">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mashed_legs.name</source>
-        <target>mashed_legs.name</target>
+        <target>Piernas inutilizables</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mashed_legs.description</source>
-        <target>mashed_legs.description</target>
+        <target>Ya no tienes movilidad en las piernas, que pena, eran bastante útiles.</target>
       </segment>
     </unit>
     <unit id="torn_tongue">
@@ -656,9 +656,9 @@
         <source>torn_tongue.name</source>
         <target>Lengua fileteada</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>torn_tongue.description</source>
-        <target>torn_tongue.description</target>
+        <target>Tu lengua parece haber pasado por las manos de un cocinero japones.</target>
       </segment>
     </unit>
     <unit id="mashed_leg.description">

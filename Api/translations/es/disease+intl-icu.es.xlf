@@ -332,13 +332,13 @@
       </segment>
     </unit>
     <unit id="spleen">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>spleen.name</source>
-        <target>spleen.name</target>
+        <target>Esplín</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>spleen.description</source>
-        <target>spleen.description</target>
+        <target>Sufres de una forma muy aguda de depresión que te llevara a la muerte muy rápidamente.</target>
       </segment>
     </unit>
     <unit id="vertigo">
@@ -542,13 +542,13 @@
       </segment>
     </unit>
     <unit id="head_trauma">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>head_trauma.name</source>
-        <target>head_trauma.name</target>
+        <target>Trauma craneal</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>head_trauma.description</source>
-        <target>head_trauma.description</target>
+        <target>Has sufrido un traumatismo craneal recientemente, a menos que puedas encontrar un médico amante de los rompecabezas, corres un gran riesgo.</target>
       </segment>
     </unit>
     <unit id="implanted_bullet">

@@ -356,9 +356,9 @@
         <source>weapon_phobia.name</source>
         <target>Fobia de las armas</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>weapon_phobia.description</source>
-        <target>weapon_phobia.description</target>
+        <target>Ya no puedes volver a usar un arma, de solo verlas de ta pánico...</target>
       </segment>
     </unit>
     <unit id="burns_50_of_body">

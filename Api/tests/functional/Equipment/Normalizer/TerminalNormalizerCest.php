@@ -57,12 +57,14 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->isChunPresentText = $this->translationService->translate(
             key: 'research_laboratory.chun_present',
             parameters: [],
-            domain: 'terminal'
+            domain: 'terminal',
+            language: $this->daedalus->getLanguage(),
         );
         $this->isAnyMushDeadText = $this->translationService->translate(
             key: 'research_laboratory.mush_dead',
             parameters: [],
-            domain: 'terminal'
+            domain: 'terminal',
+            language: $this->daedalus->getLanguage(),
         );
 
         $this->givenGameHasStarted();

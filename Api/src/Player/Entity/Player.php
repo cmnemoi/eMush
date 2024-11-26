@@ -539,7 +539,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getMushAndHumanSkills(): SkillCollection
     {
-        return $this->getMushSkills()->addSkills($this->getHumanSkills());
+        $mushSkills = $this->getMushSkills()->getSortedBy('createdAt');
+        $humanSkills = $this->getHumanSkills()->getSortedBy('createdAt');
+
+        return $mushSkills->addSkills($humanSkills);
     }
 
     public function getSkillsWithPoints(): SkillCollection

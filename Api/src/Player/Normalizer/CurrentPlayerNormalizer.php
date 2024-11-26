@@ -160,7 +160,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $playerData = array_merge($playerData, [
             'room' => $this->normalizer->normalize($player->getPlace(), $format, $context),
-            'skills' => $player->getMushAndHumanSkills()->map(fn (Skill $skill) => $this->normalizer->normalize($skill, $format, $context))->toArray(),
+            'skills' => $this->getNormalizedPlayerSkills($player, $format, $context),
             'titles' => $titles,
             'actions' => $this->getNormalizedActions($player, ActionHolderEnum::PLAYER, $player, $format, $context),
             'items' => $items,
@@ -313,5 +313,17 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         }
 
         return $player->getDaedalus()->getExploration();
+    }
+
+    private function getNormalizedPlayerSkills(Player $player, ?string $format, array $context): array
+    {
+        $normalizedSkills = [];
+
+        /** @var Skill $skill */
+        foreach ($player->getMushAndHumanSkills() as $skill) {
+            $normalizedSkills[] = $this->normalizer->normalize($skill, $format, $context);
+        }
+
+        return $normalizedSkills;
     }
 }

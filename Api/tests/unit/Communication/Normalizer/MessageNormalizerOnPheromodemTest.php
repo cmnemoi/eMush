@@ -65,72 +65,45 @@ final class MessageNormalizerOnPheromodemTest extends TestCase
     {
         $message = $this->givenMushChannelMessageWritenBy($this->mush);
 
-        // when I normalize the message
-        $normalizedMessage = $this->normalizer->normalize($message, format: null, context: ['currentPlayer' => $this->human]);
+        $normalizedMessage = $this->whenNormalizingMessageFor($message, $this->human);
 
-        // then normalized message character should be "Mush"
-        self::assertEquals('mush', $normalizedMessage['character']['key']);
-        self::assertEquals('Mush', $normalizedMessage['character']['value']);
+        $this->thenMessageCharacterShouldBe($normalizedMessage, 'mush', 'Mush');
     }
 
     public function testMushShouldSeeAllMessagesAsWrittenByTheirAuthor(): void
     {
         $message = $this->givenMushChannelMessageWritenBy($this->mush);
 
-        // when I normalize the message
-        $normalizedMessage = $this->normalizer->normalize($message, format: null, context: ['currentPlayer' => $this->mush]);
+        $normalizedMessage = $this->whenNormalizingMessageFor($message, $this->mush);
 
-        // then normalized message character should be "Derek"
-        self::assertEquals('derek', $normalizedMessage['character']['key']);
-        self::assertEquals('Derek', $normalizedMessage['character']['value']);
+        $this->thenMessageCharacterShouldBe($normalizedMessage, 'derek', 'Derek');
     }
 
     public function testSystemMessageCharactersShouldBeScrambledForHuman(): void
     {
         $message = $this->givenMushChannelSystemMessage();
 
-        // when I normalize the message
-        $normalizedMessage = $this->normalizer->normalize($message, format: null, context: ['currentPlayer' => $this->human]);
+        $normalizedMessage = $this->whenNormalizingMessageFor($message, $this->human);
 
-        $messageText = $normalizedMessage['message'];
-
-        // then I should not see "derek" in the message text
-        self::assertStringNotContainsString('derek', $messageText);
-
-        // then I should not see "paola" in the message text
-        self::assertStringNotContainsString('paola', $messageText);
+        $this->thenMessageShouldNotContainNames($normalizedMessage, ['derek', 'paola']);
     }
 
     public function testSystemMessageCharactersShouldNotBeScrambledForMush(): void
     {
         $message = $this->givenMushChannelSystemMessage();
 
-        // when I normalize the message
-        $normalizedMessage = $this->normalizer->normalize($message, format: null, context: ['currentPlayer' => $this->mush]);
+        $normalizedMessage = $this->whenNormalizingMessageFor($message, $this->mush);
 
-        $messageText = $normalizedMessage['message'];
-
-        // then I should see "derek" in the message text
-        self::assertStringContainsString('derek', $messageText);
-
-        // then I should see "paola" in the message text
-        self::assertStringContainsString('paola', $messageText);
+        $this->thenMessageShouldContainNames($normalizedMessage, ['derek', 'paola']);
     }
 
     public function testSystemMessageShouldNotBeScrambledOutsideMushChannel(): void
     {
         $message = $this->givenPublicChannelSystemMessage();
 
-        // when I normalize the message
-        $normalizedMessage = $this->normalizer->normalize($message, format: null, context: ['currentPlayer' => $this->human]);
+        $normalizedMessage = $this->whenNormalizingMessageFor($message, $this->human);
 
-        $messageText = $normalizedMessage['message'];
-
-        // then I should see "derek" in the message text
-        self::assertStringContainsString('derek', $messageText);
-
-        // then I should see "paola" in the message text
-        self::assertStringContainsString('paola', $messageText);
+        $this->thenMessageShouldContainNames($normalizedMessage, ['derek', 'paola']);
     }
 
     private function givenDaedalus(): void
@@ -215,6 +188,33 @@ final class MessageNormalizerOnPheromodemTest extends TestCase
         (new \ReflectionProperty($message, 'id'))->setValue($message, crc32(serialize($message)));
 
         return $message;
+    }
+
+    private function whenNormalizingMessageFor(Message $message, Player $player): array
+    {
+        return $this->normalizer->normalize($message, format: null, context: ['currentPlayer' => $player]);
+    }
+
+    private function thenMessageCharacterShouldBe(array $normalizedMessage, string $expectedKey, string $expectedValue): void
+    {
+        self::assertEquals($expectedKey, $normalizedMessage['character']['key']);
+        self::assertEquals($expectedValue, $normalizedMessage['character']['value']);
+    }
+
+    private function thenMessageShouldNotContainNames(array $normalizedMessage, array $names): void
+    {
+        $messageText = $normalizedMessage['message'];
+        foreach ($names as $name) {
+            self::assertStringNotContainsString($name, $messageText);
+        }
+    }
+
+    private function thenMessageShouldContainNames(array $normalizedMessage, array $names): void
+    {
+        $messageText = $normalizedMessage['message'];
+        foreach ($names as $name) {
+            self::assertStringContainsString($name, $messageText);
+        }
     }
 }
 

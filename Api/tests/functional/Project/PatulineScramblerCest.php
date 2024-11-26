@@ -39,10 +39,8 @@ final class PatulineScramblerCest extends AbstractFunctionalTest
         $this->thenMessageShouldBeScrambled($I);
     }
 
-    public function shouldScrambleNewMushChannelMessagesFromMush(FunctionalTester $I): void
+    public function shouldScrambleNewMushChannelMessages(FunctionalTester $I): void
     {
-        $this->givenPlayerIsMush();
-
         $this->whenPatulineScramblerIsFinished($I);
 
         $this->whenICreateMessageInMushChannel();

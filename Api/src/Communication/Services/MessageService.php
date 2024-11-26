@@ -18,7 +18,7 @@ use Mush\Player\Entity\Player;
 
 final class MessageService implements MessageServiceInterface
 {
-    public const string MUSH_SPEAKING_IN_MUSH_CHANNEL = 'mush_speaking_in_mush_channel';
+    public const string MUTE_PLAYER_SPEAKING_IN_MUSH_CHANNEL = 'mute_player_speaking_in_mush_channel';
 
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
@@ -67,8 +67,8 @@ final class MessageService implements MessageServiceInterface
         }
 
         $tags = [];
-        if ($player->isMush() && $channel->isMushChannel()) {
-            $tags = [self::MUSH_SPEAKING_IN_MUSH_CHANNEL];
+        if ($player->isMute() && $channel->isMushChannel()) {
+            $tags = [self::MUTE_PLAYER_SPEAKING_IN_MUSH_CHANNEL];
         }
 
         $messageEvent = new MessageEvent(

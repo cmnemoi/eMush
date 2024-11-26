@@ -9,8 +9,6 @@ use Mush\Communication\Entity\Message;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Disease\Enum\InjuryEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -21,35 +19,21 @@ final class MessageServiceCest extends AbstractFunctionalTest
 {
     private MessageServiceInterface $messageService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $this->messageService = $I->grabService(MessageServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function shouldCreateMessageInMushChannelForMuteMushPlayer(FunctionalTester $I): void
+    public function shouldCreateMessageInMushChannelForMutePlayer(FunctionalTester $I): void
     {
-        $this->givenPlayerIsMush();
-
         $this->givenPlayerHasTornTongue();
 
-        $this->whenICreateMessage();
+        $this->whenICreateMessageInMushChannel();
 
         $this->thenMessageShouldBeCreatedInMushChannel($I);
-    }
-
-    private function givenPlayerIsMush(): void
-    {
-        $this->statusService->createStatusFromName(
-            PlayerStatusEnum::MUSH,
-            $this->player,
-            [],
-            new \DateTime()
-        );
     }
 
     private function givenPlayerHasTornTongue(): void
@@ -61,7 +45,7 @@ final class MessageServiceCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenICreateMessage(): void
+    private function whenICreateMessageInMushChannel(): void
     {
         $messageDto = new CreateMessage();
         $messageDto->setChannel($this->mushChannel);

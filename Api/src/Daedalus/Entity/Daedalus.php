@@ -542,8 +542,10 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getPreviousGameDate(): DaedalusDate
     {
+        $cyclesPerDay = $this->getNumberOfCyclesPerDay();
+
         $day = $this->cycle === 1 ? $this->day - 1 : $this->day;
-        $cycle = $this->cycle === 1 ? 8 : $this->cycle - 1;
+        $cycle = $this->cycle === 1 ? $cyclesPerDay : $this->cycle - 1;
 
         return new DaedalusDate($day, $cycle);
     }

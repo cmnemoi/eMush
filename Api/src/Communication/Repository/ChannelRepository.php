@@ -52,7 +52,7 @@ class ChannelRepository extends ServiceEntityRepository
             UNION ALL
             SELECT * FROM public_channel
         EOD;
-        $rawQuery .= $player->isMush() ? ' UNION ALL SELECT * FROM mush_channel;' : ';';
+        $rawQuery .= $player->canAccessMushChannel() ? ' UNION ALL SELECT * FROM mush_channel;' : ';';
 
         $entityManager = $this->getEntityManager();
 

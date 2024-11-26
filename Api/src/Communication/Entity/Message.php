@@ -85,6 +85,13 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
         return $this;
     }
 
+    public function getAuthorAsPlayerOrThrow(): Player
+    {
+        $author = $this->getAuthor()?->getPlayer();
+
+        return $author instanceof Player ? $author : throw new \RuntimeException('Message does not have an author');
+    }
+
     public function getNeron(): ?Neron
     {
         return $this->neron;
@@ -152,6 +159,11 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
         $this->channel = $channel;
 
         return $this;
+    }
+
+    public function isInMushChannel(): bool
+    {
+        return $this->channel->isMushChannel();
     }
 
     public function getChild(): Collection
@@ -259,5 +271,15 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
         $this->cycle = $cycle;
 
         return $this;
+    }
+
+    public function getCreatedAtOrThrow(): \DateTime
+    {
+        $createdAt = $this->getCreatedAt();
+        if (!$createdAt) {
+            throw new \RuntimeException('Message should have a createdAt date');
+        }
+
+        return $createdAt;
     }
 }

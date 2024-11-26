@@ -947,5 +947,11 @@
         <target>Quelqu'un</target>
       </segment>
     </unit>
+    <unit id="mush">
+      <segment id="name" state="translated">
+        <source>mush.name</source>
+        <target>Mush</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

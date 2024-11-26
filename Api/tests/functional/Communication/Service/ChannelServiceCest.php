@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\tests\Functional\Communication\Service;
 
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -12,6 +14,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Project\Enum\ProjectName;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -148,5 +151,62 @@ final class ChannelServiceCest extends AbstractFunctionalTest
 
         // then raluca should not be in the list
         $I->assertNotContains($raluca->getLogName(), $invitablePlayers);
+    }
+
+    public function humanPlayerShouldHaveAccessToMushChannelWithPheromodemAndTracker(FunctionalTester $I): void
+    {
+        // given Pheromodem is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::PHEROMODEM),
+            author: $this->player,
+            I: $I
+        );
+
+        // given Chun has a Tracker
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::TRACKER,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // when I check if Chun's channels contains the Mush channel
+        $channels = $this->channelService->getPlayerChannels($this->chun);
+
+        // then Chun should have access to the Mush channel
+        $I->assertContains(ChannelScopeEnum::MUSH, $channels->map(static fn (Channel $channel) => $channel->getScope()));
+    }
+
+    public function humanPlayerShouldNotHaveAccessToMushChannelWithPheromodemAndNoTracker(FunctionalTester $I): void
+    {
+        // given Pheromodem is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::PHEROMODEM),
+            author: $this->player,
+            I: $I
+        );
+
+        // when I check if Chun's channels contains the Mush channel
+        $channels = $this->channelService->getPlayerChannels($this->chun);
+
+        // then Chun should not have access to the Mush channel
+        $I->assertNotContains(ChannelScopeEnum::MUSH, $channels->map(static fn (Channel $channel) => $channel->getScope()));
+    }
+
+    public function humanPlayerShouldNotHaveAccessToMushChannelWithoutPheromodem(FunctionalTester $I): void
+    {
+        // given Chun has a Tracker
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::TRACKER,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // when I check if Chun's channels contains the Mush channel
+        $channels = $this->channelService->getPlayerChannels($this->chun);
+
+        // then Chun should not have access to the Mush channel
+        $I->assertNotContains(ChannelScopeEnum::MUSH, $channels->map(static fn (Channel $channel) => $channel->getScope()));
     }
 }

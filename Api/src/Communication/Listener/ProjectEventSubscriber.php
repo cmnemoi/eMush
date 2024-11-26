@@ -59,7 +59,7 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
     }
 
     private function createProjectFinishedNeronAnnouncement(ProjectEvent $event): void
-    {   
+    {
         $author = $event->getAuthor();
         $project = $event->getProject();
 

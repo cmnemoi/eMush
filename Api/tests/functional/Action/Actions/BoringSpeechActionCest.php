@@ -38,6 +38,7 @@ use Mush\User\Entity\User;
  */
 final class BoringSpeechActionCest extends AbstractFunctionalTest
 {
+    private ActionConfig $boringSpeechActionConfig;
     private BoringSpeech $boringSpeechAction;
     private ChooseSkillUseCase $chooseSkillUseCase;
     private PlayerServiceInterface $playerService;
@@ -45,6 +46,8 @@ final class BoringSpeechActionCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
+
+        $this->boringSpeechActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::BORING_SPEECH]);
         $this->boringSpeechAction = $I->grabService(BoringSpeech::class);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
@@ -164,7 +167,7 @@ final class BoringSpeechActionCest extends AbstractFunctionalTest
 
     private function whenChunGivesBoringSpeech(): void
     {
-        $this->boringSpeechAction->loadParameters($this->boringSpeechAction->getActionConfig(), $this->chun, $this->chun);
+        $this->boringSpeechAction->loadParameters($this->boringSpeechActionConfig, $this->chun, $this->chun);
         $this->boringSpeechAction->execute();
     }
 

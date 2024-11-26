@@ -46,10 +46,7 @@ abstract class AbstractSpeech extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $speaker = $this->player;
-        $listeners = $this->player->getPlace()->getPlayers()
-            ->filter(static function (Player $player) use ($speaker) {
-                return $player !== $speaker;
-            });
+        $listeners = $this->player->getPlace()->getAlivePlayersExcept($speaker);
 
         foreach ($listeners as $player) {
             $this->addVariablePoints($player, $this->playerVariable, $this->getOutputQuantity());

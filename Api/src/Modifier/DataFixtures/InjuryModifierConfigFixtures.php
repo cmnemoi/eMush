@@ -23,6 +23,7 @@ use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
@@ -264,13 +265,9 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         );
         $manager->persist($preventShoot);
 
-        $muteModifier = new EventModifierConfig('mute_modifier');
-        $muteModifier
-            ->setTargetEvent(MessageEvent::NEW_MESSAGE)
-            ->setApplyWhenTargeted(false)
-            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
-            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $muteModifier = EventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::MUTE_PREVENT_MESSAGES_MODIFIER)
+        );
         $manager->persist($muteModifier);
 
         $cannotSpeakModifier = EventModifierConfig::fromConfigData(

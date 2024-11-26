@@ -407,14 +407,16 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
                 ],
             ]
         );
+        $language = $daedalus->getLanguage();
 
         return $allRequirements
             ->filter(static fn ($requirement) => $requirement['fullfilled'])
-            ->map(function ($requirement) use ($terminalKey) {
+            ->map(function ($requirement) use ($terminalKey, $language) {
                 return $this->translationService->translate(
                     key: $terminalKey . '.' . $requirement['key'],
                     parameters: [],
-                    domain: 'terminal'
+                    domain: 'terminal',
+                    language: $language,
                 );
             })->toArray();
     }

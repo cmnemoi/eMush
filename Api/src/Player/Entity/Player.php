@@ -1259,17 +1259,17 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $hygienistResistsDisease || $mushResistsDisease;
     }
 
+    public function isMute(): bool
+    {
+        return $this->hasModifierByModifierName(ModifierNameEnum::MUTE_PREVENT_MESSAGES_MODIFIER);
+    }
+
     private function hasPheromodemConnectedTracker(): bool
     {
         $hasTracker = $this->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) || $this->hasOperationalEquipmentByName(ItemEnum::TRACKER);
         $pheromodemIsFinished = $this->daedalus->getProjectByName(ProjectName::PHEROMODEM)->isFinished();
 
         return $hasTracker && $pheromodemIsFinished;
-    }
-
-    public function isMute(): bool
-    {
-        return $this->hasModifierByModifierName(ModifierNameEnum::MUTE_PREVENT_MESSAGES_MODIFIER);
     }
 
     private function getMinEfficiencyForProject(Project $project): int

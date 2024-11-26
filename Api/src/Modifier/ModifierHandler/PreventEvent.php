@@ -8,7 +8,6 @@ use Mush\Communication\Services\MessageService;
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 
 final class PreventEvent extends AbstractModifierHandler
@@ -24,10 +23,9 @@ final class PreventEvent extends AbstractModifierHandler
     ): EventChain {
         /** @var EventModifierConfig $modifierConfig */
         $modifierConfig = $modifier->getModifierConfig();
-        $modifierHolder = $modifier->getModifierHolder();
 
         // Mute players can talk in Mush channel
-        if ($this->eventAboutMutePlayerPostingInMushChannel($modifierHolder, $tags)) {
+        if ($this->eventAboutMutePlayerPostingInMushChannel($tags)) {
             return $this->addModifierEvent($events, $modifier, $tags, $time);
         }
 
@@ -36,7 +34,7 @@ final class PreventEvent extends AbstractModifierHandler
         return $this->addModifierEvent($events, $modifier, $tags, $time);
     }
 
-    private function eventAboutMutePlayerPostingInMushChannel(ModifierHolderInterface $modifierHolder, array $tags): bool
+    private function eventAboutMutePlayerPostingInMushChannel(array $tags): bool
     {
         return \in_array(MessageService::MUTE_PLAYER_SPEAKING_IN_MUSH_CHANNEL, $tags, true);
     }

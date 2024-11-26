@@ -47,6 +47,31 @@ final class SkillsCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldNormalizeSkillsByCreationDate(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasSkill(SkillEnum::SHOOTER, $I);
+        $this->givenPlayerHasSkill(SkillEnum::TECHNICIAN, $I);
+        $this->givenPlayerHasSkill(SkillEnum::PILOT, $I);
+
+        $this->givenSkillsAreCreatedInThisOrder([
+            SkillEnum::PILOT,
+            SkillEnum::SHOOTER,
+            SkillEnum::TECHNICIAN,
+        ]);
+
+        $this->whenINormalizePlayer();
+
+        $I->assertEquals(
+            expected: [
+                SkillEnum::PILOT->toString(),
+                SkillEnum::SHOOTER->toString(),
+                SkillEnum::TECHNICIAN->toString(),
+            ],
+            actual: array_map(static fn ($skill) => $skill['key'], $this->normalizedPlayer['skills']),
+            message: 'Skills should be ordered by creation date, oldest first'
+        );
+    }
+
     private function givenPlayerHasSkill(SkillEnum $skill, FunctionalTester $I): void
     {
         $this->addSkillToPlayer($skill, $I);
@@ -65,5 +90,19 @@ final class SkillsCest extends AbstractFunctionalTest
             expected: $skill->toString(),
             actual: $normalizedSkills[0]['key'],
         );
+    }
+
+    private function givenSkillsAreCreatedInThisOrder(): void
+    {
+        $dates = [
+            SkillEnum::PILOT->toString() => '-3 day',
+            SkillEnum::SHOOTER->toString() => '-2 day',
+            SkillEnum::TECHNICIAN->toString() => '-1 day',
+        ];
+
+        foreach ($dates as $skillName => $date) {
+            $skill = $this->player->getSkillByNameOrThrow(SkillEnum::from($skillName));
+            (new \ReflectionProperty($skill, 'createdAt'))->setValue($skill, new \DateTime($date));
+        }
     }
 }

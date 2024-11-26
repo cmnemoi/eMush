@@ -132,13 +132,22 @@ class MessageNormalizer implements NormalizerInterface
     private function scrambleCharacterNames(array $translationParameters): array
     {
         if (\array_key_exists('character', $translationParameters)) {
-            $translationParameters['character'] = $this->randomString->generate(minLength: 3, maxLength: 8);
+            $translationParameters['character'] = $this->getRubbishName($translationParameters['character']);
         }
         if (\array_key_exists('target_character', $translationParameters)) {
-            $translationParameters['target_character'] = $this->randomString->generate(minLength: 3, maxLength: 8);
+            $translationParameters['target_character'] = $this->getRubbishName($translationParameters['target_character']);
         }
 
         return $translationParameters;
+    }
+
+    private function getRubbishName(string $originalName): string
+    {
+        do {
+            $scrambled = $this->randomString->generate(minLength: 3, maxLength: 8);
+        } while ($scrambled === $originalName);
+
+        return $scrambled;
     }
 
     private function message(mixed $object): Message

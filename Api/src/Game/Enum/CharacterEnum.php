@@ -25,6 +25,7 @@ abstract class CharacterEnum
     public const string NERON = 'neron';
     public const string null = '';
     public const string SOMEONE = 'someone';
+    public const string MUSH = 'mush';
 
     public static array $characterColorMap = [
         self::ANDIE => '#DDDDDD',
@@ -51,21 +52,25 @@ abstract class CharacterEnum
     {
         return [
             self::ANDIE,
+            self::CHAO,
+            self::CHUN,
             self::DEREK,
             self::ELEESHA,
+            self::FINOLA,
             self::FRIEDA,
             self::GIOELE,
+            self::HUA,
             self::IAN,
             self::JANICE,
-            self::HUA,
             self::JIN_SU,
             self::KUAN_TI,
+            self::NERON,
             self::PAOLA,
             self::RALUCA,
             self::ROLAND,
+            self::SOMEONE,
             self::STEPHEN,
             self::TERRENCE,
-            self::CHUN,
         ];
     }
 
@@ -82,6 +87,8 @@ abstract class CharacterEnum
             self::KUAN_TI,
             self::ROLAND,
             self::STEPHEN,
+            self::SOMEONE,
+            self::NERON,
         ], true);
     }
 
@@ -91,5 +98,20 @@ abstract class CharacterEnum
             self::PAOLA,
             self::GIOELE,
         ], true);
+    }
+
+    public static function exists(string $character): bool
+    {
+        return \in_array($character, self::getAll(), true);
+    }
+
+    public static function doesNotExist(string $character): bool
+    {
+        return self::exists($character) === false;
+    }
+
+    public static function gender(string $character): string
+    {
+        return self::isMale($character) ? 'male' : 'female';
     }
 }

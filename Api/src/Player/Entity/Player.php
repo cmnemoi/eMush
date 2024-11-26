@@ -54,6 +54,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Project\Entity\Project;
+use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -1242,12 +1243,25 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getPlace()->getAlivePlayersExcept($this)->hasPlayerWithStatus(PlayerStatusEnum::GUARDIAN) === false;
     }
 
+    public function canAccessMushChannel(): bool
+    {
+        return $this->isMush() || $this->hasPheromodemConnectedTracker();
+    }
+
     public function shouldNotCatchDisease(DiseaseConfig $diseaseConfig, D100RollServiceInterface $d100Roll): bool
     {
         $hygienistResistsDisease = $diseaseConfig->isPhysicalDisease() && $this->hasSkill(SkillEnum::HYGIENIST) && $d100Roll->isSuccessful($this->hygienistBonus());
         $mushResistsDisease = $this->isMush() && $diseaseConfig->isNotAnInjury();
 
         return $hygienistResistsDisease || $mushResistsDisease;
+    }
+
+    private function hasPheromodemConnectedTracker(): bool
+    {
+        $hasTracker = $this->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) || $this->hasOperationalEquipmentByName(ItemEnum::TRACKER);
+        $pheromodemIsFinished = $this->daedalus->getProjectByName(ProjectName::PHEROMODEM)->isFinished();
+
+        return $hasTracker && $pheromodemIsFinished;
     }
 
     private function getMinEfficiencyForProject(Project $project): int

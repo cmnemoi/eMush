@@ -262,6 +262,16 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
         return $this->getType() !== ProjectType::PILGRED;
     }
 
+    public function isNeronOrPilgred(): bool
+    {
+        return $this->isNeronProject() || $this->isPilgred();
+    }
+
+    public function isPheromodem(): bool
+    {
+        return $this->getName() === ProjectName::PHEROMODEM->toString();
+    }
+
     public function isAvailableNeronProject(): bool
     {
         return $this->isNeronProject() && $this->isAvailable();

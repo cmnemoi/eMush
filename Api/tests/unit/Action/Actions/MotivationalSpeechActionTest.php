@@ -6,8 +6,9 @@ use Mush\Action\Actions\MotivationalSpeech;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Place\Entity\Place;
+use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Game\Enum\CharacterEnum;
+use Mush\Player\Factory\PlayerFactory;
 
 /**
  * @internal
@@ -41,12 +42,16 @@ final class MotivationalSpeechActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $daedalus = new Daedalus();
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $room = new Place();
-
-        $speaker = $this->createPlayer($daedalus, $room);
-        $listener = $this->createPlayer($daedalus, $room);
+        $speaker = PlayerFactory::createPlayerByNameAndDaedalus(
+            CharacterEnum::CHUN,
+            $daedalus
+        );
+        $listener = PlayerFactory::createPlayerByNameAndDaedalus(
+            CharacterEnum::ANDIE,
+            $daedalus
+        );
 
         $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $speaker);
 

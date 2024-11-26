@@ -7,8 +7,9 @@ use Mush\Action\Actions\BoringSpeech;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Place\Entity\Place;
+use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Game\Enum\CharacterEnum;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Service\StatusServiceInterface;
 
 /**
@@ -48,12 +49,17 @@ final class BoringSpeechActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $daedalus = new Daedalus();
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $room = new Place();
+        $speaker = PlayerFactory::createPlayerByNameAndDaedalus(
+            CharacterEnum::CHUN,
+            $daedalus
+        );
 
-        $speaker = $this->createPlayer($daedalus, $room);
-        $listener = $this->createPlayer($daedalus, $room);
+        $listener = PlayerFactory::createPlayerByNameAndDaedalus(
+            CharacterEnum::ANDIE,
+            $daedalus
+        );
 
         $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $speaker);
 

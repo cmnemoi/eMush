@@ -861,16 +861,16 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return \in_array($title, $this->getTitles(), true);
     }
 
+    public function doesNotHaveTitle(string $title): bool
+    {
+        return $this->hasTitle($title) === false;
+    }
+
     public function removeAllTitles(): static
     {
         $this->titles = [];
 
         return $this;
-    }
-
-    public function doesNotHaveTitle(string $title): bool
-    {
-        return $this->hasTitle($title) === false;
     }
 
     public function getExplorationOrThrow(): Exploration
@@ -1325,7 +1325,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function canReadRationProperties(GameEquipment $food): bool
     {
-        return $food->isARation() && ($this->isMush() || $this->hasSkill(SkillEnum::CHEF));
+        $isChefReadingNonDrug = $this->hasSkill(SkillEnum::CHEF) && !$food->isADrug();
+
+        return $food->isARation() && ($this->isMush() || $isChefReadingNonDrug);
     }
 
     private function canReadFruitProperties(GameEquipment $food): bool

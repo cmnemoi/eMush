@@ -1250,6 +1250,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $hygienistResistsDisease || $mushResistsDisease;
     }
 
+    public function isMute(): bool
+    {
+        return $this->hasModifierByModifierName(ModifierNameEnum::MUTE_PREVENT_MESSAGES_MODIFIER);
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {

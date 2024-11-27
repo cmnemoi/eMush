@@ -10,9 +10,9 @@
         <source>command_terminal.tips</source>
         <target>Como *Comandante* eres la única persona que puede acceder a este terminal.
 ////
-Mover la nave es esencial para **viajar a otros planetas** y podría ser útil para deshacerse de los cazadores.
+Mover la nave es esencial para **viajar a otros planetas** y podría ser útil para deshacerse de los hunters.
 ////
-Para ir a un planeta necesitas **saber el rumbo y la cantidad de combustible necesaria**. Estos dos datos pueden obtenerse en el *Terminal Astronómico*. Con esta información, primero hay que llenar la cámara de combustión con la cantidad adecuada de combustible. A continuación, ¡poner el Daedalus en la ruta correcta e iniciar el viaje!
+Para ir a un planeta necesitas **saber el rumbo y la cantidad de combustible necesaria**. Estos dos datos pueden obtenerse en la *Terminal Astro*. Con esta información, primero hay que llenar la cámara de combustión con la cantidad adecuada de combustible. A continuación, ¡poner el Daedalus en la ruta correcta e iniciar el viaje!
 ////
 Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita de un planeta, ¡que podrá ser explorado por la tripulación y obtener nuevos recursos!</target>
       </segment>
@@ -64,7 +64,7 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
     <unit id="astro_terminal">
       <segment id="name" state="translated">
         <source>astro_terminal.name</source>
-        <target>Terminal Astronómico</target>
+        <target>Terminal Astro</target>
       </segment>
       <segment id="tips" state="initial">
         <source>astro_terminal.tips</source>
@@ -92,13 +92,17 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
       </segment>
     </unit>
     <unit id="research_laboratory">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>research_laboratory.name</source>
-        <target>research_laboratory.name</target>
+        <target>Laboratorio de Investigación</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>research_laboratory.tips</source>
-        <target>research_laboratory.tips</target>
+        <target>La ciencia es un arma clave contra los Mush. Tienes 2 maneras de colaborar con ella: Manipular objetos en el laboratorio para desbloquear nuevas investigaciones o hacer avanzar las que están en marcha usando Puntos de Acción.
+
+Puedes manipular un objeto de tu inventario o que se encuentre en la sala.
+
+Una sola persona podrá difícilmente completar una investigación, incluso si tiene las habilidades requeridas. Si haces avanzar una investigación varias veces consecutivas, la eficacia de la acción disminuirá. ¡La clave es trabajar alternadamente en equipo!</target>
       </segment>
       <segment id="chun_present" state="initial">
         <source>research_laboratory.chun_present</source>
@@ -148,9 +152,9 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
       </segment>
     </unit>
     <unit id="bios_terminal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>bios_terminal.name</source>
-        <target>bios_terminal.name</target>
+        <target>Terminal BIOS</target>
       </segment>
       <segment id="tips" state="initial">
         <source>bios_terminal.tips</source>
@@ -258,13 +262,14 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
       </segment>
     </unit>
     <unit id="pilgred">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pilgred.name</source>
-        <target>pilgred.name</target>
+        <target>Reactor PILGRED</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>pilgred.tips</source>
-        <target>pilgred.tips</target>
+        <target>La reparación del PILGRED requiere de grandes habilidades. Necesitarás mucha paciencia y esfuerzo.
+**Cuando esté reparado, volver al Sistema Solar será posible.** ¿Qué harías tú?</target>
       </segment>
       <segment id="pilgred_finished_description" state="initial">
         <source>pilgred.pilgred_finished_description</source>
@@ -272,13 +277,16 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
       </segment>
     </unit>
     <unit id="neron_core">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>neron_core.name</source>
-        <target>neron_core.name</target>
+        <target>Núcleo de NERON</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>neron_core.tips</source>
-        <target>neron_core.tips</target>
+        <target>Aquí podrás actualizar y desbloquear funciones avanzadas para toda la tripulación. Esas funciones para el Núcleo de *Neron* se obtienen al  **completar proyectos** que formaban parte del plan *Magallanes*.
+Los proyectos avanzarán más rápido si tienes **las habilidades adecuadas**.
+Una sola persona podrá difílcilmente completar un proyecto, incluso si tiene las habilidades requeridas. Si haces avanzar un proyecto varias veces consecutivas, la eficacia de tu acción disminuirá. **¡La clave es trabajar alternadamente en equipo!**
+Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser terminado anulará el avance en los otros.</target>
       </segment>
       <segment id="no_proposed_neron_projects_description" state="initial">
         <source>neron_core.no_proposed_neron_projects_description</source>

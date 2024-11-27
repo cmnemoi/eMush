@@ -78,11 +78,11 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
       </segment>
       <segment id="tips" state="translated">
         <source>astro_terminal.tips</source>
-        <target>Para poder encontrar un planeta para explorar, primero debes **realizar un escaneo** para encontrar hasta un máximo de 2 planetas. Los resultados de los planetas encontrados son personales y exclusivos para cada persona.
+        <target>Para poder encontrar un planeta para explorar, primero debes **realizar un escaneo** para encontrar hasta un máximo de 2 planetas. Los resultados de los planetas encontrados son exclusivos para cada persona.
 ////
 Una vez encontrado y elegido un planeta, deberás comunicar a la tripulación la **orientación y el combustible necesario** para llegar allí. Esto permitirá al *Comandante** mover el Daedalus al planeta elegido.
 ////
-Cuando el Daedalus ha llegado y está en órbita, es imposible buscar otros planetas. Por otro lado, puedes **analizar el planeta** en órbita para obtener GeoData adicionales. Estos datos serán utilizados por el equipo de expedición, que podrá preparar la exploración con antelación.
+Cuando el Daedalus ha llegado y está en órbita, es imposible buscar otros planetas. Por otro lado, puedes **analizar el planeta** en órbita para obtener GeoDatos adicionales si es que este no fue analizado por completo. Estos datos serán utilizados por el equipo de expedición, que podrá preparar la exploración con antelación.
 ////
 Para salir de la órbita, el Comandante a cargo debe ejecutar la acción desde la Terminal de Comando.</target>
       </segment>
@@ -144,27 +144,27 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
         <source>exploration.tips</source>
         <target>exploration.tips</target>
       </segment>
-      <segment id="recolted_infos" state="initial">
+      <segment id="recolted_infos" state="translated">
         <source>exploration.recolted_infos</source>
-        <target>exploration.recolted_infos</target>
+        <target>Información obtenida...</target>
       </segment>
-      <segment id="new_step" state="initial">
+      <segment id="new_step" state="translated">
         <source>exploration.new_step</source>
-        <target>exploration.new_step</target>
+        <target>Nueva etapa</target>
       </segment>
-      <segment id="lost" state="initial">
+      <segment id="lost" state="translated">
         <source>exploration.lost</source>
-        <target>exploration.lost</target>
+        <target>Te has perdido en este planeta. Tu ánimo bajará rápidamente... Pide a la tripulación que venga por ti.</target>
       </segment>
-      <segment id="finished" state="initial">
+      <segment id="finished" state="translated">
         <source>exploration.finished</source>
-        <target>exploration.finished</target>
+        <target>Finalizada</target>
       </segment>
     </unit>
     <unit id="closed_exploration">
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>closed_exploration.tips</source>
-        <target>closed_exploration.tips</target>
+        <target>Aquí puedes leer el reporte de tu expedición.</target>
       </segment>
     </unit>
     <unit id="bios_terminal">
@@ -212,9 +212,9 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
         <source>bios_terminal.crew_lock_name</source>
         <target>Bloqueo de seguridad</target>
       </segment>
-      <segment id="crew_lock.description" state="initial">
+      <segment id="crew_lock.description" state="translated">
         <source>bios_terminal.crew_lock_description</source>
-        <target>bios_terminal.crew_lock_description</target>
+        <target>:point: Bloqueo de pilotaje: Los no pilotos no están autorizados a pilotar un Patrullero o el Icarus.//:point: Bloqueo de proyectos: Los no artífices no están autorizados a participar en el desarrollo de proyectos.//:point: Bloqueo de investigación: Los no biólogos y no médicos no pueden participar en investigaciones científicas.</target>
       </segment>
       <segment id="crew_lock.projects" state="translated">
         <source>bios_terminal.crew_lock_projects</source>
@@ -250,7 +250,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="magnetic_net.description" state="translated">
         <source>bios_terminal.magnetic_net_description</source>
-        <target>Activa o desactiva la red magnética la cual permite abandonar a los patrulleros o traerlos de vuelta al mover la nave.</target>
+        <target>Activa o desactiva la red magnética la cual traerlos de vuelta a los patrulleros al mover la nave... o abandonarlos.</target>
       </segment>
       <segment id="magnetic_net.toggle_active" state="translated">
         <source>bios_terminal.magnetic_net_toggle_active</source>

@@ -20,25 +20,25 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
         <source>command_terminal.orientate_daedalus</source>
         <target>Orientación del Daedalus</target>
       </segment>
-      <segment id="move_daedalus" state="initial">
+      <segment id="move_daedalus" state="translated">
         <source>command_terminal.move_daedalus</source>
-        <target>command_terminal.move_daedalus</target>
+        <target>Desplazamiento del Daedalus</target>
       </segment>
-      <segment id="general_informations" state="initial">
+      <segment id="general_informations" state="translated">
         <source>command_terminal.general_informations</source>
-        <target>command_terminal.general_informations</target>
+        <target>Informaciones generales</target>
       </segment>
       <segment id="pilgred" state="translated">
         <source>command_terminal.pilgred</source>
-        <target>command_terminal.difficulty_normal</target>
+        <target>Pilgred</target>
       </segment>
       <segment id="difficulty_normal" state="translated">
         <source>command_terminal.difficulty_normal</source>
-        <target>command_terminal.difficulty_hard</target>
+        <target>Estamos viajando en el **Espacio cercano**</target>
       </segment>
       <segment id="difficulty_hard" state="translated">
         <source>command_terminal.difficulty_hard</source>
-        <target>command_terminal.difficulty_very_hard</target>
+        <target>Estamos viajando a través del **Espacio profundo**</target>
       </segment>
       <segment id="difficulty_very_hard" state="translated">
         <source>command_terminal.difficulty_very_hard</source>
@@ -46,15 +46,15 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
       </segment>
       <segment id="advance_daedalus_status_ok" state="translated">
         <source>command_terminal.advance_daedalus_status_ok</source>
-        <target>command_terminal.advance_daedalus_status_no_fuel</target>
+        <target>Los sistemas están funcionales.</target>
       </segment>
       <segment id="advance_daedalus_status_no_fuel" state="translated">
         <source>command_terminal.advance_daedalus_status_no_fuel</source>
-        <target>command_terminal.advance_daedalus_status_emergency_reactor_broken</target>
+        <target>¡No hay combustible en la *Cámara de Combustión*! El desplazamiento es imposible.</target>
       </segment>
       <segment id="advance_daedalus_status_emergency_reactor_broken" state="translated">
         <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
-        <target>command_terminal.orientation</target>
+        <target>¡El *Reactor de Emergencia* está averiado! El desplazamiento es imposible.</target>
       </segment>
       <segment id="orientation" state="initial">
         <source>command_terminal.orientation</source>
@@ -66,9 +66,15 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
         <source>astro_terminal.name</source>
         <target>Terminal Astro</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>astro_terminal.tips</source>
-        <target>astro_terminal.tips</target>
+        <target>Para poder encontrar un planeta para explorar, primero debes **realizar un escaneo** para encontrar hasta un máximo de 2 planetas. Los resultados de los planetas encontrados son personales y exclusivos para cada persona.
+////
+Una vez encontrado y elegido un planeta, deberás comunicar a la tripulación la **orientación y el combustible necesario** para llegar allí. Esto permitirá al *Comandante** mover el Daedalus al planeta elegido.
+////
+Cuando el Daedalus ha llegado y está en órbita, es imposible buscar otros planetas. Por otro lado, puedes **analizar el planeta** en órbita para obtener GeoData adicionales. Estos datos serán utilizados por el equipo de expedición, que podrá preparar la exploración con antelación.
+////
+Para salir de la órbita, el Comandante a cargo debe ejecutar la acción desde la Terminal de Comando.</target>
       </segment>
       <segment id="orientation" state="translated">
         <source>astro_terminal.orientation</source>
@@ -82,13 +88,13 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
         <source>astro_terminal.in_orbit</source>
         <target>*¡En órbita!*</target>
       </segment>
-      <segment id="share_planet_button_name" state="initial">
+      <segment id="share_planet_button_name" state="translated">
         <source>astro_terminal.share_planet_button_name</source>
-        <target>astro_terminal.share_planet_button_name</target>
+        <target>Compartir</target>
       </segment>
-      <segment id="share_planet_button_description" state="initial">
+      <segment id="share_planet_button_description" state="translated">
         <source>astro_terminal.share_planet_button_description</source>
-        <target>astro_terminal.share_planet_button_description</target>
+        <target>Comparte este planeta con la tripulación.</target>
       </segment>
     </unit>
     <unit id="research_laboratory">
@@ -104,13 +110,13 @@ Puedes manipular un objeto de tu inventario o que se encuentre en la sala.
 
 Una sola persona podrá difícilmente completar una investigación, incluso si tiene las habilidades requeridas. Si haces avanzar una investigación varias veces consecutivas, la eficacia de la acción disminuirá. ¡La clave es trabajar alternadamente en equipo!</target>
       </segment>
-      <segment id="chun_present" state="initial">
+      <segment id="chun_present" state="translated">
         <source>research_laboratory.chun_present</source>
-        <target>research_laboratory.chun_present</target>
+        <target>**Chun** está presente. Por lo que ciertas investigaciones son posibles.</target>
       </segment>
-      <segment id="mush_dead" state="initial">
+      <segment id="mush_dead" state="translated">
         <source>research_laboratory.mush_dead</source>
-        <target>research_laboratory.mush_dead</target>
+        <target>Un **tripulante infectado** está muerto y ahora sirve como una muestra.</target>
       </segment>
     </unit>
     <unit id="block_of_post_it">
@@ -308,13 +314,13 @@ Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser t
       </segment>
     </unit>
     <unit id="calculator">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>calculator.name</source>
-        <target>calculator.name</target>
+        <target>Supercalculadora</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>calculator.tips</source>
-        <target>calculator.tips</target>
+        <target>Calcula datos importantes o sin ningún valor. Pero la ciencia guarda más de una sorpresa...</target>
       </segment>
       <segment id="to_a_new_eden_title" state="initial">
         <source>calculator.to_a_new_eden_title</source>

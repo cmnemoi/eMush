@@ -42,7 +42,7 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
       </segment>
       <segment id="difficulty_very_hard" state="translated">
         <source>command_terminal.difficulty_very_hard</source>
-        <target>command_terminal.advance_daedalus_status_ok</target>
+        <target>Estamos viajando a través del **Espacio infinito**</target>
       </segment>
       <segment id="advance_daedalus_status_ok" state="translated">
         <source>command_terminal.advance_daedalus_status_ok</source>
@@ -56,9 +56,19 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
         <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
         <target>¡El *Reactor de Emergencia* está averiado! El desplazamiento es imposible.</target>
       </segment>
-      <segment id="orientation" state="initial">
+      <segment id="orientation" state="translated">
         <source>command_terminal.orientation</source>
-        <target>command_terminal.orientation</target>
+        <target>{orientation, select,
+                  north {Oeste :left::left::left: 
+**Norte** :right::right::right: Este}
+                  south {Este :left::left::left: 
+**Sur** :right::right::right: Oeste}
+                  east {Norte :left::left::left: 
+**Este** :right::right::right: Sur}
+                  west {Sur :left::left::left: 
+**Oeste** :right::right::right: Norte}
+                  other {El Daedalus se orienta actualmente hacia: **{orientation}**.}
+}</target>
       </segment>
     </unit>
     <unit id="astro_terminal">
@@ -162,109 +172,109 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
         <source>bios_terminal.name</source>
         <target>Terminal BIOS</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>bios_terminal.tips</source>
-        <target>bios_terminal.tips</target>
+        <target>Estás accediendo a las BIOS de NERON. Solo el Administrador de NERON puede cambiar sus parámetros.</target>
       </segment>
-      <segment id="cpu_priority.name" state="initial">
+      <segment id="cpu_priority.name" state="translated">
         <source>bios_terminal.cpu_priority_name</source>
-        <target>bios_terminal.cpu_priority_name</target>
+        <target>Prioridad CPU</target>
       </segment>
       <segment id="cpu_priority.description" state="initial">
         <source>bios_terminal.cpu_priority_description</source>
         <target>bios_terminal.cpu_priority_description</target>
       </segment>
-      <segment id="cpu_priority.astronavigation" state="initial">
+      <segment id="cpu_priority.astronavigation" state="translated">
         <source>bios_terminal.cpu_priority_astronavigation</source>
-        <target>bios_terminal.cpu_priority_astronavigation</target>
+        <target>Astronavegación</target>
       </segment>
-      <segment id="cpu_priority.defence" state="initial">
+      <segment id="cpu_priority.defence" state="translated">
         <source>bios_terminal.cpu_priority_defence</source>
-        <target>bios_terminal.cpu_priority_defence</target>
+        <target>Sistema de defensa</target>
       </segment>
       <segment id="cpu_priority.pilgred" state="translated">
         <source>bios_terminal.cpu_priority_pilgred</source>
         <target>PILGRED</target>
       </segment>
-      <segment id="cpu_priority.research" state="initial">
+      <segment id="cpu_priority.research" state="translated">
         <source>bios_terminal.cpu_priority_research</source>
-        <target>bios_terminal.cpu_priority_research</target>
+        <target>Investigación</target>
       </segment>
-      <segment id="cpu_priority.projects" state="initial">
+      <segment id="cpu_priority.projects" state="translated">
         <source>bios_terminal.cpu_priority_projects</source>
-        <target>bios_terminal.cpu_priority_projects</target>
+        <target>Proyectos</target>
       </segment>
-      <segment id="cpu_priority.none" state="initial">
+      <segment id="cpu_priority.none" state="translated">
         <source>bios_terminal.cpu_priority_none</source>
-        <target>bios_terminal.cpu_priority_none</target>
+        <target>Ninguno</target>
       </segment>
-      <segment id="crew_lock.name" state="initial">
+      <segment id="crew_lock.name" state="translated">
         <source>bios_terminal.crew_lock_name</source>
-        <target>bios_terminal.crew_lock_name</target>
+        <target>Bloqueo de seguridad</target>
       </segment>
       <segment id="crew_lock.description" state="initial">
         <source>bios_terminal.crew_lock_description</source>
         <target>bios_terminal.crew_lock_description</target>
       </segment>
-      <segment id="crew_lock.projects" state="initial">
+      <segment id="crew_lock.projects" state="translated">
         <source>bios_terminal.crew_lock_projects</source>
-        <target>bios_terminal.crew_lock_projects</target>
+        <target>Proyectos</target>
       </segment>
-      <segment id="crew_lock.piloting" state="initial">
+      <segment id="crew_lock.piloting" state="translated">
         <source>bios_terminal.crew_lock_piloting</source>
-        <target>bios_terminal.crew_lock_piloting</target>
+        <target>Pilotaje</target>
       </segment>
-      <segment id="crew_lock.research" state="initial">
+      <segment id="crew_lock.research" state="translated">
         <source>bios_terminal.crew_lock_research</source>
-        <target>bios_terminal.crew_lock_research</target>
+        <target>Investigación</target>
       </segment>
-      <segment id="plasma_shield.name" state="initial">
+      <segment id="plasma_shield.name" state="translated">
         <source>bios_terminal.plasma_shield_name</source>
-        <target>bios_terminal.plasma_shield_name</target>
+        <target>Escudo Plasma</target>
       </segment>
-      <segment id="plasma_shield.description" state="initial">
+      <segment id="plasma_shield.description" state="translated">
         <source>bios_terminal.plasma_shield_description</source>
-        <target>bios_terminal.plasma_shield_description</target>
+        <target>Activa el escudo plasma</target>
       </segment>
-      <segment id="plasma_shield.toggle_activate" state="initial">
+      <segment id="plasma_shield.toggle_activate" state="translated">
         <source>bios_terminal.plasma_shield_toggle_activate</source>
-        <target>bios_terminal.plasma_shield_toggle_activate</target>
+        <target>Activar</target>
       </segment>
-      <segment id="plasma_shield.toggle_deactivate" state="initial">
+      <segment id="plasma_shield.toggle_deactivate" state="translated">
         <source>bios_terminal.plasma_shield_toggle_deactivate</source>
-        <target>bios_terminal.plasma_shield_toggle_deactivate</target>
+        <target>Desactivar</target>
       </segment>
-      <segment id="magnetic_net.name" state="initial">
+      <segment id="magnetic_net.name" state="translated">
         <source>bios_terminal.magnetic_net_name</source>
-        <target>bios_terminal.magnetic_net_name</target>
+        <target>Red magnética</target>
       </segment>
-      <segment id="magnetic_net.description" state="initial">
+      <segment id="magnetic_net.description" state="translated">
         <source>bios_terminal.magnetic_net_description</source>
-        <target>bios_terminal.magnetic_net_description</target>
+        <target>Activa o desactiva la red magnética la cual permite abandonar a los patrulleros o traerlos de vuelta al mover la nave.</target>
       </segment>
-      <segment id="magnetic_net.toggle_active" state="initial">
+      <segment id="magnetic_net.toggle_active" state="translated">
         <source>bios_terminal.magnetic_net_toggle_active</source>
-        <target>bios_terminal.magnetic_net_toggle_active</target>
+        <target>Activar</target>
       </segment>
-      <segment id="magnetic_net.toggle_inactive" state="initial">
+      <segment id="magnetic_net.toggle_inactive" state="translated">
         <source>bios_terminal.magnetic_net_toggle_inactive</source>
-        <target>bios_terminal.magnetic_net_toggle_inactive</target>
+        <target>Desactivar</target>
       </segment>
-      <segment id="neron_inhibition.name" state="initial">
+      <segment id="neron_inhibition.name" state="translated">
         <source>bios_terminal.neron_inhibition_name</source>
-        <target>bios_terminal.neron_inhibition_name</target>
+        <target>Bloqueo DMZ-CorePeace</target>
       </segment>
-      <segment id="neron_inhibition.description" state="initial">
+      <segment id="neron_inhibition.description" state="translated">
         <source>bios_terminal.neron_inhibition_description</source>
-        <target>bios_terminal.neron_inhibition_description</target>
+        <target>Activa el bloqueo del comportamiento de NERON. El bloqueo cambia un número de comportamientos agresivos de NERON.</target>
       </segment>
-      <segment id="neron_inhibition.toggle_active" state="initial">
+      <segment id="neron_inhibition.toggle_active" state="translated">
         <source>bios_terminal.neron_inhibition_toggle_active</source>
-        <target>bios_terminal.neron_inhibition_toggle_active</target>
+        <target>Si</target>
       </segment>
-      <segment id="neron_inhibition.toggle_inactive" state="initial">
+      <segment id="neron_inhibition.toggle_inactive" state="translated">
         <source>bios_terminal.neron_inhibition_toggle_inactive</source>
-        <target>bios_terminal.neron_inhibition_toggle_inactive</target>
+        <target>No</target>
       </segment>
     </unit>
     <unit id="pilgred">
@@ -292,25 +302,28 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
         <target>Aquí podrás actualizar y desbloquear funciones avanzadas para toda la tripulación. Esas funciones para el Núcleo de *Neron* se obtienen al  **completar proyectos** que formaban parte del plan *Magallanes*.
 Los proyectos avanzarán más rápido si tienes **las habilidades adecuadas**.
 Una sola persona podrá difílcilmente completar un proyecto, incluso si tiene las habilidades requeridas. Si haces avanzar un proyecto varias veces consecutivas, la eficacia de tu acción disminuirá. **¡La clave es trabajar alternadamente en equipo!**
-Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser terminado anulará el avance en los otros.</target>
+Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser terminado **anulará el avance en los otros**. ¡Habla con tus compañeros para determinar cual servirá mejor para la tripulación!</target>
       </segment>
-      <segment id="no_proposed_neron_projects_description" state="initial">
+      <segment id="no_proposed_neron_projects_description" state="translated">
         <source>neron_core.no_proposed_neron_projects_description</source>
-        <target>neron_core.no_proposed_neron_projects_description</target>
+        <target>Ya no hay más proyectos por completar.</target>
       </segment>
     </unit>
     <unit id="auxiliary_terminal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>auxiliary_terminal.name</source>
-        <target>auxiliary_terminal.name</target>
+        <target>Terminal auxiliar de NERON</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>auxiliary_terminal.tips</source>
-        <target>auxiliary_terminal.tips</target>
+        <target>Aquí podrás actualizar y desbloquear funciones avanzadas para toda la tripulación. Esas funciones para el Núcleo de *Neron* se obtienen al  **completar proyectos** que formaban parte del plan *Magallanes*.
+Los proyectos avanzarán más rápido si tienes **las habilidades adecuadas**.
+Una sola persona podrá difílcilmente completar un proyecto, incluso si tiene las habilidades requeridas. Si haces avanzar un proyecto varias veces consecutivas, la eficacia de tu acción disminuirá. **¡La clave es trabajar alternadamente en equipo!**
+Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser terminado **anulará el avance en los otros**. ¡Habla con tus compañeros para determinar cual servirá mejor para la tripulación!</target>
       </segment>
-      <segment id="no_proposed_neron_projects_description" state="initial">
+      <segment id="no_proposed_neron_projects_description" state="translated">
         <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
-        <target>auxiliary_terminal.no_proposed_neron_projects_description</target>
+        <target>Ya no hay más proyectos por completar.</target>
       </segment>
     </unit>
     <unit id="calculator">
@@ -322,17 +335,17 @@ Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser t
         <source>calculator.tips</source>
         <target>Calcula datos importantes o sin ningún valor. Pero la ciencia guarda más de una sorpresa...</target>
       </segment>
-      <segment id="to_a_new_eden_title" state="initial">
+      <segment id="to_a_new_eden_title" state="translated">
         <source>calculator.to_a_new_eden_title</source>
-        <target>calculator.to_a_new_eden_title</target>
+        <target>Hacia un nuevo Eden</target>
       </segment>
       <segment id="to_a_new_eden_description" state="initial">
         <source>calculator.to_a_new_eden_description</source>
         <target>calculator.to_a_new_eden_description</target>
       </segment>
-      <segment id="nothing_to_compute" state="initial">
+      <segment id="nothing_to_compute" state="translated">
         <source>calculator.nothing_to_compute</source>
-        <target>calculator.nothing_to_compute</target>
+        <target>No hay nada que calcular por el momento.</target>
       </segment>
       <segment id="eden_computed" state="initial">
         <source>calculator.eden_computed</source>

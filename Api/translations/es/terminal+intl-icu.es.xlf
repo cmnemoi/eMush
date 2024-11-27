@@ -339,17 +339,17 @@ Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser t
         <source>calculator.to_a_new_eden_title</source>
         <target>Hacia un nuevo Eden</target>
       </segment>
-      <segment id="to_a_new_eden_description" state="initial">
+      <segment id="to_a_new_eden_description" state="translated">
         <source>calculator.to_a_new_eden_description</source>
-        <target>calculator.to_a_new_eden_description</target>
+        <target>La cristalita contiene coordenadas polares correspondientes al centro de la nebulosa de Magallanes... Sin embargo, para salir de aquí, necesitaremos un sistema de propulsión increíble...</target>
       </segment>
       <segment id="nothing_to_compute" state="translated">
         <source>calculator.nothing_to_compute</source>
         <target>No hay nada que calcular por el momento.</target>
       </segment>
-      <segment id="eden_computed" state="initial">
+      <segment id="eden_computed" state="translated">
         <source>calculator.eden_computed</source>
-        <target>calculator.eden_computed</target>
+        <target>El cálculo de las coordenadas de Eden se ha completado con éxito. Las coordenadas se han enviado a NERON. Consulta a tu ***Comandante*** para obtener más información.</target>
       </segment>
     </unit>
   </file>

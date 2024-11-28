@@ -234,17 +234,32 @@
         <source>eleesha.abstract</source>
         <target>Eleesha es periodista de investigación en SNC (Sol News Channel). Obtuvo registros médicos de varios líderes políticos y financieros de la Federación, demostrando su infección Mush. Después de que su informe fuera bajado del aire, Eleesha huye a Júpiter por temor a ser eliminada. Ella revela todo esto al equipo del Daedalus y obtiene un empleo como mecánico.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>eleesha.biography</source>
-        <target>eleesha.biography</target>
+        <target>- 2037: Nace en la Tierra.
+- 3132: ***Daryn Williams, padre de Eleesha, muere en misteriosas circunstancias*** en una exploración en Tamina. La familia recibe muy poca información sobre su muerte. Eleesha crece creyendo que su padre está aún con vida.
+- 3140: Eleesha ingresa a la facultad de Ciencias de la Computación en México. Obtiene buenas calificaciones, pero dedica la mayor parte de su carrera investigando ***los sucesos ocurridos en Tamina*** en su escuela. Poco tiempo después, comprueba que todos los participantes en la expedición murieron, lo que respalda su teoría.
+- 3141: Eleesha presenta los resultados de su investigación a un amigo que le sugirie que haga un documental para el SNC. Eleesha acepta y difunde sus hallazgos por todo el mundo de la exploración espacial.
+- 3142: Mediante un intercambio de información, Eleesha logra localizar  localizar a ***Zhong Chun, la única miembro sobreviviente*** del cuerpo médico de la exploración de Tamina. Ella le menciona que había estado presente y había presenciado de primera mano la lenta agonía que sufrió su equipo. Eleesha se entera con certeza de que su padre murió en Tau Ceti y ahora quiere saber por qué.
+- 3143: Eleesha tiene una entrevista con Kim Jin-Su a su regreso de la expedición de Tau-Ceti. Eleesha interrogó exhaustivamente al famoso explorador, pero él negó tener información alguna sobre los hechos. Esta secuencia marcó el final de su documental, que fue emitido al año siguiente por el SNC.
+- 3144: El documental concientizó a los ciudadanos de la Tierra sobre la opacidad del sistema de expediciones de la Federación. Ante esta crisis, el ministro de exploración espacial dimitió de su cargo y fue sustituido por el explorador GL Maubrick. Para continuar con su investigación sobre el incidente de Tamina, Eleesha comenza a elaborar un informe sobre las condiciones de trabajo en las minas.
+- 3145: Las manifestaciones en Tau-Ceti obligan a Eleesha a anular su viaje. A lo largo de los años, informará sobre los acontecimientos de la ***guerra en Sol*** en situaciones a veces peligrosas.
+- 3146: Un salto en paracaídas imprevisto mientras seguía a un equipo de paracaidistas de la FDS hizo que Eleesha desarrollara ***un miedo terrible a las alturas***. Cada vuelo que realiza se ha convertido en una auténtica pesadilla que no hace más fácil su trabajo como periodista.
+- 3147: Eleesha afortunadamente se topa con ***el trabajo de la bióloga Finola Keegan***. Las descripciones de ***los micelios observados, llamados Mush****, eran idénticas a las de Chun. Se puso en contacto con Finola de inmediato y se dispuso a publicar sus hallazgos en SNC. Su informe fue transmitido en su mayor parte, pero el nuevo régimen de Maubrick, quien consideró a Eleesha como una disidente, neutralizó el efecto de su trabajo produciendo una serie de transmisiones que ridiculizaban el trabajo de estas mujeres.
+- 3149: Tras el ***levantamiento de Ross154***, la federación finalmente aceptó la teoría del Mush, pero se volvió más estricta en su trato con los disidentes. Finola y Eleesha están bajo vigilancia constante, pero nadie interfiere en sus investigaciones.
+- 3150: Eleesha escapa de la vigilancia de la FDS y consigue infiltrarse en una oficina oficial en Valparaíso. Allí descubre documentos incriminatorios que prueban que el ***4 de enero de 3150*** se declaró una alerta Mush en el seno de la federación. Según estas cifras, el número de infectados y la propagación de la enfermedad es vertiginosa, y ***el presidente Maubrick está claramente implicado***. El hecho de que no se haya tomado ninguna medida posterior a esta alerta es especialmente preocupante para Eleesha, que intenta de nuevo emitir un informe sobre el tema. Cuando este es retirado de la emisión en el último minuto, se da cuenta de que es demasiado tarde, y la única opción que le queda es huir.
+- 3152: Eleesha sale de la clandestinidad y se dirige a ***Xyloph-17*** para reunirse con el equipo del Daedalus para confiarles sus hallazgos. Kim Jin-Su, líder del proyecto, le ofrece un lugar a bordo de la nave. Eleesha acepta, pero aún no confía en el hombre al que todavía considera responsable de la catástrofe de Tamina.
+- 3152: Eleesha quiere que Finola se una al equipo. Ha logrado construir un detector de Mush que permitiría resolver rápidamente cualquier desconfianza en el equipo. Desafortunadamente, Finola se niega.
+- 3153: Finola finalmente aterriza en Xyloph-17, con sus manos esposadas. Eleesha está indignada por sus métodos, pero secretamente espera ser capaz de construir un detector ella misma.
+- 3154: Tras un lamentable error diplomático, la Federación toma el control de Xyloph-17. Eleesha participa en la expedición para recuperar el Daedalus y poder huir. Una vez en órbita, el equipo decide volar la nave hacia la nebulosa de Magallanes. Eleesha es criogenizada por primera vez en su vida.</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>eleesha.tips</source>
-        <target>eleesha.tips</target>
+        <target>//**Investiga para identificar a los Mushs** con tus compañeros humanos mediante canales privados, así como con tus habilidades de Detective y Observador.//**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Repara los equipos rotos** usando tu habilidad de Técnico.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>eleesha.tutorial</source>
-        <target>eleesha.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Eleesha_Williams</target>
       </segment>
     </unit>
     <unit id="Finola">
@@ -272,9 +287,9 @@
         <source>finola.employment</source>
         <target>Bióloga</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>finola.abstract</source>
-        <target>finola.abstract</target>
+        <target>Finola estuvo allí cuando se hicieron la mayoría de los descubrimientos clave sobre Mush. Cuando Lai Kuan-Ti se pone en contacto con ella y le cuenta sobre el proyecto del Daedalus, se niega a abandonar Antemis, donde estaba trabajando en su propio proyecto de fungicidas. Con la ayuda de sus secuaces, Kuan-Ti secuestra a Finola, la congela criogénicamente contra su voluntad y la lleva consigo a la misión.</target>
       </segment>
       <segment id="biography" state="initial">
         <source>finola.biography</source>
@@ -356,9 +371,9 @@
         <source>gioele.employment</source>
         <target>Magnate constructor de naves de gran escala</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>gioele.abstract</source>
-        <target>gioele.abstract</target>
+        <target>Gioele es el propietario de la nave. Es un multimillonario de la Tierra obsesionado por los viajes espaciales, que financió el proyecto inicial del Daedalus. Ante la amenaza de los Mush, Gioele entró en pánico e in extremis, con la ayuda de los diseñadores, consiguió un puesto a bordo de la nave como navegante. También consiguió expulsar a un biólogo de la tripulación original para hacer sitio a su hija Paola.</target>
       </segment>
       <segment id="biography" state="initial">
         <source>gioele.biography</source>
@@ -376,27 +391,27 @@
     <unit id="Hua">
       <segment id="name" state="translated">
         <source>hua.name</source>
-        <target/>
+        <target>Hua</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>hua.fullname</source>
-        <target>hua.fullname</target>
+        <target>Jiang Hua</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>hua.initials</source>
-        <target>hua.initials</target>
+        <target>HJ</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>hua.age</source>
-        <target>hua.age</target>
+        <target>32 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hua.description</source>
-        <target>hua.description</target>
+        <target>Exploradora de lo extremo.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>hua.employment</source>
-        <target>hua.employment</target>
+        <target>Exploradora de superficies planetarias</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>hua.abstract</source>

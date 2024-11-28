@@ -137,17 +137,30 @@
         <source>chun.abstract</source>
         <target>Siendo la única superviviente del equipo médico de Tamina, Chun fue llevada a bordo del Daedalus para someterse a varios análisis. Criogenizada por la Federación durante más de nueve años para garantizar su silencio y luego acosada por los periodistas, Chun nunca ha conocido una vida normal. Sin embargo, es la clave para la supervivencia de la especie humana; Zhong Chun debe sobrevivir a toda costa.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>chun.biography</source>
-        <target>chun.biography</target>
+        <target>- 3110: Nace en Vladivostok, China.
+- 3129:  Zhong Chun se unió al cuerpo misionero auxiliar de enfermeras y viaja en un convoy intergaláctico para ***participar en la gran colonización de Tau Ceti***. 6 meses antes de irse, completó un curso intensivo de enfermería.
+- 3131: Chun es asignada al equipo de apoyo de la expedición de Tamina. Este lujoso planeta tiene una abundancia de vida animal y vegetal, pero debido a la importancia de los depósitos de Boxylium, esto no despierta mucho interés inicial por parte de ***Kim Jin-Su***.
+- 3132: La súbita enfermedad de dos exploradores después de unas expediciones de superficie de rutina obliga a la nave a redirigirse a ***Atemis en Tau Ceti III***. Durante el viaje, el ***joven explorador Daryn Williams*** muere ante los ojos de Chun. El segundo estaba aún vivo cuando ingresó a la sala de operaciones. Lo que pasa acontinuación es una pesadilla. En plena operación, dos de los asistentes empiezan a vomitar violentamente. La alarma de cuarentena es lanzada y todo el sector médico es sellado. Chun va de un paciente a otro, pero ***en menos de 36 horas todos los médicos, asistentes y expedicionarios fallecen por lo que parece ser una apraxia fúngica altamente contagiosa***. Chun es ***la única superviviente del equipo***.
+- 3132: En estado de shock, Chun es enviada a la Tierra. A su llegada, es sometida a una criogenización forzada por tiempo indeterminado por el gobierno. Oficialmente, no hubo sobrevivientes en el desastre de Tamina.
+- 3141: Chun se despierta en América Central en presencia de un equipo científico dirigido por ***Nils Carlsson***. Ella ***ha sido su objeto de estudio por los últimos 9 años***. Fue reubicada a los suburbios no tan lejos del laboratorio con un nombre falso. Al preguntarle al profesor Carlsson, se entera de que la infección descubierta en Tamina se ha extendido a Tau-Ceti y que el departamento de sanidad está ***trabajando en una vacuna para detener su propagación***. Los colonos aún no han sido informados.
+- 3142: Una periodista de la cadena SNC entrevista a Chun  y le pregunta qué fue lo que pasó exactamente en Tamina. Chun responde sus preguntas, pero evita mencionar la pandemia en Tau-Ceti para no causar el pánico general en el sistema.
+- 3143: Los análisis de Nils sobre el sistema inmunitario de Chun llegan a su fin. El logra aislar una muestra inofensiva de micelio la cual promueve a los anticuerpos humanos a rechazar el mush. La vacuna Anti Fúngica es enviada a Tau-Ceti.
+- 3145: Mientras se organiza una campaña masiva de vacunación preventiva en Antemis bajo ningún pretexto creativo, estalla una rebelión espontánea entre los mineros. Se corre la voz de que la nueva vacuna te transforma en un zombi para ser esclavizado en las minas de Sol. Solo un puñado de mineros pudieron ser vacunados antes de que la SDF se viera obligada a abandonar el sistema.
+- 3149: El anuncio oficial de la Federación sobre la existencia del Mush desencadena una tormenta mediática sin precedentes. La noticia de la existencia de Zhong Chun se difunde rápidamente y ella se ve constantemente acosada por grupos de periodistas. Para escapar de los disturbios, el profesor Nils envía a Chun a Xyloph-17, la base desde donde su colega Kim Jin-Su está organizando un viaje a la nebulosa de Magallanes.
+- 3151: Chun trabaja durante dos años en la plataforma orbital como agente de mantenimiento. Sólo Kim Jin-Su, el comandante de operaciones, conocía su verdadera identidad. A pesar de la satisfacción de poder llevar finalmente una vida normal, Chun se preocupa por la seguridad de Carlsson, ya que se suponía que se reuniría con ella unos meses más tarde.
+- 3152: La periodista Eleesha Williams, quien había entrevistado a Chun 10 años antes, se contacta de pronto con el equipo del Magallanes para revelar una terrible noticia. Según una nota del profesor Carlsson que data del año 3150, los dirigentes de la FDS están infectados con el Mush.
+- 3153: El profesor Carlsson finalmente llega a la plataforma orbital y la verdadera identidad de Chun es revelada al resto del equipo. Comienzan a trabajar juntos nuevamente para aislar otra muestra de micelio y reiniciar la producción de vacunas. Sin embargo, el deterioro de la salud de Nils dificulta considerablemente el progreso.
+- 3154: La invasión por parte de la FDS en la base orbital provoca el despegue anticipado del Daedalus. El profesor Carlsson no está en condición para acompañar al equipo, por lo que se ve obligado a dejar a Chun y hacer frente a su abrumante destino.</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>chun.tips</source>
-        <target>chun.tips</target>
+        <target>**Tu presencia es requerida en el laboratorio** para múltiples investigaciones que pueden ralentizar a los Mush, cortesía de tu estado inmunizado.//**Investiga para identificar a los Mushs** con tus compañeros de equipo humanos mediante canales privados.//**Trata a los compañeros de equipo heridos** con el botiquín o en la enfermería.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>chun.tutorial</source>
-        <target>chun.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Zhong_Chun</target>
       </segment>
     </unit>
     <unit id="Derek">

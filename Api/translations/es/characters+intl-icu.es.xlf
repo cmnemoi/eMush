@@ -291,17 +291,26 @@
         <source>finola.abstract</source>
         <target>Finola estuvo allí cuando se hicieron la mayoría de los descubrimientos clave sobre Mush. Cuando Lai Kuan-Ti se pone en contacto con ella y le cuenta sobre el proyecto del Daedalus, se niega a abandonar Antemis, donde estaba trabajando en su propio proyecto de fungicidas. Con la ayuda de sus secuaces, Kuan-Ti secuestra a Finola, la congela criogénicamente contra su voluntad y la lleva consigo a la misión.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>finola.biography</source>
-        <target>finola.biography</target>
+        <target>- 3106: Nace en la Tierra.
+- 3132: Finola ocupa un puesto en la corporación carcelaria Rinaldo para asegurar el segumiento médico de los presos en Tau-Ceti. Ella se instaló en uno de los ***crio-vagones en el último convoy interestelar que se dirigía a Antemis***.
+- 3140: Las condiciones extremas en las que trabajaban los mineros, combinadas con las herramientas anticuadas con las que trabajaban, hicieron que los accidentes fueran mucho más comunes. La sala de urgencias de Finola siempre está llena. Ni la corporación ni la federación están dispuestas a destinar más fondos. Finola está furiosa.
+- 3145: Una gran campaña de vacunación cotra la gripe espacial inicia en Tau-Ceti. Finola analiza una de las vacunas y nota que no contiene ningún componente antigripal. Ella pide más información a los laboratorios terrestres, pero sus peticiones cayeron en oídos sordos. Al mismo tiempo que salía a la luz el rumor de ***la vacuna del esclavo***, estalla la rebelión y toma el control de las colonias principales de Tau Ceti. Finola, que apoyaba a los mineros, intenta calmar su ira. Quería disuadir a los dirigentes de la rebelión de declarar una invasión a Sol.
+- 3146: ***Las fuerzas armadas de Baranov*** son neutralizadas en Sol. Cuando intentaba operar a los rebeldes heridos, Finola detecta anomalías significativas en su sistema nervioso. Ella utiliza una de las celdas para analizar estos casos, pero sus superiores la obligan a detener la investigación. Después de escapar por poco de ser asesinada dos veces en accidentes de laboratorio sospechosos, decide huir de ***la base rebelde en Antemis*** y volver a unirse a la Federación. Antes de irse, entrega una muestra de médula ósea infectada a su colega botánico ***Ian Soulton*** para que pudiera continuar su investigación secreta en Antemis.
+- 3147: Una vez de vuelta en la federación, Finola continua con sus investigaciones y rápidamente establece un vínculo entre ***el incidente de Tamina*** y las cepas de micelio encontradas en la médula ósea recuperada durante las autopsias de los soldados muertos. Los hallazgos de Ian Soulton confirman la teoría de que se trata ***de una invasión de vida inteligente***. Seguido de su investigación, comienzan a aparecer referencias del Mush en la literatura científica, pero el gobierno no les presta atención.
+- 3150: De vuelta en Antemis, Finola encuentra a su colega Ian Soulton. Convencida de que los líderes de la rebelión están infectados y actuando de forma clandestina, decide construir un mycoscanner. Si el proyecto se completa, el escáner podrá detectar la presencia de Mush en cualquier individuo en tiempo real, formando así otra rebelión.
+- 3152: Eleesha Williams, una periodista clandestina que ya había publicado algunas de las investigaciones de Finola, la contacta para advertirle de la degradación de la situación en la Federación. Varios miembros del parlamento, incluido ***GL Maubrick***, fueron infectados por el Mush. Ella propone a Finola a que se una al equipo a bordo del Daedalus, una nave que se dirige a otra galaxia, pero Finola encuentra escandalosa la idea de abandonar la mayoría de las vidas humanas en favor de unos pocos individuos bien acomodados. Su colega, Ian Soulton, no comparte ese sentimiento y se dirige a Júpiter.
+- 3153: Finola es secuestrada fuera de su casa por un par de hombres que formaban parte del proyecto Magallanes. Es congelada criogénicamente en Júpiter sin darle la oportunidad de hablar.
+- 3170: Cuando despierta a bordo del Daedalus, Finola se encuentra a más de 170.000 años luz de la Tierra. Mientras dormía, el Mush sin duda ha tomado el control de todos los funcionarios de Sol. Esto podría explicar la presencia de combatientes de la Federación rodeando la nave.</target>
       </segment>
       <segment id="tips" state="initial">
         <source>finola.tips</source>
         <target>finola.tips</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>finola.tutorial</source>
-        <target>finola.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Finola_Keegan</target>
       </segment>
     </unit>
     <unit id="Frieda">

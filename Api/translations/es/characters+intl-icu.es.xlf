@@ -192,9 +192,17 @@
         <source>derek.abstract</source>
         <target>Derek Hogan está asignado a la seguridad del Daedalus. Robusto y seguro de sí mismo, será un miembro importante para el éxito de esta misión extrema. Su pasado es una sucesión de acontecimientos, cada uno más increíble que el anterior. Derek lo ha experimentado todo, los campos de batalla de Sol, las misiones suicidas de Tau-Ceti... Sin embargo, siempre está buscando un alma gemela. Desde su apresurada salida de su hogar, Derek ha dedicado su existencia a las mujeres, pero sin éxito alguno.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>derek.biography</source>
-        <target>derek.biography</target>
+        <target>- 3109: Nace en la Tierra.
+- 3127: Derek se corta al intentar afeitarse por primera vez su vello juvenil. El conserva la cicatriz y jura ante cualquiera que le escuche que se hizo esa herida en un combate en Tau-Ceti.
+- 3139: Derek ***se enlista en la FDS*** después de recibir un folleto de propaganda de la misma. Su madre le prohíbe abandonar su hogar, por lo que Derek decide cortar lazos con ella, desde ahora volará solo.
+- 3145: Derek poco a poco va ascendiendo de rango, ya que desde su infancia fue entrenado para ser el sirviente de turno, no pasa mucho tiempo antes de que lo noten sus superiores. Es enviado a Sol y participa en la gran batalla. Como un explorador del campo de batalla, sorprende a sus superiores tomando él solo una base enemiga avanzada. Según dicho por él mismo, no vio la torre de comunicaciones antes de estrellarse contra ella... Recompensado por su valentía en el campo de batalla, ***Derek fue ascendido a sargento***.
+- 3146: Después de algunas misiones de alcance limitado, Derek es transferido a Xyloph-17 para ***supervisar el proyecto Magallanes***, debe informar las más pequeñas acciones de los científicos que trabajan en la órbita de Júpiter. Conoce a ***Chao Wang***, pero no entabla una relación con él, prefiriendo la compañía de los pasajeros de Xyloph-17. Pobre Derek, sus deficientes informes y su contacto cada vez más problemático con el personal femenino de la estación le hacen volver al campo.
+- 3151: Derek realiza misiones pequeñas y siempre logra completarlas. Sus colegas a menudo se quejan de su mala toma de decisiones, pero reconocen que el tipo tiene suerte. Se las arregla con un pequeño escuadrón para rescatar a Chao Wang, previamente enviado a ***Encélado***. En las altas esferas de la FDS, algunos lo ven como una estrella en ascenso, otros temen sus métodos demasiado arriesgados. Desgraciadamente, estos últimos son más numerosos y están mejor clasificados, por lo que termina siendo sargento instructor en una de las muchas escuelas afiliadas a la FDS.
+- 3151: Ante los catastróficos resultados de los estudiantes puestos bajo la responsabilidad del sargento instructor Hogan, éste debe regresar al campo.
+- 3153: El comandante Jin-su toma a Derek bajo su cuidado y rápidamente le asigna una misión de extracción no oficial. Desafortunadamente, no puede desactivar el sistema de seguridad en la casa de la ***científica Finola Keagan***. Esta última, al haber dejado en su baúl un objeto demasiado extremo, provocó que el sargento perdiera el conocimiento. Su compañero en esta misión, Chao Wang, muere perseguido por una jauría de vigilantes cuadrúpedos. Este último habría sufrido de dolores en las nalgas antes de sucumbir a sus heridas.
+- 3154: Derek logra abordar el Daedalus con otros 15 miembros de la tripulación. ¡Nunca más volverá a ser manipulado por la FDS!</target>
       </segment>
       <segment id="tips" state="translated">
         <source>derek.tips</source>

@@ -148,11 +148,11 @@
 - 3142: Una periodista de la cadena SNC entrevista a Chun  y le pregunta qué fue lo que pasó exactamente en Tamina. Chun responde sus preguntas, pero evita mencionar la pandemia en Tau-Ceti para no causar el pánico general en el sistema.
 - 3143: Los análisis de Nils sobre el sistema inmunitario de Chun llegan a su fin. El logra aislar una muestra inofensiva de micelio la cual promueve a los anticuerpos humanos a rechazar el mush. La vacuna Anti Fúngica es enviada a Tau-Ceti.
 - 3145: Mientras se organiza una campaña masiva de vacunación preventiva en Antemis bajo ningún pretexto creativo, estalla una rebelión espontánea entre los mineros. Se corre la voz de que la nueva vacuna te transforma en un zombi para ser esclavizado en las minas de Sol. Solo un puñado de mineros pudieron ser vacunados antes de que la FDS se viera obligada a abandonar el sistema.
-- 3149: El anuncio oficial de la Federación sobre la existencia del Mush desencadena una tormenta mediática sin precedentes. La noticia de la existencia de Zhong Chun se difunde rápidamente y ella se ve constantemente acosada por grupos de periodistas. Para escapar de los disturbios, el profesor Nils envía a Chun a Xyloph-17, la base desde donde su colega Kim Jin-Su está organizando un viaje a la nebulosa de Magallanes.
+- 3149: El anuncio oficial de la Federación sobre la existencia del Mush desencadena una tormenta mediática sin precedentes. La noticia de la existencia de Zhong Chun se difunde rápidamente y ella se ve constantemente acosada por distintos grupos de periodistas. Para escapar de los disturbios, el profesor Nils envía a Chun a Xyloph-17, la base desde donde su colega Kim Jin-Su está organizando un viaje a la nebulosa de Magallanes.
 - 3151: Chun trabaja durante dos años en la plataforma orbital como agente de mantenimiento. Sólo Kim Jin-Su, el comandante de operaciones, conocía su verdadera identidad. A pesar de la satisfacción de poder llevar finalmente una vida normal, Chun se preocupa por la seguridad de Carlsson, ya que se suponía que se reuniría con ella unos meses más tarde.
 - 3152: La periodista Eleesha Williams, quien había entrevistado a Chun 10 años antes, se contacta de pronto con el equipo del Magallanes para revelar una terrible noticia. Según una nota del profesor Carlsson que data del año 3150, los dirigentes de la FDS están infectados con el Mush.
 - 3153: El profesor Carlsson finalmente llega a la plataforma orbital y la verdadera identidad de Chun es revelada al resto del equipo. Comienzan a trabajar juntos nuevamente para aislar otra muestra de micelio y reiniciar la producción de vacunas. Sin embargo, el deterioro de la salud de Nils dificulta considerablemente el progreso.
-- 3154: La invasión por parte de la FDS en la base orbital provoca el despegue anticipado del Daedalus. El profesor Carlsson no está en condición para acompañar al equipo, por lo que se ve obligado a dejar a Chun y hacer frente a su abrumante destino.</target>
+- 3154: La invasión por parte de la FDS en la base orbital provoca el despegue anticipado del Daedalus. El profesor Carlsson no está en condición para acompañar al equipo, por lo que se ve obligado a despedirse de Chun y hacer frente a su abrumante destino.</target>
       </segment>
       <segment id="tips" state="translated">
         <source>chun.tips</source>
@@ -232,7 +232,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>eleesha.description</source>
-        <target>Periodista de SNC, reportera de lo extremo e investigadora de la amenaza Mush</target>
+        <target>Periodista de SNC, reportera de lo extremo e investigadora de la amenaza Mush.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>eleesha.employment</source>
@@ -240,7 +240,7 @@
       </segment>
       <segment id="abstract" state="translated">
         <source>eleesha.abstract</source>
-        <target>Eleesha es periodista de investigación en SNC (Sol News Channel). Obtuvo registros médicos de varios líderes políticos y financieros de la Federación, demostrando su infección Mush. Después de que su informe fuera bajado del aire, Eleesha huye a Júpiter por temor a ser eliminada. Ella revela todo esto al equipo del Daedalus y obtiene un empleo como mecánico.</target>
+        <target>Eleesha es periodista de investigación en SNC (Sol News Channel). Obtuvo registros médicos de varios líderes políticos y financieros de la Federación, demostrando su infección Mush. Después de que su informe fuera quitado del aire, Eleesha huye a Júpiter por temor a ser eliminada. Ella revela todo esto al equipo del Daedalus y obtiene un empleo como mecánica.</target>
       </segment>
       <segment id="biography" state="translated">
         <source>eleesha.biography</source>

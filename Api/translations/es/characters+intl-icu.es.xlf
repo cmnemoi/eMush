@@ -826,19 +826,19 @@
       </segment>
     </unit>
     <unit id="Someone">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>someone.name</source>
-        <target>someone.name</target>
+        <target>Alguien</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>someone.fullname</source>
-        <target>someone.fullname</target>
+        <target>Alguien</target>
       </segment>
     </unit>
     <unit id="mush">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mush.name</source>
-        <target>mush.name</target>
+        <target>Mush</target>
       </segment>
     </unit>
   </file>

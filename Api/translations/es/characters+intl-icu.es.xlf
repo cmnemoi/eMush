@@ -304,7 +304,7 @@
         <target>- 3106: Nace en la Tierra.
 - 3132: Finola ocupa un puesto en la corporación carcelaria Rinaldo para asegurar el segumiento médico de los presos en Tau-Ceti. Ella se instaló en uno de los ***crio-vagones en el último convoy interestelar que se dirigía a Antemis***.
 - 3140: Las condiciones extremas en las que trabajaban los mineros, combinadas con las herramientas anticuadas con las que trabajaban, hicieron que los accidentes fueran mucho más comunes. La sala de urgencias de Finola siempre está llena. Ni la corporación ni la federación están dispuestas a destinar más fondos. Finola está furiosa.
-- 3145: Una gran campaña de vacunación cotra la gripe espacial inicia en Tau-Ceti. Finola analiza una de las vacunas y nota que no contiene ningún componente antigripal. Ella pide más información a los laboratorios terrestres, pero sus peticiones cayeron en oídos sordos. Al mismo tiempo que salía a la luz el rumor de ***la vacuna del esclavo***, estalla la rebelión y toma el control de las colonias principales de Tau Ceti. Finola, que apoyaba a los mineros, intenta calmar su ira. Quería disuadir a los dirigentes de la rebelión de declarar una invasión a Sol.
+- 3145: Una gran campaña de vacunación contra la gripe espacial inicia en Tau-Ceti. Finola analiza una de las vacunas y nota que no contiene ningún componente antigripal. Ella pide más información a los laboratorios terrestres, pero sus peticiones cayeron en oídos sordos. Al mismo tiempo que salía a la luz el rumor de ***la vacuna del esclavo***, estalla la rebelión y toma el control de las colonias principales de Tau Ceti. Finola, que apoyaba a los mineros, intenta calmar su ira. Quería disuadir a los dirigentes de la rebelión de declarar una invasión a Sol.
 - 3146: ***Las fuerzas armadas de Baranov*** son neutralizadas en Sol. Cuando intentaba operar a los rebeldes heridos, Finola detecta anomalías significativas en su sistema nervioso. Ella utiliza una de las celdas para analizar estos casos, pero sus superiores la obligan a detener la investigación. Después de escapar por poco de ser asesinada dos veces en accidentes de laboratorio sospechosos, decide huir de ***la base rebelde en Antemis*** y volver a unirse a la Federación. Antes de irse, entrega una muestra de médula ósea infectada a su colega botánico ***Ian Soulton*** para que pudiera continuar su investigación secreta en Antemis.
 - 3147: Una vez de vuelta en la federación, Finola continua con sus investigaciones y rápidamente establece un vínculo entre ***el incidente de Tamina*** y las cepas de micelio encontradas en la médula ósea recuperada durante las autopsias de los soldados muertos. Los hallazgos de Ian Soulton confirman la teoría de que se trata ***de una invasión de vida inteligente***. Seguido de su investigación, comienzan a aparecer referencias del Mush en la literatura científica, pero el gobierno no les presta atención.
 - 3150: De vuelta en Antemis, Finola encuentra a su colega Ian Soulton. Convencida de que los líderes de la rebelión están infectados y actuando de forma clandestina, decide construir un mycoscanner. Si el proyecto se completa, el escáner podrá detectar la presencia de Mush en cualquier individuo en tiempo real, formando así otra rebelión.
@@ -802,27 +802,36 @@
       </segment>
       <segment id="description" state="translated">
         <source>janice.description</source>
-        <target>Psicóloga digital y pionera en relaciones de AI.</target>
+        <target>Psicóloga digital y pionera en relaciones de IA.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>janice.employment</source>
         <target>Psicóloga digital</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>janice.abstract</source>
-        <target>janice.abstract</target>
+        <target>Janice se encarga de toda la parte informática de la nave. Gestiona desfragmentaciones psicoanalíticas periódicas de NERON y ha implementado el protocolo de seguridad A-TRUE, que autoriza al ordenador central a nombrar su propio administrador. Janice también gestiona el seguimiento psicológico de los miembros del Daedalus.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>janice.biography</source>
-        <target>janice.biography</target>
+        <target>- 3128: Nace en Calisto
+- 3132: Janice es inscrita en una ciber-guardería en Calisto. Desde muy joven, aprendió a manejar las interfaces FGUI y, a los 6 años, creó una base de datos rudimentaria de recetas de cocina para el Día de la Madre.
+- 3143: Bajo la influencia de un grupo de hackers alteruniversalistas, Janice desarrolla el programa Radish que se utilizará para piratear las cuentas de grandes empresas como ***Lisegan-Cash y NoHumanFinancial***. Cuando se da cuenta de que ha sido manipulada, Janice decide reforzar la seguridad de sus aplicaciones desarrollando una protección única basada entre la confianza del programa y de su usuario.
+- 3145: Para obtener su título de ciberpsicología en Ganímedes, Janice completa 2 años de estudios en psicología humana y robótica en la Facultad de Ciencias Cognitivas de Baco IV.
+- 3147: Al ir a la universidad conoce a ***Terrence Archer***, un estudiante de robótica.  Él le propone configurar un script de aprendizaje y aplicar su protocolo de seguridad (A-TRUE) para sus robots.
+- 3148: Janice Kent y Terrence Archer reciben ***el Premio Redmoon*** por la invención de un dron inteligente capaz de interpretar y almacenar nuevas instrucciones durante su existencia. Deciden continuar su proyecto en Callisto, donde habita la familia de Janice.
+- 3150: Durante una misión a Júpiter, el análisis de la ***gigantesca calculadora NERON*** ofrece a Janice un área de exploración fascinante. Su increíble poder de computación lo ha convertido en una entidad consciente que opera sus propios pensamientos independientemente de cualquier intervención humana. NERON, que hasta entonces había desarrollado una profunda aversión hacia sus creadores, acepta reanudar su trabajo de cálculo con la condición de que se implemente el ***protocolo A-TRUE*** en todo el proyecto.
+- 3151: Janice intenta optimizar los procesos de pensamiento de NERON, pero la regularidad infernal de las pruebas del ***reactor PILGRED*** realizadas por la investigadora ***Raluca Tomescu*** monopolizan la capacidad de procesamiento de la unidad.
+- 3152: Tras reducir su carga de trabajo, NERON ve reducida su necesidad de procesamiento al 75%. Por tanto, sus capacidades de evolución mejoran considerablemente. Janice contacta a Terrence para pedirle que construya drones capaces de completar la construcción del Daedalus en el plazo previsto.
+- 3154: Mientras las fuerzas de la FDS intentan recuperar el control de la base, se activa el protocolo A-TRUE de NERON. El niega el acceso de las tropas a los edificios, lo que ralentiza el avance del ejército hacia el interior de Xyloph-17. Janice, que era entonces la única persona capaz de controlar la computadora central, libera a sus colegas e intenta transferir datos esenciales al Daedalus. Varias horas después, la nave despega ***hacia la galaxia Magallanes***.</target>
       </segment>
       <segment id="tips" state="initial">
         <source>janice.tips</source>
         <target>janice.tips</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>janice.tutorial</source>
-        <target>janice.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Janice_Kent</target>
       </segment>
     </unit>
     <unit id="Someone">

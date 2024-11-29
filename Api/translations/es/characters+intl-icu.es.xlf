@@ -312,9 +312,9 @@
 - 3153: Finola es secuestrada fuera de su casa por un par de hombres que formaban parte del proyecto Magallanes. Es congelada criogénicamente en Júpiter sin darle la oportunidad de hablar.
 - 3170: Cuando despierta a bordo del Daedalus, Finola se encuentra a más de 170.000 años luz de la Tierra. Mientras dormía, el Mush sin duda ha tomado el control de todos los funcionarios de Sol. Esto podría explicar la presencia de combatientes de la Federación rodeando la nave.</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>finola.tips</source>
-        <target>finola.tips</target>
+        <target>**Participa en las investigaciones** usando el Laboratorio de investigación para debilitar a los Mush.//**Cura a tus compañeros heridos** usando el botiquín o en la Enfermería.//**Participa en expediciones** haciéndolas más seguras con tu habilidad Diplomático.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>finola.tutorial</source>
@@ -448,29 +448,29 @@
       </segment>
     </unit>
     <unit id="Ian">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>ian.name</source>
-        <target>ian.name</target>
+        <target>Ian</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>ian.fullname</source>
-        <target>ian.fullname</target>
+        <target>Ian Soulton</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>ian.initials</source>
-        <target>ian.initials</target>
+        <target>IS</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>ian.age</source>
-        <target>ian.age</target>
+        <target>42 años</target>
       </segment>
       <segment id="description" state="initial">
         <source>ian.description</source>
         <target>ian.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>ian.employment</source>
-        <target>ian.employment</target>
+        <target>Botánico</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>ian.abstract</source>
@@ -490,29 +490,29 @@
       </segment>
     </unit>
     <unit id="jin_su">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>jin_su.name</source>
-        <target>jin_su.name</target>
+        <target>Jin Su</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>jin_su.fullname</source>
-        <target>jin_su.fullname</target>
+        <target>Kim Jin-Su</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>jin_su.initials</source>
-        <target>jin_su.initials</target>
+        <target>JSK</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>jin_su.age</source>
-        <target>jin_su.age</target>
+        <target>40 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>jin_su.description</source>
-        <target>jin_su.description</target>
+        <target>Comandante supremo del Daedalus</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>jin_su.employment</source>
-        <target>jin_su.employment</target>
+        <target>Explorador de lo desconocido</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>jin_su.abstract</source>
@@ -532,29 +532,29 @@
       </segment>
     </unit>
     <unit id="kuan_ti">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>kuan_ti.name</source>
-        <target>kuan_ti.name</target>
+        <target>Kuan Ti</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>kuan_ti.fullname</source>
-        <target>kuan_ti.fullname</target>
+        <target>Lai Kuan-Ti</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>kuan_ti.initials</source>
-        <target>kuan_ti.initials</target>
+        <target>KTL</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>kuan_ti.age</source>
-        <target>kuan_ti.age</target>
+        <target>37 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>kuan_ti.description</source>
-        <target>kuan_ti.description</target>
+        <target>Gran arquitecto del Daedalus.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>kuan_ti.employment</source>
-        <target>kuan_ti.employment</target>
+        <target>Artífice del Daedalus</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>kuan_ti.abstract</source>
@@ -574,29 +574,29 @@
       </segment>
     </unit>
     <unit id="Paola">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>paola.name</source>
-        <target>paola.name</target>
+        <target>Paola</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>paola.fullname</source>
-        <target>paola.fullname</target>
+        <target>Paola Rinaldo</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>paola.initials</source>
-        <target>paola.initials</target>
+        <target>PR</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>paola.age</source>
-        <target>paola.age</target>
+        <target>23 años</target>
       </segment>
       <segment id="description" state="initial">
         <source>paola.description</source>
         <target>paola.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>paola.employment</source>
-        <target>paola.employment</target>
+        <target>Oficial primero de Comunicaciones</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>paola.abstract</source>
@@ -616,29 +616,29 @@
       </segment>
     </unit>
     <unit id="Raluca">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>raluca.name</source>
-        <target>raluca.name</target>
+        <target>Raluca</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>raluca.fullname</source>
-        <target>raluca.fullname</target>
+        <target>Raluca Tomescu</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>raluca.initials</source>
-        <target>raluca.initials</target>
+        <target>RT</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>raluca.age</source>
-        <target>raluca.age</target>
+        <target>25 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>raluca.description</source>
-        <target>raluca.description</target>
+        <target>Genio de la física cuántica y amante de los gatos.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>raluca.employment</source>
-        <target>raluca.employment</target>
+        <target>Física</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>raluca.abstract</source>
@@ -658,29 +658,29 @@
       </segment>
     </unit>
     <unit id="Roland">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>roland.name</source>
-        <target>roland.name</target>
+        <target>Roland</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>roland.fullname</source>
-        <target>roland.fullname</target>
+        <target>Roland Zuccali</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>roland.initials</source>
-        <target>roland.initials</target>
+        <target>RZ</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>roland.age</source>
-        <target>roland.age</target>
+        <target>27 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>roland.description</source>
-        <target>roland.description</target>
+        <target>Comediante y piloto en sus ratos libres.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>roland.employment</source>
-        <target>roland.employment</target>
+        <target>Piloto de élite</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>roland.abstract</source>
@@ -700,29 +700,29 @@
       </segment>
     </unit>
     <unit id="Stephen">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>stephen.name</source>
-        <target>stephen.name</target>
+        <target>Stephen</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>stephen.fullname</source>
-        <target>stephen.fullname</target>
+        <target>Stephen Seagull</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>stephen.initials</source>
-        <target>stephen.initials</target>
+        <target>SS</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>stephen.age</source>
-        <target>stephen.age</target>
+        <target>47 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>stephen.description</source>
-        <target>stephen.description</target>
+        <target>El cocinero más peligroso de la galaxia.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>stephen.employment</source>
-        <target>stephen.employment</target>
+        <target>Chef</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>stephen.abstract</source>
@@ -742,29 +742,29 @@
       </segment>
     </unit>
     <unit id="Terrence">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>terrence.name</source>
-        <target>terrence.name</target>
+        <target>Terrence</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>terrence.fullname</source>
-        <target>terrence.fullname</target>
+        <target>Terrence Archer</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>terrence.initials</source>
-        <target>terrence.initials</target>
+        <target>TA</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>terrence.age</source>
-        <target>terrence.age</target>
+        <target>44 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>terrence.description</source>
-        <target>terrence.description</target>
+        <target>Tecnófilo desahuciado motorizado.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>terrence.employment</source>
-        <target>terrence.employment</target>
+        <target>Ingeniero mecánico especializado en robótica</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>terrence.abstract</source>
@@ -784,29 +784,29 @@
       </segment>
     </unit>
     <unit id="janice">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>janice.name</source>
-        <target>janice.name</target>
+        <target>Janice</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>janice.fullname</source>
-        <target>janice.fullname</target>
+        <target>Janice Kent</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>janice.initials</source>
-        <target>janice.initials</target>
+        <target>JK</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>janice.age</source>
-        <target>janice.age</target>
+        <target>26 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>janice.description</source>
-        <target>janice.description</target>
+        <target>Psicóloga digital y pionera en relaciones de AI.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>janice.employment</source>
-        <target>janice.employment</target>
+        <target>Psicóloga digital</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>janice.abstract</source>

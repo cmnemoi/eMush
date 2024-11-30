@@ -2672,8 +2672,8 @@ class ActionData
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
         [
-            'name' => 'use_container',
-            'action_name' => ActionEnum::USE_CONTAINER,
+            'name' => 'open_container_cost_0',
+            'action_name' => ActionEnum::OPEN_CONTAINER,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,

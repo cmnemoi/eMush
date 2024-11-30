@@ -72,7 +72,7 @@ enum ActionEnum: string
     case TAKE_CAT = 'take_cat';
     case PET_CAT = 'pet_cat';
     case SHOOT_CAT = 'shoot_cat';
-    case USE_CONTAINER = 'use_container';
+    case OPEN_CONTAINER = 'open_container';
 
     // Equipment-enabled actions
     case INSERT_FUEL = 'insert_fuel';

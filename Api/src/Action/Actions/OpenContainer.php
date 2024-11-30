@@ -9,12 +9,12 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -23,12 +23,12 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Class implementing the "Use" action on containers.
+ * Class implementing the "Open" action on containers.
  * This action is granted by Survival Kit, Lunchbox, Coffee Thermos, Christmas Gifts.
  */
-class UseContainer extends AbstractAction
+class OpenContainer extends AbstractAction
 {
-    protected ActionEnum $name = ActionEnum::USE_CONTAINER;
+    protected ActionEnum $name = ActionEnum::OPEN_CONTAINER;
 
     protected RandomServiceInterface $randomService;
     protected GameEquipmentServiceInterface $gameEquipmentService;
@@ -58,7 +58,7 @@ class UseContainer extends AbstractAction
 
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $target instanceof GameEquipment;
+        return $target instanceof GameItem;
     }
 
     protected function checkResult(): ActionResult
@@ -68,32 +68,38 @@ class UseContainer extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $target */
+        /** @var GameItem $target */
         $target = $this->target;
+
+        /** @var Container $containerType */
+        $containerType = $target->getEquipment()->getMechanicByName(EquipmentMechanicEnum::CONTAINER);
+        if (null === $containerType) {
+            throw new \Exception('Cannot open this equipment');
+        }
         $time = new \DateTime();
 
-        // remove the space capsule
-        $equipmentEvent = new InteractWithEquipmentEvent(
-            $target,
-            $this->player,
-            VisibilityEnum::HIDDEN,
-            $this->getActionConfig()->getActionTags(),
-            $time
-        );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $contentName = $this->randomService->getSingleRandomElementFromProbaCollection($containerType->getContentWeights());
 
-        // $contentName = $this->randomService->getSingleRandomElementFromProbaCollection(new ProbaCollection(self::$capsuleContent));
-
-        /*if (!\is_string($contentName)) {
-            throw new \Exception('container content should not be empty');
+        for ($i = 0; $i < $containerType->getQuantityOfItemOrThrow($contentName); ++$i) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                $contentName,
+                $this->player,
+                $this->getActionConfig()->getActionTags(),
+                new \DateTime(),
+                VisibilityEnum::PUBLIC
+            );
         }
 
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            $contentName,
-            $this->player,
-            $this->getActionConfig()->getActionTags(),
-            new \DateTime(),
-            VisibilityEnum::PUBLIC
-        );*/
+        if ($target->isOutOfChargesOrSingleUse()) {
+            // remove the container
+            $equipmentEvent = new InteractWithEquipmentEvent(
+                $target,
+                $this->player,
+                VisibilityEnum::HIDDEN,
+                $this->getActionConfig()->getActionTags(),
+                $time
+            );
+            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        }
     }
 }

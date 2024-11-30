@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
+use Mush\Equipment\Entity\Mechanics\Container;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Entity\Mechanics\Entity;
@@ -27,6 +28,7 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
 #[ORM\DiscriminatorMap([
     'blueprint' => Blueprint::class,
     'book' => Book::class,
+    'container' => Container::class,
     'document' => Document::class,
     'drug' => Drug::class,
     'entity' => Entity::class,

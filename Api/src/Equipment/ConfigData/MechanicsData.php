@@ -1882,7 +1882,7 @@ abstract class MechanicsData
             'name' => 'container_xmas_gift_default',
             'type' => EquipmentMechanicEnum::CONTAINER,
             'actions' => [
-                'use_container',
+                'open_container_cost_0',
             ],
             'containerContents' => ContainerContentEnum::XMAS_GIFT_CONTENT,
         ],
@@ -1890,7 +1890,7 @@ abstract class MechanicsData
             'name' => 'container_coffee_thermos_default',
             'type' => EquipmentMechanicEnum::CONTAINER,
             'actions' => [
-                'use_container',
+                'open_container_cost_0',
             ],
             'containerContents' => ContainerContentEnum::COFFEE_THERMOS_CONTENT,
         ],

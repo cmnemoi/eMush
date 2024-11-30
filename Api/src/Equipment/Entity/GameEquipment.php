@@ -320,6 +320,18 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $charge;
     }
 
+    public function isOutOfChargesOrSingleUse(): bool
+    {
+        $charges = $this->getStatuses()->filter(static fn (Status $status) => $status instanceof ChargeStatus);
+
+        $charge = $charges->first();
+        if (!$charge instanceof ChargeStatus || !$charge->isCharged()) {
+            return true;
+        }
+
+        return false;
+    }
+
     // return actions provided by this entity and the other actionProviders it bears
     public function getProvidedActions(ActionHolderEnum $actionTarget, array $actionRanges): Collection
     {

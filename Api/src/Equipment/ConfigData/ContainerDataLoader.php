@@ -24,12 +24,10 @@ class ContainerDataLoader extends MechanicsDataLoader
 
             $container->setName($containerData['name']);
             $this->setMechanicsActions($container, $containerData);
-            $this->setContainerContents($container, $containerData['containerContents']);
+            $container->setContents($containerData['containerContents']);
 
             $this->entityManager->persist($container);
         }
         $this->entityManager->flush();
     }
-
-    public function setContainerContents(Container $container, array $containerContents): void {}
 }

@@ -12,35 +12,31 @@ class ContainerContentEnum
     ];
 
     public const array COFFEE_THERMOS_CONTENT = [
-        GameRationEnum::COFFEE => 1,
+        [
+            'item' => GameRationEnum::COFFEE,
+        ],
     ];
 
     public const array XMAS_GIFT_CONTENT = [
-        'select' => 'characterName',
-
         [
-            'name' => 'chao',
-
-            [
-                'item' => GearItemEnum::PLASTENITE_ARMOR,
-                'quantity' => 1,
-                'weight' => 1,
-            ],
-            [
-                'item' => GameRationEnum::ORGANIC_WASTE,
-                'quantity' => 4,
-                'weight' => 1,
-            ],
-            [
-                'item' => ItemEnum::KNIFE,
-                'quantity' => 1,
-                'weight' => 1,
-            ],
-            [
-                'item' => ItemEnum::BLASTER,
-                'quantity' => 1,
-                'weight' => 1,
-            ],
+            'item' => GearItemEnum::PLASTENITE_ARMOR,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => GameRationEnum::ORGANIC_WASTE,
+            'quantity' => 4,
+            'weight' => 1,
+        ],
+        [
+            'item' => ItemEnum::KNIFE,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => ItemEnum::BLASTER,
+            'quantity' => 1,
+            'weight' => 1,
         ],
     ];
 }

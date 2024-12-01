@@ -4173,7 +4173,7 @@ class EquipmentConfigData
             'isFireBreakable' => false,
             'dismountedProducts' => [],
             'isPersonal' => false, // @TODO True, currently on false for testing purposes
-            'type' => 'container_config',
+            'type' => 'item_config',
             'isStackable' => false,
             'actions' => [
                 'take',
@@ -4192,7 +4192,7 @@ class EquipmentConfigData
             'isFireBreakable' => false,
             'dismountedProducts' => [],
             'isPersonal' => false,
-            'type' => 'container_config',
+            'type' => 'item_config',
             'isStackable' => false,
             'actions' => [
                 'take',

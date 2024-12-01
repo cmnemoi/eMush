@@ -2187,7 +2187,6 @@ class EquipmentConfigData
                 'examine',
                 'repair_percent_12',
                 'sabotage_percent_12',
-                ActionEnum::REINFORCE->value,
             ],
             'mechanics' => [
                 'gear_ncc_lenses_default',

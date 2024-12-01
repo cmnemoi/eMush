@@ -487,6 +487,7 @@ class GameConfigData
                 DaedalusStatusEnum::NERON_DEPRESSION . '_default',
                 DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND . '_default',
                 DaedalusStatusEnum::EDEN_COMPUTED . '_default',
+                'electric_charges_coffee_thermos_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

@@ -1778,7 +1778,7 @@ abstract class StatusConfigData
             'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
             'maxCharge' => 4,
             'startCharge' => 4,
-            'dischargeStrategies' => [ActionEnum::OPEN_CONTAINER],
+            'dischargeStrategies' => [ActionEnum::OPEN_CONTAINER->value],
             'autoRemove' => false,
             'modifierConfigs' => [],
             'actionConfigs' => [],

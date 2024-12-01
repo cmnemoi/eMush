@@ -14,6 +14,8 @@ class ContainerContentEnum
     public const array COFFEE_THERMOS_CONTENT = [
         [
             'item' => GameRationEnum::COFFEE,
+            'quantity' => 1,
+            'weight' => 3,
         ],
     ];
 

@@ -11,6 +11,7 @@ use Mush\Disease\ConfigData\DiseaseCauseConfigDataLoader;
 use Mush\Disease\ConfigData\DiseaseConfigDataLoader;
 use Mush\Equipment\ConfigData\BlueprintDataLoader;
 use Mush\Equipment\ConfigData\BookDataLoader;
+use Mush\Equipment\ConfigData\ContainerDataLoader;
 use Mush\Equipment\ConfigData\DocumentDataLoader;
 use Mush\Equipment\ConfigData\DroneDataLoader;
 use Mush\Equipment\ConfigData\DrugDataLoader;
@@ -67,6 +68,7 @@ class ConfigDataLoaderService
         DiseaseConfigDataLoader $diseaseConfigDataLoader,
         BookDataLoader $bookDataLoader,
         BlueprintDataLoader $blueprintDataLoader,
+        ContainerDataLoader $containerDataLoader,
         DocumentDataLoader $documentDataLoader,
         DrugDataLoader $drugDataLoader,
         FruitDataLoader $fruitDataLoader,
@@ -115,6 +117,7 @@ class ConfigDataLoaderService
                 $diseaseConfigDataLoader,
                 $blueprintDataLoader,
                 $bookDataLoader,
+                $containerDataLoader,
                 $documentDataLoader,
                 $drugDataLoader,
                 $fruitDataLoader,

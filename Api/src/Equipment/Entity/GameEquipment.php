@@ -320,12 +320,12 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $charge;
     }
 
-    public function isOutOfChargesOrSingleUse(): bool
+    public function isOnLastChargeOrSingleUse(): bool
     {
         $charges = $this->getStatuses()->filter(static fn (Status $status) => $status instanceof ChargeStatus);
 
         $charge = $charges->first();
-        if (!$charge instanceof ChargeStatus || !$charge->isCharged()) {
+        if (!$charge instanceof ChargeStatus || $charge->getCharge() === 1) {
             return true;
         }
 

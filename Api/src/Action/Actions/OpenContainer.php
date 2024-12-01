@@ -10,6 +10,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Container;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -78,6 +79,7 @@ class OpenContainer extends AbstractAction
         }
         $time = new \DateTime();
 
+        /** @var string $contentName */
         $contentName = $this->randomService->getSingleRandomElementFromProbaCollection($containerType->getContentWeights());
 
         for ($i = 0; $i < $containerType->getQuantityOfItemOrThrow($contentName); ++$i) {
@@ -90,7 +92,7 @@ class OpenContainer extends AbstractAction
             );
         }
 
-        if ($target->isOutOfChargesOrSingleUse()) {
+        if ($target->isOnLastChargeOrSingleUse()) {
             // remove the container
             $equipmentEvent = new InteractWithEquipmentEvent(
                 $target,

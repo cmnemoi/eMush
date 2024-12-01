@@ -29,11 +29,11 @@ class Container extends EquipmentMechanic
 
     public function setContents(array $containerData): static
     {
-        foreach ($containerData as [$item, $quantity, $weight]) {
+        foreach ($containerData as ['item' => $item, 'quantity' => $quantity, 'weight' => $weight]) {
             $itemData = [];
             $itemData['item'] = $item;
-            $quantity ? $itemData['quantity'] = $quantity : $itemData['quantity'] = 1;
-            $weight ? $itemData['weight'] = $weight : $itemData['weight'] = 1;
+            $itemData['quantity'] = $quantity;
+            $itemData['weight'] = $weight;
             $this->contents[] = $itemData;
         }
 
@@ -44,8 +44,8 @@ class Container extends EquipmentMechanic
     {
         $probaCollection = new ProbaCollection();
 
-        foreach ($this->contents as [$item, $quantity, $weight]) {
-            $probaCollection[$item] = $weight;
+        foreach ($this->contents as ['item' => $item, 'weight' => $weight]) {
+            $probaCollection->setElementProbability($item, $weight);
         }
 
         return $probaCollection;
@@ -53,12 +53,12 @@ class Container extends EquipmentMechanic
 
     public function getQuantityOfItemOrThrow(string $searchedItem): int
     {
-        foreach ($this->contents as [$item, $quantity, $weight]) {
-            if ($this->contents['item'] = $searchedItem) {
-                return $this->contents['quantity'];
+        foreach ($this->contents as ['item' => $item, 'quantity' => $quantity]) {
+            if ($item === $searchedItem) {
+                return $quantity;
             }
         }
 
-        return throw new \RuntimeException("Container {$this->getName()} does not contain {$searchedItem}.");
+        throw new \RuntimeException("Container {$this->getName()} does not contain {$searchedItem}.");
     }
 }

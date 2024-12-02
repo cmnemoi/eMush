@@ -1098,7 +1098,7 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
     <unit id="return_to_sol">
       <segment id="name" state="translated">
         <source>return_to_sol.name</source>
-        <target>Viajar a Sol</target>
+        <target>Volver al Sistema Solar</target>
       </segment>
       <segment id="description" state="initial">
         <source>return_to_sol.description</source>

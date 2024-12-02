@@ -932,7 +932,7 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
     <unit id="insert_fuel_chamber">
       <segment id="name" state="translated">
         <source>insert_fuel_chamber.name</source>
-        <target>Insertar</target>
+        <target>Inyectar</target>
       </segment>
       <segment id="description" state="translated">
         <source>insert_fuel_chamber.description</source>

@@ -8,15 +8,15 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>sol_return.short_name</source>
-        <target>¡El Daedalus regresó a Sol!</target>
+        <target>¡El Daedalus regresó al Sistema Solar!</target>
       </segment>
       <segment id="category" state="translated">
         <source>sol_return.category</source>
-        <target>Has regresado a Sol... ¡Pero el resto es otra historia!</target>
+        <target>Has regresado al Sistema Solar... ¡Pero el resto es otra historia!</target>
       </segment>
       <segment id="description" state="translated">
         <source>sol_return.description</source>
-        <target>Has decidido intentar regresar a Sol. Tu loca aventura en el Daedalus termina aquí. ¿Será que ahora eres una leyenda?</target>
+        <target>Has intentado volver al Sistema Solar. La aventura del Daedalus se detiene aquí. ¿Lograste cambiar la historia?</target>
       </segment>
     </unit>
     <unit id="eden">
@@ -80,7 +80,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>super_nova.short_name</source>
-        <target>Muerte por un administrador tramposo</target>
+        <target>¡Muerto por un desliz del administrador!</target>
       </segment>
       <segment id="category" state="translated">
         <source>super_nova.category</source>
@@ -94,7 +94,7 @@
     <unit id="alien_abducted">
       <segment id="name" state="translated">
         <source>alien_abducted.name</source>
-        <target>Secuestrado por una raza superior</target>
+        <target>Secuestrado por una inteligencia superior</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>alien_abducted.short_name</source>
@@ -134,7 +134,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>depression.short_name</source>
-        <target>Le pusiste fin a todo...</target>
+        <target>Pusiste fin a tus días...</target>
       </segment>
       <segment id="category" state="translated">
         <source>depression.category</source>
@@ -142,7 +142,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>depression.description</source>
-        <target>Ya no tenías la fuerza moral para continuar y aceptaste la muerte como tu única salvación.</target>
+        <target>Ya no tienes la fuerza espiritual para continuar y te has entregado a la muerte.</target>
       </segment>
     </unit>
     <unit id="asphyxia">
@@ -412,7 +412,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>starvation.description</source>
-        <target>No hay nada más que comer... o tal vez te olvidaste de esta necesidad humana básica.</target>
+        <target>No hay nada más que comer... o tal vez te olvidaste de satisfacer esta necesidad básica.</target>
       </segment>
     </unit>
     <unit id="quarantine">
@@ -476,7 +476,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>rocketed.short_name</source>
-        <target>¡Echo papilla por un misil curioso!</target>
+        <target>¡Hecho papilla por un misil curioso!</target>
       </segment>
       <segment id="category" state="translated">
         <source>rocketed.category</source>

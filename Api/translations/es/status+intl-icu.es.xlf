@@ -1128,7 +1128,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>antisocial.description</source>
-        <target>Al inicio de cada ciclo, si te encuentras en una sala con al menos otro tripulante, perderás un punto de moral.</target>
+        <target>Al inicio de cada ciclo, si te encuentras en una sala con al menos otro tripulante, perderás un punto de ánimo.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>antisocial.examine</source>

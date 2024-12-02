@@ -250,7 +250,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="magnetic_net.description" state="translated">
         <source>bios_terminal.magnetic_net_description</source>
-        <target>Activa o desactiva la red magnética la cual traerlos de vuelta a los patrulleros al mover la nave... o abandonarlos.</target>
+        <target>Activa o desactiva la red magnética que permite traer de vuelta a los patrulleros al mover la nave... o abandonarlos.</target>
       </segment>
       <segment id="magnetic_net.toggle_active" state="translated">
         <source>bios_terminal.magnetic_net_toggle_active</source>

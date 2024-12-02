@@ -376,7 +376,7 @@ El módulo de criogenización te contuvo durante tu largo sueño. Depende de ti 
       </segment>
       <segment id="examine" state="translated">
         <source>door.examine</source>
-        <target>Las puertas del Daedalus son frágiles y tienen la mala costumbre de quedarse bloqueadas... En caso de rompimiento, contactar con un técnico.
+        <target>Las puertas del Daedalus son frágiles y tienen la mala costumbre de quedarse bloqueadas... En caso de avería, contactar con un técnico.
 Sea lo que sea de lo que estén hechas, sin importar su densidad o condición, una puerta siempre lleva hacia algún lado.</target>
       </segment>
     </unit>

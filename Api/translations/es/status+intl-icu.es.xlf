@@ -1100,7 +1100,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>communications_officer.description</source>
-        <target>El Oficial de Comunicaciones puede iniciar el contacto con otros cuando la comunicación con Sol esté restablecida.</target>
+        <target>El Oficial de Comunicaciones puede iniciar la toma de contacto cuando la comunicación con el Sistema Solar esté restablecida.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>communications_officer.examine</source>

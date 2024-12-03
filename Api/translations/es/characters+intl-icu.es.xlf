@@ -346,21 +346,31 @@
         <source>frieda.employment</source>
         <target/>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>frieda.abstract</source>
-        <target>frieda.abstract</target>
+        <target>Nacida en el siglo XXI, cuenta con más de 45 años de experiencia en navegación entre sistemas. Durante sus estudios, demostró el efecto de onda de Shapiro. Descriogenizada en el siglo XXXI, su labor de localización de cuerpos celestes ya ha servido a grandes exploradores como GL Maubrick o Kim Jin-Su. Ahora retirada en Baviera, es llamada a Xyloph-17 para convertirse en la navegante del Daedalus.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>frieda.biography</source>
-        <target>frieda.biography</target>
+        <target>- 2037: Nace en la Tierra.
+- 2059: En menos de 2 años, Frieda Bergmann identifica más de 100 nuevas estrellas en el observatorio de Düsseldorf.
+- 2060: Al estudiar el ***efecto Shapiro***, Frieda demuestra que la masa de un agujero negro sintético puede utilizarse para impulsar sondas espaciales a velocidades cercanas a la luz. El mismo año recibió el Premio Nobel de Astrofísica por su publicación.
+- 2070: A los 33 años, Frieda decide dedicar el resto de su vida a la exploración espacial. Lamentablemente, las tecnologías de su época apenas permitían llegar a los satélites de Júpiter. Por eso, Frieda llama a ***Cryo-Hertz***, una empresa de congelación criogénica para multimillonarios que promete a sus clientes un eventual despertar en una sociedad futura en la que ya no estarán condenados a morir por falta de tecnología médica.
+- 3094: Frieda es despertada ***de un sueño de 1024 años*** por especialistas para organizar la primera misión extrasolar a la estrella de Barnard. Sus conocimientos serán valiosos para el primer análisis de la superficie de la estrella. Durante esta expedición, conoce al joven piloto Kim Jin-Su, con quien deberá colaborar para tomar muestras.
+- 3110: De regreso a la Tierra, Frieda es convocada por el explorador ***GL Maubrick*** para unirse al ***Gonzak***, una gigantesca nave espacial que debe explorar el sistema Epsilon-Indi. En esta ocasión, Frieda pisa por primera vez un terreno extrasolar. Durante estas expediciones, encontró al piloto Kim Jin-Su, quien le describió su proyecto de expedición a Tau-Ceti. Es un sistema que Frieda conoce bien, ya que lo estudió durante sus estudios en el siglo XXI.
+- 3123: Durante un reabastecimiento, Kim Jin-Su y Frieda obtienen autorización para abandonar Gonzak para montar su propia expedición a Tau-Ceti. Frieda trabaja extensamente para identificar los diferentes cuerpos del sistema.
+- 3123: La expedición es un éxito, el descubrimiento de importantes depósitos de Boxylium reactiva la exploración espacial. A pesar del importante papel de Frieda en la geolocalización de los sitios, la cobertura mediática del evento beneficia principalmente a Jin-Su. Frieda, que tiene poco interés en las publicaciones del acontecimiento y del tumulto, decide vivir a la sombra del explorador.
+- 3140: ***GL Maubrick***, que ahora es ***ministro de expansión espacial***, encarga a Frieda la organización de tres misiones interestelares sucesivas. Lamentablemente, este colosal trabajo hace impensable para ella embarcarse en una de ellas. Además, su edad de 53 años, así como estos 1.060 años de criosueño, aumentan el riesgo de sufrir accidentes criogénicos.
+- 3150: A los 63 años, las esperanzas de exploración de Frieda Bergmann quedan definitivamente enterradas. Deja su observatorio en Düsseldorf para disfrutar de una merecida jubilación en Baviera.
+- 3151: Jin-Su convoca a Frieda para localizar cuerpos en los sistemas de la Gran Nube de Magallanes. Se trata de un verdadero desafío técnico debido a la increíble distancia que separa esta galaxia de la Vía Láctea. Frieda acepta, con la condición de poder participar en la exploración de la nube. Kim Jin-Su la nombra navegante de la nave, pero sabe perfectamente que ***sus posibilidades de sobrevivir a un criosueño de 16 años son mínimas***.</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>frieda.tips</source>
-        <target>frieda.tips</target>
+        <target>**Escanea y analiza planetas** usando la terminal Astro en el Puente para buscar destinos de expedición, usando tu habilidad de Astrofísico.//**Elimina hunters** conlos patrulleros ubicados en las plataformas para proteger la nave.//**Despega expediciones** a planetas con el Icaus, en la Plataforma Icarus, para recolectar recursos.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>frieda.tutorial</source>
-        <target>frieda.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Frieda_Bergmann</target>
       </segment>
     </unit>
     <unit id="Gioele">

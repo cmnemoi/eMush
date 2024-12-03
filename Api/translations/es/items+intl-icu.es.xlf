@@ -3283,13 +3283,13 @@ Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="proactive_puffed_rice">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>proactive_puffed_rice.name</source>
-        <target>proactive_puffed_rice.name</target>
+        <target>Cereal proactivo</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>proactive_puffed_rice.short_name</source>
-        <target>proactive_puffed_rice.short_name</target>
+        <target>Cereal proactivo</target>
       </segment>
       <segment id="genre" state="translated">
         <source>proactive_puffed_rice.gender</source>
@@ -3299,139 +3299,139 @@ Sirve para colocar una planta en el jardín.</target>
         <source>proactive_puffed_rice.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>proactive_puffed_rice.description</source>
-        <target>proactive_puffed_rice.description</target>
+        <target>Serán muy buenos para la salud, pero debe ser guardado herméticamente. Al derramarse podría averiar las puertas automáticas.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>proactive_puffed_rice.examine</source>
-        <target>proactive_puffed_rice.examine</target>
+        <target>Serán muy buenos para la salud, pero debe ser guardado herméticamente. Al derramarse podría averiar las puertas automáticas.</target>
       </segment>
     </unit>
     <unit id="alien_steak">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>alien_steak.name</source>
-        <target>alien_steak.name</target>
+        <target>Bistec Alien</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>alien_steak.short_name</source>
-        <target>alien_steak.short_name</target>
+        <target>Bistec Alien</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>alien_steak.plural_name</source>
-        <target>alien_steak.plural_name</target>
+        <target>Bistecs Alien</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>alien_steak.gender</source>
-        <target>alien_steak.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>alien_steak.first_letter</source>
-        <target>alien_steak.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>alien_steak.description</source>
-        <target>alien_steak.description</target>
+        <target>A veces, el mejor contacto con seres de otros planetas pasa por el estómago.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>alien_steak.examine</source>
-        <target>alien_steak.examine</target>
+        <target>A veces, el mejor contacto con seres de otros planetas pasa por el estómago.</target>
       </segment>
     </unit>
     <unit id="anabolic">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>anabolic.name</source>
-        <target>anabolic.name</target>
+        <target>Anabolizante</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>anabolic.short_name</source>
-        <target>anabolic.short_name</target>
+        <target>Anabolizante</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>anabolic.gender</source>
-        <target>anabolic.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>anabolic.first_letter</source>
-        <target>anabolic.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>anabolic.description</source>
-        <target>anabolic.description</target>
+        <target>Estos cubitos de testosterona efervescente deben ser consumidos con precaución.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>anabolic.examine</source>
-        <target>anabolic.examine</target>
+        <target>Estos cubitos de testosterona efervescente deben ser consumidos con precaución.</target>
       </segment>
     </unit>
     <unit id="coffee">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>coffee.name</source>
-        <target>coffee.name</target>
+        <target>Café</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>coffee.short_name</source>
-        <target>coffee.short_name</target>
+        <target>Café</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>coffee.gender</source>
-        <target>coffee.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>coffee.first_letter</source>
-        <target>coffee.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>coffee.description</source>
-        <target>coffee.description</target>
+        <target>Es la bebida favorita de la tripulación.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>coffee.examine</source>
-        <target>coffee.examine</target>
+        <target>Es la bebida favorita de la tripulación.</target>
       </segment>
     </unit>
     <unit id="cooked_ration">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cooked_ration.name</source>
-        <target>cooked_ration.name</target>
+        <target>Ración cocinada</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>cooked_ration.short_name</source>
-        <target>cooked_ration.short_name</target>
+        <target>Ración cocinada</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>cooked_ration.gender</source>
-        <target>cooked_ration.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>cooked_ration.first_letter</source>
-        <target>cooked_ration.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cooked_ration.description</source>
-        <target>cooked_ration.description</target>
+        <target>Melaza proteinada caliente con el aspecto de un buen plato hecho en la Tierra. El sabor es siempre el mismo, pero con imaginación puede ser una verdadera delicia.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>cooked_ration.examine</source>
-        <target>cooked_ration.examine</target>
+        <target>Melaza proteinada caliente con el aspecto de un buen plato hecho en la Tierra. El sabor es siempre el mismo, pero con imaginación puede ser una verdadera delicia.</target>
       </segment>
     </unit>
     <unit id="space_potato">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>space_potato.name</source>
-        <target>space_potato.name</target>
+        <target>Patata espacial</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>space_potato.short_name</source>
-        <target>space_potato.short_name</target>
+        <target>Patata espacial</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>space_potato.gender</source>
-        <target>space_potato.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>space_potato.first_letter</source>
-        <target>space_potato.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="initial">
         <source>space_potato.description</source>
@@ -3443,249 +3443,263 @@ Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="standard_ration">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>standard_ration.name</source>
-        <target>standard_ration.name</target>
+        <target>Ración estándar</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>standard_ration.short_name</source>
-        <target>standard_ration.short_name</target>
+        <target>Ración estándar</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>standard_ration.gender</source>
-        <target>standard_ration.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>standard_ration.first_letter</source>
-        <target>standard_ration.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>standard_ration.description</source>
-        <target>standard_ration.description</target>
+        <target>Una porción de melaza proteinada y envasada en un recipiente de larga conservación. Estas raciones fueron elaboradas para ser digeridas fácilmente pero también pueden ser inyectadas por intravenosa.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>standard_ration.examine</source>
-        <target>standard_ration.examine</target>
+        <target>Una porción de melaza proteinada y envasada en un recipiente de larga conservación. Estas raciones fueron elaboradas para ser digeridas fácilmente pero también pueden ser inyectadas por intravenosa.</target>
       </segment>
     </unit>
     <unit id="supervitamin_bar">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>supervitamin_bar.name</source>
-        <target>supervitamin_bar.name</target>
+        <target>Barra supervitamínica</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>supervitamin_bar.short_name</source>
-        <target>supervitamin_bar.short_name</target>
+        <target>Barra supervitamínica</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>supervitamin_bar.gender</source>
-        <target>supervitamin_bar.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>supervitamin_bar.first_letter</source>
-        <target>supervitamin_bar.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>supervitamin_bar.description</source>
-        <target>supervitamin_bar.description</target>
+        <target>Nadie puede resistirse a la tentación de una Barra supervitaminada.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>supervitamin_bar.examine</source>
-        <target>supervitamin_bar.examine</target>
+        <target>Nadie puede resistirse a la tentación de una Barra supervitaminada</target>
       </segment>
     </unit>
     <unit id="blueprint">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>blueprint.name</source>
-        <target>blueprint.name</target>
+        <target>Plano : {equipment}</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>blueprint.short_name</source>
-        <target>blueprint.short_name</target>
+        <target>Plano</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>blueprint.gender</source>
-        <target>blueprint.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>blueprint.first_letter</source>
-        <target>blueprint.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>blueprint.description</source>
-        <target>blueprint.description</target>
+        <target>Este plano te servirá para construir algo útil. Encuentra los materiales que necesita y manos a la obra.
+Este plano necesita:</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>blueprint.examine</source>
-        <target>blueprint.examine</target>
+        <target>Los planos de construcción azules son el objeto soñado por los aficionados a los juegos de construcción.</target>
       </segment>
     </unit>
     <unit id="blueprint_ingredient">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>blueprint_ingredient.description</source>
-        <target>blueprint_ingredient.description</target>
+        <target>{quantity, plural,
+                        one {1 x {equipment}}
+                        other {# x {equipment}}
+                    }</target>
       </segment>
     </unit>
     <unit id="apprentron">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>apprentron.name</source>
-        <target>apprentron.name</target>
+        <target>Librotón: {skill}</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>apprentron.short_name</source>
-        <target>apprentron.short_name</target>
+        <target>Librotón</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>apprentron.gender</source>
-        <target>apprentron.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>apprentron.first_letter</source>
-        <target>apprentron.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>apprentron.description</source>
-        <target>apprentron.description</target>
+        <target>El ancestro de las tablets. Más vale saber lo que contiene.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>apprentron.examine</source>
-        <target>apprentron.examine</target>
+        <target>El ancestro de las tablets. Más vale saber lo que contiene.
+Mmmmm, ¿esto no es algo ya obsoleto?... ¿Dónde se enchufa?</target>
       </segment>
     </unit>
     <unit id="document">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>document.name</source>
-        <target>document.name</target>
+        <target>Documento</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>document.short_name</source>
-        <target>document.short_name</target>
+        <target>Documento</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>document.gender</source>
-        <target>document.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>document.first_letter</source>
-        <target>document.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>document.description</source>
-        <target>document.description</target>
+        <target>Pueden ser leídos, quién sabe lo que contengan...</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>document.examine</source>
-        <target>document.examine</target>
+        <target>Pueden ser leídos, quién sabe lo que contengan...
+La curiosidad mató miles de gatos, aliens y humanos a lo largo de la historia... Este documento podría ser secreto, inútil o vital para ti. ¿Qué contendrá?...</target>
       </segment>
     </unit>
     <unit id="commanders_manual">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>commanders_manual.name</source>
-        <target>commanders_manual.name</target>
+        <target>Manual del Comandante</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>commanders_manual.short_name</source>
-        <target>commanders_manual.short_name</target>
+        <target>Manual del Comandante</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>commanders_manual.gender</source>
-        <target>commanders_manual.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>commanders_manual.first_letter</source>
-        <target>commanders_manual.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>commanders_manual.description</source>
-        <target>commanders_manual.description</target>
+        <target>El ancestro de las tablets. Más vale saber lo que contiene.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>commanders_manual.examine</source>
-        <target>commanders_manual.examine</target>
+        <target>El ancestro de las tablets. Más vale saber lo que contiene.
+Mmmmm, ¿esto no es algo ya obsoleto?... ¿Dónde se enchufa?</target>
       </segment>
     </unit>
     <unit id="mush_research_review">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mush_research_review.name</source>
-        <target>mush_research_review.name</target>
+        <target>Estudio sobre los Mush</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>mush_research_review.short_name</source>
-        <target>mush_research_review.short_name</target>
+        <target>Estudio sobre los Mush</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>mush_research_review.gender</source>
-        <target>mush_research_review.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>mush_research_review.first_letter</source>
-        <target>mush_research_review.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mush_research_review.description</source>
-        <target>mush_research_review.description</target>
+        <target>El ancestro de las tablets. Más vale saber lo que contiene.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>mush_research_review.examine</source>
-        <target>mush_research_review.examine</target>
+        <target>El ancestro de las tablets. Más vale saber lo que contiene.
+Mmmmm, ¿esto no es algo ya obsoleto?... ¿Dónde se enchufa?</target>
       </segment>
     </unit>
     <unit id="post_it">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>post_it.name</source>
-        <target>post_it.name</target>
+        <target>Nota adhesiva</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>post_it.short_name</source>
-        <target>post_it.short_name</target>
+        <target>Nota adhesiva</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>post_it.gender</source>
-        <target>post_it.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>post_it.first_letter</source>
-        <target>post_it.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>post_it.description</source>
-        <target>post_it.description</target>
+        <target>Papelitos adhesivos que pegan a medias...</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>post_it.examine</source>
-        <target>post_it.examine</target>
+        <target>Papelitos adhesivos que pegan a medias...
+Nadie pone en duda su utilidad. ¿Pero, en el espacio?</target>
       </segment>
     </unit>
     <unit id="camera_item.examine">
-      <segment state="initial">
+      <segment state="translated">
         <source>camera_item.examine</source>
-        <target>camera_item.examine</target>
+        <target>Es un dispositivo de vigilancia muy útil para --espiar-- ver lo que hacen tus compañeros.
+//
+En su presencia, las acciones *discretas* y *furtivas* efectuadas son reveladas.
+//
+Cuando hay una en una sala, todo se registra en el historial y aparece públicamente. No funciona cuando está en tu inventario personal.</target>
       </segment>
     </unit>
     <unit id="jukebox">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>jukebox.name</source>
-        <target>jukebox.name</target>
+        <target>Rockola</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>jukebox.short_name</source>
-        <target>jukebox.short_name</target>
+        <target>Rockola</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>jukebox.plural_name</source>
-        <target>jukebox.plural_name</target>
+        <target>Rockolas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>jukebox.gender</source>
-        <target>jukebox.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>jukebox.first_letter</source>
-        <target>jukebox.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>jukebox.examine</source>
-        <target>jukebox.examine</target>
+        <target>Permite une pequeña sesión de regresión cuando lo necesites.
+La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la tripulación!</target>
       </segment>
     </unit>
   </file>

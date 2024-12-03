@@ -1202,573 +1202,647 @@ Un curioso invento desarrollado por un pescador para negociar personalmente con 
         <source>drill.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>drill.description</source>
-        <target>drill.description</target>
+        <target>Permite extraer minerales en una expedición.
+//
+Expedición: Duplica las ganancias en los eventos "Hidrocarburo".</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>drill.examine</source>
-        <target>drill.examine</target>
+        <target>Permite extraer minerales en una expedición.
+//
+Expedición: Duplica las ganancias en los eventos  "Hidrocarburo".
+//
+Se usa para perforaciones en terrenos desconocidos.</target>
       </segment>
     </unit>
     <unit id="echolocator">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>echolocator.name</source>
-        <target>echolocator.name</target>
+        <target>Ecolocalizador</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>echolocator.short_name</source>
-        <target>echolocator.short_name</target>
+        <target>Ecolocalizador</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>echolocator.plural_name</source>
-        <target>echolocator.plural_name</target>
+        <target>Ecolocalizadores</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>echolocator.gender</source>
-        <target>echolocator.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>echolocator.first_letter</source>
-        <target>echolocator.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>echolocator.description</source>
-        <target>echolocator.description</target>
+        <target>Es una herramienta muy útil en misiones de expedición. Permite localizar movimientos alrededor de quien la lleva.
+//
+Expedición: Posibilidad de recorrer las zonas restantes de tipo "Hidrocarburo" x5.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>echolocator.examine</source>
-        <target>echolocator.examine</target>
+        <target>Es una herramienta muy útil en misiones de expedición. Permite localizar movimientos alrededor de quien la lleva.
+//
+Expedición: Posibilidad de recorrer las zonas restantes de tipo "Hidrocarburo" x5.
+//
+Capaz de detectar amenazas durante las exploraciones.</target>
       </segment>
     </unit>
     <unit id="quadrimetric_compass">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>quadrimetric_compass.name</source>
-        <target>quadrimetric_compass.name</target>
+        <target>Brújula Cuadrimétrica</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>quadrimetric_compass.short_name</source>
-        <target>quadrimetric_compass.short_name</target>
+        <target>Brújula Cuadrimétrica</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>quadrimetric_compass.gender</source>
-        <target>quadrimetric_compass.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>quadrimetric_compass.first_letter</source>
-        <target>quadrimetric_compass.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>quadrimetric_compass.description</source>
-        <target>quadrimetric_compass.description</target>
+        <target>Sirve mucho en las misiones.
+//
+Expedición: Protege al grupo de quedar "Errático".
+//
+Expedición: Te protege de quedar "Perdido".</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>quadrimetric_compass.examine</source>
-        <target>quadrimetric_compass.examine</target>
+        <target>Sirve mucho en las misiones.
+//
+Expedición: Protege al grupo de quedar "Errático".
+//
+Expedición: Te protege de quedar "Perdido".
+//
+Ayuda a conocer tu ubicación durante las expediciones, indispensable en los terrenos hostiles.</target>
       </segment>
     </unit>
     <unit id="rope">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>rope.name</source>
-        <target>rope.name</target>
+        <target>Cuerda</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>rope.short_name</source>
-        <target>rope.short_name</target>
+        <target>Cuerda</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>rope.gender</source>
-        <target>rope.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>rope.first_letter</source>
-        <target>rope.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>rope.description</source>
-        <target>rope.description</target>
+        <target>Permite salir de aprietos en una expedición.
+//
+Expedición: Anula los daños personales que puedas sufrir en zonas "Sísmicas", "Gruta" y "Montaña". No protege de las muertes súbitas.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>rope.examine</source>
-        <target>rope.examine</target>
+        <target>Permite salir de aprietos en una expedición.
+//
+Expedición: Anula los daños personales que puedas sufrir en zonas "Sísmicas", "Gruta" y "Montaña". No protege de las muertes súbitas.
+//
+Entre las cosas que nadie imaginaba encontrar en el Daedalus está una cuerda. ¡Misteriosamente interesante!</target>
       </segment>
     </unit>
     <unit id="thermosensor">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>thermosensor.name</source>
-        <target>thermosensor.name</target>
+        <target>Termosensor</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>thermosensor.short_name</source>
-        <target>thermosensor.short_name</target>
+        <target>Termosensor</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>thermosensor.plural_name</source>
-        <target>thermosensor.plural_name</target>
+        <target>Termosensores</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>thermosensor.gender</source>
-        <target>thermosensor.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>thermosensor.first_letter</source>
-        <target>thermosensor.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>thermosensor.description</source>
-        <target>thermosensor.description</target>
+        <target>Facilita la exploración indicando los cuerpos cercanos que emiten calor.
+//
+Expedición: Posibilidad de recorrer una de las zonas restantes de "Rumiante", "Predador", "Vida Inteligente", "Mankarog", "Insectos" o "Extraviados" x5.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>thermosensor.examine</source>
-        <target>thermosensor.examine</target>
+        <target>Facilita la exploración indicando los cuerpos cercanos que emiten calor.
+//
+Expedición: Posibilidad de recorrer una de las zonas restantes de "Rumiante", "Predador", "Vida Inteligente", "Mankarog", "Insectos" o "Extraviados" x5.
+//
+Si una criatura peligrosa se aproxima, lo sabrás. Excepto si se trata de un xenomorfo; su agresividad no emana calor, sino todo lo contrario, ahí sí deberías ponerte a rezar para que no esté hambriento.</target>
       </segment>
     </unit>
     <unit id="white_flag">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>white_flag.name</source>
-        <target>white_flag.name</target>
+        <target>Bandera blanca</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>white_flag.short_name</source>
-        <target>white_flag.short_name</target>
+        <target>Bandera blanca</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>white_flag.gender</source>
-        <target>white_flag.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>white_flag.first_letter</source>
-        <target>white_flag.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>white_flag.description</source>
-        <target>white_flag.description</target>
+        <target>El símbolo universal de la paz... o casi.
+//
+Expedición: Anula las probabilidades de combate en una zona de "Vida Inteligente".</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>white_flag.examine</source>
-        <target>white_flag.examine</target>
+        <target>El símbolo universal de la paz... o casi.
+//
+Expedición: Anula las probabilidades de combate en una zona de "Vida Inteligente".
+//
+Aunque es usado en algunos planetas como llamado de apareamiento, su mensaje de « Vengo en son de paz » te puede servir en la mayoría de casos.</target>
       </segment>
     </unit>
     <unit id="alien_holographic_tv">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>alien_holographic_tv.name</source>
-        <target>alien_holographic_tv.name</target>
+        <target>TV holográfica alienígena</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>alien_holographic_tv.short_name</source>
-        <target>alien_holographic_tv.short_name</target>
+        <target>TV holográfica alienígena</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>alien_holographic_tv.plural_name</source>
-        <target>alien_holographic_tv.plural_name</target>
+        <target>TVs holográficas alienígenas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>alien_holographic_tv.gender</source>
-        <target>alien_holographic_tv.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>alien_holographic_tv.first_letter</source>
-        <target>alien_holographic_tv.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>alien_holographic_tv.description</source>
-        <target>alien_holographic_tv.description</target>
+        <target>¡Este pequeño módulo proyecta series de TV alien a tamaño natural en el comedor! Eso brinda un momento de entretenimiento al equipo.
+//
+Único: Permite dar +3 :pmo: a cada telespectador.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>alien_holographic_tv.examine</source>
-        <target>alien_holographic_tv.examine</target>
+        <target>¡Este pequeño módulo proyecta series de TV alien a tamaño natural en el comedor! Eso brinda un momento de entretenimiento al equipo.
+//
+Único: Permite dar +3 :pmo: a cada telespectador.
+//
+El efecto hipnótico de esto te hace olvidar los problemas. Si abusas, olvidarás hasta tu nombre.</target>
       </segment>
     </unit>
     <unit id="block_of_post_it">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>block_of_post_it.name</source>
-        <target>block_of_post_it.name</target>
+        <target>Bloc de notas</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>block_of_post_it.short_name</source>
-        <target>block_of_post_it.short_name</target>
+        <target>Bloc de notas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>block_of_post_it.gender</source>
-        <target>block_of_post_it.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>block_of_post_it.first_letter</source>
-        <target>block_of_post_it.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>block_of_post_it.description</source>
-        <target>block_of_post_it.description</target>
+        <target>Infaltable...</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>block_of_post_it.examine</source>
-        <target>block_of_post_it.examine</target>
+        <target>Infaltable...
+//
+Si te sirve para algo, no olvides comunicarlo.</target>
       </segment>
     </unit>
     <unit id="duct_tape">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>duct_tape.name</source>
-        <target>duct_tape.name</target>
+        <target>Cinta adhesiva</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>duct_tape.short_name</source>
-        <target>duct_tape.short_name</target>
+        <target>Cinta adhesiva</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>duct_tape.gender</source>
-        <target>duct_tape.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>duct_tape.first_letter</source>
-        <target>duct_tape.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>duct_tape.description</source>
-        <target>duct_tape.description</target>
+        <target>Puede servir, nunca se sabe.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>duct_tape.examine</source>
-        <target>duct_tape.examine</target>
+        <target>Puede servir, nunca se sabe.
+//
+La cinta adhesiva puede tener usos muy poco decentes.</target>
       </segment>
     </unit>
     <unit id="extinguisher">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>extinguisher.name</source>
-        <target>extinguisher.name</target>
+        <target>Extintor</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>extinguisher.short_name</source>
-        <target>extinguisher.short_name</target>
+        <target>Extintor</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>extinguisher.plural_name</source>
-        <target>extinguisher.plural_name</target>
+        <target>Extintores</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>extinguisher.gender</source>
-        <target>extinguisher.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>extinguisher.first_letter</source>
-        <target>extinguisher.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>extinguisher.description</source>
-        <target>extinguisher.description</target>
+        <target>El mejor amigo de las personas atrapadas por el fuego.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>extinguisher.examine</source>
-        <target>extinguisher.examine</target>
+        <target>El mejor amigo de las personas atrapadas por el fuego.
+//
+Dispositivo para apagar incendios.</target>
       </segment>
     </unit>
     <unit id="hacker_kit">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hacker_kit.name</source>
-        <target>hacker_kit.name</target>
+        <target>Kit de hackeo</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>hacker_kit.short_name</source>
-        <target>hacker_kit.short_name</target>
+        <target>Kit de hackeo</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>hacker_kit.plural_name</source>
-        <target>hacker_kit.plural_name</target>
+        <target>Kits de hackeo</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>hacker_kit.gender</source>
-        <target>hacker_kit.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>hacker_kit.first_letter</source>
-        <target>hacker_kit.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hacker_kit.description</source>
-        <target>hacker_kit.description</target>
+        <target>Te permite desbloquear el acceso a un módulo protegido como el Terminal de Comando o el Bios de NERON.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>hacker_kit.examine</source>
-        <target>hacker_kit.examine</target>
+        <target>Te permite desbloquear el acceso a un módulo protegido como el Terminal de Comando o el Bios de NERON.
+//
+Es algo útil pero que pocos dominan...</target>
       </segment>
     </unit>
     <unit id="mad_kube">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mad_kube.name</source>
-        <target>mad_kube.name</target>
+        <target>MAD Kube</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>mad_kube.short_name</source>
-        <target>mad_kube.short_name</target>
+        <target>MAD Kube</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>mad_kube.gender</source>
-        <target>mad_kube.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>mad_kube.first_letter</source>
-        <target>mad_kube.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mad_kube.description</source>
-        <target>mad_kube.description</target>
+        <target>Los MAD Kubes son una serie de objetos hechos para torturar el alma.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>mad_kube.examine</source>
-        <target>mad_kube.examine</target>
+        <target>Los MAD Kubes son una serie de objetos hechos para torturar el alma.
+//
+El MAD Kube anhelado por todos. Muy pocos lo resuelven en menos de 26 movimientos.</target>
       </segment>
     </unit>
     <unit id="microwave">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>microwave.name</source>
-        <target>microwave.name</target>
+        <target>Microondas</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>microwave.short_name</source>
-        <target>microwave.short_name</target>
+        <target>Microondas</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>microwave.plural_name</source>
-        <target>microwave.plural_name</target>
+        <target>Microondas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>microwave.gender</source>
-        <target>microwave.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>microwave.first_letter</source>
-        <target>microwave.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>microwave.description</source>
-        <target>microwave.description</target>
+        <target>Sirve para cocinar más rápido, pero no estamos muy seguros que no tenga efectos nocivos.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>microwave.examine</source>
-        <target>microwave.examine</target>
+        <target>Sirve para cocinar más rápido, pero no estamos muy seguros que no tenga efectos nocivos.
+//
+Sirve para cocinar rápidamente las raciones.</target>
       </segment>
     </unit>
     <unit id="superfreezer">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>superfreezer.name</source>
-        <target>superfreezer.name</target>
+        <target>Hipercongelador</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>superfreezer.short_name</source>
-        <target>superfreezer.short_name</target>
+        <target>Hipercongelador</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>superfreezer.plural_name</source>
-        <target>superfreezer.plural_name</target>
+        <target>Hipercongeladores</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>superfreezer.gender</source>
-        <target>superfreezer.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>superfreezer.first_letter</source>
-        <target>superfreezer.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>superfreezer.description</source>
-        <target>superfreezer.description</target>
+        <target>Sirve para esterilizar y reempaquetar una ración cocinada.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>superfreezer.examine</source>
-        <target>superfreezer.examine</target>
+        <target>Sirve para esterilizar y reempaquetar una ración cocinada.
+//
+Sirve para conservar las raciones.</target>
       </segment>
     </unit>
     <unit id="tabulatrix">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>tabulatrix.name</source>
-        <target>tabulatrix.name</target>
+        <target>Tabuladora</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>tabulatrix.short_name</source>
-        <target>tabulatrix.short_name</target>
+        <target>Tabuladora</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>tabulatrix.plural_name</source>
-        <target>tabulatrix.plural_name</target>
+        <target>Tabuladoras</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>tabulatrix.gender</source>
-        <target>tabulatrix.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>tabulatrix.first_letter</source>
-        <target>tabulatrix.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>tabulatrix.description</source>
-        <target>tabulatrix.description</target>
+        <target>Esta maquinilla permite a NERON entregarte documentos escritos.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>tabulatrix.examine</source>
-        <target>tabulatrix.examine</target>
+        <target>Esta maquinilla permite a NERON entregarte documentos escritos.
+//
+Imprime símbolos a partir de tarjetas perforadas. Su uso sigue vigente para descifrar algunos mensajes codificados.</target>
       </segment>
     </unit>
     <unit id="old_t_shirt">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>old_t_shirt.name</source>
-        <target>old_t_shirt.name</target>
+        <target>Vieja camiseta</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>old_t_shirt.short_name</source>
-        <target>old_t_shirt.short_name</target>
+        <target>Vieja camiseta</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>old_t_shirt.gender</source>
-        <target>old_t_shirt.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>old_t_shirt.first_letter</source>
-        <target>old_t_shirt.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>old_t_shirt.description</source>
-        <target>old_t_shirt.description</target>
+        <target>Una vieja prenda llena de suciedad.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>old_t_shirt.examine</source>
-        <target>old_t_shirt.examine</target>
+        <target>Una vieja prenda llena de suciedad.
+//
+Fue sudada en 84 partidos de fútbol y usada como trapo. Deberías tirar eso ya.</target>
       </segment>
     </unit>
     <unit id="plastic_scraps">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>plastic_scraps.name</source>
-        <target>plastic_scraps.name</target>
+        <target>Pieza plástica</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>plastic_scraps.short_name</source>
-        <target>plastic_scraps.short_name</target>
+        <target>Pieza plástica</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>plastic_scraps.plural_name</source>
-        <target>plastic_scraps.plural_name</target>
+        <target>Piezas plásticas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>plastic_scraps.gender</source>
-        <target>plastic_scraps.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>plastic_scraps.first_letter</source>
-        <target>plastic_scraps.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>plastic_scraps.description</source>
-        <target>plastic_scraps.description</target>
+        <target>Otro pedazo de plástico sin importancia.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>plastic_scraps.examine</source>
-        <target>plastic_scraps.examine</target>
+        <target>Otro pedazo de plástico sin importancia.
+//
+Con las herramientas adecuadas se pueden hacer cosas muy útiles.</target>
       </segment>
     </unit>
     <unit id="metal_scraps">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>metal_scraps.name</source>
-        <target>metal_scraps.name</target>
+        <target>Pieza metálica</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>metal_scraps.short_name</source>
-        <target>metal_scraps.short_name</target>
+        <target>Pieza metálica</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>metal_scraps.plural_name</source>
-        <target>metal_scraps.plural_name</target>
+        <target>Piezas metálicas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>metal_scraps.gender</source>
-        <target>metal_scraps.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>metal_scraps.first_letter</source>
-        <target>metal_scraps.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>metal_scraps.description</source>
-        <target>metal_scraps.description</target>
+        <target>Un trozo de metal sin importancia.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>metal_scraps.examine</source>
-        <target>metal_scraps.examine</target>
+        <target>Un trozo de metal sin importancia.
+//
+Es sorprendente lo que se puede hacer con pedazos de aluminio.</target>
       </segment>
     </unit>
     <unit id="thick_tube">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>thick_tube.name</source>
-        <target>thick_tube.name</target>
+        <target>Tubo grueso</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>thick_tube.short_name</source>
-        <target>thick_tube.short_name</target>
+        <target>Tubo grueso</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>thick_tube.gender</source>
-        <target>thick_tube.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>thick_tube.first_letter</source>
-        <target>thick_tube.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>thick_tube.description</source>
-        <target>thick_tube.description</target>
+        <target>Un tubo frío...</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>thick_tube.examine</source>
-        <target>thick_tube.examine</target>
+        <target>Un tubo frío...
+Un tubo ancho. ¿Para qué?...</target>
       </segment>
     </unit>
     <unit id="schrodinger">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>schrodinger.name</source>
-        <target>schrodinger.name</target>
+        <target>Schrödinger</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>schrodinger.short_name</source>
-        <target>schrodinger.short_name</target>
+        <target>Schrödinger</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>schrodinger.gender</source>
-        <target>schrodinger.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>schrodinger.first_letter</source>
-        <target>schrodinger.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>schrodinger.description</source>
-        <target>schrodinger.description</target>
+        <target>Este gato es roñoso pero su pelaje es suave como la seda.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>schrodinger.examine</source>
-        <target>schrodinger.examine</target>
+        <target>Este gato es roñoso pero su pelaje es suave como la seda.
+El gato de Raluca.</target>
       </segment>
     </unit>
     <unit id="support_drone">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>support_drone.name</source>
-        <target>support_drone.name</target>
+        <target>Dron de apoyo</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>support_drone.short_name</source>
-        <target>support_drone.short_name</target>
+        <target>Dron</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>support_drone.plural_name</source>
-        <target>support_drone.plural_name</target>
+        <target>Drones</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>support_drone.gender</source>
-        <target>support_drone.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>support_drone.first_letter</source>
-        <target>support_drone.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>support_drone.description</source>
-        <target>support_drone.description</target>
+        <target>Quizás tu mejor aliado en el Daedalus. Podrá cumplir diversas tareas en tu lugar.
+//
+El dron realiza acciones similares a las del equipo.
+//
+Intenta reparar los equipos averiados de la sala antes de desplazarse.</target>
       </segment>
       <segment id="examine" state="initial">
         <source>support_drone.examine</source>

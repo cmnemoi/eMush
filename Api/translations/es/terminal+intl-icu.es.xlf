@@ -130,19 +130,19 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
     </unit>
     <unit id="block_of_post_it">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>block_of_post_it.name</source>
-        <target>block_of_post_it.name</target>
+        <target>Bloc de notas</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>block_of_post_it.tips</source>
-        <target>block_of_post_it.tips</target>
+        <target>Un bloc de estos papelitos horribles...</target>
       </segment>
     </unit>
     <unit id="exploration">
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>exploration.tips</source>
-        <target>exploration.tips</target>
+        <target>{isExplorationFinished, select, other {{quantity, plural, one {La exploración se realiza automáticamente. Cada minuto se desarrolla una nueva etapa. Una vez que vayas, no podrás regresar.} other {La exploración se realiza automáticamente. Cada # minuto se produce una nueva estapa. Una vez que bayas, no hay vuelta atrás.} }} true {Esta expedición ya ha terminado. Puedes revisar aquí los diferentes eventos que encontraron los miembros de la tripulación.}}</target>
       </segment>
       <segment id="recolted_infos" state="translated">
         <source>exploration.recolted_infos</source>
@@ -180,9 +180,9 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
         <source>bios_terminal.cpu_priority_name</source>
         <target>Prioridad CPU</target>
       </segment>
-      <segment id="cpu_priority.description" state="initial">
+      <segment id="cpu_priority.description" state="translated">
         <source>bios_terminal.cpu_priority_description</source>
-        <target>bios_terminal.cpu_priority_description</target>
+        <target>Controla la repartición de recursos del CPU. Puede hacer los proyectos e investigaciones más fáciles de realizar, aumentar la cantidad de GeoDatos analizados de los planetas, o ponerse en modo de economía de energía, el cual no hace nada. Este atributo puede ser cambiado solo **una vez al día** para no provocar una sobrecarga cognitiva en NERON.</target>
       </segment>
       <segment id="cpu_priority.astronavigation" state="translated">
         <source>bios_terminal.cpu_priority_astronavigation</source>
@@ -285,7 +285,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       <segment id="tips" state="translated">
         <source>pilgred.tips</source>
         <target>La reparación del PILGRED requiere de grandes habilidades. Necesitarás mucha paciencia y esfuerzo.
-**Cuando esté reparado, volver al Sistema Solar será posible.** ¿Qué harías tú?</target>
+**Cuando esté reparado, volver al Sol será posible.** ¿Qué harías tú?</target>
       </segment>
       <segment id="pilgred_finished_description" state="initial">
         <source>pilgred.pilgred_finished_description</source>

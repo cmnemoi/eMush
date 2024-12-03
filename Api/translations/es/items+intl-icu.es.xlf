@@ -14,529 +14,529 @@
         <source>bacta.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>bacta.first_letter</source>
-        <target>bacta.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>bacta.description</source>
-        <target>bacta.description</target>
+        <target>No se sabe realmente lo que es... La única forma de saberlo es, ¡tragarlo!</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>bacta.examine</source>
-        <target>bacta.examine</target>
+        <target>Cómeme.</target>
       </segment>
     </unit>
     <unit id="betapropyl">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>betapropyl.name</source>
-        <target>betapropyl.name</target>
+        <target>Pimp</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>betapropyl.short_name</source>
-        <target>betapropyl.short_name</target>
+        <target>Pimp</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>betapropyl.gender</source>
-        <target>betapropyl.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>betapropyl.first_letter</source>
-        <target>betapropyl.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>betapropyl.description</source>
-        <target>betapropyl.description</target>
+        <target>No se sabe realmente lo que es... La única forma de saberlo es, ¡tragarlo!</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>betapropyl.examine</source>
-        <target>betapropyl.examine</target>
+        <target>Cómeme.</target>
       </segment>
     </unit>
     <unit id="eufurylate">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>eufurylate.name</source>
-        <target>eufurylate.name</target>
+        <target>Euforidyl</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>eufurylate.short_name</source>
-        <target>eufurylate.short_name</target>
+        <target>Euforidyl</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>eufurylate.gender</source>
-        <target>eufurylate.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>eufurylate.first_letter</source>
-        <target>eufurylate.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>eufurylate.description</source>
-        <target>eufurylate.description</target>
+        <target>No se sabe realmente lo que es... La única forma de saberlo es, ¡tragarlo!</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>eufurylate.examine</source>
-        <target>eufurylate.examine</target>
+        <target>Cómeme.</target>
       </segment>
     </unit>
     <unit id="newke">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>newke.name</source>
-        <target>newke.name</target>
+        <target>Japiyú</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>newke.short_name</source>
-        <target>newke.short_name</target>
+        <target>Japiyú</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>newke.gender</source>
-        <target>newke.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>newke.first_letter</source>
-        <target>newke.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>newke.description</source>
-        <target>newke.description</target>
+        <target>No se sabe realmente lo que es... La única forma de saberlo es, ¡tragarlo!</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>newke.examine</source>
-        <target>newke.examine</target>
+        <target>Cómeme.</target>
       </segment>
     </unit>
     <unit id="phuxx">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>phuxx.name</source>
-        <target>phuxx.name</target>
+        <target>Risolam</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>phuxx.short_name</source>
-        <target>phuxx.short_name</target>
+        <target>Risolam</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>phuxx.gender</source>
-        <target>phuxx.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>phuxx.first_letter</source>
-        <target>phuxx.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>phuxx.description</source>
-        <target>phuxx.description</target>
+        <target>No se sabe realmente lo que es... La única forma de saberlo es, ¡tragarlo!</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>phuxx.examine</source>
-        <target>phuxx.examine</target>
+        <target>Cómeme.</target>
       </segment>
     </unit>
     <unit id="pinq">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pinq.name</source>
-        <target>pinq.name</target>
+        <target>Ñapepa</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>pinq.short_name</source>
-        <target>pinq.short_name</target>
+        <target>Ñapepa</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>pinq.gender</source>
-        <target>pinq.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>pinq.first_letter</source>
-        <target>pinq.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pinq.description</source>
-        <target>pinq.description</target>
+        <target>No se sabe realmente lo que es... La única forma de saberlo es, ¡tragarlo!</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>pinq.examine</source>
-        <target>pinq.examine</target>
+        <target>Cómeme.</target>
       </segment>
     </unit>
     <unit id="pymp">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pymp.name</source>
-        <target>pymp.name</target>
+        <target>Ontoy</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>pymp.short_name</source>
-        <target>pymp.short_name</target>
+        <target>Ontoy</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>pymp.gender</source>
-        <target>pymp.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>pymp.first_letter</source>
-        <target>pymp.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pymp.description</source>
-        <target>pymp.description</target>
+        <target>No se sabe realmente lo que es... La única forma de saberlo es, ¡tragarlo!</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>pymp.examine</source>
-        <target>pymp.examine</target>
+        <target>Cómeme.</target>
       </segment>
     </unit>
     <unit id="rosebud">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>rosebud.name</source>
-        <target>rosebud.name</target>
+        <target>Ming</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>rosebud.short_name</source>
-        <target>rosebud.short_name</target>
+        <target>Ming</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>rosebud.gender</source>
-        <target>rosebud.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>rosebud.first_letter</source>
-        <target>rosebud.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>rosebud.description</source>
-        <target>rosebud.description</target>
+        <target>No se sabe realmente lo que es... La única forma de saberlo es, ¡tragarlo!</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>rosebud.examine</source>
-        <target>rosebud.examine</target>
+        <target>Cómeme.</target>
       </segment>
     </unit>
     <unit id="soma">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>soma.name</source>
-        <target>soma.name</target>
+        <target>Macamaca</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>soma.short_name</source>
-        <target>soma.short_name</target>
+        <target>Macamaca</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>soma.gender</source>
-        <target>soma.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>soma.first_letter</source>
-        <target>soma.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>soma.description</source>
-        <target>soma.description</target>
+        <target>No se sabe realmente lo que es... La única forma de saberlo es, ¡tragarlo!</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>soma.examine</source>
-        <target>soma.examine</target>
+        <target>Cómeme.</target>
       </segment>
     </unit>
     <unit id="spyce">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>spyce.name</source>
-        <target>spyce.name</target>
+        <target>Nuke</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>spyce.short_name</source>
-        <target>spyce.short_name</target>
+        <target>Nuke</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>spyce.gender</source>
-        <target>spyce.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>spyce.first_letter</source>
-        <target>spyce.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>spyce.description</source>
-        <target>spyce.description</target>
+        <target>No se sabe realmente lo que es... La única forma de saberlo es, ¡tragarlo!</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>spyce.examine</source>
-        <target>spyce.examine</target>
+        <target>Cómeme.</target>
       </segment>
     </unit>
     <unit id="twinoid">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>twinoid.name</source>
-        <target>twinoid.name</target>
+        <target>Twinoid</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>twinoid.short_name</source>
-        <target>twinoid.short_name</target>
+        <target>Twinoid</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>twinoid.gender</source>
-        <target>twinoid.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>twinoid.first_letter</source>
-        <target>twinoid.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>twinoid.description</source>
-        <target>twinoid.description</target>
+        <target>No se sabe realmente lo que es... La única forma de saberlo es, ¡tragarlo!</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>twinoid.examine</source>
-        <target>twinoid.examine</target>
+        <target>Cómeme.</target>
       </segment>
     </unit>
     <unit id="xenox">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>xenox.name</source>
-        <target>xenox.name</target>
+        <target>Xenox</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>xenox.short_name</source>
-        <target>xenox.short_name</target>
+        <target>Xenox</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>xenox.gender</source>
-        <target>xenox.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>xenox.first_letter</source>
-        <target>xenox.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>xenox.description</source>
-        <target>xenox.description</target>
+        <target>No se sabe realmente lo que es... La única forma de saberlo es, ¡tragarlo!</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>xenox.examine</source>
-        <target>xenox.examine</target>
+        <target>Cómeme.</target>
       </segment>
     </unit>
     <unit id="banana">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>banana.name</source>
-        <target>banana.name</target>
+        <target>Plátano</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>banana.short_name</source>
-        <target>banana.short_name</target>
+        <target>Plátano</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>banana.gender</source>
-        <target>banana.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>banana.first_letter</source>
-        <target>banana.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>banana.description</source>
-        <target>banana.description</target>
+        <target>Un plátano maduro es perfecto para matar el hambre.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>banana.examine</source>
-        <target>banana.examine</target>
+        <target>Un plátano maduro es perfecto para matar el hambre.</target>
       </segment>
     </unit>
     <unit id="creepnut">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>creepnut.name</source>
-        <target>creepnut.name</target>
+        <target>Lianuba</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>creepnut.short_name</source>
-        <target>creepnut.short_name</target>
+        <target>Lianuba</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>creepnut.gender</source>
-        <target>creepnut.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>creepnut.first_letter</source>
-        <target>creepnut.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>creepnut.description</source>
-        <target>creepnut.description</target>
+        <target>El lianuba es un fruto que sabe a una mezcla de calamar, curry y coco...</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>creepnut.examine</source>
-        <target>creepnut.examine</target>
+        <target>El lianuba es un fruto que sabe a una mezcla de calamar, curry y coco...</target>
       </segment>
     </unit>
     <unit id="meztine">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>meztine.name</source>
-        <target>meztine.name</target>
+        <target>Balargina</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>meztine.short_name</source>
-        <target>meztine.short_name</target>
+        <target>Balargina</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>meztine.gender</source>
-        <target>meztine.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>metzine.first_letter</source>
-        <target>metzine.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>meztine.description</source>
-        <target>meztine.description</target>
+        <target>La Balargina es un fruto delicado y dulce. Su pulpa rica en colágeno es muy apreciada. </target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>meztine.examine</source>
-        <target>meztine.examine</target>
+        <target>La Balargina es un fruto delicado y dulce. Su pulpa rica en colágeno es muy apreciada. </target>
       </segment>
     </unit>
     <unit id="guntiflop">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>guntiflop.name</source>
-        <target>guntiflop.name</target>
+        <target>Gustiflón</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>guntiflop.short_name</source>
-        <target>guntiflop.short_name</target>
+        <target>Gustiflón</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>guntiflop.gender</source>
-        <target>guntiflop.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>guntiflop.first_letter</source>
-        <target>guntiflop.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>guntiflop.description</source>
-        <target>guntiflop.description</target>
+        <target>El Gustiflón es un fruto feo pero simpático.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>guntiflop.examine</source>
-        <target>guntiflop.examine</target>
+        <target>El Gustiflón es un fruto feo pero simpático.</target>
       </segment>
     </unit>
     <unit id="ploshmina">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>ploshmina.name</source>
-        <target>ploshmina.name</target>
+        <target>Tupimino</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>ploshmina.short_name</source>
-        <target>ploshmina.short_name</target>
+        <target>Tupimino</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>ploshmina.gender</source>
-        <target>ploshmina.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>ploshima.first_letter</source>
-        <target>ploshima.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ploshmina.description</source>
-        <target>ploshmina.description</target>
+        <target>El Tupimino sirve sobretodo como juguete para los niños porque es difícil de comer y hace un ruido gracioso al sacudirlo.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>ploshmina.examine</source>
-        <target>ploshmina.examine</target>
+        <target>El Tupimino sirve sobretodo como juguete para los niños porque es difícil de comer y hace un ruido gracioso al sacudirlo.</target>
       </segment>
     </unit>
     <unit id="precati">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>precati.name</source>
-        <target>precati.name</target>
+        <target>Precatia</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>precati.short_name</source>
-        <target>precati.short_name</target>
+        <target>Precatia</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>precati.gender</source>
-        <target>precati.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>precati.first_letter</source>
-        <target>precati.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>precati.description</source>
-        <target>precati.description</target>
+        <target>La Precatia es una especie de calabaza difícil de masticar por su consistencia elástica.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>precati.examine</source>
-        <target>precati.examine</target>
+        <target>La Precatia es una especie de calabaza difícil de masticar por su consistencia elástica.</target>
       </segment>
     </unit>
     <unit id="bottine">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>bottine.name</source>
-        <target>bottine.name</target>
+        <target>Botino</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>bottine.short_name</source>
-        <target>bottine.short_name</target>
+        <target>Botino</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>bottine.gender</source>
-        <target>bottine.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>bottine.first_letter</source>
-        <target>bottine.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>bottine.description</source>
-        <target>bottine.description</target>
+        <target>El fruto del Buitalien es muy decorativo pero su sabor no es agradable. </target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>bottine.examine</source>
-        <target>bottine.examine</target>
+        <target>El fruto del Buitalien es muy decorativo pero su sabor no es agradable. </target>
       </segment>
     </unit>
     <unit id="fragilane">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>fragilane.name</source>
-        <target>fragilane.name</target>
+        <target>Fragilana</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>fragilane.short_name</source>
-        <target>fragilane.short_name</target>
+        <target>Fragilana</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>fragilane.gender</source>
-        <target>fragilane.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>fragilane.first_letter</source>
-        <target>fragilane.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>fragilane.description</source>
-        <target>fragilane.description</target>
+        <target>La Fragilana es una fruta sabrosa pero poco nutritiva. </target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>fragilane.examine</source>
-        <target>fragilane.examine</target>
+        <target>La Fragilana es una fruta sabrosa pero poco nutritiva. </target>
       </segment>
     </unit>
     <unit id="anemole">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>anemole.name</source>
-        <target>anemole.name</target>
+        <target>Anémola</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>anemole.short_name</source>
-        <target>anemole.short_name</target>
+        <target>Anémola</target>
       </segment>
       <segment id="genre" state="initial">
         <source>anemole.gender</source>
         <target>anemole.gender</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>anemole.first_letter</source>
-        <target>anemole.first_letter</target>
+        <target>vowel</target>
       </segment>
       <segment id="description" state="initial">
         <source>anemole.description</source>
@@ -548,47 +548,47 @@
       </segment>
     </unit>
     <unit id="kubinus">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>kubinus.name</source>
-        <target>kubinus.name</target>
+        <target>Kubinus</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>kubinus.short_name</source>
-        <target>kubinus.short_name</target>
+        <target>Kubinus</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>kubinus.gender</source>
-        <target>kubinus.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>kubinus.first_letter</source>
-        <target>kubinus.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>kubinus.description</source>
-        <target>kubinus.description</target>
+        <target>El Kubinus es adorado por una secta de matemáticos fanáticos de las formas y sabores perfectos.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>kubinus.examine</source>
-        <target>kubinus.examine</target>
+        <target>El Kubinus es adorado por una secta de matemáticos fanáticos de las formas y sabores perfectos.</target>
       </segment>
     </unit>
     <unit id="caleboot">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>caleboot.name</source>
-        <target>caleboot.name</target>
+        <target>Calebota</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>caleboot.short_name</source>
-        <target>caleboot.short_name</target>
+        <target>Calebota</target>
       </segment>
       <segment id="genre" state="initial">
         <source>caleboot.gender</source>
         <target>caleboot.gender</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>caleboot.first_letter</source>
-        <target>caleboot.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="initial">
         <source>caleboot.description</source>
@@ -600,201 +600,237 @@
       </segment>
     </unit>
     <unit id="tracker">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>tracker.name</source>
-        <target>tracker.name</target>
+        <target>Tracker</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>tracker.short_name</source>
-        <target>tracker.short_name</target>
+        <target>Tracker</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>tracker.plural_name</source>
-        <target>tracker.plural_name</target>
+        <target>Trackers</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>tracker.gender</source>
-        <target>tracker.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>tracker.first_letter</source>
-        <target>tracker.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>tracker.description</source>
-        <target>tracker.description</target>
+        <target>Equivale a un GPS a bordo y te da información global de la nave.
+//
+Muestra el minimapa.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>tracker.examine</source>
-        <target>tracker.examine</target>
+        <target>Equivale a un GPS a bordo y te da información global de la nave.
+//
+Muestra el minimapa.
+//
+Llévalo siempre contigo y no te perderás."</target>
       </segment>
     </unit>
     <unit id="walkie_talkie">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>walkie_talkie.name</source>
-        <target>walkie_talkie.name</target>
+        <target>Walkie-Talkie</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>walkie_talkie.short_name</source>
-        <target>walkie_talkie.short_name</target>
+        <target>Walkie-Talkie</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>walkie_talkie.plural_name</source>
-        <target>walkie_talkie.plural_name</target>
+        <target>Walkie-Talkies</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>walkie_talkie.gender</source>
-        <target>walkie_talkie.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>walkie_talkie.first_letter</source>
-        <target>walkie_talkie.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>walkie_talkie.description</source>
-        <target>walkie_talkie.description</target>
+        <target>El walkie-talkie es un antiguo pero eficiente aparato de comunicación.
+//
+Permite comunicarse a distancia con otros tripulantes.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>walkie_talkie.examine</source>
-        <target>walkie_talkie.examine</target>
+        <target>El walkie-talkie es un antiguo pero eficiente aparato de comunicación.
+//
+Permite comunicarse a distancia con otros tripulantes.
+//
+Con él puedes hablar a través del chat general.</target>
       </segment>
     </unit>
     <unit id="itrackie">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>itrackie.name</source>
-        <target>itrackie.name</target>
+        <target>iTrakie®©</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>itrackie.short_name</source>
-        <target>itrackie.short_name</target>
+        <target>iTrakie®©</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>itrackie.plural_name</source>
-        <target>itrackie.plural_name</target>
+        <target>iTrakies®©</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>itrackie.gender</source>
-        <target>itrackie.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>itrackie.first_letter</source>
-        <target>itrackie.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>itrackie.description</source>
-        <target>itrackie.description</target>
+        <target>El iTrakie®© es el mejor gadget digital que existe. Es elegante, estético, vibra y no se descompone nunca.
+//
+Sirve para comunicarse a distancia con otros tripulantes.
+//
+También da acceso a un minimapa aumentado del Daedalus.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>itrackie.examine</source>
-        <target>itrackie.examine</target>
+        <target>El iTrakie®© es el mejor gadget digital que existe. Es elegante, estético, vibra y no se descompone nunca.
+//
+Sirve para comunicarse a distancia con otros tripulantes.
+//
+También da acceso a un minimapa aumentado del Daedalus.
+//
+Una gran revolución en tus manos. **Cuidado con él**, el servicio post-venta de esto te puede costar un riñón. </target>
       </segment>
     </unit>
     <unit id="adjustable_wrench">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>adjustable_wrench.name</source>
-        <target>adjustable_wrench.name</target>
+        <target>Llave inglesa</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>adjustable_wrench.short_name</source>
-        <target>adjustable_wrench.short_name</target>
+        <target>Llave inglesa</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>adjustable_wrench.gender</source>
-        <target>adjustable_wrench.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>adjustable_wrench.first_letter</source>
-        <target>adjustable_wrench.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>adjustable_wrench.description</source>
-        <target>adjustable_wrench.description</target>
+        <target>Aumenta enormemente tus habilidades de reparación.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>adjustable_wrench.examine</source>
-        <target>adjustable_wrench.examine</target>
+        <target>Aumenta enormemente tus habilidades de reparación.
+//
+Una llave inglesa te ayudará a reparar todo lo reparable.</target>
       </segment>
     </unit>
     <unit id="alien_bottle_opener">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>alien_bottle_opener.name</source>
-        <target>alien_bottle_opener.name</target>
+        <target>Abrebotellas Alien</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>alien_bottle_opener.short_name</source>
-        <target>alien_bottle_opener.short_name</target>
+        <target>Abrebotellas Alien</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>alien_bottle_opener.plural_name</source>
-        <target>alien_bottle_opener.plural_name</target>
+        <target>Abrebotellas Alien</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>alien_bottle_opener.gender</source>
-        <target>alien_bottle_opener.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>alien_bottle_opener.first_letter</source>
-        <target>alien_bottle_opener.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>alien_bottle_opener.description</source>
-        <target>alien_bottle_opener.description</target>
+        <target>Inicialmente concebido para aliens amantes de la cerveza, este abrebotellas último modelo puede servir para hacer reparaciones en el Daedalus.
+//
+Aumenta las probabilidades de reparación en 50%</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>alien_bottle_opener.examine</source>
-        <target>alien_bottle_opener.examine</target>
+        <target>Inicialmente concebido para aliens amantes de la cerveza, este abrebotellas último modelo puede servir para hacer reparaciones en el Daedalus.
+//
+Aumenta las probabilidades de reparación en 50%
+//
+Se canjeó con 5 tapitas de refresco y sirve para abrir y cortar latas, vientres y una larga lista de cosas.</target>
       </segment>
     </unit>
     <unit id="antigrav_scooter">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>antigrav_scooter.name</source>
-        <target>antigrav_scooter.name</target>
+        <target>Patinete Anti-Gravedad</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>antigrav_scooter.short_name</source>
-        <target>antigrav_scooter.short_name</target>
+        <target>Patinete Anti-Gravedad</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>antigrav_scooter.plural_name</source>
-        <target>antigrav_scooter.plural_name</target>
+        <target>Patinetes Anti-Gravedad</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>antigrav_scooter.gender</source>
-        <target>antigrav_scooter.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>antigrav_scooter.first_letter</source>
-        <target>antigrav_scooter.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>antigrav_scooter.description</source>
-        <target>antigrav_scooter.description</target>
+        <target>Sirve para desplazarse más rápido.
+//
+Agrega 2 Puntos de Movimiento en la transferencia :pa:-:pm: ( salvo si ya tienes la habilidad **Velocista** ).</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>antigrav_scooter.examine</source>
-        <target>antigrav_scooter.examine</target>
+        <target>Sirve para desplazarse más rápido.
+//
+Agrega 2 Puntos de Movimiento en la transferencia :pa:-:pm: ( salvo si ya tienes la habilidad **Velocista** ).
+//
+El último modelo de la marca GnilWor antes de quebrar.</target>
       </segment>
     </unit>
     <unit id="rolling_boulder">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>rolling_boulder.name</source>
-        <target>rolling_boulder.name</target>
+        <target>Montura Rocosa</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>rolling_boulder.short_name</source>
-        <target>rolling_boulder.short_name</target>
+        <target>Montura Rocosa</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>rolling_boulder.plural_name</source>
-        <target>rolling_boulder.plural_name</target>
+        <target>Monturas Rocosas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>rolling_boulder.gender</source>
-        <target>rolling_boulder.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>rolling_boulder.first_letter</source>
-        <target>rolling_boulder.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="initial">
         <source>rolling_boulder.description</source>
@@ -806,317 +842,365 @@
       </segment>
     </unit>
     <unit id="sniper_helmet">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>sniper_helmet.name</source>
-        <target>sniper_helmet.name</target>
+        <target>Casco de tiro</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>sniper_helmet.short_name</source>
-        <target>sniper_helmet.short_name</target>
+        <target>Casco de tiro</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>sniper_helmet.plural_name</source>
-        <target>sniper_helmet.plural_name</target>
+        <target>Cascos de tiro</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>sniper_helmet.gender</source>
-        <target>sniper_helmet.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>sniper_helmet.first_letter</source>
-        <target>sniper_helmet.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>sniper_helmet.description</source>
-        <target>sniper_helmet.description</target>
+        <target>Ayuda a tener más puntería.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>sniper_helmet.examine</source>
-        <target>sniper_helmet.examine</target>
+        <target>Ayuda a tener más puntería.
+//
+Ayuda a apuntar en situaciones de poca visibilidad o si no sabes usar un arma.</target>
       </segment>
     </unit>
     <unit id="ncc_lenses">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>ncc_lenses.name</source>
-        <target>ncc_lenses.name</target>
+        <target>Lentilla NCC</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>ncc_lenses.short_name</source>
-        <target>ncc_lenses.short_name</target>
+        <target>Lentilla NCC</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>ncc_lenses.plural_name</source>
-        <target>ncc_lenses.plural_name</target>
+        <target>Lentillas NCC</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>ncc_lenses.gender</source>
-        <target>ncc_lenses.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>ncc_lenses.first_letter</source>
-        <target>ncc_lenses.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ncc_lenses.description</source>
-        <target>ncc_lenses.description</target>
+        <target>Las lentillas NCC mejoran tu visión.
+//
++10% a tus acciones de Tiro.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>ncc_lenses.examine</source>
-        <target>ncc_lenses.examine</target>
+        <target>Las lentillas NCC mejoran tu visión.
+//
++10% a tus acciones de Tiro.
+//
+Hecho basado en los ojos de linces entrenados, te ayudarán a ver mejor.</target>
       </segment>
     </unit>
     <unit id="oscilloscope">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>oscilloscope.name</source>
-        <target>oscilloscope.name</target>
+        <target>Olascopio</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>oscilloscope.short_name</source>
-        <target>oscilloscope.short_name</target>
+        <target>Olascopio</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>oscilloscope.plural_name</source>
-        <target>oscilloscope.plural_name</target>
+        <target>Olascopios</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>oscilloscope.gender</source>
-        <target>oscilloscope.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>oscilloscope.first_letter</source>
-        <target>oscilloscope.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>oscilloscope.description</source>
-        <target>oscilloscope.description</target>
+        <target>Un aparato para ver olas de última generación.
+//
++100% de éxito en la reparación de Patrulleros y del casco del Daedalus.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>oscilloscope.examine</source>
-        <target>oscilloscope.examine</target>
+        <target>Un aparato para ver olas de última generación.
+//
++100% de éxito en la reparación de Patrulleros y del casco del Daedalus.
+//
+Esto podría interesar a los pilotos de Patrulleros.</target>
       </segment>
     </unit>
     <unit id="plastenite_armor">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>plastenite_armor.name</source>
-        <target>plastenite_armor.name</target>
+        <target>Armadura de plastenita</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>plastenite_armor.short_name</source>
-        <target>plastenite_armor.short_name</target>
+        <target>Armadura de plastenita</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>plastenite_armor.plural_name</source>
-        <target>plastenite_armor.plural_name</target>
+        <target>Armaduras de plastenita</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>plastenite_armor.gender</source>
-        <target>plastenite_armor.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>plastenite_armor.first_letter</source>
-        <target>plastenite_armor.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>plastenite_armor.description</source>
-        <target>plastenite_armor.description</target>
+        <target>Aconsejada para ir de expedición.
+//
+Neutraliza 1 punto de daños en combate.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>plastenite_armor.examine</source>
-        <target>plastenite_armor.examine</target>
+        <target>Aconsejada para ir de expedición.
+//
+Neutraliza 1 punto de daños en combate.
+//
+Está hecha de un látex ultra resistente y ligero para ser llevado cómodamente y con discreción. Algunos hombres se resistían a llevarlo porque fue usado en un principio para resaltar las formas femeninas. Si los tacones salvaran de morir, también deberías usarlos.</target>
       </segment>
     </unit>
     <unit id="protective_gloves">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>protective_gloves.name</source>
-        <target>protective_gloves.name</target>
+        <target>Guantes de protección</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>protective_gloves.short_name</source>
-        <target>protective_gloves.short_name</target>
+        <target>Guantes de protección</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>protective_gloves.plural_name</source>
-        <target>protective_gloves.plural_name</target>
+        <target>Guantes de protección</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>protective_gloves.gender</source>
-        <target>protective_gloves.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>protective_gloves.first_letter</source>
-        <target>protective_gloves.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>protective_gloves.description</source>
-        <target>protective_gloves.description</target>
+        <target>Tus probabilidades de ser herido se dividen por 5 cuando realizas reparaciones.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>protective_gloves.examine</source>
-        <target>protective_gloves.examine</target>
+        <target>Tus probabilidades de ser herido se dividen por 5 cuando realizas reparaciones.
+//
+Perder una mano es muy desagradable y lo sabes.</target>
       </segment>
     </unit>
     <unit id="spacesuit">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>spacesuit.name</source>
-        <target>spacesuit.name</target>
+        <target>Traje espacial</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>spacesuit.short_name</source>
-        <target>spacesuit.short_name</target>
+        <target>Traje espacial</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>spacesuit.plural_name</source>
-        <target>spacesuit.plural_name</target>
+        <target>Trajes espaciales</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>spacesuit.gender</source>
-        <target>spacesuit.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>spacesuit.first_letter</source>
-        <target>spacesuit.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>spacesuit.description</source>
-        <target>spacesuit.description</target>
+        <target>Sirve para explorar planetas sin oxígeno.
+//
+Te hará sobrevivir al ser eyectado de una nave y respirar en atmósferas no respirables.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>spacesuit.examine</source>
-        <target>spacesuit.examine</target>
+        <target>Sirve para explorar planetas sin oxígeno.
+//
+Te hará sobrevivir al ser eyectado de una nave y respirar en atmósferas no respirables.
+//
+El jugador puede salir al espacio desde una plataforma de lanzamiento para una misión de reparación externa. Permite explorar un planeta con atmósfera no respirable.</target>
       </segment>
     </unit>
     <unit id="stainproof_apron">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>stainproof_apron.name</source>
-        <target>stainproof_apron.name</target>
+        <target>Mandil anti-manchas</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>stainproof_apron.short_name</source>
-        <target>stainproof_apron.short_name</target>
+        <target>Mandil anti-manchas</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>stainproof_apron.plural_name</source>
-        <target>stainproof_apron.plural_name</target>
+        <target>Mandiles anti-manchas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>stainproof_apron.gender</source>
-        <target>stainproof_apron.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>stainproof_apron.first_letter</source>
-        <target>stainproof_apron.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>stainproof_apron.description</source>
-        <target>stainproof_apron.description</target>
+        <target>No te ensuciarás al realizar tareas manuales.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>stainproof_apron.examine</source>
-        <target>stainproof_apron.examine</target>
+        <target>No te ensuciarás al realizar tareas manuales.
+//
+Un viejo delantal que lleva escrito: ""El Mejor ingeniero"". Nadie sabe quién lo puso aquí pero puede servir...</target>
       </segment>
     </unit>
     <unit id="soap">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>soap.name</source>
-        <target>soap.name</target>
+        <target>Jabón</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>soap.short_name</source>
-        <target>soap.short_name</target>
+        <target>Jabón</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>soap.gender</source>
-        <target>soap.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>soap.first_letter</source>
-        <target>soap.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>soap.description</source>
-        <target>soap.description</target>
+        <target>Un viejo jabón de lavanda. Estar en el espacio no es excusa para estar sucio.
+//
+La acción Lavarse cuesta 1 PA menos.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>soap.examine</source>
-        <target>soap.examine</target>
+        <target>Un viejo jabón de lavanda. Estar en el espacio no es excusa para estar sucio.
+//
+La acción Lavarse cuesta 1 PA menos.
+//
+Algunos deberían usarlo más seguido.</target>
       </segment>
     </unit>
     <unit id="super_soaper">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>super_soaper.name</source>
-        <target>super_soaper.name</target>
+        <target>Super jabón</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>super_soaper.short_name</source>
-        <target>super_soaper.short_name</target>
+        <target>Super jabón</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>super_soaper.gender</source>
-        <target>super_soaper.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>super_soaper.first_letter</source>
-        <target>super_soaper.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>super_soaper.description</source>
-        <target>super_soaper.description</target>
+        <target>El Super jabón es un producto revolucionario indispensable para la lucha anti-mush.
+//
+La acción Lavarse cuesta 1 PA menos, ¡y además te quita una espora!</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>super_soaper.examine</source>
-        <target>super_soaper.examine</target>
+        <target>El Super jabón es un producto revolucionario indispensable para la lucha anti-mush.
+//
+La acción Lavarse cuesta 1 PA menos, ¡y además te quita una espora!
+//
+Lo mínimo que debe hacer un salvador de la humanidad es oler a limpio.</target>
       </segment>
     </unit>
     <unit id="babel_module">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>babel_module.name</source>
-        <target>babel_module.name</target>
+        <target>Módulo Babel</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>babel_module.short_name</source>
-        <target>babel_module.short_name</target>
+        <target>Módulo Babel</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>babel_module.plural_name</source>
-        <target>babel_module.plural_name</target>
+        <target>Módulos Babel</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>babel_module.gender</source>
-        <target>babel_module.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>babel_module.first_letter</source>
-        <target>babel_module.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>babel_module.description</source>
-        <target>babel_module.description</target>
+        <target>Un módulo de traducción universal.
+//
+Expedición: Duplica las probabilidades de encontrar un Artefacto en un sector "Vida Inteligente".</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>babel_module.examine</source>
-        <target>babel_module.examine</target>
+        <target>Un módulo de traducción universal.
+//
+Expedición: Duplica las probabilidades de encontrar un Artefacto en un sector "Vida Inteligente".
+//
+Un curioso invento desarrollado por un pescador para negociar personalmente con los cardúmenes de peces que preferían pasear en el área de su vecino. Transforma las ondas cerebrales en mensajes inteligibles. La maquinita solo le sirvió para confirmar que los peces son tremendamente estúpidos. Hasta que un día se comunicó accidentalmente con una xenomorfa y pues... tuvieron muchos hijos.</target>
       </segment>
     </unit>
     <unit id="drill">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>drill.name</source>
-        <target>drill.name</target>
+        <target>Taladro</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>drill.short_name</source>
-        <target>drill.short_name</target>
+        <target>Taladro</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>drill.plural_name</source>
-        <target>drill.plural_name</target>
+        <target>Taladros</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>drill.gender</source>
-        <target>drill.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>drill.first_letter</source>
-        <target>drill.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="initial">
         <source>drill.description</source>

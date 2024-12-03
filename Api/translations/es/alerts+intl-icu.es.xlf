@@ -97,7 +97,7 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
     <unit id="low_hull">
       <segment id="name" state="translated">
         <source>low_hull.name</source>
-        <target>{quantity}% de armadura</target>
+        <target>{quantity}% de blindaje</target>
       </segment>
       <segment id="description" state="translated">
         <source>low_hull.description</source>
@@ -119,35 +119,35 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
         <source>communication_down.name</source>
         <target>Sin contacto</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>communication_down.description</source>
-        <target>communication_down.description</target>
+        <target>¡El Daedalus no tiene contacto con Sol! Mantener el contacto con Sol es importante para el estado de ánimo del grupo.</target>
       </segment>
     </unit>
     <unit id="hunter">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hunter.name</source>
-        <target>hunter.name</target>
+        <target>{quantity, plural, one {¡# nave enemiga nos ataca!} other {¡# naves enemigas nos atacan!}}</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hunter.description</source>
-        <target>hunter.description</target>
+        <target>¡Avisa a los demás o defiende la nave por tu cuenta!</target>
       </segment>
     </unit>
     <unit id="no_alert">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>no_alert.name</source>
-        <target>no_alert.name</target>
+        <target>Tranquilo</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>no_alert.description</source>
-        <target>no_alert.description</target>
+        <target>Sin alertas en curso: la tripulación puede estar tranquila.</target>
       </segment>
     </unit>
     <unit id="alerts">
-      <segment id="alerts" state="initial">
+      <segment id="alerts" state="translated">
         <source>alerts</source>
-        <target>alerts</target>
+        <target>Alertas:</target>
       </segment>
     </unit>
   </file>

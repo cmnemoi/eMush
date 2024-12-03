@@ -390,9 +390,9 @@
         <source>gioele.age</source>
         <target>55 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>gioele.description</source>
-        <target>gioele.description</target>
+        <target>Navegante filántropo.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>gioele.employment</source>
@@ -402,17 +402,25 @@
         <source>gioele.abstract</source>
         <target>Gioele es el propietario de la nave. Es un multimillonario de la Tierra obsesionado por los viajes espaciales, que financió el proyecto inicial del Daedalus. Ante la amenaza de los Mush, Gioele entró en pánico e in extremis, con la ayuda de los diseñadores, consiguió un puesto a bordo de la nave como navegante. También consiguió expulsar a un biólogo de la tripulación original para hacer sitio a su hija Paola.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>gioele.biography</source>
-        <target>gioele.biography</target>
+        <target>- 3099: Nace en la Tierra.
+- 3118: Gracias a los contactos de su padre, Gioele consiguió un espacio como ***pasajero a bordo del Gonzak*** con la misión de explorar ***Epsilon Indi***. Fue allí donde conoció a su ídolo ***GL Maubrick***. A su regreso, comenzó a ***estudiar astrofísica*** para poder convertirse en explorador algún día.
+- 3120: La ***muerte de su padre*** hizo que Gioele se diera cuenta de la situación económica de su familia. Se ***hizo cargo de la empresa de gestión de prisiones de su padre***, pero cambió su funcionamiento para adaptarlo a sus propios fines: Enviaba a los prisioneros a nuevos sistemas para llevar a cabo operaciones de minería de asteroides.
+- 3136: Gioele estaba haciendo una fortuna, pero aún no había cumplido sus sueños. En un anuncio publicitario en SNC ***ofreció un presupuesto de 4.000 millones de créditos*** a quien pudiera proponer un proyecto viable de arca estelar, que le permitiera unir la Vía Láctea y la ***Nube de Magallanes***.
+- 3137: Se reune con ***Kuan-Ti*** quien, al año siguiente, entregó un gigantesco proyecto de Arca Mundial que implicaba a 7000 personas. Gioele le ***asigna el presupuesto prometido***.
+- 3146: La Federación quiso participar en la financiación del proyecto y aportó 9.000 millones de créditos adicionales que pondrían sobre ruedas el avance del ***Reactor PILGRED***. El explorador, y ahora representante oficial del gobierno, ***Kim Jin-Su***, fue asignado como líder del proyecto.
+- 3152: Gioele se entera por casualidad de que Jin-Su y Kuan-Ti han manipulado el proyecto original para permitir la construcción de una nave de exploración más pequeña, llamada ***Daedalus***. Continuando con su investigación, registra el despacho de Kuan-Ti y encuentra documentos que prueban que el Mush ha infectado a los líderes de la Federación. Su posterior temor es la razón por la que se desespera por acceder al Daedalus y unirse a la evacuación.
+- 3153: A medida que la Federación reduce gradualmente la frecuencia de los pagos, Gioele ***ofrece apoyo financiero adicional para el proyecto*** a Raluca, Jin-Su y Kuan-Ti. Su única condición es que ***Nils Carlsson*** sea removido del equipo y sustituido por su hija ***Paola Rinaldo***. El equipo se niega.
+- 3154: Nils cae enfermo durante una grave crisis entre ***Xyloph-17*** y la Federación. La ***FDS toma el control del proyecto***, pero Kim Jin-Su organiza la salida clandestina del Daedalus. Gioele y Paola son finalmente embarcados.</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>gioele.tips</source>
-        <target>gioele.tips</target>
+        <target>**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Escanea planetas** usando la Terminal Astro en el Puente para organizar expediciones.//**Elimina Mush confirmados** usando tu habilidad Robusto.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>gioele.tutorial</source>
-        <target>gioele.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Gioele_Rinaldo</target>
       </segment>
     </unit>
     <unit id="Hua">
@@ -600,9 +608,9 @@
         <source>paola.age</source>
         <target>23 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>paola.description</source>
-        <target>paola.description</target>
+        <target>Oficial primero de Comunicaciones del Daedalus y activista política.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>paola.employment</source>

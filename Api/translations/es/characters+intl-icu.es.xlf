@@ -43,10 +43,10 @@
       <segment id="biography" state="translated">
         <source>andie.biography</source>
         <target>- 3136: Nace en algún lugar de la Tierra.
-- 3136: Sus padres le abandonan en los primeros meses de su existencia, una unidad de la FDS salvaguarda a Andie. Le enlistan inmediatamente ***como pupilo de la FDS*** donde no tardarán en notar sus facultades innatas. Andie rápidamente ingresa en una escuela para superdotados dirigida por la FDS y entra en ***el programa federal para jóvenes***.
+- 3136: Sus padres le abandonan en los primeros meses de su existencia, una unidad de la FDS salvaguarda a Andie. Le enlistan inmediatamente ***como estudiante de la FDS*** donde no tardarán en notar sus facultades innatas. Andie rápidamente ingresa en una escuela para superdotados dirigida por la FDS y entra en ***el programa federal para jóvenes***.
 - 3145: Andie triunfa brillantemente en sus estudios e ingresa en la prestigiosa universidad de la federación. Andie se adoctrina completamente durante sus estudios, ***ahora sólo sigue el camino de la federación.*** A pesar de su ingenuidad, Andie es muy popular y no tiene problemas para hacer amigos. Su rostro angelical le permite atraer simpatía sin saberlo. ***Su compañero de cuarto, Viktor Carlsson***, infiltrado en secreto por su hermano Nils en la universidad, pagará el precio de su amistad. Al confiarle su verdadera misión durante una conversación, Viktor es arrestado por conspiración. Andie pensará inocentemente que este simplemente cambió de rumbo...
 - 3151: Andie conoce al sargento instructor Derek Hogan***. Presentado como un héroe de la nación, pasa todas sus clases contando su vida de fantasía. Andie encuentra una figura paterna perdida en su maestro y comienza a idolatrarlo. Andie toma todas estas historias al pie de la letra y comienza a soñar con viajar también por el espacio.
-- 3153: Andie continúa sus estudios para atender mejor las necesidades de la federación. Aprueba brillantemente tres tesis, ***una en botánica*** por su estudio sobre las propiedades curativas del bulbo branquial de Tau-Ceti, ***otra en biología*** con su estudio sobre el comportamiento social de las amebas polarizadas del Mar Egeo del tercer planeta del sistema Sol, y finalmente ***en diplomacia*** con su informe de mediación, que según el jurado, podría haber inspirado a los negociadores que no lograron impedir la gran batalla del Sol. ***Se convierte en el primer triple ganador de la federación.***
+- 3153: Andie continúa sus estudios para atender mejor las necesidades de la federación. Aprueba brillantemente tres tesis, ***una en botánica*** por su estudio sobre las propiedades curativas del bulbo branquial de Tau-Ceti, ***otra en biología*** con su estudio sobre el comportamiento social de las amebas polarizadas del Mar Egeo del tercer planeta del sistema Sol, y finalmente ***en diplomacia*** con su informe de mediación, que según el jurado, podría haber inspirado a los negociadores que no lograron impedir la gran batalla del Sol. ***Se convierte en la primer persona en ser triple ganador de la federación.***
 - 3154: Después de completar sus estudios, Andie decide convertirse en piloto, por lo que se une a la división aérea de la federación y aprueba su certificado con gran éxito. **Andie pide que se le asigne a Xyloph-17*** y pronto Kim Jin Su nota su talento. Derek no le reconoce.
 - 3154: Lejos de sospechar los problemas que acechan en las sombras y todavía pensando en servir ardientemente a la federación, Andie aborda el Daedalus.</target>
       </segment>
@@ -448,9 +448,9 @@
         <source>hua.employment</source>
         <target>Exploradora de superficies planetarias</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>hua.abstract</source>
-        <target>hua.abstract</target>
+        <target>Especialista en misiones de aproximación a planetas desconocidos, Hua puede aterrizar en casi cualquier superficie en cualquier condición. Ella fue tripulante del Epygron, la primera nave de exploración en encontrar vida extraterrestre.</target>
       </segment>
       <segment id="biography" state="initial">
         <source>hua.biography</source>

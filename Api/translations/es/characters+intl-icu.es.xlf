@@ -820,7 +820,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>janice.description</source>
-        <target>Psicóloga digital y pionera en relaciones de IA.</target>
+        <target>Psicóloga digital y pionera en relaciones con IA.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>janice.employment</source>
@@ -843,9 +843,9 @@
 - 3152: Tras reducir su carga de trabajo, NERON ve reducida su necesidad de procesamiento al 75%. Por tanto, sus capacidades de evolución mejoran considerablemente. Janice contacta a Terrence para pedirle que construya drones capaces de completar la construcción del Daedalus en el plazo previsto.
 - 3154: Mientras las fuerzas de la FDS intentan recuperar el control de la base, se activa el protocolo A-TRUE de NERON. El niega el acceso de las tropas a los edificios, lo que ralentiza el avance del ejército hacia el interior de Xyloph-17. Janice, que era entonces la única persona capaz de controlar la computadora central, libera a sus colegas e intenta transferir datos esenciales al Daedalus. Varias horas después, la nave despega ***hacia la galaxia Magallanes***.</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>janice.tips</source>
-        <target>janice.tips</target>
+        <target>**Participa en proyectos NERON** usando el núcleo NERON en el Nexus para mejorar la nave.//**Reconforta a tus compañeros ánimo bajo y permanece cerca de tus compañeros recostados** para mejorar su moral usando tu habilidad Psicólogo.//**Cambia los parámetros BIOS de NERON** usando la terminal BIOS en el Nexus gracias a tu título de administrador de NERON.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>janice.tutorial</source>

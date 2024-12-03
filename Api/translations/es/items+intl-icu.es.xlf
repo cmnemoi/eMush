@@ -2319,163 +2319,192 @@ Un arma impresionante, pesada y peligrosa. El juguete soñado.</target>
         <source>lizaro_jungle.plural_name</source>
         <target>Lizaros Jungle</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>lizaro_jungle.gender</source>
-        <target>lizaro_jungle.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>lizaro_jungle.first_letter</source>
-        <target>lizaro_jungle.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lizaro_jungle.description</source>
-        <target>lizaro_jungle.description</target>
+        <target>Fusil de gran precisión
+//
+Expedición: + 1 a la fuerza de tu equipo en caso de combate.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>lizaro_jungle.examine</source>
-        <target>lizaro_jungle.examine</target>
+        <target>Fusil de gran precisión.
+//
+Expedición: + 1 a la fuerza de tu equipo en caso de combate.
+//
+Fue creado por las organizaciones rebeldes, es barato y funciona en condiciones extremas. A usar con precaución.</target>
       </segment>
     </unit>
     <unit id="knife">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>knife.name</source>
-        <target>knife.name</target>
+        <target>Cuchillo</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>knife.short_name</source>
-        <target>knife.short_name</target>
+        <target>Cuchillo</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>knife.plural_name</source>
-        <target>knife.plural_name</target>
+        <target>Cuchillos</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>knife.gender</source>
-        <target>knife.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>knife.first_letter</source>
-        <target>knife.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>knife.description</source>
-        <target>knife.description</target>
+        <target>Es un arma anticuada pero que aún tiene muchos seguidores.
+//
+Expedición: + 1 a la fuerza de tu equipo en caso de combate.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>knife.examine</source>
-        <target>knife.examine</target>
+        <target>Es un arma anticuada pero que aún tiene muchos seguidores.
+//
+Expedición: + 1 a la fuerza de tu equipo en caso de combate.
+//
+Con solo 20cm puede partirte a ti o cualquiera en 2.</target>
       </segment>
     </unit>
     <unit id="blaster">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>blaster.name</source>
-        <target>blaster.name</target>
+        <target>Blaster</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>blaster.short_name</source>
-        <target>blaster.short_name</target>
+        <target>Blaster</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>blaster.plural_name</source>
-        <target>blaster.plural_name</target>
+        <target>Blasters</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>blaster.gender</source>
-        <target>blaster.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>blaster.first_letter</source>
-        <target>blaster.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>blaster.description</source>
-        <target>blaster.description</target>
+        <target>Arma básica de las fuerzas de seguridad.
+//
+Expedición: + 1 a la fuerza de tu equipo en caso de combate.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>blaster.examine</source>
-        <target>blaster.examine</target>
+        <target>Arma básica de las fuerzas de seguridad.
+//
+Expedición: + 1 a la fuerza de tu equipo en caso de combate.
+//
+Te ayudará a defenderte con elegancia.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>natamy_rifle.name</source>
-        <target>natamy_rifle.name</target>
+        <target>Fusil Natamy</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>natamy_rifle.short_name</source>
-        <target>natamy_rifle.short_name</target>
+        <target>Fusil Natamy</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>natamy_rifle.plural_name</source>
-        <target>natamy_rifle.plural_name</target>
+        <target>Fusiles Natamy</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>natamy_rifle.gender</source>
-        <target>natamy_rifle.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>natamy_rifle.first_letter</source>
-        <target>natamy_rifle.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>natamy_rifle.description</source>
-        <target>natamy_rifle.description</target>
+        <target>El fusil Natamy es un fusil de asalto anti-Mush.
+//
+Expedición: +1 a la fuerza de tu equipo en caso de combate.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>natamy_rifle.examine</source>
-        <target>natamy_rifle.examine</target>
+        <target>El fusil Natamy es un fusil de asalto anti-Mush.
+//
+Expedición: +1 añadido a la fuerza de tu equipo en caso de combate.
+//
+Un fusil muy especial desarrollado por la tripulación. Sus municiones contienen bicarbonato de sodio y retro-patulina que tienen propiedades antifúngicas.</target>
       </segment>
     </unit>
     <unit id="grenade">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>grenade.name</source>
-        <target>grenade.name</target>
+        <target>Granada</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>grenade.short_name</source>
-        <target>grenade.short_name</target>
+        <target>Granada</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>grenade.plural_name</source>
-        <target>grenade.plural_name</target>
+        <target>Granadas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>grenade.gender</source>
-        <target>grenade.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>grenade.first_letter</source>
-        <target>grenade.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>grenade.description</source>
-        <target>grenade.description</target>
+        <target>Es un poderoso explosivo que te sacará de situaciones peligrosas durante una expedición.
+Expedición: +3 a la fuerza de tu equipo en caso de combate.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>grenade.examine</source>
-        <target>grenade.examine</target>
+        <target>Es un poderoso explosivo que te sacará de situaciones peligrosas durante una expedición.
+//
+Expedición: +3 a la fuerza de tu equipo en caso de combate.
+//
+Lleva escrito: "Clínicamente probado sobre aliens".</target>
       </segment>
     </unit>
     <unit id="rocket_launcher">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>rocket_launcher.name</source>
-        <target>rocket_launcher.name</target>
+        <target>Lanza-Cohetes</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>rocket_launcher.short_name</source>
-        <target>rocket_launcher.short_name</target>
+        <target>Lanza-Cohetes</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>rocket_launcher.plural_name</source>
-        <target>rocket_launcher.plural_name</target>
+        <target>Lanza-Cohetes</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>rocket_launcher.gender</source>
-        <target>rocket_launcher.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>rocket_launcher.first_letter</source>
-        <target>rocket_launcher.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="initial">
         <source>rocket_launcher.description</source>
@@ -2487,181 +2516,195 @@ Un arma impresionante, pesada y peligrosa. El juguete soñado.</target>
       </segment>
     </unit>
     <unit id="survival_kit">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>survival_kit.name</source>
-        <target>survival_kit.name</target>
+        <target>Kit de supervivencia</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>survival_kit.short_name</source>
-        <target>survival_kit.short_name</target>
+        <target>Kit de supervivencia</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>survival_kit.gender</source>
-        <target>survival_kit.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>survival_kit.first_letter</source>
-        <target>survival_kit.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>survival_kit.description</source>
-        <target>survival_kit.description</target>
+        <target>Contiene medicamentos y vendajes.
+Contiene {quantity} x Vendaje
+Contiene {quantity} x Medicamentos</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>survival_kit.examine</source>
-        <target>survival_kit.examine</target>
+        <target>Contiene medicamentos y vendajes.
+Contiene {quantity} xVendaje
+Contiene {quantity} x Medicamentos 
+El arquetipo de lo que nunca está donde debe estar.</target>
       </segment>
     </unit>
     <unit id="fuel_capsule">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>fuel_capsule.name</source>
-        <target>fuel_capsule.name</target>
+        <target>Cápsula de combustible</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>fuel_capsule.short_name</source>
-        <target>fuel_capsule.short_name</target>
+        <target>Cápsula de combustible</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>fuel_capsule.gender</source>
-        <target>fuel_capsule.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>fuel_capsule.first_letter</source>
-        <target>fuel_capsule.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>fuel_capsule.description</source>
-        <target>fuel_capsule.description</target>
+        <target>Permite desplazar el combustible desde el tanque hacia los motores.
+Contiene una unidad de combustible.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>fuel_capsule.examine</source>
-        <target>fuel_capsule.examine</target>
+        <target>Permite desplazar el combustible desde el tanque hacia los motores.
+Contiene una unidad de combustible.
+Carga carburante para llevarlo al módulo de combustión.</target>
       </segment>
     </unit>
     <unit id="hydropot">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hydropot.name</source>
-        <target>hydropot.name</target>
+        <target>Hydromaceta</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>hydropot.short_name</source>
-        <target>hydropot.short_name</target>
+        <target>Hydromaceta</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>hydropot.gender</source>
-        <target>hydropot.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>hydropot.first_letter</source>
-        <target>hydropot.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hydropot.description</source>
-        <target>hydropot.description</target>
+        <target>Sirve para **sembrar un fruto** y desarrollar el jardín.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>hydropot.examine</source>
-        <target>hydropot.examine</target>
+        <target>Sirve para **sembrar un fruto** y desarrollar el jardín.
+Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="lunchbox">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>lunchbox.name</source>
-        <target>lunchbox.name</target>
+        <target>Canasta de comida</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>lunchbox.short_name</source>
-        <target>lunchbox.short_name</target>
+        <target>Canasta de comida</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>lunchbox.gender</source>
-        <target>lunchbox.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>lunchbox.first_letter</source>
-        <target>lunchbox.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lunchbox.description</source>
-        <target>lunchbox.description</target>
+        <target>¡Oh, comida! Delicias para compartir.
+Contiene {quantity} x Ración estándar.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>lunchbox.examine</source>
-        <target>lunchbox.examine</target>
+        <target>¡Oh, comida! Delicias para compartir.
+Contiene {quantity} x Ración estándar.
+El equivalente galáctico de una sopa caliente cuando el vacío absoluto te rodea.</target>
       </segment>
     </unit>
     <unit id="oxygen_capsule">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>oxygen_capsule.name</source>
-        <target>oxygen_capsule.name</target>
+        <target>Cápsula de oxígeno</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>oxygen_capsule.short_name</source>
-        <target>oxygen_capsule.short_name</target>
+        <target>Cápsula de oxígeno</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>oxygen_capsule.gender</source>
-        <target>oxygen_capsule.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>oxygen_capsule.first_letter</source>
-        <target>oxygen_capsule.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>oxygen_capsule.description</source>
-        <target>oxygen_capsule.description</target>
+        <target>Contiene una unidad estándar de oxígeno. Puede ser puesta en el circuito a través de los tanques de los almacenes.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>oxygen_capsule.examine</source>
-        <target>oxygen_capsule.examine</target>
+        <target>Contiene una unidad estándar de oxígeno. Puede ser puesta en el circuito a través de los tanques de los almacenes.
+Permite transportar el oxígeno en forma líquida. Su película de protección es casi irrompible.</target>
       </segment>
     </unit>
     <unit id="space_capsule">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>space_capsule.name</source>
-        <target>space_capsule.name</target>
+        <target>Cápsula espacial</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>space_capsule.short_name</source>
-        <target>space_capsule.short_name</target>
+        <target>Cápsula espacial</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>space_capsule.gender</source>
-        <target>space_capsule.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>space_capsule.first_letter</source>
-        <target>space_capsule.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>space_capsule.description</source>
-        <target>space_capsule.description</target>
+        <target>Contiene algo que te puede servir de mucho.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>space_capsule.examine</source>
-        <target>space_capsule.examine</target>
+        <target>Contiene algo que te puede servir de mucho.
+Contiene algo que puede sorprenderte.</target>
       </segment>
     </unit>
     <unit id="swedish_sofa">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>swedish_sofa.name</source>
-        <target>swedish_sofa.name</target>
+        <target>Sofá Sueco</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>swedish_sofa.short_name</source>
-        <target>swedish_sofa.short_name</target>
+        <target>Sofá Sueco</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>swedish_sofa.plural_name</source>
-        <target>swedish_sofa.plural_name</target>
+        <target>Sofás Suecos</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>swedish_sofa.gender</source>
-        <target>swedish_sofa.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>swedish_sofa.first_letter</source>
-        <target>swedish_sofa.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>swedish_sofa.description</source>
@@ -2674,255 +2717,293 @@ Lo único que te hacer sentir como en casa...</target>
       </segment>
     </unit>
     <unit id="thermos_of_coffee">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>thermos_of_coffee.name</source>
-        <target>thermos_of_coffee.name</target>
+        <target>Termo con café</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>thermos_of_coffee.short_name</source>
-        <target>thermos_of_coffee.short_name</target>
+        <target>Termo con café</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>thermos_of_coffee.gender</source>
-        <target>thermos_of_coffee.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>thermos_of_coffee.first_letter</source>
-        <target>thermos_of_coffee.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>thermos_of_coffee.description</source>
-        <target>thermos_of_coffee.description</target>
+        <target>Nada mejor que un café caliente.
+Contíene {quantity} x Café.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>thermos_of_coffee.examine</source>
-        <target>thermos_of_coffee.examine</target>
+        <target>Nada mejor que un café caliente.
+Contíene {quantity} x Café.
+El símbolo del espíritu solidario en tiempos de crisis. No contiene sopa ni nada por el estilo.</target>
       </segment>
     </unit>
     <unit id="banana_tree">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>banana_tree.name</source>
-        <target>banana_tree.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Árbol Plátano</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>banana_tree.short_name</source>
-        <target>banana_tree.short_name</target>
+        <target>Árbol Plátano</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>banana_tree.gender</source>
-        <target>banana_tree.gender</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>banana_tree.first_letter</source>
         <target>banana_tree.first_letter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>banana_tree.description</source>
-        <target>banana_tree.description</target>
+        <target>El plátano es un tipo de herbácea que produce frutos nutritivos y sabrosos.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>banana_tree.examine</source>
-        <target>banana_tree.examine</target>
+        <target>El plátano es un tipo de herbácea que produce frutos nutritivos y sabrosos.
+Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="creepist">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>creepist.name</source>
-        <target>creepist.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Lianesto</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>creepist.short_name</source>
-        <target>creepist.short_name</target>
+        <target>Lianesto</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>creepist.gender</source>
-        <target>creepist.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>creepist.first_letter</source>
-        <target>creepist.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>creepist.description</source>
-        <target>creepist.description</target>
+        <target>El lianesto es un árbol curiosamente torcido.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>creepist.examine</source>
-        <target>creepist.examine</target>
+        <target>El lianesto es un árbol curiosamente torcido.
+Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="cactax">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cactax.name</source>
-        <target>cactax.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Cactuor</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>cactax.short_name</source>
-        <target>cactax.short_name</target>
+        <target>Cactuor</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>cactax.gender</source>
-        <target>cactax.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>cactax.first_letter</source>
-        <target>cactax.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cactax.description</source>
-        <target>cactax.description</target>
+        <target>Originario de los desiertos de Tantris, el cactuor es usado en ciertos ritos indígenas.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>cactax.examine</source>
-        <target>cactax.examine</target>
+        <target>Originario de los desiertos de Tantris, el cactuor es usado en ciertos ritos indígenas.
+Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="bifflon">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>bifflon.name</source>
-        <target>bifflon.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Bifalón</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>bifflon.short_name</source>
-        <target>bifflon.short_name</target>
+        <target>Bifalón</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>bifflon.gender</source>
-        <target>bifflon.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>bifflon.first_letter</source>
-        <target>bifflon.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>bifflon.description</source>
-        <target>bifflon.description</target>
+        <target>Un verdadero capricho de la naturaleza, el Bifalón es un árbol que habla... pero pasa el día hablando como Messi. Lo que hace su compañía un poco deprimente...</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>bifflon.examine</source>
-        <target>bifflon.examine</target>
+        <target>Un verdadero capricho de la naturaleza, el Bifalón es un árbol que habla... pero pasa el día hablando como Messi. Lo que hace su compañía un poco deprimente...
+Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="pulminagro">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pulminagro.name</source>
-        <target>pulminagro.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Pulmino</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>pulminagro.short_name</source>
-        <target>pulminagro.short_name</target>
+        <target>Pulmino</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>pulminagro.gender</source>
-        <target>pulminagro.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>pulminagro.first_letter</source>
-        <target>pulminagro.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pulminagro.description</source>
-        <target>pulminagro.description</target>
+        <target>El pulmino es un árbol producto del cruce de una palmera y una especie de planta alienígena. Tiene la particularidad de crecer en espacios muy poco luminosos.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>pulminagro.examine</source>
-        <target>pulminagro.examine</target>
+        <target>El pulmino es un árbol producto del cruce de una palmera y una especie de planta alienígena. Tiene la particularidad de crecer en espacios muy poco luminosos.
+Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="precatus">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>precatus.name</source>
-        <target>precatus.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Precatus</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>precatus.short_name</source>
-        <target>precatus.short_name</target>
+        <target>Precatus</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>precatus.gender</source>
-        <target>precatus.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>precatus.first_letter</source>
-        <target>precatus.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>precatus.description</source>
-        <target>precatus.description</target>
+        <target>Este extraño árbol tiene una forma de alien de goma totalmente inútil y muy sucio....</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>precatus.examine</source>
-        <target>precatus.examine</target>
+        <target>Este extraño árbol tiene una forma de alien de goma totalmente inútil y muy sucio....
+Sirve para colocar una planta en el jardín</target>
       </segment>
     </unit>
     <unit id="buttalien">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>buttalien.name</source>
-        <target>buttalien.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Buitalien</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>buttalien.short_name</source>
-        <target>buttalien.short_name</target>
+        <target>Buitalien</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>buttalien.gender</source>
-        <target>buttalien.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>buttalien.first_letter</source>
-        <target>buttalien.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>buttalien.description</source>
-        <target>buttalien.description</target>
+        <target>El Buitalien es un arbusto raro, sus frutos jugosos reflejan la luz extrañamente.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>buttalien.examine</source>
-        <target>buttalien.examine</target>
+        <target>El Buitalien es un arbusto raro, sus frutos jugosos reflejan la luz extrañamente.
+Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="platacia">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>platacia.name</source>
-        <target>platacia.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Platacia</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>platacia.short_name</source>
-        <target>platacia.short_name</target>
+        <target>Platacia</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>platacia.gender</source>
-        <target>platacia.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>platacia.first_letter</source>
-        <target>platacia.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>platacia.description</source>
-        <target>platacia.description</target>
+        <target>El Platacia es un árbol que no provoca más que alergias...</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>platacia.examine</source>
-        <target>platacia.examine</target>
+        <target>El Platacia es un árbol que no provoca más que alergias...
+Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="tubiliscus">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>tubiliscus.name</source>
-        <target>tubiliscus.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Tupimino</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>tubiliscus.short_name</source>
-        <target>tubiliscus.short_name</target>
+        <target>Tupimino</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>tubiliscus.gender</source>
-        <target>tubiliscus.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>tubiliscus.first_letter</source>
-        <target>tubiliscus.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="initial">
         <source>tubiliscus.description</source>
@@ -2934,55 +3015,59 @@ Lo único que te hacer sentir como en casa...</target>
       </segment>
     </unit>
     <unit id="graapshoot">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>graapshoot.name</source>
-        <target>graapshoot.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Poplimuno</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>graapshoot.short_name</source>
-        <target>graapshoot.short_name</target>
+        <target>Poplimuno</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>graapshoot.gender</source>
-        <target>graapshoot.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>graapshoot.first_letter</source>
-        <target>graapshoot.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>graapshoot.description</source>
-        <target>graapshoot.description</target>
+        <target>El Poplimuno es un árbol elegante. Sus hojas emanan un olor a cobre.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>graapshoot.examine</source>
-        <target>graapshoot.examine</target>
+        <target>El Poplimuno es un árbol elegante. Sus hojas emanan un olor a cobre.
+Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="peniraft">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>peniraft.name</source>
-        <target>peniraft.name</target>
+        <target>Peniclo</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>peniraft.short_name</source>
-        <target>peniraft.short_name</target>
+        <target>Peniclo</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>peniraft.gender</source>
-        <target>peniraft.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>peniraft.first_letter</source>
-        <target>peniraft.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>peniraft.description</source>
-        <target>peniraft.description</target>
+        <target>El Peniclo es un fruto famoso en Venixa. Sus usos culinarios son muy dudosos.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>peniraft.examine</source>
-        <target>peniraft.examine</target>
+        <target>El Peniclo es un fruto famoso en Venixa. Sus usos culinarios son muy dudosos</target>
       </segment>
     </unit>
     <unit id="fiboniccus">
@@ -3064,99 +3149,103 @@ Lo único que te hacer sentir como en casa...</target>
       </segment>
     </unit>
     <unit id="filandra">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>filandra.name</source>
-        <target>filandra.name</target>
+        <target>Filandru</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>filandra.short_name</source>
-        <target>filandra.short_name</target>
+        <target>Filandru</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>filandra.gender</source>
-        <target>filandra.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>filandra.first_letter</source>
-        <target>filandra.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>filandra.description</source>
-        <target>filandra.description</target>
+        <target>El Filandru es el fruto más difícil de comer que haya existido...</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>filandra.examine</source>
-        <target>filandra.examine</target>
+        <target>El Filandru es el fruto más difícil de comer que haya existido... </target>
       </segment>
     </unit>
     <unit id="bumpjumpkin">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>bumpjumpkin.name</source>
-        <target>bumpjumpkin.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Curcubitacia</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>bumpjumpkin.short_name</source>
-        <target>bumpjumpkin.short_name</target>
+        <target>Curcubitacia</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>bumpjumpkin.gender</source>
-        <target>bumpjumpkin.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>bumpjumpkin.first_letter</source>
-        <target>bumpjumpkin.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>bumpjumpkin.description</source>
-        <target>bumpjumpkin.description</target>
+        <target>La curcubitacia es una planta extraterrestre con orígenes sudamericanos.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>bumpjumpkin.examine</source>
-        <target>bumpjumpkin.examine</target>
+        <target>La curcubitacia es una planta extraterrestre con orígenes sudamericanos.
+Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="jumpkin">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>jumpkin.name</source>
-        <target>jumpkin.name</target>
+        <target>Citroida</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>jumpkin.short_name</source>
-        <target>jumpkin.short_name</target>
+        <target>Citroida</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>jumpkin.gender</source>
-        <target>jumpkin.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>jumpkin.first_letter</source>
-        <target>jumpkin.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>jumpkin.description</source>
-        <target>jumpkin.description</target>
+        <target>Aunque no lo parezca, la citroida es un fruto con efectos extraordinarios.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>jumpkin.examine</source>
-        <target>jumpkin.examine</target>
+        <target>Aunque no lo parezca, la citroida es un fruto con efectos extraordinarios.</target>
       </segment>
     </unit>
     <unit id="lombrick_bar">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>lombrick_bar.name</source>
-        <target>lombrick_bar.name</target>
+        <target>Barra de lombrices</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>lombrick_bar.short_name</source>
-        <target>lombrick_bar.short_name</target>
+        <target>Barra de lombrices</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>lombrick_bar.gender</source>
-        <target>lombrick_bar.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>lombrick_bar.first_letter</source>
-        <target>lombrick_bar.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="initial">
         <source>lombrick_bar.description</source>
@@ -3168,21 +3257,21 @@ Lo único que te hacer sentir como en casa...</target>
       </segment>
     </unit>
     <unit id="organic_waste">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>organic_waste.name</source>
-        <target>organic_waste.name</target>
+        <target>Desechos orgánicos</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>organic_waste.short_name</source>
-        <target>organic_waste.short_name</target>
+        <target>Desechos orgánicos</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>organic_waste.gender</source>
-        <target>organic_waste.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>organic_waste.first_letter</source>
-        <target>organic_waste.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="initial">
         <source>organic_waste.description</source>
@@ -3202,13 +3291,13 @@ Lo único que te hacer sentir como en casa...</target>
         <source>proactive_puffed_rice.short_name</source>
         <target>proactive_puffed_rice.short_name</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>proactive_puffed_rice.gender</source>
-        <target>proactive_puffed_rice.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>proactive_puffed_rice.first_letter</source>
-        <target>proactive_puffed_rice.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="initial">
         <source>proactive_puffed_rice.description</source>

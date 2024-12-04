@@ -452,17 +452,25 @@
         <source>hua.abstract</source>
         <target>Especialista en misiones de aproximación a planetas desconocidos, Hua puede aterrizar en casi cualquier superficie en cualquier condición. Ella fue tripulante del Epygron, la primera nave de exploración en encontrar vida extraterrestre.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>hua.biography</source>
-        <target>hua.biography</target>
+        <target>- 3096: Nace en la Tierra.
+- 3115: Hua es aceptada en ***el Instituto de Exploración Copernik***, donde estudia con profesores talentosos como ***GL Maubrick y Nils Carlsson***. A pesar de un interés real por el estudio de las biosferas extraterrestres, Jiang Hua muestra mayores talentos en el campo de la exploración de superficies. Realizó varias misiones en Caronte y Neptuno, donde aprendió a operar naves de exploración de clase B.
+- 3116: Jiang Hua se pierde el concurso de ingreso para unirse al equipo de Gonzak rumbo a ***Epsilon-Indi***. Continua sus estudios de botánica extraterrestre y luego se embarca en el Epygron hacia Lalande 21185 para explorar los dos planetas aún desconocidos del sistema.
+- 3121: Mientras realizaba análisis rutinarios en ***Naumachia***, Hua es atacada por una forma de vida local. Su compañero muere, pero Hua logra ahuyentar al atacante. A pesar de una lesión en la pierna, logra llegar al Epygron. Posteriormente, no se detectaron más signos de vida en el planeta.
+- 3127: Bajo las órdenes de Kim Jin-Su, Hua participa en la exploración de Tau-Ceti. Es la única piloto capaz de garantizar aterrizajes sin riesgos en los terrenos irregulares de zonas ricas en boxylium. Durante esta expedición, Hua también descubrió tres nuevas formas de plantas extrasolares, incluida una capaz de sobrevivir en un entorno privado de agua.
+- 3143: A su regreso a la Tierra, Hua recibe financiación de ***ChangMei-Tech*** para diseñar y probar una nueva nave de superficies. Se instala con su equipo en Xyloph-17, que ya albergaba el proyecto de exploración espacial Magallanes.
+- 3146: Cuando es designado para liderar el Proyecto Magallanes, Kim Jin-Su contrata a ChangMei-Tech para equipar el arca con una nave de exploración. Jiang Hua es enviada al equipo de Jin-Su para integrar la nave en el arca.
+- 3152: Hua ayuda a Ian Soulton en el desarrollo de un pequeño jardín hidropónico capaz de sustentar a un equipo de 16 personas.
+- 3153: El prototipo Icarus se entrega al equipo, los pilotos lo prueban exhaustivamente en las condiciones más extremas. Un accidente durante una de las pruebas cerca del Sol obliga a Hua y al joven piloto Rolland Zucalli a sobrevivir 36 horas en la superficie de Mercurio.</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>hua.tips</source>
-        <target>hua.tips</target>
+        <target>**Elimina naves enemigas** con los patrulleros ubicados en las plataformas para proteger la nave.//**Recupera chatarra** de las naves eliminadas con el Pasiphae ubicado en la plataforma Alpha 2 para reparar el blindaje de la nave.//**Despega expediciones** a planetas con el Icarus en la plataforma Icarus para recolectar recursos.//**Repara equipo vital** de la nave.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>hua.tutorial</source>
-        <target>hua.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Jiang_Hua</target>
       </segment>
     </unit>
     <unit id="Ian">

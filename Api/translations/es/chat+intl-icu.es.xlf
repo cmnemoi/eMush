@@ -18,33 +18,35 @@
         <source>tips.teamObjectives.elements</source>
         <target>tips.teamObjectives.elements</target>
       </segment>
-      <segment id="teamObjectives.mushTutorialTitle" state="initial">
+      <segment id="teamObjectives.mushTutorialTitle" state="translated">
         <source>tips.teamObjectives.mushTutorialTitle</source>
-        <target>tips.teamObjectives.mushTutorialTitle</target>
+        <target>**Más información en el tutorial de la comunidad**</target>
       </segment>
-      <segment id="teamObjectives.mushTutorialLink" state="initial">
+      <segment id="teamObjectives.mushTutorialLink" state="translated">
         <source>tips.teamObjectives.mushTutorialLink</source>
-        <target>tips.teamObjectives.mushTutorialLink</target>
+        <target>https://www.mushpedia.com/wiki/Mush_Play</target>
       </segment>
-      <segment id="characterObjectives.title" state="initial">
+      <segment id="characterObjectives.title" state="translated">
         <source>tips.characterObjectives.title</source>
-        <target>tips.characterObjectives.title</target>
+        <target>Tus objetivos como :{characterKey}: {character}</target>
       </segment>
-      <segment id="characterObjectives.tutorial" state="initial">
+      <segment id="characterObjectives.tutorial" state="translated">
         <source>tips.characterObjectives.tutorial</source>
-        <target>tips.characterObjectives.tutorial</target>
+        <target>**Más información en el tutorial de la comunidad**</target>
       </segment>
-      <segment id="externalResources.title" state="initial">
+      <segment id="externalResources.title" state="translated">
         <source>tips.externalResources.title</source>
-        <target>tips.externalResources.title</target>
+        <target>¿Necesitas ayuda? No te preocupes en preguntar</target>
       </segment>
-      <segment id="externalResources.crewmates" state="initial">
+      <segment id="externalResources.crewmates" state="translated">
         <source>tips.externalResources.crewmates</source>
-        <target>tips.externalResources.crewmates</target>
+        <target>{team, select,
+mush {Tus compañeros usando el :mush: **Canal Mush**}
+other {Tus compañeros usando el :wall: **canal general**}}</target>
       </segment>
-      <segment id="externalResources.discord" state="initial">
+      <segment id="externalResources.discord" state="translated">
         <source>tips.externalResources.discord</source>
-        <target>tips.externalResources.discord</target>
+        <target>**Servidor de Discord de Eternaltwin**</target>
       </segment>
       <segment id="externalResources.tutorials" state="initial">
         <source>tips.externalResources.tutorials</source>
@@ -62,13 +64,13 @@
         <source>tips.externalResources.wikiLink</source>
         <target>tips.externalResources.wikiLink</target>
       </segment>
-      <segment id="missions.title" state="initial">
+      <segment id="missions.title" state="translated">
         <source>tips.missions.title</source>
-        <target>tips.missions.title</target>
+        <target>Misiones</target>
       </segment>
-      <segment id="missions.accept" state="initial">
+      <segment id="missions.accept" state="translated">
         <source>tips.missions.accept</source>
-        <target>tips.missions.accept</target>
+        <target>¿Aceptar?</target>
       </segment>
     </unit>
     <unit id="room_log">

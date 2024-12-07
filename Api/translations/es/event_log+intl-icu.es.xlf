@@ -2,9 +2,9 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="event_log.ext">
     <unit id="build_success">
-      <segment id="build_success" state="initial">
+      <segment id="build_success" state="translated">
         <source>build_success</source>
-        <target>build_success</target>
+        <target>Has armado un *{target_equipment}*.</target>
       </segment>
     </unit>
     <unit id="open_success">
@@ -26,51 +26,51 @@
       </segment>
     </unit>
     <unit id="gain_action_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_action_point</source>
-        <target>gain_action_point</target>
+        <target>Has ganado {quantity} :pa:.</target>
       </segment>
     </unit>
     <unit id="gain_movement_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_movement_point</source>
-        <target>gain_movement_point</target>
+        <target>Has ganado {quantity} :pm:.</target>
       </segment>
     </unit>
     <unit id="gain_health_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_health_point</source>
-        <target>gain_health_point</target>
+        <target>Has ganado {quantity} :hp:.</target>
       </segment>
     </unit>
     <unit id="loss_health_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>loss_health_point</source>
-        <target>loss_health_point</target>
+        <target>Has perdido {quantity} :hp:. </target>
       </segment>
     </unit>
     <unit id="gain_moral_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_moral_point</source>
-        <target>gain_moral_point</target>
+        <target>Has ganado {quantity} :pmo:.</target>
       </segment>
     </unit>
     <unit id="loss_moral_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>loss_moral_point</source>
-        <target>loss_moral_point</target>
+        <target>Has perdido {quantity} :pmo:.</target>
       </segment>
     </unit>
     <unit id="loss_action_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>loss_action_point</source>
-        <target>loss_action_point</target>
+        <target>Has perdido {quantity} :pa:.</target>
       </segment>
     </unit>
     <unit id="loss_movement_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>loss_movement_point</source>
-        <target>loss_movement_point</target>
+        <target>Has perdido {quantity} :pm:.</target>
       </segment>
     </unit>
     <unit id="gain_triumph">

@@ -49,7 +49,7 @@ other {El escudo plasma esta absorbiendo el fuego enemigo en lugar del blindaje 
       </segment>
       <segment id="description" state="translated">
         <source>crewPlayer.description</source>
-        <target>{playerAlive, plural, one {# Compañero activo} other {# Compañeros activos}}, dont {mushAlive, plural, one {# Mush} other {# Mushs}}. {playerDead, plural, one {# compañeros muerto} other {# compañeros muertos}}, dont {mushDead, plural, one {# Mush} other {# Mushs}}. {cryogenizedPlayers, plural, one {# criogénico} other {# criogénicos}}.</target>
+        <target>{playerAlive, plural, one {# compañero activo} other {# compañeros activos}}, dont {mushAlive, plural, one {# Mush} other {# Mushs}}. {playerDead, plural, one {# compañeros muertos}}. dont {mushDead, plural, one {# Mush} other {# Mushs}}. {cryogenizedPlayers, plural, one {# criogenizado} other {# criogenizados}}.</target>
       </segment>
     </unit>
     <unit id="currentCycle">

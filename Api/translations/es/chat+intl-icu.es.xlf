@@ -13,9 +13,8 @@
       <segment id="teamObjectives.title" state="translated">
         <source>tips.teamObjectives.title</source>
         <target>{team, select,
-mush {Tus objetivos como :berzerk: Mush}
-otro {{characte_gender, select, female {Tus objetivos como :female_admin: humano}
-otro {Tus objetivos como :male_admin: humano}
+mush {Tus objetivos como :berzerk: Mush} other {{character_gender, select, female {Tus objetivos como :female_admin: humano}
+other {Tus objetivos como :male_admin: humano}
 }}}</target>
       </segment>
       <segment id="teamObjectives.elements" state="translated">
@@ -80,23 +79,23 @@ other {Tus compañeros usando el :wall: **canal general**}}</target>
       </segment>
     </unit>
     <unit id="room_log">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>room_log.name</source>
-        <target>room_log.name</target>
+        <target>Eventos en la sala</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>room_log.description</source>
-        <target>room_log.description</target>
+        <target>Aquí verás **lo que sucede en esta sala desde que llegaste**. Si hay una cámara, las acciones secretas y furtivas serán reveladas.</target>
       </segment>
     </unit>
     <unit id="public">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>public.name</source>
-        <target>public.name</target>
+        <target>Canal principal</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>public.description</source>
-        <target>public.description</target>
+        <target>El canal principal es indispensable para la organización del equipo. Para participar debes tener un :talkie.png: **walkie talkie**.</target>
       </segment>
     </unit>
     <unit id="private">

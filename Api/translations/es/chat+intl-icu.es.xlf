@@ -10,13 +10,19 @@
         <source>tips.description</source>
         <target>Aquí puedes encontrar **consejos prácticos** para tu vida diaria (patrocinado por estilosdevidasaludable.sanidad.gob.es)</target>
       </segment>
-      <segment id="teamObjectives.title" state="initial">
+      <segment id="teamObjectives.title" state="translated">
         <source>tips.teamObjectives.title</source>
-        <target>tips.teamObjectives.title</target>
+        <target>{team, select,
+mush {Tus objetivos como :berzerk: Mush}
+otro {{characte_gender, select, female {Tus objetivos como :female_admin: humano}
+otro {Tus objetivos como :male_admin: humano}
+}}}</target>
       </segment>
-      <segment id="teamObjectives.elements" state="initial">
+      <segment id="teamObjectives.elements" state="translated">
         <source>tips.teamObjectives.elements</source>
-        <target>tips.teamObjectives.elements</target>
+        <target>{team, slect,
+mush {**Elimina a todos los humanos** en cooperación con otros Mush.//**Contamina a los humanos** convirtiéndolos en Mush.//**Manipula a los humanos** para que hagan cosas que los ponga en desventaja.//**Sabotea acciones humanas** en el momento adecuado, para prevenir la reparación del PILGRED y su retorno a Sol.}
+other {**Elimina a los Mush abordo**.//**Repara el PILGRED** para volver a Sol.//**Coopera con otros humanos** para sobrevivir usando tus habilidades. 👇}}</target>
       </segment>
       <segment id="teamObjectives.mushTutorialTitle" state="translated">
         <source>tips.teamObjectives.mushTutorialTitle</source>
@@ -48,21 +54,21 @@ other {Tus compañeros usando el :wall: **canal general**}}</target>
         <source>tips.externalResources.discord</source>
         <target>**Servidor de Discord de Eternaltwin**</target>
       </segment>
-      <segment id="externalResources.tutorials" state="initial">
+      <segment id="externalResources.tutorials" state="translated">
         <source>tips.externalResources.tutorials</source>
-        <target>tips.externalResources.tutorials</target>
+        <target>Tutoriales de **Mushpedia**</target>
       </segment>
-      <segment id="externalResources.wiki" state="initial">
+      <segment id="externalResources.wiki" state="translated">
         <source>tips.externalResources.wiki</source>
-        <target>tips.externalResources.wiki</target>
+        <target>Wiki de **Mushpedia**</target>
       </segment>
-      <segment id="externalResources.tutorialsLink" state="initial">
+      <segment id="externalResources.tutorialsLink" state="translated">
         <source>tips.externalResources.tutorialsLink</source>
-        <target>tips.externalResources.tutorialsLink</target>
+        <target>https://www.mushpedia.com/wiki/Game_Basics</target>
       </segment>
-      <segment id="externalResources.wikiLink" state="initial">
+      <segment id="externalResources.wikiLink" state="translated">
         <source>tips.externalResources.wikiLink</source>
-        <target>tips.externalResources.wikiLink</target>
+        <target>https://www.mushpedia.com/</target>
       </segment>
       <segment id="missions.title" state="translated">
         <source>tips.missions.title</source>
@@ -130,9 +136,9 @@ other {Tus compañeros usando el :wall: **canal general**}}</target>
         <source>favorites.name</source>
         <target>Favoritos</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>favorites.description</source>
-        <target>favorites.description</target>
+        <target>Tus hilos marcados como favoritos.</target>
       </segment>
     </unit>
     <unit id="message_date">

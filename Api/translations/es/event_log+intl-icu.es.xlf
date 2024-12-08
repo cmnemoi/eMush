@@ -74,9 +74,9 @@
       </segment>
     </unit>
     <unit id="gain_triumph">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_triumph</source>
-        <target>gain_triumph</target>
+        <target>Esta acción completa los objetivos personales de tu personaje. Has ganado *{quantity} de Gloria*</target>
       </segment>
     </unit>
     <unit id="death">

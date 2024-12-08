@@ -86,39 +86,43 @@
       </segment>
     </unit>
     <unit id="object_fell">
-      <segment state="initial">
+      <segment state="translated">
         <source>object_fell</source>
-        <target>object_fell</target>
+        <target>{target_equipment_gender, select,
+                        male {**{character}** dejó caer un **{target_equipment}**.}
+                        female {**{character}** dejó caer una **{target_equipment}**.}
+                        other {invalid gender input}
+}</target>
       </segment>
     </unit>
     <unit id="oxy_low_use_capsule">
-      <segment state="initial">
+      <segment state="translated">
         <source>oxy_low_use_capsule</source>
-        <target>oxy_low_use_capsule</target>
+        <target>Ya no respiras... te asfixias... pero por suerte esta *Cápsula de oxígeno* te ha salvado la vida...</target>
       </segment>
     </unit>
     <unit id="soiled">
-      <segment state="initial">
+      <segment state="translated">
         <source>soiled</source>
-        <target>soiled</target>
+        <target>Es repugnante... te has ensuciado.</target>
       </segment>
     </unit>
     <unit id="soil_prevented">
-      <segment state="initial">
+      <segment state="translated">
         <source>soil_prevented</source>
-        <target>soil_prevented</target>
+        <target>Es repugnante... pero por suerte tienes tu **Mandil antimanchas**.</target>
       </segment>
     </unit>
     <unit id="clumsiness">
-      <segment state="initial">
+      <segment state="translated">
         <source>clumsiness</source>
-        <target>clumsiness</target>
+        <target>¡Paf! Te tropezaste y te has hecho daño al realizar esta acción...</target>
       </segment>
     </unit>
     <unit id="clumsiness_prevented">
-      <segment state="initial">
+      <segment state="translated">
         <source>clumsiness_prevented</source>
-        <target>clumsiness_prevented</target>
+        <target>Eso no estaba previsto, pero gracias a tus **Guantes de protección**, has evitado una catástrofe.</target>
       </segment>
     </unit>
     <unit id="metal_plate">
@@ -140,9 +144,9 @@
       </segment>
     </unit>
     <unit id="electric_arc">
-      <segment state="initial">
+      <segment state="translated">
         <source>electric_arc</source>
-        <target>electric_arc</target>
+        <target>¡Una enorme descarga eléctrica salió de los equipos y atravesó a la tripulación!</target>
       </segment>
     </unit>
     <unit id="equipment_broken">
@@ -152,9 +156,14 @@
       </segment>
     </unit>
     <unit id="equipment_destroyed">
-      <segment state="initial">
+      <segment state="translated">
         <source>equipment_destroyed</source>
-        <target>equipment_destroyed</target>
+        <target>:broken_equipments: 
+{equipment_gender,select, 
+                    male {¡Un **{equipment}** ha sido destruido!}
+                    female {¡Una **{equipment}** ha sido destruida!}
+                    other {invalid gender input}
+}</target>
       </segment>
     </unit>
     <unit id="panic_crisis">
@@ -290,9 +299,9 @@
       </segment>
     </unit>
     <unit id="run_in_circles">
-      <segment state="initial">
+      <segment state="translated">
         <source>run_in_circles</source>
-        <target>run_in_circles</target>
+        <target>:pill: **{target_character}** empieza a correr en círculos y nada parece detenerle... salvo el cansancio...</target>
       </segment>
     </unit>
     <unit id="vomiting">

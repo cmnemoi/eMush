@@ -132,15 +132,15 @@
       </segment>
     </unit>
     <unit id="tremor_gravity">
-      <segment state="initial">
+      <segment state="translated">
         <source>tremor_gravity</source>
-        <target>tremor_gravity</target>
+        <target>La sala empieza a sacudirse. Los tripulantes presentes caen al suelo y el techo se quiebra en algunos lugares. Que pedazo de chatarra...</target>
       </segment>
     </unit>
     <unit id="tremor_no_gravity">
-      <segment state="initial">
+      <segment state="translated">
         <source>tremor_no_gravity</source>
-        <target>tremor_no_gravity</target>
+        <target>La sala empieza sacudirse. Los objetos vuelan a través de la sala y chocan contra los tripulantes presentes.</target>
       </segment>
     </unit>
     <unit id="electric_arc">
@@ -167,9 +167,9 @@
       </segment>
     </unit>
     <unit id="panic_crisis">
-      <segment state="initial">
+      <segment state="translated">
         <source>panic_crisis</source>
-        <target>panic_crisis</target>
+        <target>Sientes escalofríos, pierdes toda esperanza y te preguntas cuando va a acabar este infierno... Eres víctima de una Crisis de pánico.</target>
       </segment>
     </unit>
     <unit id="plant_new_fruit">
@@ -179,27 +179,36 @@
       </segment>
     </unit>
     <unit id="plant_maturity">
-      <segment state="initial">
+      <segment state="translated">
         <source>plant_maturity</source>
-        <target>plant_maturity</target>
+        <target>{equipment_gender, select,
+                    male {Un **{equipment}** ha madurado. ¡Por fin!}
+                    female {Una **{equipment}** ha madurado. ¡Por fin!}
+                    other {Un **{equipment}** ha madurado. ¡Por fin!}
+}</target>
       </segment>
     </unit>
     <unit id="plant_death">
-      <segment state="initial">
+      <segment state="translated">
         <source>plant_death</source>
-        <target>plant_death</target>
+        <target>{target_equipment_gender, select,
+                        male {Un **{target_equipment}** ha muerto... ¡snif!}
+                        female {Una **{target_equipment}** ha muerto... ¡snif!}
+                        other {invalid gender input}
+                    }}
+                }</target>
       </segment>
     </unit>
     <unit id="garden_destroyed">
-      <segment state="initial">
+      <segment state="translated">
         <source>garden_destroyed</source>
-        <target>garden_destroyed</target>
+        <target>El jardín se quemó durante el ataque, de las 12 plantas, solo quedan 2 y una maceta...</target>
       </segment>
     </unit>
     <unit id="hunger">
-      <segment state="initial">
+      <segment state="translated">
         <source>hunger</source>
-        <target>hunger</target>
+        <target>Tienes hambre. Si no comes, tu salud va a deteriorarse con cada ciclo.</target>
       </segment>
     </unit>
     <unit id="force_get_up">

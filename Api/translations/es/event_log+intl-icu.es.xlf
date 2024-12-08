@@ -8,9 +8,9 @@
       </segment>
     </unit>
     <unit id="open_success">
-      <segment id="open_success" state="initial">
+      <segment id="open_success" state="translated">
         <source>open_success</source>
-        <target>open_success</target>
+        <target> **{character}** ha encontrado una **{target_equipments}** en una cápsula espacial.</target>
       </segment>
     </unit>
     <unit id="transplant_success">
@@ -80,9 +80,9 @@
       </segment>
     </unit>
     <unit id="death">
-      <segment state="initial">
+      <segment state="translated">
         <source>death</source>
-        <target>death</target>
+        <target>:dead: **{target_character}** ha muerto. Causa: {end_cause}.</target>
       </segment>
     </unit>
     <unit id="object_fell">

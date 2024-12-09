@@ -323,15 +323,15 @@
       </segment>
     </unit>
     <unit id="vomiting">
-      <segment id="vomiting" state="initial">
+      <segment id="vomiting" state="translated">
         <source>vomiting</source>
-        <target>vomiting</target>
+        <target>:ill: **{character}** vomita su comida. Puajjj...</target>
       </segment>
     </unit>
     <unit id="sneezing">
-      <segment id="sneezing" state="initial">
+      <segment id="sneezing" state="translated">
         <source>sneezing</source>
-        <target>sneezing</target>
+        <target>¡Atchúúúú!</target>
       </segment>
     </unit>
     <unit id="biting">
@@ -341,9 +341,9 @@
       </segment>
     </unit>
     <unit id="breakouts">
-      <segment id="breakouts" state="initial">
+      <segment id="breakouts" state="translated">
         <source>breakouts</source>
-        <target>breakouts</target>
+        <target>:ill: **{character}** se rasca sus costras inmundas, es realmente atroz...</target>
       </segment>
     </unit>
     <unit id="foaming_mouth">
@@ -365,9 +365,9 @@
       </segment>
     </unit>
     <unit id="fear_of_cats">
-      <segment id="fear_of_cats" state="initial">
+      <segment id="fear_of_cats" state="translated">
         <source>fear_of_cats</source>
-        <target>fear_of_cats</target>
+        <target>AAAaaaaaaaRRRrgghhhhhhh....</target>
       </segment>
     </unit>
     <unit id="fear_of_cats_notif">

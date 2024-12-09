@@ -196,7 +196,7 @@
     <unit id="infect">
       <segment id="infect" state="translated">
         <source>infect.name</source>
-        <target>Picar</target>
+        <target>Infectar</target>
       </segment>
       <segment id="description" state="translated">
         <source>infect.description</source>
@@ -756,7 +756,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
 //
 Ya sea por una mutación genética incomprensible o por pura locura homicida, una cosa es segura: este jugador es muy peligroso como para dejarlo libre.
 //
-**Advertencia**, esta acción matará este jugador**inmediatamente**! </target>
+**Advertencia**, esta acción matará a este jugador **inmediatamente**! </target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>kill_player.confirmation</source>
@@ -844,7 +844,7 @@ Ya sea por una mutación genética incomprensible o por pura locura homicida, un
       </segment>
       <segment id="description" state="translated">
         <source>takeoff.description</source>
-        <target>Sube a un patrullero y aparece en cuadrante correspondiente.</target>
+        <target>Sube a un patrullero y aparece en el cuadrante correspondiente.</target>
       </segment>
     </unit>
     <unit id="access_terminal">

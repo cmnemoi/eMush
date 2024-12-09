@@ -104,7 +104,7 @@
     <unit id="soiled">
       <segment state="translated">
         <source>soiled</source>
-        <target>Es repugnante... te has ensuciado.</target>
+        <target>Mírate, te has ensuciado por completo.</target>
       </segment>
     </unit>
     <unit id="soil_prevented">
@@ -150,9 +150,14 @@
       </segment>
     </unit>
     <unit id="equipment_broken">
-      <segment state="initial">
+      <segment state="translated">
         <source>equipment_broken</source>
-        <target>equipment_broken</target>
+        <target>:broken_equipments:
+{equipment_gender, select,
+                    male {¡Un **{equipment}** se ha roto!}
+                    female {¡Una **{equipment} se ha roto!}
+                     other {invalid gender input}
+}</target>
       </segment>
     </unit>
     <unit id="equipment_destroyed">
@@ -173,9 +178,9 @@
       </segment>
     </unit>
     <unit id="plant_new_fruit">
-      <segment state="initial">
+      <segment state="translated">
         <source>plant_new_fruit</source>
-        <target>plant_new_fruit</target>
+        <target>¡Oh! Una de las plantas ha dado un: **{target_equipment}**</target>
       </segment>
     </unit>
     <unit id="plant_maturity">
@@ -212,39 +217,43 @@
       </segment>
     </unit>
     <unit id="force_get_up">
-      <segment state="initial">
+      <segment state="translated">
         <source>force_get_up</source>
-        <target>force_get_up</target>
+        <target>{character_gender, select,
+                    male {**{character}** es arrastrado violentamente de su cama.}
+                    female {**{character}** es arrastrada violentamente de su cama.}
+                    other {invalid gender input}
+}</target>
       </segment>
     </unit>
     <unit id="antisocial_morale_loss">
-      <segment state="initial">
+      <segment state="translated">
         <source>antisocial_morale_loss</source>
-        <target>antisocial_morale_loss</target>
+        <target>A veces los humanos son insoportables. Su ir y venir sin sentido te hace perder la esperanza en la humanidad.</target>
       </segment>
     </unit>
     <unit id="become_pregnant">
-      <segment state="initial">
+      <segment state="translated">
         <source>become_pregnant</source>
-        <target>become_pregnant</target>
+        <target>¡Has ganado *8 Gloria* porque estás esperando un acontecimiento feliz!</target>
       </segment>
     </unit>
     <unit id="disease_appear">
-      <segment state="initial">
+      <segment state="translated">
         <source>disease_appear</source>
-        <target>disease_appear</target>
+        <target>:ill: No te sientes muy bien... Calor... Frío... Calor... Frío... Deberías ir a ver a un doctor. Parece que has contraído una enfermedad física: {disease}.</target>
       </segment>
     </unit>
     <unit id="disease_cured">
-      <segment state="initial">
+      <segment state="translated">
         <source>disease_cured</source>
-        <target>disease_cured</target>
+        <target>Ahora te sientes mejor, tú {disease} por fin se curó.</target>
       </segment>
     </unit>
     <unit id="disorder_appear">
-      <segment state="initial">
+      <segment state="translated">
         <source>disorder_appear</source>
-        <target>disorder_appear</target>
+        <target>:psy_disease: No te sientes bien... La cabeza te da vueltas, sientes confusión, estrés y angustia. Deberías ir a ver a un *Psicólogo*. Al parecer tienes una enfermedad mental: {disease}.</target>
       </segment>
     </unit>
     <unit id="disease_curred_player">

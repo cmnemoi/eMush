@@ -371,21 +371,27 @@
       </segment>
     </unit>
     <unit id="fear_of_cats_notif">
-      <segment id="fear_of_cats_notif" state="initial">
+      <segment id="fear_of_cats_notif" state="translated">
         <source>fear_of_cats_notif</source>
-        <target>fear_of_cats_notif</target>
+        <target>:cat: El gato estaba en el cuarto, no pudiste evitar salir corriendo...</target>
       </segment>
     </unit>
     <unit id="fitful_sleep">
-      <segment id="fitful_sleep" state="initial">
+      <segment id="fitful_sleep" state="translated">
         <source>fitful_sleep</source>
-        <target>fitful_sleep</target>
+        <target>Tu sueño se agita, es imposible descansar así...</target>
       </segment>
     </unit>
     <unit id="surgery_success">
-      <segment id="surgery_success" state="initial">
+      <segment id="surgery_success" state="translated">
         <source>surgery_success</source>
-        <target>surgery_success</target>
+        <target>
+Parecía interminable, **{character}** finalmente da su veredicto con una sonrisa...
+                                            {version, select,
+                                            1 {la operación fue un éxito. **{target_character}** está bien y pronto estará de pie.}
+                                            2 {**{target_character}** se recupera satisfactoriamente.}
+                                            other {invalid version input}
+                                             } La herida ({disease}) de **{target_character}** ha sido curada.</target>
       </segment>
     </unit>
     <unit id="surgery_critical_success">
@@ -395,9 +401,14 @@
       </segment>
     </unit>
     <unit id="self_surgery_success">
-      <segment id="self_surgery_success" state="initial">
+      <segment id="self_surgery_success" state="translated">
         <source>self_surgery_success</source>
-        <target>self_surgery_success</target>
+        <target>Parecía interminable... 
+{version, select,
+                    1 **{character}** se recupera satisfactoriamente.}
+                     2 {la operación fue un éxito. **{character}** está bien y pronto estará de pie.}
+                     other {invalid gender input}
+                     } La herida ({disease}) de **{character}** ha sido curada.</target>
       </segment>
     </unit>
     <unit id="self_surgery_critical_success">

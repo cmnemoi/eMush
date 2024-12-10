@@ -587,45 +587,45 @@
       </segment>
     </unit>
     <unit id="gain_shoot_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_shoot_point</source>
-        <target>gain_shoot_point</target>
+        <target>Has ganado {quantity} :pa_shoot:.</target>
       </segment>
     </unit>
     <unit id="gain_conceptor_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_conceptor_point</source>
-        <target>gain_conceptor_point</target>
+        <target>Has ganado {quantity} :pa_core:.</target>
       </segment>
     </unit>
     <unit id="gain_nurse_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_nurse_point</source>
-        <target>gain_nurse_point</target>
+        <target>Has ganado {quantity} :pa_heal:.</target>
       </segment>
     </unit>
     <unit id="gain_it_expert_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_it_expert_point</source>
-        <target>gain_it_expert_point</target>
+        <target>Has ganado {quantity} :pa_comp:.</target>
       </segment>
     </unit>
     <unit id="gain_pilgred_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_pilgred_point</source>
-        <target>gain_pilgred_point</target>
+        <target>Has ganado {quantity} :pa_pilgred:.</target>
       </segment>
     </unit>
     <unit id="gain_technician_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_technician_point</source>
-        <target>gain_technician_point</target>
+        <target>Has ganado {quantity} :pa_eng:.</target>
       </segment>
     </unit>
     <unit id="gain_botanist_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_botanist_point</source>
-        <target>gain_botanist_point</target>
+        <target>Has ganado {quantity} :pa_garden:.</target>
       </segment>
     </unit>
     <unit id="found_item_in_exploration">

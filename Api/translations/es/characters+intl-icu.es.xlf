@@ -498,13 +498,23 @@
         <source>ian.employment</source>
         <target>Botánico</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>ian.abstract</source>
-        <target>ian.abstract</target>
+        <target>Ian Soulton participó activamente en la investigación del Mush. Autoridad en la materia, pero también en botánica, participó en los censos de numerosas especies de plantas extraterrestres y desarrolló varios centenares de híbridos de plantas terrestres. Su curiosidad por las especies frutales es particularmente evidente.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>ian.biography</source>
-        <target>ian.biography</target>
+        <target>- 3106: Nace en la Tierra.
+- 3130: Ian es enviado a la colonia de Antemis en Tau-Ceti para realizar investigaciones sobre nuevas especies en el sistema. Lo envían en uno de los cinco trenes de colonos interestelares que transportan a miles de mineros a la tierra prometida para la explotación de Boxylium.
+- 3145: La revuelta estalla en Antemis, Ian, sensible a la causa de los mineros, teme sin embargo a expresarse públicamente por temor a que la federación recorte los presupuestos de su laboratorio. Tras la victoria de la rebelión, se suspendió la financiación de la federación y la milicia rechazó su petición de repatriación al territorio.
+- 3146: Tras el baño de sangre de la Batalla de Sol, el laboratorio es requisado para el tratamiento de los heridos. Mientras intenta echar una mano al equipo médico, Ian conoce a una encantadora ***enfermera llamada Finola Keegan***. Está impresionado por su compromiso con los pacientes. Ella le dice que hizo un descubrimiento sorprendente sobre algunos de ellos. Unos días después de esta declaración, Finola abandona rápidamente el sistema para unirse a la federación. Antes de partir, ella le dio una extraña muestra de médula espinal.
+- 3147: Al realizar pruebas con la muestra, Ian identifica una cepa de micelio complejo que logra implantar en una rata. El micelio avanza a lo largo de la médula espinal del animal sin que parezca impactado. Una vez colocada entre otras ratas, la infectada reproduce un extraño comportamiento durante el cual traga una espora de 1 mm de diámetro y luego la transporta a un grupo de ratas sanas. Al entrar en contacto con sus esporas, los sujetos sanos desarrollan tres etapas de infecciones al final de las cuales son a su vez afectados por el micelio. Ian envía los resultados de su investigación a Finola, quien recopila un informe de su trabajo para la prensa científica.
+- 3149: Tras la declaración del gobierno de la invasión Mush de Tau-Ceti y Ross154, Ian es preso de un pánico incontrolado. Somete a parte de su equipo a una muestra de médula ósea, pero no está seguro de la fiabilidad de su prueba. Termina cerrando su laboratorio y continuando solo con su investigación.
+- 3150: De vuelta en Antemis, Finola se une a él para trabajar en el proyecto de un escáner que detecta la presencia de micelio dentro de las células nerviosas de un cuerpo.
+- 3151: Los primeros prototipos de mycoscan detectan la presencia de esporas en una rata, pero son ineficaces en el caso de una rata completamente infectada.
+- 3152: El 13 de diciembre, Finola e Ian reciben una señal de Júpiter. Les advirtió del avanzado estado de la invasión Mush en los campos rebeldes, pero también dentro de la federación. El equipo de Júpiter afirma haber construido un arca capaz de rescatar a un pequeño grupo de humanos para continuar la investigación contra los Mush en una galaxia lejana. Ian está aterrorizado ante la idea de que una pandemia diezme a la raza humana. Se une al equipo de Daedalus, pero Finola quiere quedarse para salvar a los mineros.
+- 3153: Ian moderniza el proyecto del jardín hidropónico del Daedalus. Gracias a la agrupación de 12 especies de plantas, consigue asegurar la renovación constante del oxígeno y el alimento de la embarcación.
+- 3170: Cuando Ian se despierta, la alarma de incendio indica daños en la sala del jardín. Cuando llega ya es demasiado tarde: sólo han sobrevivido tres plantas, lo que condena a la tripulación a una muerte segura.</target>
       </segment>
       <segment id="tips" state="initial">
         <source>ian.tips</source>

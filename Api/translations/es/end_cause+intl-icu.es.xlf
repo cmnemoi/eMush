@@ -592,7 +592,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>patrol_ship_explosion.description</source>
-        <target>Tu monoplaza se pulverizó con el Daedalus. Mala suerte.</target>
+        <target>Tu patrullero se pulverizó con el Daedalus. Mala suerte.</target>
       </segment>
     </unit>
     <unit id="still_living">

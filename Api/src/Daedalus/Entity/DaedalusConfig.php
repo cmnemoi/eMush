@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Mush\Game\Enum\HolidayEnum;
 use Mush\Place\Entity\PlaceConfig;
 
 #[ORM\Entity]
@@ -83,6 +84,9 @@ class DaedalusConfig
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $mushSkillSlots = 0;
+
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => 'none'])]
+    private string $holiday = 'none';
 
     public function getId(): int
     {
@@ -369,6 +373,48 @@ class DaedalusConfig
     public function setMushSkillSlots(int $mushSkillSlots): static
     {
         $this->mushSkillSlots = $mushSkillSlots;
+
+        return $this;
+    }
+
+    public function getHoliday(): string
+    {
+        return $this->holiday;
+    }
+
+    public function setHoliday(string $holiday): static
+    {
+        switch ($holiday) {
+            case HolidayEnum::CURRENT:
+                $currentdate = getdate();
+                if ($currentdate['mday'] >= 10 && $currentdate['mday'] <= 24 && $currentdate['mon'] === 1) {
+                    $this->holiday = HolidayEnum::ANNIVERSARY;
+                } elseif (($currentdate['mday'] >= 24 && $currentdate['mon'] === 10) || ($currentdate['mday'] <= 7 && $currentdate['mon'] === 11)) {
+                    $this->holiday = HolidayEnum::HALLOWEEN;
+                } else {
+                    $this->holiday = HolidayEnum::NONE;
+                }
+
+                break;
+
+            case HolidayEnum::ANNIVERSARY:
+                $this->holiday = HolidayEnum::ANNIVERSARY;
+
+                break;
+
+            case HolidayEnum::HALLOWEEN:
+                $this->holiday = HolidayEnum::HALLOWEEN;
+
+                break;
+
+            case HolidayEnum::NONE:
+                $this->holiday = HolidayEnum::NONE;
+
+                break;
+
+            default:
+                throw new \LogicException("{$holiday} is not a valid holiday check method");
+        }
 
         return $this;
     }

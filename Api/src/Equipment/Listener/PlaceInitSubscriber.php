@@ -2,11 +2,15 @@
 
 namespace Mush\Equipment\Listener;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\HolidayEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Event\PlaceInitEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -75,6 +79,22 @@ class PlaceInitSubscriber implements EventSubscriberInterface
 
             $door->addRoom($place);
             $this->gameEquipmentService->persist($door);
+        }
+
+        $this->handleHalloweenPumpkin($daedalus, $place, $reasons, $time);
+    }
+
+    public function handleHalloweenPumpkin(Daedalus $daedalus, Place $place, array $reasons, \DateTime $time): void
+    {
+        if ($daedalus->getDaedalusConfig()->getHoliday() === HolidayEnum::HALLOWEEN && $place === $daedalus->getPlaceByName(RoomEnum::HYDROPONIC_GARDEN)) {
+            $item = $this->equipmentService->findByNameAndDaedalus(GameFruitEnum::JUMPKIN, $daedalus);
+
+            $this->gameEquipmentService->createGameEquipment(
+                $item,
+                $place,
+                $reasons,
+                $time
+            );
         }
     }
 }

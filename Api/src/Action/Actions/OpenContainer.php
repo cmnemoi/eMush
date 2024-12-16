@@ -80,7 +80,7 @@ class OpenContainer extends AbstractAction
         $time = new \DateTime();
 
         /** @var string $contentName */
-        $contentName = $this->randomService->getSingleRandomElementFromProbaCollection($containerType->getContentWeights());
+        $contentName = $this->randomService->getSingleRandomElementFromProbaCollection($containerType->getContentWeights($this->player));
 
         for ($i = 0; $i < $containerType->getQuantityOfItemOrThrow($contentName); ++$i) {
             $this->gameEquipmentService->createGameEquipmentFromName(

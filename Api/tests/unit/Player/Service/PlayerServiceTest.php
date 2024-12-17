@@ -9,12 +9,10 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -23,7 +21,6 @@ use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Factory\PlayerFactory;
-use Mush\Player\Repository\DeadPlayerInfoRepository;
 use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
@@ -49,17 +46,10 @@ final class PlayerServiceTest extends TestCase
     /** @var Mockery\Mock|RoomLogServiceInterface */
     private RoomLogServiceInterface $roomLogService;
 
-    /** @var Mockery\Mock|RandomServiceInterface */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-
-    /** @var Mockery\Mock|RandomServiceInterface */
-    private RandomServiceInterface $randomService;
-
     /** @var Mockery\Mock|PlayerInfoRepositoryInterface */
     private PlayerInfoRepositoryInterface $playerInfoRepository;
     private CharacterConfigCollection $charactersConfigs;
     private PlayerService $service;
-    private DeadPlayerInfoRepository $deadPlayerInfoRepository;
 
     /**
      * @before
@@ -69,10 +59,7 @@ final class PlayerServiceTest extends TestCase
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->repository = \Mockery::mock(PlayerRepository::class);
-        $this->deadPlayerInfoRepository = \Mockery::mock(DeadPlayerInfoRepository::class);
         $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
-        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->playerInfoRepository = \Mockery::mock(PlayerInfoRepositoryInterface::class);
 
         $this->charactersConfigs = new CharacterConfigCollection();
@@ -82,8 +69,6 @@ final class PlayerServiceTest extends TestCase
             $this->eventService,
             $this->repository,
             $this->roomLogService,
-            $this->gameEquipmentService,
-            $this->randomService,
             $this->playerInfoRepository,
         );
     }
@@ -125,15 +110,11 @@ final class PlayerServiceTest extends TestCase
         $gameConfig
             ->setCharactersConfig($this->charactersConfigs);
 
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->times(2);
-        $this->entityManager
-            ->shouldReceive('flush')
-            ->times(2);
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->once();
+        $this->entityManager->shouldReceive('persist')->times(2);
+        $this->entityManager->shouldReceive('flush')->times(3);
+        $this->entityManager->shouldReceive('beginTransaction')->once();
+        $this->entityManager->shouldReceive('commit')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $player = $this->service->createPlayer($daedalus, $user, 'character');
 

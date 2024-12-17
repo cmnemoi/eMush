@@ -984,7 +984,7 @@
       </segment>
       <segment id="mycoalarm.description" state="translated">
         <source>mycoalarm.description</source>
-        <target>Génère 5 **Myco-Alarmes**.</target>
+        <target>Génère 3 **Myco-Alarmes**.</target>
       </segment>
       <segment id="mycoalarm.lore" state="translated">
         <source>mycoalarm.lore</source>

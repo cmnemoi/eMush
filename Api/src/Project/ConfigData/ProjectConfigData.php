@@ -708,7 +708,7 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
-                    SpawnEquipmentConfigData::FIVE_MYCOALARMS_IN_LABORATORY,
+                    SpawnEquipmentConfigData::THREE_MYCOALARMS_IN_LABORATORY,
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [

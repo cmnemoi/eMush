@@ -984,7 +984,7 @@
       </segment>
       <segment id="mycoalarm.description" state="translated">
         <source>mycoalarm.description</source>
-        <target>Makes 5 **MycoAlarms**.</target>
+        <target>Makes 3 **MycoAlarms**.</target>
       </segment>
       <segment id="mycoalarm.lore" state="translated">
         <source>mycoalarm.lore</source>

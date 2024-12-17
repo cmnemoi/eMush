@@ -15,7 +15,7 @@
                             </p>
                         </div>
                         <p class="score">
-                            {{ player.triumph?.quantity }}<img :src="getImgUrl('triumph.png')" alt="triumph">
+                            {{ player.triumph?.quantity }}<img :src="getImgUrl('ui_icons/player_variables/triumph.png')" alt="triumph">
                         </p>
                     </div>
                     <div class="epitaph-form">
@@ -32,7 +32,7 @@
                     <div>
                         <p class="death-cause">
                             <img :src="getImgUrl('ready.png')" alt="alive" v-if="deadPlayerInfo.hasGoodEndCause()">
-                            <img :src="getImgUrl('dead.png')" alt="dead" v-else>
+                            <img :src="getImgUrl('ui_icons/dead.png')" alt="dead" v-else>
                             {{ deadPlayerInfo.endCauseValue }}
                         </p>
                     </div>

@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -51,6 +52,10 @@ final class Daunt extends AbstractAction
                 'contain' => false,
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::DAILY_LIMIT,
+            ]),
+            new PreMush([
+                'groups' => ['execute'],
+                'message' => ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED,
             ]),
         ]);
     }

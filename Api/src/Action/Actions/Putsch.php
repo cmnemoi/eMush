@@ -12,6 +12,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasSkill;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Entity\TitlePriority;
 use Mush\Daedalus\Repository\TitlePriorityRepositoryInterface;
@@ -57,6 +58,10 @@ final class Putsch extends AbstractAction
                 'contain' => false,
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::UNIQUE_ACTION,
+            ]),
+            new PreMush([
+                'groups' => ['execute'],
+                'message' => ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED,
             ]),
         ]);
     }

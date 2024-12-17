@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\GameVariableLevel;
+use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -48,6 +49,10 @@ final class Premonition extends AbstractAction
                 'value' => 1,
                 'groups' => ['execute'],
                 'message' => ActionImpossibleCauseEnum::PREMONITION_INSUFFICIENT_MORALE,
+            ]),
+            new PreMush([
+                'groups' => ['execute'],
+                'message' => ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED,
             ]),
         ]);
     }

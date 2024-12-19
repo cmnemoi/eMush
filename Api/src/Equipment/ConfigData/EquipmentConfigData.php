@@ -3677,7 +3677,7 @@ class EquipmentConfigData
         [
             'name' => 'mush_genome_disk_default',
             'equipmentName' => 'mush_genome_disk',
-            'isBreakable' => true,
+            'isBreakable' => false,
             'isFireDestroyable' => false,
             'isFireBreakable' => false,
             'dismountedProducts' => ['plastic_scraps' => 1],

@@ -3679,7 +3679,7 @@ class EquipmentConfigData
             'equipmentName' => 'mush_genome_disk',
             'isBreakable' => true,
             'isFireDestroyable' => false,
-            'isFireBreakable' => true,
+            'isFireBreakable' => false,
             'dismountedProducts' => ['plastic_scraps' => 1],
             'isPersonal' => false,
             'type' => 'item_config',

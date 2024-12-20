@@ -8,6 +8,7 @@ use Mush\Action\Actions\Drop;
 use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -52,98 +53,127 @@ final class PlayerNormalizerCest extends AbstractFunctionalTest
 
     public function testPlayerItemsNormalization(FunctionalTester $I): void
     {
-        // given I have a player with a post-it
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::POST_IT,
-            equipmentHolder: $this->player,
-            reasons: [],
-            time: new \DateTime()
-        );
+        $this->givenPlayerHasPostIt();
+        $this->givenPlayerHasBacta();
 
-        // given I have a drug in player's place
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GameDrugEnum::BACTA,
-            equipmentHolder: $this->player,
-            reasons: [],
-            time: new \DateTime()
-        );
+        $normalizedPlayer = $this->whenPlayerIsNormalized();
 
-        // when I normalize the player
-        $normalizedPlayer = $this->currentPlayerNormalizer->normalize($this->player, null, ['currentPlayer' => $this->player]);
-
-        // then the player should be normalized with the items in this order : post-it first, drug second
-        $playerNormalizedItems = $normalizedPlayer['items'];
-        $I->assertEquals(ItemEnum::POST_IT, $playerNormalizedItems[0]['key']);
-        $I->assertEquals(GameDrugEnum::BACTA, $playerNormalizedItems[1]['key']);
+        $this->thenItemsShouldBeInOriginalOrder($normalizedPlayer, $I);
     }
 
     public function testPlayerItemsAreNormalizedInAStackFashionAfterAManipulation(FunctionalTester $I): void
     {
-        // given I have a post-it in player's place
-        $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
+        $postIt = $this->givenPlayerHasPostIt();
+        $this->givenPlayerHasBacta();
+        $this->givenPlayerDropsItem($postIt);
+        $this->givenPlayerTakesItem($postIt);
+
+        $normalizedPlayer = $this->whenPlayerIsNormalized();
+
+        $this->thenItemsShouldBeInStackOrder($normalizedPlayer, $I);
+    }
+
+    public function shouldNotNormalizeSameActionGivenByMultipleSkills(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasSkills([SkillEnum::SOLID, SkillEnum::WRESTLER], $I);
+
+        $normalizedPlayer = $this->whenPlayerIsNormalized();
+
+        $this->thenPlayerShouldHaveOnePutThroughDoorAction($normalizedPlayer, $I);
+    }
+
+    public function shouldNormalizeOneActionBySimilarEquipmentInPlayerInventory(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasSkill(SkillEnum::SOLID, $I);
+        $this->givenPlayerHasBlasters(2);
+
+        $normalizedPlayer = $this->whenPlayerIsNormalized();
+
+        $this->thenPlayerShouldHaveTwoShootActions($normalizedPlayer, $I);
+    }
+
+    private function givenPlayerHasPostIt(): GameEquipment
+    {
+        return $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::POST_IT,
             equipmentHolder: $this->player,
             reasons: [],
             time: new \DateTime()
         );
+    }
 
-        // given I have a drug in player's place
+    private function givenPlayerHasBacta(): void
+    {
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: GameDrugEnum::BACTA,
             equipmentHolder: $this->player,
             reasons: [],
             time: new \DateTime()
         );
+    }
 
-        // given the player drops the post-it in the place
-        $this->dropAction->loadParameters($this->dropConfig, $postIt, $this->player, $postIt);
+    private function givenPlayerDropsItem(GameEquipment $item): void
+    {
+        $this->dropAction->loadParameters($this->dropConfig, $item, $this->player, $item);
         $this->dropAction->execute();
+    }
 
-        // given the player takes it back in their inventory
-        $this->takeAction->loadParameters($this->takeConfig, $postIt, $this->player, $postIt);
+    private function givenPlayerTakesItem(GameEquipment $item): void
+    {
+        $this->takeAction->loadParameters($this->takeConfig, $item, $this->player, $item);
         $this->takeAction->execute();
-
-        // when I normalize the player
-        $normalizedPlayer = $this->currentPlayerNormalizer->normalize($this->player, null, ['currentPlayer' => $this->player]);
-
-        // then the items should be normalized in a stack fashion : drug first, post-it second
-        $playerNormalizedItems = $normalizedPlayer['items'];
-        $I->assertEquals(GameDrugEnum::BACTA, $playerNormalizedItems[0]['key']);
-        $I->assertEquals(ItemEnum::POST_IT, $playerNormalizedItems[1]['key']);
     }
 
-    public function shouldNotNormalizeSameActionGivenByMultipleSkills(FunctionalTester $I): void
+    private function givenPlayerHasSkills(array $skills, FunctionalTester $I): void
     {
-        // given player is Solid and Wrestler, two skills which give Put Through Door actions
-        $this->addSkillToPlayer(SkillEnum::SOLID, $I);
-        $this->addSkillToPlayer(SkillEnum::WRESTLER, $I);
-
-        // when I normalize the player
-        $normalizedPlayer = $this->currentPlayerNormalizer->normalize($this->player, null, ['currentPlayer' => $this->player]);
-
-        // then the player should have only one Put Through Door action available
-        $actions = $normalizedPlayer['room']['players'][0]['actions'];
-        $I->assertCount(1, array_filter($actions, static fn (array $action) => $action['key'] === ActionEnum::PUT_THROUGH_DOOR->value));
+        foreach ($skills as $skill) {
+            $this->addSkillToPlayer($skill, $I);
+        }
     }
 
-    public function shouldNormalizeOneActionBySimilarEquipmentInPlayerInventory(FunctionalTester $I): void
+    private function givenPlayerHasSkill(SkillEnum $skill, FunctionalTester $I): void
     {
-        // given player has a skill
-        $this->addSkillToPlayer(SkillEnum::SOLID, $I);
+        $this->addSkillToPlayer($skill, $I);
+    }
 
-        // given player has two blasters in inventory
+    private function givenPlayerHasBlasters(int $quantity): void
+    {
         $this->gameEquipmentService->createGameEquipmentsFromName(
             equipmentName: ItemEnum::BLASTER,
             equipmentHolder: $this->player,
             reasons: [],
             time: new \DateTime(),
-            quantity: 2
+            quantity: $quantity
         );
+    }
 
-        // when I normalize the player
-        $normalizedPlayer = $this->currentPlayerNormalizer->normalize($this->player, null, ['currentPlayer' => $this->player]);
+    private function whenPlayerIsNormalized(): array
+    {
+        return $this->currentPlayerNormalizer->normalize($this->player, null, ['currentPlayer' => $this->player]);
+    }
 
-        // then the player should have two shoot actions available
+    private function thenItemsShouldBeInOriginalOrder(array $normalizedPlayer, FunctionalTester $I): void
+    {
+        $playerNormalizedItems = $normalizedPlayer['items'];
+        $I->assertEquals(ItemEnum::POST_IT, $playerNormalizedItems[0]['key']);
+        $I->assertEquals(GameDrugEnum::BACTA, $playerNormalizedItems[1]['key']);
+    }
+
+    private function thenItemsShouldBeInStackOrder(array $normalizedPlayer, FunctionalTester $I): void
+    {
+        $playerNormalizedItems = $normalizedPlayer['items'];
+        $I->assertEquals(GameDrugEnum::BACTA, $playerNormalizedItems[0]['key']);
+        $I->assertEquals(ItemEnum::POST_IT, $playerNormalizedItems[1]['key']);
+    }
+
+    private function thenPlayerShouldHaveOnePutThroughDoorAction(array $normalizedPlayer, FunctionalTester $I): void
+    {
+        $actions = $normalizedPlayer['room']['players'][0]['actions'];
+        $I->assertCount(1, array_filter($actions, static fn (array $action) => $action['key'] === ActionEnum::PUT_THROUGH_DOOR->value));
+    }
+
+    private function thenPlayerShouldHaveTwoShootActions(array $normalizedPlayer, FunctionalTester $I): void
+    {
         $actions = $normalizedPlayer['room']['players'][0]['actions'];
         $I->assertCount(2, array_filter($actions, static fn (array $action) => $action['key'] === ActionEnum::SHOOT->toString()));
     }

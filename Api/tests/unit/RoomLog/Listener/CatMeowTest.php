@@ -98,6 +98,20 @@ final class CatMeowTest extends TestCase
         $this->thenCatShouldNotMeow();
     }
 
+    public function testCatShouldMeowOnRevealedActionLog(): void
+    {
+        $this->givenSchrodingerInPlayerInventory();
+        $this->whenActionEventOccursWithVisibility(VisibilityEnum::REVEALED);
+        $this->thenCatShouldMeow();
+    }
+
+    public function testCatShouldNotMeowOnCovertActionLog(): void
+    {
+        $this->givenSchrodingerInPlayerInventory();
+        $this->whenActionEventOccursWithVisibility(VisibilityEnum::COVERT);
+        $this->thenCatShouldNotMeow();
+    }
+
     private function givenSchrodingerInPlayerInventory(): void
     {
         GameEquipmentFactory::createItemByNameForHolder(ItemEnum::SCHRODINGER, $this->player);

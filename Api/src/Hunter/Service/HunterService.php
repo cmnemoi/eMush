@@ -51,7 +51,7 @@ final class HunterService implements HunterServiceInterface
         private HunterRepositoryInterface $hunterRepository,
         private HunterTargetRepositoryInterface $hunterTargetRepository,
         private RandomServiceInterface $randomService,
-        private StatusService $statusService,
+        private StatusService $statusService
     ) {}
 
     public function delete(array $entities): void
@@ -63,6 +63,7 @@ final class HunterService implements HunterServiceInterface
 
             $this->entityManager->remove($entity);
         }
+
         $this->entityManager->flush();
     }
 
@@ -90,6 +91,11 @@ final class HunterService implements HunterServiceInterface
     {
         /** @var Hunter $hunter */
         foreach ($attackingHunters as $hunter) {
+            // if hunter has no health, this means it's being deleted so it should not be shooting
+            if ($hunter->hasNoHealth()) {
+                continue;
+            }
+
             $numberOfActions = $hunter->getHunterConfig()->getNumberOfActionsPerCycle();
             for ($i = 0; $i < $numberOfActions; ++$i) {
                 if (!$hunter->hasSelectedATarget()) {
@@ -98,10 +104,12 @@ final class HunterService implements HunterServiceInterface
                     continue;
                 }
 
+                // Hunter may be in a truce cycle
                 if (!$hunter->canShoot()) {
                     continue;
                 }
 
+                // Raise the hit chance if the hunter is not successful
                 $successRate = $hunter->getHitChance();
                 if (!$this->randomService->isSuccessful($successRate)) {
                     $this->addBonusToHunterHitChance($hunter);
@@ -109,16 +117,19 @@ final class HunterService implements HunterServiceInterface
                     continue;
                 }
 
-                if (!$hunter->getTarget()?->isInBattle()) {
+                // If target is not in battle, hunter should not shoot
+                if (!$hunter->isTargetInBattle()) {
                     continue;
                 }
 
+                // Hunter finally shoots
                 $this->makeHunterShoot($hunter);
 
                 // hunter must select a new target after a successful shot
                 $hunter->resetTarget();
+                $this->hunterRepository->save($hunter);
 
-                // after a successful shot, reset hit chance to its default value
+                // After a successful shot, reset hit chance to its default value
                 $this->resetHunterHitChance($hunter);
 
                 // destroy asteroid if it has shot
@@ -302,9 +313,7 @@ final class HunterService implements HunterServiceInterface
             return null;
         }
 
-        $draw = $this->randomService->getRandomElements($hunterPool->toArray(), number: 1);
-        $hunter = reset($draw);
-
+        $hunter = $this->randomService->getRandomElement($hunterPool->toArray());
         $hunter->unpool();
 
         return $hunter;

@@ -123,6 +123,11 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
         return $this;
     }
 
+    public function isTargetInBattle(): bool
+    {
+        return $this->getTargetEntityOrThrow()->isInSpaceBattle();
+    }
+
     public function isInPool(): bool
     {
         return $this->inPool;
@@ -155,6 +160,13 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     public function setVariableValueByName(int $value, string $variableName): static
     {
         $this->hunterVariables->setValueByName($value, $variableName);
+
+        return $this;
+    }
+
+    public function changeVariableValueByName(int $delta, string $variableName): static
+    {
+        $this->hunterVariables->changeValueByName($delta, $variableName);
 
         return $this;
     }
@@ -327,6 +339,11 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     public function isInSpaceBattle(): bool
     {
         return $this->isInPool() === false;
+    }
+
+    public function hasNoHealth(): bool
+    {
+        return $this->getHealth() <= 0;
     }
 
     private function isSimpleHunter(): bool

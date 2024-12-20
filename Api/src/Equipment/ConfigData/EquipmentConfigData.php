@@ -3700,7 +3700,7 @@ class EquipmentConfigData
             'name' => 'mush_sample_default',
             'equipmentName' => 'mush_sample',
             'isBreakable' => false,
-            'isFireDestroyable' => true,
+            'isFireDestroyable' => false,
             'isFireBreakable' => false,
             'dismountedProducts' => [],
             'isPersonal' => false,

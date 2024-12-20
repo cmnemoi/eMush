@@ -10,8 +10,6 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\Enum\CharacterEnum;
@@ -21,7 +19,6 @@ use Mush\Game\Service\Random\FakeGetRandomIntegerService;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
-use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Listener\ActionSubscriber;
 use Mush\RoomLog\Repository\InMemoryRoomLogRepository;
@@ -106,7 +103,7 @@ final class CatMeowTest extends TestCase
         GameEquipmentFactory::createItemByNameForHolder(ItemEnum::SCHRODINGER, $this->player);
     }
 
-    private function whenActionEventOccursWithVisibility(VisibilityEnum $visibility): void
+    private function whenActionEventOccursWithVisibility(string $visibility): void
     {
         $actionResult = new ActionEvent(
             actionConfig: $this->actionConfig(),

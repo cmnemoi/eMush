@@ -156,4 +156,9 @@ class StatusTarget
         $this->daedalus = null;
         $this->hunter = null;
     }
+
+    public function getClassName(): string
+    {
+        return static::class;
+    }
 }

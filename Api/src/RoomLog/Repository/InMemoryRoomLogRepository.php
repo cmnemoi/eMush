@@ -22,8 +22,8 @@ final class InMemoryRoomLogRepository implements RoomLogRepositoryInterface
 
         foreach ($this->roomLogs as $roomLog) {
             if (
-                $roomLog->getDaedalusInfo() === $player->getDaedalus()->getDaedalusInfo()
-                && $roomLog->getPlace() === $player->getPlace()->getName()
+                $roomLog->getDaedalusInfo() === $player?->getDaedalus()->getDaedalusInfo()
+                && $roomLog->getPlace() === $player?->getPlace()->getName()
                 && $roomLog->getCreatedAt() >= $limitDate
                 && (
                     $roomLog->isPublicOrRevealed()
@@ -173,5 +173,18 @@ final class InMemoryRoomLogRepository implements RoomLogRepositoryInterface
         }
 
         return new RoomLogCollection($logs);
+    }
+
+    public function findOneByLogKey(string $logKey): ?RoomLog
+    {
+        foreach ($this->roomLogs as $roomLog) {
+            if (
+                $roomLog->getLog() === $logKey
+            ) {
+                return $roomLog;
+            }
+        }
+
+        return null;
     }
 }

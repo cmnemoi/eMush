@@ -71,13 +71,13 @@ final class CatMeowTest extends TestCase
     }
 
     /**
-     * @dataProvider provideCatMeowCases
+     * @dataProvider provideCatShouldMeowBasedOnVisibilityCases
      */
     public function testCatShouldMeowBasedOnVisibility(string $visibility, bool $shouldMeow): void
-    {   
+    {
         $this->givenSchrodingerInPlayerInventory();
         $this->whenActionOccursWithVisibility($visibility);
-        
+
         if ($shouldMeow) {
             $this->thenCatShouldMeow();
         } else {
@@ -88,7 +88,7 @@ final class CatMeowTest extends TestCase
     /**
      * Test cases for cat meowing behavior based on action visibility.
      */
-    public static function provideCatMeowCases(): iterable
+    public static function provideCatShouldMeowBasedOnVisibilityCases(): iterable
     {
         return [
             'PUBLIC visibility' => [VisibilityEnum::PUBLIC, true],

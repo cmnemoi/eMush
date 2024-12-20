@@ -112,7 +112,7 @@ final class PlayerNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(ItemEnum::POST_IT, $playerNormalizedItems[1]['key']);
     }
 
-    public function testShouldNotNormalizeSameActionGivenByMultipleSkills(FunctionalTester $I): void
+    public function shouldNotNormalizeSameActionGivenByMultipleSkills(FunctionalTester $I): void
     {
         // given player is Solid and Wrestler, two skills which give Put Through Door actions
         $this->addSkillToPlayer(SkillEnum::SOLID, $I);
@@ -124,5 +124,27 @@ final class PlayerNormalizerCest extends AbstractFunctionalTest
         // then the player should have only one Put Through Door action available
         $actions = $normalizedPlayer['room']['players'][0]['actions'];
         $I->assertCount(1, array_filter($actions, static fn (array $action) => $action['key'] === ActionEnum::PUT_THROUGH_DOOR->value));
+    }
+
+    public function shouldNormalizeOneActionBySimilarEquipmentInPlayerInventory(FunctionalTester $I): void
+    {
+        // given player has a skill
+        $this->addSkillToPlayer(SkillEnum::SOLID, $I);
+
+        // given player has two blasters in inventory
+        $this->gameEquipmentService->createGameEquipmentsFromName(
+            equipmentName: ItemEnum::BLASTER,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+            quantity: 2
+        );
+
+        // when I normalize the player
+        $normalizedPlayer = $this->currentPlayerNormalizer->normalize($this->player, null, ['currentPlayer' => $this->player]);
+
+        // then the player should have two shoot actions available
+        $actions = $normalizedPlayer['room']['players'][0]['actions'];
+        $I->assertCount(2, array_filter($actions, static fn (array $action) => $action['key'] === ActionEnum::SHOOT->toString()));
     }
 }

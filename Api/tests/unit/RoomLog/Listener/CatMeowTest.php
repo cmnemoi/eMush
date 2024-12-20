@@ -73,42 +73,42 @@ final class CatMeowTest extends TestCase
     public function testCatShouldMeowOnPublicActionLog(): void
     {   
         $this->givenSchrodingerInPlayerInventory();
-        $this->whenActionEventOccursWithVisibility(VisibilityEnum::PUBLIC);
+        $this->whenActionOccursWithVisibility(VisibilityEnum::PUBLIC);
         $this->thenCatShouldMeow();
     }
 
     public function testCatShouldNotMeowOnPrivateActionLog(): void
     {
         $this->givenSchrodingerInPlayerInventory();
-        $this->whenActionEventOccursWithVisibility(VisibilityEnum::PRIVATE);
+        $this->whenActionOccursWithVisibility(VisibilityEnum::PRIVATE);
         $this->thenCatShouldNotMeow();
     }
 
     public function testCatShouldNotMeowOnSecretActionLog(): void
     {
         $this->givenSchrodingerInPlayerInventory();
-        $this->whenActionEventOccursWithVisibility(VisibilityEnum::SECRET);
+        $this->whenActionOccursWithVisibility(VisibilityEnum::SECRET);
         $this->thenCatShouldNotMeow();
     }
 
     public function testCatShouldNotMeowOnHiddenActionLog(): void
     {
         $this->givenSchrodingerInPlayerInventory();
-        $this->whenActionEventOccursWithVisibility(VisibilityEnum::HIDDEN);
+        $this->whenActionOccursWithVisibility(VisibilityEnum::HIDDEN);
         $this->thenCatShouldNotMeow();
     }
 
     public function testCatShouldMeowOnRevealedActionLog(): void
     {
         $this->givenSchrodingerInPlayerInventory();
-        $this->whenActionEventOccursWithVisibility(VisibilityEnum::REVEALED);
+        $this->whenActionOccursWithVisibility(VisibilityEnum::REVEALED);
         $this->thenCatShouldMeow();
     }
 
     public function testCatShouldNotMeowOnCovertActionLog(): void
     {
         $this->givenSchrodingerInPlayerInventory();
-        $this->whenActionEventOccursWithVisibility(VisibilityEnum::COVERT);
+        $this->whenActionOccursWithVisibility(VisibilityEnum::COVERT);
         $this->thenCatShouldNotMeow();
     }
 
@@ -117,7 +117,7 @@ final class CatMeowTest extends TestCase
         GameEquipmentFactory::createItemByNameForHolder(ItemEnum::SCHRODINGER, $this->player);
     }
 
-    private function whenActionEventOccursWithVisibility(string $visibility): void
+    private function whenActionOccursWithVisibility(string $visibility): void
     {
         $actionResult = new ActionEvent(
             actionConfig: $this->actionConfig(),

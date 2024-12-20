@@ -249,6 +249,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
+    public function isIn(string $placeName): bool
+    {
+        return $this->getPlace()->getName() === $placeName;
+    }
+
     public function isNotIn(string $placeName): bool
     {
         return $this->getPlace()->getName() !== $placeName;
@@ -257,6 +262,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function isNotInAny(array $placeNames): bool
     {
         return \in_array($this->getPlace()->getName(), $placeNames, true) === false;
+    }
+
+    public function getPreviousRoomOrThrow(): Place
+    {
+        return $this->getStatusByNameOrThrow(PlayerStatusEnum::PREVIOUS_ROOM)->getPlaceTargetOrThrow();
     }
 
     /**
@@ -356,6 +366,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function doesNotHaveEquipment(string $name): bool
     {
         return $this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
+    }
+
+    public function doesNotHaveAnyOperationalEquipment(array $names): bool
+    {
+        return $this->getEquipments()->filter(static fn (GameItem $gameItem) => \in_array($gameItem->getName(), $names, true) && $gameItem->isOperational())->isEmpty();
     }
 
     public function getEquipmentByName(string $name): ?GameEquipment

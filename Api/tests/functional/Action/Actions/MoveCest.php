@@ -326,7 +326,7 @@ final class MoveCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveMovementPoint(4, $I);
     }
 
-    public function shouldTellFrontEndToRefreshChannelsWhenLeavingPrivateChannel(FunctionalTester $I): void
+    public function shouldRefreshChannelsWhenLeavingPrivateChannel(FunctionalTester $I): void
     {
         // given there is a door leading to Icarus Bay
         $door = $this->createDoorFromTo($I, RoomEnum::LABORATORY, RoomEnum::ICARUS_BAY);
@@ -335,7 +335,29 @@ final class MoveCest extends AbstractFunctionalTest
 
         $result = $this->whenChunMovesToIcarusBay($door);
 
-        $this->thenActionResultShouldContainReloadChannels($result, $I);
+        $this->thenActionResultShouldContainReloadChannelsTag($result, $I);
+    }
+
+    public function shouldRefreshChannelsWhenEnteringBridgeWithoutATalkie(FunctionalTester $I): void
+    {
+        // given there is a door leading to Icarus Bay
+        $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
+        $door = $this->createDoorFromTo($I, RoomEnum::LABORATORY, RoomEnum::BRIDGE);
+
+        $result = $this->whenChunMovesToBridge($door);
+
+        $this->thenActionResultShouldContainReloadChannelsTag($result, $I);
+    }
+
+    public function shouldRefreshChannelsWhenExitingBridgeWithoutATalkie(FunctionalTester $I): void
+    {
+        // given there is a door leading to Icarus Bay
+        $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
+        $door = $this->createDoorFromTo($I, RoomEnum::LABORATORY, RoomEnum::BRIDGE);
+
+        $result = $this->whenChunLeavesBridge($door);
+
+        $this->thenActionResultShouldContainReloadChannelsTag($result, $I);
     }
 
     private function givenChunIsSolidPlayer(): void
@@ -376,11 +398,36 @@ final class MoveCest extends AbstractFunctionalTest
     private function givenChunIsInPrivateChannelWithKuanTi(): void
     {
         $channel = $this->channelService->createPrivateChannel($this->chun);
-        $this->channelService->addPlayer($this->kuanTi->getPlayerInfo(), $channel);
+        $this->channelService->invitePlayer($this->kuanTi, $channel);
     }
 
     private function whenChunMovesToIcarusBay(Door $door): ActionResult
     {
+        $this->moveAction->loadParameters(
+            actionConfig: $this->moveConfig,
+            actionProvider: $door,
+            player: $this->chun,
+            target: $door
+        );
+
+        return $this->moveAction->execute();
+    }
+
+    private function whenChunMovesToBridge(Door $door): ActionResult
+    {
+        $this->moveAction->loadParameters(
+            actionConfig: $this->moveConfig,
+            actionProvider: $door,
+            player: $this->chun,
+            target: $door
+        );
+
+        return $this->moveAction->execute();
+    }
+
+    private function whenChunLeavesBridge(Door $door): ActionResult
+    {
+        $this->chun->changePlace($this->daedalus->getPlaceByName(RoomEnum::BRIDGE));
         $this->moveAction->loadParameters(
             actionConfig: $this->moveConfig,
             actionProvider: $door,
@@ -399,7 +446,7 @@ final class MoveCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenActionResultShouldContainReloadChannels(ActionResult $result, FunctionalTester $I): void
+    private function thenActionResultShouldContainReloadChannelsTag(ActionResult $result, FunctionalTester $I): void
     {
         $I->assertArrayHasKey('reloadChannels', $result->getDetails());
     }

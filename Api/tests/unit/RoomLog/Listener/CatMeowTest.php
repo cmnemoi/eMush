@@ -75,82 +75,39 @@ final class CatMeowTest extends TestCase
 
     public function testCatShouldMeowOnPublicActionLog(): void
     {   
-        // given schrodinger is in player inventory
-        GameEquipmentFactory::createItemByNameForHolder(ItemEnum::SCHRODINGER, $this->player);
-
-        // given an action event for public action
-        $actionResult = new ActionEvent(
-            actionConfig: $this->actionConfig(),
-            actionProvider: $this->player,
-            player: $this->player,
-            tags: $this->actionConfig()->getActionTags(),
-        );
-        $result = new Success();
-        $result->setVisibility(VisibilityEnum::PUBLIC);
-        $actionResult->setActionResult($result);
-
-        // when a listen for result action event
-        $this->actionSubscriber->onResultAction($actionResult);
-
-        // then cat should meow
-        $catMeowLog = $this->roomLogRepository->findOneByLogKey(LogEnum::CAT_MEOW);
-        self::assertNotNull($catMeowLog);
+        $this->givenSchrodingerInPlayerInventory();
+        $this->whenActionEventOccursWithVisibility(VisibilityEnum::PUBLIC);
+        $this->thenCatShouldMeow();
     }
 
     public function testCatShouldNotMeowOnPrivateActionLog(): void
     {
-        // given schrodinger is in player inventory
-        GameEquipmentFactory::createItemByNameForHolder(ItemEnum::SCHRODINGER, $this->player);
-
-        // given an action event for public action
-        $actionResult = new ActionEvent(
-            actionConfig: $this->actionConfig(),
-            actionProvider: $this->player,
-            player: $this->player,
-            tags: $this->actionConfig()->getActionTags(),
-        );
-        $result = new Success();
-        $result->setVisibility(VisibilityEnum::PRIVATE);
-        $actionResult->setActionResult($result);
-
-        // when a listen for result action event
-        $this->actionSubscriber->onResultAction($actionResult);
-        $logId = $this->roomLogRepository->findOneByLogKey(LogEnum::CAT_MEOW)?->getId();
-
-        // then cat should not meow
-        self::assertNull($logId);
+        $this->givenSchrodingerInPlayerInventory();
+        $this->whenActionEventOccursWithVisibility(VisibilityEnum::PRIVATE);
+        $this->thenCatShouldNotMeow();
     }
 
     public function testCatShouldNotMeowOnSecretActionLog(): void
     {
-        // given schrodinger is in player inventory
-        GameEquipmentFactory::createItemByNameForHolder(ItemEnum::SCHRODINGER, $this->player);
-
-        // given an action event for public action
-        $actionResult = new ActionEvent(
-            actionConfig: $this->actionConfig(),
-            actionProvider: $this->player,
-            player: $this->player,
-            tags: $this->actionConfig()->getActionTags(),
-        );
-        $result = new Success();
-        $result->setVisibility(VisibilityEnum::SECRET);
-        $actionResult->setActionResult($result);
-
-        // when a listen for result action event
-        $this->actionSubscriber->onResultAction($actionResult);
-        $logId = $this->roomLogRepository->findOneByLogKey(LogEnum::CAT_MEOW)?->getId();
-
-        // then cat should not meow
-        self::assertNull($logId);
+        $this->givenSchrodingerInPlayerInventory();
+        $this->whenActionEventOccursWithVisibility(VisibilityEnum::SECRET);
+        $this->thenCatShouldNotMeow();
     }
 
     public function testCatShouldNotMeowOnHiddenActionLog(): void
     {
-        // given schrodinger is in player inventory
-        GameEquipmentFactory::createItemByNameForHolder(ItemEnum::SCHRODINGER, $this->player);
+        $this->givenSchrodingerInPlayerInventory();
+        $this->whenActionEventOccursWithVisibility(VisibilityEnum::HIDDEN);
+        $this->thenCatShouldNotMeow();
+    }
 
-        // given an action event for public action
+    private function givenSchrodingerInPlayerInventory(): void
+    {
+        GameEquipmentFactory::createItemByNameForHolder(ItemEnum::SCHRODINGER, $this->player);
+    }
+
+    private function whenActionEventOccursWithVisibility(VisibilityEnum $visibility): void
+    {
         $actionResult = new ActionEvent(
             actionConfig: $this->actionConfig(),
             actionProvider: $this->player,
@@ -158,14 +115,21 @@ final class CatMeowTest extends TestCase
             tags: $this->actionConfig()->getActionTags(),
         );
         $result = new Success();
-        $result->setVisibility(VisibilityEnum::HIDDEN);
+        $result->setVisibility($visibility);
         $actionResult->setActionResult($result);
 
-        // when a listen for result action event
         $this->actionSubscriber->onResultAction($actionResult);
-        $logId = $this->roomLogRepository->findOneByLogKey(LogEnum::CAT_MEOW)?->getId();
+    }
 
-        // then cat should not meow
+    private function thenCatShouldMeow(): void
+    {
+        $catMeowLog = $this->roomLogRepository->findOneByLogKey(LogEnum::CAT_MEOW);
+        self::assertNotNull($catMeowLog);
+    }
+
+    private function thenCatShouldNotMeow(): void
+    {
+        $logId = $this->roomLogRepository->findOneByLogKey(LogEnum::CAT_MEOW)?->getId();
         self::assertNull($logId);
     }
 

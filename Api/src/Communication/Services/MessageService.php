@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Communication\Services;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,8 +16,10 @@ use Mush\Communication\Repository\MessageRepository;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 
-class MessageService implements MessageServiceInterface
+final class MessageService implements MessageServiceInterface
 {
+    public const string MUTE_PLAYER_SPEAKING_IN_MUSH_CHANNEL = 'mute_player_speaking_in_mush_channel';
+
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
     private MessageRepository $messageRepository;
@@ -39,11 +43,12 @@ class MessageService implements MessageServiceInterface
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message
     {
         $messageContent = trim($createMessage->getMessage());
+        $channel = $createMessage->getChannel();
 
         $message = new Message();
         $message
             ->setAuthor($player->getPlayerInfo())
-            ->setChannel($createMessage->getChannel())
+            ->setChannel($channel)
             ->setMessage($messageContent)
             ->setParent($createMessage->getParent())
             ->addReader($player)
@@ -61,10 +66,15 @@ class MessageService implements MessageServiceInterface
             $this->entityManager->persist($root);
         }
 
+        $tags = [];
+        if ($player->isMute() && $channel->isMushChannel()) {
+            $tags = [self::MUTE_PLAYER_SPEAKING_IN_MUSH_CHANNEL];
+        }
+
         $messageEvent = new MessageEvent(
             $message,
             $player,
-            [],
+            $tags,
             new \DateTime()
         );
         $events = $this->eventService->callEvent($messageEvent, MessageEvent::NEW_MESSAGE);

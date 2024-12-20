@@ -134,7 +134,7 @@ class GameModifier
 
     public function getModifierNameOrThrow(): string
     {
-        return $this->getModifierNameOrNull() ?? throw new \RuntimeException("Modifier {$this->getId()} has no name!");
+        return $this->getModifierNameOrNull() ?? throw new \RuntimeException("Modifier {$this->getName()} has no name!");
     }
 
     private function getName(): string

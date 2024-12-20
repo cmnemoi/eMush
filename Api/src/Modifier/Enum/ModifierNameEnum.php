@@ -146,4 +146,5 @@ abstract class ModifierNameEnum
     public const string SUPER_SOAPER_MODIFIER = 'super_soaper_modifier';
     public const string SELF_SACRIFICE_MODIFIER = 'self_sacrifice_modifier';
     public const string IMMUNIZED_MODIFIER = 'immunized_modifier';
+    public const string MUTE_PREVENT_MESSAGES_MODIFIER = 'mute_prevent_messages';
 }

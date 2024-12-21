@@ -3,7 +3,6 @@
 namespace Mush\Hunter\Listener;
 
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterVariableEvent;
 use Mush\Hunter\Service\HunterServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -31,34 +30,20 @@ class HunterVariableSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->changeVariable($event);
+        $this->changeHunterVariableFrom($event);
+
+        $hunter = $event->getHunter();
+        if ($hunter->hasNoHealth()) {
+            $this->hunterService->killHunter($hunter, $event->getTags(), $event->getAuthor());
+        }
     }
 
-    private function changeVariable(HunterVariableEvent $event): void
+    private function changeHunterVariableFrom(HunterVariableEvent $event): void
     {
-        $author = $event->getAuthor();
-        $change = $event->getRoundedQuantity();
-        $date = $event->getTime();
         $hunter = $event->getHunter();
         $variableName = $event->getVariableName();
 
-        $gameVariable = $hunter->getVariableByName($variableName);
-        $newVariableValuePoint = $gameVariable->getValue() + $change;
-
-        $hunter->setVariableValueByName($newVariableValuePoint, $variableName);
-
-        switch ($variableName) {
-            case HunterVariableEnum::HEALTH:
-                if ($newVariableValuePoint <= 0) {
-                    $this->hunterService->killHunter($hunter, $event->getTags(), $author);
-                }
-
-                return;
-
-            default:
-                return;
-        }
-
+        $hunter->changeVariableValueByName($event->getRoundedQuantity(), $variableName);
         $this->hunterService->persist([$hunter]);
     }
 }

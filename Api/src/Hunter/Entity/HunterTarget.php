@@ -53,31 +53,20 @@ class HunterTarget
 
     public function setTargetEntity(HunterTargetEntityInterface $target): self
     {
+        if (!($target instanceof Daedalus || $target instanceof GameEquipment || $target instanceof Player || $target instanceof Hunter)) {
+            throw new \Exception('Hunter target type should be a Daedalus, GameEquipment, Player or Hunter instance, got a ' . \get_class($target) . '.');
+        }
+
         $this->reset();
 
-        switch (true) {
-            case $target instanceof Daedalus:
-                $this->daedalus = $target;
-
-                break;
-
-            case $target instanceof GameEquipment:
-                $this->patrolShip = $target;
-
-                break;
-
-            case $target instanceof Player:
-                $this->player = $target;
-
-                break;
-
-            case $target instanceof Hunter:
-                $this->hunter = $target;
-
-                break;
-
-            default:
-                throw new \Exception('Hunter target type should be a Daedalus, GameEquipment, Player or Hunter instance, got a ' . \get_class($target) . '.');
+        if ($target instanceof Daedalus) {
+            $this->daedalus = $target;
+        } elseif ($target instanceof GameEquipment) {
+            $this->patrolShip = $target;
+        } elseif ($target instanceof Player) {
+            $this->player = $target;
+        } else {
+            $this->hunter = $target;
         }
 
         return $this;

@@ -157,6 +157,13 @@ class Channel
         return $this;
     }
 
+    public function addMessage(Message $message): static
+    {
+        $this->messages->add($message);
+
+        return $this;
+    }
+
     /** @return Collection<array-key, Message> */
     public function getPlayerUnreadMessages(Player $player): Collection
     {

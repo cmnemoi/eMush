@@ -183,7 +183,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $expectedMoralPoint = $this->player->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint() + PlayerService::DAY_MORAL_CHANGE;
 
         // player might have a panic crisis at cycle change which would reduce their morale points. handling this case to avoid false positives
-        $panicCrisis = $this->roomLogRepository->findOneBy([
+        $panicCrisis = $this->roomLogRepository->getOneBy([
             'place' => $this->player->getPlace()->getName(),
             'playerInfo' => $this->player->getPlayerInfo(),
             'log' => PlayerModifierLogEnum::PANIC_CRISIS,

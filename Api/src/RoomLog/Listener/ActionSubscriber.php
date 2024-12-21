@@ -39,9 +39,8 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public function onPreAction(ActionEvent $event): void
     {
-        $this->handleExitActionLog($event);
-
         match ($event->getActionName()) {
+            ActionEnum::MOVE => $this->handleExitActionLog($event),
             ActionEnum::TAKEOFF => $this->createTakeoffActionLog($event),
             default => null,
         };
@@ -163,11 +162,6 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function createEnterRoomLog(ActionEvent $event): void
     {
-        $actionName = $event->getActionName();
-        if ($actionName !== ActionEnum::MOVE) {
-            return;
-        }
-
         $door = $event->getDoorActionTargetOrThrow();
         $player = $event->getAuthor();
 
@@ -187,11 +181,6 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function createExitRoomLog(ActionEvent $event): void
     {
-        $actionName = $event->getActionName();
-        if ($actionName !== ActionEnum::MOVE) {
-            return;
-        }
-
         $door = $event->getDoorActionTargetOrThrow();
         $player = $event->getAuthor();
 

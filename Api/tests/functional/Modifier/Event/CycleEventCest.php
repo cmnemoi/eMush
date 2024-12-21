@@ -88,13 +88,13 @@ final class CycleEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // players might have a panic crisis at cycle change which would reduce their morale points. handling this case to avoid false positives
-        $firstPlayerPanicCrisis = $this->roomLogRepository->findOneBy([
+        $firstPlayerPanicCrisis = $this->roomLogRepository->getOneBy([
             'place' => $this->player->getPlace()->getLogName(),
             'playerInfo' => $this->player->getPlayerInfo(),
             'log' => PlayerModifierLogEnum::PANIC_CRISIS,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
-        $secondPlayerPanicCrisis = $this->roomLogRepository->findOneBy([
+        $secondPlayerPanicCrisis = $this->roomLogRepository->getOneBy([
             'place' => $this->player2->getPlace()->getLogName(),
             'playerInfo' => $this->player2->getPlayerInfo(),
             'log' => PlayerModifierLogEnum::PANIC_CRISIS,

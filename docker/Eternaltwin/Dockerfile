@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:20-slim
+FROM --platform=linux/amd64 node:lts-slim
 
 ARG UID=1000
 ARG GID=1000

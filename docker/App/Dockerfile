@@ -1,4 +1,4 @@
-FROM node:22-slim
+FROM node:lts-slim
 
 # not mandatory if you EXPORT a fixed port. See below.
 ARG YOUR_APP_WEB_HTTP_PORT

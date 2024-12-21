@@ -94,4 +94,13 @@ abstract class GameVariableCollection
         return !$this->gameVariables
             ->filter(static fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)->isEmpty();
     }
+
+    public function changeValueByName(int $delta, string $name): GameVariable
+    {
+        $variable = $this->getVariableByName($name);
+
+        $variable->changeValue($delta);
+
+        return $variable;
+    }
 }

@@ -21,4 +21,5 @@ services:
     resource: '../Controller/'
     tags: ['controller.service_arguments']
 
-  Mush\RoomLog\Service\RoomLogServiceInterface: '@Mush\RoomLog\Service\RoomLogService'
+  Mush\RoomLog\Repository\RoomLogRepositoryInterface: '@Mush\RoomLog\Repository\RoomLogRepository'
+

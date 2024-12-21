@@ -14,7 +14,7 @@ use Mush\RoomLog\Entity\RoomLog;
 /**
  * @template-extends ServiceEntityRepository<RoomLog>
  */
-class RoomLogRepository extends ServiceEntityRepository
+final class RoomLogRepository extends ServiceEntityRepository implements RoomLogRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -83,5 +83,39 @@ class RoomLogRepository extends ServiceEntityRepository
             ->setParameter('place', $place->getName());
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function save(RoomLog $roomLog): void
+    {
+        $this->getEntityManager()->persist($roomLog);
+        $this->getEntityManager()->flush();
+    }
+
+    public function startTransaction(): void
+    {
+        $this->getEntityManager()->beginTransaction();
+    }
+
+    public function commitTransaction(): void
+    {
+        $this->getEntityManager()->commit();
+    }
+
+    public function rollbackTransaction(): void
+    {
+        $this->getEntityManager()->rollback();
+        $this->getEntityManager()->close();
+    }
+
+    public function getOneBy(array $parameters): ?RoomLog
+    {
+        $log = $this->findOneBy($parameters);
+
+        return $log instanceof RoomLog ? $log : null;
+    }
+
+    public function getBy(array $parameters): array
+    {
+        return $this->findBy($parameters);
     }
 }

@@ -233,6 +233,7 @@ class ChannelService implements ChannelServiceInterface
         }
     }
 
+    /** @return Collection<int, Channel> */
     public function getPlayerChannels(Player $player, bool $privateOnly = false): Collection
     {
         $channels = $this->channelRepository->findByPlayer($player->getPlayerInfo(), $privateOnly);
@@ -299,7 +300,10 @@ class ChannelService implements ChannelServiceInterface
             ->setChannel($channel)
             ->setParticipant($playerInfo);
 
+        $channel->addParticipant($channelPlayer);
+
         $this->entityManager->persist($channelPlayer);
+        $this->entityManager->persist($channel);
         $this->entityManager->flush();
 
         return $channelPlayer;

@@ -14,31 +14,24 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class Move extends AbstractAction
+final class Move extends AbstractAction
 {
     protected ActionEnum $name = ActionEnum::MOVE;
-
-    private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        PlayerServiceInterface $playerService,
+        private PlayerServiceInterface $playerService,
     ) {
-        parent::__construct(
-            $eventService,
-            $actionService,
-            $validator
-        );
-
-        $this->playerService = $playerService;
+        parent::__construct($eventService, $actionService, $validator);
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -73,11 +66,16 @@ class Move extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Door $door */
-        $door = $this->target;
+        $this->playerService->changePlace($this->player, $this->room());
+    }
 
-        $newRoom = $door->getOtherRoom($this->player->getPlace());
+    private function room(): Place
+    {
+        return $this->door()->getOtherRoom($this->player->getPlace());
+    }
 
-        $this->playerService->changePlace($this->player, $newRoom);
+    private function door(): Door
+    {
+        return $this->target instanceof Door ? $this->target : throw new \LogicException('Target is not a door');
     }
 }

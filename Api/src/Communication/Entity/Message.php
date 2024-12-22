@@ -158,6 +158,8 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     {
         $this->channel = $channel;
 
+        $channel->addMessage($this);
+
         return $this;
     }
 

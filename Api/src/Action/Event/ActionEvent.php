@@ -157,7 +157,7 @@ class ActionEvent extends AbstractGameEvent
 
     public function getActionNameAsString(): string
     {
-        return $this->actionConfig->getActionName()->value;
+        return $this->actionConfig->getActionName()->toString();
     }
 
     public function shouldTriggerRoomTrap(): bool
@@ -166,7 +166,7 @@ class ActionEvent extends AbstractGameEvent
         $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap = $this->actionProvider instanceof GameEquipment === false
             && $this->actionConfig->shouldTriggerRoomTrap();
 
-        return $this->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)
+        return $this->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->toString())
             && ($authorInteractsWithRoomEquipment || $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap);
     }
 
@@ -223,5 +223,11 @@ class ActionEvent extends AbstractGameEvent
     public function shouldTriggerAttemptHandling(): bool
     {
         return $this->getActionConfig()->getSuccessRate() < 100 || $this->getActionConfig()->getActionCost() > 0;
+    }
+
+    /** @param array<ActionEnum> $actions */
+    public function isNotAboutAnyAction(array $actions): bool
+    {
+        return \in_array($this->getActionName(), $actions, true) === false;
     }
 }

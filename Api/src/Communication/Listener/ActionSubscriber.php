@@ -29,15 +29,13 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public function onPostAction(ActionEvent $event): void
     {
+        if ($event->isNotAboutAnyAction([ActionEnum::DROP, ActionEnum::MOVE])) {
+            return;
+        }
+
         $player = $event->getAuthor();
-
         $privateChannelsCountBefore = $this->getPrivateChannelCountOf($player);
-
-        match ($event->getActionName()) {
-            ActionEnum::DROP => $player->hasMeansOfCommunication() ? $this->channelService->updatePlayerPrivateChannels($event->getAuthor(), $event->getActionNameAsString(), $event->getTime()) : null,
-            ActionEnum::MOVE => $this->channelService->updatePlayerPrivateChannels($event->getAuthor(), $event->getActionNameAsString(), $event->getTime()),
-            default => null,
-        };
+        $this->channelService->updatePlayerPrivateChannels($event->getAuthor(), $event->getActionNameAsString(), $event->getTime());
 
         if ($this->shouldReloadPlayerChannels($event, $privateChannelsCountBefore)) {
             $result = $event->getActionResultOrThrow()->addDetail('reloadChannels', true);
@@ -64,7 +62,7 @@ final class ActionSubscriber implements EventSubscriberInterface
 
         $playerDoesNotHaveATalkie = $player->doesNotHaveAnyOperationalEquipment([ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE]);
         $playerEntersBridge = $action === ActionEnum::MOVE && $player->isIn(RoomEnum::BRIDGE);
-        $playerExitsBridge = $action === ActionEnum::MOVE && $player->getPreviousRoomOrThrow()->getName() === RoomEnum::BRIDGE;
+        $playerExitsBridge = $action === ActionEnum::MOVE && $player->getPreviousRoom()?->getName() === RoomEnum::BRIDGE;
 
         return $playerDoesNotHaveATalkie && ($playerEntersBridge || $playerExitsBridge);
     }

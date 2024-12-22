@@ -264,9 +264,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return \in_array($this->getPlace()->getName(), $placeNames, true) === false;
     }
 
-    public function getPreviousRoomOrThrow(): Place
+    public function getPreviousRoom(): ?Place
     {
-        return $this->getStatusByNameOrThrow(PlayerStatusEnum::PREVIOUS_ROOM)->getPlaceTargetOrThrow();
+        return $this->getStatusByName(PlayerStatusEnum::PREVIOUS_ROOM)?->getPlaceTargetOrThrow();
     }
 
     /**
@@ -368,9 +368,21 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
     }
 
+    public function hasAnyOperationalEquipment(array $names): bool
+    {
+        $operationalEquipments = $this->getEquipments()
+            ->filter(static fn (GameItem $gameItem) => $gameItem->isOperational())
+            ->map(static fn (GameItem $gameItem) => $gameItem->getName())
+            ->toArray();
+
+        $matchingEquipments = array_intersect($names, $operationalEquipments);
+
+        return empty($matchingEquipments) === false;
+    }
+
     public function doesNotHaveAnyOperationalEquipment(array $names): bool
     {
-        return $this->getEquipments()->filter(static fn (GameItem $gameItem) => \in_array($gameItem->getName(), $names, true) && $gameItem->isOperational())->isEmpty();
+        return $this->hasAnyOperationalEquipment($names) === false;
     }
 
     public function getEquipmentByName(string $name): ?GameEquipment
@@ -1225,6 +1237,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
             || $this->hasStatus(PlayerStatusEnum::BRAINSYNC)
             || $this->getPlace()->getName() === RoomEnum::BRIDGE
             || $this->hasTitle(TitleEnum::COM_MANAGER);
+    }
+
+    public function hasATalkie(): bool
+    {
+        return $this->hasAnyOperationalEquipment([ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE]);
     }
 
     public function getOldPlaceOrThrow(): Place

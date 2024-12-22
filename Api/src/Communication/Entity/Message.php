@@ -239,9 +239,11 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
         return $this->timestampableCanceled;
     }
 
-    public function cancelTimestampable(): void
+    public function cancelTimestampable(): static
     {
         $this->timestampableCanceled = true;
+
+        return $this;
     }
 
     public function getClassName(): string

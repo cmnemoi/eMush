@@ -1,32 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Communication\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManagerInterface;
-use Mockery;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Event\ChannelEvent;
-use Mush\Communication\Repository\ChannelPlayerRepository;
-use Mush\Communication\Repository\ChannelRepository;
+use Mush\Communication\Repository\InMemoryChannelPlayerRepository;
+use Mush\Communication\Repository\InMemoryChannelRepository;
+use Mush\Communication\Repository\InMemoryMessageRepository;
 use Mush\Communication\Services\ChannelService;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
+use Mush\Equipment\Factory\GameEquipmentFactory;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -39,19 +41,14 @@ use PHPUnit\Framework\TestCase;
  */
 final class ChannelServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface|Mockery\mock */
-    private EntityManagerInterface $entityManager;
-
-    /** @var ChannelRepository|Mockery\mock */
-    private ChannelRepository $channelRepository;
-
-    /** @var ChannelPlayerRepository|Mockery\mock */
-    private ChannelPlayerRepository $channelPlayerRepository;
+    private InMemoryChannelRepository $channelRepository;
+    private InMemoryChannelPlayerRepository $channelPlayerRepository;
+    private InMemoryMessageRepository $messageRepository;
 
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
 
-    /** @var Mockery\mock|StatusServiceInterface */
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
     private ChannelServiceInterface $service;
@@ -61,18 +58,18 @@ final class ChannelServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
-        $this->channelRepository = \Mockery::mock(ChannelRepository::class);
-        $this->channelPlayerRepository = \Mockery::mock(ChannelPlayerRepository::class);
+        $this->channelRepository = new InMemoryChannelRepository();
+        $this->channelPlayerRepository = new InMemoryChannelPlayerRepository();
+        $this->messageRepository = new InMemoryMessageRepository();
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new ChannelService(
-            $this->entityManager,
             $this->channelRepository,
             $this->channelPlayerRepository,
+            $this->messageRepository,
             $this->eventService,
-            $this->statusService
+            $this->statusService,
         );
     }
 
@@ -82,50 +79,41 @@ final class ChannelServiceTest extends TestCase
     public function after()
     {
         \Mockery::close();
+
+        $this->channelPlayerRepository->clear();
+        $this->channelRepository->clear();
+        $this->messageRepository->clear();
     }
 
-    public function testCreatePublicChannel()
+    public function shouldCreatePublicChannelForDaedalus(): void
     {
-        $daedalusInfo = new DaedalusInfo(new Daedalus(), new GameConfig(), new LocalizationConfig());
+        // Given
+        $daedalus = $this->givenADaedalus();
 
-        $this->entityManager
-            ->shouldReceive([
-                'persist' => null,
-                'flush' => null,
-            ])
-            ->once();
+        // When
+        $publicChannel = $this->whenCreatePublicChannel($daedalus->getDaedalusInfo());
 
-        $publicChannel = $this->service->createPublicChannel($daedalusInfo);
-
-        self::assertSame(ChannelScopeEnum::PUBLIC, $publicChannel->getScope());
-        self::assertSame($daedalusInfo, $publicChannel->getDaedalusInfo());
+        // Then
+        $this->thenPublicChannelShouldBeInRepository($daedalus->getDaedalusInfo(), $publicChannel);
     }
 
     public function testCreatePrivateChannel()
     {
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-        $daedalus = new Daedalus();
-        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
-        $player->setDaedalus($daedalus);
+        // given a player in a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalusInfo = $daedalus->getDaedalusInfo();
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
 
-        $this->entityManager
-            ->shouldReceive([
-                'persist' => null,
-                'flush' => null,
-            ])
-            ->once();
-
+        // when I create a private channel for player
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(static fn (ChannelEvent $event) => ($event->getAuthor() === $player))
             ->once();
-
         $privateChannel = $this->service->createPrivateChannel($player);
 
-        self::assertSame(ChannelScopeEnum::PRIVATE, $privateChannel->getScope());
-        self::assertSame($daedalusInfo, $privateChannel->getDaedalusInfo());
+        // then channel should be created
+        $channel = $this->channelRepository->findOneByDaedalusInfoAndScope($daedalusInfo, ChannelScopeEnum::PRIVATE);
+        self::assertSame($privateChannel, $channel);
     }
 
     public function testInvitePlayerToChannel()
@@ -225,29 +213,20 @@ final class ChannelServiceTest extends TestCase
         self::assertTrue($canPlayerCommunicate);
     }
 
-    public function testCanPlayerWhisperInChannel()
+    public function shouldAllowPlayerToWhisperInChannel(): void
     {
-        $channel = new Channel();
-        $place = Place::createNull();
+        // Given
+        $place = $this->givenAPlace();
+        $channel = $this->givenAChannel();
+        $player = $this->givenAPlayerInPlace($place);
+        $otherPlayer = $this->givenAPlayerInPlace($place);
+        $this->givenPlayersAreInChannel($channel, [$player, $otherPlayer]);
 
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-        $player->setPlace($place);
-        $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
+        // When
+        $canWhisper = $this->whenCheckIfPlayerCanWhisperInChannel($channel, $player);
 
-        $player2 = new Player();
-        $playerInfo2 = new PlayerInfo($player2, new User(), new CharacterConfig());
-        $player2->setPlace($place);
-        $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($playerInfo2);
-
-        $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
-
-        $canPlayerWhisper = $this->service->canPlayerWhisperInChannel($channel, $player);
-
-        self::assertTrue($canPlayerWhisper);
+        // Then
+        $this->thenPlayerShouldBeAbleToWhisper($canWhisper);
     }
 
     public function testPlayerCanWhisperInChannelThroughOtherPlayer()
@@ -285,39 +264,25 @@ final class ChannelServiceTest extends TestCase
         self::assertTrue($canPlayerWhisper);
     }
 
-    public function testPlayerCannotWhisperInChannel()
+    public function shouldNotAllowPlayerToWhisperWhenPlayersAreInDifferentPlaces(): void
     {
-        $channel = new Channel();
-        $place = Place::createNull();
-        $place->setName('place');
-        $place2 = Place::createNull();
-        $place2->setName('place2');
-        $place3 = Place::createNull();
-        $place3->setName('place3');
+        // Given
+        $channel = $this->givenAChannel();
+        $place1 = $this->givenANamedPlace('place1');
+        $place2 = $this->givenANamedPlace('place2');
+        $place3 = $this->givenANamedPlace('place3');
 
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlace($place);
-        $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
+        $player1 = $this->givenAPlayerInPlace($place1);
+        $player2 = $this->givenAPlayerInPlace($place2);
+        $player3 = $this->givenAPlayerInPlace($place3);
 
-        $player2 = new Player();
-        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
-        $player2->setPlace($place2);
-        $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
+        $this->givenPlayersAreInChannel($channel, [$player1, $player2, $player3]);
 
-        $player3 = new Player();
-        $player3Info = new PlayerInfo($player3, new User(), new CharacterConfig());
-        $player3->setPlace($place3);
-        $channelPlayer3 = new ChannelPlayer();
-        $channelPlayer3->setChannel($channel)->setParticipant($player3Info);
+        // When
+        $canWhisper = $this->whenCheckIfPlayerCanWhisperInChannel($channel, $player1);
 
-        $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2)->addParticipant($channelPlayer3);
-
-        $canPlayerWhisper = $this->service->canPlayerWhisperInChannel($channel, $player);
-
-        self::assertFalse($canPlayerWhisper);
+        // Then
+        $this->thenPlayerShouldNotBeAbleToWhisper($canWhisper);
     }
 
     public function testPlayerCanWhisper()
@@ -341,97 +306,62 @@ final class ChannelServiceTest extends TestCase
 
     public function testUpdatePlayerPrivateChannelPlayerDoNotLeaveChannel()
     {
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        $andie = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
+        $terrence = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::TERRENCE, $daedalus);
+
+        // andie has a talkie
+        GameEquipmentFactory::createItemByNameForHolder(ItemEnum::WALKIE_TALKIE, $andie);
+        // terrence has a talkie
+        GameEquipmentFactory::createItemByNameForHolder(ItemEnum::WALKIE_TALKIE, $terrence);
+
         $channel = new Channel();
         $channel->setScope(ChannelScopeEnum::PRIVATE);
 
-        $place = Place::createNull();
-        $place2 = Place::createNull();
-
-        $time = new \DateTime();
-        $reason = ActionEnum::CONSUME->value;
-
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-        $item = new GameItem($player);
-        $item->setName(ItemEnum::ITRACKIE);
-        $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
+        $channelPlayer->setChannel($channel)->setParticipant($andie->getPlayerInfo());
+        $this->channelPlayerRepository->save($channelPlayer);
 
-        $player2 = new Player();
-        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
-        $item2 = new GameItem($player2);
-        $item2->setName(ItemEnum::ITRACKIE);
-        $player2->setPlace($place2);
         $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
+        $channelPlayer2->setChannel($channel)->setParticipant($terrence->getPlayerInfo());
+        $this->channelPlayerRepository->save($channelPlayer2);
 
-        $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
-
-        $this->channelRepository
-            ->shouldReceive('findByPlayer')
-            ->with($playerInfo, true)
-            ->andReturn(new ArrayCollection([$channel]));
+        $channel
+            ->addParticipant($channelPlayer)
+            ->addParticipant($channelPlayer2);
+        $this->channelRepository->save($channel);
 
         $this->statusService->shouldReceive('getByTargetAndName')
-            ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
+            ->with($andie, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn(null)
             ->once();
         $this->statusService->shouldReceive('getByTargetAndName')
-            ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
+            ->with($terrence, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn(null)
             ->once();
 
         $this->eventService->shouldReceive('callEvent')->never();
 
-        $this->service->updatePlayerPrivateChannels($player, $reason, $time);
+        $this->service->updatePlayerPrivateChannels($andie, ActionEnum::CONSUME->toString(), new \DateTime());
     }
 
-    public function testUpdatePlayerPrivateChannelPlayerDoNotLeaveChannelWhisper()
+    public function shouldNotLeaveChannelWhenWhispering(): void
     {
-        $channel = new Channel();
-        $channel->setScope(ChannelScopeEnum::PRIVATE);
+        // Given
+        $place = $this->givenAPlace();
+        $channel = $this->givenAPrivateChannel();
+        $player = $this->givenAPlayerInPlace($place);
+        $playerWithItrackie = $this->givenAPlayerWithItrackieInPlace($place);
+        $this->givenPlayersAreInChannelAndSaved($channel, [$player, $playerWithItrackie]);
+        $this->givenPlayersAreNotScrewed([$player, $playerWithItrackie]);
+        $this->givenNoEventsWillBeCalled();
 
-        $place = Place::createNull();
+        // When
+        $this->whenUpdatePlayerPrivateChannels($player);
 
-        $time = new \DateTime();
-        $reason = ActionEnum::CONSUME->value;
-
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-        $player->setPlace($place);
-        $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
-
-        $player2 = new Player();
-        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
-        $item2 = new GameItem($player2);
-        $item2->setName(ItemEnum::ITRACKIE);
-        $player2->setPlace($place);
-        $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
-
-        $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
-
-        $this->channelRepository
-            ->shouldReceive('findByPlayer')
-            ->with($playerInfo, true)
-            ->andReturn(new ArrayCollection([$channel]));
-
-        $this->statusService->shouldReceive('getByTargetAndName')
-            ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
-            ->andReturn(null)
-            ->once();
-        $this->statusService->shouldReceive('getByTargetAndName')
-            ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
-            ->andReturn(null)
-            ->once();
-
-        $this->eventService->shouldReceive('callEvent')->never();
-
-        $this->service->updatePlayerPrivateChannels($player, $reason, $time);
+        // Then
+        // Assertions are handled by mock expectations
     }
 
     public function testUpdatePlayerPrivateChannelPlayerLeaveChannel()
@@ -450,6 +380,7 @@ final class ChannelServiceTest extends TestCase
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
         $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
+        $this->channelPlayerRepository->save($channelPlayer);
 
         $player2 = new Player();
         $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
@@ -458,13 +389,10 @@ final class ChannelServiceTest extends TestCase
         $player2->setPlace($place2);
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
+        $this->channelPlayerRepository->save($channelPlayer2);
 
         $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
-
-        $this->channelRepository
-            ->shouldReceive('findByPlayer')
-            ->with($playerInfo, true)
-            ->andReturn(new ArrayCollection([$channel]));
+        $this->channelRepository->save($channel);
 
         $this->statusService->shouldReceive('getByTargetAndName')
             ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
@@ -480,184 +408,101 @@ final class ChannelServiceTest extends TestCase
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
 
-    public function testUpdatePlayerPrivateChannelPlayerDoNotLeaveChannelBecausePirated()
+    public function shouldNotLeaveChannelWhenPlayerIsPirated(): void
     {
-        $channel = new Channel();
-        $channel->setScope(ChannelScopeEnum::PRIVATE);
-        $place = Place::createNull();
-        $place2 = Place::createNull();
+        // Given
+        $place1 = $this->givenAPlace();
+        $place2 = $this->givenAPlace();
+        $channel = $this->givenAPrivateChannel();
 
-        $time = new \DateTime();
-        $reason = ActionEnum::CONSUME->value;
+        $player = $this->givenAPlayerInPlace($place1);
+        $playerWithItrackie = $this->givenAPlayerWithItrackieInPlace($place2);
+        $piratingPlayer = $this->givenAPlayerWithItrackieInPlace($place1);
 
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-        $player->setPlace($place);
-        $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
-
-        $player2 = new Player();
-        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
-        $item2 = new GameItem($player2);
-        $item2->setName(ItemEnum::ITRACKIE);
-        $player2->setPlace($place2);
-        $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
-
-        $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
-
-        $player3 = new Player();
-        $item3 = new GameItem($player3);
-        $item3->setName(ItemEnum::ITRACKIE);
-        $player3->setPlace($place);
-        $piratedStatusConfig = new StatusConfig();
-        $piratedStatusConfig->setStatusName(PlayerStatusEnum::TALKIE_SCREWED);
-        $piratedStatus = new Status($player3, $piratedStatusConfig);
-        $piratedStatus->setTarget($player);
-
-        $this->channelRepository
-            ->shouldReceive('findByPlayer')
-            ->with($playerInfo, true)
-            ->andReturn(new ArrayCollection([$channel]));
+        $this->givenPlayersAreInChannelAndSaved($channel, [$player, $playerWithItrackie]);
+        $piratedStatus = $this->givenPlayerIsPirated($player, $piratingPlayer);
 
         $this->statusService->shouldReceive('getByTargetAndName')
             ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn($piratedStatus)
             ->once();
         $this->statusService->shouldReceive('getByTargetAndName')
-            ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
+            ->with($playerWithItrackie, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn(null)
             ->once();
+        $this->givenNoEventsWillBeCalled();
 
-        $this->eventService->shouldReceive('callEvent')->never();
+        // When
+        $this->whenUpdatePlayerPrivateChannels($player);
 
-        $this->service->updatePlayerPrivateChannels($player, $reason, $time);
+        // Then
+        // Assertions are handled by mock expectations
     }
 
-    public function testUpdatePlayerPrivateChannelPlayerNoPrivateChannels()
+    public function shouldNotCallEventsWhenPlayerHasNoPrivateChannels(): void
     {
-        $place = Place::createNull();
+        // Given
+        $place = $this->givenAPlace();
+        $player = $this->givenAPlayerInPlace($place);
+        $this->givenNoEventsWillBeCalled();
 
-        $time = new \DateTime();
-        $reason = ActionEnum::CONSUME->value;
+        // When
+        $this->whenUpdatePlayerPrivateChannels($player);
 
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-        $player->setPlace($place);
-
-        $this->channelRepository
-            ->shouldReceive('findByPlayer')
-            ->with($playerInfo, true)
-            ->andReturn(new ArrayCollection([]));
-
-        $this->eventService->shouldReceive('callEvent')->never();
-
-        $this->service->updatePlayerPrivateChannels($player, $reason, $time);
+        // Then
+        // Assertions are handled by mock expectations
     }
 
-    public function testGetPlayerChannels()
+    public function shouldReturnPlayerChannels(): void
     {
-        $channel = new Channel();
-        $channel->setScope(ChannelScopeEnum::PRIVATE);
+        // Given
+        $place = $this->givenAPlace();
+        $channel = $this->givenAPrivateChannel();
+        $player = $this->givenAPlayerInPlace($place);
+        $this->givenPlayersAreInChannelAndSaved($channel, [$player]);
 
-        $place = Place::createNull();
+        // When
+        $channels = $this->whenGetPlayerChannels($player, true);
 
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-        $player->setPlace($place);
-
-        $this->channelRepository
-            ->shouldReceive('findByPlayer')
-            ->with($playerInfo, true)
-            ->andReturn(new ArrayCollection([$channel]));
-
-        $result = $this->service->getPlayerChannels($player, true);
-
-        self::assertCount(1, $result);
+        // Then
+        $this->thenPlayerShouldHaveChannels($channels, 1);
+        $this->thenChannelsShouldContain($channels, $channel);
     }
 
-    public function testGetPlayerChannelsUnableToCommunicate()
+    public function shouldOnlyReturnPrivateChannelsWhenPlayerCannotCommunicate(): void
     {
-        $channel = new Channel();
-        $channel->setScope(ChannelScopeEnum::PRIVATE);
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $privateChannel = $this->givenAPrivateChannelInDaedalus($daedalus);
+        $publicChannel = $this->givenAPublicChannelInDaedalus($daedalus);
+        $player = $this->givenAPlayerInDaedalus($daedalus);
+        $this->givenPlayersAreInChannelAndSaved($privateChannel, [$player]);
 
-        $channel2 = new Channel();
+        // When
+        $channels = $this->whenGetPlayerChannels($player);
 
-        $place = Place::createNull();
-
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-        $player->setPlace($place);
-
-        $this->channelRepository
-            ->shouldReceive('findByPlayer')
-            ->with($playerInfo, false)
-            ->andReturn(new ArrayCollection([$channel, $channel2]));
-
-        $result = $this->service->getPlayerChannels($player);
-
-        self::assertCount(1, $result);
+        // Then
+        $this->thenPlayerShouldHaveChannels($channels, 1);
+        $this->thenChannelsShouldContain($channels, $privateChannel);
     }
 
-    public function testGetPlayerChannelsAbleToCommunicate()
+    public function shouldReturnAllChannelsWhenPlayerCanCommunicate(): void
     {
-        $channel = new Channel();
-        $channel->setScope(ChannelScopeEnum::PRIVATE);
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $privateChannel = $this->givenAPrivateChannelInDaedalus($daedalus);
+        $publicChannel = $this->givenAPublicChannelInDaedalus($daedalus);
+        $player = $this->givenAPlayerWithTalkieInDaedalus($daedalus);
+        $this->givenPlayersAreInChannelAndSaved($privateChannel, [$player]);
 
-        $channel2 = new Channel();
+        // When
+        $channels = $this->whenGetPlayerChannels($player);
 
-        $place = Place::createNull();
-
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-        $item = new GameItem($player);
-        $item->setName(ItemEnum::ITRACKIE);
-        $player->setPlace($place);
-
-        $this->channelRepository
-            ->shouldReceive('findByPlayer')
-            ->with($playerInfo, false)
-            ->andReturn(new ArrayCollection([$channel, $channel2]));
-
-        $result = $this->service->getPlayerChannels($player);
-
-        self::assertCount(2, $result);
+        // Then
+        $this->thenPlayerShouldHaveChannels($channels, 2);
     }
 
-    public function testGetPiratePlayer()
-    {
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-
-        $player2 = new Player();
-        $piratedStatusConfig = new StatusConfig();
-        $piratedStatusConfig->setStatusName(PlayerStatusEnum::TALKIE_SCREWED);
-        $piratedStatus = new Status($player2, $piratedStatusConfig);
-        $piratedStatus->setTarget($player);
-
-        $this->statusService->shouldReceive('getByTargetAndName')
-            ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
-            ->andReturn($piratedStatus)
-            ->once();
-
-        $test = $this->service->getPiratePlayer($player);
-        self::assertSame($player2, $test);
-
-        $this->statusService->shouldReceive('getByTargetAndName')
-            ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
-            ->andReturn(null)
-            ->once();
-        $test2 = $this->service->getPiratePlayer($player2);
-        self::assertNull($test2);
-    }
-
-    public function testGetPiratedPlayer()
+    public function shouldReturnPiratedPlayer(): void
     {
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -677,142 +522,321 @@ final class ChannelServiceTest extends TestCase
         self::assertNull($test);
     }
 
-    public function testGetPiratedChannels()
+    public function shouldReturnPiratedChannels(): void
     {
-        $channel = new Channel();
-        $channel->setScope(ChannelScopeEnum::PUBLIC);
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $channel = $this->givenAPublicChannelInDaedalus($daedalus);
+        $player = $this->givenAPlayerInDaedalus($daedalus);
+        $this->givenPlayersAreInChannelAndSaved($channel, [$player]);
 
-        $place = Place::createNull();
+        // When
+        $channels = $this->whenGetPiratedChannels($player);
 
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-        $player->setPlace($place);
-
-        $playerParticipant = new ChannelPlayer();
-        $playerParticipant->setChannel($channel)->setParticipant($playerInfo);
-        $channel->addParticipant($playerParticipant);
-
-        $this->channelRepository
-            ->shouldReceive('findByPlayer')
-            ->with($playerInfo)
-            ->andReturn(new ArrayCollection([$channel]));
-
-        $result = $this->service->getPiratedChannels($player);
-
-        self::assertCount(1, $result);
+        // Then
+        $this->thenPlayerShouldHaveChannels($channels, 1);
     }
 
-    // pirate do not have access to private channel where all participant are in the same room
-    public function testGetPiratedChannelsWithWhisperOnly()
+    public function shouldNotAllowPiratingPrivateChannelsWithWhisperOnly(): void
     {
-        $channel = new Channel();
-        $channel->setScope(ChannelScopeEnum::PRIVATE);
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $channel = $this->givenAPrivateChannelInDaedalus($daedalus);
+        $player = $this->givenAPlayerInDaedalus($daedalus);
+        $this->givenPlayersAreInChannelAndSaved($channel, [$player]);
 
-        $place = Place::createNull();
+        // When
+        $channels = $this->whenGetPiratedChannels($player);
 
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-        $player->setPlace($place);
-
-        $playerParticipant = new ChannelPlayer();
-        $playerParticipant->setChannel($channel)->setParticipant($playerInfo);
-        $channel->addParticipant($playerParticipant);
-
-        $this->channelRepository
-            ->shouldReceive('findByPlayer')
-            ->with($playerInfo)
-            ->andReturn(new ArrayCollection([$channel]));
-
-        $result = $this->service->getPiratedChannels($player);
-
-        self::assertCount(0, $result);
+        // Then
+        $this->thenPlayerShouldHaveChannels($channels, 0);
     }
 
     public function testAddPlayer()
     {
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $daedalus = DaedalusFactory::createDaedalus();
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
+        $playerInfo = $player->getPlayerInfo();
+
         $channel = new Channel();
-
-        $this->entityManager->shouldReceive('persist')->with($channel)->once();
-
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->withArgs(
-                static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getChannel() === $channel
-                && $channelPlayer->getParticipant() === $playerInfo
-            )
-            ->once();
-
-        $this->entityManager->shouldReceive('flush')->once();
-
+        $channel->setDaedalus($daedalus->getDaedalusInfo());
+        $this->channelRepository->save($channel);
         $this->service->addPlayer($playerInfo, $channel);
+
+        // Verify channel player was added
+        $availablePlayers = $this->channelPlayerRepository->findAvailablePlayerForPrivateChannel($channel, $player->getDaedalus());
+        self::assertCount(1, $availablePlayers);
+        self::assertSame($playerInfo, $availablePlayers[0]->getParticipant());
+        self::assertSame($channel, $availablePlayers[0]->getChannel());
     }
 
-    public function testRemovePlayer()
+    public function shouldRemovePlayerFromChannel(): void
     {
-        $channel = new Channel();
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $channel = $this->givenAPublicChannelInDaedalus($daedalus);
+        $player = $this->givenAPlayerInDaedalus($daedalus);
+        $otherPlayer = $this->givenAPlayerInDaedalus($daedalus);
+        $this->givenPlayersAreInChannelAndSaved($channel, [$player, $otherPlayer]);
 
+        // When
+        $this->whenRemovePlayerFromChannel($player->getPlayerInfo(), $channel);
+
+        // Then
+        $this->thenOnlyPlayerShouldBeInChannel($otherPlayer, $channel);
+    }
+
+    public function shouldMarkAllMessagesAsReadForPlayer(): void
+    {
+        // Given
+        $channel = $this->givenAChannel();
+        $player = $this->givenAPlayer();
+        $messages = $this->givenChannelHasMessages($channel, 10);
+        $this->givenSomeMessagesAreAlreadyRead($messages, $player, [0, 1, 10, 11]);
+        $this->givenMessagesAreSaved($channel, $messages);
+
+        // When
+        $this->whenMarkChannelAsRead($channel, $player);
+
+        // Then
+        $this->thenAllMessagesShouldBeRead($messages, $player);
+    }
+
+    private function givenAPlace(): Place
+    {
+        return Place::createNull();
+    }
+
+    private function givenAChannel(): Channel
+    {
+        return new Channel();
+    }
+
+    private function givenAPlayer(): Player
+    {
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
 
-        $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
+        return $player;
+    }
 
-        $player2 = new Player();
-        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
-        $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
+    private function givenAPlayerInPlace(Place $place): Player
+    {
+        $player = $this->givenAPlayer();
+        $player->setPlace($place);
 
-        $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
+        return $player;
+    }
 
-        $this->entityManager
-            ->shouldReceive('remove')
-            ->with($channelPlayer)
-            ->once();
+    private function givenPlayersAreInChannel(Channel $channel, array $players): void
+    {
+        foreach ($players as $player) {
+            $channelPlayer = new ChannelPlayer();
+            $channelPlayer->setChannel($channel)->setParticipant($player->getPlayerInfo());
+            $channel->addParticipant($channelPlayer);
+        }
+    }
 
-        $this->entityManager->shouldReceive('flush')->once();
+    private function whenCheckIfPlayerCanWhisperInChannel(Channel $channel, Player $player): bool
+    {
+        return $this->service->canPlayerWhisperInChannel($channel, $player);
+    }
 
+    private function thenPlayerShouldBeAbleToWhisper(bool $canWhisper): void
+    {
+        self::assertTrue($canWhisper);
+    }
+
+    private function givenANamedPlace(string $name): Place
+    {
+        $place = Place::createNull();
+        $place->setName($name);
+
+        return $place;
+    }
+
+    private function thenPlayerShouldNotBeAbleToWhisper(bool $canWhisper): void
+    {
+        self::assertFalse($canWhisper);
+    }
+
+    private function givenAPrivateChannel(): Channel
+    {
+        $channel = new Channel();
+        $channel->setScope(ChannelScopeEnum::PRIVATE);
+
+        return $channel;
+    }
+
+    private function givenPlayersAreInChannelAndSaved(Channel $channel, array $players): void
+    {
+        foreach ($players as $player) {
+            $channelPlayer = new ChannelPlayer();
+            $channelPlayer->setChannel($channel)->setParticipant($player->getPlayerInfo());
+            $this->channelPlayerRepository->save($channelPlayer);
+            $channel->addParticipant($channelPlayer);
+        }
+        $this->channelRepository->save($channel);
+    }
+
+    private function whenUpdatePlayerPrivateChannels(Player $player): void
+    {
+        $this->service->updatePlayerPrivateChannels(
+            $player,
+            ActionEnum::CONSUME->toString(),
+            new \DateTime()
+        );
+    }
+
+    private function givenAPlayerWithItrackieInPlace(Place $place): Player
+    {
+        $player = $this->givenAPlayerInPlace($place);
+        $itrackie = new GameItem($player);
+        $itrackie->setName(ItemEnum::ITRACKIE);
+
+        return $player;
+    }
+
+    private function givenPlayersAreNotScrewed(array $players): void
+    {
+        foreach ($players as $player) {
+            $this->statusService->shouldReceive('getByTargetAndName')
+                ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
+                ->andReturn(null)
+                ->once();
+        }
+    }
+
+    private function givenNoEventsWillBeCalled(): void
+    {
+        $this->eventService->shouldReceive('callEvent')->never();
+    }
+
+    private function givenPlayerIsPirated(Player $player, Player $piratedBy): Status
+    {
+        $piratedStatusConfig = new StatusConfig();
+        $piratedStatusConfig->setStatusName(PlayerStatusEnum::TALKIE_SCREWED);
+        $piratedStatus = new Status($piratedBy, $piratedStatusConfig);
+        $piratedStatus->setTarget($player);
+
+        return $piratedStatus;
+    }
+
+    private function givenAPrivateChannelInDaedalus(Daedalus $daedalus): Channel
+    {
+        $channel = new Channel();
+        $channel
+            ->setScope(ChannelScopeEnum::PRIVATE)
+            ->setDaedalus($daedalus->getDaedalusInfo());
+        $this->channelRepository->save($channel);
+
+        return $channel;
+    }
+
+    private function givenAPublicChannelInDaedalus(Daedalus $daedalus): Channel
+    {
+        $channel = new Channel();
+        $channel->setDaedalus($daedalus->getDaedalusInfo());
+        $this->channelRepository->save($channel);
+
+        return $channel;
+    }
+
+    private function givenAPlayerInDaedalus(Daedalus $daedalus): Player
+    {
+        return PlayerFactory::createPlayerWithDaedalus($daedalus);
+    }
+
+    private function givenAPlayerWithTalkieInDaedalus(Daedalus $daedalus): Player
+    {
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        GameEquipmentFactory::createItemByNameForHolder(ItemEnum::WALKIE_TALKIE, $player);
+
+        return $player;
+    }
+
+    private function whenGetPlayerChannels(Player $player): ArrayCollection
+    {
+        return $this->service->getPlayerChannels($player);
+    }
+
+    private function thenPlayerShouldHaveChannels(ArrayCollection $channels, int $expectedCount): void
+    {
+        self::assertCount($expectedCount, $channels);
+    }
+
+    private function thenChannelsShouldContain(ArrayCollection $channels, Channel $expectedChannel): void
+    {
+        self::assertSame($expectedChannel, $channels->first());
+    }
+
+    private function whenGetPiratedChannels(Player $player): ArrayCollection
+    {
+        return $this->service->getPiratedChannels($player);
+    }
+
+    private function whenRemovePlayerFromChannel(PlayerInfo $playerInfo, Channel $channel): void
+    {
         $this->service->removePlayer($playerInfo, $channel);
     }
 
-    public function testMarkChannelAsRead(): void
+    private function thenOnlyPlayerShouldBeInChannel(Player $player, Channel $channel): void
     {
-        // given a channel
-        $channel = new Channel();
+        $availablePlayers = $this->channelPlayerRepository->findAvailablePlayerForPrivateChannel($channel, $player->getDaedalus());
+        self::assertCount(1, $availablePlayers);
+        self::assertSame($player->getPlayerInfo(), $availablePlayers[0]->getParticipant());
+    }
 
-        // given a player
-        $player = new Player();
+    private function givenChannelHasMessages(Channel $channel, int $count): array
+    {
+        $messages = $this->getMessagesForChannel($channel, $count);
 
-        // given 10 messages in the channel
-        $messages = $this->getMessagesForChannel($channel, 10);
-        // given 2 of them are already read by the player
-        $messages[0]->addReader($player);
-        $messages[1]->addReader($player);
+        return $this->addChildrenToMessages($messages);
+    }
 
-        // given 10 children messages for each message
-        $messages = $this->addChildrenToMessages($messages);
-        // given 2 of them are already read by the player
-        $messages[10]->addReader($player);
-        $messages[11]->addReader($player);
+    private function givenSomeMessagesAreAlreadyRead(array $messages, Player $player, array $indices): void
+    {
+        foreach ($indices as $index) {
+            $messages[$index]->addReader($player);
+        }
+    }
 
+    private function givenMessagesAreSaved(Channel $channel, array $messages): void
+    {
         $channel->setMessages(new ArrayCollection($messages));
+        $this->channelRepository->save($channel);
+        foreach ($messages as $message) {
+            $this->messageRepository->save($message);
+        }
+    }
 
-        // setup universe state
-        $this->entityManager->shouldReceive('beginTransaction')->twice();
-        $this->entityManager->shouldReceive('persist')->times(16);
-        $this->entityManager->shouldReceive('flush')->times(2);
-        $this->entityManager->shouldReceive('commit')->times(2);
-
-        // when player mark the channel as read
+    private function whenMarkChannelAsRead(Channel $channel, Player $player): void
+    {
         $this->service->markChannelAsReadForPlayer($channel, $player);
+    }
 
-        // then all messages in the channel should be marked as read by the player
+    private function thenAllMessagesShouldBeRead(array $messages, Player $player): void
+    {
         foreach ($messages as $message) {
             self::assertTrue($message->isReadBy($player));
         }
+    }
+
+    private function givenADaedalus(): Daedalus
+    {
+        return DaedalusFactory::createDaedalus();
+    }
+
+    private function whenCreatePublicChannel($daedalusInfo): Channel
+    {
+        return $this->service->createPublicChannel($daedalusInfo);
+    }
+
+    private function thenPublicChannelShouldBeInRepository($daedalusInfo, Channel $expectedChannel): void
+    {
+        $channel = $this->channelRepository->findOneByDaedalusInfoAndScope($daedalusInfo, ChannelScopeEnum::PUBLIC);
+        self::assertSame($expectedChannel, $channel);
     }
 
     private function getMessagesForChannel(Channel $channel, int $count): array

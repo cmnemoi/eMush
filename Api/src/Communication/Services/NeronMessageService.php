@@ -2,11 +2,11 @@
 
 namespace Mush\Communication\Services;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Enum\NeronPersonalitiesEnum;
-use Mush\Communication\Repository\MessageRepository;
+use Mush\Communication\Repository\ChannelRepositoryInterface;
+use Mush\Communication\Repository\MessageRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Door;
@@ -14,33 +14,22 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\Random\D100RollServiceInterface as D100RollInterface;
+use Mush\Game\Service\Random\GetRandomIntegerServiceInterface as GetRandomIntegerInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 
-class NeronMessageService implements NeronMessageServiceInterface
+final class NeronMessageService implements NeronMessageServiceInterface
 {
-    private ChannelServiceInterface $channelService;
-    private EntityManagerInterface $entityManager;
-    private RandomServiceInterface $randomService;
-    private MessageRepository $messageRepository;
-    private TranslationServiceInterface $translationService;
-
     public function __construct(
-        ChannelServiceInterface $channelService,
-        EntityManagerInterface $entityManager,
-        RandomServiceInterface $randomService,
-        MessageRepository $messageRepository,
-        TranslationServiceInterface $translationService
-    ) {
-        $this->channelService = $channelService;
-        $this->entityManager = $entityManager;
-        $this->randomService = $randomService;
-        $this->messageRepository = $messageRepository;
-        $this->translationService = $translationService;
-    }
+        private ChannelRepositoryInterface $channelRepository,
+        private D100RollInterface $d100RollService,
+        private GetRandomIntegerInterface $getRandomInteger,
+        private MessageRepositoryInterface $messageRepository,
+        private TranslationServiceInterface $translationService
+    ) {}
 
     public function createNeronMessage(
         string $messageKey,
@@ -49,25 +38,14 @@ class NeronMessageService implements NeronMessageServiceInterface
         \DateTime $dateTime,
         ?Message $parent = null
     ): Message {
-        $daedalusInfo = $daedalus->getDaedalusInfo();
-        $publicChannel = $this->channelService->getPublicChannel($daedalusInfo);
-        if ($publicChannel === null) {
-            throw new \LogicException('Daedalus do not have a public channel');
-        }
+        $publicChannel = $this->channelRepository->findDaedalusPublicChannelOrThrow($daedalus);
 
-        $neron = $daedalusInfo->getNeron();
-        // Get Neron personality
-        if (!$neron->isInhibited()) {
-            $parameters['neronMood'] = NeronPersonalitiesEnum::UNINHIBITED;
-        } elseif ($this->randomService->randomPercent() <= Neron::CRAZY_NERON_CHANCE) {
-            $parameters['neronMood'] = NeronPersonalitiesEnum::CRAZY;
-        } else {
-            $parameters['neronMood'] = NeronPersonalitiesEnum::NEUTRAL;
-        }
+        $neron = $daedalus->getDaedalusInfo()->getNeron();
+        $parameters['neronMood'] = $this->getNeronPersonality($neron);
 
         if (\array_key_exists($messageKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
             foreach ($declinations[$messageKey] as $keyVersion => $versionNb) {
-                $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
+                $parameters[$keyVersion] = $this->getRandomInteger->execute(1, $versionNb);
             }
         }
 
@@ -83,8 +61,7 @@ class NeronMessageService implements NeronMessageServiceInterface
             ->setCycle($daedalus->getCycle())
             ->setDay($daedalus->getDay());
 
-        $this->entityManager->persist($message);
-        $this->entityManager->flush();
+        $this->messageRepository->save($message);
 
         return $message;
     }
@@ -151,6 +128,18 @@ class NeronMessageService implements NeronMessageServiceInterface
         );
         $parameters = ['character' => $player->getName(), 'title' => $title];
         $this->createNeronMessage(NeronMessageEnum::TITLE_ATTRIBUTION, $player->getDaedalus(), $parameters, $time);
+    }
+
+    private function getNeronPersonality(Neron $neron): string
+    {
+        if (!$neron->isInhibited()) {
+            return NeronPersonalitiesEnum::UNINHIBITED;
+        }
+        if ($this->d100RollService->isSuccessful(Neron::CRAZY_NERON_CHANCE)) {
+            return NeronPersonalitiesEnum::CRAZY;
+        }
+
+        return NeronPersonalitiesEnum::NEUTRAL;
     }
 
     private function getDeathMessage(string $playerName, string $cause): string

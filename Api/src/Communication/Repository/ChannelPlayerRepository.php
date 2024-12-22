@@ -16,7 +16,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 /**
  * @template-extends ServiceEntityRepository<ChannelPlayer>
  */
-class ChannelPlayerRepository extends ServiceEntityRepository
+final class ChannelPlayerRepository extends ServiceEntityRepository implements ChannelPlayerRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -44,6 +44,20 @@ class ChannelPlayerRepository extends ServiceEntityRepository
             ->setParameter('gameStatus', GameStatusEnum::CURRENT); // only alive players should be able to join a channel
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function save(ChannelPlayer $channelPlayer): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($channelPlayer);
+        $entityManager->flush();
+    }
+
+    public function delete(ChannelPlayer $channelPlayer): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($channelPlayer);
+        $entityManager->flush();
     }
 
     private function playersWithAvailablePrivateChannel(int $daedalusId): array

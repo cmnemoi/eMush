@@ -44,6 +44,8 @@ final class MessageService implements MessageServiceInterface
             ->setCycle($player->getDaedalus()->getCycle())
             ->setDay($player->getDaedalus()->getDay());
 
+        $this->messageRepository->save($message);
+
         $rootMessage = $createMessage->getParent();
         if ($rootMessage) {
             $root = $rootMessage;

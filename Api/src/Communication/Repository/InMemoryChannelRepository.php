@@ -128,9 +128,12 @@ final class InMemoryChannelRepository implements ChannelRepositoryInterface
                 continue;
             }
 
-            $participants = $channel->getParticipants()->map(
-                static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()
-            );
+            $participants = $channel
+                ->getParticipants()
+                ->filter(static fn (ChannelPlayer $channelPlayer) => $channelPlayer->hasLeftChannel() === false)
+                ->map(
+                    static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()
+                );
 
             if ($participants->contains($playerInfo)) {
                 $channels[] = $channel;

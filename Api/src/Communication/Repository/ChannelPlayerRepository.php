@@ -118,7 +118,8 @@ final class ChannelPlayerRepository extends ServiceEntityRepository implements C
         $queryBuilder
             ->select('sub_2_player.id')
             ->join('players_already_in_channel.participant', 'sub_2_player')
-            ->where($queryBuilder->expr()->eq('players_already_in_channel.channel', ':currentChannel'));
+            ->where($queryBuilder->expr()->eq('players_already_in_channel.channel', ':currentChannel'))
+            ->andWhere($queryBuilder->expr()->notIn('players_already_in_channel.leftChannel', 'false'));
 
         return $queryBuilder->getDQL();
     }

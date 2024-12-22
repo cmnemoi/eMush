@@ -37,6 +37,7 @@ final class ChannelRepository extends ServiceEntityRepository implements Channel
                 FROM communication_channel channel
                 INNER JOIN communication_channel_player channel_participant ON channel.id = channel_participant.channel_id
                 WHERE channel_participant.participant_id = :playerInfo AND channel.scope = 'private'
+                AND channel_participant.left_channel = false
             ), public_channel AS (
                 SELECT channel.*
                 FROM communication_channel channel

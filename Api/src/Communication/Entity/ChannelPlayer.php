@@ -67,4 +67,11 @@ class ChannelPlayer
 
         return $this;
     }
+
+    public function enterChannel(): self
+    {
+        $this->leftChannel = false;
+
+        return $this;
+    }
 }

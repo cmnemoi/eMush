@@ -133,9 +133,18 @@ class Channel
         return $this->participants;
     }
 
+    public function getVisibleParticipants(): Collection
+    {
+        return $this->participants->filter(static fn (ChannelPlayer $channelPlayer) => !$channelPlayer->hasLeftChannel());
+    }
+
     public function addParticipant(ChannelPlayer $channelPlayer): self
     {
-        $this->participants->add($channelPlayer);
+        if (!$this->getParticipants()->contains($channelPlayer)) {
+            $this->participants->add($channelPlayer);
+        } else {
+            $channelPlayer->enterChannel();
+        }
 
         return $this;
     }

@@ -133,10 +133,13 @@ final class ChannelServiceTest extends TestCase
 
     public function testExitChannel()
     {
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
+        $daedalus = DaedalusFactory::createDaedalus();
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
         $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalus->getDaedalusInfo())
+            ->setScope(ChannelScopeEnum::PRIVATE);
+        $this->channelRepository->save($channel);
 
         $this->eventService
             ->shouldReceive('callEvent')
@@ -327,9 +330,6 @@ final class ChannelServiceTest extends TestCase
         $channelPlayer2->setChannel($channel)->setParticipant($terrence->getPlayerInfo());
         $this->channelPlayerRepository->save($channelPlayer2);
 
-        $channel
-            ->addParticipant($channelPlayer)
-            ->addParticipant($channelPlayer2);
         $this->channelRepository->save($channel);
 
         $this->statusService->shouldReceive('getByTargetAndName')
@@ -374,24 +374,20 @@ final class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME->value;
 
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
+        $player = PlayerFactory::createPlayerByName(CharacterEnum::ANDIE);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
+        $channelPlayer->setChannel($channel)->setParticipant($player->getPlayerInfo());
         $this->channelPlayerRepository->save($channelPlayer);
 
-        $player2 = new Player();
-        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $player2 = PlayerFactory::createPlayerByName(CharacterEnum::TERRENCE);
         $item2 = new GameItem($player2);
         $item2->setName(ItemEnum::ITRACKIE);
         $player2->setPlace($place2);
         $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
+        $channelPlayer2->setChannel($channel)->setParticipant($player2->getPlayerInfo());
         $this->channelPlayerRepository->save($channelPlayer2);
 
-        $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
         $this->channelRepository->save($channel);
 
         $this->statusService->shouldReceive('getByTargetAndName')

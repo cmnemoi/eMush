@@ -929,6 +929,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->exploration !== null || $this->hasStatus(PlayerStatusEnum::LOST);
     }
 
+    /** @return Collection<int, Message> */
     public function getFavoriteMessages(): Collection
     {
         return $this->favoriteMessages;

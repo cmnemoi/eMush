@@ -14,7 +14,7 @@ use Mush\Place\Enum\RoomEventEnum;
 /**
  * @template-extends ServiceEntityRepository<Message>
  */
-class MessageRepository extends ServiceEntityRepository
+final class MessageRepository extends ServiceEntityRepository implements MessageRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -78,5 +78,36 @@ class MessageRepository extends ServiceEntityRepository
         $queryBuilder->orderBy('message.updatedAt', 'desc');
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function save(Message $message): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($message);
+        $entityManager->flush();
+    }
+
+    public function saveAll(array $messages): void
+    {
+        $entityManager = $this->getEntityManager();
+
+        try {
+            $entityManager->beginTransaction();
+            foreach ($messages as $message) {
+                $entityManager->persist($message);
+            }
+            $entityManager->flush();
+            $entityManager->commit();
+        } catch (\Throwable $e) {
+            $entityManager->rollback();
+            $entityManager->close();
+
+            throw $e;
+        }
+    }
+
+    public function findById(int $id): ?Message
+    {
+        return $this->find($id);
     }
 }

@@ -736,6 +736,8 @@ final class ChannelServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $channel = new Channel();
 
+        $this->entityManager->shouldReceive('persist')->with($channel)->once();
+
         $this->entityManager
             ->shouldReceive('persist')
             ->withArgs(

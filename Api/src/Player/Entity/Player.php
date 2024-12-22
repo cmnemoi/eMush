@@ -249,6 +249,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
+    public function isIn(string $placeName): bool
+    {
+        return $this->getPlace()->getName() === $placeName;
+    }
+
     public function isNotIn(string $placeName): bool
     {
         return $this->getPlace()->getName() !== $placeName;
@@ -257,6 +262,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function isNotInAny(array $placeNames): bool
     {
         return \in_array($this->getPlace()->getName(), $placeNames, true) === false;
+    }
+
+    public function getPreviousRoom(): ?Place
+    {
+        return $this->getStatusByName(PlayerStatusEnum::PREVIOUS_ROOM)?->getPlaceTargetOrThrow();
     }
 
     /**
@@ -356,6 +366,23 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function doesNotHaveEquipment(string $name): bool
     {
         return $this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
+    }
+
+    public function hasAnyOperationalEquipment(array $names): bool
+    {
+        $operationalEquipments = $this->getEquipments()
+            ->filter(static fn (GameItem $gameItem) => $gameItem->isOperational())
+            ->map(static fn (GameItem $gameItem) => $gameItem->getName())
+            ->toArray();
+
+        $matchingEquipments = array_intersect($names, $operationalEquipments);
+
+        return empty($matchingEquipments) === false;
+    }
+
+    public function doesNotHaveAnyOperationalEquipment(array $names): bool
+    {
+        return $this->hasAnyOperationalEquipment($names) === false;
     }
 
     public function getEquipmentByName(string $name): ?GameEquipment
@@ -1210,6 +1237,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
             || $this->hasStatus(PlayerStatusEnum::BRAINSYNC)
             || $this->getPlace()->getName() === RoomEnum::BRIDGE
             || $this->hasTitle(TitleEnum::COM_MANAGER);
+    }
+
+    public function hasATalkie(): bool
+    {
+        return $this->hasAnyOperationalEquipment([ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE]);
     }
 
     public function getOldPlaceOrThrow(): Place

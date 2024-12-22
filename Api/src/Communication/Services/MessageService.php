@@ -115,6 +115,8 @@ final class MessageService implements MessageServiceInterface
             ->setCycle($cycle)
             ->setDay($day);
 
+        $channel->addMessage($message);
+
         $this->entityManager->persist($message);
         $this->entityManager->flush();
 

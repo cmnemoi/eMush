@@ -37,3 +37,5 @@ TODO.md
 *.log
 
 .aider*
+
+.nix*

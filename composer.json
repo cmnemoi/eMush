@@ -1,0 +1,38 @@
+{
+    "name": "mush/mush",
+    "description": "Root composer file for managing Mush services",
+    "type": "project",
+    "license": "AGPL-3.0-or-later",
+    "scripts": {
+        "start": [
+            "@start-postgres",
+            "@start-php",
+            "@start-yarn"
+        ],
+        "stop": [
+            "@stop-yarn",
+            "@stop-php",
+            "@stop-postgres"
+        ],
+        "start-postgres": [
+            "mkdir -p .nix/postgres_data",
+            "initdb -D .nix/postgres_data || true",
+            "pg_ctl -D .nix/postgres_data -l .nix/postgres.log start || true"
+        ],
+        "stop-postgres": [
+            "bash scripts/stop_postgres.sh"
+        ],
+        "start-php": [
+            "cd Api && php -S localhost:8000 -t public/"
+        ],
+        "stop-php": [
+            "pkill -f 'php -S localhost:8000' || true"
+        ],
+        "start-yarn": [
+            "cd App && yarn dev"
+        ],
+        "stop-yarn": [
+            "pkill -f 'node.*vite' || true"
+        ]
+    }
+}

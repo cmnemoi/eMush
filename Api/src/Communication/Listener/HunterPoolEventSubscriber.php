@@ -5,19 +5,15 @@ declare(strict_types=1);
 namespace Mush\Communication\Listener;
 
 use Mush\Communication\Enum\NeronMessageEnum;
-use Mush\Communication\Services\NeronMessageServiceInterface;
+use Mush\Communication\Services\NeronMessageService;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class HunterPoolEventSubscriber implements EventSubscriberInterface
 {
-    private NeronMessageServiceInterface $neronMessageService;
-
     public function __construct(
-        NeronMessageServiceInterface $neronMessageService,
-    ) {
-        $this->neronMessageService = $neronMessageService;
-    }
+        private NeronMessageService $neronMessageService,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -28,11 +24,11 @@ final class HunterPoolEventSubscriber implements EventSubscriberInterface
 
     public function onUnpoolHunters(HunterPoolEvent $event): void
     {
-        $daedalus = $event->getDaedalus();
-        if ($daedalus->getAttackingHunters()->isEmpty()) {
+        if ($event->shouldNotGenerateNeronAnnouncement()) {
             return;
         }
 
+        $daedalus = $event->getDaedalus();
         $this->neronMessageService->createNeronMessage(
             messageKey: NeronMessageEnum::HUNTER_ARRIVAL,
             daedalus: $daedalus,

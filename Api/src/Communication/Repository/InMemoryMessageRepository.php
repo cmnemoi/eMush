@@ -79,4 +79,9 @@ final class InMemoryMessageRepository implements MessageRepositoryInterface
     {
         $this->messages = [];
     }
+
+    public function count(): int
+    {
+        return \count($this->messages);
+    }
 }

@@ -14,8 +14,8 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Service\HideRoomLogsService;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -31,6 +31,7 @@ final class Delog extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        private HideRoomLogsService $hideRoomLogs,
         private RoomLogServiceInterface $roomLogService,
         private StatusServiceInterface $statusService
     ) {
@@ -72,8 +73,7 @@ final class Delog extends AbstractAction
     {
         $placeLogs = $this->roomLogService->findAllByDaedalusAndPlace($this->player->getDaedalus(), $this->player->getPlace());
 
-        $placeLogs->map(static fn (RoomLog $log) => $log->hide());
-        $placeLogs->map(fn (RoomLog $log) => $this->roomLogService->persist($log));
+        $this->hideRoomLogs->execute($placeLogs);
     }
 
     private function createDefacedRoomLog(): void

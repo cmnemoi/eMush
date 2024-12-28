@@ -91,6 +91,26 @@ final class RoomLogRepository extends ServiceEntityRepository implements RoomLog
         $this->getEntityManager()->flush();
     }
 
+    public function saveAll(array $roomLogs): void
+    {
+        $entityManager = $this->getEntityManager();
+
+        try {
+            $entityManager->beginTransaction();
+            foreach ($roomLogs as $roomLog) {
+                $entityManager->persist($roomLog);
+            }
+
+            $entityManager->flush();
+            $entityManager->commit();
+        } catch (\Throwable $e) {
+            $entityManager->rollback();
+            $entityManager->close();
+
+            throw $e;
+        }
+    }
+
     public function startTransaction(): void
     {
         $this->getEntityManager()->beginTransaction();

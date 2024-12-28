@@ -39,9 +39,6 @@ class RoomLogNormalizer implements NormalizerInterface
             $dayKey = $this->getDayKey($roomLog, $currentPlayer);
             $cycleKey = $this->getCycleKey($roomLog, $currentPlayer);
 
-            if ($this->isPlayerPlaceDelogged($currentPlayer)) {
-                $logs[$dayKey][$cycleKey] = [];
-            }
             $logs[$dayKey][$cycleKey][] = $log;
         }
 

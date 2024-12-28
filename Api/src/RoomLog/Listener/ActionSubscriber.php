@@ -306,7 +306,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             $event->getPlace(),
             VisibilityEnum::PUBLIC,
             'event_log',
-            null,
+            $event->getAuthor(),
             [LogParameterKeyEnum::ITEM => ItemEnum::SCHRODINGER],
             $event->getTime()
         );

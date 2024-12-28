@@ -6,6 +6,7 @@ namespace Mush\tests\unit\RoomLog\Listener;
 
 use Mush\Action\ConfigData\ActionData;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
@@ -110,6 +111,16 @@ final class CatMeowTest extends TestCase
         $this->thenCatLogShouldBeHidden();
     }
 
+    public function testCatShouldNotHissInDeloggedRoom(): void
+    {
+        $this->givenSchrodingerInPlayerInventory();
+        $this->givenPlayerRoomIsDelogged();
+
+        $this->whenPlayerFailsToShootAtCat();
+
+        $this->thenCatShouldNotHiss();
+    }
+
     /**
      * Test cases for cat meowing behavior based on action visibility.
      */
@@ -192,6 +203,21 @@ final class CatMeowTest extends TestCase
         $this->actionSubscriber->onPreAction($actionResult);
     }
 
+    private function whenPlayerFailsToShootAtCat(): void
+    {
+        $actionResult = new ActionEvent(
+            actionConfig: $this->shootCatActionConfig(),
+            actionProvider: $this->player,
+            player: $this->player,
+            tags: $this->shootCatActionConfig()->getActionTags(),
+        );
+        $result = new Fail();
+        $result->setVisibility(VisibilityEnum::PUBLIC);
+        $actionResult->setActionResult($result);
+
+        $this->actionSubscriber->onResultAction($actionResult);
+    }
+
     private function thenCatShouldMeow(): void
     {
         $catMeowLog = $this->roomLogRepository->findOneByLogKey(LogEnum::CAT_MEOW);
@@ -210,6 +236,12 @@ final class CatMeowTest extends TestCase
         self::assertEquals(VisibilityEnum::HIDDEN, $catMeowLog->getVisibility(), 'Cat log should be hidden');
     }
 
+    private function thenCatShouldNotHiss(): void
+    {
+        $catMeowLog = $this->roomLogRepository->findOneByLogKey(LogEnum::CAT_HISS);
+        self::assertNull($catMeowLog);
+    }
+
     private function moveActionConfig(): ActionConfig
     {
         return ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::MOVE));
@@ -218,5 +250,10 @@ final class CatMeowTest extends TestCase
     private function searchActionConfig(): ActionConfig
     {
         return ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SEARCH));
+    }
+
+    private function shootCatActionConfig(): ActionConfig
+    {
+        return ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_CAT));
     }
 }

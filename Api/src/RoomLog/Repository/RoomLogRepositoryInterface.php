@@ -26,6 +26,8 @@ interface RoomLogRepositoryInterface
 
     public function save(RoomLog $roomLog): void;
 
+    public function saveAll(array $roomLogs): void;
+
     public function commitTransaction(): void;
 
     public function rollbackTransaction(): void;

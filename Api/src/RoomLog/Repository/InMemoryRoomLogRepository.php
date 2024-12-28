@@ -88,8 +88,14 @@ final class InMemoryRoomLogRepository implements RoomLogRepositoryInterface
     {
         $id = crc32(serialize($roomLog));
         (new \ReflectionProperty($roomLog, 'id'))->setValue($roomLog, $id);
+        $this->roomLogs[$roomLog->getId()] = $roomLog;
+    }
 
-        $this->roomLogs[$id] = $roomLog;
+    public function saveAll(array $roomLogs): void
+    {
+        foreach ($roomLogs as $roomLog) {
+            $this->save($roomLog);
+        }
     }
 
     public function commitTransaction(): void

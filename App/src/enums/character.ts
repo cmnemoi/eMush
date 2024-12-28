@@ -179,6 +179,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     [CharacterEnum.MUSH]: {
         'name': 'Mush',
         'completeName': 'Mush',
+        'head': getImgUrl('status/mush.png'),
         'body': getImgUrl('char/body/mush.png')
     }
 };

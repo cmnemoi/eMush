@@ -1023,11 +1023,15 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
 
         // then actions provided by skills
+        $providedSkillActions = [];
+
         /** @var Skill $skill */
         foreach ($this->getSkills() as $skill) {
-            $actions = array_merge($actions, $skill->getProvidedActions($actionTarget, $actionRanges)->toArray());
-            $actions = $this->removeDuplicateActions($actions);
+            $providedSkillActions = array_merge($providedSkillActions, $skill->getProvidedActions($actionTarget, $actionRanges)->toArray());
         }
+        $providedSkillActions = $this->removeDuplicateActions($providedSkillActions);
+
+        $actions = array_merge($actions, $providedSkillActions);
 
         return new ArrayCollection($actions);
     }
@@ -1384,7 +1388,8 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     {
         for ($key = 1; $key < \count($actions); ++$key) {
             $action = $actions[$key];
-            if ($action->getId() === $actions[$key - 1]->getId()) {
+            $previousAction = $actions[$key - 1];
+            if ($action->equals($previousAction)) {
                 unset($actions[$key]);
             }
         }

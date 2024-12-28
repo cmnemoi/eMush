@@ -118,8 +118,7 @@ final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void
     {
-        $player = $playerDisease->getPlayer();
-        if ($player->isMush() && $playerDisease->isAPhysicalDisease()) {
+        if ($playerDisease->shouldHealSilently()) {
             $this->removePlayerDisease($playerDisease, [DiseaseStatusEnum::MUSH_CURE], $time, VisibilityEnum::HIDDEN);
 
             return;

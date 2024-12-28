@@ -28,6 +28,7 @@ interface ModifierCreationServiceInterface
         ModifierProviderInterface $modifierProvider,
         array $tags = [],
         \DateTime $time = new \DateTime(),
+        ?bool $revertOnRemove = null
     ): void;
 
     public function createDirectModifier(

@@ -108,6 +108,8 @@ class DirectModifierCreationCest
 
         $playerDisease = new PlayerDisease();
         $playerDisease->setPlayer($player)->setDiseaseConfig($diseaseConfig);
+        $I->haveInRepository($playerDisease);
+        $player->addMedicalCondition($playerDisease);
 
         $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
 
@@ -207,6 +209,8 @@ class DirectModifierCreationCest
 
         $playerDisease = new PlayerDisease();
         $playerDisease->setPlayer($player)->setDiseaseConfig($diseaseConfig);
+        $I->haveInRepository($playerDisease);
+        $player->addMedicalCondition($playerDisease);
 
         $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
 
@@ -442,6 +446,8 @@ class DirectModifierCreationCest
 
         $playerDisease = new PlayerDisease();
         $playerDisease->setPlayer($player)->setDiseaseConfig($diseaseConfig);
+        $I->haveInRepository($playerDisease);
+        $player->addMedicalCondition($playerDisease);
 
         $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
 

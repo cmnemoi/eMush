@@ -76,6 +76,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         ModifierProviderInterface $modifierProvider,
         array $tags = [],
         \DateTime $time = new \DateTime(),
+        ?bool $revertOnRemove = null
     ): void {
         if (!$modifierConfig instanceof DirectModifierConfig) {
             $this->deleteGameEventModifier(
@@ -83,7 +84,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
                 holder: $holder,
                 modifierProvider: $modifierProvider
             );
-        } elseif ($modifierConfig->getRevertOnRemove()) {
+        } elseif ($revertOnRemove ?? $modifierConfig->getRevertOnRemove()) {
             $this->createDirectModifier($modifierConfig, $holder, $modifierProvider, $tags, $time, true);
             $this->deleteGameEventModifier(
                 $modifierConfig,

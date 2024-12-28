@@ -1,7 +1,5 @@
 import sanitizeHtml from 'sanitize-html';
 
-import { getImgUrl } from './getImgUrl';
-
 import { AlertEnum, AlertsIcons } from '@/enums/alerts.enum';
 import { CharacterEnum, characterEnum } from '@/enums/character';
 import { statusPlayerEnum, StatusPlayerNameEnum } from '@/enums/status.player.enum';

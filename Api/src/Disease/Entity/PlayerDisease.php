@@ -164,4 +164,9 @@ class PlayerDisease
     {
         return $this->diseaseConfig->getType() === MedicalConditionTypeEnum::INJURY;
     }
+
+    public function shouldHealSilently(): bool
+    {
+        return $this->player->isMush() && ($this->isAPhysicalDisease() || $this->isIncubating());
+    }
 }

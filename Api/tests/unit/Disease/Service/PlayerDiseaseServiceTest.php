@@ -6,6 +6,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Disease\ConfigData\DiseaseConfigData;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
@@ -175,7 +176,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(DiseaseEnum::ACID_REFLUX));
         $diseasePlayer = new PlayerDisease();
         $diseasePlayer
             ->setPlayer($player)
@@ -199,7 +200,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(InjuryEnum::BROKEN_SHOULDER));
         $diseaseConfig->setOverride([InjuryEnum::BROKEN_SHOULDER]);
         $diseasePlayer = new PlayerDisease();
         $diseasePlayer
@@ -208,8 +209,7 @@ final class PlayerDiseaseServiceTest extends TestCase
             ->setDiseaseConfig($diseaseConfig)
             ->setDiseasePoint(1);
 
-        $diseaseConfig2 = new DiseaseConfig();
-        $diseaseConfig2->setDiseaseName(InjuryEnum::BROKEN_SHOULDER);
+        $diseaseConfig2 = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(InjuryEnum::BROKEN_SHOULDER));
         $diseasePlayer2 = new PlayerDisease();
         $diseasePlayer2
             ->setPlayer($player)

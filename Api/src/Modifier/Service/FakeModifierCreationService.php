@@ -44,6 +44,7 @@ final class FakeModifierCreationService implements ModifierCreationServiceInterf
         ModifierProviderInterface $modifierProvider,
         array $tags = [],
         \DateTime $time = new \DateTime(),
+        ?bool $revertOnRemove = null
     ): void {
         // delete all modifiers with the same config
         foreach ($this->repository as $modifier) {

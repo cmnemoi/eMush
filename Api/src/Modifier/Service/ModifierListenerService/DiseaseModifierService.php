@@ -45,12 +45,15 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
                 return;
             }
 
+            $disease = $player->getMedicalConditionByNameOrThrow($diseaseConfig->getDiseaseName());
+
             $this->modifierCreationService->deleteModifier(
                 modifierConfig: $modifierConfig,
                 holder: $holder,
                 modifierProvider: $player,
                 tags: $tags,
-                time: $time
+                time: $time,
+                revertOnRemove: $disease->isActive()
             );
         }
     }

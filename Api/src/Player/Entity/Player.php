@@ -443,6 +443,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $disease->isEmpty() ? null : $disease->first();
     }
 
+    public function getMedicalConditionByNameOrThrow(string $diseaseName): PlayerDisease
+    {
+        $disease = $this->getMedicalConditionByName($diseaseName);
+
+        return $disease ?? throw new \RuntimeException('The player does not have the disease ' . $diseaseName);
+    }
+
     public function getActiveDisorders(): PlayerDiseaseCollection
     {
         return $this->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(MedicalConditionTypeEnum::DISORDER);

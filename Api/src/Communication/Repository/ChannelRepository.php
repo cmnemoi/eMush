@@ -16,7 +16,7 @@ use Mush\Player\Entity\PlayerInfo;
 /**
  * @template-extends ServiceEntityRepository<Channel>
  */
-class ChannelRepository extends ServiceEntityRepository
+final class ChannelRepository extends ServiceEntityRepository implements ChannelRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -105,6 +105,35 @@ class ChannelRepository extends ServiceEntityRepository
             ->setParameter('scope', ChannelScopeEnum::PRIVATE);
 
         return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
+    public function save(Channel $channel): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($channel);
+        $entityManager->flush();
+    }
+
+    public function delete(Channel $channel): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($channel);
+        $entityManager->flush();
+    }
+
+    public function findOneByDaedalusInfoAndScope($daedalusInfo, $scope): ?Channel
+    {
+        return $this->findOneBy(['daedalusInfo' => $daedalusInfo, 'scope' => $scope]);
+    }
+
+    public function findDaedalusPublicChannelOrThrow(Daedalus $daedalus): Channel
+    {
+        $channel = $this->findOneByDaedalusInfoAndScope($daedalus->getDaedalusInfo(), ChannelScopeEnum::PUBLIC);
+        if ($channel === null) {
+            throw new \RuntimeException("Daedalus {$daedalus->getId()} does not have a public channel");
+        }
+
+        return $channel;
     }
 
     private function findPrivateChannelsByPlayer(PlayerInfo $playerInfo): Collection

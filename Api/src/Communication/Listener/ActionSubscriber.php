@@ -6,7 +6,7 @@ namespace Mush\Communication\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Communication\Repository\ChannelRepository;
+use Mush\Communication\Repository\ChannelRepositoryInterface;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -16,7 +16,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class ActionSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private ChannelRepository $channelRepository,
+        private ChannelRepositoryInterface $channelRepository,
         private ChannelServiceInterface $channelService,
     ) {}
 

@@ -57,8 +57,6 @@ interface ChannelServiceInterface
 
     public function getPiratedChannels(Player $piratedPlayer): Collection;
 
-    public function getPiratePlayer(Player $player): ?Player;
-
     public function addPlayer(PlayerInfo $playerInfo, Channel $channel): ChannelPlayer;
 
     public function removePlayer(PlayerInfo $playerInfo, Channel $channel): bool;

@@ -7,12 +7,11 @@ namespace Mush\Communication\Services;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Event\MessageEvent;
-use Mush\Communication\Repository\MessageRepository;
+use Mush\Communication\Repository\MessageRepositoryInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 
@@ -20,24 +19,14 @@ final class MessageService implements MessageServiceInterface
 {
     public const string MUTE_PLAYER_SPEAKING_IN_MUSH_CHANNEL = 'mute_player_speaking_in_mush_channel';
 
-    private EntityManagerInterface $entityManager;
-    private EventServiceInterface $eventService;
-    private MessageRepository $messageRepository;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        EventServiceInterface $eventService,
-        MessageRepository $messageRepository,
-    ) {
-        $this->entityManager = $entityManager;
-        $this->eventService = $eventService;
-        $this->messageRepository = $messageRepository;
-    }
+        private EventServiceInterface $eventService,
+        private MessageRepositoryInterface $messageRepository,
+    ) {}
 
     public function save(Message $message): void
     {
-        $this->entityManager->persist($message);
-        $this->entityManager->flush();
+        $this->messageRepository->save($message);
     }
 
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message
@@ -63,7 +52,7 @@ final class MessageService implements MessageServiceInterface
             }
 
             $root->setUpdatedAt(new \DateTime());
-            $this->entityManager->persist($root);
+            $this->messageRepository->save($root);
         }
 
         $tags = [];
@@ -83,8 +72,7 @@ final class MessageService implements MessageServiceInterface
         $modifiedEvent = $events->getInitialEvent();
         $message = $modifiedEvent->getMessage();
 
-        $this->entityManager->persist($message);
-        $this->entityManager->flush();
+        $this->messageRepository->save($message);
 
         return $message;
     }
@@ -117,8 +105,7 @@ final class MessageService implements MessageServiceInterface
 
         $channel->addMessage($message);
 
-        $this->entityManager->persist($message);
-        $this->entityManager->flush();
+        $this->messageRepository->save($message);
 
         return $message;
     }
@@ -169,7 +156,7 @@ final class MessageService implements MessageServiceInterface
      */
     public function getMessageById(int $messageId): ?Message
     {
-        return $this->entityManager->getRepository(Message::class)->find($messageId);
+        return $this->messageRepository->findById($messageId);
     }
 
     public function getNumberOfNewMessagesForPlayer(Player $player, Channel $channel): int
@@ -199,8 +186,7 @@ final class MessageService implements MessageServiceInterface
 
         try {
             $message->addReader($player)->cancelTimestampable();
-            $this->entityManager->persist($message);
-            $this->entityManager->flush();
+            $this->messageRepository->save($message);
         } catch (UniqueConstraintViolationException $e) {
             // Ignore as this is probably due to a race condition
         }
@@ -215,8 +201,7 @@ final class MessageService implements MessageServiceInterface
             ->addFavorite($player)
             ->cancelTimestampable();
 
-        $this->entityManager->persist($message);
-        $this->entityManager->flush();
+        $this->messageRepository->save($rootMessage);
     }
 
     public function removeMessageFromFavoritesForPlayer(Message $message, Player $player): void
@@ -228,8 +213,7 @@ final class MessageService implements MessageServiceInterface
             ->removeFavorite($player)
             ->cancelTimestampable();
 
-        $this->entityManager->persist($message);
-        $this->entityManager->flush();
+        $this->messageRepository->save($rootMessage);
     }
 
     private function getByChannelWithTimeLimit(Channel $channel, \DateInterval $timeLimit): Collection

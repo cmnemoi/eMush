@@ -74,6 +74,16 @@ class StatusTarget
         return $this->player;
     }
 
+    public function getPlayerOrThrow(): Player
+    {
+        $player = $this->getPlayer();
+        if (!$player) {
+            throw new \RuntimeException('Status target is not a player');
+        }
+
+        return $player;
+    }
+
     public function setPlayer(?Player $player): self
     {
         $this->player = $player;

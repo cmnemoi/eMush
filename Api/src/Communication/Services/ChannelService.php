@@ -1,18 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Communication\Services;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\CommunicationActionEnum;
 use Mush\Communication\Event\ChannelEvent;
-use Mush\Communication\Repository\ChannelPlayerRepository;
-use Mush\Communication\Repository\ChannelRepository;
+use Mush\Communication\Repository\ChannelPlayerRepositoryInterface;
+use Mush\Communication\Repository\ChannelRepositoryInterface;
+use Mush\Communication\Repository\MessageRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Service\EventServiceInterface;
@@ -24,36 +26,19 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class ChannelService implements ChannelServiceInterface
+final class ChannelService implements ChannelServiceInterface
 {
-    private EntityManagerInterface $entityManager;
-    private ChannelRepository $channelRepository;
-    private ChannelPlayerRepository $channelPlayerRepository;
-    private EventServiceInterface $eventService;
-    private StatusServiceInterface $statusService;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ChannelRepository $channelRepository,
-        ChannelPlayerRepository $channelPlayerRepository,
-        EventServiceInterface $eventService,
-        StatusServiceInterface $statusService
-    ) {
-        $this->entityManager = $entityManager;
-        $this->channelRepository = $channelRepository;
-        $this->channelPlayerRepository = $channelPlayerRepository;
-        $this->eventService = $eventService;
-        $this->statusService = $statusService;
-    }
+        private ChannelRepositoryInterface $channelRepository,
+        private ChannelPlayerRepositoryInterface $channelPlayerRepository,
+        private MessageRepositoryInterface $messageRepository,
+        private EventServiceInterface $eventService,
+        private StatusServiceInterface $statusService,
+    ) {}
 
     public function getPublicChannel(DaedalusInfo $daedalusInfo): ?Channel
     {
-        $channel = $this->channelRepository->findOneBy([
-            'daedalusInfo' => $daedalusInfo,
-            'scope' => ChannelScopeEnum::PUBLIC,
-        ]);
-
-        return $channel instanceof Channel ? $channel : null;
+        return $this->channelRepository->findOneByDaedalusInfoAndScope($daedalusInfo, ChannelScopeEnum::PUBLIC);
     }
 
     public function createPublicChannel(DaedalusInfo $daedalusInfo): Channel
@@ -63,8 +48,7 @@ class ChannelService implements ChannelServiceInterface
             ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC);
 
-        $this->entityManager->persist($channel);
-        $this->entityManager->flush();
+        $this->channelRepository->save($channel);
 
         return $channel;
     }
@@ -76,8 +60,7 @@ class ChannelService implements ChannelServiceInterface
             ->setDaedalus($player->getDaedalus()->getDaedalusInfo())
             ->setScope(ChannelScopeEnum::PRIVATE);
 
-        $this->entityManager->persist($channel);
-        $this->entityManager->flush();
+        $this->channelRepository->save($channel);
 
         $event = new ChannelEvent($channel, [CommunicationActionEnum::CREATE_CHANNEL], new \DateTime(), $player);
         $this->eventService->callEvent($event, ChannelEvent::NEW_CHANNEL);
@@ -92,20 +75,14 @@ class ChannelService implements ChannelServiceInterface
             ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::MUSH);
 
-        $this->entityManager->persist($channel);
-        $this->entityManager->flush();
+        $this->channelRepository->save($channel);
 
         return $channel;
     }
 
     public function getMushChannel(DaedalusInfo $daedalusInfo): ?Channel
     {
-        $channel = $this->channelRepository->findOneBy([
-            'daedalusInfo' => $daedalusInfo,
-            'scope' => ChannelScopeEnum::MUSH,
-        ]);
-
-        return $channel instanceof Channel ? $channel : null;
+        return $this->channelRepository->findOneByDaedalusInfoAndScope($daedalusInfo, ChannelScopeEnum::MUSH);
     }
 
     public function getMushChannelOrThrow(Daedalus $daedalus): Channel
@@ -179,8 +156,7 @@ class ChannelService implements ChannelServiceInterface
 
     public function deleteChannel(Channel $channel): bool
     {
-        $this->entityManager->remove($channel);
-        $this->entityManager->flush();
+        $this->channelRepository->delete($channel);
 
         return true;
     }
@@ -271,17 +247,6 @@ class ChannelService implements ChannelServiceInterface
         );
     }
 
-    /**
-     * @psalm-suppress MoreSpecificReturnType
-     * @psalm-suppress LessSpecificReturnStatement
-     */
-    public function getPiratePlayer(Player $player): ?Player
-    {
-        $screwedTalkieStatus = $this->statusService->getByTargetAndName($player, PlayerStatusEnum::TALKIE_SCREWED);
-
-        return $screwedTalkieStatus?->getStatusTargetOwner()->getPlayer();
-    }
-
     public function getPlayerFavoritesChannel(Player $player): Channel
     {
         $channel = $this->channelRepository->findFavoritesChannelByPlayer($player);
@@ -302,24 +267,24 @@ class ChannelService implements ChannelServiceInterface
 
         $channel->addParticipant($channelPlayer);
 
-        $this->entityManager->persist($channelPlayer);
-        $this->entityManager->persist($channel);
-        $this->entityManager->flush();
+        $this->channelPlayerRepository->save($channelPlayer);
+        $this->channelRepository->save($channel);
 
         return $channelPlayer;
     }
 
     public function removePlayer(PlayerInfo $playerInfo, Channel $channel): bool
     {
+        /** @var ChannelPlayer|false $channelParticipant */
         $channelParticipant = $channel->getParticipants()
-            ->filter(static fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $playerInfo));
+            ->filter(static fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $playerInfo))
+            ->first();
 
-        if ($channelParticipant->isEmpty()) {
+        if (!$channelParticipant) {
             return false;
         }
 
-        $this->entityManager->remove($channelParticipant->first());
-        $this->entityManager->flush();
+        $this->channelPlayerRepository->delete($channelParticipant);
 
         return true;
     }
@@ -330,34 +295,17 @@ class ChannelService implements ChannelServiceInterface
             return;
         }
 
-        $unreadMessages = $channel->getPlayerUnreadMessages($player);
+        $this->readMessages($channel->getPlayerUnreadMessages($player), $player);
+        $this->readMessages($channel->getMessagesWithChildren()->filter(static fn (Message $message) => $message->isUnreadBy($player)), $player);
+    }
 
-        try {
-            $this->entityManager->beginTransaction();
-            $unreadMessages->map(fn (Message $message) => $this->readMessage($message, $player));
-            $this->entityManager->flush();
-            $this->entityManager->commit();
-        } catch (\Throwable $e) {
-            $this->entityManager->rollback();
-            $this->entityManager->close();
-
-            throw $e;
-        }
-
-        try {
-            $this->entityManager->beginTransaction();
-            foreach ($channel->getMessagesWithChildren() as $message) {
-                $unreadChildren = $message->getChild()->filter(static fn (Message $message) => $message->isUnreadBy($player));
-                $unreadChildren->map(fn (Message $child) => $this->readMessage($child, $player));
-            }
-            $this->entityManager->flush();
-            $this->entityManager->commit();
-        } catch (\Throwable $e) {
-            $this->entityManager->rollback();
-            $this->entityManager->close();
-
-            throw $e;
-        }
+    /**
+     * @param Collection<int, Message> $messages
+     */
+    private function readMessages(Collection $messages, Player $player): void
+    {
+        $messages->map(fn (Message $message) => $this->readMessage($message, $player));
+        $this->messageRepository->saveAll($messages->toArray());
     }
 
     private function isChannelOnSeveralRoom(Channel $channel, Place $place): bool
@@ -405,8 +353,7 @@ class ChannelService implements ChannelServiceInterface
             ->setDaedalus($player->getDaedalus()->getDaedalusInfo())
             ->setScope(ChannelScopeEnum::FAVORITES);
 
-        $this->entityManager->persist($channel);
-        $this->entityManager->flush();
+        $this->channelRepository->save($channel);
 
         $this->addPlayer($player->getPlayerInfo(), $channel);
 
@@ -468,10 +415,18 @@ class ChannelService implements ChannelServiceInterface
         }
 
         try {
-            $message->addReader($player)->cancelTimestampable();
-            $this->entityManager->persist($message);
+            $message = $message->addReader($player);
+            $message = $message->cancelTimestampable();
+            $this->messageRepository->save($message);
         } catch (UniqueConstraintViolationException $e) {
             // ignore as this is probably due to a race condition
         }
+    }
+
+    private function getPiratePlayer(Player $player): ?Player
+    {
+        $screwedTalkieStatus = $this->statusService->getByTargetAndName($player, PlayerStatusEnum::TALKIE_SCREWED);
+
+        return $screwedTalkieStatus?->getStatusTargetOwner()?->getPlayerOrThrow();
     }
 }

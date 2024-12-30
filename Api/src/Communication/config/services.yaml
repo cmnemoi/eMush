@@ -24,3 +24,7 @@ services:
   Mush\Communication\ParamConverter\MessageCreateParamConverter:
     tags:
       - { name: 'request.param_converter', converter: MessageCreateParamConverter }
+
+  Mush\Communication\Repository\ChannelPlayerRepositoryInterface: '@Mush\Communication\Repository\ChannelPlayerRepository'
+  Mush\Communication\Repository\ChannelRepositoryInterface: '@Mush\Communication\Repository\ChannelRepository'
+  Mush\Communication\Repository\MessageRepositoryInterface: '@Mush\Communication\Repository\MessageRepository'

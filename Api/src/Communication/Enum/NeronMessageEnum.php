@@ -52,4 +52,6 @@ class NeronMessageEnum
     public const TRAVEL_PLANET = 'travel_planet';
     public const VENTING_MUSH = 'venting_mush';
     public const CYCLE_FAILURES = 'cycle_failures';
+    public const ANNIVERSARY_BEGIN = 'anniversary_begin';
+    public const HALLOWEEN_BEGIN = 'halloween_begin';
 }

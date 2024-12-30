@@ -20,7 +20,7 @@ class ContainerContentEnum
         ],
     ];
 
-    public const array XMAS_GIFT_CONTENT = [
+    public const array ANNIVERSARY_GIFT_CONTENT = [
         [
             'item' => GearItemEnum::PLASTENITE_ARMOR,
             'quantity' => 1,

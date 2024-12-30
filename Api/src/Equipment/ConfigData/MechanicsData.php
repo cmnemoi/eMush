@@ -1879,12 +1879,12 @@ abstract class MechanicsData
             ],
         ],
         [
-            'name' => 'container_xmas_gift_default',
+            'name' => 'container_anniversary_gift_default',
             'type' => EquipmentMechanicEnum::CONTAINER,
             'actions' => [
                 'open_container_cost_0',
             ],
-            'containerContents' => ContainerContentEnum::XMAS_GIFT_CONTENT,
+            'containerContents' => ContainerContentEnum::ANNIVERSARY_GIFT_CONTENT,
         ],
         [
             'name' => 'container_coffee_thermos_default',

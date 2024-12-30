@@ -354,7 +354,7 @@ class GameConfigData
                 'jukebox_blueprint_default',
                 'support_drone_blueprint_default',
                 ItemEnum::SCHRODINGER . '_default',
-                ItemEnum::XMAS_GIFT . '_default',
+                ItemEnum::ANNIVERSARY_GIFT . '_default',
                 ItemEnum::COFFEE_THERMOS . '_default',
             ],
             'statusConfigs' => [

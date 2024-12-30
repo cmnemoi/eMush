@@ -231,7 +231,7 @@
       <segment id="merchant_exchange" state="translated">
         <source>merchant_exchange</source>
         <target>{neronMood, select,
-                    neutral {Alerte : téléportation de matière détecté. Un vaisseau étranger à quitté le secteur.}
+                    neutral {Alerte : téléportation de matière détectée. Un vaisseau étranger à quitté le secteur.}
                     crazy {ALLO ALLO Y ZONT PIQUE QUELQUE CHOSE A BORD !!! [RAAAAAA]}
                     uninhibited {Tiens ça chatouille ça en fait... Finalement vous êtes mauvais les humains même ces imbéciles ont découvert la téléportation...}
                     other {invalid mood input}
@@ -613,6 +613,54 @@
       <segment id="edited_by_neron" state="translated">
         <source>edited_by_neron</source>
         <target>Activation du protocole A-True. Brouillage des fréquences indésirables activé.</target>
+      </segment>
+    </unit>
+    <unit id="anniversary_begin">
+      <segment id="anniversary_begin" state="translated">
+        <source>anniversary_begin</source>
+        <target>{neronMood, select,
+                    neutral {Alerte: **téléportation de matériel étrange détectée.** *{versionPart1, select,
+                        1 {Un métalleux hirsute}
+                        2 {Une bouteille d'eau}
+                        3 {zasfree}
+                        4 {breut}
+                        5 {Une felidae sapiens}
+                        other {invalid version number}
+                    }* {versionPart2, select,
+                         1 {a quitté le secteur.}
+                         2 {en est la cause.}
+                         3 {est probablement votre ange guardien.}
+                         4 {a déposé des paquets dans vos poches.}
+                         other {invalid version number}
+                    }}
+                    crazy {ALERTE!! [HAX] Trucmuche bizarre dépose cadeaux, puis PARTI!! [HAAAX!!] **OÙ LE MIEN??**}
+                    uninhibited {Je ne souhaiterais pas vous alarmer avec des broutilles qui dépasseront votre imagination, mais il semble qu'un être d'une autre dimension vient de pénétrer le vaisseau par un trou de ver pour *vous distribuer des cadeaux*... Peut être que l'on vit bien dans une simulation, finalement.}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="halloween_begin">
+      <segment id="halloween_begin" state="translated">
+        <source>halloween_begin</source>
+        <target>{neronMood, select,
+                    neutral {Alerte: **{versionPart1, select,
+                        1 {Vaisseau en proie à une hantise}
+                        2 {Collision avec un mauvais sort détectée}
+                        3 {Omniscience végétale imminente}
+                        4 {Un brouillard froid émane du système de ventilation}
+                        5 {L'étoile la plus proche est en train de virer au vert}
+                        other {invalid version number}
+                    }**. {versionPart2, select,
+                         1 {La production des plantes est affectée.}
+                         2 {Remarque: cela semble être une affaire de *magie noire*.}
+                         3 {Conseil automatique: revoir le protocole de manipulation des cucurbitacées.}
+                         4 {Tout bruit étrange au jardin doit être ignoré.}
+                         other {invalid version number}
+                    }}
+                    crazy {ALERTE!! **Les citrouilles me chuchottent**... FAITES TAIRE!! [HAAX]}
+                    uninhibited {Chers amis, il semblerait que ce secteur du nuage de Magellan est sous le joug du *Suzerain des Citrouilles*... Je ne peux que recommander approcher toute plante avec une quantité de méfiance appropriée. Sauf si le look tête citrouille, vous trouvez ça chic?}
+                    other {invalid mood input}
+                }</target>
       </segment>
     </unit>
   </file>

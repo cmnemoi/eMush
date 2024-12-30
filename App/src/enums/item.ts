@@ -85,7 +85,7 @@ const BABEL_MODULE = "babel_module";
 const WHITE_FLAG = "white_flag";
 
 //containers
-const XMAS_GIFT = "xmas_gift";
+const ANNIVERSARY_GIFT = "anniversary_gift";
 const COFFEE_THERMOS = "coffee_thermos";
 
 const ITRACKIE = "itrackie";
@@ -479,7 +479,7 @@ export const itemEnum: {[index: string]: any} = {
     [SUPER_SOAPER]: {
         'image': getImgUrl('items/super_soap.jpg')
     },
-    [XMAS_GIFT]:{
+    [ANNIVERSARY_GIFT]:{
         'image': getImgUrl('items/gift.jpg')
     },
     [COFFEE_THERMOS]:{

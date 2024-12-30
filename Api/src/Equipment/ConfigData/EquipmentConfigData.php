@@ -4167,13 +4167,13 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
-            'name' => 'xmas_gift_default',
-            'equipmentName' => ItemEnum::XMAS_GIFT,
+            'name' => 'anniversary_gift_default',
+            'equipmentName' => ItemEnum::ANNIVERSARY_GIFT,
             'isBreakable' => false,
             'isFireDestroyable' => false,
             'isFireBreakable' => false,
             'dismountedProducts' => [],
-            'isPersonal' => false, // @TODO True, currently on false for testing purposes
+            'isPersonal' => true,
             'type' => 'item_config',
             'isStackable' => false,
             'actions' => [
@@ -4182,7 +4182,7 @@ class EquipmentConfigData
                 'hide',
                 'examine',
             ],
-            'mechanics' => ['container_xmas_gift_default'],
+            'mechanics' => ['container_anniversary_gift_default'],
             'initStatuses' => [],
         ],
         [

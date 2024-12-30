@@ -44,7 +44,7 @@ class ItemEnum
     public const string HYDROPOT = 'hydropot';
     public const string SCHRODINGER = 'schrodinger';
     public const string SUPPORT_DRONE = 'support_drone';
-    public const string XMAS_GIFT = 'xmas_gift';
+    public const string ANNIVERSARY_GIFT = 'anniversary_gift';
     public const string COFFEE_THERMOS = 'coffee_thermos';
 
     public static function getArtefacts(): ArrayCollection

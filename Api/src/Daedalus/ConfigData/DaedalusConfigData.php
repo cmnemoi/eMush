@@ -87,7 +87,7 @@ class DaedalusConfigData
             'numberOfProjectsByBatch' => 3,
             'humanSkillSlots' => 3,
             'mushSkillSlots' => 4,
-            'applyHoliday' => HolidayEnum::CURRENT,
+            'applyHoliday' => HolidayEnum::ANNIVERSARY,
         ],
     ];
 }

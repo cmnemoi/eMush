@@ -622,7 +622,7 @@
                     neutral {Alerte: **téléportation de matériel étrange détectée.** *{versionPart1, select,
                         1 {Un métalleux hirsute}
                         2 {Une bouteille d'eau}
-                        3 {zasfree}
+                        3 {Un ancien survivant}
                         4 {breut}
                         5 {Une felidae sapiens}
                         other {invalid version number}

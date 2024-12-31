@@ -1894,5 +1894,86 @@ abstract class MechanicsData
             ],
             'containerContents' => ContainerContentEnum::COFFEE_THERMOS_CONTENT,
         ],
+        [
+            'name' => 'apprentron_optimist_default',
+            'type' => 'book',
+            'skill' => SkillEnum::OPTIMIST,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_apprentice_default',
+            'type' => 'book',
+            'skill' => SkillEnum::APPRENTICE,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_sneak_default',
+            'type' => 'book',
+            'skill' => SkillEnum::SNEAK,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_politician_default',
+            'type' => 'book',
+            'skill' => SkillEnum::POLITICIAN,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_creative_default',
+            'type' => 'book',
+            'skill' => SkillEnum::CREATIVE,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_determined_default',
+            'type' => 'book',
+            'skill' => SkillEnum::DETERMINED,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_ocd_default',
+            'type' => 'book',
+            'skill' => SkillEnum::OCD,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_motivator_default',
+            'type' => 'book',
+            'skill' => SkillEnum::MOTIVATOR,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_caffeine_junkie_default',
+            'type' => 'book',
+            'skill' => SkillEnum::CAFFEINE_JUNKIE,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
     ];
 }

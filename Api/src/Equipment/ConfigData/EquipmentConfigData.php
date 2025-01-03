@@ -1778,6 +1778,7 @@ class EquipmentConfigData
             'initStatuses' => [
                 'heavy_default',
                 'electric_charges_microwave_default',
+                EquipmentStatusEnum::BROKEN . '_default',
             ],
         ],
         [
@@ -1805,6 +1806,7 @@ class EquipmentConfigData
             ],
             'initStatuses' => [
                 'heavy_default',
+                EquipmentStatusEnum::BROKEN . '_default',
             ],
         ],
         [

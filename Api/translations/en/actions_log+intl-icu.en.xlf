@@ -1170,5 +1170,28 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>You work hard at it, but it's to no avail. There seems no way to triangulate the data...</target>
       </segment>
     </unit>
+    <unit id="open_coffee_thermos">
+      <segment id="open_coffee_thermos" state="translated">
+        <source>open_coffee_thermos</source>
+        <target>**{character}** pours a delicious cup of **Coffee** from {character_gender, select, female {her} male {his} other {their}} Thermos... Mmh... It smells like a late night on a balcony on Saturn.</target>
+      </segment>
+    </unit>
+    <unit id="open_anniversary_gift">
+      <segment id="open_anniversary_gift" state="translated">
+        <source>open_anniversary_gift</source>
+        <target>**{character}** throws {character_gender, select, female {herself} male {himself} other {themselves}} onto their gift and starts unwrapping impatiently... Oh, {quantity, select, 
+        1 {{target_equipment_first_letter, select, 
+            vowel {an} 
+            consonant {a} 
+            other {a}
+          }} 
+        other {{quantity}}
+        } **{equipment}**! Let's hope that's what {character_gender, select, 
+        female {she} 
+        male {he} 
+        other {they}
+        } wanted...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -12,6 +12,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Container;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -20,6 +21,8 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -29,17 +32,23 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class OpenContainer extends AbstractAction
 {
+    private const array CONTAINER_LIST = [
+        ItemEnum::ANNIVERSARY_GIFT => ActionLogEnum::OPEN_ANNIVERSARY_GIFT,
+        ItemEnum::COFFEE_THERMOS => ActionLogEnum::OPEN_COFFEE_THERMOS,
+    ];
     protected ActionEnum $name = ActionEnum::OPEN_CONTAINER;
 
     protected RandomServiceInterface $randomService;
     protected GameEquipmentServiceInterface $gameEquipmentService;
+    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        GameEquipmentServiceInterface $gameEquipmentService
+        GameEquipmentServiceInterface $gameEquipmentService,
+        RoomLogServiceInterface $roomLogService,
     ) {
         parent::__construct(
             $eventService,
@@ -49,6 +58,7 @@ class OpenContainer extends AbstractAction
 
         $this->randomService = $randomService;
         $this->gameEquipmentService = $gameEquipmentService;
+        $this->roomLogService = $roomLogService;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -81,8 +91,11 @@ class OpenContainer extends AbstractAction
 
         /** @var string $contentName */
         $contentName = $this->randomService->getSingleRandomElementFromProbaCollection($containerType->getContentWeights($this->player));
+        $contentQuantity = $containerType->getQuantityOfItemOrThrow($contentName);
 
-        for ($i = 0; $i < $containerType->getQuantityOfItemOrThrow($contentName); ++$i) {
+        $this->createOpeningLog($contentName, $contentQuantity);
+
+        for ($i = 0; $i < $contentQuantity; ++$i) {
             $this->gameEquipmentService->createGameEquipmentFromName(
                 $contentName,
                 $this->player,
@@ -103,5 +116,25 @@ class OpenContainer extends AbstractAction
             );
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
+    }
+
+    private function createOpeningLog(string $contentName, int $contentQuantity): void
+    {
+        $logKey = $this->gameEquipmentTarget()->getName();
+        $content = $this->gameEquipmentService->findGameEquipmentConfigFromNameAndDaedalus($contentName, $this->gameEquipmentTarget()->getDaedalus());
+        $logParameters = [
+            $this->player->getLogKey() => $this->player->getLogName(),
+            $content->getLogKey() => $content->getEquipmentShortName(),
+            'quantity' => $contentQuantity,
+        ];
+        $this->roomLogService->createLog(
+            logKey: self::CONTAINER_LIST[$logKey],
+            place: $this->player->getPlace(),
+            visibility: VisibilityEnum::PUBLIC,
+            type: 'actions_log',
+            player: $this->player,
+            parameters: $logParameters,
+            dateTime: new \DateTime(),
+        );
     }
 }

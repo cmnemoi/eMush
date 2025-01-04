@@ -399,6 +399,7 @@ enum ActionEnum: string
             self::ULTRAHEAL,
             self::PUBLIC_BROADCAST,
             self::TAKE_CAT,
+            self::OPEN_CONTAINER,
         ]);
     }
 

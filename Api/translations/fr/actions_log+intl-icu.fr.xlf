@@ -1451,5 +1451,28 @@
         <target>Vous vous prenez la tête mais rien n'y fait, aucun moyen de trianguler les données...</target>
       </segment>
     </unit>
+    <unit id="open_coffee_thermos">
+      <segment id="open_coffee_thermos" state="translated">
+        <source>open_coffee_thermos</source>
+        <target>**{character}** se verse une tasse de **Café** depuis son Thermos... Hmm... Ça rappelle les longues nuits blanches sur un balcon de Saturne.</target>
+      </segment>
+    </unit>
+    <unit id="open_anniversary_gift">
+      <segment id="open_anniversary_gift" state="translated">
+        <source>open_anniversary_gift</source>
+        <target>**{character}** se jette avec impatience sur son cadeau et commence à le déballer... Oh, {quantity, select, 
+        1 {{equipment_gender, select, 
+            female {une} 
+            male {un} 
+            other {invalid equipment gender}
+          }} 
+        other {{quantity}}
+        } **{equipment}** ! On espère que c'est ce qu{character_gender, select, 
+        female {'elle} 
+        male {'il} 
+        other {'il}
+        } voulait...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

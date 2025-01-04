@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -96,7 +97,7 @@ class PlantCycleHandler extends AbstractCycleHandler
 
                 if ($daedalus->getDaedalusConfig()->getHoliday() === HolidayEnum::HALLOWEEN && 20 >= $this->randomService->rollTwiceAndAverage(1, 100)) {
                     $currentFruit = $plantType->getFruitName();
-                    $plantType->setFruitName('jumpkin');
+                    $plantType->setFruitName(GameFruitEnum::JUMPKIN);
                     $this->addFruit($gameEquipment, $plantType, $dateTime);
                     $plantType->setFruitName($currentFruit);
                 }

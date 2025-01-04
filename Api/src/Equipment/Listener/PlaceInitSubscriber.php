@@ -2,13 +2,13 @@
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\HolidayEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Event\PlaceInitEvent;
@@ -81,20 +81,27 @@ class PlaceInitSubscriber implements EventSubscriberInterface
             $this->gameEquipmentService->persist($door);
         }
 
-        $this->handleHalloweenPumpkin($daedalus, $place, $reasons, $time);
+        if ($this->shouldCreateHalloweenJumpkin($event)) {
+            $this->createHalloweenJumpkin($event);
+        }
     }
 
-    public function handleHalloweenPumpkin(Daedalus $daedalus, Place $place, array $reasons, \DateTime $time): void
+    private function shouldCreateHalloweenJumpkin(PlaceInitEvent $event): bool
     {
-        if ($daedalus->getDaedalusConfig()->getHoliday() === HolidayEnum::HALLOWEEN && $place === $daedalus->getPlaceByName(RoomEnum::HYDROPONIC_GARDEN)) {
-            $item = $this->equipmentService->findByNameAndDaedalus(GameFruitEnum::JUMPKIN, $daedalus);
+        $place = $event->getPlace();
+        $daedalus = $place->getDaedalus();
 
-            $this->gameEquipmentService->createGameEquipment(
-                $item,
-                $place,
-                $reasons,
-                $time
-            );
-        }
+        return $daedalus->getDaedalusConfig()->getHoliday() === HolidayEnum::HALLOWEEN && $place->getName() === RoomEnum::HYDROPONIC_GARDEN;
+    }
+
+    private function createHalloweenJumpkin(PlaceInitEvent $event): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameFruitEnum::JUMPKIN,
+            equipmentHolder: $event->getPlace(),
+            reasons: $event->getTags(),
+            time: $event->getTime(),
+            visibility: VisibilityEnum::HIDDEN,
+        );
     }
 }

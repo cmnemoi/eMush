@@ -31,14 +31,6 @@ class Container extends EquipmentMechanic
 
     public function setContents(array $containerData): static
     {
-        /*foreach ($containerData as ['item' => $item, 'quantity' => $quantity, 'weight' => $weight]) {
-            $itemData = [];
-            $itemData['item'] = $item;
-            $itemData['quantity'] = $quantity;
-            $itemData['weight'] = $weight;
-            $itemData['filter'] = $filter? $filter : null;
-            $this->contents[] = $itemData;
-        }*/
         foreach ($containerData as $itemData) {
             foreach ($itemData as $key => $value) {
                 $itemData[$key] = $value;
@@ -49,11 +41,11 @@ class Container extends EquipmentMechanic
         return $this;
     }
 
-    public function getContentWeights(?Player $player): ProbaCollection
+    public function getContentWeights(Player $player): ProbaCollection
     {
         $probaCollection = new ProbaCollection();
 
-        $contents = $this->FilterContents($this->contents, $player);
+        $contents = $this->filterContents($this->contents, $player);
 
         foreach ($contents as ['item' => $item, 'weight' => $weight]) {
             $probaCollection->setElementProbability($item, $weight);
@@ -73,7 +65,7 @@ class Container extends EquipmentMechanic
         throw new \RuntimeException("Container {$this->getName()} does not contain {$searchedItem}.");
     }
 
-    private function FilterContents(array $contents, ?Player $player = null): array
+    private function filterContents(array $contents, ?Player $player = null): array
     {
         $filteredContents = [];
 

@@ -83,38 +83,19 @@ class OpenContainer extends AbstractAction
         $target = $this->target;
 
         /** @var Container $containerType */
-        $containerType = $target->getEquipment()->getMechanicByName(EquipmentMechanicEnum::CONTAINER);
-        if (null === $containerType) {
-            throw new \Exception('Cannot open this equipment');
-        }
+        $containerType = $target->getMechanicByNameOrThrow(EquipmentMechanicEnum::CONTAINER);
+
         $time = new \DateTime();
 
-        /** @var string $contentName */
-        $contentName = $this->randomService->getSingleRandomElementFromProbaCollection($containerType->getContentWeights($this->player));
+        $contentName = (string) $this->randomService->getSingleRandomElementFromProbaCollection($containerType->getContentWeights($this->player));
         $contentQuantity = $containerType->getQuantityOfItemOrThrow($contentName);
 
         $this->createOpeningLog($contentName, $contentQuantity);
 
-        for ($i = 0; $i < $contentQuantity; ++$i) {
-            $this->gameEquipmentService->createGameEquipmentFromName(
-                $contentName,
-                $this->player,
-                $this->getActionConfig()->getActionTags(),
-                new \DateTime(),
-                VisibilityEnum::PUBLIC
-            );
-        }
+        $this->createContents($contentName, $contentQuantity);
 
         if ($target->isOnLastChargeOrSingleUse()) {
-            // remove the container
-            $equipmentEvent = new InteractWithEquipmentEvent(
-                $target,
-                $this->player,
-                VisibilityEnum::HIDDEN,
-                $this->getActionConfig()->getActionTags(),
-                $time
-            );
-            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+            $this->destroyEmptyContainer();
         }
     }
 
@@ -136,5 +117,29 @@ class OpenContainer extends AbstractAction
             parameters: $logParameters,
             dateTime: new \DateTime(),
         );
+    }
+
+    private function createContents(string $EquipmentName, int $Quantity): void
+    {
+        $this->gameEquipmentService->createGameEquipmentsFromName(
+            $EquipmentName,
+            $this->player,
+            $this->getActionConfig()->getActionTags(),
+            new \DateTime(),
+            $Quantity,
+            VisibilityEnum::PUBLIC
+        );
+    }
+
+    private function destroyEmptyContainer(): void
+    {
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $this->gameEquipmentTarget(),
+            $this->player,
+            VisibilityEnum::HIDDEN,
+            $this->getActionConfig()->getActionTags(),
+            new \DateTime(),
+        );
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

@@ -384,38 +384,29 @@ class DaedalusConfig
 
     public function setHoliday(string $holiday): static
     {
-        switch ($holiday) {
-            case HolidayEnum::CURRENT:
-                $currentdate = getdate();
-                if ($currentdate['mday'] >= 10 && $currentdate['mday'] <= 24 && $currentdate['mon'] === 1) {
-                    $this->holiday = HolidayEnum::ANNIVERSARY;
-                } elseif (($currentdate['mday'] >= 24 && $currentdate['mon'] === 10) || ($currentdate['mday'] <= 7 && $currentdate['mon'] === 11)) {
-                    $this->holiday = HolidayEnum::HALLOWEEN;
-                } else {
-                    $this->holiday = HolidayEnum::NONE;
-                }
-
-                break;
-
-            case HolidayEnum::ANNIVERSARY:
-                $this->holiday = HolidayEnum::ANNIVERSARY;
-
-                break;
-
-            case HolidayEnum::HALLOWEEN:
-                $this->holiday = HolidayEnum::HALLOWEEN;
-
-                break;
-
-            case HolidayEnum::NONE:
-                $this->holiday = HolidayEnum::NONE;
-
-                break;
-
-            default:
-                throw new \LogicException("{$holiday} is not a valid holiday check method");
-        }
+        $this->holiday = match ($holiday) {
+            HolidayEnum::CURRENT => $this->getCurrentHoliday(),
+            HolidayEnum::ANNIVERSARY => HolidayEnum::ANNIVERSARY,
+            HolidayEnum::HALLOWEEN => HolidayEnum::HALLOWEEN,
+            HolidayEnum::NONE => HolidayEnum::NONE,
+            default => throw new \LogicException("{$holiday} is not a valid holiday check method"),
+        };
 
         return $this;
+    }
+
+    private function getCurrentHoliday(): string
+    {
+        $currentDate = new \DateTime();
+
+        if ($currentDate->format('j') >= 10 && $currentDate->format('j') <= 24 && $currentDate->format('F') === 'January') {
+            return HolidayEnum::ANNIVERSARY;
+        }
+
+        if (($currentDate->format('j') >= 24 && $currentDate->format('F') === 'October') || ($currentDate->format('j') <= 7 && $currentDate->format('F') === 'November')) {
+            return HolidayEnum::HALLOWEEN;
+        }
+
+        return HolidayEnum::NONE;
     }
 }

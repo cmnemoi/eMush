@@ -83,20 +83,14 @@ class DaedalusSubscriber implements EventSubscriberInterface
     private function handleEventBeginMessage(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
+        $holiday = $daedalus->getDaedalusConfig()->getHoliday();
+        $tags = $event->getTags();
+        $time = $event->getTime();
 
-        switch ($daedalus->getDaedalusConfig()->getHoliday()) {
-            case HolidayEnum::ANNIVERSARY:
-                $this->neronMessageService->createNeronMessage(NeronMessageEnum::ANNIVERSARY_BEGIN, $daedalus, [], $event->getTime());
-
-                break;
-
-            case HolidayEnum::HALLOWEEN:
-                $this->neronMessageService->createNeronMessage(NeronMessageEnum::HALLOWEEN_BEGIN, $daedalus, [], $event->getTime());
-
-                break;
-
-            default:
-                break;
-        }
+        match ($holiday) {
+            HolidayEnum::ANNIVERSARY => $this->neronMessageService->createNeronMessage(NeronMessageEnum::ANNIVERSARY_BEGIN, $daedalus, $tags, $time),
+            HolidayEnum::HALLOWEEN => $this->neronMessageService->createNeronMessage(NeronMessageEnum::HALLOWEEN_BEGIN, $daedalus, $tags, $time),
+            default => null,
+        };
     }
 }

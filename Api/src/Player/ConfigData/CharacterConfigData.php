@@ -103,7 +103,9 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [],
+            'initStatuses' => [
+                'hyperactive_default',
+            ],
         ],
         [
             'name' => 'chun',
@@ -299,7 +301,9 @@ class CharacterConfigData
                 ActionEnum::REPORT_FIRE->value,
             ],
             'initDiseases' => [],
-            'startingItems' => [],
+            'startingItems' => [
+                'itrackie_default',
+            ],
             'initStatuses' => [
                 'germaphobe_default',
             ],

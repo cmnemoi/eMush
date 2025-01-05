@@ -111,6 +111,7 @@ class ActionsFixtures extends Fixture
     public const string TAKE_CAT = 'take_cat';
     public const string PET_CAT = 'pet_cat';
     public const string SHOOT_CAT = 'shoot_cat';
+    public const string OPEN_CONTAINER_COST_0 = 'open_container_cost_0';
 
     public function load(ObjectManager $manager): void
     {
@@ -1136,6 +1137,20 @@ class ActionsFixtures extends Fixture
         $travelToEden = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TRAVEL_TO_EDEN));
         $manager->persist($travelToEden);
 
+        $openContainerCost0 = new ActionConfig();
+        $openContainerCost0
+            ->setName('open_container_cost_0')
+            ->setActionName(ActionEnum::OPEN_CONTAINER)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
+            ->setActionCost(0)
+            ->setDirtyRate(0)
+            ->setInjuryRate(0)
+            ->setSuccessRate(100);
+        $manager->persist($openContainerCost0);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1277,5 +1292,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::PARTICIPATE_RESEARCH->value, $participateResearch);
         $this->addReference(ActionEnum::COMPUTE_EDEN->value, $computeEden);
         $this->addReference(ActionEnum::TRAVEL_TO_EDEN->value, $travelToEden);
+        $this->addReference(self::OPEN_CONTAINER_COST_0, $openContainerCost0);
     }
 }

@@ -2475,30 +2475,30 @@
         <target>swedish_sofa.examine</target>
       </segment>
     </unit>
-    <unit id="thermos_of_coffee">
+    <unit id="coffee_thermos">
       <segment id="name" state="initial">
-        <source>thermos_of_coffee.name</source>
-        <target>thermos_of_coffee.name</target>
+        <source>coffee_thermos.name</source>
+        <target>coffee_thermos.name</target>
       </segment>
       <segment id="short_name" state="initial">
-        <source>thermos_of_coffee.short_name</source>
-        <target>thermos_of_coffee.short_name</target>
+        <source>coffee_thermos.short_name</source>
+        <target>coffee_thermos.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>thermos_of_coffee.gender</source>
-        <target>thermos_of_coffee.gender</target>
+        <source>coffee_thermos.gender</source>
+        <target>coffee_thermos.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
-        <source>thermos_of_coffee.first_letter</source>
-        <target>thermos_of_coffee.first_letter</target>
+        <source>coffee_thermos.first_letter</source>
+        <target>coffee_thermos.first_letter</target>
       </segment>
       <segment id="description" state="initial">
-        <source>thermos_of_coffee.description</source>
-        <target>thermos_of_coffee.description</target>
+        <source>coffee_thermos.description</source>
+        <target>coffee_thermos.description</target>
       </segment>
       <segment id="examine" state="initial">
-        <source>thermos_of_coffee.examine</source>
-        <target>thermos_of_coffee.examine</target>
+        <source>coffee_thermos.examine</source>
+        <target>coffee_thermos.examine</target>
       </segment>
     </unit>
     <unit id="banana_tree">

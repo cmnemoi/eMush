@@ -2633,32 +2633,32 @@ A capsule contains something. The only way to find out what it is, is to open it
 Who would have thought that a plywood structure and a few cushions could be so relaxing...</target>
       </segment>
     </unit>
-    <unit id="thermos_of_coffee">
+    <unit id="coffee_thermos">
       <segment id="name" state="translated">
-        <source>thermos_of_coffee.name</source>
+        <source>coffee_thermos.name</source>
         <target>Thermos of Coffee</target>
       </segment>
       <segment id="short_name" state="translated">
-        <source>thermos_of_coffee.short_name</source>
+        <source>coffee_thermos.short_name</source>
         <target>Thermos of Coffee</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>thermos_of_coffee.gender</source>
+        <source>coffee_thermos.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
-        <source>thermos_of_coffee.first_letter</source>
+        <source>coffee_thermos.first_letter</source>
         <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
-        <source>thermos_of_coffee.description</source>
+        <source>coffee_thermos.description</source>
         <target>There is nothing quite like a hot cup of joe...
-Contains {quantity} x Coffee.</target>
+Contains {charge} x Coffee.</target>
       </segment>
       <segment id="examine" state="translated">
-        <source>thermos_of_coffee.examine</source>
+        <source>coffee_thermos.examine</source>
         <target>There's nothing quite like a hot cup of joe...
-Contains {quantity} x Coffee
+Contains {charge} x Coffee.
 The final word in solidarity in times of famine. Delivered without hot soup and without brazier.</target>
       </segment>
     </unit>
@@ -3635,6 +3635,36 @@ When a camera is installed in a room, all logs are saved in the history and disp
         <source>jukebox.examine</source>
         <target>The jukebox is great for a little relaxation session from time to time.//
 An awesome jukebox from back in the day. Even better, it comes preloaded with the crew's favourite tunes!</target>
+      </segment>
+    </unit>
+    <unit id="anniversary_gift">
+      <segment id="name" state="translated">
+        <source>anniversary_gift.name</source>
+        <target>Anniversary Gift</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>anniversary_gift.short_name</source>
+        <target>Gift</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>anniversary_gift.plural_name</source>
+        <target>Anniversary Gifts</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>anniversary_gift.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>anniversary_gift.first_letter</source>
+        <target>vowel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>anniversary_gift.description</source>
+        <target>Contains something that could be very useful... or maybe not.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>anniversary_gift.examine</source>
+        <target>One more year of surviving the cold outer space? It's cause for celebration!//Contains something that could be very useful... or maybe not.//Snooping around and opening other people's gifts is frowned upon. These kinds of things are personal!</target>
       </segment>
     </unit>
   </file>

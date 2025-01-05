@@ -1975,5 +1975,41 @@ abstract class MechanicsData
             ],
             'modifierConfigs' => [],
         ],
+        [
+            'name' => 'apprentron_genius_default',
+            'type' => 'book',
+            'skill' => SkillEnum::GENIUS,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_opportunist_default',
+            'type' => 'book',
+            'skill' => SkillEnum::OPPORTUNIST,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_rebel_default',
+            'type' => 'book',
+            'skill' => SkillEnum::REBEL,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_self_sacrifice_default',
+            'type' => 'book',
+            'skill' => SkillEnum::SELF_SACRIFICE,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
     ];
 }

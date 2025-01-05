@@ -365,6 +365,10 @@ class GameConfigData
                 'apprentron_ocd_default',
                 'apprentron_motivator_default',
                 'apprentron_caffeine_junkie_default',
+                'apprentron_genius_default',
+                'apprentron_opportunist_default',
+                'apprentron_rebel_default',
+                'apprentron_self_sacrifice_default',
             ],
             'statusConfigs' => [
                 'alien_artefact_default',

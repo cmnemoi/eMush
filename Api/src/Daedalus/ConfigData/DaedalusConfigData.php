@@ -2,6 +2,7 @@
 
 namespace Mush\Daedalus\ConfigData;
 
+use Mush\Game\Enum\HolidayEnum;
 use Mush\Place\Enum\RoomEnum;
 
 /** @codeCoverageIgnore */
@@ -86,6 +87,7 @@ class DaedalusConfigData
             'numberOfProjectsByBatch' => 3,
             'humanSkillSlots' => 3,
             'mushSkillSlots' => 4,
+            'applyHoliday' => HolidayEnum::ANNIVERSARY,
         ],
     ];
 }

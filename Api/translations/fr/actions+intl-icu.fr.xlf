@@ -1614,5 +1614,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Tirer sur quelqu'un pour le blesser, le tuer ou plus si affinité. Attention, jeux de mains, jeux de vilains !</target>
       </segment>
     </unit>
+    <unit id="open_container">
+      <segment id="name" state="translated">
+        <source>open_container.name</source>
+        <target>Utiliser</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>open_container.description</source>
+        <target>Utiliser cet objet.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

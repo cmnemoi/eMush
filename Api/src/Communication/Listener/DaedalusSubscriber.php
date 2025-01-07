@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Game\Enum\HolidayEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -37,6 +38,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
         $this->neronMessageService->createNeronMessage(NeronMessageEnum::START_GAME, $daedalus, [], $event->getTime());
+        $this->handleEventBeginMessage($event);
     }
 
     public function onTravelLaunched(DaedalusEvent $event): void
@@ -76,5 +78,19 @@ class DaedalusSubscriber implements EventSubscriberInterface
             ['direction' => $translatedOrientation],
             $event->getTime()
         );
+    }
+
+    private function handleEventBeginMessage(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $holiday = $daedalus->getDaedalusConfig()->getHoliday();
+        $tags = $event->getTags();
+        $time = $event->getTime();
+
+        match ($holiday) {
+            HolidayEnum::ANNIVERSARY => $this->neronMessageService->createNeronMessage(NeronMessageEnum::ANNIVERSARY_BEGIN, $daedalus, $tags, $time),
+            HolidayEnum::HALLOWEEN => $this->neronMessageService->createNeronMessage(NeronMessageEnum::HALLOWEEN_BEGIN, $daedalus, $tags, $time),
+            default => null,
+        };
     }
 }

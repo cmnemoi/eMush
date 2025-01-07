@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Mush\Game\Enum\HolidayEnum;
 use Mush\Place\Entity\PlaceConfig;
 
 #[ORM\Entity]
@@ -83,6 +84,9 @@ class DaedalusConfig
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $mushSkillSlots = 0;
+
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => 'none'])]
+    private string $holiday = 'none';
 
     public function getId(): int
     {
@@ -371,5 +375,38 @@ class DaedalusConfig
         $this->mushSkillSlots = $mushSkillSlots;
 
         return $this;
+    }
+
+    public function getHoliday(): string
+    {
+        return $this->holiday;
+    }
+
+    public function setHoliday(string $holiday): static
+    {
+        $this->holiday = match ($holiday) {
+            HolidayEnum::CURRENT => $this->getCurrentHoliday(),
+            HolidayEnum::ANNIVERSARY => HolidayEnum::ANNIVERSARY,
+            HolidayEnum::HALLOWEEN => HolidayEnum::HALLOWEEN,
+            HolidayEnum::NONE => HolidayEnum::NONE,
+            default => throw new \LogicException("{$holiday} is not a valid holiday check method"),
+        };
+
+        return $this;
+    }
+
+    private function getCurrentHoliday(): string
+    {
+        $currentDate = new \DateTime();
+
+        if ($currentDate->format('j') >= 10 && $currentDate->format('j') <= 24 && $currentDate->format('F') === 'January') {
+            return HolidayEnum::ANNIVERSARY;
+        }
+
+        if (($currentDate->format('j') >= 24 && $currentDate->format('F') === 'October') || ($currentDate->format('j') <= 7 && $currentDate->format('F') === 'November')) {
+            return HolidayEnum::HALLOWEEN;
+        }
+
+        return HolidayEnum::NONE;
     }
 }

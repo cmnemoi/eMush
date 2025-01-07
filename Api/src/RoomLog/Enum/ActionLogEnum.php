@@ -169,6 +169,8 @@ abstract class ActionLogEnum
     public const string PARTICIPATE_RESEARCH_SUCCESS = 'participate_research_success';
     public const string COMPUTE_EDEN_SUCCESS = 'compute_eden_success';
     public const string COMPUTE_EDEN_FAIL = 'compute_eden_fail';
+    public const string OPEN_ANNIVERSARY_GIFT = 'open_anniversary_gift';
+    public const string OPEN_COFFEE_THERMOS = 'open_coffee_thermos';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [

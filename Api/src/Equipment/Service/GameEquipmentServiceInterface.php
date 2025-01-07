@@ -30,6 +30,11 @@ interface GameEquipmentServiceInterface
 
     public function findById(int $id): ?GameEquipment;
 
+    public function findGameEquipmentConfigFromNameAndDaedalus(
+        string $equipmentName,
+        Daedalus $daedalus
+    ): EquipmentConfig;
+
     public function createGameEquipmentFromName(
         string $equipmentName,
         EquipmentHolderInterface $equipmentHolder,

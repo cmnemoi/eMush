@@ -3,6 +3,7 @@
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\ContainerContentEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -1876,6 +1877,139 @@ abstract class MechanicsData
                 'modifier_for_player_-1actionPoint_on_shower',
                 ModifierNameEnum::MINUS_1_SPORE_ON_TAKE_SHOWER,
             ],
+        ],
+        [
+            'name' => 'container_anniversary_gift_default',
+            'type' => EquipmentMechanicEnum::CONTAINER,
+            'actions' => [
+                'open_container_cost_0',
+            ],
+            'containerContents' => ContainerContentEnum::ANNIVERSARY_GIFT_CONTENT,
+        ],
+        [
+            'name' => 'container_coffee_thermos_default',
+            'type' => EquipmentMechanicEnum::CONTAINER,
+            'actions' => [
+                'open_container_cost_0',
+            ],
+            'containerContents' => ContainerContentEnum::COFFEE_THERMOS_CONTENT,
+        ],
+        [
+            'name' => 'apprentron_optimist_default',
+            'type' => 'book',
+            'skill' => SkillEnum::OPTIMIST,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_apprentice_default',
+            'type' => 'book',
+            'skill' => SkillEnum::APPRENTICE,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_sneak_default',
+            'type' => 'book',
+            'skill' => SkillEnum::SNEAK,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_politician_default',
+            'type' => 'book',
+            'skill' => SkillEnum::POLITICIAN,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_creative_default',
+            'type' => 'book',
+            'skill' => SkillEnum::CREATIVE,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_determined_default',
+            'type' => 'book',
+            'skill' => SkillEnum::DETERMINED,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_ocd_default',
+            'type' => 'book',
+            'skill' => SkillEnum::OCD,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_motivator_default',
+            'type' => 'book',
+            'skill' => SkillEnum::MOTIVATOR,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_caffeine_junkie_default',
+            'type' => 'book',
+            'skill' => SkillEnum::CAFFEINE_JUNKIE,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_genius_default',
+            'type' => 'book',
+            'skill' => SkillEnum::GENIUS,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_opportunist_default',
+            'type' => 'book',
+            'skill' => SkillEnum::OPPORTUNIST,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_rebel_default',
+            'type' => 'book',
+            'skill' => SkillEnum::REBEL,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_self_sacrifice_default',
+            'type' => 'book',
+            'skill' => SkillEnum::SELF_SACRIFICE,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
         ],
     ];
 }

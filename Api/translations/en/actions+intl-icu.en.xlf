@@ -1582,5 +1582,15 @@ Or you simply need some fresh air.... or not.</target>
         <target>This action cannot be undone. Are you sure you want to continue?</target>
       </segment>
     </unit>
+    <unit id="open_container">
+      <segment id="name" state="translated">
+        <source>open_container.name</source>
+        <target>Use</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>open_container.description</source>
+        <target>Use this item.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

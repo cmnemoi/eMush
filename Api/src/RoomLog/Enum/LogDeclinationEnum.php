@@ -55,6 +55,8 @@ abstract class LogDeclinationEnum
             NeronMessageEnum::TRAVEL_ARRIVAL => [self::VERSION => 11],
             NeronMessageEnum::SHIELD_BREACH => [self::VERSION => 4],
             NeronMessageEnum::PATCHING_UP => [self::VERSION_PART_1 => 10, self::VERSION_PART_2 => 4],
+            NeronMessageEnum::ANNIVERSARY_BEGIN => [self::VERSION_PART_1 => 5, self::VERSION_PART_2 => 4],
+            NeronMessageEnum::HALLOWEEN_BEGIN => [self::VERSION_PART_1 => 5, self::VERSION_PART_2 => 4],
             LogEnum::SELF_SURGERY_SUCCESS => [self::VERSION => 2],
             LogEnum::SURGERY_SUCCESS => [self::VERSION => 2],
             LogEnum::ATTACKED_BY_HUNTER => [self::VERSION => 4],

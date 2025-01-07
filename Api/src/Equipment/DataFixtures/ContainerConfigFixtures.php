@@ -14,6 +14,8 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Status\DataFixtures\ChargeStatusFixtures;
+use Mush\Status\Entity\Config\StatusConfig;
 
 class ContainerConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -45,6 +47,9 @@ class ContainerConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName('container_' . ItemEnum::COFFEE_THERMOS, GameConfigEnum::DEFAULT)
             ->setContents(ContainerContentEnum::COFFEE_THERMOS_CONTENT);
 
+        /** @var StatusConfig $coffeeThermosCharges */
+        $coffeeThermosCharges = $this->getReference(ChargeStatusFixtures::COFFEE_THERMOS_CHARGE);
+
         $coffeeThermos = new ItemConfig();
         $coffeeThermos
             ->setEquipmentName(ItemEnum::COFFEE_THERMOS)
@@ -53,12 +58,34 @@ class ContainerConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setMechanics([$coffeeThermosMechanic])
             ->setActionConfigs($actions)
+            ->setInitStatuses([$coffeeThermosCharges])
             ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($coffeeThermosMechanic);
         $manager->persist($coffeeThermos);
 
         $gameConfig->addEquipmentConfig($coffeeThermos);
+
+        $anniversaryGiftMechanic = new Container();
+        $anniversaryGiftMechanic
+            ->addAction($openContainerCost0)
+            ->buildName('container_' . ItemEnum::ANNIVERSARY_GIFT, GameConfigEnum::DEFAULT)
+            ->setContents(ContainerContentEnum::ANNIVERSARY_GIFT_CONTENT);
+
+        $anniversaryGift = new ItemConfig();
+        $anniversaryGift
+            ->setEquipmentName(ItemEnum::ANNIVERSARY_GIFT)
+            ->setIsStackable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setMechanics([$anniversaryGiftMechanic])
+            ->setActionConfigs($actions)
+            ->buildName(GameConfigEnum::DEFAULT);
+
+        $manager->persist($anniversaryGiftMechanic);
+        $manager->persist($anniversaryGift);
+
+        $gameConfig->addEquipmentConfig($anniversaryGift);
 
         $manager->flush();
     }
@@ -68,6 +95,7 @@ class ContainerConfigFixtures extends Fixture implements DependentFixtureInterfa
         return [
             ActionsFixtures::class,
             GameConfigFixtures::class,
+            ChargeStatusFixtures::class,
         ];
     }
 }

@@ -71,6 +71,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
     public const SHOOTER_SKILL_POC = 'shooter_skill_poc';
 
+    public const COFFEE_THERMOS_CHARGE = 'coffee_thermos_charge';
+
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
@@ -601,6 +603,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($neronDepression);
 
+        $coffeeThermosCharge = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName('electric_charges_coffee_thermos_default')
+        );
+        $manager->persist($coffeeThermosCharge);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -654,7 +661,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasGenMetal)
             ->addStatusConfig($lyingDown)
             ->addStatusConfig($antiquePerfumeImmunized)
-            ->addStatusConfig($hasDaunted);
+            ->addStatusConfig($hasDaunted)
+            ->addStatusConfig($coffeeThermosCharge);
 
         $manager->persist($gameConfig);
 
@@ -713,6 +721,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_GEN_METAL, $hasGenMetal);
         $this->addReference(PlayerStatusEnum::HAS_SABOTAGED_DOOR, $hasSabotagedDoor);
         $this->addReference(DaedalusStatusEnum::NERON_DEPRESSION, $neronDepression);
+        $this->addReference(self::COFFEE_THERMOS_CHARGE, $coffeeThermosCharge);
     }
 
     public function getDependencies(): array

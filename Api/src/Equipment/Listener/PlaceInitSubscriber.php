@@ -4,9 +4,13 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\HolidayEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Event\PlaceInitEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -76,5 +80,28 @@ class PlaceInitSubscriber implements EventSubscriberInterface
             $door->addRoom($place);
             $this->gameEquipmentService->persist($door);
         }
+
+        if ($this->shouldCreateHalloweenJumpkin($event)) {
+            $this->createHalloweenJumpkin($event);
+        }
+    }
+
+    private function shouldCreateHalloweenJumpkin(PlaceInitEvent $event): bool
+    {
+        $place = $event->getPlace();
+        $daedalus = $place->getDaedalus();
+
+        return $daedalus->getDaedalusConfig()->getHoliday() === HolidayEnum::HALLOWEEN && $place->getName() === RoomEnum::HYDROPONIC_GARDEN;
+    }
+
+    private function createHalloweenJumpkin(PlaceInitEvent $event): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameFruitEnum::JUMPKIN,
+            equipmentHolder: $event->getPlace(),
+            reasons: $event->getTags(),
+            time: $event->getTime(),
+            visibility: VisibilityEnum::HIDDEN,
+        );
     }
 }

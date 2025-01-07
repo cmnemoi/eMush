@@ -266,6 +266,13 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
         $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);
     }
 
+    public function findGameEquipmentConfigFromNameAndDaedalus(
+        string $equipmentName,
+        Daedalus $daedalus
+    ): EquipmentConfig {
+        return $this->equipmentService->findByNameAndDaedalus($equipmentName, $daedalus);
+    }
+
     private function getEquipmentFromConfig(
         EquipmentConfig $config,
         EquipmentHolderInterface $holder,

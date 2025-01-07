@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -16,6 +17,7 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\HolidayEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -92,6 +94,13 @@ class PlantCycleHandler extends AbstractCycleHandler
             $this->addOxygen($gameEquipment, $plantEffect, $dateTime);
             if ($plantStatus->filter(static fn (Status $status) => $status->getName() === EquipmentStatusEnum::PLANT_THIRSTY)->isEmpty()) {
                 $this->addFruit($gameEquipment, $plantType, $dateTime);
+
+                if ($daedalus->getDaedalusConfig()->getHoliday() === HolidayEnum::HALLOWEEN && 20 >= $this->randomService->rollTwiceAndAverage(1, 100)) {
+                    $currentFruit = $plantType->getFruitName();
+                    $plantType->setFruitName(GameFruitEnum::JUMPKIN);
+                    $this->addFruit($gameEquipment, $plantType, $dateTime);
+                    $plantType->setFruitName($currentFruit);
+                }
             }
         }
 

@@ -35,6 +35,8 @@ export enum StatusPlayerNameEnum {
     ILL = 'ill',
     INJURY = 'injury',
     DISORDER = 'disorder',
+    GERMAPHOBE = 'germaphobe',
+    HYPERACTIVE = 'hyperactive',
 };
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -139,5 +141,11 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [StatusPlayerNameEnum.DISORDER]: {
         'icon': getImgUrl('status/disorder.png')
+    },
+    [StatusPlayerNameEnum.GERMAPHOBE]: {
+        'icon': getImgUrl('status/germaphobic.png')
+    },
+    [StatusPlayerNameEnum.HYPERACTIVE]: {
+        'icon': getImgUrl('status/hyperactive.png')
     }
 };

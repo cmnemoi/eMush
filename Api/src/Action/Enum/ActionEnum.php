@@ -72,6 +72,7 @@ enum ActionEnum: string
     case TAKE_CAT = 'take_cat';
     case PET_CAT = 'pet_cat';
     case SHOOT_CAT = 'shoot_cat';
+    case OPEN_CONTAINER = 'open_container';
 
     // Equipment-enabled actions
     case INSERT_FUEL = 'insert_fuel';
@@ -398,6 +399,7 @@ enum ActionEnum: string
             self::ULTRAHEAL,
             self::PUBLIC_BROADCAST,
             self::TAKE_CAT,
+            self::OPEN_CONTAINER,
         ]);
     }
 

@@ -1180,7 +1180,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       <segment id="open_anniversary_gift" state="translated">
         <source>open_anniversary_gift</source>
         <target>**{character}** throws {character_gender, select, female {herself} male {himself} other {themselves}} onto their gift and starts unwrapping impatiently... Oh, {quantity, select, 
-        1 {{target_equipment_first_letter, select, 
+        1 {{equipment_first_letter, select, 
             vowel {an} 
             consonant {a} 
             other {a}

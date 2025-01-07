@@ -1464,7 +1464,7 @@
         1 {{equipment_gender, select, 
             female {une} 
             male {un} 
-            other {invalid equipment gender}
+            other {}
           }} 
         other {{quantity}}
         } **{equipment}** ! On espère que c'est ce qu{character_gender, select, 

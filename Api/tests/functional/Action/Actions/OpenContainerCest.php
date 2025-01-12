@@ -142,6 +142,11 @@ final class OpenContainerCest extends AbstractFunctionalTest
 
     private function thenAnyOfChunGiftShouldBeInInventory(FunctionalTester $I): void
     {
-        $I->assertTrue($this->chun->hasEquipmentByName('apprentron_medic') || $this->chun->hasEquipmentByName(ItemEnum::MUSH_SAMPLE) || $this->chun->hasEquipmentByName(ItemEnum::MYCO_ALARM) || $this->chun->hasEquipmentByName('apprentron_optimist'));
+        $chunEquipment = $this->chun->getEquipments()->map(static fn (GameItem $item) => $item->getEquipment()->getEquipmentName());
+
+        $I->assertTrue(
+            condition: array_intersect(['apprentron_medic', ItemEnum::MUSH_SAMPLE, ItemEnum::MYCO_ALARM, 'apprentron_optimist'], $chunEquipment->toArray()) !== [],
+            message: "Chun should have a piece of equipment between Medic mage book, Mush sample, Mycoalarm or Optimist magebook, but she has: {implode(', ', {$chunEquipment})}"
+        );
     }
 }

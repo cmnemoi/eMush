@@ -1002,7 +1002,7 @@ class EventConfigData
                 name: WeaponEffectEnum::INFLICT_HEAD_TRAUMA_INJURY_TO_TARGET_30_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
                 injuryName: InjuryEnum::HEAD_TRAUMA,
-                triggerRate: 30,
+                triggerRate: 100,
             ),
         ];
     }

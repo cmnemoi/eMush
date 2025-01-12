@@ -7,7 +7,7 @@
             <target>{version, select,
             1 {Prémédité ou pas, **{character}** sort son arme et tire abondamment sur **{target_character}**.}
             2 {**{character}** se retourne subitement et tire sur **{target_character}**.}
-            3 {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonné pour quelques minutes.}
+            3 {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est {target_character_gender, select, female {désarçonnée} other {désarçonné}} pour quelques minutes.}
             4 {**{character}** dégaine sans hésitation et fait feu sur **{target_character}**.}
             other {**{target_character}** se prend un tir bien ajusté de **{character}**.}}</target>
         </segment>
@@ -16,7 +16,7 @@
         <segment id="blaster_failed_shot" state="translated">
             <source>blaster_failed_shot</source>
             <target>{version, select,
-            1 {character a fait feu sur **{target_character}** mais n'est hélas juste pas capable de viser correctement...}
+            1 {**{character}** a fait feu sur **{target_character}** mais n'est hélas juste pas capable de viser correctement...}
             other {**{character}** fait feu mais ne touche que le mur... Quel talent !}}</target>
         </segment>
     </unit>
@@ -47,13 +47,13 @@
     <unit id="blaster_shooter_plus_1_damage_target_damaged_ears">
         <segment id="blaster_shooter_plus_1_damage_target_damaged_ears" state="translated">
             <source>blaster_shooter_plus_1_damage_target_damaged_ears</source>
-            <target>Que résonne le hurlement des blasters, seuls les survivants en disserteront. **{character}** est bien placé pour tenter de le savoir. **{target_character}** y perd le sens de l'audition.</target>
+            <target>Que résonne le hurlement des blasters, seuls les survivants en disserteront. **{character}** est bien {character_gender, select, female {placée} other {placé}} pour tenter de le savoir. **{target_character}** y perd le sens de l'audition.</target>
         </segment>
     </unit>
     <unit id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma">
         <segment id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma" state="translated">
             <source>blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma</source>
-            <target>**{character}** se penche, dégaine et tire rapidement sur **{target_character}**... Qui est touché à la tête !</target>
+            <target>**{character}** se penche, dégaine et tire rapidement sur **{target_character}**... Qui est {target_character_gender, select, female {touchée à la tête} other {touché à la tête}} !</target>
         </segment>
     </unit>
     <unit id="blaster_shooter_plus_1_damage_target_remove_2_ap">

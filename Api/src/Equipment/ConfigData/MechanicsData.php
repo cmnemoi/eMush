@@ -944,7 +944,7 @@ abstract class MechanicsData
                 WeaponEventEnum::BLASTER_TARGET_RANDOM_INJURY->value => 2,
                 WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_MAX_DAMAGE_20_RANDOM_INJURY_TO_TARGET->value => 2,
                 WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_DAMAGED_EARS->value => 2,
-                WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_DAMAGE_TARGET_30_TORN_TONGUE_TARGET_30_BURST_NOSE_TARGET_30_OPEN_AIR_BRAIN_TARGET_30_HEAD_TRAUMA->value => 1,
+                WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_DAMAGE_TARGET_30_TORN_TONGUE_TARGET_30_BURST_NOSE_TARGET_30_OPEN_AIR_BRAIN_TARGET_30_HEAD_TRAUMA->value => 1000,
                 WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_REMOVE_2_AP->value => 1,
             ],
             'failedEventKeys' => [

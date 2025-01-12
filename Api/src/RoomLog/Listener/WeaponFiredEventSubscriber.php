@@ -2,7 +2,7 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Equipment\Event\WeaponFiredEvent;
+use Mush\Equipment\Event\UsedWeaponEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -19,11 +19,11 @@ final class WeaponFiredEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            WeaponFiredEvent::class => 'onWeaponFired',
+            UsedWeaponEvent::class => 'onWeaponFired',
         ];
     }
 
-    public function onWeaponFired(WeaponFiredEvent $event): void
+    public function onWeaponFired(UsedWeaponEvent $event): void
     {
         $attacker = $event->getAttacker();
         $target = $event->getTarget();

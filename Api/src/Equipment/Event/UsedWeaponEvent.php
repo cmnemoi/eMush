@@ -7,7 +7,7 @@ namespace Mush\Equipment\Event;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Player\Entity\Player;
 
-final class WeaponFiredEvent extends AbstractGameEvent
+final class UsedWeaponEvent extends AbstractGameEvent
 {
     public function __construct(
         private readonly string $name,
